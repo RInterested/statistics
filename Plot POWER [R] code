@@ -1,0 +1,162 @@
+# Code to generate Power plot illustration in the html:
+
+
+xval <- seq(-3.2, 3.2, length=1000)
+yval <- dnorm(xval)
+
+par(mfrow=c(4,2))
+par(bg='gray93')
+par(mar=c(3,3,3,3))
+
+# Mean 3:
+
+plot(xval, yval, type="l", col="blue4", lwd=1, ylab = '', xlab = '',
+     xlim=c(-3, 6))
+
+uval <- seq(-0.2, 6.2, length=1000)
+zval <- dnorm(uval, mean = 3, sd=1)
+
+lines(uval, zval, col="blue4", lwd=1)
+
+
+
+x <-seq(qnorm(0.95), qnorm(0.999,3,1),length=100)
+polygon(c(x, rev(x)), c(dnorm(x,3,1), rep(0, length(x))), col='greenyellow')
+
+abline(v=qnorm(0.95), lwd=3, col='firebrick')
+abline(v=3, lwd=3, col='black', lty=2)
+abline(h=0)
+
+title(outer=outer,main="True Mean = 3: POWER",col="black",font=2,line=line)
+
+
+
+
+plot(xval, yval, type="l", col="blue4", lwd=1, ylab = '', xlab = '',
+     xlim=c(-3, 6))
+
+lines(uval, zval, col="blue4", lwd=1)
+
+x <-seq(qnorm(0.001,3,1), qnorm(0.95),length=100)
+polygon(c(x, rev(x)), c(dnorm(x,3,1), rep(0, length(x))), col='turquoise')
+
+abline(v=qnorm(0.95), lwd=3, col='firebrick')
+abline(v=3, lwd=3, col='black', lty=2)
+abline(h=0)
+
+title(outer=outer,main="Beta",col="black",font=2,line=line)
+
+
+
+
+# Mean 2:
+
+plot(xval, yval, type="l", col="blue4", lwd=1, ylab = '', xlab = '',
+     xlim=c(-3, 6))
+
+uval <- seq(-1.2, 5.2, length=1000)
+zval <- dnorm(uval, mean = 2, sd=1)
+
+lines(uval, zval, col="blue4", lwd=1)
+
+
+
+x <-seq(qnorm(0.95), qnorm(0.999,2,1),length=100)
+polygon(c(x, rev(x)), c(dnorm(x,2,1), rep(0, length(x))), col='greenyellow')
+
+abline(v=qnorm(0.95), lwd=3, col='firebrick')
+abline(v=2, lwd=3, col='black', lty=2)
+abline(h=0)
+
+title(outer=outer,main="True Mean = 2: POWER",col="black",font=2,line=line)
+
+
+
+
+plot(xval, yval, type="l", col="blue4", lwd=1, ylab = '', xlab = '',
+     xlim=c(-3, 6))
+
+lines(uval, zval, col="blue4", lwd=1)
+
+x <-seq(qnorm(0.001,2,1), qnorm(0.95),length=100)
+polygon(c(x, rev(x)), c(dnorm(x,2,1), rep(0, length(x))), col='turquoise')
+
+abline(v=qnorm(0.95), lwd=3, col='firebrick')
+abline(v=2, lwd=3, col='black', lty=2)
+abline(h=0)
+
+title(outer=outer,main="Beta",col="black",font=2,line=line)
+
+
+# MEAN 1:
+
+plot(xval, yval, type="l", col="blue4", lwd=1, ylab = '', xlab = '',
+     xlim=c(-3, 6))
+
+uval <- seq(-2.2, 4.2, length=1000)
+zval <- dnorm(uval, mean = 1, sd=1)
+
+lines(uval, zval, col="blue4", lwd=1)
+
+
+
+x <-seq(qnorm(0.95), qnorm(0.999,1,1),length=100)
+polygon(c(x, rev(x)), c(dnorm(x,1,1), rep(0, length(x))), col='greenyellow')
+
+abline(v=qnorm(0.95), lwd=3, col='firebrick')
+abline(v=1, lwd=3, col='black', lty=2)
+abline(h=0)
+
+title(outer=outer,main="True Mean = 1: POWER",col="black",font=2,line=line)
+
+
+
+
+plot(xval, yval, type="l", col="blue4", lwd=1, ylab = '', xlab = '',
+     xlim=c(-3, 6))
+
+lines(uval, zval, col="blue4", lwd=1)
+
+
+x <-seq(qnorm(0.001,1,1), qnorm(0.95),length=100)
+polygon(c(x, rev(x)), c(dnorm(x,1,1), rep(0, length(x))), col='turquoise')
+
+abline(v=qnorm(0.95), lwd=3, col='firebrick')
+abline(v=1, lwd=3, col='black', lty=2)
+abline(h=0)
+
+title(outer=outer,main="Beta",col="black",font=2,line=line)
+
+
+# MEAN = 0
+
+
+plot(xval, yval, type="l", col="blue4", lwd=1, ylab = '', xlab = '',
+     xlim=c(-3, 6))
+
+
+x <-seq(qnorm(0.95), qnorm(0.999,0,1),length=100)
+polygon(c(x, rev(x)), c(dnorm(x,0,1), rep(0, length(x))), col='greenyellow')
+
+abline(v=qnorm(0.95), lwd=3, col='firebrick')
+abline(v=0, lwd=3, col='black', lty=2)
+abline(h=0)
+
+title(outer=outer,main="True Mean = 0: POWER",col="black",font=2,line=line)
+
+
+
+
+plot(xval, yval, type="l", col="blue4", lwd=1, ylab = '', xlab = '',
+     xlim=c(-3, 6))
+
+
+
+x <-seq(qnorm(0.001,0,1), qnorm(0.95),length=100)
+polygon(c(x, rev(x)), c(dnorm(x,0,1), rep(0, length(x))), col='turquoise')
+
+abline(v=qnorm(0.95), lwd=3, col='firebrick')
+abline(v=0, lwd=3, col='black', lty=2)
+abline(h=0)
+
+title(outer=outer,main="Beta",col="black",font=2,line=line)
