@@ -7,4 +7,20 @@ output: html_document
 
 The probability of a type II error is $\beta$. In other words, it is the probability of *not* rejecting $H_o$ when it is false.
 
-Therefore, probability of rejecting $H_o$ when it is false will be $1 - \beta$.
+Therefore, probability of rejecting $H_o$ when it is false will be $1 - \beta$. And this is exactly the definition of *POWER*:
+
+
+$POWER \, = \, 1\,-\,\beta$
+
+Power is exactly the probability that the test statistic lies in the rejection region *under* the premise that $H_a$ is correct.
+
+For a single-group mean test we are comparing a normalized mean to a $t$ quantile:
+
+$p\,\Big(\Large\frac{\bar X - \mu}{s/\sqrt{n}}\,> t_{1-\alpha,\,n-1}|\mu=\mu_a\Big)$
+
+However, if $n$ is large we can do instead normal calculations:
+
+$p\,\Big(\Large\frac{\bar X - \mu}{s/\sqrt{n}}\,> z_{1-\alpha}|\mu=\mu_a\Big)$
+$=\Big(\Large\frac{\bar X - \mu_a \, + \mu_a -\mu}{s/\sqrt{n}}\,> z_{1-\alpha}|\mu=\mu_a\Big)$
+$=\Big(\Large\frac{\bar X - \mu_a}{\sigma/sqrt{n}} \,z_{1-\alpha} -\frac{\mu_a -\mu}{s/\sqrt{n}}\,> z_{1-\alpha}|\mu=\mu_a\Big)$
+$=\Big(Z> \, z_{1-\alpha} -\frac{\mu_a -\mu}{s/\sqrt{n}}|\mu=\mu_a\Big)$
