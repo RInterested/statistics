@@ -1,6 +1,5 @@
 # Code to generate Power plot illustration in the html:
 
-
 xval <- seq(-3.2, 3.2, length=1000)
 yval <- dnorm(xval)
 
@@ -29,6 +28,7 @@ abline(h=0)
 
 title(outer=outer,main="True Mean = 3: POWER",col="black",font=2,line=line)
 
+legend(2.3,0.1,legend= expression(mu [a]), bty='n')
 
 
 
@@ -45,7 +45,7 @@ abline(v=3, lwd=3, col='black', lty=2)
 abline(h=0)
 
 title(outer=outer,main="Beta",col="black",font=2,line=line)
-
+legend(2.3,0.1, legend= expression(mu [a]), bty='n')
 
 
 
@@ -69,7 +69,7 @@ abline(v=2, lwd=3, col='black', lty=2)
 abline(h=0)
 
 title(outer=outer,main="True Mean = 2: POWER",col="black",font=2,line=line)
-
+legend(1.5,0.1, legend= expression(mu [a]), bty='n')
 
 
 
@@ -86,7 +86,7 @@ abline(v=2, lwd=3, col='black', lty=2)
 abline(h=0)
 
 title(outer=outer,main="Beta",col="black",font=2,line=line)
-
+legend(1.5,0.1, legend= expression(mu [a]), bty='n')
 
 # MEAN 1:
 
@@ -108,7 +108,7 @@ abline(v=1, lwd=3, col='black', lty=2)
 abline(h=0)
 
 title(outer=outer,main="True Mean = 1: POWER",col="black",font=2,line=line)
-
+legend(.4,0.1, legend= expression(mu [a]), bty='n')
 
 
 
@@ -126,7 +126,7 @@ abline(v=1, lwd=3, col='black', lty=2)
 abline(h=0)
 
 title(outer=outer,main="Beta",col="black",font=2,line=line)
-
+legend(.4,0.1, legend= expression(mu [a]), bty='n')
 
 # MEAN = 0
 
@@ -143,7 +143,7 @@ abline(v=0, lwd=3, col='black', lty=2)
 abline(h=0)
 
 title(outer=outer,main="True Mean = 0: POWER",col="black",font=2,line=line)
-
+legend(-.6,0.1, legend= expression(mu [a]), bty='n')
 
 
 
@@ -160,3 +160,4 @@ abline(v=0, lwd=3, col='black', lty=2)
 abline(h=0)
 
 title(outer=outer,main="Beta",col="black",font=2,line=line)
+legend(-.6,0.1, legend= expression(mu [a]), bty='n')
