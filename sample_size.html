@@ -65,11 +65,11 @@ img {
 
 
 <hr />
-<p>To test whether the population mean is bigger than a reference accepted value based on a sample.</p>
-<p>We compare the sample mean, <span class="math">\(\bar X\)</span> to a constant <span class="math">\(C\)</span> so that the probability of a type I error is <span class="math">\(\alpha\)</span>, which is typically <span class="math">\(0.05\)</span> or <span class="math">\(5\%\)</span>:</p>
-<p><span class="math">\(\Large 0.05 = p\,(\bar X \geq C) | \mu_o=30\)</span> <br><br> <span class="math">\(\Large p(\frac{\bar X - \mu_o}{s/\sqrt{n}}\,\geq\frac{C - \mu_o}{s/\sqrt{n}}|\mu=30)\)</span> <br><br> <span class="math">\(\Large p(Z\,\geq\frac{C - \mu_o}{s/\sqrt{n}}|\mu=30)\)</span></p>
-<p><br></p>
-<p><span class="math">\(\Large \frac{C - \mu_o}{s/\sqrt{n}}\)</span> <code>= qnorm(0.95)</code></p>
+<p>What <span class="math">\(n\)</span> sample size would be required to get a power of <span class="math">\(80\,\%\)</span>, which is a common benchmark in the sciences?</p>
+<p>For a one-sided test (<span class="math">\(H_a: \mu_a &gt; \mu_o\)</span>):</p>
+<p><span class="math">\(\Large=\,0.8\Big(Z&gt; \, z_{1-\alpha} -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\Big)\)</span></p>
+<p>We set <span class="math">\(z_{1-\alpha} - \frac{\mu_a -\mu_o}{s/\sqrt{n}} = z_{0.2}\)</span> and solve for <span class="math">\(n\)</span>.</p>
+<p>In the cases of <span class="math">\(H_a: mu_a \neq mu_o\)</span> we can just take one of the sides but with <span class="math">\(\alpha/2\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/STATISTICS/Index.html">Home Page</a></p>
 

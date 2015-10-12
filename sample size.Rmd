@@ -6,19 +6,16 @@ output: html_document
 
 ---
 
-To test whether the population mean is bigger than a reference accepted value based on a sample.
+What $n$ sample size would be required to get a power of $80\,\%$, which is a common benchmark in the sciences?
 
-We compare the sample mean, $\bar X$ to a constant $C$ so that the probability of a type I error is $\alpha$, which is typically $0.05$ or $5\%$:
+For a one-sided test ($H_a: \mu_a > \mu_o$):
 
-$\Large 0.05 = p\,(\bar X \geq C) | \mu_o=30$
-<br><br>
-$\Large p(\frac{\bar X - \mu_o}{s/\sqrt{n}}\,\geq\frac{C - \mu_o}{s/\sqrt{n}}|\mu=30)$
-<br><br>
-$\Large p(Z\,\geq\frac{C - \mu_o}{s/\sqrt{n}}|\mu=30)$
+$\Large=\,0.8\Big(Z> \, z_{1-\alpha} -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\Big)$
 
-<br>
 
-$\Large \frac{C - \mu_o}{s/\sqrt{n}}$ `= qnorm(0.95)`
+We set $z_{1-\alpha} - \frac{\mu_a -\mu_o}{s/\sqrt{n}} = z_{0.2}$ and solve for $n$.
+
+In the cases of $H_a: mu_a \neq mu_o$ we can just take one of the sides but with $\alpha/2$.
 
 ---
 
