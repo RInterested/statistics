@@ -1,0 +1,192 @@
+---
+title: "t-distribution"
+output: html_document
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="50" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10454865/aa4dc136-7185-11e5-8dd3-89d352ff577f.png"></a>
+
+
+<br><br>
+
+MOTIVATION FOR THE $t$ DISTRIBUTION:
+
+The $t$-Student distribution is a "natural" $pdf$ to define. 
+
+If $X_1, \ldots, X_n$ are iid observations $\sim N(\mu,\sigma^2)$, 
+
+$\Large\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}} \sim N(0,1)$. And  $\Large\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}}$ is the formula of the Z-statistic.
+
+If the $X_1,\ldots,X_n$ are not normally distributed,  the expression will tend to $\sim N(0,1)$ as $n\mapsto\infty$, the basis for the central limit theorem (CLT).
+
+If the standard deviation of the population, $\sigma$, is unknown we can replace it by the estimation based on a sample, $S$, but then the expression ([one-sample t-test statistic][3]) will follow a $t$-distribution:
+
+$\Large \frac{\bar{X}\,-\,\mu}{S/\sqrt{n}}\sim t_{n-1}$ with $\Large S=\sqrt{\frac{\sum(X_i-\bar X)^2}{n-1}}$ (Bessel's correction).
+
+
+Why?
+
+$$\Large\frac{\bar{X}\,-\,\mu}{S/\sqrt{n}} = \frac{\bar{X}\,-\,\mu}{\frac{\sigma}{\sqrt{n}}} \frac{1}{\frac{S}{\sigma}}= Z\,\frac{1}{\frac{S}{\sigma}} = \frac{Z}{\sqrt{\frac{\sum(X_i-\bar X)^2}{(n-1)\,\sigma^2}}} \sim\frac{Z}{\sqrt{\frac{\chi_{n - 1}^2}{n-1}}} \sim t_{n-1}\small \tag 1$$
+
+How did the chi square ($\chi^2$) made its entry into the $pdf$? It's the distribution that models $X^2$ with $X\sim N(0,1)$:
+
+---
+
+*Proof that $\chi^2$ models $X^2$ with $X\sim N(0,1)$:*
+
+
+
+Let's say that $X \sim N(0,1)$ and that $Y=X^2$ and find the density of $Y$ by using the $cdf$ method:
+
+$p(Y \leq y) = p(X^2 \leq y)= p(-\sqrt{y} \leq x \leq \sqrt{y})$. The problem is that we cannot integrate in close form the density of the normal distribution. But we can express it:
+
+$$ F_X(y) = F_X(\sqrt{y})- F_X(-\sqrt[]{y}).$$ Taking the derivative:
+
+$$ f_X(y)= F_X'(\sqrt{y})\,\frac{1}{2\sqrt{y}}+
+F_X'(\sqrt{-y})\,\frac{1}{2\sqrt{y}}.$$
+
+Since the values of the normal $pdf$ are symmetrical:
+
+$\large f_X(y)= 
+F_X'(\sqrt{y})\,\frac{1}{\sqrt{y}}$. Equating this to the $pdf$ of the normal (now the $x$ in the $pdf$ will be $\sqrt{y}$ to be plugged into the $e^{-\frac{x^2}{2}}$ part of the normal $pdf$); and remembering to in include $\frac{1}{\sqrt{y}}$ at the end:
+
+$$\Large f_X(y)= 
+F_X'(\sqrt[]{y})\,\frac{1}{\sqrt[]{y}}=
+\frac{1}{\sqrt{2\pi}}\,e^{-\frac{y}{2}}\,
+\frac{1}{\sqrt[]{y}}=\frac{1}{\sqrt{2\pi}}\,e^{-\frac{y}{2}}\,
+y^{\frac{1}{2}- 1}$$
+
+Compare to the pdf of the chi square:
+
+$$\Large f_X(x)= \frac{1}{2^{\nu/2}\Gamma(\frac{\nu}{2})}e^{\frac{-x}{2}}x^{\frac{\nu}{2}-1}$$
+
+Since $\Gamma(1/2)=\sqrt{\pi}$, for $1$ df, we have derived exactly the $pdf$ of the chi square.
+
+---
+
+And in the case of the $t$-distribution the chi-square is suitable to model the sum of squared normals ($\Large \sum(X_i-\bar X)^2$ in (1)), a well known property [derived here][4], typically with $n$ degrees of freedom, but why is it $n\,-\,1$ here? In other words, why...
+
+$\Large \frac{\sum(X_i - \bar X)^2}{\sigma^2}$ in equation (1) becomes $\Large \chi_{n-1}^2$ and not $\Large \chi_{n}^2$?
+
+The explanation is in the [answer here][5].
+
+
+---
+
+[DERIVATION OF THE $pdf$ OF THE $t$ DISTRIBUTION:][6]
+
+First let's recapute equation (1):
+
+$\large t= \frac{\bar{X}-\mu}{S/\sqrt{n}}=\frac{(\bar{X}-\mu)/(\mu/\sqrt{n})}{\sqrt{S^2/\sigma^2}} \small \tag1$                          
+
+In the above expression, $(\bar{X}-\mu)/(\mu/\sqrt{n})\,\,\sim \,\,N(0,1)$ 
+
+
+
+and $\sqrt{S^2/\sigma^2} =\sqrt{ \frac{\sum_{x=1}^n(X - \bar{X})^2}{n-1}/\sigma^2} \,\,\sim \,\,\sqrt{\chi_{(n-1)}^2/(n-1)}$.
+
+
+
+Assigning $U = (\bar{X}-\mu)/(\mu/\sqrt{n})$ and $V=\sqrt{S^2/\sigma^2}$, characterized as $U \sim N(0,1)$ and $V \sim \chi_k^2$, expression [1] becomes $U/\sqrt{V/k}$.
+
+
+
+With the premise of independence, the joint density is:
+
+
+$\Large f_{U,V}(u,v) = \frac{1}{(2\pi)^{1/2}} e^{-u^2/2} \frac{1}{\Gamma(\frac{k}{2})\,2^{k/2}}\,v^{(k/2)-1}\, e^{-v/2}$ with  -\infty<u<\infty$ and $0<v<\infty$.
+
+
+Making the transformation $\Large t=\frac{u}{\sqrt{v/k}}$ and $\Large w=v$, (hence, $\Large u=t\,(\frac{w}{k})^{1/2}$), and with $\Large (w/k)^{1/2}$ as the Jacobian, the marginal pdf will be:
+
+
+$\Large f_T(t) = \int_0^\infty \,f_{U,V}\bigg(t\,(\frac{w}{k})^{1/2},w\bigg)(w/k)^{1/2}dw$
+
+
+
+$=\Large  \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}}\,
+ \int_0^\infty\,
+e^{-\frac{\bigg(t(\frac{w}{k})^{1/2}\bigg)^2}{2}}
+w^{(k/2)-1}
+e^{-(\frac{w}{2})}
+\frac{w^{1/2}}{k^{1/2}}\,dw$
+
+
+
+$=\Large \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,
+\Large \int_0^\infty\,
+w^{((k+1)/2)-1}\,
+e^{-(1/2)(1 + t^2/k)w}
+\,dw$
+
+
+The next step entails identifying in the previous equation the kernel of a gamma distribution pdf:
+
+
+$\Large x^{\alpha-1}\,e^{x\,\lambda}$
+
+with parameters $\large (\alpha=(k+1)/2,\,\lambda=(1/2)(1+t^2/k))$.
+
+The generic pdf for the gamma distribution is,
+
+
+$\Large \frac{\lambda^\alpha}{\Gamma(\alpha)}\,x^{\alpha-1}\,e^{x\,\lambda}$
+
+
+The strategy is then to synthesize the entire gamma pdf within the improper integral in our $f_T(t)$ pdf in progress, so that we can simplify it as just $1$, as we know to be true of all pdf's. To get away with it we need to multiply numerator and denominator by the same coefficient:
+
+$\Large \frac{\Gamma(\alpha)\,\lambda^\alpha}{\Gamma(\alpha)\,\lambda^\alpha}$. And since neither $\alpha$ nor $\lambda$ include the integrating factor $w$ we can include them inside the integral, or leave them out. Naturally, we want to leave within the integral $\Large \frac{\lambda^\alpha}{\Gamma(\alpha)}$, and keep $\Large \frac{\Gamma(\alpha)}{\lambda^\alpha}$ outside the integral. Now $f_T(t)$ will look hideous for just one second:
+
+
+$\Large= \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,
+$$\int_0^\infty\frac{((1/2)(1+t^2/k))^{(k+1)/2}}{\Gamma((k+1)/2)}$
+$w^{((k+1)/2)-1}
+e^{-(1/2)(1 + t^2/k)w}
+dw\,
+\frac{\Gamma((k+1)/2)}{((1/2)(1+t^2/k))^{(k+1)/2}}$
+
+
+... because everything between $\int$ and $dw$ is just the gamma $pdf$ integrated over its entire support, so it becomes $1$, and we are left with:
+
+
+$=\Large \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,
+\frac{\Gamma((k+1)/2)}{((1/2)(1+t^2/k))^{(k+1)/2}}$
+
+
+
+$=\Large \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,\Gamma((k+1)/2)\,
+\Big[\frac{2}{(1+t^2/k)}\Big]^{(k+1)/2}$
+
+
+
+$=\Large \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
+\frac{1}{(2\pi)^{1/2}2^{k/2}k^{1/2}}\,
+\Big[\frac{2}{(1+t^2/k)}\Big]^{(k+1)/2}$
+
+
+
+$=\Large \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
+\frac{1}{(2\pi)^{1/2}2^{k/2}k^{1/2}}\,
+\frac{2^{(k+1)/2}}{(1+t^2/k)^{(k+1)/2}}$
+
+
+
+$=\Large \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
+\frac{1}{(\pi)^{1/2}k^{1/2}}\,
+\frac{1}{(1+t^2/k)^{(k+1)/2}}$
+
+
+
+$\Large f_T(t)= \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
+\frac{1}{\sqrt{k\,\pi}}\,
+\Big(1+\frac{t^2}{k}\Big)^{-\frac{k+1}{2}}$
+
+
+which is the $pdf$ of the $t$-Student or Gosset distribution with $k$ degrees of freedom.
+
+  [1]: http://math.stackexchange.com/a/480327/152225
+  [2]: http://www.jstor.org/stable/2331838
+  [3]: https://en.wikipedia.org/wiki/Student%27s_t-test
+  [4]: http://math.stackexchange.com/q/1383709/152225
+  [5]: http://math.stackexchange.com/a/1384414/152225
+  [6]: http://math.stackexchange.com/a/1386078/152225
