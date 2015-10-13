@@ -7,19 +7,30 @@ output: html_document
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="50" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10441837/2d664400-711b-11e5-82ae-b6f65147b896.png"></a>
 
-The one-sample t-test is used when we want to know whether our sample comes from a particular population but we do not have full population information available to us.
+The one-sample z-test (or t-test) is used when we want to know whether our sample comes from a particular population but we do not have full population information available to us.
 
-We test whether the population mean is bigger than a reference accepted value based on a sample.
+We test whether the population mean is bigger than a reference accepted value ($\mu_o$) based on the mean obtained from sample ($\bar X$).
 
 We compare the sample mean, $\bar X$ to a constant $C$ so that the probability of a type I error is $\alpha$, which is typically $0.05$ or $5\%$:
 
 <br>
 $0.05 = p\,(\bar X \geq C) | \mu_o=30$
 <br><br>
-$=\Large p(\frac{\bar X - \mu_o}{s/\sqrt{n}}\,\geq\frac{C - \mu_o}{s/\sqrt{n}}|\mu_o=30)$
-<br><br>
-$=\Large p(Z\,\geq\frac{C - \mu_o}{s/\sqrt{n}}|\mu_o=30)$
+Normalizing:
 
+<br>
+
+$0.05\,=\,p(\frac{\bar X - \mu_o}{s/\sqrt{n}}\,\geq\frac{C - \mu_o}{s/\sqrt{n}}|\mu_o=30)$
+<br><br>
+
+And the first part of the inequality is really the *Z-statistic*:
+
+<br>
+
+$0.05\,=\,p(Z\,\geq\frac{C - \mu_o}{s/\sqrt{n}}|\mu_o=30)$
+
+<br><br>
+For this to be true the second part of the inequality must be equal to:
 <br>
 
 $\Large \frac{C - \mu_o}{s/\sqrt{n}}$ `= qnorm(0.95)`
