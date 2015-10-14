@@ -71,9 +71,7 @@ img {
 <p><br><br></p>
 <p>The <span class="math">\(t\)</span>-Student distribution is a “natural” <span class="math">\(pdf\)</span> to define.</p>
 <p>If <span class="math">\(X_1, \ldots, X_n\)</span> are iid observations <span class="math">\(\sim N(\mu,\sigma^2)\)</span>,</p>
-<p><span class="math">\(\large\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}} \sim N(0,1)\)</span>.</p>
-<p>And <span class="math">\(\Large\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}}\)</span> is the formula of the Z-statistic.</p>
-<p>If the <span class="math">\(X_1,\ldots,X_n\)</span> are not normally distributed, the expression will tend to <span class="math">\(\sim N(0,1)\)</span> as <span class="math">\(n\mapsto\infty\)</span>, the basis for the central limit theorem (CLT).</p>
+<p><br><br> <span class="math">\(\Large\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}} \sim N(0,1)\)</span>. <br><br> And <span class="math">\(\Large\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}}\)</span> is the formula of the Z-statistic. <br><br> If the <span class="math">\(X_1,\ldots,X_n\)</span> are not normally distributed, the expression will tend to <span class="math">\(\sim N(0,1)\)</span> as <span class="math">\(n\mapsto\infty\)</span>, the basis for the central limit theorem (CLT).</p>
 <p>If the standard deviation of the population, <span class="math">\(\sigma\)</span>, is unknown we can replace it by the estimation based on a sample, <span class="math">\(S\)</span>, but then the expression (<a href="https://en.wikipedia.org/wiki/Student%27s_t-test">one-sample t-test statistic</a>) will follow a <span class="math">\(t\)</span>-distribution:</p>
 <p><span class="math">\(\Large \frac{\bar{X}\,-\,\mu}{S/\sqrt{n}}\sim t_{n-1}\)</span></p>
 <p>with <span class="math">\(\large S=\sqrt{\frac{\sum(X_i-\bar X)^2}{n-1}}\)</span> (Bessel’s correction).</p>
@@ -84,7 +82,7 @@ img {
 <p>And in the case of the <span class="math">\(t\)</span>-distribution the chi-square is suitable to model the sum of squared normals <span class="math">\(\large \sum(X_i-\bar X)^2\)</span> in (1)), a well known property <a href="http://math.stackexchange.com/q/1383709/152225">derived here</a>, typically with <span class="math">\(n\)</span> degrees of freedom, but why is it <span class="math">\(n\,-\,1\)</span> here? In other words, why…</p>
 <p><span class="math">\(\Large \frac{\sum(X_i - \bar X)^2}{\sigma^2}\)</span> in equation (1) becomes <span class="math">\(\Large \chi_{n-1}^2\)</span> and not <span class="math">\(\Large \chi_{n}^2\)</span>?</p>
 <p>The explanation is in the <a href="http://math.stackexchange.com/a/1384414/152225">answer here</a>.</p>
-<p>In a nutshell, there aren’t <span class="math">\(n\)</span> <span class="math">\(X_i\)</span> independently distributed random variables corresponding to the different observations, each one following a <span class="math">\(\chi^2\)</span> distribution. In fact there are only <span class="math">\(n-1\)</span> because of the insertion of the <span class="math">\(\bar X\)</span> in the mix.</p>
+<p>In a nutshell, there aren’t <span class="math">\(n\)</span> <span class="math">\(X_i\)</span> independently distributed random variables corresponding to the different observations, each one following a <span class="math">\(\chi^2\)</span> distribution when squared (<span class="math">\(\small(X-\bar X)^2\)</span>). In fact there are only <span class="math">\(n-1\)</span> because of the insertion of the <span class="math">\(\bar X\)</span> in the mix.</p>
 <p><br><br></p>
 </div>
 <div id="derivation-of-the-pdf-of-the-t-distribution" class="section level3">
