@@ -1,1 +1,200 @@
+---
+title: "ANOVA v REGRESSION"
+output: html_document
+---
 
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="50" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10472938/5c01c1ca-71f4-11e5-87b8-1de0e43c604f.png"></a>
+
+<br><br>
+
+###CHEAT SHEET ANOVA Alphabet Soup & Regression Equivalents:
+
+<br><br>
+
+**One-way ANOVA:**
+
+    Structure:   DV is continuous; IV is ONE FACTOR with different LEVELS.
+    Scenario:    miles-per-gal. vs cylinders
+                 Note that Income vs Gender (M, F) is a t-test.
+    Syntax:      fit <- aov(mpg ~ as.factor(cyl), data = mtcars); summary(fit); TukeyHSD(fit)
+    Regression:  fit <- lm(mpg ~ as.factor(cyl), mtcars) 
+                 # with F dummy coded;
+                 summary(fit); anova(fit)
+
+
+----------
+
+
+ 
+**Two-way ANOVA:**
+
+    Structure:   DV is continuous; IV is > 1 FACTORS with different LEVELS.
+    Scenario:    mpg ~ cylinders & carburators
+    Syntax:      fit <- aov(mpg ~ as.factor(cyl) + as.factor(carb), mtcars); 
+                 summary(fit); TukeyHSD(fit)
+    Regression:  fit <- lm(mpg ~ as.factor(cyl) + as.factor(carb), mtcars) 
+                 # with F dummy coded; 
+                 summary(fit); anova(fit)
+
+
+----------
+
+
+**Two-way Factorial ANOVA:**
+
+    Structure:   All possible COMBINATIONS of LEVELS are considered.
+    Scenario:    mpg ~ cylinders + carburetors + (4cyl/1,...8cyl/4)
+    Syntax:      fit <- aov(mpg ~ as.factor(cyl) * as.factor(carb), mtcars); 
+                 summary(fit); TukeyHSD(fit)
+    Regression:  fit <- lm(mpg ~ as.factor(cyl) * as.factor(carb), mtcars) 
+                 # with F dummy coded; 
+                 summary(fit); anova(fit)
+
+
+----------
+
+
+**ANCOVA:**
+
+    Structure:   DV continuous ~ Factor and continuous COVARIATE.
+    Scenario:    mpg ~ cylinders + weight
+    Syntax:      fit <- aov(mpg ~ as.factor(cyl) + wt, mtcars); summary(fit)
+    Regression:  fit <- lm(mpg ~ as.factor(cyl) + wt, mtcars) 
+                 # with F dummy coded; 
+                 summary(fit); anova(fit)
+
+
+----------
+
+
+**MANOVA:**
+
+    Structure:   > 1 DVs continuous ~ 1 FACTOR ("One-way") or 2 FACTORS ("Two-way MANOVA").
+    Scenario:    mpg and wt ~ cylinders
+    Syntax:      fit <- manova(cbind(mpg,wt) ~ as.factor(cyl), mtcars); summary(fit)
+    Regression:  N/A
+
+
+----------
+
+
+**MANCOVA:**
+
+    Structure:   > 1 DVs continuous ~ 1 FACTOR + 1 continuous (covariate) DV.
+    Scenario:    mpg and wt ~ cyl + displacement (cubic inches)
+    Syntax:      fit <- manova(cbind(mpg,wt) ~ as.factor(cyl) + disp, mtcars); summary(fit)
+    Regression:  N/A
+
+
+----------
+
+
+**WITHIN FACTOR (or SUBJECT) ANOVA:** ([code here][4])
+
+    Structure:   DV continuous ~ FACTOR with each level * with subject (repeated observations).
+                 Extension paired t-test. Each subject measured at each level multiple times. 
+    Scenario:    Memory rate ~ Emotional value of words for Subjects @ Times
+    Syntax:      fit <- aov(Recall_Rate ~ Emtl_Value * Time + Error(Subject/Time), data); 
+                 summary(fit); print(model.tables(fit, "means"), digits=3);
+                 boxplot(Recall_Rate ~ Emtl_Value, data=data)
+                 with(data, interaction.plot(Time, Emtl_Value, Recall_Rate))
+                 with(data, interaction.plot(Subject, Emtl_Value, Recall_Rate))
+                 NOTE: Data should be in the LONG FORMAT (same subject in multiple rows)
+    Regression:  Mixed Effects
+                 require(lme4); require(lmerTest)
+                 fit <- lmer(Recall_Rate ~ Emtl_Value * Time + (1|Subject/Time), data); 
+                 anova(fit); summary(fit); coefficients(fit); confint(fit) 
+    or
+                 require(nlme)
+                 fit <- lme(Recall_Rate ~ Emtl_Value * Time, random = ~1|Subject/Time, data)
+                 summary(fit); anova(fit); coefficients(fit); confint(fit)
+
+----------
+
+
+**SPLIT-PLOT:** ([code here][5])
+
+    Structure:   DV continuous ~ FACTOR/-S with RANDOM EFFECTS and pseudoreplication.
+    Scenario:    Harvest yield ~ Factors = Irrigation / Density of seeds / Fertilizer 
+                     & RANDOM EFFECTS (Blocks and plots of land): 
+    Syntax:      fit <- aov(yield ~ irrigation * density * fertilizer + 
+                     Error(block/irrigation/density), data); summary(fit)
+    Regression:  Mixed Effects
+                 require(lme4); require(lmerTest); 
+                 fit <- lmer(yield ~ irrigation * fertilizer + 
+                 (1|block/irrigation/density), data = splityield); 
+                 anova(fit); summary(fit); coefficients(fit); confint(fit)
+    or
+                 library(nlme)
+                 fit <- lme(yield ~ irrigation * variety, random=~1|field, irrigation)
+                 summary(fit); anova(fit)
+
+----------
+
+
+**NESTED DESIGN:** ([code here][12])
+
+    Structure:   DV continuous ~ FACTOR/-S with pseudoreplication.
+    Scenario:    [Glycogen] ~ Factors = Treatment & RANDOM EFFECTS with Russian-doll effect: 
+                 Six rats (6 Livers)-> 3 Microscopic Slides/Liver-> 2 Readings/Slide). 
+    Syntax:      fit <- aov(Glycogen ~ Treatment + Error(Rat/Liver), data); summary(fit)
+    Regression:  Mixed Effects
+                 require(lme4); require(lmerTest)
+                 fit <- lmer(Glycogen ~ Treatment + (1|Rat/Liver), rats); 
+                 anova(fit); summary(fit); coefficients(fit); confint(fit)
+    or
+                 require(nlme)
+                 fit<-lme(Glycogen ~ Treatment, random=~1|Rat/Liver, rats)
+                 summary(fit); anova(fit); VarCorr(fit)
+
+----------
+
+
+**USEFUL SITES:**
+
+1. [RExRepos][6]
+2. [Personality Project][7]
+3. [Quick-R][8]
+4. [R-Bloggers][9]
+5. [Nested Analysis and Split-Plot by M. Crawley][10]
+6. [Models with Multiple Random Effects][11]
+7. [Split Plot Models][14]
+8. [The R Book by M. Crowley][15]
+9. [Within Groups & Repeated Measures][16]
+10. [Repeat Measures in R][17]
+
+
+
+  [1]: http://stats.stackexchange.com/a/59048/67822
+  [2]: http://stats.stackexchange.com/questions/555/why-is-anova-taught-used-as-if-it-is-a-different-research-methodology-compared?lq=1
+  [3]: http://stats.stackexchange.com/q/13166/67822
+  [4]: https://github.com/RInterested/ANOVA/blob/master/WITHIN%20SUBJECTS%20ANOVA
+  [5]:
+https://github.com/RInterested/ANOVA/blob/master/SPLIT%20PLOT
+  [6]: http://www.uni-kiel.de/psychologie/rexrepos/posts/anovaMixed.html
+  [7]: http://www.personality-project.org/r/r.anova.html
+  [8]: http://www.statmethods.net/stats/anova.html
+  [9]: http://www.r-bloggers.com/quick-and-dirty-notes-on-general-linear-mix-models/
+  [10]: http://www3.imperial.ac.uk/portal/pls/portallive/docs/1/1171923.PDF
+  [11]:
+http://lme4.r-forge.r-project.org/book/Ch2.pdf
+  [12]:
+https://github.com/RInterested/ANOVA/blob/master/NESTED
+
+  [14]:
+http://www.maths.bath.ac.uk/~jjf23/mixchange/split.html
+
+  [15]:
+http://www.kharms.biology.lsu.edu/CrawleyMJ_TheRBook.pdf
+
+  [16]:
+http://statistics.ats.ucla.edu/stat/r/seminars/Repeated_Measures/repeated_measures.htm
+
+  [17]:
+http://www.psych.upenn.edu/~baron/rpsych/rpsych.html#htoc52
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
