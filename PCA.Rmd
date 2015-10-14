@@ -1,1 +1,120 @@
 
+---
+title: "PCA"
+output: html_document
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="50" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10472938/5c01c1ca-71f4-11e5-87b8-1de0e43c604f.png"></a>
+
+<br><br>
+
+After the excellent post by JD Long in this thread, I looked for a simple example, and the R code necessary to produce the PCA and then go back to the original data. It gave me some first-hand geometric intuition, and I want to share what I got.
+
+I used a data set that I found online on semiconductors [here][1], and I trimmed it to just two dimensions - "atomic number" and "melting point" - to facilitate plotting. Further, I truncated the observations from 44 to 15 to ease the task of tracking individual points. The ultimate result was a skeleton data frame:  
+
+<!-- language-all: lang-r -->
+
+    compounds   atomic.no      melting.point
+    AIN         10             498.0
+    AIP         14             625.0
+    AIAs        23             1011.5 
+
+The "compounds" column indicate the chemical constitution of the semiconductor, and plays the role of row name.
+
+This can be reproduced as follows:
+
+    library(gsheet)
+    dat <- read.csv(text = gsheet2text('https://docs.google.com/spreadsheets/d/1X9ccexhCU2xNI99MDj6WWRdOza1J_IbTSI-yuPDsxOE/edit?usp=sharing'))
+    colnames(dat)[2] <- "atomic.no"; dat1 <- subset(dat[1:15,1:3]); row.names(dat1) <- dat1$compounds; dat1 <- dat1[,-1]
+
+The data were then scaled:
+   
+    scaled_dat <- as.data.frame(scale(dat1,center=T))   
+    X          <- as.matrix(scaled_dat) 
+
+The linear algebra steps followed:
+
+    C             <- cov(X)                               # Covariance matrix
+    lambda        <- eigen(C)$values                      # Eigenvalues
+lambda_matrix <- diag(2)*eigen(C)$values              # Eigenvalues matrix
+    e_vectors     <- eigen(C)$vectors                     # Eigenvectors
+    
+    
+Since the first eigenvector is ~ [-0.7,-0.7] we choose to change it to [.7, .7] to make it consistent with built-in formulas through:
+
+    e_vectors[,1] <- e_vectors[,1]*-1; colnames(e_vectors) <- c("PC1","PC2")
+
+The resultant eigenvalues were `1.2964217` and `0.7035783`. Under less minimalistic conditions, this result would have helped decide which eigenvectors to include (largest eigenvalues). For instance, the relative contribution of the first eigenvalue is 64.8%: `eigen(C)$values[1]/sum(eigen(C)$values) * 100` - accounts for ~ 65% of the variability in the data. We'll include both eigenvectors; excluding one of the eigenvectors would result in dimensionality reduction - the idea behind PCA.
+
+The score matrix was determined as the matrix multiplication of the scaled data (`X`) by the matrix of eigenvectors ("loadings"):
+
+    score_matrix <-  X %*% e_vectors          # Identical to the often found operation:
+    t(t(e_vectors) %*% t(X))
+
+The concept entails a linear combination of each entry (row / subject / observation / superconductor in this case) of the centered (and in this case scaled) data weighted by the rows of each eigenvector, so that in each of the final columns of the *score matrix*, we'll find a contribution from each variable (column) of the data (the entire `X`), BUT only the corresponding eigenvector will have taken part in the computation (i.e. the first eigenvector $[0.7, 0.7]^{T}$ will contribute to $PC1$ (Principal Component 1)  and $[0.7, -0.7]^{T}$ to $PC2$, as in:
+
+![enter image description here][2]
+
+Therefore each eigenvector will influence each variable differently, and this will be reflected in the "loadings" of the PCA. In our case, the negative sign in the second component of the second eigenvector $[0.7, - 0.7]$ will change the sign of the melting point values in the linear combinations that produce PC2, whereas the effect of the first eigenvector will be consistently positive:  
+
+![enter image description here][3]
+
+Utilizing the built-in functions the results can be replicated:
+
+    # For scores:
+      prcomp(dat1, center=T, scale=T) # or prcomp(scaled_dat)
+        # or...
+        princomp(scaled_dat)$scores
+    
+    # and for eigenvectors:
+      prcomp(scaled_dat)$rotation
+    # or...
+    princomp(scaled_dat)$loadings
+    
+    # and for eigenvalues:
+      prcomp(scaled_dat)$sdev^2
+    # or...
+    princomp(covmat=C)$sd^2
+
+The initial plotting (the code for this and all the plots that follow can be found [here][4]) included the perpendicular segments from the lines dictated by the eigenvectors to the individual points (again, trying to follow the posting by JD Long above), drawn using the suggestion in [here][5] by @Aniko.
+
+The result is shown below, with first, the distances from the individual points to the first eigenvector, and on a second plot, the orthogonal distances to the second eigenvector:
+
+![enter image description here][6]
+
+If instead we plotted the values of the score matrix (PC1 and PC2) - no longer "melting.point" and "atomic.no", but really a change of basis of the point coordinates with the eigenvectors as basis, these distances would be preserved, but would naturally become perpendicular to the xy axis:
+
+![enter image description here][7]
+
+The trick was now to **recover the original data**. The points had been transformed through a simple matrix multiplication by the eigenvectors. Now the data was rotated back by multiplying by the **inverse of the matrix of eigenvectors** with a resultant marked change in the location of the data points. For instance, notice the change in pink dot "GaN" in the left upper quadrant (left plot, below), returning to its initial position in the left lower quadrant (right plot, below). 
+
+Now we finally had the original data restored in this "de-rotated" matrix:
+
+![enter image description here][8]
+
+Beyond the change of coordinates of rotation of the data in PCA, the results must be interpreted, and this process tends to involve a `biplot`, on which the data points are plotted with respect to the new eigenvector coordinates, and the original variables are now superimposed as vectors. It is interesting to note the equivalence in the position of the points between the plots in the second row of rotation graphs above ("Scores with xy Axis = Eigenvectors") (to the left in the plots that follow), and the `biplot` (to the right):
+
+![enter image description here][9]
+
+The superimposition of the original variables as red arrows offers a path to the interpretation of `PC1` as a vector in the direction (or with a positive correlation) with both `atomic no` and `melting point`; and of `PC2` as a component along increasing values of `atomic no` but negatively correlated with  `melting point`, consistent with the values of the eigenvectors:
+
+    PCA$rotation
+                        PC1        PC2
+    atomic.no     0.7071068  0.7071068
+    melting.point 0.7071068 -0.7071068
+
+  [1]: http://cosmic.mse.iastate.edu/library/pdf/pcainterpretation.pdf
+  [2]: http://i.stack.imgur.com/G8XEw.gif
+  [3]: http://i.stack.imgur.com/8yb9K.png
+  [4]: https://github.com/RInterested/PCA/blob/master/PCA%20SEMICONDUCTORS
+  [5]: http://stackoverflow.com/questions/2639430/graphing-perpendicular-offsets-in-a-least-squares-regression-plot-in-r
+  [6]: http://i.stack.imgur.com/PAWlQ.png
+  [7]: http://i.stack.imgur.com/E6AqM.png
+  [8]: http://i.stack.imgur.com/gfiJg.png
+  [9]: http://i.stack.imgur.com/TsXe2.png
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
