@@ -1,0 +1,97 @@
+---
+title: "Chi Square"
+output: html_document
+---
+
+There is a [youtube][1] video dealing with the proof that the sums of the squares of normally distributed $n$ random errors, each one distributed as $\sim \chi^2(1\text{ df})$ follows a chi square distribution with $n$ degrees of freedom:
+
+So if $X_1, \ldots, X_n$ are $\sim \chi^2 \,\small(1\text{ df})$, then $X_1 +\cdots+X_n \sim \chi^2\,\small(n\text{ df})$.
+
+
+---------------------------------------------------------------------------------
+
+Proof through the $cdf$:
+
+$p\,(X_1 +\cdots+X_n \leq x)=
+p\,(Y_1^2 +\cdots+Y_n^2 \leq x)$, where $X_i =Y _i^2$, and $Y \sim N(0,1)$.
+
+$Y_1^2 +\cdots+Y_n^2 \leq x$ is an $n$-dimensional sphere with radius  $\,\sqrt{x}$: $Y_1^2 +\cdots+Y_n^2 \leq \sqrt[]{x^2}$.
+
+So the probability is:
+
+$p\,(X_1 +\cdots+X_n \leq x) = \displaystyle
+\int\cdots\int_{(Y_1^2 +\cdots+Y_n^2 \leq x)}\large f_{\small(Y_1,\ldots,Y_n)}\large(y_1,\ldots,y_n)\, dy_1,\ldots,dy_n$ with $f$ being the joint density. Remembering that they are iid rv's and that $Y$ is normal:
+
+<br><br>
+
+$$p(X_1 +\cdots+X_n \leq x) = \displaystyle
+\int\cdots\int_{(Y_1^2 +\cdots+Y_n^2 \leq x)}
+\bigg(\frac{1}{2\pi}\bigg)^n
+e^{-\bigg(\frac{y_1^2}{2}+\cdots + \frac{y_n^2}{2}\bigg) }
+dy_1\cdots dy_n$$
+
+<br><br>
+
+Changing to spherical coordinates it will be something like:
+
+$dy_1\cdots  dy_n=dr\,r\,d\theta_1\,\ldots\,r\,d\theta_n \cdot g(\theta_1\,\ldots\,\theta_n)$ with $g$ being some function of the angles. 
+
+<br><br>
+
+And, $$\small p(X_1 +\cdots+X_n \leq x) = \displaystyle
+\int_{r=0}^{\sqrt{x}}
+\int_{\theta_1=\alpha_1}^{\beta_1}
+\ldots\int_{\theta_{n-1}=\alpha_{n-1}}^{\beta_{n-1}}
+\bigg(\frac{1}{2\pi}\bigg)^{n/2}\,
+e^{-(\frac{r^2}{2}) }
+\,r^{n-1} \,g(\theta_1\,\ldots\,\theta_{n-1})\,
+dr\,d\theta_1\cdots \,d\theta_n.$$
+
+<br><br>
+
+There is no $r$ dependency in the $\theta$ integration. The integration of the $\theta$'s gets absorbed into a constant that depends on $n$, $C_n$:
+
+<br><br>
+
+$$\Large p(X_1 +\cdots+X_n \leq x) = C_n \cdot \displaystyle
+\int_{r=0}^{\sqrt{x}}
+e^{-\bigg(\frac{r^2}{2}\bigg) }
+r^{n-1} \, dr.$$
+
+<br><br>
+
+This is the distribution ($cdf$), and to get the density ($pdf$) we have to take derivatives:
+
+<br><br>
+
+Using Leibniz rule:
+
+<br>
+
+Given $F(\alpha)=\int_{a(\alpha)}^{b(\alpha)}\,f(x)\,dx$
+<br><br>
+$\frac{d}{d\alpha}\,F(\alpha)=f(b(\alpha))\frac{d}{d\alpha}b(\alpha)\,-\,f(a(\alpha))\frac{d}{d\alpha}b(\alpha)$
+<br><br>
+So,
+
+<br>
+
+$\frac{d}{dx}\left[C_n \displaystyle \int_{r=0}^{\sqrt{x}} e^{-\bigg(\frac{r^2}{2}\bigg) } r^{n-1} dr\right]
+=C_n \, e^{-(\frac{(\sqrt{x})^2}{2})}\,(\sqrt{x})^{n-1}\,1/2(x)^{-1/2}\,-\,C_n\,e^{-0^2/2}\,0^{n-1}\,0$
+
+$\large =C_n \frac{1}{2\sqrt{x}}e^{-x/2}x^{(n-1)/2}
+=\large C_n \frac{1}{2}\frac{1}{\sqrt{x}}\,e^{-x/2}\,x^{1/2(n-1)}
+=\large C_n e^{-x/2}\,x^{\frac{n-1}{2}}\,\frac{1}{2}\,x^{-\frac{1}{2}}= \large \frac{C_n}{2}\cdot e^{-x/2}\,x^{\frac{n}{2}-1}$
+
+which is a chi square with n degrees of freedom if we equate $\frac{C_n}{2}=\frac{1}{2^{n/2}\Gamma(\frac{n}{2})}$ given that the pdf of chi-square is:
+
+
+$$\displaystyle f_X(x)= \frac{1}{2^{\nu/2}\,\Gamma(\frac{\nu}{2})}\,e^{-x/2}\,x^{\frac{\nu}{2}-1}$$ for $x\leq 0$. Otherwise, $0$.
+
+Geometrically, this is equivalent to the surface area of the $n$-dimensional sphere.
+
+---------------------------------------------------------------------------------
+
+**How can you seemingly whimsically decide that the derivative of your $cdf$ will conveniently be $f(t)=e^{-(t^2/2)} \,t^{n-1}$? It's like we didn't need a proof if we were going to pull this one out of thin air... (I'm sure there's an explanation).**
+
+  [1]: https://youtu.be/JRCL9cjn9n0
