@@ -1,1 +1,147 @@
+---
+title: "Tests of Proportions Between Samples"
+output: html_document
+---
 
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="50" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10472938/5c01c1ca-71f4-11e5-87b8-1de0e43c604f.png"></a>
+
+<br><br>
+
+###COMPARING PROPORTIONS BETWEEN SAMPLES:
+
+<br><br>
+
+I will use the following toy tabulated data:
+
+    Antacid <- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)    
+    Antacid_marginals <- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)
+        Antacid_marginals <- rbind(Antacid_marginals, margin.table(Antacid_marginals,2))
+        Antacid_marginals <- cbind(Antacid_marginals, margin.table(Antacid_marginals,1))
+        dimnames(Antacid_marginals) = list(Symptoms = c("Heartburn", "Normal","Totals"),
+                                           Medication = c("Drug A", "Drug B", "Totals"))
+
+This is what it looks like (with marginals):
+
+               Medication
+    Symptoms    Drug A Drug B Totals
+      Heartburn     64     92    156
+      Normal       114     98    212
+      Totals       178    190    368
+
+So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to see if there are differences in the proportion of heartburn symptoms between drug A and B, i.e. $p1 = 64/178$ vs $p2 = 92/190$.
+
+**1.** [FISHER EXACT TEST][1]: There is a discussion on Wikipedia about "Controversies". Based on the hypergeometric distribution, it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. The story of the RA Fisher and the tea lady is great, and can be reproduced in [R] by simply grabbing the code [here][2]. [R] seems to tolerate without a pause the large numbers in our data (no problem with factorials):
+
+   
+
+     Antacid <- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)
+        fisher.test(Antacid, alternative = "two.sided")
+    	Fisher's Exact Test for Count Data
+    data:  Antacid
+    p-value = 0.02011
+    alternative hypothesis: true odds ratio is not equal to 1
+    95 percent confidence interval:
+     0.3850709 0.9277156
+    sample estimates:
+    odds ratio 
+     0.5988478 
+
+ 
+
+**2.** [CHI-SQUARE TEST OF HOMOGENEITY:][3] Otherwise known as the goodness of fit Pearson's chi squared test. For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^)$, then $X^2\sim \chi^2(1))$:
+
+                        Medication
+    Symptoms       Drug A                   Drug B               
+    Heartburn     156 * 178 / 368 = 75      156 * 190 / 368 = 81 
+    Normal        212 * 178 / 368 = 103     212 * 190 / 368 = 109
+
+The degrees of freedom will be [calculated as][4] the {number of `populations` (`Heartburn` sufferers and `Normals`, i.e. `2`) *`minus 1`* } * {number of levels in the `categorical variable` (`Drug A` and `Drug B`, i.e. `2`) *`minus 1`*}. Therefore, in a `2x2` table we are dealing with `1 d.f`. And crucially, a $\chi^2$ of $1\,df$ is exactly a `squared` $N \sim (0,1)$ ([proof here][5]), which explains the sentence "a chi-square test for equality of two proportions is exactly the same thing as a z-test. The chi-squared distribution with one degree of freedom is just that of a normal deviate, squared. You're basically just repeating the chi-squared test on a subset of the contingency table" [in this post][6]. 
+
+The Test Statistic is calculated as:
+
+$\chi^2=\frac{(64-75)^2}{75} + \frac{(92-81)^2}{81} +\frac{(114-103)^2}{103} + \frac{(98-109)^2}{109} = 5.39$
+
+This is calculated in `R` with the function `prop.test()` or `chisq.test()`, which should yield the same result, as indicated [here][7]:
+
+    prop.test(Antacid, correct = F)
+
+	2-sample test for equality of proportions without continuity correction
+
+    data:  Antacid
+    X-squared = 5.8481, df = 1, p-value = 0.01559
+    alternative hypothesis: two.sided
+    95 percent confidence interval:
+     -0.22976374 -0.02519514
+    sample estimates:
+       prop 1    prop 2 
+    0.4102564 0.5377358 
+
+or..
+
+    chisq.test(Antacid, correct = F)
+    
+    Pearson's Chi-squared test
+    
+    data:  Antacid
+    X-squared = 5.8481, df = 1, p-value = 0.01559
+
+**3.** [G-TEST][9]: The Pearson's chi-test statistic is the second order Taylor expansion around 1 of the G test; hence they tend to converge. In `R`:
+
+    
+    library(DescTools) 
+    GTest(Antacid, correct = 'none')
+	Log likelihood ratio (G-test) test of
+	independence without correction
+
+    data:  Antacid
+    G = 5.8703, X-squared df = 1, p-value = 0.0154
+
+**4.** [Z-TEST OF PROPORTIONS][3]: The normal distribution is a good approximation for a binomial when $np>5$ and $n(1-p)>5$. When the occurrences of successes are small in comparison with the total amount of observations, it is the actual number of expected observations that will determine if a [normal approximation of a poisson process][8] can be considered ($\lambda \geq 5$).
+
+Although the [post hyperlinked][3] is old, I haven't found in CV an `R` function for it. This may be due to the fact explained above re: $\chi^2_{(df=1)}\sim \, N_{(0,1)}^2$.  
+
+The Test Statistic is:
+
+$ \displaystyle Z = \frac{\frac{x_1}{n_1}-\frac{x_2}{n_2}}{\sqrt{p\,(1-p)(1/n_1+1/n_2)}}$ with $\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}$, where $x_1$ and $x_2$ are the number of "successes" (in our case, sadly, heartburn), over the number of subjects in that each one of the levels of the categorical variable (`Drug A` and `Drug B`), i.e. $n_1$ and $n_2$.
+
+In the [linked page][3] there is an *ad hoc* formula. I have been toying with a spin-off with a lot of loose ends. It defaults to a two-tailed alpha value of `0.05`, but can be changed, as much as it can be turned into a one tailed `t = 1`:
+
+    zprop = function(x1, x2, n1, n2, alpha=0.05, t = 2){
+      nume = (x1/n1) - (x2/n2)
+      p = (x1 + x2) / (n1 + n2)
+      deno = sqrt(p * (1 - p) * (1/n1 + 1/n2))
+      z = nume / deno
+      print(c("Z value:",abs(round(z,4))))
+      print(c("Cut-off quantile:", 
+        abs(round(qnorm(alpha/t),2))))
+      print(c("pvalue:", pnorm(-abs(z))))
+    }
+
+In our case:
+
+        zprop(64, 92 , 178, 190)
+        [1] Z value:          2.4183  
+        [1] Cut-off quantile: 1.96             
+        [1] pvalue:           0.0077
+
+Giving the same z value as the function in the R-Bloggers: `z.prop(64, 178 , 92, 190) [1] -5.44273`
+
+Original post [here][10]
+
+
+  [1]: https://en.wikipedia.org/wiki/Fisher%27s_exact_test
+  [2]: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/fisher.test.html
+  [3]: http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/
+  [4]: http://stattrek.com/chi-square-test/homogeneity.aspx?Tutorial=AP
+  [5]: http://math.stackexchange.com/q/1384338/152225
+  [6]: http://stats.stackexchange.com/a/2443/67822
+  [7]: http://stats.stackexchange.com/a/2424/67822
+  [8]: http://stats.stackexchange.com/q/51494/67822
+  [9]: https://en.wikipedia.org/wiki/G-test
+  [10]: http://stats.stackexchange.com/a/167988/67822
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
