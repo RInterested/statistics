@@ -31,52 +31,13 @@ $\Large \frac{\bar{X}\,-\,\mu}{S/\sqrt{n}}\sim t_{n-1}$
 
 with $\large S=\sqrt{\frac{\sum(X_i-\bar X)^2}{n-1}}$ (Bessel's correction).
 
-
-
-
 Why?
 
 $$\Large\frac{\bar{X}\,-\,\mu}{S/\sqrt{n}} = \frac{\bar{X}\,-\,\mu}{\frac{\sigma}{\sqrt{n}}} \frac{1}{\frac{S}{\sigma}}= Z\,\frac{1}{\frac{S}{\sigma}} = \frac{Z}{\sqrt{\frac{\sum(X_i-\bar X)^2}{(n-1)\,\sigma^2}}} \sim\frac{Z}{\sqrt{\frac{\chi_{n - 1}^2}{n-1}}} \sim t_{n-1}\small \tag 1$$
 
-How did the chi square ($\chi^2$) made its entry into the $pdf$? It's the distribution that models $X^2$ with $X\sim N(0,1)$:
+How did the chi square ($\chi^2$) made its entry into the $pdf$? It's the distribution that models $X^2$ with $X\sim N(0,1)$.
 
----
-
-####Proof that $\chi^2$ models $X^2$ with $X\sim N(0,1)$:
-<br><br>
-
-
-Let's say that $X \sim N(0,1)$ and that $Y=X^2$ and find the density of $Y$ by using the $cdf$ method:
-
-
-$p(Y \leq y) = p(X^2 \leq y)= p(-\sqrt{y} \leq x \leq \sqrt{y})$. The problem is that we cannot integrate in close form the density of the normal distribution. But we can express it:
-
-$$ F_X(y) = F_X(\sqrt{y})- F_X(-\sqrt[]{y}).$$ Taking the derivative:
-
-$$ f_X(y)= F_X'(\sqrt{y})\,\frac{1}{2\sqrt{y}}+
-F_X'(\sqrt{-y})\,\frac{1}{2\sqrt{y}}.$$
-
-Since the values of the normal $pdf$ are symmetrical:
-
-$\large f_X(y)= 
-F_X'(\sqrt{y})\,\frac{1}{\sqrt{y}}$. Equating this to the $pdf$ of the normal (now the $x$ in the $pdf$ will be $\sqrt{y}$ to be plugged into the $\large e^{-\frac{x^2}{2}}$ part of the normal $pdf$); and remembering to in include $\large \frac{1}{\sqrt{y}}$ at the end:
-
-$$\large f_X(y)= 
-F_X'(\sqrt[]{y})\,\frac{1}{\sqrt[]{y}}=
-\frac{1}{\sqrt{2\pi}}\,e^{-\frac{y}{2}}\,
-\frac{1}{\sqrt[]{y}}=\frac{1}{\sqrt{2\pi}}\,e^{-\frac{y}{2}}\,
-y^{\frac{1}{2}- 1}$$
-
-Compare to the pdf of the chi square:
-
-$$\Large f_X(x)= \frac{1}{2^{\nu/2}\Gamma(\frac{\nu}{2})}e^{\frac{-x}{2}}x^{\frac{\nu}{2}-1}$$
-
-Since $\Gamma(1/2)=\sqrt{\pi}$, for $1$ df, we have derived exactly the $pdf$ of the chi square.
-
-<br>
-In general, if $X_1, \ldots, X_n$ are $\sim \chi^2_{1\,df}$, then  $X_1 +\cdots+X_n \sim \chi^2\,\small(n\text{ df})$
-
----
+In general, if $X_1, \ldots, X_n$ are $\sim \chi^2_{1\,df}$, then  $X_1 +\cdots+X_n \sim \chi^2\,\small(n\text{ df})$ [here][7].
 
 And in the case of the $t$-distribution the chi-square is suitable to model the sum of squared normals $\large \sum(X_i-\bar X)^2$ in (1)), a well known property [derived here][4], typically with $n$ degrees of freedom, but why is it $n\,-\,1$ here? In other words, why...
 
@@ -84,8 +45,8 @@ $\Large \frac{\sum(X_i - \bar X)^2}{\sigma^2}$ in equation (1) becomes $\Large \
 
 The explanation is in the [answer here][5].
 
+In a nutshell, there aren't $n$ $X_i$ independently distributed random variables corresponding to the different observations, each one following a $\chi^2$ distribution. In fact there are only $n-1$ because of the insertion of the $\bar X$ in the mix.
 
----
 
 ###[DERIVATION OF THE $pdf$ OF THE $t$ DISTRIBUTION:][6]
 
@@ -149,7 +110,7 @@ $\Large x^{\alpha-1}\,e^{x\,\lambda}$
 <br><br>
 
 with parameters $\large (\alpha=(k+1)/2,\,\lambda=(1/2)(1+t^2/k))$.
-<br>
+<br><br>
 The generic pdf for the gamma distribution is,
 
 
@@ -218,3 +179,4 @@ which is the $pdf$ of the $t$-Student or Gosset distribution with $k$ degrees of
   [4]: http://math.stackexchange.com/q/1383709/152225
   [5]: http://math.stackexchange.com/a/1384414/152225
   [6]: http://math.stackexchange.com/a/1386078/152225
+  [7]: http://rinterested.github.io/statistics/chi_square.html
