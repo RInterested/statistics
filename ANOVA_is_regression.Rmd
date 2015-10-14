@@ -1,1 +1,145 @@
+---
+title: "ANOVA is a form of REGRESSION"
+output: html_document
+---
 
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="50" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10472938/5c01c1ca-71f4-11e5-87b8-1de0e43c604f.png"></a>
+
+<br><br>
+
+###ANOVA IS JUST A FORM OF REGRESSION:
+
+<br><br>
+
+Let me put some color into the idea that OLS with categorical (*dummy-coded*) regressors is equivalent to the *factors* in ANOVA. In both cases there are *levels* (or *groups* in the case of ANOVA). 
+
+In OLS regression it is most usual to have also continuous variables in the regressors. These logically modify the relationship in the fit model between the categorical variables and the dependent variable (DV). But not to the point of making the parallel unrecognizable. 
+
+Based on th `mtcars` data set we can first visualize the model `lm(mpg ~ wt + as.factor(cyl), data = mtcars)` as the slope determined by the continuous variable `wt` (weight), and the different intercepts projecting the effect of the categorical variable cylinder (four, six or eight cylinders). It is this last part that forms a parallel with a one-way ANOVA.
+
+Let's see it graphically on the plot to the right (the three plots to the left are included for side-to-side comparison with the ANOVA model discussed immediately afterwards):
+
+[![enter image description here][1]][1]
+
+Each cylinder engine is color coded, and the distance between the fitted lines with different intercepts and the data cloud is the equivalent of within group variation in an ANOVA (not mathematically identical, though, due to the effect of `weight`). The slope of the lines is the coefficient for the continuous variable `weight`.
+
+If you try to suppress the effect of `weight` by mentally straightening these lines and returning them to the horizontal line, you'll end up with the ANOVA plot of the model `aov(mtcars$mpg ~ as.factor(mtcars$cyl))` on the three subplots to the left. The `weight` regressor is now out, but the relationship from the points to the different intercepts is roughly preserved - we are simply rotating counter-clockwise and spreading out the previously overlapping plots for each different level (again, only as a visual device to "see" the connection; not as a mathematical equality, since we are comparing two different models!). 
+
+Each level in the factor `cylinder` is separated, and the vertical lines represent the residuals or within-group error: the distance from each point in the cloud and the mean for each level (appropriately color-coded horizontal line). The color gradient gives us an indication of how significant the levels are in validating the model: the more clustered the data points are around their group means, the more likely the ANOVA model will be statistically significant. The horizontal black line around $\small 20$ in all the plots is the mean for all the factors. The numbers in the $x$-axis are simply the placeholder number/identifier for each point within each level, and don't have any further purpose than to separate points along the horizontal line to allow a plotting display different to boxplots.
+
+And it is through the sum of these vertical segments that we can manually calculate the residuals:
+
+    mu_mpg <- mean(mtcars$mpg)                      # Mean mpg in dataset
+TSS <- sum((mtcars$mpg - mu_mpg)^2)             # Total sum of squares
+    SumSq=sum((mtcars[mtcars$cyl==4,"mpg"]-mean(mtcars[mtcars$cyl=="4","mpg"]))^2)+
+    sum((mtcars[mtcars$cyl==6,"mpg"] - mean(mtcars[mtcars$cyl=="6","mpg"]))^2)+
+    sum((mtcars[mtcars$cyl==8,"mpg"] - mean(mtcars[mtcars$cyl=="8","mpg"]))^2)
+
+The result: `SumSq  = 301.2626` and `TSS - SumSq = 824.7846`. Compare to:
+
+    Call:
+       aov(formula = mtcars$mpg ~ as.factor(mtcars$cyl))
+    
+    Terms:
+                    as.factor(mtcars$cyl) Residuals
+    Sum of Squares               824.7846  301.2626
+    Deg. of Freedom                     2        29
+
+Exactly the same result as testing with an ANOVA the linear model with only the categorical `cylinder` as regressor: 
+
+    fit <- lm(mpg ~ as.factor(cyl), data = mtcars)
+    summary(fit)
+    anova(fit)
+
+    Analysis of Variance Table
+    
+    Response: mpg
+                   Df Sum Sq Mean Sq F value    Pr(>F)    
+    as.factor(cyl)  2 824.78  412.39  39.697 4.979e-09 ***
+    Residuals      29 301.26   10.39 
+
+                     
+What we see, then, is that the residuals - the part of the total variance not explained by the model - as well as the variance are the same whether you call an OLS of the type `lm(DV ~ factors)`, or an ANOVA (`aov(DV ~ factors)`): when we strip the model of continuous variables we end up with an identical system. Similarly, when we evaluate the models globally or as an omnibus ANOVA (not level by level), we naturally get the same $p$-value `F-statistic:  39.7 on 2 and 29 DF,  p-value: 4.979e-09`.
+
+This is not to imply that the testing of individual levels is going to yield identical $p$-values. In the case of OLS, we can invoke `summary(fit)` and get:
+
+    lm(formula = mpg ~ as.factor(cyl), data = mtcars)
+    
+                    Estimate Std. Error t value                           Pr(>|t|)    
+    (Intercept)      26.6636     0.9718  27.437                           < 2e-16 ***
+    as.factor(cyl)6  -6.9208     1.5583  -4.441                           0.000119 ***
+    as.factor(cyl)8 -11.5636     1.2986  -8.905                           8.57e-10 ***
+
+This is not possible in ANOVA, which is more of an omnibus test. To get these types of $p$-value assessments we need to run a Tukey Honest Significant Difference test, which will try to reduce the possibility of a type I error as a result of performing multiple pairwise comparisons (hence, "`p adjusted`"), resulting in a completely different output:
+
+      Tukey multiple comparisons of means
+        95% family-wise confidence level
+    
+    Fit: aov(formula = mtcars$mpg ~ as.factor(mtcars$cyl))
+    
+    $`as.factor(mtcars$cyl)`
+              diff        lwr        upr                                      p adj
+    6-4  -6.920779 -10.769350 -3.0722086                                    0.0003424
+    8-4 -11.563636 -14.770779 -8.3564942                                    0.0000000
+    8-6  -4.642857  -8.327583 -0.9581313                                    0.0112287
+
+Ultimately, nothing is more reassuring that checking getting a glimpse of the engine under the hood, which non other than the model matrices, and the projections in the column space. These are actually quite simple in the case of an ANOVA: 
+
+$$\small\begin{bmatrix} y_1 \\ y_2 \\ y_3 \\ \vdots \\\vdots\\\vdots\\.\\y_n
+\end{bmatrix} = 
+\begin{bmatrix} 1 & 0 & 0 \\ 1 & 0 & 0  
+\\ \vdots & \vdots & \vdots \\ 
+0 & 1 & 0 \\ 0 & 1 & 0 
+\\ \vdots & \vdots & \vdots \\ 
+.&.&.\\
+0 & 0 & 1 \\ 0 & 0 & 1 \\
+\end{bmatrix} 
+\begin{bmatrix} 
+\mu_1\\
+\mu_2\\
+\mu_3
+\end{bmatrix}
++\begin{bmatrix} 
+\varepsilon_1 \\
+\varepsilon_2\\
+\varepsilon_3\\
+\vdots\\
+\vdots\\
+\vdots\\
+.\\
+\varepsilon_n
+\end{bmatrix}$$ 
+
+This would be the one-way ANOVA model matrix with three levels (e.g. `cyl 4`, `cyl 6`, `cyl 8`), summarized as $\small y_{ij} = \mu_i + \epsilon_{ij}$, where $\mu_i$ is the mean at each level or group: when the error or residual for the observation $j$ of the group or level $i$ is added, we obtain the actual DV $y_{ij}$ observation.
+
+On the other hand, the model matrix for an OLS regression is:
+
+$$\small\begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ y_4 \\ \vdots \\ y_n \end{bmatrix} = 
+\begin{bmatrix} 1 & x_{12} & x_{13}\\ 1 & x_{22} & x_{23}  \\ 1 & x_{32} & x_{33} \\ 1 & x_{42} & x_{43}  \\ \vdots & \vdots  & \vdots \\1 & x_{n2} & x_{n3}  \end{bmatrix}
+\begin{bmatrix} \beta_0 \\ \beta_1 \\ \beta_2  \end{bmatrix}
++ 
+\begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ \varepsilon_3 \\ \varepsilon_4 \\ \vdots \\ \varepsilon_n \end{bmatrix}$$
+
+This is of the form $ \small y_i = \beta_0 + \beta_1\, x_{i1} + \beta_2\, x_{i2} + \epsilon_i $ with a single intercept $\beta_0$ and two slopes ($\beta_1$ and $\beta_2$) each for a different continuous variables, say `weight` and `displacement`.
+
+The trick now is to see how we can create different intercepts, as in the initial example - so let's get rid of the second slope and stick to the original single continuous variable `weight` (in other words, one single column besides the column of ones in the model matrix; the intercept $\beta_0$ and the slope for `weight`, $\beta_1$). The column of ones will by default correspond to the `cyl 4` intercept, which will be shifted via dummy coding as follows:
+
+$$\small\begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ y_4\\ y_5 \\ \vdots \\ y_n\end{bmatrix} = 
+\begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ 1 & x_3 \\ 1 & x_4 \\ 1 & x_5 \\ \vdots & \vdots \\1 & x_n \end{bmatrix}
+\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}+ 
+\begin{bmatrix}1&0\\1&0\\1&0\\0&1\\0&1\\ \vdots & \vdots\\0&1\end{bmatrix}
+\begin{bmatrix} \mu_2 \\ \mu_3 \end{bmatrix}
++
+\begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ \varepsilon_3 \\ \varepsilon_4 \\ \varepsilon_5\\ \vdots \\ \varepsilon_n \end{bmatrix}$$
+
+Now when the third column is $1$ we'll be systematically shifting the intercept by $\mu_2$, and when the fourth column is $1$, it'll be instead $\mu_3$ added to the intercept. The matrix equation, hence, will be $\small y_i = \beta_0 + \beta_1\, x_i + \mu_i + \epsilon_i $. Therefore, going with this model to the ANOVA model is just a matter of getting rid of the continuous variables, and understanding that the default intercept in OLS corresponds to the first level in ANOVA.
+
+
+  [1]: http://i.stack.imgur.com/ZYPQm.png
+  [2]: http://i.stack.imgur.com/oFZKy.png
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
