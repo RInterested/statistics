@@ -6,6 +6,40 @@ output: html_document
 <img HEIGHT="50" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10472938/5c01c1ca-71f4-11e5-87b8-1de0e43c604f.png"></a>
 
 <br><br>
+
+####Proof that $\chi^2$ models $X^2$ with $X\sim N(0,1)$:
+<br><br>
+
+
+Let's say that $X \sim N(0,1)$ and that $Y=X^2$ and find the density of $Y$ by using the $cdf$ method:
+
+
+$p(Y \leq y) = p(X^2 \leq y)= p(-\sqrt{y} \leq x \leq \sqrt{y})$. The problem is that we cannot integrate in close form the density of the normal distribution. But we can express it:
+
+$$ F_X(y) = F_X(\sqrt{y})- F_X(-\sqrt[]{y}).$$ Taking the derivative:
+
+$$ f_X(y)= F_X'(\sqrt{y})\,\frac{1}{2\sqrt{y}}+
+F_X'(\sqrt{-y})\,\frac{1}{2\sqrt{y}}.$$
+
+Since the values of the normal $pdf$ are symmetrical:
+
+$\large f_X(y)= 
+F_X'(\sqrt{y})\,\frac{1}{\sqrt{y}}$. Equating this to the $pdf$ of the normal (now the $x$ in the $pdf$ will be $\sqrt{y}$ to be plugged into the $\large e^{-\frac{x^2}{2}}$ part of the normal $pdf$); and remembering to in include $\large \frac{1}{\sqrt{y}}$ at the end:
+
+$$\large f_X(y)= 
+F_X'(\sqrt[]{y})\,\frac{1}{\sqrt[]{y}}=
+\frac{1}{\sqrt{2\pi}}\,e^{-\frac{y}{2}}\,
+\frac{1}{\sqrt[]{y}}=\frac{1}{\sqrt{2\pi}}\,e^{-\frac{y}{2}}\,
+y^{\frac{1}{2}- 1}$$
+
+Compare to the pdf of the chi square:
+
+$$\Large f_X(x)= \frac{1}{2^{\nu/2}\Gamma(\frac{\nu}{2})}e^{\frac{-x}{2}}x^{\frac{\nu}{2}-1}$$
+
+Since $\Gamma(1/2)=\sqrt{\pi}$, for $1$ df, we have derived exactly the $pdf$ of the chi square.
+
+
+<br><br>
 There is a [youtube][1] video dealing with the proof that the sums of the squares of normally distributed $n$ random errors, each one distributed as $\sim \chi^2(1\text{ df})$ follows a chi square distribution with $n$ degrees of freedom:
 
 So if $X_1, \ldots, X_n$ are $\sim \chi^2 \,\small(1\text{ df})$, then $X_1 +\cdots+X_n \sim \chi^2\,\small(n\text{ df})$.
