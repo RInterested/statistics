@@ -1,1 +1,88 @@
+---
+title: "OLS"
+output: html_document
+---
 
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="50" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10472938/5c01c1ca-71f4-11e5-87b8-1de0e43c604f.png"></a>
+
+<br><br>
+
+I want to walk through the process of proving to oneself that the results in R with a simple example can be reached following the linear algebra of projections onto the column space, and perpendicular (dot product) errors concept, illustrated in different posts, and nicely explained by Dr. Strang in *Linear Algebra and Its Applications*, and readily accessible [here][1].
+
+In order to estimate the coefficients $\small \beta$ in the regression,
+
+ $$\small mpg = intercept\,(cyl=4) + \beta_1\,*\,weight + D1\,* intercept\,(cyl=6) + D2\, * intercept\,(cyl=8)\,\,\,\,[*]$$
+
+with $\small D1$ and $\small D2$ representing dummy variables with values [0,1],
+we first would need to include in the ***design matrix*** ($\small X$) the dummy coding for the number of cylinders, as follows:
+
+```{r}
+    attach(mtcars)    
+    x1 <- wt
+        
+        x2 <- cyl; x2[x2==4] <- 1; x2[!x2==1] <-0
+        
+        x3 <- cyl; x3[x3==6] <- 1; x3[!x3==1] <-0
+        
+        x4 <- cyl; x4[x4==8] <- 1; x4[!x4==1] <-0
+        
+        X <- cbind(x1, x2, x3, x4)
+        colnames(X) <-c('wt','4cyl', '6cyl', '8cyl')
+```
+
+    head(X)
+            wt 4cyl 6cyl 8cyl
+    [1,] 2.620    0    1    0
+    [2,] 2.875    0    1    0
+    [3,] 2.320    1    0    0
+    [4,] 3.215    0    1    0
+    [5,] 3.440    0    0    1
+    [6,] 3.460    0    1    0
+
+
+If the design matrix had to parallel strictly equation $\small [*]$ (above), where the first intercept corresponds to cars of four cylinders, as in the `lm` without a `-1', it would require a first column of just ones, but we'll derive the same results without this intercept column.
+
+Continuing then, to calculate the coefficients ($\small\beta$) we need the ***projection matrix*** - we project the vector of the independent variable values on to the column space of the vectors constituting the *design matrix*. The linear algebra is $\small ProjMatrix = \small (X^{T}X)^{-1}X^{T}$, which multiplied by the vector of the independent variable: $\large [ProjMatrix] \,[y]\, =\, [RegrCoef's]$, or $\large (X^{T}X)^{-1}X^{T}\,y = \beta$:
+
+```{r}
+    X_tr_X_inv <- solve(t(X) %*% X)    
+    Proj_M <- X_tr_X_inv %*% t(X)
+    Proj_M %*% mpg
+```
+ 
+
+Identical to: `coef(lm(mpg ~ wt + as.factor(cyl)-1))`.
+
+Finally, to calculate the predicted values, we will need the ***hat matrix***, which is defined as, $\small Hat Matrix = \small X(X^{T}X)^{-1}X^{T}$. This is readily calculated as:
+
+```{r}    
+HAT <- X %*% X_tr_X_inv %*% t(X)
+```
+
+And the estimated ($\hat{y}$) values as $\small X(X^{T}X)^{-1}X^{T}\,y$, in this case: 
+
+```{r}
+y_hat <- HAT %*% mpg
+```
+
+which gives identical values to:
+
+```{r}
+cyl <- as.factor(cyl); OLS <- lm(mpg ~ wt + cyl); predict(OLS)
+```
+
+
+```{r}    
+y_hat <- as.numeric(y_hat)
+predicted <- as.numeric(predict(OLS))
+all.equal(y_hat,predicted)
+```
+
+
+  [1]: https://youtu.be/osh80YCg_GM
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
