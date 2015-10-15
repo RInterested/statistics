@@ -78,8 +78,11 @@ img {
 <p>If you try to suppress the effect of <code>weight</code> by mentally straightening these lines and returning them to the horizontal line, you’ll end up with the ANOVA plot of the model <code>aov(mtcars$mpg ~ as.factor(mtcars$cyl))</code> on the three subplots to the left. The <code>weight</code> regressor is now out, but the relationship from the points to the different intercepts is roughly preserved - we are simply rotating counter-clockwise and spreading out the previously overlapping plots for each different level (again, only as a visual device to “see” the connection; not as a mathematical equality, since we are comparing two different models!).</p>
 <p>Each level in the factor <code>cylinder</code> is separated, and the vertical lines represent the residuals or within-group error: the distance from each point in the cloud and the mean for each level (appropriately color-coded horizontal line). The color gradient gives us an indication of how significant the levels are in validating the model: the more clustered the data points are around their group means, the more likely the ANOVA model will be statistically significant. The horizontal black line around <span class="math">\(\small 20\)</span> in all the plots is the mean for all the factors. The numbers in the <span class="math">\(x\)</span>-axis are simply the placeholder number/identifier for each point within each level, and don’t have any further purpose than to separate points along the horizontal line to allow a plotting display different to boxplots.</p>
 <p>And it is through the sum of these vertical segments that we can manually calculate the residuals:</p>
-<pre><code>mu_mpg &lt;- mean(mtcars$mpg)                      # Mean mpg in dataset</code></pre>
-<p>TSS &lt;- sum((mtcars<span class="math">\(mpg - mu_mpg)^2) # Total sum of squares  SumSq=sum((mtcars[mtcars\)</span>cyl==4,“mpg”]-mean(mtcars[mtcars$cyl==“4”,“mpg”]))^2)+ sum((mtcars[mtcars$cyl==6,“mpg”] - mean(mtcars[mtcars$cyl==“6”,“mpg”]))^2)+ sum((mtcars[mtcars$cyl==8,“mpg”] - mean(mtcars[mtcars$cyl==“8”,“mpg”]))^2)</p>
+<pre class="r"><code>mu_mpg &lt;- mean(mtcars$mpg)                      # Mean mpg in dataset
+TSS &lt;- sum((mtcars$mpg - mu_mpg)^2)             # Total sum of squares
+SumSq=sum((mtcars[mtcars$cyl==4,&quot;mpg&quot;] - mean(mtcars[mtcars$cyl==&quot;4&quot;,&quot;mpg&quot;]))^2)+
+sum((mtcars[mtcars$cyl==6,&quot;mpg&quot;] - mean(mtcars[mtcars$cyl==&quot;6&quot;,&quot;mpg&quot;]))^2)+
+sum((mtcars[mtcars$cyl==8,&quot;mpg&quot;] - mean(mtcars[mtcars$cyl==&quot;8&quot;,&quot;mpg&quot;]))^2)</code></pre>
 <p>The result: <code>SumSq  = 301.2626</code> and <code>TSS - SumSq = 824.7846</code>. Compare to:</p>
 <pre><code>Call:
    aov(formula = mtcars$mpg ~ as.factor(mtcars$cyl))

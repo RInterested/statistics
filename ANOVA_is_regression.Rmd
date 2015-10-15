@@ -30,11 +30,13 @@ Each level in the factor `cylinder` is separated, and the vertical lines represe
 
 And it is through the sum of these vertical segments that we can manually calculate the residuals:
 
-    mu_mpg <- mean(mtcars$mpg)                      # Mean mpg in dataset
+```{r}
+mu_mpg <- mean(mtcars$mpg)                      # Mean mpg in dataset
 TSS <- sum((mtcars$mpg - mu_mpg)^2)             # Total sum of squares
-    SumSq=sum((mtcars[mtcars$cyl==4,"mpg"]-mean(mtcars[mtcars$cyl=="4","mpg"]))^2)+
-    sum((mtcars[mtcars$cyl==6,"mpg"] - mean(mtcars[mtcars$cyl=="6","mpg"]))^2)+
-    sum((mtcars[mtcars$cyl==8,"mpg"] - mean(mtcars[mtcars$cyl=="8","mpg"]))^2)
+SumSq=sum((mtcars[mtcars$cyl==4,"mpg"] - mean(mtcars[mtcars$cyl=="4","mpg"]))^2)+
+sum((mtcars[mtcars$cyl==6,"mpg"] - mean(mtcars[mtcars$cyl=="6","mpg"]))^2)+
+sum((mtcars[mtcars$cyl==8,"mpg"] - mean(mtcars[mtcars$cyl=="8","mpg"]))^2)
+```
 
 The result: `SumSq  = 301.2626` and `TSS - SumSq = 824.7846`. Compare to:
 
