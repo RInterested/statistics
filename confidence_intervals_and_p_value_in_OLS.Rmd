@@ -52,17 +52,17 @@ And we are going to collect both the intercepts and the slopes (I'll call them `
 
 And combine both into a new data.frame: `reg_lines <- data.frame(intercepts, betas)`. As expected given the normal randomness of the noise the histogram of the slopes will be gaussian looking:
 
- <img src="http://i.stack.imgur.com/CguLZ.png" width="400" height="400">
+ <img src="https://cloud.githubusercontent.com/assets/9312897/10548086/757e8de0-7406-11e5-84d1-de0b73f981c6.png" width="400" height="400">
 
 And if we plot all the regression lines that we fitted in each single one of the $100$ samples from the rows in the `population` we'll see how any single one is just an approximation, because they do oscillate between a maximum and a minimum in both intercept and slope. This is what they look like:
 
- <img src="http://i.stack.imgur.com/ssG0v.png" width="400" height="400">
+ <img src="https://cloud.githubusercontent.com/assets/9312897/10548079/6afc137e-7406-11e5-8f80-fe2d727a6c8a.png" width="400" height="400">
 
 But we do live in the real world, and what we have is just a sample... Just one of those multicolored lines, through which we are trying to estimate *the truth* (i.e. intercept of $10$ and slope of $0.4$). Let's conjure this sample: `S <- population[sample(nrow(population), 100),]; S$y <- S$y + rnorm(100, 0, 10)`, and its OLS regression line: `fit <- lm(y ~ x, data = S)`.
 
 Since we are playing god, let's plot our biased sample (dark blue dots of the with dark blue fitted regression line) together with the true line in solid green, and the maximum and minimum combinations of intercepts and slopes we got in our simulation (dashed red lines), giving us an idea of how off we could possibly be from the true line):
 
- <img src="http://i.stack.imgur.com/P0IFu.png" width="400" height="400">
+ <img src="https://cloud.githubusercontent.com/assets/9312897/10548092/809ad1ca-7406-11e5-89ac-6e923e78e759.png" width="400" height="400">
 
 Let's quantify this possible error using a Wald interval for the slopes to generate the 5% confidence interval:
 
