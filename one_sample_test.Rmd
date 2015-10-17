@@ -37,10 +37,77 @@ If $n$ is small we will do exactly the same thing but with a $t$ test:
 
 $\Large \frac{C - \mu_o}{s/\sqrt{n}}$ `= qt(0.95, n - 1)`
 
+
+<br><br>
+**Is the Mean of a Large Sample Consistent with Known Population Mean?**
+
+Example: We know that mean glucose concentration in blood is `100 mg/dL`, and we are studying an ethnic group with very low prevalence of metabolic syndrome. We sample 100 of these individuals, and we get a `mean [glucose] = 98 mg/dL` with a `sd = 10 mg/dL`. Is it reasonable to conclude with a risk alpha of 5% that this group has lower glucose levels than the general population?
+
+When sample size is larger than 30, we can consider using a z-test. Typically the standard deviation of the sample will have to be used to substitute for the unknown parameter. In the example above we want a left-tailed test: $\small H_1: \bar X < \mu$. We use the central limit theorem, which tells us that the sample distribution of the sample means has a standard error, $\small SE=\frac{\sigma}{\sqrt n}$, with $\sigma$ corresponding to the population standard deviation, and we get the following statistic:
+
+$z = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$. Again, since $\sigma$ is unknown we have to use the unbiased SD of the sample.
+
+What would happen if we sampled multiple times from the presumed population (Monte Carlo): `means <- replicate(1e6, mean(rnorm(100, 100, 10)))`? We would end up with the following density with the area of type 1 error shaded in red:
+
+
+ <img src="https://cloud.githubusercontent.com/assets/9312897/10556675/1013cc70-7458-11e5-9744-edce1c20ba3a.png" width="300" height="300">
+
+
+In our example: `z= (98-100)/(10/sqrt(100)) = -2`, which needs to be compared to `qnorm(0.05) = -1.644854`. Therefore we reject the $\small H_0: \bar X=\mu$.
+
+**Is the Mean of a Small Sample Consistent with Known Population Mean?**
+
+Consider the example above, but with a sample size of `n = 16` individuals. The distribution of the same statistic would follow a $t$-distribution, and the test applied is the "one-sample $t$ test":
+
+$t = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$. So, identical statistic, but now we go to the $t$ tables: `n = 16; qt(0.05, n - 1) = -1.75305` (`n - 1` corresponds to the degrees of freedom). We reject the null just as well, but notice that this time it was a bit harder to reject (broader tails of the $t$ distribution).
+
+**Confidence Interval Calculation:**
+
+Based on the prior example and with `n = 16` we want to calculate the 95% percent confidence interval around the sample mean. In this case we don't know the population mean, but we will assume that if we were to repeat the sampling from the population 100 times, in 95% of the times, it would be comprised within the interval. The formula is derived from the two-tailed $t$ test:
+
+Under $H_0$,
+
+$\left| \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}\right|\leq t_{(1-\alpha/2, \,n - 1)}$. Hence, $\left| \bar X - \mu\right|\leq t_{(1-\alpha/2, \,n - 1)}\, \frac{\sigma}{\sqrt n}$, or:
+
+$$\bar X- t_{(1-\alpha/2, \,n - 1)}\, \frac{\sigma}{\sqrt n}\, <\mu<\bar X + t_{(1-\alpha/2, \,n - 1)}\, \frac{\sigma}{\sqrt n}$$
+
+In R, `n = 16; 98 + c(-1,1) * qt(1 - 0.5/2, n -1) * 10/sqrt(n) = 96.27201 to 99.72799`
+
+Alternatively, the confidence interval can be calculated using the normal distribution in larger samples (let's imagine `n=100`), using the formula: `n = 100; 98 + c(-1,1) * qnorm(1 - 0.5/2) * 10/sqrt(n)`.
+
+**Comparing two Group Means with Pooled Variance:**
+
+Example: We want to look into the effects of Dexmethylphenidate on weight in children with ADHD, and we randomized `n1 = 15` children to treatment, and `n2 = 15` to placebo, measuring weight before the beginning of the treatment and again 2 months later. The treated group dropped an average of `delta1 = -2.4 lbs.` (with a `SD1 = 0.4 lbs.`), while the placebo group did also drop, but only `delta2 = -0.9 lbs.` (with a `SD2 = 0.8 lbs.`). Is the difference significant (two-tailed test)?
+
+First off we need to calculate the [pooled variance][1]:
+
+$$\small s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}$$
+
+In our case: $sp^2 =\frac{(n1-1) * SD_1^2 \,+\, (n2-2)^ * SD_2^2}{n1 + n2 -2} = \frac{1}{2} (SD_1^2+ SD_2^2)$. 
+
+The SE will be calculated as $SE = \sqrt {sp^2} * \sqrt {\frac{1}{n1}+\frac{1}{n2}}$. 
+
+In [R]: 
+
+`n1 = 15; n2 = 15`
+`delta1 = -2.4; delta2 = -0.9`
+
+    sp <- sqrt((sd1^2 + sd2^2)/2)
+    se <- sp * sqrt(1/n1 + 1/n2)
+    t_stat <- (delta1 - delta2)/se
+    2 * pt(t_stat, df = n1 + n2 -2)
+
+The result is clearly significant at a `p = 4.880225e-07`.
+
+
 <br>
 References:
 
 <a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
+
+
+  [1]: https://en.wikipedia.org/wiki/Pooled_variance
+  [2]: http://stats.stackexchange.com/a/175392/67822
 
 
 ---
