@@ -29,6 +29,11 @@ attach(dat)
 dat
 mean <- (Before + After)/2
 diff <- After - Before
+par(mfrow=c(1,2))
+plot(After ~ Before, pch= 19, col= "red4")
+corr <- round(cor(Before, After), 2)
+legend(x = 20, y = 55, legend=c("Correlation =",corr), bty="n")
+abline(lm(After ~ Before), lwd = 3, col= "turquoise")
 plot(mean, diff, pch = 19, col= "blue4", xlab = "Mean Before & After", ylab = "Difference Before & After")
 abline(h=mean(diff), col="turquoise", lwd = 3)
 ```
