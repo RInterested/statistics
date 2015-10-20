@@ -1,0 +1,50 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+
+###DUMMY CODING HAS NOTHING TO DO WITH LOGISTIC REGRESSION:
+
+<br><br>
+
+This was written initially as a [post in CV][http://stats.stackexchange.com/a/174247/67822]
+
+<br>
+
+QUESTION ON THE SITE:
+
+I'm trying to assess the influence of temperature, geography and larvae connectivity on the genetic structure (Fst values) of a marine species.
+
+I used a linear regression framework in R:
+
+    lm(Fst ~ GEO + TEMP, data)
+
+On the other side, I have larvae connectivity (CO) values. For instance the model would be:
+
+    lm(Fst ~ GEO + TEMP + CO)
+
+However, the connectivity values are either 0 (not connected) or 1 (connected). These values follow more a logistic regression than a linear one. 
+
+ANSWER:
+
+In the second model, when you apply ordinary linear squares (OLS) regression, the binary variable `CO` is *dummy coded*: $X$ will either take the value $0$ or $1$. 
+
+From the point of view of linear algebra, your second model will be as follows:
+
+$$\Tiny \begin {bmatrix}  
+Fst_1\\ Fst_2\\Fst_3\\\vdots\\ Fst_n
+\end {bmatrix}  = \Tiny \begin {bmatrix}  
+1&GEO_1&TEMP_1&CO_1\\ 1&GEO_2&TEMP2&CO_2\\1&GEO_3&TEMP_3&CO_3\\1&\vdots&\vdots&\vdots\\ 1&GEO_n&TEMP_n&CO_n
+\end {bmatrix} \small \begin {bmatrix}  
+\beta_0\\ \beta_1\\\beta_2\\ \beta_n
+\end {bmatrix} $$
+
+... Just like any other system. But while all the other variable values in the *model matrix* (i.e. $\small GEO$ and $\small TEMP$ are numeric, continuous realizations of random variables with typically a wide range of real values, $\small CO$ will be a bunch of zeros and ones depending on whether each particular *observation or subject* (remember that observations or subjects are points in the data cloud, and correspond to individual rows in the model matrix... I guess specimens of the marine species you are studying) is "connected" ($X=1$, or in our case, $\small CO_i=1$) or "not connected" ($\small CO_i=0$), whatever that means in your dataset. Effectively, then, $\beta_n$ acts like a switch (when $\small CO_i=0$, the switch is off, and we don't add any contribution from the coefficient of $\small CO$ (i.e. $\small \beta_n$); when $\small CO_i=1$ the effect of $\small \beta_n$ is added to the prediction).
+
+Therefore, when $X=1$, we are just adding a constant to the intercept (or subtracting) - in effect, the intercept will be $\beta_0+\beta_n$, instead of just $\beta_0$.
+
+In logistic regression the idea is completely unrelated: we are modelling a system where a number of regressors are trying to explain the *odds* of something happening or not happening, a binary outcome, on the left-hand side of the equation. On the LHS we have the $ln\,(odds)$ and on the RHS we have a system pretty much as above *with or without* dummy variables. We assume that the outcome ($Y=1$) follows a binomial distribution with probability $pi$, and come up with the *logit* function $ln(\frac{\pi}{1-\pi})$ for the LHS.
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
