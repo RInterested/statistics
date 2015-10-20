@@ -96,7 +96,7 @@ img {
 <p><span class="math">\(p\,\Big(\Large \frac{\sqrt{n}\,(\bar X - \mu_a)}{\sigma} + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,&gt; \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\frac{(n-1)\,s^2}{\sigma^2}}\,\,|\mu=\mu_a\Big)\)</span> <br><br></p>
 <p><span class="math">\(p\,\Big(\Large \frac{\sqrt{n}\,(\bar X - \mu_a)}{\sigma} + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,&gt; \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\chi^2_{n-1}}\,\,|\mu=\mu_a\Big)\)</span> <br><br></p>
 <p><span class="math">\(p\,\Big(\Large Z + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,&gt; \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\chi^2_{n-1}}\,\,|\mu=\mu_a\Big)\)</span>.</p>
-<p>Note that <span class="math">\(\frac{(\mu_a - \mu_o)}{\sigma}\)</span> is the <em>effect size</em>.</p>
+<p>Note that <span class="math">\(\frac{(\mu_a - \mu_o)}{\sigma}\)</span> is the <em>effect size</em>. We don’t really have to know <span class="math">\(\mu_a\)</span>: the effect size (or standardized effect size) is all we need.</p>
 <p>For the introduction of the <span class="math">\(\Large \chi^2\)</span> refer to:</p>
 <p><a href="https://math.stackexchange.com/questions/1386238/proof-that-frac-displaystyle-sum-x-1n-x-barx2-sigma2-sim">Proof of Chi Square distribution of ratio of <span class="math">\(\sim s^2/\sigma^2\)</span></a>. And remember:</p>
 <p><span class="math">\(s^2=\frac{\sum(X-\bar{X})^2}{n-1}\)</span>.</p>
@@ -112,7 +112,7 @@ chisqr &lt;- rchisq(simuls, df = n - 1)
 t &lt;- qt(.95, n - 1)
 # The power is:
 mean(Z + sqrt(n) * (mu_a - mu_0) / sigma &gt; t / sqrt(n - 1) * sqrt(chisqr))</code></pre>
-<pre><code>## [1] 0.82778</code></pre>
+<pre><code>## [1] 0.82729</code></pre>
 <p>Compare to built-in formulas (equivalent to <code>sample.prop.test</code> for proportions):</p>
 <pre class="r"><code>power.t.test(n = 20, delta = mu_a - mu_0, sd = sigma, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)</code></pre>
 <pre><code>## 
