@@ -13,7 +13,7 @@ In this case the $t$ statistic is:
 
 <br><br>
 
-$\Large t\,statitic=\frac{\bar X - 0}{SD_{diff}\,\sqrt{n_{diff}}} \geq \,qt\,(0.95,\, n_{diff} - 1)$
+$\Large t\,statitic=\frac{\bar X_{diff} - \,0}{SD_{diff}\,\sqrt{n_{diff}}} \geq \,qt\,(0.95,\, n_{diff} - 1)$
 
 Of course, for a large sample we could also use a z statistic.
 
@@ -33,6 +33,31 @@ plot(mean, diff, pch = 19, col= "blue4", xlab = "Mean Before & After", ylab = "D
 abline(h=mean(diff), col="turquoise", lwd = 3)
 ```
 
+
+<br><br>
+
+Now doing the calculations for this dataset:
+
+```{r, results='hide'}
+diff <- After - Before
+n <- sum(!is.na(diff))
+mean(diff)
+sd(diff)
+```
+```{r}
+(test_statistic <- sqrt(n) * mean(diff) / sd(diff))
+
+# Cut-off limit:
+
+c(-1, 1) * qt(0.975, n - 1)
+
+# p value:
+
+2 * pt(abs(test_statistic), n - 1, lower.tail = FALSE)
+```
+
+<br>
+A not so significant difference!
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
