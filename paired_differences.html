@@ -107,7 +107,21 @@ c(-1, 1) * qt(0.975, n - 1)</code></pre>
 
 2 * pt(abs(test_statistic), n - 1, lower.tail = FALSE)</code></pre>
 <pre><code>## [1] 0.1504825</code></pre>
-<p><br> A not so significant difference! —</p>
+<p><br> A not so significant difference!</p>
+<p>Compare to:</p>
+<pre class="r"><code>t.test(diff)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  diff
+## t = 1.6144, df = 7, p-value = 0.1505
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  -2.614155 13.864155
+## sample estimates:
+## mean of x 
+##     5.625</code></pre>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
 
