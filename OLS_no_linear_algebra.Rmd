@@ -362,6 +362,7 @@ $\Large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i
 
 $\Large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})e_{i,X_kX_p}=0$
 
+<br><br>
 
 ###Different Approach with Multiple Regression Model and Intercept:
 <br><br>
@@ -389,30 +390,49 @@ Set to zero and solve:
 
 $-2\Large\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
 
+<br>
+
 $\Large\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
+
+<br>
 
 $\Large\displaystyle\sum_{i=1}^n y_i-n\hat\beta_o-\hat\beta_1 \Large\displaystyle\sum_{i=1}^n x_{1i}-\hat\beta_2 \Large\displaystyle\sum_{i=1}^nx_{2i}=0$
 
+<br>
+
 $\Large\displaystyle\sum_{i=1}^n y_i-\hat\beta_1 \Large\displaystyle\sum_{i=1}^n x_{1i}-\hat\beta_2 \Large\displaystyle\sum_{i=1}^nx_{2i}=n\hat\beta_o$
 
-$\Huge\bar Y -\hat\beta_1 \bar X_1 -\hat\beta_2 \bar X_2 =\hat\beta_o$
+<br>
 
+$\Large\bar Y -\hat\beta_1 \bar X_1 -\hat\beta_2 \bar X_2 =\hat\beta_o$
+
+<br>
 
 $-2\Large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
 
+<br>
+
 $\Large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
+
+<br>
 
 $\Large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\bar Y +\hat\beta_1 \bar X_1 +\hat\beta_2 \bar X_2 -\hat\beta_1 X_{1i} - \hat\beta_2 x_{2i})=0$
 
+<br>
+
 $\Large\displaystyle\sum_{i=1}^nX_{1i}[(y_i-\bar Y -\hat\beta_1 (x_{1i}-\bar X_1) -\hat\beta_2 (x_{2i}-\bar X_2)]=0$
+
+<br>
 
 $\Large\displaystyle\sum_{i=1}^n X_{1i}(y_i-\bar Y) -\hat\beta_1 \Large\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1) -\hat\beta_2 \Large\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)]=0$
 
+<br>
+
 $\Large\displaystyle\sum_{i=1}^n X_{1i}(y_i-\bar Y)  -\hat\beta_2 \Large\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)]=\hat\beta_1 \Large\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)$
 
-<br><br>
+<br>
 
-$\Large\hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^nx_{1i}(y_i-\bar Y)}{\Large\displaystyle\sum_{i=1}^nx_{1i}(x_{1i}-\bar X_1)}- \hat\beta_2\frac{\Large\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)}{\Large\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)}$ compare to the formula with prior method through the origin (equation (11)):
+$\Large\hat\beta_1=\Large\frac{\displaystyle\sum_{i=1}^nx_{1i}(y_i-\bar Y)}{\displaystyle\sum_{i=1}^nx_{1i}(x_{1i}-\bar X_1)}\,-\, \hat\beta_2\, \frac{\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)}{\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)}$ compare to the formula with prior method through the origin (equation (11)):
 
 $\Large \hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}$
 
