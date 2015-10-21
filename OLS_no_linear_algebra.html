@@ -73,9 +73,9 @@ img {
 <p><span class="math">\(\Large Cov (X,Y) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (Y_i - \bar Y) =\frac{1}{n-1}\big (\displaystyle \sum_{i-1}^n X_i Y_i - n\bar X\bar Y\big)\)</span> <br><br> <span class="math">\(\Large SD (X) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (X_i - \bar X) =\frac{1}{n-1}\big (\displaystyle \sum_{i-1}^n X_i^2 - n\bar X^2\big)\)</span> <br><br> <span class="math">\(\Large Cor (X,Y) = \frac{Cov(X,Y)}{SD(X) SD(Y)}\)</span></p>
 <hr />
 <p>The estimated regression line is: <br></p>
-<p><span class="math">\(\hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i\)</span> <br></p>
+<p><span class="math">\(\Large \hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i\)</span> <br></p>
 <p>We want to minimize the squared distances from all the observed values <span class="math">\(Y_i\)</span> in the population and <span class="math">\(\mu_i\)</span>, which are the fitted values that we would get if we had the “ideal” regression line calculated based on all the population - it has the symbol of mean, because it’s the mean of every bell’s curve as in the diagram above; <span class="math">\(\hat \mu_i\)</span> is the fitted values for the sample based on our estimated regression line. <br><br> Just subtracting and adding <span class="math">\(\hat \mu_i\)</span>:</p>
-<p><span class="math">\(\displaystyle \sum_{i=1}^n{n}(Y_i-\mu_i)^2 = \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i + \hat \mu_i - \mu_i)^2= \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2 + 2 \sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i) + \displaystyle \sum_{i=1}^n (\hat \mu_i - \mu_i)^2\)</span> <br><br></p>
+<p><span class="math">\(\Large \displaystyle \sum_{i=1}^n (Y_i-\mu_i)^2 = \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i + \hat \mu_i - \mu_i)^2= \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2 + 2 \sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i) + \displaystyle \sum_{i=1}^n (\hat \mu_i - \mu_i)^2\)</span> <br><br></p>
 <p>Finding the minimum amounts to: <br><br> <span class="math">\(\Huge\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,0\,\small \tag 1\)</span></p>
 <p><br></p>
 <p>… leaving us with:</p>
@@ -84,7 +84,7 @@ img {
 <p><br> It follows that:</p>
 <p><br> <span class="math">\(\displaystyle \sum_{i=1}^{n}(Y_i-\mu_i)^2\,\geq \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2\)</span> <br><br></p>
 <p>Considering only horizontal lines, and from equation (1): <br><br></p>
-<p><span class="math">\(\sum_{i=1}^{n} (Y_i - \hat \beta_o)\,(\hat \beta_o - \beta_o)\,=\,(\hat \beta_o - \beta_o)\,\sum_{i=1}^{n}(Y_i - \hat \beta_o)=\,0\)</span></p>
+<p><span class="math">\(\Large \displaystyle\sum_{i=1}^{n} (Y_i - \hat \beta_o)\,(\hat \beta_o - \beta_o)\,=\,(\hat \beta_o - \beta_o)\,\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o)=\,0\)</span></p>
 <p><br></p>
 <p>This will happen if:</p>
 <p><br></p>
@@ -95,18 +95,18 @@ img {
 <p><span class="math">\(\displaystyle\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,\displaystyle\sum_{i=1}^{n} (Y_i - \hat \beta_1\, X_i)\,(\hat \beta_1 X_i - \beta_1\,X_i)\,=\,\displaystyle\sum_{i=1}^{n}(Y_i\,\hat \beta_1\,X_i\,-\,Y_i\beta_1 X_i)(-\hat \beta_1 X_i \hat \beta_1 X_i\, +\,\hat\beta_1 X_i \beta_1 X_i)\)</span> <br><br> <span class="math">\(=\,(\hat \beta_1 - \beta_1)\,\displaystyle\sum_{i=1}^{n}(Y_iX_i)-(\hat \beta_1 X_i^2)\)</span>. And this will be zero if: <br><br></p>
 <p><span class="math">\(\displaystyle\sum_{i=1}^{n}(Y_iX_i)-(\hat \beta_1 X_i^2)=\displaystyle\sum_{i=1}^{n}(Y_iX_i)-\hat \beta_1\displaystyle\sum_{i=1}^{n}X_i^2=0\)</span>. Hence,</p>
 <p><span class="math">\(\Huge \hat \beta_1=\frac{\displaystyle\sum_{i=1}^{n}Y_iX_i}{\displaystyle\sum_{i=1}^{n}X_i^2} \small \tag 3\)</span>.</p>
-<p>Now doing both intercept and slope: <br><br> <span class="math">\(0 =\displaystyle\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\, =\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o X_i)(\hat\beta_o+\hat\beta_1X_i-\beta_o-\beta_1X_i)\)</span> <br><br> <span class="math">\(= \displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o X_i)((\hat\beta_o-\beta_o)+\hat\beta_1X_i-\beta_1X_i)\)</span> <br><br> <span class="math">\(=\Large (\hat \beta_o-\beta_o)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)+(\hat\beta_1-\beta_1)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)X_i \small \tag 4\)</span></p>
+<p>Now doing both intercept and slope: <br><br> <span class="math">\(0 =\displaystyle\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\, =\displaystyle\sum_{i=1}^{n}(Y_i -\hat\beta_o - \hat \beta_1 X_i)(\hat\beta_o+\hat\beta_1X_i-\beta_o-\beta_1X_i)\)</span> <br><br> <span class="math">\(= \displaystyle\sum_{i=1}^{n} (Y_i -\hat\beta_o \hat \beta_1 X_i)((\hat\beta_o-\beta_o)+\hat\beta_1X_i-\beta_1X_i)\)</span> <br><br> <span class="math">\(=\Large (\hat \beta_o-\beta_o)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)+(\hat\beta_1-\beta_1)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)X_i \small \tag 4\)</span></p>
 <p><br><br></p>
-<p><span class="math">\(0 = \sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)=n\bar Y_i-n\hat\beta_o-n\hat\beta_1\bar X_i\)</span>. Hence, <br><br> <span class="math">\(\Huge \hat\beta_o\,=\,\bar Y\,-\,\hat\beta_1\,\bar X \small \tag 5\)</span></p>
+<p><span class="math">\(0 = \displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)=n\bar Y_i-n\hat\beta_o-n\hat\beta_1\bar X_i\)</span>. Hence, <br><br> <span class="math">\(\Huge \hat\beta_o\,=\,\bar Y\,-\,\hat\beta_1\,\bar X \small \tag 5\)</span></p>
 <p><br><br></p>
-<p>And for the second part of equation (4):</p>
-<p><span class="math">\(0=\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)X_i\)</span>. Substituting <span class="math">\(\hat\beta_o=\bar Y- \hat \beta_1 \bar X\)</span> for <span class="math">\(\hat\beta_o\)</span>:</p>
+<p>And for the second part of equation (4): <br></p>
+<p><span class="math">\(0=\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)X_i\)</span>. Substituting <span class="math">\(\hat\beta_o=\bar Y- \hat \beta_1 \bar X\)</span> for <span class="math">\(\hat\beta_o\)</span>:</p>
 <p><br><br></p>
-<p><span class="math">\(0=\sum_{i=1}^{n}(Y_i-\bar Y + \hat \beta_1 \bar X - \hat \beta_1X_i)X_i =\sum_{i=1}^{n}(Y_i-\bar Y)X_i - \hat\beta_1 \sum_{i=1}^{n}(X_i-\bar X)X_i\)</span></p>
+<p><span class="math">\(0=\displaystyle\sum_{i=1}^{n}(Y_i-\bar Y + \hat \beta_1 \bar X - \hat \beta_1X_i)X_i =\displaystyle\sum_{i=1}^{n}(Y_i-\bar Y)X_i - \hat\beta_1 \sum_{i=1}^{n}(X_i-\bar X)X_i\)</span></p>
 <p><br><br></p>
-<p>Since <span class="math">\(\sum_{i=1}^{n}(Y_i-\bar Y)=0\)</span>, also <span class="math">\(\bar X\sum_{i=1}^{n}(Y_i-\bar Y)=0\)</span>.</p>
+<p>Since <span class="math">\(\displaystyle\sum_{i=1}^{n}(Y_i-\bar Y)=0\)</span>, also <span class="math">\(\displaystyle\bar X\sum_{i=1}^{n}(Y_i-\bar Y)=0\)</span>.</p>
 <p><br><br></p>
-<p><span class="math">\(\hat \beta_1\,=\,\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=1}^{n}(X_i-\bar X)X_i} =\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}\)</span></p>
+<p><span class="math">\(\Large\hat \beta_1\,=\,\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=1}^{n}(X_i-\bar X)X_i} =\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}\)</span></p>
 <p><br><br></p>
 <p>Checking equation (1):</p>
 <p><span class="math">\(\Large \frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)} =\frac{cov(X,Y)}{SD(X)}=\frac{\frac{cor(X,Y)}{SD(X)SD(Y)}}{SD(X)}\)</span>. Hence,</p>
@@ -122,7 +122,7 @@ img {
 <p><br><br></p>
 <p>Let’s assume two regressors: <span class="math">\(Y_i = \beta_1X_{1i}+\beta_2X_{2i}\)</span>:</p>
 <p><br><br></p>
-<p><span class="math">\(\displaystyle \sum_{i=1}^n(Y_i-\hat\mu_i)(\hat\mu_i-\mu_i)=\displaystyle \sum_{i=1}^n(Y_i-\hat\beta_1X{1i}-\hat\beta_2X_{2i}\{(\hat\beta_1-\beta_1)X_{1i}+(\hat\beta_2-\beta_2)X_{2i}\}\)</span>.</p>
+<p><span class="math">\(\displaystyle \sum_{i=1}^n(Y_i-\hat\mu_i)(\hat\mu_i-\mu_i)=\displaystyle \sum_{i=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})\{(\hat\beta_1-\beta_1)X_{1i}+(\hat\beta_2-\beta_2)X_{2i}\}\)</span>.</p>
 <p><br><br></p>
 <p>We need a system of equations:</p>
 <p><br><br></p>
@@ -147,7 +147,7 @@ img {
 <p><span class="math">\(Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}\)</span> is the residual only including <span class="math">\(X_{2i}\)</span> as a regressor through the origin. <br><br></p>
 <p><span class="math">\(X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\)</span> is the residual of the regression through the origin <span class="math">\(x_{1i}=x_{2i}\gamma+\epsilon\)</span>.</p>
 <p><br><br></p>
-<p>So rewriting the equation <span class="math">\(e\,=\,residuals\Big(Y\,-\,\{\hat\beta_1=\frac{\displaystyle\sum_{i=1}^n Y_i X_i}{\displaystyle\sum_{i=1}^n X_i^2}\}X\Big)\)</span> see equation (3). For instance: <span class="math">\(e_{iX_1|X_2}=X_{1i}-\frac{\displaystyle\sum_{i=1}^nX_1X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\,X_{2i}\)</span>.</p>
+<p>So rewriting the equation <span class="math">\(e\,=\,residuals\Big(Y\,-\,\{\hat\beta_1=\frac{\displaystyle\sum_{i=1}^n Y_i X_i}{\displaystyle\sum_{i=1}^n X_i^2}\}X\Big)\)</span> see equation (3). For instance: <span class="math">\(e_{iX_1|X_2}=X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\,X_{2i}\)</span>.</p>
 <p><br><br></p>
 <p><span class="math">\(\Large 0=\Large \displaystyle\sum_{i=1}^n\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\}\,X_{1i} \small \tag 9\)</span></p>
 <p><br><br></p>
@@ -166,14 +166,14 @@ img {
 <p><br><br></p>
 <p><span class="math">\(\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2} = 0\)</span></p>
 <p><br><br></p>
-<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}\)</span></p>
-<p><span class="math">\(\Large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}\)</span> or <span class="math">\(\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}\)</span>.</p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}=0\)</span></p>
+<p><span class="math">\(\Large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}\)</span> or <span class="math">\(\Large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}\)</span>.</p>
 <p><br><br></p>
 <p><span class="math">\(\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\displaystyle\sum_{i=1}^n X_{1i} \Bigg( y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}\,y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i} \Bigg)\)</span> (replacing <span class="math">\(e_{i,Y|X_2}\)</span> by its expansion - see under equation 8 - let’s call this last equation “<span class="math">\(X_1\)</span> times residuals <span class="math">\(X_2\)</span> through origin”).</p>
 <p><br><br></p>
 <p>This can be shown to be equivalent to:</p>
 <p><br><br></p>
-<p><span class="math">\(\Large \displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2} \, e_{i,Y|X_2}\)</span> <span class="math">\(=\displaystyle\sum_{i=1}^n \Bigg(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j} X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}\Bigg)\,\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_{j}}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i}\Bigg)\)</span></p>
+<p><span class="math">\(\Large \displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \, e_{i,Y|X_2}\)</span> <span class="math">\(=\displaystyle\sum_{i=1}^n \Bigg(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j} X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}\Bigg)\,\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_{j}}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i}\Bigg)\)</span></p>
 <p><br><br></p>
 <p><span class="math">\(\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2} = \displaystyle\sum_{i=1}^n X_{1i}\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i} \Bigg) = \displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\, \displaystyle\sum_{i=1}^n X_{1i} X_{2i}\)</span></p>
 <p><br><br></p>
@@ -183,7 +183,7 @@ img {
 <p><br><br></p>
 <p><span class="math">\(\Large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \Large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} \Large\displaystyle\sum_{i=1}^n X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{(\displaystyle\sum_{j=1}^n X_{2j}^2)^2} \Large\displaystyle\sum_{i=1}^nX_{2i}^2\)</span> <br><br></p>
 <p>Now, anything that is a summation indexed by either <span class="math">\(i\)</span> or <span class="math">\(j\)</span> are equivalent because they are summing the same <span class="math">\(n\)</span> observations, with the only difference being the index itself. So it follows that the above is equal to: <br><br></p>
-<p><span class="math">\(=\Large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \Large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\Large\displaystyle\sum_{i=1}^n X_{2i}y_i \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\)</span> <br><br></p>
+<p><span class="math">\(=\Large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \Large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\Large\displaystyle\sum_{i=1}^n X_{2i}y_i \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} + \frac{\displaystyle\sum_{j=1}^n X_{2j}y_j \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2j}^2}\)</span> <br><br></p>
 <p><span class="math">\(=\Large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \Large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} =\Large\displaystyle\sum_{i=1}^n X_{1i}\Bigg(y_i - \frac{\Large\displaystyle\sum_{j=1}^n X_{2j}y_j}{\Large\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\Bigg)\)</span> (equation “<span class="math">\(X_1\)</span> times residuals <span class="math">\(X_2\)</span> through the origin”). <br><br></p>
 <p><span class="math">\(\Box\)</span></p>
 <p><span class="math">\(=\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 =\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \Bigg(X_{1i} - \frac{\Large\displaystyle\sum_{i=1}^n \hat\beta_1 X_{1i}X_{2i}}{\Large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i} \Bigg)\)</span></p>
@@ -193,11 +193,63 @@ img {
 <p><br><br></p>
 <p><span class="math">\(\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 = \Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}\)</span>. And plugging into the <span class="math">\(\hat\beta_1\)</span> equation:</p>
 <p><br><br></p>
-<p><span class="math">\(\hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\)</span></p>
+<p><span class="math">\(\Large\hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\)</span></p>
 <p><br><br></p>
 <p><span class="math">\(\Large \hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}\small \tag {11}\)</span></p>
+<p>Regression estimate for <span class="math">\(\beta_1\)</span> is the regression through the origin estimate having regressed <span class="math">\(X_2\)</span> out of both the response and the predictor.</p>
+<p>Regression estimate for <span class="math">\(\beta_2\)</span> is the regression through the origin estimate having regressed <span class="math">\(X_1\)</span> out of both the response and the predictor.</p>
+<p>Multivariate regression estimates are exactly those having removed the linear relationship of the other variables from both the regressor and the response.</p>
+<p>INTUITION:</p>
+<p>The ingredients for the slope of the linear component to y afforded by one of the independent variables or regressors is the result of adding up and multiplying the residuals of the other variables with the regressor under consideration, as well as the residuals of the other variables with y. In essence, it’s the measure of 1. Lack of correlation between regressors (<span class="math">\(e_{x_1|x_2}\)</span>); and 2. How far off in predicting y the other variables are (<span class="math">\(e{Y|x_2}\)</span>).</p>
+</div>
+<div id="more-than-two-regressors" class="section level2">
+<h2>More than two regressors:</h2>
+<p><br><br> Solving will entail p equations with p unknowns of the form of “system of equations”:</p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i}-\dots-\hat\beta_pX_{pi})X_k=0\)</span></p>
+<p>Holding <span class="math">\(\hat\beta_1\)</span> through <span class="math">\(\hat\beta_{p-1}\)</span> fixed…</p>
+<p><span class="math">\(\hat\beta_p=\frac{\Large\displaystyle\sum_{i=1}^n (Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i}-\dots-\hat\beta_{p-1}X_{i(p-1)})X_{ip}}{\Large\displaystyle\sum_{i=1}^n X_{ip}^2}\)</span> as in equation (7).</p>
+<p>Plugging it into the equation above:</p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})X_k=0\)</span> as in equation (8).</p>
+<p><span class="math">\(X_k = e_{i,X_k|X_p}+\frac{\displaystyle\sum_{i=1}^n X_{ik}X_{ip}}{\displaystyle\sum_{i=1}^n X_{ip}^2}X_p\)</span> and <span class="math">\(\displaystyle\sum_{i=1}^n e_{i,X_k|X_p}X_{ip}=0\)</span>.</p>
+<p><br><br></p>
+<p>Therefore:</p>
+<p><br></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})X_k=0\)</span> is equal to:</p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})e_{i,X_kX_p}=0\)</span></p>
+<div id="different-approach-with-multiple-regression-model-and-intercept" class="section level3">
+<h3>Different Approach with Multiple Regression Model and Intercept:</h3>
+<p><br><br> <span class="math">\(y_i\,=\,\beta_1X_{1i}\,+\,\beta_2X_{2i}+\dots+\,\beta_pX_{pi}\,+\,\varepsilon_i\)</span></p>
+<p><span class="math">\(min(\hat\beta_o,\hat\beta_1,\hat\beta_2)\Large\displaystyle\sum_{i=1}^n e_i^2\)</span> where <span class="math">\(e_i= y_i - \hat\beta_o+\hat\beta_1X_{1i}+\hat\beta_2X_{2i}\)</span></p>
+<p><br><br></p>
+<p>Then first order conditions are:</p>
+<p><br><br></p>
+<p><span class="math">\(\frac{\partial}{\partial\hat\beta_o}\Large\displaystyle\sum_{i=1}^n e_i^2=-2\Large\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})\)</span></p>
+<p><span class="math">\(\frac{\partial}{\partial\hat\beta_1}\Large\displaystyle\sum_{i=1}^n e_i^2=-2\Large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})\)</span></p>
+<p><span class="math">\(\frac{\partial}{\partial\hat\beta_2}\Large\displaystyle\sum_{i=1}^n e_i^2=-2\Large\displaystyle\sum_{i=1}^n X_{2i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})\)</span></p>
+<p><br><br></p>
+<p>Set to zero and solve:</p>
+<p><br><br></p>
+<p><span class="math">\(-2\Large\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0\)</span></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0\)</span></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n y_i-n\hat\beta_o-\hat\beta_1 \Large\displaystyle\sum_{i=1}^n x_{1i}-\hat\beta_2 \Large\displaystyle\sum_{i=1}^nx_{2i}=0\)</span></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n y_i-\hat\beta_1 \Large\displaystyle\sum_{i=1}^n x_{1i}-\hat\beta_2 \Large\displaystyle\sum_{i=1}^nx_{2i}=n\hat\beta_o\)</span></p>
+<p><span class="math">\(\Huge\bar Y -\hat\beta_1 \bar X_1 -\hat\beta_2 \bar X_2 =\hat\beta_o\)</span></p>
+<p><span class="math">\(-2\Large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0\)</span></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0\)</span></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\bar Y +\hat\beta_1 \bar X_1 +\hat\beta_2 \bar X_2 -\hat\beta_1 X_{1i} - \hat\beta_2 x_{2i})=0\)</span></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^nX_{1i}[(y_i-\bar Y -\hat\beta_1 (x_{1i}-\bar X_1) -\hat\beta_2 (x_{2i}-\bar X_2)]=0\)</span></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n X_{1i}(y_i-\bar Y) -\hat\beta_1 \Large\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1) -\hat\beta_2 \Large\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)]=0\)</span></p>
+<p><span class="math">\(\Large\displaystyle\sum_{i=1}^n X_{1i}(y_i-\bar Y) -\hat\beta_2 \Large\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)]=\hat\beta_1 \Large\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)\)</span></p>
+<p><br><br></p>
+<p><span class="math">\(\Large\hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^nx_{1i}(y_i-\bar Y)}{\Large\displaystyle\sum_{i=1}^nx_{1i}(x_{1i}-\bar X_1)}- \hat\beta_2\frac{\Large\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)}{\Large\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)}\)</span> compare to the formula with prior method through the origin (equation (11)):</p>
+<p><span class="math">\(\Large \hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}\)</span></p>
+<p><span class="math">\(\Large \hat\beta_2=\frac{\Large\displaystyle\sum_{i=1}^n (Y_i-\hat\beta_1X_{1i})X_{2i}}{\Large\displaystyle\sum_{i=1}^n X_{2i}^2}\)</span></p>
+<p><br><br></p>
+<p>The first part of the equation above appears to be the simple ordinary least squares (OLS) estimators for <span class="math">\(\beta_1\)</span>. The second part is the product of the estimate <span class="math">\(\beta_2\)</span> and another term. The second part of this product should also be familiar: it is the simple OLS estimator of the regression of <span class="math">\(X_2\)</span> on <span class="math">\(X_1\)</span>; it captures the part of the variation in <span class="math">\(X_2\)</span> that is associated with variations in <span class="math">\(X_1\)</span>. Together, the product that comprises the second term captures the association between <span class="math">\(X_1\)</span> and <span class="math">\(Y\)</span> that is “explained” by <span class="math">\(X_2\)</span> ; it subtraction from the simple OLS estimator is the “partialling out” of the influence of <span class="math">\(X_2\)</span> , hence we arrive at the familiar interpretation of 1: “the association between <span class="math">\(X_1\)</span> and <span class="math">\(Y\)</span> , adjusting for <span class="math">\(X_2\)</span> (holding <span class="math">\(X_2\)</span> fixed).”</p>
+<p>We can solve for <span class="math">\(\beta_2\)</span> as a simple exercise; it is essentially the same as the case with <span class="math">\(\beta_1\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
+</div>
 </div>
 
 
