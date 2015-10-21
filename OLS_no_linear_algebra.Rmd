@@ -1,0 +1,226 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+
+###OLS REGRESSION WITHOUT LINEAR ALGEBRA:
+
+<br><br>
+The ideal line for the population is:
+
+$\Large \mu_i\,=\,\beta_o \,+\,\beta_1\,X_i$
+
+<br><br>
+
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/10623866/e21dc40e-7760-11e5-9719-9e6671688922.png">
+<br>
+
+---
+
+Preliminary definitions:
+
+$Cov (X,Y) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (Y_i - \bar Y) =\frac{1}{n-1}\big (\displaystyle \sum_{i-1}^n X_i Y_i - n\bar X\bar Y\big)$
+
+$SD (X) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (X_i - \bar X) =\frac{1}{n-1}\big (\displaystyle \sum_{i-1}^n X_i^2 - n\bar X^2\big)$
+
+$\Large Cor (X,Y) = \frac{Cov(X,Y)}{SD(X) SD(Y)}$
+
+---
+
+The estimated regression line is:
+<br>
+
+$\hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i$
+ <br>
+ 
+We want to minimize the squared distances from all the observed values $Y_i$ in the population and $\mu_i$, which are the fitted values that we would get if we had the “ideal” regression line calculated based on all the population - it has the symbol of mean, because it’s the mean of every bell’s curve as in the diagram above; $\hat \mu_i$ is the fitted values for the sample based on our estimated regression line. 
+
+Just subtracting and adding $\hat \mu_i$:
+
+$\displaystyle \sum_{i=1}^n{n}(Y_i-\mu_i)^2 = \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i + \hat \mu_i - \mu_i)^2=
+\displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2 + 2 \sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i) + \displaystyle \sum_{i=1}^n (\hat \mu_i - \mu_i)^2$
+
+
+Finding the minimum amounts to: $\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,0\,\small \tag 1$ 
+
+<br>
+
+... leaving us with:
+
+<br>
+
+$\displaystyle \sum_{i=1}^{n}(Y_i-\mu_i)^2 = \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2 + \displaystyle \sum_{i=1}^n (\hat \mu_i - \mu_i)^2$
+
+<br>
+It follows that:
+
+<br>
+$\displaystyle \sum_{i=1}^{n}(Y_i-\mu_i)^2\,\geq \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2$
+<br>
+
+Considering only horizontal lines, and from equation (1):
+
+$\sum_{i=1}^{n} (Y_i - \hat \beta_o)\,(\hat \beta_o - \beta_o)\,=\,(\hat \beta_o - \beta_o)\,\sum_{i=1}^{n}(Y_i - \hat \beta_o)=\,0$
+
+<br>
+
+This will happen if:
+
+<br>
+
+$\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o)=\,0$. In other words if $n\,\bar Y\,-\,n\,\hat \beta_o\,=\,0$, or 
+
+<br><br>
+$\Large \bar Y = \beta_o \small \tag 2$.
+<br><br>
+
+If we do regression through the origin:
+
+<br>
+
+$\displaystyle\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,\displaystyle\sum_{i=1}^{n} (Y_i - \hat \beta_1\, X_i)\,(\hat \beta_1 X_i - \beta_1\,X_i)\,=\,\displaystyle\sum_{i=1}^{n}(Y_i\,\hat \beta_1\,X_i\,-\,Y_i\beta_1 X_i)(-\hat \beta_1 X_i \hat \beta_1 X_i\, +\,\hat\beta_1 X_i \beta_1 X_i)$
+<br><br>
+$=\,(\hat \beta_1 - \beta_1)\,\displaystyle\sum_{i=1}^{n}(Y_iX_i)-(\hat \beta_1 X_i^2)$. And this will be zero if:
+<br><br>
+
+$\displaystyle\sum_{i=1}^{n}(Y_iX_i)-(\hat \beta_1 X_i^2)=\displaystyle\sum_{i=1}^{n}(Y_iX_i)-\hat \beta_1\displaystyle\sum_{i=1}^{n}X_i^2=0$. Hence, 
+
+$\hat \beta_1=\frac{\displaystyle\sum_{i=1}^{n}Y_iX_i}{\displaystyle\sum_{i=1}^{n}X_i^2} \small \tag 3$.
+
+Now doing both intercept and slope:
+
+$0 =\displaystyle\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\, 
+=\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o X_i)(\hat\beta_o+\hat\beta_1X_i-\beta_o-\beta_1X_i)$
+<br><br>
+$= \displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o X_i)((\hat\beta_o-\beta_o)+\hat\beta_1X_i-\beta_1X_i)$
+<br><br>
+$=(\hat \beta_o-\beta_o)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)+(\hat\beta_1-\beta_1)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)X_i \small \tag 4$
+
+<br><br>
+
+$0 = \sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)=n\bar Y_i-n\hat\beta_o-n\hat\beta_1\bar X_i$. Hence, $\hat\beta_o\,=\,\bar Y\,-\,\hat\beta_1\,\bar X \small \tag 5$
+
+<br><br>
+
+And for the second part of equation (4):
+
+$0=\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)X_i$. Substituting $\hat\beta_o=\bar Y- \hat \beta_1 \bar X$ for $\hat\beta_o$:
+
+<br><br>
+
+$0=\sum_{i=1}^{n}(Y_i-\bar Y + \hat \beta_1 \bar X - \hat \beta_1X_i)X_i
+=\sum_{i=1}^{n}(Y_i-\bar Y)X_i - \hat\beta_1 \sum_{i=1}^{n}(X_i-\bar X)X_i$
+
+<br><br>
+
+Since $\sum_{i=1}^{n}(Y_i-\bar Y)=0$, also $\bar X\sum_{i=1}^{n}(Y_i-\bar Y)=0$.
+
+<br><br>
+
+$\hat \beta_1\,=\,\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=1}^{n}(X_i-\bar X)X_i}
+=\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}$
+
+<br><br>
+
+Checking equation (1):
+
+$\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}
+=\frac{cov(X,Y)}{SD(X)}=\frac{\frac{cor(X,Y)}{SD(X)SD(Y)}}{SD(X)}$. Hence,
+
+$\Large \hat\beta_1\,=\,cor(Y, X)\,\frac{SD(Y)}{SD(X)}\,=\,\frac{cov(Y,X)}{var(X)}\small \tag 6$
+<br><br>
+###MULTIVARIABLE REGRESSION:
+<br><br>
+$Y_i\,=\,\beta_1X_{1i}\,+\,\beta_2X_{2i}+\dots+\,\beta_pX_{pi}\,+\,\varepsilon_i$ is the ideal model for the population. One of the terms corresponds to the intercept.
+
+For the sample:
+
+<br><br>
+
+$\hat\mu_i=\hat\beta_1X_{1i}\,+\,\hat\beta_2X_{2i}\,+\dots\,+\,\hat\beta_pX_{pi}+\epsilon_i$
+<br><br>
+
+As in the univariable case, $\displaystyle \sum_{i=1}^n(Y_i-\hat\mu_i)(\hat\mu_i-\mu_i)=0$.
+
+<br><br>
+
+Let's assume two regressors: $Y_i = \beta_1X_{1i}+\beta_2X_{2i}$:
+
+<br><br>
+
+$\displaystyle \sum_{i=1}^n(Y_i-\hat\mu_i)(\hat\mu_i-\mu_i)=\displaystyle \sum_{i=1}^n(Y_i-\hat\beta_1X{1i}-\hat\beta_2X_{2i}\{(\hat\beta_1-\beta_1)X_{1i}+(\hat\beta_2-\beta_2)X_{2i}\}$.
+
+<br><br>
+
+We need a system of equations:
+
+<br><br>
+
+$\displaystyle\sum_{n=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})X_{1i}=0$ and $\displaystyle\sum_{n=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})X_{2i}=0$.
+
+<br><br>
+
+Solving for $\hat\beta_2$ in the second equation:
+
+<br><br>
+
+$\hat\beta_2\,=\,\frac{\displaystyle\sum_{i=1}^n(Y_i\,-\,\hat\beta_1\,X_{1i})\,X_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2} \small \tag 7$
+
+<br><br>
+
+$0=\displaystyle\sum_{i=1}^n\{Y_i - \hat\beta_1 X_{1i}-\Big(\frac{\displaystyle\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i})X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\Big)X_{2i}\}X_{1i}$
+<br><br>
+
+$0=\displaystyle\sum_{i=1}^n\{Y_i - \hat\beta_1 X_{1i}-\Bigg(\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}-\frac{\displaystyle\sum_{i=1}^n \hat\beta_1X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\Bigg)X_{2i}\}X_{1i}$
+
+<br><br>
+
+$0=\displaystyle\sum_{i=1}^n\{Y_i - \hat\beta_1 X_{1i}-\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}+\frac{\displaystyle\sum_{i=1}^n \hat\beta_1X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\}X_{1i}$
+
+<br><br>
+
+$0=\displaystyle\sum_{i=1}^n\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\,- \hat\beta_1 X_{1i}\}X_{1i}$
+
+<br><br>
+
+$0=\displaystyle\sum_{i=1}^n\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}\,- \hat\beta_1 X_{1i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\}X_{1i}$
+
+<br><br>
+
+$0=\displaystyle\sum_{i=1}^n\{Y_i -\Big(\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}\Big)\,- \hat\beta_1 \Big(X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\Big)\}X_{1i} \small \tag 8$
+
+<br><br>
+
+$\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}$ is the slope of the regression through the origin of $y_i=x_{2i}\beta_2+\epsilon$.
+<br><br>
+
+$Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}$ is the residual only including $X_{2i}$ as a regressor through the origin.
+<br><br>
+
+$X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}$ is the residual of the regression through the origin $x_{1i}=x_{2i}\gamma+\epsilon$.
+
+
+<br><br>
+
+So rewriting the equation $e\,=\,residuals\Big(Y\,-\,\{\hat\beta_1=\frac{\displaystyle\sum_{i=1}^n Y_i X_i}{\displaystyle\sum_{i=1}^n X_i^2}\}X\Big)$ see equation (3). For instance: $e_{iX_1|X_2}=X_{1i}-\frac{\displaystyle\sum_{i=1}^nX_1X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\,X_{2i}$.
+
+<br><br>
+
+$\Large 0=\Large \displaystyle\sum_{i=1}^n\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\}\,X_{1i} \small \tag 9$
+
+<br><br>
+
+$=\Large \displaystyle\sum_{i=1}^n\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\}\,X_{1i}$
+
+<br><br>
+
+$\Large \displaystyle\sum_{i=1}^n\{e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\sum_{i=1}^n e_{X_1|X_2}\,X_{1i}$
+
+<br><br>
+
+$\Large \hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {10}$
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
