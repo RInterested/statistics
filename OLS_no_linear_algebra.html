@@ -76,17 +76,16 @@ img {
 <hr />
 <p>The estimated regression line is: <br></p>
 <p><span class="math">\(\hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i\)</span> <br></p>
-<p>We want to minimize the squared distances from all the observed values <span class="math">\(Y_i\)</span> in the population and <span class="math">\(\mu_i\)</span>, which are the fitted values that we would get if we had the “ideal” regression line calculated based on all the population - it has the symbol of mean, because it’s the mean of every bell’s curve as in the diagram above; <span class="math">\(\hat \mu_i\)</span> is the fitted values for the sample based on our estimated regression line.</p>
-<p>Just subtracting and adding <span class="math">\(\hat \mu_i\)</span>:</p>
-<p><span class="math">\(\displaystyle \sum_{i=1}^n{n}(Y_i-\mu_i)^2 = \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i + \hat \mu_i - \mu_i)^2= \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2 + 2 \sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i) + \displaystyle \sum_{i=1}^n (\hat \mu_i - \mu_i)^2\)</span></p>
-<p>Finding the minimum amounts to: <span class="math">\(\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,0\,\small \tag 1\)</span></p>
+<p>We want to minimize the squared distances from all the observed values <span class="math">\(Y_i\)</span> in the population and <span class="math">\(\mu_i\)</span>, which are the fitted values that we would get if we had the “ideal” regression line calculated based on all the population - it has the symbol of mean, because it’s the mean of every bell’s curve as in the diagram above; <span class="math">\(\hat \mu_i\)</span> is the fitted values for the sample based on our estimated regression line. <br><br> Just subtracting and adding <span class="math">\(\hat \mu_i\)</span>:</p>
+<p><span class="math">\(\displaystyle \sum_{i=1}^n{n}(Y_i-\mu_i)^2 = \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i + \hat \mu_i - \mu_i)^2= \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2 + 2 \sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i) + \displaystyle \sum_{i=1}^n (\hat \mu_i - \mu_i)^2\)</span> <br><br></p>
+<p>Finding the minimum amounts to: <br><br> <span class="math">\(\Huge\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,0\,\small \tag 1\)</span></p>
 <p><br></p>
 <p>… leaving us with:</p>
 <p><br></p>
 <p><span class="math">\(\displaystyle \sum_{i=1}^{n}(Y_i-\mu_i)^2 = \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2 + \displaystyle \sum_{i=1}^n (\hat \mu_i - \mu_i)^2\)</span></p>
 <p><br> It follows that:</p>
-<p><br> <span class="math">\(\displaystyle \sum_{i=1}^{n}(Y_i-\mu_i)^2\,\geq \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2\)</span> <br></p>
-<p>Considering only horizontal lines, and from equation (1):</p>
+<p><br> <span class="math">\(\displaystyle \sum_{i=1}^{n}(Y_i-\mu_i)^2\,\geq \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2\)</span> <br><br></p>
+<p>Considering only horizontal lines, and from equation (1): <br><br></p>
 <p><span class="math">\(\sum_{i=1}^{n} (Y_i - \hat \beta_o)\,(\hat \beta_o - \beta_o)\,=\,(\hat \beta_o - \beta_o)\,\sum_{i=1}^{n}(Y_i - \hat \beta_o)=\,0\)</span></p>
 <p><br></p>
 <p>This will happen if:</p>
@@ -98,8 +97,7 @@ img {
 <p><span class="math">\(\displaystyle\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,\displaystyle\sum_{i=1}^{n} (Y_i - \hat \beta_1\, X_i)\,(\hat \beta_1 X_i - \beta_1\,X_i)\,=\,\displaystyle\sum_{i=1}^{n}(Y_i\,\hat \beta_1\,X_i\,-\,Y_i\beta_1 X_i)(-\hat \beta_1 X_i \hat \beta_1 X_i\, +\,\hat\beta_1 X_i \beta_1 X_i)\)</span> <br><br> <span class="math">\(=\,(\hat \beta_1 - \beta_1)\,\displaystyle\sum_{i=1}^{n}(Y_iX_i)-(\hat \beta_1 X_i^2)\)</span>. And this will be zero if: <br><br></p>
 <p><span class="math">\(\displaystyle\sum_{i=1}^{n}(Y_iX_i)-(\hat \beta_1 X_i^2)=\displaystyle\sum_{i=1}^{n}(Y_iX_i)-\hat \beta_1\displaystyle\sum_{i=1}^{n}X_i^2=0\)</span>. Hence,</p>
 <p><span class="math">\(\hat \beta_1=\frac{\displaystyle\sum_{i=1}^{n}Y_iX_i}{\displaystyle\sum_{i=1}^{n}X_i^2} \small \tag 3\)</span>.</p>
-<p>Now doing both intercept and slope:</p>
-<p><span class="math">\(0 =\displaystyle\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\, =\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o X_i)(\hat\beta_o+\hat\beta_1X_i-\beta_o-\beta_1X_i)\)</span> <br><br> <span class="math">\(= \displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o X_i)((\hat\beta_o-\beta_o)+\hat\beta_1X_i-\beta_1X_i)\)</span> <br><br> <span class="math">\(=(\hat \beta_o-\beta_o)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)+(\hat\beta_1-\beta_1)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)X_i \small \tag 4\)</span></p>
+<p>Now doing both intercept and slope: <br><br> <span class="math">\(0 =\displaystyle\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\, =\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o X_i)(\hat\beta_o+\hat\beta_1X_i-\beta_o-\beta_1X_i)\)</span> <br><br> <span class="math">\(= \displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o X_i)((\hat\beta_o-\beta_o)+\hat\beta_1X_i-\beta_1X_i)\)</span> <br><br> <span class="math">\(=(\hat \beta_o-\beta_o)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)+(\hat\beta_1-\beta_1)\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)X_i \small \tag 4\)</span></p>
 <p><br><br></p>
 <p><span class="math">\(0 = \sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)=n\bar Y_i-n\hat\beta_o-n\hat\beta_1\bar X_i\)</span>. Hence, <span class="math">\(\hat\beta_o\,=\,\bar Y\,-\,\hat\beta_1\,\bar X \small \tag 5\)</span></p>
 <p><br><br></p>
@@ -113,8 +111,12 @@ img {
 <p><span class="math">\(\hat \beta_1\,=\,\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=1}^{n}(X_i-\bar X)X_i} =\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}\)</span></p>
 <p><br><br></p>
 <p>Checking equation (1):</p>
-<p><span class="math">\(\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)} =\frac{cov(X,Y)}{SD(X)}=\frac{\frac{cor(X,Y)}{SD(X)SD(Y)}}{SD(X)}\)</span>. Hence,</p>
-<p><span class="math">\(\Large \hat\beta_1\,=\,cor(Y, X)\,\frac{SD(Y)}{SD(X)}\,=\,\frac{cov(Y,X)}{var(X)}\small \tag 6\)</span> <br><br> ###MULTIVARIABLE REGRESSION: <br><br> <span class="math">\(Y_i\,=\,\beta_1X_{1i}\,+\,\beta_2X_{2i}+\dots+\,\beta_pX_{pi}\,+\,\varepsilon_i\)</span> is the ideal model for the population. One of the terms corresponds to the intercept.</p>
+<p><span class="math">\(\Large \frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)} =\frac{cov(X,Y)}{SD(X)}=\frac{\frac{cor(X,Y)}{SD(X)SD(Y)}}{SD(X)}\)</span>. Hence,</p>
+<p><span class="math">\(\Large \hat\beta_1\,=\,cor(Y, X)\,\frac{SD(Y)}{SD(X)}\,=\,\frac{cov(Y,X)}{var(X)}\small \tag 6\)</span> <br><br></p>
+</div>
+<div id="multivariable-regression" class="section level2">
+<h2>MULTIVARIABLE REGRESSION:</h2>
+<p><br><br> <span class="math">\(Y_i\,=\,\beta_1X_{1i}\,+\,\beta_2X_{2i}+\dots+\,\beta_pX_{pi}\,+\,\varepsilon_i\)</span> is the ideal model for the population. One of the terms corresponds to the intercept.</p>
 <p>For the sample:</p>
 <p><br><br></p>
 <p><span class="math">\(\hat\mu_i=\hat\beta_1X_{1i}\,+\,\hat\beta_2X_{2i}\,+\dots\,+\,\hat\beta_pX_{pi}+\epsilon_i\)</span> <br><br></p>
