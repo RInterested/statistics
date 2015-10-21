@@ -220,6 +220,33 @@ $\Large \displaystyle\sum_{i=1}^n\{e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\
 
 $\Large \hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {10}$
 
+<br><br>
+
+What happened to the numerators? It turns out they are the same (proof from equation (9)).
+
+The estimator $\beta_1$ from the model $y_i =\beta_1 x_{1i} + \beta_2 x_{2i} + \dots + \epsilon_i$ estimates the association between $X_1$ and $Y$ after “partialling out” $X_2$.
+$e_{i, Y|X_2}$ is $Y$ after “partialling out” the variation that is explained by $X_2$ .
+$e_{i, X_1|X_2}$ is $X_1$ after “partialling out” the variation that is explained by $X_2$.
+
+It can be shown that $\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}$ is equivalent to $\displaystyle\sum_{i=1}^n \,e_{i,X_1|X_2}^2$.
+
+$\hat\beta_1$ is simply the sample analogue of $\frac{cov(\bar X_1, \bar Y)}{var(\bar X_1)}$ or $cor(\hat X_1, \hat Y)\frac{SD(\bar Y)}{SD(\bar X)}$, where $\hat X_1$ and $\hat Y$ are partialled out by $X_1$ and $Y$.
+
+Starting off with equation (9):
+
+$\displaystyle\sum_{i=1}^n (e_{i,Y|X_2}-\hat\beta_1\,e_{i,X_1|X_2})X_{1i} = 0$
+
+<br><br>
+
+$\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2} = 0$
+
+<br><br>
+
+$\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}$
+
+$\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$ or $\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$.
+
+
 
 ---
 

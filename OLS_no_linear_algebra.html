@@ -156,6 +156,18 @@ img {
 <p><span class="math">\(\Large \displaystyle\sum_{i=1}^n\{e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\sum_{i=1}^n e_{X_1|X_2}\,X_{1i}\)</span></p>
 <p><br><br></p>
 <p><span class="math">\(\Large \hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {10}\)</span></p>
+<p><br><br></p>
+<p>What happened to the numerators? It turns out they are the same (proof from equation (9)).</p>
+<p>The estimator <span class="math">\(\beta_1\)</span> from the model <span class="math">\(y_i =\beta_1 x_{1i} + \beta_2 x_{2i} + \dots + \epsilon_i\)</span> estimates the association between <span class="math">\(X_1\)</span> and <span class="math">\(Y\)</span> after “partialling out” <span class="math">\(X_2\)</span>. <span class="math">\(e_{i, Y|X_2}\)</span> is <span class="math">\(Y\)</span> after “partialling out” the variation that is explained by <span class="math">\(X_2\)</span> . <span class="math">\(e_{i, X_1|X_2}\)</span> is <span class="math">\(X_1\)</span> after “partialling out” the variation that is explained by <span class="math">\(X_2\)</span>.</p>
+<p>It can be shown that <span class="math">\(\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}\)</span> is equivalent to <span class="math">\(\displaystyle\sum_{i=1}^n \,e_{i,X_1|X_2}^2\)</span>.</p>
+<p><span class="math">\(\hat\beta_1\)</span> is simply the sample analogue of <span class="math">\(\frac{cov(\bar X_1, \bar Y)}{var(\bar X_1)}\)</span> or <span class="math">\(cor(\hat X_1, \hat Y)\frac{SD(\bar Y)}{SD(\bar X)}\)</span>, where <span class="math">\(\hat X_1\)</span> and <span class="math">\(\hat Y\)</span> are partialled out by <span class="math">\(X_1\)</span> and <span class="math">\(Y\)</span>.</p>
+<p>Starting off with equation (9):</p>
+<p><span class="math">\(\displaystyle\sum_{i=1}^n (e_{i,Y|X_2}-\hat\beta_1\,e_{i,X_1|X_2})X_{1i} = 0\)</span></p>
+<p><br><br></p>
+<p><span class="math">\(\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2} = 0\)</span></p>
+<p><br><br></p>
+<p><span class="math">\(\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}\)</span></p>
+<p><span class="math">\(\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}\)</span> or <span class="math">\(\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
