@@ -131,6 +131,7 @@ Checking equation (1):
 
 $\Large \frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}
 =\frac{cov(X,Y)}{SD(X)}=\frac{\frac{cor(X,Y)}{SD(X)SD(Y)}}{SD(X)}$. Hence,
+
 <br><br>
 $\Huge \hat\beta_1\,=\,cor(Y, X)\,\frac{SD(Y)}{SD(X)}\,=\,\frac{cov(Y,X)}{var(X)}\small \tag 6$
 <br><br>
@@ -239,20 +240,89 @@ It can be shown that $\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}$ is equiv
 
 $\hat\beta_1$ is simply the sample analogue of $\Large \frac{cov(\bar X_1, \bar Y)}{var(\bar X_1)}$ or $\Large cor(\hat X_1, \hat Y)\frac{SD(\bar Y)}{SD(\bar X)}$, where $\hat X_1$ and $\hat Y$ are partialled out by $X_1$ and $Y$.
 
+
+
 Starting off with equation (9):
 <br><br>
 
-$\displaystyle\sum_{i=1}^n (e_{i,Y|X_2}-\hat\beta_1\,e_{i,X_1|X_2})X_{1i} = 0$
+$\Large\displaystyle\sum_{i=1}^n (e_{i,Y|X_2}-\hat\beta_1\,e_{i,X_1|X_2})X_{1i} = 0$
 
 <br><br>
 
-$\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2} = 0$
+$\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2} = 0$
 
 <br><br>
 
-$\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}$
+$\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}$
 
-$\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$ or $\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$.
+$\Large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$ or $\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$.
+
+<br><br>
+
+$\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\displaystyle\sum_{i=1}^n X_{1i} \Bigg( y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}\,y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i} \Bigg)$ (replacing $e_{i,Y|X_2}$ by its expansion - see under equation 8 - let's call this last equation "$X_1$ times residuals $X_2$ through origin").
+
+<br><br>
+
+This can be shown to be equivalent to:
+
+<br><br>
+
+$\Large \displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2} \, e_{i,Y|X_2}$
+$=\displaystyle\sum_{i=1}^n \Bigg(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j} X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}\Bigg)\,\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_{j}}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i}\Bigg)$
+
+
+<br><br>
+
+$\Large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2} = \displaystyle\sum_{i=1}^n X_{1i}\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i} \Bigg)
+= \displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\, \displaystyle\sum_{i=1}^n X_{1i} X_{2i}$
+
+<br><br>
+
+$\Large\displaystyle\sum_{i=1}^n e_{i,X_1|X_2}\, e_{i,Y|X_2}
+= \Large\displaystyle\sum_{i=1}^n \Bigg(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i} \Bigg)\,\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i} \Bigg)$
+
+
+<br><br>
+
+$\Large\displaystyle\sum_{i=1}^n \Bigg[X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{(\displaystyle\sum_{j=1}^n X_{2j}^2)^2} X_{2i}^2 \Bigg]$
+
+<br><br>
+
+$\Large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \Large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} \Large\displaystyle\sum_{i=1}^n X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{(\displaystyle\sum_{j=1}^n X_{2j}^2)^2} \Large\displaystyle\sum_{i=1}^nX_{2i}^2$
+<br><br>
+
+Now, anything that is a summation indexed by either $i$ or $j$ are equivalent because they are summing the same $n$ observations, with the only difference being the index itself. So it follows that the above is equal to:
+<br><br>
+
+
+$=\Large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \Large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\Large\displaystyle\sum_{i=1}^n X_{2i}y_i \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2}  + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}$
+<br><br>
+
+$=\Large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \Large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} =\Large\displaystyle\sum_{i=1}^n X_{1i}\Bigg(y_i - \frac{\Large\displaystyle\sum_{j=1}^n X_{2j}y_j}{\Large\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\Bigg)$ (equation "$X_1$ times residuals $X_2$ through the origin").
+<br><br>
+
+$\Box$
+
+$=\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 =\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \Bigg(X_{1i} - \frac{\Large\displaystyle\sum_{i=1}^n \hat\beta_1 X_{1i}X_{2i}}{\Large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i} \Bigg)$
+
+<br><br>
+
+$=\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 =\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2} X_{1i} - \frac{\Large\displaystyle\sum_{i=1}^n \hat\beta_1 X_{1i}X_{2i}}{\Large\displaystyle\sum_{i=1}^n X_{2i}^2}\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}$
+<br><br>
+
+$\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}=0$ (sum of the residuals times the regressor is zero). So,
+
+<br><br>
+
+$\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 = \Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}$. And plugging into the $\hat\beta_1$ equation:
+
+<br><br>
+
+$\hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}$
+
+<br><br>
+
+$\Large \hat\beta_1=\frac{\Large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\Large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}\small \tag {11}$
 
 
 
