@@ -1,0 +1,85 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+
+###OLS DIAGNOSTICS - Df Betas:
+
+<br><br>
+
+This was an [original question posted in CV](http://stats.stackexchange.com/q/141243/67822).
+
+
+I am trying to replicate what the function `dfbetas()` does in ***R***.
+
+`dfbeta()` is not an issue... Here is a set of vectors:
+
+    x <- c(0.512, 0.166, -0.142, -0.614, 12.72)
+    y <- c(0.545, -0.02, -0.137, -0.751, 1.344)
+   
+If I fit two regression models as follows:
+
+    fit1 <- lm(y ~ x)
+    fit2 <- lm(y[-5] ~ x[-5])
+
+I see that eliminating the last point results in a very different slope (blue line - steeper):
+
+![enter image description here][1]
+
+
+  [1]: http://i.stack.imgur.com/4ypID.jpg
+
+This is reflected in the change in slopes:
+
+    fit1$coeff[2] - fit2$coeff[2]
+    -0.9754245
+
+which coincides with the `dfbeta(fit1)` for the fifth value.
+
+Now if I want to standardize this change in slope (obtain ***dfbetas***) and I resort to: 
+
+> Williams, D. A. (1987) Generalized linear model diagnostics using the
+> deviance and single case deletions. Applied Statistics 36, 181–191
+
+which I think may be one of the references in the R documentation under the package **{stats}**. There the formula for ***dfbetas*** is:
+
+$\large dfbetas (i,fit) = \Large {(\hat{b} - \hat{b_{-i}})\over SE\, \hat{b_{-i}}}$
+
+This could be easily calculated in R:
+
+    (fit1$coef[2] - fit2$coef[2])/summary(fit2)$coef[4]
+
+yielding: `-6.79799` 
+
+The question is why I am not getting the fifth value for the slope in:
+
+    dfbetas(fit1)
+    
+      (Intercept)            x
+    1  1.06199661  -0.39123009
+    2  0.06925319  -0.02907481
+    3 -0.02165967   0.01003539
+    4 -1.24491242   0.65495527
+    5 -0.54223793 -93.81415653!
+
+What is the right equation to go from ***dfbeta*** to ***dfbetas***?
+
+And this is the [answer in CV](http://stats.stackexchange.com/a/141246/67822):
+
+$DFBETAS_{k(i)}$ is calculated by:
+
+$\Large \frac{b_k-b_{k(i)}}{\sqrt{MSE_{(i)}c_{kk}}}$, for $k$ = 1, 2, . . . , $p$. $p$ is the number of regression parameters or coefficients.
+
+where $b_k$ is the $k$th regression coefficient that uses all the data and $b_{k(i)}$ is the same coefficient with the $i$th case deleted.  $MSE_{(i)}$ here is the mean-square error from the regression where the $i$ case is deleted and $c_{kk}$ is the $k$th diagonal element of the unscaled covariance matrix $(X^{\prime}X)^{-1}$.  
+
+So you can calculate $DFBETAS_{k(i)}$ manually with the following R code:
+
+    numerator<-(fit1$coef[2] - fit2$coef[2])
+    denominator<-sqrt((summary(fit2)$sigma^2)*diag(summary(fit1)$cov.unscaled)[2])
+    DFBETAS<-numerator/denominator
+    DFBETAS
+            x 
+    93.81416 
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
