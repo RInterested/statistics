@@ -1,0 +1,69 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+
+###SIMPSON'S PARADOX & RANDOM EFFECTS:
+
+<br><br>
+
+Initially [posted in CV](http://stats.stackexchange.com/a/168733/67822).
+
+Simpson's effect is key to understanding potential pitfalls in medical research, particularly in the area of meta-analysis, where multiple studies with dissimilar methodologies are brought together to provide a more definite answer to a problem. The cases reported tend to deal with count tables and ratios that change because of a "lurking" variable or confounder that is ignored (usually different group sizes). However, it is interesting to look at the continuous case to understand it conceptually.
+
+To look into the paradox different studies composing a meta-analysis are regarded as random effects in a mixed model.
+
+In Simpson's paradox there is a reversal of the sign of the correlation between two variables, or equivalently, a flip in the sign of regression coefficients (slopes) due to an unaccounted for [confounding][1] variable.
+
+In the following illustration, we are looking at the relationship between a fictitious biochemical marker ("Marker X") in blood, and a second level in a blood test ("Marker Y"). We are pooling together the data from four different studies. Initially we look at a "successful" meta-analysis to eventually contrast it with a scenario where Simpson's paradox rears its head.
+
+**Scenario 1:**
+
+As the data is aggregated we end up with a situation best modeled as a mixed-model with random effects explaining the variability between different studies (unit effects) of the form $\boldsymbol{y} = X \boldsymbol{\beta} + Z \boldsymbol{u} + \boldsymbol{\epsilon}$ with $\boldsymbol u$ corresponding to the intecepts of the fitted lines through the $y\sim x$ data cloud for each individual study. This model accounts for the possible presence of a substantial amount of dispersion in the data. Here's what it would look like ([code][2]):
+
+[![enter image description here][3]][3]
+
+with the data from each study color coded on the plot to the left, and aggregated on the right. The situation is not ideal, because there is quite a bit of spread in the values from different datasets. The study would probably be much more likely to be published and quoted with something like this:
+
+[![enter image description here][4]][4]
+
+So perfect an overlap between studies that an ordinary least square (OLS) fit would probably be better than a mixed model with random effects.
+
+However, in either instance, the presence of over-dispersion doesn't raise the possibility of a confounder variable. 
+
+On the other hand...
+
+**Scenario 2:**
+
+... we can encounter an often plotted distribution in the data cloud such that fitting a linear regression with mixed-effects ends up with negative (or positive) slopes for each one of the individual studies, only to reverse sign when the data is aggregated:
+
+[![enter image description here][5]][5]
+
+This is the Simpson's effect.
+
+If we look into the results in the data behind these plots, the `cor(y,x)` for each individual subgroup ranged between `-0.238` and `-0.302`; yet, when the data was aggregated, the combined correlation was `0.473`. Naturally the sign of the regression slopes was also opposite. Of note, the mixed-effect regression with random intersects was a better model than the OLS on the aggregate data.
+
+Already on the plot, one can have an intuition that the data is not just disperse, but it is stretched along the $x$ axis, precisely by an unknown "lurking" variable, which may not be immediately apparent. This can be objectivized by looking at the correlation between the $x$ variable and the $y\,\,intercept$ for each subgroup, and contrasting it with scenario 1. Graphically,
+
+[![enter image description here][6]][6]
+
+in the case with Simpson's effect (scenario 2), the higher the $x$ values, the higher the $y\,\,intercepts$ (left plot), as opposed to the lack of correlation in scenario 1 (right plot). The correlation in the first case between $x$ and the $y\,\,intercepts$ was `0.7876` with a statistically significant (`p -> 0`) slope when doing a regression. In contradistinction, the correlation in scenario 1 between $x$ and the $y\,\,intercepts$ was `0`.
+
+A follow-up question is what type of clinical scenario could possibly follow this pattern (scenario 2)?
+
+  [1]: https://en.wikipedia.org/wiki/Confounding
+  [2]: https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/SIMPSON'S%20PARADOX
+  [3]: http://i.stack.imgur.com/wo5Vd.png
+  [4]: http://i.stack.imgur.com/1vhVM.png
+  [5]: http://i.stack.imgur.com/I7Mh6.png
+  [6]: http://i.stack.imgur.com/9ibLA.png
+
+<br>
+References:
+
+<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
