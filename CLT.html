@@ -75,8 +75,19 @@ CentralLimit &lt;- function(n){
      sd(samples_means)                     ## although only the sd of the samples_means will be returned
 }</code></pre>
 <p>Now were are going to decide on a sample size, mean and standard deviation:</p>
+<pre class="r"><code>sampsize &lt;- 100
+mean &lt;- 0
+sd &lt;- 1000
+CentralLimit(1000)</code></pre>
 <pre><code>## [1] 105.7034</code></pre>
+<pre class="r"><code># [1] 105.7034      Very close to theoretical: sd/sqrt(n) 1000/sqrt(100) = 100.
+head(samples_means)</code></pre>
 <pre><code>## [1]  -30.69816   29.21465  142.93250  314.10070 -147.08809  252.46291</code></pre>
+<pre class="r"><code># [1]  -30.69816   29.21465  142.93250  314.10070 -147.08809  252.46291 
+
+# Building up the population distribution using the dnorm, which will give the pdf value for every quantile fed into it:
+x   &lt;- seq(-(5 * sd),(5 * sd), length = 1000)
+y   &lt;- dnorm(x, mean, sd)</code></pre>
 <p>Plotting,</p>
 <pre class="r"><code>par(mfrow=c(1,2),oma=c(0,0,1,0))
 plot(x,y, type=&quot;l&quot;,ylab=&quot;pdf&quot;,xlab=&quot;population&quot;,
