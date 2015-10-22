@@ -77,6 +77,9 @@ img {
 <pre><code>## [1] 1.644854</code></pre>
 <p>Alternatively, we can just run an <em>exact binomial test</em>, which doesn’t need to rely on the normal approximation:</p>
 <p><span class="math">\(p(counts \geq 11)= \displaystyle \sum_{11}^{20} {20\choose X} 0.1^X 0.9^{20-X}\)</span></p>
+<p>With [R],</p>
+<pre class="r"><code>pbinom(10, 20, .1, lower.tail = F)</code></pre>
+<pre><code>## [1] 7.088606e-07</code></pre>
 <p><br><br></p>
 <p>This question <a href="http://stats.stackexchange.com/q/50112/67822">appeared here</a>.</p>
 <p>A report says that 82% of British Columbians over the age of <span class="math">\(25\)</span> are high school graduates. A survey of randomly selected residents of a certain city included <span class="math">\(1290\)</span> who were over the age of <span class="math">\(25\)</span>, and <span class="math">\(1012\)</span> of them were high school graduates. Is the city’s result of <span class="math">\(1012\)</span> unusually high, low, or neither?</p>
