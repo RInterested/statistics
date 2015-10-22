@@ -150,6 +150,10 @@ G = 5.8703, X-squared df = 1, p-value = 0.0154</code></pre>
     [1] Cut-off quantile: 1.96             
     [1] pvalue:           0.0077</code></pre>
 <p>Giving the same z value as the function in the R-Bloggers: <code>z.prop(64, 178 , 92, 190) [1] -5.44273</code></p>
+<p>An alternate test statistic is the Wald test:</p>
+<p><em>test statistic</em> = <span class="math">\(\Large \frac{\hat p_1 - \hat p_2}{\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-(\hat p_2))}{n_2}}}\)</span></p>
+<p>which is useful to create confidence intervals for the difference:</p>
+<p><span class="math">\(\large \hat p_1 - \hat p_2 \pm Z_{1-\alpha/2} \sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-(\hat p_2))}{n_2}}\)</span></p>
 <p>Original post <a href="http://stats.stackexchange.com/a/167988/67822">here</a></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
