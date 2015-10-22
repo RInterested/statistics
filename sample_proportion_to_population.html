@@ -71,6 +71,10 @@ img {
 <p><span class="math">\(\large \hat p \pm Z_{1-\alpha/2} * \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}\)</span></p>
 <p>In [R]:</p>
 <p><span class="math">\(\large \hat p + c(-1, 1) * pnorm(0.975) * \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}\)</span></p>
+<p>Example: We want to test if the proportion of side effects is greater than 0.1 for a new drug (<span class="math">\(p=0.1\)</span>). In our sample of 20 cases, 11 had complications for a <span class="math">\(\hat p = 0.55\)</span>:</p>
+<p><em>test statistic</em> = <span class="math">\(\Large \frac{0.55 - 0.1}{\sqrt{\frac{0.1 * 0.9}{20}}} = 6.7\)</span>, which is clearly significant:</p>
+<pre class="r"><code>qnorm(0.95) # One-sided test</code></pre>
+<pre><code>## [1] 1.644854</code></pre>
 <p><br><br></p>
 <p>This question <a href="http://stats.stackexchange.com/q/50112/67822">appeared here</a>.</p>
 <p>A report says that 82% of British Columbians over the age of <span class="math">\(25\)</span> are high school graduates. A survey of randomly selected residents of a certain city included <span class="math">\(1290\)</span> who were over the age of <span class="math">\(25\)</span>, and <span class="math">\(1012\)</span> of them were high school graduates. Is the city’s result of <span class="math">\(1012\)</span> unusually high, low, or neither?</p>

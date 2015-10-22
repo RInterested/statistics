@@ -19,6 +19,14 @@ In [R]:
 
 $\large \hat p + c(-1, 1) * pnorm(0.975) * \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
 
+Example: We want to test if the proportion of side effects is greater than 0.1 for a new drug ($p=0.1$). In our sample of 20 cases, 11 had complications for a $\hat p = 0.55$:
+
+*test statistic* = $\Large \frac{0.55 - 0.1}{\sqrt{\frac{0.1 * 0.9}{20}}} = 6.7$, which is clearly significant:
+
+```{r}
+qnorm(0.95) # One-sided test
+```
+
 <br><br>
 
 This question [appeared here](http://stats.stackexchange.com/q/50112/67822).
