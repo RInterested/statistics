@@ -84,7 +84,7 @@ img {
 <p>We want to compare the miles per gallon in cars with four versus eight cylinders from the dataset mtcars:</p>
 <pre class="r"><code>four_cyl &lt;- mtcars$mpg[mtcars$cyl==4]
 eight_cyl &lt;- mtcars$mpg[mtcars$cyl==8]</code></pre>
-<p>Fist we may want to look at whether the variance differs between both groups with a Fisher test (homoskedasticity):</p>
+<p>Fist we may want to look at whether the variance differs between both groups with an <span class="math">\(F\)</span> test (homoskedasticity):</p>
 <pre class="r"><code>var.test(four_cyl, eight_cyl)</code></pre>
 <pre><code>## 
 ##  F test to compare two variances
