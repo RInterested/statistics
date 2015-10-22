@@ -1,0 +1,55 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+
+###BAYESIAN APPROACH TO ASSESS COIN FAIRNESS:
+
+<br><br>
+
+I'd like to post some illustrations about the way our preconceptions about the "fairness" of the coin (or the experiment in general) affects the *posterior probability density*, i.e. the $p\,(\theta\,|\,Data)$, where $\theta$ stands for the probability of ending up with $heads$ in the coin toss.
+
+Luckily, we have a [conjugate prior distribution][1] for the binomial case that occupies us - the $beta$ distribution, facilitating the calculation of the posterior distribution.
+
+    First scenario - The Fair-Minded Player:
+
+We walk into the game (not a very exciting game, but still...), and we have absolutely no reason to assume that there is foul play going on. Things being by nature less than perfect, we have it in our mind that the coin is fair-*ish*. In other words, we think that the probability of heads, $\theta$, falls somewhere around $\frac{1}{2}$. Later, the unexpected single $tail$ out of $6$ tosses, will force us to move the posterior probability of $\theta$ to the left (the arrows indicate the influence of the data on the prior distribution):
+
+[![enter image description here][2]][2]
+
+    Second Scenario - The Shrewd Player:
+
+We strongly suspect from insider's leaked information that the game is markedly biased towards tails, and we not only are about to make a killing, but also in need to further reinforce our conviction after the first round, doubling down our bet:
+
+[![enter image description here][3]][3]
+
+    Third Scenario - Losing Your Shirt:
+
+We've never played before, but we have read a manual, and we feel ready. All signs clearly indicate that the coin is markedly biased towards $heads$, a mistake that we will soon start to correct at a high $\ $\$ cost:
+
+[![enter image description here][4]][4]
+
+
+    Fourth Scenario - No Idea Whatsoever:
+
+It's a good thing that the $\beta(1,1)$ distribution turns into a $U\,(0,1)$ to address this scenario, where only the $likelihood$ will influence the $posterior$ probability of $\theta$. As brought up to my attention, a [Jeffreys prior is close and possibly more correct][5]:
+
+[![enter image description here][6]][6]
+
+So I hope this provides a bit of a light-hearted visual depiction of our approach to estimating the chances of this game being rigged, perhaps encapsulating more of a real scenario than calculations of the type `pbinom(1, 6, 0.5)`. If you want the code in R, and the credits to a great video with Matlab illustrations, [I posted it here][7].
+
+
+  [1]: https://en.wikipedia.org/wiki/Conjugate_prior
+  [2]: http://i.stack.imgur.com/5uxr2.png
+  [3]: http://i.stack.imgur.com/QX1k5.png
+  [4]: http://i.stack.imgur.com/lK1Uj.png
+  [5]: https://tamino.wordpress.com/2010/11/25/prior-knowledge/
+  [6]: http://i.stack.imgur.com/UxLHP.png
+  [7]: https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/BAYES%20FAIR%20COIN
+<br>
+
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
