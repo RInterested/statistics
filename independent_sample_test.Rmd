@@ -11,9 +11,17 @@ $H_o: \mu_1=\mu_2$ while $\mu_1\neq \mu_2$. We can also test $\mu_1 \geq mu_2$ a
 
 It's convenience to assume a normal variance and utilize a test statistic as follows:
 
-test statistic = $\Large \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}$. $S_p$ is the *pooled* standard deviation across both samples. It is the mean of *variances* - not standard deviations - and then square rooting: $\large S_p=\sqrt{SD_x^2+SD_y^2}$. 
+test statistic = $\Large \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}$. $S_p$ is the *pooled* standard deviation across both samples. It is the mean of *variances* when the sample size is the same - not standard deviations - and then square rooting: $\large S_p=\sqrt{SD_x^2+SD_y^2}$. It follows a $t$ distribution with $n_x + n_y - 2$ degrees of freedom.
 
-It follows a $t$ distribution with $n_x + n_y - 2$ degrees of freedom.
+However, if the groups are not equal: 
+
+In statistics, pooled variance (also known as combined, composite, or overall variance) is a method for estimating variance of several different populations when the mean of each population may be different, but one may assume that the variance of each population is the same. If the populations are indexed $i = 1,\ldots,k$, then the pooled variance $s_p^2$ can be estimated by the weighted average of the sample variances s^2_i
+
+$\Large s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}$
+
+where $n_i$ is the sample size of population $i$ and $s^2_i$ is $\Large \frac{1}{n_i-1} \sum_{j=1}^{n_i} \left(y_j - \overline{y_j} \right)^2$ . Use of $(n_i-1)$ weighting factors instead of $n_i$ comes from Bessel's correction.
+
+---
 
 If the assumption of common variance is not warranted, the test will be:
 

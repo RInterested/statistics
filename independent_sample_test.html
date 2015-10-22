@@ -67,8 +67,12 @@ img {
 <p><br><br></p>
 <p><span class="math">\(H_o: \mu_1=\mu_2\)</span> while <span class="math">\(\mu_1\neq \mu_2\)</span>. We can also test <span class="math">\(\mu_1 \geq mu_2\)</span> and <span class="math">\(\mu_2 \geq mu_1\)</span>.</p>
 <p>It’s convenience to assume a normal variance and utilize a test statistic as follows:</p>
-<p>test statistic = <span class="math">\(\Large \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}\)</span>. <span class="math">\(S_p\)</span> is the <em>pooled</em> standard deviation across both samples. It is the mean of <em>variances</em> - not standard deviations - and then square rooting: <span class="math">\(\large S_p=\sqrt{SD_x^2+SD_y^2}\)</span>.</p>
-<p>It follows a <span class="math">\(t\)</span> distribution with <span class="math">\(n_x + n_y - 2\)</span> degrees of freedom.</p>
+<p>test statistic = <span class="math">\(\Large \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}\)</span>. <span class="math">\(S_p\)</span> is the <em>pooled</em> standard deviation across both samples. It is the mean of <em>variances</em> when the sample size is the same - not standard deviations - and then square rooting: <span class="math">\(\large S_p=\sqrt{SD_x^2+SD_y^2}\)</span>. It follows a <span class="math">\(t\)</span> distribution with <span class="math">\(n_x + n_y - 2\)</span> degrees of freedom.</p>
+<p>However, if the groups are not equal:</p>
+<p>In statistics, pooled variance (also known as combined, composite, or overall variance) is a method for estimating variance of several different populations when the mean of each population may be different, but one may assume that the variance of each population is the same. If the populations are indexed <span class="math">\(i = 1,\ldots,k\)</span>, then the pooled variance <span class="math">\(s_p^2\)</span> can be estimated by the weighted average of the sample variances s^2_i</p>
+<p><span class="math">\(\Large s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}\)</span></p>
+<p>where <span class="math">\(n_i\)</span> is the sample size of population <span class="math">\(i\)</span> and <span class="math">\(s^2_i\)</span> is <span class="math">\(\Large \frac{1}{n_i-1} \sum_{j=1}^{n_i} \left(y_j - \overline{y_j} \right)^2\)</span> . Use of <span class="math">\((n_i-1)\)</span> weighting factors instead of <span class="math">\(n_i\)</span> comes from Bessel’s correction.</p>
+<hr />
 <p>If the assumption of common variance is not warranted, the test will be:</p>
 <p>test statistic = <span class="math">\(\Large \frac{\bar X - \bar Y}{\sqrt{\frac{SD_x^2}{n_x}+\frac{SD_y^2}{n_y}}}\)</span>.</p>
 <p>This follows a <span class="math">\(t\)</span> distribution if <span class="math">\(X_i\)</span> and <span class="math">\(Y_i\)</span> are normally distributed.</p>
