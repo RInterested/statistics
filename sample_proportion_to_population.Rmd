@@ -29,13 +29,20 @@ qnorm(0.95) # One-sided test
 
 Alternatively, we can just run an *exact binomial test*, which doesn't need to rely on the normal approximation:
 
-$p(counts \geq 11)= \displaystyle \sum_{11}^{20} {20\choose X} 0.1^X 0.9^{20-X}$
+$p(counts \geq 11)= \displaystyle \sum_{11}^{20} {20\choose X} \,0.1^X\, 0.9^{20-X}$
 
 With [R], 
 
 ```{r}
-pbinom(10, 20, .1, lower.tail = F)
+pbinom(10, 20, .1, lower.tail = F) # Lower.tail false implies that it will count 11 and above.
 ```
+
+Alternatively (same result),
+
+```{r}
+binom.test(11, 20, 0.1, alternative = "greater")
+```
+
 <br><br>
 
 This question [appeared here](http://stats.stackexchange.com/q/50112/67822).
