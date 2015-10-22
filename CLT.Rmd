@@ -2,7 +2,6 @@
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 
-
 #### SIMULATION OF THE CENTRAL LIMIT THEOREM:
 
 Simulating the central limit theorem, ending up with plots side-by-side showing the bell-curve distribution of an originalNormal distribution with chosen mean and SD, which will be broad-based, as compared to the distribution of the sample means, also bell-shaped, but narrower at the base.
@@ -52,6 +51,47 @@ curve(dnorm(x,mean=mean(samples_means),
             sd=sd(samples_means)),col="red",lwd=2,add=T)
 title("CENTRAL LIMIT THEOREM - MONTE CARLO",outer=T)
 ```
+
+For different distributions:
+
+Distribution of sample means of 30 coin tosses with qqnorm plotting for normality and Shapiro-Wilk normality test:
+
+```{r}
+tosses <- 30
+samsize <- 1000
+vector <- NULL
+for (i in 1:1000){vector[i] = mean(rbinom(samsize,tosses,0.7))}
+head(vector)
+plot(density(vector))
+shapiro.test(vector)
+# We cannot exclude normality.
+qqnorm(vector);qqline(vector)
+```
+
+Distribution of sample means of $1000$ samples from an Exponential with qqnorm plotting for normality and Shapiro-Wilk normality test:
+
+```{r}
+vector <- NULL
+for (i in 1:1000){vector[i] = mean(rexp(1000,5))}
+head(vector)
+plot(density(vector))
+shapiro.test(vector)
+# We cannot exclude normality.
+qqnorm(vector);qqline(vector)
+```
+
+Distribution of sample means of $5$ observation of a Uniform distr. with qqnorm plotting for normality and Shapiro-Wilk normality test:
+
+```{r}
+vector1 <- NULL
+for (i in 1:1000){vector1[i] = mean(runif(5))}
+head(vector1)
+plot(density(vector1))
+shapiro.test(vector1)
+# We cannot exclude normality.
+qqnorm(vector1);qqline(vector1)
+```
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
