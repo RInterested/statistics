@@ -1,0 +1,89 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+
+###MODEL SELECTION FOR OLS:
+
+This question [appeared here](http://stats.stackexchange.com/q/172782/67822).
+
+Newbie question using R's mtcars dataset with anova() function. My question is how to use anova() to select the best (nested) model. Here's some example data:
+
+
+    anova(lm(mpg~disp,mtcars),lm(mpg~disp+wt,mtcars),lm(mpg~disp+wt+am,mtcars))
+    Analysis of Variance Table
+    
+    Model 1: mpg ~ disp
+    Model 2: mpg ~ disp + wt
+    Model 3: mpg ~ disp + wt + am
+      Res.Df    RSS Df Sum of Sq      F   Pr(>F)   
+    1     30 317.16                                
+    2     29 246.68  1    70.476 8.0036 0.008535 **
+    3     28 246.56  1     0.126 0.0143 0.905548   
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    > anova(lm(mpg~disp,mtcars),lm(mpg~disp+wt,mtcars),lm(mpg~disp+wt+hp,mtcars))
+    Analysis of Variance Table
+    
+    Model 1: mpg ~ disp
+    Model 2: mpg ~ disp + wt
+    Model 3: mpg ~ disp + wt + hp
+      Res.Df    RSS Df Sum of Sq       F   Pr(>F)   
+    1     30 317.16                                 
+    2     29 246.68  1    70.476 10.1201 0.003571 **
+    3     28 194.99  1    51.692  7.4228 0.010971 * 
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+My understanding is anova() compares the reduction in the residual sum of squares to report a corresponding p-value for each nested model, where lower p-values means that nested model is more significantly different from the first model. 
+
+Question 1: Why is it that changing the 3rd regressor variable effects results from the 2nd nest model? That is, the p-value for `disp+wt` model changes from 0.008535 to 0.003571 going from the first to the second example. (does anova's model 2 analysis use data from model 3???)
+
+Question 2: Since the 3rd model's `Sum of Sq` value is much lower in the first example (e.g. 0.126 versus 51.692), I'd expect the p-value to be lower as well, but it in fact increases (e.g. 0.905548 versus 0.010971). Why?
+
+Question 3: Ultimately I'm trying to understand, given a dataset with a lot of regressors, how to use anova() to find the best model. Any general rules of thumb are appreciated. 
+
+**ANSWER:**
+
+    Question 1:
+
+Regarding the difference in *p-values* (or *F-values*) for `Model 2` in the first ANOVA compared to the second, there is no explanation apparent to me. They should indeed be the same, since we are comparing at that point `Model 1` to `Model 2` in both instances. It would be very useful to get further input about the reason behind, but in the absence of an explanation, it is probably advisable to only include two models in each *ANOVA* call. The values calculated "manually" (I presume the correct values) are consistent with the first *ANOVA* call in your post with an `F = 8.2852`. 
+
+    Question 2:
+
+You are comparing `51.692` and `0.126 ` BUT this bulkier difference in the second case is a good thing: What you should be paying attention to is the difference in the second ANOVA between `246.68` for `Model 2` and `194.99` for `Model 3`, which is much more of a drop in *RSS* than what you observe in in the first ANOVA, a change from `246.68` to `246.56`, tantamount to nothing. So by including the third regressor in the second ANOVA, you shave off a ton of residual (misfitted) information that is now captured, whereas you hardly made a dent in the first set of models. 
+
+    Question 3:
+
+The question is how to use ANOVA to find the best model, but I think the answer is clear by now - low p-value makes it a good bet that you should include the regressor under consideration. Yet, what is not clear at all is the *process* by which you move along a series of ANOVA tests. In other words, I know you know because I've taken the Coursera course, that at first you are acquainted with $R^2$, which you can calculate manually, and understand the idea [here][1] (among many other places); after the idea of overfitting is introduced, Adjusted-$R^2$ values are explained, shortly followed by, yes, *ANOVA* (F-test). All these and others, such as the [AIC criterion][2] are *tests or criteria* to select models or include / exclude regressors. For instance, AIC and BIC used for non-nested models, and ANOVA and Likelihood Ratio Tests for nested models (I'm quoting a comment by @f coppens in [this post][3].
+
+The challenge, though, is to come up with models that make sense to test ([check this post][4]). Say you have 5 independent variables, and you are doing linear regression, or OLS, you can include or exclude each variable in the any conceivable model for a total of $2^{10}=1,024$ models before considering interactions (remember that `mtcars` has 10 variables besides `mpg`). This has its own problems with collinearity for instance. You can resort to your knowledge of cars, or just run with raw computer power through all combinations either with *forward or backward stepwise selection* as very nicely explained in [this document][5], using R code along the lines of:
+
+```{r, echo=F}
+    fit.full <- lm(mpg ~ ., data = mtcars)    
+    for.aic <- step(lm(mpg ~ 1, data = mtcars), direction = "forward", 
+                     scope = formula(fit.full), k = 2, trace = 0)               # forward AIC
+    for.bic <- step(lm(mpg ~ 1, data=mtcars), direction = "forward", 
+                     scope = formula(fit.full), k = log(32), trace = 0)         # forward BIC
+    back.aic <- step(fit.full, direction = "backward", k = 2, trace = 0)        # backward AIC
+    back.bic <- step(fit.full, direction = "backward", k = log(32), trace = 0)  # backward BIC
+    
+    (Adjusted_R.square <- data.frame("Method"=c("for.aic", "for.bic", "back.aic", "back.bic"), 
+    "Adj.r.square"=c(summary(for.aic)$adj.r.square, summary(for.bic)$adj.r.square, 
+    summary(back.aic)$adj.r.square, summary(back.bic)$adj.r.square)))
+    summary(back.bic)
+```
+
+to select the model with the highest adjusted $R^2$ (or you can also run *ANOVA*) with the idea of later looking into possible interactions, and running residuals diagnostics. 
+
+
+  [1]: http://stats.stackexchange.com/a/172161/67822
+  [2]: https://en.wikipedia.org/wiki/Akaike_information_criterion
+  [3]: http://stats.stackexchange.com/q/172398/67822
+  [4]: http://stats.stackexchange.com/q/21265/67822
+  [5]: https://rstudio-pubs-static.s3.amazonaws.com/102178_63fefd368fa6427692f3647d521fad2f.html
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
