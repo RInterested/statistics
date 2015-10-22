@@ -19,13 +19,17 @@ In [R]:
 
 $\large \hat p + c(-1, 1) * pnorm(0.975) * \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
 
-Example: We want to test if the proportion of side effects is greater than 0.1 for a new drug ($p=0.1$). In our sample of 20 cases, 11 had complications for a $\hat p = 0.55$:
+Example: We want to test if the proportion of side effects is greater than 0.1 for a new drug ($p=0.1$). In our sample of $20$ cases, $11$ had complications for a $\hat p = 0.55$:
 
 *test statistic* = $\Large \frac{0.55 - 0.1}{\sqrt{\frac{0.1 * 0.9}{20}}} = 6.7$, which is clearly significant:
 
 ```{r}
 qnorm(0.95) # One-sided test
 ```
+
+Alternatively, we can just run an *exact binomial test*, which doesn't need to rely on the normal approximation:
+
+$p(counts \geq 11)= \displaystyle \sum_{11}^{20} {20\choose X} 0.1^X 0.9^{20-X}$
 
 <br><br>
 
