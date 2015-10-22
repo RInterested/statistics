@@ -67,17 +67,86 @@ img {
 <p><br><br></p>
 <p><span class="math">\(H_o: \mu_1=\mu_2\)</span> while <span class="math">\(\mu_1\neq \mu_2\)</span>. We can also test <span class="math">\(\mu_1 \geq mu_2\)</span> and <span class="math">\(\mu_2 \geq mu_1\)</span>.</p>
 <p>It’s convenience to assume a normal variance and utilize a test statistic as follows:</p>
-<p>test statistic = <span class="math">\(\Large \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}\)</span>. <span class="math">\(S_p\)</span> is the <em>pooled</em> standard deviation across both samples. It is the mean of <em>variances</em> when the sample size is the same - not standard deviations - and then square rooting: <span class="math">\(\large S_p=\sqrt{SD_x^2+SD_y^2}\)</span>. It follows a <span class="math">\(t\)</span> distribution with <span class="math">\(n_x + n_y - 2\)</span> degrees of freedom.</p>
+<p>test statistic = <span class="math">\(\huge \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}\)</span>. <span class="math">\(S_p\)</span> is the <em>pooled</em> standard deviation across both samples. It is the mean of <em>variances</em> when the sample size is the same - not standard deviations - and then square rooting: <span class="math">\(\large S_p=\sqrt{SD_x^2+SD_y^2}\)</span>. It follows a <span class="math">\(t\)</span> distribution with <span class="math">\(n_x + n_y - 2\)</span> degrees of freedom.</p>
 <p>However, <a href="https://en.wikipedia.org/wiki/Pooled_variance">if the groups are not equal</a>:</p>
-<p>In statistics, pooled variance (also known as combined, composite, or overall variance) is a method for estimating variance of several different populations when the mean of each population may be different, but one may assume that the variance of each population is the same. If the populations are indexed <span class="math">\(i = 1,\ldots,k\)</span>, then the pooled variance <span class="math">\(s_p^2\)</span> can be estimated by the weighted average of the sample variances s^2_i</p>
+<p>In statistics, pooled variance (also known as combined, composite, or overall variance) is a method for estimating variance of several different populations when the mean of each population may be different, but one may assume that the variance of each population is the same. If the populations are indexed <span class="math">\(i = 1,\ldots,k\)</span>, then the pooled variance <span class="math">\(s_p^2\)</span> can be estimated by the weighted average of the sample variances <span class="math">\(s^2_i\)</span>:</p>
 <p><span class="math">\(\Large s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}\)</span></p>
-<p>where <span class="math">\(n_i\)</span> is the sample size of population <span class="math">\(i\)</span> and <span class="math">\(s^2_i\)</span> is <span class="math">\(\Large \frac{1}{n_i-1} \sum_{j=1}^{n_i} \left(y_j - \overline{y_j} \right)^2\)</span> . Use of <span class="math">\((n_i-1)\)</span> weighting factors instead of <span class="math">\(n_i\)</span> comes from Bessel’s correction.</p>
+<p>where <span class="math">\(n_i\)</span> is the sample size of population <span class="math">\(i\)</span> and <span class="math">\(s^2_i\)</span> is <span class="math">\(\Large \frac{1}{n_i-1} \sum_{j=1}^{n_i} \left(y_j - \bar y_j \right)^2\)</span> . Use of <span class="math">\((n_i-1)\)</span> weighting factors instead of <span class="math">\(n_i\)</span> comes from Bessel’s correction.</p>
+<p>For two samples the <span class="math">\(S_p\)</span> will therefore be:</p>
+<p><span class="math">\(\Large S_p\,=\,\sqrt{\frac{(n_x - 1)\,S_x^2\,+\,(n_y - 1)\,S_y^2}{n_x + n_y -2}}\)</span></p>
 <hr />
 <p>If the assumption of common variance is not warranted, the test will be:</p>
 <p>test statistic = <span class="math">\(\Large \frac{\bar X - \bar Y}{\sqrt{\frac{SD_x^2}{n_x}+\frac{SD_y^2}{n_y}}}\)</span>.</p>
 <p>This follows a <span class="math">\(t\)</span> distribution if <span class="math">\(X_i\)</span> and <span class="math">\(Y_i\)</span> are normally distributed.</p>
 <p>The degrees of freedom are calculated as:</p>
 <p>degrees of freedom = <span class="math">\(\Large \frac{(S_x^2/n_x + S_y^2/n_y)^2}{\frac{(S_x^2/n_x)^2}{n_x-1}+\frac{(S_y^2/n_y)^2}{n_y-1}}\)</span></p>
+<p><strong>EXAMPLE WITH R:</strong></p>
+<p>We want to compare the miles per gallon in cars with four versus eight cylinders from the dataset mtcars:</p>
+<pre class="r"><code>four_cyl &lt;- mtcars$mpg[mtcars$cyl==4]
+eight_cyl &lt;- mtcars$mpg[mtcars$cyl==8]</code></pre>
+<p>Fist we may want to look at whether the variance differs between both groups with a Fisher test (homoskedasticity):</p>
+<pre class="r"><code>var.test(four_cyl, eight_cyl)</code></pre>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  four_cyl and eight_cyl
+## F = 3.1033, num df = 10, denom df = 13, p-value = 0.05925
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##   0.9549589 11.1197133
+## sample estimates:
+## ratio of variances 
+##           3.103299</code></pre>
+<p>And we see that we don’t have enough evidence to conclude that the samples have different variances.</p>
+<p>We can also run a Lavene test for the same purpose:</p>
+<pre class="r"><code>library(reshape2)
+library(car)</code></pre>
+<p>We need to combine data:</p>
+<pre class="r"><code>sample &lt;- as.data.frame(cbind(four_cyl, eight_cyl))</code></pre>
+<pre><code>## Warning in cbind(four_cyl, eight_cyl): number of rows of result is not a
+## multiple of vector length (arg 1)</code></pre>
+<pre class="r"><code>dataset &lt;- melt(sample)</code></pre>
+<pre><code>## No id variables; using all as measure variables</code></pre>
+<pre class="r"><code>leveneTest(value ~ variable, dataset)</code></pre>
+<pre><code>## Levene's Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  1  2.8025 0.1061
+##       26</code></pre>
+<p>Now we can compare the means:</p>
+<pre class="r"><code>t.test(four_cyl, eight_cyl, var.equal=TRUE, paired=FALSE, 
+          alternative=&quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  four_cyl and eight_cyl
+## t = 8.1024, df = 23, p-value = 3.446e-08
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##   8.611261 14.516012
+## sample estimates:
+## mean of x mean of y 
+##  26.66364  15.10000</code></pre>
+<p>Clearly different means.</p>
+<p><strong><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals5.html">MANUAL CALCULATION OF CONFIDENCE INTERVAL:</a></strong></p>
+<p>For samples of less than 30:</p>
+<p><span class="math">\((\bar X - \bar Y) \pm qt(0.975, n_x + n_y - 1) \,S_p\, \sqrt{\frac{1}{n_x}+\frac{1}{n_y}}\)</span></p>
+<p>And for larger samples:</p>
+<p><span class="math">\((\bar X - \bar Y) \pm qnorm(0.975)\,S_p \,\sqrt{\frac{1}{n_x}+\frac{1}{n_y}}\)</span></p>
+<p>We don’t want two different confidence intervals. We want the CI of the difference.</p>
+<pre class="r"><code>(n_x &lt;- length(four_cyl)); (n_y &lt;- length(eight_cyl))</code></pre>
+<pre><code>## [1] 11</code></pre>
+<pre><code>## [1] 14</code></pre>
+<pre class="r"><code>(Sp &lt;- sqrt((((n_x - 1)*(sd(four_cyl))^2) + ((n_y - 1)*(sd(eight_cyl))^2))/(n_x + n_y - 2)))</code></pre>
+<pre><code>## [1] 3.542202</code></pre>
+<pre class="r"><code># Compare to:
+sd(four_cyl); sd(eight_cyl)</code></pre>
+<pre><code>## [1] 4.509828</code></pre>
+<pre><code>## [1] 2.560048</code></pre>
+<pre class="r"><code># Finally the CI of the difference:
+
+(CI &lt;- (mean(four_cyl)- mean(eight_cyl)) + c(-1, 1) * qt(0.975,(n_x + n_y-2)) * Sp * sqrt(1/n_x + 1/n_y))</code></pre>
+<pre><code>## [1]  8.611261 14.516012</code></pre>
+<p>This interval clearly does not include a zero diference: the four-cylinder vehicles have a higher mileage than the eight-cylinder cars.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

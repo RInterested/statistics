@@ -11,15 +11,19 @@ $H_o: \mu_1=\mu_2$ while $\mu_1\neq \mu_2$. We can also test $\mu_1 \geq mu_2$ a
 
 It's convenience to assume a normal variance and utilize a test statistic as follows:
 
-test statistic = $\Large \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}$. $S_p$ is the *pooled* standard deviation across both samples. It is the mean of *variances* when the sample size is the same - not standard deviations - and then square rooting: $\large S_p=\sqrt{SD_x^2+SD_y^2}$. It follows a $t$ distribution with $n_x + n_y - 2$ degrees of freedom.
+test statistic = $\huge \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}$. $S_p$ is the *pooled* standard deviation across both samples. It is the mean of *variances* when the sample size is the same - not standard deviations - and then square rooting: $\large S_p=\sqrt{SD_x^2+SD_y^2}$. It follows a $t$ distribution with $n_x + n_y - 2$ degrees of freedom.
 
 However, [if the groups are not equal](https://en.wikipedia.org/wiki/Pooled_variance): 
 
-In statistics, pooled variance (also known as combined, composite, or overall variance) is a method for estimating variance of several different populations when the mean of each population may be different, but one may assume that the variance of each population is the same. If the populations are indexed $i = 1,\ldots,k$, then the pooled variance $s_p^2$ can be estimated by the weighted average of the sample variances s^2_i
+In statistics, pooled variance (also known as combined, composite, or overall variance) is a method for estimating variance of several different populations when the mean of each population may be different, but one may assume that the variance of each population is the same. If the populations are indexed $i = 1,\ldots,k$, then the pooled variance $s_p^2$ can be estimated by the weighted average of the sample variances $s^2_i$:
 
 $\Large s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}$
 
-where $n_i$ is the sample size of population $i$ and $s^2_i$ is $\Large \frac{1}{n_i-1} \sum_{j=1}^{n_i} \left(y_j - \overline{y_j} \right)^2$ . Use of $(n_i-1)$ weighting factors instead of $n_i$ comes from Bessel's correction.
+where $n_i$ is the sample size of population $i$ and $s^2_i$ is $\Large \frac{1}{n_i-1} \sum_{j=1}^{n_i} \left(y_j - \bar y_j \right)^2$ . Use of $(n_i-1)$ weighting factors instead of $n_i$ comes from Bessel's correction.
+
+For two samples the $S_p$ will therefore be:
+
+$\Large S_p\,=\,\sqrt{\frac{(n_x - 1)\,S_x^2\,+\,(n_y - 1)\,S_y^2}{n_x + n_y -2}}$
 
 ---
 
@@ -32,6 +36,71 @@ This follows a $t$ distribution if $X_i$ and $Y_i$ are normally distributed.
 The degrees of freedom are calculated as:
 
 degrees of freedom = $\Large \frac{(S_x^2/n_x + S_y^2/n_y)^2}{\frac{(S_x^2/n_x)^2}{n_x-1}+\frac{(S_y^2/n_y)^2}{n_y-1}}$
+
+**EXAMPLE WITH R:**
+
+We want to compare the miles per gallon in cars with four versus eight cylinders from the dataset mtcars:
+
+```{r}
+four_cyl <- mtcars$mpg[mtcars$cyl==4]
+eight_cyl <- mtcars$mpg[mtcars$cyl==8]
+```
+
+Fist we may want to look at whether the variance differs between both groups with a Fisher test (homoskedasticity):
+
+````{r}
+var.test(four_cyl, eight_cyl)
+```
+
+And we see that we don't have enough evidence to conclude that the samples have different variances.
+
+We can also run a Lavene test for the same purpose:
+
+```{r, message=FALSE, warning=FALSE}
+library(reshape2)
+library(car)
+```
+
+We need to combine data:
+
+```{r}
+sample <- as.data.frame(cbind(four_cyl, eight_cyl))
+dataset <- melt(sample)
+leveneTest(value ~ variable, dataset)
+```
+
+Now we can compare the means:
+
+```{r}
+t.test(four_cyl, eight_cyl, var.equal=TRUE, paired=FALSE, 
+          alternative="two.sided")
+```
+
+Clearly different means.
+
+**[MANUAL CALCULATION OF CONFIDENCE INTERVAL:](http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals5.html)**
+
+For samples of less than 30:
+
+$(\bar X - \bar Y) \pm qt(0.975, n_x + n_y - 1) \,S_p\, \sqrt{\frac{1}{n_x}+\frac{1}{n_y}}$
+
+And for larger samples:
+
+$(\bar X - \bar Y) \pm qnorm(0.975)\,S_p \,\sqrt{\frac{1}{n_x}+\frac{1}{n_y}}$
+
+We don't want two different confidence intervals. We want the CI of the difference.
+
+```{r}
+(n_x <- length(four_cyl)); (n_y <- length(eight_cyl))
+(Sp <- sqrt((((n_x - 1)*(sd(four_cyl))^2) + ((n_y - 1)*(sd(eight_cyl))^2))/(n_x + n_y - 2)))
+# Compare to:
+sd(four_cyl); sd(eight_cyl)
+# Finally the CI of the difference:
+
+(CI <- (mean(four_cyl)- mean(eight_cyl)) + c(-1, 1) * qt(0.975,(n_x + n_y-2)) * Sp * sqrt(1/n_x + 1/n_y))
+```
+
+This interval clearly does not include a zero diference: the four-cylinder vehicles have a higher mileage than the eight-cylinder cars.
 
 ---
 
