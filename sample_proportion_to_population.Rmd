@@ -11,10 +11,11 @@ test statistic = $\Huge \frac{\hat p - p_o}{\sqrt{\frac{p_o\,(1\,-\,p_o)}{n}}}$
 
 This is [equivalent to the z test statistic](http://rinterested.github.io/statistics/one_sample_test.html) for sample means, and does follow a Z distribution in large samples.
 
-Notice that since we are testing under the $H_o$ how likely it is to get the $p$ we obtained we use the population proportion $p_o$ to calculate the standard error, as opposed to the sample proportion we would use to build the confidence interval:
+Notice that since we are testing under the $H_o$ how likely it is to get the $p$ we obtained we use the population proportion $p_o$ to calculate the standard error, as opposed to the sample proportion we would use to build the confidence interval with a Wald interval:
 
 $\large \hat p \pm Z_{1-\alpha/2} *  \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
 
+In [R]:
 
 $\large \hat p + c(-1, 1) * pnorm(0.975) * \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
 
