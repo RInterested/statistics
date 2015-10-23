@@ -89,6 +89,25 @@ img {
 <p><span class="math">\(\Large=\,p\Big(\Large\frac{\bar X - \mu_a}{\sigma/\sqrt{n}} &gt; \,z_{1-\alpha}\, -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\Big)\)</span></p>
 <p><br></p>
 <p><span class="math">\(\Large=\,p\Big(Z&gt; \, z_{1-\alpha} -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\Big)\)</span></p>
+<hr />
+<p>Here’re two examples from a Coursera course:</p>
+<ol style="list-style-type: decimal">
+<li>Researchers would like to conduct a study of <span class="math">\(100\)</span> healthy adults to detect a four year mean brain volume loss of <span class="math">\(0.01 mm^3\)</span>. Assume that the standard deviation of four year volume loss in this population is <span class="math">\(0.004 mm^3\)</span>. What would be the power of the study for a 5% one sided test versus a null hypothesis of no volume loss?</li>
+</ol>
+<p>The hypothesis is <span class="math">\(H_o: \mu_{\Delta}=0\)</span> v. <span class="math">\(H_a: \mu_{\Delta}&gt;0\)</span> where <span class="math">\(\mu_{\Delta}\)</span> is the volume loss. The test statistics is <span class="math">\(10\frac{\bar X_{\Delta}}{0.04}\)</span> which is rejected if it is larger than <span class="math">\(Z_{0.95}=1.645\)</span>. We want to calculate:</p>
+<p><span class="math">\(P\left(\frac{\bar X_\Delta}{\sigma_\Delta / 10} &gt; 1.645 ~|~ \mu_\Delta = .01\right) = P\left( \frac{\bar X_\Delta - .01}{.004} &gt; 1. 645 - \frac{.01}{.004} ~|~ \mu_\Delta = .01\right) = P(Z &gt; -.855) = .80\)</span></p>
+<p>Or note that <span class="math">\(\bar X_{\Delta}\)</span> is <span class="math">\(N(0.01,0.004)\)</span> under the alternative and we want the <span class="math">\(P(\bar X_{\Delta} &gt; 1.645*0.004\)</span> under <span class="math">\(H_a\)</span>.</p>
+<pre><code>pnorm(1.645 * 0.004, mean = 0.01, sd = 0.004, lower.tail = FALSE)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Researchers would like to conduct a study of <span class="math">\(n\)</span> healthy adults to detect a four year mean brain volume loss of <span class="math">\(0.01 mm^3\)</span>. Assume that the standard deviation of four year volume loss in this population is <span class="math">\(0.004 mm^3\)</span>.</li>
+</ol>
+<p>What would be the value of <span class="math">\(n\)</span> needded for <span class="math">\(90\%\)</span> power of type one error rate of <span class="math">\(5\%\)</span> one sided test versus a null hypothesis of no volume loss?</p>
+<p>The hypothesis is <span class="math">\(H_o: \mu_{\Delta}=0\)</span> v. <span class="math">\(H_a: \mu_{\Delta}&gt;0\)</span> where <span class="math">\(\mu_{\Delta}\)</span> is the volume loss. The test statistics is <span class="math">\(\frac{\bar X_{\Delta}}{0.04/\sqrt{n}}\)</span> which is rejected if it is larger than <span class="math">\(Z_{0.95}=1.645\)</span>. We want to calculate:</p>
+<p><span class="math">\(P\left(\frac{\bar X_\Delta}{\sigma_\Delta / \sqrt{n}} &gt; 1.645 ~|~ \mu_\Delta = .01\right) = P\left( \frac{\bar X_\Delta - .01}{.04 / \sqrt{n}} &gt; 1. 645 - \frac{.01}{.04 / \sqrt{n}} ~|~ \mu_\Delta = .01\right) = P(Z &gt; 1.645 - \sqrt{n} / 4) = .90\)</span></p>
+<p>So we need <span class="math">\(1.645 - \sqrt{n} / 4 = Z_{.10} = -1.282\)</span> and thus <span class="math">\(n = ( 4 * (1.645 + 1.282) )^ 2\)</span></p>
+<pre class="r"><code>ceiling((4 * (qnorm(0.95) - qnorm(0.1)))^2)</code></pre>
+<pre><code>## [1] 138</code></pre>
+<hr />
 <p>But we started off saying that we were comparing to a <span class="math">\(t\)</span> quantile, so how do we calculate power for a <span class="math">\(t\)</span> test:</p>
 <p><span class="math">\(p\,\Big(\frac{\bar X - \mu_o}{s/\sqrt{n}}\,&gt; t_{(1-\alpha, n-1)}\,|\mu=\mu_a\Big)\)</span> <br><br></p>
 <p><span class="math">\(p\,\Big(\sqrt{n} (\bar X - \mu_o)\,&gt; t_{(1-\alpha, n-1)}\, s\,|\mu=\mu_a\Big)\)</span> <br><br></p>
@@ -112,7 +131,7 @@ chisqr &lt;- rchisq(simuls, df = n - 1)
 t &lt;- qt(.95, n - 1)
 # The power is:
 mean(Z + sqrt(n) * (mu_a - mu_0) / sigma &gt; t / sqrt(n - 1) * sqrt(chisqr))</code></pre>
-<pre><code>## [1] 0.82729</code></pre>
+<pre><code>## [1] 0.82501</code></pre>
 <p>Compare to built-in formulas (equivalent to <code>sample.prop.test</code> for proportions):</p>
 <pre class="r"><code>power.t.test(n = 20, delta = mu_a - mu_0, sd = sigma, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)</code></pre>
 <pre><code>## 
