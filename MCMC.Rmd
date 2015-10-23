@@ -1,0 +1,52 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+
+###A PRACTICAL EXAMPLE OF MARKOV CHAIN MONTE CARLO:
+
+<br><br>
+Another daunting issue in statistics. The question is old, but the introductory examples on-line are hard to come by. So let me simplify two great examples just in case someone following the Markov random walk of [PageRank][1] lands here befuddled by MCMC, and full of anticipation for an easy to follow answer. How likely? That could be a follow-up question.
+
+    FIRST EXAMPLE:
+
+ The [post][2] recreates a standard normal distribution $N(0,1)$ using the Metropolis - Hastings algorithm. Far from  a challenging case but a good one to dissect. I have collected the [code from the post here][3] for convenience and for annotations.
+
+The difficulty is in realizing that after going through all the mechanical steps, there is just one magical trick: the binary decision of *accepting* or *rejecting* a *proposed value*. 
+
+It's good to keep in mind that what we want is to generate a bunch of values ($x$) that when plotted on a histogram look like a bell curve, centered (`mean`) at $0$ and with a standard deviation (`sd`) of $~ 1$. The problem is that we don't have predetermined parameters; that would be too easy, simply running something along the lines of `rnorm(10000)`. 
+
+We do so by taking tiny (or larger, it won't change the results too much) random stochastic steps through the use of pseudorandom number generators. In the example, the magnitude of the step is set by `eps`, which determines the $\epsilon$, or size of the step to the left or to the right from the previous accepted value ($x_i$). This will be the starting line in the process that generates a new *proposed value* to fill in the next "link" of the "chain", $x_{i+1}$. OK, I'm talking about generating `runif(1, - eps, eps)` to either subtract or add to $x_i$.
+
+Every proposed value would thus differ from the prior value in a random fashion, and within the boundaries of `[- eps,+ eps]`. 
+
+Enter the [Markov kernel][4]. We need to assess the probability of transitioning to the new proposed value somehow, much like in a transition Markov matrix on a given state at time $i$ tells about the probability of the new state at time $i + 1$. If in doubt go [here][5], or ask the grandma who's been paying attention to all the "How would you explain quantum physics to your nanna?" type of questions (don't the matrices look nice? ;-) ).
+
+To get this probability of acceptance into the bouquet of culled values, we simply  compare the height of the $N(0,1)$ density at the *proposed new value* ($x_{i+1}$) to the previous (already accepted value), ($x_{i}$), just like this:
+
+ <img src="http://i.stack.imgur.com/Pd7rD.png" width="350" height="350">
+
+And we take the ratio of both values: `min(1, dnorm(candidate_value)/dnorm(x))`. Since we want a probability, the resultant calculation cannot go over $1$, which occurs whenever the $N(0,1)$ $pdf$ at $x_{i+1}$ (candidate value) is greater than at $x_i$, amounting to automatic acceptance of the proposed value, and explaining the `min(1, ...)` part of the code. Otherwise, the closer the `dnorm` value of the *proposed value* is to the *previous value*, the higher the odds of it being accepted.
+
+So we do have a probability of acceptance, but we need to make a binary decision (accept the new proposed value, or reject it). And here comes the magic trick: if the probability calculated as `min(1, dnorm(candidate_value)/dnorm(x))` is greater than a `runif(1)` uniform draw from $0$ to $1$ (as close as it gets to a coin toss for a continuous value), we accept, and fill in the `x[i+1]` entry of the chain with the *proposed value*; otherwise, we fill it in with a repeat of the *previous value*, `x[i]`... The idea would be, better two of the same than one too far away into the tails.
+
+We do this thousands of times and we collect all these values (only the accepted and repeated values), and when we plot the histogram, we get a nice normal curve with a `sd` close to $1$, and centered at $0$.
+
+Just one final point: Where do we start? Probably not to relevant, but in the simulation, we fill in the first value as $0$,  `x = 0; vec[1] = x` before looping through all the rest of iterations, and let the process follow its course.
+
+    SECOND EXAMPLE:
+
+This is more exciting, and makes reference to [estimating the parameters of a linear regression curve by calculating log likelihoods for random parameters given a dataset][6]. However, the exegesis of the code lines is built in the condensed simulation [saved here][7], following very similar steps to the first example.
+
+
+  [1]: https://en.wikipedia.org/wiki/PageRank
+  [2]: https://darrenjw.wordpress.com/2010/08/15/metropolis-hastings-mcmc-algorithms/
+  [3]: https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/MCMC_NORMAL
+  [4]: https://en.wikipedia.org/wiki/Markov_kernel
+  [5]: http://stats.stackexchange.com/a/207/67822
+  [6]: https://theoreticalecology.wordpress.com/2010/09/17/metropolis-hastings-mcmc-in-r/
+  [7]:https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/MCMC_REGRESSION
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
