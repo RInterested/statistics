@@ -1,0 +1,65 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+
+###INVERSE INTEGRAL TRANSFORM SAMPLING METHOD:
+
+<br><br>
+
+This is the answer to the [original question posted in CV](http://stats.stackexchange.com/q/169293/67822):
+
+I can generate as many samples from one or more uniform distribution (0,1) as I wish. How can I use this to generate a beta distribution?
+
+*ANSWER:*
+
+I will use [R] not so much as a practical answer (`rbeta` would do the trick), but as an attempt at thinking through the probability integral transform. I hope you are familiar with the code so you can follow, or replicate (if this answers your question).
+
+The idea behind the [Probability Integral Transform][1] is that since a $cdf$ monotonically increases in value from $0$ to $1$, applying the $cdf$ function to random values form whichever distribution we may be interested in will on aggregate generate as many results say, between $0.1$ and $0.2$ as from $0.8$ to $0.9$. Now, this is exactly what a $pdf$ of a $U(0,1)$. It follows that if we start with values from a random uniform, $U \sim (0,1)$ instead, and we apply the ***inverse*** $cdf$ of the distribution we are aiming at, we'll end up with random values of that distribution.
+
+Let's quickly show it with the queen of the distributions... The Normal $N(0,1)$. We generate $10,000$ random values, and plug them into the $erf$ function, plotting the results:
+
+    # Random variable from a normal distribution:
+    x <- rnorm(1e4)
+    par(mfrow=c(1,2))
+    hist(x, col='skyblue', main = "Random Normal")
+    
+    # When transform by obtaining the cdf (x) will give us a Uniform:
+    y <- pnorm(x)
+    hist(y, col='skyblue', main = "CDF(X)")
+
+
+[![enter image description here][2]][2]
+
+In your case, we are aiming for $X \sim Beta(\alpha, \beta)$. So let's get started at the end and come up with $10,000$ random values from a $U(0,1)$. We also have to select values for the shape parameters of the $Beta$ distribution. We are not constrained there, so we can select for example, $\alpha=0.5$ and $\beta=0.5$. Now we are ready for the inverse, which is simply the `qbeta` function:
+
+    U <- runif(1e4)
+    alpha <- 0.5
+    beta <- 0.5
+    b_rand <- qbeta(U, alpha, beta)
+    hist(b_rand, col="skyblue", main = "Inverse U")
+
+Compare this to the shape of the $Beta(\alpha,\beta)$ $pdf$:
+
+    x <- seq(0, 1, 0.001)
+    beta_pdf <- dbeta(x, alpha, beta)
+    plot(beta_pdf, type ="l", col='skyblue', lwd = 3,
+         main = "Beta pdf")
+
+
+[![enter image description here][3]][3]
+
+
+  [1]: https://en.wikipedia.org/wiki/Probability_integral_transform
+  [2]: http://i.stack.imgur.com/7lLQL.png
+  [3]: http://i.stack.imgur.com/YgOA5.png
+
+<br>
+References:
+
+<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
