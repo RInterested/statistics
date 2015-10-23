@@ -11,6 +11,22 @@ I'd like to post some illustrations about the way our preconceptions about the "
 
 Luckily, we have a [conjugate prior distribution][1] for the binomial case that occupies us - the $beta$ distribution, facilitating the calculation of the posterior distribution.
 
+A *prior* is *conjugate* to the *likelihood* when the *posterior* is in the same family of distributions as the *prior*: $posterior\, p(\theta|y) \propto \,likelihood\,p(y|\theta)\,*\,prior\,p(\theta)$. $y$ stands for the data observed; $\theta$ is the parameter we want to estimate. The *binomial-beta* is a conjugate model. Let's call the probability of the binomial $\theta$:
+<br><br>
+
+$\large p(\theta|y) \propto p(y|\theta)\,p(\theta)
+=Bin(n,\theta) * Beta(a,b)$
+<br><br>
+
+$={n\choose y}\,\theta^y\,(1\,-\,theta)^{(n-y)}\,*\,\frac{\Gamma(a+b)}{
+\Gamma(a)\Gamma(b)}\,\theta^{(a-1)}\,(1-\theta)^{b-1}
+\propto \theta^y\,(1-\theta)^{(n-y)}\theta^{a-1}(1-\theta)^{b-1}$
+<br><br>
+
+$\Large p(\theta|y) \propto \theta^{(y+a-1)}\,(1\,-\,\theta)^{(n-y+b-1)}$
+
+Hence, the posterior distribution is a $Beta\,(y+a,\,n-y+b)$.
+
     First scenario - The Fair-Minded Player:
 
 We walk into the game (not a very exciting game, but still...), and we have absolutely no reason to assume that there is foul play going on. Things being by nature less than perfect, we have it in our mind that the coin is fair-*ish*. In other words, we think that the probability of heads, $\theta$, falls somewhere around $\frac{1}{2}$. Later, the unexpected single $tail$ out of $6$ tosses, will force us to move the posterior probability of $\theta$ to the left (the arrows indicate the influence of the data on the prior distribution):
