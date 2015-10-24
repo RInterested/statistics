@@ -78,7 +78,7 @@ $P\left(\frac{\bar X_\Delta}{\sigma_\Delta / 10} > 1.645 ~|~ \mu_\Delta = .01\ri
 pnorm(-0.855, lower.tail = FALSE)
 ```
 
-Or note that $\bar X_{\Delta}$ is $N(0.01,0.004)$ under the alternative and we want the $P(\bar X_{\Delta} > 1.645*0.04)$ under $H_a$.
+Or note that $\bar X_{\Delta}$ is $N(0.01,0.004)$ under the alternative and we want the $P(\bar X_{\Delta} > 1.645*0.04)$ under $H_a$ (this can be seen by simplifying equation $P\left( \frac{\bar X_\Delta - .01}{.004} > 1. 645 - \frac{.01}{.004} ~|~ \mu_\Delta = .01\right)\,=P\left( \frac{\bar X_\Delta}{.004} > 1. 645 ~|~ \mu_\Delta = .01\right)\,$.
 
 ```{r}
 pnorm(1.645 * 0.004, mean = 0.01, sd = 0.004, lower.tail = FALSE)

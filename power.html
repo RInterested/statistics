@@ -99,7 +99,7 @@ img {
 <p><span class="math">\(P\left(\frac{\bar X_\Delta}{\sigma_\Delta / 10} &gt; 1.645 ~|~ \mu_\Delta = .01\right) \,[eq.1\,above] = P\left( \frac{\bar X_\Delta - .01}{.004} &gt; 1. 645 - \frac{.01}{.004} ~|~ \mu_\Delta = .01\right)\,[eq.2\,above] = P(Z &gt; -.855) = .80\)</span></p>
 <pre class="r"><code>pnorm(-0.855, lower.tail = FALSE)</code></pre>
 <pre><code>## [1] 0.8037244</code></pre>
-<p>Or note that <span class="math">\(\bar X_{\Delta}\)</span> is <span class="math">\(N(0.01,0.004)\)</span> under the alternative and we want the <span class="math">\(P(\bar X_{\Delta} &gt; 1.645*0.04)\)</span> under <span class="math">\(H_a\)</span>.</p>
+<p>Or note that <span class="math">\(\bar X_{\Delta}\)</span> is <span class="math">\(N(0.01,0.004)\)</span> under the alternative and we want the <span class="math">\(P(\bar X_{\Delta} &gt; 1.645*0.04)\)</span> under <span class="math">\(H_a\)</span> (this can be seen by simplifying equation <span class="math">\(P\left( \frac{\bar X_\Delta - .01}{.004} &gt; 1. 645 - \frac{.01}{.004} ~|~ \mu_\Delta = .01\right)\,=P\left( \frac{\bar X_\Delta}{.004} &gt; 1. 645 ~|~ \mu_\Delta = .01\right)\,\)</span>.</p>
 <pre class="r"><code>pnorm(1.645 * 0.004, mean = 0.01, sd = 0.004, lower.tail = FALSE)</code></pre>
 <pre><code>## [1] 0.8037244</code></pre>
 <ol start="2" style="list-style-type: decimal">
@@ -135,7 +135,7 @@ chisqr &lt;- rchisq(simuls, df = n - 1)
 t &lt;- qt(.95, n - 1)
 # The power is:
 mean(Z + sqrt(n) * (mu_a - mu_0) / sigma &gt; t / sqrt(n - 1) * sqrt(chisqr))</code></pre>
-<pre><code>## [1] 0.8267</code></pre>
+<pre><code>## [1] 0.82588</code></pre>
 <p>Compare to built-in formulas (equivalent to <code>sample.prop.test</code> for proportions):</p>
 <pre class="r"><code>power.t.test(n = 20, delta = mu_a - mu_0, sd = sigma, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)</code></pre>
 <pre><code>## 
