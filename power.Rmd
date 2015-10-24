@@ -43,7 +43,10 @@ However, if $n$ is large we can do instead normal calculations:
 
 <br>
 
-$p\,\Big(\Large\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> z_{1-\alpha}|\mu=\mu_a\Big)$
+$p\,\Big(\Large\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> z_{1-\alpha}|\mu=\mu_a\Big)\small \tag 1$
+
+<br>
+That is to say, we want to calculate the probability that our test statistic will reject the null *under* or given that the alternative is true.
 
 <br>
 
@@ -51,7 +54,7 @@ $\Large=\,p\Big(\Large\frac{\bar X - \mu_a \, + \mu_a -\mu_o}{s/\sqrt{n}}\,> z_{
 
 <br>
 
-$\Large=\,p\Big(\Large\frac{\bar X - \mu_a}{\sigma/\sqrt{n}} > \,z_{1-\alpha}\, -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\Big)$
+$\Large=\,p\Big(\Large\frac{\bar X - \mu_a}{\sigma/\sqrt{n}} > \,z_{1-\alpha}\, -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\Big)\small \tag 2$
 
 <br>
 
@@ -61,42 +64,49 @@ $\Large=\,p\Big(Z> \, z_{1-\alpha} -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\Bi
 
 Here're two examples from a Coursera course:
 
-1. Researchers would like to conduct a study of $100$ healthy adults to detect a four year mean brain volume loss of $0.01 mm^3$. Assume that the standard deviation of four year volume loss in this population is $0.004 mm^3$. What would be the power of the study for a 5% one sided test versus a null hypothesis of
+1. Researchers would like to conduct a study of $100$ healthy adults to detect a four year mean brain volume loss of $0.01 \,mm^3$. Assume that the standard deviation of four year volume loss in this population is $0.04 \,mm^3$. What would be the power of the study for a 5% one sided test versus a null hypothesis of
 no volume loss?
 
-The hypothesis is $H_o: \mu_{\Delta}=0$ v. $H_a: \mu_{\Delta}>0$ where $\mu_{\Delta}$ is the volume loss. The test statistics is $10\frac{\bar X_{\Delta}}{0.04}$ which is rejected if it is larger than $Z_{0.95}=1.645$.
+The hypothesis is $H_o: \mu_{\Delta}=0$ v. $H_a: \mu_{\Delta}>0$ where $\mu_{\Delta}$ is the volume loss. The test statistics is $\large \frac{\bar X_{\Delta}}{\frac{sd}{\sqrt{n}}}=10\frac{\bar X_{\Delta}}{0.04}$ which is rejected if it is larger than $Z_{0.95}=1.645$.
 We want to calculate:
 
-$P\left(\frac{\bar X_\Delta}{\sigma_\Delta / 10} > 1.645 ~|~ \mu_\Delta = .01\right)
-= P\left( \frac{\bar X_\Delta - .01}{.004} > 1. 645 - \frac{.01}{.004} ~|~ \mu_\Delta = .01\right)
+$P\left(\frac{\bar X_\Delta}{\sigma_\Delta / 10} > 1.645 ~|~ \mu_\Delta = .01\right) \,[eq.1\,above]
+= P\left( \frac{\bar X_\Delta - .01}{.004} > 1. 645 - \frac{.01}{.004} ~|~ \mu_\Delta = .01\right)\,[eq.2\,above]
 = P(Z > −.855) = .80$
 
-Or note that $\bar X_{\Delta}$ is $N(0.01,0.004)$ under the alternative and we want the $P(\bar X_{\Delta} > 1.645*0.004$ under $H_a$.
+```{r}
+pnorm(-0.855, lower.tail = FALSE)
+```
 
-```{}
+Or note that $\bar X_{\Delta}$ is $N(0.01,0.004)$ under the alternative and we want the $P(\bar X_{\Delta} > 1.645*0.04)$ under $H_a$.
+
+```{r}
 pnorm(1.645 * 0.004, mean = 0.01, sd = 0.004, lower.tail = FALSE)
 ```
 
-2. Researchers would like to conduct a study of $n$ healthy adults to detect a four year mean brain volume loss of $0.01 mm^3$. Assume that the standard deviation of four year volume loss in this population is $0.004 mm^3$.
+2. Researchers would like to conduct a study of $n$ healthy adults to detect a four year mean brain volume loss of $0.01\,mm^3$. Assume that the standard deviation of four year volume loss in this population is $0.04\, mm^3$.
 
 What would be the value of $n$ needded for $90\%$ power of type one error rate of $5\%$ one sided test versus a null hypothesis of no volume loss?
 
 The hypothesis is $H_o: \mu_{\Delta}=0$ v. $H_a: \mu_{\Delta}>0$ where $\mu_{\Delta}$ is the volume loss. The test statistics is $\frac{\bar X_{\Delta}}{0.04/\sqrt{n}}$ which is rejected if it is larger than $Z_{0.95}=1.645$.
 We want to calculate:
+<br><br>
 
 $P\left(\frac{\bar X_\Delta}{\sigma_\Delta / \sqrt{n}} > 1.645 ~|~ \mu_\Delta = .01\right)
 = P\left( \frac{\bar X_\Delta - .01}{.04 / \sqrt{n}} > 1. 645 - \frac{.01}{.04 / \sqrt{n}} ~|~ \mu_\Delta = .01\right)
 = P(Z > 1.645 - \sqrt{n} / 4) = .90$
+<br><br>
 
-So we need $1.645 - \sqrt{n} / 4 = Z_{.10} = -1.282$ and thus $n = ( 4 * (1.645 + 1.282)  )^ 2$
+So we need $1.645 - \sqrt{n} / 4 = Z_{.10} = qnorm(.1) = -1.282$ and thus $n = ( 4 * (1.645 + 1.282)  )^ 2=137.0773$
 
 ```{r}
-ceiling((4 * (qnorm(0.95) - qnorm(0.1)))^2)
+ceiling((4 * (qnorm(0.95) - qnorm(0.1)))^2) # The negative sign is because qnorm(0.1) is negative.
 ```
 
 ---
 
 But we started off saying that we were comparing to a $t$ quantile, so how do we calculate power for a $t$ test:
+<br><br>
 
 $p\,\Big(\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> t_{(1-\alpha, n-1)}\,|\mu=\mu_a\Big)$
 <br><br>
