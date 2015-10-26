@@ -130,10 +130,10 @@ The problem is that it is not the transposed as the `lmer` function seems to cal
 
 2. Building the $X_i$ matrix can be aided by using the function `getME` as a reference:
 
-   `library(lme4)
-    sleepstudy <- sleepstudy[sleepstudy$Subject %in% c(309, 330, 371), ]
-    rownames(sleepstudy) <- NULL
-    fm1<-lmer(Reaction~Days+(Days|Subject), sleepstudy)`
+   `library(lme4)`
+    `sleepstudy <- sleepstudy[sleepstudy$Subject %in% c(309, 330, 371), ]`
+    `rownames(sleepstudy) <- NULL`
+    `fm1<-lmer(Reaction~Days+(Days|Subject), sleepstudy)`
     
 `Xi <- getME(fm1,"mmList")`
 
