@@ -5,6 +5,7 @@
 <br><br>
 
 ###COMPARING BETWEEN MIXED-EFFECTS MODELS AND WITH OLS:
+<br><br>
 
 I will consider three different models from the `sleepstudy` dataset. First off, we need to load two packages: `library(lme4);
 library(lmerTest)`.
@@ -32,7 +33,10 @@ Syntax:
 
 `lmer(Reaction ~ Days + (Days|Subject), sleepstudy)`, which is the same as `lmer(Reaction ~ Days + (1 + Days|Subject), sleepstudy)` as defined in [this entry in Cross Validated](http://stats.stackexchange.com/a/13173/67822).
 
+<br><br>
+
 ###RETRIEVING RESULTS:
+<br><br>
 
 ```{r, echo=T, warning=FALSE, message=FALSE}
 library(lme4)
@@ -58,7 +62,10 @@ summary(fm3)
 coef(fm3)
 ```
 
+<br><br>
+
 ###MODEL SELECTION:
+<br><br>
 
 To compare different `lmer` models it's [best to avoid `REML` when the fixed effects are different between models](http://stats.stackexchange.com/a/116796/67822). Even though it is not the case in our models I will redefine the models to steer clear of this potential issue:
 

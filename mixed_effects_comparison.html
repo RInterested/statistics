@@ -65,6 +65,7 @@ img {
 <p><br><br></p>
 <div id="comparing-between-mixed-effects-models-and-with-ols" class="section level3">
 <h3>COMPARING BETWEEN MIXED-EFFECTS MODELS AND WITH OLS:</h3>
+<p><br><br></p>
 <p>I will consider three different models from the <code>sleepstudy</code> dataset. First off, we need to load two packages: <code>library(lme4); library(lmerTest)</code>.</p>
 <p><br><br> <strong>MODEL 1: Ordinary Least Squares:</strong></p>
 <p>Syntax:</p>
@@ -76,9 +77,11 @@ img {
 <p>The continuous variable <code>Days</code> is treated as a fixed effect, and its effect on each level of the categorical variable <code>Subject</code>, treated as a random effect, is considered <em>allowing correlation between the spread of the intercepts across <code>Subjects</code> and the <code>Days</code> effect deviations across <code>Subjects</code> levels</em>.</p>
 <p>Syntax:</p>
 <p><code>lmer(Reaction ~ Days + (Days|Subject), sleepstudy)</code>, which is the same as <code>lmer(Reaction ~ Days + (1 + Days|Subject), sleepstudy)</code> as defined in <a href="http://stats.stackexchange.com/a/13173/67822">this entry in Cross Validated</a>.</p>
+<p><br><br></p>
 </div>
 <div id="retrieving-results" class="section level3">
 <h3>RETRIEVING RESULTS:</h3>
+<p><br><br></p>
 <pre class="r"><code>library(lme4)
 library(lmerTest)</code></pre>
 <pre class="r"><code>fm1 &lt;- lm(Reaction ~ Days, sleepstudy)
@@ -220,9 +223,11 @@ summary(fm3)</code></pre>
 ## 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;coef.mer&quot;</code></pre>
+<p><br><br></p>
 </div>
 <div id="model-selection" class="section level3">
 <h3>MODEL SELECTION:</h3>
+<p><br><br></p>
 <p>To compare different <code>lmer</code> models it’s <a href="http://stats.stackexchange.com/a/116796/67822">best to avoid <code>REML</code> when the fixed effects are different between models</a>. Even though it is not the case in our models I will redefine the models to steer clear of this potential issue:</p>
 <pre class="r"><code>fm2 &lt;- lmer(Reaction ~ Days + (1|Subject), REML = F, sleepstudy)
 fm3 &lt;- lmer(Reaction ~ Days + (Days|Subject), REML = F, sleepstudy)</code></pre>
