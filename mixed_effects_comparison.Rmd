@@ -1,0 +1,88 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+<br><br>
+
+###COMPARING BETWEEN MIXED-EFFECTS MODELS AND WITH OLS:
+
+I will consider three different models from the `sleepstudy` dataset. First off, we need to load two packages: `library(lme4);
+library(lmerTest)`.
+
+<br><br>
+**MODEL 1: Ordinary Least Squares:**
+
+Syntax: 
+
+`lm(Reaction ~ Days, sleepstudy)`
+
+<br><br>
+**MODEL 2: Random effects intercepts for each level of `Subject` as they deviate from a global intercept, and a global slope:**
+
+Syntax: 
+
+`lmer(Reaction ~ Days + (1|Subject), sleepstudy)`
+
+<br><br>
+**MODEL 3: Random intercepts and slopes with correlation between spread intercepts and slopes:**
+
+The continuous variable `Days` is treated as a fixed effect, and its effect on each level of the categorical variable `Subject`, treated as a random effect, is considered *allowing correlation between the spread of the intercepts across `Subjects` and the `Days` effect deviations across `Subjects` levels*.
+
+Syntax: 
+
+`lmer(Reaction ~ Days + (Days|Subject), sleepstudy)`, which is the same as `lmer(Reaction ~ Days + (1 + Days|Subject), sleepstudy)` as defined in [this entry in Cross Validated](http://stats.stackexchange.com/a/13173/67822).
+
+###RETRIEVING RESULTS:
+
+```{r, echo=T, warning=FALSE, message=FALSE}
+library(lme4)
+library(lmerTest)
+```
+
+```{r}
+fm1 <- lm(Reaction ~ Days, sleepstudy)
+summary(fm1)
+coef(fm1)
+anova(fm1)
+```
+
+```{r}
+fm2 <- lmer(Reaction ~ Days + (1|Subject), sleepstudy)
+summary(fm2)
+coef(fm2)
+```
+
+```{r}
+fm3 <- lmer(Reaction ~ Days + (Days|Subject), sleepstudy)
+summary(fm3)
+coef(fm3)
+```
+
+###MODEL SELECTION:
+
+To compare different `lmer` models it's [best to avoid `REML` when the fixed effects are different between models](http://stats.stackexchange.com/a/116796/67822). Even though it is not the case in our models I will redefine the models to steer clear of this potential issue:
+
+
+```{r}
+fm2 <- lmer(Reaction ~ Days + (1|Subject), REML = F, sleepstudy)
+fm3 <- lmer(Reaction ~ Days + (Days|Subject), REML = F, sleepstudy)
+```
+
+The [Akaike Information Criteria is a good criterion of the quality of the model](https://en.wikipedia.org/wiki/Akaike_information_criterion). It tends to penalize adding extra predictors (overfitting). The models with the [lowest AIC values are best](http://stats.stackexchange.com/a/9185/67822).
+
+```{r}
+AIC(fm1, fm2, fm3)
+```
+
+It seems as though the last model is best in terms of its lowest AIC.
+
+Alternatively we can run [ANOVA tests on the models](http://stats.stackexchange.com/a/56157/67822):
+
+```{r}
+anova(fm2, fm3)
+```
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
