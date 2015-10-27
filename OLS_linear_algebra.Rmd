@@ -1,0 +1,82 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+
+<br><br>
+
+###PROJECTION:
+
+<br><br>
+
+<img HEIGHT="500" WIDTH="500" src="https://cloud.githubusercontent.com/assets/9312897/10747797/e39488ee-7c2f-11e5-9290-07e81d5f04c2.png">
+
+<br><br>
+
+In the linear model $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... \beta_n x_n +\varepsilon$ projection is key in the linear algebra of the model.
+
+Why project? Because $\mathbf{X} \mathbf{\beta} = \mathbf{y}$ may have no solution if $\mathbf{y}$ it is not in the column space of $\mathbf{X}$. So instead we solve 
+<br><br>
+
+$\mathbf{X\,\hat \beta}= \mathbf{\hat y}\small \tag 1$
+
+where $\mathbf{\hat y}$ is the projection of the original outcome $\mathbf{y}$ on the column space of the regressors $\mathbf{X}$, or $c(\mathbf{X})$.
+
+The key is to see that $\Large \mathbf{y} - \mathbf{X\hat \beta}=\varepsilon$ is the error, and is perpendicular to $c(\mathbf{X})$.
+
+Therefore, $\mathbf{X}^T (\mathbf{y} - \mathbf{X\hat \beta}) =0 \small \tag 2$ 
+
+because we are dotting every vector in the $c(\mathbf{X})$ with the error vector. They are orthogonal, or in other words, the error $\mathbf{e}$ is in the null space of $\mathbf{X}^T$.
+
+Working on equation (2):
+
+$\mathbf{X}^T \mathbf{y} = \mathbf{X}^T \mathbf{X\,\hat \beta} \small \tag 3$
+
+Isolating $\mathbf{\hat \beta}$:
+
+$\left(\mathbf{X^TX}\right)^{-1} \, \mathbf{X}^T \mathbf{y} = \mathbf{\hat \beta} \small \tag 4$
+
+Plugging these results into equation (1):
+
+$\mathbf{X}\,\left(\mathbf{X^TX}\right)^{-1} \, \mathbf{X}^T\,\,\, \mathbf{y} =\mathbf{X}\,\mathbf{\hat \beta}= \mathbf{\hat y}\small \tag 5$
+
+The projection matrix (which the same as the **hat matrix**) is defined as:
+
+$\mathbf{H}= \mathbf{X} \left(\mathbf{X}^{T} \mathbf{X} \right)^{-1} \mathbf{X} ^{T}\small \tag 6$ 
+
+because it put a "hat" on the $\mathbf{y}$. It is both symmetrical and idempotent, as it corresponds to a projection matrix.
+
+Its orthogonal complement, also referred to as the ***annihilator***, is:
+
+$\mathbf{M}= \mathbf{I}_n- \mathbf{H} \small \tag 7$
+
+$n$ representing the number of rows and columns of $\mathbf{H}$.
+
+<br><br>
+
+####Properties:
+
+<br><br>
+
+$\mathbf{H}\,\,\mathbf{X} = \mathbf{X}$
+<br><br>
+$\mathbf{M}\,\,\mathbf{X} = \left(\mathbf{I}_n- \mathbf{H}\right)\,\mathbf{X}= \mathbf{X}- \left(\mathbf{H}\,\mathbf{X}\right)$
+
+<br><br>
+
+The residuals can be represented as:
+
+$\mathbf{e}=\mathbf{M}\mathbf{y} =\mathbf{y}- \mathbf{H}\mathbf{y}= \mathbf{y}-\mathbf{\hat y}$
+
+###Random vectors:
+
+[One way to tell a random vector from a non-random one is to contemplate what changes would occur if the data-collection process was replicated. Any vector that could change must do so due to the random changes modeled by $\epsilon$, because all other values--the $\mathbf{X}$ and $\mathbf{\beta}$--are modeled as constants](http://stats.stackexchange.com/q/178743/67822).
+
+$\mathbf{X}$ are considered *fixed measurements* without error, whereas the following are *random vectors*:
+
+$\mathbf{\hat y}$ (fitted values) and $\mathbf{e}$ (residuals).
+
+since the two of them are linear combinations of the random vector $\mathbf{y}$.
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
