@@ -84,7 +84,7 @@ Symptoms       Drug A   Drug B   Drug C
   Heartburn     64       92       52
   Normal       114       98      136</code></pre>
 <p><br></p>
-<p>First off, we can run an omnibus test (Pearson’s <span class="math">\(\chi^2\)</span> “goodness-of-fit”) on the data by simply calling <code>prop.test</code>, but there is just one minor problem: our data is in the form of a <span class="math">\(2\)</span> x <span class="math">\(3\)</span> matrix. Yet, the essential input into the function is a <code>a two-dimensional table (or matrix) with 2 columns, giving the counts of successes and failures</code>, i.e. an <span class="math">\(n\)</span> x <span class="math">\(2\)</span> matrix. Luckily the fix is easy: do a transpose of the matrix as follows:</p>
+<p>First off, we can run an omnibus test (<strong>Pearson’s <span class="math">\(\chi^2\)</span> “goodness-of-fit”</strong>) on the data by simply calling <code>prop.test</code>, but there is just one minor problem: our data is in the form of a <span class="math">\(2\)</span> x <span class="math">\(3\)</span> matrix. Yet, the essential input into the function is a <code>a two-dimensional table (or matrix) with 2 columns, giving the counts of successes and failures</code>, i.e. an <span class="math">\(n\)</span> x <span class="math">\(2\)</span> matrix. Luckily the fix is easy: do a transpose of the matrix as follows:</p>
 <p><br></p>
 <pre><code>t(Antacid)
           Symptoms
@@ -112,6 +112,30 @@ sample estimates:
 data:  Antacid
 X-squared = 17.6325, df = 2, p-value = 0.0001483</code></pre>
 <p><br></p>
+<p>We can even feed the probabilities expected for each cell to [R] instead of the expected counts like this:</p>
+<p>Benford’s law states that the leading digit <span class="math">\(d = 1,2,3,4,5,6,7,8,9\)</span> occurs with probability <span class="math">\(log10(d + 1) - log 10(d)\)</span>. The following table was obtained for the leading digits from addresses randomly sampled from the phone book:</p>
+<p><br></p>
+<pre class="r"><code>Digits &lt;- as.matrix(c(275, 183, 133, 111, 76, 66, 66, 44, 46))
+rownames(Digits) &lt;- c(1:9)
+colnames(Digits) &lt;- c(&quot;Counts&quot;)
+t(Digits)</code></pre>
+<pre><code>##          1   2   3   4  5  6  7  8  9
+## Counts 275 183 133 111 76 66 66 44 46</code></pre>
+<p><br> Do the digits appear to follow Benford’s law? What is the relevant P value? <br></p>
+<pre class="r"><code>Expected_Probabilities &lt;- as.matrix(c(0.301,0.176,0.125,0.097,0.079,0.067,0.058,0.051,0.046))
+rownames(Expected_Probabilities) &lt;- c(1:9)
+colnames(Expected_Probabilities) &lt;- c(&quot;Probabilities&quot;)
+t(Expected_Probabilities)</code></pre>
+<pre><code>##                   1     2     3     4     5     6     7     8     9
+## Probabilities 0.301 0.176 0.125 0.097 0.079 0.067 0.058 0.051 0.046</code></pre>
+<pre class="r"><code>p &lt;- log10((1:9) + 1) - log10(1:9)
+chisq.test(Digits, p = p, correct = FALSE)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  Digits
+## X-squared = 7.339, df = 8, p-value = 0.5005</code></pre>
+<p><br> Therefore, with a p value of <span class="math">\(50\%\)</span> we can’t rule out that the digits follow Benford’s law.</p>
 <p>We reject when the test statistic is too large, and being that <span class="math">\(\chi^2\)</span> on a <span class="math">\(2\)</span> x <span class="math">\(2\)</span> contingency table (i.e. with 1 df) is the same as a z test squared, we will reject at around <span class="math">\(qnorm(0.975)^2 ~ 3.8\)</span>. The alternative is always two sided because of the squared makes it non-directinal (we simply test if the proportions are different), and when setting up the alpha risk we don’t divide by two.</p>
 <p>So we know that we are not dealing with drugs of equal efficiency to treat heartburn, but we want to know more specifically what the pairwise comparisons have to say. Again, we have to stick with our transposed matrix <code>t()</code>:</p>
 <p><code>pairwise.prop.test(t(Antacid), p.adjust.method =&quot;bonferroni&quot;)</code></p>
@@ -159,7 +183,7 @@ Symptoms    Drug A Drug B Drug C Totals
 <div id="smaller-samples" class="section level3">
 <h3>2. SMALLER SAMPLES:</h3>
 <p><br></p>
-<p>We use the Fisher exact test, which is based on the hypergeometric distribution, and it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. Although originally conceived for <span class="math">\(2\)</span> x <span class="math">\(2\)</span> contingency tables, only the quickly mounting number of permutation tables in the extension of the Fisher test to <span class="math">\(m\)</span> x <span class="math">\(n\)</span> tables (so-called Freeman Halton test) gets in the way of its direct applications beyond the more rudimentary contingency table. This is <a href="http://stats.stackexchange.com/a/1806/67822">discussed in CV</a>, and elaborated further in this <a href="http://mathworld.wolfram.com/FishersExactTest.html">Wolfram post</a>. The original article on the Freeman-Halton test can be found in <em>Biometrika (1951) 38 (1-2): 141-149. doi: 10.1093/biomet/38.1-2.141</em>.</p>
+<p>We use the <strong>Fisher exact test</strong>, which is based on the hypergeometric distribution, and it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. Although originally conceived for <span class="math">\(2\)</span> x <span class="math">\(2\)</span> contingency tables, only the quickly mounting number of permutation tables in the extension of the Fisher test to <span class="math">\(m\)</span> x <span class="math">\(n\)</span> tables (so-called <strong>Freeman Halton test</strong>) gets in the way of its direct applications beyond the more rudimentary contingency table. This is <a href="http://stats.stackexchange.com/a/1806/67822">discussed in CV</a>, and elaborated further in this <a href="http://mathworld.wolfram.com/FishersExactTest.html">Wolfram post</a>. The original article on the Freeman-Halton test can be found in <em>Biometrika (1951) 38 (1-2): 141-149. doi: 10.1093/biomet/38.1-2.141</em>.</p>
 <p>Let’s throw out subjects from our <code>Antacid</code> table, and reduce it in size so that the counts are low in each cell:</p>
 <p><br></p>
 <pre><code>Antacid &lt;- matrix(c(7, 11 - 7, 1, 15 - 4, 6, 9-6), nrow = 2)
@@ -197,7 +221,7 @@ Fisher's Exact Test for Count Data with simulated p-value (based on 2000 replica
     p-value = 0.009495 
     alternative hypothesis: two.sided</code></pre>
 <p>In this case the p-value is calculated through a Monte Carlo simulation.</p>
-<p>Parenthetically, this is the code for a Monte Carlo calculation of the Fisher exact test p-value based on a permutation test:</p>
+<p>Parenthetically, this is the code for a Monte Carlo calculation of the Fisher exact test p-value based on a <strong>permutation test</strong>:</p>
 <p><br></p>
 <pre class="r"><code>set.seed(0)
 
