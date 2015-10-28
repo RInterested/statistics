@@ -66,6 +66,11 @@ where
 $\chi^2$ = Pearson's cumulative test statistic, which asymptotically approaches a $\chi^2$ distribution. $O_i$ = the number of observations of type $i$; $N$ = total number of observations; $E_i$ = $N p_i$ = the expected (theoretical) frequency of type $i$, asserted by the null hypothesis that the fraction of type $i$ in the population is  $p_i$;
 $n$ = the number of cells in the table.
 
+Of note the last expression of the $\chi^2$ statistic applies to $2$x$2$ tables and the nomenclature is as follows:
+
+<img HEIGHT="300" WIDTH="400" src="https://cloud.githubusercontent.com/assets/9312897/10680565/dfa1fd78-78ee-11e5-9390-fb63f6c7272d.png"></a>
+
+
 On the other hand, the test statistic for a $z$-test is:
 
 $\large \displaystyle Z = \frac{\frac{x_1}{n_1}-\frac{x_2}{n_2}}{\sqrt{p\,(1-p)(1/n_1+1/n_2)}}$ with $\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}$, where $x_1$ and $x_2$ are the number of "successes", over the number of subjects in each one of the levels of the categorical variables, i.e. $n_1$ and $n_2$.
@@ -93,7 +98,7 @@ Let us have a $2x2$ frequency table where columns are two groups of respondents 
 
 The usual (not Yates corrected) $\chi^2$ of this table, after you substitute proportions instead of frequencies in its formula, looks like this:
 
-$$n_1[\frac{(p_1-p)^2}{p}+\frac{(q_1-q)^2}{q}]+n_2[\frac{(p_2-p)^2}{p}+\frac{(q_2-q)^2}{q}]= \frac{n_1(p_1-p)^2+n_2(p_2-p)^2}{pq}.$$
+$$n_1\left[\frac{(p_1-p)^2}{p}+\frac{(q_1-q)^2}{q}\right]+n_2\left[\frac{(p_2-p)^2}{p}+\frac{(q_2-q)^2}{q}\right]= \frac{n_1(p_1-p)^2+n_2(p_2-p)^2}{pq}.$$
 
 Remember that $p= \frac{n_1p_1+n_2p_2}{n_1+n_2}$, the element of the weighted average profile of the two profiles `(p1,q1)` and `(p2,q2)`, and plug it in the formula, to obtain
 
@@ -111,9 +116,9 @@ This is one demonstration of a link between a variables association measure (chi
 
 Showing the expansion in the first line above:
 
-$n_1[\frac{(p_1-p)^2}{p}+\frac{(q_1-q)^2}{q}]+n_2[\frac{(p_2-p)^2}{p}+\frac{(q_2-q)^2}{q}] = \frac{n_1(p_1-p)^2q}{pq}+\frac{n_1(q_1-q)^2p}{pq}+\frac{n_2(p_2-p)^2q}{pq}+\frac{n_2(q_2-q)^2p}{pq}$ 
-$= \frac{n_1(p_1-p)^2(1-p)+n_1(1-p_1-1+p)^2p+n_2(p_2-p)^2(1-p)+n_2(1-p_2-1+p)^2p}{pq}$ 
-$= \frac{n_1(p_1-p)^2(1-p)+n_1(p-p_1)^2p+n_2(p_2-p)^2(1-p)+n_2(p-p_2)^2p}{pq} = \frac{[n_1(p_1-p)^2][(1-p)+p]+[n_2(p_2-p)^2][(1-p)+p]}{pq} = \frac{n_1(p_1-p)^2+n_2(p_2-p)^2}{pq}.$
+$\large n_1\left[\frac{(p_1-p)^2}{p}+\frac{(q_1-q)^2}{q}\right]+n_2\left[\frac{(p_2-p)^2}{p}+\frac{(q_2-q)^2}{q}\right] = \frac{n_1(p_1-p)^2q}{pq}+\frac{n_1(q_1-q)^2p}{pq}+\frac{n_2(p_2-p)^2q}{pq}+\frac{n_2(q_2-q)^2p}{pq}$ 
+$\large= \frac{n_1(p_1-p)^2(1-p)+n_1(1-p_1-1+p)^2p+n_2(p_2-p)^2(1-p)+n_2(1-p_2-1+p)^2p}{pq}$ 
+$\large= \frac{n_1(p_1-p)^2(1-p)+n_1(p-p_1)^2p+n_2(p_2-p)^2(1-p)+n_2(p-p_2)^2p}{pq} = \frac{[n_1(p_1-p)^2][(1-p)+p]+[n_2(p_2-p)^2][(1-p)+p]}{pq} = \frac{n_1(p_1-p)^2+n_2(p_2-p)^2}{pq}.$
 
 
 
