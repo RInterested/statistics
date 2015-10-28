@@ -20,6 +20,8 @@ I've looked into it using [R], and I am a bit surprised to see no packaged formu
 
 I'll work with a toy example that I made up for a [different post in CV][2], summarized into a contingency table comparing how many patients suffered heartburn after being treated with two kinds of antacids. For your question, I have extended the data to a third antacid as follows:
 
+<br>
+
     Antacid <- matrix(c(64, 178 - 64, 92, 190 - 92, 52, 188 - 52), nrow = 2)
     dimnames(Antacid) = list(Symptoms = c("Heartburn", "Normal"),
                             Medication = c("Drug A", "Drug B", "Drug C"))
@@ -30,7 +32,11 @@ I'll work with a toy example that I made up for a [different post in CV][2], sum
       Heartburn     64       92       52
       Normal       114       98      136
 
+<br>
+
 First off, we can run an omnibus test (Pearson's $\chi^2$ "goodness-of-fit") on the data by simply calling `prop.test`, but there is just one minor problem: our data is in the form of a $2$ x $3$ matrix. Yet, the essential input into the function is a `a two-dimensional table (or matrix) with 2 columns, giving the counts of successes and failures`, i.e. an $n$ x $2$ matrix. Luckily the fix is easy: do a transpose of the matrix as follows:
+
+<br>
 
     t(Antacid)
               Symptoms
@@ -39,8 +45,11 @@ First off, we can run an omnibus test (Pearson's $\chi^2$ "goodness-of-fit") on 
         Drug B        92         98
         Drug C        52        136
   
+<br>
 
 Now we are ready:
+
+<br>
 
       prop.test(t(Antacid))
     	3-sample test for equality of proportions without continuity correction
@@ -52,16 +61,18 @@ Now we are ready:
        prop 1    prop 2    prop 3 
     0.3595506 0.4842105 0.2765957 
 
-<br><br>
+<br>
 
 Actually the alternative function `chisq.test()` doesn't seem te require the transpose matrix. Let's check it out:
+
+<br>
 
       chisq.test(Antacid, correct=F)
 	  Pearson's Chi-squared test
     data:  Antacid
     X-squared = 17.6325, df = 2, p-value = 0.0001483
     
-<br><br>
+<br>
 
 We reject when the test statistic is too large, and being that $\chi^2$ on a $2$ x $2$ contingency table (i.e. with 1 df) is the same as a z test squared, we will reject at around $qnorm(0.975)^2  ~ 3.8$. The alternative is always two sided because of the squared makes it non-directinal (we simply test if the proportions are different), and when setting up the alpha risk we don't divide by two.
 
@@ -70,6 +81,8 @@ So we know that we are not dealing with drugs of equal efficiency to treat heart
 `pairwise.prop.test(t(Antacid), p.adjust.method ="bonferroni")`
 
 Notice that to keep the probability of a type I error under check, I selected the Bonferroni method to adjust the p-values. The result is:
+
+<br>
 
     	Pairwise comparisons using Pairwise comparison of proportions 
     
@@ -81,7 +94,11 @@ Notice that to keep the probability of a type I error under check, I selected th
     
     P value adjustment method: bonferroni 
 
+<br>
+
 Interestingly, we can get this info all at once graphically simply with the following commands:
+
+<br>
 
     library(vcd)
     mosaic(Antacid, shade=TRUE, legend=TRUE)
@@ -89,6 +106,8 @@ Interestingly, we can get this info all at once graphically simply with the foll
 [![enter image description here][3]][3]
 
 There you have it: when you look at the heartburn row, the square in pink, corresponding to Drug C is much smaller than Drug B (in blue), and the significance of the residuals (i.e. differences between expected and observed values for each entry, squared) are plotted to the right in terms of color hue: the darker the color (blue or pink) the larger the residuals. The residuals (distance from the expected value) can be exactly calculated to fully understand the plot by first summoning the table with marginal counts:
+
+<br>
 
     Antacid <- rbind(Antacid, margin.table(Antacid,2))
     Antacid <- cbind(Antacid, margin.table(Antacid,1))
@@ -128,6 +147,8 @@ We use the Fisher exact test, which is based on the hypergeometric distribution,
 
 Let's throw out subjects from our `Antacid` table, and reduce it in size so that the counts are low in each cell:
 
+<br>
+
     Antacid <- matrix(c(7, 11 - 7, 1, 15 - 4, 6, 9-6), nrow = 2)
     dimnames(Antacid) = list(Symptoms = c("Heartburn", "Normal"),
                         Medication = c("Drug A", "Drug B", "Drug C"))
@@ -145,8 +166,11 @@ Let's throw out subjects from our `Antacid` table, and reduce it in size so that
       Normal         4        11      3        18
       Sum           11        12      9        32
 
+<br>
 
 Clearly we would opt to take `Drug B` if given a choice. Let's look at the numbers, first globally:
+
+<br>
 
     fisher.test(Antacid)
         
@@ -171,13 +195,15 @@ In this case the p-value is calculated through a Monte Carlo simulation.
 
 Parenthetically, this is the code for a Monte Carlo calculation of the Fisher exact test p-value based on a permutation test:
 
+<br>
+
 ```{r}
 set.seed(0)
 
 # The actual data:
 
 Treatment <- c("treat", "treat", "treat", "treat", "treat", "contr", "contr", "contr", "contr", "contr")
-Tumor <- c("tum", "tum", "tum", "tum", "healthy", "tum", "tum", "healthy", "healthy", "healthy")
+Tumor <- c("tumor", "tumor", "tumor", "tumor", "healthy", "tumor", "tumor", "healthy", "healthy", "healthy")
 dat <- table(Treatment, Tumor)
 dat
 
@@ -197,8 +223,11 @@ Tumor_Treated <- 0
 fisher.test(dat, alternative = "greater")
 ```
 
+<br>
 
 Now for pairwise comparisons we can proceed as follows (notice how we need to transpose the matrix as explained above):
+
+<br>
 
     library(fmsb)
     pairwise.fisher.test(t(Antacid), p.adjust.method = "bonferroni")
@@ -213,6 +242,7 @@ Now for pairwise comparisons we can proceed as follows (notice how we need to tr
     
     P value adjustment method: bonferroni 
 
+<br>
 
 So it is reasonable to conclude (assuming a risk $\alpha$ of 5%) that `Drug B` is different from both `Drug A` and `Drug C`.
 

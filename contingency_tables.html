@@ -73,6 +73,7 @@ img {
 <h3>1. LARGER SAMPLES (&gt; 5 expected counts in each cell):</h3>
 <p><br></p>
 <p>I’ll work with a toy example that I made up for a <a href="http://stats.stackexchange.com/a/167988/67822">different post in CV</a>, summarized into a contingency table comparing how many patients suffered heartburn after being treated with two kinds of antacids. For your question, I have extended the data to a third antacid as follows:</p>
+<p><br></p>
 <pre><code>Antacid &lt;- matrix(c(64, 178 - 64, 92, 190 - 92, 52, 188 - 52), nrow = 2)
 dimnames(Antacid) = list(Symptoms = c(&quot;Heartburn&quot;, &quot;Normal&quot;),
                         Medication = c(&quot;Drug A&quot;, &quot;Drug B&quot;, &quot;Drug C&quot;))
@@ -82,14 +83,18 @@ Antacid
 Symptoms       Drug A   Drug B   Drug C
   Heartburn     64       92       52
   Normal       114       98      136</code></pre>
+<p><br></p>
 <p>First off, we can run an omnibus test (Pearson’s <span class="math">\(\chi^2\)</span> “goodness-of-fit”) on the data by simply calling <code>prop.test</code>, but there is just one minor problem: our data is in the form of a <span class="math">\(2\)</span> x <span class="math">\(3\)</span> matrix. Yet, the essential input into the function is a <code>a two-dimensional table (or matrix) with 2 columns, giving the counts of successes and failures</code>, i.e. an <span class="math">\(n\)</span> x <span class="math">\(2\)</span> matrix. Luckily the fix is easy: do a transpose of the matrix as follows:</p>
+<p><br></p>
 <pre><code>t(Antacid)
           Symptoms
 Medication    Heartburn    Normal
     Drug A        64        114
     Drug B        92         98
     Drug C        52        136</code></pre>
+<p><br></p>
 <p>Now we are ready:</p>
+<p><br></p>
 <pre><code>  prop.test(t(Antacid))
     3-sample test for equality of proportions without continuity correction
 
@@ -99,17 +104,19 @@ alternative hypothesis: two.sided
 sample estimates:
    prop 1    prop 2    prop 3 
 0.3595506 0.4842105 0.2765957 </code></pre>
-<p><br><br></p>
+<p><br></p>
 <p>Actually the alternative function <code>chisq.test()</code> doesn’t seem te require the transpose matrix. Let’s check it out:</p>
+<p><br></p>
 <pre><code>  chisq.test(Antacid, correct=F)
   Pearson's Chi-squared test
 data:  Antacid
 X-squared = 17.6325, df = 2, p-value = 0.0001483</code></pre>
-<p><br><br></p>
+<p><br></p>
 <p>We reject when the test statistic is too large, and being that <span class="math">\(\chi^2\)</span> on a <span class="math">\(2\)</span> x <span class="math">\(2\)</span> contingency table (i.e. with 1 df) is the same as a z test squared, we will reject at around <span class="math">\(qnorm(0.975)^2 ~ 3.8\)</span>. The alternative is always two sided because of the squared makes it non-directinal (we simply test if the proportions are different), and when setting up the alpha risk we don’t divide by two.</p>
 <p>So we know that we are not dealing with drugs of equal efficiency to treat heartburn, but we want to know more specifically what the pairwise comparisons have to say. Again, we have to stick with our transposed matrix <code>t()</code>:</p>
 <p><code>pairwise.prop.test(t(Antacid), p.adjust.method =&quot;bonferroni&quot;)</code></p>
 <p>Notice that to keep the probability of a type I error under check, I selected the Bonferroni method to adjust the p-values. The result is:</p>
+<p><br></p>
 <pre><code>    Pairwise comparisons using Pairwise comparison of proportions 
 
 data:  t(Antacid) 
@@ -119,11 +126,14 @@ Drug B 0.06221 -
 Drug C 0.33388 0.00015
 
 P value adjustment method: bonferroni </code></pre>
+<p><br></p>
 <p>Interestingly, we can get this info all at once graphically simply with the following commands:</p>
+<p><br></p>
 <pre><code>library(vcd)
 mosaic(Antacid, shade=TRUE, legend=TRUE)</code></pre>
 <p><a href="https://cloud.githubusercontent.com/assets/9312897/10548107/930f72ca-7406-11e5-831d-a4b4b0cc769a.png"><img src="data:image/png;base64,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" alt="enter image description here" /></a></p>
 <p>There you have it: when you look at the heartburn row, the square in pink, corresponding to Drug C is much smaller than Drug B (in blue), and the significance of the residuals (i.e. differences between expected and observed values for each entry, squared) are plotted to the right in terms of color hue: the darker the color (blue or pink) the larger the residuals. The residuals (distance from the expected value) can be exactly calculated to fully understand the plot by first summoning the table with marginal counts:</p>
+<p><br></p>
 <pre><code>Antacid &lt;- rbind(Antacid, margin.table(Antacid,2))
 Antacid &lt;- cbind(Antacid, margin.table(Antacid,1))
 dimnames(Antacid) = list(Symptoms = c(&quot;Heartburn&quot;, &quot;Normal&quot;,&quot;Totals&quot;),
@@ -151,6 +161,7 @@ Symptoms    Drug A Drug B Drug C Totals
 <p><br></p>
 <p>We use the Fisher exact test, which is based on the hypergeometric distribution, and it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. Although originally conceived for <span class="math">\(2\)</span> x <span class="math">\(2\)</span> contingency tables, only the quickly mounting number of permutation tables in the extension of the Fisher test to <span class="math">\(m\)</span> x <span class="math">\(n\)</span> tables (so-called Freeman Halton test) gets in the way of its direct applications beyond the more rudimentary contingency table. This is <a href="http://stats.stackexchange.com/a/1806/67822">discussed in CV</a>, and elaborated further in this <a href="http://mathworld.wolfram.com/FishersExactTest.html">Wolfram post</a>. The original article on the Freeman-Halton test can be found in <em>Biometrika (1951) 38 (1-2): 141-149. doi: 10.1093/biomet/38.1-2.141</em>.</p>
 <p>Let’s throw out subjects from our <code>Antacid</code> table, and reduce it in size so that the counts are low in each cell:</p>
+<p><br></p>
 <pre><code>Antacid &lt;- matrix(c(7, 11 - 7, 1, 15 - 4, 6, 9-6), nrow = 2)
 dimnames(Antacid) = list(Symptoms = c(&quot;Heartburn&quot;, &quot;Normal&quot;),
                     Medication = c(&quot;Drug A&quot;, &quot;Drug B&quot;, &quot;Drug C&quot;))
@@ -167,7 +178,9 @@ Symptoms       Drug A   Drug B   Drug C    Sum
   Heartburn      7         1      6        14
   Normal         4        11      3        18
   Sum           11        12      9        32</code></pre>
+<p><br></p>
 <p>Clearly we would opt to take <code>Drug B</code> if given a choice. Let’s look at the numbers, first globally:</p>
+<p><br></p>
 <pre><code>fisher.test(Antacid)
     
         Fisher's Exact Test for Count Data
@@ -185,18 +198,19 @@ Fisher's Exact Test for Count Data with simulated p-value (based on 2000 replica
     alternative hypothesis: two.sided</code></pre>
 <p>In this case the p-value is calculated through a Monte Carlo simulation.</p>
 <p>Parenthetically, this is the code for a Monte Carlo calculation of the Fisher exact test p-value based on a permutation test:</p>
+<p><br></p>
 <pre class="r"><code>set.seed(0)
 
 # The actual data:
 
 Treatment &lt;- c(&quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;contr&quot;, &quot;contr&quot;, &quot;contr&quot;, &quot;contr&quot;, &quot;contr&quot;)
-Tumor &lt;- c(&quot;tum&quot;, &quot;tum&quot;, &quot;tum&quot;, &quot;tum&quot;, &quot;healthy&quot;, &quot;tum&quot;, &quot;tum&quot;, &quot;healthy&quot;, &quot;healthy&quot;, &quot;healthy&quot;)
+Tumor &lt;- c(&quot;tumor&quot;, &quot;tumor&quot;, &quot;tumor&quot;, &quot;tumor&quot;, &quot;healthy&quot;, &quot;tumor&quot;, &quot;tumor&quot;, &quot;healthy&quot;, &quot;healthy&quot;, &quot;healthy&quot;)
 dat &lt;- table(Treatment, Tumor)
 dat</code></pre>
 <pre><code>##          Tumor
-## Treatment healthy tum
-##     contr       3   2
-##     treat       1   4</code></pre>
+## Treatment healthy tumor
+##     contr       3     2
+##     treat       1     4</code></pre>
 <pre class="r"><code># The Monte Carlo:
 
 Tumor_Treated &lt;- 0
@@ -222,7 +236,9 @@ fisher.test(dat, alternative = &quot;greater&quot;)</code></pre>
 ## sample estimates:
 ## odds ratio 
 ##   4.918388</code></pre>
+<p><br></p>
 <p>Now for pairwise comparisons we can proceed as follows (notice how we need to transpose the matrix as explained above):</p>
+<p><br></p>
 <pre><code>library(fmsb)
 pairwise.fisher.test(t(Antacid), p.adjust.method = &quot;bonferroni&quot;)
 
@@ -235,6 +251,7 @@ Drug B 0.028  -
 Drug C 1.000  0.047 
 
 P value adjustment method: bonferroni </code></pre>
+<p><br></p>
 <p>So it is reasonable to conclude (assuming a risk <span class="math">\(\alpha\)</span> of 5%) that <code>Drug B</code> is different from both <code>Drug A</code> and <code>Drug C</code>.</p>
 <p>Original post <a href="http://stats.stackexchange.com/a/173749/67822">here</a>.</p>
 <hr />
