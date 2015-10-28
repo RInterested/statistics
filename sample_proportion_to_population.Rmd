@@ -8,21 +8,27 @@
 
 If we want to test whether a *one* sample proportion $p$ is consistent with a population parameter $p_o$ the **score** test statistic is:
 
-test statistic = $\Huge \frac{\hat p - p_o}{\sqrt{\frac{p_o\,(1\,-\,p_o)}{n}}}$
+test statistic = $\Large \frac{\hat p - p_o}{\sqrt{\frac{p_o\,(1\,-\,p_o)}{n}}}$
 
 This is [equivalent to the z test statistic](http://rinterested.github.io/statistics/one_sample_test.html) for sample means, and does follow a Z distribution in large samples. Compare to the z test of proportions to compare two samples [here](http://rinterested.github.io/statistics/tests_of_proportions.html).
 
 Notice that since we are testing under the $H_o$ how likely it is to get the $p$ we obtained we use the population proportion $p_o$ to calculate the standard error, as opposed to the sample proportion we would use to build the confidence interval with a Wald interval:
 
+<br>
+
 $\large \hat p \pm Z_{1-\alpha/2} *  \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
 
 In [R]:
 
-$\large \hat p + c(-1, 1) * pnorm(0.975) * \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
+$\large \hat p + c(-1, 1) * \small pnorm(0.975) * \large \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
 
 Example: We want to test if the proportion of side effects is greater than 0.1 for a new drug ($p=0.1$). In our sample of $20$ cases, $11$ had complications for a $\hat p = 0.55$:
 
-*test statistic* = $\Large \frac{0.55 - 0.1}{\sqrt{\frac{0.1 * 0.9}{20}}} = 6.7$, which is clearly significant:
+<br>
+
+*test statistic* = $\Large \frac{0.55 - 0.1}{\sqrt{\frac{0.1 * 0.9}{20}}} =$$6.7$, which is clearly significant:
+
+<br>
 
 ```{r}
 qnorm(0.95) # One-sided test
