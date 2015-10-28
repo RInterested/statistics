@@ -26,7 +26,7 @@ And the first part of the inequality is really the *Z-statistic*:
 
 <br>
 
-Z test statistic = $\Huge \frac{\bar X - \mu_o}{s/\sqrt{n}}$
+Z test statistic = $\Large \frac{\bar X - \mu_o}{s/\sqrt{n}}$
 
 based on the central limit theorem.
 
@@ -51,7 +51,7 @@ Example: We know that mean glucose concentration in blood is `100 mg/dL`, and we
 
 When sample size is larger than 30, we can consider using a z-test. Typically the standard deviation of the sample will have to be used to substitute for the unknown parameter. In the example above we want a left-tailed test: $\small H_1: \bar X < \mu$. We use the central limit theorem, which tells us that the sample distribution of the sample means has a standard error, $\small SE=\frac{\sigma}{\sqrt n}$, with $\sigma$ corresponding to the population standard deviation, and we get the following statistic:
 
-$z = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$. Again, since $\sigma$ is unknown we have to use the unbiased SD of the sample.
+$\large z = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$. Again, since $\sigma$ is unknown we have to use the unbiased SD of the sample.
 
 What would happen if we sampled multiple times from the presumed population (Monte Carlo): `means <- replicate(1e6, mean(rnorm(100, 100, 10)))`? We would end up with the following density with the area of type 1 error shaded in red:
 
