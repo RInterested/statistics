@@ -45,6 +45,8 @@ Since $\Gamma(1/2)=\sqrt{\pi}$, for $1$ df, we have derived exactly the $pdf$ of
 
 Further, if we call the function `prop.test()` in R we are invoking the same $\chi^2$ test as if we decide upon `chisq.test()`.
 
+<br><br>
+
 **THE QUESTION:**
 
 So I get all these points, yet I still don't know how they apply to the actual implementation of these two tests for two reasons:
@@ -55,7 +57,10 @@ So I get all these points, yet I still don't know how they apply to the actual i
 
 The value of the [test-statistic for a $\chi^2$][6] is:
 
- $\chi^2 = \sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i} =  N \sum_{i=1}^n p_i \left(\frac{O_i/N - p_i}{p_i}\right)^2$
+<br>
+
+$\large \chi^2 = \displaystyle \sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i} =  \,N\, \displaystyle \sum_{i=1}^n \,p_i\, \left(\frac{\frac{O_i}{N} - p_i}{p_i}\right)^2= \frac{n(n_{11}\,n_{22}\,-\,n_{12}\,n_{21})^2}{n_{+1}\,n_{+2}\,n_{1+}\,n_{2+}}$
+<br>
 where
 
 $\chi^2$ = Pearson's cumulative test statistic, which asymptotically approaches a $\chi^2$ distribution. $O_i$ = the number of observations of type $i$; $N$ = total number of observations; $E_i$ = $N p_i$ = the expected (theoretical) frequency of type $i$, asserted by the null hypothesis that the fraction of type $i$ in the population is  $p_i$;
@@ -63,7 +68,7 @@ $n$ = the number of cells in the table.
 
 On the other hand, the test statistic for a $z$-test is:
 
-$ \displaystyle Z = \frac{\frac{x_1}{n_1}-\frac{x_2}{n_2}}{\sqrt{p\,(1-p)(1/n_1+1/n_2)}}$ with $\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}$, where $x_1$ and $x_2$ are the number of "successes", over the number of subjects in each one of the levels of the categorical variables, i.e. $n_1$ and $n_2$.
+$\large \displaystyle Z = \frac{\frac{x_1}{n_1}-\frac{x_2}{n_2}}{\sqrt{p\,(1-p)(1/n_1+1/n_2)}}$ with $\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}$, where $x_1$ and $x_2$ are the number of "successes", over the number of subjects in each one of the levels of the categorical variables, i.e. $n_1$ and $n_2$.
 
 This formula seems to rely on the binomial distribution.
 

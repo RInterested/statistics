@@ -87,6 +87,7 @@ y^{\frac{1}{2}- 1}\]</span></p>
 <p><span class="math">\[ f_X(x)= \frac{1}{2^{\nu/2}\Gamma(\frac{\nu}{2})}e^{\frac{-x}{2}}x^{\frac{\nu}{2}-1}\]</span></p>
 <p>Since <span class="math">\(\Gamma(1/2)=\sqrt{\pi}\)</span>, for <span class="math">\(1\)</span> df, we have derived exactly the <span class="math">\(pdf\)</span> of the chi square.</p>
 <p>Further, if we call the function <code>prop.test()</code> in R we are invoking the same <span class="math">\(\chi^2\)</span> test as if we decide upon <code>chisq.test()</code>.</p>
+<p><br><br></p>
 <p><strong>THE QUESTION:</strong></p>
 <p>So I get all these points, yet I still don’t know how they apply to the actual implementation of these two tests for two reasons:</p>
 <ol style="list-style-type: decimal">
@@ -94,10 +95,11 @@ y^{\frac{1}{2}- 1}\]</span></p>
 <li><p><em>The actual test statistics are completely different:</em></p></li>
 </ol>
 <p>The value of the <a href="https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test">test-statistic for a <span class="math">\(\chi^2\)</span></a> is:</p>
-<p><span class="math">\(\chi^2 = \sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i} = N \sum_{i=1}^n p_i \left(\frac{O_i/N - p_i}{p_i}\right)^2\)</span> where</p>
+<p><br></p>
+<p><span class="math">\(\large \chi^2 = \displaystyle \sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i} = \,N\, \displaystyle \sum_{i=1}^n \,p_i\, \left(\frac{\frac{O_i}{N} - p_i}{p_i}\right)^2= \frac{n(n_{11}\,n_{22}\,-\,n_{12}\,n_{21})^2}{n_{+1}\,n_{+2}\,n_{1+}\,n_{2+}}\)</span> <br> where</p>
 <p><span class="math">\(\chi^2\)</span> = Pearson’s cumulative test statistic, which asymptotically approaches a <span class="math">\(\chi^2\)</span> distribution. <span class="math">\(O_i\)</span> = the number of observations of type <span class="math">\(i\)</span>; <span class="math">\(N\)</span> = total number of observations; <span class="math">\(E_i\)</span> = <span class="math">\(N p_i\)</span> = the expected (theoretical) frequency of type <span class="math">\(i\)</span>, asserted by the null hypothesis that the fraction of type <span class="math">\(i\)</span> in the population is <span class="math">\(p_i\)</span>; <span class="math">\(n\)</span> = the number of cells in the table.</p>
 <p>On the other hand, the test statistic for a <span class="math">\(z\)</span>-test is:</p>
-<p>$ Z = $ with <span class="math">\(\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}\)</span>, where <span class="math">\(x_1\)</span> and <span class="math">\(x_2\)</span> are the number of “successes”, over the number of subjects in each one of the levels of the categorical variables, i.e. <span class="math">\(n_1\)</span> and <span class="math">\(n_2\)</span>.</p>
+<p><span class="math">\(\large \displaystyle Z = \frac{\frac{x_1}{n_1}-\frac{x_2}{n_2}}{\sqrt{p\,(1-p)(1/n_1+1/n_2)}}\)</span> with <span class="math">\(\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}\)</span>, where <span class="math">\(x_1\)</span> and <span class="math">\(x_2\)</span> are the number of “successes”, over the number of subjects in each one of the levels of the categorical variables, i.e. <span class="math">\(n_1\)</span> and <span class="math">\(n_2\)</span>.</p>
 <p>This formula seems to rely on the binomial distribution.</p>
 <p>These two tests statistics are clearly different, and <a href="http://stats.stackexchange.com/a/167988/67822">result in different results for the actual test statistics, as well as for the <em>p</em>-values</a>: <code>5.8481</code> for the <span class="math">\(\chi^2\)</span> and <code>2.4183</code> for the z-test. The <em>p</em>-value for the <span class="math">\(\chi^2\)</span> test is <code>0.01559</code>, while for the z-test is <code>0.0077</code>. The difference explained by two-tailed versus one-tailed: <span class="math">\(\small 0.01559/2=0.007795\)</span>.</p>
 <p>In the example on the last hyperlink the <span class="math">\(\chi^2\)</span> is almost the square of the z-test statistic, but not quite, and the p-values are different.</p>
