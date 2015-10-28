@@ -12,8 +12,11 @@
 
 I've looked into it using [R], and I am a bit surprised to see no packaged formula readily accessible for a test that is ubiquitous in the medical sciences. So it takes some minimal tweaking. First off, [the link in my comment to the OP][1] is excellent, providing a makeshift formula; however, the following is an example using well-known formulas in [R]:
 
+<br><br>
+
 ###1. LARGER SAMPLES (> 5 expected counts in each cell):
 
+<br>
 
 I'll work with a toy example that I made up for a [different post in CV][2], summarized into a contingency table comparing how many patients suffered heartburn after being treated with two kinds of antacids. For your question, I have extended the data to a third antacid as follows:
 
@@ -48,6 +51,19 @@ Now we are ready:
     sample estimates:
        prop 1    prop 2    prop 3 
     0.3595506 0.4842105 0.2765957 
+
+<br><br>
+
+Actually the alternative function `chisq.test()` doesn't seem te require the transpose matrix. Let's check it out:
+
+      chisq.test(Antacid, correct=F)
+	  Pearson's Chi-squared test
+    data:  Antacid
+    X-squared = 17.6325, df = 2, p-value = 0.0001483
+    
+<br><br>
+
+We reject when the test statistic is too large, and being that $\chi^2$ on a $2$ x $2$ contingency table (i.e. with 1 df) is the same as a z test squared, we will reject at around $qnorm(0.975)^2  ~ 3.8$. The alternative is always two sided because of the squared makes it non-directinal (we simply test if the proportions are different), and when setting up the alpha risk we don't divide by two.
 
 So we know that we are not dealing with drugs of equal efficiency to treat heartburn, but we want to know more specifically what the pairwise comparisons have to say. Again, we have to stick with our transposed matrix `t()`:
 
@@ -102,8 +118,11 @@ And these results explain the color coding in terms of the hue of pink and blue.
 
 The column to the right also includes the exact same p-value we just got for the pairwise $\chi^2$ of Drug B versus Drug C with Bonferroni adjustment.
 
+<br><br>
+
 ###2. SMALLER SAMPLES:
 
+<br>
 
 We use the Fisher exact test, which is based on the hypergeometric distribution, and it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. Although originally conceived for $2$ x $2$ contingency tables, only the quickly mounting number of permutation tables in the extension of the Fisher test to $m$ x $n$ tables (so-called Freeman Halton test) gets in the way of its direct applications beyond the more rudimentary contingency table. This is [discussed in CV][4], and elaborated further in this [Wolfram post][5]. The original article on the Freeman-Halton test can be found in *Biometrika (1951) 38 (1-2): 141-149. doi: 10.1093/biomet/38.1-2.141*.
 
@@ -149,6 +168,35 @@ Notice that as the table gets bigger computational issues may arise, explaining 
         alternative hypothesis: two.sided
 
 In this case the p-value is calculated through a Monte Carlo simulation.
+
+Parenthetically, this is the code for a Monte Carlo calculation of the Fisher exact test p-value based on a permutation test:
+
+```{r}
+set.seed(0)
+
+# The actual data:
+
+Treatment <- c("treat", "treat", "treat", "treat", "treat", "contr", "contr", "contr", "contr", "contr")
+Tumor <- c("tum", "tum", "tum", "tum", "healthy", "tum", "tum", "healthy", "healthy", "healthy")
+dat <- table(Treatment, Tumor)
+dat
+
+# The Monte Carlo:
+
+Tumor_Treated <- 0
+ for (i in 1: 10000){
+  samp <- sample(Treatment)
+  tab <- table(samp, Tumor)
+  Tumor_Treated[i] <- tab[2,2]
+ }
+
+(p_value <- length(Tumor_Treated[Tumor_Treated>=4])/length(Tumor_Treated))
+
+# The builtin function:
+
+fisher.test(dat, alternative = "greater")
+```
+
 
 Now for pairwise comparisons we can proceed as follows (notice how we need to transpose the matrix as explained above):
 
