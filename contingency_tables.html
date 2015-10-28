@@ -74,7 +74,7 @@ img {
 <p><br></p>
 <p>I’ll work with a toy example that I made up for a <a href="http://stats.stackexchange.com/a/167988/67822">different post in CV</a>, summarized into a contingency table comparing how many patients suffered heartburn after being treated with two kinds of antacids. For your question, I have extended the data to a third antacid as follows:</p>
 <p><br></p>
-<pre><code>Antacid &lt;- matrix(c(64, 178 - 64, 92, 190 - 92, 52, 188 - 52), nrow = 2)
+<pre><code>Antacid &lt;- matrix(c(64, 178 - 64, 92, 190 - 92, 52, 188 - 52), nrow = 2, byrow = T)
 dimnames(Antacid) = list(Symptoms = c(&quot;Heartburn&quot;, &quot;Normal&quot;),
                         Medication = c(&quot;Drug A&quot;, &quot;Drug B&quot;, &quot;Drug C&quot;))
 Antacid
