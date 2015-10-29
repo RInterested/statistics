@@ -2,12 +2,15 @@
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 
+<br><br>
 
 ###MODEL MATRICES IN MIXED EFFECTS:
 
-###[QUESTION](http://stats.stackexchange.com/q/157851/67822):
-
 <br><br>
+
+####[QUESTION](http://stats.stackexchange.com/q/157851/67822):
+
+<br>
 
 In the `lmer` function within `lme4` in `R` there is a call for constructing a model matrix of random effects, $Z$, as explained [here][1], pages 7 - 9.
 
@@ -15,31 +18,19 @@ Calculating $Z$ entails KhatriRao and/or Kronecker products of two matrices, $J_
 
 The matrix $J_i$ is a mouthful: "Indicator matrix of grouping factor indices", but it seems to be a sparse matrix with dummy coding to select which unit (for example, subjects in repetitive measurements) corresponding to higher hierarchical levels are "on" for any observation. The $X_i$ matrix seems to act as a selector of measurements in the lower hierarchical level, so that the combination of both "selectors" would yield a matrix, $Z_i$ of the form illustrated in the paper via the following example:
 
+<br>
+
+```{r, message=FALSE, warning=FALSE}
+require(lme4)
+```
+```{r}
     (f<-gl(3,2))
-    
-    [1] 1 1 2 2 3 3
-    Levels: 1 2 3
-    
     (Ji<-t(as(f,Class="sparseMatrix")))
-    
-    6 x 3 sparse Matrix of class "dgCMatrix"
-         1 2 3
-    [1,] 1 . .
-    [2,] 1 . .
-    [3,] . 1 .
-    [4,] . 1 .
-    [5,] . . 1
-    [6,] . . 1
-    
     (Xi<-cbind(1,rep.int(c(-1,1),3L)))
-         [,1] [,2]
-    [1,]    1   -1
-    [2,]    1    1
-    [3,]    1   -1
-    [4,]    1    1
-    [5,]    1   -1
-    [6,]    1    1
-    
+```
+
+<br>
+
 Transposing each of these matrices, and performing a Khatri-Rao multiplication:
 
 $\left[\begin{smallmatrix}1 & 1 &. &. &. &.\\.&.&1&1&.&.\\.&.&.&.&1&1 \end{smallmatrix}\right]\ast \left[\begin{smallmatrix}\,\,\,\,1 & 1 &\,\,\,\,1 &1 &\,\,\,\,1 &1\\-1&1&-1&1&-1&1 \end{smallmatrix}\right]=
@@ -47,27 +38,33 @@ $\left[\begin{smallmatrix}1 & 1 &. &. &. &.\\.&.&1&1&.&.\\.&.&.&.&1&1 \end{small
     
 But $Z_i$ is the transpose of it:
 
-    (Zi<-t(KhatriRao(t(Ji),t(Xi))))
+<br>
+
+```{r}
+(Zi<-t(KhatriRao(t(Ji),t(Xi))))
+```
     
-    6 x 6 sparse Matrix of class "dgCMatrix"
-                       
-    [1,] 1 -1 .  . .  .
-    [2,] 1  1 .  . .  .
-    [3,] .  . 1 -1 .  .
-    [4,] .  . 1  1 .  .
-    [5,] .  . .  . 1 -1
-    [6,] .  . .  . 1  1
+<br>
 
 It turns out that the authors make use of the database `sleepstudy` in `lme4`, but don't really elaborate on the design matrices as they apply to this particular study. So I'm trying to understand how the made up code in the paper reproduced above would translate into the more meaningful `sleepstudy` example.
 
 For visual simplicity I have reduced the data set to just three subjects - "309", "330" and "371":
 
+<br>
+
+```{r}
     require(lme4)
     sleepstudy <- sleepstudy[sleepstudy$Subject %in% c(309, 330, 371), ]
     rownames(sleepstudy) <- NULL
+```
+
+<br>
 
 Each individual would exhibit a very different intercept and slope should a simple OLS regression be considered individually, suggesting the need for a mixed-effect model with the higher hierarchy or unit level corresponding to the subjects:
 
+<br>
+
+```{r}
         par(bg = 'peachpuff')
         plot(1,type="n", xlim=c(0, 12), ylim=c(200, 360),
                  xlab='Days', ylab='Reaction')
@@ -75,13 +72,18 @@ Each individual would exhibit a very different intercept and slope should a simp
                 fit<-lm(Reaction ~ Days, sleepstudy[sleepstudy$Subject==i,])
                 lines(predict(fit), col=i, lwd=3)
                 text(x=11, y=predict(fit, data.frame(Days=9)), cex=0.6,labels=i)
-            }
+        }
+```
 
-![enter image description here][2]
+<br>
 
 The mixed-effect regression call is:
 
+<br>
+
+```{r}
     fm1<-lmer(Reaction~Days+(Days|Subject), sleepstudy)
+```
 
 And the matrix extracted from the function yields the following:
 
@@ -99,6 +101,7 @@ And the matrix extracted from the function yields the following:
     371 . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 1 1 1 1
     371 . . . . . . . . . . . . . . . . . . . . 0 1 2 3 4 5 6 7 8 9
 
+<br>
 This seems right, but if it is, what is linear algebra behind it? I understand the rows of `1`'s being the selection of individuals like. For instance, subject `309` is on for the baseline + nine observations, so it gets four `1`'s and so forth. The second part is clearly the actual measurement: `0` for baseline, `1` for the first day of sleep deprivation, etc.
 
 **But what are the actual** $J_i$ **and** $X_i$ **matrices and the corresponding** $Z_i= (J_i^{T}∗X_i^{T})^⊤$ **or** $Z_i= (J_i^{T}\otimes X_i^{T})^⊤$, **whichever is pertinent?**
@@ -116,37 +119,52 @@ The problem is that it is not the transposed as the `lmer` function seems to cal
   [1]: http://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf
   [2]: http://i.stack.imgur.com/opwVvm.png
 
-
-###ANSWER:
-
 <br><br>
+
+####ANSWER:
+
+<br>
 1. Creating the $J_i$ matrix entails producing 3 levels (`309`, `330` and `371`) each one with 10 observations or measurements (`nrow(sleepstudy[sleepstudy$Subject==309,]) [1] 10`). Following the code in the original link in the OP:
 
-`f <- gl(3,10)`
-`Ji<-t(as(f,Class="sparseMatrix"))`
+<br>
 
+```{r}
+f <- gl(3,10)
+Ji<-t(as(f,Class="sparseMatrix"))
+```
+
+<br>
 ![enter image description here][1]
     
 
 2. Building the $X_i$ matrix can be aided by using the function `getME` as a reference:
 
-   `library(lme4)`
-    `sleepstudy <- sleepstudy[sleepstudy$Subject %in% c(309, 330, 371), ]`
-    `rownames(sleepstudy) <- NULL`
-    `fm1<-lmer(Reaction~Days+(Days|Subject), sleepstudy)`
+<br>
+```{r}
+   library(lme4)
+  sleepstudy <- sleepstudy[sleepstudy$Subject %in% c(309, 330, 371), ]
+  rownames(sleepstudy) <- NULL
+  fm1<-lmer(Reaction~Days+(Days|Subject), sleepstudy)
     
-`Xi <- getME(fm1,"mmList")`
+Xi <- getME(fm1,"mmList")
+```
 
+<br>
 ![enter image description here][2]
        
 
 Since we will need the transpose, and the object `Xi` is not a matrix, the `t(Xi)` can be built as: 
 
-`t_Xi <- rbind(c(rep(1,30)),c(rep(0:9,3)))`
+```{r}
+t_Xi <- rbind(c(rep(1,30)),c(rep(0:9,3)))
+```
 
 3. $Z_i$ is calculated as $Z_i= (J_i^{T}∗X_i^{T})^⊤$: 
 
-`Zi<-t(KhatriRao(t_Ji,t_Xi))`:
+```{r}
+require(Matrix)
+Zi<-t(KhatriRao(t(Ji),t_Xi))
+```
 
 ![enter image description here][3]
 
@@ -179,15 +197,10 @@ $=\left[\begin{smallmatrix}1&1&0&0&0&0\\0&1&0&0&0&0\\0&0&1&1&0&0\\0&0&0&1&0&0\\0
 
 4. Extracting the $b$ vector of random effects coefficients can be done with the function: 
 
-`b <- getME(fm1,"b")`
+```{r}
+(b <- getME(fm1,"b"))
+```
 
-               
-    [1,] -44.1573839
-    [2,]  -2.4118590
-    [3,]  32.8633489
-    [4,]  -0.3998801
-    [5,]  11.2940350
-    [6,]   2.8117392
 
 If we add these values to the fixed-effects of the call `fm1<-lmer(Reaction~Days+(Days|Subject), sleepstudy)` we get the intercepts:
 
@@ -200,10 +213,12 @@ and the slopes:
     2.407141 for 309; 4.419120 for 330; and 7.630739 for 371
 
 values consistent with: 
-
+<br>
+```{r,warning=FALSE,message=FALSE}
     library(lattice)
     xyplot(Reaction ~ Days | Subject, groups = Subject, data = sleepstudy, 
            pch=19, lwd=2, type=c('p','r'))
+```
 
 ![enter image description here][5]
 
@@ -215,7 +230,6 @@ values consistent with:
   [3]: http://i.stack.imgur.com/HrMi4m.png
   [4]: http://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf
   [5]: http://i.stack.imgur.com/7fZWG.png
-
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
