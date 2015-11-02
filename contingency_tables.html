@@ -238,14 +238,14 @@ dat</code></pre>
 <pre class="r"><code># The Monte Carlo:
 
 Tumor_Treated &lt;- 0
- for (i in 1: 10000){
+ for (i in 1: 1e5){
   samp &lt;- sample(Treatment, replace = FALSE)
   tab &lt;- table(samp, Tumor)
   Tumor_Treated[i] &lt;- tab[2,2]
  }
 
 (p_value &lt;- length(Tumor_Treated[Tumor_Treated&gt;=4])/length(Tumor_Treated))</code></pre>
-<pre><code>## [1] 0.2519</code></pre>
+<pre><code>## [1] 0.26042</code></pre>
 <pre class="r"><code># The builtin function:
 
 fisher.test(dat, alternative = &quot;greater&quot;)</code></pre>

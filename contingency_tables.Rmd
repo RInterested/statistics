@@ -235,7 +235,7 @@ dat
 # The Monte Carlo:
 
 Tumor_Treated <- 0
- for (i in 1: 10000){
+ for (i in 1: 1e5){
   samp <- sample(Treatment, replace = FALSE)
   tab <- table(samp, Tumor)
   Tumor_Treated[i] <- tab[2,2]
