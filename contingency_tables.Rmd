@@ -227,7 +227,7 @@ set.seed(0)
 
 # The actual data:
 
-Treatment <- c("treat", "treat", "treat", "treat", "treat", "contr", "contr", "contr", "contr", "contr")
+Treatment <- c("treat", "treat", "treat", "treat", "treat", "control", "control", "control", "control", "control")
 Tumor <- c("tumor", "tumor", "tumor", "tumor", "healthy", "tumor", "tumor", "healthy", "healthy", "healthy")
 dat <- table(Treatment, Tumor)
 dat
@@ -236,7 +236,7 @@ dat
 
 Tumor_Treated <- 0
  for (i in 1: 10000){
-  samp <- sample(Treatment)
+  samp <- sample(Treatment, replace = FALSE)
   tab <- table(samp, Tumor)
   Tumor_Treated[i] <- tab[2,2]
  }

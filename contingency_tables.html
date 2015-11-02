@@ -227,19 +227,19 @@ Fisher's Exact Test for Count Data with simulated p-value (based on 2000 replica
 
 # The actual data:
 
-Treatment &lt;- c(&quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;contr&quot;, &quot;contr&quot;, &quot;contr&quot;, &quot;contr&quot;, &quot;contr&quot;)
+Treatment &lt;- c(&quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;treat&quot;, &quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;control&quot;)
 Tumor &lt;- c(&quot;tumor&quot;, &quot;tumor&quot;, &quot;tumor&quot;, &quot;tumor&quot;, &quot;healthy&quot;, &quot;tumor&quot;, &quot;tumor&quot;, &quot;healthy&quot;, &quot;healthy&quot;, &quot;healthy&quot;)
 dat &lt;- table(Treatment, Tumor)
 dat</code></pre>
 <pre><code>##          Tumor
 ## Treatment healthy tumor
-##     contr       3     2
-##     treat       1     4</code></pre>
+##   control       3     2
+##   treat         1     4</code></pre>
 <pre class="r"><code># The Monte Carlo:
 
 Tumor_Treated &lt;- 0
  for (i in 1: 10000){
-  samp &lt;- sample(Treatment)
+  samp &lt;- sample(Treatment, replace = FALSE)
   tab &lt;- table(samp, Tumor)
   Tumor_Treated[i] &lt;- tab[2,2]
  }
