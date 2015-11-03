@@ -28,7 +28,8 @@ This is what it looks like (with marginals):
       Totals       178    190    368
 
 So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to see if there are differences in the proportion of heartburn symptoms between drug A and B, i.e. $p1 = 64/178$ vs $p2 = 92/190$.
-<pr><pr>
+<br><br>
+
 
 
 **1.** [FISHER EXACT TEST][1]: There is a discussion on Wikipedia about "Controversies". Based on the hypergeometric distribution, it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. The story of the RA Fisher and the tea lady is great, and can be reproduced in [R] by simply grabbing the code [here][2]. [R] seems to tolerate without a pause the large numbers in our data (no problem with factorials):
@@ -48,7 +49,7 @@ So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to
      0.5988478 
 
 
-<pr><pr>
+<br><br>
 
 
 **2.** [CHI-SQUARE TEST OF HOMOGENEITY:][3] Otherwise known as the goodness of fit Pearson's chi squared test. For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^)$, then $X^2\sim \chi^2(1))$:
@@ -85,9 +86,58 @@ or..
     
     Pearson's Chi-squared test
     
-    data:  Antacid
-    X-squared = 5.8481, df = 1, p-value = 0.01559
-<pr><pr>
+    
+    
+It is also possible to see the term GOF ("goodness-of-fit") applied exclusively to testing of whether some observed counts *conform* to a theoretical proportion.
+
+As an example, we can test how good is [R] at generating random uniform numbers by generating $\tiny 1 \,million$ draws:
+
+<img HEIGHT="500" WIDTH="400" src="https://cloud.githubusercontent.com/assets/9312897/10918018/8ec2a2bc-8231-11e5-9c67-df4e50c7b4c9.png">
+
+which looks very good, but let's look at the actual counts compared to the expected frequency ($0.25$) for every quartile:
+
+```{r,echo=F,results='hide'}
+uniform_sample <- runif(1e6)
+
+first <- length(uniform_sample[uniform_sample<0.25])
+secnd <- length(uniform_sample[uniform_sample>=0.25&
+                              uniform_sample<0.5])
+third <- length(uniform_sample[uniform_sample>=0.5&
+                              uniform_sample<0.75])
+fourth<-length(uniform_sample[uniform_sample>=0.75])
+
+counts <- c(first,secnd,third,fourth)
+TargFreq <- c(0.25, 0.25, 0.25, 0.25)
+
+tab <- t(as.matrix(data.frame(counts, TargFreq)))
+colnames(tab) <-c("[0,0.25)", "[0.25,0.5)", 
+                        "[0.5,0.75)", "[0.75,1)")
+
+
+Exp_counts <- c(rep(1e6 * 0.25, times = 4))
+tableau <- rbind(tab,Exp_counts)
+tableau
+```
+
+Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case $\small df=3$):
+
+```{r}
+tableau
+TS <- sum((tableau[1,] - tableau[3,])^2/tableau[3,])
+TS
+pchisq(TS, df=3, lower.tail = F)
+```
+
+
+Which is clearly not a value extreme enough to consider that the sample is not distributed according to the 0.25 fractions in each quartile.
+
+In [R]'s built-in functions we can easily calculate this GOF test:
+
+```{r}
+chisq.test(tableau[1,], p = tableau[2,])
+```
+
+<br><br>
 
 
 **3.** [G-TEST][9]: The Pearson's chi-test statistic is the second order Taylor expansion around 1 of the G test; hence they tend to converge. In `R`:
@@ -100,7 +150,7 @@ or..
 
     data:  Antacid
     G = 5.8703, X-squared df = 1, p-value = 0.0154
-<pr><pr>
+<br><br>
 
 
 **4.** [Z-TEST OF PROPORTIONS][3]: The normal distribution is a good approximation for a binomial when $np>5$ and $n(1-p)>5$. When the occurrences of successes are small in comparison with the total amount of observations, it is the actual number of expected observations that will determine if a [normal approximation of a poisson process][8] can be considered ($\lambda \geq 5$).
