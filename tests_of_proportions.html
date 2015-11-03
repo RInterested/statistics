@@ -80,7 +80,7 @@ Symptoms    Drug A Drug B Totals
   Heartburn     64     92    156
   Normal       114     98    212
   Totals       178    190    368</code></pre>
-<p>So we have <code>368</code>patients: <code>178</code> on <code>Drug A</code>, and <code>190</code> on <code>Drug B</code> and we try to see if there are differences in the proportion of heartburn symptoms between drug A and B, i.e. <span class="math">\(p1 = 64/178\)</span> vs <span class="math">\(p2 = 92/190\)</span>.</p>
+<p>So we have <code>368</code>patients: <code>178</code> on <code>Drug A</code>, and <code>190</code> on <code>Drug B</code> and we try to see if there are differences in the proportion of heartburn symptoms between drug A and B, i.e. <span class="math">\(p1 = 64/178\)</span> vs <span class="math">\(p2 = 92/190\)</span>. <pr><pr></p>
 <p><strong>1.</strong> <a href="https://en.wikipedia.org/wiki/Fisher%27s_exact_test">FISHER EXACT TEST</a>: There is a discussion on Wikipedia about “Controversies”. Based on the hypergeometric distribution, it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. The story of the RA Fisher and the tea lady is great, and can be reproduced in [R] by simply grabbing the code <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/fisher.test.html">here</a>. [R] seems to tolerate without a pause the large numbers in our data (no problem with factorials):</p>
 <pre><code> Antacid &lt;- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)
     fisher.test(Antacid, alternative = &quot;two.sided&quot;)
@@ -93,6 +93,7 @@ alternative hypothesis: true odds ratio is not equal to 1
 sample estimates:
 odds ratio 
  0.5988478 </code></pre>
+<p><pr><pr></p>
 <p><strong>2.</strong> <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">CHI-SQUARE TEST OF HOMOGENEITY:</a> Otherwise known as the goodness of fit Pearson’s chi squared test. For larger samples (&gt; 5 expected frequency count in each cell) the <span class="math">\(\chi^2\)</span> provides an approximation of the <a href="https://en.wikipedia.org/wiki/Fisher%27s_exact_test">significance value</a>. The test is based on calculating the <em>expected frequency counts</em> obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a <span class="math">\(\chi^2\)</span> distributed test statistic, since if <span class="math">\(X\sim N(\mu,\sigma^)\)</span>, then <span class="math">\(X^2\sim \chi^2(1))\)</span>:</p>
 <pre><code>                    Medication
 Symptoms       Drug A                   Drug B               
@@ -121,6 +122,7 @@ Pearson's Chi-squared test
 
 data:  Antacid
 X-squared = 5.8481, df = 1, p-value = 0.01559</code></pre>
+<p><pr><pr></p>
 <p><strong>3.</strong> <a href="https://en.wikipedia.org/wiki/G-test">G-TEST</a>: The Pearson’s chi-test statistic is the second order Taylor expansion around 1 of the G test; hence they tend to converge. In <code>R</code>:</p>
 <pre><code>library(DescTools) 
 GTest(Antacid, correct = 'none')
@@ -129,6 +131,7 @@ independence without correction
 
 data:  Antacid
 G = 5.8703, X-squared df = 1, p-value = 0.0154</code></pre>
+<p><pr><pr></p>
 <p><strong>4.</strong> <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">Z-TEST OF PROPORTIONS</a>: The normal distribution is a good approximation for a binomial when <span class="math">\(np&gt;5\)</span> and <span class="math">\(n(1-p)&gt;5\)</span>. When the occurrences of successes are small in comparison with the total amount of observations, it is the actual number of expected observations that will determine if a <a href="http://stats.stackexchange.com/q/51494/67822">normal approximation of a poisson process</a> can be considered (<span class="math">\(\lambda \geq 5\)</span>).</p>
 <p>Although the <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">post hyperlinked</a> is old, I haven’t found in CV an <code>R</code> function for it. This may be due to the fact explained above re: <span class="math">\(\chi^2_{(df=1)}\sim \, N_{(0,1)}^2\)</span>.</p>
 <p>The Test Statistic (TS) is:</p>

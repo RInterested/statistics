@@ -28,6 +28,8 @@ This is what it looks like (with marginals):
       Totals       178    190    368
 
 So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to see if there are differences in the proportion of heartburn symptoms between drug A and B, i.e. $p1 = 64/178$ vs $p2 = 92/190$.
+<pr><pr>
+
 
 **1.** [FISHER EXACT TEST][1]: There is a discussion on Wikipedia about "Controversies". Based on the hypergeometric distribution, it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. The story of the RA Fisher and the tea lady is great, and can be reproduced in [R] by simply grabbing the code [here][2]. [R] seems to tolerate without a pause the large numbers in our data (no problem with factorials):
 
@@ -45,7 +47,9 @@ So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to
     odds ratio 
      0.5988478 
 
- 
+
+<pr><pr>
+
 
 **2.** [CHI-SQUARE TEST OF HOMOGENEITY:][3] Otherwise known as the goodness of fit Pearson's chi squared test. For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^)$, then $X^2\sim \chi^2(1))$:
 
@@ -83,6 +87,8 @@ or..
     
     data:  Antacid
     X-squared = 5.8481, df = 1, p-value = 0.01559
+<pr><pr>
+
 
 **3.** [G-TEST][9]: The Pearson's chi-test statistic is the second order Taylor expansion around 1 of the G test; hence they tend to converge. In `R`:
 
@@ -94,6 +100,8 @@ or..
 
     data:  Antacid
     G = 5.8703, X-squared df = 1, p-value = 0.0154
+<pr><pr>
+
 
 **4.** [Z-TEST OF PROPORTIONS][3]: The normal distribution is a good approximation for a binomial when $np>5$ and $n(1-p)>5$. When the occurrences of successes are small in comparison with the total amount of observations, it is the actual number of expected observations that will determine if a [normal approximation of a poisson process][8] can be considered ($\lambda \geq 5$).
 
