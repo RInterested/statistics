@@ -48,6 +48,39 @@ The test statistic will be:
 
 $\sum \frac{(O-E)^2}{E}$ with $\small df = (rows-1)*(cols - 1)$
 
+The exact p-value can be obtained with a Monte Carlo simulation:
+
+```{r,echo=F, warning=F}
+library(gsheet)
+data <- read.csv(text =  gsheet2text('https://docs.google.com/spreadsheets/d/1w575Rfj2QY30wWc6piunwcyDOfYQfL-5KSulJIQ3ego/edit?usp=sharing',format ='csv'))
+data <- data[,-1]
+```
+
+We need first the dataset in long format:
+
+```{r}
+head(data)
+```
+
+If we perform first the chi square test on the dataset:
+
+```{r, warning = F}
+chisq.test(table(data),correct = F)$statistic
+```
+
+... and then we permute either the husband or the wife (swingers?), calculating the chi square value every time, and record the percentage of time that it will be greater than the original chi statistic:
+
+```{r, warning = F}
+baseline <- chisq.test(table(data),correct = F)$statistic
+statistic <- 0
+for(i in 1: 1000){data[,2] <- sample(data[,2])
+statistic[i] <- chisq.test(table(data), correct = F)$statistic}
+(p_value <- length(statistic[statistic>=baseline])/length(statistic))
+```
+
+
+So, under the assumption of independence (swingers) only in this small fraction of case would we obtain such a high chi square value to begin with. Hence, we can reject the hypothesis of independence, and assume there is dependence between the husbands' and wives' satisfaction.
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
