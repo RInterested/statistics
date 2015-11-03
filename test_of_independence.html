@@ -112,12 +112,21 @@ sex_satis</code></pre>
 ##  16.95524</code></pre>
 <p>… and then we permute either the husband or the wife (swingers?), calculating the chi square value every time, and record the percentage of time that it will be greater than the original chi statistic:</p>
 <pre class="r"><code>baseline &lt;- chisq.test(table(data),correct = F)$statistic
+dat &lt;- data
 statistic &lt;- 0
-for(i in 1: 1000){data[,2] &lt;- sample(data[,2])
-statistic[i] &lt;- chisq.test(table(data), correct = F)$statistic}
+for(i in 1: 1000){dat[,2] &lt;- sample(dat[,2])
+statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 (p_value &lt;- length(statistic[statistic&gt;=baseline])/length(statistic))</code></pre>
 <pre><code>## [1] 0.046</code></pre>
 <p>So, under the assumption of independence (swingers) only in this small fraction of case would we obtain such a high chi square value to begin with. Hence, we can reject the hypothesis of independence, and assume there is dependence between the husbands’ and wives’ satisfaction.</p>
+<p>We can calculate this “exact” test (really a generalization of Fisher’s exact test) with the command:</p>
+<pre class="r"><code>chisq.test(table(data), simulate.p.value = T)</code></pre>
+<pre><code>## 
+##  Pearson's Chi-squared test with simulated p-value (based on 2000
+##  replicates)
+## 
+## data:  table(data)
+## X-squared = 16.9552, df = NA, p-value = 0.04598</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

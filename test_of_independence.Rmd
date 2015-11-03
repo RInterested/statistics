@@ -72,14 +72,21 @@ chisq.test(table(data),correct = F)$statistic
 
 ```{r, warning = F}
 baseline <- chisq.test(table(data),correct = F)$statistic
+dat <- data
 statistic <- 0
-for(i in 1: 1000){data[,2] <- sample(data[,2])
-statistic[i] <- chisq.test(table(data), correct = F)$statistic}
+for(i in 1: 1000){dat[,2] <- sample(dat[,2])
+statistic[i] <- chisq.test(table(dat), correct = F)$statistic}
 (p_value <- length(statistic[statistic>=baseline])/length(statistic))
 ```
 
 
 So, under the assumption of independence (swingers) only in this small fraction of case would we obtain such a high chi square value to begin with. Hence, we can reject the hypothesis of independence, and assume there is dependence between the husbands' and wives' satisfaction.
+
+We can calculate this "exact" test (really a generalization of Fisher's exact test) with the command:
+
+```{r}
+chisq.test(table(data), simulate.p.value = T)
+```
 
 ---
 
