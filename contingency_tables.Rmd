@@ -89,7 +89,7 @@ t(Digits)
 Do the digits appear to follow Benford's law? What is the relevant P value?
 <br>
 ```{r}
-Expected_Probabilities <- as.matrix(c(0.301,0.176,0.125,0.097,0.079,0.067,0.058,0.051,0.046))
+Expected_Probabilities <- as.matrix(round(log10((1:9) + 1) - log10(1:9),3))
 rownames(Expected_Probabilities) <- c(1:9)
 colnames(Expected_Probabilities) <- c("Probabilities")
 t(Expected_Probabilities)

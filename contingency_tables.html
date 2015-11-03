@@ -122,7 +122,7 @@ t(Digits)</code></pre>
 <pre><code>##          1   2   3   4  5  6  7  8  9
 ## Counts 275 183 133 111 76 66 66 44 46</code></pre>
 <p><br> Do the digits appear to follow Benford’s law? What is the relevant P value? <br></p>
-<pre class="r"><code>Expected_Probabilities &lt;- as.matrix(c(0.301,0.176,0.125,0.097,0.079,0.067,0.058,0.051,0.046))
+<pre class="r"><code>Expected_Probabilities &lt;- as.matrix(round(log10((1:9) + 1) - log10(1:9),3))
 rownames(Expected_Probabilities) &lt;- c(1:9)
 colnames(Expected_Probabilities) &lt;- c(&quot;Probabilities&quot;)
 t(Expected_Probabilities)</code></pre>
