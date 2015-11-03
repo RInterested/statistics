@@ -1,0 +1,53 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###TESTS OF INDEPENDENCE:
+<br>
+
+<br><br>
+
+In the [test of proportions](http://rinterested.github.io/statistics/tests_of_proportions.html) we used the $\chi^2$ *goodness-of-fit* to assess whether the proportion of patients suffering heartburn was different depending on whether they take Drug A or Drug B. 
+
+Now we can use the $\chi^2$ test to [assess independence](http://www.cookbook-r.com/Statistical_analysis/Frequency_tests/).
+
+The best illustration is Agresti's example with husband and wife marital satisfaction:
+
+```{r}
+sex_satis <- matrix(c(7,2,1,2,7,8,5,8,2,3,4,9,3,7,9,14), nrow = 4)
+dimnames(sex_satis) = list(wife = c("Never","Sometimes","Often","Always"), husband = c("Never","Sometimes","Often","Always"))
+sex_satis
+```
+
+It is to be excpected that, in general, the satisfaction of a spouse moves together with the other. 
+
+If we run a $\chi^2$ test we get,
+
+```{r, warning=FALSE}
+chisq.test(sex_satis, correct = T)
+```
+
+that with a probability of $<\,5\%$ of making a type I error, the counts in the table cannot be considered independent - we reject the $H_o$ hypothesis of independence, and assume that there is an association between the satisfaction of the husband and the wife.
+
+In this test, the margins are considered fixed, and the expected counts calculated as follows:
+
+<img HEIGHT="800" WIDTH="500" src="https://cloud.githubusercontent.com/assets/9312897/10900528/0f965f56-81af-11e5-9e52-7f15234f9917.png">
+
+Compare this to the way the expected counts are counted on a goodness-of-fit test:
+
+<img HEIGHT="800" WIDTH="500" src="https://cloud.githubusercontent.com/assets/9312897/10900663/8c4d4126-81b0-11e5-8a6d-8d1028cdedfb.png">
+
+which is *IDENTICAL* numerically, and only different in concept. In the test of independence, we are considering the $\small probability\,(husband=Never\,\&\,wife=Never) = p\,(H=N)*p(W=N)$ under the null hypothesis. So the estimated probability is 
+
+$\small p(H="N",W="N")=\frac{19}{91}\frac{19}{91}$. Hence, the expected counts will be: $\frac{19}{91}\frac{19}{91}*91$.
+
+So for both types of tests (comparison of frequencies (goodness-of-fit) and test of independence) it is valid to just calculate $n_{i+}*n_{+j}/n$.
+
+The test statistic will be:
+
+$\sum \frac{(O-E)^2}{E}$ with $\small df = (rows-1)*(cols - 1)$
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
