@@ -116,6 +116,16 @@ chisq.test(dat$players, p = replicate(length(dat$players),
 
 ... a powerful argument in favor of the calendar effect.
 
+However, this effect may be due to seasonal differences in the number of births. Hence, if the proportion of births in different months is:
+
+```{r}
+births <- c(0.242,0.260,0.258,0.240)
+(dat <- cbind(dat,births))
+chisq.test(dat$players, p = births)
+```
+
+... a different distribution than that predicted, further supporting the calendar effect.
+
 <br>
 
 ####2. TEST of INDEPENDENCE of TWO VARIABLES:

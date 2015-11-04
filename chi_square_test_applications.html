@@ -151,6 +151,21 @@ dat</code></pre>
 ## data:  dat$players
 ## X-squared = 37.2348, df = 3, p-value = 4.104e-08</code></pre>
 <p>… a powerful argument in favor of the calendar effect.</p>
+<p>However, this effect may be due to seasonal differences in the number of births. Hence, if the proportion of births in different months is:</p>
+<pre class="r"><code>births &lt;- c(0.242,0.260,0.258,0.240)
+(dat &lt;- cbind(dat,births))</code></pre>
+<pre><code>##   month_bins players births
+## 1 Jan to Mar      84  0.242
+## 2 Apr to Jun      77  0.260
+## 3 Jul to Sep      35  0.258
+## 4 Oct to Dec      34  0.240</code></pre>
+<pre class="r"><code>chisq.test(dat$players, p = births)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  dat$players
+## X-squared = 37.5026, df = 3, p-value = 3.602e-08</code></pre>
+<p>… a different distribution than that predicted, further supporting the calendar effect.</p>
 <p><br></p>
 </div>
 <div id="test-of-independence-of-two-variables" class="section level4">
