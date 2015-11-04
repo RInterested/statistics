@@ -17,7 +17,9 @@ The null and alternative hypotheses for each chi square test are:
 
 $H_o: O_i=E_i$ and $H_1:O_i\neq E_i$.
 
-The theoretical distribution is a continuous distribution, but the $\chi^2$ statisticis obtained in a discrete manner, on the basis of discrete differences betweenthe observed and expected values. Hence, there is a need for asymptotics: The condition in which the chi square statistic is approximated by the theoretical chi square distribution, is that the sample size is reasonably large: there should be at least $5 \,expected \,cases$ per category.
+The theoretical distribution is a continuous distribution, but the $\chi^2$ statisticis obtained in a discrete manner, on the basis of discrete differences betweenthe observed and expected values. Hence, there is a need for asymptotics: The condition in which the chi square statistic is approximated by the theoretical chi square distribution, is that the sample size is reasonably large: there should be at least $5 \,expected \,cases$ per category. There may be no observed values in one or more categories, and this causes no difficulty with the test. But there must be around 5 or more expected cases per category. If there are considerably less than this, adjacent categories may be grouped together to boost the number of expected cases.
+
+The test statistic follows a multinomial distribution.
 
 <br><br>
 
@@ -45,6 +47,8 @@ Observed <- c(103, 216, 171)
 Expec_Perc. <- c(18, 50, 32)
 (dat <- data.frame(age, Observed, Expec_Perc.))
 ```
+
+In other words, $H_o$: The proportion of cases in category $i$ is $p_i$; $i= 1, 2, 3, \dots k$. The alternative hypothesis is that at least one of the proportions is not as hypothesized.
 
 We can calculate the expected counts manually:
 
@@ -74,6 +78,44 @@ chisq.test(dat[,2], p = dat[,3]/100, correct = F)
 
 Clearly the value is too asymptotic ($\small p<0.05$) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population.
 
+Example 2:
+
+Has the number of suicides in a region stayed the same over time?
+
+This is the data:
+
+```{r}
+years <- c(1978:1989)
+suicides <- c(164, 142, 153, 171, 171, 148, 136, 133, 138, 132, 145, 124)
+dat <- data.frame(years, suicides); as.data.frame(t(dat))
+```
+
+The assumption is that the frequency is the same across years, and the test is:
+
+```{r}
+chisq.test(dat$suicides, p = replicate(length(dat$suicides), 
+                              1/length(dat$suicides)))
+```
+
+Therefore, we don't have enough evidence to reject the idea that there may not be too much difference between years.
+
+Example 3:
+
+There is a self-perpetuating *calendar effect* among youth soccer players whereby little players trying out for a team have more of a chance to prove themselves and make the team if they are born in January than in November or December, a difference that is significant at an early age.
+
+The birth months of a league of professional players can be analysed with a GOF test:
+
+```{r}
+month_bins <- c("Jan to Mar", "Apr to Jun", "Jul to Sep", "Oct to Dec")
+players   <- c(84,77,35,34)
+dat <- data.frame(month_bins, players)
+dat
+chisq.test(dat$players, p = replicate(length(dat$players),
+                                      1/length(dat$players)))
+```
+
+... a powerful argument in favor of the calendar effect.
+
 <br>
 
 ####2. TEST of INDEPENDENCE of TWO VARIABLES:
@@ -82,7 +124,7 @@ Clearly the value is too asymptotic ($\small p<0.05$) to not reject the equality
 
 It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.
 
-The assumptions on which these tests are based are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio.  The tests can thus be used inmost circumstances.
+The assumptions on which these tests are based are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio. The test can therefore be used in most circumstances.
 
 
 ---

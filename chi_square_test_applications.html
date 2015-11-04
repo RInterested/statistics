@@ -70,7 +70,8 @@ img {
 <p>The chi square statistic is denoted as <span class="math">\(\chi^2=\displaystyle \sum_i \frac{(O_i-E_i)^2}{E_i}\)</span> where <span class="math">\(O_i\)</span> is the observed number of cases in category <span class="math">\(i\)</span>, and <span class="math">\(E_i\)</span> is the expected number of cases in category <span class="math">\(i\)</span>.</p>
 <p>The null and alternative hypotheses for each chi square test are:</p>
 <p><span class="math">\(H_o: O_i=E_i\)</span> and <span class="math">\(H_1:O_i\neq E_i\)</span>.</p>
-<p>The theoretical distribution is a continuous distribution, but the <span class="math">\(\chi^2\)</span> statisticis obtained in a discrete manner, on the basis of discrete differences betweenthe observed and expected values. Hence, there is a need for asymptotics: The condition in which the chi square statistic is approximated by the theoretical chi square distribution, is that the sample size is reasonably large: there should be at least <span class="math">\(5 \,expected \,cases\)</span> per category.</p>
+<p>The theoretical distribution is a continuous distribution, but the <span class="math">\(\chi^2\)</span> statisticis obtained in a discrete manner, on the basis of discrete differences betweenthe observed and expected values. Hence, there is a need for asymptotics: The condition in which the chi square statistic is approximated by the theoretical chi square distribution, is that the sample size is reasonably large: there should be at least <span class="math">\(5 \,expected \,cases\)</span> per category. There may be no observed values in one or more categories, and this causes no difficulty with the test. But there must be around 5 or more expected cases per category. If there are considerably less than this, adjacent categories may be grouped together to boost the number of expected cases.</p>
+<p>The test statistic follows a multinomial distribution.</p>
 <p><br><br></p>
 </div>
 <div id="goodness-of-fit-test" class="section level4">
@@ -93,6 +94,7 @@ Expec_Perc. &lt;- c(18, 50, 32)
 ## 1 20-24      103          18
 ## 2 25-34      216          50
 ## 3 35-44      171          32</code></pre>
+<p>In other words, <span class="math">\(H_o\)</span>: The proportion of cases in category <span class="math">\(i\)</span> is <span class="math">\(p_i\)</span>; <span class="math">\(i= 1, 2, 3, \dots k\)</span>. The alternative hypothesis is that at least one of the proportions is not as hypothesized.</p>
 <p>We can calculate the expected counts manually:</p>
 <p><span class="math">\(\small E_1= 490*\frac{18}{100}= 490*0.18 = 88.2\)</span></p>
 <p><span class="math">\(\small E_2= 490*\frac{50}{100}= 490*0.50 = 245.0\)</span></p>
@@ -111,13 +113,51 @@ Expec_Perc. &lt;- c(18, 50, 32)
 ## data:  dat[, 2]
 ## X-squared = 7.2021, df = 2, p-value = 0.0273</code></pre>
 <p>Clearly the value is too asymptotic (<span class="math">\(\small p&lt;0.05\)</span>) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population.</p>
+<p>Example 2:</p>
+<p>Has the number of suicides in a region stayed the same over time?</p>
+<p>This is the data:</p>
+<pre class="r"><code>years &lt;- c(1978:1989)
+suicides &lt;- c(164, 142, 153, 171, 171, 148, 136, 133, 138, 132, 145, 124)
+dat &lt;- data.frame(years, suicides); as.data.frame(t(dat))</code></pre>
+<pre><code>##            V1   V2   V3   V4   V5   V6   V7   V8   V9  V10  V11  V12
+## years    1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989
+## suicides  164  142  153  171  171  148  136  133  138  132  145  124</code></pre>
+<p>The assumption is that the frequency is the same across years, and the test is:</p>
+<pre class="r"><code>chisq.test(dat$suicides, p = replicate(length(dat$suicides), 
+                              1/length(dat$suicides)))</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  dat$suicides
+## X-squared = 18.1326, df = 11, p-value = 0.07855</code></pre>
+<p>Therefore, we don’t have enough evidence to reject the idea that there may not be too much difference between years.</p>
+<p>Example 3:</p>
+<p>There is a self-perpetuating <em>calendar effect</em> among youth soccer players whereby little players trying out for a team have more of a chance to prove themselves and make the team if they are born in January than in November or December, a difference that is significant at an early age.</p>
+<p>The birth months of a league of professional players can be analysed with a GOF test:</p>
+<pre class="r"><code>month_bins &lt;- c(&quot;Jan to Mar&quot;, &quot;Apr to Jun&quot;, &quot;Jul to Sep&quot;, &quot;Oct to Dec&quot;)
+players   &lt;- c(84,77,35,34)
+dat &lt;- data.frame(month_bins, players)
+dat</code></pre>
+<pre><code>##   month_bins players
+## 1 Jan to Mar      84
+## 2 Apr to Jun      77
+## 3 Jul to Sep      35
+## 4 Oct to Dec      34</code></pre>
+<pre class="r"><code>chisq.test(dat$players, p = replicate(length(dat$players),
+                                      1/length(dat$players)))</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  dat$players
+## X-squared = 37.2348, df = 3, p-value = 4.104e-08</code></pre>
+<p>… a powerful argument in favor of the calendar effect.</p>
 <p><br></p>
 </div>
 <div id="test-of-independence-of-two-variables" class="section level4">
 <h4>2. TEST of INDEPENDENCE of TWO VARIABLES:</h4>
 <p><br></p>
 <p>It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.</p>
-<p>The assumptions on which these tests are based are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio. The tests can thus be used inmost circumstances.</p>
+<p>The assumptions on which these tests are based are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio. The test can therefore be used in most circumstances.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
