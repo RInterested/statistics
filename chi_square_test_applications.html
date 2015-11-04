@@ -82,14 +82,42 @@ img {
 <li><p>Have the grades of the students been allocated using a bell distribution?</p></li>
 <li><p>Does a sample follow the distribution of the population in a science project?</p></li>
 </ol>
-<p>When dealing with continuous variable there will be a need to discretize by grouping the observations in bins through, for instance, quantiles. The total of the number of cases has to be made equal to the total number of expected values.</p>
+<p>When dealing with continuous variable there will be a need to discretize by grouping the observations into <span class="math">\(K\)</span> bins or categories through, for instance, quantiles. The total of the number of cases has to be made equal to the total number of expected values. Importantly, the degrees of freedom are <span class="math">\(k-1\)</span>. Large values of the chi square statistic will lead to rejecting the null hypothesis.</p>
+<p>Example 1:</p>
+<p>Does the distribution of ages in a sample matches that expected in the population:</p>
+<pre class="r"><code>age &lt;- c(&quot;20-24&quot;, &quot;25-34&quot;, &quot;35-44&quot;)
+Observed &lt;- c(103, 216, 171)
+Expec_Perc. &lt;- c(18, 50, 32)
+(dat &lt;- data.frame(age, Observed, Expec_Perc.))</code></pre>
+<pre><code>##     age Observed Expec_Perc.
+## 1 20-24      103          18
+## 2 25-34      216          50
+## 3 35-44      171          32</code></pre>
+<p>We can calculate the expected counts manually:</p>
+<p><span class="math">\(\small E_1= 490*\frac{18}{100}= 490*0.18 = 88.2\)</span></p>
+<p><span class="math">\(\small E_2= 490*\frac{50}{100}= 490*0.50 = 245.0\)</span></p>
+<p><span class="math">\(\small E_3= 490*\frac{32}{100}= 490*0.32 = 156.8\)</span></p>
+<p>with 88.2, 245.0 and 156.8 made to add to 490: 88 + 245 + 157 = 490.</p>
+<p>The TS (test statistic) is:</p>
+<p><span class="math">\(\small TS = (103 - 88)^2 / 88 + (216 - 245)^2 / 245 + (171 - 157)^2 / 157 = 7.2378\)</span>.</p>
+<p>The degrees of freedom are <span class="math">\(k - 1 = 2\)</span>.</p>
+<p>However, this rounding doesn’t take place when the values are calculated in [R]:</p>
+<p><span class="math">\(\small TS =(103 - 88.2)^2 / 88.2 + (216 - 245)^2 / 245 + (171 - 156.8)^2 / 156.8 = 7.202069\)</span></p>
+<p>Check it out:</p>
+<pre class="r"><code>chisq.test(dat[,2], p = dat[,3]/100, correct = F)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  dat[, 2]
+## X-squared = 7.2021, df = 2, p-value = 0.0273</code></pre>
+<p>Clearly the value is too asymptotic (<span class="math">\(\small p&lt;0.05\)</span>) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population.</p>
 <p><br></p>
 </div>
 <div id="test-of-independence-of-two-variables" class="section level4">
 <h4>2. TEST of INDEPENDENCE of TWO VARIABLES:</h4>
 <p><br></p>
 <p>It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.</p>
-<p>he assumptions on which these tests arebased are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio. The tests can thus be used inmost circumstances.</p>
+<p>The assumptions on which these tests are based are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio. The tests can thus be used inmost circumstances.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

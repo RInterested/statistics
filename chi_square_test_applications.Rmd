@@ -33,7 +33,46 @@ This test concerns itself with checking whether the sample is consistent with a 
 
 3. Does a sample follow the distribution of the population in a science project?
 
-When dealing with continuous variable there will be a need to discretize by grouping the observations in bins through, for instance, quantiles. The total of the number of cases has to be made equal to the total number of expected values.
+When dealing with continuous variable there will be a need to discretize by grouping the observations into $K$ bins or categories through, for instance, quantiles. The total of the number of cases has to be made equal to the total number of expected values. Importantly, the degrees of freedom are $k-1$. Large values of the chi square statistic will lead to rejecting the null hypothesis.
+
+Example 1:
+
+Does the distribution of ages in a sample matches that expected in the population:
+
+```{r}
+age <- c("20-24", "25-34", "35-44")
+Observed <- c(103, 216, 171)
+Expec_Perc. <- c(18, 50, 32)
+(dat <- data.frame(age, Observed, Expec_Perc.))
+```
+
+We can calculate the expected counts manually:
+
+$\small E_1= 490*\frac{18}{100}= 490*0.18 = 88.2$
+
+$\small E_2= 490*\frac{50}{100}= 490*0.50 = 245.0$
+
+$\small E_3= 490*\frac{32}{100}= 490*0.32 = 156.8$
+
+with 88.2, 245.0 and 156.8 made to add to 490: 88 + 245 + 157 = 490.
+
+The TS (test statistic) is:
+
+$\small TS = (103 - 88)^2 / 88 + (216 - 245)^2 / 245 + (171 - 157)^2 / 157 = 7.2378$.
+
+The degrees of freedom are $k - 1 = 2$.
+
+However, this rounding doesn't take place when the values are calculated in [R]:
+
+$\small TS =(103 - 88.2)^2 / 88.2 + (216 - 245)^2 / 245 + (171 - 156.8)^2 / 156.8 = 7.202069$
+
+Check it out:
+
+```{r}
+chisq.test(dat[,2], p = dat[,3]/100, correct = F)
+```
+
+Clearly the value is too asymptotic ($\small p<0.05$) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population.
 
 <br>
 
@@ -43,7 +82,7 @@ When dealing with continuous variable there will be a need to discretize by grou
 
 It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.
 
-he assumptions on which these tests arebased are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio.  The tests can thus be used inmost circumstances.
+The assumptions on which these tests are based are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio.  The tests can thus be used inmost circumstances.
 
 
 ---
