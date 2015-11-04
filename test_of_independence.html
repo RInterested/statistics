@@ -117,7 +117,7 @@ statistic &lt;- 0
 for(i in 1: 1000){dat[,2] &lt;- sample(dat[,2])
 statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 (p_value &lt;- length(statistic[statistic&gt;=baseline])/length(statistic))</code></pre>
-<pre><code>## [1] 0.046</code></pre>
+<pre><code>## [1] 0.044</code></pre>
 <p>So, under the assumption of independence (swingers) only in this small fraction of case would we obtain such a high chi square value to begin with. Hence, we can reject the hypothesis of independence, and assume there is dependence between the husbands’ and wives’ satisfaction.</p>
 <p>We can calculate this “exact” test (really a generalization of Fisher’s exact test) with the command:</p>
 <pre class="r"><code>chisq.test(table(data), simulate.p.value = T)</code></pre>
@@ -126,7 +126,7 @@ statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 ##  replicates)
 ## 
 ## data:  table(data)
-## X-squared = 16.9552, df = NA, p-value = 0.04598</code></pre>
+## X-squared = 16.9552, df = NA, p-value = 0.04748</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

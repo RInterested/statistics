@@ -88,7 +88,7 @@ or..
     
     
     
-It is also possible to see the term GOF ("goodness-of-fit") applied exclusively to testing of whether some observed counts *conform* to a theoretical proportion.
+It is also possible to see the term GOF ("goodness-of-fit") applied exclusively to testing of whether some observed counts *conform* to a theoretical proportion. We assess whether observed counts fit into the distribution of hypthesized counts or theoretical values.
 
 As an example, we can test how good is [R] at generating random uniform numbers by generating $\tiny 1 \,million$ draws:
 
@@ -136,6 +136,8 @@ In [R]'s built-in functions we can easily calculate this GOF test:
 ```{r}
 chisq.test(tableau[1,], p = tableau[2,])
 ```
+
+We needed to "discretize the data" to run the GOF $\chi^2$, but we can do the same thing without discretization with the Kolmogorov-Smirnov test.
 
 <br><br>
 
