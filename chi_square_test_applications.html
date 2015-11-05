@@ -83,8 +83,10 @@ img {
 <li><p>Have the grades of the students been allocated using a bell distribution?</p></li>
 <li><p>Does a sample follow the distribution of the population in a science project?</p></li>
 </ol>
-<p>When dealing with continuous variable there will be a need to discretize by grouping the observations into <span class="math">\(K\)</span> bins or categories through, for instance, quantiles. The total of the number of cases has to be made equal to the total number of expected values. Importantly, the degrees of freedom are <span class="math">\(k-1\)</span>. Large values of the chi square statistic will lead to rejecting the null hypothesis.</p>
-<p>Example 1:</p>
+<p>When dealing with continuous variable there will be a need to discretize by grouping the observations into <span class="math">\(K\)</span> bins or categories through, for instance, quantiles. The total of the number of cases has to be made equal to the total number of expected values. Importantly, the degrees of freedom are <span class="math">\(k-1\)</span>. Large values of the chi square statistic will lead to rejecting the null hypothesis. <br></p>
+</div>
+<div id="example-1" class="section level4">
+<h4>Example 1:</h4>
 <p>Does the distribution of ages in a sample matches that expected in the population:</p>
 <pre class="r"><code>age &lt;- c(&quot;20-24&quot;, &quot;25-34&quot;, &quot;35-44&quot;)
 Observed &lt;- c(103, 216, 171)
@@ -112,8 +114,10 @@ Expec_Perc. &lt;- c(18, 50, 32)
 ## 
 ## data:  dat[, 2]
 ## X-squared = 7.2021, df = 2, p-value = 0.0273</code></pre>
-<p>Clearly the value is too asymptotic (<span class="math">\(\small p&lt;0.05\)</span>) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population.</p>
-<p>Example 2:</p>
+<p>Clearly the value is too asymptotic (<span class="math">\(\small p&lt;0.05\)</span>) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population. <br></p>
+</div>
+<div id="example-2" class="section level4">
+<h4>Example 2:</h4>
 <p>Has the number of suicides in a region stayed the same over time?</p>
 <p>This is the data:</p>
 <pre class="r"><code>years &lt;- c(1978:1989)
@@ -130,8 +134,10 @@ dat &lt;- data.frame(years, suicides); as.data.frame(t(dat))</code></pre>
 ## 
 ## data:  dat$suicides
 ## X-squared = 18.1326, df = 11, p-value = 0.07855</code></pre>
-<p>Therefore, we don’t have enough evidence to reject the idea that there may not be too much difference between years.</p>
-<p>Example 3:</p>
+<p>Therefore, we don’t have enough evidence to reject the idea that there may not be too much difference between years. <br></p>
+</div>
+<div id="example-3" class="section level4">
+<h4>Example 3:</h4>
 <p>There is a self-perpetuating <em>calendar effect</em> among youth soccer players whereby little players trying out for a team have more of a chance to prove themselves and make the team if they are born in January than in November or December, a difference that is significant at an early age.</p>
 <p>The birth months of a league of professional players can be analysed with a GOF test:</p>
 <pre class="r"><code>month_bins &lt;- c(&quot;Jan to Mar&quot;, &quot;Apr to Jun&quot;, &quot;Jul to Sep&quot;, &quot;Oct to Dec&quot;)
@@ -165,10 +171,14 @@ dat</code></pre>
 ## 
 ## data:  dat$players
 ## X-squared = 37.5026, df = 3, p-value = 3.602e-08</code></pre>
-<p>… a different distribution than that predicted, further supporting the calendar effect. <br> Example 4: COMPARING DISTRIBUTIONS:</p>
+<p>… a different distribution than that predicted, further supporting the calendar effect.</p>
+<p><br></p>
+</div>
+<div id="example-4-comparing-distributions" class="section level4">
+<h4>Example 4: COMPARING DISTRIBUTIONS:</h4>
 <p>We can use the GOF test to check whether the random generation of numbers by a software program is as promised, or to see if the results of a test have been graded on a bell curve.</p>
 <p>The degrees of freedom in this case are calculated with the formula: <span class="math">\(\small df \,=\, bins\,(or\,categories) - 1 - number\,of\,parameters\,of\,the\,distribution\)</span>. For example, two parameters define the normal distribution, whereas only one defines the binomial.</p>
-<p>As an example of how the chi-square goodness-of-fit test for a normal distribution can be used, the 5-year annualized return rates achieved by 259 funds can be assessed for normality:</p>
+<p>As an example of how the chi-square goodness-of-fit test for a normal distribution can be used, the 5-year annualized return rates achieved by 158 growth funds can be assessed for normality:</p>
 <pre class="r"><code>library(gsheet)
 data &lt;- read.csv(text = gsheet2text('https://docs.google.com/spreadsheets/d/1VQP4jwknEQPnbRFOCeFoNdvieHg9BSVrPzMDwXJbsL4/edit?usp=sharing', format ='csv'))
 funds &lt;- data[data$Objective==&quot;Growth&quot;,c(&quot;Fund&quot;,&quot;FiveYrRtn&quot;)]
@@ -180,9 +190,68 @@ head(funds)</code></pre>
 ## 5                        AIM Summit I       7.3
 ## 6                         AIM Value B       8.8
 ## 7                    AIM Weingarten A       3.5</code></pre>
-<pre class="r"><code>mean(funds$FiveYrRtn);sd(funds$FiveYrRtn)</code></pre>
+<pre class="r"><code># Since we are going to test for normality the two parameters to estimate are:
+
+mean(funds$FiveYrRtn); sd(funds$FiveYrRtn)</code></pre>
 <pre><code>## [1] 10.14873</code></pre>
 <pre><code>## [1] 4.772583</code></pre>
+<p>The null and alternative hypotheses are:</p>
+<p><span class="math">\(H_o\)</span>: The 5-year annualized return rates follow a normal distribution.</p>
+<p><span class="math">\(H_1\)</span>: The 5-year annualized return rates do not follow a normal distribution.</p>
+<p>Segmenting in intervals the five-year returns:</p>
+<pre class="r"><code>library(ggplot2)
+intervals &lt;- cut_interval(funds$FiveYrRtn, length = 5)
+tab &lt;- as.matrix(table(intervals))
+colnames(tab) &lt;- c(&quot;OBS.FR.&quot;)
+Upp.Bound &lt;- c(-5,0,5,10,15,20,25,30)
+Z.vals &lt;- round((Upp.Bound - replicate(8, mean(funds$FiveYrRtn)))/replicate(8, sd(funds$FiveYrRtn)),4)
+area.below &lt;- round(pnorm(Z.vals,lower.tail=T),5)
+area.bin &lt;- round(c(area.below[1],diff(area.below)),5)
+EXP.FR. &lt;- round(area.bin * length(funds$FiveYrRtn))
+DELTASQ.EXP &lt;- round((as.data.frame(tab)[,1] - EXP.FR.)^2/EXP.FR.)
+(dat&lt;-data.frame(tab, Upp.Bound, Z.vals, area.below, area.bin, EXP.FR., DELTASQ.EXP))</code></pre>
+<pre><code>##          OBS.FR. Upp.Bound  Z.vals area.below area.bin EXP.FR. DELTASQ.EXP
+## [-10,-5]       1        -5 -3.1741    0.00075  0.00075       0         Inf
+## (-5,0]         3         0 -2.1265    0.01673  0.01598       3           0
+## (0,5]         15         5 -1.0788    0.14034  0.12361      20           1
+## (5,10]        58        10 -0.0312    0.48756  0.34722      55           0
+## (10,15]       61        15  1.0165    0.84530  0.35774      57           0
+## (15,20]       16        20  2.0641    0.98050  0.13520      21           1
+## (20,25]        3        25  3.1118    0.99907  0.01857       3           0
+## (25,30]        1        30  4.1594    0.99998  0.00091       0         Inf</code></pre>
+<pre class="r"><code># The TEST STATISTIC IS:
+
+sum(DELTASQ.EXP)</code></pre>
+<pre><code>## [1] Inf</code></pre>
+<p>The TEST STATISTIC is infinite because we have expected frequencies below 1. So we have to combine bins:</p>
+<pre class="r"><code>OBS.FR. &lt;- c(4,15,58,61,16,4)
+Upp.Bound &lt;-c(0,5,10,15,20,25)
+area.bin &lt;- round(c(pnorm(Z.vals[2]),diff(area.below[2:7])),5)
+EXP.FR. &lt;- round(area.bin * length(funds$FiveYrRtn))
+dat &lt;- dat[2:7,]
+dat$OBS.FR. &lt;- OBS.FR.
+dat$Upp.Bound &lt;- Upp.Bound
+dat$area.bin &lt;- area.bin
+dat$EXP.FR. &lt;- EXP.FR.
+dat$DELTASQ.EXP &lt;- (OBS.FR. - EXP.FR.)^2/EXP.FR.
+row.names(dat) &lt;-c(&quot;(-10,0]&quot;,&quot;(0,5]&quot;,&quot;(5,10]&quot;,&quot;(10,15]&quot;,
+&quot;(15,20]&quot;,&quot;(20,30)&quot;)
+dat</code></pre>
+<pre><code>##         OBS.FR. Upp.Bound  Z.vals area.below area.bin EXP.FR. DELTASQ.EXP
+## (-10,0]       4         0 -2.1265    0.01673  0.01673       3   0.3333333
+## (0,5]        15         5 -1.0788    0.14034  0.12361      20   1.2500000
+## (5,10]       58        10 -0.0312    0.48756  0.34722      55   0.1636364
+## (10,15]      61        15  1.0165    0.84530  0.35774      57   0.2807018
+## (15,20]      16        20  2.0641    0.98050  0.13520      21   1.1904762
+## (20,30)       4        25  3.1118    0.99907  0.01857       3   0.3333333</code></pre>
+<pre class="r"><code># The TEST STATISTIC:
+
+sum(dat$DELTASQ.EXP)</code></pre>
+<pre><code>## [1] 3.551481</code></pre>
+<p>Now we know that we have finally <span class="math">\(k=6\)</span> bins, and the normal distribution has two parameters, we end up with <span class="math">\(df=6-1-2=3\)</span>, and…</p>
+<pre class="r"><code>qchisq(0.95, df = 3)</code></pre>
+<pre><code>## [1] 7.814728</code></pre>
+<p>we can’t reject the hypothesis that the returns follow a normal distribution.</p>
 <p><br></p>
 </div>
 <div id="test-of-independence-of-two-variables" class="section level4">
