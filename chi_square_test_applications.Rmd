@@ -35,7 +35,7 @@ This test concerns itself with checking whether the sample is consistent with a 
 
 3. Does a sample follow the distribution of the population in a science project?
 
-When dealing with continuous variable there will be a need to discretize by grouping the observations into $K$ bins or categories through, for instance, quantiles. The total of the number of cases has to be made equal to the total number of expected values. Importantly, the degrees of freedom are $k-1$. Large values of the chi square statistic will lead to rejecting the null hypothesis.
+When dealing with continuous variable there will be a need to discretize by grouping the observations into $K$ bins or categories through, for instance, quantiles. Importantly, the degrees of freedom are $k-1$. Large values of the chi square statistic will lead to rejecting the null hypothesis.
 <br>
 
 ####Example 1:
@@ -59,15 +59,13 @@ $\small E_2= 490*\frac{50}{100}= 490*0.50 = 245.0$
 
 $\small E_3= 490*\frac{32}{100}= 490*0.32 = 156.8$
 
-with 88.2, 245.0 and 156.8 made to add to 490: 88 + 245 + 157 = 490.
-
 The TS (test statistic) is:
 
 $\small TS = (103 - 88)^2 / 88 + (216 - 245)^2 / 245 + (171 - 157)^2 / 157 = 7.2378$.
 
 The degrees of freedom are $k - 1 = 2$.
 
-However, this rounding doesn't take place when the values are calculated in [R]:
+This rounding doesn't take place when the values are calculated in [R]:
 
 $\small TS =(103 - 88.2)^2 / 88.2 + (216 - 245)^2 / 245 + (171 - 156.8)^2 / 156.8 = 7.202069$
 
@@ -226,8 +224,44 @@ The distribution of the K-S test statistic itself does not depend on the underly
 
 It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.
 
-The assumptions on which these tests are based are minimal, although a certain minimum sample size is usually re-quired. The variables which are being examined can be measured at anylevel, nominal, ordinal, interval, or ratio. The test can therefore be used in most circumstances.
+The goodness of fit test examines only one variable, while the test of independence is concerned with the relationship betweentwo variables. Like the goodness of fit test, the chi square test of independence is verygeneral, and can be used with variables measured on any type of scale, nominal, ordinal, interval or ratio. As with the GOF test the expected number of cases in each cell should be more than $5$.
 
+The chi square test for independence is conducted by assuming that thereis no relationship between the two variables being examined. The alternative hypothesis is that there is some relationship between the variables.
+
+The chi square statistic used to conduct this test is the same as in the goodness of fit test:
+
+$\chi^2=\displaystyle \sum_i \frac{(O_i-E_i)^2}{E_i}$ where $O_i$ is the  numbers of cases in each cell ofthe cross classiØcation table, and $E_i$ is the expected number of cases.
+
+The chi square statistic computed fromthe observed and expected values is calculated, and if this statistic is inthe region of rejection of the null hypothesis, then the assumption of norelationship between X and Y is rejected.
+
+####Example 1:
+
+Is there a relationship between sex and class?
+
+```{r}
+tab <- matrix(c(33,153,103,16,29,181,81,14), nrow =4)
+dimnames(tab)<-list(Social.Class = c("Upper","Middle","Working","Lower"), Sex = c("Male", "Female"))
+addmargins(tab)
+
+```
+
+Under the NULL hypothesis the two variables are unrelated and therefore:
+
+$P(Upper \,and\, Male) = P(Upper)P(Male)$
+
+$P(Upper\,and\,Male) =\frac{62}{610}\frac{305}{610}$
+
+and the number of expected cases for the cell:
+
+$610 \, \frac{62}{610}\frac{305}{610}$
+
+The general formula for the degrees of freedom is the number of rows minus 1, times the number of columns minus 1.
+
+```{r}
+chisq.test(tab)
+```
+
+The independence of sex and class cannot be rejected.
 
 ---
 
