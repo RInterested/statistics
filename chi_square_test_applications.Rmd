@@ -168,12 +168,12 @@ Z.vals <- round((Upp.Bound - replicate(8, mean(funds$FiveYrRtn)))/replicate(8, s
 area.below <- round(pnorm(Z.vals,lower.tail=T),5)
 area.bin <- round(c(area.below[1],diff(area.below)),5)
 EXP.FR. <- round(area.bin * length(funds$FiveYrRtn))
-DELTASQ.EXP <- round((as.data.frame(tab)[,1] - EXP.FR.)^2/EXP.FR.)
-(dat<-data.frame(tab, Upp.Bound, Z.vals, area.below, area.bin, EXP.FR., DELTASQ.EXP))
+DELTAsq <- (as.data.frame(tab)[,1] - EXP.FR.)^2/EXP.FR.
+(dat<-data.frame(tab, Upp.Bound, Z.vals, area.below, area.bin, EXP.FR., DELTAsq))
 
 # The TEST STATISTIC IS:
 
-sum(DELTASQ.EXP)
+sum(DELTAsq)
 ```
 
 The TEST STATISTIC is infinite because we have expected frequencies below 1. So we have to combine bins:
@@ -182,20 +182,20 @@ The TEST STATISTIC is infinite because we have expected frequencies below 1. So 
 OBS.FR. <- c(4,15,58,61,16,4)
 Upp.Bound <-c(0,5,10,15,20,25)
 area.bin <- round(c(pnorm(Z.vals[2]),diff(area.below[2:7])),5)
-EXP.FR. <- round(area.bin * length(funds$FiveYrRtn))
+EXP.FR. <- round(area.bin * length(funds$FiveYrRtn),3)
 dat <- dat[2:7,]
 dat$OBS.FR. <- OBS.FR.
 dat$Upp.Bound <- Upp.Bound
 dat$area.bin <- area.bin
 dat$EXP.FR. <- EXP.FR.
-dat$DELTASQ.EXP <- (OBS.FR. - EXP.FR.)^2/EXP.FR.
+dat$DELTAsq <- (OBS.FR. - EXP.FR.)^2/EXP.FR.
 row.names(dat) <-c("(-10,0]","(0,5]","(5,10]","(10,15]",
 "(15,20]","(20,30)")
 dat
 
 # The TEST STATISTIC:
 
-sum(dat$DELTASQ.EXP)
+sum(dat$DELTAsq)
 ```
 
 Now we know that we have finally $k=6$ bins, and the normal distribution has two parameters, we end up with $df=6-1-2=3$, and...
