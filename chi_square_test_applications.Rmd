@@ -132,25 +132,17 @@ We can use the GOF test to check whether the random generation of numbers by a s
 
 The degrees of freedom in this case are calculated with the formula: $\small df \,=\, bins\,(or\,categories) - 1 - number\,of\,parameters\,of\,the\,distribution$. For example, two parameters define the normal distribution, whereas only one defines the binomial.
 
-The grade distribution in a test with grades distributed normally should follow the frequencies:
+As an example of how the chi-square goodness-of-fit test for a normal distribution can be used, the 5-year annualized return rates achieved by 259 funds can be assessed for normality:
 
-```{r}
-grades_Z_scores <- c("-2sd to -1sd", "-1sd to 0", 
-            "0 to 1sd", "1sd to 2sd")
-minus_2_to_1 <- pnorm(-1) - pnorm(-2)
-minus_1_to_0 <- pnorm(0) - pnorm(-1)
-exp_frequency <- c(minus_2_to_1,minus_1_to_0,
-                   minus_1_to_0,minus_2_to_1)
-# using the symmetry of the normal distribution.
-
-(N <- data.frame(grades_Z_scores, exp_frequency))
+```{r, warning=F}
+library(gsheet)
+data <- read.csv(text = gsheet2text('https://docs.google.com/spreadsheets/d/1VQP4jwknEQPnbRFOCeFoNdvieHg9BSVrPzMDwXJbsL4/edit?usp=sharing', format ='csv'))
+funds <- data[data$Objective=="Growth",c("Fund","FiveYrRtn")]
+head(funds)
+mean(funds$FiveYrRtn);sd(funds$FiveYrRtn)
 ```
 
-If the observed frequencies are:
 
-```{r}
-(O <- c(20, 30, 25, 15))
-```
 
 <br>
 
