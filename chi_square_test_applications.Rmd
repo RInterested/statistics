@@ -206,6 +206,18 @@ qchisq(0.95, df = 3)
 
 we can't reject the hypothesis that the returns follow a normal distribution.
 
+This test is sensitive to the choice of bins. There is no optimal choice for the bin width (since the optimal bin width depends on the distribution). Most reasonable choices should produce similar, but not identical, results. For the chi-square approximation to be valid, the expected frequency should be at least 5. This test is not valid for small samples, and if some of the counts are less than five, you may need to combine some bins in the tails.
+
+The **Shapiro-Wilk test**, proposed in 1965, calculates a $W$ statistic that tests whether a random sample, $x_1,x_2,\dots,x_n$ comes from (specifically) a normal distribution . Small values of $W$ are evidence of departure from normality and percentage points for the $W$ statistic, obtained via Monte Carlo simulations, were reproduced by Pearson and Hartley (1972). This test has done very well in comparison studies with other goodness of fit tests.
+
+The chi-square test is an alternative to the Anderson-Darling and **Kolmogorov-Smirnov** goodness-of-fit tests. The chi-square goodness-of-fit test can be applied to discrete distributions such as the binomial and the Poisson. The Kolmogorov-Smirnov and Anderson-Darling tests are restricted to continuous distributions.
+
+The distribution of the K-S test statistic itself does not depend on the underlying cumulative distribution function being tested. Another advantage is that it is an exact test (the chi-square goodness-of-fit test depends on an adequate sample size for the approximations to be valid). Despite these advantages, the K-S test has several important limitations:
+
+1. It only applies to continuous distributions.
+2. It tends to be more sensitive near the center of the distribution than at the tails.
+3. Perhaps the most serious limitation is that the distribution must be fully specified. That is, if location, scale, and shape parameters are estimated from the data, the critical region of the K-S test is no longer valid. It typically must be determined by simulation.
+
 <br>
 
 ####2. TEST of INDEPENDENCE of TWO VARIABLES:
