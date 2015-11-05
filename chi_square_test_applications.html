@@ -165,7 +165,27 @@ dat</code></pre>
 ## 
 ## data:  dat$players
 ## X-squared = 37.5026, df = 3, p-value = 3.602e-08</code></pre>
-<p>… a different distribution than that predicted, further supporting the calendar effect.</p>
+<p>… a different distribution than that predicted, further supporting the calendar effect. <br> Example 4: COMPARING DISTRIBUTIONS:</p>
+<p>We can use the GOF test to check whether the random generation of numbers by a software program is as promised, or to see if the results of a test have been graded on a bell curve.</p>
+<p>The degrees of freedom in this case are calculated with the formula: <span class="math">\(\small df \,=\, bins\,(or\,categories) - 1 - number\,of\,parameters\,of\,the\,distribution\)</span>. For example, two parameters define the normal distribution, whereas only one defines the binomial.</p>
+<p>The grade distribution in a test with grades distributed normally should follow the frequencies:</p>
+<pre class="r"><code>grades_Z_scores &lt;- c(&quot;-2sd to -1sd&quot;, &quot;-1sd to 0&quot;, 
+            &quot;0 to 1sd&quot;, &quot;1sd to 2sd&quot;)
+minus_2_to_1 &lt;- pnorm(-1) - pnorm(-2)
+minus_1_to_0 &lt;- pnorm(0) - pnorm(-1)
+exp_frequency &lt;- c(minus_2_to_1,minus_1_to_0,
+                   minus_1_to_0,minus_2_to_1)
+# using the symmetry of the normal distribution.
+
+(N &lt;- data.frame(grades_Z_scores, exp_frequency))</code></pre>
+<pre><code>##   grades_Z_scores exp_frequency
+## 1    -2sd to -1sd     0.1359051
+## 2       -1sd to 0     0.3413447
+## 3        0 to 1sd     0.3413447
+## 4      1sd to 2sd     0.1359051</code></pre>
+<p>If the observed frequencies are:</p>
+<pre class="r"><code>(O &lt;- c(20, 30, 25, 15))</code></pre>
+<pre><code>## [1] 20 30 25 15</code></pre>
 <p><br></p>
 </div>
 <div id="test-of-independence-of-two-variables" class="section level4">

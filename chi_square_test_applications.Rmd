@@ -125,6 +125,32 @@ chisq.test(dat$players, p = births)
 ```
 
 ... a different distribution than that predicted, further supporting the calendar effect.
+<br>
+Example 4: COMPARING DISTRIBUTIONS:
+
+We can use the GOF test to check whether the random generation of numbers by a software program is as promised, or to see if the results of a test have been graded on a bell curve.
+
+The degrees of freedom in this case are calculated with the formula: $\small df \,=\, bins\,(or\,categories) - 1 - number\,of\,parameters\,of\,the\,distribution$. For example, two parameters define the normal distribution, whereas only one defines the binomial.
+
+The grade distribution in a test with grades distributed normally should follow the frequencies:
+
+```{r}
+grades_Z_scores <- c("-2sd to -1sd", "-1sd to 0", 
+            "0 to 1sd", "1sd to 2sd")
+minus_2_to_1 <- pnorm(-1) - pnorm(-2)
+minus_1_to_0 <- pnorm(0) - pnorm(-1)
+exp_frequency <- c(minus_2_to_1,minus_1_to_0,
+                   minus_1_to_0,minus_2_to_1)
+# using the symmetry of the normal distribution.
+
+(N <- data.frame(grades_Z_scores, exp_frequency))
+```
+
+If the observed frequencies are:
+
+```{r}
+(O <- c(20, 30, 25, 15))
+```
 
 <br>
 
