@@ -78,7 +78,7 @@ s &lt;- s / x.n - (sum(xy) - s) / length(y)
 stat &lt;- mean(x) - mean(y)
 (p_value = mean(s &gt; stat))</code></pre>
 <pre><code>## [1] 0.00015</code></pre>
-<p>In R:</p>
+<p>In R we can get a two-tailed <span class="math">\(p\)</span> value with the Wilcoxon rank-sum test:</p>
 <pre class="r"><code>wilcox.test(x, y, paired=F) </code></pre>
 <pre><code>## Warning in wilcox.test.default(x, y, paired = F): cannot compute exact p-
 ## value with ties</code></pre>
