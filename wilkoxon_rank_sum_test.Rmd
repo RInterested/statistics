@@ -1,0 +1,38 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###MANN-WHITNEY U TEST or WILCOXON RANK-SUM TEST (WRS):
+<br>
+
+<br><br>
+
+From [this question on CV](http://stats.stackexchange.com/q/26817/67822):
+
+Comparing two vectors of data without assuming a normal distribution:
+
+```{r}
+x <- scan(text="8 8 4 1 2 2 0 2 5 2 3 3 3 1 5 4 4 1 4 2") 
+y <- scan(text="4 0 4 1 1 2 0 1 2 2 1 2 1 0 0 0 1 1 1 1")
+xy <- c(x, y)
+x.n <- length(x)
+s <- replicate(1e5, sum(sample(xy, x.n)))
+s <- s / x.n - (sum(xy) - s) / length(y) 
+stat <- mean(x) - mean(y)
+mean(s > stat)
+```
+
+In R:
+
+```{r}
+wilcox.test(x, y, paired=F) 
+
+# If both x and y are given and paired is FALSE, a Wilcoxon rank sum test 
+# (equivalent to the Mann-Whitney test: see the Note) is carried out. 
+```
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
