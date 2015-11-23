@@ -1,0 +1,137 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###1. WILCOXON SIGNED TEST:
+
+
+A topical rash treatment was applied to a portion of a rash on $n$ patients. A quantitative measure of redness was calculated for the treated and untreated regions of the rash. A sign of + was given when the treated area was less red (more improved) than the untreated area and a - sign when it was not. It is desired to know whether the treatment improves the rash. 
+
+---
+
+How many possible values can the $p \,value$ for the sign test take?
+
+*Answer*: There are $n+1$ possible $p \,values$ (CORRECT)
+
+If there was one person, the test statistic could be 0 or 1 positive signs, thus the p value has two possible values. For two people it could be 0, 1 and 2 for three possible values and so on.
+
+---
+
+For what size of $n$ for a $5\%$ *one sided sign test* is there a non empty rejection region?
+
+*Answers:*
+
+a. You need 5 patients and all have to be + (CORRECT)
+b. You need 20 patients, and all +
+c. You need 5 patients, most +
+d. You need 20 patients, most +
+
+
+The most extreme case is all of the patients have a +. In this case, the $p-value$ is:
+
+$1/2^n$ because $2^n$ is the "doubling function" that gives us all the possible "subsets" of positive results in $n$: The first patient can be $+$ or $-$ and in each case, the second patient can in turn be $+$ or $-$ and so on. On the other hand, there is only one way of having all patients with a $+$ result.
+
+Trying with the lowest number of patients:
+
+```{r}
+1/(2^(1:5))
+```
+
+We see that we can reject with $5\%$ risk alpha with *five positive cases*.
+
+---
+
+Consider a $5\%$ one sided sign test for $5$ subjects. What would be the *power of the test* if the probability that the treatment works is actually $90\%$ instead of the $50\%$ assumed under the null?
+
+By the previous question, we will only reject for 5 subjects when all of them are +. The probability of such an occurrence under the alternative (where $p=.9$ rather than $.5$) is:
+
+```{r}
+0.9^5
+```
+
+---
+
+###2. WILCOXON SIGNED-RANK TEST:
+
+The Biostatistics and Epidemilogy departments are running a 10K road race. There are *three pairs* of runners. In each case, a runner from Biostat was matched to a runner from Epi of the same age, gender and degree of running experience. The difference in each pairs times was taken and a signed rank test performed.
+
+---
+
+What is the smallest value that the *two sided exact signed rank p value* could take?
+
+There are $2^3$ possible collections of winners, labelled $1$ if biostat wins and $-1$ if epi wins:
+
+```{r}
+(winners <- t(expand.grid(c(1,-1), c(1,-1), c(1,-1))))
+```
+
+So the signs are giving us 8 possible outcomes.
+
+Each possible outcome will be ranked with the possible ranks being the *permutations* of, in this case, $3$: $P(3,3)=3!\cdot 2!\cdot 1!=6$.
+
+```{r,message=F,warning=FALSE}
+t <- c(1,2,3)
+library(Deducer)
+(abs_rank <- t(perm(t)))
+```
+
+So there are 48 outcomes:
+
+```{r}
+(outcomes <- lapply(as.data.frame(winners),`*`,abs_rank))
+```
+
+
+Summing the columns:
+
+```{r}
+(W <- lapply(as.data.frame(winners), function(x) colSums(x * abs_rank)))
+
+# Tabulating the results:
+
+table(stack(W)$values)
+
+(p_value <- (sum(stack(W)$values==6) + sum(stack(W)$values==-6)) /length(stack(W)$values))
+```
+
+Permutations of {1, 2, 3} = 6 and for each one, $2^3$ ways of allocating the +'s and -'s with only two of them have all + or all - signs. So it's $12/48 = 1/4$.
+
+As a Monte Carlo calculation:
+
+```{r}
+v <- c(1,2,3) 
+nsim <- 1e5 
+
+W <- 0 
+for (i in 1:nsim){ 
+rank <- sample(v) 
+sign <- sample(c(1, -1), 3, replace = T) 
+W[i] <- sum(rank * sign) 
+} 
+(p_value <- (sum(W==6) + sum(W==-6)) / nsim)
+```
+
+Or simply: There are $2^3$ cases, of which 2 are the most extreme, hence the minimum p value is $1/4$. For $n$ pairs the minimum p value is $(1/2)^{(n-1)}$. The signed rank test  effectively just counts all the ways to allocate $\pm 1$ to the observations. The extreme cases are "all -1" and "all +1". since those will lead to the largest and smallest values of the statistic.
+
+
+---
+
+The Biostatistics and Epidemiology departments are running a 10K road race. There are threepairs of runners. In each case, a runner from Biostat was matched to a runner from Epi of thesame age, gender and degree of running experience. For the pair with the largest difference intheir finishing times, the winner was from Epi; for the pair with the second largest difference intheir times, the winner was was from Biostat and for the final pair, the winner was from Epi.Ranking differences in times from least to greatest and assuming that the times weresubtracted as (Epi - Biostat), what would the observed signed rank statistic (sum of thepositive ranks) be?
+
+Recall we are ranking from smallest time difference to largest time difference. If the order ofsubtraction was Epi - Biostat, if the winner of the pair was from Epi, the difference would benegative (a lower time for the Epi runner)
+
+Sign Rank
+
+`- 3`
+`+ 2`
+`- 1`
+
+Thus the observed signed rank statistic is 2.
+
+<br>
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
