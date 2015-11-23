@@ -15,12 +15,17 @@ Comparing two vectors of data without assuming a normal distribution:
 ```{r}
 x <- scan(text="8 8 4 1 2 2 0 2 5 2 3 3 3 1 5 4 4 1 4 2") 
 y <- scan(text="4 0 4 1 1 2 0 1 2 2 1 2 1 0 0 0 1 1 1 1")
+```
+
+can be done with a permutation test, which will give us the one-sided $p$-value:
+
+```{r}
 xy <- c(x, y)
 x.n <- length(x)
 s <- replicate(1e5, sum(sample(xy, x.n)))
 s <- s / x.n - (sum(xy) - s) / length(y) 
 stat <- mean(x) - mean(y)
-mean(s > stat)
+(p_value = mean(s > stat))
 ```
 
 In R:

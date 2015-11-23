@@ -69,14 +69,15 @@ img {
 <p>From <a href="http://stats.stackexchange.com/q/26817/67822">this question on CV</a>:</p>
 <p>Comparing two vectors of data without assuming a normal distribution:</p>
 <pre class="r"><code>x &lt;- scan(text=&quot;8 8 4 1 2 2 0 2 5 2 3 3 3 1 5 4 4 1 4 2&quot;) 
-y &lt;- scan(text=&quot;4 0 4 1 1 2 0 1 2 2 1 2 1 0 0 0 1 1 1 1&quot;)
-xy &lt;- c(x, y)
+y &lt;- scan(text=&quot;4 0 4 1 1 2 0 1 2 2 1 2 1 0 0 0 1 1 1 1&quot;)</code></pre>
+<p>can be done with a permutation test, which will give us the one-sided <span class="math">\(p\)</span>-value:</p>
+<pre class="r"><code>xy &lt;- c(x, y)
 x.n &lt;- length(x)
 s &lt;- replicate(1e5, sum(sample(xy, x.n)))
 s &lt;- s / x.n - (sum(xy) - s) / length(y) 
 stat &lt;- mean(x) - mean(y)
-mean(s &gt; stat)</code></pre>
-<pre><code>## [1] 0.00019</code></pre>
+(p_value = mean(s &gt; stat))</code></pre>
+<pre><code>## [1] 0.00015</code></pre>
 <p>In R:</p>
 <pre class="r"><code>wilcox.test(x, y, paired=F) </code></pre>
 <pre><code>## Warning in wilcox.test.default(x, y, paired = F): cannot compute exact p-
