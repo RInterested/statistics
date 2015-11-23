@@ -65,7 +65,6 @@ img {
 <div id="mann-whitney-u-test-or-wilcoxon-rank-sum-test-wrs" class="section level3">
 <h3>MANN-WHITNEY U TEST or WILCOXON RANK-SUM TEST (WRS):</h3>
 <p><br></p>
-<p><br><br></p>
 <p>From <a href="http://stats.stackexchange.com/q/26817/67822">this question on CV</a>:</p>
 <p>Comparing two vectors of data without assuming a normal distribution:</p>
 <pre class="r"><code>x &lt;- scan(text=&quot;8 8 4 1 2 2 0 2 5 2 3 3 3 1 5 4 4 1 4 2&quot;) 
@@ -77,7 +76,7 @@ s &lt;- replicate(1e5, sum(sample(xy, x.n)))
 s &lt;- s / x.n - (sum(xy) - s) / length(y) 
 stat &lt;- mean(x) - mean(y)
 (p_value = mean(s &gt; stat))</code></pre>
-<pre><code>## [1] 0.00015</code></pre>
+<pre><code>## [1] 2e-04</code></pre>
 <p>In R we can get a two-tailed <span class="math">\(p\)</span> value with the Wilcoxon rank-sum test:</p>
 <pre class="r"><code>wilcox.test(x, y, paired=F) </code></pre>
 <pre><code>## Warning in wilcox.test.default(x, y, paired = F): cannot compute exact p-
