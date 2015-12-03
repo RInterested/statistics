@@ -52,12 +52,16 @@ So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to
 <br><br>
 
 
-**2.** [CHI-SQUARE TEST OF HOMOGENEITY:][3] Otherwise known as the goodness of fit Pearson's chi squared test. For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^)$, then $X^2\sim \chi^2(1))$:
+**2.** [CHI-SQUARE TEST OF HOMOGENEITY:][3] Otherwise known as the goodness of fit Pearson's chi squared test. For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^2)$, then $X^2\sim \chi^2(1))$:
+
+<br>
 
                         Medication
     Symptoms       Drug A                   Drug B               
     Heartburn     156 * 178 / 368 = 75      156 * 190 / 368 = 81 
     Normal        212 * 178 / 368 = 103     212 * 190 / 368 = 109
+
+<br>
 
 The degrees of freedom will be [calculated as][4] the {number of `populations` (`Heartburn` sufferers and `Normals`, i.e. `2`) *`minus 1`* } * {number of levels in the `categorical variable` (`Drug A` and `Drug B`, i.e. `2`) *`minus 1`*}. Therefore, in a `2x2` table we are dealing with `1 d.f`. And crucially, a $\chi^2$ of $1\,df$ is exactly a `squared` $N \sim (0,1)$ ([proof here][5]), which explains the sentence "a chi-square test for equality of two proportions is exactly the same thing as a z-test. The chi-squared distribution with one degree of freedom is just that of a normal deviate, squared. You're basically just repeating the chi-squared test on a subset of the contingency table" [in this post][6]. 
 
@@ -88,9 +92,9 @@ or..
     
     
     
-It is also possible to see the term GOF ("goodness-of-fit") applied exclusively to testing of whether some observed counts *conform* to a theoretical proportion. We assess whether observed counts fit into the distribution of hypthesized counts or theoretical values.
+It is also possible to see the term **GOF ("goodness-of-fit")** applied exclusively to testing of whether some observed counts *conform* to a theoretical proportion. We assess whether observed counts fit into the distribution of hypthesized counts or theoretical values.
 
-As an example, we can test how good is [R] at generating random uniform numbers by generating $\tiny 1 \,million$ draws:
+As an example, we can test how good is [R] at generating random uniform numbers by generating $\small 1 \,million$ draws:
 
 <img HEIGHT="500" WIDTH="400" src="https://cloud.githubusercontent.com/assets/9312897/10918018/8ec2a2bc-8231-11e5-9c67-df4e50c7b4c9.png">
 
@@ -119,7 +123,7 @@ tableau <- rbind(tab,Exp_counts)
 tableau
 ```
 
-Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case $\small df=3$):
+Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case $\small df=3$). The name I gave to the table presenting the counts and expected frequencies is `tableau`:
 
 ```{r}
 tableau
@@ -136,6 +140,35 @@ In [R]'s built-in functions we can easily calculate this GOF test:
 ```{r}
 chisq.test(tableau[1,], p = tableau[2,])
 ```
+
+<br>
+
+In another example of GoF testing suppose that we know the relative frequency of occurrence of certain letters (let's take vowels) in the English literature at large. We now examine some documents, and we want to see if the counts of these vowels is consistent with the expected frequencies.
+
+Let's simulate some data:
+
+
+```
+               a      e     i      o      u
+English     0.34   0.12  0.24   0.11   0.19
+documents 256.00 344.00 63.00 223.00 337.00
+```
+
+The idea is to run a GoF (goodness-of-fit) test to see if the data conforms to the expected frequencies. And we would do this with a χ2 test. The degrees of freedom are the number of cells minus 1.
+
+
+```
+chisq.test(p = English, documents)
+
+    Chi-squared test for given probabilities
+
+data:  documents
+X-squared = 612.844, df = 4, p-value < 2.2e-16
+```
+
+The squared difference is far too large for the proportion of vowels in your documents to be consistent with the expected proportion in the English literature at large. Perhaps it is because of a very specific linguistic register your documents come from, or because they are very old documents, etc.
+
+<br>
 
 We needed to "discretize the data" to run the GOF $\chi^2$, but we can do the same thing without discretization with the Kolmogorov-Smirnov test.
 
