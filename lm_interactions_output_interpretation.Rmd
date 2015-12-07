@@ -1,0 +1,70 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###OUTPUT OF LM IN R WITH INTERACTIONS:
+
+<br><br>
+
+Considering the `mtcars` data set an the model `lm(mpg ~ wt * hp)`, where `mpg` is regressed on the explanatory variables weight and horsepower, accountig for interactions, the output is:
+
+```
+Call:
+lm(formula = mpg ~ wt * hp)
+
+Coefficients:
+(Intercept)           wt           hp        wt:hp  
+   49.80842     -8.21662     -0.12010      0.02785  
+   
+```
+
+
+The first coefficient is the intercept. The second is the slope of the mileage on the weight of the car when the horse-power is zero. The third is the slope of the mileage on the horse-power in imaginary, zero weight, cars. The last coefficient is the increase in the slope of `mpg ~ wt` per unit increase in `hp`.
+
+Since it is a continuous variable we can try to see this effect with binning. Dividing `hp` in the lower and upper $50$-th quantiles, and repeating the regressions (this time without interactions):
+
+```{r}
+dat1 <- mtcars[mtcars$hp<quantile(mtcars$hp,0.5),]
+dat2 <- mtcars[mtcars$hp>quantile(mtcars$hp,0.5),]
+(fit1 <- lm(mpg ~ wt + hp, dat1))
+(fit2 <- lm(mpg ~ wt + hp, dat2))
+```
+
+we see that the slope is less negative for the explanatory variable `weight` in the group with higher `hp`, which is consistent with the initial results above.
+
+
+Some exploratory plotting:
+
+
+```{r}
+par(mfrow=c(1,2))
+
+fit        <- lm(mpg ~ wt * hp, mtcars)
+fit_no_int <- lm(mpg ~ wt + hp, mtcars)
+
+plot(mpg ~ wt, mtcars, pch = 20, col = 4, ylim=c(10,50), xlim=c(0,4),
+     main = "mpg ~ wt", sub= "interaction in green; gray, no interaction")
+
+abline(a = coefficients(fit)[1], 
+       b = coefficients(fit)[2], col = 3, lwd = 2)
+
+abline(a = coefficients(fit_no_int)[1], 
+       b = coefficients(fit_no_int)[2], col = 8, lwd = 2)
+
+plot(mpg ~ hp, mtcars, pch = 20, col = 4, xlim=c(0,500),ylim=c(10,50),
+     main = "mpg ~ hp", sub= "interaction in green; gray, no interaction")
+
+abline(a = coefficients(fit)[1], 
+       b = coefficients(fit)[3], col = 3, lwd = 2)
+
+abline(a = coefficients(fit_no_int)[1], 
+       b = coefficients(fit_no_int)[3], col = 8, lwd = 2)
+```
+
+<br>
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
