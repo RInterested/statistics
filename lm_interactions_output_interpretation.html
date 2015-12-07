@@ -97,8 +97,15 @@ dat2 &lt;- mtcars[mtcars$hp&gt;quantile(mtcars$hp,0.5),]
 <p>Some exploratory plotting:</p>
 <pre class="r"><code>par(mfrow=c(1,2))
 
-fit        &lt;- lm(mpg ~ wt * hp, mtcars)
-fit_no_int &lt;- lm(mpg ~ wt + hp, mtcars)
+(fit        &lt;- lm(mpg ~ wt * hp, mtcars))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt * hp, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           wt           hp        wt:hp  
+##    49.80842     -8.21662     -0.12010      0.02785</code></pre>
+<pre class="r"><code>fit_no_int &lt;- lm(mpg ~ wt + hp, mtcars)
 
 plot(mpg ~ wt, mtcars, pch = 20, col = 4, ylim=c(10,50), xlim=c(0,4),
      main = &quot;mpg ~ wt&quot;, sub= &quot;interaction in green; gray, no interaction&quot;)

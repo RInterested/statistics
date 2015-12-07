@@ -40,7 +40,7 @@ Some exploratory plotting:
 ```{r}
 par(mfrow=c(1,2))
 
-fit        <- lm(mpg ~ wt * hp, mtcars)
+(fit        <- lm(mpg ~ wt * hp, mtcars))
 fit_no_int <- lm(mpg ~ wt + hp, mtcars)
 
 plot(mpg ~ wt, mtcars, pch = 20, col = 4, ylim=c(10,50), xlim=c(0,4),
