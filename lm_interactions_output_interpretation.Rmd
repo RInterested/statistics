@@ -62,6 +62,30 @@ abline(a = coefficients(fit_no_int)[1],
        b = coefficients(fit_no_int)[3], col = 8, lwd = 2)
 ```
 
+If one of the explanatory variables is categorical, the interpretation becomes much more straightfoward, as in the case of `am`, which makes reference to automatic versus manual transmission, 
+
+```{r}
+(fit <- lm(mpg ~ am*wt, mtcars))
+```
+
+The first intercept corresponds to `manual` cars, while the second coefficient is for `automatic` cars. Then there is a slope for manual and the corresponding differential when the cars are automatic.
+
+The decrease in mileage per unit of weight is more marked for Manual than for Automatic. 
+
+```{r}
+man <- mtcars[mtcars$am==1,]
+aut <- mtcars[mtcars$am==0,]
+plot(mpg ~ wt, data = man, pch = 20, col = 3,
+     main = "Mpg ~ wt * transmission", sub = "Manual in green; auto in blue")
+points(mpg ~ wt, data = aut, pch = 20, col = 4)
+
+abline(a = coefficients(fit)[1], 
+       b = coefficients(fit)[3], col = 3, lwd = 2)
+abline(a = coefficients(fit)[1] + coefficients(fit)[2], 
+       b = coefficients(fit)[3] + coefficients(fit)[4], 
+       col = 4, lwd = 2)
+```
+
 <br>
 
 
