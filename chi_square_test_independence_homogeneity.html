@@ -76,8 +76,8 @@ img {
 <p><strong>Concepts:</strong></p>
 <p>• The “goodness-of-fit test” is a way of determining whether a set of categorical data came from a claimed discrete distribution or not. The null hypothesis is that they did and the alternate hypothesis is that they didn’t. It answers the question: are the frequencies I observe for my categorical variable consistent with my theory? The goodness-of-fit test expands the one-proportion z-test. The one-proportion z-test is used if the outcome has only two categories. The goodness-of-fit test is used if you have two or more categories.</p>
 <p>• The “test of homogeneity” is a way of determining whether two or more sub-groups of a population share the same distribution of a single categorical variable. For example, do people of different races have the same proportion of smokers to non-smokers, or do different education levels have different proportions of Democrats, Republicans, and Independent. The test of homogeneity expands on the two-proportion z-test. The two proportion z-test is used when the response variable has only two categories as outcomes and we are comparing two groups. The homogeneity test is used if the response variable has several outcome categories, and we wish to compare two or more groups.</p>
-<p>• The “test of independence” is a way of determining whether two categorical variables are associated with one another in the population, like race and smoking, or education level and political affiliation. In the probability unit we looked at this question without paying attention to the variability of our sample. Now we will have a method for deciding whether our observed P(A|B) is “too far” from our observed P(A) to conclude independence.</p>
-<p>• If you’re thinking, “homogeneity and independence sound the same!”, you’re nearly right. The difference is a matter of design. In the test of independence, observational units are collected at random from a population and two categorical variables are observed for each unit. In the test of homogeneity, the data are collected by randomly sampling from each sub-group separately. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of another categorical variable. (Say, “chain smoker”, “occasional smoker”, “non-smoker”.) The difference between these two tests is subtle yet important.</p>
+<p>• The “test of independence” is a way of determining whether two categorical variables are associated with one another in the population, like race and smoking, or education level and political affiliation.</p>
+<p>• Homogeneity and independence sound the same.. The difference is a matter of design. In the test of independence, observational units are collected at random from a population and two categorical variables are observed for each unit. In the test of homogeneity, the data are collected by randomly sampling from each sub-group separately. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of another categorical variable. (Say, “chain smoker”, “occasional smoker”, “non-smoker”.) The difference between these two tests is subtle yet important.</p>
 <p>• Note that in the test of independence, two variables are observed for each observational unit. In the goodness-of-fit test there is only one observed variable.</p>
 <p><br></p>
 </div>
@@ -174,7 +174,7 @@ statistic &lt;- 0
 for(i in 1: 1000){dat[,2] &lt;- sample(dat[,2])
 statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 (p_value &lt;- length(statistic[statistic&gt;=baseline])/length(statistic))</code></pre>
-<pre><code>## [1] 0.058</code></pre>
+<pre><code>## [1] 0.045</code></pre>
 <p>So, under the assumption of independence (swingers) only in this small fraction of case would we obtain such a high chi square value to begin with. Hence, we can reject the hypothesis of independence, and assume there is dependence between the husbands’ and wives’ satisfaction.</p>
 <p>We can calculate this “exact” test (really a generalization of Fisher’s exact test) with the command:</p>
 <pre class="r"><code>chisq.test(table(data), simulate.p.value = T)</code></pre>
@@ -183,7 +183,7 @@ statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 ##  replicates)
 ## 
 ## data:  table(data)
-## X-squared = 16.955, df = NA, p-value = 0.04798</code></pre>
+## X-squared = 16.955, df = NA, p-value = 0.04898</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
