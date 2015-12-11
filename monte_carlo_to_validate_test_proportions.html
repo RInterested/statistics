@@ -71,7 +71,8 @@ Symptoms    Drug A Drug B Totals
   Heartburn     64     92    156
   Normal       114     98    212
   Totals       178    190    368</code></pre>
-<p><strong>TEST STATISTIC FUNCTION IN R</strong> ([from R-Bloggers][4])<strong>:</strong></p>
+<p><br></p>
+<p><strong>TEST STATISTIC FUNCTION IN R:</strong></p>
 <p>For reference: <span class="math">\(Z = \frac{\frac{x_1}{n_1}-\frac{x_2}{n_2}}{\sqrt{p\,(1-p)(1/n_1+1/n_2)}}\)</span> with <span class="math">\(p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}\)</span></p>
 <pre><code>z.prop = function(x1,x2,n1,n2){
   numerator = (x1/n1) - (x2/n2)
@@ -80,11 +81,11 @@ Symptoms    Drug A Drug B Totals
   z.prop.ris = numerator / denominator
   return(z.prop.ris)
 }</code></pre>
+<p><br></p>
 <p><strong>POPULATION SET UP WITH ONE SINGLE (AVERAGE) TRUE PROPORTION:</strong></p>
 <pre><code>set.seed(5)
 
-# Number of samples taken to obtain different proportions IF 
-# we set it up so that the proportions are actually equal:
+# Number of samples taken to obtain different proportions IF we set it up so that the proportions are actually equal:
 
 samples &lt;- 100000
 
@@ -97,42 +98,37 @@ n2 &lt;- 190
 p1 &lt;- 64/n1
 p2 &lt;- 92/n2
 
-# We will make up a population where the proportion of heartburn suffers
-# is in between p1 and p2:
+# We will make up a population where the proportion of heartburn suffers is in between p1 and p2:
 
 (c(p &lt;- mean(c(p1, p2)), p1, p2))
 [1] 0.4218805 0.3595506 0.4842105
 
-# And we'll take samples of the size of the groups assigned to Drug A 
-# and Drug B respectively:
+# And we'll take samples of the size of the groups assigned to Drug A and Drug B respectively:
 
 x1 &lt;- rbinom(samples, n1, p)
 x2 &lt;- rbinom(samples, n2, p)
 
-# Double - checking that the proportion is kept although the number of
-# successes is different:
+# Double - checking that the proportion is kept although the number of successes is different:
 
 (c(mean(x1),mean(x2)))
 [1] 75.08542 80.15841
 (c(prop1 &lt;- mean(x1)/n1, prop2 &lt;- mean(x2)/n2, p))
 [1] 0.4218282 0.4218864 0.4218805</code></pre>
-<p><strong>SIMULATION:</strong></p>
-<pre><code># Now we run the z-test in what we just did, but we repeat it 100000 times     
-# and put the results in vector pval:
-
-pval &lt;- 0
+<p><br></p>
+<p><strong>SIMULATION:</strong> <br> # Now we run the z-test in what we just did, but we repeat it 100000 times and put the results in vector pval:</p>
+<pre><code>pval &lt;- 0
 for (i in 1:100000) {
     pval[i] &lt;- pnorm(-abs(z.prop(mean(x1[i]), mean(x2[i]), n1, n2)))
 }
 
 mean(pval &lt;= .05)
 [1] 0.09887</code></pre>
-<p><strong>So what is wrong with this simulation? The value should be below <span class="math">\(0.05\)</span> and it is not…</strong>*</p>
+<p><br> <strong>So what is wrong with this simulation? The value should be below <span class="math">\(0.05\)</span> and it is not…</strong></p>
 <p>The <a href="https://en.wikipedia.org/wiki/Probability_integral_transform">probability integral function</a> dictates that if <span class="math">\(X \sim N(\mu,\sigma^2)\)</span>, the random variable <span class="math">\(Y = \Phi(X)\)</span> with <span class="math">\(\Phi\)</span> corresponding to the <a href="https://en.wikipedia.org/wiki/Error_function">error function</a> (<span class="math">\(erf\)</span>) (who came up with this name?) will be uniformely distributed as <span class="math">\(Y \sim U(a,b)\)</span>.</p>
 <p>Since we know that the <span class="math">\(p-values\)</span> range from <span class="math">\((0,1)\)</span>, plotting the histogram should illustrate our expectation (overabundant <span class="math">\(p&lt;0.05\)</span> values colored in greenish hue):</p>
 <p><img src="data:image/png;base64,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" width="500" height="300"></p>
 <p>So we are getting just half of the span we expected: from <span class="math">\([0,0.5]\)</span>, as opposed to <span class="math">\([0,1]\)</span>. And the problem is in the code treatment of the <span class="math">\(z\)</span> values produced by the function <code>z.prop</code>. Since <span class="math">\(z\)</span> is a symmetric distribution the part of the code intended to “look up the probability in the table at the end of the book”: (<code>pnorm(-abs(z.prop(mean(x1[i]), mean(x2[i]), n1, n2)))</code>) is effectively sending all the <span class="math">\(z\)</span> values above <span class="math">\(0\)</span> to the negative part of the bell curve, and we end up with double amount of <code>pval &lt; 0.05</code>.</p>
-<p>As <span class="citation">@Scortchi</span> says in his comments, if you happened to get a <span class="math">\(z=1.4\)</span>, “you are calculating <span class="math">\(Pr(Z&lt;-1.4)\)</span> when you should be calculating <span class="math">\(Pr(Z&lt;-1.4)+Pr(Z&gt;1.4)\)</span>.</p>
+<p>If you happened to get a <span class="math">\(z=1.4\)</span>, “you are calculating <span class="math">\(Pr(Z&lt;-1.4)\)</span> when you should be calculating <span class="math">\(Pr(Z&lt;-1.4)+Pr(Z&gt;1.4)\)</span>.</p>
 <p>This can be fixed by simply doubling the value of the pvalues. Or perhaps more neatly by changing the <strong>SIMULATION</strong> part of the code in the OP to:</p>
 <pre><code>pval &lt;- 0
 for (i in 1:100000) {
