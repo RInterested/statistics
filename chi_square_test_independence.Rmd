@@ -80,6 +80,77 @@ chisq.test(tab)
 
 The independence of sex and class cannot be rejected.
 
+<br>
+
+####Example 3:
+
+The best illustration is Agresti's example with husband and wife marital satisfaction:
+
+```{r}
+sex_satis <- matrix(c(7,2,1,2,7,8,5,8,2,3,4,9,3,7,9,14), nrow = 4)
+dimnames(sex_satis) = list(wife = c("Never","Sometimes","Often","Always"), husband = c("Never","Sometimes","Often","Always"))
+sex_satis
+```
+
+It is to be excpected that, in general, the satisfaction of a spouse moves together with the other. 
+
+If we run a $\chi^2$ test we get,
+
+```{r, warning=FALSE}
+chisq.test(sex_satis, correct = T)
+```
+
+that with a probability of $<\,5\%$ of making a type I error, the counts in the table cannot be considered independent - we reject the $H_o$ hypothesis of independence, and assume that there is an association between the satisfaction of the husband and the wife.
+
+In this test, the margins are considered fixed, and the expected counts calculated as follows:
+
+<img HEIGHT="800" WIDTH="500" src="https://cloud.githubusercontent.com/assets/9312897/10900528/0f965f56-81af-11e5-9e52-7f15234f9917.png">
+
+$n_{i+}*n_{+j}/n$.
+
+The test statistic will be:
+
+$\sum \frac{(O-E)^2}{E}$ with $\small df = (rows-1)*(cols - 1)$
+
+The exact p-value can be obtained with a Monte Carlo simulation:
+
+```{r,echo=F, warning=F}
+library(gsheet)
+data <- read.csv(text =  gsheet2text('https://docs.google.com/spreadsheets/d/1w575Rfj2QY30wWc6piunwcyDOfYQfL-5KSulJIQ3ego/edit?usp=sharing',format ='csv'))
+data <- data[,-1]
+```
+
+We need first the dataset in long format:
+
+```{r}
+head(data)
+```
+
+If we perform first the chi square test on the dataset:
+
+```{r, warning = F}
+chisq.test(table(data),correct = F)$statistic
+```
+
+... and then we permute either the husband or the wife (swingers?), calculating the chi square value every time, and record the percentage of time that it will be greater than the original chi statistic:
+
+```{r, warning = F}
+baseline <- chisq.test(table(data),correct = F)$statistic
+dat <- data
+statistic <- 0
+for(i in 1: 1000){dat[,2] <- sample(dat[,2])
+statistic[i] <- chisq.test(table(dat), correct = F)$statistic}
+(p_value <- length(statistic[statistic>=baseline])/length(statistic))
+```
+
+
+So, under the assumption of independence (swingers) only in this small fraction of case would we obtain such a high chi square value to begin with. Hence, we can reject the hypothesis of independence, and assume there is dependence between the husbands' and wives' satisfaction.
+
+We can calculate this "exact" test (really a generalization of Fisher's exact test) with the command:
+
+```{r}
+chisq.test(table(data), simulate.p.value = T)
+```
 
 
 [1]: https://en.wikipedia.org/wiki/Fisher%27s_exact_test
