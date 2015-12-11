@@ -81,29 +81,6 @@ In R, `n = 16; 98 + c(-1,1) * qt(1 - 0.5/2, n -1) * 10/sqrt(n) = 96.27201 to 99.
 
 Alternatively, the confidence interval can be calculated using the normal distribution in larger samples (let's imagine `n=100`), using the formula: `n = 100; 98 + c(-1,1) * qnorm(1 - 0.5/2) * 10/sqrt(n)`.
 
-**Comparing two Group Means with Pooled Variance:**
-
-Example: We want to look into the effects of Dexmethylphenidate on weight in children with ADHD, and we randomized `n1 = 15` children to treatment, and `n2 = 15` to placebo, measuring weight before the beginning of the treatment and again 2 months later. The treated group dropped an average of `delta1 = -2.4 lbs.` (with a `SD1 = 0.4 lbs.`), while the placebo group did also drop, but only `delta2 = -0.9 lbs.` (with a `SD2 = 0.8 lbs.`). Is the difference significant (two-tailed test)?
-
-First off we need to calculate the [pooled variance][1]:
-
-$$\small s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}$$
-
-In our case: $sp^2 =\frac{(n1-1) * SD_1^2 \,+\, (n2-2)^ * SD_2^2}{n1 + n2 -2} = \frac{1}{2} (SD_1^2+ SD_2^2)$. 
-
-The SE will be calculated as $SE = \sqrt {sp^2} * \sqrt {\frac{1}{n1}+\frac{1}{n2}}$. 
-
-In [R]: 
-
-`n1 = 15; n2 = 15`
-`delta1 = -2.4; delta2 = -0.9`
-
-    sp <- sqrt((sd1^2 + sd2^2)/2)
-    se <- sp * sqrt(1/n1 + 1/n2)
-    t_stat <- (delta1 - delta2)/se
-    2 * pt(t_stat, df = n1 + n2 -2)
-
-The result is clearly significant at a `p = 4.880225e-07`.
 
 
 <br>
