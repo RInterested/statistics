@@ -31,7 +31,10 @@ The test statistic follows a multinomial distribution.
 
 It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.
 
-Otherwise known as the [chi-square test of homogeneity][3] or the goodness of fit Pearson's chi squared test. For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^2)$, then $X^2\sim \chi^2(1))$:
+There is a conceptual distinction between the test of independence and the [chi-square test of homogeneity][3], although there are no practical mathematical consequences. A test of independence would condition on both margins, whereas in a test of homogeneity the marginals of one of the categories are assumed not be random variables, but rather fixed by design. These theoretical distinctions aside, both can be lumped under the terms *chi-square test of association* (for two-way contingency tables) or *chi-square k-independent samples comparison test* (for more two categories). This is in contradistinction to the **one-sample chi-square test of agreement**, essentially a GOF test.
+
+
+For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^2)$, then $X^2\sim \chi^2(1))$:
 
 The goodness of fit test examines only one variable, while the test of independence is concerned with the relationship betweentwo variables. Like the goodness of fit test, the chi square test of independence is verygeneral, and can be used with variables measured on any type of scale, nominal, ordinal, interval or ratio. As with the GOF test the expected number of cases in each cell should be more than $5$.
 
