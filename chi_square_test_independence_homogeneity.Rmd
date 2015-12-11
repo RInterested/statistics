@@ -136,6 +136,9 @@ In this test, the margins are considered fixed, and the expected counts calculat
 
 What this is saying is that the expected values in the cells are conditioned on both margins (row and column), and it should be read as along the lines as, for example: the expected value of "never/never" is the probability that the wife "never" experiences satisfaction ($19/91$)  ***times*** (independent of) the probability that the husband "never" experiences pleasure ($12/91$). Then we calculate based on the resultant probability the expected frequency in the cell by multiplying by the total number of cases ($91$).
 
+
+In contradistinction in the test of homogeneity (as in the example above with antacids - table reproduced below this paragraph) we are saying that, for instance, getting the result "Drug A/heartburn" is the probability of "heartburn" ($156/368$) (one single variable). Then we calculate the expected frequency by multiplying this times the number of patients taking Drug A ($178$).
+
 ```{r, warning=FALSE, echo=FALSE}
 Antacid <- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)    
 dimnames(Antacid) = list(Symptoms = c("Heartburn", "Normal"),
@@ -143,7 +146,7 @@ dimnames(Antacid) = list(Symptoms = c("Heartburn", "Normal"),
 addmargins(Antacid)
 ```
 
-In contradistinction in the test of homogeneity (as in the example above with antacids) we are saying that, for instance, getting the result "Drug A/heartburn" is the probability of "heartburn" ($156/368$) (one single variable). Then we calculate the expected frequency by multiplying this times the number of patients taking Drug A ($178$).
+---
 
 The test statistic will be:
 
