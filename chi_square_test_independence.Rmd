@@ -1,0 +1,77 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###APPLICATION OF THE CHI SQUARE TEST:
+
+
+<br><br>
+
+####GENERAL TEST STATISTIC (regardless of specific application):
+
+The chi square statistic is denoted as $\chi^2=\displaystyle \sum_i \frac{(O_i-E_i)^2}{E_i}$ where $O_i$ is the observed number of cases in category $i$, and $E_i$ is the expected number of cases in category $i$. 
+
+
+The null and alternative hypotheses for each chi square test are:
+
+$H_o: O_i=E_i$ and $H_1:O_i\neq E_i$.
+
+The theoretical distribution is a continuous distribution, but the $\chi^2$ statistic is obtained in a discrete manner, on the basis of discrete differences betweenthe observed and expected values. Hence, there is a need for asymptotics: The condition in which the chi square statistic is approximated by the theoretical chi square distribution, is that the sample size is reasonably large: there should be at least $5 \,expected \,cases$ per category. There may be no observed values in one or more categories, and this causes no difficulty with the test. But there must be around 5 or more expected cases per category. If there are considerably less than this, adjacent categories may be grouped together to boost the number of expected cases.
+
+The test statistic follows a multinomial distribution.
+
+<br>
+
+
+
+####TEST of INDEPENDENCE of TWO VARIABLES:
+
+<br>
+
+It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.
+
+The goodness of fit test examines only one variable, while the test of independence is concerned with the relationship betweentwo variables. Like the goodness of fit test, the chi square test of independence is verygeneral, and can be used with variables measured on any type of scale, nominal, ordinal, interval or ratio. As with the GOF test the expected number of cases in each cell should be more than $5$.
+
+The chi square test for independence is conducted by assuming that thereis no relationship between the two variables being examined. The alternative hypothesis is that there is some relationship between the variables.
+
+The chi square statistic used to conduct this test is the same as in the goodness of fit test:
+
+$\chi^2=\displaystyle \sum_i \frac{(O_i-E_i)^2}{E_i}$ where $O_i$ is the  numbers of cases in each cell ofthe cross classiØcation table, and $E_i$ is the expected number of cases.
+
+The chi square statistic computed fromthe observed and expected values is calculated, and if this statistic is inthe region of rejection of the null hypothesis, then the assumption of norelationship between X and Y is rejected.
+
+<br><br>
+
+####Example 1:
+
+Is there a relationship between sex and class?
+
+```{r}
+tab <- matrix(c(33,153,103,16,29,181,81,14), nrow =4)
+dimnames(tab)<-list(Social.Class = c("Upper","Middle","Working","Lower"), Sex = c("Male", "Female"))
+addmargins(tab)
+
+```
+
+Under the NULL hypothesis the two variables are unrelated and therefore:
+
+$P(Upper \,and\, Male) = P(Upper)P(Male)$
+
+$P(Upper\,and\,Male) =\frac{62}{610}\frac{305}{610}$
+
+and the number of expected cases for the cell:
+
+$610 \, \frac{62}{610}\frac{305}{610}$
+
+The general formula for the degrees of freedom is the number of rows minus 1, times the number of columns minus 1.
+
+```{r}
+chisq.test(tab)
+```
+
+The independence of sex and class cannot be rejected.
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
