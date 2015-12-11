@@ -29,22 +29,33 @@ The test statistic follows a multinomial distribution.
 
 • The "test of homogeneity" is a way of determining whether two or more sub-groups of a population share the same distribution of a single categorical variable. For example, do people of different races have the same proportion of smokers to non-smokers, or do different education levels have different proportions of Democrats, Republicans, and Independent. The test of homogeneity expands on the two-proportion z-test. The two proportion z-test is used when the response variable has only two categories as outcomes and we are comparing two groups. The homogeneity test is used if the response variable has several outcome categories, and we wish to compare two or more groups.
 
-• The "test of independence" is a way of determining whether two categorical variables are associated with one another in the population, like race and smoking, or education level and political affiliation. 
+• The "test of independence" is a way of determining whether ***two categorical variables*** are associated with one another in the population, like race and smoking, or education level and political affiliation. 
 
-• Homogeneity and independence sound the same.. The difference is a matter of design. In the test of independence, observational units are collected at random from a population and two categorical variables are observed for each unit. In the test of homogeneity, the data are collected by randomly sampling from each sub-group separately. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of another categorical variable. (Say, "chain smoker", "occasional smoker", "non-smoker".) The difference between these two tests is subtle yet important.
+• Homogeneity and independence sound the same. The difference is a matter of design. In the ***test of independence***, observational units are collected at random from a population and ***two categorical variables are observed for each unit.*** 
+
+      Example:
+      
+      Couples are sampled and "husband satisfaction" and "wife satisfaction are measured."
+
+In the ***test of homogeneity***, the data are collected by randomly sampling from ***each sub-group separately***. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of ***another categorical variable.*** (Say, "chain smoker", "occasional smoker", "non-smoker".) The difference between these two tests is subtle yet important.
+
+      Examples:
+      
+      1. Patients on drug A and patients in drug B would be sub-groups of the variable ("treatment"), and each assessed for the variable "heartburn".
+      
+      2. Relationship between "sex" and "class". Take samples of both genders and check their socioeconomic class.
 
 • Note that in the test of independence, two variables are observed for each observational unit. In the goodness-of-fit test there is only one observed variable.
 
 <br>
 
-####TEST of INDEPENDENCE of TWO VARIABLES:
+####TEST of HOMOGENEITY:
 
 <br>
 
 It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.
 
 There is a conceptual distinction between the test of independence and the [chi-square test of homogeneity][3], see [here](http://stats.stackexchange.com/q/101181/67822) and [here](http://stats.stackexchange.com/q/77634/67822),  although there are no practical mathematical consequences. A test of independence would condition on both margins, whereas in a test of homogeneity the marginals of one of the categories are assumed not be random variables, but rather fixed by design. These theoretical distinctions aside, both can be lumped under the terms *chi-square test of association* (for two-way contingency tables) or *chi-square k-independent samples comparison test* (for more two categories). This is in contradistinction to the **one-sample chi-square test of agreement**, essentially a GOF test.
-
 
 For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^2)$, then $X^2\sim \chi^2(1))$:
 
@@ -97,7 +108,9 @@ The independence of sex and class cannot be rejected.
 
 <br>
 
-####Example 3:
+####TEST of INDEPENDENCE of TWO VARIABLES:
+
+<br>
 
 The best illustration is Agresti's example with husband and wife marital satisfaction:
 
@@ -121,7 +134,16 @@ In this test, the margins are considered fixed, and the expected counts calculat
 
 <img HEIGHT="800" WIDTH="500" src="https://cloud.githubusercontent.com/assets/9312897/10900528/0f965f56-81af-11e5-9e52-7f15234f9917.png">
 
-$n_{i+}*n_{+j}/n$.
+What this is saying is that the expected values in the cells are conditioned on both margins (row and column), and it should be read as along the lines as, for example: the expected value of "never/never" is the probability that the wife "never" experiences satisfaction ($19/91$)  ***times*** (independent of) the probability that the husband "never" experiences pleasure ($12/91$). Then we calculate based on the resultant probability the expected frequency in the cell by multiplying by the total number of cases ($91$).
+
+```{r, warning=FALSE, echo=FALSE}
+Antacid <- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)    
+dimnames(Antacid) = list(Symptoms = c("Heartburn", "Normal"),
+                        Medication = c("Drug A", "Drug B"))
+addmargins(Antacid)
+```
+
+In contradistinction in the test of homogeneity (as in the example above with antacids) we are saying that, for instance, getting the result "Drug A/heartburn" is the probability of "heartburn" ($156/368$) (one single variable). Then we calculate the expected frequency by multiplying this times the number of patients taking Drug A ($178$).
 
 The test statistic will be:
 
