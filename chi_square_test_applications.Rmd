@@ -17,15 +17,14 @@ The null and alternative hypotheses for each chi square test are:
 
 $H_o: O_i=E_i$ and $H_1:O_i\neq E_i$.
 
-The theoretical distribution is a continuous distribution, but the $\chi^2$ statisticis obtained in a discrete manner, on the basis of discrete differences betweenthe observed and expected values. Hence, there is a need for asymptotics: The condition in which the chi square statistic is approximated by the theoretical chi square distribution, is that the sample size is reasonably large: there should be at least $5 \,expected \,cases$ per category. There may be no observed values in one or more categories, and this causes no difficulty with the test. But there must be around 5 or more expected cases per category. If there are considerably less than this, adjacent categories may be grouped together to boost the number of expected cases.
+The theoretical distribution is a continuous distribution, but the $\chi^2$ statistic is obtained in a discrete manner, on the basis of discrete differences betweenthe observed and expected values. Hence, there is a need for asymptotics: The condition in which the chi square statistic is approximated by the theoretical chi square distribution, is that the sample size is reasonably large: there should be at least $5 \,expected \,cases$ per category. There may be no observed values in one or more categories, and this causes no difficulty with the test. But there must be around 5 or more expected cases per category. If there are considerably less than this, adjacent categories may be grouped together to boost the number of expected cases.
 
 The test statistic follows a multinomial distribution.
 
-<br><br>
+<br>
 
 ####1. GOODNESS-OF-FIT TEST:
 
-<br>
 
 This test concerns itself with checking whether the sample is consistent with a theorized population distribution. Examples:
 
@@ -35,8 +34,15 @@ This test concerns itself with checking whether the sample is consistent with a 
 
 3. Does a sample follow the distribution of the population in a science project?
 
+4. Check whether the random generation of numbers by a software program is as promised.
+
 When dealing with continuous variable there will be a need to discretize by grouping the observations into $K$ bins or categories through, for instance, quantiles. Importantly, the degrees of freedom are $k-1$. Large values of the chi square statistic will lead to rejecting the null hypothesis.
-<br>
+
+The degrees of freedom in this case are calculated with the formula: $\small \text{df}\,=\, \text{bins}\,(\text{or}\,\text{categories}) - 1 - \text{number}\,\text{of}\,\text{parameters}\,\text{of}\,\text{the}\,\text{distribution}$. For example, two parameters define the normal distribution, whereas only one defines the binomial.
+
+
+<br><br>
+
 
 ####Example 1:
 
@@ -76,7 +82,7 @@ chisq.test(dat[,2], p = dat[,3]/100, correct = F)
 ```
 
 Clearly the value is too asymptotic ($\small p<0.05$) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population.
-<br>
+<br><br>
 
 ####Example 2:
 
@@ -98,7 +104,7 @@ chisq.test(dat$suicides, p = replicate(length(dat$suicides),
 ```
 
 Therefore, we don't have enough evidence to reject the idea that there may not be too much difference between years.
-<br>
+<br><br>
 
 ####Example 3:
 
@@ -127,13 +133,90 @@ chisq.test(dat$players, p = births)
 
 ... a different distribution than that predicted, further supporting the calendar effect.
 
-<br>
+<br><br>
 
-####Example 4: COMPARING DISTRIBUTIONS:
+####Example 4: COMPARING MANUSCRIPTS (modified Jane Austen example):
 
-We can use the GOF test to check whether the random generation of numbers by a software program is as promised, or to see if the results of a test have been graded on a bell curve.
+In another example of GoF testing suppose that we know the relative frequency of occurrence of certain letters (let's take vowels) in the English literature at large. We now examine some documents, and we want to see if the counts of these vowels is consistent with the expected frequencies.
 
-The degrees of freedom in this case are calculated with the formula: $\small df \,=\, bins\,(or\,categories) - 1 - number\,of\,parameters\,of\,the\,distribution$. For example, two parameters define the normal distribution, whereas only one defines the binomial.
+Let's simulate some data:
+
+
+```
+               a      e     i      o      u
+English     0.34   0.12  0.24   0.11   0.19
+documents 256.00 344.00 63.00 223.00 337.00
+```
+
+The idea is to run a GoF (goodness-of-fit) test to see if the data conforms to the expected frequencies. And we would do this with a χ2 test. The degrees of freedom are the number of cells minus 1.
+
+
+```
+chisq.test(p = English, documents)
+
+    Chi-squared test for given probabilities
+
+data:  documents
+X-squared = 612.844, df = 4, p-value < 2.2e-16
+```
+
+The squared difference is far too large for the proportion of vowels in your documents to be consistent with the expected proportion in the English literature at large. Perhaps it is because of a very specific linguistic register your documents come from, or because they are very old documents, etc.
+
+<br><br>
+
+####Example 5: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:
+
+
+We can test how good is [R] at generating random uniform numbers by generating $\small 1 \,million$ draws:
+
+<img HEIGHT="500" WIDTH="400" src="https://cloud.githubusercontent.com/assets/9312897/10918018/8ec2a2bc-8231-11e5-9c67-df4e50c7b4c9.png">
+
+which looks very good, but let's look at the actual counts compared to the expected frequency ($0.25$) for every quartile:
+
+```{r,echo=F,results='hide'}
+uniform_sample <- runif(1e6)
+
+first <- length(uniform_sample[uniform_sample<0.25])
+secnd <- length(uniform_sample[uniform_sample>=0.25&
+                              uniform_sample<0.5])
+third <- length(uniform_sample[uniform_sample>=0.5&
+                              uniform_sample<0.75])
+fourth<-length(uniform_sample[uniform_sample>=0.75])
+
+counts <- c(first,secnd,third,fourth)
+TargFreq <- c(0.25, 0.25, 0.25, 0.25)
+
+tab <- t(as.matrix(data.frame(counts, TargFreq)))
+colnames(tab) <-c("[0,0.25)", "[0.25,0.5)", 
+                        "[0.5,0.75)", "[0.75,1)")
+
+
+Exp_counts <- c(rep(1e6 * 0.25, times = 4))
+tableau <- rbind(tab,Exp_counts)
+tableau
+```
+
+Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case $\small df=3$). The name I gave to the table presenting the counts and expected frequencies is `tableau`:
+
+```{r}
+tableau
+TS <- sum((tableau[1,] - tableau[3,])^2/tableau[3,])
+TS
+pchisq(TS, df=3, lower.tail = F)
+```
+
+
+Which is clearly not a value extreme enough to consider that the sample is not distributed according to the 0.25 fractions in each quartile.
+
+In [R]'s built-in functions we can easily calculate this GOF test:
+
+```{r}
+chisq.test(tableau[1,], p = tableau[2,])
+```
+
+<br><br>
+
+####Example 6: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS "NORMAL"?
 
 As an example of how the chi-square goodness-of-fit test for a normal distribution can be used, the 5-year annualized return rates achieved by 158 growth funds can be assessed for normality:
 
@@ -204,6 +287,10 @@ qchisq(0.95, df = 3)
 
 we can't reject the hypothesis that the returns follow a normal distribution.
 
+<br>
+
+####CLOSING REMARKS for GOF test:
+
 This test is sensitive to the choice of bins. There is no optimal choice for the bin width (since the optimal bin width depends on the distribution). Most reasonable choices should produce similar, but not identical, results. For the chi-square approximation to be valid, the expected frequency should be at least 5. This test is not valid for small samples, and if some of the counts are less than five, you may need to combine some bins in the tails.
 
 The **Shapiro-Wilk test**, proposed in 1965, calculates a $W$ statistic that tests whether a random sample, $x_1,x_2,\dots,x_n$ comes from (specifically) a normal distribution . Small values of $W$ are evidence of departure from normality and percentage points for the $W$ statistic, obtained via Monte Carlo simulations, were reproduced by Pearson and Hartley (1972). This test has done very well in comparison studies with other goodness of fit tests.
@@ -233,6 +320,8 @@ The chi square statistic used to conduct this test is the same as in the goodnes
 $\chi^2=\displaystyle \sum_i \frac{(O_i-E_i)^2}{E_i}$ where $O_i$ is the  numbers of cases in each cell ofthe cross classiØcation table, and $E_i$ is the expected number of cases.
 
 The chi square statistic computed fromthe observed and expected values is calculated, and if this statistic is inthe region of rejection of the null hypothesis, then the assumption of norelationship between X and Y is rejected.
+
+<br><br>
 
 ####Example 1:
 
