@@ -78,7 +78,7 @@ img {
 <h4>TEST of INDEPENDENCE of TWO VARIABLES:</h4>
 <p><br></p>
 <p>It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.</p>
-<p>There is a conceptual distinction between the test of independence and the <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">chi-square test of homogeneity</a>, although there are no practical mathematical consequences. A test of independence would condition on both margins, whereas in a test of homogeneity the marginals of one of the categories are assumed not be random variables, but rather fixed by design. These theoretical distinctions aside, both can be lumped under the terms <em>chi-square test of association</em> (for two-way contingency tables) or <em>chi-square k-independent samples comparison test</em> (for more two categories). This is in contradistinction to the <strong>one-sample chi-square test of agreement</strong>, essentially a GOF test.</p>
+<p>There is a conceptual distinction between the test of independence and the <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">chi-square test of homogeneity</a>, see <a href="http://stats.stackexchange.com/q/101181/67822">here</a> and <a href="http://stats.stackexchange.com/q/77634/67822">here</a>, although there are no practical mathematical consequences. A test of independence would condition on both margins, whereas in a test of homogeneity the marginals of one of the categories are assumed not be random variables, but rather fixed by design. These theoretical distinctions aside, both can be lumped under the terms <em>chi-square test of association</em> (for two-way contingency tables) or <em>chi-square k-independent samples comparison test</em> (for more two categories). This is in contradistinction to the <strong>one-sample chi-square test of agreement</strong>, essentially a GOF test.</p>
 <p>For larger samples (&gt; 5 expected frequency count in each cell) the <span class="math">\(\chi^2\)</span> provides an approximation of the <a href="https://en.wikipedia.org/wiki/Fisher%27s_exact_test">significance value</a>. The test is based on calculating the <em>expected frequency counts</em> obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a <span class="math">\(\chi^2\)</span> distributed test statistic, since if <span class="math">\(X\sim N(\mu,\sigma^2)\)</span>, then <span class="math">\(X^2\sim \chi^2(1))\)</span>:</p>
 <p>The goodness of fit test examines only one variable, while the test of independence is concerned with the relationship betweentwo variables. Like the goodness of fit test, the chi square test of independence is verygeneral, and can be used with variables measured on any type of scale, nominal, ordinal, interval or ratio. As with the GOF test the expected number of cases in each cell should be more than <span class="math">\(5\)</span>.</p>
 <p>The chi square test for independence is conducted by assuming that there is no relationship between the two variables being examined. The alternative hypothesis is that there is some relationship between the variables.</p>
@@ -167,7 +167,7 @@ statistic &lt;- 0
 for(i in 1: 1000){dat[,2] &lt;- sample(dat[,2])
 statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 (p_value &lt;- length(statistic[statistic&gt;=baseline])/length(statistic))</code></pre>
-<pre><code>## [1] 0.05</code></pre>
+<pre><code>## [1] 0.038</code></pre>
 <p>So, under the assumption of independence (swingers) only in this small fraction of case would we obtain such a high chi square value to begin with. Hence, we can reject the hypothesis of independence, and assume there is dependence between the husbands’ and wives’ satisfaction.</p>
 <p>We can calculate this “exact” test (really a generalization of Fisher’s exact test) with the command:</p>
 <pre class="r"><code>chisq.test(table(data), simulate.p.value = T)</code></pre>
@@ -176,7 +176,7 @@ statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 ##  replicates)
 ## 
 ## data:  table(data)
-## X-squared = 16.955, df = NA, p-value = 0.04648</code></pre>
+## X-squared = 16.955, df = NA, p-value = 0.04248</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
