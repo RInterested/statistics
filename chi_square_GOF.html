@@ -90,6 +90,26 @@ img {
 </div>
 <div id="example-1" class="section level4">
 <h4>Example 1:</h4>
+<p><br></p>
+<p>A very generic example to see how the expected frequencies are generated would consist of testing whether the values in a vector representing a sample are consistent with a second vector representative of the population:</p>
+<pre class="r"><code>A &lt;- c(12455, 11554, 11908, 13416, 12647, 7828, 10172) # the sample
+population &lt;- c(181395, 165347, 175331, 193760, 190370, 124226, 157822)
+expected_freq &lt;- population/sum(population) # we need to get the expected frequencies
+ch_sq &lt;- chisq.test(A, p= expected_freq)
+ch_sq$expected</code></pre>
+<pre><code>## [1] 12209.518 11129.343 11801.356 13041.794 12813.616  8361.529 10622.843</code></pre>
+<pre class="r"><code>ch_sq</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  A
+## X-squared = 88.184, df = 6, p-value &lt; 2.2e-16</code></pre>
+<p>The sample definitely does not belong to the population distribution.</p>
+<p><br><br></p>
+</div>
+<div id="example-2" class="section level4">
+<h4>Example 2:</h4>
+<p><br></p>
 <p>Does the distribution of ages in a sample matches that expected in the population:</p>
 <pre class="r"><code>age &lt;- c(&quot;20-24&quot;, &quot;25-34&quot;, &quot;35-44&quot;)
 Observed &lt;- c(103, 216, 171)
@@ -118,8 +138,9 @@ Expec_Perc. &lt;- c(18, 50, 32)
 ## X-squared = 7.2021, df = 2, p-value = 0.0273</code></pre>
 <p>Clearly the value is too asymptotic (<span class="math">\(\small p&lt;0.05\)</span>) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population. <br><br></p>
 </div>
-<div id="example-2" class="section level4">
-<h4>Example 2:</h4>
+<div id="example-3" class="section level4">
+<h4>Example 3:</h4>
+<p><br></p>
 <p>Has the number of suicides in a region stayed the same over time?</p>
 <p>This is the data:</p>
 <pre class="r"><code>years &lt;- c(1978:1989)
@@ -138,8 +159,9 @@ dat &lt;- data.frame(years, suicides); as.data.frame(t(dat))</code></pre>
 ## X-squared = 18.133, df = 11, p-value = 0.07855</code></pre>
 <p>Therefore, we don’t have enough evidence to reject the idea that there may not be too much difference between years. <br><br></p>
 </div>
-<div id="example-3" class="section level4">
-<h4>Example 3:</h4>
+<div id="example-4" class="section level4">
+<h4>Example 4:</h4>
+<p><br></p>
 <p>There is a self-perpetuating <em>calendar effect</em> among youth soccer players whereby little players trying out for a team have more of a chance to prove themselves and make the team if they are born in January than in November or December, a difference that is significant at an early age.</p>
 <p>The birth months of a league of professional players can be analysed with a GOF test:</p>
 <pre class="r"><code>month_bins &lt;- c(&quot;Jan to Mar&quot;, &quot;Apr to Jun&quot;, &quot;Jul to Sep&quot;, &quot;Oct to Dec&quot;)
@@ -176,8 +198,9 @@ dat</code></pre>
 <p>… a different distribution than that predicted, further supporting the calendar effect.</p>
 <p><br><br></p>
 </div>
-<div id="example-4-comparing-manuscripts-modified-jane-austen-example" class="section level4">
-<h4>Example 4: COMPARING MANUSCRIPTS (modified Jane Austen example):</h4>
+<div id="example-5-comparing-manuscripts-modified-jane-austen-example" class="section level4">
+<h4>Example 5: COMPARING MANUSCRIPTS (modified Jane Austen example):</h4>
+<p><br></p>
 <p>In another example of GoF testing suppose that we know the relative frequency of occurrence of certain letters (let’s take vowels) in the English literature at large. We now examine some documents, and we want to see if the counts of these vowels is consistent with the expected frequencies.</p>
 <p>Let’s simulate some data:</p>
 <pre><code>               a      e     i      o      u
@@ -193,22 +216,23 @@ X-squared = 612.844, df = 4, p-value &lt; 2.2e-16</code></pre>
 <p>The squared difference is far too large for the proportion of vowels in your documents to be consistent with the expected proportion in the English literature at large. Perhaps it is because of a very specific linguistic register your documents come from, or because they are very old documents, etc.</p>
 <p><br><br></p>
 </div>
-<div id="example-5-comparing-distributions-random-number-generation" class="section level4">
-<h4>Example 5: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:</h4>
+<div id="example-6-comparing-distributions-random-number-generation" class="section level4">
+<h4>Example 6: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:</h4>
+<p><br></p>
 <p>We can test how good is [R] at generating random uniform numbers by generating <span class="math">\(\small 1 \,million\)</span> draws:</p>
 <p><img HEIGHT="500" WIDTH="400" src="data:image/png;base64,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"></p>
 <p>which looks very good, but let’s look at the actual counts compared to the expected frequency (<span class="math">\(0.25\)</span>) for every quartile:</p>
 <p>Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case <span class="math">\(\small df=3\)</span>). The name I gave to the table presenting the counts and expected frequencies is <code>tableau</code>:</p>
 <pre class="r"><code>tableau</code></pre>
 <pre><code>##             [0,0.25) [0.25,0.5) [0.5,0.75)  [0.75,1)
-## counts     249522.00  250162.00  249668.00 250648.00
+## counts     250001.00  250395.00  249891.00 249713.00
 ## TargFreq        0.25       0.25       0.25      0.25
 ## Exp_counts 250000.00  250000.00  250000.00 250000.00</code></pre>
 <pre class="r"><code>TS &lt;- sum((tableau[1,] - tableau[3,])^2/tableau[3,])
 TS</code></pre>
-<pre><code>## [1] 3.139424</code></pre>
+<pre><code>## [1] 1.001104</code></pre>
 <pre class="r"><code>pchisq(TS, df=3, lower.tail = F)</code></pre>
-<pre><code>## [1] 0.3706243</code></pre>
+<pre><code>## [1] 0.8009848</code></pre>
 <p>Which is clearly not a value extreme enough to consider that the sample is not distributed according to the 0.25 fractions in each quartile.</p>
 <p>In [R]’s built-in functions we can easily calculate this GOF test:</p>
 <pre class="r"><code>chisq.test(tableau[1,], p = tableau[2,])</code></pre>
@@ -216,11 +240,12 @@ TS</code></pre>
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  tableau[1, ]
-## X-squared = 3.1394, df = 3, p-value = 0.3706</code></pre>
+## X-squared = 1.0011, df = 3, p-value = 0.801</code></pre>
 <p><br><br></p>
 </div>
-<div id="example-6-comparing-distributions-are-investment-returns-normal" class="section level4">
-<h4>Example 6: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS “NORMAL”?</h4>
+<div id="example-7-comparing-distributions-are-investment-returns-normal" class="section level4">
+<h4>Example 7: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS “NORMAL”?</h4>
+<p><br></p>
 <p>As an example of how the chi-square goodness-of-fit test for a normal distribution can be used, the 5-year annualized return rates achieved by 158 growth funds can be assessed for normality:</p>
 <pre class="r"><code>library(gsheet)
 data &lt;- read.csv(text = gsheet2text('https://docs.google.com/spreadsheets/d/1VQP4jwknEQPnbRFOCeFoNdvieHg9BSVrPzMDwXJbsL4/edit?usp=sharing', format ='csv'))
@@ -299,6 +324,7 @@ sum(dat$DELTAsq)</code></pre>
 </div>
 <div id="closing-remarks-for-gof-test" class="section level4">
 <h4>CLOSING REMARKS for GOF test:</h4>
+<p><br></p>
 <p>This test is sensitive to the choice of bins. There is no optimal choice for the bin width (since the optimal bin width depends on the distribution). Most reasonable choices should produce similar, but not identical, results. For the chi-square approximation to be valid, the expected frequency should be at least 5. This test is not valid for small samples, and if some of the counts are less than five, you may need to combine some bins in the tails.</p>
 <p>The <strong>Shapiro-Wilk test</strong>, proposed in 1965, calculates a <span class="math">\(W\)</span> statistic that tests whether a random sample, <span class="math">\(x_1,x_2,\dots,x_n\)</span> comes from (specifically) a normal distribution . Small values of <span class="math">\(W\)</span> are evidence of departure from normality and percentage points for the <span class="math">\(W\)</span> statistic, obtained via Monte Carlo simulations, were reproduced by Pearson and Hartley (1972). This test has done very well in comparison studies with other goodness of fit tests.</p>
 <p>The chi-square test is an alternative to the Anderson-Darling and <strong>Kolmogorov-Smirnov</strong> goodness-of-fit tests. The chi-square goodness-of-fit test can be applied to discrete distributions such as the binomial and the Poisson. The Kolmogorov-Smirnov and Anderson-Darling tests are restricted to continuous distributions.</p>

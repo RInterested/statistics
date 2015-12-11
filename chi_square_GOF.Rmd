@@ -46,6 +46,25 @@ The degrees of freedom in this case are calculated with the formula: $\small \te
 
 
 ####Example 1:
+<br>
+
+A very generic example to see how the expected frequencies are generated would consist of testing whether the values in a vector representing a sample are consistent with a second vector representative of the population:
+
+```{r}
+A <- c(12455, 11554, 11908, 13416, 12647, 7828, 10172) # the sample
+population <- c(181395, 165347, 175331, 193760, 190370, 124226, 157822)
+expected_freq <- population/sum(population) # we need to get the expected frequencies
+ch_sq <- chisq.test(A, p= expected_freq)
+ch_sq$expected
+ch_sq
+```
+
+The sample definitely does not belong to the population distribution.
+
+<br><br>
+
+####Example 2:
+<br>
 
 Does the distribution of ages in a sample matches that expected in the population:
 
@@ -85,7 +104,9 @@ chisq.test(dat[,2], p = dat[,3]/100, correct = F)
 Clearly the value is too asymptotic ($\small p<0.05$) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population.
 <br><br>
 
-####Example 2:
+####Example 3:
+
+<br>
 
 Has the number of suicides in a region stayed the same over time?
 
@@ -107,7 +128,9 @@ chisq.test(dat$suicides, p = replicate(length(dat$suicides),
 Therefore, we don't have enough evidence to reject the idea that there may not be too much difference between years.
 <br><br>
 
-####Example 3:
+####Example 4:
+
+<br>
 
 There is a self-perpetuating *calendar effect* among youth soccer players whereby little players trying out for a team have more of a chance to prove themselves and make the team if they are born in January than in November or December, a difference that is significant at an early age.
 
@@ -136,7 +159,9 @@ chisq.test(dat$players, p = births)
 
 <br><br>
 
-####Example 4: COMPARING MANUSCRIPTS (modified Jane Austen example):
+####Example 5: COMPARING MANUSCRIPTS (modified Jane Austen example):
+
+<br>
 
 In another example of GoF testing suppose that we know the relative frequency of occurrence of certain letters (let's take vowels) in the English literature at large. We now examine some documents, and we want to see if the counts of these vowels is consistent with the expected frequencies.
 
@@ -165,8 +190,9 @@ The squared difference is far too large for the proportion of vowels in your doc
 
 <br><br>
 
-####Example 5: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:
+####Example 6: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:
 
+<br>
 
 We can test how good is [R] at generating random uniform numbers by generating $\small 1 \,million$ draws:
 
@@ -217,7 +243,9 @@ chisq.test(tableau[1,], p = tableau[2,])
 
 <br><br>
 
-####Example 6: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS "NORMAL"?
+####Example 7: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS "NORMAL"?
+
+<br>
 
 As an example of how the chi-square goodness-of-fit test for a normal distribution can be used, the 5-year annualized return rates achieved by 158 growth funds can be assessed for normality:
 
@@ -291,6 +319,8 @@ we can't reject the hypothesis that the returns follow a normal distribution.
 <br>
 
 ####CLOSING REMARKS for GOF test:
+
+<br>
 
 This test is sensitive to the choice of bins. There is no optimal choice for the bin width (since the optimal bin width depends on the distribution). Most reasonable choices should produce similar, but not identical, results. For the chi-square approximation to be valid, the expected frequency should be at least 5. This test is not valid for small samples, and if some of the counts are less than five, you may need to combine some bins in the tails.
 
