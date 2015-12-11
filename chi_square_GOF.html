@@ -73,6 +73,13 @@ img {
 <p>The theoretical distribution is a continuous distribution, but the <span class="math">\(\chi^2\)</span> statistic is obtained in a discrete manner, on the basis of discrete differences betweenthe observed and expected values. Hence, there is a need for asymptotics: The condition in which the chi square statistic is approximated by the theoretical chi square distribution, is that the sample size is reasonably large: there should be at least <span class="math">\(5 \,expected \,cases\)</span> per category. There may be no observed values in one or more categories, and this causes no difficulty with the test. But there must be around 5 or more expected cases per category. If there are considerably less than this, adjacent categories may be grouped together to boost the number of expected cases.</p>
 <p>The test statistic follows a multinomial distribution.</p>
 <p><br></p>
+<p><strong>Concepts:</strong></p>
+<p>• The “goodness-of-fit test” is a way of determining whether a set of categorical data came from a claimed discrete distribution or not. The null hypothesis is that they did and the alternate hypothesis is that they didn’t. It answers the question: are the frequencies I observe for my categorical variable consistent with my theory? The goodness-of-fit test expands the one-proportion z-test. The one-proportion z-test is used if the outcome has only two categories. The goodness-of-fit test is used if you have two or more categories.</p>
+<p>• The “test of homogeneity” is a way of determining whether two or more sub-groups of a population share the same distribution of a single categorical variable. For example, do people of different races have the same proportion of smokers to non-smokers, or do different education levels have different proportions of Democrats, Republicans, and Independent. The test of homogeneity expands on the two-proportion z-test. The two proportion z-test is used when the response variable has only two categories as outcomes and we are comparing two groups. The homogeneity test is used if the response variable has several outcome categories, and we wish to compare two or more groups.</p>
+<p>• The “test of independence” is a way of determining whether two categorical variables are associated with one another in the population, like race and smoking, or education level and political affiliation. In the probability unit we looked at this question without paying attention to the variability of our sample. Now we will have a method for deciding whether our observed P(A|B) is “too far” from our observed P(A) to conclude independence.</p>
+<p>• If you’re thinking, “homogeneity and independence sound the same!”, you’re nearly right. The difference is a matter of design. In the test of independence, observational units are collected at random from a population and two categorical variables are observed for each unit. In the test of homogeneity, the data are collected by randomly sampling from each sub-group separately. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of another categorical variable. (Say, “chain smoker”, “occasional smoker”, “non-smoker”.) The difference between these two tests is subtle yet important.</p>
+<p>• Note that in the test of independence, two variables are observed for each observational unit. In the goodness-of-fit test there is only one observed variable.</p>
+<p><br></p>
 </div>
 <div id="goodness-of-fit-test" class="section level4">
 <h4>GOODNESS-OF-FIT TEST:</h4>
@@ -225,14 +232,14 @@ X-squared = 612.844, df = 4, p-value &lt; 2.2e-16</code></pre>
 <p>Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case <span class="math">\(\small df=3\)</span>). The name I gave to the table presenting the counts and expected frequencies is <code>tableau</code>:</p>
 <pre class="r"><code>tableau</code></pre>
 <pre><code>##             [0,0.25) [0.25,0.5) [0.5,0.75)  [0.75,1)
-## counts     250001.00  250395.00  249891.00 249713.00
+## counts     250207.00  249995.00  250362.00 249436.00
 ## TargFreq        0.25       0.25       0.25      0.25
 ## Exp_counts 250000.00  250000.00  250000.00 250000.00</code></pre>
 <pre class="r"><code>TS &lt;- sum((tableau[1,] - tableau[3,])^2/tableau[3,])
 TS</code></pre>
-<pre><code>## [1] 1.001104</code></pre>
+<pre><code>## [1] 1.968056</code></pre>
 <pre class="r"><code>pchisq(TS, df=3, lower.tail = F)</code></pre>
-<pre><code>## [1] 0.8009848</code></pre>
+<pre><code>## [1] 0.5790632</code></pre>
 <p>Which is clearly not a value extreme enough to consider that the sample is not distributed according to the 0.25 fractions in each quartile.</p>
 <p>In [R]’s built-in functions we can easily calculate this GOF test:</p>
 <pre class="r"><code>chisq.test(tableau[1,], p = tableau[2,])</code></pre>
@@ -240,7 +247,7 @@ TS</code></pre>
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  tableau[1, ]
-## X-squared = 1.0011, df = 3, p-value = 0.801</code></pre>
+## X-squared = 1.9681, df = 3, p-value = 0.5791</code></pre>
 <p><br><br></p>
 </div>
 <div id="example-7-comparing-distributions-are-investment-returns-normal" class="section level4">
