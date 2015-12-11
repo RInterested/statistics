@@ -12,20 +12,14 @@
 
 I will use the following toy tabulated data:
 
-    Antacid <- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)    
-    Antacid_marginals <- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)
-        Antacid_marginals <- rbind(Antacid_marginals, margin.table(Antacid_marginals,2))
-        Antacid_marginals <- cbind(Antacid_marginals, margin.table(Antacid_marginals,1))
-        dimnames(Antacid_marginals) = list(Symptoms = c("Heartburn", "Normal","Totals"),
-                                           Medication = c("Drug A", "Drug B", "Totals"))
+```{r}
+Antacid <- matrix(c(64, 178 - 64, 92, 190 - 92), nrow = 2)    
+dimnames(Antacid) = list(Symptoms = c("Heartburn", "Normal"),
+                        Medication = c("Drug A", "Drug B"))
+addmargins(Antacid)
+```
 
-This is what it looks like (with marginals):
 
-               Medication
-    Symptoms    Drug A Drug B Totals
-      Heartburn     64     92    156
-      Normal       114     98    212
-      Totals       178    190    368
 
 So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to see if there are differences in the proportion of heartburn symptoms between drug A and B, i.e. $p1 = 64/178$ vs $p2 = 92/190$.
 <br><br>
@@ -60,6 +54,16 @@ So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to
     Symptoms       Drug A                   Drug B               
     Heartburn     156 * 178 / 368 = 75      156 * 190 / 368 = 81 
     Normal        212 * 178 / 368 = 103     212 * 190 / 368 = 109
+
+
+This can be more easily calculated as:
+
+```{r}
+(addmargins(expect <- round(chisq.test(Antacid)$expected)))
+final <- as.table(Antacid)
+final[] <- paste(as.table(Antacid),paste0("(",as.table(expect),")"))
+final
+```
 
 <br>
 

@@ -1,0 +1,31 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###VIF CALCULATION:
+
+<br><br>
+
+The function comes in the package `{car}` in R.
+
+Running some regression models using the `mtcars` package in R, I can get the VIF both using the function and manually, when the regressor is a continuous variable:
+
+```{r,warning=FALSE}
+    require(car)
+    attach(mtcars)
+
+    fit1 <- lm(mpg ~ wt + hp + disp)     # The model we want.
+    fit_wt <- lm(wt ~ hp + disp)         # Regressing wt against other regressors.
+    rsq_wt <- summary(fit_wt)$r.square   # Detecting the R square of the model
+    (v_wt <- 1/(1 - (rsq_wt)))           # Actual formula for VIF
+    vif(fit1)                            # R built-in function
+```
+    
+
+<br>
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
