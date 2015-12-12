@@ -50,6 +50,36 @@ barplot(prop.table(table(data$final))) # Now they look normal
 chisq.test(freq_distr, p = Normal_distr) #And the GOF confirms normality.
 ```
 
+
+Alternatively, the percentile can be given as the final grade, or used as an additional grade (percentile + ordinal score):
+
+```{r}
+zscores <- scale(points) # Normalizes the points
+mean(zscores); sd(zscores) #N(0,1)
+hist(zscores, breaks = 18, border = F, col = 'tan') # The data distribution is normalized but not distributed normally
+percentiles <- pnorm(zscores) * 100
+plot(percentiles, pch = 20, col = 2)
+```
+
+At this point we can assign the percentiles as the final grade:
+
+```{r}
+data$percentiles <- round(percentiles)
+tail(data)
+```
+
+Or we can assign grades based on percentiles as we did with "points":
+
+```{r}
+cutoffs <- quantile(percentiles, probs = pnorm(seq(-2,2)))
+data$alternative <- cut(data$percentiles,
+                  breaks=c(-Inf,cutoffs,+Inf),
+                  labels=c(LETTERS[6:1])) # And we assign final grades based on these cutoffs
+tail(data)
+barplot(prop.table(table(data$alternative)))
+```
+
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
