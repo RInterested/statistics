@@ -1,0 +1,55 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###GRADING ON A CURVE DECOUPLES THE ACTUAL RAW SCORES FROM THE GRADE & MAKES IT A PEER-to-PEER SYSTEM:
+<br>
+
+#### The students:
+
+```{r}
+n <- 150     # Number of students
+x <- expand.grid(rep(list(c(LETTERS)), 2))
+options <- do.call(paste0, x)
+names   <- sample(options, size = n, replace = T)
+```
+
+#### The points - raw test scores:
+
+```{r}
+points  <- c(sample(seq(40, 50, 0.1), 15, replace = T), 
+             sample(seq(50, 60, 0.1), 46, replace = T),
+             sample(seq(60, 70, 0.1), 25, replace = T),
+             sample(seq(70, 80, 0.1), 47, replace = T),
+             sample(seq(80, 100, 0.1), 17, replace = T))
+
+data <- data.frame(names, points)
+
+hist(points, xlim=c(0,100), border = F, col = 'tan') # Not normal
+shapiro.test(points)                    # ... with high degree of certainty...
+qqnorm(points)                                  # ...even visually.
+```
+
+#### Grading on the curve:
+
+```{r}
+cutoffs <- quantile(points, probs = pnorm(seq(-2,2))) # Select quantiles with frequency distr like SD of N(0,1)
+
+data$final <- cut(data$points,
+                     breaks=c(-Inf,cutoffs,+Inf),
+                     labels=c(LETTERS[6:1])) # And we assign final grades based on these cutoffs
+
+barplot(prop.table(table(data$final))) # Now they look normal
+
+
+(freq_distr <- prop.table(table(data$final))) # These is how the grades are distributed.
+(Normal_distr <- c(pnorm(-2), pnorm(-1) - pnorm(-2), pnorm(0) - pnorm(-1),
+                  pnorm(1) - pnorm(0), pnorm(2) - pnorm(1), pnorm(2, lower.tail = F))) 
+# This is how the normal would have them.
+chisq.test(freq_distr, p = Normal_distr) #And the GOF confirms normality.
+```
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
