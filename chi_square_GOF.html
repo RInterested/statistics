@@ -99,18 +99,18 @@ img {
 <h4>Example 1:</h4>
 <p><br></p>
 <p>A very generic example to see how the expected frequencies are generated would consist of testing whether the values in a vector representing a sample are consistent with a second vector representative of the population:</p>
-<pre class="r"><code>A &lt;- c(12455, 11554, 11908, 13416, 12647, 7828, 10172) # the sample
+<pre class="r"><code>samp       &lt;- c(12455, 11554, 11908, 13416, 12647, 7828, 10172) # the sample
 population &lt;- c(181395, 165347, 175331, 193760, 190370, 124226, 157822)
 expected_freq &lt;- population/sum(population) # we need to get the expected frequencies
-ch_sq &lt;- chisq.test(A, p= expected_freq)
+ch_sq &lt;- chisq.test(samp, p= expected_freq)
 ch_sq$expected</code></pre>
 <pre><code>## [1] 12209.518 11129.343 11801.356 13041.794 12813.616  8361.529 10622.843</code></pre>
 <pre class="r"><code>ch_sq</code></pre>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
-## data:  A
-## X-squared = 88.184, df = 6, p-value &lt; 2.2e-16</code></pre>
+## data:  samp
+## X-squared = 88.1837, df = 6, p-value &lt; 2.2e-16</code></pre>
 <p>The sample definitely does not belong to the population distribution.</p>
 <p><br><br></p>
 </div>
@@ -118,11 +118,11 @@ ch_sq$expected</code></pre>
 <h4>Example 2:</h4>
 <p><br></p>
 <p>Does the distribution of ages in a sample matches that expected in the population:</p>
-<pre class="r"><code>age &lt;- c(&quot;20-24&quot;, &quot;25-34&quot;, &quot;35-44&quot;)
-Observed &lt;- c(103, 216, 171)
-Expec_Perc. &lt;- c(18, 50, 32)
-(dat &lt;- data.frame(age, Observed, Expec_Perc.))</code></pre>
-<pre><code>##     age Observed Expec_Perc.
+<pre class="r"><code>age         &lt;- c(&quot;20-24&quot;, &quot;25-34&quot;, &quot;35-44&quot;)
+observed    &lt;- c(103, 216, 171)
+Expec_Perc. &lt;- c(18, 50, 32) # Percentages expected.
+(dat &lt;- data.frame(age, observed, Expec_Perc.))</code></pre>
+<pre><code>##     age observed Expec_Perc.
 ## 1 20-24      103          18
 ## 2 25-34      216          50
 ## 3 35-44      171          32</code></pre>
@@ -143,14 +143,15 @@ Expec_Perc. &lt;- c(18, 50, 32)
 ## 
 ## data:  dat[, 2]
 ## X-squared = 7.2021, df = 2, p-value = 0.0273</code></pre>
-<p>Clearly the value is too asymptotic (<span class="math">\(\small p&lt;0.05\)</span>) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population. <br><br></p>
+<p>Clearly the value is too asymptotic (<span class="math">\(\small p&lt;0.05\)</span>) to not reject the equality of distributions, i.e. No, the sample is not distributed as in the theoretical population.</p>
+<p><br><br></p>
 </div>
 <div id="example-3" class="section level4">
 <h4>Example 3:</h4>
 <p><br></p>
 <p>Has the number of suicides in a region stayed the same over time?</p>
 <p>This is the data:</p>
-<pre class="r"><code>years &lt;- c(1978:1989)
+<pre class="r"><code>years    &lt;- c(1978:1989)
 suicides &lt;- c(164, 142, 153, 171, 171, 148, 136, 133, 138, 132, 145, 124)
 dat &lt;- data.frame(years, suicides); as.data.frame(t(dat))</code></pre>
 <pre><code>##            V1   V2   V3   V4   V5   V6   V7   V8   V9  V10  V11  V12
@@ -158,12 +159,12 @@ dat &lt;- data.frame(years, suicides); as.data.frame(t(dat))</code></pre>
 ## suicides  164  142  153  171  171  148  136  133  138  132  145  124</code></pre>
 <p>The assumption is that the frequency is the same across years, and the test is:</p>
 <pre class="r"><code>chisq.test(dat$suicides, p = replicate(length(dat$suicides), 
-                              1/length(dat$suicides)))</code></pre>
+                        1/length(dat$suicides))) # The length is 1/12 which would be the probability if every year was the same.</code></pre>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  dat$suicides
-## X-squared = 18.133, df = 11, p-value = 0.07855</code></pre>
+## X-squared = 18.1326, df = 11, p-value = 0.07855</code></pre>
 <p>Therefore, we don’t have enough evidence to reject the idea that there may not be too much difference between years. <br><br></p>
 </div>
 <div id="example-4" class="section level4">
@@ -172,7 +173,7 @@ dat &lt;- data.frame(years, suicides); as.data.frame(t(dat))</code></pre>
 <p>There is a self-perpetuating <em>calendar effect</em> among youth soccer players whereby little players trying out for a team have more of a chance to prove themselves and make the team if they are born in January than in November or December, a difference that is significant at an early age.</p>
 <p>The birth months of a league of professional players can be analysed with a GOF test:</p>
 <pre class="r"><code>month_bins &lt;- c(&quot;Jan to Mar&quot;, &quot;Apr to Jun&quot;, &quot;Jul to Sep&quot;, &quot;Oct to Dec&quot;)
-players   &lt;- c(84,77,35,34)
+players    &lt;- c(84,77,35,34)
 dat &lt;- data.frame(month_bins, players)
 dat</code></pre>
 <pre><code>##   month_bins players
@@ -181,16 +182,16 @@ dat</code></pre>
 ## 3 Jul to Sep      35
 ## 4 Oct to Dec      34</code></pre>
 <pre class="r"><code>chisq.test(dat$players, p = replicate(length(dat$players),
-                                      1/length(dat$players)))</code></pre>
+                                      1/length(dat$players))) #length is 1/4</code></pre>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  dat$players
-## X-squared = 37.235, df = 3, p-value = 4.104e-08</code></pre>
+## X-squared = 37.2348, df = 3, p-value = 4.104e-08</code></pre>
 <p>… a powerful argument in favor of the calendar effect.</p>
 <p>However, this effect may be due to seasonal differences in the number of births. Hence, if the proportion of births in different months is:</p>
-<pre class="r"><code>births &lt;- c(0.242,0.260,0.258,0.240)
-(dat &lt;- cbind(dat,births))</code></pre>
+<pre class="r"><code>births  &lt;- c(0.242,0.260,0.258,0.240) # Proportions of births each period (adds to 1)
+(dat    &lt;- cbind(dat,births))</code></pre>
 <pre><code>##   month_bins players births
 ## 1 Jan to Mar      84  0.242
 ## 2 Apr to Jun      77  0.260
@@ -201,7 +202,7 @@ dat</code></pre>
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  dat$players
-## X-squared = 37.503, df = 3, p-value = 3.602e-08</code></pre>
+## X-squared = 37.5026, df = 3, p-value = 3.602e-08</code></pre>
 <p>… a different distribution than that predicted, further supporting the calendar effect.</p>
 <p><br><br></p>
 </div>
@@ -211,9 +212,9 @@ dat</code></pre>
 <p>In another example of GoF testing suppose that we know the relative frequency of occurrence of certain letters (let’s take vowels) in the English literature at large. We now examine some documents, and we want to see if the counts of these vowels is consistent with the expected frequencies.</p>
 <p>Let’s simulate some data:</p>
 <pre><code>               a      e     i      o      u
-English     0.34   0.12  0.24   0.11   0.19
+English     0.34   0.12  0.24   0.11   0.19   # These are again proportions.
 documents 256.00 344.00 63.00 223.00 337.00</code></pre>
-<p>The idea is to run a GoF (goodness-of-fit) test to see if the data conforms to the expected frequencies. And we would do this with a χ2 test. The degrees of freedom are the number of cells minus 1.</p>
+<p>The idea is to run a GoF (goodness-of-fit) test to see if the data conforms to the expected frequencies. And we would do this with a <span class="math">\(\chi^2\)</span> test. The degrees of freedom are the number of cells minus 1.</p>
 <pre><code>chisq.test(p = English, documents)
 
     Chi-squared test for given probabilities
@@ -232,14 +233,14 @@ X-squared = 612.844, df = 4, p-value &lt; 2.2e-16</code></pre>
 <p>Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case <span class="math">\(\small df=3\)</span>). The name I gave to the table presenting the counts and expected frequencies is <code>tableau</code>:</p>
 <pre class="r"><code>tableau</code></pre>
 <pre><code>##             [0,0.25) [0.25,0.5) [0.5,0.75)  [0.75,1)
-## counts     249920.00  250211.00  249702.00 250167.00
+## counts     249804.00  249187.00  250628.00 250381.00
 ## TargFreq        0.25       0.25       0.25      0.25
-## Exp_counts 250000.00  250000.00  250000.00 250000.00</code></pre>
+## exp_counts 250000.00  250000.00  250000.00 250000.00</code></pre>
 <pre class="r"><code>TS &lt;- sum((tableau[1,] - tableau[3,])^2/tableau[3,])
 TS</code></pre>
-<pre><code>## [1] 0.670456</code></pre>
+<pre><code>## [1] 4.95572</code></pre>
 <pre class="r"><code>pchisq(TS, df=3, lower.tail = F)</code></pre>
-<pre><code>## [1] 0.88013</code></pre>
+<pre><code>## [1] 0.1750684</code></pre>
 <p>Which is clearly not a value extreme enough to consider that the sample is not distributed according to the 0.25 fractions in each quartile.</p>
 <p>In [R]’s built-in functions we can easily calculate this GOF test:</p>
 <pre class="r"><code>chisq.test(tableau[1,], p = tableau[2,])</code></pre>
@@ -247,7 +248,7 @@ TS</code></pre>
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  tableau[1, ]
-## X-squared = 0.67046, df = 3, p-value = 0.8801</code></pre>
+## X-squared = 4.9557, df = 3, p-value = 0.1751</code></pre>
 <p><br><br></p>
 </div>
 <div id="example-7-comparing-distributions-are-investment-returns-normal" class="section level4">

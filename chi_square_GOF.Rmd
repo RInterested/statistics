@@ -65,10 +65,10 @@ The degrees of freedom in this case are calculated with the formula: $\small \te
 A very generic example to see how the expected frequencies are generated would consist of testing whether the values in a vector representing a sample are consistent with a second vector representative of the population:
 
 ```{r}
-A <- c(12455, 11554, 11908, 13416, 12647, 7828, 10172) # the sample
+samp       <- c(12455, 11554, 11908, 13416, 12647, 7828, 10172) # the sample
 population <- c(181395, 165347, 175331, 193760, 190370, 124226, 157822)
 expected_freq <- population/sum(population) # we need to get the expected frequencies
-ch_sq <- chisq.test(A, p= expected_freq)
+ch_sq <- chisq.test(samp, p= expected_freq)
 ch_sq$expected
 ch_sq
 ```
@@ -83,10 +83,10 @@ The sample definitely does not belong to the population distribution.
 Does the distribution of ages in a sample matches that expected in the population:
 
 ```{r}
-age <- c("20-24", "25-34", "35-44")
-Observed <- c(103, 216, 171)
-Expec_Perc. <- c(18, 50, 32)
-(dat <- data.frame(age, Observed, Expec_Perc.))
+age         <- c("20-24", "25-34", "35-44")
+observed    <- c(103, 216, 171)
+Expec_Perc. <- c(18, 50, 32) # Percentages expected.
+(dat <- data.frame(age, observed, Expec_Perc.))
 ```
 
 In other words, $H_o$: The proportion of cases in category $i$ is $p_i$; $i= 1, 2, 3, \dots k$. The alternative hypothesis is that at least one of the proportions is not as hypothesized.
@@ -115,7 +115,8 @@ Check it out:
 chisq.test(dat[,2], p = dat[,3]/100, correct = F)
 ```
 
-Clearly the value is too asymptotic ($\small p<0.05$) to not reject the equality of distributions, ie. No the sample is not distributed as in the theoretical population.
+Clearly the value is too asymptotic ($\small p<0.05$) to not reject the equality of distributions, i.e. No, the sample is not distributed as in the theoretical population.
+
 <br><br>
 
 ####Example 3:
@@ -127,7 +128,7 @@ Has the number of suicides in a region stayed the same over time?
 This is the data:
 
 ```{r}
-years <- c(1978:1989)
+years    <- c(1978:1989)
 suicides <- c(164, 142, 153, 171, 171, 148, 136, 133, 138, 132, 145, 124)
 dat <- data.frame(years, suicides); as.data.frame(t(dat))
 ```
@@ -136,7 +137,7 @@ The assumption is that the frequency is the same across years, and the test is:
 
 ```{r}
 chisq.test(dat$suicides, p = replicate(length(dat$suicides), 
-                              1/length(dat$suicides)))
+                        1/length(dat$suicides))) # The length is 1/12 which would be the probability if every year was the same.
 ```
 
 Therefore, we don't have enough evidence to reject the idea that there may not be too much difference between years.
@@ -152,11 +153,11 @@ The birth months of a league of professional players can be analysed with a GOF 
 
 ```{r}
 month_bins <- c("Jan to Mar", "Apr to Jun", "Jul to Sep", "Oct to Dec")
-players   <- c(84,77,35,34)
+players    <- c(84,77,35,34)
 dat <- data.frame(month_bins, players)
 dat
 chisq.test(dat$players, p = replicate(length(dat$players),
-                                      1/length(dat$players)))
+                                      1/length(dat$players))) #length is 1/4
 ```
 
 ... a powerful argument in favor of the calendar effect.
@@ -164,8 +165,8 @@ chisq.test(dat$players, p = replicate(length(dat$players),
 However, this effect may be due to seasonal differences in the number of births. Hence, if the proportion of births in different months is:
 
 ```{r}
-births <- c(0.242,0.260,0.258,0.240)
-(dat <- cbind(dat,births))
+births  <- c(0.242,0.260,0.258,0.240) # Proportions of births each period (adds to 1)
+(dat    <- cbind(dat,births))
 chisq.test(dat$players, p = births)
 ```
 
@@ -184,11 +185,11 @@ Let's simulate some data:
 
 ```
                a      e     i      o      u
-English     0.34   0.12  0.24   0.11   0.19
+English     0.34   0.12  0.24   0.11   0.19   # These are again proportions.
 documents 256.00 344.00 63.00 223.00 337.00
 ```
 
-The idea is to run a GoF (goodness-of-fit) test to see if the data conforms to the expected frequencies. And we would do this with a χ2 test. The degrees of freedom are the number of cells minus 1.
+The idea is to run a GoF (goodness-of-fit) test to see if the data conforms to the expected frequencies. And we would do this with a $\chi^2$ test. The degrees of freedom are the number of cells minus 1.
 
 
 ```
@@ -217,24 +218,22 @@ which looks very good, but let's look at the actual counts compared to the expec
 ```{r,echo=F,results='hide'}
 uniform_sample <- runif(1e6)
 
-first <- length(uniform_sample[uniform_sample<0.25])
-secnd <- length(uniform_sample[uniform_sample>=0.25&
+first    <- length(uniform_sample[uniform_sample<0.25])
+secnd    <- length(uniform_sample[uniform_sample>=0.25&
                               uniform_sample<0.5])
-third <- length(uniform_sample[uniform_sample>=0.5&
+third    <- length(uniform_sample[uniform_sample>=0.5&
                               uniform_sample<0.75])
-fourth<-length(uniform_sample[uniform_sample>=0.75])
+fourth   <- length(uniform_sample[uniform_sample>=0.75])
 
-counts <- c(first,secnd,third,fourth)
+counts   <- c(first,secnd,third,fourth)
 TargFreq <- c(0.25, 0.25, 0.25, 0.25)
 
 tab <- t(as.matrix(data.frame(counts, TargFreq)))
-colnames(tab) <-c("[0,0.25)", "[0.25,0.5)", 
-                        "[0.5,0.75)", "[0.75,1)")
+colnames(tab) <-c("[0,0.25)", "[0.25,0.5)", "[0.5,0.75)", "[0.75,1)")
 
-
-Exp_counts <- c(rep(1e6 * 0.25, times = 4))
-tableau <- rbind(tab,Exp_counts)
-tableau
+exp_counts <- c(rep(1e6 * 0.25, times = 4))
+tableau <- rbind(tab, exp_counts)
+tableau # tableau is just a name for this object
 ```
 
 Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case $\small df=3$). The name I gave to the table presenting the counts and expected frequencies is `tableau`:
