@@ -3,6 +3,33 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
+###MATHEMATICS of LOGISTIC REGRESSION:
+
+The essence of the problem addressed by logistic regression is the binary nature of the dependent variable. We want to estimate the probability of success/failure of the dependent variable ($p(Y=1)$), given the explanatory variables: $p(Y=1|X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
+
+
+Logistic regression addresses the following issues:
+
+1. There is a need to bound at $1$ since we are estimating a probability, but lines are not naturally bounded. So we transform probability into odds:
+
+$\text{odds}=\frac{p(Y=1)}{1-p(Y=1)}$
+
+2. Now, when the probability goes down to zero, the odds also tend to zero; yet there is no floor restriction in a line.
+
+This problem can be addressed by expressing the linear relation in log scale: $log(\text{odds})$, which will tend to $-\infty$ as the odds tend to zero. This is the **logit** or log-odds function.
+
+The logistic regression model is therefore:
+
+
+$log(\frac{p(Y=1)}{1-p(Y=1)}) = \beta_o + x\beta$
+
+And
+
+$p(Y = 1) =\frac{e^{\beta_o + x\beta}}{1 + e^{\beta_o + x\beta}}$.
+
+If we predict $1$ when the $p(Y=1)>0.5$ the cutoff limit will be $log(1)=0$. Hence, when the logit function is above zero we predict $1$, and when it is negative, we predict $0$. Therefore the problem boils down to solving $0 = \beta_o + x\beta$.
+
+
 ###INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
 <br>
 
