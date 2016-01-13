@@ -12,7 +12,9 @@ Logistic regression addresses the following issues:
 
 1. There is a need to bound at $1$ since we are estimating a probability, but lines are not naturally bounded. So we transform probability into odds:
 
-$\large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}$
+$\large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}$.
+
+In addition, this also helps turning a sigmoid curve of the typical cummulative probability distribution (e.g. normal) into a linear relation.
 
 2. Now, when the probability goes down to zero, the odds also tend to zero; yet there is no floor restriction in a line.
 
@@ -21,9 +23,18 @@ This problem can be addressed by expressing the linear relation in log scale: $l
 The logistic regression model is therefore:
 
 
-$\Large log\left(\frac{p(Y=1)}{1-p(Y=1)}\right) = \beta_o + x\beta$
+$\Large log\left(\frac{p(Y=1)}{1-p(Y=1)}\right) = \beta_o + X\beta$
 
-And
+
+or
+
+$\large \log\left(\text{Odds}(Y)\right) = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p$
+
+Consequently,
+
+$\large \text{Odds}(Y) = \exp(\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)$
+
+And,
 
 $\Large p(Y = 1) =\frac{e^{\,\beta_o + x\beta}}{1 + e^{\,\beta_o + x\beta}}$.
 

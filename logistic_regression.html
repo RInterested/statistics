@@ -75,14 +75,19 @@ img {
 <ol style="list-style-type: decimal">
 <li>There is a need to bound at <span class="math inline">\(1\)</span> since we are estimating a probability, but lines are not naturally bounded. So we transform probability into odds:</li>
 </ol>
-<p><span class="math inline">\(\large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}\)</span></p>
+<p><span class="math inline">\(\large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}\)</span>.</p>
+<p>In addition, this also helps turning a sigmoid curve of the typical cummulative probability distribution (e.g. normal) into a linear relation.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Now, when the probability goes down to zero, the odds also tend to zero; yet there is no floor restriction in a line.</li>
 </ol>
 <p>This problem can be addressed by expressing the linear relation in log scale: <span class="math inline">\(log(\text{odds})\)</span>, which will tend to <span class="math inline">\(-\infty\)</span> as the odds tend to zero. This is the <strong>logit</strong> or log-odds function.</p>
 <p>The logistic regression model is therefore:</p>
-<p><span class="math inline">\(\Large log\left(\frac{p(Y=1)}{1-p(Y=1)}\right) = \beta_o + x\beta\)</span></p>
-<p>And</p>
+<p><span class="math inline">\(\Large log\left(\frac{p(Y=1)}{1-p(Y=1)}\right) = \beta_o + X\beta\)</span></p>
+<p>or</p>
+<p><span class="math inline">\(\large \log\left(\text{Odds}(Y)\right) = \beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p\)</span></p>
+<p>Consequently,</p>
+<p><span class="math inline">\(\large \text{Odds}(Y) = \exp(\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)\)</span></p>
+<p>And,</p>
 <p><span class="math inline">\(\Large p(Y = 1) =\frac{e^{\,\beta_o + x\beta}}{1 + e^{\,\beta_o + x\beta}}\)</span>.</p>
 <p>If we predict <span class="math inline">\(1\)</span> when the <span class="math inline">\(p(Y=1)&gt;0.5\)</span> the cutoff limit will be <span class="math inline">\(log(1)=0\)</span>. Hence, when the logit function is above zero we predict <span class="math inline">\(1\)</span>, and when it is negative, we predict <span class="math inline">\(0\)</span>. Therefore the problem boils down to solving <span class="math inline">\(0 = \beta_o + x\beta\)</span>.</p>
 </div>
