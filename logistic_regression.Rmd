@@ -63,6 +63,19 @@ $\large p(Y = 1) = \frac{Odds(Y=1)}{1+Odds(Y=1)}=\frac{e^{\,\beta_0 + \beta_1 x_
 
 <br><br>
 
+###TESTING A LOGISTIC REGRESSION MODEL:
+<br>
+
+1. GOODNESS-OF-FIT: Model calibration
+
+The Hosmer-Lemeshow goodness of fit test divides up in boxes the predicted probabilities (in R the function is `fitted` as opposed to `predict`), and runs a chi-square test comparing to the percentage of cases that have $Y=1$ among those with predicted probability within a certain interval. See [here](http://thestatsgeek.com/2014/02/16/the-hosmer-lemeshow-goodness-of-fit-test-for-logistic-regression/)
+
+2. C-STATISTIC or AUC (area under the curve of the ROC): Discriminatory power of the model
+
+It is based on selecting different probabilities from $0$ to $1$ and calculating sensitivity and specificity in an ROC curve, and then measuring the AUC. See [here](http://thestatsgeek.com/2014/05/05/area-under-the-roc-curve-assessing-discrimination-in-logistic-regression/).
+
+<br><br>
+
 ###INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
 <br>
 

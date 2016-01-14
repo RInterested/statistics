@@ -94,6 +94,19 @@ img {
 <p><span class="math inline">\(\large p(Y = 1) = \frac{Odds(Y=1)}{1+Odds(Y=1)}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}.\)</span></p>
 <p><br><br></p>
 </div>
+<div id="testing-a-logistic-regression-model" class="section level3">
+<h3>TESTING A LOGISTIC REGRESSION MODEL:</h3>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>GOODNESS-OF-FIT: Model calibration</li>
+</ol>
+<p>The Hosmer-Lemeshow goodness of fit test divides up in boxes the predicted probabilities (in R the function is <code>fitted</code> as opposed to <code>predict</code>), and runs a chi-square test comparing to the percentage of cases that have <span class="math inline">\(Y=1\)</span> among those with predicted probability within a certain interval. See <a href="http://thestatsgeek.com/2014/02/16/the-hosmer-lemeshow-goodness-of-fit-test-for-logistic-regression/">here</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>C-STATISTIC or AUC (area under the curve of the ROC): Discriminatory power of the model</li>
+</ol>
+<p>It is based on selecting different probabilities from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span> and calculating sensitivity and specificity in an ROC curve, and then measuring the AUC. See <a href="http://thestatsgeek.com/2014/05/05/area-under-the-roc-curve-assessing-discrimination-in-logistic-regression/">here</a>.</p>
+<p><br><br></p>
+</div>
 <div id="interpretation-of-logistic-regression-results" class="section level3">
 <h3>INTERPRETATION OF LOGISTIC REGRESSION RESULTS:</h3>
 <p><br></p>
