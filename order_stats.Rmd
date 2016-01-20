@@ -89,12 +89,30 @@ $\large P(X_{(1)} \in  [x_1, x_1 + dx_1], X_{(2)} \in [x_2, x_2 + dx_2], \cdots,
 
 $\large n! f(x_1)\,f(x_2)\,\cdots,f(x_n)\large \,dx_1\,dx_2\,dx_3,\cdots\,dx_n$. And the pdf is $\large n!\, f(x_1)\,f(x_2)\,\cdots,f(x_n).$
 
-For the marginal of the $\large K$-th order statistic:
+<br>
+
+For the marginal pdf of the $\large K$-th order statistic:
 
 
 
  <img src="https://cloud.githubusercontent.com/assets/9312897/12461052/e8f53ade-bf84-11e5-95f7-bbe831379888.png" width="800" height="400">
+ 
+ <br>
+ 
+We look at the probability of the observed value to be in the $k$ small interval. There are $n$ choices for the one value in the small interval ($X_{(k)}$) with probability $f(x)\,dx$. There are $k - 1$ to the left; and $n - k$ to the right. So we choose the ones to the left with the combination below, and we look at the probability of being to the left of $x$: $\large F(x)^{k-1}\,(1-F(x))^{n-k})$ in a binomial:
 
+<br>
+ 
+ $\Large f_{x{(k)}}(x)\,dx = n\,{n-1\choose k-1} (f(x)\,dx) \,F(x)^{k-1}\,(1-F(x))^{n-k}$
+ 
+ <br>
+
+Simplifying:
+
+<br>
+
+ $\Large f_{x{(k)}}(x)\,dx = n\,{n-1\choose k-1} \, \,F(x)^{k-1}\,(1-F(x))^{n-k}\, f(x)$
+ 
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
