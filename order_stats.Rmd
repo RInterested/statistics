@@ -1,0 +1,100 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###MOTIVATION FOR k ORDER STATISTICS:
+<br>
+
+A website receives $1\, \text{order}\,/3 \, \text{min}$. The time until the next order follows an exponential distribution with a $\lambda$ rate parameter of $3 \, \text{min}$. Knowing that there were $10$ clients placing orders online from that site last night we want to calculate the expected waiting time for the first and last orders placed after 5pm (night-time period = time $0$). And we want to find out the time of the $k$-th order.
+
+Every order placed cames at a time. This time is the random variable. Since there are 10 orders, we have $X_1, X_2, X_3,...X_{10}$. To make the derivation more generalized, we can consider $X_n$ as the last entry. They are independent of each other, and they are governed by the *pdf* $\lambda\,e^{-\lambda\,x}$, and *cdf* $1 \,-\, e^-{-\lambda\,x}$, where $x$ stands for time. These will be referred as the *common* density and probability functions, because they are shared by all the variables.
+
+The point now is to describe a different variable: the *order* of the observations. So if we imagine that the callers carry a bib number from $1$ to $10$ that links to the times they place their orders, client $X_1$ may end up being the third one to place the order, when ordering the times of the $10$ clients, in which case the new variable will be denoted as $X_{(3)}$. Notice the small parentheses.
+
+The cdf of this new variable for the last order, $n=10$ will be:
+
+
+
+ <img src="https://cloud.githubusercontent.com/assets/9312897/12458023/944d0412-bf75-11e5-9194-076558945160.png" width="600" height="400">
+
+<br>
+
+$\large F_{x_{(n)}}(x) = P(X_{n}\leq x) = P(\text{all}\,X_i \leq x = \displaystyle \prod_{k=1}^n P(X_n \leq x) = F(x)^n$, since they are independent and identically ditributed.
+
+In the case of the exponential distribution: $\left (1 - e^{-\lambda\,x \,}\right)^n.$
+
+On the other hand the pdf is:
+
+<br>
+
+$\large \frac{d}{dx}\,F_{x_{(n)}}(x) = n\,(F(x))^{n-1}\, f(x) = n\,\left (1 - e^{-\lambda\,x \,}\right)^{n-1}\,\lambda\,e^{-\lambda x}.$
+
+<br>
+
+On the other hand the pdf and cdf for the first order (n=1) entered on the website are:
+
+<br>
+
+$\large F_{x_{(1)}}(x) = P(\text{min}\, X_i \leq x) = 1 - P(X_{(1)} \geq x) =  1 - (1 - F(x))^n = 1 - (1 - (1 - e^{-\lambda x}))^n = 1 - e^{\,-\lambda x n}.$
+
+<br>
+
+The pdf for the minimum will be:
+
+$f_{X_{(1)}}(x)=\large \frac{d}{dx}\,F_{x_{(1)}}(x) = - n \left(1 - F(x)\right)^{n-1}\,(-f(x)) = n \left(1 - F(x)\right)^{n-1}\,(f(x)) = n(1 - (1 - e^{-\lambda x}))^{n-1}\, \lambda\,e^{-\lambda x} =$
+
+<br>
+
+$\large = n(e^{-\lambda x (n-1)})\, \lambda\,e^{-\lambda x} = n\, \lambda \, e^{-\lambda x n}.$
+
+What is the joint pdf for all the order statistics:
+
+<br>
+
+ <img src="https://cloud.githubusercontent.com/assets/9312897/12458034/a8ec747a-bf75-11e5-9eb6-32f255c57e18.png" width="600" height="400">
+
+
+
+For the actual observations evaluated at the the observation points:
+
+<br>
+
+$P(X_1 \in  [x_1, x_1 + dx_1], X_2 \in [x_2, x_2 + dx_2], \cdots, X_n \in [x_n, x_n + dx_n] = \displaystyle \prod_{k=1}^n \, P(X_k \in [X_k, x_k + dx_k]) = \displaystyle \prod_{k=1}^n \, f(x_k)\,dx_k=$
+
+<br>
+
+$\large =f(x_1)\,f(x_2)\,\cdots,f(x_n)\,dx_1\,dx_2,\cdots,\,dx_n.$
+
+<br>
+
+The first part is the joint pdf for $\Large f_{x_1,x_2,\cdots,x_n}$ evaluated at $\Large x_1, x_2,\cdots, x_n$, or 
+
+<br>
+
+$\Large f_{x_1,x_2,\cdots,x_n\,(x_1, x_2,\cdots, x_n)}\large \,dx_1\,dx_2\,dx_3,\cdots\,dx_n$ given the independence of the marginals.
+
+
+Now, for the *order statistics* we need to see the indifference to the actual relationship between subject and order:
+
+<br>
+
+$\large f_{x_{(1)},x_{(2)},x_{(3)}\cdots,x_{(n)}\,(x_1, x_2,\cdots, x_n)}\,dx_1\,dx_2\,dx_3,\cdots\,dx_n =$ 
+
+<br>
+
+$\large P(X_{(1)} \in  [x_1, x_1 + dx_1], X_{(2)} \in [x_2, x_2 + dx_2], \cdots, X_{(n)} \in [x_n, x_n + dx_n] =$
+
+<br>
+
+$\large n! f(x_1)\,f(x_2)\,\cdots,f(x_n)\large \,dx_1\,dx_2\,dx_3,\cdots\,dx_n$. And the pdf is $\large n!\, f(x_1)\,f(x_2)\,\cdots,f(x_n).$
+
+For the marginal of the $\large K$-th order statistic:
+
+
+
+ <img src="https://cloud.githubusercontent.com/assets/9312897/12461052/e8f53ade-bf84-11e5-95f7-bbe831379888.png" width="800" height="400">
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
