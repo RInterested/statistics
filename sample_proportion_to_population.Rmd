@@ -3,7 +3,7 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###COMPARING SAMPLE TO POPULATION PROPORTION:
+###COMPARING SAMPLE TO POPULATION PROPORTION - BINOMIAL TEST:
 <br>
 
 If we want to test whether a *one* sample proportion $p$ is consistent with a population parameter $p_o$ the **score** test statistic is:
@@ -34,7 +34,7 @@ Example: We want to test if the proportion of side effects is greater than 0.1 f
 qnorm(0.95) # One-sided test
 ```
 
-Alternatively, we can just run an *exact binomial test*, which doesn't need to rely on the normal approximation:
+Alternatively, we can just run an [exact binomial test](https://en.wikipedia.org/wiki/Binomial_test), which doesn't need to rely on the normal approximation:
 
 $p(counts \geq 11)= \displaystyle \sum_{11}^{20} {20\choose X} \,0.1^X\, 0.9^{20-X}$
 
