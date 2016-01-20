@@ -111,7 +111,39 @@ Simplifying:
 
 <br>
 
- $\Large f_{x{(k)}}(x)\,dx = n\,{n-1\choose k-1} \, \,F(x)^{k-1}\,(1-F(x))^{n-k}\, f(x)$
+ $\Large f_{x{(k)}}(x) = n\,{n-1\choose k-1} \, \,F(x)^{k-1}\,(1-F(x))^{n-k}\, f(x)$
+ 
+ <br>
+ In the case of the exponential distribution:
+ <br>
+ 
+  $\Large f_{x{(k)}}= n\,{n-1\choose k-1} \, \,(1 - e^{\,-\lambda x})^{k-1}\,(1-(1 - e^{\,-\lambda x}))^{n-k}\, f(x)=$
+  
+  <br>
+  
+  $\Large =n\,{n-1\choose k-1} \, \,(1 - e^{\,-\lambda x})^{k-1}\,( e^{\,-\lambda x})^{n-k}\, f(x)$
+ 
+   <br>
+  
+  $\Large =n\,{n-1\choose k-1} \, \,(1 - e^{\,-\lambda x})^{k-1}\,( e^{\,-\lambda x})^{n-k}\, \lambda e^{\,-\lambda x}$
+  
+  <br>
+  
+  $\Large =\lambda \, n\,{n-1\choose k-1} \, \,(1 - e^{\,-\lambda x})^{k-1}\,( e^{\,-\lambda x})^{n-k}\, e^{\,-\lambda x}$
+  
+  
+  <br>
+  
+  $\Large =\lambda \, n\,{n-1\choose k-1} \, \,(1 - e^{\,-\lambda x})^{k-1}\,e^{\,-\lambda x(2 +n - k)}$ 
+  
+  <br>
+  
+  Integrating:
+  
+   <img src="https://cloud.githubusercontent.com/assets/9312897/12463321/e03b7834-bf90-11e5-9db5-9ceeafda9ce3.png" width="800" height="400">
+   
+   And $_2F_1$(a,b; c; x) is the hypergeometric function.
+  
  
 ---
 
