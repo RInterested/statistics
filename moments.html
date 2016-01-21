@@ -99,23 +99,30 @@ img {
 <p><br></p>
 <p>Expanding the Taylor series of this function:</p>
 <p><br></p>
-<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{(e^{tX})^{(n)}|a}{n!}\,(X-a)^n \right].\)</span></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{(e^{tX})^{(n)}|a}{n!}\,(X-a)^n \right].\)</span></p>
 <p><br></p>
 <p><span class="math inline">\(\large (e^{\,tX})^{(n)}|a\)</span> being the notation for the <span class="math inline">\(n\)</span> derivative of the function, evaluated at <span class="math inline">\(\large a\)</span>. So if <span class="math inline">\(a = 0\)</span>, i.e. Maclaurin series: we evaluate at <span class="math inline">\(a = 0\)</span>, which will go into <span class="math inline">\(t\)</span>. We derive with respect to <span class="math inline">\(t\)</span>:</p>
-<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[e^{tX} + \frac{X\,e^{tX} }{1!} \, (t-0) \, + \frac{X^2\,e^{tX} }{2!} \, (t-0)^2 \, + \frac{X^3\,e^{tX} }{3!} \, (t-0)^3 \, + \cdots \right] |a = 0\)</span></p>
 <p><br></p>
-<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[e^{0X} + \frac{X\,e^{0X} }{1!} \, (t) \, + \frac{X^2\,e^{0X} }{2!} \, (t)^2 \, + \frac{X^3\,e^{0X} }{3!} \, (t)^3 \, + \cdots \right]\)</span></p>
+<p><span class="math inline">\(\Large M_X(t) =\mathbb{E}[e^{\,tX}]= \mathbb{E} \left[e^{tX} + \frac{X\,e^{tX} }{1!} \, (t-0) \, + \frac{X^2\,e^{tX} }{2!} \, (t-0)^2 \, + \frac{X^3\,e^{tX} }{3!} \, (t-0)^3 \, + \cdots \right] |a = 0\)</span></p>
 <p><br></p>
-<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]\)</span></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[e^{0X} + \frac{X\,e^{0X} }{1!} \, (t) \, + \frac{X^2\,e^{0X} }{2!} \, (t)^2 \, + \frac{X^3\,e^{0X} }{3!} \, (t)^3 \, + \cdots \right]\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]\)</span></p>
 <p><br></p>
 <p>Now, since we are evaluating at <span class="math inline">\(t=0\)</span>, every term with a <span class="math inline">\(t\)</span> will be <span class="math inline">\(0\)</span>, but the point is to differentiate the power series over and over, so that every time there is just one term without <span class="math inline">\(t\)</span>.</p>
 <p>Since expectation is linear operator:</p>
 <p><br></p>
-<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[1 \right] + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots\)</span></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 \right] + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots\)</span></p>
 <p><br></p>
-<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[1 \right] + \frac{\mathbb{E} \left[X\right]}{1!} \, t \, + \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2 \, + \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots\)</span></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 \right] + \frac{\mathbb{E} \left[X\right]}{1!} \, t \, + \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2 \, + \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots\)</span></p>
 <p><br></p>
 <p>As shown, the moments are just the coefficient that will “survive” after taking the derivative corresponding to the number of the moment.</p>
+<p>So the key is to integrate to find the <span class="math inline">\(\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx\)</span> (by LOTUS the expectation is the integral of the function of <span class="math inline">\(X\)</span> times its pdf), so that we can avoid the more difficult direct calculation of:</p>
+<p><br> <span class="math inline">\(\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx\)</span></p>
+<p><br></p>
+<p>For the exponential (remember that pdf of an exponential is <span class="math inline">\(\lambda\,e^{-\lambda x}\)</span>):</p>
+<p><span class="math inline">\(\Large M_X(t) =\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx = \displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\,\lambda\,e^{-\lambda x}\,\,dx = \lambda \displaystyle\int_{-\infty}^{\infty}e^{\,X(t-\lambda)}\,\,\,dx\)</span></p>
+<p><br> <span class="math inline">\(\Large M_X(t) =\mathbb{E}[e^{\,tX}]=\Large \lambda \left(\left.\frac{e^{\,X(t-\lambda)}}{X(t-\lambda)} \right|_{-\infty}^{\infty}\right)=\frac{\lambda}{t-\lambda} = \lambda\,(t-\lambda)^{-1}.\)</span> If <span class="math inline">\(t- \lambda&lt;0.\)</span> <br></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

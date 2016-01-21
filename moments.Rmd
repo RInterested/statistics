@@ -55,21 +55,24 @@ Expanding the Taylor series of this function:
 
 <br>
 
-$\Large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{(e^{tX})^{(n)}|a}{n!}\,(X-a)^n \right].$
+$\Large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{(e^{tX})^{(n)}|a}{n!}\,(X-a)^n \right].$
 
 <br>
 
 $\large (e^{\,tX})^{(n)}|a$ being the notation for the $n$ derivative of the function, evaluated at $\large a$. So if $a = 0$, i.e.  Maclaurin series: we evaluate at $a = 0$, which will go into $t$. We derive with respect to $t$:
 
-$\Large M_X(t) = \mathbb{E} \left[e^{tX} + \frac{X\,e^{tX} }{1!} \, (t-0) \, + \frac{X^2\,e^{tX} }{2!} \, (t-0)^2 \, + \frac{X^3\,e^{tX} }{3!} \, (t-0)^3 \, + \cdots \right] |a = 0$
 
 <br>
 
-$\Large M_X(t) = \mathbb{E} \left[e^{0X} + \frac{X\,e^{0X} }{1!} \, (t) \, + \frac{X^2\,e^{0X} }{2!} \, (t)^2 \, + \frac{X^3\,e^{0X} }{3!} \, (t)^3 \, + \cdots \right]$
+$\Large M_X(t) =\mathbb{E}[e^{\,tX}]= \mathbb{E} \left[e^{tX} + \frac{X\,e^{tX} }{1!} \, (t-0) \, + \frac{X^2\,e^{tX} }{2!} \, (t-0)^2 \, + \frac{X^3\,e^{tX} }{3!} \, (t-0)^3 \, + \cdots \right] |a = 0$
 
 <br>
 
-$\Large M_X(t) = \mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]$
+$\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[e^{0X} + \frac{X\,e^{0X} }{1!} \, (t) \, + \frac{X^2\,e^{0X} }{2!} \, (t)^2 \, + \frac{X^3\,e^{0X} }{3!} \, (t)^3 \, + \cdots \right]$
+
+<br>
+
+$\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]$
 
 <br>
 
@@ -79,15 +82,30 @@ Since expectation is linear operator:
 
 <br>
 
-$\Large M_X(t) = \mathbb{E} \left[1 \right] + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots$
+$\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 \right] + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots$
 
 <br>
 
-$\Large M_X(t) = \mathbb{E} \left[1 \right] +  \frac{\mathbb{E} \left[X\right]}{1!} \, t  \, +  \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2  \, +  \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots$
+$\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 \right] +  \frac{\mathbb{E} \left[X\right]}{1!} \, t  \, +  \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2  \, +  \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots$
 
 <br>
 
 As shown, the moments are just the coefficient that will "survive" after taking the derivative corresponding to the number of the moment.
+
+So the key is to integrate to find the $\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx$ (by LOTUS the expectation is the integral of the function of $X$ times its pdf), so that we can avoid the more difficult direct calculation of:
+
+<br>
+$\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx$
+
+<br>
+
+For the exponential (remember that pdf of an exponential is $\lambda\,e^{-\lambda x}$):
+
+$\Large M_X(t) =\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx = \displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\,\lambda\,e^{-\lambda x}\,\,dx = \lambda \displaystyle\int_{-\infty}^{\infty}e^{\,X(t-\lambda)}\,\,\,dx$
+
+<br>
+$\Large M_X(t) =\mathbb{E}[e^{\,tX}]=\Large \lambda \left(\left.\frac{e^{\,X(t-\lambda)}}{X(t-\lambda)} \right|_{-\infty}^{\infty}\right)=\frac{\lambda}{t-\lambda} = \lambda\,(t-\lambda)^{-1}.$ If $t- \lambda<0.$
+<br>
 
 ---
 
