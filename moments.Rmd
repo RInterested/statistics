@@ -12,11 +12,11 @@ $\color{blue}{\text{Expected}}$ value of a $\color{red}{\text{power}}$ of a rand
 
 We use [LOTUS](https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician) to calculate this expectation: the expected value of a function of the variable (in this case an exponentiation) is obtained by multiplying that function $\times$ the pdf, and integrating:
 
-$\large \mathbb{E}(\color{blue}{X^k}) = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx$
+$\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx$
 
 $k$ is the number of the moment. For the *mean*:
 
-$\large \mathbb{E}({X^1}) = \displaystyle\int_{-\infty}^{\infty}X^1\,\,\text{pdf}\,\,\,dx$
+$\large \mathbb{E}[{X^1}] = \displaystyle\int_{-\infty}^{\infty}X^1\,\,\text{pdf}\,\,\,dx$
 
 There are two types of moments:
 
@@ -30,9 +30,64 @@ Alternatively, it can be defined as the difference between the second and the $\
 
 $\mu_2= \mathbb{E}[X^2]\,-\,\mathbb{E}[X]^2.$
 
+<br>
 
+1. Mean: First *raw* moment.
+2. Variance: Second *central* moment.
+3. Skew (asymmetry): Third *central* moment, $\color{blue}{\text{standardized}}$ i.e. divided by the $\sigma^3$.
+4. Kurtosis (peakedness): Fourth *central* moment, but divided by $\sigma^3$, AND subtacting $-3$ from the result.
 
 <br>
+
+####MOMENT GENERATING FUNCTIONS:
+
+Instead of integrating the defining equation to obtain the raw moments, we can 1. First get this "moment generating function (MGF)"; and 2. Derive the MGF to get the raw moments.
+
+#####DEFINITION of MGF:
+
+<br>
+
+$\Large M_X(t) = \mathbb{E}[e^{\,tX}]$
+
+<br>
+
+Expanding the Taylor series of this function:
+
+<br>
+
+$\Large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{(e^{tX})^{(n)}|a}{n!}\,(X-a)^n \right].$
+
+<br>
+
+$\large (e^{\,tX})^{(n)}|a$ being the notation for the $n$ derivative of the function, evaluated at $\large a$. So if $a = 0$, i.e.  Maclaurin series: we evaluate at $a = 0$, which will go into $t$. We derive with respect to $t$:
+
+$\Large M_X(t) = \mathbb{E} \left[e^{tX} + \frac{X\,e^{tX} }{1!} \, (t-0) \, + \frac{X^2\,e^{tX} }{2!} \, (t-0)^2 \, + \frac{X^3\,e^{tX} }{3!} \, (t-0)^3 \, + \cdots \right] |a = 0$
+
+<br>
+
+$\Large M_X(t) = \mathbb{E} \left[e^{0X} + \frac{X\,e^{0X} }{1!} \, (t) \, + \frac{X^2\,e^{0X} }{2!} \, (t)^2 \, + \frac{X^3\,e^{0X} }{3!} \, (t)^3 \, + \cdots \right]$
+
+<br>
+
+$\Large M_X(t) = \mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]$
+
+<br>
+
+Now, since we are evaluating at $t=0$, every term with a $t$ will be $0$, but the point is to differentiate the power series over and over, so that every time there is just one term without $t$.
+
+Since expectation is linear operator:
+
+<br>
+
+$\Large M_X(t) = \mathbb{E} \left[1 \right] + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots$
+
+<br>
+
+$\Large M_X(t) = \mathbb{E} \left[1 \right] +  \frac{\mathbb{E} \left[X\right]}{1!} \, t  \, +  \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2  \, +  \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots$
+
+<br>
+
+As shown, the moments are just the coefficient that will "survive" after taking the derivative corresponding to the number of the moment.
 
 ---
 

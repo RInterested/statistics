@@ -69,9 +69,9 @@ img {
 <h4>DEFINITION:</h4>
 <p><span class="math inline">\(\color{blue}{\text{Expected}}\)</span> value of a <span class="math inline">\(\color{red}{\text{power}}\)</span> of a random variable.</p>
 <p>We use <a href="https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician">LOTUS</a> to calculate this expectation: the expected value of a function of the variable (in this case an exponentiation) is obtained by multiplying that function <span class="math inline">\(\times\)</span> the pdf, and integrating:</p>
-<p><span class="math inline">\(\large \mathbb{E}(\color{blue}{X^k}) = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx\)</span></p>
+<p><span class="math inline">\(\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx\)</span></p>
 <p><span class="math inline">\(k\)</span> is the number of the moment. For the <em>mean</em>:</p>
-<p><span class="math inline">\(\large \mathbb{E}({X^1}) = \displaystyle\int_{-\infty}^{\infty}X^1\,\,\text{pdf}\,\,\,dx\)</span></p>
+<p><span class="math inline">\(\large \mathbb{E}[{X^1}] = \displaystyle\int_{-\infty}^{\infty}X^1\,\,\text{pdf}\,\,\,dx\)</span></p>
 <p>There are two types of moments:</p>
 <ol style="list-style-type: decimal">
 <li><p>Raw moment (moment about the origin). Fits perfectly the above definition, of <span class="math inline">\(\mu'_k=\mathbb{E}\,(X)^k= \mathbb{E}\,(X-0)^k\)</span>. The mean is the first <em>raw</em> moment.</p></li>
@@ -81,8 +81,44 @@ img {
 <p>Alternatively, it can be defined as the difference between the second and the <span class="math inline">\(\color{red}{\text{squared}}\)</span> first raw moments:</p>
 <p><span class="math inline">\(\mu_2= \mathbb{E}[X^2]\,-\,\mathbb{E}[X]^2.\)</span></p>
 <p><br></p>
+<ol style="list-style-type: decimal">
+<li>Mean: First <em>raw</em> moment.</li>
+<li>Variance: Second <em>central</em> moment.</li>
+<li>Skew (asymmetry): Third <em>central</em> moment, <span class="math inline">\(\color{blue}{\text{standardized}}\)</span> i.e. divided by the <span class="math inline">\(\sigma^3\)</span>.</li>
+<li>Kurtosis (peakedness): Fourth <em>central</em> moment, but divided by <span class="math inline">\(\sigma^3\)</span>, AND subtacting <span class="math inline">\(-3\)</span> from the result.</li>
+</ol>
+<p><br></p>
+</div>
+<div id="moment-generating-functions" class="section level4">
+<h4>MOMENT GENERATING FUNCTIONS:</h4>
+<p>Instead of integrating the defining equation to obtain the raw moments, we can 1. First get this “moment generating function (MGF)”; and 2. Derive the MGF to get the raw moments.</p>
+<div id="definition-of-mgf" class="section level5">
+<h5>DEFINITION of MGF:</h5>
+<p><br></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}]\)</span></p>
+<p><br></p>
+<p>Expanding the Taylor series of this function:</p>
+<p><br></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{(e^{tX})^{(n)}|a}{n!}\,(X-a)^n \right].\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(\large (e^{\,tX})^{(n)}|a\)</span> being the notation for the <span class="math inline">\(n\)</span> derivative of the function, evaluated at <span class="math inline">\(\large a\)</span>. So if <span class="math inline">\(a = 0\)</span>, i.e. Maclaurin series: we evaluate at <span class="math inline">\(a = 0\)</span>, which will go into <span class="math inline">\(t\)</span>. We derive with respect to <span class="math inline">\(t\)</span>:</p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[e^{tX} + \frac{X\,e^{tX} }{1!} \, (t-0) \, + \frac{X^2\,e^{tX} }{2!} \, (t-0)^2 \, + \frac{X^3\,e^{tX} }{3!} \, (t-0)^3 \, + \cdots \right] |a = 0\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[e^{0X} + \frac{X\,e^{0X} }{1!} \, (t) \, + \frac{X^2\,e^{0X} }{2!} \, (t)^2 \, + \frac{X^3\,e^{0X} }{3!} \, (t)^3 \, + \cdots \right]\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]\)</span></p>
+<p><br></p>
+<p>Now, since we are evaluating at <span class="math inline">\(t=0\)</span>, every term with a <span class="math inline">\(t\)</span> will be <span class="math inline">\(0\)</span>, but the point is to differentiate the power series over and over, so that every time there is just one term without <span class="math inline">\(t\)</span>.</p>
+<p>Since expectation is linear operator:</p>
+<p><br></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[1 \right] + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots\)</span></p>
+<p><br></p>
+<p><span class="math inline">\(\Large M_X(t) = \mathbb{E} \left[1 \right] + \frac{\mathbb{E} \left[X\right]}{1!} \, t \, + \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2 \, + \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots\)</span></p>
+<p><br></p>
+<p>As shown, the moments are just the coefficient that will “survive” after taking the derivative corresponding to the number of the moment.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
+</div>
 </div>
 </div>
 
