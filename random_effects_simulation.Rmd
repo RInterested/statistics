@@ -5,6 +5,9 @@
 
 ###Regression of `[GLUCOSE] ~ [AMINOACID_A]` in 30 athletes after 15 races:
 
+---
+
+
 ```{r,warning=FALSE,echo=FALSE}
 library(lme4)
 set.seed(0)
@@ -118,15 +121,70 @@ D <- df[,c(2,1,5,8)]
 head(D)
 ```
 
-### THE MODELS:
+### THE MODELS (in quotes fragments from CV post linked below):
+
+`M1: V1 ~ V2 + (1|V3)`
+
+*This model will estimate:*
+*P1: A global intercept*
+*P2: Random effect intercepts for V3 (i.e. for each level of V3, that level's intercept's deviation from the global intercept)*
+*P3: A single global estimate for the effect (slope) of V2*
+
+
 
 ```{r, warning=F}
 m1=lmer(glucose ~ AAA + (1|athlete), data=D)
 coefficients(m1) # 30 intercepts: 1 for every athlete; and one single slope for AAA
+```
+
+---
+
+`M2: V1 ~ V2 + (1|V3) + (0 + V2|V3)`
+
+*This model estimates all the parameters from M1, but will additionally estimate:*
+*P4: The effect of V2 within each level of V3 (more specifically, the degree to which the V2 effect within a given level deviates from the global effect of V2), while enforcing a zero correlation between the intercept deviations and V2 effect deviations across levels of V3.*
+
+
+```{r, warning=F}
 m2=lmer(glucose ~ AAA + (1|athlete) + (0 + AAA|athlete), data=D)
 coefficients(m2) # One single intercept but 30 different slopes: 1 / athlete
+```
+
+---
+
+`M3: V1 ~ V2 + (1 + V2|V3)`
+
+*All parameters from M2 are estimated while allowing correlation between the intercept deviations and V2 effect deviations within levels of V3. Thus, in M3, an additional parameter is estimated:*
+*P5: The correlation between intercept deviations and V2 deviations across levels of V3*
+*Usually model pairs like M2 and M3 are computed then compared to evaluate the evidence for correlations between fixed effects (including the global intercept).*
+
+```{r, warning=F}
 m3=lmer(glucose ~ AAA + (1 + AAA|athlete), data=D)
 coefficients(m3) # 30 intecepts and 30 different slopes
+```
+
+---
+
+`M4: V1 ~ V2 * V4 + (1 + V2 * V4|V3)`
+
+*This model estimates:*
+*P1: A global intercept*
+*P2: A single global estimate for the effect of V2*
+*P3: A single global estimate for the effect of V4*
+*P4: A single global estimate for the interaction between V2 and V4*
+*P5: Deviations of the intercept from P1 in each level of V3*
+*P6: Deviations of the V2 effect from P2 in each level of V3*
+*P7: Deviations of the V4 effect from P3 in each level of V3*
+*P8: Deviations of the V2-by-V4 interaction from P4 in each level of V3*
+*P9 Correlation between P5 and P6 across levels of V3*
+*P10 Correlation between P5 and P7 across levels of V3*
+*P11 Correlation between P5 and P8 across levels of V3*
+*P12 Correlation between P6 and P7 across levels of V3*
+*P13 Correlation between P6 and P8 across levels of V3*
+*P14 Correlation between P7 and P8 across levels of V3*
+
+
+```{r, warning=F}
 m4=lmer(glucose ~ AAA * race + (1 + AAA * race|athlete), data=D) 
 # 30 intercepts (30 inter'pts from athletes; 30 from race|athlete);
 # 30 slopes for AAA; 30 for race
