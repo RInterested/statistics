@@ -8,7 +8,7 @@
 ---
 
 
-```{r,warning=FALSE,echo=FALSE}
+```{r,warning=FALSE,echo=FALSE,message=FALSE}
 library(lme4)
 set.seed(0)
 ```
@@ -17,12 +17,19 @@ set.seed(0)
 
 All the data is fictitious, and the source code can be found [here](https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/athletes%20mixed%20effects).
 
+<br>
 
-####Data set manufacturing process:
+####Data set "manufacturing" process:
+
+<br>
 
 We'll make the `sd` of the *slopes between athletes* `0.5`, and the `sd` between *intercepts of different athletes* `0.2`. Further we'll establish a *correlation between intercepts and slopes* of `0.8`.
 
-#####FOR ATHLETES:
+<br>
+
+####FOR ATHLETES:
+
+<br>
 
 The covariance matrix will be:
 
@@ -57,8 +64,11 @@ sd(athletes.df$alpha_athletes)      # with a SD intercept as random eff (we want
 cor(athletes.df$alpha_athletes, athletes.df$beta_athletes) # Set at 0.8.
 ```
 
+<br>
 
-#####FOR RACES:
+####FOR RACES:
+
+<br>
 
 The covariance matrix will be:
 
@@ -89,7 +99,12 @@ sd(races.df$alpha_races) # with a SD intercept as random eff (we wanted 0.8)
 cor(races.df$alpha_races, races.df$beta_races) # Set at -0.01.
 ```
 
-#####THE COVARIATE `AAA` - the fictitious amino acyd:
+
+<br>
+
+####THE COVARIATE `AAA` - the fictitious amino acyd:
+
+<br>
 
 We need now produce the `[AAA]` with a mean of `50` and a sd of `5` as:
 
@@ -105,8 +120,11 @@ dat3   <-  dat2[with(dat2, order(athlete,race)), ]
 rownames(dat3)   <-  1:nrow(dat3)
 ```
 
+<br>
 
-#####THE REGRESSOR:
+####THE RESPONSE VARIABLE:
+
+<br>
 
 It is time now to calculate the `[Glucose]` values as:
 
@@ -121,7 +139,16 @@ D <- df[,c(2,1,5,8)]
 head(D)
 ```
 
-### THE MODELS (in quotes fragments from CV post linked below):
+
+<br>
+
+## THE MODELS:
+
+<br>
+
+In quotes are lines extracte from [this cross-validated post](http://stats.stackexchange.com/a/13173/67822).
+
+The most common fix effect is labelled as V2, and the order of the model is altered, but without any essential change to the post on CV.
 
 `M1: V1 ~ V2 + (1|V3)`
 
