@@ -1,0 +1,63 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###Regression of `[GLUCOSE] ~ [AMINOACID_A]` in 30 athletes after 15 races:
+
+<br>
+
+All the data is fictitious, and the source code can be found [here](https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/athletes%20mixed%20effects).
+
+
+####Data set manufacturing process:
+
+We'll make the `sd` of the *slopes between athletes* `0.5`, and the `sd` between *intercepts of different athletes* `0.2`. Further we'll establish a *correlation between intercepts and slopes* of `0.8`.
+
+The covariance matrix will be:
+
+
+```{r}
+i = 0.2 # sd between intercepts
+s = 0.5 # sd between slopes
+r = 0.8 # correlation between intercepts and slopes
+# The higher the intercept of an athlete; the higher the slope - could be the opposite...
+(cov.matrix <-  matrix(c(i^2, r * i * s, r * i * s, s^2), nrow = 2, byrow = T))
+```
+
+
+Getting a random sample from this bi-variate normal distribution for each athlete:
+
+```{r, warning=FALSE, message=FALSE}
+athletes = 30
+require(mvtnorm)
+random.effects <-  rmvnorm(athletes, mean = c(0, 0), sigma = cov.matrix)
+tail(random.effects)
+```
+
+We establish now the mean of these random intercepts (`alpha`) and slopes (`beta`):
+
+```{r}
+athletes.df = data.frame(athletes  = c(1:athletes)) # Just a column of numbers from 1 to 30
+athletes.df$alpha = 1 + random.effects[, 1]
+athletes.df$beta =  2 + random.effects[, 2]
+head(athletes.df, 3)
+summary(athletes.df$beta)  # The mean is the slope in the fixed effects: 2 + ranoom.effects[,2])
+sd(athletes.df$beta)       # The sd of the slopes as random effects (we wanted 0.5)
+summary(athletes.df$alpha) # The intercept has a mean of 1: (Intercept) fixed eff's
+sd(athletes.df$alpha)      # with a SD intercept as random eff (we wanted 0.2)
+cor(athletes.df$alpha, athletes.df$beta) # Set at 0.8.
+```
+
+
+
+<br>
+References:
+
+<a href="http://anythingbutrbitrary.blogspot.in/2012/10/hierarchical-linear-models-and-lmer.html">Hierarchical linear models and lmer.</a>
+
+<a href="http://stats.stackexchange.com/a/13173/67822">R's lmer cheat-sheet.</a>
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
