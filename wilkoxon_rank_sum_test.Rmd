@@ -18,17 +18,20 @@ y <- scan(text="4 0 4 1 1 2 0 1 2 2 1 2 1 0 0 0 1 1 1 1")
 can be done with a permutation test, which will give us the one-sided $p$-value:
 
 ```{r}
-xy <- c(x, y)
-x.n <- length(x)
-s <- replicate(1e5, sum(sample(xy, x.n)))
-s <- s / x.n - (sum(xy) - s) / length(y) 
+set.seed(0)
+xy <- c(x, y)                             # Combo vec. with x and y combined. 40 entries.
+s <- replicate(1e5, sum(sample(xy, length(x)))) # 1e5 samples of length(x) w/o replac. from combo xy, returning the sum of their elements.
+mean_x_samples <- s / length(x)           # 1e5 means from length(x) samples from xy
+diff <- sum(xy) - s                       # Difference between combo vec and samples
+mean_y_samples <- diff / length(y)        # 1e5 means from length(y) samples from xy
+s <- mean_x_samples - mean_y_samples
 stat <- mean(x) - mean(y)
 (p_value = mean(s > stat))
 ```
 
 In R we can get a two-tailed $p$ value with the Wilcoxon rank-sum test:
 
-```{r}
+```{r,warning=FALSE}
 wilcox.test(x, y, paired=F) 
 
 # If both x and y are given and paired is FALSE, a Wilcoxon rank sum test 
