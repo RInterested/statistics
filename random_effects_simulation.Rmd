@@ -5,6 +5,11 @@
 
 ###Regression of `[GLUCOSE] ~ [AMINOACID_A]` in 30 athletes after 15 races:
 
+```{r,warning=FALSE,echo=FALSE}
+library(lme4)
+set.seed(0)
+```
+
 <br>
 
 All the data is fictitious, and the source code can be found [here](https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/athletes%20mixed%20effects).
@@ -14,15 +19,16 @@ All the data is fictitious, and the source code can be found [here](https://gith
 
 We'll make the `sd` of the *slopes between athletes* `0.5`, and the `sd` between *intercepts of different athletes* `0.2`. Further we'll establish a *correlation between intercepts and slopes* of `0.8`.
 
-The covariance matrix will be:
+#####FOR ATHLETES:
 
+The covariance matrix will be:
 
 ```{r}
 i = 0.2 # sd between intercepts
 s = 0.5 # sd between slopes
 r = 0.8 # correlation between intercepts and slopes
 # The higher the intercept of an athlete; the higher the slope - could be the opposite...
-(cov.matrix <-  matrix(c(i^2, r * i * s, r * i * s, s^2), nrow = 2, byrow = T))
+(cov.matrix1<-  matrix(c(i^2, r * i * s, r * i * s, s^2), nrow = 2, byrow = T))
 ```
 
 
@@ -31,25 +37,102 @@ Getting a random sample from this bi-variate normal distribution for each athlet
 ```{r, warning=FALSE, message=FALSE}
 athletes = 30
 require(mvtnorm)
-random.effects <-  rmvnorm(athletes, mean = c(0, 0), sigma = cov.matrix)
-tail(random.effects)
+random.effects_athletes <-  rmvnorm(athletes, mean = c(0, 0), sigma = cov.matrix1)
 ```
 
-We establish now the mean of these random intercepts (`alpha`) and slopes (`beta`):
+We establish now the mean of these random intercepts (`alpha_ath`) and slopes (`beta_ath`):
 
 ```{r}
-athletes.df = data.frame(athletes  = c(1:athletes)) # Just a column of numbers from 1 to 30
-athletes.df$alpha = 1 + random.effects[, 1]
-athletes.df$beta =  2 + random.effects[, 2]
-head(athletes.df, 3)
-summary(athletes.df$beta)  # The mean is the slope in the fixed effects: 2 + ranoom.effects[,2])
-sd(athletes.df$beta)       # The sd of the slopes as random effects (we wanted 0.5)
-summary(athletes.df$alpha) # The intercept has a mean of 1: (Intercept) fixed eff's
-sd(athletes.df$alpha)      # with a SD intercept as random eff (we wanted 0.2)
-cor(athletes.df$alpha, athletes.df$beta) # Set at 0.8.
+athletes.df = data.frame(athlete  = c(1:athletes)) # Just a column of numbers from 1 to 30
+athletes.df$alpha_athletes = 1 + random.effects_athletes[, 1]
+athletes.df$beta_athletes =  2 + random.effects_athletes[, 2]
+
+summary(athletes.df$beta_athletes)  # The mean is the slope in the fixed effects: 2 + random.effects[,2])
+sd(athletes.df$beta_athletes)       # The sd of the slopes as random effects (we wanted 0.5)
+summary(athletes.df$alpha_athletes) # The intercept has a mean of 1: (Intercept) fixed eff's
+sd(athletes.df$alpha_athletes)      # with a SD intercept as random eff (we wanted 0.2)
+cor(athletes.df$alpha_athletes, athletes.df$beta_athletes) # Set at 0.8.
 ```
 
 
+#####FOR RACES:
+
+The covariance matrix will be:
+
+```{r}
+i =   0.8   # sd between intercepts
+s =   0.2   # sd between slopes
+r = -0.01   # hardly any relationship between intercepts and slopes
+(cov.matrix2 <-  matrix(c(i^2, r * i * s, r * i * s, s^2), nrow = 2, byrow = T))
+```
+
+Getting a random sample from this bi-variate normal distribution for each race:
+
+```{r, warning=FALSE, message=FALSE}
+races = 15
+random.effects_races <-  rmvnorm(races, mean = c(0, 0), sigma = cov.matrix2)
+```
+
+We establish now the mean of these random intercepts (`alpha_race`) and slopes (`beta_race`):
+
+```{r}
+races.df = data.frame(race  = c(1:races)) # Just a column of numbers from 1 to 15
+races.df$alpha_races   =    -1 + random.effects_races[, 1]
+races.df$beta_races    =     1 + random.effects_races[, 2]
+summary(races.df$beta_races)  # The mean is the slope in the fixed effects: 1 + random.effects[,2])
+sd(races.df$beta_races)       # The sd of the slopes as random effects (we wanted 0.2)
+summary(races.df$alpha_races) # The intercept has a mean of - 1: (Intercept) fixed eff's
+sd(races.df$alpha_races) # with a SD intercept as random eff (we wanted 0.8)
+cor(races.df$alpha_races, races.df$beta_races) # Set at -0.01.
+```
+
+#####THE COVARIATE `AAA` - the fictitious amino acyd:
+
+We need now produce the `[AAA]` with a mean of `50` and a sd of `5` as:
+
+```{r}
+observations <- athletes * races
+observations.df <-  data.frame(
+                    athlete = sort(rep(c(1:athletes), races)),
+                    race = rep(c(1:races), athletes), 
+                    AAA = rep(rnorm(athletes * races, 50, 5)))
+dat1   <-  merge(athletes.df, observations.df)
+dat2   <-  merge(dat1, races.df)
+dat3   <-  dat2[with(dat2, order(athlete,race)), ]
+rownames(dat3)   <-  1:nrow(dat3)
+```
+
+
+#####THE REGRESSOR:
+
+It is time now to calculate the `[Glucose]` values as:
+
+```{r}
+df <-  within(dat3, 
+       glucose <-  alpha_athletes + AAA * beta_athletes +
+                   alpha_races    + AAA * beta_races    +
+                   0.75 * rnorm(n = observations)) # Epsilon is 0.75
+
+head(df)
+D <- df[,c(2,1,5,8)]
+head(D)
+```
+
+### THE MODELS:
+
+```{r, warning=F}
+m1=lmer(glucose ~ AAA + (1|athlete), data=D)
+coefficients(m1) # 30 intercepts: 1 for every athlete; and one single slope for AAA
+m2=lmer(glucose ~ AAA + (1|athlete) + (0 + AAA|athlete), data=D)
+coefficients(m2) # One single intercept but 30 different slopes: 1 / athlete
+m3=lmer(glucose ~ AAA + (1 + AAA|athlete), data=D)
+coefficients(m3) # 30 intecepts and 30 different slopes
+m4=lmer(glucose ~ AAA * race + (1 + AAA * race|athlete), data=D) 
+# 30 intercepts (30 inter'pts from athletes; 30 from race|athlete);
+# 30 slopes for AAA; 30 for race
+# And the interaction slopes of the AAA*race interaction.
+coefficients(m4) 
+```
 
 <br>
 References:
