@@ -19,14 +19,14 @@ can be done with a permutation test, which will give us the one-sided $p$-value:
 
 ```{r}
 set.seed(0)
-xy <- c(x, y)                             # Combo vec. with x and y combined. 40 entries.
-s <- replicate(1e5, sum(sample(xy, length(x)))) # 1e5 samples of length(x) w/o replac. from combo xy, returning the sum of their elements.
-mean_x_samples <- s / length(x)           # 1e5 means from length(x) samples from xy
-diff <- sum(xy) - s                       # Difference between combo vec and samples
-mean_y_samples <- diff / length(y)        # 1e5 means from length(y) samples from xy
-s <- mean_x_samples - mean_y_samples
+xy <- c(x, y)                                        # Combo vec. with x and y combined. 40 entries.
+sample <- replicate(1e5, sum(sample(xy, length(x)))) # 1e5 samples of length(x) w/o replac. from combo xy, returning the sum of their elements.
+mean_x_samples <- sample / length(x)                 # 1e5 means from length(x) samples from xy
+diff <- sum(xy) - sample                             # Difference between combo vec and samples
+mean_y_samples <- diff / length(y)                   # 1e5 means from length(y) samples from xy
+delta_samples <- mean_x_samples - mean_y_samples
 stat <- mean(x) - mean(y)
-(p_value = mean(s > stat))
+(p_value = mean(delta_samples > stat))
 ```
 
 In R we can get a two-tailed $p$ value with the Wilcoxon rank-sum test:
