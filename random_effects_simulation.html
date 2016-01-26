@@ -185,7 +185,35 @@ head(D)</code></pre>
 <p><code>M1: V1 ~ V2 + (1|V3)</code></p>
 <p><em>This model will estimate:</em> <em>P1: A global intercept</em> <em>P2: Random effect intercepts for V3 (i.e. for each level of V3, that level’s intercept’s deviation from the global intercept)</em> <em>P3: A single global estimate for the effect (slope) of V2</em></p>
 <pre class="r"><code>m1=lmer(glucose ~ AAA + (1|athlete), data=D)
-coefficients(m1) # 30 intercepts: 1 for every athlete; and one single slope for AAA</code></pre>
+summary(m1)</code></pre>
+<pre><code>## Linear mixed model fit by REML t-tests use Satterthwaite approximations
+##   to degrees of freedom [lmerMod]
+## Formula: glucose ~ AAA + (1 | athlete)
+##    Data: D
+## 
+## REML criterion at convergence: 3192.9
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.9351 -0.4261 -0.0955  0.4137  2.7329 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  athlete  (Intercept) 521.69   22.840  
+##  Residual              50.81    7.128  
+## Number of obs: 450, groups:  athlete, 30
+## 
+## Fixed effects:
+##              Estimate Std. Error        df t value Pr(&gt;|t|)    
+## (Intercept)  -4.99227    5.36626  76.30000   -0.93    0.355    
+## AAA           3.06203    0.06721 419.20000   45.56   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##     (Intr)
+## AAA -0.626</code></pre>
+<pre class="r"><code>coefficients(m1) # 30 intercepts: 1 for every athlete; and one single slope for AAA</code></pre>
 <pre><code>## $athlete
 ##    (Intercept)      AAA
 ## 1    -2.319430 3.062027
@@ -221,39 +249,40 @@ coefficients(m1) # 30 intercepts: 1 for every athlete; and one single slope for 
 ## 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;coef.mer&quot;</code></pre>
-<pre class="r"><code>summary(m1)</code></pre>
+<hr />
+<p><code>M2: V1 ~ V2 + (1|V3) + (0 + V2|V3)</code></p>
+<p><em>This model estimates all the parameters from M1, but will additionally estimate:</em> <em>P4: The effect of V2 within each level of V3 (more specifically, the degree to which the V2 effect within a given level deviates from the global effect of V2), while enforcing a zero correlation between the intercept deviations and V2 effect deviations across levels of V3.</em></p>
+<pre class="r"><code>m2=lmer(glucose ~ AAA + (1|athlete) + (0 + AAA|athlete), data=D)
+summary(m2)</code></pre>
 <pre><code>## Linear mixed model fit by REML t-tests use Satterthwaite approximations
 ##   to degrees of freedom [lmerMod]
-## Formula: glucose ~ AAA + (1 | athlete)
+## Formula: glucose ~ AAA + (1 | athlete) + (0 + AAA | athlete)
 ##    Data: D
 ## 
-## REML criterion at convergence: 3192.9
+## REML criterion at convergence: 3140.9
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -2.9351 -0.4261 -0.0955  0.4137  2.7329 
+## -2.6693 -0.4137 -0.1135  0.3026  2.0917 
 ## 
 ## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  athlete  (Intercept) 521.69   22.840  
-##  Residual              50.81    7.128  
+##  Groups    Name        Variance Std.Dev.
+##  athlete   (Intercept)  0.0000  0.0000  
+##  athlete.1 AAA          0.2051  0.4528  
+##  Residual              44.9159  6.7019  
 ## Number of obs: 450, groups:  athlete, 30
 ## 
 ## Fixed effects:
-##              Estimate Std. Error        df t value Pr(&gt;|t|)    
-## (Intercept)  -4.99227    5.36626  76.30000   -0.93    0.355    
-## AAA           3.06203    0.06721 419.20000   45.56   &lt;2e-16 ***
+##             Estimate Std. Error       df t value Pr(&gt;|t|)    
+## (Intercept)  -3.2939     3.1745 419.2000  -1.038      0.3    
+## AAA           3.0254     0.1041  70.3000  29.073   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
 ##     (Intr)
-## AAA -0.626</code></pre>
-<hr />
-<p><code>M2: V1 ~ V2 + (1|V3) + (0 + V2|V3)</code></p>
-<p><em>This model estimates all the parameters from M1, but will additionally estimate:</em> <em>P4: The effect of V2 within each level of V3 (more specifically, the degree to which the V2 effect within a given level deviates from the global effect of V2), while enforcing a zero correlation between the intercept deviations and V2 effect deviations across levels of V3.</em></p>
-<pre class="r"><code>m2=lmer(glucose ~ AAA + (1|athlete) + (0 + AAA|athlete), data=D)
-coefficients(m2) # One single intercept but 30 different slopes: 1 / athlete</code></pre>
+## AAA -0.604</code></pre>
+<pre class="r"><code>coefficients(m2) # One single intercept but 30 different slopes: 1 / athlete</code></pre>
 <pre><code>## $athlete
 ##    (Intercept)      AAA
 ## 1    -3.293895 3.082104
@@ -289,40 +318,40 @@ coefficients(m2) # One single intercept but 30 different slopes: 1 / athlete</co
 ## 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;coef.mer&quot;</code></pre>
-<pre class="r"><code>summary(m2)</code></pre>
+<hr />
+<p><code>M3: V1 ~ V2 + (1 + V2|V3)</code></p>
+<p><em>All parameters from M2 are estimated while allowing correlation between the intercept deviations and V2 effect deviations within levels of V3. Thus, in M3, an additional parameter is estimated:</em> <em>P5: The correlation between intercept deviations and V2 deviations across levels of V3</em> <em>Usually model pairs like M2 and M3 are computed then compared to evaluate the evidence for correlations between fixed effects (including the global intercept).</em></p>
+<pre class="r"><code>m3=lmer(glucose ~ AAA + (1 + AAA|athlete), data=D)
+summary(m3)</code></pre>
 <pre><code>## Linear mixed model fit by REML t-tests use Satterthwaite approximations
 ##   to degrees of freedom [lmerMod]
-## Formula: glucose ~ AAA + (1 | athlete) + (0 + AAA | athlete)
+## Formula: glucose ~ AAA + (1 + AAA | athlete)
 ##    Data: D
 ## 
 ## REML criterion at convergence: 3140.9
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -2.6693 -0.4137 -0.1135  0.3026  2.0917 
+## -2.6706 -0.4145 -0.1149  0.3020  2.1021 
 ## 
 ## Random effects:
-##  Groups    Name        Variance Std.Dev.
-##  athlete   (Intercept)  0.0000  0.0000  
-##  athlete.1 AAA          0.2051  0.4528  
-##  Residual              44.9159  6.7019  
+##  Groups   Name        Variance Std.Dev. Corr
+##  athlete  (Intercept)  0.09227 0.3038       
+##           AAA          0.19970 0.4469   1.00
+##  Residual             44.91406 6.7018       
 ## Number of obs: 450, groups:  athlete, 30
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error       df t value Pr(&gt;|t|)    
-## (Intercept)  -3.2939     3.1745 419.2000  -1.038      0.3    
-## AAA           3.0254     0.1041  70.3000  29.073   &lt;2e-16 ***
+## (Intercept)  -3.3141     3.1749 416.5000  -1.044    0.297    
+## AAA           3.0259     0.1032  35.8000  29.320   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
 ##     (Intr)
-## AAA -0.604</code></pre>
-<hr />
-<p><code>M3: V1 ~ V2 + (1 + V2|V3)</code></p>
-<p><em>All parameters from M2 are estimated while allowing correlation between the intercept deviations and V2 effect deviations within levels of V3. Thus, in M3, an additional parameter is estimated:</em> <em>P5: The correlation between intercept deviations and V2 deviations across levels of V3</em> <em>Usually model pairs like M2 and M3 are computed then compared to evaluate the evidence for correlations between fixed effects (including the global intercept).</em></p>
-<pre class="r"><code>m3=lmer(glucose ~ AAA + (1 + AAA|athlete), data=D)
-coefficients(m3) # 30 intecepts and 30 different slopes</code></pre>
+## AAA -0.595</code></pre>
+<pre class="r"><code>coefficients(m3) # 30 intecepts and 30 different slopes</code></pre>
 <pre><code>## $athlete
 ##    (Intercept)      AAA
 ## 1    -3.276090 3.081744
@@ -358,79 +387,11 @@ coefficients(m3) # 30 intecepts and 30 different slopes</code></pre>
 ## 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;coef.mer&quot;</code></pre>
-<pre class="r"><code>summary(m3)</code></pre>
-<pre><code>## Linear mixed model fit by REML t-tests use Satterthwaite approximations
-##   to degrees of freedom [lmerMod]
-## Formula: glucose ~ AAA + (1 + AAA | athlete)
-##    Data: D
-## 
-## REML criterion at convergence: 3140.9
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -2.6706 -0.4145 -0.1149  0.3020  2.1021 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev. Corr
-##  athlete  (Intercept)  0.09227 0.3038       
-##           AAA          0.19970 0.4469   1.00
-##  Residual             44.91406 6.7018       
-## Number of obs: 450, groups:  athlete, 30
-## 
-## Fixed effects:
-##             Estimate Std. Error       df t value Pr(&gt;|t|)    
-## (Intercept)  -3.3141     3.1749 416.5000  -1.044    0.297    
-## AAA           3.0259     0.1032  35.8000  29.320   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##     (Intr)
-## AAA -0.595</code></pre>
 <hr />
 <p><code>M4: V1 ~ V2 * V4 + (1 + V2 * V4|V3)</code></p>
 <p><em>This model estimates:</em> <em>P1: A global intercept</em> <em>P2: A single global estimate for the effect of V2</em> <em>P3: A single global estimate for the effect of V4</em> <em>P4: A single global estimate for the interaction between V2 and V4</em> <em>P5: Deviations of the intercept from P1 in each level of V3</em> <em>P6: Deviations of the V2 effect from P2 in each level of V3</em> <em>P7: Deviations of the V4 effect from P3 in each level of V3</em> <em>P8: Deviations of the V2-by-V4 interaction from P4 in each level of V3</em> <em>P9 Correlation between P5 and P6 across levels of V3</em> <em>P10 Correlation between P5 and P7 across levels of V3</em> <em>P11 Correlation between P5 and P8 across levels of V3</em> <em>P12 Correlation between P6 and P7 across levels of V3</em> <em>P13 Correlation between P6 and P8 across levels of V3</em> <em>P14 Correlation between P7 and P8 across levels of V3</em></p>
 <pre class="r"><code>m4=lmer(glucose ~ AAA * race + (1 + AAA * race|athlete), data=D) 
-# 30 intercepts (30 inter'pts from athletes; 30 from race|athlete);
-# 30 slopes for AAA; 30 for race
-# And the interaction slopes of the AAA*race interaction.
-coefficients(m4) </code></pre>
-<pre><code>## $athlete
-##    (Intercept)      AAA       race    AAA:race
-## 1   0.67350952 3.001104 -0.5619209 0.011537612
-## 2   0.98141793 3.797062 -0.8189417 0.015859777
-## 3  -1.03342536 2.329744 -0.7032117 0.015154365
-## 4   0.39579922 2.744444 -0.5191579 0.010958395
-## 5   2.68762641 4.129626 -0.5414958 0.009859443
-## 6  -0.27086360 2.734240 -0.6742182 0.014115919
-## 7   1.26781684 2.695392 -0.3087022 0.006739131
-## 8  -0.02602580 2.775201 -0.6340597 0.013254880
-## 9  -1.27375054 2.638364 -0.8861213 0.018520012
-## 10 -0.16741723 2.466264 -0.5535008 0.011963599
-## 11  2.19985466 3.116307 -0.2653085 0.005385617
-## 12  1.20599623 3.400329 -0.6181537 0.012226720
-## 13 -0.23255414 3.260251 -0.8905918 0.017914468
-## 14  0.95757435 2.789806 -0.4288098 0.009068588
-## 15  0.58425206 2.867968 -0.5384250 0.011207763
-## 16  0.36047141 2.707646 -0.5269082 0.011153517
-## 17 -0.04207279 2.649734 -0.5936517 0.012573902
-## 18  2.04291637 3.622833 -0.4971902 0.009526031
-## 19  1.73592175 2.884194 -0.2844141 0.006032478
-## 20  1.89837292 2.990543 -0.2878545 0.005983461
-## 21  1.89819660 3.472487 -0.4996661 0.009737813
-## 22 -0.62707983 2.563712 -0.6876220 0.014579320
-## 23 -0.87773990 2.365955 -0.6678531 0.014399420
-## 24  1.70594197 3.336144 -0.4612960 0.009118651
-## 25  1.41061214 2.974493 -0.4015064 0.008306513
-## 26  1.17737311 2.840116 -0.3873493 0.008173247
-## 27 -0.21937409 2.946538 -0.7477172 0.015369639
-## 28  1.42778995 3.090313 -0.4037013 0.008230887
-## 29  0.51674534 3.003444 -0.5923377 0.012153992
-## 30 -0.23767489 2.110916 -0.4223239 0.009700692
-## 
-## attr(,&quot;class&quot;)
-## [1] &quot;coef.mer&quot;</code></pre>
-<pre class="r"><code>summary(m4)</code></pre>
+summary(m4)</code></pre>
 <pre><code>## Linear mixed model fit by REML t-tests use Satterthwaite approximations
 ##   to degrees of freedom [lmerMod]
 ## Formula: glucose ~ AAA * race + (1 + AAA * race | athlete)
@@ -471,6 +432,45 @@ coefficients(m4) </code></pre>
 ##  - Rescale variables?
 ## Model is nearly unidentifiable: large eigenvalue ratio
 ##  - Rescale variables?</code></pre>
+<pre class="r"><code># 30 intercepts (30 inter'pts from athletes; 30 from race|athlete);
+# 30 slopes for AAA; 30 for race
+# And the interaction slopes of the AAA*race interaction.
+coefficients(m4) </code></pre>
+<pre><code>## $athlete
+##    (Intercept)      AAA       race    AAA:race
+## 1   0.67350952 3.001104 -0.5619209 0.011537612
+## 2   0.98141793 3.797062 -0.8189417 0.015859777
+## 3  -1.03342536 2.329744 -0.7032117 0.015154365
+## 4   0.39579922 2.744444 -0.5191579 0.010958395
+## 5   2.68762641 4.129626 -0.5414958 0.009859443
+## 6  -0.27086360 2.734240 -0.6742182 0.014115919
+## 7   1.26781684 2.695392 -0.3087022 0.006739131
+## 8  -0.02602580 2.775201 -0.6340597 0.013254880
+## 9  -1.27375054 2.638364 -0.8861213 0.018520012
+## 10 -0.16741723 2.466264 -0.5535008 0.011963599
+## 11  2.19985466 3.116307 -0.2653085 0.005385617
+## 12  1.20599623 3.400329 -0.6181537 0.012226720
+## 13 -0.23255414 3.260251 -0.8905918 0.017914468
+## 14  0.95757435 2.789806 -0.4288098 0.009068588
+## 15  0.58425206 2.867968 -0.5384250 0.011207763
+## 16  0.36047141 2.707646 -0.5269082 0.011153517
+## 17 -0.04207279 2.649734 -0.5936517 0.012573902
+## 18  2.04291637 3.622833 -0.4971902 0.009526031
+## 19  1.73592175 2.884194 -0.2844141 0.006032478
+## 20  1.89837292 2.990543 -0.2878545 0.005983461
+## 21  1.89819660 3.472487 -0.4996661 0.009737813
+## 22 -0.62707983 2.563712 -0.6876220 0.014579320
+## 23 -0.87773990 2.365955 -0.6678531 0.014399420
+## 24  1.70594197 3.336144 -0.4612960 0.009118651
+## 25  1.41061214 2.974493 -0.4015064 0.008306513
+## 26  1.17737311 2.840116 -0.3873493 0.008173247
+## 27 -0.21937409 2.946538 -0.7477172 0.015369639
+## 28  1.42778995 3.090313 -0.4037013 0.008230887
+## 29  0.51674534 3.003444 -0.5923377 0.012153992
+## 30 -0.23767489 2.110916 -0.4223239 0.009700692
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;coef.mer&quot;</code></pre>
 <p><br> References:</p>
 <p><a href="http://anythingbutrbitrary.blogspot.in/2012/10/hierarchical-linear-models-and-lmer.html">Hierarchical linear models and lmer.</a></p>
 <p><a href="http://stats.stackexchange.com/a/13173/67822">R’s lmer cheat-sheet.</a></p>
