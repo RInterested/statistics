@@ -10,6 +10,7 @@
 
 ```{r,warning=FALSE,echo=FALSE,message=FALSE}
 library(lme4)
+library(lmerTest)
 set.seed(0)
 ```
 
@@ -134,7 +135,6 @@ df <-  within(dat3,
                    alpha_races    + AAA * beta_races    +
                    0.75 * rnorm(n = observations)) # Epsilon is 0.75
 
-head(df)
 D <- df[,c(2,1,5,8)]
 head(D)
 ```
@@ -162,6 +162,7 @@ The most common fix effect is labelled as V2, and the order of the model is alte
 ```{r, warning=F}
 m1=lmer(glucose ~ AAA + (1|athlete), data=D)
 coefficients(m1) # 30 intercepts: 1 for every athlete; and one single slope for AAA
+summary(m1)
 ```
 
 ---
@@ -175,6 +176,7 @@ coefficients(m1) # 30 intercepts: 1 for every athlete; and one single slope for 
 ```{r, warning=F}
 m2=lmer(glucose ~ AAA + (1|athlete) + (0 + AAA|athlete), data=D)
 coefficients(m2) # One single intercept but 30 different slopes: 1 / athlete
+summary(m2)
 ```
 
 ---
@@ -188,6 +190,7 @@ coefficients(m2) # One single intercept but 30 different slopes: 1 / athlete
 ```{r, warning=F}
 m3=lmer(glucose ~ AAA + (1 + AAA|athlete), data=D)
 coefficients(m3) # 30 intecepts and 30 different slopes
+summary(m3)
 ```
 
 ---
@@ -217,6 +220,7 @@ m4=lmer(glucose ~ AAA * race + (1 + AAA * race|athlete), data=D)
 # 30 slopes for AAA; 30 for race
 # And the interaction slopes of the AAA*race interaction.
 coefficients(m4) 
+summary(m4)
 ```
 
 <br>
