@@ -43,10 +43,10 @@ So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to
      0.5988478 
 
 
-<br><br>
+<br>
 
 
-**2.** [CHI-SQUARE TEST OF HOMOGENEITY:][3] Otherwise known as the goodness of fit Pearson's chi squared test. For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^2)$, then $X^2\sim \chi^2(1))$:
+**2.** [CHI-SQUARE TEST OF HOMOGENEITY:][3] For larger samples (> 5 expected frequency count in each cell) the $\chi^2$ provides an approximation of the [significance value][1]. The test is based on calculating the *expected frequency counts* obtained by cross-multiplying the marginals (assuming normal distribution of the marginals, it makes sense that we end up with a $\chi^2$ distributed test statistic, since if $X\sim N(\mu,\sigma^2)$, then $X^2\sim \chi^2(1))$:
 
 <br>
 
@@ -59,7 +59,7 @@ So we have `368`patients: `178` on `Drug A`, and `190` on `Drug B` and we try to
 This can be more easily calculated as:
 
 ```{r}
-(addmargins(expect <- round(chisq.test(Antacid)$expected)))
+(addmargins(expect <- chisq.test(Antacid)$expected))
 ```
 
 <br>
@@ -68,28 +68,34 @@ The degrees of freedom will be [calculated as][4] the {number of `populations` (
 
 The Test Statistic is calculated as:
 
-$\chi^2=\frac{(64-75)^2}{75} + \frac{(92-81)^2}{81} +\frac{(114-103)^2}{103} + \frac{(98-109)^2}{109} = 5.39$
+$\chi^2=\frac{(64-75)^2}{75} + \frac{(92-81)^2}{81} +\frac{(114-103)^2}{103} + \frac{(98-109)^2}{109} = 5.39$, although this is an approximation excluding decimals. The precise calculation of these values is the sum of the cells in:
+
+```{r}
+(residuals <- chisq.test(Antacid)$residuals^2)
+sum(residuals)
+```
+
+<br>
 
 This is calculated in `R` with the function `prop.test()` or `chisq.test()`, which should yield the same result, as indicated [here][7]:
 
+```{r}
     prop.test(Antacid, correct = F)
+```
 
-	2-sample test for equality of proportions without continuity correction
+The proportions are calculated as: $64/156 = 0.4102564$ and $114/212 = 0.5377358$. The confidence interval makes reference to the difference in proportions: $0.4102564  - 0.5377358 = -0.1274794.$
 
-    data:  Antacid
-    X-squared = 5.8481, df = 1, p-value = 0.01559
-    alternative hypothesis: two.sided
-    95 percent confidence interval:
-     -0.22976374 -0.02519514
-    sample estimates:
-       prop 1    prop 2 
-    0.4102564 0.5377358 
+We don't need to feed a matrix. A vector of "successes" (in this case heartburn: `x <- c(64, 114)`) with the total number of cases (`n <- c(156, 212)`) will result in the same output:
+
+```{r}
+prop.test(x = c(64, 114), n = c(156, 212), correct = F)
+```
 
 or..
 
+```{r}
     chisq.test(Antacid, correct = F)
-    
-    Pearson's Chi-squared test
+```
     
 
 <br><br>
