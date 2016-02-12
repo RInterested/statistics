@@ -6,6 +6,8 @@
 ###MOTIVATION FOR k ORDER STATISTICS:
 <br>
 
+The motivation stems from [this question](http://stats.stackexchange.com/q/191258/67822) on CV.
+
 A website receives $1\, \text{order}\,/3 \, \text{min}$. The time until the next order follows an exponential distribution with a $\lambda$ rate parameter of $3 \, \text{min}$. Knowing that there were $10$ clients placing orders online from that site last night we want to calculate the expected waiting time for the first and last orders placed after 5pm (night-time period = time $0$). And we want to find out the time of the $k$-th order.
 
 Every order placed cames at a time. This time is the random variable. Since there are 10 orders, we have $X_1, X_2, X_3,...X_{10}$. To make the derivation more generalized, we can consider $X_n$ as the last entry. They are independent of each other, and they are governed by the *pdf* $\lambda\,e^{-\lambda\,x}$, and *cdf* $1 \,-\, e^-{-\lambda\,x}$, where $x$ stands for time. These will be referred as the *common* density and probability functions, because they are shared by all the variables.
