@@ -1,0 +1,46 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+
+This is my attempt at answer [this question](http://stats.stackexchange.com/q/193229/67822).
+
+The question is what happens to the **variance** of a parameter estimates ($\hat \beta_i$) with the introduction of a new [*control variable*](https://www.quora.com/What-are-control-variables-and-how-do-I-use-them-in-regression-analysis) in a regression model? And secondarily, how would the statistical testing of $\hat \beta_i$ be affected?
+
+The answer is that **the variance of the estimated parameter will increase**; and **the $p$-value will increase**.
+
+Your question revolves around the problem with [overfitting](https://en.wikipedia.org/wiki/Overfitting) and the [bias-variance trade-off](https://en.wikipedia.org/wiki/Bias–variance_tradeoff).
+
+The more regressors you add, the lower the $\text{RSS}$ (residual sum of squares) and the higher the $R^2$. In fact, if you just add columns of pure noise (`rnorm()`) to your data, and you run OLS regressions after every addition, you will see a marked, monotonic decrease in the $\text{RSS}$. I tested this with [an example](https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/R%20squared%20lower%20more%20regressors):
+
+[![enter image description here][1]][1]
+
+The idea is that in OLS the hat matrix $X (X^TX)^{-1}X^T$ is a projection matrix of the vector of observed $y$ values onto the column space of the model matrix. The higher the dimensions of the column space (the more vectors to form a basis), the closer $\hat y$ will be to $y$. But at a price!
+
+The estimation of the variance of $\hat \beta_i$ is given by:
+
+$Var[\hat\beta_i]= \sigma^2(X^TX)^{-1}$ with $\sigma^2$ corresponding to the variation of the observations around the predicted values, ($Var[\epsilon|X] = \sigma^2I_n$). The estimation of $\sigma^2$ from the sample is $s^2=\frac{e^Te}{n-p}$ or $\text{MSE}$ (mean squared error). The denominator is the number of observations, $n$ minus the number of parameters, $p$, counting the intercept. It is also referred to as the *error or residual degrees of freedom* ($\small\text{no. observations−no. indepen't variables−1}$). Alternatively, the formula for the $\sigma^2$ estimation, can be expressed as $\text{MSE = RSS/df}$ with $\text{RSS}$ being the same as $\text{SSE}$ (sum of squared errors), $\sum_1^n(y_i - \hat y)^2$. 
+
+Therefore the estimation of the variance of the parameter $\hat\beta_i$ is $s^2(X^TX)^{-1}$ or $\text{MSE}\times(X^TX)^{-1}$.
+
+And I think this may be a source of confusion - just because adding another regressor decreases the $\text{MSE}$ by decreasing the $\text{RSS}$ - if it actually does at all, because of the change in the degrees of freedom in the denominator, it can't be said that the variance for the estimated parameter decreases.
+
+In a parallel OLS simulation ([here](https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/VARIANCE%20OLS%20NO.%20OF%20REGRESSORS)), I found, quite anecdotally, a $\small 3.5\%$ increase in $\text{MSE}$ when adding an extra regressor, with a minimal decrease in $\text{RSS}$. 
+
+What controlled the increased variance for the estimate of $\hat\beta_i$ turned out to be the entry for $\hat\beta_i$ in the matrix of cofactors involved in the calculation of the inverse of $(X^TX)^{-1}$, explaining a variance for the estimate of the parameter $\hat\beta_i$ $2.8$ times higher in the presence of the control variable.
+
+An alternative formula for the variance not applicable to the intercept is:
+
+$\large \text{var}[\hat\beta_i]= \frac{\sigma^2}{n \times var[X_i]\times(1\,-\,R_i^2)}$. The key here is that $R_i^2$ is the $R$-square of the regression of the corresponding variable for the parameter $\hat\beta_i$, or $X_i$ against all the other regressors. Therefore, the better the regression model of $X_i \sim \text{control variable}$, the higher the estimated $\text{var}[\hat\beta_i].$
+
+Naturally, the higher the variance (or squared error), the broader the confidence intervals, and the lower the $t$ statistic, resulting in a higher $p$-value.
+
+
+  [1]: http://i.stack.imgur.com/8WRCd.png
+
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
