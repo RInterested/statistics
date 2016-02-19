@@ -1,0 +1,75 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###ROC curves and AUC:
+
+```{r,echo=F, warning = F,message=FALSE}
+library(gsubfn)
+library(sqldf)
+library(tcltk)
+library(pROC)
+library(ROCR)
+library(gsheet)
+data <- read.csv(text = 
+gsheet2text('https://docs.google.com/spreadsheets/d/1ba1IYjX79EEmgBmsEzZgNs6Joe4v-SECWZUhbfhewhc/edit?usp=sharing',
+format ='csv'))
+```
+
+This material was extracted from [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=21&cad=rja&uact=8&ved=0ahUKEwinjdHJ_oLLAhWBmR4KHTY8Axs4FBAWCBswAA&url=http%3A%2F%2Fr-es.org%2Fdl1192&usg=AFQjCNFxRXWxz4SWoOgzIFn_jzIAGKxNsQ&sig2=ELFkO23EgdBPH_6GjEkVvA).
+
+Utilizing the PSA antigen data from [here](http://research.fhcrc.org/content/dam/stripe/diagnostic-biomarkers-statistical-center/files/psa2b.csv), where `fpsa` stands for "free PSA" and `tpsa` stands for "total PSA". There are repeated measures in time `t` at different `age`-s:
+
+```{r}
+data <- sqldf("select id, d, min(t), fpsa, tpsa, age from 'data'\n group by id")
+# This study is an age-matched case-control design: each diagnosed case was assigned a control matched to case by date of birth. There are 70 non diagnosed and 71 diagnosed:
+data$age_group <- cut(data$age, breaks = c(45,55,65,75), labels = c("(45,55]","(55,65]","(65,75]"))
+head(data)
+```
+
+Looking at the PSA in relation to whether the diagnosis was or was not made:
+
+```{r}
+boxplot(data$fpsa ~ data$d, main = "Boxplot of FPSA ~ diagnosis", col = 'gray90', border='gray50', pch= 19)
+```
+
+Generating ROC curves with pROC:
+
+```{r}
+# With total PSA:
+plot.roc(data$d, data$tpsa, print.auc = TRUE)
+
+# With age groups:
+
+plot.roc(x = data$d[data$age_gr == "(45,55]"], 
+      predictor = data$tpsa[data$age_gr == "(45,55]"], 
+      print.auc = TRUE, col = "green", print.auc.col = "green", 
+      print.auc.y = 0.97, print.auc.x = 0.5)
+
+plot.roc(x = data$d[data$age_gr == "(55,65]"], 
+      predictor = data$tpsa[data$age_gr == "(55,65]"], 
+      print.auc = TRUE, col = "blue", print.auc.col = "blue", add = TRUE, 
+      print.auc.y = 0.82, print.auc.x = 0.7)
+
+plot.roc(x = data$d[data$age_gr == "(65,75]"], 
+      predictor = data$tpsa[data$age_gr == "(65,75]"], 
+      print.auc = TRUE, col = "red", add = TRUE, print.auc.col = "red", 
+      print.auc.y = 0.7, print.auc.x = 0.8)
+```
+
+And with ROCR:
+
+```{r}
+# With ROCR:
+pred <- prediction(data$tpsa, data$d)
+perf <- performance(pred, "tpr", "fpr")
+# performance metrics TPR: True Positive Ratio FPR: False Positive Ratio
+plot(perf, col = "green")
+abline(0, 1, col = "grey")
+auc <- performance(pred, "auc")
+legend("bottomright", paste(round(as.numeric(auc@y.values), digits = 2)), col = c("green"), pch = c(3))
+```
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
