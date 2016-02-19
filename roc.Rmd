@@ -9,7 +9,7 @@ This post draws from the material here: [here](https://www.google.com/url?sa=t&r
 
 There are reference answers on CV [here](http://stats.stackexchange.com/q/14153/67822), [here](http://stats.stackexchange.com/a/85413/67822) and [here](http://stackoverflow.com/q/23131897/4089351).
 
-Utilizing the PSA antigen data from [here](http://research.fhcrc.org/content/dam/stripe/diagnostic-biomarkers-statistical-center/files/psa2b.csv), where `fpsa` stands for "free PSA" and `tpsa` stands for "total PSA". There are repeated measures in time `t` at different `age`-s:
+Utilizing the PSA antigen data from [here](http://research.fhcrc.org/content/dam/stripe/diagnostic-biomarkers-statistical-center/files/psa2b.csv), where `fpsa` stands for "free PSA" and `tpsa` stands for "total PSA". There are repeated measures in time `t` at different `age`-s. The outcome is `d` and is coded as `0` or `1`:
 
 ```{r,echo=F, warning = F,message=FALSE}
 library(gsubfn)
@@ -69,7 +69,7 @@ legend("bottomright", paste(round(as.numeric(auc@y.values), digits = 2)), col = 
 ```
 
 
-Alternatively, the `Epi` package can be used:
+Alternatively, the `Epi` package can be used. In this case we are dealing with predicting the clinical [outcome in patients with subarachnoid hemorrage](http://link.springer.com/article/10.1007%2Fs00134-009-1641-y).
 
 ```{r}
 data(aSAH)
