@@ -5,41 +5,36 @@
 
 ###ROC curves and AUC:
 
+This post draws from the material here: [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=21&cad=rja&uact=8&ved=0ahUKEwinjdHJ_oLLAhWBmR4KHTY8Axs4FBAWCBswAA&url=http%3A%2F%2Fr-es.org%2Fdl1192&usg=AFQjCNFxRXWxz4SWoOgzIFn_jzIAGKxNsQ&sig2=ELFkO23EgdBPH_6GjEkVvA).
+
+Utilizing the PSA antigen data from [here](http://research.fhcrc.org/content/dam/stripe/diagnostic-biomarkers-statistical-center/files/psa2b.csv), where `fpsa` stands for "free PSA" and `tpsa` stands for "total PSA". There are repeated measures in time `t` at different `age`-s:
+
 ```{r,echo=F, warning = F,message=FALSE}
 library(gsubfn)
 library(sqldf)
 library(tcltk)
 library(pROC)
 library(ROCR)
+library(Epi)
 library(gsheet)
 data <- read.csv(text = 
 gsheet2text('https://docs.google.com/spreadsheets/d/1ba1IYjX79EEmgBmsEzZgNs6Joe4v-SECWZUhbfhewhc/edit?usp=sharing',
 format ='csv'))
-```
-
-This material was extracted from [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=21&cad=rja&uact=8&ved=0ahUKEwinjdHJ_oLLAhWBmR4KHTY8Axs4FBAWCBswAA&url=http%3A%2F%2Fr-es.org%2Fdl1192&usg=AFQjCNFxRXWxz4SWoOgzIFn_jzIAGKxNsQ&sig2=ELFkO23EgdBPH_6GjEkVvA).
-
-Utilizing the PSA antigen data from [here](http://research.fhcrc.org/content/dam/stripe/diagnostic-biomarkers-statistical-center/files/psa2b.csv), where `fpsa` stands for "free PSA" and `tpsa` stands for "total PSA". There are repeated measures in time `t` at different `age`-s:
-
-```{r}
 data <- sqldf("select id, d, min(t), fpsa, tpsa, age from 'data'\n group by id")
 # This study is an age-matched case-control design: each diagnosed case was assigned a control matched to case by date of birth. There are 70 non diagnosed and 71 diagnosed:
 data$age_group <- cut(data$age, breaks = c(45,55,65,75), labels = c("(45,55]","(55,65]","(65,75]"))
 head(data)
 ```
 
-Looking at the PSA in relation to whether the diagnosis was or was not made:
-
-```{r}
-boxplot(data$fpsa ~ data$d, main = "Boxplot of FPSA ~ diagnosis", col = 'gray90', border='gray50', pch= 19)
-```
 
 Generating ROC curves with pROC:
 
 ```{r}
 # With total PSA:
-plot.roc(data$d, data$tpsa, print.auc = TRUE)
+plot.roc(data$d, data$tpsa, print.auc = TRUE, smooth=T)
+```
 
+```{r}
 # With age groups:
 
 plot.roc(x = data$d[data$age_gr == "(45,55]"], 
@@ -70,6 +65,29 @@ abline(0, 1, col = "grey")
 auc <- performance(pred, "auc")
 legend("bottomright", paste(round(as.numeric(auc@y.values), digits = 2)), col = c("green"), pch = c(3))
 ```
+
+
+Alternatively, the `Epi` package can be used:
+
+```{r}
+data(aSAH)
+head(aSAH)
+ROC(form = outcome ~ s100b, data=aSAH, plot = "ROC", MX = T)
+
+
+ROC(form = outcome ~ s100b, data=aSAH, plot="sp" )
+rc <- ROC(form = outcome ~ s100b, data=aSAH, plot="sp" ) 
+
+## optimal combination
+opt <- which.max(rowSums(rc$res[, c("sens", "spec")]))
+## optimal cut-off point 
+rc$res$lr.eta[opt]
+
+
+which.max(rowSums(rc$res[, c("sens", "spec")]))
+```
+
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
