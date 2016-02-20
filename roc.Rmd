@@ -75,9 +75,6 @@ Alternatively, the `Epi` package can be used. In this case we are dealing with p
 data(aSAH)
 head(aSAH)
 ROC(form = outcome ~ s100b, data=aSAH, plot = "ROC", MX = T)
-
-
-ROC(form = outcome ~ s100b, data=aSAH, plot="sp" )
 ```
 
 Looking into the structure of `ROC`... we see that it is a list containing a data frame `res` defined as:
@@ -92,7 +89,12 @@ $$\Large \mathbb{E}[Y_i|X_i]=\frac{1}{1 + e^{-(\beta_0+beta_1\times\text{s100b})
 <br>
 
 ```{r}
-rc <- ROC(form = outcome ~ s100b, data=aSAH, plot="sp" ) 
+rc <- ROC(form = outcome ~ s100b, data=aSAH, plot="sp" )
+ROC(form = outcome ~ s100b, data=aSAH, plot="sp" )
+lines(rc$res$lr,rc$res$spec, lwd = 2, type="s", col="red") #specificity
+lines(rc$res$lr,rc$res$sens, lwd = 2, type="s", col="green") # sensitivity
+lines(rc$res$lr,rc$res$pvp, lwd = 2, type="s", col="orange") # pvp
+lines(rc$res$lr,rc$res$pvn, lwd = 2, type="s", col="magenta") # pvn
 (rc)$res[1:5,]
 ```
 
