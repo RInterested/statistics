@@ -67,16 +67,16 @@ img {
 <ol style="list-style-type: decimal">
 <li>There is a need to bound at <span class="math inline">\(1\)</span> since we are estimating a probability, but lines are not naturally bounded. So we transform probability into odds:</li>
 </ol>
-<p><span class="math inline">\(\large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}\)</span>.</p>
+<p><span class="math inline">\(\Large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}\)</span>.</p>
 <p>In addition, this also helps turning a sigmoid curve of the typical cummulative probability distribution (e.g. normal) into a linear relation.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Now, when the probability goes down to zero, the odds also tend to zero; yet there is no floor restriction in a line.</li>
 </ol>
 <p>This problem can be addressed by expressing the linear relation in log scale: <span class="math inline">\(log(\text{odds})\)</span>, which will tend to <span class="math inline">\(-\infty\)</span> as the odds tend to zero. This is the <strong>logit</strong> or log-odds function.</p>
 <p>The logistic regression model is therefore:</p>
-<p><span class="math inline">\(\large log \left(\text{Odds(p(Y=1))}\right)=log\left(\frac{\hat p\,(Y=1)}{1-\hat p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p\)</span></p>
+<p><span class="math inline">\(\Large \color{red}{\text{log}} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{\hat p\,(Y=1)}{1-\hat p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p\)</span></p>
 <p>Consequently,</p>
-<p><span class="math inline">\(\large \text{Odds}(Y) = \frac{p(Y=1)}{1-p(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}\)</span></p>
+<p><span class="math inline">\(\Large \color{blue}{\text{odds(Y=1)}} = \frac{p\,(Y=1)}{1\,-\,p\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}\)</span></p>
 <p>Therefore a unit increase in <span class="math inline">\(x_1\)</span> increases the odds <span class="math inline">\(e^{\,\beta_1}\)</span> times. The factors <span class="math inline">\(e^{\,\beta_i}\)</span> are the <strong>ODDS RATIO</strong>s. On the other hand, <span class="math inline">\(\beta_i\)</span> (the coefficients) are the <strong>LOG ODDS-RATIO</strong>.</p>
 <p>For CATEGORICAL VARIABLES, are the <strong>ODDS RATIO</strong> denote how much the presence or absence of a factor variable increases the odds of a positive dependent variable.</p>
 <p>For CONTINOUS VARIABLES the odds ratio tell us how much the odds increase multiplicatively with a one-unit change in the independent variable. To calculate the difference in odds you raise the OR to the power of the difference between the observations.</p>
@@ -91,7 +91,7 @@ img {
 <p><br></p>
 <p><span class="math inline">\(\large p(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\)</span></p>
 <p><br></p>
-<p><span class="math inline">\(\large p(Y = 1) = \frac{Odds(Y=1)}{1+Odds(Y=1)}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}.\)</span></p>
+<p><span class="math inline">\(\Large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}\)</span></p>
 <p><br><br></p>
 </div>
 <div id="testing-a-logistic-regression-model" class="section level3">

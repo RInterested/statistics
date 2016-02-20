@@ -10,7 +10,7 @@ Logistic regression addresses the following issues:
 
 1. There is a need to bound at $1$ since we are estimating a probability, but lines are not naturally bounded. So we transform probability into odds:
 
-$\large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}$.
+$\Large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}$.
 
 In addition, this also helps turning a sigmoid curve of the typical cummulative probability distribution (e.g. normal) into a linear relation.
 
@@ -21,13 +21,13 @@ This problem can be addressed by expressing the linear relation in log scale: $l
 The logistic regression model is therefore:
 
 
-$\large log \left(\text{Odds(p(Y=1))}\right)=log\left(\frac{\hat p\,(Y=1)}{1-\hat p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p$
+$\Large \color{red}{\text{log}} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{\hat p\,(Y=1)}{1-\hat p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p$
 
 
 
 Consequently,
 
-$\large \text{Odds}(Y) = \frac{p(Y=1)}{1-p(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$
+$\Large \color{blue}{\text{odds(Y=1)}} = \frac{p\,(Y=1)}{1\,-\,p\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$
 
 Therefore a unit increase in $x_1$ increases the odds $e^{\,\beta_1}$ times. The factors $e^{\,\beta_i}$ are the **ODDS RATIO**s. On the other hand, $\beta_i$ (the coefficients) are the **LOG ODDS-RATIO**.
 
@@ -58,7 +58,7 @@ $\large p(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x
 
 <br>
 
-$\large p(Y = 1) = \frac{Odds(Y=1)}{1+Odds(Y=1)}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}.$
+$\Large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$
 
 
 <br><br>
