@@ -25,6 +25,7 @@ format ='csv'))
 data <- sqldf("select id, d, min(t), fpsa, tpsa, age from 'data'\n group by id")
 # This study is an age-matched case-control design: each diagnosed case was assigned a control matched to case by date of birth. There are 70 non diagnosed and 71 diagnosed:
 data$age_group <- cut(data$age, breaks = c(45,55,65,75), labels = c("(45,55]","(55,65]","(65,75]"))
+colnames(data)[2] = "outcome"
 head(data)
 ```
 
@@ -33,23 +34,37 @@ Generating ROC curves with pROC:
 
 ```{r}
 # With total PSA:
-plot.roc(data$d, data$tpsa, print.auc = TRUE, smooth=T)
+par(mfrow=c(1,2))
+plot.roc(data$outcome, data$tpsa, print.auc = TRUE, smooth=F)
+plot.roc(data$outcome, data$tpsa, print.auc = TRUE, smooth=T)
 ```
 
+Notice that the cutoff or threshold values utilized to build up the plot can be [extracted as](http://stackoverflow.com/a/35115425/4089351):
+
 ```{r}
+threshold <- function(predict, response) {
+    r <- pROC::roc(response, predict)
+    r$thresholds
+}
+threshold(data$tpsa, data$outcome)
+```
+
+Instead of the PSA we can consider the patient's age:
+
+```{r, message = F,echo=F}
 # With age groups:
 
-plot.roc(x = data$d[data$age_gr == "(45,55]"], 
+plot.roc(x = data$outcome[data$age_gr == "(45,55]"], 
       predictor = data$tpsa[data$age_gr == "(45,55]"], 
       print.auc = TRUE, col = "green", print.auc.col = "green", 
       print.auc.y = 0.97, print.auc.x = 0.5)
 
-plot.roc(x = data$d[data$age_gr == "(55,65]"], 
+plot.roc(x = data$outcome[data$age_gr == "(55,65]"], 
       predictor = data$tpsa[data$age_gr == "(55,65]"], 
       print.auc = TRUE, col = "blue", print.auc.col = "blue", add = TRUE, 
       print.auc.y = 0.82, print.auc.x = 0.7)
 
-plot.roc(x = data$d[data$age_gr == "(65,75]"], 
+plot.roc(x = data$outcome[data$age_gr == "(65,75]"], 
       predictor = data$tpsa[data$age_gr == "(65,75]"], 
       print.auc = TRUE, col = "red", add = TRUE, print.auc.col = "red", 
       print.auc.y = 0.7, print.auc.x = 0.8)
@@ -59,7 +74,7 @@ And with ROCR:
 
 ```{r}
 # With ROCR:
-pred <- prediction(data$tpsa, data$d)
+pred <- prediction(data$tpsa, data$outcome)
 perf <- performance(pred, "tpr", "fpr")
 # performance metrics TPR: True Positive Ratio FPR: False Positive Ratio
 plot(perf, col = "green")
