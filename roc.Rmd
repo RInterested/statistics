@@ -85,7 +85,7 @@ Looking into the structure of `ROC`... we see that it is a list containing a dat
       res	
       dataframe with variables sens, spec, pvp, pvn and name of the test   variable. The latter is the unique values of test or linear predictor from the logistic regression in ascending order with -Inf prepended. Since the sensitivity is defined as P(test>x)|status=TRUE, the first row has sens equal to 1 and spec equal to 0, corresponding to drawing the ROC curve from the upper right to the lower left corner.
 
-The first column is the same as `lr.eta`, `eta` being the ***maximized sum threshold or MST*** or the probability of the outcome:
+The first column is the same as `lr.eta`, `eta` being the ***maximized sum threshold or MST*** or the [**probability** of the outcome](http://rinterested.github.io/statistics/logistic_regression.html):
 
 <br>
 $$\Large \mathbb{E}[Y_i|X_i]=\frac{1}{1 + e^{-(\beta_0+beta_1\times\text{s100b})}}$$
@@ -95,8 +95,6 @@ $$\Large \mathbb{E}[Y_i|X_i]=\frac{1}{1 + e^{-(\beta_0+beta_1\times\text{s100b})
 rc <- ROC(form = outcome ~ s100b, data=aSAH, plot="sp" ) 
 (rc)$res[1:5,]
 ```
-
-
 
 
 The optimal combination of sensitivity and specificity is given by:
@@ -112,7 +110,7 @@ which.max(rowSums(rc$res[, c("sens", "spec")]))
 ```
 
 
-The value in row 18:
+The value in row $\small 18$:
 
 ```{r}
 (rc)$res[18,]
