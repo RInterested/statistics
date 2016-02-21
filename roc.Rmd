@@ -172,17 +172,20 @@ threshold(aSAH$s100b, aSAH$outcome)
  
 data <- aSAH[1:5,] # We take only the first x rows - for instance 5
 fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic regression that we will use as a predictor.
+```
 
-#ODDS RATIOS:
 
+[ODDS RATIOS:](https://drive.google.com/file/d/0Bwl-HpVJ_5PeVE5BTU5QVUlxRGs/view?usp=sharing)
+
+```{r, warning=F, message=FALSE}
 exp(coef(fit))
 exp(confint(fit))
+```
 
-#PROBABILITIES:
+PROBABILITIES:
 
-exp(predict(fit)) / (  1 + exp(predict(fit))  ) # These are the predicted
-# probabilities (not the odds or the results of the logistic regression) for
-# each value of s100b in the dataset
+```{r, warning=F, message=FALSE}
+exp(predict(fit)) / (  1 + exp(predict(fit))  ) # These are the predicted probabilities (not the odds or the results of the logistic regression) for each value of s100b in the dataset
 
 # let's get the thresholds from the pROC package:
 threshold <- function(predict, response) {
@@ -192,6 +195,7 @@ threshold <- function(predict, response) {
 (threshold <- threshold(data$s100b, data$outcome)) # Here we have them... Compare them to s100b... Parallel, but not quite...
 
 sort(data$s100b)
+
 # Let's add the predicted values:;
 
 data$predicted <- exp(predict(fit)) / (  1 + exp(predict(fit))  ) 

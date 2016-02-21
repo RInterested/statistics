@@ -225,26 +225,20 @@ rc$res$lr.eta[opt]</code></pre>
 <h4>MANUAL REPRODUCTION:</h4>
 <p><br></p>
 <pre class="r"><code>data &lt;- aSAH[1:5,] # We take only the first x rows - for instance 5
-fit &lt;- glm(outcome ~ s100b, data, family = &quot;binomial&quot;) # This is the logistic regression that we will use as a predictor.
-
-#ODDS RATIOS:
-
-exp(coef(fit))</code></pre>
+fit &lt;- glm(outcome ~ s100b, data, family = &quot;binomial&quot;) # This is the logistic regression that we will use as a predictor.</code></pre>
+<p><a href="https://drive.google.com/file/d/0Bwl-HpVJ_5PeVE5BTU5QVUlxRGs/view?usp=sharing">ODDS RATIOS:</a></p>
+<pre class="r"><code>exp(coef(fit))</code></pre>
 <pre><code>##  (Intercept)        s100b 
 ## 1.571381e-03 1.690125e+18</code></pre>
 <pre class="r"><code>exp(confint(fit))</code></pre>
 <pre><code>##                    2.5 %        97.5 %
 ## (Intercept) 1.499772e-22  1.435188e+01
 ## s100b       1.165035e-16 1.174063e+160</code></pre>
-<pre class="r"><code>#PROBABILITIES:
-
-exp(predict(fit)) / (  1 + exp(predict(fit))  ) # These are the predicted</code></pre>
+<p>PROBABILITIES:</p>
+<pre class="r"><code>exp(predict(fit)) / (  1 + exp(predict(fit))  ) # These are the predicted probabilities (not the odds or the results of the logistic regression) for each value of s100b in the dataset</code></pre>
 <pre><code>##          29          30          31          32          33 
 ## 0.269034388 0.358975423 0.094604465 0.008351337 0.269034388</code></pre>
-<pre class="r"><code># probabilities (not the odds or the results of the logistic regression) for
-# each value of s100b in the dataset
-
-# let's get the thresholds from the pROC package:
+<pre class="r"><code># let's get the thresholds from the pROC package:
 threshold &lt;- function(predict, response) {
   r &lt;- roc(response, predict)
   r$thresholds
