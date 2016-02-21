@@ -168,11 +168,18 @@ threshold(aSAH$s100b, aSAH$outcome)
 #### MANUAL REPRODUCTION:
 
 <br>
-```{r}
+```{r, warning=F, message=FALSE}
  
 data <- aSAH[1:5,] # We take only the first x rows - for instance 5
-fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic
-# regression that we will use as a predictor.
+fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic regression that we will use as a predictor.
+
+#ODDS RATIOS:
+
+exp(coef(fit))
+exp(confint(fit))
+
+#PROBABILITIES:
+
 exp(predict(fit)) / (  1 + exp(predict(fit))  ) # These are the predicted
 # probabilities (not the odds or the results of the logistic regression) for
 # each value of s100b in the dataset
@@ -182,14 +189,19 @@ threshold <- function(predict, response) {
   r <- roc(response, predict)
   r$thresholds
 }
-(threshold <- threshold(data$s100b, data$outcome)) # Here we have them...
-# Compare them to s100b... Parallel, but not quite...
+(threshold <- threshold(data$s100b, data$outcome)) # Here we have them... Compare them to s100b... Parallel, but not quite...
+
 sort(data$s100b)
 # Let's add the predicted values:;
+
 data$predicted <- exp(predict(fit)) / (  1 + exp(predict(fit))  ) 
+
 # and order the dataset:
+
 (data[with(data, order(s100b)), ])
-# Now let's what happens with different thresholds...
+
+# Now let's what happens with different cutoff points...
+
 cut <- rep(0, length(threshold)) # Establishing cutoff points
 for (i in 1:length(threshold)){
 cut[i] <- exp(predict(fit,data.frame(s100b=threshold[i]))) / (1 + exp(predict(fit,data.frame(s100b=threshold[i]))))
@@ -209,6 +221,7 @@ cut[is.na(cut)] <- 1.01 * max(data$predicted) # These is to get rid of NA's.
 # (1,0), (1, 1/4), (1, 1/2), (0,3/4), (0,1)
 
 # Let's automate:
+
 data$outcome <- as.numeric(data$outcome) - 1
 data[with(data, order(predicted)), ]
 
@@ -230,9 +243,17 @@ specif <- tru_neg / (length(data$outcome) - sum(data$outcome))
 (rock = cbind(cut, positive, negative,tru_pos,tru_neg, sens, specif))
 
 par(mfrow=c(1,2))
+
 # What we want:
-plot.roc(data$outcome, data$s100b)
+
+res <- plot.roc(data$outcome, data$s100b)
+polygon(with(res, cbind(c(0, specificities),c(0,sensitivities))), 
+        col = rgb(.5,0.31,0.1, alpha = 0.4), 
+        border = rgb(.35,0.31,0.61, 0.4),
+        lwd=2)
+
 # what we got:
+
 plot(rock[,6] ~ rock[,7],xlim=rev(range(rock[,7])), type = 'l') 
 segments(1,0,0,1, col=6)
 ```
