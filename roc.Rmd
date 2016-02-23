@@ -169,7 +169,7 @@ threshold(aSAH$s100b, aSAH$outcome)
 
 <br>
 ```{r, warning=F, message=FALSE}
- 
+data("aSAH")
 data <- aSAH[1:5,] # We take only the first x rows - for instance 5
 fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic regression that we will use as a predictor.
 ```
@@ -240,11 +240,10 @@ sum(data$outcome)
 positive[i] <- nrow(data[data$predicted > cut[i], ])
 negative[i] <- nrow(data) - positive[i]
 tru_pos[i]  <- sum(data[data$predicted > cut[i], ]$outcome)
-tru_neg[i]  <- (negative[i] - sum(data[data$predicted < cut[i], ]$outcome)) 
-               + (positive[i] - tru_pos[i])
+tru_neg[i]  <- negative[i] - sum(data[data$predicted < cut[i], ]$outcome)
 }
 
-sens <- tru_pos/sum(data$outcome)
+sens   <- tru_pos / sum(data$outcome)
 specif <- tru_neg / (length(data$outcome) - sum(data$outcome))
 (rock = cbind(cut, positive, negative,tru_pos,tru_neg, sens, specif))
 
