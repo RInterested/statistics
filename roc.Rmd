@@ -9,6 +9,23 @@ This post draws from the material here: [here](https://www.google.com/url?sa=t&r
 
 There are reference answers on-line [here](https://www.unc.edu/courses/2010fall/ecol/563/001/docs/lectures/lecture21.htm) [here](http://stats.stackexchange.com/q/14153/67822), [here](http://stats.stackexchange.com/a/85413/67822) and [here](http://stackoverflow.com/q/23131897/4089351).
 
+
+DEFINITIONS:
+
+$\text{Sensitivity} = \frac{TP}{TP + FN}$
+
+$\text{Specificity} = \frac{TN}{TN + FP}$
+
+An accuracy of 100% means that the measured values are exactly the same as the given values:
+
+$\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}$
+
+$\text{Precision or PPV} = \frac{TP}{TP + FP}$
+
+$\text{NPV} = \frac{TN}{TN + FN}$
+
+---
+
 Utilizing the PSA antigen data from [here](http://research.fhcrc.org/content/dam/stripe/diagnostic-biomarkers-statistical-center/files/psa2b.csv), where `fpsa` stands for "free PSA" and `tpsa` stands for "total PSA". There are repeated measures in time `t` at different `age`-s. The outcome is `d` and is coded as `0` or `1`:
 
 ```{r,echo=F, warning = F,message=FALSE}
@@ -83,6 +100,7 @@ auc <- performance(pred, "auc")
 legend("bottomright", paste(round(as.numeric(auc@y.values), digits = 2)), col = c("green"), pch = c(3))
 ```
 
+---
 
 Alternatively, the `Epi` package can be used. In this case we are dealing with predicting the clinical [outcome in patients with subarachnoid hemorrage](http://link.springer.com/article/10.1007%2Fs00134-009-1641-y).
 
@@ -114,7 +132,7 @@ lines(rc$res$lr,rc$res$pvn, lwd = 2, type="s", col="magenta") # pvn
 ```
 
 
-The optimal combination of sensitivity and specificity is given by:
+The maximal combination of sensitivity and specificity is given by:
 
 ```{r}
 ## optimal combination
@@ -126,6 +144,7 @@ rc$res$lr.eta[opt]
 which.max(rowSums(rc$res[, c("sens", "spec")]))
 ```
 
+... although this is not the way a cut-off value is selected to report the result of a test as positive, which would be "determined by the probability of getting a more extreme value than that in a normal population. Utilizing this a clinical cut-off from normal to abnormal would be inconsistent with optimal decision making. It is simply not appropriate to seek cutoffs on inputs. Optimum decisions are made using no cutoffs at all, or, if needed before decision time, by making cutoffs on the predicted probabilities. Utilities (loss/cost) are needed to solve for the optimum cutoff on predicted risk." See comments [here](http://stats.stackexchange.com/a/67563/67822). 
 
 The value in row $\small 18$:
 
@@ -225,7 +244,24 @@ cut[is.na(cut)] <- 1.01 * max(data$predicted) # These is to get rid of NA's.
 
 # Coordinates then are:
 # (1,0), (1, 1/4), (1, 1/2), (0,3/4), (0,1)
+```
 
+<br>
+If the probabilities of "success"" (outcome 1 or, most commonly, "disease") predicted by the logistic regression order the values perfectly along the actual presence of "success", we could end up with a system like:
+
+<br>
+<img HEIGHT="700" WIDTH="800" src="https://cloud.githubusercontent.com/assets/9312897/13240106/bb4e0668-d9ad-11e5-8176-a51fd5a08295.png">
+<br>
+
+In contradistinction, in a really bad test the predicted probabilities would bear no relation to the actual presence of the outcome, and the ROC curve would form a perfect diagonal:
+
+<br>
+<img HEIGHT="700" WIDTH="800" src="https://cloud.githubusercontent.com/assets/9312897/13240097/a0b0eb68-d9ad-11e5-863c-e4ac8d0b12a1.png">
+<br>
+
+
+<br>
+```{r, message =F, warning = F}
 # Let's automate:
 
 data$outcome <- as.numeric(data$outcome) - 1
@@ -239,7 +275,13 @@ for (i in 1:length(cut)){
 sum(data$outcome)
 positive[i] <- nrow(data[data$predicted > cut[i], ])
 negative[i] <- nrow(data) - positive[i]
+
+# tru_pos will be the sum of the actual "1" or "successes" on the rows with values in the predictor function higher than the cutoff point:
+
 tru_pos[i]  <- sum(data[data$predicted > cut[i], ]$outcome)
+
+# tru_neg will be the sum of the actual "1" or "successes" on the rows with values in the predictor function lower than the cutoff point (these are FN) subtracted from all the negatives:
+
 tru_neg[i]  <- negative[i] - sum(data[data$predicted < cut[i], ]$outcome)
 }
 
