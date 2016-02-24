@@ -67,12 +67,13 @@ img {
 <p>This post draws from the material here: <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=21&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwinjdHJ_oLLAhWBmR4KHTY8Axs4FBAWCBswAA&amp;url=http%3A%2F%2Fr-es.org%2Fdl1192&amp;usg=AFQjCNFxRXWxz4SWoOgzIFn_jzIAGKxNsQ&amp;sig2=ELFkO23EgdBPH_6GjEkVvA">here</a>.</p>
 <p>There are reference answers on-line <a href="https://www.unc.edu/courses/2010fall/ecol/563/001/docs/lectures/lecture21.htm">here</a> <a href="http://stats.stackexchange.com/q/14153/67822">here</a>, <a href="http://stats.stackexchange.com/a/85413/67822">here</a> and <a href="http://stackoverflow.com/q/23131897/4089351">here</a>.</p>
 <p>DEFINITIONS:</p>
-<p><span class="math inline">\(\text{Sensitivity} = \frac{TP}{TP + FN}\)</span></p>
-<p><span class="math inline">\(\text{Specificity} = \frac{TN}{TN + FP}\)</span></p>
+<p><span class="math inline">\(\text{Sensitivity or TP Rate} = \frac{TP}{TP\, +\, FN}\)</span></p>
+<p><span class="math inline">\(\text{Specificity} = \frac{TN}{TN\, +\, FP}\)</span></p>
+<p><span class="math inline">\(\text{FP Rate or Fall-out} = \frac{FP}{TN\, +\, FP} = 1 - \text{Specificity}\)</span></p>
 <p>An accuracy of 100% means that the measured values are exactly the same as the given values:</p>
-<p><span class="math inline">\(\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}\)</span></p>
-<p><span class="math inline">\(\text{Precision or PPV} = \frac{TP}{TP + FP}\)</span></p>
-<p><span class="math inline">\(\text{NPV} = \frac{TN}{TN + FN}\)</span></p>
+<p><span class="math inline">\(\text{Accuracy} = \frac{TP\, +\, TN}{TP\, +\, TN\, +\, FP\, +\, FN}\)</span></p>
+<p><span class="math inline">\(\text{Precision or PPV} = \frac{TP}{TP\, +\, FP}\)</span></p>
+<p><span class="math inline">\(\text{NPV} = \frac{TN}{TN\, +\, FN}\)</span></p>
 <hr />
 <p>Utilizing the PSA antigen data from <a href="http://research.fhcrc.org/content/dam/stripe/diagnostic-biomarkers-statistical-center/files/psa2b.csv">here</a>, where <code>fpsa</code> stands for “free PSA” and <code>tpsa</code> stands for “total PSA”. There are repeated measures in time <code>t</code> at different <code>age</code>-s. The outcome is <code>d</code> and is coded as <code>0</code> or <code>1</code>:</p>
 <pre><code>##   id outcome min(t)  fpsa  tpsa    age age_group
