@@ -373,6 +373,19 @@ segments(1,0,0,1)
 segments(1,0,0,1)
 ```
 
+We can calculate the AUC manually:
+
+```{r}
+AUC = function(sens,specif){
+    partitions <- 1 / length(threshold[2:(length(threshold) - 1)])
+    rect <- partitions * sens[2:((length(sens) - 1) )]
+    triang <- partitions * sens[2:((length(sens) - 1) )] / 2
+    sum(rect) + sum(triang)
+}
+AUC(sens,specif)
+roc(data$outcome, data$s100b, print.auc = T)
+
+```
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
