@@ -3,46 +3,61 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###DUMMY CODING HAS NOTHING TO DO WITH LOGISTIC REGRESSION:
+###DUMMY CODING IN REGRESSION:
 <br>
 
-This was written initially as a [post in CV](http://stats.stackexchange.com/a/174247/67822)
+Dummy coding allows introducing different ***levels*** within the variable that you want to code - for instance *temperature* with factors *hot*, *moderate* and *cold*: one single dummy-coded variable with three levels. This is very straightforward in matrix notation. Let's say you are regressing the variable `Food production` on a continuous variable `Ground Nitrogen` and the categorical variable `Temperature` dummy-coded into the **model matrix**. The equation of the regression model is going to be:
 
-<br>
 
-QUESTION ON THE SITE:
-
-I'm trying to assess the influence of temperature, geography and larvae connectivity on the genetic structure (Fst values) of a marine species.
-
-I used a linear regression framework in R:
-
-    lm(Fst ~ GEO + TEMP, data)
-
-On the other side, I have larvae connectivity (CO) values. For instance the model would be:
-
-    lm(Fst ~ GEO + TEMP + CO)
-
-However, the connectivity values are either 0 (not connected) or 1 (connected). These values follow more a logistic regression than a linear one. 
-
-ANSWER:
-
-In the second model, when you apply ordinary linear squares (OLS) regression, the binary variable `CO` is *dummy coded*: $X$ will either take the value $0$ or $1$. 
-
-From the point of view of linear algebra, your second model will be as follows:
-
-$$\Tiny \begin {bmatrix}  
-Fst_1\\ Fst_2\\Fst_3\\\vdots\\ Fst_n
-\end {bmatrix}  = \Tiny \begin {bmatrix}  
-1&GEO_1&TEMP_1&CO_1\\ 1&GEO_2&TEMP2&CO_2\\1&GEO_3&TEMP_3&CO_3\\1&\vdots&\vdots&\vdots\\ 1&GEO_n&TEMP_n&CO_n
+$\Tiny \begin {bmatrix}  
+\hat F_1\\ \hat F_2\\ \hat F_3\\\vdots\\
+\\\vdots\\
+\\\vdots\\
+\\\vdots\\
+\\\vdots\\ 
+\hat F_{59}
+\end {bmatrix}  = 
+\Tiny \begin {bmatrix}  
+1&GN_1&0&0\\
+1&GN_2 &  0  &  \color{orange}{\text{MOD}}\\
+1&GN_3 &  \color{red}{\text{HOT}}  &  0\\
+\vdots&\vdots&\vdots&\vdots\\ 
+1&GN_{35}&  0  & \color{orange}{\text{MOD}}\\
+1&GN_{36}&  0  & \color{orange}{\text{MOD}}\\
+1&GN_{37}&  \color{red}{\text{HOT}} & 0\\
+\vdots&\vdots&\vdots&\vdots\\ 
+1&GN_{42}&  0  &\color{orange}{\text{MOD}}\\
+1&GN_{43}&\color{red}{\text{HOT}} & 0\\
+1&GN_{44}&\color{red}{\text{HOT}} & 0\\
+1&GN_{45}& 0  &\color{orange}{\text{MOD}}\\
+\vdots&\vdots&\vdots&\vdots\\ 
+1&GN_{59}&\color{red}{\text{HOT}}  & 0\\
+\end {bmatrix}  \small \begin {bmatrix}  
+\hat\beta_0\\\hat\beta_1\\\hat\beta_{2\color{red}{H}}\\\hat\beta_{2\color{orange}{M}}
+\end {bmatrix}
+\Tiny =
+\begin {bmatrix}  
+1&GN_1&0&0\\
+1&GN_2 &  0  &  \color{orange}{1}\\
+1&GN_3 &  \color{red}{1}  &  0\\
+\vdots&\vdots&\vdots&\vdots\\ 
+1&GN_{35}&  0  & \color{orange}{1}\\
+1&GN_{36}&  0  & \color{orange}{1}\\
+1&GN_{37}&  \color{red}{1} & 0\\
+\vdots&\vdots&\vdots&\vdots\\ 
+1&GN_{42}&  0  &\color{orange}{1}\\
+1&GN_{43}&\color{red}{1} & 0\\
+1&GN_{44}&\color{red}{1} & 0\\
+1&GN_{45}& 0  &\color{orange}{1}\\
+\vdots&\vdots&\vdots&\vdots\\ 
+1&GN_{59}&\color{red}{1}  & 0\\
 \end {bmatrix} \small \begin {bmatrix}  
-\beta_0\\ \beta_1\\\beta_2\\ \beta_n
-\end {bmatrix} $$
+\hat\beta_0\\\hat\beta_1\\\hat\beta_{2\color{red}{H}}\\\hat\beta_{2\color{orange}{M}}
+\end {bmatrix}$
 
-... Just like any other system. But while all the other variable values in the *model matrix* (i.e. $\small GEO$ and $\small TEMP$ are numeric, continuous realizations of random variables with typically a wide range of real values, $\small CO$ will be a bunch of zeros and ones depending on whether each particular *observation or subject* (remember that observations or subjects are points in the data cloud, and correspond to individual rows in the model matrix... I guess specimens of the marine species you are studying) is "connected" ($X=1$, or in our case, $\small CO_i=1$) or "not connected" ($\small CO_i=0$), whatever that means in your dataset. Effectively, then, $\beta_n$ acts like a switch (when $\small CO_i=0$, the switch is off, and we don't add any contribution from the coefficient of $\small CO$ (i.e. $\small \beta_n$); when $\small CO_i=1$ the effect of $\small \beta_n$ is added to the prediction).
+The model matrix has the dummy-coded values arranged in such a way that the coefficient for the factor `COLD` will be completely "absorbed" into the intercept, while the coefficients for the other two factors will be calculated as $\hat\beta_0+\hat\beta_{2\color{red}{H}}$ for the factor `HOT`, and $\hat\beta_0+\hat\beta_{2\color{orange}{M}}$ for `MODERATE`.
 
-Therefore, when $X=1$, we are just adding a constant to the intercept (or subtracting) - in effect, the intercept will be $\beta_0+\beta_n$, instead of just $\beta_0$.
-
-In logistic regression the idea is completely unrelated: we are modelling a system where a number of regressors are trying to explain the *odds* of something happening or not happening, a binary outcome, on the left-hand side of the equation. On the LHS we have the $ln\,(odds)$ and on the RHS we have a system pretty much as above *with or without* dummy variables. We assume that the outcome ($Y=1$) follows a binomial distribution with probability $pi$, and come up with the *logit* function $ln(\frac{\pi}{1-\pi})$ for the LHS.
+If you are using R, the intercept for `COLD` will be simply the default intercept. To get the other intercepts you will have to do add to the intercept the coefficients for `HOT` and `MODERATE` respectively. If your model is called `fit` the coefficients (intercepts) for `COLD` will be `fit$coef[1]`; for `HOT`, `fit$coef[1] + fit$coef[2]`; and for `MODERATE`, `fit$coef[1] + fit$coef[3]`. 
 
 ---
 
