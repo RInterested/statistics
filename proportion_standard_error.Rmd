@@ -1,0 +1,34 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###STANDARD ERROR OF A PROPORTION:
+<br>
+
+The proportion is the mean of a variable that is $1$ when the individual has a trait and $0$ otherwise. The standard deviation involves the expression $\sum_{i=1}^n (x_i-\bar x)^2$.
+
+Let's suppose there are $m$ $1$'s (and $n-m$ $0$'s) among the $n$ subjects. Then,  $\bar x = \hat p = \frac{m}{n}$ and $x_i-\hat x$is equal to $1-\frac{m}{n}$ for $m$ observations and $0-\frac{m}{n}$ for $n-m$ observations. Hence,
+
+$$\sum_{i=1}^n (x_i-\bar x)^2 = m(1-\frac{m}{n})^2 + (n-m)(0-\frac{m}{n})^2=m(1-2\frac{m}{n}+\frac{m^2}{n^2}) +(n-m)(\frac{m^2}{n^2})$$
+$$=m-2(\frac{m^2}{n})+\frac{m^3}{n^2}+\frac{m^2}{n}-\frac{m^3}{n^2}=m-\frac{m^2}{n}=m(1-\frac{m}{n})=n\hat p(1-\hat p)$$.
+
+
+The sample variance is,
+
+$$\frac{\sum_{i=1}^n (x_i-\bar x)^2}{n}=\hat p(1-\hat p)$$
+
+
+The sample proportion is the mean of $n$ observations, so the standard error of the proportion is calculated like the standard error of the mean: the SD of one of them divided by the square root of the sample size or
+
+$$\sqrt{\frac{\hat p(1-\hat p)}{n}}$$
+
+<br>
+References:
+
+<a href="http://www.jerrydallal.com/lhsp/psd.htm">The Standard Error of a Proportion</a>
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
