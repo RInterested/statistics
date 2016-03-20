@@ -1,0 +1,43 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+**Standard Error:**
+
+The [standard error (**SE**) of the *sampling distribution a proportion $p$*][1] is defined as:
+
+$\text{SE}_p=\sqrt{\frac{p\,(1-p)}{n}}$. This can be contrasted to the [standard deviation (**SD**) of the *sampling distribution* of a proportion $\pi$][2]:   $\sigma_p=\sqrt{\frac{\pi\,(1-\pi)}{n}}$.
+
+**Confidence Interval:**
+
+The [confidence interval](https://en.wikipedia.org/wiki/Confidence_interval#Confidence_intervals_for_proportions_and_related_quantities) estimates the population parameter $\pi$ based on the sampling distribution and the central limit theorem (CLT) that allows a normal approximation. Hence, given a SE, and a proportion, $95\%$ the confidence interval will be calculated as:
+
+$$p\,\pm\,Z_{\alpha/2}\,\text{SE}$$
+
+Given that $Z_{\alpha/2}=Z_{0.975}=1.959964\sim1.96$, the CI will be:
+
+$$p\,\pm\,1.96\,\sqrt{\frac{p\,(1-p)}{n}}$$.
+
+This raises a question regarding the utilization of the normal distribution even if we really don't know the population SD - when estimating confidence intervals for means, if the SE is used in lieu of the SD, the $t$ distribution is typically felt to be a better choice due to its fatter tails. However, in the case of a proportion, there is only one parameter, $p$, being estimated, since the formula for the [Bernouilli variance](https://en.wikipedia.org/wiki/Bernoulli_distribution) is entirely dependent on $p$ as $p\,(1-p)$. This is very nicely explained [here](https://www.quora.com/In-hypothesis-testing-why-doesnt-the-sample-proportion-have-a-students-t-distribution-like-the-sample-mean).
+
+**Margin of Error:**
+
+The [margin of error][3] is simply the "radius" (or half the width) of a confidence interval for a particular statistic, in this case the sample proportion:
+
+$\text{ME}_{\text{@ 95% CI}}=1.96\,\sqrt{\frac{p\,(1-p)}{n}}$.
+
+Graphically,
+
+[![enter image description here][4]][4]
+
+
+  [1]: http://www.jerrydallal.com/lhsp/psd.htm
+  [2]: http://onlinestatbook.com/2/estimation/proportion_ci.html
+  [3]: https://en.wikipedia.org/wiki/Margin_of_error#Explanation
+  [4]: http://i.stack.imgur.com/4Prbn.png
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
