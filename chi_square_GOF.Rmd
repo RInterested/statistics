@@ -27,13 +27,20 @@ The test statistic follows a multinomial distribution.
 
 • The "goodness-of-fit test" is a way of determining whether a set of categorical data came from a claimed discrete distribution or not. The null hypothesis is that they did and the alternate hypothesis is that they didn't. It answers the question: are the frequencies I observe for my categorical variable consistent with my theory? The goodness-of-fit test expands the one-proportion z-test. The one-proportion z-test is used if the outcome has only two categories. The goodness-of-fit test is used if you have two or more categories.
 
-• The "test of homogeneity" is a way of determining whether two or more sub-groups of a population share the same distribution of a single categorical variable. For example, do people of different races have the same proportion of smokers to non-smokers, or do different education levels have different proportions of Democrats, Republicans, and Independent. The test of homogeneity expands on the two-proportion z-test. The two proportion z-test is used when the response variable has only two categories as outcomes and we are comparing two groups. The homogeneity test is used if the response variable has several outcome categories, and we wish to compare two or more groups.
+• The "test of homogeneity" is a way of determining whether two or more DIFFERENT POPULATIONS (or GROUPS) share the same distribution of a SINGLE CATEGORICAL VARIABLE. For example, do people of different races have the same proportion of smokers to non-smokers, or do different education levels have different proportions of Democrats, Republicans, and Independent. The test of homogeneity expands on the two-proportion z-test. The two proportion z-test is used when the response variable has only two categories as outcomes and we are comparing two groups. The homogeneity test is used if the response variable has several outcome categories, and we wish to compare two or more groups.
 
-• The "test of independence" is a way of determining whether two categorical variables are associated with one another in the population, like race and smoking, or education level and political affiliation. 
+$H_0$: $p_1 = p_2 = \cdots = p_n$ the proportion of $X$ is the same in all the populations studied.
 
-• Homogeneity and independence sound the same. The difference is a matter of design. In the test of independence, observational units are collected at random from a population and two categorical variables are observed for each unit. In the test of homogeneity, the data are collected by randomly sampling from each sub-group separately. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of another categorical variable. (Say, "chain smoker", "occasional smoker", "non-smoker".) The difference between these two tests is subtle yet important.
+$H_a$: At least one proportion of $X$ is not the same.
 
-• Note that in the test of independence, two variables are observed for each observational unit. In the goodness-of-fit test there is only one observed variable.
+• The "test of independence" is a way of determining whether TWO CATEGORICAL VARIABLES are associated with one another in ONE SINGLE POPULATION. For example, we draw a single group of 200 subjects and record the number of children they have, and the number of colds they each got last year, trying to see if there is a relationship between the having children and getting colds. 
+
+$H_0$: $X$ and $Y$ are independent.
+
+$H_a$: $X$ and $Y$ are dependent.
+
+• Homogeneity and independence sound the same. The difference is a matter of design. In the test of independence, observational units are collected at random from ONE POPULATION and TWO CATEGORICAL VARIABLES are observed for each observational unit. In the test of homogeneity, the data are collected by randomly sampling from each sub-group (SEVERAL POPULATIONS) separately. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of A SINGLE CATEGORICAL VARIABLE. (Say, "chain smoker", "occasional smoker", "non-smoker").
+
 
 <br>
 
@@ -58,8 +65,19 @@ The degrees of freedom in this case are calculated with the formula: $\small \te
 
 <br><br>
 
-
 ####Example 1:
+<br>
+
+Consider a standard package of milk chocolate M&Ms. There are six different colors: red, orange, yellow, green, blue and brown. We get a sample of $600$ M&Ms and check whether the distribution of colors is homogeneous. We have ONE CATEGORICAL VARIABLE with SIX LEVELS. The null hypothesis is that all six colors occur with a frequency or probability of $1/6$. The degrees of freedom are the $\text{no. of levels - 1 = 5}$.
+
+```{r}
+(MM = c(red=212, orange=147, yellow=103, green=50, blue=46, brown=42))
+expected_freq = rep(1/length(MM), length(MM))
+chisq.test(MM, p = expected_freq, correct = F)
+```
+<br>
+
+####Example 2:
 <br>
 
 A very generic example to see how the expected frequencies are generated would consist of testing whether the values in a vector representing a sample are consistent with a second vector representative of the population:
@@ -77,7 +95,7 @@ The sample definitely does not belong to the population distribution.
 
 <br><br>
 
-####Example 2:
+####Example 3:
 <br>
 
 Does the distribution of ages in a sample matches that expected in the population:
@@ -119,7 +137,7 @@ Clearly the value is too asymptotic ($\small p<0.05$) to not reject the equality
 
 <br><br>
 
-####Example 3:
+####Example 4:
 
 <br>
 
@@ -143,7 +161,7 @@ chisq.test(dat$suicides, p = replicate(length(dat$suicides),
 Therefore, we don't have enough evidence to reject the idea that there may not be too much difference between years.
 <br><br>
 
-####Example 4:
+####Example 5:
 
 <br>
 
@@ -174,7 +192,7 @@ chisq.test(dat$players, p = births)
 
 <br><br>
 
-####Example 5: COMPARING MANUSCRIPTS (modified Jane Austen example):
+####Example 6: COMPARING MANUSCRIPTS (modified Jane Austen example):
 
 <br>
 
@@ -205,7 +223,7 @@ The squared difference is far too large for the proportion of vowels in your doc
 
 <br><br>
 
-####Example 6: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:
+####Example 7: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:
 
 <br>
 
@@ -256,7 +274,7 @@ chisq.test(tableau[1,], p = tableau[2,])
 
 <br><br>
 
-####Example 7: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS "NORMAL"?
+####Example 8: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS "NORMAL"?
 
 <br>
 
