@@ -58,10 +58,19 @@ apply(head(findVectors(groups=3, size=sum(observed))),1, function(x) sum(x))
 
 ```{r}
 eventMat = findVectors(groups=3, size=sum(observed))
+nrow(eventMat)
 eventProb <- apply(eventMat, 1, function(x) dmultinom(x, 
         size = 9, prob = prob))
 (p.value = sum(eventProb[eventProb <= pObs]))
 ```
+
+The same calculation can be done using asymptotics as a chi-square GoF test:
+
+```{r}
+chisq.test(observed, p = prob, correct = F)
+```
+
+Not even close in this small sample...
 
 ---
 

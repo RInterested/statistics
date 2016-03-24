@@ -110,10 +110,22 @@ apply(head(findVectors(groups=3, size=sum(observed))),1, function(x) sum(x))</co
 <li>Then it calculates the exact multinomial probability for each one of these rows and selects the probabilities that are less than <code>pObs</code>. the sum of more unlikely events is the <code>p.value</code>:</li>
 </ol>
 <pre class="r"><code>eventMat = findVectors(groups=3, size=sum(observed))
-eventProb &lt;- apply(eventMat, 1, function(x) dmultinom(x, 
+nrow(eventMat)</code></pre>
+<pre><code>## [1] 55</code></pre>
+<pre class="r"><code>eventProb &lt;- apply(eventMat, 1, function(x) dmultinom(x, 
         size = 9, prob = prob))
 (p.value = sum(eventProb[eventProb &lt;= pObs]))</code></pre>
 <pre><code>## [1] 0.5305594</code></pre>
+<p>The same calculation can be done using asymptotics as a chi-square GoF test:</p>
+<pre class="r"><code>chisq.test(observed, p = prob, correct = F)</code></pre>
+<pre><code>## Warning in chisq.test(observed, p = prob, correct = F): Chi-squared
+## approximation may be incorrect</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  observed
+## X-squared = 2, df = 2, p-value = 0.3679</code></pre>
+<p>Not even close in this small sample…</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
