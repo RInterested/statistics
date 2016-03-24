@@ -25,11 +25,22 @@ The theoretical distribution is a continuous distribution, but the $\chi^2$ stat
 
 **Concepts:**
 
-• The __GOODNESS of FIT (GoF) TEST__ is a way of determining whether a set of categorical data came from a claimed discrete distribution or not. The null hypothesis is that they did and the alternate hypothesis is that they didn't. It answers the question: $\color{blue}{\text{are the frequencies I observe for my categorical variable consistent with my theory?}}$ The goodness-of-fit test expands the one-proportion z-test. The one-proportion z-test is used if the outcome has only two categories. The goodness-of-fit test is used if you have two or more categories. In the goodness-of-fit test __there is only one observed variable__, which makes it different from the test of independence (two variables recorded for every observational unit).
+• The "goodness-of-fit test" is a way of determining whether a set of categorical data came from a claimed discrete distribution or not. The null hypothesis is that they did and the alternate hypothesis is that they didn't. It answers the question: are the frequencies I observe for my categorical variable consistent with my theory? The goodness-of-fit test expands the one-proportion z-test. The one-proportion z-test is used if the outcome has only two categories. The goodness-of-fit test is used if you have two or more categories.
 
-• The __TEST of HOMOGENEITY__ is a way of determining whether two or more sub-groups of a population share the same distribution of a single categorical variable. For example, do people of different races have the same proportion of smokers to non-smokers, or do different education levels have different proportions of Democrats, Republicans, and Independent. ***The test of homogeneity expands on the two-proportion z-test.*** The two proportion z-test is used when the response variable has only two categories as outcomes and we are comparing two groups. ***The homogeneity test is used if the response variable has several outcome categories, and we wish to compare two or more groups.***
+• The "test of homogeneity" is a way of determining whether two or more DIFFERENT POPULATIONS (or GROUPS) share the same distribution of a SINGLE CATEGORICAL VARIABLE. For example, do people of different races have the same proportion of smokers to non-smokers, or do different education levels have different proportions of Democrats, Republicans, and Independent. The test of homogeneity expands on the two-proportion z-test. The two proportion z-test is used when the response variable has only two categories as outcomes and we are comparing two groups. The homogeneity test is used if the response variable has several outcome categories, and we wish to compare two or more groups.
 
-• The __TEST of INDEPENDENCE__ is a way of determining whether ***two categorical variables*** are associated with one another in the population, like race and smoking, or education level and political affiliation. 
+$H_0$: $p_1 = p_2 = \cdots = p_n$ the proportion of $X$ is the same in all the populations studied.
+
+$H_a$: At least one proportion of $X$ is not the same.
+
+• The "test of independence" is a way of determining whether TWO CATEGORICAL VARIABLES are associated with one another in ONE SINGLE POPULATION. For example, we draw a single group of 200 subjects and record the number of children they have, and the number of colds they each got last year, trying to see if there is a relationship between the having children and getting colds. 
+
+$H_0$: $X$ and $Y$ are independent.
+
+$H_a$: $X$ and $Y$ are dependent.
+
+• Homogeneity and independence sound the same. The difference is a matter of design. In the test of independence, observational units are collected at random from ONE POPULATION and TWO CATEGORICAL VARIABLES are observed for each observational unit. In the test of homogeneity, the data are collected by randomly sampling from each sub-group (SEVERAL POPULATIONS) separately. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of A SINGLE CATEGORICAL VARIABLE. (Say, "chain smoker", "occasional smoker", "non-smoker").
+
 
 
 ---
@@ -40,7 +51,7 @@ The theoretical distribution is a continuous distribution, but the $\chi^2$ stat
 
 1. Observational units are collected at random from a population and two categorical variables are observed for each unit. 
 2. Two variables are observed for each observational unit.
-3. The ***margins are considered fixed***. The test conditions on both margins - No cross-multiplication of margins.
+3. The ***margins are considered fixed***. The test conditions on both margins - ***No cross-multiplication of margins***.
 
 <br>
       Example:
@@ -52,7 +63,7 @@ The theoretical distribution is a continuous distribution, but the $\chi^2$ stat
 ####Test of homogeneity: 
 
 1. The data are collected by randomly sampling from ***each sub-group separately***. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of ***another categorical variable.*** (Say, "chain smoker", "occasional smoker", "non-smoker".) 
-2. The margins of the variables are considered random variables distributed normally, and we cross-multiply to get expected frequencies.
+2. The ***margins of the variables are considered random variables*** distributed normally, and ***we cross-multiply*** to get expected frequencies.
 
 
 <br>
@@ -101,7 +112,7 @@ Is there a relationship between sex and class?
 ```{r}
 tab <- matrix(c(33,153,103,16,29,181,81,14), nrow =4)
 dimnames(tab)<-list(Social.Class = c("Upper","Middle","Working","Lower"), Sex = c("Male", "Female"))
-addmargins(tab)
+addmargins(tab) # Margins are considered random variables!
 
 ```
 
@@ -134,7 +145,7 @@ The best illustration is Agresti's example with husband and wife marital satisfa
 ```{r}
 sex_satis <- matrix(c(7,2,1,2,7,8,5,8,2,3,4,9,3,7,9,14), nrow = 4)
 dimnames(sex_satis) = list(wife = c("Never","Sometimes","Often","Always"), husband = c("Never","Sometimes","Often","Always"))
-sex_satis
+addmargins(sex_satis) # Margins are considered fixed!
 ```
 
 It is to be excpected that, in general, the satisfaction of a spouse moves together with the other. 
