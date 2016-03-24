@@ -131,8 +131,65 @@ nrow(eventMat)</code></pre>
 <h3>Post-hoc test:</h3>
 <p>This is a quote extracted from <a href="http://www.biostathandbook.com/exactgof.html#posthoc">here</a>:</p>
 <p>“If you perform the exact multinomial test (with more than two categories) and get a significant result, you may want to follow up by testing whether each category deviates significantly from the expected number. It’s a little odd to talk about just one category deviating significantly from expected; if there are more observations than expected in one category, there have to be fewer than expected in at least one other category. But looking at each category might help you understand better what’s going on.</p>
-<p>For example, let’s say you do a genetic cross in which you expect a <span class="math inline">\(9:3:3:1\)</span> ratio of purple, red, blue, and white flowers, and your observed numbers are <span class="math inline">\(72\)</span> purple, <span class="math inline">\(38\)</span> red, <span class="math inline">\(20\)</span> blue, and <span class="math inline">\(18\)</span> white. You do the exact test and get a P value of <span class="math inline">\(0.0016\)</span>, so you reject the null hypothesis. There are fewer purple and blue and more red and white than expected, but is there an individual color that deviates significantly from expected?</p>
-<p>To answer this, do an exact binomial test for each category vs. the sum of all the other categories. For purple, compare the <span class="math inline">\(72\)</span> purple and <span class="math inline">\(76\)</span> non-purple to the expected <span class="math inline">\(9:7\)</span> ratio. The P value is <span class="math inline">\(0.07\)</span>, so you can’t say there are significantly fewer purple flowers than expected (although it’s worth noting that it’s close). There are <span class="math inline">\(38\)</span> red and <span class="math inline">\(110\)</span> non-red flowers; when compared to the expected <span class="math inline">\(3:13\)</span> ratio, the P value is <span class="math inline">\(0.035\)</span>. This is below the significance level of <span class="math inline">\(0.05\)</span>, but because you’re doing four tests at the same time, you need to correct for the multiple comparisons. Applying the Bonferroni correction, you divide the significance level (<span class="math inline">\(0.05\)</span>) by the number of comparisons (<span class="math inline">\(4\)</span>) and get a new significance level of <span class="math inline">\(0.0125\)</span>; since <span class="math inline">\(0.035\)</span> is greater than this, you can’t say there are significantly more red flowers than expected. Comparing the <span class="math inline">\(18\)</span> white and <span class="math inline">\(130\)</span> non-white to the expected ratio of <span class="math inline">\(1:15\)</span>, the P value is <span class="math inline">\(0.006\)</span>, so you can say that there are significantly more white flowers than expected. It is possible that an overall significant P value could result from moderate-sized deviations in all of the categories, and none of the post-hoc tests will be significant. This would be frustrating; you’d know that something interesting was going on, but you couldn’t say with statistical confidence exactly what it was.</p>
+<p>For example, let’s say you do a genetic cross in which you expect a <span class="math inline">\(9:3:3:1\)</span> ratio of purple, red, blue, and white flowers, and your observed numbers are <span class="math inline">\(72\)</span> purple, <span class="math inline">\(38\)</span> red, <span class="math inline">\(20\)</span> blue, and <span class="math inline">\(18\)</span> white. You do the exact test and get a P value of <span class="math inline">\(0.0016\)</span>(?), so you reject the null hypothesis. There are fewer purple and blue and more red and white than expected, but is there an individual color that deviates significantly from expected?</p>
+<pre class="r"><code>ratio &lt;- c(9,3,3,1)
+p &lt;- ratio/sum(ratio)
+chisq.test(c(72,38,20,18), p = p, correct = F)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  c(72, 38, 20, 18)
+## X-squared = 15.7477, df = 3, p-value = 0.001277</code></pre>
+<pre class="r"><code>#or
+multinomial.test(c(72,38,20,18), p, useChisq = FALSE, MonteCarlo = FALSE)</code></pre>
+<pre><code>## 
+##  Exact Multinomial Test, distance measure: p
+## 
+##     Events    pObs    p.value
+##     562475       0     0.0023</code></pre>
+<p>To answer this, do an exact binomial test for each category vs. the sum of all the other categories. For purple, compare the <span class="math inline">\(72\)</span> purple and <span class="math inline">\(76\)</span> non-purple to the expected <span class="math inline">\(9:7\)</span> ratio:</p>
+<pre class="r"><code>binom.test(72, 72 + 76, 9/(9+7) ,alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  72 and 72 + 76
+## number of successes = 72, number of trials = 148, p-value =
+## 0.06822
+## alternative hypothesis: true probability of success is not equal to 0.5625
+## 95 percent confidence interval:
+##  0.4035796 0.5699452
+## sample estimates:
+## probability of success 
+##              0.4864865</code></pre>
+<p>The P value is <span class="math inline">\(0.07\)</span>, so you can’t say there are significantly fewer purple flowers than expected. There are <span class="math inline">\(38\)</span> red and <span class="math inline">\(110\)</span> non-red flowers; when compared to the expected <span class="math inline">\(3:13\)</span> ratio, the P value is <span class="math inline">\(0.035\)</span>.</p>
+<pre class="r"><code>binom.test(38, 38 + 110, 3/(3+13) ,alternative=&quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  38 and 38 + 110
+## number of successes = 38, number of trials = 148, p-value =
+## 0.03504
+## alternative hypothesis: true probability of success is not equal to 0.1875
+## 95 percent confidence interval:
+##  0.1885441 0.3349714
+## sample estimates:
+## probability of success 
+##              0.2567568</code></pre>
+<p>This is below the significance level of <span class="math inline">\(0.05\)</span>, but because you’re doing four tests at the same time, you need to correct for the multiple comparisons. Applying the Bonferroni correction, you divide the significance level (<span class="math inline">\(0.05\)</span>) by the number of comparisons (<span class="math inline">\(4\)</span>) and get a new significance level of <span class="math inline">\(0.0125\)</span>; since <span class="math inline">\(0.035\)</span> is greater than this, you can’t say there are significantly more red flowers than expected. Comparing the <span class="math inline">\(18\)</span> white and <span class="math inline">\(130\)</span> non-white to the expected ratio of <span class="math inline">\(1:15\)</span>, the P value is <span class="math inline">\(0.006\)</span>,</p>
+<pre class="r"><code>binom.test(18, 18+130, 1/(1+15) ,alternative=&quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  18 and 18 + 130
+## number of successes = 18, number of trials = 148, p-value =
+## 0.006057
+## alternative hypothesis: true probability of success is not equal to 0.0625
+## 95 percent confidence interval:
+##  0.07369845 0.18539037
+## sample estimates:
+## probability of success 
+##              0.1216216</code></pre>
+<p>so you can say that there are significantly more white flowers than expected. It is possible that an overall significant P value could result from moderate-sized deviations in all of the categories, and none of the post-hoc tests will be significant. This would be frustrating; you’d know that something interesting was going on, but you couldn’t say with statistical confidence exactly what it was.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
