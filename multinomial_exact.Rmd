@@ -72,6 +72,19 @@ chisq.test(observed, p = prob, correct = F)
 
 Not even close in this small sample...
 
+
+###Post-hoc test:
+
+This is a quote extracted from [here](http://www.biostathandbook.com/exactgof.html#posthoc):
+
+
+"If you perform the exact multinomial test (with more than two categories) and get a significant result, you may want to follow up by testing whether each category deviates significantly from the expected number. It's a little odd to talk about just one category deviating significantly from expected; if there are more observations than expected in one category, there have to be fewer than expected in at least one other category. But looking at each category might help you understand better what's going on.
+
+For example, let's say you do a genetic cross in which you expect a $9:3:3:1$ ratio of purple, red, blue, and white flowers, and your observed numbers are $72$ purple, $38$ red, $20$ blue, and $18$ white. You do the exact test and get a P value of $0.0016$, so you reject the null hypothesis. There are fewer purple and blue and more red and white than expected, but is there an individual color that deviates significantly from expected?
+
+To answer this, do an exact binomial test for each category vs. the sum of all the other categories. For purple, compare the $72$ purple and $76$ non-purple to the expected $9:7$ ratio. The P value is $0.07$, so you can't say there are significantly fewer purple flowers than expected (although it's worth noting that it's close). There are $38$ red and $110$ non-red flowers; when compared to the expected $3:13$ ratio, the P value is $0.035$. This is below the significance level of $0.05$, but because you're doing four tests at the same time, you need to correct for the multiple comparisons. Applying the Bonferroni correction, you divide the significance level ($0.05$) by the number of comparisons ($4$) and get a new significance level of $0.0125$; since $0.035$ is greater than this, you can't say there are significantly more red flowers than expected. Comparing the $18$ white and $130$ non-white to the expected ratio of $1:15$, the P value is $0.006$, so you can say that there are significantly more white flowers than expected.
+It is possible that an overall significant P value could result from moderate-sized deviations in all of the categories, and none of the post-hoc tests will be significant. This would be frustrating; you'd know that something interesting was going on, but you couldn't say with statistical confidence exactly what it was.
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
