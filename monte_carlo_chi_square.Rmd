@@ -1,0 +1,82 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###MONTE CARLO SIMULATION INSTEAD OF CHI SQUARE:
+<br>
+
+An alternative when the conditions for a chi squared test (i.e. No cells with expected values $<1$), and no more than $20\%$ of cells with values $<5$) are not met, is a Monte Carlo simulation.
+
+The function is the option `simulate.p.value = TRUE` in the function `chisq.test()`. Of note the default number of replicates in the simulation is $\text{B}=2000$, which can naturally be changed.
+
+To make it manageable, I can use a minimalistic table:
+
+```{r}
+sales <- matrix(c(2, 7, 1, 2), nrow = 2, byrow = T)
+dimnames(sales) = list(Sales = c("Purchases", "No_Purchases"),
+                       Clients = c("One_off", "Good_Customer"))
+sales
+```
+
+For the probabilities used for each cell in the simulation, we can use the default value, which assigns the same probability to every cell `rep(1/length(x), length(x)) = 0.25`. But this wouldn't make sense in our case, since we see that we have more good customers than occasional, one-off clients. So we can make the probability vector to reflect the break-down of our clients: $3/9 = 1/3$. So, under the null hypothesis we assume that there is the same probability of a sale for both customer category, `p = c(1/8,3/8,1/8,3/8)`.
+
+First some definitions:
+
+```{r}
+probabilities = c(1/8,3/8,1/8,3/8) # Our probability vector
+B = 2 # Only two replicates to keep things under control
+no.cells = length(sales) # No. cells (4) in table. In R, this is "nx".
+total_counts = sum(sales) # 12 in this case. In R, it's "n".
+expected = total_counts * probabilities # 1.5  4.5  1.5  4.5. In R, it's "E".
+```
+
+Now we are going to randomly pick up cells among the 4 cells in our table, *but* with one condition: We'll do that as many times as the total number of counts in the original table, which in this case is 12. The cells will be assigned values from 1 to 4 through the call `length(x)` (in this case `no.cells`). The randomness, though, will be governed by the probabilities assigned. The result will look something like: `1, 2, 2, 4, 2, 4, 3, 1, 2, 1, 4, 4`.
+
+It may seem now for a second that we are generating some sort of counts, but we are not, because these numbers from 1 to 4 will be tabulated - counted for their frequencies. And it will be these counts that will constitute the simulated counts.
+
+We will do this for `B` replicates or simulations. All of it in one single sweep.
+
+Remember that we are doing it twice (`B = 2`), and there are 12 counts, so we expect 24 values returned. These will be in 12 rows, so that each count of all the original counts is now going to point to a random cell:
+
+```{r}
+set.seed(23)
+simulations = matrix(sample.int(no.cells, B * total_counts, replace = TRUE, prob = probabilities), nrow = total_counts)
+t(simulations)
+```
+
+Now it is time to tabulate, and we have to do it separately for each simulation (i.e. column-wise in the original, non-transposed matrix).
+
+The next call will produce the chi square for each simulation, which is the sum of the squared value of `Observed - Expected` counts for each cell for all cells, divided by the `Expected` values.
+
+Some details about the function: First, the `2L` means column-wise, and the function within `apply` takes the `expected` counts calculated above based on overall counts and probabilities, and the number of cells. It is the number of cells (4 in this case) that will be the `levels = 1:k` of `1,2,3,4` used to turn the results of `simulations` into factors: so instead of `2` the computer will see `"2"`. Whatever... The important thing is that now, finally, these cell reference numbers from 1 to 4, and again, there are as many chosen as total number of cells, will be tabulated to create the actual (fictitious) counts across columns. Once this is done, we'll subtract the expected values, square, divide by the expected value. And all done!
+
+```{r}
+chi = apply(simulations, 2L, function(x, E, k) {
+    sum((table(factor(x, levels = 1L:k)) - E)^2 / E)}, E = expected, k = no.cells)
+chi # In this case we are going to have just two chi squared values (2 simulations). R calls this function `ss`.
+```
+
+Now we calculate what percentage of chi square values are large than what R calls `STATISTIC`, which is calculated based on the original data (`sales`), and which would be the actual calculation of the chi square value. So we are really looking at how many, randomly generated tables with the same overall counts end up with a more extreme chi square:
+
+```{r}
+STATISTIC <- sum((sales - expected)^2/expected)
+(p.value <- (1 + sum(chi >= STATISTIC))/(B + 1)) # We divide by the number of simulations.
+```
+
+This would not be a statistically significant value. So we wouldn't be able to say that there are differences in purchases between regular and occasional clients.
+
+Let's see if it works:
+
+```{r}
+chisq.test(sales, p = probabilities, simulate.p.value = T, B = 2)
+```
+
+<br>
+References:
+
+<a href="http://rstudio-pubs-static.s3.amazonaws.com/1142_ecdc7d6b3cb84f54a6f3b5466c50b394.html">R Studio pubs</a>
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
