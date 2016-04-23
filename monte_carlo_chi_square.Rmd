@@ -64,9 +64,9 @@ STATISTIC <- sum((sales - expected)^2/expected)
 (p.value <- (1 + sum(chi >= STATISTIC))/(B + 1)) # We divide by the number of simulations.
 ```
 
-This would not be a statistically significant value. So we wouldn't be able to say that there are differences in purchases between regular and occasional clients.
+This would not be a statistically significant value, relying on this minimalistic simulation So we wouldn't be able to say that there are differences in purchases between regular and occasional clients.
 
-Let's see if it works:
+With just two simulations we can't really compare to the R formula, which would be:
 
 ```{r}
 chisq.test(sales, p = probabilities, simulate.p.value = T, B = 2)

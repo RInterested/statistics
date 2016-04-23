@@ -104,8 +104,8 @@ chi # In this case we are going to have just two chi squared values (2 simulatio
 <pre class="r"><code>STATISTIC &lt;- sum((sales - expected)^2/expected)
 (p.value &lt;- (1 + sum(chi &gt;= STATISTIC))/(B + 1)) # We divide by the number of simulations.</code></pre>
 <pre><code>## [1] 0.3333333</code></pre>
-<p>This would not be a statistically significant value. So we wouldn’t be able to say that there are differences in purchases between regular and occasional clients.</p>
-<p>Let’s see if it works:</p>
+<p>This would not be a statistically significant value, relying on this minimalistic simulation So we wouldn’t be able to say that there are differences in purchases between regular and occasional clients.</p>
+<p>With just two simulations we can’t really compare to the R formula, which would be:</p>
 <pre class="r"><code>chisq.test(sales, p = probabilities, simulate.p.value = T, B = 2)</code></pre>
 <pre><code>## 
 ##  Pearson's Chi-squared test with simulated p-value (based on 2
