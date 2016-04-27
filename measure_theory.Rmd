@@ -1,0 +1,118 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###MEASURE THEORY:
+<br>
+
+####PROBABILITY SPACES $(\Omega,\mathcal F, \mathbb P)$:
+<br>
+
+1. There are undefined entities: the **random experiment** (tossing coin) and the **outcome*.
+2. *Sample space**: Set of all possible outcomes of a random experiment: it can be "heads v tails", "number of flips in the air", etc. So the sample space depends on what we are examining.
+3. **Events**: These are the subsets of $\Omega$ which are of "interest". For example, "at least two heads in 3 coin tosses": $\bf A=\{HHH\},\{THH\},\{HTH\},\{HHT\}$. If $\omega \in \bf A$ the event has occurred.
+
+An **algebra** (without the $\sigma$) is a collection $\mathcal F_o$ of subsets of $\Omega$ that fulfills: 1. The null set $\varnothing \in \mathcal F_o$; 2. If $\bf A \in \mathcal F_o$, then $\bf A^c \in \mathcal F_o$ (closed under complementation), and 3. if $\bf A \in \mathcal F_o$ and $\bf B \in \mathcal F_o$, $\bf A \cup \bf B \in \mathcal F_o$ (closed under **finite** unions, or what is the same, finite intersections).
+
+However, we need more structure than an algebra - "finite unions" is too restrictive. We need a sigma algebra, $\mathcal F$, so as to be able to build up all interesting events based on complementary sets and unions. A sigma algebra:
+
+1. Contain the null set: $\varnothing \in \mathcal F$.
+2. If $\bf A \in \mathcal F$, then $\bf A^c \in \mathcal F$ (closed under complementation).
+3. If $\bf A_1, \bf A_2,\cdots$ is a countable collection of subsets in omega, $\displaystyle \cup_{i=1}^{\infty}A_i \in \mathcal F$: Closed under **countable infinite** unions.
+
+Subsets in $\mathcal F$ are called $\mathcal F$-measurable sets.
+
+The most trivial sigma algebra is $\mathcal F= \{\varnothing, \Omega\}$. Other examples are $\mathcal F = 2^\Omega$ or $\mathcal \{\varnothing,\bf A,\bf A^c, \Omega \}$.
+
+$(\Omega,\mathcal F)$ is a **measurable space**.
+
+
+What is a **MEASURE**?
+
+It is a function or map $\mu: \mathcal F \rightarrow [0,\infty]$ such that:
+
+1. $\mu(\varnothing)=0$
+2. if $\bf A_1, A_2, \cdots$ are disjoint $\mathcal F$-measurable sets, then: $\mu\big(\displaystyle \cup_{i=1}^\infty A_i\big)= \displaystyle \cup_{i=1}^\infty \mu(A_i)$ (countable additivity).
+
+The triple $(\Omega,\mathcal F, \mu)$ is a **measure space**. If $\mu(\omega)=1$, $\mu$ is a probability measure. $\mu = \mathbb P$, and we'll talk about probability spaces.
+
+The **probability measure**, $\mathbb P$ on $(\Sigma, \mathcal F)$ is a function $\mathbb P: \mathcal F \rightarrow [0,1]$, fulfilling: 1. $\mathbb P(\varnothing=0)$; 2. $\mathbb P(\Omega)=1$; and 3. If $\bf A_1, A_2, \cdots$ are disjoint $\mathcal F$-measurable, $\mathbb P(A_1 \cup A_2 \cup \cdots) = \mathbb P (\cup_{i=1}^\infty A_i)= \sum_{i=1}^\infty \mathbb P(A_i)$
+
+
+<br>
+
+####DISCRETE PROBABILITY SPACES:
+<br>
+
+The sample space is countable (finite or infinite), and it will either be $\Omega=\{\omega_1,\omega_2,\cdots,\omega_n\}$ or $\Omega=\{\omega_1,\omega_2,\cdots\}$.
+
+We can afford to take the set of all possible subsets of the sample space as the sigma algebra, $\mathcal F = 2^\Omega$, i.e. all subsets of $\Omega$ are events, and hence, will have assigned probabilities.
+
+We assign probabilities to all the subsets of $\Omega$, or in this case, events $\bf A$, via the assigned probabilities to singletons, $P(\{\omega\})$.
+
+So, $P(\bf A)= \displaystyle \sum_{\omega\in A} P(\{\omega\})$.
+
+Whatever way probabilities are assigned, it should satisfy that $\displaystyle \sum_{\omega\in \Omega} P(\{\omega\})=1$.
+
+In the case of a countable infinite sample space, such as the natural numbers $\mathbb N$, the powerset has higher cardinality, but it doesn't matter. The sigma algebra will still be $\mathcal F= 2^\mathbb N$, and the singleton will have assigned probaility, for example, $P(\{k\}) = \frac{1}{2^k}$, which sum for $k=1,2,3,\cdots$ is $1$. This is called the geometric measure. In the case of $\Omega=\{0\}\cup \mathbb N$ we could assign a Poisson measure.
+
+<br>
+
+####UNCOUNTABLE SAMPLE SPACES:
+<br>
+
+It is not possible to assign probabilities to $\mathcal F = 2^\Omega$ when $\Omega$ is uncountable. $2^\Omega$ has higher cardinality than the real numbers. We can't assigned probabilities on, for example, $[0,1]$,based on adding up the probabilities of singletons. The most common way to assign probabilities is using intervals $(a,b)$ is $b-a$. We want $\mu((a,b)) = \mu((a,b])=\mu([a,b))=\mu([a,g])=b-a$. We also want the property of *translation invariance*: $\bf A \subseteq [0,1]$, $\mu(A)=\mu(A\bigoplus x) = \{a+x|a \in A, a+x \leq 1\} \cup \{a + x-1|a \in A, a+x>1\}$.
+
+We include all intervals (closed and open) in the sigma algebra with their complements, unions and intersections to form a special sigma algebra called a **Borel sigma algebra**. The intervals are **Borel sets**.
+
+The **generated sigma algebra** created by the "interesting subsets" $\mathcal C$ consisting of all the **open** subsets in the real line (or to put aside for now $\infty$, the $[0,1]$ interval).
+
+There is a theorem stating that there is a *unique* sigma algebra, which is the smallest sigma algebra generated by $\mathcal C$, containing all elements of $\mathcal C$. These elements will be all the open intervals in $[0,1]$. For any sigma algebra $\mathcal H$ that contains $\mathcal C$, $\sigma(\mathcal C) \subseteq \mathcal H=\cap H_i$ - this $\sigma(\mathcal C)$ is the $\sigma$-algebra generated by $\mathcal C$.
+
+So we take open subintervals of $\Omega=(0,1]$ to generate this Borel sigma algebra on $(0,1]$ or $\mathcal B((0,1])$. This borel sigma algebra has the same cardinality as the real numbers, and contains the sets of practical interest. There are strange sets, such as Vitali's or Banach-Tarski, which are not included. It will also include the singletons:
+
+$$\{b\}= \displaystyle \cap_{n=1}^\infty \big [(b-1/n,\,\, b+1/n) \cap \Omega \big]$$.
+
+The closed sets are included also:
+
+$$(a,b]=\displaystyle \cap_{n=1}^\infty[(a,\,\,b+1/n)\cap \Omega]$$
+
+And the "openess" on the left makes it clear that it is a sigma algebra.
+
+In <a href="https://youtu.be/6ad9V8gvyBQ?t=37m43s">here</a> Borel sigma algebras are defined as the natural link between $\sigma$-algebras for a set $\bf M$ and **topology**: Let $(\bf M, \mathcal O)$ be a **topological space**. Now can we use the choice for **open sets** in the **standard topology** to define measurable sets? Yes, and then the **generating sets** are all the open sets, and the generated sigma algebra, $\sigma(\mathcal O)$ is the Borel $\sigma$-algebra on $(\bf M, \mathcal O)$.
+
+---
+
+So far we have a Borel $\sigma$-algebra on the power set, $(\Omega,\mathcal B)$, which has made the construct measurable by reducing the cardinality. But how to give it a measure? The length of any of the open intervals $(a,b)$, measured as $b -a$ would do, *EXCEPT* for the fact that we are also including in this Borel sigma algebra some bizarre sets, such as the Cantor set. How to deal with that scattering of points?
+
+We need to extend the measure of these intervals (the **Lebesgue measure**) to weird sets.
+
+We start with not $\mathcal F$, but a collection of subsets of $\Omega$ which are finite unions of disjoint intervals of the form $(a,b]$ plus $\varnothing$. This will be called $\mathcal F_o$, and will form an algebra, albeit not a $\sigma$-algebra:
+
+$$\cup_{n=1}^\infty \big(0,\frac{n}{n+1}\big]=(0,1) \notin \mathcal F_o$$.
+
+We have $\mathcal F_o=\{(a_1,b_2] \cup (a_2,b_2],\cdots\, \cup (a_n, b_n]\}$, which can be measured as the distances, and then, by Caratheodory's extension theorem, we can extend this sigma algebra generated by these disjoint intervals ($\sigma(\mathcal F_o)$) to prove that it is the same as the Borel sigma algebra on $(0,1]$: $\mathcal B((0,1]))$.
+
+Caratheodary's theorem says that if $\mathcal F_o$ is an algebra on $\Omega$ and $\mathcal F= \sigma(\mathcal F_o)$, and $\mathbb P_o: \mathcal F_o \rightarrow [0,1]$ such that $\mathbb P(\Omega = 1)$ and $\mathbb P_o$ is countably additive on $\mathcal F_o$, then $\mathbb P_o$ can be *uniquely* extended to a probability measure $\mathcal P$ on $(\Omega,\mathcal F)$, and that is a unique probability measure $\mathcal P$ on $(\Omega, \mathcal F)$ such that $\mathbb P(A)=\mathcal P_o(A) \,\, \forall A\in \mathcal F_o$.
+
+
+<br>
+
+####RANDOM VARIABLES:
+<br>
+
+The experimenter is not interested always on the actual outcomes of a random experiment, but rather a numerical function on the elementary outcomes, ie. Number of heads in a coin toss. Random variables are numberical functions of the outcome. They are neither random nor variables, but rather deterministic functions.
+
+Not all functions from $\Omega$ to $\mathbb R$ are random variables. Random variables are $\mathcal F$-measurable: 
+
+For every Borel set $B \in \mathcal B(R)$ in the target or range of the function, the **pre-image** is $X^{-1}(B) \in \mathcal F$, where $X^{-1}(B)=\{\omega \in \Omega \,|\, X(\omega) \in B\}$.
+
+
+A random variable on the probability space $(\Omega, \mathcal F, \mathbb _P)$ is an $\mathcal F$-measurable function from omega to the real line. In math notation: $X: \Omega \rightarrow \mathbb R$.
+
+
+<br>
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
