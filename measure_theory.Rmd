@@ -57,7 +57,7 @@ The triple $(\Omega,\mathcal F, \mu)$ is a **measure space**. If $\mu(\omega)=1$
 
 ---
 
-The ***probability measure***, $\mathbb P$ on $(\Omega, \mathcal F)$ is a function $\mathbb P: \mathcal F \rightarrow [0,1]$, fulfilling: 
+The ***PROBABILITY MEASURE***, $\mathbb P$ on $(\Omega, \mathcal F)$ is a function $\mathbb P: \mathcal F \rightarrow [0,1]$, fulfilling: 
 
 &nbsp;1. $\mathbb P(\varnothing=0)$; 
 
@@ -65,8 +65,12 @@ The ***probability measure***, $\mathbb P$ on $(\Omega, \mathcal F)$ is a functi
 
 &nbsp;3. If $\bf A_1, A_2, \cdots$ are disjoint $\mathcal F$-measurable, $\mathbb P(A_1 \cup A_2 \cup \cdots) = \mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i \Big)= \displaystyle\sum_{i=1}^\infty \mathbb P(A_i)$. This is again the principle of countable (finitely or infinitely countable) additivity. Of note, an infinite sum can be expressed as a limit of finite sum: $\displaystyle\lim_{n\to\infty} \displaystyle \sum_{i=1}^n \mathbb P(A_i)$.
 
+---
 
-This is the ***continuity of probability measurement property of a probability measure***, also expressed as:
+######(SOME) PROPERTIES OF PROBABILITY MEASURES:
+
+
+1. In the last section we see already the ***continuity of probability measurement*** property of a probability measure, also expressed as:
 
 If $A_1,A_2, A_3,\cdots \in \mathcal F$, which means that they are measurable subsets of the sigma algebra, $\color{red}{\mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i \Big)=\displaystyle\lim_{n\to\infty} \Big(\displaystyle\sum_{i=1}^n \mathbb P(A_i)\Big)=\displaystyle\lim_{n\to\infty} \mathbb P\Big(\bigcup\limits_{i=1}^n A_i\Big)}$. Of note, the last step works because of *finite additivity* (the limit doesn't count, because it is outside the actual change in notation). The proof is not immediate:
 
@@ -74,6 +78,9 @@ Let $B_1=A_1$ and $B_2=A_2\setminus A_1$, $B_3=A_3\setminus(A_2\cup A_1)\cdots$ 
 
 $\mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i\Big)= \mathbb P \Big( \bigcup\limits_{i=1}^\infty B_i\Big)=\displaystyle \sum_{i=1}^\infty \mathbb P (B_i)=\displaystyle\lim_{n\to\infty}\Big(\sum_{i=1}^n \mathbb P(B_i)\Big)\underset{\text{finite addi'ty}}{=}\displaystyle\lim_{n\to\infty} \mathbb P\Big(\bigcup\limits_{i=1}^n B_i\Big)=\displaystyle\lim_{n\to\infty} \mathbb P\Big(\bigcup\limits_{i=1}^n A_i\Big) \,\,\square$
 
+---
+
+2. ***Union Bound***: If $A_1, A_2,\cdots$ are events,$\mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i\Big) \leq \displaystyle\sum_{i=1}^\infty\mathbb P (A_i)$. If the equality holds the intersections will have zero probability measure.
 
 ---
 
