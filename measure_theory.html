@@ -74,8 +74,8 @@ img {
 <div id="probability-spaces-omegamathcal-f-mathbb-p" class="section level4">
 <h4>PROBABILITY SPACES <span class="math inline">\((\Omega,\mathcal F, \mathbb P)\)</span>:</h4>
 <p><br></p>
-<p> 1. There are undefined entities: the <strong>random experiment</strong> (tossing coin) and the **outcome*.</p>
-<p> 2. *Sample space**: Set of all possible outcomes of a random experiment: it can be “heads v tails”, “number of flips in the air”, etc. So the sample space depends on what we are examining.</p>
+<p> 1. There are undefined entities: the <strong>random experiment</strong> (tossing coin) and the <strong>outcome</strong>.</p>
+<p> 2. <strong>Sample space</strong>: Set of all possible outcomes of a random experiment: it can be “heads v tails”, “number of flips in the air”, etc. So the sample space depends on what we are examining.</p>
 <p> 3. <strong>Events</strong>: These are the subsets of <span class="math inline">\(\Omega\)</span> which are of “interest”. For example, “at least two heads in 3 coin tosses”: <span class="math inline">\(\bf A=\{HHH\},\{THH\},\{HTH\},\{HHT\}\)</span>. If <span class="math inline">\(\omega \in \bf A\)</span> the event has occurred.</p>
 <hr />
 <p>An <strong>algebra</strong> (without the <span class="math inline">\(\sigma\)</span>) is a collection <span class="math inline">\(\mathcal F_o\)</span> of subsets of <span class="math inline">\(\Omega\)</span> that fulfills:</p>
@@ -92,13 +92,13 @@ img {
 <p>The most trivial sigma algebra is <span class="math inline">\(\mathcal F= \{\varnothing, \Omega\}\)</span>. Other examples are <span class="math inline">\(\mathcal F = 2^\Omega\)</span> or <span class="math inline">\(\mathcal \{\varnothing,\bf A,\bf A^c, \Omega \}\)</span>.</p>
 <p><span class="math inline">\((\Omega,\mathcal F)\)</span> is a <strong>measurable space</strong>.</p>
 <hr />
-<p>What is a <strong>MEASURE</strong>?</p>
+<p>What is a <strong><em>MEASURE</em></strong>?</p>
 <p>It is a function or map <span class="math inline">\(\mu: \mathcal F \rightarrow [0,\infty]\)</span> such that:</p>
 <p> 1. <span class="math inline">\(\mu(\varnothing)=0\)</span>.</p>
 <p> 2. if <span class="math inline">\(\bf A_1, A_2, \cdots\)</span> are disjoint <span class="math inline">\(\mathcal F\)</span>-measurable sets, then: <span class="math inline">\(\mu\Big(\bigcup\limits_{i=1}^\infty A_i\Big)= \displaystyle \displaystyle \sum_{i=1}^\infty \mu(A_i)\)</span> (countable additivity).</p>
 <p>The triple <span class="math inline">\((\Omega,\mathcal F, \mu)\)</span> is a <strong>measure space</strong>. If <span class="math inline">\(\mu(\omega)=1\)</span>, <span class="math inline">\(\mu\)</span> is a probability measure. <span class="math inline">\(\mu = \mathbb P\)</span>, and we’ll talk about probability spaces.</p>
 <hr />
-<p>The <strong>probability measure</strong>, <span class="math inline">\(\mathbb P\)</span> on <span class="math inline">\((\Omega, \mathcal F)\)</span> is a function <span class="math inline">\(\mathbb P: \mathcal F \rightarrow [0,1]\)</span>, fulfilling:</p>
+<p>The <strong><em>probability measure</em></strong>, <span class="math inline">\(\mathbb P\)</span> on <span class="math inline">\((\Omega, \mathcal F)\)</span> is a function <span class="math inline">\(\mathbb P: \mathcal F \rightarrow [0,1]\)</span>, fulfilling:</p>
 <p> 1. <span class="math inline">\(\mathbb P(\varnothing=0)\)</span>;</p>
 <p> 2. <span class="math inline">\(\mathbb P(\Omega)=1\)</span> (this being the only difference to a general measure); and</p>
 <p> 3. If <span class="math inline">\(\bf A_1, A_2, \cdots\)</span> are disjoint <span class="math inline">\(\mathcal F\)</span>-measurable, <span class="math inline">\(\mathbb P(A_1 \cup A_2 \cup \cdots) = \mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i \Big)= \displaystyle\sum_{i=1}^\infty \mathbb P(A_i)\)</span>. This is again the principle of countable (finitely or infinitely countable) additivity. Of note, an infinite sum can be expressed as a limit of finite sum: <span class="math inline">\(\displaystyle\lim_{n\to\infty} \displaystyle \sum_{i=1}^n \mathbb P(A_i)\)</span>.</p>
