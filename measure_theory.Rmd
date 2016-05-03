@@ -9,17 +9,33 @@
 ####PROBABILITY SPACES $(\Omega,\mathcal F, \mathbb P)$:
 <br>
 
-1. There are undefined entities: the **random experiment** (tossing coin) and the **outcome*.
-2. *Sample space**: Set of all possible outcomes of a random experiment: it can be "heads v tails", "number of flips in the air", etc. So the sample space depends on what we are examining.
-3. **Events**: These are the subsets of $\Omega$ which are of "interest". For example, "at least two heads in 3 coin tosses": $\bf A=\{HHH\},\{THH\},\{HTH\},\{HHT\}$. If $\omega \in \bf A$ the event has occurred.
+&nbsp;1. There are undefined entities: the **random experiment** (tossing coin) and the **outcome*.
 
-An **algebra** (without the $\sigma$) is a collection $\mathcal F_o$ of subsets of $\Omega$ that fulfills: 1. The null set $\varnothing \in \mathcal F_o$; 2. If $\bf A \in \mathcal F_o$, then $\bf A^c \in \mathcal F_o$ (closed under complementation), and 3. if $\bf A \in \mathcal F_o$ and $\bf B \in \mathcal F_o$, $\bf A \cup \bf B \in \mathcal F_o$ (closed under **finite** unions, or what is the same, finite intersections).
+&nbsp;2. *Sample space**: Set of all possible outcomes of a random experiment: it can be "heads v tails", "number of flips in the air", etc. So the sample space depends on what we are examining.
+
+&nbsp;3. **Events**: These are the subsets of $\Omega$ which are of "interest". For example, "at least two heads in 3 coin tosses": $\bf A=\{HHH\},\{THH\},\{HTH\},\{HHT\}$. If $\omega \in \bf A$ the event has occurred.
+
+---
+
+An **algebra** (without the $\sigma$) is a collection $\mathcal F_o$ of subsets of $\Omega$ that fulfills: 
+
+&nbsp;1. The null set $\varnothing \in \mathcal F_o$; 
+
+&nbsp;2. If $\bf A \in \mathcal F_o$, then $\bf A^c \in \mathcal F_o$ (closed under complementation), which implies $\varnothing^c = \Omega \in \mathcal F_o$ and 
+
+&nbsp;3. if $\bf A \in \mathcal F_o$ and $\bf B \in \mathcal F_o$, $\bf A \cup \bf B \in \mathcal F_o$ (closed under **finite** unions, or what is the same, finite intersections).
+
+---
 
 However, we need more structure than an algebra - "finite unions" is too restrictive. We need a sigma algebra, $\mathcal F$, so as to be able to build up all interesting events based on complementary sets and unions. A sigma algebra:
 
-1. Contain the null set: $\varnothing \in \mathcal F$.
-2. If $\bf A \in \mathcal F$, then $\bf A^c \in \mathcal F$ (closed under complementation).
-3. If $\bf A_1, \bf A_2,\cdots$ is a countable collection of subsets in omega, $\displaystyle \cup_{i=1}^{\infty}A_i \in \mathcal F$: Closed under **countable infinite** unions.
+&nbsp;1. Contain the null set: $\varnothing \in \mathcal F$.
+
+&nbsp;2. If $\bf A \in \mathcal F$, then $\bf A^c \in \mathcal F$ (closed under complementation).
+
+&nbsp;3. If $\bf A_1, \bf A_2,\cdots$ is a countable collection of subsets in omega, $\bigcup\limits_{i=1}^{\infty}A_i \in \mathcal F$. This symbol means **the set of all outcomes ($\omega$'s) in at least one of the events ($A_i$'s)**. Of note, $\bigcup\limits_{i=1}^{\infty}A_i$ is the same symbol $\bigcup\limits_{i \in \mathbb N}A_i$.  And this property is expressed as "closed under **countable infinite** unions."
+
+---
 
 Subsets in $\mathcal F$ are called $\mathcal F$-measurable sets.
 
@@ -27,17 +43,33 @@ The most trivial sigma algebra is $\mathcal F= \{\varnothing, \Omega\}$. Other e
 
 $(\Omega,\mathcal F)$ is a **measurable space**.
 
+---
 
 What is a **MEASURE**?
 
 It is a function or map $\mu: \mathcal F \rightarrow [0,\infty]$ such that:
 
-1. $\mu(\varnothing)=0$
-2. if $\bf A_1, A_2, \cdots$ are disjoint $\mathcal F$-measurable sets, then: $\mu\big(\displaystyle \cup_{i=1}^\infty A_i\big)= \displaystyle \cup_{i=1}^\infty \mu(A_i)$ (countable additivity).
+&nbsp;1. $\mu(\varnothing)=0$.
+
+&nbsp;2. if $\bf A_1, A_2, \cdots$ are disjoint $\mathcal F$-measurable sets, then: $\mu\Big(\bigcup\limits_{i=1}^\infty A_i\Big)= \displaystyle \displaystyle \sum_{i=1}^\infty \mu(A_i)$ (countable additivity).
 
 The triple $(\Omega,\mathcal F, \mu)$ is a **measure space**. If $\mu(\omega)=1$, $\mu$ is a probability measure. $\mu = \mathbb P$, and we'll talk about probability spaces.
 
-The **probability measure**, $\mathbb P$ on $(\Sigma, \mathcal F)$ is a function $\mathbb P: \mathcal F \rightarrow [0,1]$, fulfilling: 1. $\mathbb P(\varnothing=0)$; 2. $\mathbb P(\Omega)=1$; and 3. If $\bf A_1, A_2, \cdots$ are disjoint $\mathcal F$-measurable, $\mathbb P(A_1 \cup A_2 \cup \cdots) = \mathbb P (\cup_{i=1}^\infty A_i)= \sum_{i=1}^\infty \mathbb P(A_i)$
+---
+
+The **probability measure**, $\mathbb P$ on $(\Omega, \mathcal F)$ is a function $\mathbb P: \mathcal F \rightarrow [0,1]$, fulfilling: 
+
+&nbsp;1. $\mathbb P(\varnothing=0)$; 
+
+&nbsp;2. $\mathbb P(\Omega)=1$ (this being the only difference to a general measure); and 
+
+&nbsp;3. If $\bf A_1, A_2, \cdots$ are disjoint $\mathcal F$-measurable, $\mathbb P(A_1 \cup A_2 \cup \cdots) = \mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i \Big)= \displaystyle\sum_{i=1}^\infty \mathbb P(A_i)$. This is again the principle of countable (finitely or infinitely countable) additivity. Of note, an infinite sum can be expressed as a limit of finite sum: $\displaystyle\lim_{n\to\infty} \displaystyle \sum_{i=1}^n \mathbb P(A_i)$.
+
+
+This is the ***continuity of probability measurement property of a probability measure***, also expressed as:
+
+$\mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i \Big)=\displaystyle\lim_{n\to\infty} \mathbb P\Big(\bigcup\limits_{i=1}^n A_i\Big)$.
+
 
 
 <br>
