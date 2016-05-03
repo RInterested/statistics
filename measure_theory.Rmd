@@ -68,7 +68,12 @@ The ***probability measure***, $\mathbb P$ on $(\Omega, \mathcal F)$ is a functi
 
 This is the ***continuity of probability measurement property of a probability measure***, also expressed as:
 
-If $A_1,A_2, A_3,\cdots \in \mathcal F$, which means that they are measurable subsets of the sigma algebra, $\color{red}{\mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i \Big)=\displaystyle\lim_{n\to\infty} \Big(\displaystyle\sum_{i=1}^n \mathbb P(A_i)\Big)=\displaystyle\lim_{n\to\infty} \mathbb P\Big(\bigcup\limits_{i=1}^n A_i\Big)}$. Of note, the last step works because of *finite additivity* (the limit doesn't count, because it is outside the actual change in notation).
+If $A_1,A_2, A_3,\cdots \in \mathcal F$, which means that they are measurable subsets of the sigma algebra, $\color{red}{\mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i \Big)=\displaystyle\lim_{n\to\infty} \Big(\displaystyle\sum_{i=1}^n \mathbb P(A_i)\Big)=\displaystyle\lim_{n\to\infty} \mathbb P\Big(\bigcup\limits_{i=1}^n A_i\Big)}$. Of note, the last step works because of *finite additivity* (the limit doesn't count, because it is outside the actual change in notation). The proof is not immediate:
+
+Let $B_1=A_1$ and $B_2=A_2\setminus A_1$, $B_3=A_3\setminus(A_2\cup A_1)\cdots$ until $B_n=A_n\setminus \bigcup\limits_{i=1}^{n-1}A_i$. So these are collections of countable sets. 1. $B_i$'s are disjoint. And 2. $\bigcup\limits_{i=1}^\infty A_i= \bigcup\limits_{i=1}^\infty B_i$. Given these two points we can use countable additivity on $B_i$ to get the probability of the unions of $A_i$'s:
+
+$\mathbb P \Big(\bigcup\limits_{i=1}^\infty A_i\Big)= \mathbb P \Big( \bigcup\limits_{i=1}^\infty B_i\Big)=\displaystyle \sum_{i=1}^\infty \mathbb P (B_i)=\displaystyle\lim_{n\to\infty}\Big(\sum_{i=1}^n \mathbb P(B_i)\Big)\underset{\text{finite addi'ty}}{=}\displaystyle\lim_{n\to\infty} \mathbb P\Big(\bigcup\limits_{i=1}^n B_i\Big)=\displaystyle\lim_{n\to\infty} \mathbb P\Big(\bigcup\limits_{i=1}^n A_i\Big) \,\,\square$
+
 
 ---
 
