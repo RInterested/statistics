@@ -71,9 +71,11 @@ img {
 <div id="interpretation-of-the-results-of-an-anova-test-in-r" class="section level3">
 <h3>INTERPRETATION OF THE RESULTS OF AN ANOVA TEST IN R:</h3>
 <p><br></p>
+<hr />
 <p>From <a href="http://www.statsmakemecry.com/smmctheblog/stats-soup-anova-ancova-manova-mancova">Statistics Make Me Cry</a>:</p>
 <p>An “Analysis of Variance” (ANOVA) tests three or more groups for mean differences based on a continuous (i.e. scale or interval) response variable (a.k.a. dependent variable). The term “factor” refers to the variable that distinguishes this group membership. Race, level of education, and treatment condition are examples of factors.</p>
 <p>There are two main types of ANOVA: (1) “one-way” ANOVA compares levels (i.e. groups) of a single factor based on single continuous response variable (e.g. comparing test score by ‘level of education’) and (2) a “two-way” ANOVA compares levels of two or more factors for mean differences on a single continuous response variable(e.g. comparing test score by both ‘level of education’ and ‘zodiac sign’). In practice, you will see one-way ANOVAs more often and when the term ANOVA is generically used, it often refers to a one-way ANOVA. Henceforth in this blog entry, I use the term ANOVA to refer to the one-way flavor.</p>
+<hr />
 <p>The essential computation is the F-test:</p>
 <p><span class="math display">\[F=\frac{\text{variance between treatments}}{\text{variance within treatments}}=\large\frac{\frac{\text{Sum Sqs}_{\text{treat'ts}}}{\text{no. treat'ts}-1}}{\frac{\text{Sum Sqs}_{\text{err's}}}{\text{no. cases}-\text{no. treat'ts}}}\]</span>,</p>
 <p>Let’s create three normally distributed samples with the same variance, but different means, and run an anova in R:</p>
@@ -106,6 +108,35 @@ fit = aov(values ~ ind, datalong); summary(fit)</code></pre>
 <pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
 ## ind           2   2141  1070.6   146.3 &lt;2e-16 ***
 ## Residuals   147   1076     7.3                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<p>Alternatively we can resort to the OLS function:</p>
+<pre class="r"><code>OLS = lm(values ~ ind, datalong); summary(OLS); anova(OLS)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = values ~ ind, data = datalong)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.9454 -1.5772 -0.1468  1.5970  6.8529 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  10.3013     0.3826  26.926   &lt;2e-16 ***
+## indx2         5.0506     0.5410   9.335   &lt;2e-16 ***
+## indx3         9.2412     0.5410  17.080   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.705 on 147 degrees of freedom
+## Multiple R-squared:  0.6656, Adjusted R-squared:  0.661 
+## F-statistic: 146.3 on 2 and 147 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: values
+##            Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## ind         2 2141.2 1070.58  146.29 &lt; 2.2e-16 ***
+## Residuals 147 1075.8    7.32                      
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <hr />
