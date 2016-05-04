@@ -97,14 +97,47 @@ boxplot(dataframe, col=c(&quot;wheat4&quot;, &quot;tan&quot;, &quot;tan3&quot;))
 <pre><code>## [1] 146.2915</code></pre>
 <p>Compare to the R function. First let’s ready up the data:</p>
 <pre class="r"><code>datalong = stack(dataframe)
-summary(aov(values ~ ind, datalong))</code></pre>
+fit = aov(values ~ ind, datalong); summary(fit)</code></pre>
 <pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
 ## ind           2   2141  1070.6   146.3 &lt;2e-16 ***
 ## Residuals   147   1076     7.3                   
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <hr />
+<div id="pairwise-comparisons" class="section level4">
+<h4>PAIRWISE COMPARISONS:</h4>
+<p>Additional analyses are required after an omnibus test. The <code>function pairwise.t.test()</code> computes the pair-wise comparisons between group means with corrections for multiple testing:</p>
+<p><code>pairwise.t.test(reponse, factor, p.adjust = method, alternative = c(&quot;two.sided&quot;, &quot;less&quot;, &quot;greater&quot;))</code></p>
+<p><strong>Response</strong> is a vector of observations (the response variable), <strong>factor</strong> a list of factors and <strong>p.adjust</strong> is the correction method (e.g., “Bonferroni”).</p>
+<pre class="r"><code>options(scipen=999)
+pairwise.t.test(datalong$values, datalong$ind, p.adjust=&quot;bonferroni&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  datalong$values and datalong$ind 
+## 
+##    x1                   x2                 
+## x2 0.00000000000000044  -                  
+## x3 &lt; 0.0000000000000002 0.00000000000428679
+## 
+## P value adjustment method: bonferroni</code></pre>
+<p>All the pairwise comparisons are statistically significant.</p>
+<p>Alternatively, a Tukey test can be undertaken:</p>
+<pre class="r"><code>TukeyHSD(fit)</code></pre>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = values ~ ind, data = datalong)
+## 
+## $ind
+##           diff      lwr       upr p adj
+## x2-x1 5.050635 3.769616  6.331653     0
+## x3-x1 9.241199 7.960181 10.522217     0
+## x3-x2 4.190564 2.909546  5.471583     0</code></pre>
+<p>The differences pairwise and the p-values are shown.</p>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
+</div>
 </div>
 
 

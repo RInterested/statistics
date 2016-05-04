@@ -32,9 +32,36 @@ Compare to the R function. First let's ready up the data:
 
 ```{r}
 datalong = stack(dataframe)
-summary(aov(values ~ ind, datalong))
+fit = aov(values ~ ind, datalong); summary(fit)
 ```
 
+---
+
+####PAIRWISE COMPARISONS:
+
+Additional analyses are required after an omnibus test. The `function pairwise.t.test()` computes the pair-wise comparisons between group means with corrections for multiple testing: 
+
+`pairwise.t.test(reponse, factor, p.adjust = method, alternative = c("two.sided",
+"less", "greater"))`
+
+**Response** is a vector of observations (the response variable), **factor** a list of
+factors and **p.adjust** is the correction method (e.g., “Bonferroni”).
+
+```{r}
+options(scipen=999)
+pairwise.t.test(datalong$values, datalong$ind, p.adjust="bonferroni")
+
+```
+
+All the pairwise comparisons are statistically significant.
+
+Alternatively, a Tukey test can be undertaken:
+
+```{r}
+TukeyHSD(fit)
+```
+
+The differences pairwise and the p-values are shown.
 
 ---
 
