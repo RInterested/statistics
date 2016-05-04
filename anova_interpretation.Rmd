@@ -1,0 +1,41 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###INTERPRETATION OF THE RESULTS OF AN ANOVA TEST IN R:
+<br>
+
+Let's create three normally distributed samples with the same variance, but different means, and run an anova in R:
+
+```{r}
+set.seed(1); n = 50; x1 = rnorm(n, 10, 3); x2 = rnorm(n, 15, 3); x3 = rnorm(n, 20, 3)
+dataframe = data.frame(x1,x2,x3)
+boxplot(dataframe, col=c("wheat4", "tan", "tan3"))
+```
+
+Now let's calculate the anova manually:
+
+```{r}
+datamatrix = as.matrix(dataframe)
+(global.mean = mean(datamatrix))                                    # The overall mean
+(group.means = apply(datamatrix, 2, mean))                          # The respective means for each group
+(SST = sum((datamatrix - global.mean)^2))                           # Sum squares total
+(SSBetween = sum(nrow(datamatrix) * (group.means-global.mean)^2))   # Between groups
+(SSWithin = sum(scale(datamatrix, center = T, scale = F)^2))        # Sum Squares Residuals
+(MeanSqBetween = SSBetween / (ncol(datamatrix) - 1))                # Between/df(groups - 1) [3 - 1]
+(MeanSqWithin = SSWithin / (length(datamatrix) - ncol(datamatrix))) # Within/df(subjects - no.groups) [150-3]
+(F_value = MeanSqBetween / MeanSqWithin)                            # F value
+```
+
+Compare to the R function. First let's ready up the data:
+
+```{r}
+datalong = stack(dataframe)
+summary(aov(values ~ ind, datalong))
+```
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
