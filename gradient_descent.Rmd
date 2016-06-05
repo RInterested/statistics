@@ -6,7 +6,7 @@
 ###GRADIENT DESCENT NEURAL NETWORKS:
 <br>
 
-<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/15807596/3f2cb62c-2b30-11e6-95bb-38d0e5e3ac00.png">
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/15808346/c501d422-2b43-11e6-9114-d96899097833.png">
 
 We need to calculate $\Large \frac {\partial J}{\partial \Theta}$. The weights $\Large \Theta$ are spread in two matrices: $\Large \Theta^{1}$ and $\Large \Theta^{2}$:
 
@@ -35,7 +35,7 @@ $\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot 
 
 The derivative of the sigmoid activation function with respect to $z$ is:
 
-$\large g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}$ because:
+$\Large\color{blue}{ g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}}$ because:
 
 $\large g(z)=\frac{u}{1+e^{-zv}}$; hence $\large g'(z)=\frac{u'v-uv'}{v^2}=\frac{0v-1(-e^{-z})}{(1+e^{-z})^2}$.
 
@@ -51,9 +51,33 @@ Now, $\Large z^{(3)}=a^{(2)}\Theta^{(2)}$, and hence $a$ is the slope of $z$ wit
 
 So we end up with:
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\large \begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix} \begin{bmatrix}\delta^{(3)}_1\\\delta^{(3)}_2\\\delta^{(3)}_3\end{bmatrix}=\begin{bmatrix}a_{11}^{(2)}\delta^{(3)}_1+a_{12}^{(2)}\delta^{(3)}_2+a_{13}^{(2)}\delta^{(3)}_3\\a_{21}^{(2)}\delta^{(3)}_1+a_{22}^{(2)}\delta^{(3)}_2+a_{23}^{(2)}\delta^{(3)}_3\\a_{31}^{(2)}\delta^{(3)}_1+a_{32}^{(2)}\delta^{(3)}_2+a_{33}^{(2)}\delta^{(3)}_3\end{bmatrix}$
+$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\color{gray}{(y-\hat y)}\cdot \color{purple}{\frac{-\partial \hat y}{\partial z^{(3)}}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\color{gray}{(y-\hat y)}\cdot \color{purple}{-g'(z^{(3)})}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\color{orange}{\delta^{(3)}}\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=(a^{2})^T\,\color{orange}{\delta^{(3)}}=$
+
+<br>
+
+$=\large \begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix} \begin{bmatrix}\delta^{(3)}_1\\\delta^{(3)}_2\\\delta^{(3)}_3\end{bmatrix}=\begin{bmatrix}a_{11}^{(2)}\delta^{(3)}_1+a_{12}^{(2)}\delta^{(3)}_2+a_{13}^{(2)}\delta^{(3)}_3\\a_{21}^{(2)}\delta^{(3)}_1+a_{22}^{(2)}\delta^{(3)}_2+a_{23}^{(2)}\delta^{(3)}_3\\a_{31}^{(2)}\delta^{(3)}_1+a_{32}^{(2)}\delta^{(3)}_2+a_{33}^{(2)}\delta^{(3)}_3\end{bmatrix}$
+
+<br>
 
 Therefore, the matrix multiplication also takes care of the $\sum$ part in front of the first derivative formula.
+
+---
+
+As for...
+
+$\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=\delta^{(3)}\frac{\partial z^{(3)}}{\partial a^{(2)}}\frac{\partial a^{(2)}}{\partial \Theta^{(1)}}=\delta^{(3)} (\Theta^{(2)})^T \frac{\partial a^{(2)}}{\partial \Theta^{(1)}}$
+
+since, $\Large\frac{\partial z^{(3)}}{\partial a^{(2)}}=\Theta^{(2)}$.
+
+Next,
+
+$\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=\delta^{(3)} (\Theta^{(2)})^T \frac{\partial a^{(2)}}{\partial \Theta^{(1)}}=\delta^{(3)} (\Theta^{(2)})^T \frac{\partial a^{(2)}}{\partial z^{(2)}}\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=\delta^{(3)} (\Theta^{(2)})^T g'(z^{(2)})\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}$
+
+Finally, 
+
+$\Large\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=X$. Therefore,
+
+$\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{orange}{\delta^{(3)}} (\Theta^{(2)})^T \color{purple}{g'(z^{(2)})}=X^T \color{yellow}{\delta^{(2)}}.$
 
 <br>
 
