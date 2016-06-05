@@ -87,7 +87,7 @@ img {
 <p><span class="math inline">\(\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot \frac{-\partial \hat y}{\partial z^{(3)}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=-(y-\hat y)\cdot g'(z^{(3)}) \cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\)</span></p>
 <hr />
 <p>The derivative of the sigmoid activation function with respect to <span class="math inline">\(z\)</span> is:</p>
-<p><span class="math inline">\(\Large\color{blue}{ g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}}\)</span> because:</p>
+<p><span class="math inline">\(\Large\color{blue}{ g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}=\big(\frac{1}{1+e^{-z}}\big)\times \big(1 - \frac{1}{1+e^{-z}}\big)}\)</span> because:</p>
 <p><span class="math inline">\(\large g(z)=\frac{u}{1+e^{-zv}}\)</span>; hence <span class="math inline">\(\large g'(z)=\frac{u'v-uv'}{v^2}=\frac{0v-1(-e^{-z})}{(1+e^{-z})^2}\)</span>.</p>
 <hr />
 <p>Now, <span class="math inline">\(\Large z^{(3)}=a^{(2)}\Theta^{(2)}\)</span>, and hence <span class="math inline">\(a\)</span> is the slope of <span class="math inline">\(z\)</span> with respect to <span class="math inline">\(z\)</span> for each synapse. Therefore <span class="math inline">\(\large \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\begin{bmatrix}a_{11}^{(2)}&amp;a_{12}^{(2)}&amp;a_{13}^{(2)}\\a_{21}^{(2)}&amp;a_{22}^{(2)}&amp;a_{23}^{(2)}\\a_{31}^{(2)}&amp;a_{32}^{(2)}&amp;a_{33}^{(2)}\end{bmatrix}\)</span></p>
