@@ -137,13 +137,13 @@ img {
 <ul>
 <li><p>Given training set <span class="math inline">\(\{ (x^{(1)}, y^{(1)}), \cdots (x^{(m)}, y^{(m)}) \}\)</span></p></li>
 <li><p>Set <span class="math inline">\(\Delta_{i,j}^{(l)}:=0\)</span> for all <span class="math inline">\((l, i, j)\)</span>.</p></li>
-<li><p>For training example <span class="math inline">\(t=1\)</span> to <span class="math inline">\(m\)</span>:</p>
+<li><p>For training example <span class="math inline">\(i=1\)</span> to <span class="math inline">\(m\)</span>:</p>
 <ol style="list-style-type: decimal">
-<li>Set <span class="math inline">\(a^{(1)}:=x^{(t)}\)</span></li>
-<li>Perform forward propagation to compute <span class="math inline">\(a^{(l)}\)</span> for <span class="math inline">\(l=2,3,\cdots, L\)</span>.</li>
-<li>Using <span class="math inline">\(y^{(t)}\)</span> compute <span class="math inline">\(\delta^{(L)}=a^{(L)}-y^{(t)}\)</span>.</li>
-<li>Compute <span class="math inline">\(\delta^{(L-1)}, \delta^{(L-2)},\cdots,\delta^{(2)}\)</span> using <span class="math inline">\(\delta^{(l)} = ((\Theta^{(l)})^T \delta^{(l+1)}) \cdot a^{(l)}\cdot (1 - a^{(l)})\)</span>.</li>
-<li><span class="math inline">\(\Delta^{(l)}_{i,j} := \Delta^{(l)}_{i,j} + a_j^{(l)} \delta_i^{(l+1)}\)</span> or vectorized: <span class="math inline">\(\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T\)</span>.</li>
+<li><p>Set <span class="math inline">\(a^{(1)}:=x^{(t)}\)</span></p></li>
+<li><p>Perform forward propagation to compute <span class="math inline">\(a^{(l)}\)</span> for <span class="math inline">\(l=2,3,\cdots, L\)</span>.</p></li>
+<li><p>Using <span class="math inline">\(y^{(t)}\)</span> compute <span class="math inline">\(\delta^{(L)}=a^{(L)}-y^{(t)}\)</span>.</p></li>
+<li><p>Compute <span class="math inline">\(\delta^{(L-1)}, \delta^{(L-2)},\cdots,\delta^{(2)}\)</span> using <span class="math inline">\(\delta^{(l)} = ((\Theta^{(l)})^T \delta^{(l+1)}) \cdot a^{(l)}\cdot (1 - a^{(l)})\)</span>.</p></li>
+<li><p><span class="math inline">\(\Delta^{(l)}_{i,j} := \Delta^{(l)}_{i,j} + a_j^{(l)} \delta_i^{(l+1)}\)</span> or vectorized: <span class="math inline">\(\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T\)</span>.</p></li>
 </ol></li>
 <li><span class="math inline">\(D^{(l)}_{i,j} := \dfrac{1}{m}\left(\Delta^{(l)}_{i,j} + \lambda\Theta^{(l)}_{i,j}\right)\)</span> if <span class="math inline">\(j \neq 0\)</span>.</li>
 <li><p><span class="math inline">\(D^{(l)}_{i,j} := \dfrac{1}{m}\Delta^{(l)}_{i,j}\)</span> if <span class="math inline">\(j=0\)</span>.</p></li>
