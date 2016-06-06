@@ -79,7 +79,10 @@ img {
 <p><span class="math inline">\(\color{red}{\Large \Theta^{1}=\begin{bmatrix}\theta_{11}^{(1)} &amp; \theta_{12}^{(1)} &amp; \theta_{13}^{(1)}\\\theta_{21}^{(1)} &amp; \theta_{22}^{(1)} &amp; \theta_{23}^{(1)} \end{bmatrix}}\)</span> and <span class="math inline">\(\color{green}{\Large \Theta^{2}=\begin{bmatrix}\theta_{11}^{(2)} \\ \theta_{21}^{(2)} \\ \theta_{31}^{(2)} \end{bmatrix}}\)</span></p>
 <p>We need to calculate:</p>
 <p><span class="math inline">\(\color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}} = \begin{bmatrix}\frac{\partial J}{\partial \theta_{11}^{(1)}} &amp; \frac{\partial J}{\partial \theta_{12}^{(1)}} &amp; \frac{\partial J}{\partial \theta_{13}^{(1)}}\\ \frac{\partial J}{\partial \theta_{21}^{(1)}} &amp; \frac{\partial J}{\partial \theta_{22}^{(1)}} &amp; \frac{\partial J}{\partial \theta_{23}^{(1)}}\end{bmatrix}}\)</span> and <span class="math inline">\(\color{green}{\Large \frac {\partial J}{\partial \Theta^{(2)}}=\begin{bmatrix}\frac{\partial J}{\partial\theta_{11}^{(2)}} \\ \frac{\partial J}{\partial\theta_{21}^{(2)}} \\ \frac{\partial J}{\partial\theta_{31}^{(2)}} \end{bmatrix}}\)</span></p>
-<p>The cost function adds cost from each example:</p>
+<p>The cost function adds cost from each example. In what follows we will use the cost function of a regression model as <span class="math inline">\(\frac{1}{2}\sum (y-\hat y)^2\)</span>, although it would be more accurate as <span class="math inline">\(\frac{1}{2m}\sum (y-\hat y)^2\)</span>.</p>
+<p>For the case of a multi-class logistic regression NN the cost function is:</p>
+<p><span class="math inline">\(\large J(\Theta)=-\frac{1}{m}\big[\displaystyle\sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} log(h_\Theta(x^{(i)}))_k + (1-y_k^{(i)})log(1-(h_\Theta(x^{(i)}))_k) \big]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ji}^l)^2\)</span></p>
+<p><span class="math inline">\(K\)</span> is the number of classes, and <span class="math inline">\(s_l\)</span> is the number of units in a layer not counting the bias unit (always <span class="math inline">\(1\)</span>).</p>
 <p><span class="math inline">\(\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\frac{\partial \sum \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}=\sum \frac{\partial \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}\)</span> by he sum rule in differentiation that says that <span class="math inline">\(\frac{d}{dx}(u+v)=\frac{du}{dx}+\frac{dv}{dx}\)</span></p>
 <p>Focusing on the expression inside the sum, and applying the chain rule, <span class="math inline">\((f\circ g)'=(f'\circ g)\cdot g'\)</span> or <span class="math inline">\(\frac{dz}{dx}=\frac{dz}{dy}\cdot\frac{dy}{dx}\)</span>.</p>
 <p><span class="math inline">\(\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot \frac{-\partial \hat y}{\partial \Theta^{(2)}}\)</span></p>
@@ -108,6 +111,13 @@ img {
 <p>Finally,</p>
 <p><span class="math inline">\(\Large\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=X\)</span>. Therefore,</p>
 <p><span class="math inline">\(\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{orange}{\delta^{(3)}} (\Theta^{(2)})^T \color{purple}{g'(z^{(2)})}=X^T \color{yellow}{\delta^{(2)}}.\)</span></p>
+<hr />
+<p>NOTE: Andrew Ng defines the first <span class="math inline">\(\delta\)</span> as:</p>
+<p><span class="math inline">\(\delta^{(4)}=a_j^{(4)}-y_j=(h_\Theta(x))_j-y_j)\)</span> for every <span class="math inline">\(j\)</span> in the layer, and the rest as the same as in the body of this webpage:</p>
+<p><span class="math inline">\(\delta^{(3)}=(\Theta^{(3)})^T\delta^{(4)}\,g'(z^{(3)})\)</span></p>
+<p><span class="math inline">\(\delta^{(2)}=(\Theta^{(2)})^T\delta^{(3)}\,g'(z^{(2)})\)</span></p>
+<p>stopping at <span class="math inline">\(\lambda^{(2)}\)</span>.</p>
+<p>So, he is effectively introducing an additional <span class="math inline">\(\delta^{(4)}\)</span>.</p>
 <p><br></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
