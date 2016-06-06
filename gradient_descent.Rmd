@@ -11,9 +11,9 @@ The general notation of a neural network is as follows:
 
 <img height="700" width="900" src="https://cloud.githubusercontent.com/assets/9312897/15808527/6b48a01a-2b47-11e6-868c-a97a9b0a392b.png">
 
-Example:
+####Example with regression after [this youtube video](https://youtu.be/GlcnxUlrtek):
 
-<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/15808346/c501d422-2b43-11e6-9114-d96899097833.png">
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/15833481/017cfe16-2bf5-11e6-9378-a770db1c9c78.png">
 
 We need to calculate $\Large \frac {\partial J}{\partial \Theta}$. The weights $\Large \Theta$ are spread in two matrices: $\Large \Theta^{1}$ and $\Large \Theta^{2}$:
 
@@ -123,6 +123,30 @@ The claim is that...
 $\Large \frac{\partial J(\Theta)}{\partial \Theta_{ij}^{(l)}}=D_{ij}^{(l)}$
 
 <br>
+##CODE for the example above with just one hidden layer:
+
+Feedforward:
+
+```
+a1 = col of 1's plus X
+z2 = a1 * Theta1'
+a2 = col of 1's plus h(z2)
+z3 = a2 * Theta2'
+a3 = h(z3)
+```
+Cost function:
+
+```
+J = (1 / m) * sum(sum((-Y) * log(a3) - (1 - Y) * log(1 - a3)))
+```
+
+Backpropagation:
+
+
+$\Large \delta_3 = a_3 - y$
+
+$\Large \delta_2 = \delta_3\cdot \Theta_2 \cdot \frac{e^{-(1+e^{{-\text{col 1's} + z_2}}}}{(1+e^{{-\text{col 1's} + z_2}})^2}$
+
 
 ---
 
