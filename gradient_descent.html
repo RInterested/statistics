@@ -81,9 +81,6 @@ img {
 <p>We need to calculate:</p>
 <p><span class="math inline">\(\color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}} = \begin{bmatrix}\frac{\partial J}{\partial \theta_{11}^{(1)}} &amp; \frac{\partial J}{\partial \theta_{12}^{(1)}} &amp; \frac{\partial J}{\partial \theta_{13}^{(1)}}\\ \frac{\partial J}{\partial \theta_{21}^{(1)}} &amp; \frac{\partial J}{\partial \theta_{22}^{(1)}} &amp; \frac{\partial J}{\partial \theta_{23}^{(1)}}\end{bmatrix}}\)</span> and <span class="math inline">\(\color{green}{\Large \frac {\partial J}{\partial \Theta^{(2)}}=\begin{bmatrix}\frac{\partial J}{\partial\theta_{11}^{(2)}} \\ \frac{\partial J}{\partial\theta_{21}^{(2)}} \\ \frac{\partial J}{\partial\theta_{31}^{(2)}} \end{bmatrix}}\)</span></p>
 <p>The cost function adds cost from each example. In what follows we will use the cost function of a regression model as <span class="math inline">\(\frac{1}{2}\sum (y-\hat y)^2\)</span>, although it would be more accurate as <span class="math inline">\(\frac{1}{2m}\sum (y-\hat y)^2\)</span>.</p>
-<p>For the case of a multi-class logistic regression NN the cost function is:</p>
-<p><span class="math inline">\(\large J(\Theta)=-\frac{1}{m}\big[\displaystyle\sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} log(h_\Theta(x^{(i)}))_k + (1-y_k^{(i)})log(1-(h_\Theta(x^{(i)}))_k) \big]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ji}^l)^2\)</span></p>
-<p><span class="math inline">\(K\)</span> is the number of classes, and <span class="math inline">\(s_l\)</span> is the number of units in a layer not counting the bias unit (always <span class="math inline">\(1\)</span>).</p>
 <p><span class="math inline">\(\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\frac{\partial \sum \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}=\sum \frac{\partial \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}\)</span> by he sum rule in differentiation that says that <span class="math inline">\(\frac{d}{dx}(u+v)=\frac{du}{dx}+\frac{dv}{dx}\)</span></p>
 <p>Focusing on the expression inside the sum, and applying the chain rule, <span class="math inline">\((f\circ g)'=(f'\circ g)\cdot g'\)</span> or <span class="math inline">\(\frac{dz}{dx}=\frac{dz}{dy}\cdot\frac{dy}{dx}\)</span>.</p>
 <p><span class="math inline">\(\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot \frac{-\partial \hat y}{\partial \Theta^{(2)}}\)</span></p>
@@ -114,6 +111,12 @@ img {
 <p><span class="math inline">\(\Large\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=X\)</span>. Therefore,</p>
 <p><span class="math inline">\(\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{orange}{\delta^{(3)}} (\Theta^{(2)})^T \color{purple}{g'(z^{(2)})}=X^T \color{brown}{\delta^{(2)}}.\)</span></p>
 <hr />
+</div>
+<div id="multiclass-logistic-regression-nn-after-this-youtube-video" class="section level4">
+<h4>Multiclass logistic regression NN after <a href="https://youtu.be/TrxeIv7RD_0">this youtube video</a>:</h4>
+<p>For the case of a multi-class logistic regression NN the cost function is:</p>
+<p><span class="math inline">\(\large J(\Theta)=-\frac{1}{m}\big[\displaystyle\sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} log(h_\Theta(x^{(i)}))_k + (1-y_k^{(i)})log(1-(h_\Theta(x^{(i)}))_k) \big]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ji}^l)^2\)</span></p>
+<p><span class="math inline">\(K\)</span> is the number of classes, and <span class="math inline">\(s_l\)</span> is the number of units in a layer not counting the bias unit (always <span class="math inline">\(1\)</span>).</p>
 <p>NOTE: Andrew Ng defines the first <span class="math inline">\(\delta\)</span> as:</p>
 <p><span class="math inline">\(\Large \delta^{(4)}=a_j^{(4)}-y_j=(h_\Theta(x))_j-y_j)\)</span> for every <span class="math inline">\(j\)</span> node in the layer, which in the case above it is <span class="math inline">\(j=1\)</span>. Vectorized:</p>
 <p><span class="math inline">\(\Large \delta^{(4)}= a^{(4)}-y\)</span></p>
@@ -127,18 +130,7 @@ img {
 <p><span class="math inline">\(\Large D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}\)</span> if <span class="math inline">\(j=0\)</span>, which is the bias node.</p>
 <p>The claim is that…</p>
 <p><span class="math inline">\(\Large \frac{\partial J(\Theta)}{\partial \Theta_{ij}^{(l)}}=D_{ij}^{(l)}\)</span></p>
-<p><br> ##CODE for the example above with just one hidden layer:</p>
-<p>Feedforward:</p>
-<pre><code>a1 = col of 1's plus X
-z2 = a1 * Theta1'
-a2 = col of 1's plus h(z2)
-z3 = a2 * Theta2'
-a3 = h(z3)</code></pre>
-<p>Cost function:</p>
-<pre><code>J = (1 / m) * sum(sum((-Y) * log(a3) - (1 - Y) * log(1 - a3)))</code></pre>
-<p>Backpropagation:</p>
-<p><span class="math inline">\(\Large \delta_3 = a_3 - y\)</span></p>
-<p><span class="math inline">\(\Large \delta_2 = \delta_3\cdot \Theta_2 \cdot \frac{e^{-(1+e^{{-\text{col 1's} + z_2}}}}{(1+e^{{-\text{col 1's} + z_2}})^2}\)</span></p>
+<p><br></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
