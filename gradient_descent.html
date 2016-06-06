@@ -114,12 +114,12 @@ img {
 <p><span class="math inline">\(\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{orange}{\delta^{(3)}} (\Theta^{(2)})^T \color{purple}{g'(z^{(2)})}=X^T \color{brown}{\delta^{(2)}}.\)</span></p>
 <hr />
 <p>NOTE: Andrew Ng defines the first <span class="math inline">\(\delta\)</span> as:</p>
-<p><span class="math inline">\(\large \delta^{(4)}=a_j^{(4)}-y_j=(h_\Theta(x))_j-y_j)\)</span> for every <span class="math inline">\(j\)</span> node in the layer, which in the case above it is <span class="math inline">\(j=1\)</span>. Vectorized:</p>
-<p><span class="math inline">\(\large \delta^{(4)}= a^{(4)}-y\)</span></p>
-<p><span class="math inline">\(\large \delta^{(3)}=(\Theta^{(3)})^T\delta^{(4)}\,g'(z^{(3)})\)</span></p>
-<p><span class="math inline">\(\large \delta^{(2)}=(\Theta^{(2)})^T\delta^{(3)}\,g'(z^{(2)})\)</span></p>
+<p><span class="math inline">\(\Large \delta^{(4)}=a_j^{(4)}-y_j=(h_\Theta(x))_j-y_j)\)</span> for every <span class="math inline">\(j\)</span> node in the layer, which in the case above it is <span class="math inline">\(j=1\)</span>. Vectorized:</p>
+<p><span class="math inline">\(\Large \delta^{(4)}= a^{(4)}-y\)</span></p>
+<p><span class="math inline">\(\Large \delta^{(3)}=(\Theta^{(3)})^T\delta^{(4)}\,g'(z^{(3)})\)</span></p>
+<p><span class="math inline">\(\Large \delta^{(2)}=(\Theta^{(2)})^T\delta^{(3)}\,g'(z^{(2)})\)</span></p>
 <p>stopping at <span class="math inline">\(\lambda^{(2)}\)</span>.</p>
-<p>So, he is effectively introducing an additional <span class="math inline">\(\lambda^{(4)}\)</span>.</p>
+<p>So, he is effectively introducing an additional <span class="math inline">\(\lambda^{(4)}\)</span>, including only the “residuals”. In addition, the <span class="math inline">\(\Large\Theta\)</span> factors are included in the <span class="math inline">\(\lambda\)</span>’s.</p>
 <p><br></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
