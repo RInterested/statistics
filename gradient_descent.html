@@ -101,6 +101,7 @@ img {
 <p><br></p>
 <p><span class="math inline">\(=\large \begin{bmatrix}a_{11}^{(2)}&amp;a_{12}^{(2)}&amp;a_{13}^{(2)}\\a_{21}^{(2)}&amp;a_{22}^{(2)}&amp;a_{23}^{(2)}\\a_{31}^{(2)}&amp;a_{32}^{(2)}&amp;a_{33}^{(2)}\end{bmatrix} \begin{bmatrix}\delta^{(3)}_1\\\delta^{(3)}_2\\\delta^{(3)}_3\end{bmatrix}=\begin{bmatrix}a_{11}^{(2)}\delta^{(3)}_1+a_{12}^{(2)}\delta^{(3)}_2+a_{13}^{(2)}\delta^{(3)}_3\\a_{21}^{(2)}\delta^{(3)}_1+a_{22}^{(2)}\delta^{(3)}_2+a_{23}^{(2)}\delta^{(3)}_3\\a_{31}^{(2)}\delta^{(3)}_1+a_{32}^{(2)}\delta^{(3)}_2+a_{33}^{(2)}\delta^{(3)}_3\end{bmatrix}\)</span></p>
 <p><br></p>
+<p>Then <span class="math inline">\(\Large\color{orange}{\delta^{(3)}}=\color{gray}{(y-\hat y)}\cdot \color{purple}{g'(z^{(3)})}\)</span></p>
 <p>Therefore, the matrix multiplication also takes care of the <span class="math inline">\(\sum\)</span> part in front of the first derivative formula.</p>
 <hr />
 <p>As for…</p>
@@ -110,14 +111,15 @@ img {
 <p><span class="math inline">\(\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=\delta^{(3)} (\Theta^{(2)})^T \frac{\partial a^{(2)}}{\partial \Theta^{(1)}}=\delta^{(3)} (\Theta^{(2)})^T \frac{\partial a^{(2)}}{\partial z^{(2)}}\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=\delta^{(3)} (\Theta^{(2)})^T g'(z^{(2)})\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}\)</span></p>
 <p>Finally,</p>
 <p><span class="math inline">\(\Large\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=X\)</span>. Therefore,</p>
-<p><span class="math inline">\(\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{orange}{\delta^{(3)}} (\Theta^{(2)})^T \color{purple}{g'(z^{(2)})}=X^T \color{yellow}{\delta^{(2)}}.\)</span></p>
+<p><span class="math inline">\(\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{orange}{\delta^{(3)}} (\Theta^{(2)})^T \color{purple}{g'(z^{(2)})}=X^T \color{brown}{\delta^{(2)}}.\)</span></p>
 <hr />
 <p>NOTE: Andrew Ng defines the first <span class="math inline">\(\delta\)</span> as:</p>
-<p><span class="math inline">\(\delta^{(4)}=a_j^{(4)}-y_j=(h_\Theta(x))_j-y_j)\)</span> for every <span class="math inline">\(j\)</span> in the layer, and the rest as the same as in the body of this webpage:</p>
-<p><span class="math inline">\(\delta^{(3)}=(\Theta^{(3)})^T\delta^{(4)}\,g'(z^{(3)})\)</span></p>
-<p><span class="math inline">\(\delta^{(2)}=(\Theta^{(2)})^T\delta^{(3)}\,g'(z^{(2)})\)</span></p>
+<p><span class="math inline">\(\large \delta^{(4)}=a_j^{(4)}-y_j=(h_\Theta(x))_j-y_j)\)</span> for every <span class="math inline">\(j\)</span> node in the layer, which in the case above it is <span class="math inline">\(j=1\)</span>. Vectorized:</p>
+<p><span class="math inline">\(\large \delta^{(4)}= a^{(4)}-y\)</span></p>
+<p><span class="math inline">\(\large \delta^{(3)}=(\Theta^{(3)})^T\delta^{(4)}\,g'(z^{(3)})\)</span></p>
+<p><span class="math inline">\(\large \delta^{(2)}=(\Theta^{(2)})^T\delta^{(3)}\,g'(z^{(2)})\)</span></p>
 <p>stopping at <span class="math inline">\(\lambda^{(2)}\)</span>.</p>
-<p>So, he is effectively introducing an additional <span class="math inline">\(\delta^{(4)}\)</span>.</p>
+<p>So, he is effectively introducing an additional <span class="math inline">\(\lambda^{(4)}\)</span>.</p>
 <p><br></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>

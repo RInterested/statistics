@@ -72,6 +72,8 @@ $=\large \begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{
 
 <br>
 
+Then $\Large\color{orange}{\delta^{(3)}}=\color{gray}{(y-\hat y)}\cdot \color{purple}{g'(z^{(3)})}$
+
 Therefore, the matrix multiplication also takes care of the $\sum$ part in front of the first derivative formula.
 
 ---
@@ -90,21 +92,23 @@ Finally,
 
 $\Large\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=X$. Therefore,
 
-$\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{orange}{\delta^{(3)}} (\Theta^{(2)})^T \color{purple}{g'(z^{(2)})}=X^T \color{yellow}{\delta^{(2)}}.$
+$\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{orange}{\delta^{(3)}} (\Theta^{(2)})^T \color{purple}{g'(z^{(2)})}=X^T \color{brown}{\delta^{(2)}}.$
 
 ---
 
 NOTE: Andrew Ng defines the first $\delta$ as:
 
-$\delta^{(4)}=a_j^{(4)}-y_j=(h_\Theta(x))_j-y_j)$ for every $j$ in the layer, and the rest as the same as in the body of this webpage:
+$\large \delta^{(4)}=a_j^{(4)}-y_j=(h_\Theta(x))_j-y_j)$ for every $j$ node in the layer, which in the case above it is $j=1$. Vectorized:
 
-$\delta^{(3)}=(\Theta^{(3)})^T\delta^{(4)}\,g'(z^{(3)})$
+$\large \delta^{(4)}= a^{(4)}-y$
 
-$\delta^{(2)}=(\Theta^{(2)})^T\delta^{(3)}\,g'(z^{(2)})$
+$\large \delta^{(3)}=(\Theta^{(3)})^T\delta^{(4)}\,g'(z^{(3)})$
+
+$\large \delta^{(2)}=(\Theta^{(2)})^T\delta^{(3)}\,g'(z^{(2)})$
 
 stopping at $\lambda^{(2)}$.
 
-So, he is effectively introducing an additional $\delta^{(4)}$.
+So, he is effectively introducing an additional $\lambda^{(4)}$.
 
 <br>
 
