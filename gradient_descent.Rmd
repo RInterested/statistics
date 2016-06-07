@@ -146,13 +146,17 @@ Backpropagation Algorithm:
 
 * Set $\Delta_{i,j}^{(l)}:=0$ for all $(l, i, j)$.
 
-* For training example $t=1$ to $m$:
+* For training example $i=1$ to $m$:
 
-   * Set $a^{(1)}:=x^{(t)}$
-   * Perform forward propagation to compute $a^{(l)}$ for $l=2,3,\cdots, L$.
-   * Using $y^{(t)}$ compute $\delta^{(L)}=a^{(L)}-y^{(t)}$.
-   * Compute $\delta^{(L-1)}, \delta^{(L-2)},\cdots,\delta^{(2)}$ using $\delta^{(l)} = ((\Theta^{(l)})^T \delta^{(l+1)}) \cdot a^{(l)}\cdot (1 - a^{(l)})$.
-   * $\Delta^{(l)}_{i,j} := \Delta^{(l)}_{i,j} + a_j^{(l)} \delta_i^{(l+1)}$ or vectorized: $\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T$.
+      1. Set $a^{(1)}:=x^{(t)}$
+      
+      2. Perform forward propagation to compute $a^{(l)}$ for $l=2,3,\cdots, L$.
+      
+      3. Using $y^{(t)}$ compute $\delta^{(L)}=a^{(L)}-y^{(t)}$.
+      
+      4. Compute $\delta^{(L-1)}, \delta^{(L-2)},\cdots,\delta^{(2)}$ using $\delta^{(l)} = ((\Theta^{(l)})^T \delta^{(l+1)}) \cdot a^{(l)}\cdot (1 - a^{(l)})$.
+      
+      5. $\Delta^{(l)}_{i,j} := \Delta^{(l)}_{i,j} + a_j^{(l)} \delta_i^{(l+1)}$ or vectorized: $\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T$.
   
 * $D^{(l)}_{i,j} := \dfrac{1}{m}\left(\Delta^{(l)}_{i,j} + \lambda\Theta^{(l)}_{i,j}\right)$ if $j \neq 0$.
 * $D^{(l)}_{i,j} := \dfrac{1}{m}\Delta^{(l)}_{i,j}$ if $j=0$.
