@@ -148,7 +148,65 @@ img {
 </ul>
 <p>The capital-delta matrix is used as an “accumulator” to add up our values as we go along and eventually compute our partial derivative. It can be proven that:</p>
 <p><span class="math inline">\(\Large D_{i,j}^{(l)} = \dfrac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}}.\)</span></p>
+<hr />
+<p>From the Coursera Wiki:</p>
+</div>
+<div id="explanation-of-derivatives-used-in-backpropagation" class="section level4">
+<h4>Explanation of Derivatives Used in Backpropagation</h4>
+<ul>
+<li>We know that for a logistic regression classifier (which is what all of the output neurons in a neural network are), we use the cost function, <span class="math display">\[\large J(\theta) = -y\,log(h_{\theta}(x)) - (1-y)\,log(1-h_{\theta}(x))\]</span> and apply this over the <span class="math inline">\(K\)</span> output neurons (labels), and for all <span class="math inline">\(m\)</span> examples.</li>
+<li>The equation to compute the partial derivatives of the theta terms in the output neurons: <span class="math display">\[\Large\frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}\]</span></li>
+<li>And the equation to compute partial derivatives of the theta terms in the [last] hidden layer neurons (layer L-1): <span class="math display">\[\Large \frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}\]</span></li>
+<li>Clearly they share some pieces in common, so a delta term <span class="math inline">\(\delta^{(L)}\)</span> can be used for the common pieces between the output layer and the hidden layer immediately before it (with the possibility that there could be many hidden layers if we wanted): <span class="math display">\[\large \delta^{(L)} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}}\]</span></li>
+<li>And we can go ahead and use another delta term <span class="math inline">\(\delta^{(L-1)}\)</span> for the pieces that would be shared by the final hidden layer and a hidden layer before that, if we had one. Regardless, this delta term will still serve to make the math and implementation more concise. <span class="math display">\[\Large\delta^{(L-1)} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}\]</span><br />
+<span class="math display">\[\Large\delta^{(L-1)} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}\]</span></li>
+<li>With these delta terms, our equations become: <span class="math display">\[\frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}\]</span><br />
+<span class="math display">\[\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \delta^{(L-1)} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}\]</span></li>
+</ul>
+<p>Now, time to evaluate these derivatives:</p>
 <p><br></p>
+<ul>
+<li>Let’s start with the output layer:</li>
+</ul>
+<p><span class="math display">\[\Large \frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}\]</span> using <span class="math display">\[\large \delta^{(L)} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}}.\]</span></p>
+<p>We need to evaluate both partial derivatives.</p>
+<p><br></p>
+<ul>
+<li><p>Given <span class="math inline">\(\large J(\theta) = -ylog(a^{(L)}) - (1-y)log(1-a^{(L)})\)</span>, where <span class="math inline">\(a^{(L)} = h_{\theta}(x))\)</span>, the partial derivative is: <span class="math display">\[\large\frac{\partial J(\theta)}{\partial a^{(L)}} = \frac{y-1}{a^{(L)}-1} - \frac{y}{a^{(L)}}\]</span></p></li>
+<li><p>And given <span class="math inline">\(a = g(z)\)</span>, where <span class="math inline">\(g = \frac{1}{1+e^{-z}}\)</span>, the partial derivative is:</p></li>
+</ul>
+<p><span class="math display">\[\large \frac{\partial a^{(L)}}{\partial z^{(L)}} = a^{(L)}(1-a^{(L)})\]</span></p>
+<ul>
+<li>So, let’s substitute these in for <span class="math inline">\(\delta^{(L)}\)</span>:</li>
+</ul>
+<p><span class="math display">\[\large\delta^{(L)} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}}\]</span><br />
+<span class="math display">\[\large\delta^{(L)} = (\frac{y-1}{a^{(L)}-1} - \frac{y}{a^{(L)}}) (a^{(L)}(1-a^{(L)}))\]</span><br />
+<span class="math display">\[\large\delta^{(L)} =a^{(L)} - y\]</span></p>
+<ul>
+<li><p>So, for a 3-layer network <span class="math inline">\(L=3\)</span>, <span class="math inline">\(\delta^{(3)} =a^{(3)} - y\)</span></p></li>
+<li><p>Note that this is the correct equation, as given in our notes.</p></li>
+<li><p>Now, given <span class="math inline">\(z = \theta \times \text{input}\)</span>, and in layer <span class="math inline">\(L\)</span> the input is <span class="math inline">\(a^{(L-1)}\)</span>, the partial derivative is: <span class="math display">\[\large \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}} = a^{(L-1)}\]</span></p></li>
+<li><p><strong>Put it together for the output layer</strong>:</p></li>
+</ul>
+<p><span class="math display">\[\large\frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}\]</span><br />
+<span class="math display">\[\large\frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = (a^{(L)} - y) (a^{(L-1)})\]</span></p>
+<p><br></p>
+<ul>
+<li>Let’s continue on for the hidden layer (let’s assume we only have 1 hidden layer):<br />
+<span class="math display">\[\large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} =  \delta^{(L-1)} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}\]</span></li>
+<li><p>Let’s figure out <span class="math inline">\(\delta^{(L-1)}\)</span>. Once again, given <span class="math inline">\(z = \theta \times\text{input}\)</span>, the partial derivative is:<br />
+<span class="math display">\[\large \frac{\partial z^{(L)}}{\partial a^{(L-1)}} = \theta^{(L-1)}\]</span> And: <span class="math display">\[\frac{\partial a^{(L-1)}}{\partial z^{(L-1)}} = a^{(L-1)}(1-a^{(L-1)})\]</span></p></li>
+<li>So, let’s substitute these in for <span class="math inline">\(\delta^{(L-1)}\)</span>:<br />
+<span class="math display">\[\large\delta^{(L-1)} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}\]</span><br />
+<span class="math display">\[\large\delta^{(L-1)} = \delta^{(L)} (\theta^{(L-1)}) (a^{(L-1)}(1-a^{(L-1)}))\]</span><br />
+<span class="math display">\[\large\delta^{(L-1)} = \delta^{(L)} \theta^{(L-1)} a^{(L-1)}(1-a^{(L-1)})\]</span></li>
+<li>So, for a 3-layer network,<br />
+<span class="math display">\[\Large\delta^{(2)} = \delta^{(3)} \theta^{(2)} a^{(2)}(1-a^{(2)})\]</span></li>
+<li><p><strong>Put it together for the [last] hidden layer</strong>:<br />
+<span class="math display">\[\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \delta^{(L-1)} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}\]</span><br />
+<span class="math display">\[\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = (\delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}) (a^{(L-2)})\]</span><br />
+<span class="math display">\[\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = ((a^{(L)} - y) (\theta^{(L-1)})(a^{(L-1)}(1-a^{(L-1)}))) (a^{(L-2)})\]</span></p></li>
+</ul>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
