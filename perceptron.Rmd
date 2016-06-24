@@ -6,7 +6,29 @@
 ###PERCEPTRON:
 <br>
 
-In machine learning, the perceptron is an algorithm for supervised learning of binary classifiers: functions that can decide whether an input (represented by a vector of numbers) belongs to one class or another (Wikipedia). The idea is similar to logistic regression, although the optimization is different.
+In machine learning, the perceptron is an algorithm for supervised learning of binary classifiers: functions that can decide whether an input (represented by a vector of numbers) belongs to one class or another (Wikipedia). The idea is similar to logistic regression, although the optimization is different:
+
+Vectorially, the $d$ features or attributes of an example are $\bf x$, and the idea is to "pass" the example if:
+
+$\displaystyle \sum_{1}^d \theta_i x_i > \text{theshold}$ or...
+
+$h(x) = \text{sign}\big(\displaystyle \sum_{1}^d \theta_i x_i - \text{theshold}\big)$. The sign function results in $1$ or $-1$, as opposed to $0$ and $1$ in logistic regression.
+
+The threshold will be absorbed into the *bias* coefficient, $+ \theta_0$. The formula is now:
+
+$h(x) = \text{sign}\big(\displaystyle \sum_0^d \theta_i x_i\big)$, or vectorized:
+
+$h(x) = \text{sign}(\theta^T\bf x)$.
+
+Misclassified points will have:
+
+$\text{sign}(\theta^T\bf x) \neq y_n$, meaning that the dot product of $theta$ and $\bf x_n$ will be positive (vectors in the same direction), when $y_n$ is negative, or the dot product will be negative (vectors in opposite directions), while $y_n$ is positive:
+
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16343283/27443d5e-3a04-11e6-9749-484cd68dc971.png">
+
+The process starts with random weights or coefficients, and calculates for every *misclassified* points or examples $n$ in the training sample:
+
+$\color{red}{\theta} := \color{blue}{\theta} + y_n \times \bf x_n$
 
 In this example I use logistic regression to get a decission boundary. We are looking at two test results, and the ultimate outcome of whether the student gets into college or not.
 
