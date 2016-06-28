@@ -1,0 +1,81 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###SUPPORT VECTOR MACHINES:
+<br>
+
+It is predicated upon drawing a decision boundary line leaving as ample a margin to the first positive and negative examples as possible:
+
+<br>
+
+<img height="800" width="800" src="https://cloud.githubusercontent.com/assets/9312897/16400281/ee8d8e7e-3ca7-11e6-8eb4-f68d2dbb6601.png">
+
+
+As in the illustration above, if we select an orthogonal vector such that $\large \lVert \color{blue}{w} \rVert=1$ we can establish a decision criterium for any example to be catalogued as positive of the form:
+
+$\large u\cdot \color{blue}{w} \geq c$. corresponding to a value that would place the projection beyond the decision line in the middle of the street. Or equivalently, that if 
+
+$$\Large u\cdot \color{blue}{w} + b \geq 0 \tag{decision line or rule}$$
+
+with $c = - b$ the sample is positive.
+
+So we need $b$ and $\color{blue}{w}$ to have a decision rule. To get there we need *constraints*. First constraint we are going to impose is that $\color{blue}{w}\cdot \bf x_+ + b \geq 1$ and $\color{blue}{w}\cdot \bf x_- + b \leq -1$. To bring these two inequalities together, we can introduce the variable $y_i$ so that $y_i=+1$ for positive examples, and $y_i=-1$ if the examples are negative, and conclude $\large y_i (x_i\cdot \color{blue}{w} + b) -1\geq 0$. So we establish that this has to be greater than zero, *but* if the example is "in the gutter", then:
+
+$$\Large y_i (x_i\cdot \color{blue}{w} + b) -1 = 0\tag{the "1" condition for x in gutter}$$.
+
+Second constraint: the distance of "the gutter":
+
+
+<img height="800" width="800" src="https://cloud.githubusercontent.com/assets/9312897/16401058/1d780816-3caf-11e6-8477-610b6bcf9b76.png">
+
+Again, assuming a unit vector perpendicular to the decision boundary, the dot product with the difference between two "bordering" plus and minus examples is the width of "the street":
+
+$$\Large \text{width}= (x_+ - x_-) \cdot \frac{w}{\lVert w \rVert} \tag{the width of the street}$$
+
+Now, key observation: on the equation above $X_+$ and $x_-$ *are* in the gutter! Therefore, for the positive example: $\large (x_i\cdot \color{blue}{w} + b) -1 = 0$, or $\large x_+\cdot \color{blue}{w} = 1 - b$; and for the negative example: $\large x_-\cdot \color{blue}{w} = -1 - b$. So, reformulating the width of the street:
+
+$$\Large \text{width}= \frac{2}{\lVert w \rVert} \tag{the width of the street}$$
+
+So now we just have to maximize $\Large  \frac{w}{\lVert w \rVert}$ or maximize $\Large  \frac{1}{\lVert w \rVert}$, or minimize $\Large  \lVert w \rVert$, or minimize:
+
+$$\Large \text{min}\frac{1}{2}\lVert w \rVert^2$$
+
+So we want to minimize this expression based on some constraints. Hence we need a Lagrange multiplier:
+
+$$\Large \mathscr{L} = \frac{1}{2} \lVert w \rVert^2 - \sum \alpha_i [y_i (\bf x_i\cdot \color{blue}{w} + b) -1]$$
+
+In brackets we see the "1" constraint (equation higher in the text).
+
+Differentiating,
+
+$\Large \frac{\partial \mathscr{L}}{\partial \color{blue}{w} }= \color{blue}{w} - \sum \alpha_i y_i \bf x_i = 0$. Therefore, 
+
+$$\Large\color{blue}{w} = \sum \alpha_i y_i \bf x_i\tag{*}$$
+
+$\Large \frac{\partial \mathscr{L}}{\partial b}=-\sum \alpha_i y_i = 0$, which means that
+
+$$\Large \sum \alpha_i y_i = 0\tag{**}$$
+
+Pluging equation [*] back into the first Lagrangian expression, 
+
+$$\Large \mathscr{L} = \frac{1}{2} \color{purple}{\Big(\sum \alpha_i y_i \bf x_i \Big) \,\Big(\sum \alpha_j y_j \bf x_j \Big)}- \color{green}{\Big(\sum \alpha_i y_i \bf x_i\Big)\cdot \Big(\sum \alpha_j y_j \bf x_j \Big)} - \sum \alpha_i y_i b +\sum \alpha_i$$
+
+The penultimate term is zero as per equation [**].
+
+Therefore,
+
+
+$$\Large \mathscr{L} =  \sum \alpha_i - \frac{1}{2}\displaystyle \sum_i \sum_j \alpha_i \alpha_j y_i y_j \bf x_i \cdot \bf x_j$$
+
+Hence, the optimization depends on the dot product of pairs of examples.
+
+Going back to the "decision rule" equation above, and using [*]:
+
+$$\Large \sum \alpha_i y_i \bf x_i\cdot u + b \geq 0$$
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
