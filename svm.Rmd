@@ -13,9 +13,9 @@ It is predicated upon drawing a decision boundary line leaving as ample a margin
 <img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16438253/f52790e8-3d7b-11e6-8846-56d147c60e0f.png">
 
 
-As in the illustration above, if we select an orthogonal vector such that $\large \lVert w \rVert=1$ we can establish a decision criterium for any example to be catalogued as positive of the form:
+As in the illustration above, if we select an orthogonal vector such that $\large \lVert w \rVert=1$ we can establish a decision criterium for any unknown example $\bf u$ to be catalogued as positive of the form:
 
-$\large u\cdot \color{blue}{w} \geq c$. corresponding to a value that would place the projection beyond the decision line in the middle of the street. Or equivalently, that if 
+$\large {\bf u} \cdot \color{blue}{w} \geq c$. corresponding to a value that would place the projection beyond the decision line in the middle of the street. Or equivalently, that if 
 
 $$\Large u\cdot \color{blue}{w} + b \geq 0 \tag{decision line or rule: Eq.1}$$
 
@@ -44,7 +44,7 @@ $$\Large \text{min}\frac{1}{2}\lVert w \rVert^2 \tag{minimization objective: Eq.
 
 So we want to minimize this expression based on some constraints. Hence we need a Lagrange multiplier (going back to equations 2 and 4):
 
-$$\Large \mathscr{L} = \frac{1}{2} \lVert w \rVert^2 - \sum \lambda_i [y_i ({\bf x_i\cdot \color{blue}{w} }+ b) -1]\tag{Lagrange: Eq.5}$$
+$$\Large \mathscr{L} = \frac{1}{2} \lVert w \rVert^2 - \sum \lambda_i \Big[y_i \, \big ({\bf x_i\cdot \color{blue}{w} }+ b \big) -1\Big]\tag{Lagrange: Eq.5}$$
 
 
 Differentiating,
@@ -52,11 +52,11 @@ Differentiating,
 
 $\Large \frac{\partial \mathscr{L}}{\partial \color{blue}{w} }= \color{blue}{w} - \sum \lambda_i y_i {\bf x_i} = 0$. Therefore, 
 
-$$\Large\color{blue}{w} = \sum \lambda_i y_i {\bf x_i}\tag{Orthonormal vector: Eq.6}$$
+$$\Large\color{blue}{w} = \sum \lambda_i \,\, y_i \,\, {\bf x_i}\tag{Orthonormal vector: Eq.6}$$
 
 $\Large \frac{\partial \mathscr{L}}{\partial b}=-\sum \lambda_i y_i = 0$, which means that
 
-$\Large \sum \lambda_i y_i = 0\tag{zero sum multipliers times labels: Eq.7}$
+$\Large \sum \lambda_i \, y_i = 0\tag{zero sum multipliers times labels: Eq.7}$
 
 Pluging equation [Eq.6] back into [Eq.5], 
 
