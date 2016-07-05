@@ -1,0 +1,68 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###LAGRANGE MULTIPLIER:
+<br>
+
+We want to optimize the value of the surface $z = x * y$ with the constraint that $y = 3 - \frac{4}{3}x$:
+
+<br>
+
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16436652/97b580c2-3d6d-11e6-8629-6bd9fe82e52a.png">
+
+To do so the key point is to see that the constraint will be the tangent of the "indifference line" in the contour plot:
+
+<img height="400" width="400" src="https://cloud.githubusercontent.com/assets/9312897/16436796/e7642c62-3d6e-11e6-926a-a83ed3130cdc.png">
+
+In an indifference line, $f(x,y) = z = x*y = \text{Constant}_1$. At the optimum point $\text{Constant}_1=x*y$ will have as a tangent $y = 3 - \frac{4}{3}x$. Expressing the constraint line as $g(x,y) = y + \frac{4}{3}x= 3 =\text{Constant}_2$, both lines would reprsent the direction one must travel to avoid any changes: the direction of zero increase or change in the functions.
+
+On the other hand, the direction of maximum change will be given by the gradients, and they will be orthogonal to the contour lines:
+
+$$\nabla (f(x,y)=\text{Constant}_1)=(\frac{df}{dx},\frac{df}{dy})$$
+
+$$\nabla (g(x,y)=\text{Constant}_2)=(\frac{dg}{dx},\frac{dg}{dy})$$.
+
+Since the gradients of $f(\cdot)$ and $g(\cdot)$ are going in the same or opposite directions:
+
+$$\nabla f(x,y) = \lambda \nabla g(x,y)$$
+
+or
+
+$$\nabla f(x,y) - \lambda \nabla g(x,y)= 0$$
+
+which means that:
+
+$$\frac{\partial f(x,y)}{dx} - \lambda \frac{\partial g(x,y)}{dx}=0$$
+
+and
+
+$$\frac{\partial f(x,y)}{dy} - \lambda \frac{\partial g(x,y)}{dy}=0$$
+
+To obtain the Lagrangian we set $\text{Constant}_2$ to zero:
+
+$y + \frac{4}{3}x-3=0$, let's call it $g_2$, $and we are ready:
+
+$$\mathscr{L}=f(x,y)+\lambda g_2(x,y)$$
+
+or
+
+$$\mathscr{L}=x*y+\lambda * (y + \frac{4}{3}x-3)$$
+
+and we optimize by taking the partial derivatives:
+
+$$\frac{\mathscr{L}}{dx}=y+\frac{4}{3}*\lambda=0$$
+
+$$\frac{\mathscr{L}}{dy}=x+\lambda=0$$
+
+$$\frac{\mathscr{L}}{d\lambda}=y+\frac{4}{3}x-3=0$$
+
+Notice that the last equation is the initial constraint.
+
+This results in the optimal point: $(\frac{9}{8},\frac{3}{2})$.
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
