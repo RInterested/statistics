@@ -6,9 +6,7 @@
 ###PROBABILITY TO RETURN TO THE ORIGIN IN A SYMMETRIC RANDOM WALK:
 <br>
 
-Write here
 
-<br>
 
 <img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16595391/da0bb3d4-42bc-11e6-8c11-97dc9200189e.png">
 
@@ -98,7 +96,7 @@ and the coefficients are $\Large \frac{2n!}{n!n!}={2n\choose n}.$
 
 Consequently, from equation 1:
 
-$$\large P(x)= \displaystyle\sum_{n=0}^\infty=\,p_n\,x^n={2n \choose n}\,(pqx)^n=(1-4pqx)^{-1/2}\tag 4$$
+$$\color{purple}{\large P(x)= \displaystyle\sum_{n=0}^\infty=\,p_n\,x^n={2n \choose n}\,(pqx)^n=(1-4pqx)^{-1/2}}\tag 4$$
 
 and going back to equation 3:
 
@@ -106,13 +104,62 @@ $$F(x)=1-\frac{1}{P(x)}$$
 
 and
 
-$$\large F(x)=1 - (1-4pqx)^{1/2}\tag 5$$
+$$\color{purple}{\large F(x)=1 - (1-4pqx)^{1/2}}\tag 5$$
 
 ---
 
 Next:
 
+$$\sqrt{1-x}=\displaystyle\sum_{m=0}^\infty\frac{-1}{2m-1}\,{2m \choose m}\,\frac{x^m}{4^m}\tag 6$$
 
+
+Proof:
+
+Let $f(x)=(1-x)^{1/2}$. Differentiating:
+
+\begin{align}
+f^{(1)}(x)&=(-1)\left(\frac12\right) (1-x)^{-1/2}\\\\
+f^{(2)}(x)&=(-1)^2\left(\frac12\right) \left(-\frac12\right) (1-x)^{-3/2} \\\\
+f^{(3)}(x)&=(-1)^3\left(\frac12\right) \left(-\frac12\right) \left(-\frac32\right) (1-x)^{-5/2}\\\\
+f^{(4)}(x)&=(-1)^4\left(\frac12\right) \left(-\frac12\right) \left(-\frac32\right)\left(-\frac52\right) (1-x)^{-7/2}\\\\
+\vdots\\\\
+f^{(n)}(x)&=-\frac{(2n-3)!!}{2^n}(1-x)^{-(2n-1)/2} \\\\
+\end{align}
+
+$f(x)$ has the series expansion:
+
+$$f(x)=1-\sum_{n=1}^\infty \frac{(2n-3)!!}{2^n\,n!}\,x^n$$
+
+\begin{align}
+(2n-3)!!&=(2n-3)(2n-5)(2n-7)\cdots(5)(3)(1)\\\\
+&=\frac{(2n-3)!}{(2n-4)(2n-6)(2n-8)\cdots (6)(4)(2)}\\\\
+&=\frac{(2n-3)!}{2^{n-2}(n-2)!}\\\\
+&=\frac{(2n)!}{(2n-1)2^n\,n!}\\\\
+&=\frac{n!}{(2n-1)2^n}\binom{2n}{n}
+\end{align}
+
+Substituting:
+
+\begin{align}
+f(x)&=1-\sum_{n=1}^\infty \frac{1}{4^n(2n-1)}\binom{2n}{n}\,x^n\\\\
+&=-\sum_{n=1}^\infty \frac{1}{4^n(2n-1)}\binom{2n}{n}\,x^n
+\end{align}
+
+---
+
+Now substituting into $F(x)$:
+
+$$\large F(x)=\displaystyle \sum_{n=0}^\infty f_n x^n= \sum_{n=1}^\infty \frac{1}{2n-1}{2m\choose n}(pq)^n\,x^n$$
+
+Therefore,
+
+$$\large f_n=\frac{1}{2n-1}\,{2n\choose n}(pq)^n$$
+
+If $x=1$,
+
+$$\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-|p-q|$$
+
+With probability $|p-q|$ the walk will never return to the origin.
 
 ---
 
