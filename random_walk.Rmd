@@ -10,17 +10,17 @@
 
 <img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16595391/da0bb3d4-42bc-11e6-8c11-97dc9200189e.png">
 
-To return to the origin, an even number of steps are needed. The probability to return to origin at a particular step $2n$ is:
+To return to the origin, an even number of steps are needed. The probability of *being at the origin* at a particular step $2n$ is:
 
 $$\large p_{2n}\overset{\Delta}{=}P(X_{2n}=0, n=0,1,2,\cdots)= {2n \choose n}\,\Big(pq\Big)^n \tag 1$$
 
 $p$ and $q$ are the Berouilli probabilities to turn right or left. They are equal in a symmetric random walk.
 
-The first return happening at step $2n$ will have a probability:
+The *first return* happening at step $2n$ will have a probability:
 
 $$\large f_{2n}\overset{\Delta}{=}P(x_{2n}=0 \cap X_{2k}\neq 0 \, \forall k<n) \tag 2$$
 
-The initial state is $f_0=0$ and $p_0=0$.
+The initial state is $f_0=0$ and $p_0=1$.
 
 Theorem:
 
@@ -53,19 +53,18 @@ Based on this theorem we can set up the following convolution:
 
 $$\large p_{n}=\displaystyle\sum_{k=1}^n\,f_k\times p_{n-k}$$
 
-and set up the following generating functions from the power series:
+and set up the following generating functions from the power series (credit to [this post](http://math.stackexchange.com/a/1851051/152225)):
 
-$$P(x) = \displaystyle\sum_{n=0}^\infty p_n\,x^n$$
 
-and
-
-$$F(x) = \displaystyle\sum_{n=0}^\infty f_n\,x^n$$
-
-Now we re-write this convolution in this domain:
-
-$$\large P(x)-1=P(x)F(x)\tag 3$$
-
-The number $1$ has to do with the initial conditions.
+\begin{eqnarray*}
+P(x)&=&\sum_{n=0}^\infty p_n x^n\\[5pt]
+&=&1+\sum_{n=1}^\infty p_n x^n\\[5pt]
+&=&1+\sum_{n=1}^\infty \sum_{k=1}^n f_k p_{n-k}  x^n\\[5pt]
+&=&1+\sum_{k=1}^\infty \sum_{n=k}^\infty  f_k p_{n-k}  x^n\\[5pt]
+&=&1+\sum_{k=1}^\infty f_k x^k \sum_{n=k}^\infty  p_{n-k}  x^{n-k}\\[5pt]
+&=&1+\sum_{k=0}^\infty f_k x^k \sum_{j=0}^\infty  p_{j}  x^{j}\\[5pt]
+&=&\Large \color{orange}{1+F(x) P(x)}\tag 3.
+\end{eqnarray*}
 
 
 ---
