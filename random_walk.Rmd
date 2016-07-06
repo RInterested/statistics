@@ -12,13 +12,13 @@
 
 To return to the origin, an even number of steps are needed. The probability to return to origin at a particular step $2n$ is:
 
-$$p_{2n}=P(x_{2n}=0) = {2n \choose n}\,\Big(pq\Big)^n \tag 1$$
+$$\large p_{2n}\overset{\Delta}{=}P(X_{2n}=0, n=0,1,2,\cdots)= {2n \choose n}\,\Big(pq\Big)^n \tag 1$$
 
 $p$ and $q$ are the Berouilli probabilities to turn right or left. They are equal in a symmetric random walk.
 
 The first return happening at step $2n$ will have a probability:
 
-$$f_{2n} = P(x_{2n}=0 \text{ and } x_{2k}\neq 0 \text{ for all } k<n)$$
+$$\large f_{2n}\overset{\Delta}{=}P(x_{2n}=0 \cap X_{2k}\neq 0 \, \forall k<n) \tag 2$$
 
 The initial state is $f_0=0$ and $p_0=0$.
 
@@ -155,11 +155,15 @@ Therefore,
 
 $$\large f_n=\frac{1}{2n-1}\,{2n\choose n}(pq)^n$$
 
-If $x=1$,the sum of all the $f_n$ is simply the probability that the random walk ever returns to the origin :
+A probability generating function for a random variable $X$ taking values in $\{0,\infty\}$ will converge at $x=1$. So at $x=1$ sum of all the $f_n$ is simply the probability that the random walk ever returns to the origin :
 
 $$\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-|p-q|$$
 
-With probability $|p-q|$ the walk will never return to the origin. If $p=q$, the probability of not returning is zero
+Here I resort to [this post](http://math.stackexchange.com/a/1850414/152225):
+
+$(p-q)^2=p^2-2pq+q^2=p(1-q)-2pq+q(1-p)=p+q-4pq=1-4pq$
+
+With probability $|p-q|$ the walk will never return to the origin. If $p=q$, the probability of not returning is zero.
 
 ---
 
