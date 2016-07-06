@@ -10,19 +10,17 @@
 
 <img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16595391/da0bb3d4-42bc-11e6-8c11-97dc9200189e.png">
 
-To return to the origin, an even number of steps are needed. The probability of *being at the origin* at a particular step $2n$ is:
+To return to the origin, an even number of steps are needed. The probability of **being at the origin** at a particular step $2n$ is:
 
-$$\large p_{2n}\overset{\Delta}{=}P(X_{2n}=0, n=0,1,2,\cdots)= {2n \choose n}\,\Big(pq\Big)^n \tag 1$$
+$$\color{turquoise}{\large p_{2n}\overset{\Delta}{=}P(X_{2n}=0, n=0,1,2,\cdots)= {2n \choose n}\,\Big(pq\Big)^n} \tag 1$$
 
 $p$ and $q$ are the Berouilli probabilities to turn right or left. They are equal in a symmetric random walk.
 
-The *first return* happening at step $2n$ will have a probability:
+The **first return** happening at step $2n$ will have a probability:
 
-$$\large f_{2n}\overset{\Delta}{=}P(x_{2n}=0 \cap X_{2k}\neq 0 \, \forall k<n) \tag 2$$
+$$\color{turquoise}{\large f_{2n}\overset{\Delta}{=}P(x_{2n}=0 \cap X_{2k}\neq 0 \, \forall k<n)} \tag 2$$
 
 The initial state is $f_0=0$ and $p_0=1$.
-
-Theorem:
 
 There are $\large p_{2n}\,2^{2n}$ paths of length $2n$ between point $(0,0)$ and $(2n,0)$. In the case of a symmetric random walk all paths have the same probability: $\large (\frac{1}{2})^{2n}$. Therefore:
 
@@ -137,7 +135,7 @@ Therefore $f(x)$ has the series expansion:
 
 $\large f(x)=1-\sum_{n=1}^\infty \frac{(2n-3)!!}{2^n\,n!}\,x^n \tag {*}$
 
-
+with
 
 \begin{align}
 (2n-3)!!&=(2n-3)(2n-5)(2n-7)\cdots(5)(3)(1)\\\\
@@ -164,13 +162,18 @@ $$\large F(x)=\displaystyle \sum_{n=0}^\infty f_n x^n= \sum_{n=1}^\infty \frac{1
 
 Therefore,
 
-$$\color{magenta}{\large f_n=\frac{1}{2n-1}\,\binom{2n}{n} (pq)^n}\tag 9$$
+$$\color{LimeGreen}{\large f_n=\frac{1}{2n-1} \binom{2n}{n} (pq)^n} \tag 9$$
 
 
+<br>
 
 A probability generating function for a random variable $X$ taking values in $\{0,\infty\}$ will converge at $x=1$. So at $x=1$ the sum of all the $f_n$ is simply the probability that the random walk ever returning to the origin (by equation $(5)$):
 
-$$\color{green}{\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-}\color{green} {|p-q|}\tag {10}$$
+<br>
+
+$$\color{red}{\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-}\color{red} {|p-q|}\tag {10}$$
+
+<br>
 
 Here I resort to [this post](http://math.stackexchange.com/a/1850414/152225):
 
