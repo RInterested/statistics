@@ -69,9 +69,12 @@ P(x)&=&\sum_{n=0}^\infty p_n x^n\\[5pt]
 
 ---
 
-Now, and courtesy of [this post](http://math.stackexchange.com/a/1849538/152225),
+Now, 
 
-$$\displaystyle\sum_{n=0}^\infty\,{2n\choose n}\,x^n=\frac{1}{\sqrt{1-4x}}=(1-4x)^{-1/2}$$
+$$\large \color{blue}{\displaystyle\sum_{n=0}^\infty\,{2n\choose n}\,x^n=\frac{1}{\sqrt{1-4x}}=(1-4x)^{-1/2}}\tag 4$$
+
+
+PROOF (courtesy of [this post](http://math.stackexchange.com/a/1849538/152225))
 
 To see this we get the Taylor series, $\large f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n$, of this expression evaluated at $0$:
 
@@ -91,11 +94,13 @@ $1+2 x+6 x^2+20 x^3+70 x^4+O\left(x^5\right)$
 
 and the coefficients are $\Large \frac{2n!}{n!n!}={2n\choose n}.$
 
+$\square$
+
 ---
 
-Consequently, from equation 1:
+Consequently, from equation $(1)$:
 
-$$\color{purple}{\large P(x)= \displaystyle\sum_{n=0}^\infty=\,p_n\,x^n={2n \choose n}\,(pqx)^n=(1-4pqx)^{-1/2}}\tag 4$$
+$$\color{purple}{\large P(x)= \displaystyle\sum_{n=0}^\infty=\,p_n\,x^n={2n \choose n}\,(pqx)^n=(1-4pqx)^{-1/2}}\tag 5$$
 
 and going back to equation 3:
 
@@ -103,16 +108,19 @@ $$F(x)=1-\frac{1}{P(x)}$$
 
 and
 
-$$\color{purple}{\large F(x)=1 - (1-4pqx)^{1/2}}\tag 5$$
+$$\color{purple}{\large F(x)=1 - (1-4pqx)^{1/2}}\tag 6$$
 
 ---
 
 Next:
 
-$$\sqrt{1-x}=\displaystyle\sum_{m=0}^\infty\frac{-1}{2m-1}\,{2m \choose m}\,\frac{x^m}{4^m}\tag 6$$
+$$\large \color{red}{\sqrt{1-x}=\displaystyle\sum_{n=0}^\infty\frac{-1}{2n-1}\,{2n \choose n}\,\frac{x^n}{4^n}}\tag 7$$
 
 
-Proof (thanks to [this post](http://math.stackexchange.com/a/1849811/152225)):
+---
+
+PROOF (thanks to [this post](http://math.stackexchange.com/a/1849811/152225)):
+
 
 Let $f(x)=(1-x)^{1/2}$. Differentiating:
 
@@ -125,38 +133,43 @@ f^{(4)}(x)&=(-1)^4\left(\frac12\right) \left(-\frac12\right) \left(-\frac32\righ
 f^{(n)}(x)&=-\frac{(2n-3)!!}{2^n}(1-x)^{-(2n-1)/2} \\\\
 \end{align}
 
-$f(x)$ has the series expansion:
+Therefore $f(x)$ has the series expansion:
 
-$$f(x)=1-\sum_{n=1}^\infty \frac{(2n-3)!!}{2^n\,n!}\,x^n$$
+$\large f(x)=1-\sum_{n=1}^\infty \frac{(2n-3)!!}{2^n\,n!}\,x^n \tag {*}$
+
+
 
 \begin{align}
 (2n-3)!!&=(2n-3)(2n-5)(2n-7)\cdots(5)(3)(1)\\\\
 &=\frac{(2n-3)!}{(2n-4)(2n-6)(2n-8)\cdots (6)(4)(2)}\\\\
 &=\frac{(2n-3)!}{2^{n-2}(n-2)!}\\\\
 &=\frac{(2n)!}{(2n-1)2^n\,n!}\\\\
-&=\frac{n!}{(2n-1)2^n}\binom{2n}{n}
+&=\frac{n!}{(2n-1)2^n}\binom{2n}{n} \tag {**}
 \end{align}
 
-Substituting:
+Substituting (**) into (*):
 
 \begin{align}
 f(x)&=1-\sum_{n=1}^\infty \frac{1}{4^n(2n-1)}\binom{2n}{n}\,x^n\\\\
 &=-\sum_{n=1}^\infty \frac{1}{4^n(2n-1)}\binom{2n}{n}\,x^n
 \end{align}
 
+$\square$
+
 ---
 
-Now substituting into $F(x)$:
+Now substituting into $(6)$ into $(5)$:
 
-$$\large F(x)=\displaystyle \sum_{n=0}^\infty f_n x^n= \sum_{n=1}^\infty \frac{1}{2n-1}{2m\choose n}(pq)^n\,x^n$$
+$$\large F(x)=\displaystyle \sum_{n=0}^\infty f_n x^n= \sum_{n=1}^\infty \frac{1}{2n-1}{2m\choose n}(pq)^n\,x^n\tag 8$$
 
 Therefore,
 
-$$\large f_n=\frac{1}{2n-1}\,{2n\choose n}(pq)^n$$
+$$\color{magenta}{\large f_n=\frac{1}{2n-1}\,{2n\choose n}(pq)^n}\tag 9$$
 
-A probability generating function for a random variable $X$ taking values in $\{0,\infty\}$ will converge at $x=1$. So at $x=1$ sum of all the $f_n$ is simply the probability that the random walk ever returns to the origin :
 
-$$\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-|p-q|$$
+A probability generating function for a random variable $X$ taking values in $\{0,\infty\}$ will converge at $x=1$. So at $x=1$ the sum of all the $f_n$ is simply the probability that the random walk ever returning to the origin (by equation $(5)$):
+
+$$\color{green}{\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-}  |p-q|\tag {10}$$
 
 Here I resort to [this post](http://math.stackexchange.com/a/1850414/152225):
 

@@ -103,8 +103,9 @@ P(x)&amp;=&amp;\sum_{n=0}^\infty p_n x^n\\[5pt]
 &amp;=&amp;\Large \color{orange}{1+F(x) P(x)}\tag 3.
 \end{eqnarray*}
 <hr />
-<p>Now, and courtesy of <a href="http://math.stackexchange.com/a/1849538/152225">this post</a>,</p>
-<p><span class="math display">\[\displaystyle\sum_{n=0}^\infty\,{2n\choose n}\,x^n=\frac{1}{\sqrt{1-4x}}=(1-4x)^{-1/2}\]</span></p>
+<p>Now,</p>
+<p><span class="math display">\[\large \color{blue}{\displaystyle\sum_{n=0}^\infty\,{2n\choose n}\,x^n=\frac{1}{\sqrt{1-4x}}=(1-4x)^{-1/2}}\tag 4\]</span></p>
+<p>PROOF (courtesy of <a href="http://math.stackexchange.com/a/1849538/152225">this post</a>)</p>
 <p>To see this we get the Taylor series, <span class="math inline">\(\large f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n\)</span>, of this expression evaluated at <span class="math inline">\(0\)</span>:</p>
 <p><span class="math inline">\(f(x)=(1-4x)^{-1/2}\)</span>; evaluated at <span class="math inline">\(f(0)=1.\)</span></p>
 <p><span class="math inline">\(f^1(x)=\frac{2}{(1-4x)^{3/2}}\)</span>; evaluated at <span class="math inline">\(f^1(0)=2\)</span>; coefficient <span class="math inline">\(2/1!\)</span>.</p>
@@ -114,17 +115,19 @@ P(x)&amp;=&amp;\sum_{n=0}^\infty p_n x^n\\[5pt]
 <p>The Taylor series is:</p>
 <p><span class="math inline">\(1+2 x+6 x^2+20 x^3+70 x^4+O\left(x^5\right)\)</span></p>
 <p>and the coefficients are <span class="math inline">\(\Large \frac{2n!}{n!n!}={2n\choose n}.\)</span></p>
+<p><span class="math inline">\(\square\)</span></p>
 <hr />
-<p>Consequently, from equation 1:</p>
-<p><span class="math display">\[\color{purple}{\large P(x)= \displaystyle\sum_{n=0}^\infty=\,p_n\,x^n={2n \choose n}\,(pqx)^n=(1-4pqx)^{-1/2}}\tag 4\]</span></p>
+<p>Consequently, from equation <span class="math inline">\((1)\)</span>:</p>
+<p><span class="math display">\[\color{purple}{\large P(x)= \displaystyle\sum_{n=0}^\infty=\,p_n\,x^n={2n \choose n}\,(pqx)^n=(1-4pqx)^{-1/2}}\tag 5\]</span></p>
 <p>and going back to equation 3:</p>
 <p><span class="math display">\[F(x)=1-\frac{1}{P(x)}\]</span></p>
 <p>and</p>
-<p><span class="math display">\[\color{purple}{\large F(x)=1 - (1-4pqx)^{1/2}}\tag 5\]</span></p>
+<p><span class="math display">\[\color{purple}{\large F(x)=1 - (1-4pqx)^{1/2}}\tag 6\]</span></p>
 <hr />
 <p>Next:</p>
-<p><span class="math display">\[\sqrt{1-x}=\displaystyle\sum_{m=0}^\infty\frac{-1}{2m-1}\,{2m \choose m}\,\frac{x^m}{4^m}\tag 6\]</span></p>
-<p>Proof (thanks to <a href="http://math.stackexchange.com/a/1849811/152225">this post</a>):</p>
+<p><span class="math display">\[\large \color{red}{\sqrt{1-x}=\displaystyle\sum_{n=0}^\infty\frac{-1}{2n-1}\,{2n \choose n}\,\frac{x^n}{4^n}}\tag 7\]</span></p>
+<hr />
+<p>PROOF (thanks to <a href="http://math.stackexchange.com/a/1849811/152225">this post</a>):</p>
 <p>Let <span class="math inline">\(f(x)=(1-x)^{1/2}\)</span>. Differentiating:</p>
 \begin{align}
 f^{(1)}(x)&amp;=(-1)\left(\frac12\right) (1-x)^{-1/2}\\\\
@@ -134,27 +137,28 @@ f^{(4)}(x)&amp;=(-1)^4\left(\frac12\right) \left(-\frac12\right) \left(-\frac32\
 \vdots\\\\
 f^{(n)}(x)&amp;=-\frac{(2n-3)!!}{2^n}(1-x)^{-(2n-1)/2} \\\\
 \end{align}
-<p><span class="math inline">\(f(x)\)</span> has the series expansion:</p>
-<p><span class="math display">\[f(x)=1-\sum_{n=1}^\infty \frac{(2n-3)!!}{2^n\,n!}\,x^n\]</span></p>
+<p>Therefore <span class="math inline">\(f(x)\)</span> has the series expansion:</p>
+<p><span class="math inline">\(\large f(x)=1-\sum_{n=1}^\infty \frac{(2n-3)!!}{2^n\,n!}\,x^n \tag {*}\)</span></p>
 \begin{align}
 (2n-3)!!&amp;=(2n-3)(2n-5)(2n-7)\cdots(5)(3)(1)\\\\
 &amp;=\frac{(2n-3)!}{(2n-4)(2n-6)(2n-8)\cdots (6)(4)(2)}\\\\
 &amp;=\frac{(2n-3)!}{2^{n-2}(n-2)!}\\\\
 &amp;=\frac{(2n)!}{(2n-1)2^n\,n!}\\\\
-&amp;=\frac{n!}{(2n-1)2^n}\binom{2n}{n}
+&amp;=\frac{n!}{(2n-1)2^n}\binom{2n}{n} \tag {**}
 \end{align}
-<p>Substituting:</p>
+<p>Substituting (**) into (*):</p>
 \begin{align}
 f(x)&amp;=1-\sum_{n=1}^\infty \frac{1}{4^n(2n-1)}\binom{2n}{n}\,x^n\\\\
 &amp;=-\sum_{n=1}^\infty \frac{1}{4^n(2n-1)}\binom{2n}{n}\,x^n
 \end{align}
+<p><span class="math inline">\(\square\)</span></p>
 <hr />
-<p>Now substituting into <span class="math inline">\(F(x)\)</span>:</p>
-<p><span class="math display">\[\large F(x)=\displaystyle \sum_{n=0}^\infty f_n x^n= \sum_{n=1}^\infty \frac{1}{2n-1}{2m\choose n}(pq)^n\,x^n\]</span></p>
+<p>Now substituting into <span class="math inline">\((6)\)</span> into <span class="math inline">\((5)\)</span>:</p>
+<p><span class="math display">\[\large F(x)=\displaystyle \sum_{n=0}^\infty f_n x^n= \sum_{n=1}^\infty \frac{1}{2n-1}{2m\choose n}(pq)^n\,x^n\tag 8\]</span></p>
 <p>Therefore,</p>
-<p><span class="math display">\[\large f_n=\frac{1}{2n-1}\,{2n\choose n}(pq)^n\]</span></p>
-<p>A probability generating function for a random variable <span class="math inline">\(X\)</span> taking values in <span class="math inline">\(\{0,\infty\}\)</span> will converge at <span class="math inline">\(x=1\)</span>. So at <span class="math inline">\(x=1\)</span> sum of all the <span class="math inline">\(f_n\)</span> is simply the probability that the random walk ever returns to the origin :</p>
-<p><span class="math display">\[\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-|p-q|\]</span></p>
+<p><span class="math display">\[\color{magenta}{\large f_n=\frac{1}{2n-1}\,{2n\choose n}(pq)^n}\tag 9\]</span></p>
+<p>A probability generating function for a random variable <span class="math inline">\(X\)</span> taking values in <span class="math inline">\(\{0,\infty\}\)</span> will converge at <span class="math inline">\(x=1\)</span>. So at <span class="math inline">\(x=1\)</span> the sum of all the <span class="math inline">\(f_n\)</span> is simply the probability that the random walk ever returning to the origin (by equation <span class="math inline">\((5)\)</span>):</p>
+<p><span class="math display">\[\color{green}{\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-}  |p-q|\tag {10}\]</span></p>
 <p>Here I resort to <a href="http://math.stackexchange.com/a/1850414/152225">this post</a>:</p>
 <p><span class="math inline">\((p-q)^2=p^2-2pq+q^2=p(1-q)-2pq+q(1-p)=p+q-4pq=1-4pq\)</span></p>
 <p>With probability <span class="math inline">\(|p-q|\)</span> the walk will never return to the origin. If <span class="math inline">\(p=q\)</span>, the probability of not returning is zero.</p>
