@@ -100,7 +100,7 @@ img {
 <p><span class="math display">\[\large P(x)-1=P(x)F(x)\tag 3\]</span></p>
 <p>The number <span class="math inline">\(1\)</span> has to do with the initial conditions.</p>
 <hr />
-<p>Now,</p>
+<p>Now, and courtesy of <a href="http://math.stackexchange.com/a/1849538/152225">this post</a>,</p>
 <p><span class="math display">\[\displaystyle\sum_{n=0}^\infty\,{2n\choose n}\,x^n=\frac{1}{\sqrt{1-4x}}=(1-4x)^{-1/2}\]</span></p>
 <p>To see this we get the Taylor series, <span class="math inline">\(\large f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n\)</span>, of this expression evaluated at <span class="math inline">\(0\)</span>:</p>
 <p><span class="math inline">\(f(x)=(1-4x)^{-1/2}\)</span>; evaluated at <span class="math inline">\(f(0)=1.\)</span></p>
@@ -121,7 +121,7 @@ img {
 <hr />
 <p>Next:</p>
 <p><span class="math display">\[\sqrt{1-x}=\displaystyle\sum_{m=0}^\infty\frac{-1}{2m-1}\,{2m \choose m}\,\frac{x^m}{4^m}\tag 6\]</span></p>
-<p>Proof:</p>
+<p>Proof (thanks to <a href="http://math.stackexchange.com/a/1849811/152225">this post</a>):</p>
 <p>Let <span class="math inline">\(f(x)=(1-x)^{1/2}\)</span>. Differentiating:</p>
 \begin{align}
 f^{(1)}(x)&amp;=(-1)\left(\frac12\right) (1-x)^{-1/2}\\\\
@@ -150,9 +150,9 @@ f(x)&amp;=1-\sum_{n=1}^\infty \frac{1}{4^n(2n-1)}\binom{2n}{n}\,x^n\\\\
 <p><span class="math display">\[\large F(x)=\displaystyle \sum_{n=0}^\infty f_n x^n= \sum_{n=1}^\infty \frac{1}{2n-1}{2m\choose n}(pq)^n\,x^n\]</span></p>
 <p>Therefore,</p>
 <p><span class="math display">\[\large f_n=\frac{1}{2n-1}\,{2n\choose n}(pq)^n\]</span></p>
-<p>If <span class="math inline">\(x=1\)</span>,</p>
+<p>If <span class="math inline">\(x=1\)</span>,the sum of all the <span class="math inline">\(f_n\)</span> is simply the probability that the random walk ever returns to the origin :</p>
 <p><span class="math display">\[\large F(1)=\displaystyle \sum_{n=1}^\infty f_n= 1 - \sqrt{1-4pq}=1-|p-q|\]</span></p>
-<p>With probability <span class="math inline">\(|p-q|\)</span> the walk will never return to the origin.</p>
+<p>With probability <span class="math inline">\(|p-q|\)</span> the walk will never return to the origin. If <span class="math inline">\(p=q\)</span>, the probability of not returning is zero</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
