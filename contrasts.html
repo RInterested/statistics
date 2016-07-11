@@ -134,8 +134,26 @@ boxplot(dat$Latency ~ dat$Sequence, col=colors)</code></pre>
 <p><span class="math display">\[L=1 \times \bar X_1 -1 \times \bar X_2 + 0 \times \bar X_3=\bar X_1 - \bar X_2\]</span></p>
 <p>They can also compare the average of <span class="math inline">\(2\)</span> means with a third mean:</p>
 <p><span class="math display">\[L=1/2\times \bar X_1 +1/2 \times \bar X_2 -1 \times \bar X_3=\frac{\bar X_1 + \bar X_2}{2}-\bar X_3\]</span></p>
-<p>References:</p>
-<p><a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a></p>
+<p>To see the relation between the sum of squares of contrasts with the initial sum of squares “between” treatments, we can compare each sequence to all the others:</p>
+<pre class="r"><code>M = colMeans(d)
+
+L1 = sum(M[1] - 1/4 * M[2] - 1/4 * M[3] - 1/4 * M[4] - 1/4 * M[5])
+SSc1 = nrow(d) * L1^2 / sum(1 + 4 * (-1/4)^2)
+
+L2 = sum(M[2] + M[3] - M[4] - M[5])
+ssc2 = nrow(d) * L2^2 / 4
+
+L3 = sum(M[4] - M[5])
+ssc3 = nrow(d) * L3^2/ 2
+
+L4 = sum(M[2] - M[3])
+ssc4 = nrow(d) * L4^2 / 2
+
+sum(SSc1, ssc2, ssc3, ssc4)</code></pre>
+<pre><code>## [1] 3497.6</code></pre>
+<pre class="r"><code>(SSBetween = sum(nrow(d) * (colMeans(d) - mean(d))^2))</code></pre>
+<pre><code>## [1] 3497.6</code></pre>
+<p>The sum squared of the contrasts is:</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

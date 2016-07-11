@@ -84,24 +84,27 @@ To see the relation between the sum of squares of contrasts with the initial sum
 M = colMeans(d)
 
 L1 = sum(M[1] - 1/4 * M[2] - 1/4 * M[3] - 1/4 * M[4] - 1/4 * M[5])
-SS_contr1 = nrow(d) * L1^2 / sum(1 + 4 * (-1/4)^2)
+SSc1 = nrow(d) * L1^2 / sum(1 + 4 * (-1/4)^2)
 
+L2 = sum(M[2] + M[3] - M[4] - M[5])
+ssc2 = nrow(d) * L2^2 / 4
 
 L3 = sum(M[4] - M[5])
-ss_contr3 = nrow(d) * L3^2 / 2
+ssc3 = nrow(d) * L3^2/ 2
 
 L4 = sum(M[2] - M[3])
-ss_contr4 = nrow(d) * L4^2 / 2
+ssc4 = nrow(d) * L4^2 / 2
+
+sum(SSc1, ssc2, ssc3, ssc4)
+(SSBetween = sum(nrow(d) * (colMeans(d) - mean(d))^2))
 ```
 
 The sum squared of the contrasts is:
 
-sum(SS_contr1, SS_contr3, ss_contr4)
 
 
-References:
 
-<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
+
 
 ---
 
