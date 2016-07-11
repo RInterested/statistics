@@ -1,0 +1,108 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###ANOVA:
+<br>
+
+Five groups of rats: `MS` received morphine on $3$ occasions followed by saline; `MM` received morphine on $4$ occasions; `SS` received only saline; and `McM` morphine in $4$ separate occasions, but last dose was administer in a different environment. The latency betwen liking their paws was measured after the last dose.
+
+<br>
+
+```{r, echo=F, warning=F, message=FALSE}
+d = matrix(c(3,2,14,29,24,
+             5,12,6,20,26,
+             1,13,12,36,40,
+             8,6,4,21,32,
+             1,10,19,25,20,
+             1,7,3,18,33,
+             4,11,9,26,27,
+             9,19,21,17,30), nrow=8, byrow=T)
+
+
+colnames(d)= c('MS','MM','SS','SM','McM')
+as.data.frame(d)
+
+```
+
+We can run an ANOVA after preparing the data in long format:
+
+```{r, warning=F, message=FALSE}
+require("reshape")
+dat = melt(d)
+colnames(dat)=c("Rat","Sequence","Latency")
+summary(aov(Latency ~ Sequence, dat))
+colors = c("tan3","darkorange","wheat4","firebrick","yellow")
+boxplot(dat$Latency ~ dat$Sequence, col=colors)
+```
+
+The calculations involved can be carried out manually as follows:
+
+```{r}
+(SSBetween = sum(nrow(d) * (colMeans(d) - mean(d))^2))
+(SSWithin = sum(scale(d, center = T, scale = F)^2)) 
+(SSTotal = sum((d - mean(d))^2))  
+(df_btw = ncol(d) - 1)
+(MeanSqBetween = SSBetween / df_btw)
+(df_within = length(d) - ncol(d))
+(MeanSqWithin = SSWithin / df_within)
+(F_value = MeanSqBetween / MeanSqWithin) 
+1 - pf(F_value, ncol(d)-1, length(d)-ncol(d))
+summary(aov(Latency ~ Sequence, dat)) # For comparison.
+```
+
+Here is the equivalent calculation with `lm()`:
+
+```
+summary(lm(Latency ~ Sequence, dat))
+```
+
+###CONTRASTS:
+
+<br>
+
+A linear combination of the group means is a contrast if:
+
+$$\sum_{j = 1}^{k}a_j \bar X_j= a_1\bar X_1+ a_2 \bar X_2 +\cdots + a_k\bar X_k$$
+
+and $\sum_{j = 1}^{k}a_j=0$
+
+Linear contrasts are typically a priori tests. A priori tests are planned even before the data is collected. A priori tests imply a relatively small set of comparisons. If we make all possible pairwise comparisons among several means, it doesn't make any difference whether they was planned in advance or not. The idea is to minimize the familywize error rate. Looking at the data before deciding which comparisons will be carried out greatly predisposes to type I errors, because all the other comparisons are implicitely made to pick up the largest differences. That is why for some post hoc tests, the error rate is adjusted as though all possible comparisons had been made.
+
+Contrasts can be set up to compare one mean to another. For example in the case of three means:
+
+$$L=1 \times \bar X_1 -1 \times \bar X_2 + 0 \times \bar X_3=\bar X_1 - \bar X_2$$
+
+They can also compare the average of $2$ means with a third mean:
+
+$$L=1/2\times \bar X_1 +1/2 \times \bar X_2 -1 \times \bar X_3=\frac{\bar X_1 + \bar X_2}{2}-\bar X_3$$
+
+To see the relation between the sum of squares of contrasts with the initial sum of squares "between" treatments, we can compare each sequence to all the others:
+
+```{r}
+M = colMeans(d)
+
+L1 = sum(M[1] - 1/4 * M[2] - 1/4 * M[3] - 1/4 * M[4] - 1/4 * M[5])
+SS_contr1 = nrow(d) * L1^2 / sum(1 + 4 * (-1/4)^2)
+
+
+L3 = sum(M[4] - M[5])
+ss_contr3 = nrow(d) * L3^2 / 2
+
+L4 = sum(M[2] - M[3])
+ss_contr4 = nrow(d) * L4^2 / 2
+```
+
+The sum squared of the contrasts is:
+
+sum(SS_contr1, SS_contr3, ss_contr4)
+
+
+References:
+
+<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
