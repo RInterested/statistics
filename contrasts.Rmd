@@ -78,31 +78,77 @@ They can also compare the average of $2$ means with a third mean:
 
 $$L=1/2\times \bar X_1 +1/2 \times \bar X_2 -1 \times \bar X_3=\frac{\bar X_1 + \bar X_2}{2}-\bar X_3$$
 
-To see the relation between the sum of squares of contrasts with the initial sum of squares "between" treatments, we can compare each sequence to all the others:
+To see the relation between the sum of squares of contrasts with the initial sum of squares "between" treatments, we can see that the sum of squares of *orthogonal* contrasts adds up to the SS "between", defining the sum of squares between contrasts as:
+
+$$\Large SS_{\text{contrast}}=\frac{n\,L^2}{\sum a_j^2}$$
+
+$n$ corresponds to the number of cases.
+
+For contrasts to be *orthogonal* their dot products have to be zero, and the number of comparisons identical to the $df$ for treatments.
+
+<img height="600" width="700" src="https://cloud.githubusercontent.com/assets/9312897/16775848/a1bd77fa-4830-11e6-94de-8fb1e90ddf89.png">
+
+For the dataset above, with $5$ columns, the orthogonal contrasts (dot product of zero) are:
+
+\begin{align} 
+[4\,\,;\,-1\,\,;\,-1\,\,;\,-1\,\,;\,-1]\\
+[0\,\,;\,3\,\,;\,-1\,\,;\,-1\,\,;\,-1]\\
+[0\,\,;\,0\,\,;\,2\,\,;\,-1\,\,;\,-1]\\
+[0\,\,;\,0\,\,;\,0\,\,;\,1\,\,;\,-1]\\
+\end{align}
+
 
 ```{r}
 M = colMeans(d)
 
-L1 = sum(M[1] - 1/4 * M[2] - 1/4 * M[3] - 1/4 * M[4] - 1/4 * M[5])
-SSc1 = nrow(d) * L1^2 / sum(1 + 4 * (-1/4)^2)
+L1 = 4 * M[1] - 1 * M[2] - 1 * M[3] - 1 * M[4] - 1 * M[5]
+SSc1 = nrow(d) * L1^2 / sum(16, 4 * (-1)^2)
 
-L2 = sum(M[2] + M[3] - M[4] - M[5])
-ssc2 = nrow(d) * L2^2 / 4
+L2 = 3 * M[2] -1 * M[3] -1 * M[4] -1 * M[5]
+ssc2 = nrow(d) * L2^2 / (sum(9, 3 * (-1)^2))
 
-L3 = sum(M[4] - M[5])
-ssc3 = nrow(d) * L3^2/ 2
+L3 = 2 * M[3] -1 * M[4] -1 * M[5]
+ssc3 = nrow(d) * L3^2/ sum(4 + 2 * (-1)^2)
 
-L4 = sum(M[2] - M[3])
+L4 = M[4] - M[5]
 ssc4 = nrow(d) * L4^2 / 2
 
 sum(SSc1, ssc2, ssc3, ssc4)
 (SSBetween = sum(nrow(d) * (colMeans(d) - mean(d))^2))
 ```
 
-The sum squared of the contrasts is:
+If we take the second contrast, $[a_1=0\,\,;a_2=3\,\,;a_3=-1\,\,;a_4=-1\,\,;a_5=-1]$, and we change it to $[a_1=0\,\,;a_2=1\,\,;a_3=-1/3\,\,;a_4=-1/3\,\,;a_5=-1/3]$, the sum of squares of the contrast will be:
 
+```{r}
+(L_2 = 1 * M[2] - 1/3 * M[3] - 1/3 * M[4] - 1/3 * M[5])
+(ssc_2 = nrow(d) * L_2^2 / ((1)^2 + 3 * (-1/3)^2))
+# compared to:
+(L2 = 3 * M[2] -1 * M[3] -1 * M[4] -1 * M[5])
+(ssc2 = nrow(d) * L2^2 / (sum(9, 3 * (-1)^2)))
+```
 
+identical!
 
+Contrast have $1$ degree of freedom, so that the $F$ value of again the second contrast, calculated as:
+
+$$\large F=\frac{\text{MS}_{\text{contrast}}}{\text{MS}_{\text{error}}}
+=\frac{\frac{n\,L^2}{\sum a_j^2}}{\text{MS}_{\text{error}}}$$
+
+will be:
+
+```{r}
+(F = nrow(d) * L2^2 / 4) / MeanSqWithin
+```
+
+compared to t-test of `M[2] + M[3]` versus `M[4] + M[5]`
+
+A contrast such as: $[a_1=1\,\,;a_2=-1\,\,;a_3=0\,\,;a_4=0\,\,;a_5=0]$, would have an $F$ value:
+
+```{r}
+(F = (nrow(d) * (sum(M[1] - M[2]))^2/2) / MeanSqWithin)
+```
+
+with $1$ df, which corresponds to a significance level of $F_{0.05}(1,35)=4.12$, or `qf(0.95,df1=1, df2=35)`. Therefore it is statistically significant.
 
 
 
