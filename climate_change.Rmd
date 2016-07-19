@@ -1,0 +1,43 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###TIME SERIES - CLIMATE CHANGE:
+<br>
+
+Basically, a reproduction of [this post in R-bloggers](http://www.r-bloggers.com/time-series-analysis-building-a-model-on-non-stationary-time-series/).
+
+```{r,echo=F,warning=F,message=F, fig.width=6, fig.height=3}
+require(astsa)
+plot(gtemp, xlab="Year", ylab="Deviation", main="Global Temperature Deviations, 1880-2009", col="cyan3")
+```
+
+The model is not stationary. The criteria for a stationary process are:
+
+    1. Constant mean across time.
+    2. Constant variance across time.
+    3. Variance between observations only depends on distance (lag).
+    
+The variance may be constant, but the mean increases with time.
+
+This can be assessed by observing the number of significant correlations:
+
+```{r, fig.width=6, fig.height=3}
+par(mfrow=c(1,2))
+acf(gtemp)
+pacf(gtemp)
+```
+
+We can make this series stationary by differencing:
+
+```{r, fig.width=6, fig.height=3}
+par(mfrow=c(1,2))
+acf(diff(gtemp))
+pacf(diff(gtemp))
+```
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>

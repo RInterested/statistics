@@ -23,6 +23,9 @@ set.seed(0)
 a = rnorm(100)
 plot.ts(a, col="gray", ylab="white noise")
 abline(h=0, col="red3", lty=2)
+```
+```{r,fig.width = 7, fig.height = 3, echo=F}
+par(mfrow=c(1,2))
 acf(a, main="", xlab="")
 pacf(a, main="", xlab="")
 ```
@@ -39,6 +42,9 @@ $\large y_t = y_{t-1}+\epsilon_t=\epsilon_t+\epsilon_{t-1}+\cdots+\epsilon_1$
 b = cumsum(rnorm(100))
 plot.ts(b, col="chartreuse3", ylab="random walk")
 abline(h=0, col="red3", lty=2)
+```
+```{r,fig.width = 7, fig.height = 3, echo=F}
+par(mfrow=c(1,2))
 acf(b, main="", xlab="")
 pacf(b, main="", xlab="")
 ```
@@ -68,6 +74,9 @@ Leaving the constant $c=0$, and set $\phi=0.6$, here is an example:
 c = arima.sim(n=100,list(ar=0.6),innov=rnorm(100))
 plot.ts(c, col="chocolate", ylab="AR(1)")
 abline(h=0, col="red3", lty=2)
+```
+```{r,fig.width = 7, fig.height = 3, echo=F}
+par(mfrow=c(1,2))
 acf(c, main="", xlab="")
 pacf(c, main="", xlab="")
 ```
@@ -87,6 +96,9 @@ In `AR(2)` we have two lags:
 d = arima.sim(n=100,list(ar=c(0.6,-.5)),innov=rnorm(100))
 plot.ts(d, col="chocolate", ylab="AR(2)")
 abline(h=0, col="red3", lty=2)
+```
+```{r,fig.width = 7, fig.height = 3, echo=F}
+par(mfrow=c(1,2))
 acf(d, main="", xlab="")
 pacf(d, main="", xlab="")
 ```
@@ -109,6 +121,9 @@ Here is an `MA(2)` process:
 e = arima.sim(n=100,list(ma=c(.88,-.48)),innov=rnorm(100))
 plot.ts(e, col="cyan", ylab="MA(2)")
 abline(h=0, col="red3", lty=2)
+```
+```{r,fig.width = 7, fig.height = 3, echo=F}
+par(mfrow=c(1,2))
 acf(e, main="", xlab="")
 pacf(e, main="", xlab="")
 ```
@@ -134,6 +149,9 @@ Example of ARIMA(2,2):
 f = arima.sim(n=100,list(ar=c(0.6,-.5), ma=c(.88,-.48)),innov=rnorm(100))
 plot.ts(f, col="blue3", ylab="MA(2)")
 abline(h=0, col="red3", lty=2)
+```
+```{r,fig.width = 7, fig.height = 3, echo=F}
+par(mfrow=c(1,2))
 acf(f, main="", xlab="")
 pacf(f, main="", xlab="")
 ```
@@ -157,10 +175,6 @@ abline(h=0, col="red3", lty=2)
 plot.ts(f, col="blue3", ylab="ARIMA(2)")
 abline(h=0, col="red3", lty=2)
 ```
-
-
-
-<br>
 
 
 ---
