@@ -10,6 +10,8 @@
     
 ####**WHITE NOISE:**
 
+<br>
+
 $\large y_t = \epsilon_t$
 
 Sequence of identically distributed variables $\epsilon_i$ with $\epsilon_i \sim N(0,\sigma^2)$
@@ -39,6 +41,15 @@ plot.ts(b, col="chartreuse3", ylab="random walk")
 abline(h=0, col="red3", lty=2)
 acf(b, main="", xlab="")
 pacf(b, main="", xlab="")
+```
+
+To simulate the stock market (and aside from more sophisticted autoregressive and moving average effects), the random walk will not be symmetric (equal probabilities). Here is a random walk during an extremely bullish market:
+
+```{R,fig.width = 7, fig.height = 3}
+n=100
+x = cumsum(sample(c(1,-1), n, prob = c(0.75, 0.25), replace=T))
+plot.ts(x, col="red", ylab="random walk")
+abline(h=0, col="red3", lty=2)
 ```
 
 <br>
@@ -117,6 +128,8 @@ $\large y_t = C + \color{red}{\phi_1}\, y_{t-1}+
 \color{blue}{\theta_2}\, \epsilon_{t-2} +\cdots+
 \color{gray}{\theta_m}\, y_{t-m}$
 
+Example of ARIMA(2,2):
+
 ```{R,fig.width = 7, fig.height = 3}
 f = arima.sim(n=100,list(ar=c(0.6,-.5), ma=c(.88,-.48)),innov=rnorm(100))
 plot.ts(f, col="blue3", ylab="MA(2)")
@@ -144,6 +157,8 @@ abline(h=0, col="red3", lty=2)
 plot.ts(f, col="blue3", ylab="ARIMA(2)")
 abline(h=0, col="red3", lty=2)
 ```
+
+
 
 <br>
 
