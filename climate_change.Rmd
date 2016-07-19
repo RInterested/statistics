@@ -37,6 +37,19 @@ acf(diff(gtemp))
 pacf(diff(gtemp))
 ```
 
+We can fit a `sarima(diff(gtemp), 0, 1, 1)` model:
+
+```{r, message=F}
+fit = sarima(diff(gtemp), 0, 1, 1)
+```
+
+Projecting five years into the future:
+
+
+```{r, message=F}
+sarima.for(diff(gtemp),5,0,1,1)
+```
+
 
 ---
 
