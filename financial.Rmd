@@ -1,0 +1,53 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###TIME SERIES - FINANCIAL DATA:
+<br>
+
+From this [R-bloggers](http://programming-r-pro-bro.blogspot.com/2013/04/forecasting-stock-returns-using-arima.html).
+
+```{R, warning=F, message=F}
+library(quantmod)
+library(tseries)
+library(forecast)
+getSymbols("GOOG")
+```
+
+```{r}
+d = GOOG$GOOG.Adjusted
+summary(d)
+head(d)
+plot(d)
+
+adf.test(d) # Not stationary. We will difference and log.
+```
+
+
+```{r}
+GOOG = 100 * diff(log(d))[-1]
+head(GOOG)
+adf.test(GOOG) # Now it is stationary.
+
+
+#We can fit a model using the [Yule-Walker equations](http://en.wikipedia.org/wiki/AR_model#Calculation_of_the_AR_parameters)
+
+summary(arma(GOOG, order = c(2,2)))
+
+train = GOOG[1 : (0.9 * length(GOOG))]
+test  = GOOG[(0.9 * length(GOOG) + 1):  length(GOOG)]
+
+fit = arima(train, order = c(2, 0, 2))
+
+predi = predict(fit, n.ahead = (length(GOOG) - (0.9*length(GOOG))))$pred
+fore  = forecast(fit, h = 25)
+
+plot(fore)
+accuracy(predi, test)[2]
+```
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
