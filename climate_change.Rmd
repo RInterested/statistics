@@ -31,25 +31,26 @@ pacf(gtemp)
 
 We can make this series stationary by differencing:
 
-```{r, fig.width=6, fig.height=3}
-par(mfrow=c(1,2))
+```{r, warning=FALSE, echo=FALSE}
+require(tseries)
+```
+```{r, warning=FALSE, message=F}
+adf.test(diff(gtemp), alternative="stationary", k=0)
+```
+
+```{r, fig.width = 8, fig.height = 4}
+par(mfrow = c(1,2))
 acf(diff(gtemp))
 pacf(diff(gtemp))
 ```
 
-We can fit a `sarima(diff(gtemp), 0, 1, 1)` model:
+We can try AR of $4$ and MA of $1$:
 
-```{r, message=F}
-fit = sarima(diff(gtemp), 0, 1, 1)
+```{r, fig.width=6, fig.height=3}
+(fit = arima(gtemp, order = c(4, 1, 1)))
+pred = predict(fit, n.ahead = 10)
+ts.plot(gtemp, pred$pred, lty = c(1,3), col=5)
 ```
-
-Projecting five years into the future:
-
-
-```{r, message=F}
-sarima.for(diff(gtemp),5,0,1,1)
-```
-
 
 ---
 

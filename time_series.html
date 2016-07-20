@@ -187,6 +187,7 @@ abline(h=0, col=&quot;red3&quot;, lty=2)</code></pre>
 <p>we a trend (solution: taking differences), seasonality and increasing variance (solution: <span class="math inline">\(log\)</span>).</p>
 <p>Testing for stationarity now:</p>
 <pre><code>## Loading required package: tseries</code></pre>
+<pre class="r"><code>adf.test(diff(log(AirPassengers)), alternative=&quot;stationary&quot;, k=0)</code></pre>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 

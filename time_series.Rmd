@@ -241,8 +241,10 @@ we a trend (solution: taking differences), seasonality and increasing variance (
 
 Testing for stationarity now:
 
-```{r, echo=F, warning=F}
+```{r, warning=FALSE, echo=FALSE}
 require(tseries)
+```
+```{r, warning=FALSE, message=F}
 adf.test(diff(log(AirPassengers)), alternative="stationary", k=0)
 ```
 
