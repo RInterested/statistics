@@ -36,16 +36,24 @@ We can fit a model using the [Yule-Walker equations](http://en.wikipedia.org/wik
 
 ```{r, warning=FALSE}
 summary(arma(dow, order = c(2,2)))
+```
 
+So both the AR and MA coefficients are significant.
+
+We can divide instead the data into training and testing sets ($90\,%$ v $10\%$), fit the model in the training data, and then assess the performance on the testing set:
+
+```{r}
 train = dow[1 : (0.9 * length(dow))]
 test  = dow[(0.9 * length(dow) + 1):  length(dow)]
 
 fit = arima(train, order = c(2, 0, 2))
 
 predi = predict(fit, n.ahead = (length(dow) - (0.9*length(dow))))$pred
-fore  = forecast(fit, h = 25)
+fore  = forecast(fit, h = 500)
 
 plot(fore)
+
+
 accuracy(predi, test)[2]
 ```
 
