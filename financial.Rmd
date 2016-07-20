@@ -8,39 +8,41 @@
 
 From this [R-bloggers](http://programming-r-pro-bro.blogspot.com/2013/04/forecasting-stock-returns-using-arima.html).
 
-```{R, warning=F, message=F}
+```{R, echo=F, warning=F, message=F}
 library(quantmod)
 library(tseries)
 library(forecast)
-getSymbols("GOOG")
+getSymbols("^DJI")
 ```
 
 ```{r}
-d = GOOG$GOOG.Adjusted
+d = DJI$DJI.Adjusted
 summary(d)
-head(d)
-plot(d)
-
-adf.test(d) # Not stationary. We will difference and log.
+chartSeries(DJI)
+adf.test(d) 
 ```
 
+The dataset is not stationary. We will difference and log:
 
-```{r}
-GOOG = 100 * diff(log(d))[-1]
-head(GOOG)
-adf.test(GOOG) # Now it is stationary.
+```{r, warning=FALSE}
+dow = 100 * diff(log(d))[-1]
+summary(dow)
+adf.test(dow)
+```
 
+Now it is stationary.
 
-#We can fit a model using the [Yule-Walker equations](http://en.wikipedia.org/wiki/AR_model#Calculation_of_the_AR_parameters)
+We can fit a model using the [Yule-Walker equations](http://en.wikipedia.org/wiki/AR_model#Calculation_of_the_AR_parameters)
 
-summary(arma(GOOG, order = c(2,2)))
+```{r, warning=FALSE}
+summary(arma(dow, order = c(2,2)))
 
-train = GOOG[1 : (0.9 * length(GOOG))]
-test  = GOOG[(0.9 * length(GOOG) + 1):  length(GOOG)]
+train = dow[1 : (0.9 * length(dow))]
+test  = dow[(0.9 * length(dow) + 1):  length(dow)]
 
 fit = arima(train, order = c(2, 0, 2))
 
-predi = predict(fit, n.ahead = (length(GOOG) - (0.9*length(GOOG))))$pred
+predi = predict(fit, n.ahead = (length(dow) - (0.9*length(dow))))$pred
 fore  = forecast(fit, h = 25)
 
 plot(fore)
