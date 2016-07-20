@@ -4,13 +4,23 @@
 <br><br>
 
 
-##TYPES OF TIME SERIES:
+##TIME SERIES:
 
+<br>
+
+A time series **model** can only be built on a stationary time series, fulfilling the following criteria:
+
+    1. The mean should be constant, wihtout increasing or decreasing with time. 
+    2. The variance should also be constant along the time line (homoscedasticity).
+    3. The covariance between terms across a lag (t v. t - m) should not be a function of time.
+    
 <br>
     
 ####**WHITE NOISE:**
 
 <br>
+
+White noise is stationary.
 
 $\large y_t = \epsilon_t$
 
@@ -35,6 +45,8 @@ pacf(a, main="", xlab="")
 ####**RANDOM WALK:**
 
 <br>
+
+A random walk is not stationary because the variance is time-dependent: $\text{var}[y_t] = \text{var}[y_o]+\sum_1^t \text{var}[\epsilon_i]= t\, \text{var}[\epsilon].$
 
 $\large y_t = y_{t-1}+\epsilon_t=\epsilon_t+\epsilon_{t-1}+\cdots+\epsilon_1$
 
@@ -64,11 +76,11 @@ abline(h=0, col="red3", lty=2)
 
 <br>
 
-$\large y_t = \color{red}{\phi}\, y_{t-1}+c+\epsilon_t$
+$\large y_t = \color{red}{\rho}\, y_{t-1}+c+\epsilon_t$
 
-When $\phi < 1$ the series is "covariance stationary". Notice how the influence of the immediate prior position will be, to a certain extent, countered by the effect of $\phi$: the larger $\phi$ is the closer `AR` will be to a random walk; and the smaller it is, the more similar to white noise.
+When $\rho < 1$ the series is "covariance stationary". Notice how the influence of the immediate prior position will be, to a certain extent, countered by the effect of $\rho$: the larger $\rho$ is the closer `AR` will be to a random walk; and the smaller it is, the more similar to white noise. $\epsilon_t$ can pull in any direction, but a $\rho < 1$ pulls back $y_{t-1}$ back towards $0$.
 
-Leaving the constant $c=0$, and set $\phi=0.6$, here is an example:
+Leaving the constant $c=0$, and set $\rho=0.6$, here is an example:
 
 ```{R,fig.width = 7, fig.height = 3}
 c = arima.sim(n=100,list(ar=0.6),innov=rnorm(100))
@@ -85,9 +97,9 @@ Notice how the lag 1 ($y_{t-1}$) value is significant. But if we suppress this d
 
 For any $\text{AR(n)}$:
 
-$\large y_t = \color{red}{\phi_1}\, y_{t-1}+
-\color{blue}{\phi_2}\, y_{t-2} +\cdots+
-\color{gray}{\phi_n}\, y_{t-n}+
+$\large y_t = \color{red}{\rho_1}\, y_{t-1}+
+\color{blue}{\rho_2}\, y_{t-2} +\cdots+
+\color{gray}{\rho_n}\, y_{t-n}+
 c+\epsilon_t$
 
 In `AR(2)` we have two lags:
@@ -136,9 +148,9 @@ There are a number of significant partial autocorrelation values. The `acf` give
 
 <br>
 
-$\large y_t = C + \color{red}{\phi_1}\, y_{t-1}+
-\color{blue}{\phi_2}\, y_{t-2} +\cdots+
-\color{gray}{\phi_n}\, y_{t-n}+ \epsilon_t +
+$\large y_t = C + \color{red}{\rho_1}\, y_{t-1}+
+\color{blue}{\rho_2}\, y_{t-2} +\cdots+
+\color{gray}{\rho_n}\, y_{t-n}+ \epsilon_t +
 \color{red}{\theta_1}\, \epsilon_{t-1}+
 \color{blue}{\theta_2}\, \epsilon_{t-2} +\cdots+
 \color{gray}{\theta_m}\, y_{t-m}$
@@ -175,7 +187,6 @@ abline(h=0, col="red3", lty=2)
 plot.ts(f, col="blue3", ylab="ARIMA(2)")
 abline(h=0, col="red3", lty=2)
 ```
-
 
 ---
 
