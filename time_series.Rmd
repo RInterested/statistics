@@ -211,6 +211,26 @@ The series can be made stationary with one of the following techniques:
     2. Differencing
     3. Incorporating seasonality
     
+####Detrending:
+
+$y_t = (\text{mean} + \text{trend} \times t) + \text{error}$
+
+gets rid of the parenthesis part.
+
+####Differencing:
+
+We model the differences between time points:
+
+$y_t – y_{t-1} = \text{ARMA (p,q)}$
+
+Differencing is called as the Integration part in AR(I)MA. Now, we have three parameters `p : AR; d : I; q : MA`.
+
+####Seasonality:
+
+Seasonality can easily be incorporated in the ARIMA model directly.
+
+---
+    
 In the case of `AirPassengers`:
 
 ```{r, fig.width = 5, fig.height = 4}
