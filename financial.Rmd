@@ -43,20 +43,37 @@ So both the AR and MA coefficients are significant.
 We can divide instead the data into training and testing sets ($90\,%$ v $10\%$), fit the model in the training data, and then assess the performance on the testing set:
 
 ```{r}
-train = dow[1 : (0.9 * length(dow))]
-test  = dow[(0.9 * length(dow) + 1):  length(dow)]
+train = d[1 : (0.9 * length(dow))]
+test  = d[(0.9 * length(dow) + 1):  length(dow)]
 
-fit = arima(train, order = c(2, 0, 2))
+fit = arima(log(train), c(2, 1, 2), seasonal=list(order = c(0, 1, 1), period=12))
 
 predi = predict(fit, n.ahead = (length(dow) - (0.9*length(dow))))$pred
-fore  = forecast(fit, h = 500)
+fore  = forecast(fit, h = 365 * 5) # Five years ahead
 
 plot(fore)
+```
 
+Well, it is an illustration. However, the [accuracy assessment](https://www.otexts.org/fpp/2/5) is not great:
 
+```{r}
 accuracy(predi, test)
 ```
 
+If we calculate without using the `i=1` middle value in `arima`:
+
+```{r}
+dow = 100 * diff(log(d))[-1] # The difference taken outside the arima() call. 100 probably aides in computing since the numbers are very close to zero.
+train = dow[1 : (0.9 * length(dow))]
+test  = dow[(0.9 * length(dow) + 1):  length(dow)]
+
+fit = arima(train, order = c(2, 0, 2), seasonal=list(order = c(0, 1, 1), period=12))
+
+predi = predict(fit, n.ahead = (length(dow) - (0.9*length(dow))))$pred
+accuracy(predi, test)
+```
+
+At this point I'm not sure how to evaluate these differences in output between both apparently equivalent systems.
 
 ---
 
