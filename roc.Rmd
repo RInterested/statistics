@@ -111,10 +111,10 @@ Alternatively, the `Epi` package can be used. In this case we are dealing with p
 ```{r}
 data(aSAH)
 head(aSAH)
-(rock = ROC(form = outcome ~ s100b, data=aSAH, plot = "ROC", MX = T))
+rock = ROC(form = outcome ~ s100b, data=aSAH, plot = "ROC", MX = T)
 ```
 
-Notice the values in the $18$-th row of the `ROC` printout - they are the values printed on plot above as `lr.eta` values:
+Notice the values in the $18$-th row of the `ROC$res` printout - they are the values printed on plot above as `lr.eta` values:
 
 ```{r}
 rock$res[18,]
@@ -171,10 +171,11 @@ summary(aSAH$s100b) # Remember that not all values are used as cutoff points.
 
 that will optimize sensitivity and specificity.
 
-If we wanted to get the cutoff points we'd have to use
+If we wanted to get the [cutoff points](http://stackoverflow.com/a/38532555/4089351), 
+we'd have to use `sort(unique(aSAH))`. Let's see the value in position $18$...
 
 ```{r}
-roc(aSAH$outcome, aSAH$s100b)$threshold
+(points = c("Inf",sort(unique(aSAH$s100b))))[18]
 ```
 
 <br>
@@ -185,6 +186,7 @@ roc(aSAH$outcome, aSAH$s100b)$threshold
 ```{r, warning=F, message=FALSE}
 data("aSAH")
 (data <- aSAH[1:5,]) # We take only the first x rows - for instance 5
+contrasts(data$outcome)
 fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic regression that we will use as a predictor.
 ```
 
@@ -193,6 +195,7 @@ fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic re
 [ODDS RATIOS:](https://drive.google.com/file/d/0Bwl-HpVJ_5PeVE5BTU5QVUlxRGs/view?usp=sharing)
 
 ```{r, warning=F, message=FALSE}
+
 exp(coef(fit))
 exp(confint(fit))
 ```
