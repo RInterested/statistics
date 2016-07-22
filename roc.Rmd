@@ -36,24 +36,26 @@ library(pROC)
 library(ROCR)
 library(Epi)
 library(gsheet)
-data <- read.csv(text = 
-gsheet2text('https://docs.google.com/spreadsheets/d/1ba1IYjX79EEmgBmsEzZgNs6Joe4v-SECWZUhbfhewhc/edit?usp=sharing',
-format ='csv'))
-data <- sqldf("select id, d, min(t), fpsa, tpsa, age from 'data'\n group by id")
-# This study is an age-matched case-control design: each diagnosed case was assigned a control matched to case by date of birth. There are 70 non diagnosed and 71 diagnosed:
+```
+
+The following is the dataset from a an age-matched case-control study: each diagnosed case was assigned a control matched to case by date of birth. There are 70 non diagnosed and 71 diagnosed:
+
+```{r}
+data = read.csv(text = gsheet2text('https://docs.google.com/spreadsheets/d/1ba1IYjX79EEmgBmsEzZgNs6Joe4v-SECWZUhbfhewhc/edit?usp=sharing', format ='csv'))
+data = sqldf("select id, d, min(t), fpsa, tpsa, age from 'data'\n group by id")
 data$age_group <- cut(data$age, breaks = c(45,55,65,75), labels = c("(45,55]","(55,65]","(65,75]"))
 colnames(data)[2] = "outcome"
 head(data)
 ```
 
-
 Generating ROC curves with pROC:
 
-```{r, fig.width=7, fig.height=2}
+```{r, fig.width=6, fig.height=4, message=FALSE}
 # With total PSA:
-par(mfrow=c(1,2))
-plot.roc(data$outcome, data$tpsa, print.auc = TRUE, smooth=F)
-plot.roc(data$outcome, data$tpsa, print.auc = TRUE, smooth=T)
+
+r = roc(data$outcome, data$tpsa)
+plot.roc(r, print.auc=TRUE, auc.polygon=TRUE, auc.polygon.col=rgb(.3,0,.8,0.2), print.thres=TRUE)
+plot.roc(smooth(r), add=TRUE, col=2)
 ```
 
 Notice that the thresholds used to construct the ROC plot, together with the calculated sensitivities and specificities are stored in `roc`:
@@ -112,58 +114,48 @@ head(aSAH)
 (rock = ROC(form = outcome ~ s100b, data=aSAH, plot = "ROC", MX = T))
 ```
 
-Looking into the structure of `ROC`... we see that it is a list containing a data frame `res` defined as:
+Notice the values in the $18$-th row of the `ROC` printout - they are the values printed on plot above as `lr.eta` values:
 
-      res	
-      dataframe with variables sens, spec, pvp, pvn and name of the test   variable. The latter is the unique values of test or linear predictor from the logistic regression in ascending order with -Inf prepended. Since the sensitivity is defined as P(test>x)|status=TRUE, the first row has sens equal to 1 and spec equal to 0, corresponding to drawing the ROC curve from the upper right to the lower left corner.
-      
+```{r}
+rock$res[18,]
+```    
 
-The first column is the same as `lr.eta`, `eta` being the ***maximized sum threshold or MST*** or the [**probability** of the outcome](http://rinterested.github.io/statistics/logistic_regression.html):
+The ***maximized sum threshold or MST*** or the [**probability** of the outcome](http://rinterested.github.io/statistics/logistic_regression.html) is the `eta`:
+
+
 
 <br>
-$$\Large \mathbb{E}[Y_i|X_i]=\frac{1}{1 + e^{-(\beta_0+beta_1\times\text{s100b})}}$$
+$$\Large \mathbb{E}[Y_i|X_i]=\frac{1}{1 + e^{-(\beta_0+\beta_1\times\text{s100b})}}$$
 <br>
 
-```{r, fig.width=7, fig.height=5}
-rc <- ROC(form = outcome ~ s100b, data=aSAH, plot="sp" )
-ROC(form = outcome ~ s100b, data=aSAH, plot="sp" )
-lines(rc$res$lr,rc$res$spec, lwd = 2, type="s", col="red") #specificity
-lines(rc$res$lr,rc$res$sens, lwd = 2, type="s", col="green") # sensitivity
-lines(rc$res$lr,rc$res$pvp, lwd = 2, type="s", col="orange") # pvp
-lines(rc$res$lr,rc$res$pvn, lwd = 2, type="s", col="magenta") # pvn
-(rc)$res[1:5,]
+```{r, fig.width=6, fig.height=5}
+rc <- ROC(form = outcome ~ s100b, data=aSAH, plot="sp") # Saving the ROC for later
+ROC(form = outcome ~ s100b, data=aSAH, plot="sp" ) # Getting the ROC plot
+# The following lines just literally color the black lines just printed:
+lines(rc$res$lr, rc$res$spec, lwd = 2, type="s", col="red") #specificity
+lines(rc$res$lr, rc$res$sens, lwd = 2, type="s", col="green") # sensitivity
+lines(rc$res$lr, rc$res$pvp,  lwd = 2, type="s", col="orange") # pvp
+lines(rc$res$lr, rc$res$pvn,  lwd = 2, type="s", col="magenta") # pvn
 ```
 
 
 The maximal combination of sensitivity and specificity is given by:
 
 ```{r}
-## optimal combination
-opt <- which.max(rowSums(rc$res[, c("sens", "spec")]))
-## optimal cut-off point 
-rc$res$lr.eta[opt]
+## optimal combination of sensitivity and specificity:
 
-
-which.max(rowSums(rc$res[, c("sens", "spec")]))
+which.max(rowSums(rc$res[, c("sens", "spec")])) # Again the same value from row 18!
 ```
 
-... although this is not the way a cut-off value is selected to report the result of a test as positive, which would be "determined by the probability of getting a more extreme value than that in a normal population. Utilizing this a clinical cut-off from normal to abnormal would be inconsistent with optimal decision making. It is simply not appropriate to seek cutoffs on inputs. Optimum decisions are made using no cutoffs at all, or, if needed before decision time, by making cutoffs on the predicted probabilities. Utilities (loss/cost) are needed to solve for the optimum cutoff on predicted risk." See comments [here](http://stats.stackexchange.com/a/67563/67822). 
-
-The value in row $\small 18$:
-
-```{r}
-(rc)$res[18,]
-```
+This is not the way a cut-off value is selected to report the result of a test as positive in clinical practice. Utilities (loss/cost) are needed to solve for the optimum cutoff on predicted risk." See comments [here](http://stats.stackexchange.com/a/67563/67822). 
 
 Given that the parameters of the logistic regression are...
-
 
 ```{r}
 rc$lr
 ```
 
-
-this corresponds to:
+this "optimal sensitivity/specificity" value in row 18 corresponds to:
 
 $$\large 0.30426295405785 =\frac{1}{1+e^{-(-1.759+4.904\times \text{s100b})}}$$
 
@@ -174,7 +166,7 @@ $$\large \text{s100b}= 0.1900327$$
 A plausible value of `s100b`:
 
 ```{r}
-aSAH$s100b
+summary(aSAH$s100b) # Remember that not all values are used as cutoff points.
 ```
 
 that will optimize sensitivity and specificity.
@@ -192,10 +184,11 @@ roc(aSAH$outcome, aSAH$s100b)$threshold
 <br>
 ```{r, warning=F, message=FALSE}
 data("aSAH")
-data <- aSAH[1:5,] # We take only the first x rows - for instance 5
+(data <- aSAH[1:5,]) # We take only the first x rows - for instance 5
 fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic regression that we will use as a predictor.
 ```
 
+---
 
 [ODDS RATIOS:](https://drive.google.com/file/d/0Bwl-HpVJ_5PeVE5BTU5QVUlxRGs/view?usp=sharing)
 
@@ -204,23 +197,33 @@ exp(coef(fit))
 exp(confint(fit))
 ```
 
+---
+
 PROBABILITIES:
 
 ```{r, warning=F, message=FALSE}
-exp(predict(fit)) / (  1 + exp(predict(fit))  ) # These are the predicted probabilities (not the odds or the results of the logistic regression) for each value of s100b in the dataset
+exp(predict(fit)) / (  1 + exp(predict(fit))  ) 
+```
 
-# let's get the thresholds from the pROC package:
-threshold <- function(predict, response) {
-  r <- roc(response, predict)
-  r$thresholds
-}
+These are the predicted probabilities (not the odds or the results of the logistic regression) for each value of s100b in the dataset.
 
-(threshold <- threshold(data$s100b, data$outcome)) # Here we have them... Compare them to s100b... Parallel, but not quite:
+Let's get the thresholds from the pROC package:
 
+```{r, warning=F, message=FALSE}
+(threshold = roc(data$outcome, data$s100b)$thresholds) 
+```
+
+Here we have them... Compare them to s100b... Parallel, but not quite:
+
+```{r, warning=F, message=FALSE}
 sort(data$s100b)
+```
 
-# Let's add the predicted values:;
+Let's add the predicted values, which are predicted PROBABILITIES:
 
+$$\Large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$$
+
+```{r}
 data$predicted <- exp(predict(fit)) / (  1 + exp(predict(fit))  ) 
 
 # and order the dataset just to take a peek at what it looks like...
@@ -229,25 +232,30 @@ data$predicted <- exp(predict(fit)) / (  1 + exp(predict(fit))  )
 
 # Now let's what happens with different cutoff points...
 
-cut <- rep(0, length(threshold)) # Establishing cutoff points
+cut <- rep(0, length(threshold)) # Establishing cutoff points empty vector
 for (i in 1:length(threshold)){
 cut[i] <- exp(predict(fit,data.frame(s100b=threshold[i]))) / (1 + exp(predict(fit,data.frame(s100b=threshold[i]))))
 }
-
-# These are going to be the cutoff points:
-
-cut
-cut[is.na(cut)] <- 1.01 * max(data$predicted) # These is to get rid of NA's.
-
-# for cut[1] = 0, there will be zero poor - sens 1/1, sp 0/4
-# for cut[2] = 0.02880979, sens = 1corr as pos/ 1pos, specificity 1correct as neg/4negs
-# for cut[3] = 0.1639541, there will be one poor - sens 1; sp = 2/4 = 1/2
-# for cut[4] = 0.3122394, there will be zero poor - sen=0; sp =3/4
-# for cut[5] = NaN, I don't know... inf? then sens=0; sp = 1
-
-# Coordinates then are:
-# (1,0), (1, 1/4), (1, 1/2), (0,3/4), (0,1)
 ```
+
+The cuts are the different probabilities of having a good outcome based on the `s100b` theresholds. We have to decide what probability is "high enough" to classify all values with a higher probability as "POOR" outcome. Sometimes we'll be right; others wrong - it is a "supervised" learning process.
+
+These are going to be the cutoff points:
+
+```{r}
+cut[is.na(cut)] <- 1.01 * max(data$predicted) # These is to get rid of NA's.
+cut
+```
+
+* For cut[1] = 0, there will be zero outcomes predicted as "Poor" - $\text{sens} = \frac{1\text{ TP}}{1\text{ "Poor"}}$, $\text{spec} = \frac{0\text{TN}}{4\text{"Poor"}}$
+* For cut[2] = 0.02880979, $\text{sens} = \frac{1\text{TP}}{1\text{"Poor"}}, $\text{spec} = \frac{1\text{TN}}{1\text{"Poor"}}
+* For cut[3] = 0.1639541, there will be one poor - sens 1; sp = 2/4 = 1/2.
+* For cut[4] = 0.3122394, there will be zero poor - sen=0; sp =3/4.
+* For cut[5] = NaN, I don't know... inf? then sens=0; sp = 1.
+
+Coordinates then are:
+(1,0), (1, 1/4), (1, 1/2), (0,3/4), (0,1)
+
 
 <br>
 If the probabilities of "success"" (outcome 1 or, most commonly, "disease") predicted by the logistic regression order the values perfectly along the actual presence of "success", we could end up with a system like:
