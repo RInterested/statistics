@@ -120,7 +120,7 @@ Notice the values in the $18$-th row of the `ROC$res` printout - they are the va
 rock$res[18,]
 ```    
 
-The ***maximized sum threshold or MST*** or the [**probability** of the outcome](http://rinterested.github.io/statistics/logistic_regression.html) is the `eta`:
+The ***maximized sum threshold or MST*** or the [**probability** of the outcome](http://rinterested.github.io/statistics/logistic_regression.html) is the `lr.eta` - in other words, the sigmoid function:
 
 
 
@@ -204,8 +204,15 @@ exp(confint(fit))
 
 PROBABILITIES:
 
+PROBABILITIES given again by the sigmoid function:
+
+
+$$\Large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$$
+
+In a `glm()` (logistic regression) model, `predict()` simply gives you the LINEAR EQUATION ($\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p$).
+
 ```{r, warning=F, message=FALSE}
-exp(predict(fit)) / (  1 + exp(predict(fit))  ) 
+probabilities = exp(predict(fit)) / (  1 + exp(predict(fit))  ) 
 ```
 
 These are the predicted probabilities (not the odds or the results of the logistic regression) for each value of s100b in the dataset.
@@ -222,12 +229,10 @@ Here we have them... Compare them to s100b... Parallel, but not quite:
 sort(data$s100b)
 ```
 
-Let's add the predicted values, which are predicted PROBABILITIES:
-
-$$\Large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$$
+Let's add the predicted probabilities:
 
 ```{r}
-data$predicted <- exp(predict(fit)) / (  1 + exp(predict(fit))  ) 
+data$probabilities <- probabilities
 
 # and order the dataset just to take a peek at what it looks like...
 
@@ -239,6 +244,7 @@ cut <- rep(0, length(threshold)) # Establishing cutoff points empty vector
 for (i in 1:length(threshold)){
 cut[i] <- exp(predict(fit,data.frame(s100b=threshold[i]))) / (1 + exp(predict(fit,data.frame(s100b=threshold[i]))))
 }
+cut
 ```
 
 The cuts are the different probabilities of having a good outcome based on the `s100b` theresholds. We have to decide what probability is "high enough" to classify all values with a higher probability as "POOR" outcome. Sometimes we'll be right; others wrong - it is a "supervised" learning process.
@@ -246,21 +252,33 @@ The cuts are the different probabilities of having a good outcome based on the `
 These are going to be the cutoff points:
 
 ```{r}
-cut[is.na(cut)] <- 1.01 * max(data$predicted) # These is to get rid of NA's.
+cut[is.na(cut)] <- 1.01 * max(data$probabilities) # These is to get rid of NA's.
 cut
 ```
 
-* For cut[1] = 0, there will be zero outcomes predicted as "Poor" - $\text{sens} = \frac{1\text{ TP}}{1\text{ "Poor"}}$, $\text{spec} = \frac{0\text{TN}}{4\text{"Poor"}}$
-* For cut[2] = 0.02880979, $\text{sens} = \frac{1\text{TP}}{1\text{"Poor"}}, $\text{spec} = \frac{1\text{TN}}{1\text{"Poor"}}
-* For cut[3] = 0.1639541, there will be one poor - sens 1; sp = 2/4 = 1/2.
-* For cut[4] = 0.3122394, there will be zero poor - sen=0; sp =3/4.
-* For cut[5] = NaN, I don't know... inf? then sens=0; sp = 1.
+* For `cut[1] = 0`, all outcomes predicted as "Poor" (`1`): 
+$\text{sens} = \frac{1\text{TP}}{1\text{ "Poor"}}=1/1$, $\text{spec} = \frac{0\text{TN}}{4\text{"Good"}}=0/4$
+
+* For `cut[2] = 0.02880979`, there will $4$ predicted as "Poor" (`1`):
+$\text{sens} = \frac{1\text{TP}}{1\text{"Poor"}}=1/1$, $\text{spec} = \frac{1\text{TN}}{4\text{"Good"}}=1/4$
+
+* For `cut[3] = 0.1639541`, there will $3$ predicted as "Poor" (`1`):
+$\text{sens} = \frac{1\text{TP}}{1\text{"Poor"}}=1/1$, $\text{spec} = \frac{2\text{TN}}{4\text{"Good"}}=2/4$
+
+* For `cut[4] = 0.3122394`, there will $1$ predicted as "Poor" (`1`):
+$\text{sens} = \frac{0\text{TP}}{1\text{"Poor"}}=0/1$, $\text{spec} = \frac{3\text{TN}}{4\text{"Good"}}=3/4$
+
+* For `cut[5] = 0.36256518`, there will $0$ predicted as "Poor" (`1`):
+$\text{sens} = \frac{0\text{TP}}{1\text{"Poor"}}=0$, $\text{spec} = \frac{4\text{TN}}{4\text{"Good"}}=4/4$
 
 Coordinates then are:
-(1,0), (1, 1/4), (1, 1/2), (0,3/4), (0,1)
 
+$(1,0)$, $(1, 1/4)$, $(1, 1/2)$, $(0,3/4)$, $(0,1)$
+
+---
 
 <br>
+
 If the probabilities of "success"" (outcome 1 or, most commonly, "disease") predicted by the logistic regression order the values perfectly along the actual presence of "success", we could end up with a system like:
 
 <br>
@@ -286,7 +304,7 @@ In general, though, the shape of an ROC curve will tend to be something like:
 # Let's automate:
 
 data$outcome <- as.numeric(data$outcome) - 1
-data[with(data, order(predicted)), ]
+data[with(data, order(probabilities)), ]
 
 positive <- 0
 negative <- 0
@@ -294,16 +312,16 @@ tru_pos <- 0
 tru_neg <- 0
 for (i in 1:length(cut)){
 sum(data$outcome)
-positive[i] <- nrow(data[data$predicted > cut[i], ])
+positive[i] <- nrow(data[data$probabilities > cut[i], ])
 negative[i] <- nrow(data) - positive[i]
 
 # tru_pos will be the sum of the actual "1" or "successes" on the rows with values in the predictor function higher than the cutoff point:
 
-tru_pos[i]  <- sum(data[data$predicted > cut[i], ]$outcome)
+tru_pos[i]  <- sum(data[data$probabilities > cut[i], ]$outcome)
 
 # tru_neg will be the sum of the actual "1" or "successes" on the rows with values in the predictor function lower than the cutoff point (these are FN) subtracted from all the negatives:
 
-tru_neg[i]  <- negative[i] - sum(data[data$predicted < cut[i], ]$outcome)
+tru_neg[i]  <- negative[i] - sum(data[data$probabilities < cut[i], ]$outcome)
 }
 
 sens   <- tru_pos / sum(data$outcome)
