@@ -123,8 +123,34 @@ img {
 <p>In the case of a coin with an uninformative prior:</p>
 <p><span class="math inline">\(\theta\sim U[0,1]\)</span> and <span class="math inline">\(f(\theta)=\mathbb I_{0\leq\theta\leq1}\)</span></p>
 <p>If we get <span class="math inline">\(1\)</span> head in a single toss:</p>
-<p><span class="math display">\[f(\theta|X=1)=\frac{\theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1\mathbb I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1\mathbb I_{(0\leq\theta\leq1)}d\theta}=2\theta\mathbb I_{(0\leq\theta\leq1)}\]</span></p>
+<p><span class="math display">\[f(\theta|X=1)=\frac{\theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1\mathbb I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1\mathbb I_{(0\leq\theta\leq1)}d\theta}=2\theta\mathbb I_{(0\leq\theta\leq1)}\tag 1\]</span></p>
 <p><br></p>
+<hr />
+</div>
+<div id="prior-interval-estimates" class="section level5">
+<h5>PRIOR INTERVAL ESTIMATES:</h5>
+<p>Since it is a uniform distribution, it is immediate:</p>
+<p><span class="math inline">\(\mathbb P(0.025&lt;\theta&lt;0.975)=0.95\)</span></p>
+<p>and</p>
+<p><span class="math inline">\(\mathbb P(theta&gt;0.05)=0.95\)</span></p>
+</div>
+<div id="posterior-interval-estimates" class="section level5">
+<h5>POSTERIOR INTERVAL ESTIMATES:</h5>
+<p><span class="math inline">\(\mathbb P(0.025&lt;\theta&lt;0.975)=\int_.025^.975 2\theta d\theta= .975^2-.025^2=.95\)</span></p>
+<p><span class="math inline">\(\mathbb P(\theta&gt;0.05)=1 - 0.05^2=0.9975\)</span></p>
+</div>
+<div id="posterior-credible-estimates" class="section level5">
+<h5>POSTERIOR CREDIBLE ESTIMATES:</h5>
+<p>It’s the equivalent of the CI of the frequentist paradigm:</p>
+<pre><code>1. Equal tailed interval:</code></pre>
+<p>From equation 1:</p>
+<p><span class="math inline">\(\mathbb P(\theta&lt;\text{quantile}|X=1)=\int_0^q 2\theta d\theta=q^2\)</span>. Hence,</p>
+<p><span class="math inline">\(\mathbb P\left(\sqrt{.025}&lt;\theta&lt;\sqrt{.975}\right)=P\left(.158&lt;\theta&lt;.987\right)=.95\)</span></p>
+<p>We can say, “under the posterior, there is a <span class="math inline">\(95\%\)</span> probability that <span class="math inline">\(\theta\)</span> is in the interval <span class="math inline">\([.158,.967]\)</span>.”</p>
+<pre><code>2. Highest posterior density (HPD):</code></pre>
+<p>Shortest possible interval that contains the <span class="math inline">\(95\%\)</span> probability - not necessarily split equally between tails:</p>
+<p><span class="math inline">\(\mathbb P(\theta&gt;\sqrt{.05}|X=1)=\mathbb P(\theta&gt;.224|X=1)=.95\)</span></p>
+<p>So a <span class="math inline">\(\theta\)</span> parameter between <span class="math inline">\([.224,1]\)</span> carries a probability of <span class="math inline">\(95\%\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

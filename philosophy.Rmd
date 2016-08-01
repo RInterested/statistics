@@ -91,9 +91,54 @@ $\theta\sim U[0,1]$ and $f(\theta)=\mathbb I_{0\leq\theta\leq1}$
 
 If we get $1$ head in a single toss:
 
-$$f(\theta|X=1)=\frac{\theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1\mathbb I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1\mathbb I_{(0\leq\theta\leq1)}d\theta}=2\theta\mathbb I_{(0\leq\theta\leq1)}$$
+$$f(\theta|X=1)=\frac{\theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1\mathbb I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1\mathbb I_{(0\leq\theta\leq1)}d\theta}=2\theta\mathbb I_{(0\leq\theta\leq1)}\tag 1$$
 
 <br>
+
+---
+
+#####PRIOR INTERVAL ESTIMATES:
+
+
+Since it is a uniform distribution, it is immediate:
+
+$\mathbb P(0.025<\theta<0.975)=0.95$
+
+and
+
+$\mathbb P(theta>0.05)=0.95$
+
+#####POSTERIOR INTERVAL ESTIMATES:
+
+
+$\mathbb P(0.025<\theta<0.975)=\int_.025^.975 2\theta d\theta= .975^2-.025^2=.95$
+
+$\mathbb P(\theta>0.05)=1 - 0.05^2=0.9975$
+
+#####POSTERIOR CREDIBLE ESTIMATES:
+
+
+It's the equivalent of the CI of the frequentist paradigm:
+
+    1. Equal tailed interval:
+    
+
+From equation 1:
+
+$\mathbb P(\theta<\text{quantile}|X=1)=\int_0^q 2\theta d\theta=q^2$. Hence,
+
+$\mathbb P\left(\sqrt{.025}<\theta<\sqrt{.975}\right)=P\left(.158<\theta<.987\right)=.95$
+
+We can say, "under the posterior, there is a $95\%$ probability that $\theta$ is in the interval $[.158,.967]$."
+
+    2. Highest posterior density (HPD):
+
+
+Shortest possible interval that contains the $95\%$ probability - not necessarily split equally between tails:
+
+$\mathbb P(\theta>\sqrt{.05}|X=1)=\mathbb P(\theta>.224|X=1)=.95$
+
+So a $\theta$ parameter between $[.224,1]$ carries a probability of $95\%$.
 
 
 ---
