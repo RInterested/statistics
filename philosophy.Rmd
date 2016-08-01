@@ -24,13 +24,74 @@ Bayesian probability comes in response to the limitations of the frequentist par
 
 The Bayesian perspective is a subjective measure of uncertainty.
 
-Probabilities can be quantified by thinking of a "fair bet". For example, if we assess the $\text{odds}(\text{rain})=1:4$, and we stand to win $n=\$10$ if it rains, we should pay **up to** $m=n\times \text{odds}(\text{rain})= 10 \times 1/4= 5/2 =\$2.5$.  In other words, if we pay up to $m=\$2.5$ to play a game that pays $n=\$10$, the subjective odds are $m/n=\frac{\$2.5}{\$10}=1/4=0.25$. The probability of winning is $\mathbb P(\text{win})=\frac{1/4}{1 + 1/4}=1/5$.
+Probabilities can be quantified by thinking of a "fair bet". For example, if we assess the $\text{odds}(\text{rain})=1:4$, and we stand to win $n=\$10$ if it rains, we should pay **up to** $m=n\times \text{odds}(\text{rain})= 10 \times \frac{1}{4}= \frac{5}{2} =\$2.5$.  In other words, if we pay up to $m=\$2.5$ to play a game that pays $n=\$10$, the subjective odds are $m/n=\frac{\$2.5}{\$10}=\frac{1}{4}=0.25$. The probability of winning is $\mathbb P(\text{win})=\frac{1/4}{1 + 1/4}=1/5$.
 
 A fair bet could be taken in either direction: in the prior bet, if we stand to pay $\$2.5$ betting that it will rain with the idea of winning $\$10$ if it does, we should also be ready to pay $\$10$ if it doesn't rain in exchange for winning $\$2.5$ if it does. Hunger for risk has no bearing on the concept, which is predicated on expectations:
 
 $\mathbb E(\text{return})=\mathbb P(\text{rain})\times \text{gain} - \mathbb P(\text{no rain})\times \text{loss}= \frac{1}{5} \times 10 - \frac{4}{5} \times \frac{5}{2}=\color{red}{0}$.
 
 The idea is that if we were to place this bet over and over again, the return would be $0$, being a fair bet.
+
+From Herbert Lee's Coursera course on Bayesian statistics: "Frequentist **confidence intervals** have the interpretation that "If you were to repeat many times the process of collecting data and computing a 95% confidence interval, then on average about 95% of those intervals would contain the true parameter value; however, once you observe data and compute an interval the true value is either in the interval or it is not, but you can't tell which." Bayesian **credible intervals** have the interpretation that "Your posterior probability that the parameter is in a 95% credible interval is 95%.""
+
+---
+
+#####INFERENCE COMPARISON:
+
+    1. Frequentist:
+
+We observe $5$ tosses and we want to know if it was a fair die or a loaded die with a $\mathbb P(\text{H})=0.7$.
+
+Parameter to estimate: $\theta=\{\text{fair die},\text{loaded die}\}$
+
+Method **MLE**:
+
+The PDF for the entire set of data conditioned on the value of $\theta$:
+
+$$f(X|\theta)=\binom{5}{x}\,0.5^5\,\mathbb I_{\theta=\text{fair}} + \binom{5}{x}\,0.7^x\,0.3^{5-x}\,\mathbb I_{\theta=\text{loaded}}$$
+
+Hence, in the case of observing $2$ heads, the density function as a function of $\theta$ will be:
+
+$$L(\theta|X=2)=0.3125\,\mathbb I_{\theta=\text{fair}} + 0.1323\,\mathbb I_{\theta=\text{loaded}}$$
+
+The MLE is identical to the PDF, but thought of as a function of $\theta$ given the data, and it will no longer be a PDF. We will choose the $\theta$ that maximizes the likelihood:
+
+Therefore, the $\text{MLE}(\hat \theta)=\text{fair}$. How sure are we? It is difficult to answer.
+
+In the frequentist paradigm, $\mathbb P(\theta=\text{fair}|X=2)=\mathbb P(\text{fair})$ because the coin is either fair or not.
+
+    2. Bayesian:
+    
+We incorporate a prior belief based on the knowledge of the person conducting the experiment, for example, that $\mathbb P(\text{loaded})=0.6$. This is the **prior**.
+
+Method: Bayes theorem:
+
+$$f(\theta|X)=\frac{f(X|\theta)\,f(\theta)}{\displaystyle \sum_\theta f(X|\theta)f(\theta)}$$
+
+$$f(\theta|X)=\frac{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4}\,\mathbb I_{\theta=\text{fair}} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,\mathbb I_{\theta=\text{loaded}}\,\right]}{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,\right]}$$
+
+Having observed $2$ heads:
+
+$$f(\theta|X)=\frac{0.0125\,\mathbb I_{\theta=\text{fair}} + 0.079\,\mathbb I_{\theta=\text{loaded}}}{0.0125+0.0079}=0.612\,\mathbb I_{\theta=\text{fair}} + 0.388\,\mathbb I_{\theta=\text{loaded}}$$.
+
+The denominator is a normalizing constant, so that we get values that add up to $1$, i.e. we get probabilities: **posterior** probabilities:
+
+$$\mathbb P(\theta=\text{loaded}|X=2)=0.388$$.
+
+---
+
+#####CONTINUOUS VERSION BAYES THEOREM:
+
+$$f(\theta|X)=\frac{f(X|\theta)\,f(\theta)}{f(x)}
+=\frac{f(X|\theta)\,f(\theta)}{\int f(X|\theta)f(\theta)d\theta}=\frac{\text{likelihood}\times\text{prior}}{\text{normalizing constant}}\sim \text{likelihood}\times\text{prior}$$
+
+In the case of a coin with an uninformative prior:
+
+$\theta\sim U[0,1]$ and $f(\theta)=\mathbb I_{0\leq\theta\leq1}$
+
+If we get $1$ head in a single toss:
+
+$$f(\theta|X=1)=\frac{\theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1\mathbb I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1\mathbb I_{(0\leq\theta\leq1)}d\theta}=2\theta\mathbb I_{(0\leq\theta\leq1)}$$
 
 <br>
 
