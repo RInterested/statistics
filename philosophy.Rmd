@@ -3,16 +3,20 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###DIFFERENT INTERPRETATIONS OF PROBABILITY:
+####DIFFERENT INTERPRETATIONS of PROBABILITY (or the NEED for BAYESIAN PROBABILITY):
 <br>
 
 #####CLASSICAL FRAMEWORK:
 
 It defines probabilities as favorable events over all possible events, and it works well when all outcomes are equally likely, i.e. probability of getting a sum of $4$ when rolling of two dice.
 
+---
+
 #####FREQUENTIST FRAMEWORK:
 
 It measures the relative frequency of an event in a hypothetical infinite sequence of experiments, relying on the law of large numbers.
+
+---
 
 #####BAYESIAN FRAMEWORK:
 
@@ -20,7 +24,13 @@ Bayesian probability comes in response to the limitations of the frequentist par
 
 The Bayesian perspective is a subjective measure of uncertainty.
 
-Probabilities can be quantified by thinking of a "fair bet". A fair bet could be taken in either direction. For example, if we assess the $\mathbb P(\text{rain})=0.4$, we should be ready to bet on odds up to $\text{odds}=\frac{p}{1-p}=\frac{0.4}{0.6}=2/3=0.\bar6$ that it will rain. So if we stand to win $n=\$10$ if it rains, we should pay up to $m=n\times \mathbb P(\text{rain})= \$4$. In other words, if we pay up to $m=\$4$ to play a game that pays $n=\$10$, the subjective probability is $m/n=\$4/\$10=0.4$.
+Probabilities can be quantified by thinking of a "fair bet". For example, if we assess the $\text{odds}(\text{rain})=1:4$, and we stand to win $n=\$10$ if it rains, we should pay **up to** $m=n\times \text{odds}(\text{rain})= 10 \times 1/4= 5/2 =\$2.5$.  In other words, if we pay up to $m=\$2.5$ to play a game that pays $n=\$10$, the subjective odds are $m/n=\frac{\$2.5}{\$10}=1/4=0.25$. The probability of winning is $\mathbb P(\text{win})=\frac{1/4}{1 + 1/4}=1/5$.
+
+A fair bet could be taken in either direction: in the prior bet, if we stand to pay $\$2.5$ betting that it will rain with the idea of winning $\$10$ if it does, we should also be ready to pay $\$10$ if it doesn't rain in exchange for winning $\$2.5$ if it does. Hunger for risk has no bearing on the concept, which is predicated on expectations:
+
+$\mathbb E(\text{return})=\mathbb P(\text{rain})\times \text{gain} - \mathbb P(\text{no rain})\times \text{loss}= \frac{1}{5} \times 10 - \frac{4}{5} \times \frac{5}{2}=\color{red}{0}$.
+
+The idea is that if we were to place this bet over and over again, the return would be $0$, being a fair bet.
 
 <br>
 
