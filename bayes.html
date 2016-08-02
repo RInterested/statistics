@@ -153,15 +153,16 @@ img {
 <p>So a <span class="math inline">\(\theta\)</span> parameter between <span class="math inline">\([.224,1]\)</span> carries a probability of <span class="math inline">\(95\%\)</span>.</p>
 <hr />
 </div>
-<div id="conjugate-prior-for-a-bernoulli-or-likelihood" class="section level5">
-<h5>CONJUGATE PRIOR for a Bernoulli or Likelihood:</h5>
+<div id="conjugate-prior-for-a-bernoulli-or-binomial-likelihood" class="section level5">
+<h5>CONJUGATE PRIOR for a Bernoulli or Binomial Likelihood:</h5>
+<p>Any beta prior will give a beta posterior when the likelihood is Bernoulli or Binomial.</p>
 <p>We can use a uniform prior (which is the same as a <span class="math inline">\(B(1,1)\)</span>) and get a beta posterior:</p>
 <p>The likelihood is:</p>
 <p><span class="math inline">\(f(X|\theta)= \theta^{\sum x_i}(1-\theta)^{n-\sum x_i}\)</span></p>
 <p>The prior is just a uniform: <span class="math inline">\(f(\theta) = \mathbb I_{0\leq \theta \leq 1}\)</span>.</p>
 <p>So the posterior is:</p>
 \begin{align}
-\displaystyle f(\theta|X) &amp;= \frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\int_0^1 \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}\, d\theta} \\\\ 
+\displaystyle f(\theta|X) &amp;= \frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\int_0^1 \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta} \\\\ 
 
 &amp;=\frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\frac{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )}{\Gamma(n+2)} \color{red}{\int_0^1  {\frac{\Gamma(n+2)}{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )} \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta}}} \\\\
 
@@ -172,6 +173,18 @@ img {
 <p>Everything in red is the pdf of a beta, and hence it integrates to <span class="math inline">\(1\)</span>.</p>
 <p>The end expression indicates that:</p>
 <p><span class="math inline">\(f(\theta|X) \sim \text{Beta} (\sum x_i + 1, \, n - \sum x_i + 1)\)</span>.</p>
+<p>Generalizing to any beta (not just the uniform prior) the prior will be:</p>
+<p><span class="math inline">\(\color{blue}{f(\theta)={\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \, \theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}}\)</span></p>
+<p>Hence, the posterior:</p>
+\begin{align}
+
+f(\theta|X) &amp;\propto  f(X|\theta)\, f(\theta)\\\\
+&amp;= \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i} 
+\color{blue}{\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \,
+\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}\\\\
+&amp;\propto \theta^{\,\alpha + \sum x_i - 1}\,(1-\theta)^{\,\beta + n - \sum x_i - 1}\,\mathbb I_{0\leq \theta \leq 1}\\\\
+&amp;\theta|X \sim Beta(\alpha + \sum x_i,\, \beta + n - \sum x_i)
+\end{align}
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

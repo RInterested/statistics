@@ -142,7 +142,9 @@ So a $\theta$ parameter between $[.224,1]$ carries a probability of $95\%$.
 
 ---
 
-#####CONJUGATE PRIOR for a Bernoulli or Likelihood:
+#####CONJUGATE PRIOR for a Bernoulli or Binomial Likelihood:
+
+Any beta prior will give a beta posterior when the likelihood is Bernoulli or Binomial.
 
 We can use a uniform prior (which is the same as a $B(1,1)$) and get a beta posterior:
 
@@ -155,7 +157,7 @@ The prior is just a uniform: $f(\theta) = \mathbb I_{0\leq \theta \leq 1}$.
 So the posterior is:
 
 \begin{align}
-\displaystyle f(\theta|X) &= \frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\int_0^1 \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}\, d\theta} \\\\ 
+\displaystyle f(\theta|X) &= \frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\int_0^1 \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta} \\\\ 
 
 &=\frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\frac{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )}{\Gamma(n+2)} \color{red}{\int_0^1  {\frac{\Gamma(n+2)}{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )} \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta}}} \\\\
 
@@ -168,6 +170,24 @@ Everything in red is the pdf of a beta, and hence it integrates to $1$.
 The end expression indicates that:
 
 $f(\theta|X) \sim \text{Beta} (\sum x_i + 1, \, n - \sum x_i + 1)$.
+
+Generalizing to any beta (not just the uniform prior) the prior will be:
+
+$\color{blue}{f(\theta)={\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \,
+\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}}$
+
+Hence, the posterior:
+
+\begin{align}
+
+f(\theta|X) &\propto  f(X|\theta)\, f(\theta)\\\\
+&= \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i} 
+\color{blue}{\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \,
+\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}\\\\
+&\propto \theta^{\,\alpha + \sum x_i - 1}\,(1-\theta)^{\,\beta + n - \sum x_i - 1}\,\mathbb I_{0\leq \theta \leq 1}\\\\
+&\theta|X \sim Beta(\alpha + \sum x_i,\, \beta + n - \sum x_i)
+\end{align}
+
 
 ---
 
