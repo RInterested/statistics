@@ -190,6 +190,22 @@ f(\theta|X) &\propto  f(X|\theta)\, f(\theta)\\\\
 
 Notice how when the $\alpha$ and $\beta$ are $1$ we get the expression (*).
 
+These hyperparameters $\alpha$ and $\beta$ determine the prior *effective* sample size: $\alpha + \beta$.
+
+The mean of a beta distribution is $\frac{\alpha}{\alpha+\beta}$.
+
+The posterior mean is:
+
+\begin{align}
+\text{Posterior mean} &=
+\frac{\alpha + \sum x_i}{\alpha + \sum x_i + \beta + n - \sum x_i}\\\\
+&=\frac{\alpha + \sum x_i}{\alpha + \beta + n}\\\\
+&= \color{red}{\frac{\alpha + \beta}{\alpha + \beta + n}}\color{blue} {\frac{\alpha}{\alpha + \beta}} + \color{red}{\frac{n}{\alpha + \beta + n}}\color{blue}{\frac{\sum x_i}{n}}\\\\
+&=\color{red}{\text{prior weight}}\times\color{blue}{\text{prior mean}} \,+\,\color{red}{\text{data weight}}\times\color{blue}{\text{data mean}}
+\end{align}
+
+Notice how the weight fittingly add up to $1$.
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
