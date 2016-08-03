@@ -172,7 +172,7 @@ img {
 <p>.</p>
 <p>Everything in red is the pdf of a beta, and hence it integrates to <span class="math inline">\(1\)</span>.</p>
 <p>The end expression indicates that:</p>
-<p><span class="math inline">\(f(\theta|X) \sim \text{Beta} (\sum x_i + 1, \, n - \sum x_i + 1)\)</span>.</p>
+<p><span class="math inline">\(f(\theta|X) \sim \text{Beta} (\color{green}{\sum x_i} + \color{red}{1}, \,\,\, \color{blue}{n} - \color{green}{\sum x_i} + \color{red}{1})\tag {*}\)</span></p>
 <p>Generalizing to any beta (not just the uniform prior) the prior will be:</p>
 <p><span class="math inline">\(\color{blue}{f(\theta)={\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \, \theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}}\)</span></p>
 <p>Hence, the posterior:</p>
@@ -183,8 +183,9 @@ f(\theta|X) &amp;\propto  f(X|\theta)\, f(\theta)\\\\
 \color{blue}{\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \,
 \theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}\\\\
 &amp;\propto \theta^{\,\alpha + \sum x_i - 1}\,(1-\theta)^{\,\beta + n - \sum x_i - 1}\,\mathbb I_{0\leq \theta \leq 1}\\\\
-&amp;\theta|X \sim Beta(\alpha + \sum x_i,\, \beta + n - \sum x_i)
+&amp;\theta|X \sim Beta(\color{green}{\sum x_i} + \color{red}{\alpha},\,\,\, \color{blue}{n} - \color{green}{\sum x_i} + \color{red}{\beta})
 \end{align}
+<p>Notice how when the <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are <span class="math inline">\(1\)</span> we get the expression (*).</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
