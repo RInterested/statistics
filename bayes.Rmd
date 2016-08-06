@@ -190,12 +190,30 @@ f(\theta|X) &\propto  f(X|\theta)\, f(\theta)\\\\
 
 Notice how when the $\alpha$ and $\beta$ are $1$ we get the expression (*).
 
+<<<<<<< HEAD
 #####CONJUGATE PRIOR for a Poisson Likelihood:
 
 The pmf of a Poisson distribution is $\large \frac{\lambda^k\,e^{-\lambda}}{k!}$.
 
 Therefore the likelihood function is $\large f(X|\lambda) = \frac{\lambda^{\sum x_i}\,e^{-n\lambda}}{\displaystyle \Pi_{i=1}^n x_i!}$
 
+=======
+These hyperparameters $\alpha$ and $\beta$ determine the prior *effective* sample size: $\alpha + \beta$, and can be interpreted as prior "successes" and "failures", respectively.
+
+The mean of a beta distribution is $\frac{\alpha}{\alpha+\beta}$.
+
+The posterior mean is:
+
+\begin{align}
+\text{Posterior mean} &=
+\frac{\alpha + \sum x_i}{\alpha + \sum x_i + \beta + n - \sum x_i}\\\\
+&=\frac{\alpha + \sum x_i}{\alpha + \beta + n}\\\\
+&= \color{red}{\frac{\alpha + \beta}{\alpha + \beta + n}}\color{blue} {\frac{\alpha}{\alpha + \beta}} + \color{red}{\frac{n}{\alpha + \beta + n}}\color{blue}{\frac{\sum x_i}{n}}\\\\
+&=\color{red}{\text{prior weight}}\times\color{blue}{\text{prior mean}} \,+\,\color{red}{\text{data weight}}\times\color{blue}{\text{data mean}}
+\end{align}
+
+Notice how the weight fittingly add up to $1$.
+>>>>>>> af5d996e146d0077054bc056f9e4ed4a8a151e65
 
 ---
 
