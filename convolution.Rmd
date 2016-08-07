@@ -17,14 +17,41 @@ We start with the distribution function:
 
 $F_Z(z) = P(Z \leq z) = P(X+Y \leq z)$ to later obtain the pdf through the derivative.
 
-This is what would go on in integrating under the bivariate uniform:
+This is what would go on integrating under the bivariate uniform:
 
 <img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/17458165/07be9808-5bd8-11e6-9d58-0eadf26a23dd.gif">
 
+In general, we would have to integrate as follows:
+
+\begin{align}
+F(z) =& P(Z\leq z)=P(X+Y\leq z)\\\\
+=& \displaystyle \int_{-\infty}^\infty \int_{-\infty}^{z-y} f_{xy} (x,y) \, dx \, dy\\\\
+
+\end{align}
+
+
+
+To take the derivative on both sides of the equation we have to use Leibniz rule because $z$ is in the limits of integration:
+
 <br>
 
-<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/17452175/d977eec4-5b3a-11e6-9d69-3d741d3e2784.png">
+In trying to get the derivative of a function like:
 
+$H(x) = \displaystyle \int_{a(x)}^{b(x)} f(x,t) \, dx$
+
+we do:
+
+$\frac{d H(x)}{dt}=\frac{d}{dt} \left (\displaystyle \int_{a(t)}^{b(t)} f(x,t) \, dx \right) =\displaystyle \int_{a(t)}^{b(t)}\, \frac{\partial f}{\partial t}\,dx + \color{blue}{f(b(t), t)} \, \color{red}{b'(t)} - \color{blue}{f(a(t), t)} \color{red}{ \, a'(t)}$
+
+So to get the pdf:
+
+
+\begin{align}
+f(z) =& \frac{dF_z (z)}{dz}\\\\
+=& \displaystyle \int_{-\infty}^{\infty} \left[ \frac{d}{dx} \int_{-\infty}^{z-y} f_{XY}(x,y)\,dx \right]\,dy \\\\
+=& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial y}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{1} - \color{red}{0}   \right] dy\\\\
+=& \displaystyle \int_{-\infty}^{\infty}   \color{blue}{\, f_{XY}(z-y,\, y)}  \, dy
+\end{align}
 
 ---
 
