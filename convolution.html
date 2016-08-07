@@ -135,12 +135,15 @@ $(document).ready(function () {
 <p><span class="math inline">\(\frac{d}{dx} \left (\displaystyle \int_\color{red}{{b(x)}}^\color{red}{{a(x)}} f(x,t) \, dt \right) =\displaystyle \int_\color{red}{{b(x)}}^\color{red}{{a(x)}}\, \frac{\partial f(x,t)}{\partial x}\,dt + \color{blue}{f(a(x), x)} \, \color{red}{a'(x)} - \color{blue}{f(b(x), x)} \color{red}{ \, b'(x)}\tag {*}\)</span></p>
 <p>In what follows, though we have not just <span class="math inline">\(x\)</span> and <span class="math inline">\(t\)</span>, but rather <span class="math inline">\(z\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span>, which makes it a bit confusing. Keep in mind that we are differentiating with respect to <span class="math inline">\(z\)</span> (<span class="math inline">\(z\)</span> being the “new player” not in the two-variable equation (*)) and the new <span class="math inline">\(x\)</span> will play the role of the old <span class="math inline">\(t\)</span>, while <span class="math inline">\(y\)</span> will play the role of the old <span class="math inline">\(x\)</span>:</p>
 \begin{align}
-f(z) =&amp; \frac{dF_z (z)}{dz}\\\\
+f(Z) =&amp; \frac{dF_z (z)}{dz}\\\\
 =&amp; \displaystyle \int_{-\infty}^{\infty} \left[ \color{orange}{\frac{d}{dz} \int_{-\infty}^{z-y} f_{XY}(x,y)\,dx} \right]\,dy \\\\
 =&amp; \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{\frac{d(z-y)}{dz}} - \color{blue}{f_{XY}(b(y),y)} \color{red}{\frac{d(-\infty)}{dz}}   \right] dy\\\\
 =&amp; \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{1} - \color{red}{0}   \right] dy\\\\
 =&amp; \displaystyle \int_{-\infty}^{\infty}   \color{blue}{\, f_{XY}(z-y,\, y)}  \, dy \tag{**}
 \end{align}
+<p>Since <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent:</p>
+<p><span class="math inline">\(pdf(Z)=\displaystyle \int_{-\infty}^{\infty} f_{XY}(z-y, \, y) \,dy = \displaystyle \int_{-\infty}^{\infty} \, f_{X}(z-y) \, f_{Y}(y) \,dy\)</span></p>
+<p>which is the convolution <span class="math inline">\(f_X(z)*f_Y(z)\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

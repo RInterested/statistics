@@ -33,14 +33,18 @@ $\frac{d}{dx} \left (\displaystyle \int_\color{red}{{b(x)}}^\color{red}{{a(x)}} 
 In what follows, though we have not just $x$ and $t$, but rather $z$, $y$ and $x$, which makes it a bit confusing. Keep in mind that we are differentiating with respect to $z$ ($z$ being the "new player" not in the two-variable equation (*)) and the new $x$ will play the role of the old $t$, while $y$ will play the role of the old $x$:
 
 \begin{align}
-f(z) =& \frac{dF_z (z)}{dz}\\\\
+f(Z) =& \frac{dF_z (z)}{dz}\\\\
 =& \displaystyle \int_{-\infty}^{\infty} \left[ \color{orange}{\frac{d}{dz} \int_{-\infty}^{z-y} f_{XY}(x,y)\,dx} \right]\,dy \\\\
 =& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{\frac{d(z-y)}{dz}} - \color{blue}{f_{XY}(b(y),y)} \color{red}{\frac{d(-\infty)}{dz}}   \right] dy\\\\
 =& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{1} - \color{red}{0}   \right] dy\\\\
 =& \displaystyle \int_{-\infty}^{\infty}   \color{blue}{\, f_{XY}(z-y,\, y)}  \, dy \tag{**}
 \end{align}
 
+Since $X$ and $Y$ are independent:
 
+$pdf(Z)=\displaystyle \int_{-\infty}^{\infty} f_{XY}(z-y, \, y) \,dy = \displaystyle \int_{-\infty}^{\infty} \, f_{X}(z-y) \, f_{Y}(y) \,dy$
+
+which is the convolution $f_X(z)*f_Y(z)$.
 
 ---
 
