@@ -64,11 +64,19 @@ Especial case: the uniform distribution:
 
 Hence,
 
-$F_Z(z)=\displaystyle\int_0^z\int_o^{z-y} f_{XY}(x,y)\,dx\,dy$
-
-and
-
 $f_Z(z)=\displaystyle\int_0^z f_{X}(z-y)f_{Y}(y)\,dy=\displaystyle\int_0^z I_{\{(z-y)\in [0,1]\}}\,I_{\{(y\in [0,1]\}}\,dy$
+
+Since $f_Y(y)=1$ if $0\leq y\leq 1$ and $0$ otherwise,
+
+$f_Z(z)=\displaystyle\int_0^z f_{X}(z-y)f_{Y}(y)\,dy=\displaystyle\int_0^z I_{\{(z-y)\in [0,1]\}}\,dy$
+
+Since $z = x+y$, it can reach $2$. If $0\leq z \leq 1$,
+
+$f_Z(z)=\displaystyle \int_0^z dy = z$
+
+whereas if $1 \leq z \leq 2$, and given that we are integrating over $y$, and the integrand is $1$ only when $0\leq z-y \leq 1$ (rearranged: $z-1 \leq y \leq z$):
+
+$f_Z(z)=\int_{z-1}^{1} dy = 2-z$.
 
 
 
