@@ -33,18 +33,45 @@ $\frac{d}{dx} \left (\displaystyle \int_\color{red}{{b(x)}}^\color{red}{{a(x)}} 
 In what follows, though we have not just $x$ and $t$, but rather $z$, $y$ and $x$, which makes it a bit confusing. Keep in mind that we are differentiating with respect to $z$ ($z$ being the "new player" not in the two-variable equation (*)) and the new $x$ will play the role of the old $t$, while $y$ will play the role of the old $x$:
 
 \begin{align}
-f(Z) =& \frac{dF_z (z)}{dz}\\\\
+f_Z(z) =& \frac{dF_z (z)}{dz}\\\\
 =& \displaystyle \int_{-\infty}^{\infty} \left[ \color{orange}{\frac{d}{dz} \int_{-\infty}^{z-y} f_{XY}(x,y)\,dx} \right]\,dy \\\\
-=& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{\frac{d(z-y)}{dz}} - \color{blue}{f_{XY}(b(y),y)} \color{red}{\frac{d(-\infty)}{dz}}   \right] dy\\\\
-=& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{1} - \color{red}{0}   \right] dy\\\\
-=& \displaystyle \int_{-\infty}^{\infty}   \color{blue}{\, f_{XY}(z-y,\, y)}  \, dy \tag{**}
+=& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{\frac{d(z-y)}{dz}} - \color{blue}{f_{XY}(b(y),y)} \color{red}{\frac{d(-\infty)}{dz}}   \right] dy
+\end{align}
+
+Noting that $-\infty$ is a constant, the derivative with respect to $z$, or anything else, will be $0$.
+
+\begin{align}
+f_Z(z) =& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{1} - \color{red}{0}   \right] dy
+\end{align}
+
+$\frac{\partial f_{XY}(x,y)}{\partial z}$ is zero. Hence,
+
+\begin{align}
+f_Z(z)=& \displaystyle \int_{-\infty}^{\infty}   \color{blue}{\, f_{XY}(z-y,\, y)}  \, dy \tag{**}
 \end{align}
 
 Since $X$ and $Y$ are independent:
 
-$pdf(Z)=\displaystyle \int_{-\infty}^{\infty} f_{XY}(z-y, \, y) \,dy = \displaystyle \int_{-\infty}^{\infty} \, f_{X}(z-y) \, f_{Y}(y) \,dy$
+$pdf(Z)=f_Z(z) = \displaystyle \int_{-\infty}^{\infty} f_{XY}(z-y, \, y) \,dy = \displaystyle \int_{-\infty}^{\infty} \, f_{X}(z-y) \, f_{Y}(y) \,dy$
 
 which is the convolution $f_X(z)*f_Y(z)$.
+
+---
+
+Especial case: the uniform distribution:
+
+<img HEIGHT="400" WIDTH="400" src="https://cloud.githubusercontent.com/assets/9312897/17467970/52298b40-5cf1-11e6-8ed9-b2d22f85c419.png"></a>
+
+Hence,
+
+$F_Z(z)=\displaystyle\int_0^z\int_o^{z-y} f_{XY}(x,y)\,dx\,dy$
+
+and
+
+$f_Z(z)=\displaystyle\int_0^z f_{X}(z-y)f_{Y}(y)\,dy=\displaystyle\int_0^z I_{\{(z-y)\in [0,1]\}}\,I_{\{(y\in [0,1]\}}\,dy$
+
+
+
 
 ---
 
