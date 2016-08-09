@@ -190,12 +190,12 @@ f(\theta|X) &\propto  f(X|\theta)\, f(\theta)\\\\
 
 Notice how when the $\alpha$ and $\beta$ are $1$ we get the expression (*).
 
-<<<<<<< HEAD
-#####CONJUGATE PRIOR for a Poisson Likelihood:
+
+#####CONJUGATE PRIOR for a **Poisson** Likelihood:
 
 The pmf of a Poisson distribution is $\large \frac{\lambda^k\,e^{-\lambda}}{k!}$.
 
-Therefore the likelihood function is $\large f(X|\lambda) = \frac{\lambda^{\sum x_i}\,e^{-n\lambda}}{\displaystyle \Pi_{i=1}^n x_i!}$
+Therefore the likelihood function is $\large f(X|\lambda) = \frac{\lambda^{\sum x_i}\,e^{-n\lambda}}{\displaystyle \prod_{i=1}^n x_i!}$
 
 =======
 These hyperparameters $\alpha$ and $\beta$ determine the prior *effective* sample size: $\alpha + \beta$, and can be interpreted as prior "successes" and "failures", respectively.
@@ -238,7 +238,13 @@ Since the mean of a Gamma distribution is $\alpha/\beta$ the posterior mean is:
 
 $\large \frac{\alpha + \sum x_i}{\beta +n} = \frac{\beta}{\beta + n}\frac{\alpha}{\beta}+\frac{n}{\beta + n}\frac{\sum x_i}{n}$, or a weighted average of the prior mean and the data mean. The sample size for the data is $n$ and the effective sample size for the prior is $\beta$.
 
+Strategies to choose the prior parameters:
 
+1. Prior mean: E.g. number of chips per cookie, corresponding to $\alpha/\beta$. To further determine each parameter, we can think of the prior standard deviation as $\sqrt \alpha/\beta$.
+
+2. Effective of sample size ($\beta$): We can think of it as how much certainty we place in the prior as countered by the information in the data, $n$.
+
+3. Vague prior - flat prior. We can have a $\Gamma(\epsilon,\epsilon)$ with a small $\epsilon$, greater than $0$. The posterior mean would be $\frac{\epsilon + \sum x_i}{\epsilon + n}$, which is approximately the data mean.
 
 ---
 
