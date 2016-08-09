@@ -186,12 +186,8 @@ f(\theta|X) &amp;\propto  f(X|\theta)\, f(\theta)\\\\
 &amp;\theta|X \sim Beta(\color{green}{\sum x_i} + \color{red}{\alpha},\,\,\, \color{blue}{n} - \color{green}{\sum x_i} + \color{red}{\beta})
 \end{align}
 <p>Notice how when the <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are <span class="math inline">\(1\)</span> we get the expression (*).</p>
-</div>
-<div id="conjugate-prior-for-a-poisson-likelihood" class="section level5">
-<h5>CONJUGATE PRIOR for a <strong>Poisson</strong> Likelihood:</h5>
-<p>The pmf of a Poisson distribution is <span class="math inline">\(\large \frac{\lambda^k\,e^{-\lambda}}{k!}\)</span>.</p>
-<p>Therefore the likelihood function is <span class="math inline">\(\large f(X|\lambda) = \frac{\lambda^{\sum x_i}\,e^{-n\lambda}}{\displaystyle \prod_{i=1}^n x_i!}\)</span></p>
-<p>======= These hyperparameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> determine the prior <em>effective</em> sample size: <span class="math inline">\(\alpha + \beta\)</span>, and can be interpreted as prior “successes” and “failures”, respectively.</p>
+<p>=======</p>
+<p>These hyperparameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> determine the prior <em>effective</em> sample size: <span class="math inline">\(\alpha + \beta\)</span>, and can be interpreted as prior “successes” and “failures”, respectively.</p>
 <p>The mean of a beta distribution is <span class="math inline">\(\frac{\alpha}{\alpha+\beta}\)</span>.</p>
 <p>The posterior mean is:</p>
 \begin{align}
@@ -204,8 +200,8 @@ f(\theta|X) &amp;\propto  f(X|\theta)\, f(\theta)\\\\
 <p>Notice how the weight fittingly add up to <span class="math inline">\(1\)</span>.</p>
 <hr />
 </div>
-<div id="conjugate-prior-for-a-bernoulli-or-binomial-likelihood-1" class="section level5">
-<h5>CONJUGATE PRIOR for a <strong>Bernoulli or Binomial</strong> Likelihood:</h5>
+<div id="conjugate-prior-for-a-poisson-likelihood" class="section level5">
+<h5>CONJUGATE PRIOR for a <strong>Poisson</strong> Likelihood:</h5>
 <p>The likelihood is:</p>
 <p><span class="math inline">\(\large f(X \arrowvert \lambda) = \frac{\lambda^{\sum x_i} e^{-n \lambda}}{\displaystyle \Pi_{i=1}^n x_i!}\)</span></p>
 <p>The distribution that simulates this expression is the gamma. A gamma prior ((, )) is going to look like:</p>
@@ -222,6 +218,15 @@ f(\theta|X) &amp;\propto  f(X|\theta)\, f(\theta)\\\\
 <li><p>Effective of sample size (<span class="math inline">\(\beta\)</span>): We can think of it as how much certainty we place in the prior as countered by the information in the data, <span class="math inline">\(n\)</span>.</p></li>
 <li><p>Vague prior - flat prior. We can have a <span class="math inline">\(\Gamma(\epsilon,\epsilon)\)</span> with a small <span class="math inline">\(\epsilon\)</span>, greater than <span class="math inline">\(0\)</span>. The posterior mean would be <span class="math inline">\(\frac{\epsilon + \sum x_i}{\epsilon + n}\)</span>, which is approximately the data mean.</p></li>
 </ol>
+<hr />
+</div>
+<div id="conjugate-prior-for-a-exponential-likelihood" class="section level5">
+<h5>CONJUGATE PRIOR for a <strong>Exponential</strong> Likelihood:</h5>
+<p>The conjugate prior is a gamma distribution.</p>
+<p><span class="math inline">\(X \sim Exp(\lambda)\)</span>. The prior mean will be <span class="math inline">\(1/\lambda\)</span>. Hence we have to adjust the parameters of the gamma so that <span class="math inline">\(\alpha/\beta = 1/\lambda\)</span>. The prior standard deviation will be <span class="math inline">\(\frac{\alpha}{\beta}\)</span>.</p>
+<p>If we say that a bus arrives on average every <span class="math inline">\(10\)</span> minutes, we have a mean of the rate parameter of <span class="math inline">\(1/10\)</span>. We can think of a gamma prior of <span class="math inline">\(\Gamma(100,1000)\)</span>, which will have a mean of <span class="math inline">\(1/10\)</span> and a standard deviation of <span class="math inline">\(1/100\)</span>. Hence the prior mean will be <span class="math inline">\(0.1 \pm 0.02\)</span>.</p>
+<p><span class="math inline">\(\large f(\lambda \arrowvert x) \propto f(X \arrowvert \lambda)f(\lambda) \propto \lambda e^{-\lambda y}\lambda^{\alpha-1} e^{-\beta \lambda} = \lambda^{(\alpha+1)-1}\,e^{-(\beta x)\lambda}\)</span></p>
+<p>Say that the bus comes after a waiting time of <span class="math inline">\(12\)</span> minutes once, the posterior will follow a distribution: <span class="math inline">\(\large f(\lambda \arrowvert x) \sim \Gamma (\alpha+1, \beta + x)\)</span>. Pluggin in the values, we end up with a posterior <span class="math inline">\(\lambda \arrowvert x ~propto \Gamma(101, 1012)\)</span> with a posterior mean of <span class="math inline">\(\frac{101}{1012}\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
