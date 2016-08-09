@@ -99,9 +99,9 @@ img {
 <p>Parameter to estimate: <span class="math inline">\(\theta=\{\text{fair die},\text{loaded die}\}\)</span></p>
 <p>Method <strong>MLE</strong>:</p>
 <p>The PDF for the entire set of data conditioned on the value of <span class="math inline">\(\theta\)</span>:</p>
-<p><span class="math display">\[f(X|\theta)=\binom{5}{x}\,0.5^5\,\mathbb I_{\theta=\text{fair}} + \binom{5}{x}\,0.7^x\,0.3^{5-x}\,\mathbb I_{\theta=\text{loaded}}\]</span></p>
+<p><span class="math display">\[f(X|\theta)=\binom{5}{x}\,0.5^5\,I_{\theta=\text{fair}} + \binom{5}{x}\,0.7^x\,0.3^{5-x}\,I_{\theta=\text{loaded}}\]</span></p>
 <p>Hence, in the case of observing <span class="math inline">\(2\)</span> heads, the density function as a function of <span class="math inline">\(\theta\)</span> will be:</p>
-<p><span class="math display">\[L(\theta|X=2)=0.3125\,\mathbb I_{\theta=\text{fair}} + 0.1323\,\mathbb I_{\theta=\text{loaded}}\]</span></p>
+<p><span class="math display">\[L(\theta|X=2)=0.3125\,I_{\theta=\text{fair}} + 0.1323\,I_{\theta=\text{loaded}}\]</span></p>
 <p>The MLE is identical to the PDF, but thought of as a function of <span class="math inline">\(\theta\)</span> given the data, and it will no longer be a PDF. We will choose the <span class="math inline">\(\theta\)</span> that maximizes the likelihood:</p>
 <p>Therefore, the <span class="math inline">\(\text{MLE}(\hat \theta)=\text{fair}\)</span>. How sure are we? It is difficult to answer.</p>
 <p>In the frequentist paradigm, <span class="math inline">\(\mathbb P(\theta=\text{fair}|X=2)=\mathbb P(\text{fair})\)</span> because the coin is either fair or not.</p>
@@ -109,9 +109,9 @@ img {
 <p>We incorporate a prior belief based on the knowledge of the person conducting the experiment, for example, that <span class="math inline">\(\mathbb P(\text{loaded})=0.6\)</span>. This is the <strong>prior</strong>.</p>
 <p>Method: Bayes theorem:</p>
 <p><span class="math display">\[f(\theta|X)=\frac{f(X|\theta)\,f(\theta)}{\displaystyle \sum_\theta f(X|\theta)f(\theta)}\]</span></p>
-<p><span class="math display">\[f(\theta|X)=\frac{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4}\,\mathbb I_{\theta=\text{fair}} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,\mathbb I_{\theta=\text{loaded}}\,\right]}{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,\right]}\]</span></p>
+<p><span class="math display">\[f(\theta|X)=\frac{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4}\,I_{\theta=\text{fair}} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,I_{\theta=\text{loaded}}\,\right]}{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,\right]}\]</span></p>
 <p>Having observed <span class="math inline">\(2\)</span> heads:</p>
-<p><span class="math display">\[f(\theta|X)=\frac{0.0125\,\mathbb I_{\theta=\text{fair}} + 0.079\,\mathbb I_{\theta=\text{loaded}}}{0.0125+0.0079}=0.612\,\mathbb I_{\theta=\text{fair}} + 0.388\,\mathbb I_{\theta=\text{loaded}}\]</span>.</p>
+<p><span class="math display">\[f(\theta|X)=\frac{0.0125\,I_{\theta=\text{fair}} + 0.079\,I_{\theta=\text{loaded}}}{0.0125+0.0079}=0.612\,I_{\theta=\text{fair}} + 0.388\,I_{\theta=\text{loaded}}\]</span>.</p>
 <p>The denominator is a normalizing constant, so that we get values that add up to <span class="math inline">\(1\)</span>, i.e. we get probabilities: <strong>posterior</strong> probabilities:</p>
 <p><span class="math display">\[\mathbb P(\theta=\text{loaded}|X=2)=0.388\]</span>.</p>
 <hr />
@@ -121,9 +121,9 @@ img {
 <p><span class="math display">\[f(\theta|X)=\frac{f(X|\theta)\,f(\theta)}{f(x)}
 =\frac{f(X|\theta)\,f(\theta)}{\int f(X|\theta)f(\theta)d\theta}=\frac{\text{likelihood}\times\text{prior}}{\text{normalizing constant}}\sim \text{likelihood}\times\text{prior}\]</span></p>
 <p>In the case of a coin with an uninformative prior:</p>
-<p><span class="math inline">\(\theta\sim U[0,1]\)</span> and <span class="math inline">\(f(\theta)=\mathbb I_{0\leq\theta\leq1}\)</span></p>
+<p><span class="math inline">\(\theta\sim U[0,1]\)</span> and <span class="math inline">\(f(\theta)=I_{0\leq\theta\leq1}\)</span></p>
 <p>If we get <span class="math inline">\(1\)</span> head in a single toss:</p>
-<p><span class="math display">\[f(\theta|X=1)=\frac{\theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1\mathbb I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1\mathbb I_{(0\leq\theta\leq1)}d\theta}=2\theta\mathbb I_{(0\leq\theta\leq1)}\tag 1\]</span></p>
+<p><span class="math display">\[f(\theta|X=1)=\frac{\theta^1(1-\theta)^0I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1I_{(0\leq\theta\leq1)}d\theta}=2\thetaI_{(0\leq\theta\leq1)}\tag 1\]</span></p>
 <p><br></p>
 <hr />
 </div>
@@ -154,35 +154,35 @@ img {
 <hr />
 </div>
 <div id="conjugate-prior-for-a-bernoulli-or-binomial-likelihood" class="section level5">
-<h5>CONJUGATE PRIOR for a Bernoulli or Binomial Likelihood:</h5>
+<h5>CONJUGATE PRIOR for a <strong>Bernoulli or Binomial</strong> Likelihood:</h5>
 <p>Any beta prior will give a beta posterior when the likelihood is Bernoulli or Binomial.</p>
-<p>We can use a uniform prior (which is the same as a <span class="math inline">\(B(1,1)\)</span>) and get a beta posterior:</p>
+<p>We can use a uniform prior (which is the same as a <span class="math inline">\(Beta(1,1)\)</span>) and get a beta posterior:</p>
 <p>The likelihood is:</p>
 <p><span class="math inline">\(f(X|\theta)= \theta^{\sum x_i}(1-\theta)^{n-\sum x_i}\)</span></p>
-<p>The prior is just a uniform: <span class="math inline">\(f(\theta) = \mathbb I_{0\leq \theta \leq 1}\)</span>.</p>
+<p>The prior is just a uniform: <span class="math inline">\(f(\theta) = I_{0\leq \theta \leq 1}\)</span>.</p>
 <p>So the posterior is:</p>
 \begin{align}
-\displaystyle f(\theta|X) &amp;= \frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\int_0^1 \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta} \\\\ 
+\displaystyle f(\theta|X) &amp;= \frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, I_{0\leq \theta \leq 1}}{\int_0^1 \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta} \\\\ 
 
-&amp;=\frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\frac{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )}{\Gamma(n+2)} \color{red}{\int_0^1  {\frac{\Gamma(n+2)}{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )} \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta}}} \\\\
+&amp;=\frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, I_{0\leq \theta \leq 1}}{\frac{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )}{\Gamma(n+2)} \color{red}{\int_0^1  {\frac{\Gamma(n+2)}{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )} \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta}}} \\\\
 
 &amp;=\frac{\Gamma(n+2)}{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )} \,
-\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}
+\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, I_{0\leq \theta \leq 1}
 \end{align}
 <p>.</p>
 <p>Everything in red is the pdf of a beta, and hence it integrates to <span class="math inline">\(1\)</span>.</p>
 <p>The end expression indicates that:</p>
 <p><span class="math inline">\(f(\theta|X) \sim \text{Beta} (\color{green}{\sum x_i} + \color{red}{1}, \,\,\, \color{blue}{n} - \color{green}{\sum x_i} + \color{red}{1})\tag {*}\)</span></p>
 <p>Generalizing to any beta (not just the uniform prior) the prior will be:</p>
-<p><span class="math inline">\(\color{blue}{f(\theta)={\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \, \theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}}\)</span></p>
+<p><span class="math inline">\(\color{blue}{f(\theta)={\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \, \theta^{\alpha-1}\,(1-\theta)^{\beta - 1} I_{0\leq \theta \leq 1}}}\)</span></p>
 <p>Hence, the posterior:</p>
 \begin{align}
 
 f(\theta|X) &amp;\propto  f(X|\theta)\, f(\theta)\\\\
 &amp;= \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i} 
 \color{blue}{\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \,
-\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}\\\\
-&amp;\propto \theta^{\,\alpha + \sum x_i - 1}\,(1-\theta)^{\,\beta + n - \sum x_i - 1}\,\mathbb I_{0\leq \theta \leq 1}\\\\
+\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} I_{0\leq \theta \leq 1}}\\\\
+&amp;\propto \theta^{\,\alpha + \sum x_i - 1}\,(1-\theta)^{\,\beta + n - \sum x_i - 1}\,I_{0\leq \theta \leq 1}\\\\
 &amp;\theta|X \sim Beta(\color{green}{\sum x_i} + \color{red}{\alpha},\,\,\, \color{blue}{n} - \color{green}{\sum x_i} + \color{red}{\beta})
 \end{align}
 <p>Notice how when the <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are <span class="math inline">\(1\)</span> we get the expression (*).</p>
@@ -197,6 +197,20 @@ f(\theta|X) &amp;\propto  f(X|\theta)\, f(\theta)\\\\
 &amp;=\color{red}{\text{prior weight}}\times\color{blue}{\text{prior mean}} \,+\,\color{red}{\text{data weight}}\times\color{blue}{\text{data mean}}
 \end{align}
 <p>Notice how the weight fittingly add up to <span class="math inline">\(1\)</span>.</p>
+<hr />
+</div>
+<div id="conjugate-prior-for-a-bernoulli-or-binomial-likelihood-1" class="section level5">
+<h5>CONJUGATE PRIOR for a <strong>Bernoulli or Binomial</strong> Likelihood:</h5>
+<p>The likelihood is:</p>
+<p><span class="math inline">\(\large f(X \arrowvert \lambda) = \frac{\lambda^{\sum x_i} e^{-n \lambda}}{\displaystyle \Pi_{i=1}^n x_i!}\)</span></p>
+<p>The distribution that simulates this expression is the gamma. A gamma prior ((, )) is going to look like:</p>
+<p><span class="math inline">\(\large f(\lambda) = \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1\, e^{-\beta \lambda}}\)</span></p>
+<p>The posterior will be:</p>
+<p><span class="math inline">\(\large f(\lambda\arrowvert X) \propto f(X\arrowvert \lambda)\,f(\lambda)\propto \lambda^{\sum X_i}\,e^{-n\lambda}\, \lambda^{\alpha - 1} e^{-\beta \lambda} = \lambda^{(\alpha + \sum x_i)-1}\,e^{-(\beta + n)\lambda}\)</span></p>
+<p>or</p>
+<p><span class="math inline">\(\large \Gamma(\alpha+\sum x_i, \beta +n)\)</span></p>
+<p>Since the mean of a Gamma distribution is <span class="math inline">\(\alpha/\beta\)</span> the posterior mean is:</p>
+<p><span class="math inline">\(\large \frac{\alpha + \sum x_i}{\beta +n} = \frac{\beta}{\beta + n}\frac{\alpha}{\beta}+\frac{n}{\beta + n}\frac{\sum x_i}{n}\)</span>, or a weighted average of the prior mean and the data mean. The sample size for the data is <span class="math inline">\(n\)</span> and the effective sample size for the prior is <span class="math inline">\(\beta\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
