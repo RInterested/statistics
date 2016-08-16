@@ -76,7 +76,17 @@ abline(h=0, col="red3", lty=2)
 
 <br>
 
-$\large y_t = c + \color{red}{\rho}\, y_{t-1}+\epsilon_t$
+$\large \color{blue}{y_t} = c + \color{red}{\rho}\, \color{blue}{y_{t-1}}+\epsilon_t\tag 1$
+
+So notice that $y_t$ is regressed on itself (this is not the case in MA processes). We can recur the equation:
+
+$\large \color{blue}{y_{t-1}} = c + \color{red}{\rho}\, \color{blue}{y_{t-2}}+\epsilon_{t-1}\tag 2$
+
+Substituting 2 into 1:
+
+$\large \color{blue}{y_t} = c + \color{red}{\rho}\, \left ( c + \color{red}{\rho}\, \color{blue}{y_{t-2}}+\epsilon_{t-1} \right)+\epsilon_t= c + \color{red}{\rho}\, c + \color{red}{\rho^2}\, \color{blue}{y_{t-2}} +\color{red}{\rho} \epsilon_{t-1} +\epsilon_t$
+
+This "compound interest" expression is not possible in MA.
 
 When $\rho < 1$ the series is "covariance stationary". Notice how the influence of the immediate prior position will be, to a certain extent, countered by the effect of $\rho$: the larger $\rho$ is the closer `AR` will be to a random walk; and the smaller it is, the more similar to white noise. $\epsilon_t$ can pull in any direction, but a $\rho < 1$ pulls back $y_{t-1}$ back towards $0$.
 
@@ -129,7 +139,9 @@ Notice the negative second lag related to the $-0.5$ AR value. Notice how the ac
 
 MA is also stationary, and by affecting noise, it's effects are less long-lived than AR.
 
-$\large y_t = k+\epsilon_t+\color{red}{\theta}\,\epsilon_{t-1}$
+An AR(1) process is defined as:
+
+$\large\color{blue} {y_t} = k+ \color{red}{\theta}\,\epsilon_{t-1}+\epsilon_t$
 
 which can clearly be extended to $MA(n)$.
 
