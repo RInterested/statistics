@@ -49,10 +49,15 @@ We can try AR of $4$ and MA of $1$:
 ```{r, fig.width=6, fig.height=4, warning = F}
 require(forecast)
 (fit = arima(gtemp, order = c(4, 1, 1)))
+<<<<<<< HEAD
 fit1 = Arima(gtemp, order = c(4,1,1), 
              include.drift = T)
 future = forecast(fit1, h = 50)
 plot(future)
+=======
+pred = predict(fit, n.ahead = 10)
+ts.plot(gtemp, pred$pred, lty = c(1,3), col=c(5,2))
+>>>>>>> 7619c320c9aa736d732291404e8dbec0d4e4fd7d
 ```
 
 ---

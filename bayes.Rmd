@@ -48,11 +48,11 @@ Method **MLE**:
 
 The PDF for the entire set of data conditioned on the value of $\theta$:
 
-$$f(X|\theta)=\binom{5}{x}\,0.5^5\,\mathbb I_{\theta=\text{fair}} + \binom{5}{x}\,0.7^x\,0.3^{5-x}\,\mathbb I_{\theta=\text{loaded}}$$
+$$f(X|\theta)=\binom{5}{x}\,0.5^5\,I_{\theta=\text{fair}} + \binom{5}{x}\,0.7^x\,0.3^{5-x}\,I_{\theta=\text{loaded}}$$
 
 Hence, in the case of observing $2$ heads, the density function as a function of $\theta$ will be:
 
-$$L(\theta|X=2)=0.3125\,\mathbb I_{\theta=\text{fair}} + 0.1323\,\mathbb I_{\theta=\text{loaded}}$$
+$$L(\theta|X=2)=0.3125\,I_{\theta=\text{fair}} + 0.1323\,I_{\theta=\text{loaded}}$$
 
 The MLE is identical to the PDF, but thought of as a function of $\theta$ given the data, and it will no longer be a PDF. We will choose the $\theta$ that maximizes the likelihood:
 
@@ -68,11 +68,11 @@ Method: Bayes theorem:
 
 $$f(\theta|X)=\frac{f(X|\theta)\,f(\theta)}{\displaystyle \sum_\theta f(X|\theta)f(\theta)}$$
 
-$$f(\theta|X)=\frac{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4}\,\mathbb I_{\theta=\text{fair}} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,\mathbb I_{\theta=\text{loaded}}\,\right]}{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,\right]}$$
+$$f(\theta|X)=\frac{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4}\,I_{\theta=\text{fair}} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,I_{\theta=\text{loaded}}\,\right]}{\binom{5}{x}\left[\,0.5^5\,\color{blue}{0.4} + 0.7^x\,0.3^{5-x}\,\color{blue}{0.6}\,\right]}$$
 
 Having observed $2$ heads:
 
-$$f(\theta|X)=\frac{0.0125\,\mathbb I_{\theta=\text{fair}} + 0.079\,\mathbb I_{\theta=\text{loaded}}}{0.0125+0.0079}=0.612\,\mathbb I_{\theta=\text{fair}} + 0.388\,\mathbb I_{\theta=\text{loaded}}$$.
+$$f(\theta|X)=\frac{0.0125\,I_{\theta=\text{fair}} + 0.079\,I_{\theta=\text{loaded}}}{0.0125+0.0079}=0.612\,I_{\theta=\text{fair}} + 0.388\,I_{\theta=\text{loaded}}$$.
 
 The denominator is a normalizing constant, so that we get values that add up to $1$, i.e. we get probabilities: **posterior** probabilities:
 
@@ -87,11 +87,11 @@ $$f(\theta|X)=\frac{f(X|\theta)\,f(\theta)}{f(x)}
 
 In the case of a coin with an uninformative prior:
 
-$\theta\sim U[0,1]$ and $f(\theta)=\mathbb I_{0\leq\theta\leq1}$
+$\theta\sim U[0,1]$ and $f(\theta)=I_{0\leq\theta\leq1}$
 
 If we get $1$ head in a single toss:
 
-$$f(\theta|X=1)=\frac{\theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0\mathbb I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1\mathbb I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1\mathbb I_{(0\leq\theta\leq1)}d\theta}=2\theta\mathbb I_{(0\leq\theta\leq1)}\tag 1$$
+$$f(\theta|X=1)=\frac{\theta^1(1-\theta)^0I_{(0\leq\theta\leq1)}}{\int_{-\infty}^\infty \theta^1(1-\theta)^0I_{(0\leq\theta\leq1)}d\theta}=\frac{\theta^1I_{(0\leq\theta\leq1)}}{\int_0^1 \theta^1I_{(0\leq\theta\leq1)}d\theta}=2\thetaI_{(0\leq\theta\leq1)}\tag 1$$
 
 <br>
 
@@ -142,27 +142,27 @@ So a $\theta$ parameter between $[.224,1]$ carries a probability of $95\%$.
 
 ---
 
-#####CONJUGATE PRIOR for a Bernoulli or Binomial Likelihood:
+#####CONJUGATE PRIOR for a **Bernoulli or Binomial** Likelihood:
 
 Any beta prior will give a beta posterior when the likelihood is Bernoulli or Binomial.
 
-We can use a uniform prior (which is the same as a $B(1,1)$) and get a beta posterior:
+We can use a uniform prior (which is the same as a $Beta(1,1)$) and get a beta posterior:
 
 The likelihood is:
 
 $f(X|\theta)= \theta^{\sum x_i}(1-\theta)^{n-\sum x_i}$
 
-The prior is just a uniform: $f(\theta) = \mathbb I_{0\leq \theta \leq 1}$.
+The prior is just a uniform: $f(\theta) = I_{0\leq \theta \leq 1}$.
 
 So the posterior is:
 
 \begin{align}
-\displaystyle f(\theta|X) &= \frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\int_0^1 \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta} \\\\ 
+\displaystyle f(\theta|X) &= \frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, I_{0\leq \theta \leq 1}}{\int_0^1 \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta} \\\\ 
 
-&=\frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}}{\frac{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )}{\Gamma(n+2)} \color{red}{\int_0^1  {\frac{\Gamma(n+2)}{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )} \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta}}} \\\\
+&=\frac{\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, I_{0\leq \theta \leq 1}}{\frac{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )}{\Gamma(n+2)} \color{red}{\int_0^1  {\frac{\Gamma(n+2)}{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )} \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\,  d\theta}}} \\\\
 
 &=\frac{\Gamma(n+2)}{\Gamma (\sum x_i + 1)\,\Gamma(n-\sum x_i +1 )} \,
-\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, \mathbb I_{0\leq \theta \leq 1}
+\theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i}\, I_{0\leq \theta \leq 1}
 \end{align}.
 
 Everything in red is the pdf of a beta, and hence it integrates to $1$.
@@ -174,7 +174,7 @@ $f(\theta|X) \sim \text{Beta} (\color{green}{\sum x_i} + \color{red}{1}, \,\,\, 
 Generalizing to any beta (not just the uniform prior) the prior will be:
 
 $\color{blue}{f(\theta)={\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \,
-\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}}$
+\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} I_{0\leq \theta \leq 1}}}$
 
 Hence, the posterior:
 
@@ -183,21 +183,16 @@ Hence, the posterior:
 f(\theta|X) &\propto  f(X|\theta)\, f(\theta)\\\\
 &= \theta^{\sum x_i}\,(1-\theta)^{n-\sum x_i} 
 \color{blue}{\large \frac{\Gamma(\alpha+\beta)}{\Gamma (\alpha)\,\Gamma(\beta)} \,
-\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} \mathbb I_{0\leq \theta \leq 1}}\\\\
-&\propto \theta^{\,\alpha + \sum x_i - 1}\,(1-\theta)^{\,\beta + n - \sum x_i - 1}\,\mathbb I_{0\leq \theta \leq 1}\\\\
+\theta^{\alpha-1}\,(1-\theta)^{\beta - 1} I_{0\leq \theta \leq 1}}\\\\
+&\propto \theta^{\,\alpha + \sum x_i - 1}\,(1-\theta)^{\,\beta + n - \sum x_i - 1}\,I_{0\leq \theta \leq 1}\\\\
 &\theta|X \sim Beta(\color{green}{\sum x_i} + \color{red}{\alpha},\,\,\, \color{blue}{n} - \color{green}{\sum x_i} + \color{red}{\beta})
 \end{align}
 
 Notice how when the $\alpha$ and $\beta$ are $1$ we get the expression (*).
 
-<<<<<<< HEAD
-#####CONJUGATE PRIOR for a Poisson Likelihood:
-
-The pmf of a Poisson distribution is $\large \frac{\lambda^k\,e^{-\lambda}}{k!}$.
-
-Therefore the likelihood function is $\large f(X|\lambda) = \frac{\lambda^{\sum x_i}\,e^{-n\lambda}}{\displaystyle \Pi_{i=1}^n x_i!}$
 
 =======
+
 These hyperparameters $\alpha$ and $\beta$ determine the prior *effective* sample size: $\alpha + \beta$, and can be interpreted as prior "successes" and "failures", respectively.
 
 The mean of a beta distribution is $\frac{\alpha}{\alpha+\beta}$.
@@ -213,6 +208,59 @@ The posterior mean is:
 \end{align}
 
 Notice how the weight fittingly add up to $1$.
+
+---
+
+#####CONJUGATE PRIOR for a **Poisson** Likelihood:
+
+The likelihood is:
+
+$\large f(X \arrowvert \lambda) = \frac{\lambda^{\sum x_i} e^{-n \lambda}}{\displaystyle \Pi_{i=1}^n x_i!}$
+
+The distribution that simulates this expression is the gamma. A gamma prior (\lambda \sim \Gamma(\alpha, \beta)) is going to look like:
+
+$\large f(\lambda) = \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1\, e^{-\beta \lambda}}$
+
+The posterior will be:
+
+$\large f(\lambda\arrowvert X) \propto f(X\arrowvert \lambda)\,f(\lambda)\propto \lambda^{\sum X_i}\,e^{-n\lambda}\, \lambda^{\alpha - 1} e^{-\beta \lambda} = \lambda^{(\alpha + \sum x_i)-1}\,e^{-(\beta + n)\lambda}$
+
+or
+
+$\large \Gamma(\alpha+\sum x_i, \beta +n)$
+
+Since the mean of a Gamma distribution is $\alpha/\beta$ the posterior mean is:
+
+$\large \frac{\alpha + \sum x_i}{\beta +n} = \frac{\beta}{\beta + n}\frac{\alpha}{\beta}+\frac{n}{\beta + n}\frac{\sum x_i}{n}$, or a weighted average of the prior mean and the data mean. The sample size for the data is $n$ and the effective sample size for the prior is $\beta$.
+
+Strategies to choose the prior parameters:
+
+1. Prior mean: E.g. number of chips per cookie, corresponding to $\alpha/\beta$. To further determine each parameter, we can think of the prior standard deviation as $\sqrt \alpha/\beta$.
+
+2. Effective of sample size ($\beta$): We can think of it as how much certainty we place in the prior as countered by the information in the data, $n$.
+
+3. Vague prior - flat prior. We can have a $\Gamma(\epsilon,\epsilon)$ with a small $\epsilon$, greater than $0$. The posterior mean would be $\frac{\epsilon + \sum x_i}{\epsilon + n}$, which is approximately the data mean.
+
+
+---
+
+#####CONJUGATE PRIOR for a **Exponential** Likelihood:
+
+The conjugate prior is a gamma distribution.
+
+$X \sim Exp(\lambda)$. The prior mean will be $1/\lambda$. Hence we have to adjust the parameters of the gamma so that $\alpha/\beta = 1/\lambda$. The prior standard deviation will be $\frac{\alpha}{\beta}$.
+
+If we say that a bus arrives on average every $10$ minutes, we have a mean of the rate parameter of $1/10$. We can think of a gamma prior of $\Gamma(100,1000)$, which will have a mean of $1/10$ and a standard deviation of $1/100$. Hence the prior mean will be $0.1 \pm 0.02$.
+
+$\large f(\lambda \arrowvert x) \propto f(X \arrowvert \lambda)f(\lambda) \propto \lambda e^{-\lambda y}\lambda^{\alpha-1} e^{-\beta \lambda} = \lambda^{(\alpha+1)-1}\,e^{-(\beta x)\lambda}$
+
+Say that the bus comes after a waiting time of $12$ minutes once, the posterior will follow a distribution: $\large f(\lambda \arrowvert x) \sim \Gamma (\alpha+1, \beta + x)$. Pluggin in the values, we end up with a posterior $\lambda \arrowvert x ~propto \Gamma(101, 1012)$ with a posterior mean of $\frac{101}{1012}$.
+
+
+#####CONJUGATE PRIOR for a **Normal** Likelihood:
+
+Normal is conjugate for itself.
+
 
 ---
 
