@@ -1,0 +1,106 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###VARIANCE - COVARIANCE IN TIME SERIES:
+<br>
+
+#####AUTOREGRESSIVE ORDER ONE (AR (1)) PROCESSES:
+<br>
+
+The general formula for an AR(1) process is $X_y = \rho \, X_{t-1} + \epsilon_t$ with $\epsilon_t \sim \text{iid}(0,\sigma^2)$.
+
+The variance of $X_t$ will be given by:
+
+$\text{Var}[X_t] = \rho^2\, \text{Var}[X_{t-1}] \, + \text{Var}[\epsilon_t]$ because $\text{Var}[aX]= a^2\text{Var}[X]$.
+
+The condition of stationarity implies that $\text{Var}[X_t] = \text{Var}[X_{t-1}]$. Therefore,
+
+$\text{Var}[X_t]=\rho^2\,\text{Var}[X_t]+\sigma^2$, since $\text{Var}[\epsilon_t]=\sigma^2$. It follows then that...
+
+$(1-\rho^2)\text{Var}[X_t]=\sigma^2$. Therefore:
+
+$$\color{blue}{\text{Var}[X_t]=\frac{\sigma^2}{1-\rho^2}}\tag 1$$
+
+---
+
+To see the covariance of an AR(1) time series with itself lagged, we can backsubstitute in the $X_y = \rho \, X_{t-1} + \epsilon_t$ equation:
+
+$X_y = \rho \, X_{t-1} + \epsilon_t = \rho\left[\rho\,X_{t-2}+\epsilon_{t-1}\right]+\epsilon_t = \rho^2\,X_{t-2}\,+\rho\,\epsilon_{t-1}+\epsilon_t$ Or, expressed differently, $X_{t+h}=\rho^h\,X_t+\displaystyle\sum_{i=0}^{h-1}\rho^i\,\epsilon_{t+h-i}$.
+
+Therefore the covariance of $X_t$ with itself lagged into the future, $X_{t+h}$ will be:
+
+$\text{Cov}(X_t,X_{t+h})=\text{Cov}(X_t,\rho^h X_t + \displaystyle \sum_{i=0}^{h-1}\epsilon_{t+h-1})$. But there is no covariance between $X_t$ and this very last term. Hence,
+
+$\text{Cov}(X_t,X_{t+h})=\text{Cov}(X_t,\rho^h X_t)$
+
+$\text{Cov}(X_t,X_{t+h})=\rho^h \text{Cov}(X_t, X_t)$
+
+$\text{Cov}(X_t,X_{t+h})=\rho^h \text{Var}(X_t)$
+
+and resorting to Eq. 1:
+
+$\color{blue}{\text{Cov}(X_t,X_{t+h})=\rho^h \frac{\sigma^2}{1-\rho^2}}\tag 2$
+
+$\vert \rho \vert < 1$
+
+---
+
+Now we can calculate the correlation:
+
+$\text{Corr.}(X_t,X_{t+h})=\frac{\text{Cov}(X_t,X_{t+h})}{\text{Var}(X_t)}$
+
+$$\color{blue}{\text{Corr.}(X_t,X_{t+h}) = \rho^h}\tag 3$$
+
+**This implies that the correlogram (ACF) will give progressively (exponentially decaying) spikes each one corresponding to $\rho^{\text{step}}$.**
+
+**The partial autocorrelation function (PACF) will be used to distinguish AR(1) from AR(2).** It allows us to see the residual correlation after a certain number of lags after removing more proximate lags. So in an AR(1), after the first lag the PACF will not be significant. On the other hand, in an AR(2) process, the second lag will still be significant, because of the relationship $X_t=\rho_1 X_{t-1}+\rho_2 X_{t-2}$.
+
+---
+
+#####MOVING AVERAGE ORDER ONE (MA (1)) PROCESSES:
+
+They are of the form $X_t=\epsilon_t + \theta \epsilon_{t-1}$ with $\epsilon \sim \text{iid}(0,\sigma^2)$. The variance of $X_t$ will therefore be given by:
+
+$\text{Var}(X_t)= \text{Var}(\epsilon_t+\theta \epsilon_{t-1})$
+
+$\text{Var}(X_t)=\text{Var}(\epsilon_t) + \theta^2 \, \text{Var}(\epsilon_{t-1})$
+
+$\color{blue}{\text{Var}(X_t)=\sigma^2 + \theta^2\,\sigma^2 = \sigma^2(1+\theta^2)}\tag 4$
+
+---
+
+As for the covariance:
+
+$\text{Cov}(X_t,X_{t-1})=\text{Cov}(\epsilon_t + \theta \epsilon_{t-1}, \epsilon_{t-1} + \theta \epsilon_{t-2})$. Since the errors are independent, the $\text{Cov}$ of $\epsilon_t$, $\epsilon_{t-1}$ and $\epsilon_{t-2}$ is zero.
+
+$\text{Cov}(X_t,X_{t-1})=\theta \, \text{Cov}(\epsilon_{t-1},\epsilon_{t-1})$
+
+$\color{blue}{\text{Cov}(X_t,X_{t-1}) = \theta\,\sigma^2}\tag 5$
+
+Notice that this common element in the covariance expression ($\epsilon_{t-1}$) only exist if the lag is $1$. For instance,
+
+$\text{Cov}(X_t,X_{t+h})= \text{Cov}(\epsilon_t+\epsilon_{t+h},\epsilon_{t+h} + \theta \epsilon_{t+h-1})$
+
+Only in the case of $h=1$, we'll end up dealing with...
+
+$\text{Cov}(X_t,X_{t+h})=\text{Cov}(\epsilon_t,\theta\epsilon_t)$
+
+$\text{Cov}(X_t,X_{t+h})=\theta \text{Cov}(\epsilon_t,\epsilon_t)=\theta\sigma^2$. Otherwise the covariance is zero.
+
+---
+
+Having the variance and covariance, the correlation will be:
+
+For $h=1$, $\color{blue}{\text{Corr.}(X_t,X_{t+h})=\frac{\theta}{1+\theta^2}\tag 6}$
+
+If $h>1$, the correlation is zero. **This explains why in a MA(1) process, the only statistically significant spike in the ACF is the first one (aside from the spike of 1 of the correlation with itself included in the ACF).** 
+
+---
+
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
