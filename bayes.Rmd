@@ -260,7 +260,21 @@ Say that the bus comes after a waiting time of $12$ minutes once, the posterior 
 
 #####CONJUGATE PRIOR for a **Normal** Likelihood:
 
-Normal is conjugate for itself.
+Normal is conjugate for itself. So for data following $N(\mu, \sigma^2)$, there will be a prior distribution $\mu \sim N(m_o,\S_0^2$.
+
+The posterior will be $f(\mu \vert X) \propto f(X \vert \mu) f(\mu).$
+
+The posterior distribution will end up being normally distributed as:
+
+$$\mu \vert X \sim N \left ( \frac{\frac{n\bar x}{\sigma_o^2} +\frac{m_0}{S_o^2}}{\frac{n}{\sigma_o^2} +\frac{1}{S_0^2}} , \frac{1}{\frac{n}{S_0^2}+\frac{1}{S_0^2}} \right )$$
+
+The posterior mean can be written as:
+
+$$\frac{\frac{n}{\sigma_o^2} }{\frac{n}{\sigma_o^2} +\frac{1}{S_0^2}}  \bar x + \frac{ \frac{1}{S_o^2}}{\frac{n}{\sigma_o^2} +\frac{1}{S_0^2}}m_0$$ 
+
+Rearranging we get a weighted mean:
+
+$$\frac{n}{n+\frac{\sigma_0^2}{S_0^2}}\bar x + \frac{\frac{\sigma_0^2}{S_0^2}}{n + \frac{\sigma_0^2}{S_0^2}}m$$
 
 
 ---
