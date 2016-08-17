@@ -1,0 +1,72 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+The [ACF](https://en.wikipedia.org/wiki/Autocorrelation) is rather straightforward: we have a time series, and basically make multiple "copies" (as in "copy and paste") of it, understanding that each copy is going to be offset by one entry from the prior copy, because the initial data contains $t$ data points, while the previous time series length (which excludes the last data point) is only $t-1$. We can make virtually as many copies as there are rows. Each copy is correlated to the original, keeping in mind that we need identical lengths, and to this end, we'll have to keep on clipping the tail end of the initial data series to make them comparable. For instance, to correlate the initial data to $ts_{t-3}$ we'll need to get rid of the last $3$ data points of the original time series (the first $3$ chronologically).
+
+Example:
+
+We'll concoct a times series with a cyclical sine pattern superimposed on a trend line, and noise, and plot the R generated ACF. I got this example from an [online post](http://www.christoph-scherber.de/content/Statistics%20Course%20files/A%20short%20introduction%20to%20time%20series%20analysis%20in%20R.pdf) by Christoph Scherber, and just added the noise to it:
+
+    x=seq(pi, 10 * pi, 0.1)
+    y = 0.1 * x + sin(x) + rnorm(x)
+    y = ts(y, start=1800)
+[![enter image description here][1]][1]
+
+Ordinarily we would have to test the data for stationarity (or just look at the plot above), but we know there is a trend in it, so let's skip this part, and go directly to the de-trending step:
+
+    model=lm(y ~ I(1801:2083))
+    st.y = y - predict(model)
+
+[![enter image description here][2]][2]
+
+Now we are ready to takle this time series by first generating the ACF with the `acf()` function in R, and then comparing the results to the makeshift loop I put together:
+
+    ACF = 0                  # Starting an empty vector to capture the auto-correlations.
+    ACF[1] = cor(st.y, st.y) # The first entry in the ACF is the correlation with itself (1).
+    for(i in 1:30){          # Took 30 points to parallel the output of `acf()`
+      lag = st.y[-c(1:i)]    # Introducing lags in the stationary ts.
+      clipped.y = st.y[1:length(lag)]    # Compensating by reducing length of ts.
+      ACF[i + 1] = cor(clipped.y, lag)   # Storing each correlation.
+    }
+    acf(st.y)                            # Plotting the built-in function (left)
+    plot(ACF, type="h", main="ACF Manual calculation"); abline(h = 0) # and my results (right).
+
+[![enter image description here][3]][3]
+
+
+----------
+
+
+OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_autocorrelation_function). Much more tricky to hack... The idea here is to again clone the initial ts a bunch of times, and then select multiple time points. However, instead of just correlating with the initial time series, we put together all the lags in-between, and perform a regression analysis, so that the variance explained by the previous time points can be excluded (controlled). For example, if we are focusing on the PACF ending at time $ts_{t-4}$, we keep $ts_t$, $ts_{t-1}$, $ts_{t-2}$ and $ts_{t-3}$, as well as $ts_{t-4}$, and we regress $ts_t \sim ts_{t-1} + ts_{t-2} + ts_{t-3}+ts_{t-4}$ **through** the origin and keeping only the coefficient for $ts_{t-4}$:
+
+    PACF = 0          # Starting up an empty storage vector.
+    for(j in 2:25){   # Picked up 25 lag points to parallel R `pacf()` output.
+      cols = j        
+      rows = length(st.y) - j + 1 # To end up with equal length vectors we clip.
+      
+      lag = matrix(0, rows, j)    # The storage matrix for different groups of lagged vectors.
+      
+    for(i in 1:cols){
+      lag[ ,i] = st.y[i : (i + rows - 1)]  #Clipping progressively to get lagged ts's.
+    }
+      lag = as.data.frame(lag)
+      fit = lm(lag$V1 ~ . - 1, data = lag) # Running an OLS for every group.
+      PACF[j] = coef(fit)[j - 1]           # Getting the slope for the last lagged ts.
+    }
+
+And finally plotting again side-by-side, R-generated and manual calculations:
+
+[![enter image description here][4]][4]
+
+That the idea is correct, beside probable computational issues, can be seen comparing `PACF` to `pacf(st.y, plot = F)`.
+
+  [1]: http://i.stack.imgur.com/lSjTT.png
+  [2]: http://i.stack.imgur.com/DQpvt.png
+  [3]: http://i.stack.imgur.com/5MH8v.png
+  [4]: http://i.stack.imgur.com/oYQ2w.png
+  
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
