@@ -254,13 +254,13 @@ If we say that a bus arrives on average every $10$ minutes, we have a mean of th
 
 $\large f(\lambda \arrowvert x) \propto f(X \arrowvert \lambda)f(\lambda) \propto \lambda e^{-\lambda y}\lambda^{\alpha-1} e^{-\beta \lambda} = \lambda^{(\alpha+1)-1}\,e^{-(\beta x)\lambda}$
 
-Say that the bus comes after a waiting time of $12$ minutes once, the posterior will follow a distribution: $\large f(\lambda \arrowvert x) \sim \Gamma (\alpha+1, \beta + x)$. Pluggin in the values, we end up with a posterior $\lambda \arrowvert x ~propto \Gamma(101, 1012)$ with a posterior mean of $\frac{101}{1012}$.
+Say that the bus comes after a waiting time of $12$ minutes once, the posterior will follow a distribution: $\large f(\lambda \arrowvert x) \sim \Gamma (\alpha+1, \beta + x)$. Pluggin in the values, we end up with a posterior $\lambda \arrowvert x ~\propto \Gamma(101, 1012)$ with a posterior mean of $\frac{101}{1012}$.
 
 ---
 
 #####CONJUGATE PRIOR for a **Normal** Likelihood:
 
-Normal is conjugate for itself. So for data following $N(\mu, \sigma^2)$, there will be a prior distribution $\mu \sim N(m_o,\S_0^2$.
+Normal is conjugate for itself. So for data following $N(\mu, \sigma^2)$, there will be a prior distribution $\mu \sim N(m_o,\S_o^2)$.
 
 The posterior will be $f(\mu \vert X) \propto f(X \vert \mu) f(\mu).$
 
@@ -276,6 +276,62 @@ Rearranging we get a weighted mean:
 
 $$\frac{n}{n+\frac{\sigma_0^2}{S_0^2}}\bar x + \frac{\frac{\sigma_0^2}{S_0^2}}{n + \frac{\sigma_0^2}{S_0^2}}m$$
 
+---
+
+#####CONJUGATE PRIOR for a **Normal** Likelihood with UNKNOWN mean and variance:
+
+We specify a prior in a hierarchial fashion. The data $X_i \vert \mu, \sigma^2 \overset{iid}{\sim} N(\mu,\sigma^2)$, and we specify a prior for $\mu$ conditional on $\sigma^2$: $\mu \vert \sigma^2 \sim N(m, \frac{\sigma^2}{w})$. $w = \frac{\sigma^2}{\sigma_\mu^2}$ is the effective sample size. The prior for $\sigma^2 \sim \Gamma^{-1}(\alpha, \beta)$.
+
+The posterior for $\sigma^2$ is:
+
+$\sigma^2 \vert x \sim \Gamma^{-1}\left(\alpha + \frac{n}{2}, \beta + \frac{1}{2} \sum_{i=1}^n (x_i -\bar x)^2 + \frac{nw}{2(n+w)}(\bar x - m)^2 \right)$
+
+while the posterior distribution for $\mu$ is:
+
+$\mu \vert \sigma^2 \sim N\left( \frac{n\bar x + wm}{n+w}, \frac{\sigma^2}{n+w}\right)$.
+
+The mean can be written as a weighted average of the prior mean and the data mean:
+
+$\frac{n\bar x + wm}{n+w}= \frac{w}{n+w}m+\frac{n}{n+w}\bar x$.
+
+We can marginalized $\sigma^2$, and get a $\mu \vert X \sim t$.
+
+---
+
+##### OBJECTIVE BAYES STATISTICS: NON INFORMATIVE PRIORS:
+
+######Bernouilli:
+
+We can have a prior for a coin toss ($Y_i \sim B(\theta)$) that follows $\theta \sim U[0,1]=\text{Beta}(1,1)$. The effective sample size of a beta prior is the sum of its parameters, which in this case is $2$ - not a completely non-informative prior. We can use $\text{Beta}(1/2,1/2)$, or $(.001,.001)$, or $(0,0)$. This latter case would have a density $\text{\Beta}(0,0) \sim f(\theta) \propto \theta^{-1}(1-\theta)^{-1}$, which does not integrate to $1$ (not a true density). It is an *improper prior*, but we can still use it, and get a posterior $f(\theta \vert y) \propto \theta^{y-1}(1-\theta)^{n-y-1} \sim \text{Beta}(y, n-y)$. This posterior *is* proper.
+
+The posterior mean will be $\frac{y}{n}$, which is the MLE of $\hat\theta$: $\hat \theta = \frac{y}{n}$, as in the frequentist approach.
+
+
+######Normal:
+
+We can take a vague prior with a huge variance: $\mu \sim N(0,1000000^2)$ At the limit of the variance, we spread across the real line, getting an improper prior $f(\mu) \propto 1$.
+
+But the posterior will be:
+
+$f(\mu \vert y) \propto f(y \vert \mu) f(\mu) \propto \text{exp} \left\{ \frac{1}{-2\frac{\sigma^2}{n}} (\mu - \bar y)^2\right\}$.
+
+This is to say $\mu \vert y \sim N(\bar y, \sigma^2/n)$.
+
+If the variance is unknown the non-informative prior is $f(\sigma^2) \propto \frac{1}{\sigma^2}=\Gamma^{-1}(0,0)$. It is improper and uniform in log scale of $\sigma^2$. The posterior is:
+
+$\sigma^2 \vert y \sim \Gamma^{-1}\left(\frac{n-1}{2}, 1/2 \sum(y_i - \bar   y)^2\right)$
+
+---
+
+#####JEFFREY'S PRIOR:
+
+To address parametrization differences.
+
+$f(\theta) \propto \sqrt{I(\theta)}$ or square root of the Fisher information. In most cases it will be an improper prior.
+
+For normal data, the Jeffrey's prior is $f(\mu) \propto 1$ (uniform for mu), and $f(\sigma^2) \propto \frac{1}{\sigma^2}$ (uniform on the log scale).
+
+For Bernouilli or binomial, the Jeffrey's prior is $f(\theta) \propto \theta^{-1/2}(1- \theta)^{-1/2} \sim \text{Beta}(1/2,1/2)$.
 
 ---
 
