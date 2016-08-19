@@ -8,27 +8,27 @@
 
 The cost function is not necessary in OLS, but it comes into play when using regularization.
 
-With $\Theta$ representing the coefficients, the cost function is:
+With $\hat \beta$ representing the coefficients, the cost function is:
 
-$$J(\Theta)= (y - {\bf X}\Theta)^T(y- {\bf \Theta})= \displaystyle \sum_{i=1}^n (y_i - x_i^T\Theta)^2= \sum_{i=1}^n(y_i - \hat y_i)^2$$
+$$J(\hat \beta)= (y - {\bf X}\hat \beta)^T(y- {\bf \hat \beta})= \displaystyle \sum_{i=1}^n (y_i - x_i^T\hat \beta)^2= \sum_{i=1}^n(y_i - \hat y_i)^2$$
 
 Expanding the quadratic in matrix notation:
 
-$$J(\Theta)= (y - {\bf X}\Theta)^T(y- {\bf \Theta})= y^Ty + \color{red}{\Theta^T\,X^TX\,\Theta} - 2y^TX\Theta$$
+$$J(\hat \beta)= (y - {\bf X}\hat \beta)^T(y- {\bf \hat \beta})= y^Ty + \color{red}{\hat \beta^T\,X^TX\,\hat \beta} - 2y^TX\hat \beta$$
 
 The term in red is a positive semidefinite matrix. A positive definite matrix fulfills the requirement, $x^TAx>0$. The other two terms are scalars.
 
 To differentiate the cost function to obtain a minimum we need two pieces of information:
 
-$\frac{\partial {\bf A}\theta}{\partial \theta}={\bf A}^T$ (the derivative of a matrix with respect to a vector); and $\frac{\partial \theta^T{\bf A}\theta}{\partial \theta}= 2{\bf A}^T\theta$ (derivative of a quadratic form with respect to a vector).
+$\frac{\partial {\bf A}\hat \beta}{\partial \hat \beta}={\bf A}^T$ (the derivative of a matrix with respect to a vector); and $\frac{\partial \hat \beta^T{\bf A}\hat \beta}{\partial \hat \beta}= 2{\bf A}^T\hat \beta$ (derivative of a quadratic form with respect to a vector).
 
-$$\frac{\partial J(\Theta)}{\partial \Theta}=\frac{\partial}{\partial\Theta}\left[y^Ty + \color{red}{\Theta^T\,X^TX\,\Theta} - 2y^TX\Theta \right]=0 +2 \color{red}{X^TX\,\Theta}-2X^Ty$$
+$$\frac{\partial J(\hat \beta)}{\partial \hat \beta}=\frac{\partial}{\partial\hat \beta}\left[y^Ty + \color{red}{\hat \beta^T\,X^TX\,\hat \beta} - 2y^TX\hat \beta \right]=0 +2 \color{red}{X^TX\,\hat \beta}-2X^Ty$$
 
 which gives:
 
-$$2X^TX\Theta = 2X^Ty$$
+$$2X^TX\hat \beta = 2X^Ty$$
 
-$$\Theta = (X^TX)^{-1}X^Ty$$
+$$\hat \beta = (X^TX)^{-1}X^Ty$$
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
