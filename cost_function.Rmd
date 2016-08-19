@@ -8,13 +8,13 @@
 
 The cost function is not necessary in OLS, but it comes into play when using regularization.
 
-With $\hat \beta$ representing the coefficients, the cost function is:
+The cost function would be generally expressed as:
 
-$$J(\hat \beta)= (y - {\bf X}\hat \beta)^T(y- {\bf \hat \beta})= \displaystyle \sum_{i=1}^n (y_i - x_i^T\hat \beta)^2= \sum_{i=1}^n(y_i - \hat y_i)^2$$
+$J(\hat \beta)= (y - {\bf X}\hat \beta)^T(y- {\bf{X} \hat \beta})= \displaystyle \sum_{i=1}^n (y_i - x_i^T\hat \beta)^2= \sum_{i=1}^n(y_i - \hat y_i)^2$
 
 Expanding the quadratic in matrix notation:
 
-$$J(\hat \beta)= (y - {\bf X}\hat \beta)^T(y- {\bf \hat \beta})= y^Ty + \color{red}{\hat \beta^T\,X^TX\,\hat \beta} - 2y^TX\hat \beta$$
+$$J(\hat \beta)= (y - {\bf X}\hat \beta)^T(y- {{\bf X} \hat \beta})= y^Ty + \color{red}{\hat \beta^T\,X^TX\,\hat \beta} - 2y^TX\hat \beta$$
 
 The term in red is a positive semidefinite matrix. A positive definite matrix fulfills the requirement, $x^TAx>0$. The other two terms are scalars.
 
