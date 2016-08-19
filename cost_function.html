@@ -76,8 +76,15 @@ img {
 <p><span class="math display">\[J(\Theta)= (y - {\bf X}\Theta)^T(y- {\bf \Theta})= \displaystyle \sum_{i=1}^n (y_i - x_i^T\Theta)^2= \sum_{i=1}^n(y_i - \hat y_i)^2\]</span></p>
 <p>Expanding the quadratic in matrix notation:</p>
 <p><span class="math display">\[J(\Theta)= (y - {\bf X}\Theta)^T(y- {\bf \Theta})= y^Ty + \color{red}{\Theta^T\,X^TX\,\Theta} - 2y^TX\Theta\]</span></p>
-<p>The term in red is a positive semidefinite matrix. The other two terms are scalars.</p>
-<hr />
+<p>The term in red is a positive semidefinite matrix. A positive definite matrix fulfills the requirement, <span class="math inline">\(x^TAx&gt;0\)</span>. The other two terms are scalars.</p>
+<p>To differentiate the cost function to obtain a minimum we need two pieces of information:</p>
+<p><span class="math inline">\(\frac{\partial {\bf A}\theta}{\partial \theta}={\bf A}^T\)</span> (the derivative of a matrix with respect to a vector); and <span class="math inline">\(\frac{\partial \theta^T{\bf A}\theta}{\partial \theta}= 2{\bf A}^T\theta\)</span> (derivative of a quadratic form with respect to a vector).</p>
+<p><span class="math display">\[\frac{\partial J(\Theta)}{\partial \Theta}=\frac{\partial}{\partial\Theta}\left[y^Ty + \color{red}{\Theta^T\,X^TX\,\Theta} - 2y^TX\Theta \right]=0 +2 \color{red}{X^TX\,\Theta}-2X^Ty\]</span></p>
+<p>which gives:</p>
+<p><span class="math display">\[2X^TX\Theta = 2X^Ty\]</span></p>
+</div>
+<div id="theta-xtx-1xty" class="section level2">
+<h2><span class="math display">\[\Theta = (X^TX)^{-1}X^Ty\]</span></h2>
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
 
