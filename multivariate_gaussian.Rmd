@@ -16,13 +16,13 @@ The multivariate Gaussian is defined for $X \in \mathbb R^n$ as any linear combi
 
 $a^T X = \sum_{i=1}^n a_i X_i$ for $\forall a \in \mathbb R^n.$
 
-We will express it as $X\sim N(\mu,C)$, where $\mu$ is a vector in $\mathbb R^n$. The $\mathbb E(X_i)=\mu_i$; and the covariance matrix is an $n \times n$ positive semidefinite matrix, such that $Cov(X_i, X_j) = C_{ij}.$
+We will express it as $X\sim N(\mu,\Sigma)$, where $\mu$ is a vector in $\mathbb R^n$. The $\mathbb E(X_i)=\mu_i$; and the covariance matrix is an $n \times n$ positive semidefinite matrix, such that $\Sigma(X_i, X_j) = \Sigma_{ij}.$
 
-A multivariate Gaussian is degenerated if the $det(C)=0.$
+A multivariate Gaussian is degenerated if the $det(\Sigma)=0.$
 
 If the Gaussian distributions are independent, the covariance matrix is:
 
-$$Cov = \begin{bmatrix}\sigma_1^2&0\\0&\sigma_2^2\end{bmatrix}$$
+$$\Sigma = \begin{bmatrix}\sigma_1^2&0\\0&\sigma_2^2\end{bmatrix}$$
 
 If the variance is $1$ for both Gaussians:
 
@@ -47,6 +47,11 @@ Z = reshape(Z,size(X)); %// put into same size as X, Y
 surf(X,Y,Z) %// ... or 3D plot
 ```
 
+The density of the multivariate Gaussian is:
+
+$$f(X) = \frac{1}{\sqrt{\vert2\pi\Sigma^2\vert}}\exp\left(-\frac{1}{2}(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)\right)$$
+
+$\vert2\pi\Sigma^2\vert= (2\pi)^n \times \text{det}(\Sigma)$ is the determinant of $2\pi\Sigma^2$.
 
 ---
 
