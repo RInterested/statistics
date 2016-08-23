@@ -6,9 +6,47 @@
 ###MULTIVARIATE GAUSSIAN:
 <br>
 
-The univariate Gaussian is:
+The univariate Gaussian ($X \sim N(\mu, \sigma^2$) is:
 
 $$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x-\mu)^2\right), \forall \in \mathbb R.$$ 
+
+The degenerate Gaussian has variance equal to $0$ and hence, $X(\omega)=\mu, \forall \omega \in \Omega.$
+
+The multivariate Gaussian is defined for $X \in \mathbb R^n$ as any linear combination of univariate Gaussian distribution:
+
+$a^T X = \sum_{i=1}^n a_i X_i$ for $\forall a \in \mathbb R^n.$
+
+We will express it as $X\sim N(\mu,C)$, where $\mu$ is a vector in $\mathbb R^n$. The $\mathbb E(X_i)=\mu_i$; and the covariance matrix is an $n \times n$ positive semidefinite matrix, such that $Cov(X_i, X_j) = C_{ij}.$
+
+A multivariate Gaussian is degenerated if the $det(C)=0.$
+
+If the Gaussian distributions are independent, the covariance matrix is:
+
+$$Cov = \begin{bmatrix}\sigma_1^2&0\\0&\sigma_2^2\end{bmatrix}$$
+
+If the variance is $1$ for both Gaussians:
+
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/17905119/d6c63128-693f-11e6-930e-08c7302105a6.png">
+
+If the variances are different, say $1$ and $4$:
+
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/17905528/4d70fdca-6941-11e6-8df2-1f4578a42d95.png">
+
+This is the Matlab code:
+
+```
+pkg load 'statistics'
+mu = [0,0]; %// data
+sigma = [1 0; 0 4]; %// data
+x = -5:.2:5; %// x axis
+y = -5:.2:5; %// y axis
+
+[X Y] = meshgrid(x,y); %// all combinations of x, y
+Z = mvnpdf([X(:) Y(:)],mu,sigma); %// compute Gaussian pdf
+Z = reshape(Z,size(X)); %// put into same size as X, Y
+surf(X,Y,Z) %// ... or 3D plot
+```
+
 
 ---
 
