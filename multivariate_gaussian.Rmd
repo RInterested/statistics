@@ -3,7 +3,6 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-From a series of youtube videos [here](https://youtu.be/G6_OdMXpiVY).
 
 ###MULTIVARIATE GAUSSIAN:
 <br>
@@ -49,11 +48,10 @@ Z = reshape(Z,size(X)); %// put into same size as X, Y
 surf(X,Y,Z) %// ... or 3D plot
 ```
 
-The density of the multivariate Gaussian is:
+The density of an $M$-dimensional multivariate Gaussian is:
 
-$$f(X) = \frac{1}{\sqrt{\vert2\pi\Sigma^2\vert}}\exp\left(-\frac{1}{2}(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)\right)$$
+$$f(X) = \frac{1}{(2\pi)^M\,\text{det}(\Sigma)^{1/2}}\exp\left(-\frac{1}{2}(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)\right)$$
 
-$\vert2\pi\Sigma^2\vert= (2\pi)^n \times \text{det}(\Sigma)$ is the determinant of $2\pi\Sigma^2$.
 
 $(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)$ is a **quadratic form**. A quadratic form in linear algebra is of the form $x^TAx$, providing the formula for ellipsoids in higher dimensions.
 
@@ -150,6 +148,8 @@ If $X= (X_1, X_2)^T \in \mathbb R^2 \implies (X_1 \vert X_2 = x_2)$ is Gaussian.
 Using the same block matrices as above:
 
 $(X_a \vert X_b =x_b) \sim N(m, D)$ where $m= \mu_a + \Sigma_{ab}\Sigma_{bb}^{-1}(x_b - \mu_b)$ and $D = \Sigma_{aa} - \Sigma_{ab}\Sigma_{bb}^{-1}\Sigma_{ba}$.
+
+
 
 ---
 
