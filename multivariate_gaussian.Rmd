@@ -12,7 +12,7 @@ $$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x-\mu)^2\ri
 
 The degenerate Gaussian has variance equal to $0$ and hence, $X(\omega)=\mu, \forall \omega \in \Omega.$
 
-The multivariate Gaussian is defined for $X \in \mathbb R^n$ as any linear combination of univariate Gaussian distribution:
+The multivariate Gaussian is defined for $X \in \mathbb R^n$ as any linear combination of univariate Gaussian distributions:
 
 $a^T X = \sum_{i=1}^n a_i X_i$ for $\forall a \in \mathbb R^n.$
 
@@ -65,7 +65,7 @@ Ellipsoids are of the form $x^2/a^2+y^2/b^2+z^2/c^2 = 1$:
 
 This is [Dr. Strang's example](https://youtu.be/vF7eyJ2g3kU) of a $3 \times 3$ positive definite matrix. What he calls "the good matrix":
 
-$$A= \begin{bmatrix}2&-1&0\\-1&2&-1\\0&-1&2\end{bmatrix}$$
+$$A= \begin{bmatrix}\,\,\,2&-1&0\\-1&\,\,2&-1\\\,\,\,0&-1&2\end{bmatrix}$$
 
 Proving that it is positive definite through the $x^TAx$ rule...
 
@@ -73,7 +73,22 @@ $$x^TAx=2x_1^2 + 2x_2^2 + 2x_3^2 - 2x_1x_2 - 2x_2x_3  > 0$$
 
 we could complete the square to proof that the inequality is true.
 
-We are in four dimensions, being that we have a function. But if we cut through this thing at height one, we get an ellipsoid (a lopsided football).
+We are in four dimensions, being that we have a function. But if we cut through this thing at height one, we get an ellipsoid (a lopsided football) with its axes determined by the eigenvalues in the factorization $Q\Lambda Q^{-1}$.
+
+---
+
+#####Affine Property of the Gaussian:
+
+Any affine transformation ($f(x) = Ax + b$) of a Gaussian is a Gaussian. If $X \sim N(\mu, \Sigma)$, $Ax + b \sim N(A\mu + b, A\Sigma A^T)$.
+
+So if $X_1, X_2, \dots, X_n \sim N(0,1)$ iid, placing them in a vector, we get $X \sim (0, \bf I)$, and $Ax + b \sim N(\mu ,\Sigma)$, where $\Sigma = AA^T$. This is a form of generating multivariate Gaussians.
+
+"Sphering" turns a Gaussian into a "sphere" (multivariate standard) through an affine transformation:
+
+$Y \sim N(\mu, \Sigma)\implies A^{-1}(Y-\mu) \sim N(0,\bf I)$, where $\Sigma = AA^T$.
+
+
+
 
 ---
 
