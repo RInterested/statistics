@@ -53,9 +53,11 @@ The density of an $M$-dimensional multivariate Gaussian is:
 $$f({\bf X \vert \mu, \Sigma}) = \frac{1}{(2\pi)^{M/2}\,\text{det}(\Sigma)^{1/2} 
 }\text{exp}\left[-\frac{1}{2}({\bf X-\mu})^T \,{\bf  \Sigma^{-1}\,(X-\mu)}\right]$$
 
+<br>
 
-$(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)$ is a **quadratic form**. A quadratic form in linear algebra is of the form $x^TAx$, providing the formula for ellipsoids in higher dimensions.
+The important part of the formula is the exponent, $({\bf X-\mu})^T \,{\bf  \Sigma^{-1}\,(X-\mu)}$, which is a positive definite quadratic function. The part in front is just a normalizing factor.
 
+A quadratic form in linear algebra is of the form $x^TAx$, providing the formula for ellipsoids in higher dimensions. And $\Sigma$ can be visualized as an "error elipsoid" around the mean.
 
 ---
 
@@ -117,7 +119,7 @@ and $\Sigma$ into the block matrix $\Sigma = \begin{bmatrix}\Sigma_{aa}&\Sigma_{
 
 The marginalization property states that $X_a \sim N({\bf \mu_a}, \Sigma_{aa})$ is multivariate normal. We can prove it using the affine property and using the projection matrix $A$ (without blocks it is of the form $[1 0]$ or $[0 1]$):
 
-
+<br>
 
 $A = \begin{bmatrix}1&0&0&0&0&\dots&0&&0&0&0&\dots&0\\
                 0&1&0&0&0&\dots&0&&0&0&0&\dots&0\\
@@ -150,7 +152,7 @@ Using the same block matrices as above:
 
 $(X_a \vert X_b =x_b) \sim N(m, D)$ where $m= \mu_a + \Sigma_{ab}\Sigma_{bb}^{-1}(x_b - \mu_b)$ and $D = \Sigma_{aa} - \Sigma_{ab}\Sigma_{bb}^{-1}\Sigma_{ba}$.
 
-
+For a full derivation see [here](statistics/Inverse and determinant of partitioned symmetric matrix.pdf) and [here](statistics/Marginal and conditional distributions of multivariate normal distribution.pdf).
 
 ---
 
