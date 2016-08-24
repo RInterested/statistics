@@ -53,6 +53,28 @@ $$f(X) = \frac{1}{\sqrt{\vert2\pi\Sigma^2\vert}}\exp\left(-\frac{1}{2}(x-\mu)^T 
 
 $\vert2\pi\Sigma^2\vert= (2\pi)^n \times \text{det}(\Sigma)$ is the determinant of $2\pi\Sigma^2$.
 
+$(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)$ is a **quadratic form**. A quadratic form in linear algebra is of the form $x^TAx$, providing the formula for ellipsoids in higher dimensions.
+
+---
+
+Ellipsoids are of the form $x^2/a^2+y^2/b^2+z^2/c^2 = 1$:
+
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/17914054/f35715fa-696c-11e6-9a71-eca422b98985.png">
+
+---
+
+This is [Dr. Strang's example](https://youtu.be/vF7eyJ2g3kU) of a $3 \times 3$ positive definite matrix. What he calls "the good matrix":
+
+$$A= \begin{bmatrix}2&-1&0\\-1&2&-1\\0&-1&2\end{bmatrix}$$
+
+Proving that it is positive definite through the $x^TAx$ rule...
+
+$$x^TAx=2x_1^2 + 2x_2^2 + 2x_3^2 - 2x_1x_2 - 2x_2x_3  > 0$$
+
+we could complete the square to proof that the inequality is true.
+
+We are in four dimensions, being that we have a function. But if we cut through this thing at height one, we get an ellipsoid (a lopsided football).
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
