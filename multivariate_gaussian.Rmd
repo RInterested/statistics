@@ -50,7 +50,8 @@ surf(X,Y,Z) %// ... or 3D plot
 
 The density of an $M$-dimensional multivariate Gaussian is:
 
-$$f(X) = \frac{1}{(2\pi)^M\,\text{det}(\Sigma)^{1/2}}\exp\left(-\frac{1}{2}(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)\right)$$
+$$f({\bf X \vert \mu, \Sigma}) = \frac{1}{(2\pi)^{M/2}\,\text{det}(\Sigma)^{1/2} 
+}\text{exp}\left[-\frac{1}{2}({\bf X-\mu})^T \,{\bf  \Sigma^{-1}\,(X-\mu)}\right]$$
 
 
 $(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)$ is a **quadratic form**. A quadratic form in linear algebra is of the form $x^TAx$, providing the formula for ellipsoids in higher dimensions.

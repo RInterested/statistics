@@ -96,7 +96,8 @@ Z = mvnpdf([X(:) Y(:)],mu,sigma); %// compute Gaussian pdf
 Z = reshape(Z,size(X)); %// put into same size as X, Y
 surf(X,Y,Z) %// ... or 3D plot</code></pre>
 <p>The density of an <span class="math inline">\(M\)</span>-dimensional multivariate Gaussian is:</p>
-<p><span class="math display">\[f(X) = \frac{1}{(2\pi)^M\,\text{det}(\Sigma)^{1/2}}\exp\left(-\frac{1}{2}(x-\mu)^T \,\Sigma^{-1}\,(x-\mu)\right)\]</span></p>
+<p><span class="math display">\[f({\bf X \vert \mu, \Sigma}) = \frac{1}{(2\pi)^{M/2}\,\text{det}(\Sigma)^{1/2} 
+}\text{exp}\left[-\frac{1}{2}({\bf X-\mu})^T \,{\bf  \Sigma^{-1}\,(X-\mu)}\right]\]</span></p>
 <p><span class="math inline">\((x-\mu)^T \,\Sigma^{-1}\,(x-\mu)\)</span> is a <strong>quadratic form</strong>. A quadratic form in linear algebra is of the form <span class="math inline">\(x^TAx\)</span>, providing the formula for ellipsoids in higher dimensions.</p>
 <hr />
 <p>Ellipsoids are of the form <span class="math inline">\(x^2/a^2+y^2/b^2+z^2/c^2 = 1\)</span>:</p>
