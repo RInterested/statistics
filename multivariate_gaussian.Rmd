@@ -113,22 +113,24 @@ In general, we can decompose an $n$-dimension multivariate Gaussian matrix $X \s
 
 $X= \begin{bmatrix}X_a\\X_b\end{bmatrix}$ with $X_a= \begin{bmatrix}X_1\\\vdots\\X_k\end{bmatrix}$  and $X_b= \begin{bmatrix}X_{k+1}\\\vdots\\X_n\end{bmatrix}$.  
 
-We can decomose $\mu = \begin{bmatrix}\mu_a\\\mu_b\end{bmatrix}$
+We can decompose $\mu = \begin{bmatrix}\mu_a\\\mu_b\end{bmatrix}$
 
-and $\Sigma$ into the block matrix $\Sigma = \begin{bmatrix}\Sigma_{aa}&\Sigma_{ab}\\\Sigma_{ba}&\Sigma_{bb}\end{bmatrix}$. This is a block matrix because $\Sigma_{aa}=\begin{bmatrix}C_{11}&\dots&C_{1k}\\\vdots&\ddots&\vdots\\C_{k1}&\dots&C_{kk}\end{bmatrix}$
+and $\Sigma$ into the block matrix $\Sigma = \begin{bmatrix}\Sigma_{aa}&\Sigma_{ab}\\\Sigma_{ba}&\Sigma_{bb}\end{bmatrix}$. This is a block matrix because $\Sigma_{aa}=\small\begin{bmatrix}\sigma^2(X_1)&\dots&\text{cov}(X_1,X_k)\\\vdots&\ddots&\vdots\\\text{cov}(X_k,X_1)&\dots&\sigma^2(X_k)\end{bmatrix}$
 
 The marginalization property states that $X_a \sim N({\bf \mu_a}, \Sigma_{aa})$ is multivariate normal. We can prove it using the affine property and using the projection matrix $A$ (without blocks it is of the form $[1 0]$ or $[0 1]$):
 
 <br>
 
-$A = \begin{bmatrix}1&0&0&0&0&\dots&0&&0&0&0&\dots&0\\
-                0&1&0&0&0&\dots&0&&0&0&0&\dots&0\\
-                0&0&1&0&0&\dots&0&&0&0&0&\dots&0\\
-                0&0&0&1&0&\dots&0&&0&0&0&\dots&0\\
-                0&0&0&0&1&\dots&0&&0&0&0&\dots&0\\
-                \vdots\\
-                0&0&0&0&0&\dots&1&&0&0&0&\dots&0\\
-\end{bmatrix}$ which is $(k \times n)$.
+$$A = \begin{bmatrix}
+{\color{red}{1}}&0&0&0&0&\dots&0&&0&0&0&\dots&0\\
+0&{\color{red}{1}}&0&0&0&\dots&0&&0&0&0&\dots&0\\
+0&0&{\color{red}{1}}&0&0&\dots&0&&0&0&0&\dots&0\\
+0&0&0&{\color{red}{1}}&0&\dots&0&&0&0&0&\dots&0\\   0&0&0&0&{\color{red}{1}}&\dots&0&&0&0&0&\dots&0\\\vdots&\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&&\vdots&\vdots&\vdots&\ddots&\vdots\\0&0&0&0&0&\dots&{\color{red}{1}}&&0&0&0&\dots&0\\
+\end{bmatrix}$$ 
+
+
+
+which is $(k \times n)$.
 
 And by construction,
 
