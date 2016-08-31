@@ -1,0 +1,47 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###CHI SQUARE TEST FOR THE VARIANCE OR STANDARD DEVIATION:
+<br>
+
+Assuming that the data are normally distributed, the chi-square test can be used for the variance or standard deviation: Is the population variance or standard deviation is equal to a specified value?
+
+The test statistic is:
+
+$$\chi^2_{\text{stat}} = \frac{(n-1)\,S^2}{\sigma^2}$$
+
+where
+
+$n = \text{sample size}$
+$S^2 = \text{sample variance}$
+$\sigma^2 = \text{hypothetical population variance}$
+
+We want to know if the standard deviation has changed from a hypthetical
+$5$ mL in a bottling soda company Thus, you use a two-tail test with the following null and alternative hypotheses:
+
+$H_0: \sigma^2 = 25$ ($\sigma = 5$ mL)
+$H_1: \sigma^2 \neq 25$.
+
+With a sample of 30 bottles, you reject the null hypothesis if the computed test statistic falls into either the lower or upper tail of a chi-square distribution with $n-1 = 30 - 1 =29$ degrees of freedom,
+
+If the sample standard deviation is $S = 8$ mL, the test statistic would be:
+
+$\chi^2 = \frac{(30-1)\,(8)^2}{5^2}=74.24$
+
+The theshold values with a risk alpha of $0.05$ are:
+
+```{r}
+qchisq(c(0.025, 1 - 0.025), 29)
+```
+
+Hence we reject $H_0$, in favor of the alternative hypthesis that the variance has increased with a p value of:
+
+```{r}
+(p = 1 - pchisq(74.24, 29))
+```
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
