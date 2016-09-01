@@ -6,6 +6,103 @@
 ###MANN-WHITNEY U TEST or WILCOXON RANK-SUM TEST (WRS):
 <br>
 
+From [this question in CV](http://stats.stackexchange.com/q/229358/67822):
+
+>I want to test whether the difference between the pairs of students's scores  follows a symmetric distribution around zero. 
+
+    Students	Before 	After 	difference
+       1	      **	 **	       10
+       2	      **	 **	       -9
+       3	      **	 **	       8
+       4	      **	 **	       5
+       5	      **	 **	      -6
+       6	      **	 **        0
+       7	      **	 **	       2
+
+Since the data is not normally distributed, I assume i can use wilcoxon signed-rank test here, but in this case we only  know the difference of the pairs, so if perform wilcoxon signed-rank test in r here, normally the code should be:
+
+    wilcox.test(before,after,paired=T, exact=T)
+
+but the problem is that, I don't have the data of 'before' and 'after', instead I only know the difference between them, so it seems wilcoxon signed-rank test can not be applied here. Is there other alternative method to this case? 
+
+Answer:
+
+I have been playing with this question, and here is what I got so far...
+
+> 1. Looking under the hood of R `wilcox.test()`:
+
+I tried following on the side what R was doing in the back. Here is some code:
+
+    d = data.frame(difference = c(10,-9,8,5,-6,0,2))   # Differences in OP
+    d$sgn = sign(d$difference)                         # The sign function of these diff's
+    d$abs = abs(d$difference)                          # The absolute value of these diff's
+    d$abs = replace(d$abs, d$abs==0, NA)               # Getting the zeros out of the way
+    n = length(d$rank) - length(d$rank[is.na(d$rank)]) # Rows without zero differences (6)
+    d$rank = rank(d$abs, na='keep')                    # Ranking the abs values
+    d$multi = d$sgn * d$rank                           # Multiplying sign times rank.
+
+yielding the following data.frame:
+
+      difference sgn abs rank multi
+    1         10   1  10    6     6
+    2         -9  -1   9    5    -5
+    3          8   1   8    4     4
+    4          5   1   5    2     2
+    5         -6  -1   6    3    -3
+    6          0   0  NA   NA    NA
+    7          2   1   2    1     1
+
+Now we can get the test statistic (`V`) by summing all the positive values in `multi`: `sum(d[d$multi > 0, ]$multi, na.rm=T)`, and the output is $13$.
+
+Now let's pretend its 1985, and we go to the back of the book to the tables to retrieve the $p$-value... OK, let's do it with R: `psignrank(q = 13, n = n, lower.tail = T)`. The result: $0.71875$.
+
+Is this concordant with the results of the `wilcox.test` function... No... and yes. Initially, we may be disappointed:
+
+     wilcox.test(difference, correct = F, alternative = 'less', exact = T)
+    
+    	Wilcoxon signed rank test
+    
+    data:  difference
+    V = 13, p-value = 0.6999
+    alternative hypothesis: true location is less than 0
+    
+    Warning message:
+    In wilcox.test.default(difference, correct = F, alternative = "less",  :
+      cannot compute exact p-value with zeroes
+
+but it's not like we are not warned... Now, let's just get rid of the annoying row with the tie, and recalculate:
+
+    wilcox.test(difference[-6], correct = F, alternative = 'less', exact = T)
+    
+    	Wilcoxon signed rank test
+    
+    data:  difference[-6]
+    V = 13, p-value = 0.7187
+    alternative hypothesis: true location is less than 0
+
+Bingo! Here is the coveted $0.7187$, again.
+
+---
+
+> 2. But can we make it fancier and run a Monte Carlo?
+
+    set.seed(11)                              # Today's date in the US - no cherry-picking!
+    r = 1:6                                   # The possible ranks of our non-zero differences
+    nsim = 1e5 
+    V = 0 
+    for (i in 1:nsim){ 
+      rank = sample(r)                        # Sampling the ranks...
+      sign = sample(c(1, -1), 6, replace = T) #... and the signs for each rank.
+      V[i] = sum(rank[sign > 0])              # Doing the sum to get the V.
+    } 
+    (p_value <- sum(V <= 13) / nsim)          # Fraction with a sum equal or lower than 13.
+
+    [1] 0.72204
+
+Really cool! $0.72204$... so close...
+
+---
+
 From [this question on CV](http://stats.stackexchange.com/q/26817/67822):
 
 Comparing two vectors of data without assuming a normal distribution:
