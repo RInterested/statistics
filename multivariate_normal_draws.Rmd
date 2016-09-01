@@ -1,0 +1,145 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+#####THE CHOLESKY DECOMPOSITION:
+<br>
+
+We start with the ${\bf LDU} = \begin{bmatrix} \text{lower triangular L}\\ \text{1s on diagonal} \end{bmatrix} \begin{bmatrix} \text{pivot matrix}\\ \text{D is diagonal} \end{bmatrix} \begin{bmatrix} \text{upper triangular U}\\ \text{1s on diagonal} \end{bmatrix}$
+
+**Requirements:** No row exchanges. 
+
+If ${\bf X}$ is symmetric, then ${\bf A = LDL^T}$.
+
+Going further back, the ${\bf LU}$ is asymmetric in that ${\bf U}$ has the pivots on its diagonal, while ${\bf L}$ has $1$'s. To address this we can divide $U$ by the pivots that will now be placed in a diagonal:
+
+$$U=\begin{bmatrix}d_1&&&\\&d_2&&\\&&\ddots&\\&&&d_n \end{bmatrix}
+\begin{bmatrix}1&u_{12}/d_1 & u_{13}/d_1 & \cdots & u_{1n}/d_1\\
+&1&u_{23}/d_2&\cdots&u_{2n}/d_2\\&&&\ddots\\&&&&1 \end{bmatrix}$$
+
+To perform the Cholesky decomposition, the matrix has to be symmetric, ${\bf A = LDL^T}$, and there can't be negative values on the diagonal, because we will get square roots of the diagonal elements. All the pivots have to be positive.
+
+So we take the square root:
+
+$$\begin{bmatrix}\color{red}{\sqrt{d_1}}\sqrt{d_1}&&&\\&\color{red}{\sqrt{d_2}}\sqrt{d_2}&&\\&&\ddots&\\&&&\color{red}{\sqrt{d_n}} \sqrt{d_n}\end{bmatrix}$$
+
+Now the red square roots will multiply the columns of ${\bf L}$, while the black square roots will multiply the rows of ${\bf U}$.
+
+We'll end up with a form ${\bf LL^T}$. It is in a way taking the square root of a matrix.
+
+---
+
+Quoting [this CV answer](http://stats.stackexchange.com/a/89830/67822):
+
+Let Z be uncorrelated random variables normally distributed with mean 0 and variance 1. This means
+$$Z\sim N\left(0,I\right)$$
+If you make an affine transformation
+$$X\equiv A+BZ$$
+then $X$ has a distribution
+$$X\sim N\left(A,BB'\right)$$
+In our case, we want $BB'=\Sigma$, so applying the cholesky decomposition to $\Sigma$ is one way to find a suitable $B$. Thus, to simulate from $X\sim N\left(\mu,\Sigma\right)$, you would simulate $Z$, set $A=\mu$ and $B=chol(\Sigma)$, and apply the transformation above.
+
+So to answer your question, uncorrelated variables of mean 0 and variance 1 can be transformed to generic multivariate normal distributions through the use of affine transformations, depending on the mean vector and cholesky decomposition of the covariance matrix. This is how multivariate normal random number generators generally work. 
+
+To address your other point in the comments, suppose you simulate $Z$ and make a transformation 
+$$Y\equiv chol(C)Z$$
+so that $Y\sim N(0, C)$. You can still get to $X$ from $Y$. As I discussed in the comments, you can easily do this by multiplying the univariate distributions by the respective standard deviations and adding the respective mean. 
+
+More formally, you can consider this another affine transformation
+$$X\equiv A+SY$$
+However, since $Y$ is not uncorrelated, the affine transformation would give
+$$X\sim N\left(A,SCS'\right)$$
+In this case, to get $SCS'=\Sigma$, you would need to set $S$ equal to a matrix with the standard deviations on the diagonal and zeros elsewhere. This is equivalent to applying the transformations on a univariate basis.
+
+---
+
+#####PERTINENT CODE:
+
+From [this post](http://stats.stackexchange.com/q/160054/67822):
+
+```
+IN PYTHON:
+
+import numpy as np
+
+no_obs = 1000             # Number of observations per column
+means = [1, 2, 3]         # Mean values of each column
+no_cols = 3               # Number of columns
+
+sds = [1, 2, 3]           # SD of each column
+sd = np.diag(sds)         # SD in a diagonal matrix for later operations
+
+observations = np.random.normal(0, 1, (no_cols, no_obs)) # Rd draws N(0,1) in [3 x 1,000]
+
+cor_matrix = np.array([[1.0, 0.6, 0.9],
+                       [0.6, 1.0, 0.5],
+                       [0.9, 0.5, 1.0]])          # The correlation matrix [3 x 3]
+
+cov_matrix = np.dot(sd, np.dot(cor_matrix, sd))   # The covariance matrix
+
+Chol = np.linalg.cholesky(cov_matrix)             # Cholesky decomposition
+
+array([[ 1.        ,  0.        ,  0.        ],
+       [ 1.2       ,  1.6       ,  0.        ],
+       [ 2.7       , -0.15      ,  1.29903811]])
+
+sam_eq_mean = Chol .dot(observations)             # Generating random MVN (0, cov_matrix)
+
+s = sam_eq_mean.transpose() + means               # Adding the means column wise
+samples = s.transpose()                           # Transposing back
+
+print(np.corrcoef(samples))                       # Checking correlation consistency.
+
+[[ 1.          0.59167434  0.90182308]
+ [ 0.59167434  1.          0.49279316]
+ [ 0.90182308  0.49279316  1.        ]]
+ 
+ 
+IN [R]:
+
+no_obs = 1000             # Number of observations per column
+means = 1:3               # Mean values of each column
+no_cols = 3               # Number of columns
+
+sds = 1:3                 # SD of each column
+sd = diag(sds)         # SD in a diagonal matrix for later operations
+
+observations = matrix(rnorm(no_cols * no_obs), nrow = no_cols) # Rd draws N(0,1)
+
+cor_matrix = matrix(c(1.0, 0.6, 0.9,
+                      0.6, 1.0, 0.5,
+                      0.9, 0.5, 1.0), byrow = T, nrow = 3)     # cor matrix [3 x 3]
+
+cov_matrix = sd %*% cor_matrix %*% sd                          # The covariance matrix
+
+Chol = chol(cov_matrix)                                        # Cholesky decomposition
+
+     [,1] [,2]      [,3]
+[1,]    1  1.2  2.700000
+[2,]    0  1.6 -0.150000
+[3,]    0  0.0  1.299038
+
+sam_eq_mean = t(observations) %*% Chol          # Generating random MVN (0, cov_matrix)
+
+samples = t(sam_eq_mean) + means
+
+cor(t(samples))
+
+          [,1]      [,2]      [,3]
+[1,] 1.0000000 0.6071067 0.8857339
+[2,] 0.6071067 1.0000000 0.4655579
+[3,] 0.8857339 0.4655579 1.0000000
+
+colMeans(t(samples))
+[1] 1.035056 2.099352 3.065797
+apply(t(samples), 2, sd)
+[1] 0.9543873 1.9788250 2.8903964
+```
+
+<br>
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
