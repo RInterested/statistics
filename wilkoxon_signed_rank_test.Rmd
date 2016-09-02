@@ -1,137 +1,182 @@
-<br>
+12<br>
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-These questions are extracted from a Coursera course. In time they will be replaced by other examples.
-
-###1. WILCOXON SIGNED TEST:
-
-
-A topical rash treatment was applied to a portion of a rash on $n$ patients. A quantitative measure of redness was calculated for the treated and untreated regions of the rash. A sign of + was given when the treated area was less red (more improved) than the untreated area and a - sign when it was not. It is desired to know whether the treatment improves the rash. 
-
----
-
-How many possible values can the $p \,value$ for the sign test take?
-
-*Answer*: There are $n+1$ possible $p \,values$ (CORRECT)
-
-If there was one person, the test statistic could be 0 or 1 positive signs, thus the p value has two possible values. For two people it could be 0, 1 and 2 for three possible values and so on.
-
----
-
-For what size of $n$ for a $5\%$ *one sided sign test* is there a non empty rejection region?
-
-*Answers:*
-
-a. You need 5 patients and all have to be + (CORRECT)
-b. You need 20 patients, and all +
-c. You need 5 patients, most +
-d. You need 20 patients, most +
-
-
-The most extreme case is all of the patients have a +. In this case, the $p-value$ is:
-
-$1/2^n$ because $2^n$ is the "doubling function" that gives us all the possible "subsets" of positive results in $n$: The first patient can be $+$ or $-$ and in each case, the second patient can in turn be $+$ or $-$ and so on. On the other hand, there is only one way of having all patients with a $+$ result.
-
-Trying with the lowest number of patients:
-
-```{r}
-1/(2^(1:5))
-```
-
-We see that we can reject with $5\%$ risk alpha with *five positive cases*.
-
----
-
-Consider a $5\%$ one sided sign test for $5$ subjects. What would be the *power of the test* if the probability that the treatment works is actually $90\%$ instead of the $50\%$ assumed under the null?
-
-By the previous question, we will only reject for 5 subjects when all of them are +. The probability of such an occurrence under the alternative (where $p=.9$ rather than $.5$) is:
-
-```{r}
-0.9^5
-```
-
----
-
-###2. WILCOXON SIGNED-RANK TEST:
-
-The Biostatistics and Epidemilogy departments are running a 10K road race. There are *three pairs* of runners. In each case, a runner from Biostat was matched to a runner from Epi of the same age, gender and degree of running experience. The difference in each pairs times was taken and a signed rank test performed.
-
----
-
-What is the smallest value that the *two sided exact signed rank p value* could take?
-
-There are $2^3$ possible collections of winners, labelled $1$ if biostat wins and $-1$ if epi wins:
-
-```{r}
-(winners <- t(expand.grid(c(1,-1), c(1,-1), c(1,-1))))
-```
-
-So the signs are giving us 8 possible outcomes.
-
-Each possible outcome will be ranked with the possible ranks being the *permutations* of, in this case, $3$: $P(3,3)=3!\cdot 2!\cdot 1!=6$.
-
-```{r,message=F,warning=FALSE}
-t <- c(1,2,3)
-library(Deducer)
-(abs_rank <- t(perm(t)))
-```
-
-So there are 48 outcomes:
-
-```{r}
-(outcomes <- lapply(as.data.frame(winners),`*`,abs_rank))
-```
-
-
-Summing the columns:
-
-```{r}
-(W <- lapply(as.data.frame(winners), function(x) colSums(x * abs_rank)))
-
-# Tabulating the results:
-
-table(stack(W)$values)
-
-(p_value <- (sum(stack(W)$values==6) + sum(stack(W)$values==-6)) /length(stack(W)$values))
-```
-
-Permutations of {1, 2, 3} = 6 and for each one, $2^3$ ways of allocating the +'s and -'s with only two of them have all + or all - signs. So it's $12/48 = 1/4$.
-
-As a Monte Carlo calculation:
-
-```{r}
-v <- c(1,2,3) 
-nsim <- 1e5 
-
-W <- 0 
-for (i in 1:nsim){ 
-rank <- sample(v) 
-sign <- sample(c(1, -1), 3, replace = T) 
-W[i] <- sum(rank * sign) 
-} 
-(p_value <- (sum(W==6) + sum(W==-6)) / nsim)
-```
-
-Or simply: There are $2^3$ cases, of which 2 are the most extreme, hence the minimum p value is $1/4$. For $n$ pairs the minimum p value is $(1/2)^{(n-1)}$. The signed rank test  effectively just counts all the ways to allocate $\pm 1$ to the observations. The extreme cases are "all -1" and "all +1". since those will lead to the largest and smallest values of the statistic.
-
-
----
-
-The Biostatistics and Epidemiology departments are running a 10K road race. There are threepairs of runners. In each case, a runner from Biostat was matched to a runner from Epi of thesame age, gender and degree of running experience. For the pair with the largest difference intheir finishing times, the winner was from Epi; for the pair with the second largest difference intheir times, the winner was was from Biostat and for the final pair, the winner was from Epi.Ranking differences in times from least to greatest and assuming that the times weresubtracted as (Epi - Biostat), what would the observed signed rank statistic (sum of thepositive ranks) be?
-
-Recall we are ranking from smallest time difference to largest time difference. If the order ofsubtraction was Epi - Biostat, if the winner of the pair was from Epi, the difference would benegative (a lower time for the Epi runner)
-
-Sign Rank
-
-`- 3`
-`+ 2`
-`- 1`
-
-Thus the observed signed rank statistic is 2.
-
+####WILCOXON SIGNED RANK TEST:
 <br>
+
+From [this question in CV](http://stats.stackexchange.com/q/229358/67822):
+
+> I want to test whether the difference between the pairs of students's scores  follows a symmetric distribution around zero. 
+
+    Students	Before 	After 	difference
+       1	      **	 **	       10
+       2	      **	 **	       -9
+       3	      **	 **	       8
+       4	      **	 **	       5
+       5	      **	 **	      -6
+       6	      **	 **        0
+       7	      **	 **	       2
+
+Since the data is not normally distributed, I assume i can use wilcoxon signed-rank test here, but in this case we only  know the difference of the pairs, so if perform wilcoxon signed-rank test in r here, normally the code should be:
+
+    wilcox.test(before,after,paired=T, exact=T)
+
+but the problem is that, I don't have the data of 'before' and 'after', instead I only know the difference between them, so it seems wilcoxon signed-rank test can not be applied here. Is there other alternative method to this case? 
+
+Answer:
+
+I have been playing with this question, and here is what I got so far...
+
+> 1. Looking under the hood of R `wilcox.test()`:
+
+I tried following on the side what R was doing in the back. Here is some code:
+
+    d = data.frame(difference = c(10,-9,8,5,-6,0,2))   # Differences in OP
+    d$sgn = sign(d$difference)                         # The sign function of these diff's
+    d$abs = abs(d$difference)                          # The absolute value of these diff's
+    d$abs = replace(d$abs, d$abs==0, NA)               # Getting the zeros out of the way
+    n = length(d$rank) - length(d$rank[is.na(d$rank)]) # Rows without zero differences (6)
+    d$rank = rank(d$abs, na='keep')                    # Ranking the abs values
+    d$multi = d$sgn * d$rank                           # Multiplying sign times rank.
+
+yielding the following data.frame:
+
+      difference sgn abs rank multi
+    1         10   1  10    6     6
+    2         -9  -1   9    5    -5
+    3          8   1   8    4     4
+    4          5   1   5    2     2
+    5         -6  -1   6    3    -3
+    6          0   0  NA   NA    NA
+    7          2   1   2    1     1
+
+Now we can get the test statistic (`V`) by summing all the positive values in `multi`: `sum(d[d$multi > 0, ]$multi, na.rm=T)`, and the output is $13$.
+
+Now let's pretend its 1985, and we go to the back of the book to the tables to retrieve the $p$-value... OK, let's do it with R: `psignrank(q = 13, n = n, lower.tail = T)`. The result: $0.71875$.
+
+Is this concordant with the results of the `wilcox.test` function... No... and yes. Initially, we may be disappointed:
+
+     wilcox.test(difference, correct = F, alternative = 'less', exact = T)
+    
+    	Wilcoxon signed rank test
+    
+    data:  difference
+    V = 13, p-value = 0.6999
+    alternative hypothesis: true location is less than 0
+    
+    Warning message:
+    In wilcox.test.default(difference, correct = F, alternative = "less",  :
+      cannot compute exact p-value with zeroes
+
+but it's not like we are not warned... Now, let's just get rid of the annoying row with the tie, and recalculate:
+
+    wilcox.test(difference[-6], correct = F, alternative = 'less', exact = T)
+    
+    	Wilcoxon signed rank test
+    
+    data:  difference[-6]
+    V = 13, p-value = 0.7187
+    alternative hypothesis: true location is less than 0
+
+Bingo! Here is the coveted $0.7187$, again.
+
+---
+
+> 2. But can we make it fancier and run a Monte Carlo?
+
+    set.seed(11)                              # Today's date in the US - no cherry-picking!
+    r = 1:6                                   # The possible ranks of our non-zero differences
+    nsim = 1e5 
+    V = 0 
+    for (i in 1:nsim){ 
+      rank = sample(r)                        # Sampling the ranks...
+      sign = sample(c(1, -1), 6, replace = T) #... and the signs for each rank.
+      V[i] = sum(rank[sign > 0])              # Doing the sum to get the V.
+    } 
+    (p_value <- sum(V <= 13) / nsim)          # Fraction with a sum equal or lower than 13.
+
+    [1] 0.72204
+
+Really cool! $0.72204$... so close...
+
+---
+
+From [this question](http://stats.stackexchange.com/q/229760/67822):
+
+Question:
+
+>I am trying to duplicate a [Wilcoxon signed-rank test example in this Wikipedia post](https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test#Example) using R.
+
+The data is as follows:
+
+    after = c(125, 115, 130, 140, 140, 115, 140, 125, 140, 135)
+    before = c(110, 122, 125, 120, 140, 124, 123, 137, 135, 145)
+    sgn = sign(after-before)
+    abs = abs(after - before)
+    d = data.frame(after,before,sgn,abs)
+    d$rank = rank(replace(abs,abs==0,NA), na='keep')
+    d$multi = d$sgn * d$rank
+    
+    (W=abs(sum(d$multi, na.rm = T)))
+    W = 9
+
+However, the test statistic value that R produces (undoubtedly due to some mistake that I am making in setting up the function or interpreting the output) is:
+
+    wilcox.test(d$before,d$after, paired = T, alternative = "two.sided", correct=F)
+    	Wilcoxon signed rank test
+    
+    data:  d$before and d$after
+    V = 18, p-value = 0.5936
+    alternative hypothesis: true location shift is not equal to 0
+
+This (`V=18`) is different from the `9` value in the Wikipedia post.
+
+What am I missing?
+
+Answer:
+
+R reports the V-statistic, which is the sum of the *positive* ranks. The Wikipedia example computes it slightly differently, as the sum of *all* ranks, regardless of sign. In other words, both versions are correct (and equivalent). This [CrossValidated][1] post might be helpful.
+
+
+  [1]: http://stats.stackexchange.com/questions/41620/output-of-one-tailed-wilcoxon-sign-rank-test-in-r
+
+---
+
+For contrast, here is the **Wilcoxon rank sum test**:
+
+From [this question on CV](http://stats.stackexchange.com/q/26817/67822):
+
+> Comparing two vectors of data without assuming a normal distribution:
+
+```{r}
+x <- scan(text="8 8 4 1 2 2 0 2 5 2 3 3 3 1 5 4 4 1 4 2") 
+y <- scan(text="4 0 4 1 1 2 0 1 2 2 1 2 1 0 0 0 1 1 1 1")
+```
+
+can be done with a permutation test, which will give us the one-sided $p$-value:
+
+```{r}
+set.seed(0)
+xy <- c(x, y)                                        # Combo vec. with x and y combined. 40 entries.
+sample <- replicate(1e5, sum(sample(xy, length(x)))) # 1e5 samples of length(x) w/o replac. from combo xy, returning the sum of their elements.
+mean_x_samples <- sample / length(x)                 # 1e5 means from length(x) samples from xy
+diff <- sum(xy) - sample                             # Difference between combo vec and samples
+mean_y_samples <- diff / length(y)                   # 1e5 means from length(y) samples from xy
+delta_samples <- mean_x_samples - mean_y_samples
+stat <- mean(x) - mean(y)
+(p_value = mean(delta_samples > stat))
+```
+
+In R we can get a two-tailed $p$ value with the Wilcoxon rank-sum test:
+
+```{r,warning=FALSE}
+wilcox.test(x, y, paired=F) 
+
+# If both x and y are given and paired is FALSE, a Wilcoxon rank sum test 
+# (equivalent to the Mann-Whitney test: see the Note) is carried out. 
+```
 
 
 ---
