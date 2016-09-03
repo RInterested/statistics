@@ -122,6 +122,11 @@ $(document).ready(function () {
 <p>These questions are extracted from a Coursera course. In time they will be replaced by other examples.</p>
 <div id="wilcoxon-rank-sum-or-mann-whitney-u-test" class="section level3">
 <h3>WILCOXON RANK SUM OR MANN-WHITNEY U TEST:</h3>
+<p>From this <a href="http://stats.stackexchange.com/a/91038/67822">question in CV</a> about the difference with the rank sum test:</p>
+<pre><code>You should use the rank-sum test when the data are not paired. You'll find many definitions of pairing, but at heart the criterion is something that makes pairs of values at least somewhat positively dependent, while unpaired values are not dependent. Often the dependence-pairing occurs because they're observations on the same unit (repeated measures), but it doesn't have to be on the same unit, just in some way tending to be associated (while measuring the same kind of thing), to be considered as 'paired'.</code></pre>
+<hr />
+<p>The <a href="en.wikipedia.org/wiki/Mann–Whitney_U_test#Calculations">procedure</a> is outlined in Wikipedia.</p>
+<hr />
 <p>A topical rash treatment was applied to a portion of a rash on <span class="math inline">\(n\)</span> patients. A quantitative measure of redness was calculated for the treated and untreated regions of the rash. A sign of + was given when the treated area was less red (more improved) than the untreated area and a - sign when it was not. It is desired to know whether the treatment improves the rash.</p>
 <hr />
 <p>How many possible values can the p value for the sign test take?</p>
@@ -259,7 +264,7 @@ sign &lt;- sample(c(1, -1), 3, replace = T)
 W[i] &lt;- sum(rank * sign) 
 } 
 (p_value &lt;- (sum(W==6) + sum(W==-6)) / nsim)</code></pre>
-<pre><code>## [1] 0.24732</code></pre>
+<pre><code>## [1] 0.24868</code></pre>
 <p>Or simply: There are <span class="math inline">\(2^3\)</span> cases, of which 2 are the most extreme, hence the minimum p value is <span class="math inline">\(1/4\)</span>. For <span class="math inline">\(n\)</span> pairs the minimum p value is <span class="math inline">\((1/2)^{(n-1)}\)</span>. The signed rank test effectively just counts all the ways to allocate <span class="math inline">\(\pm 1\)</span> to the observations. The extreme cases are “all -1” and “all +1”. since those will lead to the largest and smallest values of the statistic.</p>
 <hr />
 <p>The Biostatistics and Epidemiology departments are running a 10K road race. There are threepairs of runners. In each case, a runner from Biostat was matched to a runner from Epi of thesame age, gender and degree of running experience. For the pair with the largest difference intheir finishing times, the winner was from Epi; for the pair with the second largest difference intheir times, the winner was was from Biostat and for the final pair, the winner was from Epi.Ranking differences in times from least to greatest and assuming that the times weresubtracted as (Epi - Biostat), what would the observed signed rank statistic (sum of thepositive ranks) be?</p>
