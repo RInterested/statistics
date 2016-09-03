@@ -141,7 +141,7 @@ $(document).ready(function () {
 <li>You need 5 patients, most +</li>
 <li>You need 20 patients, most +</li>
 </ol>
-<p>The most extreme case is all of the patients have a +. In this case, the <span class="math inline">\(p-value\)</span> is:</p>
+<p>The most extreme case is all of the patients have a +. In this case, the p value is:</p>
 <p><span class="math inline">\(1/2^n\)</span> because <span class="math inline">\(2^n\)</span> is the “doubling function” that gives us all the possible “subsets” of positive results in <span class="math inline">\(n\)</span>: The first patient can be <span class="math inline">\(+\)</span> or <span class="math inline">\(-\)</span> and in each case, the second patient can in turn be <span class="math inline">\(+\)</span> or <span class="math inline">\(-\)</span> and so on. On the other hand, there is only one way of having all patients with a <span class="math inline">\(+\)</span> result.</p>
 <p>Trying with the lowest number of patients:</p>
 <pre class="r"><code>1/(2^(1:5))</code></pre>
@@ -264,7 +264,7 @@ sign &lt;- sample(c(1, -1), 3, replace = T)
 W[i] &lt;- sum(rank * sign) 
 } 
 (p_value &lt;- (sum(W==6) + sum(W==-6)) / nsim)</code></pre>
-<pre><code>## [1] 0.24868</code></pre>
+<pre><code>## [1] 0.24912</code></pre>
 <p>Or simply: There are <span class="math inline">\(2^3\)</span> cases, of which 2 are the most extreme, hence the minimum p value is <span class="math inline">\(1/4\)</span>. For <span class="math inline">\(n\)</span> pairs the minimum p value is <span class="math inline">\((1/2)^{(n-1)}\)</span>. The signed rank test effectively just counts all the ways to allocate <span class="math inline">\(\pm 1\)</span> to the observations. The extreme cases are “all -1” and “all +1”. since those will lead to the largest and smallest values of the statistic.</p>
 <hr />
 <p>The Biostatistics and Epidemiology departments are running a 10K road race. There are threepairs of runners. In each case, a runner from Biostat was matched to a runner from Epi of thesame age, gender and degree of running experience. For the pair with the largest difference intheir finishing times, the winner was from Epi; for the pair with the second largest difference intheir times, the winner was was from Biostat and for the final pair, the winner was from Epi.Ranking differences in times from least to greatest and assuming that the times weresubtracted as (Epi - Biostat), what would the observed signed rank statistic (sum of thepositive ranks) be?</p>
