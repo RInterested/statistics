@@ -6,9 +6,24 @@
 ####WILCOXON SIGNED RANK TEST:
 <br>
 
+From this [question in CV](http://stats.stackexchange.com/a/91038/67822) about the difference with the rank sum test:
+
+```
+You should use the signed rank test when the data are paired. You'll find many definitions of pairing, but at heart the criterion is something that makes pairs of values at least somewhat positively dependent, while unpaired values are not dependent. Often the dependence-pairing occurs because they're observations on the same unit (repeated measures), but it doesn't have to be on the same unit, just in some way tending to be associated (while measuring the same kind of thing), to be considered as 'paired'.
+```
+
+---
+
+
+Here is the [procedure](https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test#Test_procedure) in Wikipedia
+
+---
+
 From [this question in CV](http://stats.stackexchange.com/q/229358/67822):
 
-> I want to test whether the difference between the pairs of students's scores  follows a symmetric distribution around zero. 
+```
+I want to test whether the difference between the pairs of students's scores  follows a symmetric distribution around zero.
+```
 
     Students	Before 	After 	difference
        1	      **	 **	       10
@@ -29,7 +44,7 @@ Answer:
 
 I have been playing with this question, and here is what I got so far...
 
-> 1. Looking under the hood of R `wilcox.test()`:
+1. Looking under the hood of R `wilcox.test()`:
 
 I tried following on the side what R was doing in the back. Here is some code:
 
@@ -84,8 +99,9 @@ Bingo! Here is the coveted $0.7187$, again.
 
 ---
 
-> 2. But can we make it fancier and run a Monte Carlo?
+2. But can we make it fancier and run a Monte Carlo?
 
+```
     set.seed(11)                              # Today's date in the US - no cherry-picking!
     r = 1:6                                   # The possible ranks of our non-zero differences
     nsim = 1e5 
@@ -98,6 +114,7 @@ Bingo! Here is the coveted $0.7187$, again.
     (p_value <- sum(V <= 13) / nsim)          # Fraction with a sum equal or lower than 13.
 
     [1] 0.72204
+```
 
 Really cool! $0.72204$... so close...
 
@@ -107,7 +124,9 @@ From [this question](http://stats.stackexchange.com/q/229760/67822):
 
 Question:
 
->I am trying to duplicate a [Wilcoxon signed-rank test example in this Wikipedia post](https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test#Example) using R.
+
+I am trying to duplicate a [Wilcoxon signed-rank test example in this Wikipedia post](https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test#Example) using R.
+
 
 The data is as follows:
 
@@ -148,7 +167,9 @@ For contrast, here is the **Wilcoxon rank sum test**:
 
 From [this question on CV](http://stats.stackexchange.com/q/26817/67822):
 
-> Comparing two vectors of data without assuming a normal distribution:
+```
+Comparing two vectors of data without assuming a normal distribution:
+```
 
 ```{r}
 x <- scan(text="8 8 4 1 2 2 0 2 5 2 3 3 3 1 5 4 4 1 4 2") 

@@ -122,10 +122,13 @@ $(document).ready(function () {
 <div id="wilcoxon-signed-rank-test" class="section level4">
 <h4>WILCOXON SIGNED RANK TEST:</h4>
 <p><br></p>
+<p>From this <a href="http://stats.stackexchange.com/a/91038/67822">question in CV</a> about the difference with the rank sum test:</p>
+<pre><code>You should use the signed rank test when the data are paired. You'll find many definitions of pairing, but at heart the criterion is something that makes pairs of values at least somewhat positively dependent, while unpaired values are not dependent. Often the dependence-pairing occurs because they're observations on the same unit (repeated measures), but it doesn't have to be on the same unit, just in some way tending to be associated (while measuring the same kind of thing), to be considered as 'paired'.</code></pre>
+<hr />
+<p>Here is the <a href="https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test#Test_procedure">procedure</a> in Wikipedia</p>
+<hr />
 <p>From <a href="http://stats.stackexchange.com/q/229358/67822">this question in CV</a>:</p>
-<blockquote>
-<p>I want to test whether the difference between the pairs of students’s scores follows a symmetric distribution around zero.</p>
-</blockquote>
+<pre><code>I want to test whether the difference between the pairs of students's scores  follows a symmetric distribution around zero.</code></pre>
 <pre><code>Students    Before  After   difference
    1          **     **        10
    2          **     **        -9
@@ -139,11 +142,9 @@ $(document).ready(function () {
 <p>but the problem is that, I don’t have the data of ‘before’ and ‘after’, instead I only know the difference between them, so it seems wilcoxon signed-rank test can not be applied here. Is there other alternative method to this case?</p>
 <p>Answer:</p>
 <p>I have been playing with this question, and here is what I got so far…</p>
-<blockquote>
 <ol style="list-style-type: decimal">
 <li>Looking under the hood of R <code>wilcox.test()</code>:</li>
 </ol>
-</blockquote>
 <p>I tried following on the side what R was doing in the back. Here is some code:</p>
 <pre><code>d = data.frame(difference = c(10,-9,8,5,-6,0,2))   # Differences in OP
 d$sgn = sign(d$difference)                         # The sign function of these diff's
@@ -185,30 +186,26 @@ V = 13, p-value = 0.7187
 alternative hypothesis: true location is less than 0</code></pre>
 <p>Bingo! Here is the coveted <span class="math inline">\(0.7187\)</span>, again.</p>
 <hr />
-<blockquote>
 <ol start="2" style="list-style-type: decimal">
 <li>But can we make it fancier and run a Monte Carlo?</li>
 </ol>
-</blockquote>
-<pre><code>set.seed(11)                              # Today's date in the US - no cherry-picking!
-r = 1:6                                   # The possible ranks of our non-zero differences
-nsim = 1e5 
-V = 0 
-for (i in 1:nsim){ 
-  rank = sample(r)                        # Sampling the ranks...
-  sign = sample(c(1, -1), 6, replace = T) #... and the signs for each rank.
-  V[i] = sum(rank[sign &gt; 0])              # Doing the sum to get the V.
-} 
-(p_value &lt;- sum(V &lt;= 13) / nsim)          # Fraction with a sum equal or lower than 13.
+<pre><code>    set.seed(11)                              # Today's date in the US - no cherry-picking!
+    r = 1:6                                   # The possible ranks of our non-zero differences
+    nsim = 1e5 
+    V = 0 
+    for (i in 1:nsim){ 
+      rank = sample(r)                        # Sampling the ranks...
+      sign = sample(c(1, -1), 6, replace = T) #... and the signs for each rank.
+      V[i] = sum(rank[sign &gt; 0])              # Doing the sum to get the V.
+    } 
+    (p_value &lt;- sum(V &lt;= 13) / nsim)          # Fraction with a sum equal or lower than 13.
 
-[1] 0.72204</code></pre>
+    [1] 0.72204</code></pre>
 <p>Really cool! <span class="math inline">\(0.72204\)</span>… so close…</p>
 <hr />
 <p>From <a href="http://stats.stackexchange.com/q/229760/67822">this question</a>:</p>
 <p>Question:</p>
-<blockquote>
 <p>I am trying to duplicate a <a href="https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test#Example">Wilcoxon signed-rank test example in this Wikipedia post</a> using R.</p>
-</blockquote>
 <p>The data is as follows:</p>
 <pre><code>after = c(125, 115, 130, 140, 140, 115, 140, 125, 140, 135)
 before = c(110, 122, 125, 120, 140, 124, 123, 137, 135, 145)
@@ -234,9 +231,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <hr />
 <p>For contrast, here is the <strong>Wilcoxon rank sum test</strong>:</p>
 <p>From <a href="http://stats.stackexchange.com/q/26817/67822">this question on CV</a>:</p>
-<blockquote>
-<p>Comparing two vectors of data without assuming a normal distribution:</p>
-</blockquote>
+<pre><code>Comparing two vectors of data without assuming a normal distribution:</code></pre>
 <pre class="r"><code>x &lt;- scan(text=&quot;8 8 4 1 2 2 0 2 5 2 3 3 3 1 5 4 4 1 4 2&quot;) 
 y &lt;- scan(text=&quot;4 0 4 1 1 2 0 1 2 2 1 2 1 0 0 0 1 1 1 1&quot;)</code></pre>
 <p>can be done with a permutation test, which will give us the one-sided <span class="math inline">\(p\)</span>-value:</p>
