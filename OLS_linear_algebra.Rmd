@@ -17,17 +17,17 @@ Why project? Because $\mathbf{X} \mathbf{\beta} = \mathbf{y}$ may have no soluti
 
 $\mathbf{X\,\hat \beta}= \mathbf{\hat y}\small \tag 1$
 
-where $\mathbf{\hat y}$ is the projection of the original outcome $\mathbf{y}$ on the column space of the regressors $\mathbf{X}$, or $c(\mathbf{X})$.
+where $\mathbf{\hat y}$ is the projection of the original outcome $\mathbf{y}$ on the column space of the regressors $\mathbf{X}$, or $\mathscr C (\mathbf{X})$.
 
 The key is to see that $\Large \mathbf{y} - \mathbf{X\hat \beta}=\varepsilon$ is the error, and is perpendicular to $c(\mathbf{X})$.
 
 Therefore, $\mathbf{X}^T (\mathbf{y} - \mathbf{X\hat \beta}) =0 \small \tag 2$ 
 
-because we are dotting every vector in the $c(\mathbf{X})$ with the error vector. They are orthogonal, or in other words, the error $\mathbf{e}$ is in the null space of $\mathbf{X}^T$.
+because we are dotting every vector in the $\mathscr C(\mathbf{X})$ with the error vector, and the errors are orthogonal. In other words, the error $\mathbf{e}$ is in the null space of $\mathbf{X}^T$.
 
-Working on equation (2):
+Working on equation (2) we get to the NORMAL EQUATIONS (they are called the **normal equations** because they specify that the residual must be normal (orthogonal) to every vector in the span of $A$:
 
-$\mathbf{X}^T \mathbf{y} = \mathbf{X}^T \mathbf{X\,\hat \beta} \small \tag 3$
+$\color{blue}{\mathbf{X}^T \mathbf{X\,\hat \beta} = \mathbf{X}^T \mathbf{y}} \text{ NORMAL EQUATIONS}\tag { 3}$
 
 Isolating $\mathbf{\hat \beta}$:
 
@@ -35,11 +35,11 @@ $\left(\mathbf{X^TX}\right)^{-1} \, \mathbf{X}^T \mathbf{y} = \mathbf{\hat \beta
 
 Plugging these results into equation (1):
 
-$\mathbf{X}\,\left(\mathbf{X^TX}\right)^{-1} \, \mathbf{X}^T\,\,\, \mathbf{y} =\mathbf{X}\,\mathbf{\hat \beta}= \mathbf{\hat y}\small \tag 5$
+$\color{red}{\mathbf{X}\,\left(\mathbf{X^TX}\right)^{-1} \, \mathbf{X}^T\,\,\, \mathbf{y} =\mathbf{X}\,\mathbf{\hat \beta}= \mathbf{\hat y}} \tag 5$
 
 The projection matrix (which the same as the **hat matrix**) is defined as:
 
-$\mathbf{H}= \mathbf{X} \left(\mathbf{X}^{T} \mathbf{X} \right)^{-1} \mathbf{X} ^{T}\small \tag 6$ 
+$\color{blue}{\mathbf{H}= \mathbf{X} \left(\mathbf{X}^{T} \mathbf{X} \right)^{-1} \mathbf{X} ^{T}} \text{ PROJECTION MATRIX} \tag 6$ 
 
 because it put a "hat" on the $\mathbf{y}$. It is both symmetrical and idempotent, as it corresponds to a projection matrix.
 
@@ -67,6 +67,10 @@ The residuals can be represented as:
 <br><br>
 
 $\mathbf{e}=\mathbf{M}\mathbf{y} =\mathbf{y}- \mathbf{H}\mathbf{y}= \mathbf{y}-\mathbf{\hat y}$
+
+The loss function (objective function) that is minimized is the sum of the squared residuals:
+
+$f(\beta) = \bf (y - X\beta)^\prime(y - X\beta) \text{ OBJECTIVE FUNCTION}$
 
 <br><br>
 
