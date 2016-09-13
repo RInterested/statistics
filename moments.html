@@ -168,7 +168,7 @@ $(document).ready(function () {
 <div id="definition-of-mgf" class="section level5">
 <h5>DEFINITION of MGF:</h5>
 <p><br></p>
-<p><span class="math inline">\(\Large M_X(t) = \mathbb{E}[e^{\,tX}]\)</span></p>
+<p><span class="math inline">\(\large M_X(t) = \mathbb{E}[e^{\,tX}]\)</span></p>
 <p><br></p>
 <p>Expanding the Taylor series of this function:</p>
 <p><br></p>
@@ -198,7 +198,8 @@ M_X(t) &amp;= \mathbb{E}[e^{\,tX}]=1 + \mathbb{E} \left[ \frac{X}{1!} \, t \righ
 <p><span class="math display">\[\large \mathbb{E}[\color{blue}{X}] = \int_{-\infty}^{\infty}\color{blue}{X^1}\,\,\color{green}{\text{pdf}}\,\,\,dx\]</span></p>
 <p>corresponds to the <em>first derivative</em> of the MGF evaluated at zero:</p>
 <p><span class="math display">\[M^{'}_X(t=0)= \frac{\mathbb{E} \left[X\right]}{1!}= \mathbb E [\color{blue}{X}]\]</span></p>
-<p><strong>So what is the point?</strong> We don’t have <span class="math inline">\(\color{red}{e^{\,tX}}\)</span> any longer - we now have the first derivative, but <span class="math inline">\(e^{\,tX}\)</span> is easy to integrate, so we use to get the expectation. So the key is to integrate to find the <span class="math inline">\(\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx\)</span> (by LOTUS the expectation is the integral of the function of <span class="math inline">\(X\)</span> times its pdf), so that we can avoid the more difficult direct calculation of: <span class="math inline">\(\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx\)</span></p>
+<p><strong>So what is the point?</strong> We don’t have <span class="math inline">\(\color{red}{e^{\,tX}}\)</span> any longer - we now have the first derivative, but <span class="math inline">\(e^{\,tX}\)</span> is easy to integrate, so we use to get the expectation. So the key is to integrate to find the <span class="math inline">\(\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx\)</span> (by LOTUS the expectation is the integral of the function of <span class="math inline">\(X\)</span> times its pdf), so that we can avoid the more difficult direct calculation of: <span class="math inline">\(\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx.\)</span></p>
+<p>The key is to find the <span class="math inline">\(\color{red}{e^{\,tX}}\)</span> to begin, and then derive over and over.</p>
 <p><br></p>
 <p>For the exponential (remember that pdf of an exponential is <span class="math inline">\(\lambda\,e^{-\lambda x}\)</span>):</p>
 \begin{align}
