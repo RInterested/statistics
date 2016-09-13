@@ -12,9 +12,13 @@ $\color{blue}{\text{Expected}}$ value of a $\color{red}{\text{power}}$ of a rand
 
 We use [LOTUS](https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician) to calculate this expectation: the expected value of a function of the variable (in this case an exponentiation) is obtained by multiplying that function $\times$ the pdf, and integrating:
 
-$\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx$
+$\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx\tag{def. of MOMENT *}$
 
-$k$ is the number of the moment. For the *mean*:
+$k$ is the number of the moment. 
+
+---
+
+For the *mean*:
 
 $\large \mathbb{E}[{X^1}] = \displaystyle\int_{-\infty}^{\infty}X^1\,\,\text{pdf}\,\,\,dx$
 
@@ -24,15 +28,13 @@ There are two types of moments:
 
 2. Central moment: It is centered around the mean: $\mu_k=\mathbb{E}\,(X-\mu)^k$. This is the moment that we need, for instance, to calculate the variance:
 
-Variance is $var(x) = \mathbb{E}\,(X-\mu)^2 = \displaystyle\int_{-\infty}^{\infty} (X-\mu)^2 \,pdf\,dx$.
+Variance is $\mathrm{Var}[X] = \mathbb{E}\left [ \,(X-\mu)^2 \right ] = \displaystyle\int_{-\infty}^{\infty} (X-\mu)^2 \, \text{pdf}\,dx$.
 
-Alternatively, it can be defined as the difference between the second and the $\color{red}{\text{squared}}$ first raw moments:
-
-$\mu_2= \mathbb{E}[X^2]\,-\,\mathbb{E}[X]^2.$
+Alternatively, it can be defined as the difference between the second and the $\color{red}{\text{squared}}$ first raw moments: $\mathbb{E}[X^2]\,-\,\mathbb{E}[X]^2.$
 
 <br>
 
-1. Mean: First *raw* moment.
+>1. Mean: First *raw* moment.
 2. Variance: Second *central* moment.
 3. Skew (asymmetry): Third *central* moment, $\color{blue}{\text{standardized}}$ i.e. divided by the $\sigma^3$.
 4. Kurtosis (peakedness): Fourth *central* moment, but divided by $\sigma^3$, AND subtacting $-3$ from the result.
@@ -41,7 +43,26 @@ $\mu_2= \mathbb{E}[X^2]\,-\,\mathbb{E}[X]^2.$
 
 ####MOMENT GENERATING FUNCTIONS:
 
-Instead of integrating the defining equation to obtain the raw moments, we can 1. First get this "moment generating function (MGF)"; and 2. Derive the MGF to get the raw moments.
+Instead of integrating the defining equation to obtain the raw moments, we can 
+
+>1. First get this "moment generating function (MGF)"; and 
+2. Derive the MGF to get the raw moments.
+
+
+
+---
+
+Remember that the Taylor series of a function $f(x)$ is the power series:
+
+$$f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3+\cdots$$
+
+The Taylor series of $e^x$ at $a=0$ is:
+
+$$1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \cdots = 1 + x + + \frac{x^2}{2} + \frac{x^3}{6} + \frac{x^4}{24} + \cdots= \sum_{n=0}^\infty \frac{x^n}{n!}$$
+
+<br>
+
+---
 
 #####DEFINITION of MGF:
 
@@ -55,24 +76,20 @@ Expanding the Taylor series of this function:
 
 <br>
 
-$\Large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{(e^{tX})^{(n)}|a}{n!}\,(X-a)^n \right].$
+$\Large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{(e^{tX})^{(n)}|a}{n!}\,(X-a)^n \right].$
 
 <br>
 
-$\large (e^{\,tX})^{(n)}|a$ being the notation for the $n$ derivative of the function, evaluated at $\large a$. So if $a = 0$, i.e.  Maclaurin series: we evaluate at $a = 0$, which will go into $t$. We derive with respect to $t$:
+$\large (e^{\,tX})^{(n)}\vert a$ being the notation for the $n$ derivative of the function, evaluated at $\large a$. So if $a = 0$, i.e.  Maclaurin series: we evaluate at $a = 0$, which will go into $t$. We derive with respect to $t$:
 
 
 <br>
 
-$\Large M_X(t) =\mathbb{E}[e^{\,tX}]= \mathbb{E} \left[e^{tX} + \frac{X\,e^{tX} }{1!} \, (t-0) \, + \frac{X^2\,e^{tX} }{2!} \, (t-0)^2 \, + \frac{X^3\,e^{tX} }{3!} \, (t-0)^3 \, + \cdots \right] |a = 0$
-
-<br>
-
-$\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[e^{0X} + \frac{X\,e^{0X} }{1!} \, (t) \, + \frac{X^2\,e^{0X} }{2!} \, (t)^2 \, + \frac{X^3\,e^{0X} }{3!} \, (t)^3 \, + \cdots \right]$
-
-<br>
-
-$\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]$
+\begin{align}
+\Large M_X(t) &=\mathbb{E}[e^{\,tX}]\\ &= \mathbb{E} \left[e^{tX} + \frac{X\,e^{tX} }{1!} \, (t-0) \, + \frac{X^2\,e^{tX} }{2!} \, (t-0)^2 \, + \frac{X^3\,e^{tX} }{3!} \, (t-0)^3 \, + \cdots \right] |a = 0\\
+&=\mathbb{E} \left[e^{0X} + \frac{X\,e^{0X} }{1!} \, (t) \, + \frac{X^2\,e^{0X} }{2!} \, (t)^2 \, + \frac{X^3\,e^{0X} }{3!} \, (t)^3 \, + \cdots \right]\\
+&=\mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]
+\end{align}
 
 <br>
 
@@ -82,35 +99,45 @@ Since expectation is linear operator:
 
 <br>
 
-$\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 \right] + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots$
+\begin{align}
+\Large M_X(t) &= \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 \right] + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots\\
+&= \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 \right] +  \frac{\mathbb{E} \left[X\right]}{1!} \, t  \, +  \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2  \, +  \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots
+\end{align}
 
 <br>
 
-$\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\mathbb{E} \left[1 \right] +  \frac{\mathbb{E} \left[X\right]}{1!} \, t  \, +  \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2  \, +  \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots$
+As shown, the moments are just the coefficient that will "survive" after taking the derivative corresponding to the number of the moment:
 
-<br>
+For the *first moment* and reaching back to Eq.*:
 
-As shown, the moments are just the coefficient that will "survive" after taking the derivative corresponding to the number of the moment.
+$$\large \mathbb{E}[\color{blue}{X}] = \int_{-\infty}^{\infty}\color{blue}{X^1}\,\,\color{green}{\text{pdf}}\,\,\,dx$$
 
-So the key is to integrate to find the $\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx$ (by LOTUS the expectation is the integral of the function of $X$ times its pdf), so that we can avoid the more difficult direct calculation of:
+corresponds to the *first derivative* of the MGF evaluated at zero:
 
-<br>
-$\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx$
+
+$$M_X(t=0)= \frac{\mathbb{E} \left[X\right]}{1!}= \mathbb E [\color{blue}{X}]$$
+
+**So what is the point?** $\color{purple}{e^{\,tX}}$ is easy to integrate, so we use to get the expectation. So the key is to integrate to find the $\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx$ (by LOTUS the expectation is the integral of the function of $X$ times its pdf), so that we can avoid the more difficult direct calculation of: $\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx$
 
 <br>
 
 For the exponential (remember that pdf of an exponential is $\lambda\,e^{-\lambda x}$):
 
-$\Large M_X(t) =\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx = \displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\,\lambda\,e^{-\lambda x}\,\,dx = \lambda \displaystyle\int_{-\infty}^{\infty}e^{\,X(t-\lambda)}\,\,\,dx$
-
-<br>
-$\Large M_X(t) =\mathbb{E}[e^{\,tX}]=\Large \lambda \left(\left.\frac{e^{\,X(t-\lambda)}}{X(t-\lambda)} \right|_{-\infty}^{\infty}\right)=\frac{\lambda}{t-\lambda} = \lambda\,(t-\lambda)^{-1}.$ If $t- \lambda<0.$
-<br>
+\begin{align}
+M_X(t) &=\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx\\
+&= \displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\,\lambda\,e^{-\lambda x}\,\,dx\\ 
+&= \lambda \displaystyle\int_{-\infty}^{\infty}e^{\,X(t-\lambda)}\,\,\,dx\\
+&= \lambda \left(\left.\frac{e^{\,X(t-\lambda)}}{X(t-\lambda)} \right|_{-\infty}^{\infty}\right)=\frac{\lambda}{t-\lambda}\\ 
+&= \lambda\,(t-\lambda)^{-1}.$ 
+\end{align}
 
 Let's put it to work to derive the second raw moment (for example):
 
 <br>
-$\Large M_X^{2}(t = 0) =\frac{d^2}{dt^2}M_X(t=0)= \frac{d^2}{dt^2}\lambda\,(t-\lambda)^{-1}=\frac{2}{\lambda^2}.$
+\begin{align} M_X^{2}(t = 0) =\frac{d^2}{dt^2}M_X(t=0)\\
+&= \frac{d^2}{dt^2}\lambda\,(t-\lambda)^{-1}=\frac{2}{\lambda^2}.
+\end{align}
+
 <br>
 
 ---
