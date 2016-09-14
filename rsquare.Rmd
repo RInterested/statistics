@@ -6,7 +6,7 @@
 ###R SQUARED: SST, SSE AND SSR:
 <br>
 
-Just a bit of a misunderstanding with the [definitions](https://en.wikipedia.org/wiki/Coefficient_of_determination#Definitions), I believe:
+From these Wikipedia [definitions](https://en.wikipedia.org/wiki/Coefficient_of_determination#Definitions):
 
 \begin{align}
 \text{SST}_{\text{otal}} &= \color{red}{\text{SSE}_{\text{xplained}}}+\color{blue}{\text{SSR}_{\text{esidual}}}\\
@@ -32,7 +32,7 @@ From Wikipedia:
 
 ---
 
-After the (-1) without explanation, I made sure with a quick example that I hadn't messed up the formulas:
+Proof by example:
 
     fit = lm(mpg ~ wt, mtcars)
     summary(fit)$r.square
