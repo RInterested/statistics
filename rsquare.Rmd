@@ -1,0 +1,47 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###R SQUARED: SST, SSE AND SSR:
+<br>
+
+Just a bit of a misunderstanding with the [definitions](https://en.wikipedia.org/wiki/Coefficient_of_determination#Definitions), I believe:
+
+\begin{align}
+\text{SST}_{\text{otal}} &= \color{red}{\text{SSE}_{\text{xplained}}}+\color{blue}{\text{SSR}_{\text{esidual}}}\\
+\end{align}
+
+or, equivalently,
+
+\begin{align}
+\sum(y_i-\bar y)^2 &=\color{red}{\sum(\hat y_i-\bar y)^2}+\color{blue}{\sum(y_i-\hat y_i)^2}
+\end{align}
+
+and
+
+$\large \text{R}^2 = 1 - \frac{\text{SSR}_{\text{esidual}}}{\text{SST}_{\text{otal}}}$
+
+So if the model explained all the variation, $\text{SSR}_{\text{esidual}}=\sum(y_i-\hat y_i)^2=0$, and $\bf R^2=1.$
+
+From Wikipedia:
+
+> Suppose $r = 0.7$ then $R^2 = 0.49$ and it implies that $49\%$ of the
+> variability between the two variables have been accounted for and the
+> remaining $51\%$ of the variability is still unaccounted for.
+
+---
+
+After the (-1) without explanation, I made sure with a quick example that I hadn't messed up the formulas:
+
+    fit = lm(mpg ~ wt, mtcars)
+    summary(fit)$r.square
+    [1] 0.7528328
+    > sse = sum((fitted(fit) - mean(mtcars$mpg))^2)
+    > ssr = sum((fitted(fit) - mtcars$mpg)^2)
+    > 1 - (ssr/(sse + ssr))
+    [1] 0.7528328
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
