@@ -1,0 +1,64 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###$\bf Ax=b$ IS A CHANGE OF BASIS:
+<br>
+
+Any point on the plane is expressed differently by Emily $\begin{bmatrix}\bf \color{green}{e_1} \\ \bf \color{blue}{e_2 }\end{bmatrix}$ compared to Frank $\begin{bmatrix} \bf \color{orange}{f_1} \\ \bf \color{brown}{f_2}  \end{bmatrix}$.
+
+So we can say that Frank's basis vector $\color{orange}{f_1}=\begin{bmatrix}1\\0\end{bmatrix}$ is $\bf \color{orange}{f_1} = 5 \, \color{green}{e_1} - 2 \, \color{blue}{e_2}$; and Frank's basis vector $\color{brown}{f_2}=\begin{bmatrix}0\\1\end{bmatrix}$ is $\bf \color{brown}{f_2} = 1.5 \, \color{green}{e_1} + 2.5 \, \color{blue}{e_2}.$
+
+<br>
+
+<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/18605600/e77dd840-7c63-11e6-9dd9-16ce880c0b7d.png">
+
+
+Or we can say that the basis vectors in Frank's system will be seen from Emily's perspective as:
+
+$$\begin{bmatrix}\color{orange}{5} & 1.5 \\ \color{orange}{-2} & 2.5\end{bmatrix}\,\begin{bmatrix}1\\0\end{bmatrix}=\begin{bmatrix}\color{orange}{5\\-2}\end{bmatrix}$$
+
+and
+
+$$\begin{bmatrix}5 & \color{brown}{1.5} \\ -2 & \color{brown}{2.5}\end{bmatrix}\,\begin{bmatrix}0\\1\end{bmatrix}=\begin{bmatrix}\color{brown}{1.5\\2.5}\end{bmatrix}$$
+
+So in the columns of $\bf A =\begin{bmatrix}\color{orange}{5}&\color{brown}{1.5}\\\color{orange}{-2}&\color{brown}{2.5}\end{bmatrix}$ we have stored how the basis vectors in Frank's system are expressed in Emily's basis. 
+
+If we were to express in Emily's system some othe vector initially given in Frank's system we would just have to perform the operation:
+
+\begin{align}
+\bf A &=\begin{bmatrix}\color{orange}{5}&\color{brown}{1.5}\\\color{orange}{-2}&\color{brown}{2.5}\end{bmatrix}\begin{bmatrix}\bf x_1\\\bf{x_2}\end{bmatrix}=\begin{bmatrix}\bf y_1\\\bf{y_2}\end{bmatrix}\\
+&=\bf x_1\begin{bmatrix}\color{orange}{5}\\\color{orange}{-2}\end{bmatrix} + \bf x_2\begin{bmatrix}\color{brown}{1.5}\\\color{brown}{2.5}\end{bmatrix}
+\end{align}
+
+The thing to note is that $x_1$ will multiply the first column in the matrix to contribute to $y$ (the first basis vector contribution); and $x_2$ will multiply the second column vector to contribute to $y$ (the second basis vector contribution, expressed in Emily's language).
+
+Clearly we have just made up the equivalence between vector basis in between systems, and any other matrix $\bf A$ would have served the purpose. Therefore we can say that the operation $\bf Ax = b$ is the equivalent of a change of basis: $\begin{bmatrix}{\bf y_1 \\ \bf y_2}\end{bmatrix}$ is $\begin{bmatrix}{\bf x_1 \\ \bf x_2}\end{bmatrix}$ viewed from Emily's perspective!
+
+So is the system of equations:
+
+\begin{align}
+5{\bf x_1} + 1.5\bf{x_2}&=\bf{y_1}\\
+-2{\bf x_1} + 2.5 \bf{x_2} &=\bf{y_2}
+\end{align}
+
+Can we express Emily's vectors from Frank's perspective? Yes:
+
+\begin{align}
+\frac{5}{31}{\bf y_1} \frac{-3}{31}\bf{y_2}&=\bf{x_1}\\
+\frac{4}{31}{\bf y_1} + \frac{10}{31} \bf{y_2} &=\bf{x_2}
+\end{align}
+
+or
+
+$$\begin{bmatrix}\color{orange}{5}&\color{brown}{1.5}\\\color{orange}{-2}&\color{brown}{2.5}\end{bmatrix}^{-1}=\begin{bmatrix}\color{green}{\frac{5}{31}}&\color{blue}{\frac{-3}{31}}\\\color{green}{\frac{4}{31}}&\color{blue}{\frac{10}{31}}\end{bmatrix}$$
+
+
+So now we can look at the Emily's coordinates vector $\begin{bmatrix}\bf y_1\\ \bf y_2\end{bmatrix}$ in Frank's coordinates:
+
+$$\begin{bmatrix}\color{green}{\frac{5}{31}}&\color{blue}{\frac{-3}{31}}\\\color{green}{\frac{4}{31}}&\color{blue}{\frac{10}{31}}\end{bmatrix}\begin{bmatrix}{\bf y_1 \\ \bf y_2}\end{bmatrix}=\begin{bmatrix}{\bf x_1 \\ \bf x_2}\end{bmatrix}$$
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
