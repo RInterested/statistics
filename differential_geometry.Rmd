@@ -8,7 +8,7 @@
 
 ####Change to oblique coordinates:
 
-There is this [introductory differential geometry series online](https://youtu.be/AKPZkHvqTao?list=PLD1448E024E04C24D) ushering in the concepts of contravariant ($A^i$) and covariant ($A_i$) of a vector as a change of coordinates:
+From [this introductory differential geometry series online](https://youtu.be/AKPZkHvqTao?list=PLD1448E024E04C24D) ushering in the concepts of **contravariant** ($A^i$) and **covariant** ($A_i$) of a vector as a change of coordinates:
 
 
 In the setting of oblique coordinates, $y$ axis is tilted, but the $x$ axis stays unchanged:
@@ -28,7 +28,7 @@ while $c^v = \frac{b}{\text{sin}(\alpha)}$
 
 Therefore,
 
-$$\begin{bmatrix} 1 & - \frac{1}{\text{tan}(\alpha)} \\
+$$H = \begin{bmatrix} 1 & - \frac{1}{\text{tan}(\alpha)} \\
                   0 & \frac{1}{\text{sin}(\alpha)}
 \end{bmatrix}
 \begin{bmatrix} a \\ b
@@ -52,10 +52,12 @@ $c_u = a$ and
 
 $\bf c_v = a\,\text{cos}(\alpha) + b\, \text{sin}(\alpha)$
 
-**How is this last expression derived?**
+---
+
+This expression is derived as follows:
 
 
-<img src="http://i.stack.imgur.com/n4ivf.png" width="600">
+<img src="https://cloud.githubusercontent.com/assets/9312897/18643300/7fd60850-7e72-11e6-8e9a-37a99a10199a.png" width="400">
 
 
 The angles $\alpha$ and $\beta$ are complementary, and $\sin \alpha = \cos \beta$.
@@ -66,9 +68,29 @@ $y = a \cos \alpha$
 
 $c_v = y + x = a \cos \alpha + b \sin \alpha$
 
+It follows that
 
-  [1]: http://i.stack.imgur.com/ESBuw.png
-  [2]: http://i.stack.imgur.com/y1til.png
+$M = \begin{bmatrix} 1 & 0 \\ \cos \alpha & \sin \alpha \end{bmatrix}$
+
+---
+
+
+<img src="https://cloud.githubusercontent.com/assets/9312897/18643415/fe9641fa-7e72-11e6-9cb7-648848df8627.png" width="600">
+
+\begin{align}
+\bf G &= H\,M^{-1}\\
+&= \frac{1}{\sin\alpha}\begin{bmatrix}1&-\frac{1}{\tan\alpha}\\0&\frac{1}{\sin\alpha}\end{bmatrix}
+\begin{bmatrix} \sin\alpha & 0\\-\cos\alpha &1\end{bmatrix}\\
+&=\frac{1}{\sin\alpha} \begin{bmatrix}\sin\alpha+\frac{\cos\alpha}{\tan\alpha} & -\frac{1}{\tan \alpha}\\ -\frac{\cos\alpha}{\sin\alpha} & \sin\alpha \end{bmatrix}\\
+&=\frac{1}{\sin^2\alpha}\begin{bmatrix}1 & - \cos\alpha\\-\cos\alpha\end{bmatrix}
+\end{align}
+
+
+
+---
+
+  [1]: https://cloud.githubusercontent.com/assets/9312897/18643188/fa8b6c8a-7e71-11e6-99dd-969f835b03ce.png
+  [2]: https://cloud.githubusercontent.com/assets/9312897/18643284/68f2d9b0-7e72-11e6-91e1-cc61115a7b2f.png
 
 ---
 
