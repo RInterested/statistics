@@ -26,16 +26,24 @@ and $c^u = a - * = a - \frac{b}{\text{tan}(\alpha)}$
 
 while $c^v = \frac{b}{\text{sin}(\alpha)}$
 
-Therefore,
 
 $$H = \begin{bmatrix} 1 & - \frac{1}{\text{tan}(\alpha)} \\
                   0 & \frac{1}{\text{sin}(\alpha)}
+\end{bmatrix}$$
+
+Therefore,
+
+$$\begin{bmatrix} 1 & - \frac{1}{\text{tan}(\alpha)} \\
+                  0 & \frac{1}{\text{sin}(\alpha)}
 \end{bmatrix}
-\begin{bmatrix} a \\ b
+\begin{bmatrix} c_x \\ c_y
 \end{bmatrix}=
 \begin{bmatrix} c^u \\ c^v
+\end{bmatrix} = \begin{bmatrix} c^1 \\ c^2
 \end{bmatrix}
 $$
+
+and
 
 ---
 
@@ -72,6 +80,18 @@ It follows that
 
 $$M = \begin{bmatrix} 1 & 0 \\ \cos \alpha & \sin \alpha \end{bmatrix}$$
 
+Therefore,
+
+$$\begin{bmatrix} 1 & 0 \\
+                  \cos\alpha & \sin \alpha
+\end{bmatrix}
+\begin{bmatrix} c_x \\ c_y
+\end{bmatrix}=
+\begin{bmatrix} c_u \\ c_v
+\end{bmatrix} = \begin{bmatrix} c_1 \\ c_2
+\end{bmatrix}
+$$
+
 ---
 
 
@@ -87,7 +107,21 @@ $G$ is the **METRIC TENSOR** turns the covariate into the contravariate:
 &=\frac{1}{\sin^2\alpha}\begin{bmatrix}1 & - \cos\alpha\\-\cos\alpha\end{bmatrix}
 \end{align}
 
+---
 
+We can prove that the length of a vector in oblique coordinates is:
+
+$$L^2 = c_x^2 + c_y^2 = c_1\,c^1 + c_2\,c^2=u_k\,u^k$$
+
+---
+
+The $G$ matrix turns the variant into the contravariant: from subscript indices to superscript indices.
+
+The Einstein notation is: $g^{ij}\,u_j$, meaning the sum over all the $j$ dimensions.
+
+The "famous" metrix tensor is:
+
+$$dS^2 = g^{ij}\,dx_i\,dx_j= dx^j\,dx_j = dx^1dx_1 +dx^2dx_2$$
 
 ---
 
