@@ -54,10 +54,6 @@ At every point, $e_r$ is the unit of length and radially oriented; while $e_\the
 
 <img width="700" src="https://cloud.githubusercontent.com/assets/9312897/18789687/df1c2d1c-8179-11e6-8cf1-561902d59e12.png">
 
-The gradient vector will be defined at any point as:
-
-$\large \nabla F = \frac{\partial F}{\partial Z^1}{\bf e_1} + \frac{\partial F}{\partial Z^2} {\bf e_2}$
-
 ---
 
 From [here](https://youtu.be/hiYgYWJEaMk?t=27m50s) and [here](https://youtu.be/rtEk1at3sVk?t=25m24s):
@@ -74,7 +70,45 @@ $$R(s) = \left(Z^1(s), Z^2(s)\right)$$
 
 The unit tangent (unit vector tangential to the curve) is:
 
-$$T(s) = \frac{dR(s)}{ds}=\color{blue}{\frac{\partial R}{\partial Z^1}}\frac{dZ^1}{dS} + \color{red}{\frac{\partial R}{\partial Z^2}}\frac{dZ^2}{dS} = \frac{d Z^1}{ds}\color{blue}{{\bf e_1}} + \frac{dZ^2}{ds} \color{red}{{\bf e_2}}$$
+$$T(s) = \frac{dR(s)}{ds}=\color{blue}{\frac{\partial R}{\partial Z^1}}\frac{dZ^1}{dS} + \color{orange}{\frac{\partial R}{\partial Z^2}}\frac{dZ^2}{dS} = \frac{d Z^1}{ds}\color{blue}{{\bf e_1}} + \frac{dZ^2}{ds} \color{orange}{{\bf e_2}}$$
+
+---
+
+Starting off with a function $F(\color{green}{a},\color{green}{b},\color{green}{c}$ with three variables $\color{green}{a}$, $\color{green}{b}$ and $\color{green}{c}$, where $\color{green}{a} = \color{red}{a}(\mu, \nu)$, $\color{green}{b} = \color{red}{b}(\mu,\nu)$ and $\color{green}{c}=\color{red}{c}(\mu,\nu)$, and symbolizing the role of $a$, $b$ and $c$ as independent variables in $\color{green}{\text{green}}$, and the role of the same letters as functions in $\color{red}{\text{red}}$:
+
+$$f(\mu,\nu)= F\left(\color{red}{a}(\mu, \nu),\color{red}{b}(\mu, \nu), \color{red}{c}(\mu, \nu)\right)$$
+
+$$\frac{\partial f}{\partial \mu}= \frac{\partial F}{\partial \color{red}{a}}\frac{\partial \color{red}{a}}{\partial \mu}    +   \frac{\partial F}{\partial \color{red}{b}}\frac{\partial \color{red}{b}}{\partial \mu}    +    \frac{\partial F}{\partial \color{red}{c}}\frac{\partial \color{red}{c}}{\partial \mu}$$
+
+Trying to simplify notation,
+
+$F(\color{green}{a},\color{green}{b},\color{green}{a}) = F(\color{green}{a^1},\color{green}{a^2},\color{green}{a^3}) = F(\color{green}{a^i}) = F(\color{green}{a})$
+
+and
+
+$f(\mu,\nu) = F(\color{red}{a}(\mu, \nu))$
+
+resulting in:
+
+\begin{align}
+\frac{\partial f}{\partial \mu}&= \frac{\partial F}{\partial \color{red}{a^1}}\frac{\partial \color{red}{a^1}}{\partial \mu}    +   \frac{\partial F}{\partial \color{red}{a^2}}\frac{\partial \color{red}{a^2}}{\partial \mu}    +    \frac{\partial F}{\partial \color{red}{a^3}}\frac{\partial \color{red}{a^3}}{\partial \mu}\\
+&=\displaystyle \sum_{i=1}^3 \frac{\partial F}{\partial \color{red}{a^i}}\frac{\partial \color{red}{a^i}}{\partial \mu}\\
+&=\frac{\partial F}{\partial \color{red}{a^i}}\frac{\partial \color{red}{a^i}}{\partial \mu}\tag{$\text{Einstein's notation}$}
+\end{align}
+
+and
+
+$$\frac{\partial f}{\partial \nu} = \frac{\partial F}{\partial \color{red}{a^i}}\frac{\partial \color{red}{a^i}}{\partial \nu}\tag{$\text{Einstein's notation}$}$$
+
+We can do the same for the independent variables $\mu$ and $\nu$, and just express them as $\mu^1$, $\mu^2$, etc. Or, even simpler, we can combine the two preceding expressions into:
+
+$$f(\mu) =F(a(\mu))$$
+
+and
+
+$$\frac{\partial f}{\partial \color{green}{\mu^\alpha}}=\frac{\partial F}{\partial \color{red}{a^i}}\frac{\color{red}{a^i}}{\partial \color{green}{\mu^\alpha}}$$
+
+$\large \color{green}{\alpha}$ is the **live or free index** (different identities; one for each value of $\alpha$). $\large\color{red}{i}$ represents summation (**dummy, contracted or silent index**).
 
 
 
