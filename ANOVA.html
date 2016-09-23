@@ -122,7 +122,7 @@ $(document).ready(function () {
 <div id="cheat-sheet-anova-alphabet-soup-regression-equivalents" class="section level3">
 <h3>CHEAT SHEET ANOVA Alphabet Soup &amp; Regression Equivalents:</h3>
 <p><br> [First appeared in a <a href="http://stats.stackexchange.com/q/168462/67822">post on CrossValidate</a>] <br></p>
-<p><strong>One-Way ANOVA:</strong></p>
+<p><strong>One-way ANOVA:</strong></p>
 <pre><code>Structure:   DV is continuous; IV is ONE FACTOR with different LEVELS.
 Scenario:    miles-per-gal. vs cylinders
              Note that Income vs Gender (M, F) is a t-test.
@@ -131,7 +131,7 @@ Regression:  fit &lt;- lm(mpg ~ as.factor(cyl), mtcars)
              # with F dummy coded;
              summary(fit); anova(fit)</code></pre>
 <hr />
-<p><strong>Two-Way ANOVA:</strong></p>
+<p><strong>Two-way ANOVA:</strong></p>
 <pre><code>Structure:   DV is continuous; IV is &gt; 1 FACTORS with different LEVELS.
 Scenario:    mpg ~ cylinders &amp; carburators
 Syntax:      fit &lt;- aov(mpg ~ as.factor(cyl) + as.factor(carb), mtcars); 
