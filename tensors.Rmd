@@ -6,7 +6,7 @@
 ###TENSOR INDICIAL NOTATION:
 <br>
 
-#####**Definition of geometric vectors:**
+####**Definition of geometric vectors:**
 
 Directed segment (i.e. length and angle). It is not an ordered set of numbers. A vector cannot be decomposed into basis vectors, like in linear algebra. Geometric vector are just pictures.
 
@@ -109,6 +109,61 @@ and
 $$\frac{\partial f}{\partial \color{green}{\mu^\alpha}}=\frac{\partial F}{\partial \color{red}{a^i}}\frac{\color{red}{a^i}}{\partial \color{green}{\mu^\alpha}}$$
 
 $\large \color{green}{\alpha}$ is the **live or free index** (different identities; one for each value of $\alpha$). $\large\color{red}{i}$ represents summation (**dummy, contracted or silent index**).
+
+---
+
+#### Example: 
+
+####New coordinate system $\bf(r,\theta)= \left(Z^{1'},Z^{2'}=Z^{i'}\right)$ in terms of the old $\bf (x,y)=\left(Z^1, Z^2\right)=Z^i$ variables:
+
+<br>
+
+$$\Large \color{green}{r}=\color{red}{r}\left( x(\color{green}{r},\color{green}{\theta}), 
+y(\color{green}{r},\color{green}{\theta})
+\right)\tag 1$$
+
+**All** $r$'s in green are independent variables. $x$ and $y$ are the original variables, which depend on $r$ and $\theta$, i.e. $x(\color{green}{r},\color{green}{\theta})$ and $y(\color{green}{r},\color{green}{\theta})$.  $\color{red}{r}$ is a function - in this case is $\sqrt{x^2 + y^2}$.
+
+Similary,
+
+$$\Large\color{green}{\theta}=\color{red}{\theta}\left( x(\color{green}{r},\color{green}{\theta}), 
+y(\color{green}{r},\color{green}{\theta})
+\right) \tag 2$$
+
+is such that $\color{red}{\theta}$ is a function: $\arctan(y,x)$.
+
+Differentiating to obtain the **Jacobian of the transformation**:
+
+From Eq.1:
+
+$\Large \frac{\partial\color{red}{r}}{\partial x}  
+\frac{\partial x}{\partial \color{red}{r}}
++ \frac{\partial\color{red}{r}}{\partial y}  
+\frac{\partial y}{\partial \color{red}{r}}   = 1$
+
+$\Large\frac{\partial\color{red}{r}}{\partial x}  
+\frac{\partial x}{\partial \color{red}{\theta}}
++ \frac{\partial\color{red}{r}}{\partial y}  
+\frac{\partial y}{\partial \color{red}{\theta}}   = 0$
+
+From Eq.2:
+
+$\Large\frac{\partial\color{red}{\theta}}{\partial x}  
+\frac{\partial x}{\partial \color{red}{r}}
++ \frac{\partial\color{red}{\theta}}{\partial y}  
+\frac{\partial y}{\partial \color{red}{r}}   = 0$
+
+$\Large\frac{\partial\color{red}{\theta}}{\partial x}  
+\frac{\partial x}{\partial \color{red}{\theta}}
++ \frac{\partial\color{red}{\theta}}{\partial y}  
+\frac{\partial y}{\partial \color{red}{\theta}}   = 1$
+
+
+If we move on to the $\bf Z^i$ notation:
+
+$$\Large \color{green}{Z^{i'}} = \color{red}{Z^{i'}}\left(Z^i\right)$$
+
+where $\color{red}{Z^{1'}}$ is $\sqrt{x^2 + y^2}$ for $\color{green}{Z^{1'}} = r$, and $\color{red}{Z^{2'}}$ is $\arctan(y,x)$ for $\color{green}{Z^{2'}}=\theta.$
 
 
 
