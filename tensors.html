@@ -198,18 +198,28 @@ y(\color{green}{r},\color{green}{\theta})
 <p>is such that <span class="math inline">\(\color{red}{\theta}\)</span> is a function: <span class="math inline">\(\arctan(y,x)\)</span>.</p>
 <p>Differentiating to obtain the <strong>Jacobian of the transformation</strong>:</p>
 <p>From Eq.1:</p>
-<p><span class="math inline">\(\Large \frac{\partial\color{red}{r}}{\partial x} \frac{\partial x}{\partial \color{red}{r}} + \frac{\partial\color{red}{r}}{\partial y} \frac{\partial y}{\partial \color{red}{r}} = 1\)</span></p>
-<p><span class="math inline">\(\Large\frac{\partial\color{red}{r}}{\partial x} \frac{\partial x}{\partial \color{red}{\theta}} + \frac{\partial\color{red}{r}}{\partial y} \frac{\partial y}{\partial \color{red}{\theta}} = 0\)</span></p>
+<p><span class="math inline">\(\Large \frac{\partial\color{red}{r}}{\partial x} \frac{\partial x}{\partial \color{red}{r}} + \frac{\partial\color{red}{r}}{\partial y} \frac{\partial y}{\partial \color{red}{r}} = 1\tag{1,1}\)</span></p>
+<p><span class="math inline">\(\Large\frac{\partial\color{red}{r}}{\partial x} \frac{\partial x}{\partial \color{red}{\theta}} + \frac{\partial\color{red}{r}}{\partial y} \frac{\partial y}{\partial \color{red}{\theta}} = 0\tag{1,2}\)</span></p>
 <p>From Eq.2:</p>
-<p><span class="math inline">\(\Large\frac{\partial\color{red}{\theta}}{\partial x} \frac{\partial x}{\partial \color{red}{r}} + \frac{\partial\color{red}{\theta}}{\partial y} \frac{\partial y}{\partial \color{red}{r}} = 0\)</span></p>
-<p><span class="math inline">\(\Large\frac{\partial\color{red}{\theta}}{\partial x} \frac{\partial x}{\partial \color{red}{\theta}} + \frac{\partial\color{red}{\theta}}{\partial y} \frac{\partial y}{\partial \color{red}{\theta}} = 1\)</span></p>
+<p><span class="math inline">\(\Large\frac{\partial\color{red}{\theta}}{\partial x} \frac{\partial x}{\partial \color{red}{r}} + \frac{\partial\color{red}{\theta}}{\partial y} \frac{\partial y}{\partial \color{red}{r}} = 0\tag{2,1}\)</span></p>
+<p><span class="math inline">\(\Large\frac{\partial\color{red}{\theta}}{\partial x} \frac{\partial x}{\partial \color{red}{\theta}} + \frac{\partial\color{red}{\theta}}{\partial y} \frac{\partial y}{\partial \color{red}{\theta}} = 1\tag{2,2}\)</span></p>
 <p>If we move on to the <span class="math inline">\(\bf Z^i\)</span> notation:</p>
 <p><span class="math display">\[\Large \color{green}{Z^{i'}} = \color{red}{Z^{i'}}\left(Z\right)\]</span></p>
 <p><span class="math inline">\(\Large \bf Z^1=x\)</span> and <span class="math inline">\(\Large \bf Z^2=y\)</span>.</p>
 <p><span class="math inline">\(\color{red}{Z^{1'}}\)</span> is <span class="math inline">\(\sqrt{x^2 + y^2}\)</span> for <span class="math inline">\(\color{green}{\Large \bf Z^{1'}} = r\)</span>, and <span class="math inline">\(\color{red}{Z^{2'}}\)</span> is <span class="math inline">\(\arctan(y,x)\)</span> for <span class="math inline">\(\Large \bf \color{green}{Z^{2'}}=\theta.\)</span></p>
 <p>Although Eq. 1 and 2 are really:</p>
-<p><span class="math display">\[\Large \color{red}{Z^{i'}}\left(\color{red}{Z}(\color{green}{Z'})\right) = \Large \color{green}{Z^{i'}}\]</span></p>
-<p>… wording this…“by taking the <span class="math inline">\(r\)</span>, <span class="math inline">\(\theta\)</span> (<span class="math inline">\(\color{red}{Z^{i'}}\)</span>) and lookng at how they depend on <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (<span class="math inline">\(\large Z\)</span>), and plugging the dependence of <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> on <span class="math inline">\(r\)</span> and <span class="math inline">\(\theta\)</span>, i.e. (<span class="math inline">\(\cdot(Z')\)</span>), you recover the <span class="math inline">\(r\)</span> and <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[\Large \color{red}{Z^{i'}}\left(\color{red}{Z}(\color{green}{Z'})\right) = \Large \color{green}{Z^{i'}}\tag{3}\]</span></p>
+<p>… wording this…“by taking the <span class="math inline">\(r\)</span>, <span class="math inline">\(\theta\)</span> (<span class="math inline">\(\color{red}{Z^{i'}}\)</span>) and lookng at how they depend on <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (<span class="math inline">\(\color{red}{\large Z}\)</span>), and plugging the dependence of <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> on <span class="math inline">\(r\)</span> and <span class="math inline">\(\theta\)</span>, i.e. (<span class="math inline">\(\large \cdot(\color{green}{Z'})\)</span>), you recover the <span class="math inline">\(r\)</span> and <span class="math inline">\(\theta\)</span>.</p>
+<p>The derivative will be expressed as:</p>
+<p><span class="math display">\[\Large \frac{\partial Z^{i'}}{\partial Z^{j'}}\tag{4}\]</span></p>
+<p>signifying…</p>
+<p>For <span class="math inline">\(i=1\)</span> and <span class="math inline">\(j=1\)</span>:</p>
+<p><span class="math display">\[\frac{\partial r}{\partial r} =  1 \tag{1,1}\]</span></p>
+<p>For <span class="math inline">\(i=1\)</span> and <span class="math inline">\(j=2\)</span>:</p>
+<p><span class="math display">\[\frac{\partial r}{\partial \theta} =  0 \tag{1,2}\]</span></p>
+<p><span class="math display">\[\vdots\]</span></p>
+<p>So when <span class="math inline">\(i=j\)</span> the partial derivative will be <span class="math inline">\(1\)</span>; otherwise, <span class="math inline">\(0\)</span>. This is the <a href="https://en.wikipedia.org/wiki/Kronecker_delta">Kronecker delta</a>. Therefore and from Eq. 3:</p>
+<p><span class="math display">\[\Large \frac{\partial Z^{i'}}{\partial Z^{j'}}=\Large\delta_{j'}^{i'}\tag{5}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
