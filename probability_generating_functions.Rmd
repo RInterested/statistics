@@ -3,18 +3,94 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###PROBABILITY GENERATING FUNCTIONS:
+###WAYS OF GETTING MOMENTS:
 <br>
 
-One of the four ways of getting moments (together with direct calculation of $\mathbb E[X^n]$; MGF's; and characteristic function).
+Direct calculation of probability generating functions (PGF); moment generating functions (MGF); and characteristic functions.
 
-To directly find $\mathbb E[X^n]$ we need to calculate $\displaystyle \int_{-\infty}^{\infty} x f(x)dx.$
+#####**Directly using the definition of Expectation:**
+
+We can find $\mathbb E[X^n]$ directly and calculate moments through:
+
+$$\displaystyle \int_{-\infty}^{\infty} x f(x)dx.$$
+
+#####**Probability generating functions:**
 
 Probability generating functions only work for discrete distributions.
 
 The equation is:
 
-$$G(z) = \mathbb E[z^X]= \displaystyle \sum_{x=0}^\infty p(x)\, z^x$$
+$$\color{blue}{G(z) = \mathbb E[z^i]= \displaystyle \sum_{x=0}^\infty p_i\, z^i}$$
+
+where $p_i = \Pr\{X=i\}.$
+
+By differentiating and evaluating at $1$ we get **factorial** moments (not raw moments):
+
+$$G_X^{(r)}=\mathbb E[X(X-1)\cdots(X-r+1)]$$
+
+#####**Moment generating functions (MGF):**
+
+$$M_X(t)=\displaystyle\int_{-\infty}^\infty e^{tx}dF(x)$$
+
+They not always exist. The moments are calculated as:
+
+$$\mathbb E[X^n]=M_X^{(n)}(0)=\frac{d^nM_X}{dt^n}(0)$$
+
+#####**Characteristic functions:**
+
+They always exist:
+
+$$\phi(t)=\mathbb E[e^{itX}]= \displaystyle \int_{-\infty}^{\infty} e^{itx}f_X(x)dx$$
+
+and the moments are calculated as:
+
+$$\mathbb E[X^k]=(-i)^k\phi_X^{(k)}(0)$$
+
+---
+
+###PROBABILITY GENERATING FUNCTIONS:
+
+**CHARACTERISTICS:**
+
+1. IT GIVES YOU PROBABILITIES by differentiating:
+
+$$\color{blue}{\large p_i = \frac{1}{i!}\frac{d^i \, G(z)}{dx^i} \vert_{z=0}=\frac{1}{i!}G^{(i)}(0)}$$
+
+2. $G(1)=1$ because $\displaystyle\sum_{i=0}^\infty p_i 1^i=1$
+
+3. First differential $G^{(1)}(z) =\frac{d}{dz}\mathbb E[z^X]=\mathbb E[X\,z^{X-1}]$
+
+4. The first differential evaluated at $1$ gives you the mean: $G^{(1)}(1) =\mathbb E[X\,z^{X-1}]\vert_{z=1}=\mathbb E[X\,1^{X-1}]= \mathbb E[X].$
+
+5. $G^{(2)}(1) =\frac{d^2}{dz^2}\mathbb E[z^X]\vert_{z=1}=\mathbb E[X(X-1)z^{X-2}]=\mathbb E[X(X-1)]=\mathbb E[X^2-X]=\mathbb E[X^2] - \mathbb E[X]$, which is the factorial momment, and is NOT the variance, because the second term is not squared.
+
+6. $G^{(i)}(1)= \mathbb E[X(X-1)\cdots(X-i+1)]=i^{th}$ factorial moment.
+
+7. To get the variance, $\sigma^2=\mathbb E[X^2]-\mathbb E[X]^2=G^{(2)}(1)+G^{(1)}(1)-(G^{(1)}(1))^2$
+
+8. We can get raw moments by differentiating the pdf and multiply  it by $z$: $\mathbb E[X^i]=(z\frac{d}{dz})^iG(z)\vert_{z=1}$
+
+---
+
+####PGF FOR BERNOULLI DISTRIBUTION
+
+$$f(i,p)= p^i(1-p)^{(1-i)} \text{for }i\in \{0,1\}$$
+
+The PGF is:
+
+$$G(z)=\sum_{i=0}^\infty p_iz^i= p_0z^0+p_1z^1=p^0(1-p)^{(1-0)}\times z^0 + p^1(1-p)^{(1-1)}\times z^1= (1-p)+p^1\times z^1=\color{red}{ (1-p)+pz=q + pz}$$
+
+Differentiating and evaluating at zero it gives probabilities:
+
+$$p_i = \frac{1}{i!}\frac{d^iG(z)}{dz^i}\vert_{z=0}=\frac{1}{i!}G^{(i)}(0)$$
+
+so
+
+$\color{red}{p_1= \frac{1}{1!}G^{(1)}(0)=\frac{1}{1!}\frac{d}{dz}(q+pz)\vert_{z=0}=p}$
+
+and
+
+$\color{red}{p_0= \frac{1}{0!}G^{(0)}(0)=\frac{1}{0!}(q+pz)\vert_{z=0}=q}$
 
 
 ---
