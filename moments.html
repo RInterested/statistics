@@ -170,6 +170,12 @@ $(document).ready(function () {
 </blockquote>
 <p><br></p>
 <p><span class="math inline">\(\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]}\)</span></p>
+<p>This is calculated differently for discrete distributions (Probability Mass Function, PMF):</p>
+<p><span class="math inline">\(\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \sum_{i=1}^{\infty}\, e^{tx_i}\,p_i}\)</span></p>
+<p>as compared to continuous distributions (PDF):</p>
+<p><span class="math inline">\(\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \int_{-\infty}^{\infty}\, e^{tx}\,f(x)\, dx}\)</span></p>
+<p>Notice that the MGF is the <a href="https://en.wikipedia.org/wiki/Laplace_transform#Probability_theory">Laplace transform</a> with <span class="math inline">\(-s\)</span> replaced by <span class="math inline">\(t\)</span>:</p>
+<p><span class="math inline">\(\mathscr L\{f\}(s)= \mathbb E [e^{-sX}].\)</span></p>
 <p><br></p>
 <p>Expanding the Taylor series of this function:</p>
 <p><br></p>

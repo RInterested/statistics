@@ -74,6 +74,19 @@ Instead of integrating the defining equation to obtain the raw moments, we can
 
 $\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]}$
 
+This is calculated differently for discrete distributions (Probability Mass Function, PMF):
+
+$\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \sum_{i=1}^{\infty}\, e^{tx_i}\,p_i}$
+
+as compared to continuous distributions (PDF):
+
+$\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \int_{-\infty}^{\infty}\, e^{tx}\,f(x)\, dx}$
+
+
+Notice that the MGF is the [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform#Probability_theory) with $-s$ replaced by $t$:
+
+$\mathscr L\{f\}(s)= \mathbb E [e^{-sX}].$
+
 <br>
 
 Expanding the Taylor series of this function:

@@ -12,11 +12,13 @@
 
 To refresh, moments are given by the Riemann-Stieltjes integral:
 
-$$\mu_n' =\mathbb E[X^n]=\int_{-\infty}^\infty x^n dF(x)$$
+$$\mu_n' =\mathbb E[X^n]=\int_{-\infty}^\infty x^n f(x)\dx$$
 
-where $X$ is a random variable with cumulative distribution $E$, and $n$ signifies the $n$-th moment.
+where $X$ is a random variable with pdf $f(x)$, and $n$ signifies the $n$-th moment.
 
 ---
+
+####Methods to obtain moments:
 
 Direct calculation of probability generating functions (PGF); moment generating functions (MGF); and characteristic functions.
 
@@ -24,7 +26,9 @@ Direct calculation of probability generating functions (PGF); moment generating 
 
 We can find $\mathbb E[X^n]$ directly and calculate moments through:
 
-$$\displaystyle \int_{-\infty}^{\infty} x f(x)dx.$$
+$$\large \displaystyle \int_{-\infty}^{\infty} x f(x)dx.$$
+
+---
 
 #####**Probability generating functions:**
 
@@ -32,29 +36,41 @@ Probability generating functions only work for discrete distributions.
 
 The equation is:
 
-$$\color{blue}{G(z) = \mathbb E[z^i]= \displaystyle \sum_{x=0}^\infty p_i\, z^i}$$
+$$\large \color{blue}{G(z) = \mathbb E[z^X]= \displaystyle \sum_{x=0}^\infty p_x\, z^x}$$
 
-where $p_i = \Pr\{X=i\}.$
+where $p_x = \Pr\{X=x\}.$
 
 By differentiating and evaluating at $1$ we get **factorial** moments (not raw moments):
 
 $$G_X^{(r)}=\mathbb E[X(X-1)\cdots(X-r+1)]$$
 
+---
+
 #####**Moment generating functions (MGF):**
 
-$$M_X(t)=\displaystyle\int_{-\infty}^\infty e^{tx}dF(x)$$
+$$\large M_X(t)=\displaystyle\int_{-\infty}^\infty e^{tx}dF(x)$$
+
+Notice that the MGF is the [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform#Probability_theory) with $-s$ replaced by $t$:
+
+$\mathscr L\{f\}(s)= \mathbb E [e^{-sX}].$
 
 They not always exist. The moments are calculated as:
 
 $$\mathbb E[X^n]=M_X^{(n)}(0)=\frac{d^nM_X}{dt^n}(0)$$
 
+---
+
 #####**Characteristic functions:**
 
 They always exist:
 
-$$\phi(t)=\mathbb E[e^{itX}]= \displaystyle \int_{-\infty}^{\infty} e^{itx}f_X(x)dx$$
+$$\large \phi(t)=\mathbb E[e^{itX}]= \displaystyle \int_{-\infty}^{\infty} e^{itx}f_X(x)dx$$
 
-and the moments are calculated as:
+Notice that the characteristic function is the [Fourier Transform of probability density function](https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)) with the caveat that in probability theory, the characteristic function $\displaystyle \phi$  of the probability density function $\displaystyle f$ of a random variable $\displaystyle X$ of continuous type is defined without a negative sign in the exponential, and since the units of $\displaystyle x$ are ignored, there is no $\displaystyle 2\pi$ either (from [Wikipedia](https://en.wikipedia.org/wiki/Fourier_transform#Units_and_Duality)):
+
+$\mathscr F\{f(x)\}=\displaystyle \int_{-\infty}^{\infty}e^{2\pi i k x}\,f(x)\,dx$
+
+The moments are calculated as:
 
 $$\mathbb E[X^k]=(-i)^k\phi_X^{(k)}(0)$$
 
