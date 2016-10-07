@@ -5,7 +5,42 @@
 
 
 
-####DEFINITION OF MOMENT GENERATING FUNCTIONS:
+####MOMENT GENERATING FUNCTIONS:
+
+<br>
+
+#####MOTIVATION:
+
+<br>
+
+Instead of integrating the defining equation to obtain the raw moments, we can 
+
+>1. First get this "moment generating function (MGF)"; and 
+2. Derive the MGF to get the raw moments.
+
+---
+
+#####DEFINITION of MGF:
+
+
+<br>
+
+$$\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]}$$
+
+This is calculated differently for discrete distributions (Probability Mass Function, PMF):
+
+$\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \sum_{i=1}^{\infty}\, e^{tx_i}\,p_i}\tag{1}$
+
+as compared to continuous distributions (PDF):
+
+$\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \int_{-\infty}^{\infty}\, e^{tx}\,f(x)\, dx}\tag{2}$
+
+
+Notice that the MGF is the [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform#Probability_theory) with $-s$ replaced by $t$. Here is the formula for the Laplace transform:
+
+
+$\large\mathscr L\{f\}(s)= \mathbb E [e^{-sX}].$
+
 
 ---
 
@@ -19,106 +54,92 @@ $$1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \cdots
 
 <br>
 
----
-
-#####DEFINITION of MGF:
-
-Instead of integrating the defining equation to obtain the raw moments, we can 
-
->1. First get this "moment generating function (MGF)"; and 
-2. Derive the MGF to get the raw moments.
-
+We now expand the Taylor series of the function $e^{tX}$ within the expectation operator. If $a=0$ the series is called a Maclaurin series. Of note, we differentiate **with respect to $t$**. Attention: $X$ is a constant. Hence, $\large\frac{d}{dt}e^{tX}=Xe^{tX}$; and $\frac{d^2}{dt^2}e^{tX}=X^2e^{tX}$.
 
 <br>
 
-$\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]}$
-
-This is calculated differently for discrete distributions (Probability Mass Function, PMF):
-
-$\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \sum_{i=1}^{\infty}\, e^{tx_i}\,p_i}$
-
-as compared to continuous distributions (PDF):
-
-$\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \int_{-\infty}^{\infty}\, e^{tx}\,f(x)\, dx}$
-
-
-Notice that the MGF is the [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform#Probability_theory) with $-s$ replaced by $t$:
-
-$\mathscr L\{f\}(s)= \mathbb E [e^{-sX}].$
-
-<br>
-
-Expanding the Taylor series of this function:
-
-<br>
-
-$\large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{X^{(n)}}{n!}\,(X-a)^n \right]\vert a.$
-
-<br>
-
-If $a = 0$, we have a  Maclaurin series. We derive **with respect to $t$**. Attention: $X$ is a constant. Hence, $\frac{d}{dt}e^{tX}=Xe^{tX}$.
-
-
-<br>
-
-\begin{align}
- M_X(t) &=\mathbb{E}[e^{\,tX}]\\ &= \mathbb{E} \left[1 + \frac{Xe^{tX}}{1!} \, (t-a) \, + \frac{X^2e^{tX}}{2!} \, (t-a)^2 \, + \frac{X^3e^{tX}}{3!} \, (t-a)^3 \, + \cdots \right] |a = 0\\
-&=\mathbb{E} \left[1 + \frac{Xe^{tX}}{1!} \, t \, + \frac{X^2e^{tX}}{2!} \, t^2 \, + \frac{X^3e^{tX}}{3!} \, t^3 \, + \cdots \right]
+$$
+\large \begin{align}
+\large M_X(t) &= \mathbb{E}[e^{\,tX}]\\
+&=\mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{X^{(n)}\,e^{Xa}}{n!}\,(t-a)^n \right]\vert a\\ 
+&=\mathbb E\left[\frac{e^{Xa}}{0!} + \frac{Xe^{Xa}}{1!}(t - a) + \frac{X^2e^{Xa}}{2!}(t - a)^2 + \frac{X^3e^{Xa}}{3!}(t - a)^3+\cdots \right]\,\vert a \\
+\,\,\,\\ 
+&\underset{\text{a=0}}=\,\,\,\mathbb{E}\left[1 + \frac{Xt}{1!} + \frac{X^2t^2}{2!} + \frac{X^3t^3}{3!} + \cdots\right]\\
+&=\mathbb{E}\left[1\right] +\mathbb{E}\left[ \frac{Xt}{1!}\right] + \mathbb{E}\left[\frac{X^2t^2}{2!}\right] + \mathbb{E}\left[\frac{X^3t^3}{3!}\right] + \cdots\\
+&= 1 +  \frac{\mathbb{E} \left[X\right]}{1!} \, t  \, +  \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2  \, +  \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots
 \end{align}
+$$
 
 <br>
 
-Now, since we are evaluating at $t=0$, every term with a $t$ will be $0$, but the point is to differentiate the power series over and over, so that every time there is just one term without $t$. Well... that term withot a $t$ multiplying the first term will still have $e^{tX}$, butit will go away when evaluating at zero: $e^{tX}=0.$ Hence,
+Now, since we are evaluating at $t=0$, every term with a $t$ will be $0$, but the point is to differentiate the power series over and over, so that every time there is just one term without $t$.  
 
-\begin{align}
- M_X(t) &=\mathbb{E}[e^{\,tX}]\\ &=\mathbb{E} \left[1 + \frac{Xe^{tX}}{1!} \, t \, + \frac{X^2e^{tX}}{2!} \, t^2 \, + \frac{X^3e^{tX}}{3!} \, t^3 \, + \cdots \right]\\
-&=\mathbb{E} \left[1 + \frac{X}{1!} \, t \, + \frac{X^2}{2!} \, t^2 \, + \frac{X^3}{3!} \, t^3 \, + \cdots \right]
-\end{align}
+As shown, the moments are just the coefficient that will "survive" after taking the derivative corresponding to the number of the moment.
 
-Since expectation is linear operator:
 
-<br>
-
-\begin{align}
-M_X(t) &= \mathbb{E}[e^{\,tX}]=1 + \mathbb{E} \left[ \frac{X}{1!} \, t \right] \, + \mathbb{E} \left[ \frac{X^2}{2!} \, t^2 \right] \, + \mathbb{E} \left[ \frac{X^3}{3!} \, t^3 \right] \, + \cdots\\
-&= \mathbb{E}[\color{red}{e^{\,tX}}]=1 +  \frac{\mathbb{E} \left[X\right]}{1!} \, t  \, +  \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2  \, +  \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots
-\end{align}
-
-<br>
-
-As shown, the moments are just the coefficient that will "survive" after taking the derivative corresponding to the number of the moment:
-
-For the *first moment* and reaching back to Eq.*:
+The *first moment*:
 
 $$\large \mathbb{E}[\color{blue}{X}] = \int_{-\infty}^{\infty}\color{blue}{X^1}\,\,\color{green}{\text{pdf}}\,\,\,dx$$
 
-corresponds to the *first derivative* of the MGF evaluated at zero:
+can be found "perched" in the MGF as  the*first derivative* evaluated at zero:
 
+$$\large M_X(t) = 1 +  \frac{ \color{red}{\mathbb{E}\left[X\right]}}{1!} \, t  \, +  \frac{\mathbb{E} \left[X^2\right]}{2!} \, t^2  \, +  \frac{\mathbb{E} \left[X^3\right]}{3!} \, t^3 \, + \cdots$$
 
-$$M^{'}_X(t=0)= \frac{\mathbb{E} \left[X\right]}{1!}= \mathbb E [\color{blue}{X}]$$
+Therefore, differentiating once:
 
-**So what is the point?** We don't have $\color{red}{e^{\,tX}}$ any longer - we now have the first derivative, but $e^{\,tX}$ is easy to integrate, so we use to get the expectation. So the key is to integrate to find the $\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx$ (by LOTUS the expectation is the integral of the function of $X$ times its pdf), so that we can avoid the more difficult direct calculation of: $\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx.$
+$$M^{'}_X(t=0)= \frac{\mathbb{E} \left[X\right]}{1!}= \color{red}{\mathbb E [{X}]}$$
 
-The key is to find the $\color{red}{e^{\,tX}}$ to begin, and then derive over and over.
+**So what is the point?** 
+
+We started off with $\color{red}{e^{\,tX}}$, but we don't have it any longer: 
+
+Instead of going through the **integration process** for each moment which by LOTUS the expectation is the integral of the function of $X$ times its pdf:
+
+$$\large \mathbb{E}[\color{blue}{X^k}] = \int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx$$
+
+a process that can be hairy, especially compared to integrating:
+
+$$\large M_X(t) = \mathbb{E}[\color{blue}{e^{\,tX}}]=\displaystyle \int_{-\infty}^{\infty}\, \color{blue}{e^{tX}}\,\color{green}{\text{pdf}}\, dx$$
+
+and later differentiating a polynomial to recover the moments.
 
 <br>
 
-For the exponential (remember that pdf of an exponential is $\lambda\,e^{-\lambda x}$):
+---
 
+Let's put it to work to derive the second raw moment (for example) for the exponential (remember that pdf of an exponential is $\lambda\,e^{-\lambda x}$).
+
+First find this gold mine that is the MGF. Again we could directly calculate the moment by integrating:
+
+$$\
 \begin{align}
-M_X(t) &=\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx\\
-&= \displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\,\lambda\,e^{-\lambda x}\,\,dx\\ 
+\large \mathbb E\left[ X^2 \right] &= \displaystyle \int_{-\infty}^{\infty} X^2\,\text{pdf}\,dx\\
+&= \displaystyle \int_{-\infty}^{\infty} \color{red}{X^2}\color{green}{\lambda\,e^{-\lambda X}}\,dx
+\end{align}
+$$
+
+or
+
+$$
+\begin{align}
+\large M_X(t) &=\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx\\
+&= \displaystyle\int_{-\infty}^{\infty}\color{red}{e^{\,tX}}\,\,\,\color{green}{\lambda\,e^{-\lambda x}}\,\,dx\\ 
 &= \lambda \displaystyle\int_{-\infty}^{\infty}e^{\,X(t-\lambda)}\,\,\,dx\\
 &= \lambda \left(\left.\frac{e^{\,X(t-\lambda)}}{X(t-\lambda)} \right|_{-\infty}^{\infty}\right)=\frac{\lambda}{t-\lambda}\\ 
 &= \lambda\,(t-\lambda)^{-1}.
 \end{align}
+$$
 
-Let's put it to work to derive the second raw moment (for example):
+
+Now we simply have to differentiate and evaluate at zero:
 
 <br>
-\begin{align} M_X^{2}(t = 0) &=\frac{d^2}{dt^2}M_X(t=0)\\
+
+$$
+\begin{align}\large M_X^{2}(t = 0) &=\frac{d^2}{dt^2}M_X(t=0)\\
 &= \frac{d^2}{dt^2}\lambda\,(t-\lambda)^{-1}=\frac{2}{\lambda^2}.
 \end{align}
+$$
 
 <br>
 
