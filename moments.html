@@ -67,6 +67,7 @@ img {
 <p><br></p>
 <div id="definition-of-moments" class="section level4">
 <h4>DEFINITION of MOMENTS:</h4>
+<p><br></p>
 <p><span class="math">\(\color{blue}{\text{Expected}}\)</span> value of a <span class="math">\(\color{red}{\text{power}}\)</span> of a random variable.</p>
 <p>We use <a href="https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician">LOTUS</a> to calculate this expectation: the expected value of a function of the variable (in this case an exponentiation) is obtained by multiplying that function <span class="math">\(\times\)</span> the pdf, and integrating:</p>
 <p><span class="math">\(\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx\tag{def. of MOMENT *}\)</span></p>
@@ -91,63 +92,52 @@ img {
 </ol>
 </blockquote>
 <p><br></p>
+</div>
+</div>
+<div id="ways-of-getting-moments" class="section level3">
+<h3>WAYS OF GETTING MOMENTS:</h3>
+<p><br></p>
+<hr />
+<p>To refresh, moments are given by the Riemann-Stieltjes integral:</p>
+<p><span class="math">\[\mu_n' =\mathbb E[X^n]=\int_{-\infty}^\infty x^n f(x)\dx\]</span></p>
+<p>where <span class="math">\(X\)</span> is a random variable with pdf <span class="math">\(f(x)\)</span>, and <span class="math">\(n\)</span> signifies the <span class="math">\(n\)</span>-th moment.</p>
+<hr />
+<div id="methods-to-obtain-moments" class="section level4">
+<h4>Methods to obtain moments:</h4>
+<p>Direct calculation of probability generating functions (PGF); moment generating functions (MGF); and characteristic functions.</p>
+<div id="directly-using-the-definition-of-expectation" class="section level5">
+<h5><strong>Directly using the definition of Expectation:</strong></h5>
+<p>We can find <span class="math">\(\mathbb E[X^n]\)</span> directly and calculate moments through:</p>
+<p><span class="math">\[\large \displaystyle \int_{-\infty}^{\infty} x f(x)dx.\]</span></p>
 <hr />
 </div>
-<div id="definition-of-moment-generating-functions" class="section level4">
-<h4>DEFINITION OF MOMENT GENERATING FUNCTIONS:</h4>
+<div id="probability-generating-functions" class="section level5">
+<h5><strong>Probability generating functions:</strong></h5>
+<p>Probability generating functions only work for discrete distributions.</p>
+<p>The equation is:</p>
+<p><span class="math">\[\large \color{blue}{G(z) = \mathbb E[z^X]= \displaystyle \sum_{x=0}^\infty p_x\, z^x}\]</span></p>
+<p>where <span class="math">\(p_x = \Pr\{X=x\}.\)</span></p>
+<p>By differentiating and evaluating at <span class="math">\(1\)</span> we get <strong>factorial</strong> moments (not raw moments):</p>
+<p><span class="math">\[G_X^{(r)}=\mathbb E[X(X-1)\cdots(X-r+1)]\]</span></p>
 <hr />
-<p>Remember that the Taylor series of a function <span class="math">\(f(x)\)</span> is the power series:</p>
-<p><span class="math">\[f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3+\cdots\]</span></p>
-<p>The Taylor series of <span class="math">\(e^x\)</span> at <span class="math">\(a=0\)</span> is:</p>
-<p><span class="math">\[1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \cdots = 1 + x + + \frac{x^2}{2} + \frac{x^3}{6} + \frac{x^4}{24} + \cdots= \sum_{n=0}^\infty \frac{x^n}{n!}\]</span></p>
-<p><br></p>
-<hr />
-<div id="definition-of-mgf" class="section level5">
-<h5>DEFINITION of MGF:</h5>
-<p>Instead of integrating the defining equation to obtain the raw moments, we can</p>
-<blockquote>
-<ol style="list-style-type: decimal">
-<li>First get this “moment generating function (MGF)”; and</li>
-<li>Derive the MGF to get the raw moments.</li>
-</ol>
-</blockquote>
-<p><br></p>
-<p><span class="math">\(\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]}\)</span></p>
-<p>This is calculated differently for discrete distributions (Probability Mass Function, PMF):</p>
-<p><span class="math">\(\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \sum_{i=1}^{\infty}\, e^{tx_i}\,p_i}\)</span></p>
-<p>as compared to continuous distributions (PDF):</p>
-<p><span class="math">\(\color{blue}{\Large M_X(t) = \mathbb{E}[e^{\,tX}]=\displaystyle \int_{-\infty}^{\infty}\, e^{tx}\,f(x)\, dx}\)</span></p>
+</div>
+<div id="moment-generating-functions-mgf" class="section level5">
+<h5><strong>Moment generating functions (MGF):</strong></h5>
+<p><span class="math">\[\large M_X(t)=\displaystyle\int_{-\infty}^\infty e^{tx}dF(x)\]</span></p>
 <p>Notice that the MGF is the <a href="https://en.wikipedia.org/wiki/Laplace_transform#Probability_theory">Laplace transform</a> with <span class="math">\(-s\)</span> replaced by <span class="math">\(t\)</span>:</p>
 <p><span class="math">\(\mathscr L\{f\}(s)= \mathbb E [e^{-sX}].\)</span></p>
-<p><br></p>
-<p>Expanding the Taylor series of this function:</p>
-<p><br></p>
-<p><span class="math">\(\large M_X(t) = \mathbb{E}[e^{\,tX}] = \mathbb{E} \left[ \displaystyle \sum_{n=0}^\infty \frac{X^{(n)}}{n!}\,(X-a)^n \right]\vert a.\)</span></p>
-<p><br></p>
-<p>If <span class="math">\(a = 0\)</span>, we have a Maclaurin series. We derive <strong>with respect to <span class="math">\(t\)</span></strong>. Attention: <span class="math">\(X\)</span> is a constant. Hence, <span class="math">\(\frac{d}{dt}e^{tX}=Xe^{tX}\)</span>.</p>
-<p><br></p>
-
-<p><br></p>
-<p>Now, since we are evaluating at <span class="math">\(t=0\)</span>, every term with a <span class="math">\(t\)</span> will be <span class="math">\(0\)</span>, but the point is to differentiate the power series over and over, so that every time there is just one term without <span class="math">\(t\)</span>. Well… that term withot a <span class="math">\(t\)</span> multiplying the first term will still have <span class="math">\(e^{tX}\)</span>, butit will go away when evaluating at zero: <span class="math">\(e^{tX}=0.\)</span> Hence,</p>
-
-<p>Since expectation is linear operator:</p>
-<p><br></p>
-
-<p><br></p>
-<p>As shown, the moments are just the coefficient that will “survive” after taking the derivative corresponding to the number of the moment:</p>
-<p>For the <em>first moment</em> and reaching back to Eq.*:</p>
-<p><span class="math">\[\large \mathbb{E}[\color{blue}{X}] = \int_{-\infty}^{\infty}\color{blue}{X^1}\,\,\color{green}{\text{pdf}}\,\,\,dx\]</span></p>
-<p>corresponds to the <em>first derivative</em> of the MGF evaluated at zero:</p>
-<p><span class="math">\[M^{'}_X(t=0)= \frac{\mathbb{E} \left[X\right]}{1!}= \mathbb E [\color{blue}{X}]\]</span></p>
-<p><strong>So what is the point?</strong> We don’t have <span class="math">\(\color{red}{e^{\,tX}}\)</span> any longer - we now have the first derivative, but <span class="math">\(e^{\,tX}\)</span> is easy to integrate, so we use to get the expectation. So the key is to integrate to find the <span class="math">\(\mathbb{E}[e^{\,tX}]=\displaystyle\int_{-\infty}^{\infty}e^{\,tX}\,\,\text{pdf}\,\,\,dx\)</span> (by LOTUS the expectation is the integral of the function of <span class="math">\(X\)</span> times its pdf), so that we can avoid the more difficult direct calculation of: <span class="math">\(\large \mathbb{E}[\color{blue}{X^k}] = \displaystyle\int_{-\infty}^{\infty}\color{blue}{X^k}\,\,\color{green}{\text{pdf}}\,\,\,dx.\)</span></p>
-<p>The key is to find the <span class="math">\(\color{red}{e^{\,tX}}\)</span> to begin, and then derive over and over.</p>
-<p><br></p>
-<p>For the exponential (remember that pdf of an exponential is <span class="math">\(\lambda\,e^{-\lambda x}\)</span>):</p>
-
-<p>Let’s put it to work to derive the second raw moment (for example):</p>
-<br>
-
-<p><br></p>
+<p>They not always exist. The moments are calculated as:</p>
+<p><span class="math">\[\mathbb E[X^n]=M_X^{(n)}(0)=\frac{d^nM_X}{dt^n}(0)\]</span></p>
+<hr />
+</div>
+<div id="characteristic-functions" class="section level5">
+<h5><strong>Characteristic functions:</strong></h5>
+<p>They always exist:</p>
+<p><span class="math">\[\large \phi(t)=\mathbb E[e^{itX}]= \displaystyle \int_{-\infty}^{\infty} e^{itx}f_X(x)dx\]</span></p>
+<p>Notice that the characteristic function is the <a href="https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)">Fourier Transform of probability density function</a> with the caveat that in probability theory, the characteristic function <span class="math">\(\displaystyle \phi\)</span> of the probability density function <span class="math">\(\displaystyle f\)</span> of a random variable <span class="math">\(\displaystyle X\)</span> of continuous type is defined without a negative sign in the exponential, and since the units of <span class="math">\(\displaystyle x\)</span> are ignored, there is no <span class="math">\(\displaystyle 2\pi\)</span> either (from <a href="https://en.wikipedia.org/wiki/Fourier_transform#Units_and_Duality">Wikipedia</a>):</p>
+<p><span class="math">\(\mathscr F\{f(x)\}=\displaystyle \int_{-\infty}^{\infty}e^{2\pi i k x}\,f(x)\,dx\)</span></p>
+<p>The moments are calculated as:</p>
+<p><span class="math">\[\mathbb E[X^k]=(-i)^k\phi_X^{(k)}(0)\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
