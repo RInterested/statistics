@@ -93,26 +93,17 @@ img {
 </blockquote>
 <p><br></p>
 </div>
-</div>
-<div id="ways-of-getting-moments" class="section level3">
-<h3>WAYS OF GETTING MOMENTS:</h3>
-<p><br></p>
-<hr />
-<p>To refresh, moments are given by the Riemann-Stieltjes integral:</p>
-<p><span class="math">\[\mu_n' =\mathbb E[X^n]=\int_{-\infty}^\infty x^n f(x)\dx\]</span></p>
-<p>where <span class="math">\(X\)</span> is a random variable with pdf <span class="math">\(f(x)\)</span>, and <span class="math">\(n\)</span> signifies the <span class="math">\(n\)</span>-th moment.</p>
-<hr />
 <div id="methods-to-obtain-moments" class="section level4">
-<h4>Methods to obtain moments:</h4>
-<p>Direct calculation of probability generating functions (PGF); moment generating functions (MGF); and characteristic functions.</p>
+<h4>METHODS TO OBTAIN MOMENTS:</h4>
+<p><br></p>
 <div id="directly-using-the-definition-of-expectation" class="section level5">
-<h5><strong>Directly using the definition of Expectation:</strong></h5>
+<h5><strong>1. Directly using the definition of Expectation:</strong></h5>
 <p>We can find <span class="math">\(\mathbb E[X^n]\)</span> directly and calculate moments through:</p>
 <p><span class="math">\[\large \displaystyle \int_{-\infty}^{\infty} x f(x)dx.\]</span></p>
 <hr />
 </div>
-<div id="probability-generating-functions" class="section level5">
-<h5><strong>Probability generating functions:</strong></h5>
+<div id="probability-generating-functions-pgf" class="section level5">
+<h5><strong>2. Probability generating functions (PGF):</strong></h5>
 <p>Probability generating functions only work for discrete distributions.</p>
 <p>The equation is:</p>
 <p><span class="math">\[\large \color{blue}{G(z) = \mathbb E[z^X]= \displaystyle \sum_{x=0}^\infty p_x\, z^x}\]</span></p>
@@ -122,20 +113,20 @@ img {
 <hr />
 </div>
 <div id="moment-generating-functions-mgf" class="section level5">
-<h5><strong>Moment generating functions (MGF):</strong></h5>
+<h5><strong>3. Moment generating functions (MGF):</strong></h5>
 <p><span class="math">\[\large M_X(t)=\displaystyle\int_{-\infty}^\infty e^{tx}dF(x)\]</span></p>
 <p>Notice that the MGF is the <a href="https://en.wikipedia.org/wiki/Laplace_transform#Probability_theory">Laplace transform</a> with <span class="math">\(-s\)</span> replaced by <span class="math">\(t\)</span>:</p>
-<p><span class="math">\(\mathscr L\{f\}(s)= \mathbb E [e^{-sX}].\)</span></p>
+<p><span class="math">\(\large \mathscr L\{f\}(s)= \mathbb E [e^{-sX}].\)</span></p>
 <p>They not always exist. The moments are calculated as:</p>
 <p><span class="math">\[\mathbb E[X^n]=M_X^{(n)}(0)=\frac{d^nM_X}{dt^n}(0)\]</span></p>
 <hr />
 </div>
 <div id="characteristic-functions" class="section level5">
-<h5><strong>Characteristic functions:</strong></h5>
+<h5><strong>4. Characteristic functions:</strong></h5>
 <p>They always exist:</p>
 <p><span class="math">\[\large \phi(t)=\mathbb E[e^{itX}]= \displaystyle \int_{-\infty}^{\infty} e^{itx}f_X(x)dx\]</span></p>
 <p>Notice that the characteristic function is the <a href="https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)">Fourier Transform of probability density function</a> with the caveat that in probability theory, the characteristic function <span class="math">\(\displaystyle \phi\)</span> of the probability density function <span class="math">\(\displaystyle f\)</span> of a random variable <span class="math">\(\displaystyle X\)</span> of continuous type is defined without a negative sign in the exponential, and since the units of <span class="math">\(\displaystyle x\)</span> are ignored, there is no <span class="math">\(\displaystyle 2\pi\)</span> either (from <a href="https://en.wikipedia.org/wiki/Fourier_transform#Units_and_Duality">Wikipedia</a>):</p>
-<p><span class="math">\(\mathscr F\{f(x)\}=\displaystyle \int_{-\infty}^{\infty}e^{2\pi i k x}\,f(x)\,dx\)</span></p>
+<p><span class="math">\(\large \mathscr F\{f(x)\}=\displaystyle \int_{-\infty}^{\infty}e^{2\pi i k x}\,f(x)\,dx\)</span></p>
 <p>The moments are calculated as:</p>
 <p><span class="math">\[\mathbb E[X^k]=(-i)^k\phi_X^{(k)}(0)\]</span></p>
 <hr />

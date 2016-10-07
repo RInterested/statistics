@@ -43,26 +43,10 @@ Alternatively, it can be defined as the difference between the second and the $\
 
 <br>
 
-###WAYS OF GETTING MOMENTS:
-
-
+####METHODS TO OBTAIN MOMENTS:
 <br>
 
----
-
-To refresh, moments are given by the Riemann-Stieltjes integral:
-
-$$\mu_n' =\mathbb E[X^n]=\int_{-\infty}^\infty x^n f(x)\dx$$
-
-where $X$ is a random variable with pdf $f(x)$, and $n$ signifies the $n$-th moment.
-
----
-
-####Methods to obtain moments:
-
-Direct calculation of probability generating functions (PGF); moment generating functions (MGF); and characteristic functions.
-
-#####**Directly using the definition of Expectation:**
+#####**1. Directly using the definition of Expectation:**
 
 We can find $\mathbb E[X^n]$ directly and calculate moments through:
 
@@ -70,7 +54,7 @@ $$\large \displaystyle \int_{-\infty}^{\infty} x f(x)dx.$$
 
 ---
 
-#####**Probability generating functions:**
+#####**2. Probability generating functions (PGF):**
 
 Probability generating functions only work for discrete distributions.
 
@@ -86,13 +70,13 @@ $$G_X^{(r)}=\mathbb E[X(X-1)\cdots(X-r+1)]$$
 
 ---
 
-#####**Moment generating functions (MGF):**
+#####**3. Moment generating functions (MGF):**
 
 $$\large M_X(t)=\displaystyle\int_{-\infty}^\infty e^{tx}dF(x)$$
 
 Notice that the MGF is the [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform#Probability_theory) with $-s$ replaced by $t$:
 
-$\mathscr L\{f\}(s)= \mathbb E [e^{-sX}].$
+$\large \mathscr L\{f\}(s)= \mathbb E [e^{-sX}].$
 
 They not always exist. The moments are calculated as:
 
@@ -100,7 +84,7 @@ $$\mathbb E[X^n]=M_X^{(n)}(0)=\frac{d^nM_X}{dt^n}(0)$$
 
 ---
 
-#####**Characteristic functions:**
+#####**4. Characteristic functions:**
 
 They always exist:
 
@@ -108,7 +92,7 @@ $$\large \phi(t)=\mathbb E[e^{itX}]= \displaystyle \int_{-\infty}^{\infty} e^{it
 
 Notice that the characteristic function is the [Fourier Transform of probability density function](https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)) with the caveat that in probability theory, the characteristic function $\displaystyle \phi$  of the probability density function $\displaystyle f$ of a random variable $\displaystyle X$ of continuous type is defined without a negative sign in the exponential, and since the units of $\displaystyle x$ are ignored, there is no $\displaystyle 2\pi$ either (from [Wikipedia](https://en.wikipedia.org/wiki/Fourier_transform#Units_and_Duality)):
 
-$\mathscr F\{f(x)\}=\displaystyle \int_{-\infty}^{\infty}e^{2\pi i k x}\,f(x)\,dx$
+$\large \mathscr F\{f(x)\}=\displaystyle \int_{-\infty}^{\infty}e^{2\pi i k x}\,f(x)\,dx$
 
 The moments are calculated as:
 
