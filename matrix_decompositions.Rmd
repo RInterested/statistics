@@ -1,0 +1,69 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###LU DECOMPOSITION:
+
+```{r}
+require(Matrix)
+set.seed(0)
+
+m = matrix(rnorm(9,6,6), nrow=3) 
+(aTa = t(m) %*% m)
+```
+
+
+We need PSD matrix to eventually be able to do the Cholesky decomposition - Our "workhorse" matrix will be, from here on, `aTa`.
+
+But first, the LU Decomposition will be:
+
+```{r}
+(U = expand(lu(aTa))$U)
+(L = expand(lu(aTa))$L)
+L%*%U
+```
+
+
+###LDL' DECOMPOSITION:
+
+In LDL' decomposition we separate the diagonal of $U$ from $U$. To make it work $U$ will have to be divided by its diagonal:
+
+```{r}
+(D = (diag(diag(U))))
+
+(Udiv = diag(1/diag(U)) %*% U)
+
+L %*% (D %*% Udiv)
+
+#compare to:
+aTa
+```
+
+###CHOLESKY DECOMPOSITION:
+
+To get the Cholesky we need to sqrt the diagonal, and multiply both the columns of $L$ and the rows of `Udiv`:
+
+```{r}
+(sqrtD = sqrt(D))
+(Lmod = L %*% sqrtD)
+(Umod = sqrtD %*% Udiv)
+```
+
+This is a good decomposition. It's the Cholesky:
+
+```{r}
+Lmod %*% Umod
+
+# returns aTa:
+
+aTa
+
+(Chol = Umod)
+chol(aTa)
+```
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
