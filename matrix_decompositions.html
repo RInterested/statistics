@@ -188,7 +188,7 @@ aTa</code></pre>
 <p><span class="math display">\[U=\begin{bmatrix}d_1&amp;&amp;&amp;\\&amp;d_2&amp;&amp;\\&amp;&amp;\ddots&amp;\\&amp;&amp;&amp;d_n \end{bmatrix}
 \begin{bmatrix}1&amp;u_{12}/d_1 &amp; u_{13}/d_1 &amp; \cdots &amp; u_{1n}/d_1\\
 &amp;1&amp;u_{23}/d_2&amp;\cdots&amp;u_{2n}/d_2\\&amp;&amp;&amp;\ddots\\&amp;&amp;&amp;&amp;1 \end{bmatrix}\]</span></p>
-<p>To perform the Cholesky decomposition, the matrix has to be symmetric, <span class="math inline">\({\bf A = LDL^T}\)</span>, and there can’t be negative values on the diagonal, because we will get square roots of the diagonal elements. All the pivots have to be positive.</p>
+<p>To perform the Cholesky decomposition, the matrix has to be symmetric positive semidefinite, so that there are no negative values on the diagonal, because we will get square roots of the diagonal elements. All the pivots have to be positive.</p>
 <p>So we take the square root:</p>
 <p><span class="math display">\[\begin{bmatrix}\color{red}{\sqrt{d_1}}\sqrt{d_1}&amp;&amp;&amp;\\&amp;\color{red}{\sqrt{d_2}}\sqrt{d_2}&amp;&amp;\\&amp;&amp;\ddots&amp;\\&amp;&amp;&amp;\color{red}{\sqrt{d_n}} \sqrt{d_n}\end{bmatrix}\]</span></p>
 <p>Now the red square roots will multiply the columns of <span class="math inline">\({\bf L}\)</span>, while the black square roots will multiply the rows of <span class="math inline">\({\bf U}\)</span>.</p>
