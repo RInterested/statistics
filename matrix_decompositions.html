@@ -181,7 +181,20 @@ aTa</code></pre>
 </div>
 <div id="cholesky-decomposition" class="section level3">
 <h3>CHOLESKY DECOMPOSITION:</h3>
-<p>To get the Cholesky we need to sqrt the diagonal, and multiply both the columns of <span class="math inline">\(L\)</span> and the rows of <code>Udiv</code>:</p>
+<p>We start with the <span class="math inline">\({\bf LDU} = \begin{bmatrix} \text{lower triangular L}\\ \text{1s on diagonal} \end{bmatrix} \begin{bmatrix} \text{pivot matrix}\\ \text{D is diagonal} \end{bmatrix} \begin{bmatrix} \text{upper triangular U}\\ \text{1s on diagonal} \end{bmatrix}\)</span></p>
+<p><strong>Requirements:</strong> No row exchanges.</p>
+<p>If <span class="math inline">\({\bf X}\)</span> is symmetric, then <span class="math inline">\({\bf A = LDL^T}\)</span>.</p>
+<p>Going further back, the <span class="math inline">\({\bf LU}\)</span> is asymmetric in that <span class="math inline">\({\bf U}\)</span> has the pivots on its diagonal, while <span class="math inline">\({\bf L}\)</span> has <span class="math inline">\(1\)</span>’s. To address this we can divide <span class="math inline">\(U\)</span> by the pivots that will now be placed in a diagonal:</p>
+<p><span class="math display">\[U=\begin{bmatrix}d_1&amp;&amp;&amp;\\&amp;d_2&amp;&amp;\\&amp;&amp;\ddots&amp;\\&amp;&amp;&amp;d_n \end{bmatrix}
+\begin{bmatrix}1&amp;u_{12}/d_1 &amp; u_{13}/d_1 &amp; \cdots &amp; u_{1n}/d_1\\
+&amp;1&amp;u_{23}/d_2&amp;\cdots&amp;u_{2n}/d_2\\&amp;&amp;&amp;\ddots\\&amp;&amp;&amp;&amp;1 \end{bmatrix}\]</span></p>
+<p>To perform the Cholesky decomposition, the matrix has to be symmetric, <span class="math inline">\({\bf A = LDL^T}\)</span>, and there can’t be negative values on the diagonal, because we will get square roots of the diagonal elements. All the pivots have to be positive.</p>
+<p>So we take the square root:</p>
+<p><span class="math display">\[\begin{bmatrix}\color{red}{\sqrt{d_1}}\sqrt{d_1}&amp;&amp;&amp;\\&amp;\color{red}{\sqrt{d_2}}\sqrt{d_2}&amp;&amp;\\&amp;&amp;\ddots&amp;\\&amp;&amp;&amp;\color{red}{\sqrt{d_n}} \sqrt{d_n}\end{bmatrix}\]</span></p>
+<p>Now the red square roots will multiply the columns of <span class="math inline">\({\bf L}\)</span>, while the black square roots will multiply the rows of <span class="math inline">\({\bf U}\)</span>.</p>
+<p>We’ll end up with a form <span class="math inline">\({\bf LL^T}\)</span>. It is in a way taking the square root of a matrix.</p>
+<hr />
+<p>So to get the Cholesky we need to sqrt the diagonal, and multiply both the columns of <span class="math inline">\(L\)</span> and the rows of <code>Udiv</code>:</p>
 <pre class="r"><code>(sqrtD = sqrt(D))</code></pre>
 <pre><code>##          [,1]    [,2]     [,3]
 ## [1,] 19.90236  0.0000 0.000000

@@ -42,7 +42,33 @@ aTa
 
 ###CHOLESKY DECOMPOSITION:
 
-To get the Cholesky we need to sqrt the diagonal, and multiply both the columns of $L$ and the rows of `Udiv`:
+
+We start with the ${\bf LDU} = \begin{bmatrix} \text{lower triangular L}\\ \text{1s on diagonal} \end{bmatrix} \begin{bmatrix} \text{pivot matrix}\\ \text{D is diagonal} \end{bmatrix} \begin{bmatrix} \text{upper triangular U}\\ \text{1s on diagonal} \end{bmatrix}$
+
+**Requirements:** No row exchanges. 
+
+If ${\bf X}$ is symmetric, then ${\bf A = LDL^T}$.
+
+Going further back, the ${\bf LU}$ is asymmetric in that ${\bf U}$ has the pivots on its diagonal, while ${\bf L}$ has $1$'s. To address this we can divide $U$ by the pivots that will now be placed in a diagonal:
+
+$$U=\begin{bmatrix}d_1&&&\\&d_2&&\\&&\ddots&\\&&&d_n \end{bmatrix}
+\begin{bmatrix}1&u_{12}/d_1 & u_{13}/d_1 & \cdots & u_{1n}/d_1\\
+&1&u_{23}/d_2&\cdots&u_{2n}/d_2\\&&&\ddots\\&&&&1 \end{bmatrix}$$
+
+To perform the Cholesky decomposition, the matrix has to be symmetric, ${\bf A = LDL^T}$, and there can't be negative values on the diagonal, because we will get square roots of the diagonal elements. All the pivots have to be positive.
+
+So we take the square root:
+
+$$\begin{bmatrix}\color{red}{\sqrt{d_1}}\sqrt{d_1}&&&\\&\color{red}{\sqrt{d_2}}\sqrt{d_2}&&\\&&\ddots&\\&&&\color{red}{\sqrt{d_n}} \sqrt{d_n}\end{bmatrix}$$
+
+Now the red square roots will multiply the columns of ${\bf L}$, while the black square roots will multiply the rows of ${\bf U}$.
+
+We'll end up with a form ${\bf LL^T}$. It is in a way taking the square root of a matrix.
+
+
+---
+
+So to get the Cholesky we need to sqrt the diagonal, and multiply both the columns of $L$ and the rows of `Udiv`:
 
 ```{r}
 (sqrtD = sqrt(D))
