@@ -1,0 +1,92 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###STANDARD NORMAL DISTRIBUTION:
+<br>
+
+DEFINITION:
+
+$$\varphi(t) = \mathbb E[e^{itX}]$$
+
+Now, the pdf of the standard normal ditribution is:
+
+$$f_X(X=x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$$
+
+Therefore, and by LOTUS:
+
+\begin{align}\Large \varphi(t) &= \mathbb E[e^itX]\\
+&= \int_{-\infty}^{+\infty} e^{itX} \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} dx\\
+&=\int_{-\infty}^{+\infty} \color{blue}{\frac{e^{\frac{-t^2}{2}}}{\sqrt{2\pi}}e^{\frac{t^2}{2}}}e^{itx} e^{-\frac{x^2}{2}} dx\\
+&=\frac{e^{\frac{-t^2}{2}}}{\sqrt{2\pi}}\int_{-\infty}^{+\infty}e^{\frac{t^2}{2}}e^{itx} e^{-\frac{x^2}{2}} dx\\
+&=\frac{e^{\frac{-t^2}{2}}}{\sqrt{2\pi}}\int_{-\infty}^{+\infty}e^{-\frac{(x-it)^2}{2}} dx\\
+\end{align}
+
+Changing variables: 
+
+$$s = x-it$$
+
+and
+
+$$ds = dx$$
+
+The limits of the integral will be:
+
+$$S_{\text{upper}}= \infty - it$$
+
+and
+
+$$S_{\text{lower}}= -\infty - it$$
+
+So we have:
+
+$$\varphi(t)=\frac{e^{\frac{-t^2}{2}}}{\sqrt{2\pi}}\int_{-\infty-it}^{+\infty-it}e^{-\frac{s^2}{2}} ds\tag 1$$
+
+To integrate this we need to know that the closed-loop or contour integral:
+
+$$\oint f(z) dz = 2\pi i \sum \text{Residuals}=0$$
+
+Provided that the function is analytic within the integration path in the complex plane:
+
+<img height="200"  src="https://cloud.githubusercontent.com/assets/9312897/21082449/a65be9f4-bfa9-11e6-9f9c-0854f1cddea9.png">
+
+For the area in blue the function $e^{-s^2/2}$ is analytic: it can be expressed as a power series. Hence,
+
+$$\oint e^{-s^2/2}=0$$
+
+Integrating along (I) we are moving along the real line:
+
+$$\int_{\alpha}^{-\alpha}e^{-x^2/2}dx$$
+
+For part (II):
+
+$$\int_{-\alpha}^{\alpha-it}e^{-s^2/2}ds$$
+
+The third part (III):
+
+$$\int_{-\alpha-it}^{+\alpha-it}e^{s^2/2}ds$$
+
+The fourth part (IV):
+
+$$\int_{+\alpha-it}^{+\alpha}e^{s^2/2}ds$$
+
+So,
+
+$$0= \int_{\alpha}^{-\alpha}e^{-x^2/2}dx + \int_{-\alpha}^{\alpha-it}e^{-s^2/2}ds + \int_{-\alpha-it}^{+\alpha-it}e^{s^2/2}ds + \int_{+\alpha-it}^{+\alpha}e^{s^2/2}ds$$ 
+
+When $\alpha \to \infty$ we can see that the first term is the integral of the pdf of the standard normal without the normalizing factor, and integrating from plus to minus. Hence, it will evaluate to $-\sqrt{2\pi}$. The second and fourth parts evaluate to zero. So,
+
+$$0=-\sqrt{2\pi}+\int_{-\alpha-it}^{+\alpha-it}e^{s^2/2}ds$$
+
+or
+
+$$\sqrt{2\pi}= \int_{-\alpha-it}^{+\alpha-it}e^{s^2/2}ds$$
+
+And plugging this result into Eq. 1:
+
+$$\varphi(t)=\frac{e^{\frac{-t^2}{2}}}{\sqrt{2\pi}}\sqrt{2\pi} =e^{\frac{-t^2}{2}}$$
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
