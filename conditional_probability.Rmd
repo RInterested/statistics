@@ -1,0 +1,31 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###CONDITIONAL PROBABILITY:
+<br>
+
+From [this post](http://math.stackexchange.com/q/2055674/152225):
+
+If I toss a biased coin with $2/3$ chance of landing on heads, given that there was at least one head in $3$ flips, what is the probability that there is only $1$ head?
+
+----
+
+There are $8$ possible outcomes for the three tosses.  As the probabilities for $T,H$ are not the same, these outcomes are not equally probable.
+
+There are seven outcomes that have at least one $H$.  They are $$HHH,HHT,HTH,THH,HTT,THT,TTH$$
+
+The probability that we have at least one $H$ is $$P_{≥1}=1-P(TTT)=1-\left(\frac 13\right)^2=0.962962963$$
+
+How do we compute the conditional probability?  Well, in this case we simply divide the unconditional probability by $P_{≥1}$.  Why?  Well, in general, conditional probability is defined by $$P(A\,|\,B)=\frac {P(A\cap B)}{P(B)}$$ Here $A$ is the event "you get exactly one $H$"  and $B$ is the event "you get at least one $H$".  Of course, in this case $$A\cap B=A\implies P(A\cap B)=P(A)=P(HTT)+P(THT)+P(TTH)$$  Thus our answer is the ratio $$\frac {P(HTT)+P(THT)+P(TTH)}{P_{≥1}}$$
+
+Of course all three of those events, $HTT,THT,TTH$ have the same probability, namely $\left( \frac 13 \right)^2\times \frac 23$.  Thus our numerator is $3\times \left( \frac 13 \right)^2\times \frac 23=\frac 29=.222\cdots$  
+
+Finally the answer we seek is $$\frac {.2222\cdots}{0.962962963}=\boxed {0.230769231
+}$$
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
