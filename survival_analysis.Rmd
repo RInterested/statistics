@@ -1,0 +1,75 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+From this [online post](http://rstudio-pubs-static.s3.amazonaws.com/24297_bf2df6a34356445d8afa0968961e5091.html).
+
+###SURVIVAL ANALYSIS:
+<br>
+
+Survival Analysis focuses on failure times (response variable) regressed on covariates. It is akin to logistic Regression. 
+
+In type 1 censoring, the investigator defines the period of observation as a fixed value. In type 2 censoring, the investigator defines the period of observation as a random variable after $d$ number of failures. 
+
+  1. Survival Function $S(t):$ 
+
+The probability that a person survives longer than the specified time. This is often expressed by Kaplan Meier Curve. This function can be thought as the complement of cumulative density function.
+
+$$S(t) = P(T>t) = 1- P(T \le t)$$
+
+
+  2. Probability density function (pdf) $f_{T}(t)$: 
+  
+
+$$f_{t}(t)= -S'(t)= \lim_{\delta \to 0^+} P(t \le T < t+\delta)$$
+
+to recover the survivor function, it is always possible to take the integral of probability density function.
+
+  3. Hazard Function: 
+  
+The hazard function $h(t)$ is defined as instantaneous potential per unit time for the event to occur given that the individual has survived up to time $t$. In contrast to the survival function, hazard function focuses on the event of failing. The higher hazard function, the worse the impact on survival. The hazard function is defined as a rate rather than probability, the values of hazard function range between zero and infinity.
+
+According to Cox and Oakes, knowing the survivor function is sufficient enough to be able to derive Hazard Function.
+
+$$h(t) = \lim_{\delta \to 0} \Pr(t\le T < t+\delta|T>t)/ \delta$$
+
+by definition of conditional probability,
+
+$$h(t) = \lim_{\delta \to 0} \Pr\frac{(t\le T < t+\delta) \cap (T > t)}{ \delta \times \Pr(T>t)}$$
+
+$$h(t) = \lim_{\delta \to 0} \frac{\Pr(t\le T < t+\delta)/\delta}{\Pr(T>t)}$$
+
+By definition, hazard function is just pdf divided by survivor function.
+
+$$h(t) = f_{T}(t) / S(t)$$
+
+<br>
+
+#####COX PROPORTIONAL HAZARD MODEL:
+<br>
+
+Cox-Proportional Hazard Model is a semiparametric hazard model. This proportional hazard model has two major components in the equation:
+
+$\mbox h(X,T) = h_0 (t)  \exp {\left(\sum_i(\beta_iX_i)\right)}$ Where $h_o(t)$ is the baseline hazard, and $\exp{(\sum_i(\beta_iX_i))}$ is the exponential term. The major advantage of Cox-Proportional hazard model is that the baseline hazard does not need to be specified/semiparametric. In addition to that the exponential term of this Cox-Proportional Hazard Model will ensure that the Hazard function will always be non-negative.
+
+One of the assumption of Cox-Proportional Hazard model is the time-independent covariates, or the covariates must not be changing over time. The Covariates like smoking status will easily failed this assumption, because people can change their smoking habit. For this reason, there are extension of this cox-proportional hazard model using joint probability technique.
+
+There are Three Statistical Objectives in Cox-Proportional Hazard model: 
+   1. Test for significance of the effect. 
+   2. Point estimate of the effect 
+   3. Convidence-Interval of the effect.
+   
+
+```{r,echo=F,warning=F, message=FALSE}
+require(survival)
+require(RcmdrPlugin.survival)
+Rossi[1:2,1:10]
+fit = coxph(formula = Surv(week, arrest) ~ fin + age + race + wexp + mar + paro + prio, data = Rossi)
+summary(fit)
+```
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
