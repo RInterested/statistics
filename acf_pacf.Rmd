@@ -36,6 +36,10 @@ Now we are ready to takle this time series by first generating the ACF with the 
 [![enter image description here][3]][3]
 
 
+Schematically, this is what we have done:
+
+<img WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/21581281/6cb354fc-cff9-11e6-9b1f-8c75bee5769f.png">
+
 ----------
 
 
@@ -49,12 +53,16 @@ OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_
       lag = matrix(0, rows, j)    # The storage matrix for different groups of lagged vectors.
       
     for(i in 1:cols){
-      lag[ ,i] = st.y[i : (i + rows - 1)]  #Clipping progressively to get lagged ts's.
+      lag[ ,i] = st.y[i : (i + rows - 1)]  # Clipping progressively to get lagged ts's.
     }
       lag = as.data.frame(lag)
       fit = lm(lag$V1 ~ . - 1, data = lag) # Running an OLS for every group.
       PACF[j] = coef(fit)[j - 1]           # Getting the slope for the last lagged ts.
     }
+    
+Schematically, this is what we have done:
+
+<img WIDTH="900" src="https://cloud.githubusercontent.com/assets/9312897/21581447/63055246-d000-11e6-99e9-66dd72ffd048.png">
 
 And finally plotting again side-by-side, R-generated and manual calculations:
 
