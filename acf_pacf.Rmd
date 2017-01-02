@@ -9,15 +9,16 @@ Example:
 
 We'll concoct a times series with a cyclical sine pattern superimposed on a trend line, and noise, and plot the R generated ACF. I got this example from an [online post](http://www.christoph-scherber.de/content/Statistics%20Course%20files/A%20short%20introduction%20to%20time%20series%20analysis%20in%20R.pdf) by Christoph Scherber, and just added the noise to it:
 
-    x=seq(pi, 10 * pi, 0.1)
-    y = 0.1 * x + sin(x) + rnorm(x)
-    y = ts(y, start=1800)
+    set.seed(0)                          # To reproduce results.
+    x = seq(pi, 10 * pi, 0.1)            # Creating time-series as sin function.
+    y = 0.1 * x + sin(x) + rnorm(x)      # Time-series sinusoidal points with noise.
+    y = ts(y, start = 1800)              # Labeling time axis.
 [![enter image description here][1]][1]
 
 Ordinarily we would have to test the data for stationarity (or just look at the plot above), but we know there is a trend in it, so let's skip this part, and go directly to the de-trending step:
 
-    model=lm(y ~ I(1801:2083))
-    st.y = y - predict(model)
+    model = lm(y ~ I(1801:2083))         # Detrending (0.1 * x)
+    st.y = y - predict(model)            # Final de-trended ts (st.y)
 
 [![enter image description here][2]][2]
 
@@ -31,7 +32,8 @@ Now we are ready to takle this time series by first generating the ACF with the 
       ACF[i + 1] = cor(clipped.y, lag)   # Storing each correlation.
     }
     w = acf(st.y)                        # Extracting values of acf without plotting
-    all.equal(ACF, as.vector(w$acf))     # Pretty close to manual calc: Mean relative difference: 0.02600496"
+    all.equal(ACF, as.vector(w$acf))     
+    # Pretty close to manual calc: Mean relative difference: 0.03611463"
     acf(st.y, type = "correlation")      # Plotting the built-in function (left)
     plot(ACF, type="h", main="ACF Manual calculation"); abline(h = 0) # and my results (right).
 
@@ -63,7 +65,7 @@ OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_
     }
     PACF = PACF[-1]                        # Getting rid of zero at the head of the vector
     v = acf(st.y, type = "partial")        # PACF calculated by R
-    all.equal(PACF, as.vector(v$acf)) [1]  #"Mean relative difference: 0.02981323"
+    all.equal(PACF, as.vector(v$acf)) [1]  #"Mean relative difference: 0.05580641"
     
     
 Schematically, this is what we have done:
