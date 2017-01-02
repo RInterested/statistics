@@ -23,13 +23,15 @@ Ordinarily we would have to test the data for stationarity (or just look at the 
 
 Now we are ready to takle this time series by first generating the ACF with the `acf()` function in R, and then comparing the results to the makeshift loop I put together:
 
-    ACF = 0                  # Starting an empty vector to capture the auto-correlations.
-    ACF[1] = cor(st.y, st.y) # The first entry in the ACF is the correlation with itself (1).
-    for(i in 1:30){          # Took 30 points to parallel the output of `acf()`
-      lag = st.y[-c(1:i)]    # Introducing lags in the stationary ts.
+    ACF = 0                              # Starting an empty vector to capture the auto-correlations.
+    ACF[1] = cor(st.y, st.y)             # The first entry in the ACF is the correlation with itself (1).
+    for(i in 1:24){                      # Took 24 points to parallel the output of `acf()`
+      lag = st.y[-c(1:i)]                # Introducing lags in the stationary ts.
       clipped.y = st.y[1:length(lag)]    # Compensating by reducing length of ts.
       ACF[i + 1] = cor(clipped.y, lag)   # Storing each correlation.
     }
+    w = acf(st.y)                        # Extracting values of acf without plotting
+    all.equal(ACF, as.vector(w$acf))     # Pretty close to manual calc: Mean relative difference: 0.02600496"
     acf(st.y)                            # Plotting the built-in function (left)
     plot(ACF, type="h", main="ACF Manual calculation"); abline(h = 0) # and my results (right).
 
@@ -45,12 +47,12 @@ Schematically, this is what we have done:
 
 OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_autocorrelation_function). Much more tricky to hack... The idea here is to again clone the initial ts a bunch of times, and then select multiple time points. However, instead of just correlating with the initial time series, we put together all the lags in-between, and perform a regression analysis, so that the variance explained by the previous time points can be excluded (controlled). For example, if we are focusing on the PACF ending at time $ts_{t-4}$, we keep $ts_t$, $ts_{t-1}$, $ts_{t-2}$ and $ts_{t-3}$, as well as $ts_{t-4}$, and we regress $ts_t \sim ts_{t-1} + ts_{t-2} + ts_{t-3}+ts_{t-4}$ **through** the origin and keeping only the coefficient for $ts_{t-4}$:
 
-    PACF = 0          # Starting up an empty storage vector.
-    for(j in 2:25){   # Picked up 25 lag points to parallel R `pacf()` output.
+    PACF = 0                               # Starting up an empty storage vector.
+    for(j in 2:25){                        # Picked up 25 lag points to parallel R `pacf()` output.
       cols = j        
-      rows = length(st.y) - j + 1 # To end up with equal length vectors we clip.
+      rows = length(st.y) - j + 1          # To end up with equal length vectors we clip.
       
-      lag = matrix(0, rows, j)    # The storage matrix for different groups of lagged vectors.
+      lag = matrix(0, rows, j)             # The storage matrix for different groups of lagged vectors.
       
     for(i in 1:cols){
       lag[ ,i] = st.y[i : (i + rows - 1)]  # Clipping progressively to get lagged ts's.
@@ -58,7 +60,11 @@ OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_
       lag = as.data.frame(lag)
       fit = lm(lag$V1 ~ . - 1, data = lag) # Running an OLS for every group.
       PACF[j] = coef(fit)[j - 1]           # Getting the slope for the last lagged ts.
+      PACF = PACF[-1] # Getting rid of zero at the head of the vector
     }
+    v = acf(st.y, type = "partial")        # PACF calculated by R
+    all.equal(PACF, as.vector(v$acf)) [1] "Mean relative difference: 0.02981323"
+    
     
 Schematically, this is what we have done:
 
