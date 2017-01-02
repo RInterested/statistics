@@ -32,7 +32,7 @@ Now we are ready to takle this time series by first generating the ACF with the 
     }
     w = acf(st.y)                        # Extracting values of acf without plotting
     all.equal(ACF, as.vector(w$acf))     # Pretty close to manual calc: Mean relative difference: 0.02600496"
-    acf(st.y)                            # Plotting the built-in function (left)
+    acf(st.y, type = "correlation")      # Plotting the built-in function (left)
     plot(ACF, type="h", main="ACF Manual calculation"); abline(h = 0) # and my results (right).
 
 [![enter image description here][3]][3]
@@ -63,7 +63,7 @@ OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_
       PACF = PACF[-1] # Getting rid of zero at the head of the vector
     }
     v = acf(st.y, type = "partial")        # PACF calculated by R
-    all.equal(PACF, as.vector(v$acf)) [1] "Mean relative difference: 0.02981323"
+    all.equal(PACF, as.vector(v$acf)) [1]  #"Mean relative difference: 0.02981323"
     
     
 Schematically, this is what we have done:
