@@ -160,7 +160,7 @@ for(i in 1:cols){
   lag = as.data.frame(lag)
   fit = lm(lag$V1 ~ . - 1, data = lag) # Running an OLS for every group.
   PACF[j] = coef(fit)[j - 1]           # Getting the slope for the last lagged ts.
-  PACF = PACF[-1] # Getting rid of zero at the head of the vector
+  PACF = PACF[-1]                      # Getting rid of zero at the head of the vector
 }
 v = acf(st.y, type = &quot;partial&quot;)        # PACF calculated by R
 all.equal(PACF, as.vector(v$acf)) [1]  #&quot;Mean relative difference: 0.02981323&quot;</code></pre>
