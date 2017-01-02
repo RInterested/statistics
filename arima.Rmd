@@ -1,0 +1,74 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###READING ACF AND PACF PLOTS:
+<br>
+
+From [this youtube post](https://www.youtube.com/watch?v=-vSzKfqcTDg):
+
+<img width="700" src="https://cloud.githubusercontent.com/assets/9312897/21590345/0dad63c8-d0c9-11e6-8dc9-9389405ff2aa.png">
+
+Examples:
+
+<img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584005/513cf3d8-d065-11e6-9170-3acf829dede8.png">
+
+On this plot the ACF is significant only once (in reality the first entry in the ACF is always significant, since there is no lag in the first entry - it's the correlation with itself), while the PACF is geometric. Hence it is an MA(1) process. 
+
+The negative values in the plot respond to a process of the form $\large\color{blue} {y_t} = k - \color{red}{\theta}\,\epsilon_{t-1}+\epsilon_t.$
+
+Here is a simulation of an MA(1) process with $\theta = - 0.7:$
+
+```{r, fig.width = 25, fig.height = 5}
+set.seed(2017)
+MA = arima.sim(model=list(ma = - 0.7), n = 100)
+par(mfrow = c(1,2)); acf(MA); pacf(MA)
+```
+
+
+
+---
+
+<img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584007/5be50e42-d065-11e6-9d42-12fa3fa752f1.png">
+
+In this example the ACF is significant in the first and second lags, while the PACF follows a geometric decay. It is again a MA process, but this time an MA(2) of the form: $\large\color{blue} {y_t} = k+ \color{red}{\theta_1}\,\epsilon_{t-1}-\color{red}{\theta_2}\,\epsilon_{t-2}+\epsilon_t.$
+
+Here's an R simulation with $\theta_1 = 0.9$ and $\theta_2= -0.2:$
+
+```{r, fig.width = 25, fig.height = 5}
+set.seed(2017)
+MA2 = arima.sim(list(ma= c(0.9, - 0.2)), n = 100)
+par(mfrow = c(1,2));acf(MA2);pacf(MA2)
+```
+
+---
+
+<img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584010/670b6de8-d065-11e6-8ec5-879079227380.png">
+
+Here the ACF decays geometrically, and the PACF shows only one significant lag. This is a AR(1) process of the form: $\large \color{blue}{y_t} = c + \color{red}{\rho}\, \color{blue}{y_{t-1}}+\epsilon_t.$
+
+Here is the simulation in R with $\rho = 0.9:$
+
+
+```{r, fig.width = 25, fig.height = 5}
+set.seed(2017)
+AR = arima.sim(model=list(ar = .9), n = 100)
+par(mfrow = c(1,2));acf(AR);pacf(AR)
+```
+
+---
+
+<img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584012/71cb685a-d065-11e6-81ed-c22c2ed6b9bb.png">
+
+This is again an AR(1) process, but with a faster decay, $\rho=0.5:$
+
+```{r, fig.width = 25, fig.height = 5}
+set.seed(2017)
+AR = arima.sim(model=list(ar = .5), n = 100)
+par(mfrow = c(1,2));acf(AR);pacf(AR)
+```
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
