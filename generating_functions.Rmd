@@ -10,7 +10,7 @@ From [this online post](http://mathforum.org/library/drmath/view/52268.html):
 
 #####**Find the number of ordered partitions of $n$ into exactly $r$ parts ($r$ summands):**
 
-$6$ can be partitioned into exactly $4$ **ordered** parts as 
+$n = \color{brown}{6}$ can be partitioned into exactly $r = 4$ **ordered** parts as 
 follows:
 
   $$(3,1,1,1), (1,3,1,1), (1,1,3,1), (1,1,1,3), (2,2,1,1), (2,1,2,1)
@@ -18,7 +18,7 @@ follows:
 
 We require the number of solutions of the following [Diophantine equation](https://en.wikipedia.org/wiki/Diophantine_equation):
 
-$$x_1 + x_2 + x_3 + x_4 = 6$$
+$$x_1 + x_2 + x_3 + x_4 = \color{brown}{6}$$
 
 The generating function is 
 
@@ -28,27 +28,25 @@ Why does it start at $x=x^1$, instead of at $1=x^0$, as [explained here](https:/
 
 $$(x^1 + x^{\color{red}{2}} + x^3 + x^4 + x^5 +\dots)(x^{\color{red}{1}} + x^2 + x^3+ x^4 + x^5 +\dots)(x^1 + x^2 + x^{\color{red}{3}} + x^4 + x^5+\dots)(x^1 + x^2 + x^3+ x^4 + x^{\color{red}{5}} +\dots)$$
 
-which means $\color{red}{2 + 1 + 3 + 5} = 11.$ This doesn't add up to 6. It would rather be a way to getting to $11$ with $4$ parts. When multiplied, the different exponents are add to $11$: $x^{\color{red}{2}}x^{\color{red}{1}}x^{\color{red}{3}} x^{\color{red}{5}}=x^{\color{red}{11}}.$ Same for $x^{\color{red}{4}}x^{\color{red}{5}}x^{\color{red}{1}} x^{\color{red}{1}}=x^{\color{red}{11}}$. Hence, when all the $x^i$ in the $4$ polynomial series are multiplied, it will be the coefficient $\color{blue}{\bullet}x^{\color{red}{11}}$ that tells us that there are $\color{blue}{\bullet}$ ways of getting $4$-part partitions of $11$. Naturally, for $6$, we will have to unlock the coefficient for $x^{\color{red}{6}}.$
+which means $\color{red}{2 + 1 + 3 + 5} = 11.$ This doesn't add up to 6. It would rather be a way to getting to $11$ with $4$ parts. When multiplied, the different exponents are add to $11$: $x^{\color{red}{2}}x^{\color{red}{1}}x^{\color{red}{3}} x^{\color{red}{5}}=x^{\color{red}{11}}.$ Same for $x^{\color{red}{4}}x^{\color{red}{5}}x^{\color{red}{1}} x^{\color{red}{1}}=x^{\color{red}{11}}$. Hence, when all the $x^i$ in the $4$ polynomial series are multiplied, it will be the coefficient $\color{blue}{\bullet}x^{\color{red}{11}}$ that tells us that there are $\color{blue}{\bullet}$ ways of getting $4$-part partitions of $11$. Naturally, for $\color{color}{brown}{6}$, we will have to unlock the coefficient for $x^{\color{red}{6}}.$
 
 And how do we do that? This is nicely explained in [this youtube video](https://www.youtube.com/watch?v=EZe281VxJVM), and requires turning the generating function into a form that contains the [geometric series](https://en.wikipedia.org/wiki/Geometric_series#Formula). Since $x$'s are just placeholders, there is no issue with convergence (we can pretend that $x<1$), and apply the formula:
 
-$$x^4[\color{green}{1+x+x^2+x^3+\dots}]^4$$
+$$\color{purple}{x^4}[\color{green}{1+x+x^2+x^3+\dots}]^4$$
 
 $$x^4\left[\color{green}{\frac{1}{1-x}}\right]^4=\frac{x^4}{(1-x)^4}$$
 
 To find the coefficient of any generating function, we need to know that:
 
 \begin{align}(1 + x + x^2 +\dots)^n&=\frac{1}{(1-x)^n}\\
-&=1+\binom{1+n-1}{1}x+\binom{2+n-1}{2}x^2+\dots+\color{red}{\binom{r+n-1}{r}x^r}+\dots\tag{1}
+&=1+\binom{1+n-1}{1}x+\binom{2+n-1}{2}x^2+\dots+\color{red}{\binom{r+n-1}{r}}x^r+\dots\tag{1}
 \end{align}
 
-Since we have the $x^4$ in front of the expansion of the geometric series, we will need to find, NOT the coefficient in front of $x^6$, BUT RATHER the coefficient in front of $x^{6-4}=x^2.$
+Since we have the $\color{purple}{x^4}$ in front of the expansion of the geometric series, we will need to find, NOT the coefficient in front of $x^{\color{brown}{6}}$, BUT RATHER the coefficient in front of $x^{\color{brown}{6}-4}=x^2.$
 
 The coefficient will be for $r=2$ and $n=4$ in Eq.1:
 
 $$\binom{2+4-1}{2}=\binom{5}{2}=10$$
-
- 
 
 ---
 
