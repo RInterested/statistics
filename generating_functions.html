@@ -145,9 +145,25 @@ $(document).ready(function () {
 <p>Since we have the <span class="math inline">\(\color{purple}{x^4}\)</span> in front of the expansion of the geometric series, we will need to find, NOT the coefficient in front of <span class="math inline">\(x^{\color{brown}{6}}\)</span>, BUT RATHER the coefficient in front of <span class="math inline">\(x^c=x^{\color{brown}{6}-4}=x^2.\)</span></p>
 <p>The coefficient will be for <span class="math inline">\(c=2\)</span> and <span class="math inline">\(r=4\)</span> (<span class="math inline">\(4\)</span> parts) in Eq.1:</p>
 <p><span class="math display">\[\binom{2+4-1}{2}=\binom{5}{2}=10\]</span></p>
+<p>But since <span class="math inline">\(\binom{2+4-1}{2}=\binom{n-r+r-1}{n-r}\)</span>, the final formula for <span class="math inline">\(n\)</span> (number or sum to be partitioned) and <span class="math inline">\(r\)</span> (number of partitions or “parts”) will be:</p>
+<p><span class="math display">\[\binom{n-1}{n-r}\]</span></p>
 <hr />
 <p>Here is <a href="https://youtu.be/-drdeNMoe8w">more on generating functions</a>.</p>
 <p><br></p>
+<hr />
+</div>
+<div id="find-the-probability-that-tossing-d3-fair-f6-faced-dice-we-end-up-with-a-sum-equal-of-greater-than-s-5" class="section level5">
+<h5><strong>Find the probability that tossing <span class="math inline">\(D=3\)</span> fair <span class="math inline">\(F=6\)</span>-faced dice we end up with a sum equal of greater than <span class="math inline">\(S = 5\)</span>:</strong></h5>
+<p>Trying to work out <a href="http://math.stackexchange.com/q/2087856/152225">this question</a> with partitions:</p>
+<p>The generating function should again take into consideration that each die counts (no zero summands), and for each die, the possible outcomes are <span class="math inline">\(x^1 + x^2 +x^3+x^4+x^5+x^6\)</span>. In a generating function, we don’t stop at <span class="math inline">\(x^6:\)</span></p>
+\begin{align}G(x)= (x^1 + x^2 +x^3+x^4+x^5+x^6+\dots)^3&amp;=x^3(x^1 + x^2 +x^3+x^4+x^5+x^6+\dots)^3\\
+=\frac{x^3}{(1-x)^3}
+\end{align}
+<p>Now the maximum outcome we can get is <span class="math inline">\(D\times F= 18\)</span>, which can be achieved in</p>
+<p><span class="math display">\[\binom{n-1}{n-r}= \binom{18-1}{18-3}= \binom{17}{15}=136\]</span></p>
+<p>different ways (considering the order of the die tosses).</p>
+<p>If we look at the complement, the probability of getting <span class="math inline">\(S\)</span> or more will be: <span class="math inline">\(1- \Pr(&lt;S):\)</span></p>
+<p><span class="math display">\[\Pr(\text{sum }\geq 4)=1-\Pr(\text{sum }&lt;S)= 1- \frac{\displaystyle\sum_{s=D}^{S-1}\binom{s-1}{s-D}}{\binom{(D\times F)-1}{(D\times F)-D}}=1- \frac{\displaystyle\sum_{s=D}^{S-1}\binom{s-1}{s-D}}{136}=1- \frac{\displaystyle\sum_{s=3}^{4}\binom{s-1}{s-3}}{136}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

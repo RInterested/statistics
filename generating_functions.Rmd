@@ -48,11 +48,37 @@ The coefficient will be for $c=2$ and $r=4$ ($4$ parts) in Eq.1:
 
 $$\binom{2+4-1}{2}=\binom{5}{2}=10$$
 
+But since  $\binom{2+4-1}{2}=\binom{n-r+r-1}{n-r}$, the final formula for $n$ (number or sum to be partitioned) and $r$ (number of partitions or "parts") will be:
+
+$$\binom{n-1}{n-r}$$
+
 ---
 
 Here is [more on generating functions](https://youtu.be/-drdeNMoe8w).
 
 <br>
+
+---
+
+#####**Find the probability that tossing $D=3$ fair $F=6$-faced dice we end up with a sum equal of greater than $S = 5$:**
+
+Trying to work out [this question](http://math.stackexchange.com/q/2087856/152225) with partitions:
+
+The generating function should again take into consideration that each die counts (no zero summands), and for each die, the possible outcomes are $x^1 + x^2 +x^3+x^4+x^5+x^6$. In a generating function, we don't stop at $x^6:$
+
+\begin{align}G(x)= (x^1 + x^2 +x^3+x^4+x^5+x^6+\dots)^3&=x^3(x^1 + x^2 +x^3+x^4+x^5+x^6+\dots)^3\\
+=\frac{x^3}{(1-x)^3}
+\end{align}
+
+Now the maximum outcome we can get is $D\times F= 18$, which can be achieved in
+
+$$\binom{n-1}{n-r}= \binom{18-1}{18-3}= \binom{17}{15}=136$$
+
+different ways (considering the order of the die tosses).
+
+If we look at the complement, the probability of getting $S$ or more will be: $1- \Pr(<S):$
+
+$$\Pr(\text{sum }\geq 4)=1-\Pr(\text{sum }<S)= 1- \frac{\displaystyle\sum_{s=D}^{S-1}\binom{s-1}{s-D}}{\binom{(D\times F)-1}{(D\times F)-D}}=1- \frac{\displaystyle\sum_{s=D}^{S-1}\binom{s-1}{s-D}}{136}=1- \frac{\displaystyle\sum_{s=3}^{4}\binom{s-1}{s-3}}{136}$$
 
 
 
