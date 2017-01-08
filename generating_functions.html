@@ -138,26 +138,14 @@ $(document).ready(function () {
 <p>And how do we do that? This is nicely explained in <a href="https://www.youtube.com/watch?v=EZe281VxJVM">this youtube video</a>, and requires turning the generating function into a form that contains the <a href="https://en.wikipedia.org/wiki/Geometric_series#Formula">geometric series</a>. Since <span class="math inline">\(x\)</span>’s are just placeholders, there is no issue with convergence (we can pretend that <span class="math inline">\(x&lt;1\)</span>), and apply the formula:</p>
 <p><span class="math display">\[x^4[\color{green}{1+x+x^2+x^3+\dots}]^4\]</span></p>
 <p><span class="math display">\[x^4\left[\color{green}{\frac{1}{1-x}}\right]^4=\frac{x^4}{(1-x)^4}\]</span></p>
-<p>x^4[1 + C(4,1)x + C(5,2)x^2 + C(6,3)x^3 + …..]</p>
-<p>and the term in x^6 is C(5,2) = 10 (as we found above)</p>
-<p>Extending this to the general case of exactly r partitions of n we have the generating function</p>
-<pre><code>   x^r
---------   and we require the coefficient of x^n
- (1-x)^r  </code></pre>
-<p>x^r[1 + C(r,1)x + C(r+1,2)x^2 + C(r+2,3)x^3 + … …… + C(r+(n-r-1),n-r)x^(n-r) +……]</p>
-<p>Coefficient of x^n is C(r+n-r-1,n-r)</p>
-<pre><code>                     = C(n-1,n-r)
-
-                     = C(n-1,r-1)</code></pre>
-<p>This is the general expression for the ordered partition of n into EXACTLY r parts. To find all the ordered partitions we must evaluate</p>
-<pre><code>n</code></pre>
-<p>SUM[C(n-1,r-1)] r=1</p>
-<p>C(n-1,0) + C(n-1,1) + C(n-1,2) + …… + C(n-1,n-1) …..(1)</p>
-<p>And if you consider the binomial expansion of (1+x)^(n-1) we have</p>
-<p>C(n-1,0) + C(n-1,1)x + C(n-1,2)x^2 + …. + C(n-1,n-1)</p>
-<p>If we put x = 1 we get expression (1) above.</p>
-<p>And so (1+1)^(n-1) = required sum</p>
-<pre><code>        2^(n-1) = required sum</code></pre>
+<p>To find the coefficient of any generating function, we need to know that:</p>
+\begin{align}(1 + x + x^2 +\dots)^n&amp;=\frac{1}{(1-x)^n}\\
+&amp;=1+\binom{1+n-1}{1}x+\binom{2+n-1}{2}x^2+\dots+\color{red}{\binom{r+n-1}{r}x^r}+\dots\tag{1}
+\end{align}
+<p>Since we have the <span class="math inline">\(x^4\)</span> in front of the expansion of the geometric series, we will need to find, NOT the coefficient in front of <span class="math inline">\(x^6\)</span>, BUT RATHER the coefficient in front of <span class="math inline">\(x^{6-4}=x^2.\)</span></p>
+<p>The coefficient will be for <span class="math inline">\(r=2\)</span> and <span class="math inline">\(n=4\)</span> in Eq.1:</p>
+<p><span class="math display">\[\binom{2+4-1}{2}=\binom{5}{2}=10\]</span></p>
+<p>This is the general expression for the ordered partition of <span class="math inline">\(n\)</span> into EXACTLY <span class="math inline">\(r\)</span> parts.</p>
 <p><br></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
