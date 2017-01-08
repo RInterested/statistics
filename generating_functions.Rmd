@@ -22,15 +22,20 @@ $$x_1 + x_2 + x_3 + x_4 = 6$$
 
 The generating function is 
 
-$$(x+x^2+x^3+x^4+\dots)^4$$
+$$(x^1+x^2+x^3+x^4+\dots)^4$$
 
-and we must pick out the coefficient of x^6
+Why does it start at $x=x^1$, instead of at $1=x^0$, as [explained here](https://youtu.be/-drdeNMoe8w?list=PLDDGPdw7e6Aj0amDsYInT_8p6xTSTGEi2)? Because each $x^1 + x^2 + x^3 +x^4 + \dots$ is to be read as $(x^1)^1$ (i.e. $1$ number $1$); $(x^2)^1$ (i.e. $1$ number $2$); etc. There can't be a $1=x^0$ because it would leave an empty ($0$ contributing exponent) to whatever combination of, for example, 
 
-     x^4[1+x+x^2+x^3+...]^4
+$$(x^1 + x^{\color{red}{2}} + x^3 + x^4 + x^5 +\dots)(x^{\color{red}{1}} + x^2 + x^3+ x^4 + x^5 +\dots)(x^1 + x^2 + x^{\color{red}{3}} + x^4 + x^5+\dots)(x^1 + x^2 + x^3+ x^4 + x^{\color{red}{5}} +\dots)$$
+
+which means $\color{red}{2 + 1 + 3 + 5} = 11.$ This doesn't add up to 6. It would rather be a way to getting to $11$ with $4$ parts. When multiplied, the different exponents are add to $11$: $x^{\color{red}{2}}x^{\color{red}{1}}x^{\color{red}{3}} x^{\color{red}{5}}=x^{\color{red}{11}}.$ Same for $x^{\color{red}{4}}x^{\color{red}{5}}x^{\color{red}{1}} x^{\color{red}{1}}=x^{\color{red}{11}}$. Hence, when all the $x^i$ in the $4$ polynomial series are multiplied, it will be the coefficient $\color{blue}{\bullet}x^{\color{red}{11}}$ that tells us that there are $\color{blue}{\bullet}$ ways of getting $4$-part partitions of $11$. Naturally, for $6$, we will have to unlock the coefficient for $x^{\color{red}{6}}.$
+
+And how do we do that? This is nicely explained in [this youtube video](https://www.youtube.com/watch?v=EZe281VxJVM), and requires turning the generating function into a form that contains the [geometric series](https://en.wikipedia.org/wiki/Geometric_series#Formula). Since $x$'s are just placeholders, there is no issue with convergence (we can pretend that $x<1$), and apply the formula:
+
+$$x^4[\color{green}{1+x+x^2+x^3+\dots}]^4$$
+
+$$x^4\left[\color{green}{\frac{1}{1-x}}\right]^4=\frac{x^4}{(1-x)^4}$$
      
-           x^4
-        ---------
-         (1-x)^4
 
    x^4[1 + C(4,1)x + C(5,2)x^2 + C(6,3)x^3 + .....]
 
