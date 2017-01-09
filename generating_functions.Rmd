@@ -60,6 +60,40 @@ Here is [more on generating functions](https://youtu.be/-drdeNMoe8w).
 
 ---
 
+How many ways are there to get a sum of $12$ tossing $3$ fair $6$-sided die:
+
+The generating function is:
+
+$$(x^1 + x^2 + x^3 + x^4 + x^5 + x^6)^3$$
+
+Notice that there are no zeroes, and the function stops at $x^6$
+
+We can get the coefficient through derivatives, or just feed it to Wolfram Alpha as such:
+
+\[x^{18}+3 x^{17}+6 x^{16}+10 x^{15}+15 x^{14}+21 x^{13}+\color{red}{25} x^{\color{blue}{12}}+27 x^{11}+27 x^{10}+25 x^9+21 x^8+15 x^7+10 x^6+6 x^5+3 x^4+x^3\]
+
+---
+
+
+#####**PARTITIONS (are understood to be UNORDERED):**
+
+How many [partitions are there for the number $n?$](https://youtu.be/XN3Vy2M5ov8)
+
+How many $1$'s? $x^0+x^1+x^2+\cdots=1+x^1+x^2+\cdots=\frac{1}{1-x}$
+
+How many $2$'s? $1+x^2+x^4+\cdots=\frac{1}{1-x^2}$
+
+How many $3$'s? $1+x^3+x^6+\cdots=\frac{1}{1-x^3}$
+
+Therefore the generating functions is:
+
+\begin{align}(1+x^1+x^2+\cdots)(1+x^2+x^4+\cdots)\cdots&=\left(\frac{1}{1-x}\right)\left(\frac{1}{1-x^2}\right)\left(\frac{1}{1-x^3}\right)\left(\frac{1}{1-x^n}\right)\cdots\\
+&=\prod_{i\geq} \frac{1}{1-x^i}
+\end{align}
+
+And the coefficient $n$ is represented as:
+
+$$[x^n]\left(\prod_{i\geq} \frac{1}{1-x^i}\right)$$
 
 ---
 

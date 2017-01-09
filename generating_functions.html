@@ -151,6 +151,26 @@ $(document).ready(function () {
 <p>Here is <a href="https://youtu.be/-drdeNMoe8w">more on generating functions</a>.</p>
 <p><br></p>
 <hr />
+<p>How many ways are there to get a sum of <span class="math inline">\(12\)</span> tossing <span class="math inline">\(3\)</span> fair <span class="math inline">\(6\)</span>-sided die:</p>
+<p>The generating function is:</p>
+<p><span class="math display">\[(x^1 + x^2 + x^3 + x^4 + x^5 + x^6)^3\]</span></p>
+<p>Notice that there are no zeroes, and the function stops at <span class="math inline">\(x^6\)</span></p>
+<p>We can get the coefficient through derivatives, or just feed it to Wolfram Alpha as such:</p>
+<p><span class="math display">\[x^{18}+3 x^{17}+6 x^{16}+10 x^{15}+15 x^{14}+21 x^{13}+\color{red}{25} x^{\color{blue}{12}}+27 x^{11}+27 x^{10}+25 x^9+21 x^8+15 x^7+10 x^6+6 x^5+3 x^4+x^3\]</span></p>
+<hr />
+</div>
+<div id="partitions-are-understood-to-be-unordered" class="section level5">
+<h5><strong>PARTITIONS (are understood to be UNORDERED):</strong></h5>
+<p>How many <a href="https://youtu.be/XN3Vy2M5ov8">partitions are there for the number <span class="math inline">\(n?\)</span></a></p>
+<p>How many <span class="math inline">\(1\)</span>’s? <span class="math inline">\(x^0+x^1+x^2+\cdots=1+x^1+x^2+\cdots=\frac{1}{1-x}\)</span></p>
+<p>How many <span class="math inline">\(2\)</span>’s? <span class="math inline">\(1+x^2+x^4+\cdots=\frac{1}{1-x^2}\)</span></p>
+<p>How many <span class="math inline">\(3\)</span>’s? <span class="math inline">\(1+x^3+x^6+\cdots=\frac{1}{1-x^3}\)</span></p>
+<p>Therefore the generating functions is:</p>
+\begin{align}(1+x^1+x^2+\cdots)(1+x^2+x^4+\cdots)\cdots&amp;=\left(\frac{1}{1-x}\right)\left(\frac{1}{1-x^2}\right)\left(\frac{1}{1-x^3}\right)\left(\frac{1}{1-x^n}\right)\cdots\\
+&amp;=\prod_{i\geq} \frac{1}{1-x^i}
+\end{align}
+<p>And the coefficient <span class="math inline">\(n\)</span> is represented as:</p>
+<p><span class="math display">\[[x^n]\left(\prod_{i\geq} \frac{1}{1-x^i}\right)\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
