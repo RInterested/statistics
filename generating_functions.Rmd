@@ -99,12 +99,55 @@ How many $3$'s? $1+x^3+x^6+\cdots=\frac{1}{1-x^3}$
 Therefore the generating functions is:
 
 \begin{align}(1+x^1+x^2+\cdots)(1+x^2+x^4+\cdots)\cdots&=\left(\frac{1}{1-x}\right)\left(\frac{1}{1-x^2}\right)\left(\frac{1}{1-x^3}\right)\left(\frac{1}{1-x^n}\right)\cdots\\
-&=\prod_{i\geq} \frac{1}{1-x^i}
+&=\prod_{i\geq 1} \frac{1}{1-x^i}
 \end{align}
 
 And the coefficient $n$ is represented as:
 
-$$[x^n]\left(\prod_{i\geq} \frac{1}{1-x^i}\right)$$
+$$[x^n]\left(\prod_{i\geq 1} \frac{1}{1-x^i}\right)$$
+
+So the partitions of $4$ are $(1,1,1,1),(1,1,2),(1,3),(2,2),(4):$
+
+$$[x^4]\prod_{i=1}^{4}\left(\frac{1}{1-x^i}\right)=5$$
+
+"We wouldn't expect you to find it. This is not an easy thing to compute. Don't worry about the coefficient, because the computer can find it for you."
+
+```{r}
+    ones =   c(1, 1, 1, 1, 1, 1)
+    twos =   c(1, 0, 1, 0, 1, 0)
+    threes = c(1, 0, 0, 1, 0, 0)
+    fours =  c(1, 0, 0, 0, 1, 0)
+    
+    l = list(ones, twos, threes, fours)
+    (v = round(Reduce(f = function(x, y) convolve(x, rev(y), type = "open"), x = l)))
+```
+ 
+
+This is consistent with the results in [Wolfram Alpha](https://www.wolframalpha.com/input/?i=(1%2Bx%2Bx%5E2%2Bx%5E3%2Bx%5E4%2Bx%5E5)+*+(1+%2B+x%5E2+%2B+x%5E4)+*+(1+%2B+x%5E3)+*+(1+%2B+x%5E4)):
+
+> Input:
+
+$$\small (1+x+x^2+x^3+x^4+x^5) \times (1 + x^2 + x^4) \times (1 + x^3) \times (1 + x^4)$$
+
+> Output:
+
+$$\small x^{16}+x^{15}+2 x^{14}+3 x^{13}+5 x^{12}+6 x^{11}+6 x^{10}+8 x^9+8 x^8+8 x^7+6 x^6+6 x^5+\color{blue}{5} x^4+3 x^3+2 x^2+x+1$$
+
+compared to:
+
+```{r}
+rev(v)
+```
+
+
+
+---
+
+What is the generating functions for all the ways to make $n$ cents, using pennies ($1$ cent), nickels ($5$ cents), and dimes ($10$ cents)?
+
+\begin{align}\,\,\left[x^n\right](1+x^1+x^2+x^3+\cdots)(1+x^5+x^{10}+\cdots)(1+x^{10}+x^{20}+\cdots)\\
+=\frac{1}{1-x}\frac{1}{1-x^5}\frac{1}{1-x^{10}}
+\end{align}
 
 ---
 

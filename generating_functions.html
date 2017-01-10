@@ -175,10 +175,38 @@ ncol(unique(s, MARGIN = 2))</code></pre>
 <p>How many <span class="math inline">\(3\)</span>’s? <span class="math inline">\(1+x^3+x^6+\cdots=\frac{1}{1-x^3}\)</span></p>
 <p>Therefore the generating functions is:</p>
 \begin{align}(1+x^1+x^2+\cdots)(1+x^2+x^4+\cdots)\cdots&amp;=\left(\frac{1}{1-x}\right)\left(\frac{1}{1-x^2}\right)\left(\frac{1}{1-x^3}\right)\left(\frac{1}{1-x^n}\right)\cdots\\
-&amp;=\prod_{i\geq} \frac{1}{1-x^i}
+&amp;=\prod_{i\geq 1} \frac{1}{1-x^i}
 \end{align}
 <p>And the coefficient <span class="math inline">\(n\)</span> is represented as:</p>
-<p><span class="math display">\[[x^n]\left(\prod_{i\geq} \frac{1}{1-x^i}\right)\]</span></p>
+<p><span class="math display">\[[x^n]\left(\prod_{i\geq 1} \frac{1}{1-x^i}\right)\]</span></p>
+<p>So the partitions of <span class="math inline">\(4\)</span> are <span class="math inline">\((1,1,1,1),(1,1,2),(1,3),(2,2),(4):\)</span></p>
+<p><span class="math display">\[[x^4]\prod_{i=1}^{4}\left(\frac{1}{1-x^i}\right)=5\]</span></p>
+<p>“We wouldn’t expect you to find it. This is not an easy thing to compute. Don’t worry about the coefficient, because the computer can find it for you.”</p>
+<pre class="r"><code>    ones =   c(1, 1, 1, 1, 1, 1)
+    twos =   c(1, 0, 1, 0, 1, 0)
+    threes = c(1, 0, 0, 1, 0, 0)
+    fours =  c(1, 0, 0, 0, 1, 0)
+    
+    l = list(ones, twos, threes, fours)
+    (v = round(Reduce(f = function(x, y) convolve(x, rev(y), type = &quot;open&quot;), x = l)))</code></pre>
+<pre><code>##  [1] 1 1 2 3 5 6 6 8 8 8 6 6 5 3 2 1 1 0 0 0 0</code></pre>
+<p>This is consistent with the results in <a href="https://www.wolframalpha.com/input/?i=(1%2Bx%2Bx%5E2%2Bx%5E3%2Bx%5E4%2Bx%5E5)+*+(1+%2B+x%5E2+%2B+x%5E4)+*+(1+%2B+x%5E3)+*+(1+%2B+x%5E4)">Wolfram Alpha</a>:</p>
+<blockquote>
+<p>Input:</p>
+</blockquote>
+<p><span class="math display">\[\small (1+x+x^2+x^3+x^4+x^5) \times (1 + x^2 + x^4) \times (1 + x^3) \times (1 + x^4)\]</span></p>
+<blockquote>
+<p>Output:</p>
+</blockquote>
+<p><span class="math display">\[\small x^{16}+x^{15}+2 x^{14}+3 x^{13}+5 x^{12}+6 x^{11}+6 x^{10}+8 x^9+8 x^8+8 x^7+6 x^6+6 x^5+\color{blue}{5} x^4+3 x^3+2 x^2+x+1\]</span></p>
+<p>compared to:</p>
+<pre class="r"><code>rev(v)</code></pre>
+<pre><code>##  [1] 0 0 0 0 1 1 2 3 5 6 6 8 8 8 6 6 5 3 2 1 1</code></pre>
+<hr />
+<p>What is the generating functions for all the ways to make <span class="math inline">\(n\)</span> cents, using pennies (<span class="math inline">\(1\)</span> cent), nickels (<span class="math inline">\(5\)</span> cents), and dimes (<span class="math inline">\(10\)</span> cents)?</p>
+\begin{align}\,\,\left[x^n\right](1+x^1+x^2+x^3+\cdots)(1+x^5+x^{10}+\cdots)(1+x^{10}+x^{20}+\cdots)\\
+=\frac{1}{1-x}\frac{1}{1-x^5}\frac{1}{1-x^{10}}
+\end{align}
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
