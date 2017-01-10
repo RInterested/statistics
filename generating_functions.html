@@ -157,6 +157,14 @@ $(document).ready(function () {
 <p>Notice that there are no zeroes, and the function stops at <span class="math inline">\(x^6\)</span></p>
 <p>We can get the coefficient through derivatives, or just feed it to Wolfram Alpha as such:</p>
 <p><span class="math display">\[x^{18}+3 x^{17}+6 x^{16}+10 x^{15}+15 x^{14}+21 x^{13}+\color{red}{25} x^{\color{blue}{12}}+27 x^{11}+27 x^{10}+25 x^9+21 x^8+15 x^7+10 x^6+6 x^5+3 x^4+x^3\]</span></p>
+<p>Raw computation:</p>
+<pre class="r"><code>dice = 3
+faces = 6
+sum = 12
+sam = replicate(1e5, sample(1:faces, dice, rep = T))
+s = sam[,colSums(sam)==sum]
+ncol(unique(s, MARGIN = 2))</code></pre>
+<pre><code>## [1] 25</code></pre>
 <hr />
 </div>
 <div id="partitions-are-understood-to-be-unordered" class="section level5">
