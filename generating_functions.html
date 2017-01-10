@@ -182,13 +182,19 @@ ncol(unique(s, MARGIN = 2))</code></pre>
 <p>So the partitions of <span class="math inline">\(4\)</span> are <span class="math inline">\((1,1,1,1),(1,1,2),(1,3),(2,2),(4):\)</span></p>
 <p><span class="math display">\[[x^4]\prod_{i=1}^{4}\left(\frac{1}{1-x^i}\right)=5\]</span></p>
 <p>“We wouldn’t expect you to find it. This is not an easy thing to compute. Don’t worry about the coefficient, because the computer can find it for you.”</p>
-<pre class="r"><code>    ones =   c(1, 1, 1, 1, 1, 1)
-    twos =   c(1, 0, 1, 0, 1, 0)
-    threes = c(1, 0, 0, 1, 0, 0)
-    fours =  c(1, 0, 0, 0, 1, 0)
-    
-    l = list(ones, twos, threes, fours)
-    (v = round(Reduce(f = function(x, y) convolve(x, rev(y), type = &quot;open&quot;), x = l)))</code></pre>
+<pre class="r"><code>(l= lapply(seq_len(4)-1, function(i) rep(c(1, integer(i)), length.out=6)))</code></pre>
+<pre><code>## [[1]]
+## [1] 1 1 1 1 1 1
+## 
+## [[2]]
+## [1] 1 0 1 0 1 0
+## 
+## [[3]]
+## [1] 1 0 0 1 0 0
+## 
+## [[4]]
+## [1] 1 0 0 0 1 0</code></pre>
+<pre class="r"><code>(v = round(Reduce(f = function(x, y) convolve(x, rev(y), type = &quot;open&quot;), x = l)))</code></pre>
 <pre><code>##  [1] 1 1 2 3 5 6 6 8 8 8 6 6 5 3 2 1 1 0 0 0 0</code></pre>
 <p>This is consistent with the results in <a href="https://www.wolframalpha.com/input/?i=(1%2Bx%2Bx%5E2%2Bx%5E3%2Bx%5E4%2Bx%5E5)+*+(1+%2B+x%5E2+%2B+x%5E4)+*+(1+%2B+x%5E3)+*+(1+%2B+x%5E4)">Wolfram Alpha</a>:</p>
 <blockquote>

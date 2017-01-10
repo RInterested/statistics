@@ -113,13 +113,8 @@ $$[x^4]\prod_{i=1}^{4}\left(\frac{1}{1-x^i}\right)=5$$
 "We wouldn't expect you to find it. This is not an easy thing to compute. Don't worry about the coefficient, because the computer can find it for you."
 
 ```{r}
-    ones =   c(1, 1, 1, 1, 1, 1)
-    twos =   c(1, 0, 1, 0, 1, 0)
-    threes = c(1, 0, 0, 1, 0, 0)
-    fours =  c(1, 0, 0, 0, 1, 0)
-    
-    l = list(ones, twos, threes, fours)
-    (v = round(Reduce(f = function(x, y) convolve(x, rev(y), type = "open"), x = l)))
+(l= lapply(seq_len(4)-1, function(i) rep(c(1, integer(i)), length.out=6)))
+(v = round(Reduce(f = function(x, y) convolve(x, rev(y), type = "open"), x = l)))
 ```
  
 
