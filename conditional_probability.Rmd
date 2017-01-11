@@ -22,8 +22,38 @@ How do we compute the conditional probability?  Well, in this case we simply div
 
 Of course all three of those events, $HTT,THT,TTH$ have the same probability, namely $\left( \frac 13 \right)^2\times \frac 23$.  Thus our numerator is $3\times \left( \frac 13 \right)^2\times \frac 23=\frac 29=.222\cdots$  
 
-Finally the answer we seek is $$\frac {.2222\cdots}{0.962962963}=\boxed {0.230769231
+Finally the answer we seek is $$\frac {.2222\cdots}{0.962962963}= {0.230769231
 }$$
+
+---
+
+What is the probability of getting a poker hand where all the cards are $7$ or higher if we see that AT LEAST one of the cards is higher than $10$ (i.e. $\text{J, Q, K, A}$)?
+
+The event $\text{A = at least one card }>10$ can occur in the complement of the event that all the cards are less or equal to ten ($36=9\times 4$ lower cards), i.e. $2,3,4,5,6,7,8,9,10:$
+
+$$\binom{52}{5} - \binom{36}{5}$$
+
+over the total sample space:
+
+$$\Pr(A) = \frac{\binom{52}{5} - \binom{36}{5}}{\binom{52}{5}}$$
+
+Now, naming the event $\text{B = all cards }\geq 7$, $\Pr(A\cap B)$ will be calculated by considering all the hands with cards equal or greater than $7$: i.e. $7,8,9,10,J,Q,K,A$ ($32 = 8 \times 4$), but subtracting those that don't contain any cards higher than $10$ - i.e. hands composed of only $7,8,9,10$ (i.e. $16 =4 \times 4$):
+
+$$\Pr(A\cap B) = \frac{\binom{32}{5} - \binom{16}{5}}{\binom{52}{5}}$$
+
+Therefore,
+
+$$\Pr(B\Vert A) = \frac{\Pr(A\cap B)}{\Pr(A)}= \frac{\binom{32}{5} - \binom{16}{5}}{\binom{52}{5} - \binom{36}{5}}$$
+
+Here is the simulation in R:
+
+
+```{r}
+cards = rep(2:14, 4)
+m = replicate(1e5, sample(cards, 5, replace = F))
+one_ten = m[, colSums(m > 10) > 0, drop=FALSE]
+ncol(m[, colSums(one_ten > 6)  == 5, drop=FALSE]) / ncol(m)
+```
 
 
 ---

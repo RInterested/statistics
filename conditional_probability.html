@@ -130,8 +130,24 @@ $(document).ready(function () {
 <p>The probability that we have at least one <span class="math inline">\(H\)</span> is <span class="math display">\[P_{≥1}=1-P(TTT)=1-\left(\frac 13\right)^2=0.962962963\]</span></p>
 <p>How do we compute the conditional probability? Well, in this case we simply divide the unconditional probability by <span class="math inline">\(P_{≥1}\)</span>. Why? Well, in general, conditional probability is defined by <span class="math display">\[P(A\,|\,B)=\frac {P(A\cap B)}{P(B)}\]</span> Here <span class="math inline">\(A\)</span> is the event “you get exactly one <span class="math inline">\(H\)</span>” and <span class="math inline">\(B\)</span> is the event “you get at least one <span class="math inline">\(H\)</span>”. Of course, in this case <span class="math display">\[A\cap B=A\implies P(A\cap B)=P(A)=P(HTT)+P(THT)+P(TTH)\]</span> Thus our answer is the ratio <span class="math display">\[\frac {P(HTT)+P(THT)+P(TTH)}{P_{≥1}}\]</span></p>
 <p>Of course all three of those events, <span class="math inline">\(HTT,THT,TTH\)</span> have the same probability, namely <span class="math inline">\(\left( \frac 13 \right)^2\times \frac 23\)</span>. Thus our numerator is <span class="math inline">\(3\times \left( \frac 13 \right)^2\times \frac 23=\frac 29=.222\cdots\)</span></p>
-<p>Finally the answer we seek is <span class="math display">\[\frac {.2222\cdots}{0.962962963}=\boxed {0.230769231
+<p>Finally the answer we seek is <span class="math display">\[\frac {.2222\cdots}{0.962962963}= {0.230769231
 }\]</span></p>
+<hr />
+<p>What is the probability of getting a poker hand where all the cards are <span class="math inline">\(7\)</span> or higher if we see that AT LEAST one of the cards is higher than <span class="math inline">\(10\)</span> (i.e. <span class="math inline">\(\text{J, Q, K, A}\)</span>)?</p>
+<p>The event <span class="math inline">\(\text{A = at least one card }&gt;10\)</span> can occur in the complement of the event that all the cards are less or equal to ten (<span class="math inline">\(36=9\times 4\)</span> lower cards), i.e. <span class="math inline">\(2,3,4,5,6,7,8,9,10:\)</span></p>
+<p><span class="math display">\[\binom{52}{5} - \binom{36}{5}\]</span></p>
+<p>over the total sample space:</p>
+<p><span class="math display">\[\Pr(A) = \frac{\binom{52}{5} - \binom{36}{5}}{\binom{52}{5}}\]</span></p>
+<p>Now, naming the event <span class="math inline">\(\text{B = all cards }\geq 7\)</span>, <span class="math inline">\(\Pr(A\cap B)\)</span> will be calculated by considering all the hands with cards equal or greater than <span class="math inline">\(7\)</span>: i.e. <span class="math inline">\(7,8,9,10,J,Q,K,A\)</span> (<span class="math inline">\(32 = 8 \times 4\)</span>), but subtracting those that don’t contain any cards higher than <span class="math inline">\(10\)</span> - i.e. hands composed of only <span class="math inline">\(7,8,9,10\)</span> (i.e. <span class="math inline">\(16 =4 \times 4\)</span>):</p>
+<p><span class="math display">\[\Pr(A\cap B) = \frac{\binom{32}{5} - \binom{16}{5}}{\binom{52}{5}}\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[\Pr(B\Vert A) = \frac{\Pr(A\cap B)}{\Pr(A)}= \frac{\binom{32}{5} - \binom{16}{5}}{\binom{52}{5} - \binom{36}{5}}\]</span></p>
+<p>Here is the simulation in R:</p>
+<pre class="r"><code>cards = rep(2:14, 4)
+m = replicate(1e5, sample(cards, 5, replace = F))
+one_ten = m[, colSums(m &gt; 10) &gt; 0, drop=FALSE]
+ncol(m[, colSums(one_ten &gt; 6)  == 5, drop=FALSE]) / ncol(m)</code></pre>
+<pre><code>## [1] 0.08907</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
