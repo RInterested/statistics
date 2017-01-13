@@ -126,6 +126,15 @@ d = cbind(p,L)
 (MLE = d[which.max(d[,2]), 1])
 arrows(x0 = MLE, y0 = 0, x1 = MLE, y1 = max(L))
 abline(h = 0); abline(h = max(L))
+
+# As for the log-likelihood:
+
+loglik = 3 * log(p) + 2 * log(1 - p)
+plot(p, loglik, type = "l")
+d = cbind(p,loglik)
+MLE = d[which.max(d[,2]), 1]
+arrows(x0 = MLE, y0 = -20, x1 = MLE, y1 = max(loglik))
+abline(h = -20); abline(h = max(loglik))
 ```
 
 ---
