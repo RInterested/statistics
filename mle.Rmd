@@ -12,15 +12,31 @@ We want to estimate the mean and variance of the stem diameters (in mm) of Pinus
 
 The point of departure is the pdf of the normal distribution:
 
-$$f_X(x) = \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x-\mu)^2}{2\sigma^2}}$$
+$$f_X(x \vert \mu,\sigma) = \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x-\mu)^2}{2\sigma^2}}$$
 
-The likelihood is therefore:
+> [Wikipedia](en.wikipedia.org/wiki/Maximum_likelihood_estimation) Now we look at this function from a different perspective by considering the observed values $x_1, x_2,\dots, x_n$ to be fixed "parameters" of this function, whereas $\theta$ will be the function's variable and allowed to vary freely; this same function will be called the likelihood:
 
-$$L(x\vert \mu;\sigma)=\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}$$
+$$\mathcal L( \mu,\sigma ; x_i)=\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}$$
 
-Here the observed values $x_i$ are fixed, and the function depends on the parameters $\mu$ and $\sigma$. The idea is to maximize the value of the formula. However, multiplying small fractions becomes numerically unstable. In comes the log likelihood function:
+Here the observed values $x_i$ are fixed, and the function depends on the parameters $\mu$ and $\sigma$. The idea is to maximize the value of the formula. However, multiplying small fractions becomes numerically unstable. In comes the log-likelihood function:
 
-\begin{align}\log L(x\vert \mu; \sigma) &= \sum_{i=1}^n \log\left(\frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\right)\\
+the log-likelihood:
+
+$$\ln \mathcal {L}(\theta \,;\,x_{1},\ldots ,x_{n})=\sum _{i=1}^{n}\ln f_X(x_{i}\vert \theta )$$
+
+The average log-likelihood function is denoted as $\hat l$:
+
+$$\hat l=\frac {\ln \mathcal L}{n}$$
+
+The method of maximum likelihood estimates θ0 by finding a value of $\theta$ that maximizes $\hat l (\theta ;x)$. This method of estimation defines a maximum likelihood estimator (MLE) of $\theta$:
+
+$$\{{\hat {\theta }_{\mathrm {mle} }\}\subseteq \{{\underset {\theta \in \Theta }{\operatorname {arg\,max} }}\ {\hat {l}}(\theta \,;\,x_{1},\ldots ,x_{n})\},}$$
+
+In many instances, there is no closed form, and an computational or [iterative procedures](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#Iterative_procedures) will be used. Here is a link to Andrew Ng's [gradient descent](https://see.stanford.edu/materials/aimlcs229/cs229-notes1.pdf) will be used.
+
+---
+
+\begin{align}\log \mathcal L( \mu,\sigma ; x_i) &= \sum_{i=1}^n \log\left(\frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\right)\\
 &= \sum_{i=1}^n\log\left( \frac{1}{\sqrt{2\pi}\,\sigma}\right)+\sum_{i=1}^n\log\left(\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\right)\\
 &= \sum_{i=1}^n\log\left( (2\pi)^{-1/2}\right) + \sum_{i=1}^n \log\left( (\sigma)^{-1}\right)+\sum_{i=1}^n\log\left(\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\right)\\
 &=-\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i - \mu)^2
@@ -93,6 +109,23 @@ contourplot(logL ~ mu*sigma, data = params, cuts = 10)
 # Compare to:
 
 mean(diams); sd(diams)
+```
+
+---
+
+##### BINOMIAL EXAMPLE:
+
+Let's see what the likelihood function looks like with a [binomial experiment](https://youtu.be/2xCKuRXWAQ0) yielding $3 \text{ heads}$ and $2 \text{ tails}:$ 
+
+```{r}
+p = seq(0, 1, 0.001)
+L = p^3 * (1 - p)^2
+plot(p, L, type = "l", xlab="p", ylab="L(p(x))")
+max(L)
+d = cbind(p,L)
+(MLE = d[which.max(d[,2]), 1])
+arrows(x0 = MLE, y0 = 0, x1 = MLE, y1 = max(L))
+abline(h = 0); abline(h = max(L))
 ```
 
 ---
