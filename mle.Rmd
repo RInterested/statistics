@@ -1,0 +1,100 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###MAXIMUM LIKELIHOOD ESTIMATION (MLE):
+<br>
+
+From [this post](https://www.r-bloggers.com/maximum-likelihood/):
+
+We want to estimate the mean and variance of the stem diameters (in mm) of Pinus radiata trees based on twelve observations, and using a normal model:
+
+The point of departure is the pdf of the normal distribution:
+
+$$f_X(x) = \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x-\mu)^2}{2\sigma^2}}$$
+
+The likelihood is therefore:
+
+$$L(x\vert \mu;\sigma)=\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}$$
+
+Here the observed values $x_i$ are fixed, and the function depends on the parameters $\mu$ and $\sigma$. The idea is to maximize the value of the formula. However, multiplying small fractions becomes numerically unstable. In comes the log likelihood function:
+
+\begin{align}\log L(x\vert \mu; \sigma) &= \sum_{i=1}^n \log\left(\frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\right)\\
+&= \sum_{i=1}^n\log\left( \frac{1}{\sqrt{2\pi}\,\sigma}\right)+\sum_{i=1}^n\log\left(\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\right)\\
+&= \sum_{i=1}^n\log\left( (2\pi)^{-1/2}\right) + \sum_{i=1}^n \log\left( (\sigma)^{-1}\right)+\sum_{i=1}^n\log\left(\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\right)\\
+&=-\frac{n}{2}\log(2\pi)-n\log(\sigma)-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i - \mu)^2
+\end{align}
+
+Now taking the partial derivative with respect to $\mu$:
+
+$$\frac{\partial \log L}{\partial \mu}=  \frac{1}{2\sigma^2} 2 \sum_{i=1}^n(x_i - \mu)$$
+
+and setting it to zero:
+
+$$0 =  \sum_{i=1}^n(x_i - \mu)$$
+
+$$\mu =  \frac{\sum_{i=1}^nx_i}{n}$$
+
+Actually, this is the mean, and it is the **sample** mean providing and estimation of $\mu$ (i.e. $\hat \mu$).
+
+We can also take the partial with respect to $\sigma$:
+
+\begin{align}\frac{\partial \log L}{\partial \sigma}&= -\frac{n}{\sigma}+\frac{2}{2}\sum_{i=1}^n(x_i - \mu)^2 \sigma^{-3}\\
+&=-\frac{n}{\sigma}+\frac{1}{\sigma^3}\sum_{i=1}^n(x_i - \mu)^2\\
+\end{align}
+
+And setting it to zero:
+
+$$0 = -\frac{n}{\sigma}+\frac{1}{\sigma^3}\sum_{i=1}^n(x_i - \mu)^2$$
+
+Hence,
+
+$$\sigma^2 =\frac{\sum_{i=1}^n (x_i - \mu)^2}{n}$$
+
+which is really a biased estimate of the variance in the population, $\sigma$ (i.e. $\s^2$). This bias arises because maximum likelihood estimates do not take into account the loss of degrees of freedom when estimating fixed effects.
+
+
+```{r}
+diams = c(150, 124, 100, 107, 170, 144,
+          113, 108, 92, 129, 123, 118)
+
+# A simple function to calculate log-likelihood.
+# Values will be easier to manage
+loglike = function(data, mu, sigma) {
+  loglike = 0
+    for(obs in data){
+      loglike = loglike +
+                log(1/(sqrt(2*pi)*sigma) *
+                       exp(-1/2 * (obs - mu)^2/(sigma^2)))
+    }
+    return(loglike)
+}
+# Let's try some combinations of parameters and
+# plot the results
+params = expand.grid(mu = seq(50, 200, 1),
+                     sigma = seq(10, 40, 1))
+params$logL = with(params, loglike(diams, mu, sigma))
+summary(params)
+
+ 
+library(lattice)
+contourplot(logL ~ mu*sigma, data = params, cuts = 20)
+
+# Zooming in
+params = expand.grid(mu = seq(120, 126, 0.01),
+                     sigma = seq(18, 25, 0.1))
+params$logL = with(params, loglike(diams, mu, sigma))
+summary(params)
+ 
+contourplot(logL ~ mu*sigma, data = params, cuts = 10)
+
+
+# Compare to:
+
+mean(diams); sd(diams)
+```
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
