@@ -127,9 +127,9 @@ $(document).ready(function () {
 <p>The point of departure is the pdf of the normal distribution:</p>
 <p><span class="math display">\[f_X(x \vert \mu,\sigma) = \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x-\mu)^2}{2\sigma^2}}\]</span></p>
 <blockquote>
-<p><a href="en.wikipedia.org/wiki/Maximum_likelihood_estimation">Wikipedia</a> Now we look at this function from a different perspective by considering the observed values <span class="math inline">\(x_1, x_2,\dots, x_n\)</span> to be fixed “parameters” of this function, whereas <span class="math inline">\(\theta\)</span> will be the function’s variable and allowed to vary freely; this same function will be called the likelihood:</p>
+<p><a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation">Wikipedia</a> Now we look at this function from a different perspective by considering the observed values <span class="math inline">\(x_1, x_2,\dots, x_n\)</span> to be fixed “parameters” of this function, whereas <span class="math inline">\(\theta\)</span> will be the function’s variable and allowed to vary freely; this same function will be called the likelihood:</p>
 </blockquote>
-<p><span class="math display">\[\mathcal L( \mu,\sigma ; x_i)=\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\]</span></p>
+<p><span class="math display">\[\mathcal L( \mu,\sigma ; x_i)=\prod_{i=1}^n f_X(x_i \vert \mu, \sigma)=\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}\]</span></p>
 <p>Here the observed values <span class="math inline">\(x_i\)</span> are fixed, and the function depends on the parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. The idea is to maximize the value of the formula. However, multiplying small fractions becomes numerically unstable. In comes the log-likelihood function:</p>
 <p>the log-likelihood:</p>
 <p><span class="math display">\[\ln \mathcal {L}(\theta \,;\,x_{1},\ldots ,x_{n})=\sum _{i=1}^{n}\ln f_X(x_{i}\vert \theta )\]</span></p>
@@ -209,8 +209,26 @@ mean(diams); sd(diams)</code></pre>
 <pre><code>## [1] 123.1667</code></pre>
 <pre><code>## [1] 22.38438</code></pre>
 <hr />
-<div id="binomial-example" class="section level5">
-<h5>BINOMIAL EXAMPLE:</h5>
+<div id="bernoulli-and-binomial-trials" class="section level5">
+<h5>BERNOULLI AND BINOMIAL TRIALS:</h5>
+<p>From <a href="https://onlinecourses.science.psu.edu/stat504/node/28">here</a>.</p>
+</div>
+<div id="ml-for-bernoulli-trials" class="section level5">
+<h5>ML for Bernoulli trials</h5>
+<p>If our experiment is a single Bernoulli trial and we observe <span class="math inline">\(X = 1\)</span> (success) then the likelihood function is <span class="math inline">\(\mathcal L(p ; x) = p\)</span> . This function reaches its maximum at <span class="math inline">\(\hat p =1\)</span>. If we observe <span class="math inline">\(X = 0\)</span> (failure) then the likelihood is <span class="math inline">\(\mathcal L(p ; x) = 1 − p\)</span>, which reaches its maximum at <span class="math inline">\(\hat p=0\)</span>. Of course, it is somewhat silly for us to try to make formal inferences about <span class="math inline">\(\theta\)</span> on the basis of a single Bernoulli trial; usually multiple trials are available.</p>
+<p>Suppose that <span class="math inline">\(X = (X_1, X_2, \dots, X_n)\)</span> represents the outcomes of <span class="math inline">\(n\)</span> independent Bernoulli trials, each with success probability <span class="math inline">\(p\)</span>. The likelihood for <span class="math inline">\(p\)</span> based on <span class="math inline">\(X\)</span> is defined as the joint probability distribution of <span class="math inline">\(X = (X_1, X_2, \dots, X_n)\)</span>. Since <span class="math inline">\(X = (X_1, X_2, \dots, X_n)\)</span> are iid random variables, the joint distribution is</p>
+<p><span class="math display">\[\mathcal L(p;x) = f_X(x;p)=\prod_{i=1}^{n}f_X(x_i;p)=\prod_{i=1}^{n} p^x(1−p)^{1−x}\]</span></p>
+<p>Differentiating the <span class="math inline">\(\log \mathcal L(p ; x)\)</span> with respect to <span class="math inline">\(p\)</span> and setting the derivative to zero shows that this function achieves a maximum at <span class="math inline">\(\hat p=\sum_{i=1}^n x_i/n\)</span>. Since <span class="math inline">\(\sum_{i=1}^n x_i/n\)</span> is the total number of successes observed in the <span class="math inline">\(n\)</span> trials, <span class="math inline">\(\hat p\)</span> is the observed proportion of successes in the <span class="math inline">\(n\)</span> trials. We often call <span class="math inline">\(\hat p\)</span> the sample proportion to distinguish it from <span class="math inline">\(p\)</span> , the “true” or “population” proportion.</p>
+</div>
+<div id="ml-for-binomial-trials" class="section level5">
+<h5>ML for Binomial trials:</h5>
+<p>Suppose that $ $is an observation from a binomial distribution, <span class="math inline">\(X \sim Bin(n, p )\)</span>, where <span class="math inline">\(n\)</span> is known and <span class="math inline">\(p\)</span> is to be estimated. The likelihood function is</p>
+<p><span class="math display">\[\mathcal L(p;x)=\frac{n!}{x!(n−x)!}p^x(1−p)^{n−x}\]</span></p>
+<p>which, except for the factor <span class="math inline">\(\frac{n!}{x!(n−x)!}\)</span>, is identical to the likelihood from <span class="math inline">\(n\)</span> independent Bernoulli trials with <span class="math inline">\(x=\sum_{i=1}^n x_i\)</span>. But since the likelihood function is regarded as a function only of the parameter p, the factor <span class="math inline">\(\frac{n!}{x!(n−x)!}\)</span> is a fixed constant and does not affect the MLE. Thus the MLE is again <span class="math inline">\(\hat p = x/n\)</span>, the sample proportion of successes.</p>
+<p>You get the same value by maximizing the binomial loglikelihood function:</p>
+<p><span class="math display">\[l(p;x)=k+x \log p+(n−x) \log(1−p)\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is a constant that does not involve the parameter <span class="math inline">\(p.\)</span></p>
+<hr />
 <p>Let’s see what the likelihood function looks like with a <a href="https://youtu.be/2xCKuRXWAQ0">binomial experiment</a> yielding <span class="math inline">\(3 \text{ heads}\)</span> and <span class="math inline">\(2 \text{ tails}:\)</span></p>
 <pre class="r"><code>p = seq(0, 1, 0.001)
 L = p^3 * (1 - p)^2

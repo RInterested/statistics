@@ -14,9 +14,9 @@ The point of departure is the pdf of the normal distribution:
 
 $$f_X(x \vert \mu,\sigma) = \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x-\mu)^2}{2\sigma^2}}$$
 
-> [Wikipedia](en.wikipedia.org/wiki/Maximum_likelihood_estimation) Now we look at this function from a different perspective by considering the observed values $x_1, x_2,\dots, x_n$ to be fixed "parameters" of this function, whereas $\theta$ will be the function's variable and allowed to vary freely; this same function will be called the likelihood:
+> [Wikipedia](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation) Now we look at this function from a different perspective by considering the observed values $x_1, x_2,\dots, x_n$ to be fixed "parameters" of this function, whereas $\theta$ will be the function's variable and allowed to vary freely; this same function will be called the likelihood:
 
-$$\mathcal L( \mu,\sigma ; x_i)=\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}$$
+$$\mathcal L( \mu,\sigma ; x_i)=\prod_{i=1}^n f_X(x_i \vert \mu, \sigma)=\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\,\sigma}\exp{\frac{-(x_i-\mu)^2}{2\sigma^2}}$$
 
 Here the observed values $x_i$ are fixed, and the function depends on the parameters $\mu$ and $\sigma$. The idea is to maximize the value of the formula. However, multiplying small fractions becomes numerically unstable. In comes the log-likelihood function:
 
@@ -113,7 +113,37 @@ mean(diams); sd(diams)
 
 ---
 
-##### BINOMIAL EXAMPLE:
+##### BERNOULLI AND BINOMIAL TRIALS:
+
+From [here](https://onlinecourses.science.psu.edu/stat504/node/28).
+
+##### ML for Bernoulli trials
+
+If our experiment is a single Bernoulli trial and we observe $X = 1$ (success) then the likelihood function is $\mathcal L(p ; x) = p$ . This function reaches its maximum at $\hat p =1$. If we observe $X = 0$ (failure) then the likelihood is $\mathcal L(p ; x) = 1 − p$, which reaches its maximum at $\hat p=0$. Of course, it is somewhat silly for us to try to make formal inferences about $\theta$ on the basis of a single Bernoulli trial; usually multiple trials are available.
+
+Suppose that $X = (X_1, X_2, \dots, X_n)$ represents the outcomes of $n$ independent Bernoulli trials, each with success probability $p$. The likelihood for $p$ based on $X$ is defined as the joint probability distribution of $X = (X_1, X_2, \dots, X_n)$. Since $X = (X_1, X_2, \dots, X_n)$ are iid random variables, the joint distribution is
+
+$$\mathcal L(p;x) = f_X(x;p)=\prod_{i=1}^{n}f_X(x_i;p)=\prod_{i=1}^{n} p^x(1−p)^{1−x}$$
+
+Differentiating the $\log \mathcal L(p ; x)$ with respect to $p$ and setting the derivative to zero shows that this function achieves a maximum at $\hat p=\sum_{i=1}^n x_i/n$. Since  $\sum_{i=1}^n x_i/n$ is the total number of successes observed in the $n$ trials, $\hat p$ is the observed proportion of successes in the $n$ trials. We often call $\hat p$ the sample proportion to distinguish it from $p$ , the “true” or “population” proportion. 
+
+##### ML for Binomial trials:
+
+Suppose that $ $is an observation from a binomial distribution, $X \sim Bin(n, p )$, where $n$ is known and $p$ is to be estimated. The likelihood function is
+
+$$\mathcal L(p;x)=\frac{n!}{x!(n−x)!}p^x(1−p)^{n−x}$$
+
+
+which, except for the factor $\frac{n!}{x!(n−x)!}$, is identical to the likelihood from $n$ independent Bernoulli trials with $x=\sum_{i=1}^n x_i$. But since the likelihood function is regarded as a function only of the parameter p, the factor $\frac{n!}{x!(n−x)!}$ is a fixed constant and does not affect the MLE. Thus the MLE is again $\hat p = x/n$, the sample proportion of successes.
+
+You get the same value by maximizing the binomial loglikelihood function: 
+
+$$l(p;x)=k+x \log p+(n−x) \log(1−p)$$
+
+where $k$ is a constant that does not involve the parameter $p.$
+
+---
+
 
 Let's see what the likelihood function looks like with a [binomial experiment](https://youtu.be/2xCKuRXWAQ0) yielding $3 \text{ heads}$ and $2 \text{ tails}:$ 
 
