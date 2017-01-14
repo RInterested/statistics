@@ -125,9 +125,27 @@ If our experiment is a single Bernoulli trial and we observe $X = 1$ (success) t
 
 Suppose that $X = (X_1, X_2, \dots, X_n)$ represents the outcomes of $n$ independent Bernoulli trials, each with success probability $p$. The likelihood for $p$ based on $X$ is defined as the joint probability distribution of $X = (X_1, X_2, \dots, X_n)$. Since $X = (X_1, X_2, \dots, X_n)$ are iid random variables, the joint distribution is
 
-$$\mathcal L(p;x) = f_X(x;p)=\prod_{i=1}^{n}f_X(x_i;p)=\prod_{i=1}^{n} p^x(1−p)^{1−x}$$
+\begin{align}\mathcal L(\theta;x) &=\prod_{i=1}^{n}f_X(x_i;\theta)=\prod_{i=1}^{n} \theta^x_i(1−\theta)^{1−x}\\
+&=\theta^{x_1}(1-\theta)^{1-x_1}\dots\theta^{x_n}(1-\theta)^{1-x_n}\tag{1}\\
+\end{align}
 
-Differentiating the $\log \mathcal L(p ; x)$ with respect to $p$ and setting the derivative to zero shows that this function achieves a maximum at $\hat p=\sum_{i=1}^n x_i/n$. Since  $\sum_{i=1}^n x_i/n$ is the total number of successes observed in the $n$ trials, $\hat p$ is the observed proportion of successes in the $n$ trials. We often call $\hat p$ the sample proportion to distinguish it from $p$ , the “true” or “population” proportion. 
+$(1)$ just reflects the probability mass function of the Bernouilli distribution.
+
+For the log-likelihood,
+
+\begin{align}\ln \mathcal L(\theta ; x)&=
+\ln \theta \left(\sum_{i=1}^n x_i\right) + \ln(1- \theta)\left(n -\sum_{i=1}^n x_i\right)\\
+&=n\bar x \ln \theta + n(1- \bar x)\ln(1- \theta)
+\end{align}
+
+Differentiating and setting it up to zero,
+
+\begin{align}
+\frac{\partial}{\partial \theta} \ln \mathcal L(\theta; x) &= n\left(\frac{\bar x}{\theta}-\frac{1-\bar x}{1-\theta}\right) \\
+&=\frac{\bar x (1-\theta) - \theta(1 - \bar x)}{\theta (1-\theta)}=0
+\end{align}
+
+Therefore $\hat \theta = \bar x$
 
 ##### ML for Binomial trials:
 

@@ -218,8 +218,21 @@ mean(diams); sd(diams)</code></pre>
 <h5>ML for Bernoulli trials</h5>
 <p>If our experiment is a single Bernoulli trial and we observe <span class="math inline">\(X = 1\)</span> (success) then the likelihood function is <span class="math inline">\(\mathcal L(p ; x) = p\)</span> . This function reaches its maximum at <span class="math inline">\(\hat p =1\)</span>. If we observe <span class="math inline">\(X = 0\)</span> (failure) then the likelihood is <span class="math inline">\(\mathcal L(p ; x) = 1 − p\)</span>, which reaches its maximum at <span class="math inline">\(\hat p=0\)</span>. Of course, it is somewhat silly for us to try to make formal inferences about <span class="math inline">\(\theta\)</span> on the basis of a single Bernoulli trial; usually multiple trials are available.</p>
 <p>Suppose that <span class="math inline">\(X = (X_1, X_2, \dots, X_n)\)</span> represents the outcomes of <span class="math inline">\(n\)</span> independent Bernoulli trials, each with success probability <span class="math inline">\(p\)</span>. The likelihood for <span class="math inline">\(p\)</span> based on <span class="math inline">\(X\)</span> is defined as the joint probability distribution of <span class="math inline">\(X = (X_1, X_2, \dots, X_n)\)</span>. Since <span class="math inline">\(X = (X_1, X_2, \dots, X_n)\)</span> are iid random variables, the joint distribution is</p>
-<p><span class="math display">\[\mathcal L(p;x) = f_X(x;p)=\prod_{i=1}^{n}f_X(x_i;p)=\prod_{i=1}^{n} p^x(1−p)^{1−x}\]</span></p>
-<p>Differentiating the <span class="math inline">\(\log \mathcal L(p ; x)\)</span> with respect to <span class="math inline">\(p\)</span> and setting the derivative to zero shows that this function achieves a maximum at <span class="math inline">\(\hat p=\sum_{i=1}^n x_i/n\)</span>. Since <span class="math inline">\(\sum_{i=1}^n x_i/n\)</span> is the total number of successes observed in the <span class="math inline">\(n\)</span> trials, <span class="math inline">\(\hat p\)</span> is the observed proportion of successes in the <span class="math inline">\(n\)</span> trials. We often call <span class="math inline">\(\hat p\)</span> the sample proportion to distinguish it from <span class="math inline">\(p\)</span> , the “true” or “population” proportion.</p>
+\begin{align}\mathcal L(\theta;x) &amp;=\prod_{i=1}^{n}f_X(x_i;\theta)=\prod_{i=1}^{n} \theta^x_i(1−\theta)^{1−x}\\
+&amp;=\theta^{x_1}(1-\theta)^{1-x_1}\dots\theta^{x_n}(1-\theta)^{1-x_n}\tag{1}\\
+\end{align}
+<p><span class="math inline">\((1)\)</span> just reflects the probability mass function of the Bernouilli distribution.</p>
+<p>For the log-likelihood,</p>
+\begin{align}\ln \mathcal L(\theta ; x)&amp;=
+\ln \theta \left(\sum_{i=1}^n x_i\right) + \ln(1- \theta)\left(n -\sum_{i=1}^n x_i\right)\\
+&amp;=n\bar x \ln \theta + n(1- \bar x)\ln(1- \theta)
+\end{align}
+<p>Differentiating and setting it up to zero,</p>
+\begin{align}
+\frac{\partial}{\partial \theta} \ln \mathcal L(\theta; x) &amp;= n\left(\frac{\bar x}{\theta}-\frac{1-\bar x}{1-\theta}\right) \\
+&amp;=\frac{\bar x (1-\theta) - \theta(1 - \bar x)}{\theta (1-\theta)}=0
+\end{align}
+<p>Therefore <span class="math inline">\(\hat \theta = \bar x\)</span></p>
 </div>
 <div id="ml-for-binomial-trials" class="section level5">
 <h5>ML for Binomial trials:</h5>
