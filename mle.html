@@ -273,9 +273,14 @@ abline(h = -20); abline(h = max(loglik))</code></pre>
 <p>The model is:</p>
 <p><span class="math display">\[y_i = \alpha + \beta x_i + \epsilon_i\]</span></p>
 <p>Because the errors are independent with mean of <span class="math inline">\(0\)</span> and unknown variance <span class="math inline">\(\sigma^2:\)</span></p>
-<p><span class="math display">\[\mathcal L(\alpha, \beta, \sigma^2; x, y)= \frac{1}{\sqrt{(2\pi\sigma^2)^n}}\exp - \frac{1}{2\sigma^2}\sum_{i=1}^n \left(y_i - (\alpha + \beta x_i\right))^2\]</span></p>
+\begin{align}\mathcal L(\alpha, \beta, \sigma^2; x, y)&amp;=f_X(y_1\vert \alpha + \beta x_1, \sigma^2)\quad f_X(y_2\vert \alpha + \beta x_2, \sigma^2)\quad\dots\quad f_X(y_n\vert \alpha + \beta x_n, \sigma^2)\\[2ex]
+&amp;= \small \frac{1}{\sigma \sqrt{2\pi}}\exp{-\frac{(y_1 - \alpha -\beta x_1)^2}{2\sigma^2}}\frac{1}{\sigma \sqrt{2\pi}}\exp{-\frac{(y_2 - \alpha -\beta x_2)^2}{2\sigma^2}}\dots \frac{1}{\sigma \sqrt{2\pi}}\exp{-\frac{(y_n - \alpha -\beta x_n)^2}{2\sigma^2}}\\[2ex]
+&amp;=\frac{1}{\sqrt{(2\pi\sigma^2)^n}}\exp -\frac{1}{2\sigma^2}\sum_{i=1}^n \left(y_i - (\alpha + \beta x_i\right))^2
+\end{align}
 <p>The log-likelihood:</p>
-<p><span class="math display">\[\ln \mathcal L(\alpha,\beta,\sigma^2; x,y)=-\frac{n}{2}\ln 2\pi\sigma^2 - \frac{1}{2\sigma^2}\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2\]</span></p>
+<p><span class="math display">\[\ln \mathcal L(\alpha,\beta,\sigma^2; x,y)=-\frac{n}{2}\ln 2\pi\sigma^2 \color{red}{-} \frac{1}{2\sigma^2}\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2\]</span></p>
+<p>So when the residuals are minimum (i.e. <span class="math inline">\(\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2\)</span>), the log-likelihood will be maximized (due to the negative sign).</p>
+<p>Since OLS minimizes residuals, it will correspond to the MLE, provided the errors are following a normal distribution around the mean (the predicted values).</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

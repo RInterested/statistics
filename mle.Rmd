@@ -199,11 +199,18 @@ $$y_i = \alpha + \beta x_i + \epsilon_i$$
 
 Because the errors are independent with mean of $0$ and unknown variance $\sigma^2:$
 
-$$\mathcal L(\alpha, \beta, \sigma^2; x, y)= \frac{1}{\sqrt{(2\pi\sigma^2)^n}}\exp - \frac{1}{2\sigma^2}\sum_{i=1}^n \left(y_i - (\alpha + \beta x_i\right))^2$$
+\begin{align}\mathcal L(\alpha, \beta, \sigma^2; x, y)&=f_X(y_1\vert \alpha + \beta x_1, \sigma^2)\quad f_X(y_2\vert \alpha + \beta x_2, \sigma^2)\quad\dots\quad f_X(y_n\vert \alpha + \beta x_n, \sigma^2)\\[2ex]
+&= \small \frac{1}{\sigma \sqrt{2\pi}}\exp{-\frac{(y_1 - \alpha -\beta x_1)^2}{2\sigma^2}}\frac{1}{\sigma \sqrt{2\pi}}\exp{-\frac{(y_2 - \alpha -\beta x_2)^2}{2\sigma^2}}\dots \frac{1}{\sigma \sqrt{2\pi}}\exp{-\frac{(y_n - \alpha -\beta x_n)^2}{2\sigma^2}}\\[2ex]
+&=\frac{1}{\sqrt{(2\pi\sigma^2)^n}}\exp -\frac{1}{2\sigma^2}\sum_{i=1}^n \left(y_i - (\alpha + \beta x_i\right))^2
+\end{align}
 
 The log-likelihood:
 
-$$\ln \mathcal L(\alpha,\beta,\sigma^2; x,y)=-\frac{n}{2}\ln 2\pi\sigma^2 - \frac{1}{2\sigma^2}\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2$$
+$$\ln \mathcal L(\alpha,\beta,\sigma^2; x,y)=-\frac{n}{2}\ln 2\pi\sigma^2 \color{red}{-} \frac{1}{2\sigma^2}\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2$$
+
+So when the residuals are minimum (i.e. $\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2$), the log-likelihood will be maximized (due to the negative sign).
+
+Since OLS minimizes residuals, it will correspond to the MLE, provided the errors are following a normal distribution around the mean (the predicted values).
 
 ---
 
