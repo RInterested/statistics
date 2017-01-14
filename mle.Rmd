@@ -73,7 +73,7 @@ $$\sigma^2 =\frac{\sum_{i=1}^n (x_i - \mu)^2}{n}$$
 which is really a biased estimate of the variance in the population, $\sigma$ (i.e. $s^2$). This bias arises because maximum likelihood estimates do not take into account the loss of degrees of freedom when estimating fixed effects.
 
 
-```{r}
+```{r, fig.width = 5, fig.height = 5}
 diams = c(150, 124, 100, 107, 170, 144,
           113, 108, 92, 129, 123, 118)
 
@@ -97,7 +97,7 @@ summary(params)
 
  
 library(lattice)
-contourplot(logL ~ mu*sigma, data = params, cuts = 20)
+contourplot(logL ~ mu*sigma, data = params, cuts = 30, col=2)
 
 # Zooming in
 params = expand.grid(mu = seq(120, 126, 0.01),
@@ -105,7 +105,7 @@ params = expand.grid(mu = seq(120, 126, 0.01),
 params$logL = with(params, loglike(diams, mu, sigma))
 summary(params)
  
-contourplot(logL ~ mu*sigma, data = params, cuts = 10)
+contourplot(logL ~ mu*sigma, data = params, cuts = 10, col=2)
 
 
 # Compare to:
@@ -169,7 +169,7 @@ where $k$ is a constant that does not involve the parameter $p.$
 
 Let's see what the likelihood function looks like with a [binomial experiment](https://youtu.be/2xCKuRXWAQ0) yielding $3 \text{ heads}$ and $2 \text{ tails}:$ 
 
-```{r}
+```{r, fig.width = 4, fig.height = 4}
 p = seq(0, 1, 0.001)
 L = p^3 * (1 - p)^2
 plot(p, L, type = "l", xlab="p", ylab="L(p(x))")
