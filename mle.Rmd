@@ -147,6 +147,8 @@ Differentiating and setting it up to zero,
 
 Therefore $\hat \theta = \bar x$
 
+---
+
 ##### ML for Binomial trials:
 
 Suppose that $ $is an observation from a binomial distribution, $X \sim Bin(n, p )$, where $n$ is known and $p$ is to be estimated. The likelihood function is
@@ -186,6 +188,22 @@ MLE = d[which.max(d[,2]), 1]
 arrows(x0 = MLE, y0 = -20, x1 = MLE, y1 = max(loglik))
 abline(h = -20); abline(h = max(loglik))
 ```
+
+---
+
+##### Linear Regression:
+
+The model is:
+
+$$y_i = \alpha + \beta x_i + \epsilon_i$$
+
+Because the errors are independent with mean of $0$ and unknown variance $\sigma^2:$
+
+$$\mathcal L(\alpha, \beta, \sigma^2; x, y)= \frac{1}{\sqrt{(2\pi\sigma^2)^n}}\exp - \frac{1}{2\sigma^2}\sum_{i=1}^n \left(y_i - (\alpha + \beta x_i\right))^2$$
+
+The log-likelihood:
+
+$$\ln \mathcal L(\alpha,\beta,\sigma^2; x,y)=-\frac{n}{2}\ln 2\pi\sigma^2 - \frac{1}{2\sigma^2}\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2$$
 
 ---
 
