@@ -281,6 +281,19 @@ abline(h = -20); abline(h = max(loglik))</code></pre>
 <p><span class="math display">\[\ln \mathcal L(\alpha,\beta,\sigma^2; x,y)=-\frac{n}{2}\ln 2\pi\sigma^2 \color{red}{-} \frac{1}{2\sigma^2}\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2\]</span></p>
 <p>So when the residuals are minimum (i.e. <span class="math inline">\(\sum_{i=1}^n(y_i -(\alpha + \beta x_i))^2\)</span>), the log-likelihood will be maximized (due to the negative sign).</p>
 <p>Since OLS minimizes residuals, it will correspond to the MLE, provided the errors are following a normal distribution around the mean (the predicted values).</p>
+<p>We can estimate the slope <span class="math inline">\(\beta\)</span> for instance:</p>
+\begin{align}\frac{\partial\ln \mathcal L(\alpha,\beta,\sigma^2; x,y)}{\partial \beta}&amp;= \frac{1}{\sigma^2}\sum_{i=1}^nx_i(y_i -(\alpha + \beta x_i))
+\end{align}
+<p>and setting to zero:</p>
+\begin{align}0&amp;= \frac{1}{\sigma^2}\sum_{i=1}^nx_i(y_i -(\alpha + \beta x_i))\\
+0&amp;= \color{blue}{\sum_{i=1}^nx_i(y_i -(\alpha + \beta x_i))}
+\end{align}
+\begin{align}0&amp;= \sum_{i=1}^n x_i y_i - x_i \alpha -  \beta x_i^2))\\
+\sum_{i=1}^n\beta x_i^2 &amp;= \sum_{i=1}^n x_i y_i - x_i \alpha 
+\end{align}
+<p>Therefore,</p>
+<p><span class="math display">\[\hat \beta = \frac{\sum_{i=1}^n x_i y_i - x_i \alpha }{\sum_{i=1}^n x_i^2}\]</span></p>
+<p>Now the <span class="math inline">\(\sum_{i=1}^n(y_i -(\alpha + \beta x_i))\)</span> is the estimated error, and <span class="math inline">\(\color{blue}{0=\sum_{i=1}^nx_i(y_i -(\alpha + \beta x_i))}\)</span> one of the <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares#Assumptions">conditions of classical OLS</a>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

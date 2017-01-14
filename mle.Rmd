@@ -212,6 +212,30 @@ So when the residuals are minimum (i.e. $\sum_{i=1}^n(y_i -(\alpha + \beta x_i))
 
 Since OLS minimizes residuals, it will correspond to the MLE, provided the errors are following a normal distribution around the mean (the predicted values).
 
+We can estimate the slope $\beta$ for instance:
+
+\begin{align}\frac{\partial\ln \mathcal L(\alpha,\beta,\sigma^2; x,y)}{\partial \beta}&= \frac{1}{\sigma^2}\sum_{i=1}^nx_i(y_i -(\alpha + \beta x_i))
+\end{align}
+
+and setting to zero:
+
+\begin{align}0&= \frac{1}{\sigma^2}\sum_{i=1}^nx_i(y_i -(\alpha + \beta x_i))\\
+0&= \color{blue}{\sum_{i=1}^nx_i(y_i -(\alpha + \beta x_i))}
+\end{align}
+
+\begin{align}0&= \sum_{i=1}^n x_i y_i - x_i \alpha -  \beta x_i^2))\\
+\sum_{i=1}^n\beta x_i^2 &= \sum_{i=1}^n x_i y_i - x_i \alpha 
+\end{align}
+
+Therefore,
+
+$$\hat \beta = \frac{\sum_{i=1}^n x_i y_i - x_i \alpha }{\sum_{i=1}^n x_i^2}$$
+
+
+Now the $\sum_{i=1}^n(y_i -(\alpha + \beta x_i))$ is the estimated error, and $\color{blue}{0=\sum_{i=1}^nx_i(y_i -(\alpha + \beta x_i))}$ one of the [conditions of classical OLS](https://en.wikipedia.org/wiki/Ordinary_least_squares#Assumptions).
+
+
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
