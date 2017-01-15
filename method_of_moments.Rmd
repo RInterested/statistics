@@ -1,0 +1,58 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###METHOD OF MOMENTS:
+<br>
+
+Once decided that a sample comes from a normal distribution, the parameters $\mu$ and $\sigma$ can be estimated by either the method of moments or the generalized method of moments.
+
+In the method of moments the two first moments of the population:
+
+$\mathbb E[X]=\mu$ and $\mathbb E[(x-\mu)^2]= \sigma^2$ 
+
+can be estimated with a system of two equations and two unknowns:
+
+$\hat\mu=\frac{1}{n}\sum_{i=1}^n x_i$
+
+and
+
+$\hat \sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^2$
+
+However, more moments can be included in a weighted fashion:
+
+The third moment is:
+
+$\mathbb E[(x-\mu)^3]$, which it is zero in the population.
+
+This is estimated in the sample by $\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^3.$
+
+The fourth moment is:
+
+$\mathbb E[(x-\mu)^4]$, wich is $3\sigma^4.$
+
+This is estimated in the sample by $\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^4.$
+
+
+At this point we look at cost functions for each one of these moment estimators:
+
+$\hat g_1=\frac{1}{n}\sum_{i=1}^n x_i-\hat\mu$
+
+$\hat g_2=\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^2-\sigma^2$
+
+$\hat g_3=\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^3$
+
+$\hat g_4=\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^4-\sigma^2-3\sigma^4$
+
+We place these estimated cost functions into a vector:
+
+$\hat g=\begin{bmatrix}\hat g_1\\ \hat g_2\\ \hat q_3\\ \hat g_4\end{bmatrix}$
+
+and we calculate the cost function:
+
+$$\hat g \begin{bmatrix}\text{WEIGHTS}\end{bmatrix}\hat g$$
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
