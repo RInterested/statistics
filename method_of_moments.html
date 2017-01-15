@@ -126,16 +126,16 @@ $(document).ready(function () {
 <p>In the method of moments the two first moments of the population:</p>
 <p><span class="math inline">\(\mathbb E[X]=\mu\)</span> and <span class="math inline">\(\mathbb E[(x-\mu)^2]= \sigma^2\)</span></p>
 <p>can be estimated with a system of two equations and two unknowns:</p>
-<p><span class="math inline">\(\hat\mu=\frac{1}{n}\sum_{i=1}^n x_i\)</span></p>
+<p><span class="math inline">\(\mathbb E[X-\hat\mu]=\frac{1}{n}\sum_{i=1}^n x_i - \hat \mu = \mu\)</span></p>
 <p>and</p>
-<p><span class="math inline">\(\hat \sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^2\)</span></p>
+<p><span class="math inline">\(\mathbb E[(X- \hat \sigma)^2] = \frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^2=\sigma^2\)</span></p>
 <p>However, more moments can be included in a weighted fashion:</p>
-<p>The third moment is:</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Skewness">third moment (skewness)</a> is:</p>
 <p><span class="math inline">\(\mathbb E[(x-\mu)^3]\)</span>, which it is zero in the population.</p>
-<p>This is estimated in the sample by <span class="math inline">\(\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^3.\)</span></p>
-<p>The fourth moment is:</p>
-<p><span class="math inline">\(\mathbb E[(x-\mu)^4]\)</span>, wich is <span class="math inline">\(3\sigma^4.\)</span></p>
-<p>This is estimated in the sample by <span class="math inline">\(\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^4.\)</span></p>
+<p>This is estimated in the sample by <span class="math inline">\(\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^3=0.\)</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Kurtosis">fourth moment (kurtosis)</a> is:</p>
+<p><span class="math inline">\(\mathbb E[(x-\mu)^4]\)</span>, which is <span class="math inline">\(3\sigma^4.\)</span></p>
+<p>This is estimated in the sample by <span class="math inline">\(\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^4 = 3\sigma^4.\)</span></p>
 <p>At this point we look at cost functions for each one of these moment estimators:</p>
 <p><span class="math inline">\(\hat g_1=\frac{1}{n}\sum_{i=1}^n x_i-\hat\mu\)</span></p>
 <p><span class="math inline">\(\hat g_2=\frac{1}{n}\sum_{i=1}^n (x_i-\hat\mu)^2-\sigma^2\)</span></p>
