@@ -8,6 +8,16 @@
 
 #####MATRIX RANK:
 
+From the [UTexas](https://www.ma.utexas.edu/users/sadun/S08/427K/matrix.pdf):
+
+The rank of a matrix is the number of pivots in its reduced
+row-echelon form (A matrix is in **reduced row-echelon form** if (1) it is in row echelon form, (2) all of the pivots are equal to $1$, and (3) all entries in the pivot columns, except for the pivots themselves, are equal to zero; matrix is said to be in **row-echelon form** if (1) any rows made completely of zeroes lie at the bottom of the matrix and (2) the first nonzero entries of the various rows form a staircase pattern).
+
+Note that the rank of an $m \times n$ matrix cannot be bigger than $m$, since you can’t have more than one pivot per row. It also can’t be bigger than $n$, since you can’t have more than one pivot per column. If $m < n$, then the rank is always less than $n$ and there are at least $n − m$ columns without pivots. If $m > n$, then the rank is always less than $m$ and there are at least $m − n$ rows of zeroes in the reduced row-echelon form.
+
+---
+
+
 From [Wikipedia](https://en.wikipedia.org/wiki/Rank_(linear_algebra)) and [Caltech](https://www.cds.caltech.edu/~murray/amwiki/index.php/FAQ:_What_does_it_mean_for_a_non-square_matrix_to_be_full_rank%3F):
 
 In linear algebra, the rank of a matrix $\bf A$ is the dimension of the vector space generated (or spanned) by its columns.
@@ -21,6 +31,8 @@ A matrix is said to have **full rank** if its rank equals the largest possible f
 A matrix is full row rank when each of the rows of the matrix are linearly independent and full column rank when each of the columns of the matrix are linearly independent. For a square matrix these two concepts are equivalent and we say the matrix is full rank if all rows and columns are linearly independent. A square matrix is full rank if and only if its determinant is nonzero.
 
 For a non-square matrix with $m$ rows and $n$ columns, it will always be the case that either the rows or columns (whichever is larger in number) are linearly dependent. Hence *when we say that a non-square matrix is full rank, we mean that the row and column rank are as high as possible*, given the shape of the matrix. So if there are more rows than columns $(m>n)$, then the matrix is full rank if the matrix is full column rank.
+
+---
 
 #####INVERTIBILITY AND NULL SPACE:
 
@@ -51,6 +63,8 @@ Can I recover both $x=3$ and $y=7$ after I do the linear transformation $x+y=10$
 It has to be a non-empty null space to affect invertibility. The origin always maps to the origin, and I don't lose any information that way.
 
 If the square matrix $\bf A$ has a nonzero null space, $\bf A$ maps at least one dimension of the transformed vector space to the origin. I can't recover that information from the transformed vector. It's gone."
+
+---
 
 #####IF $\bf A$ is full column rank, then $A^\top A$ is always invertible:
 

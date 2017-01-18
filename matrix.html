@@ -124,6 +124,10 @@ $(document).ready(function () {
 <p><br></p>
 <div id="matrix-rank" class="section level5">
 <h5>MATRIX RANK:</h5>
+<p>From the <a href="https://www.ma.utexas.edu/users/sadun/S08/427K/matrix.pdf">UTexas</a>:</p>
+<p>The rank of a matrix is the number of pivots in its reduced row-echelon form (A matrix is in <strong>reduced row-echelon form</strong> if (1) it is in row echelon form, (2) all of the pivots are equal to <span class="math inline">\(1\)</span>, and (3) all entries in the pivot columns, except for the pivots themselves, are equal to zero; matrix is said to be in <strong>row-echelon form</strong> if (1) any rows made completely of zeroes lie at the bottom of the matrix and (2) the first nonzero entries of the various rows form a staircase pattern).</p>
+<p>Note that the rank of an <span class="math inline">\(m \times n\)</span> matrix cannot be bigger than <span class="math inline">\(m\)</span>, since you can’t have more than one pivot per row. It also can’t be bigger than <span class="math inline">\(n\)</span>, since you can’t have more than one pivot per column. If <span class="math inline">\(m &lt; n\)</span>, then the rank is always less than <span class="math inline">\(n\)</span> and there are at least <span class="math inline">\(n − m\)</span> columns without pivots. If <span class="math inline">\(m &gt; n\)</span>, then the rank is always less than <span class="math inline">\(m\)</span> and there are at least <span class="math inline">\(m − n\)</span> rows of zeroes in the reduced row-echelon form.</p>
+<hr />
 <p>From <a href="https://en.wikipedia.org/wiki/Rank_(linear_algebra)">Wikipedia</a> and <a href="https://www.cds.caltech.edu/~murray/amwiki/index.php/FAQ:_What_does_it_mean_for_a_non-square_matrix_to_be_full_rank%3F">Caltech</a>:</p>
 <p>In linear algebra, the rank of a matrix <span class="math inline">\(\bf A\)</span> is the dimension of the vector space generated (or spanned) by its columns.</p>
 <p>The column rank of <span class="math inline">\(\bf A\)</span> is the <a href="https://en.wikipedia.org/wiki/Dimension_(vector_space)">dimension</a> (cardinality (number of vectors) of a basis of a column space) of the column space of <span class="math inline">\(\bf A\)</span>, while the row rank of <span class="math inline">\(\bf A\)</span> is the dimension of the row space of <span class="math inline">\(\bf A\)</span>.</p>
@@ -131,6 +135,7 @@ $(document).ready(function () {
 <p>A matrix is said to have <strong>full rank</strong> if its rank equals the largest possible for a matrix of the same dimensions, which is the lesser of the number of rows and columns. A matrix is said to be rank deficient if it does not have full rank.</p>
 <p>A matrix is full row rank when each of the rows of the matrix are linearly independent and full column rank when each of the columns of the matrix are linearly independent. For a square matrix these two concepts are equivalent and we say the matrix is full rank if all rows and columns are linearly independent. A square matrix is full rank if and only if its determinant is nonzero.</p>
 <p>For a non-square matrix with <span class="math inline">\(m\)</span> rows and <span class="math inline">\(n\)</span> columns, it will always be the case that either the rows or columns (whichever is larger in number) are linearly dependent. Hence <em>when we say that a non-square matrix is full rank, we mean that the row and column rank are as high as possible</em>, given the shape of the matrix. So if there are more rows than columns <span class="math inline">\((m&gt;n)\)</span>, then the matrix is full rank if the matrix is full column rank.</p>
+<hr />
 </div>
 <div id="invertibility-and-null-space" class="section level5">
 <h5>INVERTIBILITY AND NULL SPACE:</h5>
@@ -148,6 +153,7 @@ $(document).ready(function () {
 <p>Can I recover both <span class="math inline">\(x=3\)</span> and <span class="math inline">\(y=7\)</span> after I do the linear transformation <span class="math inline">\(x+y=10\)</span>? No. I’ve lost information. I can’t distinguish between the transforms of <span class="math inline">\(x=3\)</span>, <span class="math inline">\(y=7\)</span> and <span class="math inline">\(x=0\)</span>, <span class="math inline">\(y=10\)</span>. Considered as a compression algorithm that’s lossy. As a linear transform it has a <span class="math inline">\(1\)</span>-dimensional null space. Either way, no can invert. I’ve mapped the whole line <span class="math inline">\(x=−y\)</span> to the origin, is the problem.</p>
 <p>It has to be a non-empty null space to affect invertibility. The origin always maps to the origin, and I don’t lose any information that way.</p>
 <p>If the square matrix <span class="math inline">\(\bf A\)</span> has a nonzero null space, <span class="math inline">\(\bf A\)</span> maps at least one dimension of the transformed vector space to the origin. I can’t recover that information from the transformed vector. It’s gone.&quot;</p>
+<hr />
 </div>
 <div id="if-bf-a-is-full-column-rank-then-atop-a-is-always-invertible" class="section level5">
 <h5>IF <span class="math inline">\(\bf A\)</span> is full column rank, then <span class="math inline">\(A^\top A\)</span> is always invertible:</h5>
