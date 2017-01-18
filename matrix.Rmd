@@ -1,0 +1,67 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###IT'S ALL ABOUT THE MATRIX:
+<br>
+
+#####MATRIX RANK:
+
+From [Wikipedia](https://en.wikipedia.org/wiki/Rank_(linear_algebra)) and [Caltech](https://www.cds.caltech.edu/~murray/amwiki/index.php/FAQ:_What_does_it_mean_for_a_non-square_matrix_to_be_full_rank%3F):
+
+In linear algebra, the rank of a matrix $\bf A$ is the dimension of the vector space generated (or spanned) by its columns.
+
+The column rank of $\bf A$ is the [dimension](https://en.wikipedia.org/wiki/Dimension_(vector_space)) (cardinality (number of vectors) of a basis of a column space) of the column space of $\bf A$, while the row rank of $\bf A$ is the dimension of the row space of $\bf A$.
+
+A fundamental result in linear algebra is that the **column rank** and the **row rank** are always equal. This number (i.e., the number of linearly independent rows or columns) is simply called the rank of $\bf A$.
+
+A matrix is said to have **full rank** if its rank equals the largest possible for a matrix of the same dimensions, which is the lesser of the number of rows and columns. A matrix is said to be rank deficient if it does not have full rank.
+
+A matrix is full row rank when each of the rows of the matrix are linearly independent and full column rank when each of the columns of the matrix are linearly independent. For a square matrix these two concepts are equivalent and we say the matrix is full rank if all rows and columns are linearly independent. A square matrix is full rank if and only if its determinant is nonzero.
+
+For a non-square matrix with $m$ rows and $n$ columns, it will always be the case that either the rows or columns (whichever is larger in number) are linearly dependent. Hence *when we say that a non-square matrix is full rank, we mean that the row and column rank are as high as possible*, given the shape of the matrix. So if there are more rows than columns $(m>n)$, then the matrix is full rank if the matrix is full column rank.
+
+#####INVERTIBILITY AND NULL SPACE:
+
+From [this answer in Quora](https://www.quora.com/When-the-null-space-of-a-matrix-is-the-zero-vector-the-matrix-is-invertible-Why/answer/Alexander-Farrugia?srid=utSnl):
+
+A matrix is invertible if and only if its columns are linearly independent and its rows are linearly independent. A necessary (but not sufficient) condition for this to be true is that the matrix is a square matrix.
+
+So *it is not enough for the null space to be empty*, because a non-square matrix can have an empty (right) null space, as for instance:
+
+$$\begin{bmatrix}1&0\\0&1\\0&0\end{bmatrix}$$
+
+has an empty right null space, but it is not invertible. Another way of expressing the same is that the left null space also needs to be empty (in this case it is not - e.g. $\begin{bmatrix}0&0&1\end{bmatrix}$).
+
+Now suppose we have a matrix $\bf A$ with columns $(a_1,a_2\dots, a_n)$ satisfying the relation $\bf Ax=0$ for some compatible vector $x=(x_1,x_2,\dots,x_n)^\top$. Then, from the rules of matrix multiplication, $x_1a_1+x_2a_2+\dots+x_na_n=0$, so unless $x_1=x_2=\dots=x_n=0$, the columns of $\bf A$ are not linearly independent, and hence $\bf A$ is not invertible. An analogous argument shows that if $\bf y^\top A=0$ for some compatible vector $\bf y$, then the rows of $\bf A$ are not linearly independent, so $\bf A$ is again not invertible. 
+
+INTUITION:
+
+Think about lossless data compression vs lossy data compression. In lossless compression I can recreate the original uncompressed data exactly. In lossy compression I can't.
+
+"Inverse transform" means a transform that recovers my original information. If my original transform didn't throw away any information, I can invert it. If it did, I can't.
+
+[Example:](https://www.quora.com/When-the-null-space-of-a-matrix-is-the-zero-vector-the-matrix-is-invertible-Why/answer/Tom-McNamara-4?srid=utSnl)
+
+For every two numbers $x,y$, record $x+y.$
+
+Can I recover both $x=3$ and $y=7$ after I do the linear transformation $x+y=10$? No. I've lost information. I can't distinguish between the transforms of  $x=3$, $y=7$ and $x=0$, $y=10$. Considered  as a compression algorithm that's lossy. As a linear transform it has a $1$-dimensional null space. Either way, no can invert. I've mapped the whole line $x=−y$ to the origin, is the problem.
+
+It has to be a non-empty null space to affect invertibility. The origin always maps to the origin, and I don't lose any information that way.
+
+If the square matrix $\bf A$ has a nonzero null space, $\bf A$ maps at least one dimension of the transformed vector space to the origin. I can't recover that information from the transformed vector. It's gone.
+
+#####IF $\bf A$ is full column rank, then $A^\top A$ is always invertible:
+
+This is the [proof](http://math.stackexchange.com/a/632547/152225):
+
+If $A^\top Ax=0$ for some vector $x$, then $x=0:$
+
+$$0 = x^T A^T A x = (Ax)^T(Ax) = \langle Ax, Ax \rangle = \lVert Ax \rVert^2,$$
+
+which on the other hand implies that $\bf Ax=0$, so since $\bf A$ has full rank, $\bf x=0.$
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
