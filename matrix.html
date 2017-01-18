@@ -135,25 +135,25 @@ $(document).ready(function () {
 <div id="invertibility-and-null-space" class="section level5">
 <h5>INVERTIBILITY AND NULL SPACE:</h5>
 <p>From <a href="https://www.quora.com/When-the-null-space-of-a-matrix-is-the-zero-vector-the-matrix-is-invertible-Why/answer/Alexander-Farrugia?srid=utSnl">this answer in Quora</a>:</p>
-<p>A matrix is invertible if and only if its columns are linearly independent and its rows are linearly independent. A necessary (but not sufficient) condition for this to be true is that the matrix is a square matrix.</p>
+<p>A matrix is invertible if and only if its columns are linearly independent and its rows are linearly independent. A necessary (but not sufficient) condition for this to be true is that the matrix is a <strong>square matrix</strong>.</p>
 <p>So <em>it is not enough for the null space to be empty</em>, because a non-square matrix can have an empty (right) null space, as for instance:</p>
 <p><span class="math display">\[\begin{bmatrix}1&amp;0\\0&amp;1\\0&amp;0\end{bmatrix}\]</span></p>
 <p>has an empty right null space, but it is not invertible. Another way of expressing the same is that the left null space also needs to be empty (in this case it is not - e.g. <span class="math inline">\(\begin{bmatrix}0&amp;0&amp;1\end{bmatrix}\)</span>).</p>
 <p>Now suppose we have a matrix <span class="math inline">\(\bf A\)</span> with columns <span class="math inline">\((a_1,a_2\dots, a_n)\)</span> satisfying the relation <span class="math inline">\(\bf Ax=0\)</span> for some compatible vector <span class="math inline">\(x=(x_1,x_2,\dots,x_n)^\top\)</span>. Then, from the rules of matrix multiplication, <span class="math inline">\(x_1a_1+x_2a_2+\dots+x_na_n=0\)</span>, so unless <span class="math inline">\(x_1=x_2=\dots=x_n=0\)</span>, the columns of <span class="math inline">\(\bf A\)</span> are not linearly independent, and hence <span class="math inline">\(\bf A\)</span> is not invertible. An analogous argument shows that if <span class="math inline">\(\bf y^\top A=0\)</span> for some compatible vector <span class="math inline">\(\bf y\)</span>, then the rows of <span class="math inline">\(\bf A\)</span> are not linearly independent, so <span class="math inline">\(\bf A\)</span> is again not invertible.</p>
-<p>INTUITION:</p>
-<p>Think about lossless data compression vs lossy data compression. In lossless compression I can recreate the original uncompressed data exactly. In lossy compression I can’t.</p>
+<p><a href="https://www.quora.com/When-the-null-space-of-a-matrix-is-the-zero-vector-the-matrix-is-invertible-Why/answer/Tom-McNamara-4?srid=utSnl">INTUITION:</a></p>
+<p>“Think about lossless data compression vs lossy data compression. In lossless compression I can recreate the original uncompressed data exactly. In lossy compression I can’t.</p>
 <p>“Inverse transform” means a transform that recovers my original information. If my original transform didn’t throw away any information, I can invert it. If it did, I can’t.</p>
-<p><a href="https://www.quora.com/When-the-null-space-of-a-matrix-is-the-zero-vector-the-matrix-is-invertible-Why/answer/Tom-McNamara-4?srid=utSnl">Example:</a></p>
+<p>Example:</p>
 <p>For every two numbers <span class="math inline">\(x,y\)</span>, record <span class="math inline">\(x+y.\)</span></p>
 <p>Can I recover both <span class="math inline">\(x=3\)</span> and <span class="math inline">\(y=7\)</span> after I do the linear transformation <span class="math inline">\(x+y=10\)</span>? No. I’ve lost information. I can’t distinguish between the transforms of <span class="math inline">\(x=3\)</span>, <span class="math inline">\(y=7\)</span> and <span class="math inline">\(x=0\)</span>, <span class="math inline">\(y=10\)</span>. Considered as a compression algorithm that’s lossy. As a linear transform it has a <span class="math inline">\(1\)</span>-dimensional null space. Either way, no can invert. I’ve mapped the whole line <span class="math inline">\(x=−y\)</span> to the origin, is the problem.</p>
 <p>It has to be a non-empty null space to affect invertibility. The origin always maps to the origin, and I don’t lose any information that way.</p>
-<p>If the square matrix <span class="math inline">\(\bf A\)</span> has a nonzero null space, <span class="math inline">\(\bf A\)</span> maps at least one dimension of the transformed vector space to the origin. I can’t recover that information from the transformed vector. It’s gone.</p>
+<p>If the square matrix <span class="math inline">\(\bf A\)</span> has a nonzero null space, <span class="math inline">\(\bf A\)</span> maps at least one dimension of the transformed vector space to the origin. I can’t recover that information from the transformed vector. It’s gone.&quot;</p>
 </div>
 <div id="if-bf-a-is-full-column-rank-then-atop-a-is-always-invertible" class="section level5">
 <h5>IF <span class="math inline">\(\bf A\)</span> is full column rank, then <span class="math inline">\(A^\top A\)</span> is always invertible:</h5>
 <p>This is the <a href="http://math.stackexchange.com/a/632547/152225">proof</a>:</p>
 <p>If <span class="math inline">\(A^\top Ax=0\)</span> for some vector <span class="math inline">\(x\)</span>, then <span class="math inline">\(x=0:\)</span></p>
-<p><span class="math display">\[0 = x^T A^T A x = (Ax)^T(Ax) = \langle Ax, Ax \rangle = \lVert Ax \rVert^2,\]</span></p>
+<p><span class="math display">\[\bf 0 = x^T A^T A x = (Ax)^T(Ax) = \langle Ax, Ax \rangle = \lVert Ax \rVert^2,\]</span></p>
 <p>which on the other hand implies that <span class="math inline">\(\bf Ax=0\)</span>, so since <span class="math inline">\(\bf A\)</span> has full rank, <span class="math inline">\(\bf x=0.\)</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>

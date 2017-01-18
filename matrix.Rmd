@@ -26,7 +26,7 @@ For a non-square matrix with $m$ rows and $n$ columns, it will always be the cas
 
 From [this answer in Quora](https://www.quora.com/When-the-null-space-of-a-matrix-is-the-zero-vector-the-matrix-is-invertible-Why/answer/Alexander-Farrugia?srid=utSnl):
 
-A matrix is invertible if and only if its columns are linearly independent and its rows are linearly independent. A necessary (but not sufficient) condition for this to be true is that the matrix is a square matrix.
+A matrix is invertible if and only if its columns are linearly independent and its rows are linearly independent. A necessary (but not sufficient) condition for this to be true is that the matrix is a **square matrix**.
 
 So *it is not enough for the null space to be empty*, because a non-square matrix can have an empty (right) null space, as for instance:
 
@@ -36,13 +36,13 @@ has an empty right null space, but it is not invertible. Another way of expressi
 
 Now suppose we have a matrix $\bf A$ with columns $(a_1,a_2\dots, a_n)$ satisfying the relation $\bf Ax=0$ for some compatible vector $x=(x_1,x_2,\dots,x_n)^\top$. Then, from the rules of matrix multiplication, $x_1a_1+x_2a_2+\dots+x_na_n=0$, so unless $x_1=x_2=\dots=x_n=0$, the columns of $\bf A$ are not linearly independent, and hence $\bf A$ is not invertible. An analogous argument shows that if $\bf y^\top A=0$ for some compatible vector $\bf y$, then the rows of $\bf A$ are not linearly independent, so $\bf A$ is again not invertible. 
 
-INTUITION:
+[INTUITION:](https://www.quora.com/When-the-null-space-of-a-matrix-is-the-zero-vector-the-matrix-is-invertible-Why/answer/Tom-McNamara-4?srid=utSnl)
 
-Think about lossless data compression vs lossy data compression. In lossless compression I can recreate the original uncompressed data exactly. In lossy compression I can't.
+"Think about lossless data compression vs lossy data compression. In lossless compression I can recreate the original uncompressed data exactly. In lossy compression I can't.
 
 "Inverse transform" means a transform that recovers my original information. If my original transform didn't throw away any information, I can invert it. If it did, I can't.
 
-[Example:](https://www.quora.com/When-the-null-space-of-a-matrix-is-the-zero-vector-the-matrix-is-invertible-Why/answer/Tom-McNamara-4?srid=utSnl)
+Example:
 
 For every two numbers $x,y$, record $x+y.$
 
@@ -50,7 +50,7 @@ Can I recover both $x=3$ and $y=7$ after I do the linear transformation $x+y=10$
 
 It has to be a non-empty null space to affect invertibility. The origin always maps to the origin, and I don't lose any information that way.
 
-If the square matrix $\bf A$ has a nonzero null space, $\bf A$ maps at least one dimension of the transformed vector space to the origin. I can't recover that information from the transformed vector. It's gone.
+If the square matrix $\bf A$ has a nonzero null space, $\bf A$ maps at least one dimension of the transformed vector space to the origin. I can't recover that information from the transformed vector. It's gone."
 
 #####IF $\bf A$ is full column rank, then $A^\top A$ is always invertible:
 
@@ -58,7 +58,7 @@ This is the [proof](http://math.stackexchange.com/a/632547/152225):
 
 If $A^\top Ax=0$ for some vector $x$, then $x=0:$
 
-$$0 = x^T A^T A x = (Ax)^T(Ax) = \langle Ax, Ax \rangle = \lVert Ax \rVert^2,$$
+$$\bf 0 = x^T A^T A x = (Ax)^T(Ax) = \langle Ax, Ax \rangle = \lVert Ax \rVert^2,$$
 
 which on the other hand implies that $\bf Ax=0$, so since $\bf A$ has full rank, $\bf x=0.$
 
