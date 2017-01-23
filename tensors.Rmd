@@ -1,0 +1,99 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###MATRIX NOTATION:
+<br>
+
+This is a work in progress intended to motivate the need for tensors. The most concrete explanation can be found [here](https://youtu.be/JY_lUOWClEY), and it proceeds as follows:
+
+We have two inertial (no acceleration) coordinate systems, $S$ and $S'$, where $S'$ moves away from $S$ at constant velocity $v$ *along* the $x$ axis - for now we assume no rotation or movement along the other two axes, $y$ and $z$.
+
+An event $P$ happens and it is recorded in $S$ as $(ct, x, y, z)$. Why $ct$? To express time in the same units as the space coordintes we multiply the velocity of light by the observation of time. Not important.
+
+The same event $P$ will be expressed in relation to the $S'$ coordinates as $P=(ct', x', y',z').$
+
+####Definition: CONTRAVARIANT VECTOR:
+
+$x^\mu = (x^0,x^1,x^2,x^3)$, such that
+
+$x^0= ct, \quad x^1=x, \quad x^2=y, \quad x^3=z$
+
+So $\mu$ is an index, $\mu= 0,1,2,3.$
+
+####Definition: COVARIANT VECTOR:
+
+$x_\mu=(x_0,x_1,x_2,x_3)$, such that
+
+$x_0=ct, \quad x_1=\color{red}{-}x, \quad\color{red}{-}y \quad\color{red}{-}z$
+
+Why do we need this?
+
+The contravariant and covariant vectors of the same event in relation to the frame $S'$ are:
+
+$x'^\mu=(x^{'0}, x^{'1},x^{'2},x^{'3})\quad \text{contravariant}$
+
+and
+
+$x'_\mu=(x'_0, x'_1,x'_2,x'_3)\quad\text{covariant}$
+
+---
+
+Now we have to bring in the Lorentz transformations for the answer to make sense. They are the equations that change coordinates between $S$ and $S'$ taking into consideration time dilation and length contraction (along the $x$ axis only, since the frames are only moving with respect to each other along $x$):
+
+The transformation of time from $t$ in frame $S$ to $t'$ in $S'$ is given by $t' = \gamma \left(t - \frac{v}{c^2}x\right)$; while the transformation of $x$ from $S$ to $S'$ obeys the equation $x' =\gamma(x - vt).$ This is explained [here](https://youtu.be/-O8EO50MyiA), and adopting the notation of contravariant and covariant vectors, and the $ct$ expression of $t$:
+
+$x'^0 = \gamma\left(x^0 - \frac{v}{c} x^1\right)$
+
+$x'^1 = \gamma\left(x^1 - \frac{v}{c} x^0\right)$
+
+$x'^2 = x^2$
+
+$x'^3 = x^3$
+
+Here, $\large\gamma=\frac{1}{\sqrt{1-\frac{v^2}{c^2}}}$. Notice that the third and fourth dimension do not change in this simple model with two frames, one moving along the $x$ axis of the other at constant velocity.
+
+We can express the change in frames in matrix form as:
+
+$$\begin{bmatrix}x'^0\\x'^1\\x'^2\\x'^3\end{bmatrix}=\begin{bmatrix}\gamma&-\gamma\beta&0&0\\-\gamma\beta&\gamma&0&0\\0&0&1&0\\0&0&0&1\end{bmatrix}\begin{bmatrix}x^0\\x^1\\x^2\\x^3\end{bmatrix}$$
+
+with $\beta=\frac{v}{c}.$
+
+If there is motion of $S'$ in more than just the $x$ difrection, the matriceal formula above can be generalized as:
+
+$$\begin{bmatrix}x'^0\\x'^1\\x'^2\\x'^3\end{bmatrix}=\begin{bmatrix}\Lambda^0_{\; 0}&\Lambda^0_{\; 1}&\Lambda^0_{\; 2}&\Lambda^0_{\; 3}\\\Lambda^1_{\; 0}&\Lambda^1_{\; 1}&\Lambda^1_{\; 2}&\Lambda^1_{\; 3}\\\Lambda^2_{\; 0}&\Lambda^2_{\; 1}&\Lambda^2_{\; 2}&\Lambda^2_{\; 3}\\\Lambda^3_{\; 0}&\Lambda^3_{\; 1}&\Lambda^3_{\; 2}&\Lambda^3_{\; 3}\end{bmatrix}\begin{bmatrix}x^0\\x^1\\x^2\\x^3\end{bmatrix}$$
+
+This can be express more succintly as:
+
+$$\color{red}{x'^{\mu} = \Lambda^\mu_{\; \nu}x^\nu}$$
+
+The same can be done with the covariant vector transformation:
+
+$$\begin{bmatrix}x'_0\\x'_1\\x'_2\\x'_3\end{bmatrix}=\begin{bmatrix}\Lambda_0^{\; 0}&\Lambda_0^{\; 1}&\Lambda_0^{\; 2}&\Lambda_0^{\; 3}\\\Lambda_1^{\; 0}&\Lambda_1^{\; 1}&\Lambda_1^{\; 2}&\Lambda_1^{\; 3}\\\Lambda_2^{\; 0}&\Lambda_2^{\; 1}&\Lambda_2^{\; 2}&\Lambda_2^{\; 3}\\\Lambda_3^{\; 0}&\Lambda_3^{\; 1}&\Lambda_3^{\; 2}&\Lambda_3^{\; 3}\end{bmatrix}\begin{bmatrix}x_0\\x_1\\x_2\\x-3\end{bmatrix}$$
+
+or
+
+$$\color{red}{x'_{\mu} = \Lambda_\mu^{\; \nu}x_\nu}$$
+
+---
+
+OK. So now we have covariant and contravariant vectors expressing the event with respect to $S$ and $S'$... and Lorentz transformations... we can do this...
+
+$$\large x^\mu x_\mu= x^0 x_0 + x^1 x_1 + x^2 x_2 + x^3 x_3 = c^2t^2 - \left(x^2 + y^2 + z^2 \right)=\color{red}{c^2t^2 -  \vec{x}\vec{x}}$$
+
+$\vec{x}\vec{x}$ is the norm!
+
+How to express this operation generally? We use the Einstein summation convention:
+
+$$A^\mu B_\mu=A^0B_0+A^1B_1+A^2B_2+A^3B_3$$
+
+where $A^\mu =(A^0,A^1,A^2,A^3)$ has a covariant vector $A_mu=(A_0,A_1,A_2,A_3) = (A_0,-A^1,-A^2,-A^3).$ And so does $B^\mu.$
+
+---
+
+With this we can go back to the matrix notation for the Lorentz transformations
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
