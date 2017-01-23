@@ -6,24 +6,45 @@
 ###SUPPORT VECTOR MACHINES:
 <br>
 
+From this [MIT video](https://youtu.be/_PwhiWxHK8o).
+
 It is predicated upon drawing a decision boundary line leaving as ample a margin to the first positive and negative examples as possible:
 
 <br>
 
-<img height="700" width="700" src="https://cloud.githubusercontent.com/assets/9312897/16438253/f52790e8-3d7b-11e6-8846-56d147c60e0f.png">
+<img width="700" src="https://cloud.githubusercontent.com/assets/9312897/16438253/f52790e8-3d7b-11e6-8846-56d147c60e0f.png">
 
 
 As in the illustration above, if we select an orthogonal vector such that $\large \lVert w \rVert=1$ we can establish a decision criterium for any unknown example $\bf u$ to be catalogued as positive of the form:
 
-$\large {\bf u} \cdot \color{blue}{w} \geq c$. corresponding to a value that would place the projection beyond the decision line in the middle of the street. Or equivalently, that if 
+$\large \color{blue}{w}  \cdot {\bf u}  \geq c$, corresponding to a value that would place the projection beyond the decision line in the middle of the street. Notice that $ \color{blue}{w}  \cdot {\bf u} = {\bf u} \cdot \color{blue}{w}$. 
 
-$$\Large u\cdot \color{blue}{w} + b \geq 0 \tag{decision line or rule: Eq.1}$$
+And equivalent condition would be:
+
+$$\Large\color{blue}{w}\cdot  u + b \geq 0 \tag{decision line or rule: Eq.1}$$
 
 with $c = - b$ the sample is positive.
 
-So we need $b$ and $\color{blue}{w}$ to have a decision rule. To get there we need *constraints*. First constraint we are going to impose is that $\color{blue}{w}\cdot \bf x_+ + b \geq 1$ and $\color{blue}{w}\cdot \bf x_- + b \leq -1$. To bring these two inequalities together, we can introduce the variable $y_i$ so that $y_i=+1$ for positive examples, and $y_i=-1$ if the examples are negative, and conclude $\large y_i (x_i\cdot \color{blue}{w} + b) -1\geq 0$. So we establish that this has to be greater than zero, *but* if the example is "in the gutter", then:
+So we need $b$ and $\color{blue}{w}$ to have a decision rule. To get there we need *constraints*. 
 
-$$\Large y_i \,(x_i\cdot \color{blue}{w} + b) -1 = 0\tag{the "1" condition for x in gutter: Eq.2}$$.
+First constraint we are going to impose is that for any positive sample $x_+$ (we could have used $u_+$), $\color{blue}{w}\cdot \bf x_+ + b \geq 1$ and $\color{blue}{w}\cdot \bf x_- + b \leq -1$. 
+
+<br>
+<img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22207669/ef0119de-e14d-11e6-80f2-1cef812a859d.png">
+<br>
+
+
+To bring these two inequalities together, we can introduce the variable $y_i$ so that $y_i=+1$ for positive examples, and $y_i=-1$ if the examples are negative, and conclude $\large y_i (x_i\cdot \color{blue}{w} + b) -1\geq 0$. 
+
+So we establish that this has to be greater than zero, *but* if the example is "in the gutter", then:
+
+$$\Large y_i \,(x_i\cdot \color{blue}{w} + b) -1 = 0\tag{the "1" condition for x in gutter: Eq.2}:$$
+
+<br>
+<img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22209100/440e9898-e153-11e6-87cf-dd47a34f67d7.png">
+
+<br>
+
 
 Second constraint: the distance of "the gutter":
 
@@ -36,23 +57,29 @@ $$\Large \text{width}= (x_+ \,{\bf -}\, x_-) \cdot \frac{w}{\lVert w \rVert} \ta
 
 Now, key observation: on the equation above $x_+$ and $x_-$ *are* in the gutter! Therefore, for the positive example: $\large ({\bf x_i}\cdot \color{blue}{w} + b) -1 = 0$, or $\large {\bf x_+}\cdot \color{blue}{w} = 1 - b$; and for the negative example: $\large {\bf x_-}\cdot \color{blue}{w} = -1 - b$. So, reformulating the width of the street:
 
-$$\Large \text{width}= \frac{2}{\lVert w \rVert} \tag{the width of the street: Eq.3}$$
+<br>
 
-So now we just have to maximize $\Large  \frac{w}{\lVert w \rVert}$ or maximize $\Large  \frac{1}{\lVert w \rVert}$, or minimize $\Large  \lVert w \rVert$, or minimize:
+$\text{width}=(x_+ \,{\bf -}\, x_-) \cdot \frac{w}{\lVert w \rVert}= \frac{x_+\cdot w \,{\bf -}\, x_-\cdot w}{\lVert w \rVert}=\frac{1-b-(-1-b)}{\lVert w \rVert}= \frac{2}{\lVert w \rVert} \tag{the width of the street: Eq.3}$
 
-$$\Large \text{min}\frac{1}{2}\lVert w \rVert^2 \tag{minimization objective: Eq.4}$$
+<br>
+
+So now we just have to maximize the width of the street - maximize $\large  \frac{w}{\lVert w \rVert}$ (or maximize $\Large  \frac{2}{\lVert w \rVert}$, or minimize $\Large  \lVert w \rVert)$, or minimize:
+
+$$\large \text{min}\frac{1}{2}\lVert w \rVert^2 \tag{minimization objective: Eq.4}$$
+
+which is mathematically convenient.
 
 So we want to minimize this expression based on some constraints. Hence we need a Lagrange multiplier (going back to equations 2 and 4):
 
-$$\Large \mathscr{L} = \frac{1}{2} \lVert w \rVert^2 - \sum \lambda_i \Big[y_i \, \big ({\bf x_i\cdot \color{blue}{w} }+ b \big) -1\Big]\tag{Lagrange: Eq.5}$$
+$$\large \mathscr{L} = \frac{1}{2} \lVert w \rVert^2 - \sum \lambda_i \Big[y_i \, \left( x_i\cdot \color{blue}{w} + b \right) -1\Big]\tag{Lagrange: Eq.5}$$
 
 
 Differentiating,
 
 
-$\Large \frac{\partial \mathscr{L}}{\partial \color{blue}{w} }= \color{blue}{w} - \sum \lambda_i y_i {\bf x_i} = 0$. Therefore, 
+$\large \frac{\partial \mathscr{L}}{\partial \color{blue}{w} }= \color{blue}{w} - \sum \lambda_i y_i x_i = 0$. Therefore, 
 
-$$\Large\color{blue}{w} = \sum \lambda_i \,\, y_i \,\, {\bf x_i}\tag{Orthonormal vector: Eq.6}$$
+$$\large\color{blue}{w} = \sum \lambda_i \,\, y_i \,\,  x_i\tag{Orthonormal vector: Eq.6}$$
 
 $\Large \frac{\partial \mathscr{L}}{\partial b}=-\sum \lambda_i y_i = 0$, which means that
 
@@ -60,20 +87,26 @@ $\Large \sum \lambda_i \, y_i = 0\tag{zero sum multipliers times labels: Eq.7}$
 
 Pluging equation [Eq.6] back into [Eq.5], 
 
-$$\Large \mathscr{L} = \frac{1}{2} \color{purple}{\bigg(\sum \lambda_i y_i \bf x_i \bigg) \,\bigg(\sum \lambda_j y_j \bf x_j \bigg)}- \color{green}{\bigg(\sum \lambda_i y_i \bf x_i\bigg)\cdot \bigg(\sum \lambda_j y_j \bf x_j \bigg)} - \sum \lambda_i y_i b +\sum \lambda_i$$
+<br>
+
+$$\large \mathscr{L} = \frac{1}{2} \color{purple}{\left(\sum \lambda_i y_i  x_i \right) \,\left(\sum \lambda_j y_j  x_j \right)}- \color{green}{\left(\sum \lambda_i y_i  x_i\right)\cdot \left(\sum \lambda_j y_j  x_j \right)} - \sum \lambda_i y_i b +\sum \lambda_i$$
+
+<br>
 
 The penultimate term is zero as per equation [Eq.7].
 
 Therefore,
 
 
-$$\Large \mathscr{L} =  \sum \lambda_i - \frac{1}{2}\displaystyle \sum_i \sum_j  \lambda_i \lambda_j\,\, y_i y_j \,\, {\bf x_i \cdot x_j}\tag{final Lagrangian: Eq.8}$$
+$$\large \mathscr{L} = \boxed{ \sum \lambda_i - \frac{1}{2}\displaystyle \sum_i \sum_j  \lambda_i \lambda_j\,\, y_i y_j \,\,  x_i \cdot x_j}\tag{final Lagrangian: Eq.8}$$
 
 Hence, the optimization depends on the dot product of pairs of examples.
 
 Going back to the "decision rule" equation [Eq.1] above, and using [Eq.6]:
 
-$$\Large \sum \lambda_i y_i {\bf x_i\cdot u} + b \geq 0\tag{final decision rule: Eq.9}$$
+<br>
+
+$$\large \sum \lambda_i y_i  x_i\cdot u + b \geq 0\tag{final decision rule: Eq.9}$$
 
 
 ---
