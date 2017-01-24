@@ -30,15 +30,25 @@ So we need $b$ and $\color{blue}{w}$ to have a decision rule. To get there we ne
 First constraint we are going to impose is that for any positive sample $x_+$ (we could have used $u_+$), $\color{blue}{w}\cdot \bf x_+ + b \geq 1$; and for negative samples, $\color{blue}{w}\cdot \bf x_- + b \leq -1$. 
 
 <br>
+
 <img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22224716/9563046a-e18d-11e6-8400-2df9a1ab9d3e.png">
+
 <br>
 
+In the division boundary the value would be $0$, leaving the values of the different strips as:
+
+
+<br>
+
+<img width="250" src="https://cloud.githubusercontent.com/assets/9312897/22253623/4fe02998-e220-11e6-9e32-9e698c1a1b54.png">
+
+<br>
 
 To bring these two inequalities together, we can introduce the variable $y_i$ so that $y_i=+1$ for positive examples, and $y_i=-1$ if the examples are negative, and conclude $\large y_i (x_i\cdot \color{blue}{w} + b) -1\geq 0$. 
 
 So we establish that this has to be greater than zero, *but* if the example is "in the gutter" (the **dividing hyperplanes**, or in this case lines, corresponding to the tips of the supporting vectors), then:
 
-$$\Large y_i \,(x_i\cdot \color{blue}{w} + b) -1 = 0\tag{the "1" condition for x in gutter: Eq.2}:$$
+$$\Large y_i \,(x_i\cdot \color{blue}{w} + b) -1 = 0\tag{Eq.2}$$
 
 
 Notice that this is equivalent to requiring that $y_i \,(x_i\cdot \color{blue}{w} + b)  = 1.$
