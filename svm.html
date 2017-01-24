@@ -160,6 +160,13 @@ $(document).ready(function () {
 <p>So now we just have to maximize the width of the street - maximize <span class="math inline">\(\large \frac{w}{\lVert w \rVert}\)</span> (or maximize <span class="math inline">\(\Large \frac{2}{\lVert w \rVert}\)</span>, or minimize <span class="math inline">\(\Large \lVert w \rVert)\)</span>, or minimize:</p>
 <p><span class="math display">\[\large \text{min}\frac{1}{2}\lVert w \rVert^2 \tag{minimization objective: Eq.4}\]</span></p>
 <p>which is mathematically convenient.</p>
+<hr />
+<p>So we want to:</p>
+<ol style="list-style-type: decimal">
+<li><p>Minimize <span class="math inline">\(\lvertx\rvert^2\)</span> with the constraint:</p></li>
+<li><p><span class="math inline">\((y_i(w x_i) - b_-1=0\)</span></p></li>
+</ol>
+<hr />
 <p>So we want to minimize this expression based on some constraints. Hence we need a Lagrange multiplier (going back to equations 2 and 4):</p>
 <p><br></p>
 <p><span class="math display">\[\large \mathscr{L} = \frac{1}{2} \lVert w \rVert^2 - \sum \lambda_i \Big[y_i \, \left( x_i\cdot \color{blue}{w} + b \right) -1\Big]\tag{Lagrange: Eq.5}\]</span></p>
