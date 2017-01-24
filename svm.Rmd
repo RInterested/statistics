@@ -35,18 +35,18 @@ First constraint we are going to impose is that for any positive sample $x_+$ (w
 
 <br>
 
-In the division boundary the value would be $0$, leaving the values of the different strips as:
+In the division boundary or hyperplane (**median**) the value would be $0$, leaving the values of the different strips as:
 
 
-<br>
-
-<img width="250" src="https://cloud.githubusercontent.com/assets/9312897/22253623/4fe02998-e220-11e6-9e32-9e698c1a1b54.png">
+<img width="700" src="https://cloud.githubusercontent.com/assets/9312897/22255139/88c5086a-e224-11e6-86e6-53dc0002efcf.png">
 
 <br>
+
+---
 
 To bring these two inequalities together, we can introduce the variable $y_i$ so that $y_i=+1$ for positive examples, and $y_i=-1$ if the examples are negative, and conclude $\large y_i (x_i\cdot \color{blue}{w} + b) -1\geq 0$. 
 
-So we establish that this has to be greater than zero, *but* if the example is "in the gutter" (the **dividing hyperplanes**, or in this case lines, corresponding to the tips of the supporting vectors), then:
+So we establish that this has to be greater than zero, *but* if the example is on the hyperplanes that maximize the margin of separation between the decision hyperplane and the tips of the support vectors, in this case a lines), then:
 
 $$\Large y_i \,(x_i\cdot \color{blue}{w} + b) -1 = 0\tag{Eq.2}$$
 
@@ -56,10 +56,12 @@ Notice that this is equivalent to requiring that $y_i \,(x_i\cdot \color{blue}{w
 <br>
 <img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22209100/440e9898-e153-11e6-87cf-dd47a34f67d7.png">
 
+---
+
 <br>
 
 
-Second constraint: the distance of "the gutter":
+Second constraint: the distance of the desicion hypeplane to the tips of the support vectors ("the street") will be maximized:
 
 
 <img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16401058/1d780816-3caf-11e6-8477-610b6bcf9b76.png">
@@ -68,7 +70,9 @@ Again, assuming a unit vector perpendicular to the decision boundary, the dot pr
 
 $$\Large \text{width}= (x_+ \,{\bf -}\, x_-) \cdot \frac{w}{\lVert w \rVert} \tag{the width of the street}$$
 
-Now, key observation: on the equation above $x_+$ and $x_-$ *are* in the gutter! Therefore, for the positive example: $\large ({\bf x_i}\cdot \color{blue}{w} + b) -1 = 0$, or $\large {\bf x_+}\cdot \color{blue}{w} = 1 - b$; and for the negative example: $\large {\bf x_-}\cdot \color{blue}{w} = -1 - b$. So, reformulating the width of the street:
+<br>
+
+Now, key observation: on the equation above $x_+$ and $x_-$ *are* in the gutter (on hyperplanes maximizing the separation)! Therefore, for the positive example: $\large ({\bf x_i}\cdot \color{blue}{w} + b) -1 = 0$, or $\large {\bf x_+}\cdot \color{blue}{w} = 1 - b$; and for the negative example: $\large {\bf x_-}\cdot \color{blue}{w} = -1 - b$. So, reformulating the width of the street:
 
 <br>
 
