@@ -17,9 +17,9 @@ It is predicated upon drawing a decision boundary line leaving as ample a margin
 
 As in the illustration above, if we select an orthogonal vector such that $\large \lVert w \rVert=1$ we can establish a decision criterium for any unknown example $\bf u$ to be catalogued as positive of the form:
 
-$\large \color{blue}{w}  \cdot {\bf u}  \geq c$, corresponding to a value that would place the projection beyond the decision line in the middle of the street. Notice that $ \color{blue}{w}  \cdot {\bf u} = {\bf u} \cdot \color{blue}{w}$. 
+$\large \color{blue}{w}  \cdot {\bf u}  \geq c$, corresponding to a value that would place the projection beyond the decision line in the middle of the street. Notice that $\color{blue}{w}  \cdot {\bf u} = {\bf u} \cdot \color{blue}{w}$. 
 
-And equivalent condition would be:
+An equivalent condition would be:
 
 $$\Large\color{blue}{w}\cdot  u + b \geq 0 \tag{decision line or rule: Eq.1}$$
 
@@ -27,26 +27,43 @@ with $c = - b$ the sample is positive.
 
 So we need $b$ and $\color{blue}{w}$ to have a decision rule. To get there we need *constraints*. 
 
-First constraint we are going to impose is that for any positive sample $x_+$ (we could have used $u_+$), $\color{blue}{w}\cdot \bf x_+ + b \geq 1$ and $\color{blue}{w}\cdot \bf x_- + b \leq -1$. 
+First constraint we are going to impose is that for any positive sample $x_+$ (we could have used $u_+$), $\color{blue}{w}\cdot \bf x_+ + b \geq 1$; and for negative samples, $\color{blue}{w}\cdot \bf x_- + b \leq -1$. 
 
 <br>
+
 <img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22224716/9563046a-e18d-11e6-8400-2df9a1ab9d3e.png">
+
 <br>
 
+In the division boundary or hyperplane (**median**) the value would be $0$, leaving the values of the different strips as:
+
+
+<img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22256074/95e0f132-e227-11e6-976d-1dfa7322674b.png">
+
+The vector $\bf w$ is the **weight vector**, whereas $b$ is the **bias**.
+
+<br>
+
+---
 
 To bring these two inequalities together, we can introduce the variable $y_i$ so that $y_i=+1$ for positive examples, and $y_i=-1$ if the examples are negative, and conclude $\large y_i (x_i\cdot \color{blue}{w} + b) -1\geq 0$. 
 
-So we establish that this has to be greater than zero, *but* if the example is "in the gutter", then:
+So we establish that this has to be greater than zero, *but* if the example is on the hyperplanes that maximize the margin of separation between the decision hyperplane and the tips of the support vectors, in this case a lines), then:
 
-$$\Large y_i \,(x_i\cdot \color{blue}{w} + b) -1 = 0\tag{the "1" condition for x in gutter: Eq.2}:$$
+$$\Large y_i \,(x_i\cdot \color{blue}{w} + b) -1 = 0\tag{Eq.2}$$
+
+
+Notice that this is equivalent to requiring that $y_i \,(x_i\cdot \color{blue}{w} + b)  = 1.$
 
 <br>
 <img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22209100/440e9898-e153-11e6-87cf-dd47a34f67d7.png">
 
+---
+
 <br>
 
 
-Second constraint: the distance of "the gutter":
+Second constraint: the distance of the decision hypeplane to the tips of the support vectors will be maximized. In other words the **margin of separation ("street")** will be maximized:
 
 
 <img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16401058/1d780816-3caf-11e6-8477-610b6bcf9b76.png">
@@ -55,7 +72,9 @@ Again, assuming a unit vector perpendicular to the decision boundary, the dot pr
 
 $$\Large \text{width}= (x_+ \,{\bf -}\, x_-) \cdot \frac{w}{\lVert w \rVert} \tag{the width of the street}$$
 
-Now, key observation: on the equation above $x_+$ and $x_-$ *are* in the gutter! Therefore, for the positive example: $\large ({\bf x_i}\cdot \color{blue}{w} + b) -1 = 0$, or $\large {\bf x_+}\cdot \color{blue}{w} = 1 - b$; and for the negative example: $\large {\bf x_-}\cdot \color{blue}{w} = -1 - b$. So, reformulating the width of the street:
+<br>
+
+Now, key observation: on the equation above $x_+$ and $x_-$ *are* in the gutter (on hyperplanes maximizing the separation)! Therefore, for the positive example: $\large ({\bf x_i}\cdot \color{blue}{w} + b) -1 = 0$, or $\large {\bf x_+}\cdot \color{blue}{w} = 1 - b$; and for the negative example: $\large {\bf x_-}\cdot \color{blue}{w} = -1 - b$. So, reformulating the width of the street:
 
 <br>
 
@@ -69,13 +88,26 @@ $$\large \text{min}\frac{1}{2}\lVert w \rVert^2 \tag{minimization objective: Eq.
 
 which is mathematically convenient.
 
+---
+
+So we want to:
+
+1. Minimize $\lvertx\rvert^2$ with the constraint:
+
+3. $(y_i(w x_i) - b_-1=0$
+
+---
+
 So we want to minimize this expression based on some constraints. Hence we need a Lagrange multiplier (going back to equations 2 and 4):
+
+<br>
 
 $$\large \mathscr{L} = \frac{1}{2} \lVert w \rVert^2 - \sum \lambda_i \Big[y_i \, \left( x_i\cdot \color{blue}{w} + b \right) -1\Big]\tag{Lagrange: Eq.5}$$
 
 
 Differentiating,
 
+<br>
 
 $\large \frac{\partial \mathscr{L}}{\partial \color{blue}{w} }= \color{blue}{w} - \sum \lambda_i y_i x_i = 0$. Therefore, 
 
