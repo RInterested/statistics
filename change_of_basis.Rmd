@@ -8,9 +8,9 @@
 
 From [this lecture by Norm Wildberger](https://youtu.be/yAb12PWrhV0).
 
-Any point on the plane is expressed differently by Emily $\begin{bmatrix}\bf \color{green}{e_1} \\ \bf \color{blue}{e_2 }\end{bmatrix}$ compared to Frank $\begin{bmatrix} \bf \color{orange}{f_1} \\ \bf \color{brown}{f_2}  \end{bmatrix}$.
+Any point on the plane is expressed differently by Emily $\vec e=\begin{bmatrix}\bf \color{green}{e_1} \\ \bf \color{blue}{e_2 }\end{bmatrix}$ compared to Frank $\vec f=\begin{bmatrix} \bf \color{orange}{f_1} \\ \bf \color{brown}{f_2}  \end{bmatrix}$.
 
-So we can say that Frank's basis vector $\color{orange}{f_1}=\begin{bmatrix}1\\0\end{bmatrix}$ is $\bf \color{orange}{f_1} = 5 \, \color{green}{e_1} - 2 \, \color{blue}{e_2}$; and Frank's basis vector $\color{brown}{f_2}=\begin{bmatrix}0\\1\end{bmatrix}$ is $\bf \color{brown}{f_2} = 1.5 \, \color{green}{e_1} + 2.5 \, \color{blue}{e_2}.$
+So we can say that Frank's basis vector $\vec f_1=\begin{bmatrix}\color{orange}{1_{\text{f}}}\\\color{brown}{0_{\text{f}}}\end{bmatrix}$ is $\vec f_1 = 5 \, \color{green}{e_1} - 2 \, \color{blue}{e_2}$; and Frank's basis vector $\vec f_2=\begin{bmatrix}\color{orange}{0_\text{f}}\\\color{brown}{1_\text{f}}\end{bmatrix}$ is $\vec f_2 = 1.5 \, \color{green}{e_1} + 2.5 \, \color{blue}{e_2}$ from Emily's perspective.
 
 <br>
 
@@ -19,19 +19,19 @@ So we can say that Frank's basis vector $\color{orange}{f_1}=\begin{bmatrix}1\\0
 
 Or we can say that the basis vectors in Frank's system will be seen from Emily's perspective as:
 
-$$\begin{bmatrix}\color{orange}{5} & 1.5 \\ \color{orange}{-2} & 2.5\end{bmatrix}\,\begin{bmatrix}1\\0\end{bmatrix}=\begin{bmatrix}\color{orange}{5\\-2}\end{bmatrix}$$
+$$\left(\vec f_1\right)_{\vec e}=\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}\,\begin{bmatrix}\color{orange}{1_{\text{f}}}\\\color{brown}{0_{\text{f}}}\end{bmatrix}=\begin{bmatrix}{\color{green}{5}\\\color{blue}{-2}}\end{bmatrix}$$
 
 and
 
-$$\begin{bmatrix}5 & \color{brown}{1.5} \\ -2 & \color{brown}{2.5}\end{bmatrix}\,\begin{bmatrix}0\\1\end{bmatrix}=\begin{bmatrix}\color{brown}{1.5\\2.5}\end{bmatrix}$$
+$$\left(\vec f_2\right)_{\vec e}=\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}\,\begin{bmatrix}\color{orange}{0_{\text{f}}}\\\color{brown}{1_{\text{f}}}\end{bmatrix}=\begin{bmatrix}{\color{green}{1.5}\\\color{blue}{2.5}}\end{bmatrix}$$
 
-So in the columns of $\bf A =\begin{bmatrix}\color{orange}{5}&\color{brown}{1.5}\\\color{orange}{-2}&\color{brown}{2.5}\end{bmatrix}$ we have stored how the basis vectors in Frank's system are expressed in Emily's basis. 
+So in the columns of $\bf A =\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}$ we have stored how the basis vectors in Frank's system are expressed in Emily's basis. 
 
 If we were to express in Emily's system some othe vector initially given in Frank's system we would just have to perform the operation:
 
 \begin{align}
-\bf A &=\begin{bmatrix}\color{orange}{5}&\color{brown}{1.5}\\\color{orange}{-2}&\color{brown}{2.5}\end{bmatrix}\begin{bmatrix}\bf x_1\\\bf{x_2}\end{bmatrix}=\begin{bmatrix}\bf y_1\\\bf{y_2}\end{bmatrix}\\
-&=\bf x_1\begin{bmatrix}\color{orange}{5}\\\color{orange}{-2}\end{bmatrix} + \bf x_2\begin{bmatrix}\color{brown}{1.5}\\\color{brown}{2.5}\end{bmatrix}
+\bf A &=\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}\begin{bmatrix}\bf x_1\\\bf{x_2}\end{bmatrix}=\begin{bmatrix}\bf y_1\\\bf{y_2}\end{bmatrix}\\
+&=\bf x_1\begin{bmatrix}\color{green}{5}\\\color{blue}{-2}\end{bmatrix} + \bf x_2\begin{bmatrix}\color{green}{1.5}\\\color{blue}{2.5}\end{bmatrix}
 \end{align}
 
 The thing to note is that $x_1$ will multiply the first column in the matrix to contribute to $y$ (the first basis vector contribution); and $x_2$ will multiply the second column vector to contribute to $y$ (the second basis vector contribution, expressed in Emily's language).
@@ -54,12 +54,12 @@ Can we express Emily's vectors from Frank's perspective? Yes:
 
 or
 
-$$\begin{bmatrix}\color{orange}{5}&\color{brown}{1.5}\\\color{orange}{-2}&\color{brown}{2.5}\end{bmatrix}^{-1}=\begin{bmatrix}\color{green}{\frac{5}{31}}&\color{blue}{\frac{-3}{31}}\\\color{green}{\frac{4}{31}}&\color{blue}{\frac{10}{31}}\end{bmatrix}$$
+$$\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}^{-1}=\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{brown}{\frac{-3}{31}}\\\color{orange}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}$$
 
 
 So now we can look at the Emily's coordinates vector $\begin{bmatrix}\bf y_1\\ \bf y_2\end{bmatrix}$ in Frank's coordinates:
 
-$$\begin{bmatrix}\color{green}{\frac{5}{31}}&\color{blue}{\frac{-3}{31}}\\\color{green}{\frac{4}{31}}&\color{blue}{\frac{10}{31}}\end{bmatrix}\begin{bmatrix}{\bf y_1 \\ \bf y_2}\end{bmatrix}=\begin{bmatrix}{\bf x_1 \\ \bf x_2}\end{bmatrix}$$
+$$\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{brown}{\frac{-3}{31}}\\\color{orange}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}\begin{bmatrix}{\bf y_1 \\ \bf y_2}\end{bmatrix}=\begin{bmatrix}{\bf x_1 \\ \bf x_2}\end{bmatrix}$$
 
 ---
 
