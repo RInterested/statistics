@@ -94,7 +94,7 @@ OK. So now we have covariant and contravariant vectors expressing the event with
 
 $$\large x^\mu x_\mu= x^0 x_0 + x^1 x_1 + x^2 x_2 + x^3 x_3 = c^2t^2 - \left(x^2 + y^2 + z^2 \right)=\color{red}{c^2t^2 -  \vec{x}\vec{x}}$$
 
-$\vec{x}\vec{x}$ is the norm!
+$\vec{x}\vec{x}$ is the norm! And the result is a scalar (field value).
 
 How to express this operation generally? We use the Einstein summation convention:
 
@@ -108,7 +108,128 @@ where $A^\mu =(A^0,A^1,A^2,A^3)$ has a covariant vector $A_mu=(A_0,A_1,A_2,A_3) 
 
 <img WIDTH="900" src="https://cloud.githubusercontent.com/assets/9312897/22192324/14d7461c-e101-11e6-9cf6-05e5c4988aa7.png">
 
+---
 
+###CHANGE OF COORDINATES BETWEEN CARTESIAN TO OBLIQUE:
+
+####Change to oblique coordinates:
+
+From [this introductory differential geometry series online](https://youtu.be/AKPZkHvqTao?list=PLD1448E024E04C24D) ushering in the concepts of **contravariant** ($A^i$) and **covariant** ($A_i$) of a vector as a change of coordinates:
+
+
+In the setting of oblique coordinates, $y$ axis is tilted, but the $x$ axis stays unchanged:
+
+<img src="http://i.stack.imgur.com/ESBuw.png" width="400">
+
+
+The **contravariant** is calculated as:
+
+Assigning to the pink segment the symbol $*$:
+
+$\text{tan}(\alpha) = \frac{b}{*}$; and therefore, $* = \frac{b}{\text{tan}(\alpha)}$
+
+and $c^u = a - * = a - \frac{b}{\text{tan}(\alpha)}$
+
+while $c^v = \frac{b}{\text{sin}(\alpha)}$
+
+
+$$H = \begin{bmatrix} 1 & - \frac{1}{\text{tan}(\alpha)} \\
+                  0 & \frac{1}{\text{sin}(\alpha)}
+\end{bmatrix}$$
+
+Therefore,
+
+$$\begin{bmatrix} 1 & - \frac{1}{\text{tan}(\alpha)} \\
+                  0 & \frac{1}{\text{sin}(\alpha)}
+\end{bmatrix}
+\begin{bmatrix} c_x \\ c_y
+\end{bmatrix}=
+\begin{bmatrix} c^u \\ c^v
+\end{bmatrix} = \begin{bmatrix} c^1 \\ c^2
+\end{bmatrix}
+$$
+
+and
+
+---
+
+On the other hand, the **covariant** is calculated as:
+
+
+
+<img src="http://i.stack.imgur.com/y1til.png" width="350">
+
+where,
+
+$c_u = a$ and 
+
+
+$\bf c_v = a\,\text{cos}(\alpha) + b\, \text{sin}(\alpha)$
+
+---
+
+This expression is derived as follows:
+
+
+<img src="https://cloud.githubusercontent.com/assets/9312897/22278003/0a71579c-e28e-11e6-8eba-220f242fc233.png" width="800">
+
+
+The angles $\alpha$ and $\beta$ are complementary, and $\sin \alpha = \cos \beta$.
+
+$\varphi= b \cos \beta = b \sin \alpha$
+
+$\psi = a \cos \alpha$
+
+$c_v = \psi + \varphi = a \cos \alpha + b \sin \alpha$
+
+It follows that
+
+$$M = \begin{bmatrix} 1 & 0 \\ \cos \alpha & \sin \alpha \end{bmatrix}$$
+
+Therefore,
+
+$$\begin{bmatrix} 1 & 0 \\
+                  \cos\alpha & \sin \alpha
+\end{bmatrix}
+\begin{bmatrix} c_x \\ c_y
+\end{bmatrix}=
+\begin{bmatrix} c_u \\ c_v
+\end{bmatrix} = \begin{bmatrix} c_1 \\ c_2
+\end{bmatrix}
+$$
+
+---
+
+
+<img src="https://cloud.githubusercontent.com/assets/9312897/18643415/fe9641fa-7e72-11e6-9cb7-648848df8627.png" width="600">
+
+$G$ is the **METRIC TENSOR** turns the covariate into the contravariate:
+
+\begin{align}
+\bf G &= H\,M^{-1}\\
+&= \frac{1}{\sin\alpha}\begin{bmatrix}1&-\frac{1}{\tan\alpha}\\0&\frac{1}{\sin\alpha}\end{bmatrix}
+\begin{bmatrix} \sin\alpha & 0\\-\cos\alpha &1\end{bmatrix}\\
+&=\frac{1}{\sin\alpha} \begin{bmatrix}\sin\alpha+\frac{\cos\alpha}{\tan\alpha} & -\frac{1}{\tan \alpha}\\ -\frac{\cos\alpha}{\sin\alpha} & \sin\alpha \end{bmatrix}\\
+&=\frac{1}{\sin^2\alpha}\begin{bmatrix}1 & - \cos\alpha\\-\cos\alpha\end{bmatrix}
+\end{align}
+
+---
+
+We can prove that the length of a vector in oblique coordinates is **INVARIANT** under the change of coordinates. 
+
+$$L^2 = c_x^2 + c_y^2 = c_1\,c^1 + c_2\,c^2=u_k\,u^k$$
+
+However, when we go from Cartesian to oblique we can't describe the vector as $A = (A_1,A_2)$ with the length calculated as the norm $A_1^2 + A_2^2$ (or as the dot product). Instead, we need covariant $(A_1,A_2)$ and contravariant $(A^1,A^2)$ components with the length calculated as the dot product (or scalar product) - i.e. $A_1A^1+A_2A^2.$
+
+---
+
+The $G$ matrix turns the variant into the contravariant: from subscript indices to superscript indices.
+
+The Einstein notation is: $g^{ij}\,u_j$, meaning the sum over all the $j$ dimensions.
+
+The "famous" metrix tensor is:
+
+$$dS^2 = g^{ij}\,dx_i\,dx_j= dx^j\,dx_j = dx^1dx_1 +dx^2dx_2$$
 
 ---
 
