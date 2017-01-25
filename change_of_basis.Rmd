@@ -56,12 +56,12 @@ Can we express Emily's vectors from Frank's perspective? Yes:
 
 or
 
-$$\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}^{-1}=\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{brown}{\frac{-3}{31}}\\\color{orange}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}$$
+$$\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}^{-1}=\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{orange}{\frac{-3}{31}}\\\color{brown}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}$$
 
 
 So now we can look at the Emily's coordinates vector $\begin{bmatrix}\bf y_1\\ \bf y_2\end{bmatrix}$ in Frank's coordinates:
 
-$$\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{brown}{\frac{-3}{31}}\\\color{orange}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}\begin{bmatrix}{\bf y_1 \\ \bf y_2}\end{bmatrix}=\begin{bmatrix}{\bf x_1 \\ \bf x_2}\end{bmatrix}$$
+$$\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{orange}{\frac{-3}{31}}\\\color{brown}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}\begin{bmatrix}{\bf y_1 \\ \bf y_2}\end{bmatrix}=\begin{bmatrix}{\bf x_1 \\ \bf x_2}\end{bmatrix}$$
 
 ---
 
@@ -70,12 +70,25 @@ Thefore, the basis transformation matrix from [this link](https://drive.google.c
 <img  width="900" src="https://cloud.githubusercontent.com/assets/9312897/22305134/61a56312-e308-11e6-810c-9f8d96451e5b.png">
 
 
+In the case above:
+
+
+$\quad\quad\quad\quad\quad\Large \begin{pmatrix}\vec e_1 \\ \vec e_2\end{pmatrix}=\begin{pmatrix}\text{projection of } \vec e_1\text{ on } \vec f_1 & \text{projection of } \vec e_1\text{ on } \vec f_2 \\ \text{projection of }\vec e_2\text{ on } \vec f_1 & \text{projection of } \vec e_2\text{ on } \vec f_2 \end{pmatrix}\begin{pmatrix}\vec f_1 \\ \vec f_2 \end{pmatrix}$
+
+<br>
 
 <img height="1200" width="700" src="https://cloud.githubusercontent.com/assets/9312897/22304832/26c3f8ae-e307-11e6-8001-8c1a596a213e.png">
 
-whereas...
+Frank basis gets transformed into Emily's basis.
+
+whereas the coordinate transformation matrix would work like:
 
 <img  width="900" src="https://cloud.githubusercontent.com/assets/9312897/22305208/aacf02fa-e308-11e6-9bc3-685af1c55e8e.png">
+
+In the case above:
+
+$\quad\quad\quad\quad\Large \begin{pmatrix}\vec v_1' \\ \vec v_2'\end{pmatrix}=\begin{pmatrix}\text{projection of } \vec f_1\text{ on } \vec e_1 & \text{projection of } \vec f_2\text{ on } \vec e_1 \\ \text{projection of }\vec f_1\text{ on } \vec e_2 & \text{projection of } \vec f_2\text{ on } \vec e_2 \end{pmatrix}\begin{pmatrix}\vec v_1 \\ \vec v_2 \end{pmatrix}$
+
 
 ---
 
