@@ -3,6 +3,34 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
+Proof that the variance of the estimated coefficients $\hat \beta = \sigma^2 \left(X^\top X \right)^{-1}:$
+
+We know that $\hat \beta= \left(X^\top X \right)^{-1} X^\top y.$ But we want to calcualte the variance:
+
+\begin{align}\text{var}[\hat \beta] &= \text{var}\left[\left(X^\top X \right)^{-1} X^\top y\right]\\\quad
+&\underset{\text{var}(Ay)=A\,\text{var}(y)\,A}{=}\quad\left[\left(X^\top X \right)^{-1} X^\top \right] \color{blue}{\text{var}(y)} \left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
+&\underset{*}=\quad\left[\left(X^\top X \right)^{-1} X^\top \right] {\bf I}\sigma^2 \left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
+&=\sigma^2\left[\left(X^\top X \right)^{-1} X^\top \right]\left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
+&\quad\underset{(AB)^\top = B^\top A^\top}{=}\quad\sigma^2\left[\left(X^\top X \right)^{-1} X^\top \right]\left[\left(X^\top\right)^\top \left(\left(X^\top X \right)^{-1}\right)^\top \right]\\
+&\quad\underset{(A^{-1})^\top = (A^\top)^{-1}}{=}\quad\sigma^2\left[\left(X^\top X \right)^{-1} X^\top \right]\left[X \left(\left(X^\top X \right)^\top\right)^{-1} \right]\\
+&\quad\underset{A^\top A \text{ is symmetrical}}{=}\quad\sigma^2\left[\left(X^\top X \right)^{-1} X^\top \right]\left[X \left(X^\top X \right)^{-1} \right]\\
+&\quad\underset{ \text{regrouping}}{=}\quad\sigma^2\left[\left(X^\top X \right)^{-1}\right] X^\top X \left[\left(X^\top X \right)^{-1} \right]\\
+&=\bbox[yellow, 2px]{\sigma^2 \left(X^\top X\right)^{-1}}
+\end{align}
+
+---
+
+$*$ because:
+
+$$\text{var}(y)= \text{var}\left(X\beta+\varepsilon\right)$$
+
+and since $X\beta$ is fixed, $\text{var}(y)= \text{var}\left(X\beta+\varepsilon\right)=0+\text{var}(\epsilon)=\sigma^2 \bf I$, since $\varepsilon \sim N(0, \sigma^2 \bf I).$
+
+This latter part comes from the [Gauss-Markov sphericity of errors](https://en.wikipedia.org/wiki/Gauss–Markov_theorem#Spherical_errors) assumption:
+
+<img width="500" src = "https://cloud.githubusercontent.com/assets/9312897/22386526/7e6bd05a-e4a5-11e6-9e87-23f3e3c7366d.png">
+
+---
 
 This is my attempt at answer [this question](http://stats.stackexchange.com/q/193229/67822).
 
