@@ -16,13 +16,22 @@ $\large [\vec a]_B=\begin{bmatrix}c_1\\c_2\\\vdots\\c_k\end{bmatrix}$
 
 Equivalently,
 
-$c_1\vec v_1 + c_2\vec v_2+\dots+c_k \vec v_k=\underset{\color{blue}{\text{change of basis matrix 'C'}}}{\underbrace{\color{blue}{\begin{bmatrix}\vert & \vert & &\vert \\v_1&v_2&\dots&v_k\\\vert&\vert&&\vert\end{bmatrix}}}}\begin{bmatrix}c_1\\c_2\\\vdots\\c_k\end{bmatrix}$
+$\large c_1\vec v_1 + c_2\vec v_2+\dots+c_k \vec v_k=\underset{\color{blue}{\text{change of basis matrix 'C'}}}{\underbrace{\color{blue}{\begin{bmatrix}\vert & \vert & &\vert \\v_1&v_2&\dots&v_k\\\vert&\vert&&\vert\end{bmatrix}}}}\begin{bmatrix}c_1\\c_2\\\vdots\\c_k\end{bmatrix}$
 
-So $\large \text{C}\; [\vec a]_B = [\vec a]_{\text{standard}}$
+
+So 
+
+$$\Large\bbox[yellow]{ \text{C}\quad [\vec a]_B \quad=\quad [\vec a]_{\text{standard}}}$$
+
+<br>
 
 The **change of basis matrix** is the matrix with the basis vectors as columns.
 
+<br>
+
 Similarly we can solve for the coordinates of a vector with respect to a basis: If we know that the vector $\vec d = \begin{bmatrix}8\\-6\\2\end{bmatrix}$ is in the span of the $\mathbb R^2$ basis $\vec v_1 = \begin{bmatrix}1\\2\\3\end{bmatrix}$ and $\vec v_2 = \begin{bmatrix}1\\0\\1\end{bmatrix}$, we can solve $\text{C}\,\color{red}{ [\vec d]_B}=\vec d,$ as a system of linear equations (expanded matrix).
+
+<br>
 
 If $\text{C}$ is invertible (i.e. it is square and with linearly independent column vectors - a given in a basis), the span of $\text{C}$ is $\mathbb R^n$, and:
 
@@ -30,7 +39,7 @@ $$\large \text{C}^{-1} \quad \text{C}\quad [\vec a]_B= \text{C}^{-1} \quad\vec a
 
 and hence,
 
-$$\bbox[yellow]{\Large[\vec a]_B= \text{C}^{-1} \quad\vec a}\tag{1}$$
+$$\bbox[yellow]{\Large[\vec a]_B\quad= \quad\text{C}^{-1} \quad[\vec a]_{\text{standard}}}\tag{1}$$
 
 ---
 
@@ -68,7 +77,14 @@ Summary diagram:
 
 <br>
 
-<img width="400" height="400" src="https://cloud.githubusercontent.com/assets/9312897/22325223/152d7eca-e37b-11e6-8d62-38878a20ed22.png">
+$\require{AMScd}$
+\Large \begin{CD} 
+    \text{STD. COORD: }\vec x @>\text{A}>> T(\vec x)\\
+    @V V \text{C inv} V  @VV \text{C inv} V\\
+    \text{COORD wrt B: }[\vec x]_B @>>\text{D}> T[(\vec x)]_B
+\end{CD}
+
+
 
 
 ---
@@ -92,31 +108,33 @@ and
 
 $$\left(\vec f_2\right)_{\vec e}=\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}\,\begin{bmatrix}\color{orange}{0_{\text{f}}}\\\color{brown}{1_{\text{f}}}\end{bmatrix}=\begin{bmatrix}{\color{green}{1.5}\\\color{blue}{2.5}}\end{bmatrix}$$
 
-So in the columns of $\bf A =\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}$ we have stored how the basis vectors in Frank's system are expressed in Emily's basis. 
+So in the columns of $\bf A =\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}$ we have stored how the basis vectors in Frank's system are expressed in Emily's basis:
 
-If we were to express in Emily's system some othe vector initially given in Frank's system we would just have to perform the operation:
+$$\bf A =\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix} = \begin{bmatrix}\vert & \vert \\ (\vec f_1)_{\vec e} & (\vec f_2)_{\vec e} \\ \vert & \vert \end{bmatrix}$$
 
-\begin{align}
-\bf A &=\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}\begin{bmatrix}\bf x_1\\\bf{x_2}\end{bmatrix}=\begin{bmatrix}\bf y_1\\\bf{y_2}\end{bmatrix}\\
-&=\bf x_1\begin{bmatrix}\color{green}{5}\\\color{blue}{-2}\end{bmatrix} + \bf x_2\begin{bmatrix}\color{green}{1.5}\\\color{blue}{2.5}\end{bmatrix}
+If we were to express in Emily's system some other vector initially given in Frank's system we would just have to perform the operation:
+
+\begin{align}\begin{bmatrix}\bf y_{1e}\\\bf{y_{2e}}\end{bmatrix}&=
+\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}\begin{bmatrix}\bf x_{1f}\\\bf x_{2f}\end{bmatrix}\\[2ex]
+&=\bf x_{1f}\begin{bmatrix}\color{green}{5}\\\color{blue}{-2}\end{bmatrix} + \bf x_{2f}\begin{bmatrix}\color{green}{1.5}\\\color{blue}{2.5}\end{bmatrix}
 \end{align}
 
-The thing to note is that $x_1$ will multiply the first column in the matrix to contribute to $y$ (the first basis vector contribution); and $x_2$ will multiply the second column vector to contribute to $y$ (the second basis vector contribution, expressed in Emily's language).
+The thing to note is that $\bf x_{1f}$ will multiply the first column in the matrix to contribute to $\bf y$ (the first basis vector contribution); and $\bf x_{2f}$ will multiply the second column vector to contribute to $\bf y$ (the second basis vector contribution, expressed in Emily's language).
 
-Clearly we have just made up the equivalence between vector basis in between systems, and any other matrix $\bf A$ would have served the purpose. Therefore we can say that the operation $\bf Ax = b$ is the equivalent of a change of basis: $\begin{bmatrix}{\bf y_1 \\ \bf y_2}\end{bmatrix}$ is $\begin{bmatrix}{\bf x_1 \\ \bf x_2}\end{bmatrix}$ viewed from Emily's perspective!
+Clearly we have just made up the equivalence between vector basis in between systems, and any other matrix $\bf A$ would have served the purpose. Therefore we can say that the operation $\bf Ax = b$ is the equivalent of a change of basis: $\begin{bmatrix}{\bf y_{1e} \\ \bf y_{2e}}\end{bmatrix}$ is $\begin{bmatrix}{\bf x_{1f} \\ \bf x_{2f}}\end{bmatrix}$ viewed from Emily's perspective!
 
 So is the system of equations:
 
 \begin{align}
-5{\bf x_1} + 1.5\bf{x_2}&=\bf{y_1}\\
--2{\bf x_1} + 2.5 \bf{x_2} &=\bf{y_2}
+5{\bf x_{1f}} + 1.5\bf{x_{2f}}&=\bf{y_{1e}}\\
+-2{\bf x_{1f}} + 2.5 \bf{x_{2f}} &=\bf{y_{2e}}
 \end{align}
 
 Can we express Emily's vectors from Frank's perspective? Yes:
 
 \begin{align}
-\frac{5}{31}{\bf y_1} \frac{-3}{31}\bf{y_2}&=\bf{x_1}\\
-\frac{4}{31}{\bf y_1} + \frac{10}{31} \bf{y_2} &=\bf{x_2}
+\frac{5}{31}{\bf y_{1e}} \frac{-3}{31}\bf{y_{2e}}&=\bf{x_{1f}}\\
+\frac{4}{31}{\bf y_{1f}} + \frac{10}{31} \bf{y_{2e}} &=\bf{x_{2f}}
 \end{align}
 
 or
@@ -124,9 +142,9 @@ or
 $$\begin{bmatrix}\color{green}{5} & \color{green}{1.5} \\ \color{blue}{-2} & \color{blue}{2.5}\end{bmatrix}^{-1}=\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{orange}{\frac{-3}{31}}\\\color{brown}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}$$
 
 
-So now we can look at the Emily's coordinates vector $\begin{bmatrix}\bf y_1\\ \bf y_2\end{bmatrix}$ in Frank's coordinates:
+So now we can look at the Emily's coordinates vector $\begin{bmatrix}\bf y_{1e}\\ \bf y_{1e}\end{bmatrix}$ in Frank's coordinates:
 
-$$\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{orange}{\frac{-3}{31}}\\\color{brown}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}\begin{bmatrix}{\bf y_1 \\ \bf y_2}\end{bmatrix}=\begin{bmatrix}{\bf x_1 \\ \bf x_2}\end{bmatrix}$$
+$$\begin{bmatrix}\color{orange}{\frac{5}{31}}&\color{orange}{\frac{-3}{31}}\\\color{brown}{\frac{4}{31}}&\color{brown}{\frac{10}{31}}\end{bmatrix}\begin{bmatrix}{\bf y_{1e} \\ y_{1e}}\end{bmatrix}=\begin{bmatrix}{\bf x_{1f} \\ \bf x_{2f}}\end{bmatrix}$$
 
 Likewise, the basis vectors of Emily with respect to Frank's are:
 
