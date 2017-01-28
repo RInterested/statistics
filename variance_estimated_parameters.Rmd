@@ -5,11 +5,13 @@
 
 Proof that the variance of the estimated coefficients $\hat \beta = \sigma^2 \left(X^\top X \right)^{-1}:$
 
-From [this video](https://youtu.be/jyBtfhQsf44?list=PLVhS9-aIl4U-Guw_wvCHMhF2unUGVyWEu):
+From [this video](https://youtu.be/jyBtfhQsf44?list=PLVhS9-aIl4U-Guw_wvCHMhF2unUGVyWEu) and [this post](http://math.stackexchange.com/a/687361/152225):
 
-We know that $\hat \beta= \left(X^\top X \right)^{-1} X^\top y.$ But we want to calcualte the variance:
+We know that $\hat \beta= \left(X^\top X \right)^{-1} X^\top Y.$ 
 
-\begin{align}\text{var}[\hat \beta] &= \text{var}\left[\left(X^\top X \right)^{-1} X^\top y\right]\\\quad
+And we want to calcualte the variance of the parameter estimate:
+
+$\begin{align}\text{var}\left(\hat \beta\right) &= \text{var}\left[\left(X^\top X \right)^{-1} X^\top y\right]\\\quad
 &\underset{\text{var}(Ay)=A\,\text{var}(y)\,A}{=}\quad\left[\left(X^\top X \right)^{-1} X^\top \right] \color{blue}{\text{var}(y)} \left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
 &\underset{*}=\quad\left[\left(X^\top X \right)^{-1} X^\top \right] {\bf I}\sigma^2 \left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
 &=\sigma^2\left[\left(X^\top X \right)^{-1} X^\top \right]\left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
@@ -18,7 +20,7 @@ We know that $\hat \beta= \left(X^\top X \right)^{-1} X^\top y.$ But we want to 
 &\quad\underset{A^\top A \text{ is symmetrical}}{=}\quad\sigma^2\left[\left(X^\top X \right)^{-1} X^\top \right]\left[X \left(X^\top X \right)^{-1} \right]\\
 &\quad\underset{ \text{regrouping}}{=}\quad\sigma^2\left[\left(X^\top X \right)^{-1}\right] X^\top X \left[\left(X^\top X \right)^{-1} \right]\\
 &=\bbox[yellow, 2px]{\sigma^2 \left(X^\top X\right)^{-1}}
-\end{align}
+\end{align}$
 
 ---
 
@@ -31,6 +33,21 @@ and since $X\beta$ is fixed, $\text{var}(y)= \text{var}\left(X\beta+\varepsilon\
 This latter part comes from the [Gauss-Markov sphericity of errors](https://en.wikipedia.org/wiki/Gauss–Markov_theorem#Spherical_errors) assumption:
 
 <img width="500" src = "https://cloud.githubusercontent.com/assets/9312897/22386526/7e6bd05a-e4a5-11e6-9e87-23f3e3c7366d.png">
+
+---
+
+In the case of a single regressor (and intercept) $Y = \beta_0 + \beta_1 x$, again, with the assumption that $Y \sim N(\mu = \beta_0 + \beta_1 x, \sigma^2):$
+
+
+$$\operatorname{var}(\hat \beta):=\sigma^2(\hat \beta)=\begin{bmatrix}\operatorname{var}(\hat \beta_0) &\operatorname{cov}(\hat \beta_0, \hat \beta_1)\\\operatorname{cov}(\hat \beta_0, \hat \beta_1)& \operatorname{var}(\hat \beta_1)\end{bmatrix}$$
+
+and having derived $\operatorname{var}(\hat \beta) =\sigma^2 \left(X^\top X\right)^{-1},$ and [knowing that](http://rinterested.github.io/statistics/OLS_linear_algebra.html)
+
+$$\left(X^\top X\right)^{-1}=\begin{bmatrix}\frac{\sum x_i^2}{n\sum(x_i - \bar x)^2} & \frac{-\sum x_i}{n\sum(x_i - \bar x)^2}\\\frac{-\sum x_i}{n\sum(x_i - \bar x)^2}& \frac{1}{\sum(x_i - \bar x)^2}\end{bmatrix}$$
+
+<br>
+
+$$\operatorname{var}(\hat \beta) =\sigma^2 \left(X^\top X\right)^{-1}=\begin{bmatrix}\frac{\sigma^2\sum x_i^2}{n\sum(x_i - \bar x)^2} & \frac{-\sigma^2\sum x_i}{n\sum(x_i - \bar x)^2}\\\frac{-\sigma^2\sum x_i}{n\sum(x_i - \bar x)^2}& \frac{\sigma^2}{\sum(x_i - \bar x)^2}\end{bmatrix} $$
 
 ---
 

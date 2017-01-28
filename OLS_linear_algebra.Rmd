@@ -23,11 +23,52 @@ The key is to see that $\Large \mathbf{y} - \mathbf{X\hat \beta}=\varepsilon$ is
 
 Therefore, $\mathbf{X}^T (\mathbf{y} - \mathbf{X\hat \beta}) =0 \small \tag 2$ 
 
-because we are dotting every vector in the $\mathscr C(\mathbf{X})$ with the error vector, and the errors are orthogonal. In other words, the error $\mathbf{e}$ is in the null space of $\mathbf{X}^T$.
+because we are dotting every vector in the $Col(\mathbf{X})$ with the error vector, and the errors are orthogonal. In other words, the error $\mathbf{e}$ is in the null space of $\mathbf{X}^T$.
 
 Working on equation (2) we get to the NORMAL EQUATIONS (they are called the **normal equations** because they specify that the residual must be normal (orthogonal) to every vector in the span of $A$:
 
-$\color{blue}{\mathbf{X}^T \mathbf{X\,\hat \beta} = \mathbf{X}^T \mathbf{y}} \text{ NORMAL EQUATIONS}\tag { 3}$
+$\color{blue}{\mathbf{X}^T \mathbf{X\,\hat \beta} = \mathbf{X}^T \mathbf{y}} \quad \text{ NORMAL EQUATIONS}\tag { 3}$
+
+---
+
+INTERLUDE:
+
+What does $X^\top X$ look like if we consider only one regressors (in blue): $x_{i1}$?
+
+$\begin{align} 
+X^\top X &= \begin{bmatrix}
+\color{blue}{1} & \color{blue}{1} & \color{blue}{1} &\color{blue}{\cdots}\\ 
+\color{blue}{x_{11}} & \color{blue}{x_{21}} & \color{blue}{x_{31}} &\color{blue}{\cdots}\\  
+x_{12} & x_{22}  & x_{32}  &\cdots\\ 
+\vdots & \vdots  & \vdots  &\ddots
+\end{bmatrix}\begin{bmatrix}
+\color{blue}{1} & \color{blue}{x_{11}} & x_{12} & \cdots\\
+\color{blue}{1} & \color{blue}{x_{21}} & x_{22} & \cdots\\
+\color{blue}{1} & \color{blue}{x_{31}} & x_{32} & \cdots\\
+\color{blue}{\vdots} & \color{blue}{\vdots} & \vdots & \ddots
+\end{bmatrix} \\[2ex]
+\underset{\text{blue elements only}}{=}&\quad\color{blue}{\begin{bmatrix}n & \sum x_{i1}\\ \sum x_{i1} & \sum x_{i1}^2\end{bmatrix}}
+\end{align}$
+
+Obtaining the determinant of this matrix:
+
+<br>
+
+$det(X^\top X) = n \sum x_{i1}^2 - \left[ \sum x_{i1} \right]^2 \underset{*}{=}n\, \sum (x_{i1}-\bar x)^2$
+
+$(*)$ since the [shortcut formula for the variance](https://drive.google.com/file/d/0Bwl-HpVJ_5PeRWp2N3I5UVBrVVk/view?usp=sharing) is $\sigma^2 = \frac{\sum (x-\mu)^2}{n}=\frac{n\,\left(\sum x^2\right) - \left(\sum x\right)^2}{n^2}$
+
+Leading to the formula for $(X^\top X)^{-1}$
+
+<br>
+
+$\begin{align}
+(X^\top X)^{-1} &= \frac{1}{n\, \sum (x_{i1}-\bar x)^2}\color{blue}{\begin{bmatrix}\sum x_{i1}^2 & -\sum x_{i1}\\ -\sum x_{i1} & n\end{bmatrix}}\\[2ex]
+&\underset{\text{in general}}{=} \begin{bmatrix}\frac{\sum x_i^2}{n\sum(x_i - \bar x)^2} & \frac{-\sum x_i}{n\sum(x_i - \bar x)^2}\\\frac{-\sum x_i}{n\sum(x_i - \bar x)^2}& \frac{1}{\sum(x_i - \bar x)^2}\end{bmatrix}
+\end{align}$
+
+
+---
 
 Isolating $\mathbf{\hat \beta}$:
 
