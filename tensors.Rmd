@@ -63,6 +63,39 @@ $$\large T^{mn}_{(Y)} = \large A^m_{(Y)} B^n_{(Y)} =\frac{\partial y^m}{\partial
 
 These are **contravariant tensors** of the second rank.
 
+To move on to **covariant tensors** it is necessary to discuss what a **gradient vector** is:
+
+<br>
+
+<img width="500" height="500" src="https://cloud.githubusercontent.com/assets/9312897/22402162/543a3300-e5bb-11e6-9454-a0557067fb14.png">
+
+So if a scalar $\varphi$ is a function of $X^1$ and $X^2$, and we see a differential displacement $\vec{dl}$, the change in $\varphi$ will be given by:
+
+$$d\varphi =\frac{\partial \varphi}{\partial X^1}\,dX^1 + \frac{\partial \varphi}{\partial X^2}\,dX^2\tag 1$$
+
+we also have that 
+
+$$\vec{dl}= dX^1 \vec{X^1} + dx^2 \vec{X^2}\tag 2$$ 
+
+with $\vec{X^1}$ and $\vec{X^2}$ representing the unit vectors.
+
+We want a vector that dotted with equation $(2)$ results in equation $(1).$ Keeping in mind that $\vec{X^1}$ and $\vec{X^2}$ are unit vectors, the vector we are looking for is the **gradient of the scalar $\varphi$**:
+ 
+$$\vec \nabla \varphi= \frac{\partial \varphi}{\partial X^1}\,\vec{X^1} + \frac{\partial \varphi}{\partial X^2}\,\vec{X^2}.$$
+
+So,
+
+$$d\varphi = \vec{dl}\,\vec{\nabla}\varphi$$
+
+Generalizing,
+
+$$\vec\nabla\varphi=\frac{\partial\varphi}{\partial X^\color{blue}{m}}\;\vec{X^\color{blue}{m}}$$
+
+is the expression of the gradient in the $X$ coordinate frame. In the $Y$ coordinate frame it would be:
+
+$$\vec\nabla\varphi=\frac{\partial\varphi}{\partial Y^\color{blue}{n}}\;\vec{Y^\color{blue}{n}}$$
+
+
 ---
 
 A concrete explanation can be found [here](https://youtu.be/JY_lUOWClEY), and it proceeds as follows:
