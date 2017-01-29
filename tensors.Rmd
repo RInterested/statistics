@@ -47,7 +47,7 @@ $$
 
 We can generalize to a vector $V$, which can be transfored from $X$ to $Y$ coordinate systems as
 
-$$V^n_{(Y)} = \frac{\partial{y^n}}{\partial{x^m}}\;V^n_{(X)}$$
+$$\bbox[yellow, 5px]{V^n_{(Y)} = \frac{\partial y^{n}}{\partial x^{\color{red}{m}}}\;V^{\color{red}{m}}_{(X)}}$$
 
 If we can find the vector component $n$ in $Y$ of $V$ by taking these types of derivatives, we talk about a **contravariant vector**. The components are expressed as a superscript.
 
@@ -93,7 +93,22 @@ $$\vec\nabla\varphi=\frac{\partial\varphi}{\partial X^\color{blue}{m}}\;\vec{X^\
 
 is the expression of the gradient in the $X$ coordinate frame. In the $Y$ coordinate frame it would be:
 
-$$\vec\nabla\varphi=\frac{\partial\varphi}{\partial Y^\color{blue}{n}}\;\vec{Y^\color{blue}{n}}$$
+$$\vec\nabla\varphi={\Large{\frac{\partial\varphi}{\partial Y^\color{blue}{n}}}}\;\vec{Y^\color{blue}{n}}$$
+
+Applying the chain rule:
+
+$$\color{red}{\frac{\partial \varphi}{\partial Y^n}}= \frac{\partial \varphi}{\partial X^m} \frac{\partial X^m}{\partial Y^n}=\frac{\partial X^m}{\partial Y^n}\color{red}{\frac{\partial \varphi}{\partial X^m}}$$
+
+This last equation relates the components of the *gradient vector* in the $X$ coordinate frame to the components in the $Y$ frame.
+
+Notice that the arrangement of the dummy indices is:
+
+$$\frac{\partial \varphi}{\partial Y^n}= \frac{\partial X^{\color{red}{m}}}{\partial Y^n}\frac{\partial \varphi}{\partial X^{\color{red}{m}}}$$
+
+arranged in the form that defines **covariant vectors** - for example $W:$
+
+$$\bbox[yellow, 5px]{W^{(Y)}_n = \frac{\partial X^{\color{red}{m}}}{\partial y^n}\, W^{(X)}_{\color{red}{m}}}$$
+
 
 
 ---

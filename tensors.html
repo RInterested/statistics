@@ -146,7 +146,7 @@ dx^1\\dx^2\\dx^3\\\vdots\\dx^d
 \end{bmatrix}
 \]</span></p>
 <p>We can generalize to a vector <span class="math inline">\(V\)</span>, which can be transfored from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> coordinate systems as</p>
-<p><span class="math display">\[V^n_{(Y)} = \frac{\partial{y^n}}{\partial{x^m}}\;V^n_{(X)}\]</span></p>
+<p><span class="math display">\[\bbox[yellow, 5px]{V^n_{(Y)} = \frac{\partial y^{n}}{\partial x^{\color{red}{m}}}\;V^{\color{red}{m}}_{(X)}}\]</span></p>
 <p>If we can find the vector component <span class="math inline">\(n\)</span> in <span class="math inline">\(Y\)</span> of <span class="math inline">\(V\)</span> by taking these types of derivatives, we talk about a <strong>contravariant vector</strong>. The components are expressed as a superscript.</p>
 <p>Now let’s take two contravariant vectors: <span class="math inline">\(A_Y^m\)</span> (<span class="math inline">\(m\)</span>-th component of the <span class="math inline">\(A\)</span> vector in the <span class="math inline">\(Y\)</span> frame): <span class="math inline">\(\large A_{(Y)}^m= \frac{\partial y^m}{\partial x^r} A_{(X)}^r\)</span>; and the second vector <span class="math inline">\(\large B_{(Y)}^n= \frac{\partial y^n}{\partial x^s} B_{(X)}^s.\)</span></p>
 <p>If we multiply these two vectors together:</p>
@@ -169,7 +169,14 @@ dx^1\\dx^2\\dx^3\\\vdots\\dx^d
 <p>Generalizing,</p>
 <p><span class="math display">\[\vec\nabla\varphi=\frac{\partial\varphi}{\partial X^\color{blue}{m}}\;\vec{X^\color{blue}{m}}\]</span></p>
 <p>is the expression of the gradient in the <span class="math inline">\(X\)</span> coordinate frame. In the <span class="math inline">\(Y\)</span> coordinate frame it would be:</p>
-<p><span class="math display">\[\vec\nabla\varphi=\frac{\partial\varphi}{\partial Y^\color{blue}{n}}\;\vec{Y^\color{blue}{n}}\]</span></p>
+<p><span class="math display">\[\vec\nabla\varphi={\Large{\frac{\partial\varphi}{\partial Y^\color{blue}{n}}}}\;\vec{Y^\color{blue}{n}}\]</span></p>
+<p>Applying the chain rule:</p>
+<p><span class="math display">\[\color{red}{\frac{\partial \varphi}{\partial Y^n}}= \frac{\partial \varphi}{\partial X^m} \frac{\partial X^m}{\partial Y^n}=\frac{\partial X^m}{\partial Y^n}\color{red}{\frac{\partial \varphi}{\partial X^m}}\]</span></p>
+<p>This last equation relates the components of the <em>gradient vector</em> in the <span class="math inline">\(X\)</span> coordinate frame to the components in the <span class="math inline">\(Y\)</span> frame.</p>
+<p>Notice that the arrangement of the dummy indices is:</p>
+<p><span class="math display">\[\frac{\partial \varphi}{\partial Y^n}= \frac{\partial X^{\color{red}{m}}}{\partial Y^n}\frac{\partial \varphi}{\partial X^{\color{red}{m}}}\]</span></p>
+<p>arranged in the form that defines <strong>covariant vectors</strong> - for example <span class="math inline">\(W:\)</span></p>
+<p><span class="math display">\[\bbox[yellow, 5px]{W^{(Y)}_n = \frac{\partial X^{\color{red}{m}}}{\partial y^n}\, W^{(X)}_{\color{red}{m}}}\]</span></p>
 <hr />
 <p>A concrete explanation can be found <a href="https://youtu.be/JY_lUOWClEY">here</a>, and it proceeds as follows:</p>
 <p>We have two inertial (no acceleration) coordinate systems, <span class="math inline">\(S\)</span> and <span class="math inline">\(S'\)</span>, where <span class="math inline">\(S'\)</span> moves away from <span class="math inline">\(S\)</span> at constant velocity <span class="math inline">\(v\)</span> <em>along</em> the <span class="math inline">\(x\)</span> axis - for now we assume no rotation or movement along the other two axes, <span class="math inline">\(y\)</span> and <span class="math inline">\(z\)</span>.</p>
