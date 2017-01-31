@@ -16,6 +16,10 @@ Imagining a differential displacement vector in two different coordinate systems
 
 <img height="700" width="500" src="https://cloud.githubusercontent.com/assets/9312897/22399401/c603af22-e569-11e6-84ce-573d9a4c2a72.png">
 
+What follows is prdicated on the assumption that we know the equations relating each component ($m$) in the $X$ coordinate system to the $Y$ coordinate frame:
+
+$Y^n = f(X^m)$ and $X^p = g(Y^z).$
+
 The change in coordinates of the differential displacement vector knowing the transformation equations is given by:
 
 $\begin{align}
@@ -71,17 +75,21 @@ To move on to **covariant tensors** it is necessary to discuss what a **gradient
 
 So if a scalar $\varphi$ is a function of $X^1$ and $X^2$, and we see a differential displacement $\vec{dl}$, the change in $\varphi$ will be given by:
 
-$$d\varphi =\frac{\partial \varphi}{\partial X^1}\,dX^1 + \frac{\partial \varphi}{\partial X^2}\,dX^2\tag 1$$
+$$d\varphi =\frac{\partial \varphi}{\partial X^1}\,dx^1 + \frac{\partial \varphi}{\partial X^2}\,dx^2\tag 1$$
 
 we also have that 
 
-$$\vec{dl}= dX^1 \vec{X^1} + dx^2 \vec{X^2}\tag 2$$ 
+$$\vec{dl}= dx^1 \vec{X^1} + dx^2 \vec{X^2}\tag 2$$ 
 
 with $\vec{X^1}$ and $\vec{X^2}$ representing the unit vectors.
 
 We want a vector that dotted with equation $(2)$ results in equation $(1).$ Keeping in mind that $\vec{X^1}$ and $\vec{X^2}$ are unit vectors, the vector we are looking for is the **gradient of the scalar $\varphi$**:
  
 $$\vec \nabla \varphi= \frac{\partial \varphi}{\partial X^1}\,\vec{X^1} + \frac{\partial \varphi}{\partial X^2}\,\vec{X^2}.$$
+
+Here's the dot product:
+
+$$\vec{dl}\,\vec{\nabla}\varphi=\color{brown}{ \begin{bmatrix}dx^1 \vec{X^1} & dx^2 \vec{X^2} \end{bmatrix} \begin{bmatrix} \frac{\partial \varphi}{\partial X^1}\,\vec{X^1} \\ \frac{\partial \varphi}{\partial X^2}\,\vec{X^2} \end{bmatrix}}$$
 
 So,
 
