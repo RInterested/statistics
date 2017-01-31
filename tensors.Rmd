@@ -23,10 +23,10 @@ $Y^n = f(X^m)$ and $X^p = g(Y^z).$
 The change in coordinates of the differential displacement vector knowing the transformation equations is given by:
 
 $\begin{align}
-dy^1 &= \frac{\partial y^1}{\partial x^1} dx^1 + \frac{\partial y^1}{\partial x^2} dx^2 + \frac{\partial y^1}{\partial x^3} dx^3 + \cdots + \frac{\partial y^1}{\partial x^d} dx^d\\
-dy^2 &= \frac{\partial y^2}{\partial x^1} dx^1 + \frac{\partial y^2}{\partial x^2} dx^2 + \frac{\partial y^2}{\partial x^3} dx^3+\cdots+\frac{\partial y^2}{\partial x^d} dx^d\\
+dy^1 &= \frac{\partial y^1}{\partial x^1} dx^1 + \frac{\partial y^1}{\partial x^2} dx^2 + \frac{\partial y^1}{\partial x^3} dx^3 + \cdots + \frac{\partial y^1}{\partial x^n} dx^n\\
+dy^2 &= \frac{\partial y^2}{\partial x^1} dx^1 + \frac{\partial y^2}{\partial x^2} dx^2 + \frac{\partial y^2}{\partial x^3} dx^3+\cdots+\frac{\partial y^2}{\partial x^n} dx^n\\
 \vdots\\
-dy^d &= \frac{\partial y^d}{\partial x^1} dx^1 + \frac{\partial y^d}{\partial x^2} dx^2 + \frac{\partial y^d}{\partial x^3} dx^3+\cdots+\frac{\partial y^d}{\partial x^d} dx^d
+dy^d &= \frac{\partial y^d}{\partial x^1} dx^1 + \frac{\partial y^d}{\partial x^2} dx^2 + \frac{\partial y^d}{\partial x^3} dx^3+\cdots+\frac{\partial y^d}{\partial x^n} dx^n
 \end{align}$
 
 So any particular component in the new coordinate system would be of the form:
@@ -45,7 +45,7 @@ dy^1\\dy^2\\dy^3\\\vdots\\dy^d
 \frac{\partial y^d}{\partial x^1} & \frac{\partial y^d}{\partial x^2} & \frac{\partial y^d}{\partial x^3} &\cdots& \frac{\partial y^d}{\partial x^n}\\
 \end{bmatrix}}
 \large\color{red}{\begin{bmatrix}
-dx^1\\dx^2\\dx^3\\\vdots\\dx^d
+dx^1\\dx^2\\dx^3\\\vdots\\dx^n
 \end{bmatrix}}
 $$
 
@@ -117,13 +117,13 @@ $$\frac{\partial \varphi}{\partial y^n}= \frac{\partial x^{\color{red}{m}}}{\par
 In matrix form:
 
 $$\begin{bmatrix}
-\frac{\partial \varphi}{\partial y^1}\\\frac{\partial \varphi}{\partial y^2}\\\frac{\partial \varphi}{\partial y^3}\\\vdots\\\frac{\partial \varphi}{\partial ynd}
+\frac{\partial \varphi}{\partial y^1}\\\frac{\partial \varphi}{\partial y^2}\\\frac{\partial \varphi}{\partial y^3}\\\vdots\\\frac{\partial \varphi}{\partial y^d}
 \end{bmatrix}=
 {\begin{bmatrix}
 \frac{\partial x^1}{\partial y^1} & \frac{\partial x^2}{\partial y^1} & \frac{\partial x^3}{\partial y^1} &\cdots& \frac{\partial x^n}{\partial y^1}\\
 \frac{\partial x^1}{\partial y^2} & \frac{\partial x^2}{\partial y^2} & \frac{\partial x^3}{\partial y^2} &\cdots& \frac{\partial x^n}{\partial y^2}\\
 \vdots&\vdots&\vdots&&\vdots\\
-\frac{\partial x^1}{\partial y^n} & \frac{\partial x^2}{\partial y^n} & \frac{\partial x^3}{\partial y^n} &\cdots& \frac{\partial x^n}{\partial y^n}\\
+\frac{\partial x^1}{\partial y^d} & \frac{\partial x^2}{\partial y^d} & \frac{\partial x^3}{\partial y^d} &\cdots& \frac{\partial x^n}{\partial y^d}\\
 \end{bmatrix}}
 \large\color{red}{\begin{bmatrix}
 \frac{\partial \varphi}{\partial x^1}\\\frac{\partial \varphi}{\partial x^2}\\\frac{\partial \varphi}{\partial x^3}\\\vdots\\\frac{\partial \varphi}{\partial x^n}

@@ -130,7 +130,7 @@ $(document).ready(function () {
 <p>What follows is prdicated on the assumption that we know the equations relating each component (<span class="math inline">\(m\)</span>) in the <span class="math inline">\(X\)</span> coordinate system to the <span class="math inline">\(Y\)</span> coordinate frame:</p>
 <p><span class="math inline">\(Y^n = f(X^m)\)</span> and <span class="math inline">\(X^p = g(Y^z).\)</span></p>
 <p>The change in coordinates of the differential displacement vector knowing the transformation equations is given by:</p>
-<p><span class="math inline">\(\begin{align} dy^1 &amp;= \frac{\partial y^1}{\partial x^1} dx^1 + \frac{\partial y^1}{\partial x^2} dx^2 + \frac{\partial y^1}{\partial x^3} dx^3 + \cdots + \frac{\partial y^1}{\partial x^d} dx^d\\ dy^2 &amp;= \frac{\partial y^2}{\partial x^1} dx^1 + \frac{\partial y^2}{\partial x^2} dx^2 + \frac{\partial y^2}{\partial x^3} dx^3+\cdots+\frac{\partial y^2}{\partial x^d} dx^d\\ \vdots\\ dy^d &amp;= \frac{\partial y^d}{\partial x^1} dx^1 + \frac{\partial y^d}{\partial x^2} dx^2 + \frac{\partial y^d}{\partial x^3} dx^3+\cdots+\frac{\partial y^d}{\partial x^d} dx^d \end{align}\)</span></p>
+<p><span class="math inline">\(\begin{align} dy^1 &amp;= \frac{\partial y^1}{\partial x^1} dx^1 + \frac{\partial y^1}{\partial x^2} dx^2 + \frac{\partial y^1}{\partial x^3} dx^3 + \cdots + \frac{\partial y^1}{\partial x^n} dx^n\\ dy^2 &amp;= \frac{\partial y^2}{\partial x^1} dx^1 + \frac{\partial y^2}{\partial x^2} dx^2 + \frac{\partial y^2}{\partial x^3} dx^3+\cdots+\frac{\partial y^2}{\partial x^n} dx^n\\ \vdots\\ dy^d &amp;= \frac{\partial y^d}{\partial x^1} dx^1 + \frac{\partial y^d}{\partial x^2} dx^2 + \frac{\partial y^d}{\partial x^3} dx^3+\cdots+\frac{\partial y^d}{\partial x^n} dx^n \end{align}\)</span></p>
 <p>So any particular component in the new coordinate system would be of the form:</p>
 <p><span class="math display">\[dy^n = \frac{\partial y^n}{\partial x^\color{blue}{m}} dx^{\color{blue}{m}} \tag{Einstein's convention}\]</span></p>
 <p>In matrix form:</p>
@@ -144,7 +144,7 @@ dy^1\\dy^2\\dy^3\\\vdots\\dy^d
 \frac{\partial y^d}{\partial x^1} &amp; \frac{\partial y^d}{\partial x^2} &amp; \frac{\partial y^d}{\partial x^3} &amp;\cdots&amp; \frac{\partial y^d}{\partial x^n}\\
 \end{bmatrix}}
 \large\color{red}{\begin{bmatrix}
-dx^1\\dx^2\\dx^3\\\vdots\\dx^d
+dx^1\\dx^2\\dx^3\\\vdots\\dx^n
 \end{bmatrix}}
 \]</span></p>
 <p>We can generalize to a vector <span class="math inline">\(V\)</span> (column vector in red), which can be transfored from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> coordinate systems as</p>
@@ -181,13 +181,13 @@ dx^1\\dx^2\\dx^3\\\vdots\\dx^d
 <p><span class="math display">\[\frac{\partial \varphi}{\partial y^n}= \frac{\partial x^{\color{red}{m}}}{\partial y^n}\frac{\partial \varphi}{\partial x^{\color{red}{m}}}\]</span></p>
 <p>In matrix form:</p>
 <p><span class="math display">\[\begin{bmatrix}
-\frac{\partial \varphi}{\partial y^1}\\\frac{\partial \varphi}{\partial y^2}\\\frac{\partial \varphi}{\partial y^3}\\\vdots\\\frac{\partial \varphi}{\partial ynd}
+\frac{\partial \varphi}{\partial y^1}\\\frac{\partial \varphi}{\partial y^2}\\\frac{\partial \varphi}{\partial y^3}\\\vdots\\\frac{\partial \varphi}{\partial y^d}
 \end{bmatrix}=
 {\begin{bmatrix}
 \frac{\partial x^1}{\partial y^1} &amp; \frac{\partial x^2}{\partial y^1} &amp; \frac{\partial x^3}{\partial y^1} &amp;\cdots&amp; \frac{\partial x^n}{\partial y^1}\\
 \frac{\partial x^1}{\partial y^2} &amp; \frac{\partial x^2}{\partial y^2} &amp; \frac{\partial x^3}{\partial y^2} &amp;\cdots&amp; \frac{\partial x^n}{\partial y^2}\\
 \vdots&amp;\vdots&amp;\vdots&amp;&amp;\vdots\\
-\frac{\partial x^1}{\partial y^n} &amp; \frac{\partial x^2}{\partial y^n} &amp; \frac{\partial x^3}{\partial y^n} &amp;\cdots&amp; \frac{\partial x^n}{\partial y^n}\\
+\frac{\partial x^1}{\partial y^d} &amp; \frac{\partial x^2}{\partial y^d} &amp; \frac{\partial x^3}{\partial y^d} &amp;\cdots&amp; \frac{\partial x^n}{\partial y^d}\\
 \end{bmatrix}}
 \large\color{red}{\begin{bmatrix}
 \frac{\partial \varphi}{\partial x^1}\\\frac{\partial \varphi}{\partial x^2}\\\frac{\partial \varphi}{\partial x^3}\\\vdots\\\frac{\partial \varphi}{\partial x^n}
