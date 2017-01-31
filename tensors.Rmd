@@ -44,12 +44,12 @@ dy^1\\dy^2\\dy^3\\\vdots\\dy^d
 \vdots&\vdots&\vdots&&\vdots\\
 \frac{\partial y^d}{\partial x^1} & \frac{\partial y^d}{\partial x^2} & \frac{\partial y^d}{\partial x^3} &\cdots& \frac{\partial y^d}{\partial x^n}\\
 \end{bmatrix}}
-\large\begin{bmatrix}
+\large\color{red}{\begin{bmatrix}
 dx^1\\dx^2\\dx^3\\\vdots\\dx^d
-\end{bmatrix}
+\end{bmatrix}}
 $$
 
-We can generalize to a vector $V$, which can be transfored from $X$ to $Y$ coordinate systems as
+We can generalize to a vector $V$ (column vector in red), which can be transfored from $X$ to $Y$ coordinate systems as
 
 $$\bbox[yellow, 5px]{V^n_{(Y)} = \frac{\partial y^{n}}{\partial x^{\color{red}{m}}}\;V^{\color{red}{m}}_{(X)}}$$
 
@@ -113,7 +113,24 @@ Notice that the arrangement of the dummy indices is:
 
 $$\frac{\partial \varphi}{\partial y^n}= \frac{\partial x^{\color{red}{m}}}{\partial y^n}\frac{\partial \varphi}{\partial x^{\color{red}{m}}}$$
 
-arranged in the form that defines **covariant vectors** - for example $W:$
+
+In matrix form:
+
+$$\begin{bmatrix}
+\frac{\partial \varphi}{\partial y^1}\\\frac{\partial \varphi}{\partial y^2}\\\frac{\partial \varphi}{\partial y^3}\\\vdots\\\frac{\partial \varphi}{\partial ynd}
+\end{bmatrix}=
+{\begin{bmatrix}
+\frac{\partial x^1}{\partial y^1} & \frac{\partial x^2}{\partial y^1} & \frac{\partial x^3}{\partial y^1} &\cdots& \frac{\partial x^n}{\partial y^1}\\
+\frac{\partial x^1}{\partial y^2} & \frac{\partial x^2}{\partial y^2} & \frac{\partial x^3}{\partial y^2} &\cdots& \frac{\partial x^n}{\partial y^2}\\
+\vdots&\vdots&\vdots&&\vdots\\
+\frac{\partial x^1}{\partial y^n} & \frac{\partial x^2}{\partial y^n} & \frac{\partial x^3}{\partial y^n} &\cdots& \frac{\partial x^n}{\partial y^n}\\
+\end{bmatrix}}
+\large\color{red}{\begin{bmatrix}
+\frac{\partial \varphi}{\partial x^1}\\\frac{\partial \varphi}{\partial x^2}\\\frac{\partial \varphi}{\partial x^3}\\\vdots\\\frac{\partial \varphi}{\partial x^n}
+\end{bmatrix}}
+$$
+
+This arrangement (red column vector) is the form that defines **covariant vectors** - for example $W:$
 
 $$\bbox[yellow, 5px]{W^{(Y)}_n = \frac{\partial x^{\color{red}{m}}}{\partial y^n}\, W^{(X)}_{\color{red}{m}}}$$
 

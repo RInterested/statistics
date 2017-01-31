@@ -143,11 +143,11 @@ dy^1\\dy^2\\dy^3\\\vdots\\dy^d
 \vdots&amp;\vdots&amp;\vdots&amp;&amp;\vdots\\
 \frac{\partial y^d}{\partial x^1} &amp; \frac{\partial y^d}{\partial x^2} &amp; \frac{\partial y^d}{\partial x^3} &amp;\cdots&amp; \frac{\partial y^d}{\partial x^n}\\
 \end{bmatrix}}
-\large\begin{bmatrix}
+\large\color{red}{\begin{bmatrix}
 dx^1\\dx^2\\dx^3\\\vdots\\dx^d
-\end{bmatrix}
+\end{bmatrix}}
 \]</span></p>
-<p>We can generalize to a vector <span class="math inline">\(V\)</span>, which can be transfored from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> coordinate systems as</p>
+<p>We can generalize to a vector <span class="math inline">\(V\)</span> (column vector in red), which can be transfored from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span> coordinate systems as</p>
 <p><span class="math display">\[\bbox[yellow, 5px]{V^n_{(Y)} = \frac{\partial y^{n}}{\partial x^{\color{red}{m}}}\;V^{\color{red}{m}}_{(X)}}\]</span></p>
 <p>If we can find the vector component <span class="math inline">\(n\)</span> in <span class="math inline">\(Y\)</span> of <span class="math inline">\(V\)</span> by taking these types of derivatives, we talk about a <strong>contravariant vector</strong>. The components are expressed as a superscript.</p>
 <p>Now let’s take two contravariant vectors: <span class="math inline">\(A_Y^m\)</span> (<span class="math inline">\(m\)</span>-th component of the <span class="math inline">\(A\)</span> vector in the <span class="math inline">\(Y\)</span> frame): <span class="math inline">\(\large A_{(Y)}^m= \frac{\partial y^m}{\partial x^r} A_{(X)}^r\)</span>; and the second vector <span class="math inline">\(\large B_{(Y)}^n= \frac{\partial y^n}{\partial x^s} B_{(X)}^s.\)</span></p>
@@ -179,7 +179,21 @@ dx^1\\dx^2\\dx^3\\\vdots\\dx^d
 <p>This last equation relates the components of the <em>gradient vector</em> in the <span class="math inline">\(X\)</span> coordinate frame to the components in the <span class="math inline">\(Y\)</span> frame.</p>
 <p>Notice that the arrangement of the dummy indices is:</p>
 <p><span class="math display">\[\frac{\partial \varphi}{\partial y^n}= \frac{\partial x^{\color{red}{m}}}{\partial y^n}\frac{\partial \varphi}{\partial x^{\color{red}{m}}}\]</span></p>
-<p>arranged in the form that defines <strong>covariant vectors</strong> - for example <span class="math inline">\(W:\)</span></p>
+<p>In matrix form:</p>
+<p><span class="math display">\[\begin{bmatrix}
+\frac{\partial \varphi}{\partial y^1}\\\frac{\partial \varphi}{\partial y^2}\\\frac{\partial \varphi}{\partial y^3}\\\vdots\\\frac{\partial \varphi}{\partial ynd}
+\end{bmatrix}=
+{\begin{bmatrix}
+\frac{\partial x^1}{\partial y^1} &amp; \frac{\partial x^2}{\partial y^1} &amp; \frac{\partial x^3}{\partial y^1} &amp;\cdots&amp; \frac{\partial x^n}{\partial y^1}\\
+\frac{\partial x^1}{\partial y^2} &amp; \frac{\partial x^2}{\partial y^2} &amp; \frac{\partial x^3}{\partial y^2} &amp;\cdots&amp; \frac{\partial x^n}{\partial y^2}\\
+\vdots&amp;\vdots&amp;\vdots&amp;&amp;\vdots\\
+\frac{\partial x^1}{\partial y^n} &amp; \frac{\partial x^2}{\partial y^n} &amp; \frac{\partial x^3}{\partial y^n} &amp;\cdots&amp; \frac{\partial x^n}{\partial y^n}\\
+\end{bmatrix}}
+\large\color{red}{\begin{bmatrix}
+\frac{\partial \varphi}{\partial x^1}\\\frac{\partial \varphi}{\partial x^2}\\\frac{\partial \varphi}{\partial x^3}\\\vdots\\\frac{\partial \varphi}{\partial x^n}
+\end{bmatrix}}
+\]</span></p>
+<p>This arrangement (red column vector) is the form that defines <strong>covariant vectors</strong> - for example <span class="math inline">\(W:\)</span></p>
 <p><span class="math display">\[\bbox[yellow, 5px]{W^{(Y)}_n = \frac{\partial x^{\color{red}{m}}}{\partial y^n}\, W^{(X)}_{\color{red}{m}}}\]</span></p>
 <p>Their components transform from one to another coordinate system like gradient vectors do. The components are subscripts!</p>
 <hr />
