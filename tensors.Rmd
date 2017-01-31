@@ -85,33 +85,33 @@ with $\vec{X^1}$ and $\vec{X^2}$ representing the unit vectors.
 
 We want a vector that dotted with equation $(2)$ results in equation $(1).$ Keeping in mind that $\vec{X^1}$ and $\vec{X^2}$ are unit vectors, the vector we are looking for is the **gradient of the scalar $\varphi$**:
  
-$$\vec \nabla \varphi= \frac{\partial \varphi}{\partial X^1}\,\vec{X^1} + \frac{\partial \varphi}{\partial X^2}\,\vec{X^2}.$$
+$$\vec \nabla \varphi= \frac{\partial \varphi}{\partial x^1}\,\vec{X^1} + \frac{\partial \varphi}{\partial x^2}\,\vec{X^2}\tag 3$$
 
 Here's the dot product:
 
-$$\vec{dl}\,\vec{\nabla}\varphi=\color{brown}{ \begin{bmatrix}dx^1 \vec{X^1} & dx^2 \vec{X^2} \end{bmatrix} \begin{bmatrix} \frac{\partial \varphi}{\partial X^1}\,\vec{X^1} \\ \frac{\partial \varphi}{\partial X^2}\,\vec{X^2} \end{bmatrix}}$$
+$$d\varphi=\vec{dl}\,\vec{\nabla}\varphi=\color{brown}{ \begin{bmatrix}dx^1 \vec{X^1} & dx^2 \vec{X^2} \end{bmatrix} \begin{bmatrix} \frac{\partial \varphi}{\partial x^1}\,\vec{X^1} \\ \frac{\partial \varphi}{\partial x^2}\,\vec{X^2} \end{bmatrix}}=\frac{\partial \varphi}{\partial x^1}\,dx^1 + \frac{\partial \varphi}{\partial x^2}\,dx^2$$
 
 So,
 
 $$d\varphi = \vec{dl}\,\vec{\nabla}\varphi$$
 
-Generalizing,
+Generalizing equation $(3)$,
 
-$$\vec\nabla\varphi=\frac{\partial\varphi}{\partial X^\color{blue}{m}}\;\vec{X^\color{blue}{m}}$$
+$$\vec\nabla\varphi=\underset{coord. comp. grad. vec.}{\underbrace{{\Large{\frac{\partial\varphi}{\partial x^\color{blue}{m}}}}}}\;\vec{X^\color{blue}{m}}$$
 
 is the expression of the gradient in the $X$ coordinate frame. In the $Y$ coordinate frame it would be:
 
-$$\vec\nabla\varphi={\Large{\frac{\partial\varphi}{\partial Y^\color{blue}{n}}}}\;\vec{Y^\color{blue}{n}}$$
+$$\vec\nabla\varphi={\Large{\frac{\partial\varphi}{\partial y^\color{blue}{n}}}}\;\vec{Y^\color{blue}{n}}$$
 
 Applying the chain rule:
 
-$$\color{red}{\frac{\partial \varphi}{\partial Y^n}}= \frac{\partial \varphi}{\partial X^m} \frac{\partial X^m}{\partial Y^n}=\frac{\partial X^m}{\partial Y^n}\color{red}{\frac{\partial \varphi}{\partial X^m}}$$
+$$\color{red}{\frac{\partial \varphi}{\partial y^n}}= \frac{\partial \varphi}{\partial x^m} \frac{\partial x^m}{\partial y^n}=\frac{\partial x^m}{\partial y^n}\color{red}{\frac{\partial \varphi}{\partial x^m}}$$
 
 This last equation relates the components of the *gradient vector* in the $X$ coordinate frame to the components in the $Y$ frame.
 
 Notice that the arrangement of the dummy indices is:
 
-$$\frac{\partial \varphi}{\partial Y^n}= \frac{\partial X^{\color{red}{m}}}{\partial Y^n}\frac{\partial \varphi}{\partial X^{\color{red}{m}}}$$
+$$\frac{\partial \varphi}{\partial y^n}= \frac{\partial x^{\color{red}{m}}}{\partial y^n}\frac{\partial \varphi}{\partial x^{\color{red}{m}}}$$
 
 arranged in the form that defines **covariant vectors** - for example $W:$
 

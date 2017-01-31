@@ -165,20 +165,20 @@ dx^1\\dx^2\\dx^3\\\vdots\\dx^d
 <p><span class="math display">\[\vec{dl}= dx^1 \vec{X^1} + dx^2 \vec{X^2}\tag 2\]</span></p>
 <p>with <span class="math inline">\(\vec{X^1}\)</span> and <span class="math inline">\(\vec{X^2}\)</span> representing the unit vectors.</p>
 <p>We want a vector that dotted with equation <span class="math inline">\((2)\)</span> results in equation <span class="math inline">\((1).\)</span> Keeping in mind that <span class="math inline">\(\vec{X^1}\)</span> and <span class="math inline">\(\vec{X^2}\)</span> are unit vectors, the vector we are looking for is the <strong>gradient of the scalar <span class="math inline">\(\varphi\)</span></strong>:</p>
-<p><span class="math display">\[\vec \nabla \varphi= \frac{\partial \varphi}{\partial X^1}\,\vec{X^1} + \frac{\partial \varphi}{\partial X^2}\,\vec{X^2}.\]</span></p>
+<p><span class="math display">\[\vec \nabla \varphi= \frac{\partial \varphi}{\partial x^1}\,\vec{X^1} + \frac{\partial \varphi}{\partial x^2}\,\vec{X^2}\tag 3\]</span></p>
 <p>Here’s the dot product:</p>
-<p><span class="math display">\[\vec{dl}\,\vec{\nabla}\varphi=\color{brown}{ \begin{bmatrix}dx^1 \vec{X^1} &amp; dx^2 \vec{X^2} \end{bmatrix} \begin{bmatrix} \frac{\partial \varphi}{\partial X^1}\,\vec{X^1} \\ \frac{\partial \varphi}{\partial X^2}\,\vec{X^2} \end{bmatrix}}\]</span></p>
+<p><span class="math display">\[d\varphi=\vec{dl}\,\vec{\nabla}\varphi=\color{brown}{ \begin{bmatrix}dx^1 \vec{X^1} &amp; dx^2 \vec{X^2} \end{bmatrix} \begin{bmatrix} \frac{\partial \varphi}{\partial x^1}\,\vec{X^1} \\ \frac{\partial \varphi}{\partial x^2}\,\vec{X^2} \end{bmatrix}}=\frac{\partial \varphi}{\partial x^1}\,dx^1 + \frac{\partial \varphi}{\partial x^2}\,dx^2\]</span></p>
 <p>So,</p>
 <p><span class="math display">\[d\varphi = \vec{dl}\,\vec{\nabla}\varphi\]</span></p>
-<p>Generalizing,</p>
-<p><span class="math display">\[\vec\nabla\varphi=\frac{\partial\varphi}{\partial X^\color{blue}{m}}\;\vec{X^\color{blue}{m}}\]</span></p>
+<p>Generalizing equation <span class="math inline">\((3)\)</span>,</p>
+<p><span class="math display">\[\vec\nabla\varphi=\underset{coord. comp. grad. vec.}{\underbrace{{\Large{\frac{\partial\varphi}{\partial x^\color{blue}{m}}}}}}\;\vec{X^\color{blue}{m}}\]</span></p>
 <p>is the expression of the gradient in the <span class="math inline">\(X\)</span> coordinate frame. In the <span class="math inline">\(Y\)</span> coordinate frame it would be:</p>
-<p><span class="math display">\[\vec\nabla\varphi={\Large{\frac{\partial\varphi}{\partial Y^\color{blue}{n}}}}\;\vec{Y^\color{blue}{n}}\]</span></p>
+<p><span class="math display">\[\vec\nabla\varphi={\Large{\frac{\partial\varphi}{\partial y^\color{blue}{n}}}}\;\vec{Y^\color{blue}{n}}\]</span></p>
 <p>Applying the chain rule:</p>
-<p><span class="math display">\[\color{red}{\frac{\partial \varphi}{\partial Y^n}}= \frac{\partial \varphi}{\partial X^m} \frac{\partial X^m}{\partial Y^n}=\frac{\partial X^m}{\partial Y^n}\color{red}{\frac{\partial \varphi}{\partial X^m}}\]</span></p>
+<p><span class="math display">\[\color{red}{\frac{\partial \varphi}{\partial y^n}}= \frac{\partial \varphi}{\partial x^m} \frac{\partial x^m}{\partial y^n}=\frac{\partial x^m}{\partial y^n}\color{red}{\frac{\partial \varphi}{\partial x^m}}\]</span></p>
 <p>This last equation relates the components of the <em>gradient vector</em> in the <span class="math inline">\(X\)</span> coordinate frame to the components in the <span class="math inline">\(Y\)</span> frame.</p>
 <p>Notice that the arrangement of the dummy indices is:</p>
-<p><span class="math display">\[\frac{\partial \varphi}{\partial Y^n}= \frac{\partial X^{\color{red}{m}}}{\partial Y^n}\frac{\partial \varphi}{\partial X^{\color{red}{m}}}\]</span></p>
+<p><span class="math display">\[\frac{\partial \varphi}{\partial y^n}= \frac{\partial x^{\color{red}{m}}}{\partial y^n}\frac{\partial \varphi}{\partial x^{\color{red}{m}}}\]</span></p>
 <p>arranged in the form that defines <strong>covariant vectors</strong> - for example <span class="math inline">\(W:\)</span></p>
 <p><span class="math display">\[\bbox[yellow, 5px]{W^{(Y)}_n = \frac{\partial x^{\color{red}{m}}}{\partial y^n}\, W^{(X)}_{\color{red}{m}}}\]</span></p>
 <p>Their components transform from one to another coordinate system like gradient vectors do. The components are subscripts!</p>
