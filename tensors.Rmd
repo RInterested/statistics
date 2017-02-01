@@ -181,13 +181,37 @@ $$x^1 = \hat f (u^1,u^2,u^3)$$
 $$x^2 = \hat g (u^1,u^2,u^3)$$
 $$x^3 = \hat h(u^1,u^2,u^3)$$
 
-Therefore,
+Therefore, the position vector $\vec r$ can be described as:
 
 $$\vec r = x^1 \, \vec e_1 + x^2 \vec e_2 + x^3 \vec e_3$$ 
 
-is equivalent to
+which is equivalent to
 
 $$\vec r = \hat f (u^1,u^2,u^3) \, \vec e_1 + \hat g (u^1,u^2,u^3) e_2 + \hat h (u^1,u^2,u^3) e_3$$
+
+and we can write the displacement of $\vec r:$
+
+$$d\vec r = \frac{\partial \vec r}{\partial u^1} du^1+\frac{\partial \vec r}{\partial u^2}du^2+ \frac{\partial \vec r}{\partial u^3}du^3$$
+
+Here is a key observation: the partial derivatives with respect to $u_i$ **are** the $\varepsilon_i$ **tangent vectors:**
+
+$$\frac{\partial \vec r}{\partial u^i} = \varepsilon_i$$
+
+These are not unit vectors, but can be normalized dividing by the norm:
+
+$$\Vert \frac{\partial \vec r}{\partial u^i}\Vert$$
+
+This fact make it very easy to express a vector $\vec A$ as the tangent vectors multiplied by a scalar:
+
+<img width="500" height="300" src="https://cloud.githubusercontent.com/assets/9312897/22522176/b289160e-e888-11e6-87ec-b4ba397e78cc.png">
+
+$$\vec A = a(1)\, \varepsilon_1 + a(2) \, \varepsilon_2 + a(3) \, \varepsilon_3$$
+
+In practice this is written as:
+
+$$\vec A = a^1\, \varepsilon_1 + a^2 \, \varepsilon_2 + a^3 \, \varepsilon_3$$
+
+because if we were to transform to another curvilinear fram it would transform as a *contravariant* vector.
 
 <br><br>
 
