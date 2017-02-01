@@ -211,7 +211,21 @@ In practice this is written as:
 
 $$\vec A = a^1\, \varepsilon_1 + a^2 \, \varepsilon_2 + a^3 \, \varepsilon_3$$
 
-because if we were to transform to another curvilinear fram it would transform as a *contravariant* vector.
+because if we were to transform to another curvilinear frame it would transform as a *contravariant* vector. 
+
+For instance, let's transform from curvilinear frame $\vec r(u^1, u^2, u^3)$ to $\vec r(u^{'1}, u^{'2}, u^{'3}),$ with $\vec r$ corresponding to the positional vector:
+
+So in the $U$ system, $\large \vec \varepsilon_i=\frac{\partial \vec r}{\partial u^i}$; while for the $U'$ system, $\large \vec \varepsilon_i=\frac{\partial \vec r}{\partial u^{'i}}.$ They transform as:
+
+$$\large \vec \varepsilon_j = \frac{\partial \vec r}{\partial u^j}=  \frac{\partial u^{'i}}{\partial u^j} \frac{\partial \vec r}{\partial u^{'i}}= \frac{\partial u^{'i}}{\partial u^j} \vec \varepsilon'_i$$
+
+and
+
+$$\large \vec \varepsilon'_i = \frac{\partial u^{j}}{\partial u^{'i}} \vec \varepsilon_j$$
+
+The vector stays the same:
+
+$$\large \vec A = a^{'i}\vec \varepsilon'_i = a^j\varepsilon_j$$
 
 On the other hand we can express $\vec A$ as the sum of the components in the different orthogonal $\varepsilon_i$ in the diagram above, in which case it would transform as a *covariant* vector.
 
