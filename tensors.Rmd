@@ -250,9 +250,9 @@ We can express the $\vec r$ vector in the curvilinear coordinates (diagrams abov
 
 $$\vec r = \hat f (u^1,u^2,u^3) \, \vec e_1 + \hat g (u^1,u^2,u^3) \vec e_2 + \hat h (u^1,u^2,u^3) \vec e_3$$
 
-and we can obtain the partial derivative with respect to any of the curvilinear coordinates:
+and we can obtain the partial derivative with respect to any of the curvilinear coordinates, and we get one of the tangential vectors ($\varepsilon_i$):
 
-$$\varepsilon_i = \frac{\partial \vec r}{\partial u^i}= \frac{\partial x^1}{\partial u^i} \vec e_1 + \frac{\partial x^2}{\partial u^i} \vec e_2 + \frac{\partial x^3}{\partial u^i} \vec e_3$$
+$$\bbox[10px, border:2px solid aqua]{\varepsilon_i = \frac{\partial \vec r}{\partial u^i}= \frac{\partial x^1}{\partial u^i} \vec e_1 + \frac{\partial x^2}{\partial u^i} \vec e_2 + \frac{\partial x^3}{\partial u^i} \vec e_3}$$
 
 We want to write the gradient of the cuvilinear coordinates $U^j$. Now remembering Eq. 3 above:
 
@@ -260,9 +260,52 @@ $$\vec \nabla \varphi= \frac{\partial \varphi}{\partial x^1}\,\vec{X^1} + \frac{
 
 we can write:
 
-$$\varepsilon^j =\vec \nabla u^j= \frac{\partial u^j}{\partial x^1}\,\vec e_1 + \frac{\partial u^j}{\partial x^2}\,\vec e_2 + \frac{\partial u^j}{\partial x^3}\,\vec e_3$$
+$$\bbox[10px, border:2px solid aqua]{\varepsilon^j =\vec \nabla u^j= \frac{\partial u^j}{\partial x^1}\,\vec e_1 + \frac{\partial u^j}{\partial x^2}\,\vec e_2 + \frac{\partial u^j}{\partial x^3}\,\vec e_3}$$
 
 for $j=\{1,2,3\}$
+
+Taking as example the spherical coordinates, and specifically the $r$ component (see 3D rendition above):
+
+$r = \left((x^1)^2+(x^2)^2+(x^3)\right)^{1/2}$
+
+we can take the partial with respect to each one of the Cartesian components:
+
+$$\varepsilon^r =\frac{\partial \left((x^1)^2+(x^2)^2+(x^3)\right)^{1/2}}{\partial x^l}\,\vec e_1 + \frac{\partial \left((x^1)^2+(x^2)^2+(x^3)\right)^{1/2}}{\partial x^2}\,\vec e_2 + \frac{\partial \left((x^1)^2+(x^2)^2+(x^3)\right)^{1/2}}{\partial x^3}\,\vec e_3$$
+
+For the angle $\phi = \tan^{-1}(\frac{x^2}{x^1})$,
+
+$$\varepsilon^\phi =\frac{\partial \tan^{-1}(\frac{x^2}{x^1})}{\partial x^l}\,\vec e_1 + \frac{\tan^{-1}(\frac{x^2}{x^1})}{\partial x^2}\,\vec e_2 + \frac{\partial \tan^{-1}(\frac{x^2}{x^1})}{\partial x^3}\,\vec e_3$$
+
+etc.
+
+Dotting $\varepsilon_i$ with $\varepsilon^j:$
+
+$$\begin{align}\varepsilon_i \cdot \varepsilon^j &= \frac{\partial x^1}{\partial u^i}\frac{\partial u^j}{\partial x^1}+\frac{\partial x^2}{\partial u^i}\frac{\partial u^j}{\partial x^2}+\frac{\partial x^3}{\partial u^i}\frac{\partial u^j}{\partial x^3}\\[2 ex]
+&= \frac{\partial u^j}{\partial u^i}
+\end{align}$$
+
+---
+
+Notice that it is not $3\,\frac{\partial u^j}{\partial u^i}$, because the partials add up to $1$: Let's consider a differential in general:
+
+$$dw=\frac{\partial w}{\partial x^1} dx^1 + \frac{\partial w}{\partial x^2} dx^2+\frac{\partial w}{\partial x^3} dx^3$$
+
+Now dividing by $dw:$
+
+$$1=\frac{\partial w}{\partial x^1} dx^1 + \frac{\partial w}{\partial x^2} dx^2+\frac{\partial w}{\partial x^3} dx^3$$
+
+we are adding partials together to get the entire component.
+
+---
+
+
+If $\large j=i$, $\large \varepsilon_i\cdot e^j = 1$
+
+If $\large j \neq i$, $\large \varepsilon_i\cdot e^j$, and since the axes $(u^1, u^2, u^3)$ are independent, $\frac{\partial u^j}{\partial u^i}=0.$
+
+Hence, we can express this as $\large\bbox[10px, border:2px solid aqua]{\varepsilon_i \cdot \varepsilon^j = \frac{\partial \vec r}{\partial u^i}\,\vec \nabla u^j=\delta_i^{\;j}}$
+
+So these two elements are orthogonal.
 
 
 <br><br>
