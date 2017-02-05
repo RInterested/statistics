@@ -10,10 +10,23 @@
 
 The length or magnitud of the vector $dS$ is given by:
 
-$$dS^2=\left(dX^1\right)^2 + \left(dX^2\right)^2 + \left(dX^3\right)^2 + \cdots = \large \delta_{mn} \;dX^m\, dX^n$$
+$$dS^2=\left(dX^1\right)^2 + \left(dX^2\right)^2 + \left(dX^3\right)^2 + \cdots = \large \delta_{mn} \;\color{blue}{dX^m}\, dX^n\tag 1$$
 
 Notice that the dummy indexes are set up to sum over. We start with $m=1$, and we see that all terms are going to be zero unless when $n=1$, in which case it will be $dX^1\, dX^1 = (dX^1)^2.$
 
+But how to write the same for the curvilinear system?
+
+We have to refer back to the following expression at the beginning of the [notes on tensors](http://rinterested.github.io/statistics/tensors.html):
+
+$$dy^n = \frac{\partial y^n}{\partial x^\color{blue}{m}} dx^{\color{blue}{m}} \tag{Einstein's convention}$$
+
+In this case we have that the part in blue in Eq. 1 can be expressed as:
+
+$$\color{blue}{dX^m}= \frac{\partial x^m}{\partial y^r} dy^r.$$
+
+Hence, Eq. 1 becomes,
+
+$$dS^2 = \large \delta_{mn} \;dX^m\, dX^n= \large \underset{\text{METRIC TENSOR}}{\underbrace{\delta_{mn}\frac{\partial x^m}{\partial y^r}\frac{\partial x^n}{\partial y^s}}} \;dy^r\; dy^s$$
 
 ---
 
