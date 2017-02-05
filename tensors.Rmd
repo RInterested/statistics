@@ -236,7 +236,7 @@ $$\large \vec A = a^{'i}\vec \varepsilon'_i = a^j \color{fuchsia}{\vec\varepsilo
 
 or, simplifying $\large \vec \varepsilon'_i:$
 
-$$\large a'^{i} = \frac{\partial u'^i}{\partial u^\color{blue}{j}} a^{\color{blue}{j}},$$
+$$\large a'^{i} = \frac{\partial u'^i}{\partial u^\color{blue}{j}} a^{\color{blue}{j}}\tag 6$$
 
 which is a contravariant transformation.
 
@@ -254,7 +254,7 @@ $$\vec r = \hat f (u^1,u^2,u^3) \, \vec {\hat e_1} + \hat g (u^1,u^2,u^3) \vec {
 
 and we can obtain the partial derivative with respect to any of the curvilinear coordinates, and we get one of the tangential vectors ($\varepsilon_i$):
 
-$$\bbox[10px, border:2px solid aqua]{\varepsilon_i = \frac{\partial \vec r}{\partial u^i}= \frac{\partial x^1}{\partial u^i} \vec {\hat e_1} + \frac{\partial x^2}{\partial u^i} \vec {\hat e_2} + \frac{\partial x^3}{\partial u^i} \vec {\hat e_3}}$$
+$$\bbox[10px, border:2px solid aqua]{\varepsilon_i = \frac{\partial \vec r}{\partial u^i}= \frac{\partial x^1}{\partial u^i} \vec {\hat e_1} + \frac{\partial x^2}{\partial u^i} \vec {\hat e_2} + \frac{\partial x^3}{\partial u^i} \vec {\hat e_3}}\tag 7$$
 
 We want to write the gradient of the cuvilinear coordinates $U^j$. Now remembering Eq. 3 above:
 
@@ -262,7 +262,7 @@ $$\vec \nabla \varphi= \frac{\partial \varphi}{\partial x^1}\,\vec{X^1} + \frac{
 
 we can write:
 
-$$\bbox[10px, border:2px solid aqua]{\varepsilon^j =\vec \nabla u^j= \frac{\partial u^j}{\partial x^1}\,\vec {\hat e_1} + \frac{\partial u^j}{\partial x^2}\,\vec {\hat e_2} + \frac{\partial u^j}{\partial x^3}\,\vec {\hat e_3}}$$
+$$\bbox[10px, border:2px solid aqua]{\varepsilon^j =\vec \nabla u^j= \frac{\partial u^j}{\partial x^1}\,\vec {\hat e_1} + \frac{\partial u^j}{\partial x^2}\,\vec {\hat e_2} + \frac{\partial u^j}{\partial x^3}\,\vec {\hat e_3}}\tag 8$$
 
 for $j=\{1,2,3\}$
 
@@ -284,7 +284,7 @@ etc.
 Dotting $\varepsilon_i$ with $\varepsilon^j:$
 
 $$\bbox[10px, border:2px solid aqua]{\varepsilon_i \cdot \varepsilon^j} = \frac{\partial x^1}{\partial u^i}\frac{\partial u^j}{\partial x^1}+\frac{\partial x^2}{\partial u^i}\frac{\partial u^j}{\partial x^2}+\frac{\partial x^3}{\partial u^i}\frac{\partial u^j}{\partial x^3}
-=\bbox[10px, border:2px solid aqua]{\frac{\partial u^j}{\partial u^i}}$$
+=\bbox[10px, border:2px solid aqua]{\frac{\partial u^j}{\partial u^i}}\tag 9$$
 
 
 ---
@@ -306,7 +306,7 @@ If $\large j=i$, $\large \varepsilon_i\cdot e^j = 1$
 
 If $\large j \neq i$, $\large \varepsilon_i\cdot e^j$, and since the axes $(u^1, u^2, u^3)$ are independent, $\frac{\partial u^j}{\partial u^i}=0.$
 
-Hence, we can express this as $\large\bbox[10px, border:2px solid aqua]{\varepsilon_i \cdot \varepsilon^j = \frac{\partial \vec r}{\partial u^i}\,\vec \nabla u^j=\delta_i^{\;j}}$
+Hence, we can express this as $\large\bbox[10px, border:2px solid aqua]{\varepsilon_i \cdot \varepsilon^j = \frac{\partial \vec r}{\partial u^i}\,\vec \nabla u^j=\delta_i^{\;j}}\tag {10}$
 
 So these coordinate axes are independent of each other. $\large \vec \nabla u^j$ correspond to the orthogonal vectors to the generalized curvilinear coordinates symbolized by the $\vec\varepsilon^i$ vectors on the diagram above comparing tangential to orthogonal components.
 
@@ -317,6 +317,38 @@ $$\vec A = a^1\, \varepsilon_1 + a^2 \, \varepsilon_2 + a^3 \, \varepsilon_3$$
 or covariant vectors:
 
 $$\vec A = a^1\, \varepsilon^1 + a^2 \, \varepsilon^2 + a^3 \, \varepsilon^3$$
+
+Now if we attempt the same change of coordinates from $U$ to $U'$ that led to Eq. $(6)$ with a vector expressed as a covariant vector we can utilize the chain rule to substitute the terms in Eq.$(8)$:
+
+$$\bbox[10px, border:2px solid aqua]{\varepsilon^j =\vec \nabla u^j= \frac{\partial u^j}{\partial x^1}\,\vec {\hat e_1} + \frac{\partial u^j}{\partial x^2}\,\vec {\hat e_2} + \frac{\partial u^j}{\partial x^3}\,\vec {\hat e_3}}\tag 8$$
+
+$$\frac{\partial u^j}{\partial x^1}=\frac{\partial u^j}{\partial u'^i}\frac{\partial u'^i}{\partial x^1}$$
+
+$$\frac{\partial u^j}{\partial x^2}=\frac{\partial u^j}{\partial u'^i}\frac{\partial u'^i}{\partial x^2}$$
+
+$$\frac{\partial u^j}{\partial x^3}=\frac{\partial u^j}{\partial u'^i}\frac{\partial u'^i}{\partial x^3}$$
+
+So Eq. 8 evolves into:
+
+$$\varepsilon^j =\vec \nabla u^j=\frac{\partial u^j}{\partial u'^i} \underset{\large {\nabla u'^i=\varepsilon'^i} }{\underbrace{\left[ \frac{\partial u'^i}{\partial x^1}\,\vec {\hat e_1} + \frac{\partial u'^i}{\partial x^2}\,\vec {\hat e_2} + \frac{\partial u'^i}{\partial x^3}\,\vec {\hat e_3}\right]}}$$
+
+so
+
+$$\large \varepsilon^j=\frac{\partial u^j}{\partial u'^i}\varepsilon'^i$$
+
+or
+
+$$\large\varepsilon'^i =\frac{\partial u'^i}{\partial u^j}\varepsilon^j$$
+
+Therefore,
+
+$$\vec A = a'_i \varepsilon'^i= a_j \varepsilon^j= a_j \frac{\partial u^j}{\partial u'^i}\varepsilon'^i$$
+
+which simplifies to
+
+$$\large a'_i= \frac{\partial u^\color{red}{j}}{\partial u'^i} a_\color{red}{j}$$
+
+to get the equivalent to Eq. 6. But now it is a covariant sum over $j$.
 
 
 <br><br>
