@@ -130,13 +130,17 @@ $(document).ready(function () {
 <p>We have to refer back to the following expression at the beginning of the <a href="http://rinterested.github.io/statistics/tensors.html">notes on tensors</a>:</p>
 <p><span class="math display">\[dy^n = \frac{\partial y^n}{\partial x^\color{blue}{m}} dx^{\color{blue}{m}} \tag{Einstein's convention}\]</span></p>
 <p>In this case we have that the part in blue in Eq. 1 can be expressed as:</p>
-<p><span class="math display">\[\color{blue}{dX^m}= \frac{\partial x^m}{\partial y^r} dy^r.\]</span></p>
+<p><span class="math display">\[\color{blue}{dX^m}= \frac{\partial x^m}{\partial y^r} dy^r \tag2\]</span></p>
 <p>Hence, Eq. 1 becomes,</p>
 <p><span class="math display">\[dS^2 = \large \delta_{mn} \;dX^m\, dX^n= \large \underset{\text{METRIC TENSOR }\Large g^{(y)}_{\color{red}{rs}}}{\underbrace{\delta_{mn}\frac{\partial x^m}{\partial y^\color{red}{r}}\frac{\partial x^n}{\partial y^\color{red}{s}}}} \;dy^r\; dy^s\]</span></p>
 <p>We write,</p>
 <p><span class="math display">\[dS^2 = q^{(y)}_{rs}\,dy^r\,dy^s\]</span></p>
 <p>If we were operating with both systems being curvilinear, the measure of the vector wouldn’t be as simple in the <span class="math inline">\(X\)</span> system as before. We would have:</p>
 <p><span class="math display">\[\large g^{(x)}_{mn}\,dx^m\,dx^n=g^{(y)}_{rs}\,dy^r\,dy^s\]</span></p>
+<p>applying Eq. 2,</p>
+<p><span class="math display">\[\large g^{(x)}_{mn}\frac{\partial x^m}{\partial y^r}\frac{\partial x^n}{\partial y^s}dy^r\,dy^s= g^{(y)}_{rs}\,dy^r\,dy^s\]</span></p>
+<p><br></p>
+<p><span class="math display">\[\large g^{(x)}_{mn}\frac{\partial x^m}{\partial y^r}\frac{\partial x^n}{\partial y^s} = g(y)_{(rs)}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
