@@ -169,7 +169,7 @@ $(document).ready(function () {
 <p><span class="math display">\[\vec e_\rho = \vec e_1 = \frac{\partial \vec r}{\partial \rho}= \cos(\phi) \vec {\hat i} + \sin(\phi) \, \vec{\hat j}\]</span></p>
 <p><span class="math display">\[\vec e_\phi = \vec e_2 = \frac{\partial \vec r}{\partial \phi}= -\rho \sin(\phi) \vec {\hat i} + \rho\,\cos(\phi)\,\vec{\hat j}\]</span></p>
 <p><span class="math display">\[\vec e_z = \vec e_3= \frac{\partial \vec r}{\partial z}= \vec{\hat k}\]</span></p>
-<p>From Eq. 4, <span class="math inline">\(g_{ij}= \vec e_i \ vec e_j\)</span>, we have</p>
+<p>From Eq. 4, <span class="math inline">\(g_{ij}= \vec e_i \vec e_j\)</span>, we have</p>
 <p><span class="math display">\[\begin{matrix}\vec e_1\vec e_1&amp;\vec e_1\vec e_2&amp;\vec e_1\vec e_3\\
 \vec e_2\vec e_1&amp;\vec e_2\vec e_2&amp;\vec e_2\vec e_3\\
 \vec e_3\vec e_1&amp;\vec e_3\vec e_2&amp;\vec e_3\vec e_3
@@ -181,7 +181,7 @@ $(document).ready(function () {
 <p>What about <span class="math inline">\(g_{22}=\left(-\rho \sin(\phi) \vec {\hat i} + \rho\,\cos(\phi)\,\vec{\hat j}\right)\left(-\rho \sin(\phi) \vec {\hat i} + \rho\,\cos(\phi)\,\vec{\hat j}\right)=\rho^2\sin^2(\phi)+\rho^2\cos^2(\phi)=\rho^2\)</span></p>
 <p>And <span class="math inline">\(g_{23}=0\)</span>; <span class="math inline">\(g_{13}=0\)</span>; and <span class="math inline">\(g_{33}=1\)</span></p>
 <p>Hence the metric tensor for cylindrical coordinates is:</p>
-<p><span class="math display">\[\begin{bmatrix}1&amp;0&amp;0\\0&amp;\rho^2&amp;0\\0&amp;0&amp;1 \end{bmatrix}\]</span></p>
+<p><span class="math display">\[g_{ij}=\begin{bmatrix}1&amp;0&amp;0\\0&amp;\rho^2&amp;0\\0&amp;0&amp;1 \end{bmatrix}\]</span></p>
 <p>which makes sense, because we have orthogonal tangent vectors in this particular case, explaining that the only non-zero entries are in the diagonal. But in a more general curvilinear system, the tangent vectors will not be orthogonal to each other.</p>
 <hr />
 <blockquote>
@@ -218,11 +218,21 @@ $(document).ready(function () {
 <p><span class="math display">\[\Large g_{ij}a^ib^j =  a^ib_i\]</span></p>
 <p>and</p>
 <p><span class="math display">\[\require{cancel}\Large g_{ij}\cancel{a^i}b^j =  \cancel{a^i}b_i\]</span></p>
+<p><span class="math display">\[\Large \color{red}{g_{ij} b^j = b_i}\]</span></p>
 <p>so <span class="math inline">\(b^j\)</span> is a contravariant component of a vector, which gets transformed into the covariant component of the vector when operating with the covariant metric tensor. We can think of it like the dummy indeces <span class="math inline">\(j\)</span> anihilate each other.</p>
-<p>If instead,</p>
+<p>If instead we equate the results in (2) and (3),</p>
 <p><span class="math display">\[\Large g^{ij}a_ib_j = a_ib^i\]</span></p>
 <p><span class="math display">\[\Large g^{ij}\cancel{a_i} b_j = \cancel{a_i}b^i\]</span></p>
+<p><span class="math display">\[\Large \color{blue}{g^{ij} b_j = b^i}\]</span></p>
 <p>so <span class="math inline">\(b_j\)</span> is a covariant component of a vector, which gets transformed into the contravariant component of the vector when operating with the contravariant metric tensor.</p>
+<p>Now, since <span class="math inline">\(g^{ij}b_j=b^i\)</span>, and <span class="math inline">\(\delta_k^i b^k = b^i\)</span>,</p>
+<p><span class="math display">\[\Large g^{ij} \color{red}{b_j} = b^i = \delta_k^i b^k\]</span></p>
+<p>and replacing <span class="math inline">\(b_j\)</span> for the expression in red above:</p>
+<p><span class="math display">\[\Large g^{ij} \color{red}{b_j} = g^{ij} \color{red}{g_{jk}b^k} =  b^i = \delta_k^i b^k\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[\Large \delta_k^i b^k =  g^{ij} \color{red}{g_{jk}b^k}\]</span></p>
+<p>which implies</p>
+<p><span class="math display">\[\Large \bbox[10px, border:2px solid blue]{g^{ij}\Large g_{jk}= \delta_k^i}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

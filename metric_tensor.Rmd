@@ -101,7 +101,7 @@ $$\vec e_\phi = \vec e_2 = \frac{\partial \vec r}{\partial \phi}= -\rho \sin(\ph
 
 $$\vec e_z = \vec e_3= \frac{\partial \vec r}{\partial z}= \vec{\hat k}$$
 
-From Eq. 4, $g_{ij}= \vec e_i \ vec e_j$, we have 
+From Eq. 4, $g_{ij}= \vec e_i \vec e_j$, we have 
 
 $$\begin{matrix}\vec e_1\vec e_1&\vec e_1\vec e_2&\vec e_1\vec e_3\\
 \vec e_2\vec e_1&\vec e_2\vec e_2&\vec e_2\vec e_3\\
@@ -122,7 +122,7 @@ And $g_{23}=0$; $g_{13}=0$; and $g_{33}=1$
 
 Hence the metric tensor for cylindrical coordinates is:
 
-$$\begin{bmatrix}1&0&0\\0&\rho^2&0\\0&0&1 \end{bmatrix}$$
+$$g_{ij}=\begin{bmatrix}1&0&0\\0&\rho^2&0\\0&0&1 \end{bmatrix}$$
 
 which makes sense, because we have orthogonal tangent vectors in this particular case, explaining that the only non-zero entries are in the diagonal. But in a more general curvilinear system, the tangent vectors will not be orthogonal to each other.
 
@@ -160,16 +160,40 @@ and
 
 $$\require{cancel}\Large g_{ij}\cancel{a^i}b^j =  \cancel{a^i}b_i$$
 
+$$\Large \color{red}{g_{ij} b^j = b_i}$$
+
 so $b^j$ is a contravariant component of a vector, which gets transformed into the covariant component of the vector when operating with the covariant metric tensor. We can think of it like the dummy indeces $j$ anihilate each other.
 
 
-If instead,
+If instead we equate the results in (2) and (3),
 
 $$\Large g^{ij}a_ib_j = a_ib^i$$
 
 $$\Large g^{ij}\cancel{a_i} b_j = \cancel{a_i}b^i$$
 
+$$\Large \color{blue}{g^{ij} b_j = b^i}$$
+
 so $b_j$ is a covariant component of a vector, which gets transformed into the contravariant component of the vector when operating with the contravariant metric tensor.
+
+Now, since $g^{ij}b_j=b^i$, and $\delta_k^i b^k = b^i$,
+
+$$\Large g^{ij} \color{red}{b_j} = b^i = \delta_k^i b^k$$ 
+
+and replacing $b_j$ for the expression in red above:
+
+$$\Large g^{ij} \color{red}{b_j} = g^{ij} \color{red}{g_{jk}b^k} =  b^i = \delta_k^i b^k$$ 
+
+Therefore,
+
+$$\Large \delta_k^i b^k =  g^{ij} \color{red}{g_{jk}b^k}$$
+
+which implies
+
+$$\Large \bbox[10px, border:2px solid blue]{g^{ij}\Large g_{jk}= \delta_k^i}$$
+
+
+
+
 
 
 ---
