@@ -28,7 +28,7 @@ Hence, Eq. 1 becomes,
 
 $$dS^2 = \large \delta_{mn} \;dX^m\, dX^n= \large \underset{\text{METRIC TENSOR }\Large g^{(y)}_{\color{red}{rs}}}{\underbrace{\delta_{mn}\frac{\partial x^m}{\partial y^\color{red}{r}}\frac{\partial x^n}{\partial y^\color{red}{s}}}} \;dy^r\; dy^s$$
 
-$$\large g^{(y)}_{\color{red}{rs}}=\delta_{mn}\frac{\partial x^m}{\partial y^\color{red}{r}}\frac{\partial x^n}{\partial y^\color{red}{s}}\tag 2$$
+$$\large g^{(y)}_{\color{red}{rs}}=\delta_{mn}\frac{\partial x^m}{\partial y^\color{red}{r}}\frac{\partial x^n}{\partial y^\color{red}{s}}\tag 3$$
 
 We write,
 
@@ -50,7 +50,7 @@ which is a covariant transformation. So the matrix tensor does transform like a 
 
 From [Tensors](http://rinterested.github.io/statistics/tensors.html):
 
-$$\bbox[10px, border:2px solid aqua]{ \varepsilon_i =\frac{\partial \vec r}{\partial u^i}}\tag 5$$
+$$\bbox[10px, border:2px solid aqua]{ \varepsilon_i =\frac{\partial \vec r}{\partial u^i}}$$
 
 we have that a displacement vector $\vec r$ in a curvilinear system of coordinates:
 
@@ -66,7 +66,7 @@ $$\large dS^2 = g_{ij}\, du^i\, du^2$$
 
 which implies that the dot product of two tangent vectors is the metric tensor:
 
-$$\Large\bbox[10px, border:2px solid aqua]{\vec \varepsilon_i\vec \varepsilon_j = g_{ij}}$$
+$$\Large\bbox[10px, border:2px solid aqua]{\vec \varepsilon_i\vec \varepsilon_j = g_{ij}}\tag 4$$
 
 Looking at spherical coordinates:
 
@@ -79,6 +79,31 @@ $$\vec e_\rho = \vec e_1 = \frac{\partial \vec r}{\partial \rho}= \cos(\phi) \ve
 $$\vec e_\phi = \vec e_2 = \frac{\partial \vec r}{\partial \phi}= -\rho \sin(\phi) \vec {\hat i} + \rho\,\cos(\phi)\,\vec{\hat j}$$
 
 $$\vec e_z = \vec e_3= \frac{\partial \vec r}{\partial z}= \vec{\hat k}$$
+
+From Eq. 4, $g_{ij}= \vec e_i \ vec e_j$, we have 
+
+$$\begin{matrix}\vec e_1\vec e_1&\vec e_1\vec e_2&\vec e_1\vec e_3\\
+\vec e_2\vec e_1&\vec e_2\vec e_2&\vec e_2\vec e_3\\
+\vec e_3\vec e_1&\vec e_3\vec e_2&\vec e_3\vec e_3
+\end{matrix}$$
+
+So let's take the element $g_{11}=(1,1)=(\vec e_1\vec e_1):$
+
+$$g_{11}= \left( \cos(\phi) \vec {\hat i} + \sin(\phi ) \, \vec{\hat j}\right)\left( \cos(\phi) \vec {\hat i} + \sin(\phi) \, \vec{\hat j}\right)= \cos^2(\phi)+\sin^2(\phi)=1$$
+
+Notice that $\vec {\hat i}\cdot \vec {\hat j}=0.$
+
+Moving to $g_{12}=0$, which means that $g_{21}=0.$
+
+What about $g_{22}=\left(-\rho \sin(\phi) \vec {\hat i} + \rho\,\cos(\phi)\,\vec{\hat j}\right)\left(-\rho \sin(\phi) \vec {\hat i} + \rho\,\cos(\phi)\,\vec{\hat j}\right)=\rho^2\sin^2(\phi)+\rho^2\cos^2(\phi)=\rho^2$
+
+And $g_{23}=0$; $g_{13}=0$; and $g_{33}=1$
+
+Hence the metric tensor for cylindrical coordinates is:
+
+$$\begin{bmatrix}1&0&0\\0&\rho^2&0\\0&0&1 \end{bmatrix}$$
+
+which makes sense, because we have orthogonal tangent vectors in this particular case, explaining that the only non-zero entries are in the diagonal. But in a more general curvilinear system, the tangent vectors will not be orthogonal to each other.
 
 ---
 
