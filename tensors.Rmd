@@ -3,12 +3,9 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###MATRIX NOTATION:
+###TENSORS, TANGENT AND ORTHOGONAL VECTORS IN GENERALIZED CURVILINEAR COORDINATES:
 <br>
 
-This is a work in progress intended to motivate the need for tensors. 
-
----
 
 From [this series on youtube](https://youtu.be/V5k_rDAoTvg):
 
@@ -31,7 +28,9 @@ dy^d &= \frac{\partial y^d}{\partial x^1} dx^1 + \frac{\partial y^d}{\partial x^
 
 So any particular component in the new coordinate system would be of the form:
 
-$$dy^n = \frac{\partial y^n}{\partial x^\color{blue}{m}} dx^{\color{blue}{m}} \tag{Einstein's convention}$$
+$$dy^n = \frac{\partial y^n}{\partial x^\color{blue}{m}} dx^{\color{blue}{m}} \tag{Ref.1}$$
+
+with the color coding indicating Einstein's convention.
 
 Expressed in matrix form:
 
@@ -228,9 +227,11 @@ So in the $U$ system, $\large \vec \varepsilon_i=\frac{\partial \vec r}{\partial
 
 $$\color{fuchsia}{\large \vec \varepsilon_j} = \frac{\partial \vec r}{\partial u^j}=  \frac{\partial u^{'i}}{\partial u^j} \frac{\partial \vec r}{\partial u^{'i}}= \color{fuchsia}{\frac{\partial u^{'i}}{\partial u^j} \vec \varepsilon'_i}$$
 
-and
+Here is the framed result with it inverse:
 
-$$\large \vec \varepsilon'_i = \frac{\partial u^{j}}{\partial u^{'i}} \vec \varepsilon_j$$
+$$\bbox[10px,border:2px solid fuchsia]{\large \vec \varepsilon_j=\frac{\partial u^{'i}}{\partial u^j} \vec \varepsilon'_i}\tag {ref.2}$$
+
+$$\bbox[10px,border:2px solid purple]{\large \vec \varepsilon'_i = \frac{\partial u^{j}}{\partial u^{'i}} \vec \varepsilon_j}\tag {ref.3}$$
 
 The vector stays the same:
 
