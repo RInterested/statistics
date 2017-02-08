@@ -282,7 +282,7 @@ $(document).ready(function () {
 <hr />
 <p><span class="math display">\[\large \color{red}{\large \frac{\partial \vec \varepsilon_i}{\partial u^j}}= \frac{\partial \vec r}{\partial u^j\partial u^i}= \frac{\partial \vec r}{\partial u^i \partial u^j}=\frac{\partial \vec \varepsilon_j}{\partial u^i}\]</span></p>
 <p>Now,</p>
-<p><span class="math display">\[\large \color{red}{\large \frac{\partial \vec \varepsilon_i}{\partial u^j}}=\Gamma_{ij}^k \vec \varepsilon_k= \gamma_{ji}^k\vec\varepsilon_k\]</span></p>
+<p><span class="math display">\[\large \color{red}{\large \frac{\partial \vec \varepsilon_i}{\partial u^j}}=\Gamma_{ij}^k \vec \varepsilon_k= \Gamma_{ji}^k\vec\varepsilon_k\]</span></p>
 <p>Hence,</p>
 <p><span class="math display">\[\large \Gamma_{ij}^k = \Gamma_{ji}^k\]</span></p>
 <p>much like <span class="math inline">\(\large g_{ij}=g_{ji}= \vec \varepsilon_j\cdot\vec\varepsilon_i.\)</span></p>
@@ -291,7 +291,19 @@ $(document).ready(function () {
 <p>We can now use Christoffel symbols:</p>
 <p><span class="math display">\[\large \frac{\partial g_{ij}}{\partial u^k}=\Gamma_{ik}^l \vec\varepsilon_l\cdot\vec\varepsilon_j+ \vec \varepsilon_i \cdot \Gamma_{jk}^l\vec\varepsilon_l\]</span></p>
 <p>If we look into this last expression we have two metric vectors: <span class="math inline">\(\large g_{lj}= \vec\varepsilon_l\cdot\vec\varepsilon_j\)</span> and <span class="math inline">\(g_{il}= \vec\varepsilon_i\cdot\vec\varepsilon_l\)</span>. Hence,</p>
-<p><span class="math display">\[\large \frac{\partial g_{ij}}{\partial u^k}= \Gamma_{ik}^l \;g_{lj}+\Gamma_{jk}^l \;g_{il}\]</span></p>
+<p><span class="math display">\[\large \frac{\partial g_{ij}}{\partial u^k}= \color{blue}{\Gamma_{ik}^l \;g_{lj}}+\color{red}{\Gamma_{jk}^l \;g_{il}}\]</span></p>
+<p>Next step, we reshuffle the indexes:</p>
+<p><span class="math display">\[\large \frac{\partial g_{jk}}{\partial u^i}= \color{purple}{\Gamma_{ji}^l \;g_{lk}}+\color{blue}{\Gamma_{ki}^l \;g_{jl}}\]</span></p>
+<p><span class="math display">\[\large \frac{\partial g_{ki}}{\partial u^j}= \color{red}{\Gamma_{kj}^l }\;g_{li}+\color{purple}{\Gamma_{ij}^l \;g_{kl}}\]</span></p>
+<p>OK… We add the last two equations and subtract the one on top, and noting the color-coded identities,</p>
+<p><span class="math display">\[\large 2\,\Gamma_{ij}^l\,g_{kl}=\frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\]</span></p>
+<p>or</p>
+<p><span class="math display">\[\large \Gamma_{ij}^l\,g_{kl} = 1/2 \left[ \frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\right]\]</span></p>
+<p>Remembering that <span class="math inline">\(\large g_{kl}\,g^{mk}=\delta_l^m\)</span>,</p>
+<p><span class="math display">\[\large \Gamma_{ij}^l\,g_{kl}\,g^{mk} = 1/2\,g^{mk}\,\left[ \frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\right]\]</span></p>
+<p><span class="math display">\[\large \Gamma_{ij}^l\,\delta_l^m = 1/2\,g^{mk}\,\left[ \frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\right]\]</span></p>
+<p>which implies</p>
+<p><span class="math display">\[\large \Gamma_{ij}^m = 1/2\,g^{mk}\,\left[ \frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\right]\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

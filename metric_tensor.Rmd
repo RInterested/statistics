@@ -284,7 +284,7 @@ $$\large \color{red}{\large \frac{\partial \vec \varepsilon_i}{\partial u^j}}= \
 
 Now,
 
-$$\large \color{red}{\large \frac{\partial \vec \varepsilon_i}{\partial u^j}}=\Gamma_{ij}^k \vec \varepsilon_k= \gamma_{ji}^k\vec\varepsilon_k$$
+$$\large \color{red}{\large \frac{\partial \vec \varepsilon_i}{\partial u^j}}=\Gamma_{ij}^k \vec \varepsilon_k= \Gamma_{ji}^k\vec\varepsilon_k$$
 
 Hence,
 
@@ -302,9 +302,31 @@ $$\large \frac{\partial g_{ij}}{\partial u^k}=\Gamma_{ik}^l \vec\varepsilon_l\cd
 
 If we look into this last expression we have two metric vectors: $\large g_{lj}= \vec\varepsilon_l\cdot\vec\varepsilon_j$ and $g_{il}= \vec\varepsilon_i\cdot\vec\varepsilon_l$. Hence,
 
-$$\large \frac{\partial g_{ij}}{\partial u^k}= \Gamma_{ik}^l \;g_{lj}+\Gamma_{jk}^l \;g_{il}$$
+$$\large \frac{\partial g_{ij}}{\partial u^k}= \color{blue}{\Gamma_{ik}^l \;g_{lj}}+\color{red}{\Gamma_{jk}^l \;g_{il}}$$
 
+Next step, we reshuffle the indexes:
 
+$$\large \frac{\partial g_{jk}}{\partial u^i}= \color{purple}{\Gamma_{ji}^l \;g_{lk}}+\color{blue}{\Gamma_{ki}^l \;g_{jl}}$$
+
+$$\large \frac{\partial g_{ki}}{\partial u^j}= \color{red}{\Gamma_{kj}^l }\;g_{li}+\color{purple}{\Gamma_{ij}^l \;g_{kl}}$$
+
+OK... We add the last two equations and subtract the one on top, and noting the color-coded identities,
+
+$$\large 2\,\Gamma_{ij}^l\,g_{kl}=\frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}$$
+
+or
+
+$$\large \Gamma_{ij}^l\,g_{kl} = 1/2 \left[ \frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\right]$$
+
+Remembering that $\large g_{kl}\,g^{mk}=\delta_l^m$,
+
+$$\large \Gamma_{ij}^l\,g_{kl}\,g^{mk} = 1/2\,g^{mk}\,\left[ \frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\right]$$
+
+$$\large \Gamma_{ij}^l\,\delta_l^m = 1/2\,g^{mk}\,\left[ \frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\right]$$
+
+which implies
+
+$$\large \Gamma_{ij}^m = 1/2\,g^{mk}\,\left[ \frac{\partial g_{ki}}{\partial u^j}+\frac{\partial g_{jk}}{\partial u^i}-\frac{\partial g_{ij}}{\partial u^k}\right]$$
 
 
 ---
