@@ -243,13 +243,35 @@ we observe a contravariant transformation.
 
 ####CHRISTOFFEL SYMBOLS:
 
-The tangential vectors are the result of $\large \frac{\partial \vec r}{\partial u^i}$ so that in the case of spherical coordinates we have the basis vectors (tangential vectors) [expressed as](http://rinterested.github.io/statistics/metric_tensor.html) the partial derivatives of $\large \vec r = r\, \sin\theta\cos\phi\, \vec {\hat e_1} +  r\, \sin\theta\sin\phi\,  \vec{\hat e_2} +  r\, \cos\theta\,  \vec {\hat e_3}$:
+The tangential vectors are the result of $\large \vec\varepsilon_i = \frac{\partial \vec r}{\partial u^i}$ so that in the case of spherical coordinates we have the basis vectors (tangential vectors) [expressed as](http://rinterested.github.io/statistics/metric_tensor.html) the partial derivatives of $\large \vec r = r\, \sin\theta\cos\phi\, \vec {\hat e_1} +  r\, \sin\theta\sin\phi\,  \vec{\hat e_2} +  r\, \cos\theta\,  \vec {\hat e_3}$:
 
 $$\vec \varepsilon_r = \frac{\frac{\partial \vec r}{\partial r}}{\lVert\frac{\partial \vec r}{\partial r}\rVert}= \sin\theta\cos\phi \vec {\hat e_1} + \sin\theta\sin\phi \vec {\hat e_2} + \cos\theta \vec {\hat e_3}$$
 
 $$\vec \varepsilon_\theta = \frac{\frac{\partial \vec r}{\partial \theta}}{\lVert\frac{\partial \vec r}{\partial \theta}\rVert}= r \cos\theta\cos\phi \vec {\hat e_1} +r \cos\theta\sin\phi \vec {\hat e_2} - r\sin\theta \vec {\hat e_3}$$
 
 $$\vec \varepsilon_\phi = \frac{\frac{\partial \vec r}{\partial \phi}}{\lVert\frac{\partial \vec r}{\partial \phi}\rVert}= -r \sin\theta\sin\phi \vec {\hat e_1} +r \sin\theta\cos\phi \vec {\hat e_2}$$
+
+so that in general, any vector $\vec A$ can be written as:
+
+$$\large \vec A= a^1\,\vec{\varepsilon_1}+ a^2\,\vec{\varepsilon_2} + a^3\,\vec{\varepsilon_3}$$
+
+or more succintly,
+
+$$\large \vec A = a^k\, \vec \varepsilon_k$$
+
+What if we took **second derivatives** of these **tangential basis**?
+
+So we can write this vector resulting of these second derivatives of the basis vectors also in terms of the basis vectors (tangentials):
+
+$$\large\frac{\partial \vec \varepsilon_i}{\partial u^j} = \beta^k \vec {\hat e_k}=\Large \underset{\text{Christoffel symbol}}{\underbrace{\Gamma_{ij}^k}} \vec \varepsilon_k$$
+
+and we can think of the Christoffel symbol as the vector that we obtain by taking the partial derivative of one of the basis vectors (tangents) expressed on the same basis vectors in the curvilinear system.
+
+Now let's retieve the concept of [reciprocal basis](http://rinterested.github.io/statistics/tensors.html), which ended up with the expression $\large \varepsilon_i \varepsilon^j =\delta_i^j$ to see that
+
+$$\frac{\partial \vec \varepsilon_i}{\partial u^j} \cdot \vec \varepsilon^k = \Gamma_{ij}^k \vec \varepsilon_k\cdot\vec\varepsilon^k = \Gamma_{ij}^k\delta_k^k =\Gamma_{ij}^k$$
+
+In 3D space $k=1,2,3$ and the same goes for $i$ and $j$. So the Christoffel symbol can have $27$ different components.
 
 ---
 
