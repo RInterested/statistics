@@ -247,7 +247,13 @@ $(document).ready(function () {
 <h4>TRANSFORMATION OF MATRIC TENSORS:</h4>
 <p>Starting with equation (4) above,</p>
 <p><span class="math display">\[\vec \varepsilon_i\vec \varepsilon_j = g_{ij}\]</span></p>
-<p>transformations of this metric tensor between two systems of curvilinear coordinates, where the expression of this metric tensor in this second system is <span class="math inline">\(g'_{ij}= \vec \varepsilon'_i \varepsilon'_j\)</span> will be given by:</p>
+<p>transformations of this metric tensor between two systems of curvilinear coordinates, where the expression of this metric tensor in the second system is <span class="math inline">\(g'_{ij}= \vec \varepsilon'_i \varepsilon'_j\)</span> can be derived from Equation (ref.2 and ref.3) in <a href="http://rinterested.github.io/statistics/tensors.html">Tensors</a></p>
+<p><span class="math display">\[\bbox[10px,border:2px solid purple]{\large \vec \varepsilon'_i = \frac{\partial u^{j}}{\partial u^{'i}} \vec \varepsilon_j}\tag {ref.3}\]</span></p>
+<p>Let’s re-write this as <span class="math inline">\(\large \vec e'_i=\frac{\partial u^k}{\partial u'^i}\vec e_k\)</span>, expressing the change between coordinates of a tangential vector component. For <span class="math inline">\(\varepsilon_j\)</span> in equation (4) we can write an equivalent expression <span class="math inline">\(\large \vec e'_j=\frac{\partial u^l}{\partial u'^j}\vec e_l.\)</span></p>
+<p>Now substituting in equation (4), we can derive:</p>
+<p><span class="math display">\[\large g'_{ij} = \frac{\partial u^k}{\partial u'^i}\frac{\partial u^l}{\partial u'^j}\color{red}{\vec e_k\cdot\vec e_l}\]</span></p>
+<p>Now, <span class="math inline">\(g_{kl}=\color{red}{\vec e_k\cdot\vec e_l}\)</span>, and hence:</p>
+<p><span class="math display">\[\large g'_{ij}= \frac{\partial u^k}{\partial u'^i}\frac{\partial u^l}{\partial u'^j} g_{kl}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
