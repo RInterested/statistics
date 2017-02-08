@@ -280,6 +280,19 @@ $(document).ready(function () {
 <p><span class="math display">\[\Gamma_{ij}^k= \frac{\partial \vec \varepsilon_j}{\partial u^j}\cdot\vec \varepsilon^k\]</span></p>
 <p>Notice that 3D space <span class="math inline">\(k=1,2,3\)</span> and the same goes for <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>. So the Christoffel symbol can have <span class="math inline">\(27\)</span> different components.</p>
 <hr />
+<p><span class="math display">\[\large \color{red}{\large \frac{\partial \vec \varepsilon_i}{\partial u^j}}= \frac{\partial \vec r}{\partial u^j\partial u^i}= \frac{\partial \vec r}{\partial u^i \partial u^j}=\frac{\partial \vec \varepsilon_j}{\partial u^i}\]</span></p>
+<p>Now,</p>
+<p><span class="math display">\[\large \color{red}{\large \frac{\partial \vec \varepsilon_i}{\partial u^j}}=\Gamma_{ij}^k \vec \varepsilon_k= \gamma_{ji}^k\vec\varepsilon_k\]</span></p>
+<p>Hence,</p>
+<p><span class="math display">\[\large \Gamma_{ij}^k = \Gamma_{ji}^k\]</span></p>
+<p>much like <span class="math inline">\(\large g_{ij}=g_{ji}= \vec \varepsilon_j\cdot\vec\varepsilon_i.\)</span></p>
+<p>Let’s consider taking a partial derivative of the metric tensor:</p>
+<p><span class="math display">\[\large \frac{\partial g_{ij}}{\partial u^k}= \frac{\partial \vec \varepsilon_i}{\partial u^k}\cdot\vec\varepsilon_j + \vec \varepsilon_i \frac{\partial \vec \varepsilon_j}{\partial u^k}\]</span></p>
+<p>We can now use Christoffel symbols:</p>
+<p><span class="math display">\[\large \frac{\partial g_{ij}}{\partial u^k}=\Gamma_{ik}^l \vec\varepsilon_l\cdot\vec\varepsilon_j+ \vec \varepsilon_i \cdot \Gamma_{jk}^l\vec\varepsilon_l\]</span></p>
+<p>If we look into this last expression we have two metric vectors: <span class="math inline">\(\large g_{lj}= \vec\varepsilon_l\cdot\vec\varepsilon_j\)</span> and <span class="math inline">\(g_{il}= \vec\varepsilon_i\cdot\vec\varepsilon_l\)</span>. Hence,</p>
+<p><span class="math display">\[\large \frac{\partial g_{ij}}{\partial u^k}= \Gamma_{ik}^l \;g_{lj}+\Gamma_{jk}^l \;g_{il}\]</span></p>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
 </div>
