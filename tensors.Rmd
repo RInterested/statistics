@@ -92,7 +92,43 @@ we have to take the $d$ number of components that $A$ has and modify each one by
 
 $$\large \bbox[10px, border:2px solid red]{T^{mn}_{(Y)} = \large A^m_{(Y)} B^n_{(Y)} =\frac{\partial y^m}{\partial x^r} \; \frac{\partial y^n}{\partial x^s}\; A_{(X)}^r\; B_{(X)}^s= \frac{\partial y^m}{\partial x^\color{blue}{r}} \; \frac{\partial y^n}{\partial x^\color{blue}{s}}\;T^{\color{blue}{rs}}_{(X)}}.$$
 
-These are **contravariant tensors** of the second rank.
+These are **contravariant tensors** of the second rank. The $m,n,r,s$ superscript are the vector components (elements or entries), while $(X),(Y)$ are coordinate systems. So we note that tensors enter when there is a transformation between coordinate systems of *more than one* vector. This is consistent with the Wikipedia entries both of vectors [as multilinear maps](https://en.wikipedia.org/wiki/Tensor#As_multilinear_maps):
+
+---
+
+*A downside to the definition of a tensor using the multidimensional array approach is that it is not apparent from the definition that the defined object is indeed basis independent, as is expected from an intrinsically geometric object. Although it is possible to show that transformation laws indeed ensure independence from the basis, sometimes a more intrinsic definition is preferred. One approach is to define a tensor as a multilinear map. In that approach a type $(p, q)$ tensor $T$ is defined as a map,*
+
+$$T:\underbrace{V^{*}\times \dots \times V^{*}}_{p{\text{ copies}}}\times \underbrace{V\times \dots \times V}_{q{\text{ copies}}}\rightarrow \mathbf {R}$$
+
+*where $V$ is a (finite-dimensional) vector space and $V^∗$ is the corresponding dual space of covectors, which is linear in each of its arguments.*
+
+*By applying a multilinear map $T$ of type $(p, q)$ to a basis $\{e_j\}$ for $V$ and a canonical cobasis $\{\epsilon^i\}$ for $V^∗$,*
+
+$$T_{j_{1}\dots j_{q}}^{i_{1}\dots i_{p}}\equiv T(\mathbf{\varepsilon }^{i_{1}},\ldots ,\mathbf {\varepsilon }^{i_{p}},\mathbf{e}_{j_{1}},\ldots ,\mathbf{e}_{j_{q}})$$
+
+*a $(p + q)$-dimensional array of components can be obtained.*
+
+---
+
+However, the most fitting definition is as [multidimensional arrays](https://en.wikipedia.org/wiki/Tensor#As_multidimensional_arrays):
+
+*Just as a vector in an n-dimensional space is represented by a one-dimensional array of length n with respect to a given basis, any tensor with respect to a basis is represented by a multidimensional array. For example, a linear operator is represented in a basis as a two-dimensional square n × n array. The numbers in the multidimensional array are known as the scalar components of the tensor or simply its components. They are denoted by indices giving their position in the array, as subscripts and superscripts, following the symbolic name of the tensor. For example, the components of an order $2$ tensor $T$ could be denoted $T_{ij}$, where $i$ and $j$ are indices running from $1$ to $n$, or also by $T_i^j$. Whether an index is displayed as a superscript or subscript depends on the transformation properties of the tensor, described below. The total number of indices required to identify each component uniquely is equal to the dimension of the array, and is called the **order, degree or rank of the tensor**. However, the term "rank" generally has another meaning in the context of matrices and tensors.*
+
+*Just as the components of a vector change when we change the basis of the vector space, the components of a tensor also change under such a transformation. Each tensor comes equipped with a transformation law that details how the components of the tensor respond to a change of basis. The components of a vector can respond in two distinct ways to a change of basis (see covariance and contravariance of vectors), where the new basis vectors $\displaystyle \mathbf {\hat {e}} _{i}$ are expressed in terms of the old basis vectors $\displaystyle \mathbf {e} _{j}$ as,*
+
+$$\displaystyle \mathbf {\hat {e}}_{i}=\sum_{j=1}^{n}\mathbf {e}_{j}R_{i}^{j}=\mathbf {e} _{j}R_{i}^{j}.$$ 
+
+*Here $R^j_i$ are the entries of the change of basis matrix, and in the rightmost expression the summation sign was suppressed: this is the Einstein summation convention. The components $v^i$ of a column vector $v$ transform with the inverse of the matrix $R$,*
+
+$$\displaystyle {\hat {v}}^{i}=(R^{-1})_{j}^{i}v^{j},$$
+
+*where the hat denotes the components in the new basis. This is called a contravariant transformation law, because the vector transforms by the inverse of the change of basis. In contrast, the components, $w_i$, of a covector (or row vector), $w$ transform with the matrix $R$ itself,*
+
+$$\displaystyle {\hat {w}}_{i}=w_{j}R_{i}^{j}.$$
+
+*This is called a covariant transformation law, because the covector transforms by the same matrix as the change of basis matrix. The components of a more general tensor transform by some combination of covariant and contravariant transformations, with one transformation law for each index. If the transformation matrix of an index is the inverse matrix of the basis transformation, then the index is called contravariant and is traditionally denoted with an upper index (superscript). If the transformation matrix of an index is the basis transformation itself, then the index is called covariant and is denoted with a lower index (subscript).*
+
+---
 
 To move on to **covariant tensors** it is necessary to discuss what a **gradient vector** is:
 
