@@ -16,7 +16,7 @@ This is equivalent to talking about [**symmetric positive semidefinite matrices*
 #####PROPERTIES:
 
  1. Symmetry
- 2. Positive semidefinite-*ness*
+ 2. Positive semidefinite-*ness* (can be [zero](http://stats.stackexchange.com/a/56833/67822))
  3. Real and positive eigenvalues
  4. The trace is positive (the trace is the sum of eigenvalues)
  5. The determinant is positive (the determinant is the product of the eigenvalues)
@@ -45,6 +45,8 @@ is the expected value of the $i$-th entry in the vector $X.$ In other words,
 
 <img width=500, src = "https://cloud.githubusercontent.com/assets/9312897/22763943/9a1ccfa4-ee35-11e6-89b8-bc9fd34a9533.png">
 
+A [more succint definition](http://math.stackexchange.com/a/257250/152225) is $\mathbb E\big((\mathbf X - \mu)(\mathbf X - \mu)^T\big)$ for a random vector \mathbf X \in \mathbb R^n with mean vector $\mu.$
+
 ---
 
 From [this post](http://math.stackexchange.com/a/3871/152225):
@@ -57,6 +59,17 @@ $$XX^\top= U\Sigma^2 U^\top$$
 
 The square roots of the eigenvalues of $XX^\top$ are the singular values of $X.$
 
+---
+
+The sample covariance matrix is:
+
+$$\mathbf{S}=\dfrac{1}{n-1}\sum_{j=1}^{n}(\mathbf{X}_{j}-\bar{\mathbf{X}})(\mathbf{X}_{j}-\bar{\mathbf{X}})^{T}$$
+
+---
+
+####CORRELATION MATRIX:
+
+The covariance matrix of the standardized random variables $\displaystyle X_{i}/\sigma (X_{i})$ for $\displaystyle i=1,\dots ,n$.
 
 ---
 
