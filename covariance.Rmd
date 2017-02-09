@@ -27,7 +27,35 @@ This is equivalent to talking about [**symmetric positive semidefinite matrices*
  10. Rank of $A^TA$ is the same as rank of $A$.
  11. $\text{ker}(A^TA)=\text{ker}(A)$
 
+---
 
+[COVARIANCE MATRIX](https://en.wikipedia.org/wiki/Covariance_matrix):
+
+If the entries of a column vector:
+
+$$X=\begin{bmatrix}X_1\\\vdots\\X_n \end{bmatrix}$$
+
+are random variables with finite variance, then the covariance matrix $\Sigma$ is the matrix whose $(i,j)$ entry is the covariance
+
+$$\Sigma_{ij}=cov(X_i,X_j) = E\left[ (X_i - \mu_i)(X_j - \mu_j\right] = E[X_i, X_j]-E[X]E[Y]$$
+
+where $\mu_i = E(X_i)$
+
+is the expected value of the $i$-th entry in the vector $X.$ In other words,
+
+<img width=500, src = "https://cloud.githubusercontent.com/assets/9312897/22763943/9a1ccfa4-ee35-11e6-89b8-bc9fd34a9533.png">
+
+---
+
+From [this post](http://math.stackexchange.com/a/3871/152225):
+
+When the data is centered (zero mean) the covariance matrix is $\mathbf X\mathbf X^\top.$
+
+After obtaining SVD of a data matrix $X = U\Sigma V^\top$, the covariance matrix can be obtained as 
+
+$$XX^\top= U\Sigma^2 U^\top$$
+
+The square roots of the eigenvalues of $XX^\top$ are the singular values of $X.$
 
 
 ---
