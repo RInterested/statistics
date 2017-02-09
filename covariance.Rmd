@@ -49,15 +49,28 @@ A [more succint definition](http://math.stackexchange.com/a/257250/152225) is $\
 
 ---
 
-From [this post](http://math.stackexchange.com/a/3871/152225):
+From [this post](http://math.stackexchange.com/a/3871/152225) and [this other one](http://stats.stackexchange.com/questions/50389/a-measure-of-overall-variance-from-multivariate-gaussian/51117#51117):
 
-When the data is centered (zero mean) the covariance matrix is $\mathbf X\mathbf X^\top.$
+When the data is centered (zero mean) the covariance matrix is $\frac{1}{n-1}\mathbf X^\top\mathbf X.$
 
-After obtaining SVD of a data matrix $X = U\Sigma V^\top$, the covariance matrix can be obtained as 
+```{r}
+set.seed(0)
+mat = matrix(rnorm(25), nrow = 5)
+centered = scale(mat,center = T, scale = F)
+all.equal(cov(centered), 1/(nrow(mat)-1) * t(centered) %*% centered)
+```
 
-$$XX^\top= U\Sigma^2 U^\top$$
+Just like the univariate variance is the average squared distance to the mean, $trace(\hat{\bf{\Sigma}})$ is the average squared distance to the centroid: With $\dot{\bf{X}}$ as the matrix of the centered variables, $\hat{\bf{\Sigma}} = \frac{1}{n} \dot{\bf{X}}' \dot{\bf{X}}$ where $\dot{\bf{X}}' \dot{\bf{X}}$ is the matrix of dot products of the columns of $\dot{\bf{X}}$. Its diagonal elements are $\dot{\bf{X}}_{\cdot i}' \dot{\bf{X}}_{\cdot i} = (\bf{X}_{\cdot i} - \overline{X}_{\cdot i})' (\bf{X}_{\cdot i} - \overline{X}_{\cdot i})$, i.e., the squared distance of variable $i$ to its mean.
+As such, $trace(\hat{\bf{\Sigma}})$ is a natural generalization of the univariate variance.
 
-The square roots of the eigenvalues of $XX^\top$ are the singular values of $X.$
+A second generalization is $det(\hat{\bf{\Sigma}})$: This is a measure for the volume of the ellipsoid that characterizes the distribution. More precisely, $|det(\hat{\bf{\Sigma}})|$ is the factor by which the volume of the unit cube changes after applying the linear transformation $\hat{\bf{\Sigma}}$. ([explanation](http://math.stackexchange.com/a/669)). Here is an illustration for the matrix $\left(\begin{smallmatrix}1 & -.5\\ .5 & .5\end{smallmatrix}\right)$ with determinant $0.75$ (left: before, right: after transformation):
+
+![enter image description here][1]
+
+I do not have a good answer for your second question. But it seems like the original scales of your variables should matter as they define what variance is "small". It might also be worthwile trying some thresholds and check the stability of the resulting estimates with (bootstrap) crossvalidation.
+
+  [1]: http://i.stack.imgur.com/88Xep.jpg
+
 
 ---
 
@@ -70,6 +83,107 @@ $$\mathbf{S}=\dfrac{1}{n-1}\sum_{j=1}^{n}(\mathbf{X}_{j}-\bar{\mathbf{X}})(\math
 ####CORRELATION MATRIX:
 
 The covariance matrix of the standardized random variables $\displaystyle X_{i}/\sigma (X_{i})$ for $\displaystyle i=1,\dots ,n$.
+
+---
+
+####[SAMPLE COVARIANCE and CORRELATION](http://stats.stackexchange.com/a/193517/67822):
+
+In the $G^TG$ operation, $G^T$ is an $6 \times 8$ matrix, and $G$ an $8 \times 6$. Hence, the matrix multiplication will yield a $6 \times 6$ matrix.
+
+Addressing the comments and the underlying issue, let's pretend that we have a matrix corresponding to returns of different stocks (in the columns) versus 5 consecutive years (in the rows) - completely fictitious stocks and years. Let's call the matrix, $A$:
+
+
+$$A = \begin{bmatrix}
+       & \color{red}{\text{yah(y)}}  & \color{blue}{\text{goog(g)}}  &  \color{green}{\text{ms(m)}} \\
+    \text{Yr.1} &  1 &8 & 1\\
+    \text{Yr.2} & -4 &9 & 3 \\
+    \text{Yr.3} & 5 &  10 & 4 \\
+    \text{Yr.4} & 7 & 3 & 5\\
+    \text{Yr.5} & 8 & 7& 6
+\end{bmatrix}$$
+
+We want to calculate the correlations between the different vectors of returns, one for each company, "packaged" in the matrix $A$.
+
+The variance-covariance matrix of the portfolio assuming equal holdings will be:
+
+$\Large \sigma(A) = \frac{G^TG}{n-1}$ with $G$ being the mean-centered observations and $n-1$ corresponding to the number of observations minus $1$.
+
+The mean-centered (or demeaned) matrix $G$ is:
+
+$$\begin{bmatrix}
+       & \color{red}{\text{y}}  & \color{blue}{\text{g}}  &  \color{green}{\text{m}} \\
+    \text{Yr.1} &  -2.4 &0.6 & -2.8\\
+    \text{Yr.2} & -7.4 &1.6 & -0.8 \\
+    \text{Yr.3} & 1.6 &  2.6 & 0.2 \\
+    \text{Yr.4} & 3.6 & -4.4 & 1.2\\
+    \text{Yr.5} & 4.6 & -0.4& 2.2
+\end{bmatrix}
+$$
+
+
+And the variance-covariance matrix:
+
+$$\begin{bmatrix}
+       & \color{red}{y}  & \color{blue}{g}  &  \color{green}{m} \\
+    \color{red}{y}  &  24.30 &-6.70 & 6.85\\
+    \color{blue}{g} & -6.70 & 7.30 & -2.15 \\
+    \color{green}{m} &   6.85 & -2.15 & 3.70 \\
+\end{bmatrix}
+$$
+
+So it went from the $5 \times 3$ $A$ matrix to a $3 \times 3$ matrix.
+
+The operations involved in calculating the correlation matrix are similar, but the data points are standardized by dividing each one by the standard deviation of the returns of each company (column vectors), right after centering the data points by subtracting the column means as in the covariance matrix:
+
+$$\small cor(A)=\tiny\frac{1}{n-1}\small\begin{bmatrix}
+\frac{\color{red}{y_1 - \bar{y}}}{\color{red}{sd(y)}} & \frac{\color{red}{y_2 - \bar{y}}}{\color{red}{sd(y)}} & \frac{\color{red}{y_3 - \bar{y}}}{\color{red}{sd(y)}} & \frac{\color{red}{y_4 - \bar{y}}}{\color{red}{sd(y)}} &\frac{\color{red}{y_5 - \bar{y}}}{\color{red}{sd(y)}} \\
+\frac{\color{blue}{g_1 - \bar{g}}}{\color{blue}{sd(g)}} & \frac{\color{blue}{g_2 - \bar{g}}}{\color{blue}{sd(g)}} & \frac{\color{blue}{g_3 - \bar{g}}}{\color{blue}{sd(g)}} & \frac{\color{blue}{g_4 - \bar{g}}} {\color{blue}{sd(g)}}& \frac{\color{blue}{g_5 - \bar{g}}}{\color{blue}{sd(g)}}\\
+\frac{\color{green}{m_1 - \bar{m}}}{\color{green}{sd(m)}}& \frac{\color{green}{m_2 - \bar{m}}}{\color{green}{sd(m)}}  &\frac{\color{green}{m_3 - \bar{m}}}{\color{green}{sd(m)}}  & \frac{\color{green}{m_4 - \bar{m}}}{\color{green}{sd(m)}} 
+ & \frac{\color{green}{m_5 - \bar{m}}}{\color{green}{sd(m)}}\\
+&&\color{purple} {3\times 5 \,\text{matrix}}
+\end{bmatrix}
+\begin{bmatrix}
+\frac{\color{red}{y_1 - \bar{y}}}{\color{red}{sd(y)}} & \frac{\color{blue}{g_1 - \bar{g}}}{\color{blue}{sd(g)}} & \frac{\color{green}{m_1 - \bar{m}}}{\color{green}{sd(m)}} \\
+\frac{\color{red}{y_2 - \bar{y}}}{\color{red}{sd(y)}} & \frac{\color{blue}{g_2 - \bar{g}}}{\color{blue}{sd(g)}} & \frac{\color{green}{m_2 - \bar{m}}}{\color{green}{sd(m)}} \\
+\frac{\color{red}{y_3 - \bar{y}}}{\color{red}{sd(y)}} &\frac{\color{blue}{g_3 - \bar{g}}}{\color{blue}{sd(g)}} & \frac{\color{green}{m_3 - \bar{m}}}{\color{green}{sd(m)}} \\
+\frac{\color{red}{y_4 - \bar{y}}}{\color{red}{sd(y)}} & \frac{\color{blue}{g_4 - \bar{go}}}{\color{blue}{sd(g)}} & \frac{\color{green}{m_4 - \bar{m}}}{\color{green}{sd(m)}} \\
+\frac{\color{red}{y_5 - \bar{y}}}{\color{red}{sd(y)}} & \frac{\color{blue}{g_5 - \bar{g}}}{\color{blue}{sd(g)}} & \frac{\color{green}{m_5 - \bar{m}}}{\color{green}{sd(m)}} \\
+&\color{purple} {5\times 3 \,\text{matrix}}
+\end{bmatrix}$$
+
+One more quick thing for completeness sake: We have so far a clunky matrix as the result, but in general we want to estimate the portfolio variance: $1$ portfolio; $1$ variance. To do that we multiply the matrix of variance-covariance of $A$ to the left and to the right by the vector containing the proportions or weightings in each stock - $W$. Since we want to end up with a scalar single number, it is unsurprising that the algebra will be: $W^T\,\sigma(A)\,W$, with the vector of weights (fractions) being in this case $\color{blue}{3}\times \color{blue}{1}$ to match perfectly on the left as $W^T$, and on the right as $W$.
+
+**Code in R:**
+
+*Fictitious data set of returns in billions, percentage (?) - the matrix A:*
+
+    yah = c(1, - 4, 5, 7, 8)
+    goog = c(8, 9, 10, 3, 7)
+    ms = c(1, 3, 4, 5, 6)
+    returns <- cbind(yah, goog, ms)
+    row.names(returns) =c("Yr.1","Yr.2","Yr.3","Yr.4", "Yr.5")
+
+*Centered matrix (G) of demeaned returns:*
+
+    demeaned_returns <- scale(returns, scale = F, center = T)
+
+*Manual and R function calculation of the variance-covariance matrix:*
+
+    (var_cov_A = (t(demeaned_returns)%*%demeaned_returns)/(nrow(returns)-1))
+    cov(returns)   # the R in-built function cov() returns the same results.
+
+***Correlation matrix calculation:***
+
+*We need to divide by the standard deviation column-wise:*
+
+    demeaned_scaled_returns <- scale(returns, scale = T, center = T)
+
+and then proceed as above:
+
+    (corr_A = (t(demeaned_scaled_returns) %*% demeaned_scaled_returns)/(nrow(returns)-1))
+    cor(returns) # Again, the R function returns the same matrix.
+
+
 
 ---
 
