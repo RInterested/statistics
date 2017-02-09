@@ -45,7 +45,41 @@ is the expected value of the $i$-th entry in the vector $X.$ In other words,
 
 <img width=500, src = "https://cloud.githubusercontent.com/assets/9312897/22763943/9a1ccfa4-ee35-11e6-89b8-bc9fd34a9533.png">
 
-A [more succint definition](http://math.stackexchange.com/a/257250/152225) is $\mathbb E\big((\mathbf X - \mu)(\mathbf X - \mu)^T\big)$ for a random vector \mathbf X \in \mathbb R^n with mean vector $\mu.$
+<br>
+
+A [more succint definition](http://math.stackexchange.com/a/257250/152225) is $\mathbb E\big((\mathbf X - \mu)(\mathbf X - \mu)^T\big)$ for a random vector $\mathbf X \in \mathbb R^n$ with mean vector $\mu.$
+
+This is in line with the [other definition in Wikipedia](https://en.wikipedia.org/wiki/Covariance_matrix#Generalization_of_the_variance):
+
+$$\large \Sigma = E\left[\left(X-E[X] \right)\left( X-E[X]\right)^\top \right]$$
+
+However, notice that the `cov()` formula in R may not work so well unless the rows of the dataset correspond to the features (usually the features are the columns):
+
+```{r}
+set.seed(0)
+
+# COVARIANCE as X transpose X:
+
+cols.R.features = matrix(rnorm(30, 5, 3), nrow= 10)
+centered = sweep(cols.R.features, 2, apply(cols.R.features,2, function(x) mean(x)),"-")
+# same as scale(cols.R.features, center = T, scale = F)
+colnames(centered) = c("radius","temp","height")
+centered[1:3,]
+1/(nrow(centered) - 1) * (t(centered) %*% centered)
+cov(cols.R.features)
+
+# COVARIANCE as X X transposed:
+
+cols.R.examples = t(cols.R.features)
+centered2 = sweep(cols.R.examples, 1, apply(cols.R.examples,1, function(x) mean(x)),"-")
+rownames(centered2) = c("radius","temp","height")
+centered2[,1:5]
+1/(ncol(centered2) - 1) * (centered2 %*% t(centered2))
+cov(t(cols.R.examples))
+# cov(cols.R.examples) is not what we want, giving a 10 x 10 matrix.
+
+```
+
 
 ---
 
@@ -60,6 +94,37 @@ centered = scale(mat,center = T, scale = F)
 all.equal(cov(centered), 1/(nrow(mat)-1) * t(centered) %*% centered)
 ```
 
+Since the covariance matrix is symmetric, the matrix is diagonalizable, and the eigenvectors can be normalized such that they are orthonormal:
+
+$\mathbf X\mathbf X^\top=\mathbf W\mathbf D\mathbf W^\top$
+
+On the other hand, applying SVD to the data matrix $\mathbf X$ as follows:
+
+$\mathbf X=\mathbf U\mathbf \Sigma\mathbf V^\top$
+
+and attempting to construct the covariance matrix from this decomposition gives
+
+$\begin{align*}
+\mathbf X\mathbf X^\top&=(\mathbf U\mathbf \Sigma\mathbf V^\top)(\mathbf U\mathbf \Sigma\mathbf V^\top)^\top\\
+\mathbf X\mathbf X^\top&=(\mathbf U\mathbf \Sigma\mathbf V^\top)(\mathbf V\mathbf \Sigma\mathbf U^\top)
+\end{align*}$
+
+and since $\mathbf V$ is an orthogonal matrix ($\mathbf V^\top \mathbf V=\mathbf I$),
+
+$\mathbf X\mathbf X^\top=\mathbf U\mathbf \Sigma^2 \mathbf U^\top$
+
+This can be seen continuing with the code example above:
+
+```{r}
+SVD = svd(cols.R.examples)
+SVD$u %*% (diag(SVD$d)^2 %*% t(SVD$u))
+cols.R.examples %*% t(cols.R.examples)
+```
+
+and the correspondence is easily seen (the square roots of the eigenvalues of $\mathbf X\mathbf X^\top$ are the singular values of $\mathbf X$, etc.)
+
+---
+
 Just like the univariate variance is the average squared distance to the mean, $trace(\hat{\bf{\Sigma}})$ is the average squared distance to the centroid: With $\dot{\bf{X}}$ as the matrix of the centered variables, $\hat{\bf{\Sigma}} = \frac{1}{n} \dot{\bf{X}}' \dot{\bf{X}}$ where $\dot{\bf{X}}' \dot{\bf{X}}$ is the matrix of dot products of the columns of $\dot{\bf{X}}$. Its diagonal elements are $\dot{\bf{X}}_{\cdot i}' \dot{\bf{X}}_{\cdot i} = (\bf{X}_{\cdot i} - \overline{X}_{\cdot i})' (\bf{X}_{\cdot i} - \overline{X}_{\cdot i})$, i.e., the squared distance of variable $i$ to its mean.
 As such, $trace(\hat{\bf{\Sigma}})$ is a natural generalization of the univariate variance.
 
@@ -67,7 +132,7 @@ A second generalization is $det(\hat{\bf{\Sigma}})$: This is a measure for the v
 
 ![enter image description here][1]
 
-I do not have a good answer for your second question. But it seems like the original scales of your variables should matter as they define what variance is "small". It might also be worthwile trying some thresholds and check the stability of the resulting estimates with (bootstrap) crossvalidation.
+
 
   [1]: http://i.stack.imgur.com/88Xep.jpg
 
