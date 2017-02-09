@@ -7,7 +7,7 @@
 <br>
 
 	
-It is a key matrix structure because of the role it plays in orthogonal projection. Covariance matrices are just special cases.
+$A^\top A$ is a key matrix structure because of the role it plays in orthogonal projection. Covariance matrices are just special cases.
 
 $A^\top A$ is a covariance matrix - [you can define a multivariate normal distribution for which $A\top A$ is the covariance matrix](http://math.stackexchange.com/a/1896633/152225).
 
@@ -56,6 +56,7 @@ $$\large \Sigma = E\left[\left(X-E[X] \right)\left( X-E[X]\right)^\top \right]$$
 However, notice that the `cov()` formula in R may not work so well unless the rows of the dataset correspond to the features (usually the features are the columns):
 
 ```{r}
+
 set.seed(0)
 
 # COVARIANCE as X transpose X:
