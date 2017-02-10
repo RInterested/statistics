@@ -179,7 +179,7 @@ $(document).ready(function () {
 <p>The rank reveals the dimensions of all <span class="math inline">\(4\)</span> fundamental subspaces.</p>
 </blockquote>
 <p>From <a href="http://math.stackexchange.com/a/456031/152225">this entry in MathSE</a>, and <a href="http://math.mit.edu/~gs/linearalgebra/ila0306.pdf">Professor Strang’s lectures</a>.</p>
-<p>There are <span class="math inline">\(4\)</span> fundamental subspaces of an <span class="math inline">\(m×n\)</span> matrix:</p>
+<p>There are <a href="https://drive.google.com/file/d/0Bwl-HpVJ_5PebWVXRWNodjlMcDg/view?usp=sharing"><span class="math inline">\(4\)</span> fundamental subspaces of an <span class="math inline">\(m×n\)</span> matrix</a>:</p>
 <p><span class="math display">\[\large \mathbf {A} =\begin{bmatrix}
 \quad &amp; \leftarrow  &amp; n     &amp; \rightarrow \quad \\  
 \uparrow    &amp;\quad  &amp;\quad\\
@@ -194,19 +194,35 @@ m           &amp;\quad  &amp;\text{rank}=\color{red}{r}  &amp;\quad\\
 </div>
 <div id="column-space-of-a-or-ca" class="section level4">
 <h4>COLUMN SPACE of <span class="math inline">\(A\)</span> or <span class="math inline">\(C(A)\)</span>:</h4>
-<p>Since it is linear combinations of columns, it is in <span class="math inline">\(\mathbb R^m\)</span></p>
+<ol style="list-style-type: decimal">
+<li>Since it is linear combinations of columns, it is in <span class="math inline">\(\mathbb R^m\)</span>.</li>
+<li>The dimension of the column space is the rank <span class="math inline">\(\color{red}{r}.\)</span> There are <span class="math inline">\(r\)</span> vectors in a basis.</li>
+<li>A basis is the pivot columns.</li>
+</ol>
 </div>
 <div id="null-space-of-a-or-na" class="section level4">
 <h4>NULL SPACE of <span class="math inline">\(A\)</span> or <span class="math inline">\(N(A)\)</span>:</h4>
-<p>Solutions of <span class="math inline">\(Ax=0\)</span>. Hence the null space is in <span class="math inline">\(\mathbb R^n.\)</span></p>
+<ol style="list-style-type: decimal">
+<li>Solutions of <span class="math inline">\(Ax=0\)</span>. Hence the null space is in <span class="math inline">\(\mathbb R^n.\)</span></li>
+<li>A basis is the <a href="http://math.stackexchange.com/a/2103371/152225">special solutions</a>. There is one for every free variable. So…</li>
+<li>The dimension is <span class="math inline">\(n-r.\)</span></li>
+</ol>
 </div>
 <div id="row-space-ra-all-combinations-of-the-columns-of-atop-i.e.-catop" class="section level4">
 <h4>ROW SPACE <span class="math inline">\(R(A)\)</span>: All combinations of the columns of <span class="math inline">\(A^\top\)</span>, i.e. <span class="math inline">\(C(A^\top)\)</span></h4>
-<p>It lives in <span class="math inline">\(\mathbb R^n\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>It lives in <span class="math inline">\(\mathbb R^n\)</span>.</li>
+<li>It’s dimension is <span class="math inline">\(\color{red}{r}.\)</span> Same as for the column space.</li>
+<li>A basis for the row space is the first <span class="math inline">\(r\)</span> rows of the rref.</li>
+</ol>
 </div>
 <div id="null-space-of-atop-i.e.-natop---the-left-null-space-of-a" class="section level4">
 <h4>NULL SPACE of <span class="math inline">\(A^\top\)</span>, i.e. <span class="math inline">\(N(A^\top)\)</span> - THE LEFT NULL SPACE OF A:</h4>
-<p>It is in <span class="math inline">\(\mathbb R^m\)</span> because the null of <span class="math inline">\(A\)</span> is in <span class="math inline">\(\mathbb R^n.\)</span></p>
+<p>It’s called the <strong>left</strong> null space becasue <span class="math inline">\(A^\top \,y=0 \underset{\text{taken transpose both sides}}\implies y^T A.\)</span></p>
+<ol style="list-style-type: decimal">
+<li>It is in <span class="math inline">\(\mathbb R^m\)</span> because the null of <span class="math inline">\(A\)</span> is in <span class="math inline">\(\mathbb R^n.\)</span></li>
+<li>The dimension is <span class="math inline">\(m-r.\)</span></li>
+</ol>
 <hr />
 <p>There is the row space and the nullspace, which together form the domain of the linear transformation: <span class="math inline">\(\mathbb R^n\)</span>. Their intersection only contains <span class="math inline">\(1\)</span> element: the <span class="math inline">\(n\)</span> component <span class="math inline">\(0\)</span> vector.</p>
 <p>There is also the column space and the left nullspace, which together form the co-domain of the linear transformation: <span class="math inline">\(\mathbb R^m\)</span>. Their intersection only contains <span class="math inline">\(1\)</span> element: the <span class="math inline">\(m\)</span> component <span class="math inline">\(0\)</span> vector.</p>

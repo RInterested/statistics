@@ -97,7 +97,7 @@ Key facts:
 
 From [this entry in MathSE](http://math.stackexchange.com/a/456031/152225), and [Professor Strang's lectures](http://math.mit.edu/~gs/linearalgebra/ila0306.pdf).
 
-There are $4$ fundamental subspaces of an $m×n$ matrix:
+There are [$4$ fundamental subspaces of an $m×n$ matrix](https://drive.google.com/file/d/0Bwl-HpVJ_5PebWVXRWNodjlMcDg/view?usp=sharing):
 
 $$\large \mathbf {A} =\begin{bmatrix}
 \quad & \leftarrow  & n     & \rightarrow \quad \\  
@@ -117,19 +117,28 @@ m           &\quad  &\text{rank}=\color{red}{r}  &\quad\\
 
 ####COLUMN SPACE of $A$ or $C(A)$:
 
-Since it is linear combinations of columns, it is in $\mathbb R^m$
+1. Since it is linear combinations of columns, it is in $\mathbb R^m$.
+2. The dimension of the column space is the rank $\color{red}{r}.$ There are $r$ vectors in a basis.
+3. A basis is the pivot columns.
 
 ####NULL SPACE of $A$ or $N(A)$:
 
-Solutions of $Ax=0$. Hence the null space is in $\mathbb R^n.$
+1. Solutions of $Ax=0$. Hence the null space is in $\mathbb R^n.$
+2. A basis is the [special solutions](http://math.stackexchange.com/a/2103371/152225). There is one for every free variable. So...
+3. The dimension is $n-r.$
 
 ####ROW SPACE $R(A)$: All combinations of the columns of $A^\top$, i.e. $C(A^\top)$
 
-It lives in $\mathbb R^n$.
+1. It lives in $\mathbb R^n$.
+2. It's dimension is $\color{red}{r}.$ Same as for the column space.
+3. A basis for the row space is the first $r$ rows of the rref.
 
 ####NULL SPACE of $A^\top$, i.e. $N(A^\top)$ - THE LEFT NULL SPACE OF A:
 
-It is in $\mathbb R^m$ because the null of $A$ is in $\mathbb R^n.$
+It's called the **left** null space becasue $A^\top \,y=0 \underset{\text{taken transpose both sides}}\implies y^T A.$
+
+1. It is in $\mathbb R^m$ because the null of $A$ is in $\mathbb R^n.$
+2. The dimension is $m-r.$
 
 
 
