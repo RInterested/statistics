@@ -204,7 +204,7 @@ m           &amp;\quad  &amp;\text{rank}=\color{red}{r}  &amp;\quad\\
 <h4>NULL SPACE of <span class="math inline">\(A\)</span> or <span class="math inline">\(N(A)\)</span>:</h4>
 <ol style="list-style-type: decimal">
 <li>Solutions of <span class="math inline">\(Ax=0\)</span>. Hence the null space is in <span class="math inline">\(\mathbb R^n.\)</span></li>
-<li>A basis is the <a href="http://math.stackexchange.com/a/2103371/152225">special solutions</a>. There is one for every free variable. So…</li>
+<li>A basis is the <a href="http://math.stackexchange.com/a/2103371/152225">special solutions</a>. There is one for every free variable. There is an example below. So…</li>
 <li>The dimension is <span class="math inline">\(n-r.\)</span></li>
 </ol>
 </div>
@@ -233,8 +233,32 @@ m           &amp;\quad  &amp;\text{rank}=\color{red}{r}  &amp;\quad\\
 <p><span class="math inline">\(\text{rank(A) + null(A) = number of columns of A}\)</span></p>
 <p>See <a href="http://math.stackexchange.com/a/1871266/152225">this entry in MathSE</a> for an application.</p>
 <hr />
-<p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
+</div>
+<div id="free-variables-and-null-space" class="section level4">
+<h4>FREE VARIABLES AND NULL SPACE:</h4>
+<p><span class="math display">\[\mathbf Ax=\small\begin{bmatrix}1&amp;2&amp;1&amp;-3\\-2&amp;1&amp;-2&amp;1\\2&amp;0&amp;2&amp;-2\\1&amp;3&amp;1&amp;-4\end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}=\begin{bmatrix}3\\-1\\2\\4\end{bmatrix}\]</span></p>
+<p>The reduced row echelon form of <span class="math inline">\(\mathbf A\)</span> is:</p>
+<p><span class="math display">\[\text{rref(A)}=\tiny\begin{bmatrix}1&amp;0&amp;1&amp;-1\\0&amp;1&amp;0&amp;-1\\0&amp;0&amp;0&amp;0\\0&amp;0&amp;0&amp;0\end{bmatrix}\]</span></p>
+<p>So you have two linearly dependent rows (only two pivot columns). Therefore the <span class="math inline">\(\text{rank(A)}=2\)</span>, which implies that the cardinality of the column space is <span class="math inline">\(2.\)</span> We know that by the rank-nullity theorem that <span class="math inline">\(\text{rank(A)+ ker(A) = number of columns(A)}\)</span>. Therefore the nullity is <span class="math inline">\(2.\)</span> The matrix is rank deficient, and you have two free variables.</p>
+<p>Solving the system:</p>
+<ol style="list-style-type: decimal">
+<li>Find the reduced row echelon form of the augmented matrix (pivots boxed):</li>
+</ol>
+<p><span class="math display">\[\small\begin{bmatrix}1&amp;2&amp;1&amp;-3&amp;\vert&amp;3\\-2&amp;1&amp;-2&amp;1&amp;\vert&amp;-1\\2&amp;0&amp;2&amp;-2&amp;\vert&amp;2\\1&amp;3&amp;1&amp;-4&amp;\vert&amp;4\end{bmatrix}\underset{\text{Rref}}{\rightarrow}\begin{bmatrix}\boxed{1}&amp;0&amp;\color{blue}{1}&amp;\color{blue}{-1}&amp;\vert&amp;1\\0&amp;\boxed{1}&amp;\color{blue}{0}&amp;\color{blue}{-1}&amp;\vert&amp;1\\0&amp;0&amp;\color{blue}{0}&amp;\color{blue}{0}&amp;\vert&amp;0\\0&amp;0&amp;\color{blue}{0}&amp;\color{blue}{0}&amp;\vert&amp;0\end{bmatrix}\]</span></p>
+<p>The free variables correspond to the column vectors without a pivot row (in blue). They will be multiplied by <span class="math inline">\(x_3\)</span> and <span class="math inline">\(x_4\)</span> after solving the system, and the choice of <span class="math inline">\(x_3\)</span> and <span class="math inline">\(x_4\)</span> will make no difference, because they will be scalars in front of a vector in the null space of <span class="math inline">\(\mathbf A.\)</span> So we can even give them different names to identify them as free variables - for example, <span class="math inline">\(x_3=s\)</span> and <span class="math inline">\(x_4=t.\)</span> With this, we want to solve <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2,\)</span> keeping in mind:</p>
+<p><span class="math display">\[x_1\begin{bmatrix}1\\0\\0\\0\end{bmatrix}+x_2\begin{bmatrix}0\\1\\0\\0\end{bmatrix}+s\begin{bmatrix}1\\0\\0\\0\end{bmatrix}+t\begin{bmatrix}-1\\-1\\0\\0\end{bmatrix}=\begin{bmatrix}1\\1\\0\\0\end{bmatrix}\]</span></p>
+<p>The reduced echelon spells out:</p>
+\begin{align}1\,x_1 + 0\,x_2 +1s\,-1\,t&amp;=1;\quad x_1=1+0-1s+1t\\
+0\,x_1 + 1\,x_2 +0\,s-1t&amp;=1; \quad x_2 =0 + 1 +0\,s+1t\\
+&amp;x_3=s\\
+&amp;x_4=t
+\end{align}
+<p>We end up with</p>
+<p><span class="math display">\[\underset{\text{vectors }\in\text{ Col(A)}}{\underbrace{\begin{bmatrix}1\\0\\0\\0\end{bmatrix}+\begin{bmatrix}0\\1\\0\\0\end{bmatrix}}}+\underset{\text{null space of A}}{\underbrace{s\begin{bmatrix}-1\\0\\1\\0\end{bmatrix}+t\begin{bmatrix}1\\1\\0\\1\end{bmatrix}}}\]</span></p>
+<p><span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> are free variables. Scalars in <span class="math inline">\(\mathbb R.\)</span></p>
+<hr />
+<p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
 </div>
 

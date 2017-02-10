@@ -124,7 +124,7 @@ m           &\quad  &\text{rank}=\color{red}{r}  &\quad\\
 ####NULL SPACE of $A$ or $N(A)$:
 
 1. Solutions of $Ax=0$. Hence the null space is in $\mathbb R^n.$
-2. A basis is the [special solutions](http://math.stackexchange.com/a/2103371/152225). There is one for every free variable. So...
+2. A basis is the [special solutions](http://math.stackexchange.com/a/2103371/152225). There is one for every free variable. There is an example below. So...
 3. The dimension is $n-r.$
 
 ####ROW SPACE $R(A)$: All combinations of the columns of $A^\top$, i.e. $C(A^\top)$
@@ -160,6 +160,42 @@ Furthermore, the rank of the matrix is the dimension of both the column space an
 $\text{rank(A) + null(A) = number of columns of A}$
 
 See [this entry in MathSE](http://math.stackexchange.com/a/1871266/152225) for an application.
+
+---
+
+#### FREE VARIABLES AND NULL SPACE:
+
+$$\mathbf Ax=\small\begin{bmatrix}1&2&1&-3\\-2&1&-2&1\\2&0&2&-2\\1&3&1&-4\end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}=\begin{bmatrix}3\\-1\\2\\4\end{bmatrix}$$
+
+The reduced row echelon form of $\mathbf A$ is:
+
+$$\text{rref(A)}=\tiny\begin{bmatrix}1&0&1&-1\\0&1&0&-1\\0&0&0&0\\0&0&0&0\end{bmatrix}$$
+
+So you have two linearly dependent rows (only two pivot columns). Therefore the $\text{rank(A)}=2$, which implies that the cardinality of the column space is $2.$ We know that by the rank-nullity theorem that $\text{rank(A)+ ker(A) = number of columns(A)}$. Therefore the nullity is $2.$  The matrix is rank deficient, and you have two free variables.
+
+Solving the system:
+
+ 1. Find the reduced row echelon form of the augmented matrix (pivots boxed):
+
+$$\small\begin{bmatrix}1&2&1&-3&\vert&3\\-2&1&-2&1&\vert&-1\\2&0&2&-2&\vert&2\\1&3&1&-4&\vert&4\end{bmatrix}\underset{\text{Rref}}{\rightarrow}\begin{bmatrix}\boxed{1}&0&\color{blue}{1}&\color{blue}{-1}&\vert&1\\0&\boxed{1}&\color{blue}{0}&\color{blue}{-1}&\vert&1\\0&0&\color{blue}{0}&\color{blue}{0}&\vert&0\\0&0&\color{blue}{0}&\color{blue}{0}&\vert&0\end{bmatrix}$$
+
+The free variables correspond to the column vectors without a pivot row (in blue). They will be multiplied by $x_3$ and $x_4$ after solving the system, and the choice of $x_3$ and $x_4$ will make no difference, because they will be scalars in front of a vector in the null space of $\mathbf A.$ So we can even give them different names to identify them as free variables - for example, $x_3=s$ and $x_4=t.$ With this, we want to solve $x_1$ and $x_2,$ keeping in mind:
+
+$$x_1\begin{bmatrix}1\\0\\0\\0\end{bmatrix}+x_2\begin{bmatrix}0\\1\\0\\0\end{bmatrix}+s\begin{bmatrix}1\\0\\0\\0\end{bmatrix}+t\begin{bmatrix}-1\\-1\\0\\0\end{bmatrix}=\begin{bmatrix}1\\1\\0\\0\end{bmatrix}$$
+
+The reduced echelon spells out:
+
+\begin{align}1\,x_1 + 0\,x_2 +1s\,-1\,t&=1;\quad x_1=1+0-1s+1t\\
+0\,x_1 + 1\,x_2 +0\,s-1t&=1; \quad x_2 =0 + 1 +0\,s+1t\\
+&x_3=s\\
+&x_4=t
+\end{align}
+
+We end up with
+
+$$\underset{\text{vectors }\in\text{ Col(A)}}{\underbrace{\begin{bmatrix}1\\0\\0\\0\end{bmatrix}+\begin{bmatrix}0\\1\\0\\0\end{bmatrix}}}+\underset{\text{null space of A}}{\underbrace{s\begin{bmatrix}-1\\0\\1\\0\end{bmatrix}+t\begin{bmatrix}1\\1\\0\\1\end{bmatrix}}}$$
+
+$s$ and $t$ are free variables. Scalars in $\mathbb R.$
 
 
 ---
