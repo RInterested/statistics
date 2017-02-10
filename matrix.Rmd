@@ -85,13 +85,31 @@ which on the other hand implies that $\bf Ax=0$, so since $\bf A$ has full rank,
 
 ---
 
-#####Relationship row-space and null space:
+#####RELATIONSHIP BETWEEN DIMENSION AND RANK (Fundamental Theorem of Linear Algebra):
 
-From [this entry in MathSE](http://math.stackexchange.com/a/456031/152225):
+Key facts: 
+
+> The RANK ($r$) of a matrix is the number of PIVOTS. 
+
+> The DIMENSION of a subspace is the number of VECTORS in a BASIS.
+
+> The rank reveals the dimensions of all $4$ fundamental subspaces. 
+
+From [this entry in MathSE](http://math.stackexchange.com/a/456031/152225), and [Professor Strang's lectures](http://math.mit.edu/~gs/linearalgebra/ila0306.pdf).
 
 There are $4$ fundamental subspaces of an $m×n$ matrix:
 
-<img HEIGHT="200" src="https://i.stack.imgur.com/10ein.jpg">
+$$\large \mathbf {A} =\begin{bmatrix}
+\quad & \leftarrow  & n     & \rightarrow \quad \\  
+\uparrow    &\quad  &\quad\\
+m           &\quad  &\text{rank}=\color{red}{r}  &\quad\\
+\downarrow  &\quad  &\quad\\
+\quad       &\quad  &\quad
+\end{bmatrix}$$
+
+---
+
+<img width="600" src="https://cloud.githubusercontent.com/assets/9312897/22808216/d3965052-eef8-11e6-8288-87ceab7d8344.png">
 
 There is the row space and the nullspace, which together form the domain of the linear transformation: $\mathbb R^n$. Their intersection only contains $1$ element: the $n$ component $0$ vector.
 
