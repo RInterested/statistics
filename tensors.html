@@ -345,6 +345,69 @@ dx^1\\dx^2\\dx^3\\\vdots\\dx^n
 <p><span class="math display">\[\large a'_i= \frac{\partial u^\color{red}{j}}{\partial u'^i} a_\color{red}{j}\tag 9\]</span></p>
 <p>to get the equivalent to Eq. 6. But now it is a covariant sum over <span class="math inline">\(j\)</span>.</p>
 <hr />
+</div>
+<div id="coordinate-free-approach" class="section level4">
+<h4>COORDINATE-FREE APPROACH:</h4>
+<p>From <a href="https://www.youtube.com/watch?v=4l-qzZOZt50&amp;t=2395s">this youtube lecture</a>.</p>
+<p>Preliminary definitions:</p>
+<p>A <strong>field</strong> is a set <span class="math inline">\(k\)</span> with the triad <span class="math inline">\((k, +, \cdot)\)</span> denoting two maps:</p>
+<p><span class="math display">\[+: k \times k \rightarrow k\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\cdot: k\times k \rightarrow k\]</span></p>
+<p>that satisfy</p>
+<p><strong>CANI</strong> conditions: closure and commutativity (abelian), associativity, neutral element, inverse for every element. CANI is also satisfied by the addition and multiplication operations, except for having to remove in the multiplication case the neutral element of addition <span class="math inline">\(\\k\{0\}\)</span>.</p>
+<hr />
+<p>A <strong>ring</strong> <span class="math inline">\((R, +, \cdot)\)</span> is similar but CANI only applies to <span class="math inline">\(+\)</span>. For the multiplication operation the inverses (and commutativity) gone. So every field is a ring.</p>
+<p>Example: <span class="math inline">\((\mathbb Z, +, \cdot)\)</span> - the inverse of an inverse is not in the set.</p>
+<p>Example: <span class="math inline">\(m\times n\)</span> matrices over <span class="math inline">\(\mathbb R\)</span> are not commutative, and not all of them have inverses.</p>
+<hr />
+<p>A <span class="math inline">\(k\)</span> (<span class="math inline">\(k\)</span> is a field) <strong>vector space</strong> <span class="math inline">\((V, \color{red}{+}, \color{red}{\cdot})\)</span> has two operations defined, and different from the operations (<span class="math inline">\(+\)</span> and <span class="math inline">\(\cdot\)</span>) in the field, such that:</p>
+<p><span class="math display">\[+: V \times V \rightarrow V\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\cdot: k\times V \rightarrow V\]</span></p>
+<p><a href="http://math.stackexchange.com/q/1133260/152225">fulfilling</a> CANI for the <span class="math inline">\(\color{red}{+}\)</span> operation, but also ADDU: associativity, two distributive laws (over the <span class="math inline">\(+\)</span> of the field elements; or over the <span class="math inline">\(\color{red}{+}\)</span> of the vector sum operation), and scalar identity.</p>
+<p>A <strong>MODULE</strong> is the equivalent of a vector space over a RING, as opposed to a FIELD.</p>
+<hr />
+<p>A <a href="https://en.wikipedia.org/wiki/Homomorphism">homomorphism</a> is a structure-preserving linear map <span class="math inline">\(\large f\)</span> between two algebraic structures of the same type (such as two groups, two rings, or two vector spaces). In the case of two vector spaces, each equipped with <span class="math inline">\(+\)</span> and <span class="math inline">\(\cdot\)</span> operations (<span class="math inline">\(V\)</span> with <span class="math inline">\(\color{red}{+}\)</span> and <span class="math inline">\(\color{red}{\cdot}\)</span> and <span class="math inline">\(W\)</span> with <span class="math inline">\(\color{orange}{+}\)</span> and <span class="math inline">\(\color{orange}{\cdot}\)</span>):</p>
+<p><span class="math display">\[f: V \rightarrow W\]</span> fulfills:</p>
+<p><span class="math display">\[\forall v_1, v_2 \in V: f(v_1 \color{red}{+} v_2) = f(v_1) \color{orange}{+} f(v_2)\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\forall \lambda \in k, v\in V: f(\lambda \color{red}{\cdot} v) = \lambda\color{orange}{\cdot}f(v).\]</span></p>
+<p>A bijective linear map is called a vector space <strong>ISOMORPHISM</strong>.</p>
+<p>Two vector spaces <span class="math inline">\(V\)</span> and <span class="math inline">\(W\)</span> are isomorphic <span class="math inline">\(V\cong W\)</span> if <span class="math inline">\(\exists\)</span> and isomorphism: <span class="math inline">\(f: V\rightarrow W.\)</span></p>
+<p>An <strong>ENDOMORPHISM</strong> is a linear map of <span class="math inline">\(V\)</span> onto itself. Hence, <span class="math inline">\(End(V) := Hom(V,V).\)</span></p>
+<p>An <strong>AUTOMORPHISM</strong> is an <strong>invertible</strong> linear map of <span class="math inline">\(V\)</span> on itself. Hence, <span class="math inline">\(Aut(V) := \{f: V {overset}{sim}\rightarrow V | \text{invertible}\}\)</span></p>
+<p>Automorphisms are a subset <span class="math inline">\(Aut(V) \subset End(V)\)</span> of endomorphisms.</p>
+<hr />
+<p>We can define the set of <strong>ALL LINEAR MAPS</strong> from <span class="math inline">\(V \rightarrow W\)</span> as <span class="math inline">\(Hom(V,W):= \{f:V \overset{\sim}\rightarrow W\}\)</span> with the <span class="math inline">\(\sim\)</span> denoting <em>linear</em> map.</p>
+<p>Is this set of all linear maps a vector space? Yes, by defining,</p>
+<p><span class="math display">\[\boxed{\color{blue}{+}}: Hom(V, W) \times Hom(V,W) \rightarrow Hom(V,W)\]</span> by taking the pair of linear functions and mapping it to</p>
+<p><span class="math display">\[(f,g)\mapsto f\;\boxed{+}\;g,\]</span></p>
+<p>where <span class="math inline">\(f\;\boxed{+}\;g\)</span> is again a map from <span class="math inline">\(V\)</span> to <span class="math inline">\(W\)</span> defined by <span class="math inline">\(v\mapsto f(v) \color{orange}{+} g(v)\)</span></p>
+<p>and also defining</p>
+<p><span class="math display">\[\boxed{\color{blue}{\cdot}}:(\lambda\,\boxed{\color{blue}{\cdot}}\,g) (V)= \lambda \color{orange}{\cdot} g(V)\]</span></p>
+<hr />
+</div>
+<div id="v-star-dual-vector-space-or-v" class="section level4">
+<h4>V Star, DUAL VECTOR SPACE or <span class="math inline">\(V^*:\)</span></h4>
+<p><span class="math display">\[\Large V^* := Hom(V, k)\]</span></p>
+<p>Here <span class="math inline">\(k\)</span> is considered a vector space!</p>
+<p>So <span class="math inline">\(V^*\)</span> is a set of linear functionals from a vector space to the field <span class="math inline">\(k\)</span>, which is considered in this context just another vector space with addition and multiplication inherited from the field operations.</p>
+<hr />
+</div>
+<div id="tensor" class="section level4">
+<h4>TENSOR:</h4>
+<p>A <span class="math inline">\(p,q\)</span> <strong>tensor</strong>, <span class="math inline">\(T\)</span> is a <strong>MULTILINEAR MAP</strong> that takes <span class="math inline">\(p\)</span> copies of <span class="math inline">\(V^*\)</span> and <span class="math inline">\(q\)</span> copies of <span class="math inline">\(V\)</span> and maps multilinearly (linear in each entry) to <span class="math inline">\(k:\)</span></p>
+<p><span class="math display">\[T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times\times \cdots  V\times V}} \overset{\sim}\rightarrow K\]</span></p>
+<p>The <strong><span class="math inline">\((p,q)\)</span> TENSOR SPACE</strong> is defined as a set:</p>
+<p><span class="math display">\[T^p_q\,V = \underset{p}{\underbrace{V\otimes\cdots\otimes V}} \otimes \underset{q}{\underbrace{V^*\otimes\cdots\otimes V^*}}:=\{T | T \text{ is a (p,q) tensor}\}\]</span> is the set of all tensors where <span class="math inline">\(T\)</span> is (p,q).</p>
+<p>equipped this with pointwise addition and s-multiplication:</p>
+<p>E.g. if we have two <span class="math inline">\((1,1)\)</span> tensors, <span class="math inline">\(T\)</span> and <span class="math inline">\((S)\)</span>,</p>
+<p><span class="math display">\[\large (T + S)(\underset{\sigma\in V^*}{\underbrace{\sigma}}\, \underset{v\in V}{\underbrace{v}}):= T(\sigma, v) \underset{\text{operation defined in K}}{\underbrace{+}} S(\sigma, v)\]</span></p>
+<p>and</p>
+<p><span class="math display">\[(\lambda \cdot T)(\sigma, v):= \sigma \underset{\text{def. in k}}{\underbrace{\cdot}}T(\sigma, v).\]</span></p>
+<p>Hence the tensor space is a vector space.</p>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
 </div>
