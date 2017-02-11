@@ -139,7 +139,7 @@ To move on to **covariant tensors** it is necessary to discuss what a **gradient
 
 So if a scalar $\varphi$ is a function of $X^1$ and $X^2$, and we see a differential displacement $\vec{dl}$, the change in $\varphi$ will be given by:
 
-$$d\varphi =\underset{\text{grad. vec.}}{\underbrace{\frac{\partial \varphi}{\partial x^1}}}\,dx^1 + \underset{\text{grad. vec.}}{\underbrace{\frac{\partial \varphi}{\partial x^2}}}\,dx^2\tag 1$$
+$$\underset{\color{red}{\text{SCALAR}}}{\underbrace{\Huge{d\varphi}}} =\underset{\text{grad. vec.}}{\underbrace{\frac{\partial \varphi}{\partial x^1}}}\,dx^1 + \underset{\text{grad. vec.}}{\underbrace{\frac{\partial \varphi}{\partial x^2}}}\,dx^2\tag 1$$
 
 
 > KEY POINT: The gradient vector is in the dual space, taking in a "regular" vector and producing a scalar. In the case of the contravariant vector, a vector in a coordinate frame was transformed into another vector in a different frame.
@@ -423,6 +423,130 @@ $$\large a'_i= \frac{\partial u^\color{red}{j}}{\partial u'^i} a_\color{red}{j}\
 to get the equivalent to Eq. 6. But now it is a covariant sum over $j$.
 
 
+---
+
+####COORDINATE-FREE APPROACH:
+
+From [this youtube lecture](https://www.youtube.com/watch?v=4l-qzZOZt50&t=2395s).
+
+
+Preliminary definitions:
+
+A **field** is a set $k$ with the triad $(k, +, \cdot)$ denoting two maps:
+
+$$+: k \times k \rightarrow k$$
+
+and
+
+$$\cdot: k\times k \rightarrow k$$
+
+that satisfy
+
+**CANI**  conditions: closure and commutativity (abelian), associativity, neutral element, inverse for every element. CANI is also satisfied by the addition and multiplication operations, except for having to remove in the multiplication case the neutral element of addition $\\k\{0\}$.
+
+---
+
+A **ring** $(R, +, \cdot)$ is similar but CANI only applies to $+$. For the multiplication operation the inverses (and commutativity) gone. So every field is a ring.
+
+Example: $(\mathbb Z, +, \cdot)$ - the inverse of an inverse is not in the set.
+
+Example: $m\times n$ matrices over $\mathbb R$ are not commutative, and not all of them have inverses.
+
+---
+
+A $k$ ($k$ is a field) **vector space** $(V, \color{red}{+}, \color{red}{\cdot})$ has two operations defined, and different from the operations ($+$ and $\cdot$) in the field, such that:
+
+$$+: V \times V \rightarrow V$$
+
+and
+
+$$\cdot: k\times V \rightarrow V$$
+
+[fulfilling](http://math.stackexchange.com/q/1133260/152225) CANI for the $\color{red}{+}$ operation, but also ADDU: associativity, two distributive laws (over the $+$ of the field elements; or over the $\color{red}{+}$ of the vector sum operation), and scalar identity.
+
+A **MODULE** is the equivalent of a vector space over a RING, as opposed to a FIELD.
+
+---
+
+A [homomorphism](https://en.wikipedia.org/wiki/Homomorphism) is a structure-preserving linear map $\large f$ between two algebraic structures of the same type (such as two groups, two rings, or two vector spaces). In the case of two vector spaces, each equipped with $+$ and $\cdot$ operations ($V$ with $\color{red}{+}$ and $\color{red}{\cdot}$ and $W$ with $\color{orange}{+}$ and $\color{orange}{\cdot}$):
+
+$$f: V \rightarrow W$$ fulfills:
+
+$$\forall v_1, v_2 \in V: f(v_1 \color{red}{+} v_2) = f(v_1) \color{orange}{+} f(v_2)$$
+
+and
+
+
+$$\forall \lambda \in k, v\in V: f(\lambda \color{red}{\cdot} v) = \lambda\color{orange}{\cdot}f(v).$$
+
+A bijective linear map is called a vector space **ISOMORPHISM**.
+
+Two vector spaces $V$ and $W$ are isomorphic $V\cong W$ if $\exists$ and isomorphism: $f: V\rightarrow W.$
+
+An **ENDOMORPHISM** is a linear map of $V$ onto itself. Hence, $End(V) := Hom(V,V).$
+
+An **AUTOMORPHISM** is an **invertible** linear map of $V$ on itself. Hence, $Aut(V) := \{f: V {overset}{sim}\rightarrow V | \text{invertible}\}$
+
+Automorphisms are a subset $Aut(V) \subset End(V)$ of endomorphisms.
+
+---
+
+We can define the set of **ALL LINEAR MAPS** from $V \rightarrow W$ as $Hom(V,W):= \{f:V \overset{\sim}\rightarrow W\}$ with the $\sim$ denoting *linear* map.
+
+Is this set of all linear maps a vector space? Yes, by defining,
+
+$$\boxed{\color{blue}{+}}: Hom(V, W) \times Hom(V,W) \rightarrow Hom(V,W)$$ by taking the pair of linear functions and mapping it to
+
+$$(f,g)\mapsto f\;\boxed{+}\;g,$$ 
+
+where $f\;\boxed{+}\;g$ is again a map from $V$ to $W$ defined by $v\mapsto f(v) \color{orange}{+} g(v)$
+
+and also defining 
+
+$$\boxed{\color{blue}{\cdot}}:(\lambda\,\boxed{\color{blue}{\cdot}}\,g) (V)= \lambda \color{orange}{\cdot} g(V)$$
+
+---
+
+####V Star, DUAL VECTOR SPACE or $V^*:$
+
+$$\Large V^* := Hom(V, k)$$
+
+Here $k$ is considered a vector space!
+
+So $V^*$ is a set of linear functionals from a vector space to the field $k$, which is considered in this context just another vector space with addition and multiplication inherited from the field operations.
+
+---
+
+####TENSOR:
+
+A $p,q$ **tensor**, $T$ is a **MULTILINEAR MAP** that takes $p$ copies of $V^*$ and $q$ copies of $V$ and maps multilinearly (linear in each entry) to $k:$
+
+$$T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times\times \cdots  \times V}} \overset{\sim}\rightarrow K$$
+
+The **$(p,q)$ TENSOR SPACE** is defined as a set:
+
+$$\begin{align}T^p_q\,V &= \underset{p}{\underbrace{V\otimes\cdots\otimes V}} \otimes \underset{q}{\underbrace{V^*\otimes\cdots\otimes V^*}}:=\{T\, |\, T\, \text{ is a (p,q) tensor}\}\tag1\\[3ex]&=\{T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times \cdots \times V}} \overset{\sim}\rightarrow K\}\end{align}\tag2$$ 
+
+is the set of all tensors where $T$ is (p,q),
+
+equipped this with pointwise addition and s-multiplication:
+
+E.g. if we have two $(1,1)$ tensors, $T$ and $(S)$,
+
+$$\large (T + S)(\underset{\sigma\in V^*}{\underbrace{\sigma}}\, \underset{v\in V}{\underbrace{v}}):= T(\sigma, v) \underset{\text{operation defined in K}}{\underbrace{+}} S(\sigma, v)$$
+
+and
+
+$$(\lambda \cdot T)(\sigma, v):= \sigma \underset{\text{def. in k}}{\underbrace{\cdot}}T(\sigma, v).$$
+
+
+---
+
+We can say that the $p$ elements $V^*\times V^*\times\cdots$ in Eq. 2 are linear functionals waiting for a vector $V$ to produce real numbers that are later multiplied. The $q$ $V$ elements in $V\times V\times\cdots$ are vectors in $V$ "waiting" for a functional to be mapped into $K$? Since we are defining a set, it can be any functional.
+
+---
+
+Notice that $\left(T^p_q, +, \cdot \right)$ is a vector space.
 
 ---
 
