@@ -425,14 +425,14 @@ to get the equivalent to Eq. 6. But now it is a covariant sum over $j$.
 
 ---
 
-####COORDINATE-FREE APPROACH:
+###COORDINATE-FREE APPROACH:
 
 From [this youtube lecture](https://www.youtube.com/watch?v=4l-qzZOZt50&t=2395s).
 
 
 Preliminary definitions:
 
-A **field** is a set $k$ with the triad $(k, +, \cdot)$ denoting two maps:
+A [**field**](https://en.wikipedia.org/wiki/Field_(mathematics)) is a set $k$ with the triad $(k, +, \cdot)$ denoting two maps:
 
 $$+: k \times k \rightarrow k$$
 
@@ -446,7 +446,7 @@ that satisfy
 
 ---
 
-A **ring** $(R, +, \cdot)$ is similar but CANI only applies to $+$. For the multiplication operation the inverses (and commutativity) gone. So every field is a ring.
+A [**ring**](https://en.wikipedia.org/wiki/Ring_(mathematics)) $(R, +, \cdot)$ is similar but CANI only applies to $+$. For the multiplication operation the inverses (and commutativity) gone. So every field is a ring.
 
 Example: $(\mathbb Z, +, \cdot)$ - the inverse of an inverse is not in the set.
 
@@ -507,7 +507,7 @@ $$\boxed{\color{blue}{\cdot}}:(\lambda\,\boxed{\color{blue}{\cdot}}\,g) (V)= \la
 
 ---
 
-####V Star, DUAL VECTOR SPACE or $V^*:$
+####$V$ Star, DUAL VECTOR SPACE or $V^*:$
 
 $$\Large V^* := Hom(V, k)$$
 
@@ -519,34 +519,65 @@ So $V^*$ is a set of linear functionals from a vector space to the field $k$, wh
 
 ####TENSOR:
 
-A $p,q$ **tensor**, $T$ is a **MULTILINEAR MAP** that takes $p$ copies of $V^*$ and $q$ copies of $V$ and maps multilinearly (linear in each entry) to $k:$
+The definition of the space of $(p,q)$ tensors as the **set** of multilinear maps from the Cartesian product of elements of a vector space and its dual onto the field, equipped with addition and s-multiplication rules, given in [this series at this point in time](https://youtu.be/4l-qzZOZt50?t=33m7s) as follows:
 
-$$T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times\times \cdots  \times V}} \overset{\sim}\rightarrow K$$
+A $(p,q)$ **tensor**, $T$ is a **MULTILINEAR MAP** that takes $p$ copies of $V^*$ and $q$ copies of $V$ and maps multilinearly (linear in each entry) to $k:$
+
+$$T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times\times \cdots  V\times V}} \overset{\sim}\rightarrow K\tag 1$$
 
 The **$(p,q)$ TENSOR SPACE** is defined as a set:
 
-$$\begin{align}T^p_q\,V &= \underset{p}{\underbrace{V\otimes\cdots\otimes V}} \otimes \underset{q}{\underbrace{V^*\otimes\cdots\otimes V^*}}:=\{T\, |\, T\, \text{ is a (p,q) tensor}\}\tag1\\[3ex]&=\{T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times \cdots \times V}} \overset{\sim}\rightarrow K\}\end{align}\tag2$$ 
+$$\begin{align}T^p_q\,V &= \underset{p}{\underbrace{V\color{darkorange}{\otimes}\cdots\color{darkorange}{\otimes} V}} \color{darkorange}{\otimes} \underset{q}{\underbrace{V^*\color{darkorange}{\otimes}\cdots\color{darkorange}{\otimes} V^*}}:=\{T\, |\, T\, \text{ is a (p,q) tensor}\}\tag2\\[3ex]&=\{T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times \cdots \times V}} \overset{\sim}\rightarrow K\}\end{align}\tag3$$ 
 
-is the set of all tensors where $T$ is (p,q),
+This expression symbolizing the set of all tensors where $T$ is $(p,q)$, equipped this with pointwise addition and s-multiplication.
 
-equipped this with pointwise addition and s-multiplication:
+This is (not surprisingly) consistent with the [Wikipedia definition of tensors as multilinear maps](https://en.wikipedia.org/wiki/Tensor#As_multilinear_maps).
 
-E.g. if we have two $(1,1)$ tensors, $T$ and $(S)$,
+[This answer](http://math.stackexchange.com/a/2141663/152225) in MathSE expains this notation:
 
-$$\large (T + S)(\underset{\sigma\in V^*}{\underbrace{\sigma}}\, \underset{v\in V}{\underbrace{v}}):= T(\sigma, v) \underset{\text{operation defined in K}}{\underbrace{+}} S(\sigma, v)$$
+Let's first look at a very special type of tensor, namely the (0,1) tensor. What is it? Well, it is the tensor product of $0$ copies of members of $V$ and one copy of members of $V^*$. That is, it is a member of $V^*$.
 
-and
+But what is a member of $V^*$? Well, by the very definition of $V^*$ is is a linear function $\phi:V\to K$. Let's write this explicitly:
+$$T^0_1V = V^* = \{\phi:V\to K|\phi \text{ is linear}\}$$
+You see, already at this point, where we didn't even use a tensor product, we get a $V^*$ on one side, and a $V$ on the other, simply by inserting the definition of $V^*$.
 
-$$(\lambda \cdot T)(\sigma, v):= \sigma \underset{\text{def. in k}}{\underbrace{\cdot}}T(\sigma, v).$$
+From this, it is obvious why $(0,q)$-tensors have $q$ copies of $V^*$ in the tensor product $(2)$, but $q$ copies of $V$ in the domain of the multilinear function in $(3)$.
 
+OK, but why do you have a $V^*$ in the map in $(3)$ for each factor $V$ in the tensor product? After all, vectors are not functions, are they?
 
----
+Well, in some sense they are: There is a natural linear map from $V$ to its double dual $V^{**}$, that is, the set of linear functions from $V^*$ to $K$. Indeed, for finite dimensional vector spaces, you even have that $V^{**} \cong V$. This natural map is defined by the condition that applying the image of $v$ to $\phi\in V^*$ gives the same value as applying $\phi$ to $v$. I suspect that the lecture assumes finite dimensional vector spaces. In that case, you can *identify* $V$ with $V^{**}$, and therefore you get
+$$T^1_0V = V = V^{**} = \{T:V^*\to K|T \text{ is linear}\}$$
+Here the second equality is exactly that identification.
 
-We can say that the $p$ elements $V^*\times V^*\times\cdots$ in Eq. 2 are linear functionals waiting for a vector $V$ to produce real numbers that are later multiplied. The $q$ $V$ elements in $V\times V\times\cdots$ are vectors in $V$ "waiting" for a functional to be mapped into $K$? Since we are defining a set, it can be any functional.
+Now again it should be obvious why $p$ copies of $V$ in the tensor product $(2)$ give $p$ factors of $V^*$ for the domain of the multilinear functions in $(3)$.
 
----
+On the relations of those terms to the Kronecker product.
 
-Notice that $\left(T^p_q, +, \cdot \right)$ is a vector space.
+The tensor product $\color{darkorange}{\otimes}$ in $(2)$ is a tensor product not of (co)vectors, but of (co)vector *spaces*. The result of that tensor product describes not one tensor, but the set of all tensors of a given type. The tensors are then elements of the corresponding set. And given a basis of $V$, the tensors can then be specified by giving their coefficients in that basis.
+
+This is completely analogous to the vector space itself. We have the vector space, $V$, this vector space contains vectors $v\in V$, and given a basis $\{e_i\}$ of $V$, we can write the vector in components, $v = \sum_i v^i e_i$.
+
+Similarly for $V^*$, we can write each member $\phi\in V^*$ in the dual basis $\omega^i$ (defined by $\omega^i(e_j)=\delta^i_j$) as $\sum_i \phi_i \omega^i$. An alternative way to get the components $\phi_i$ is to notice that $\phi(e_k) = \sum_i \phi_i \omega^i(e_k) = \sum_i \phi_i \delta^i_k = \phi_k$. That is, the components of the covector are just the function values at the basis vectors.
+
+This way one also sees immediately that $\phi(v) = \sum_i \phi(v^i e_i) = \sum_i v^i\phi(e_i) = \sum_i v^i \phi_i$, which is *sort of* like an inner product, but not exactly, because it behaves differently at change of basis.
+
+Now let's look at a $(0,2)$ tensor, that is, a bilinear function $f:V\times V\to K$. Note that $f\in V^*\color{darkorange}{\otimes} V^*$, as $V^*\color{darkorange}{\otimes} V^*$ is by definition the set of all such functions (see eq. $(3)$). Now by being a bilinear function, one again only needs to know the values at the basis vectors, as
+$$f(v,w) = f(\sum_i v^i e_i, \sum_j w^j e_j) = \sum_{i,j}v^i w^j f(e_i,e_j)$$
+and therefore we can define as components $f_{ij} = f(e_i,e_j)$ and get $f(v,w)=\sum_{i,j}f_{ij}v^iw^j$.
+
+This goes also for general tensors: A single tensor $T\in T^p_qV$ is a multilinear function $T:(V^*)^p\times V^q\to K$, and it is completely determined by the values you get when inserting basis vectors and basis covectors everywhere, giving the components
+$$T^{i\ldots j}_{k\ldots l}=T(\underbrace{\omega^i,\ldots,\omega^j}_{p},\underbrace{e_k,\ldots,e_l}_{q})$$
+
+OK, we now have components, but we have still not defined the tensor product *of tensors.* But that is actually quite easy:
+
+Be $x\in T^p_qV$, and $y\in T^r_sV$. That is, $x$ is a function that takes $p$ vectors and $q$ covectors, and gives a scalar, while $y$ takes $r$ vectors and $s$ covectors to a scalar. Then the tensor product $x\color{blue}{\otimes} y$ is a function that takes $p+r$ covectors and $q+s$ vectors, feeds the first $p$ covectors and the first $q$ vectors to $x$, and the remaining $r$ covectors and $s$ vectors to $y$, and them multiplies the result. That is,
+$$(x\color{blue}{\otimes} y)(v_1,\ldots,v_{p+r},\phi_1,\ldots,\phi_{q+s}) = x(\phi_1,\ldots,\phi_p,v_1,\ldots,v_q)\cdot y(\phi_{p+1},\ldots,\phi_{p+r},v_{q+1},\ldots,v_{p+s})$$
+It is not hard to check that this function is indeed also multilinear, and therefore $x\color{blue}{\otimes} y\in T^{p+r}_{q+s}V$.
+
+And now finally, we get to the question what the components of $x\color{blue}{\otimes} y$ are. Well, the components of $x\color{blue}{\otimes} y$ are just the function values when inserting basis vectors and basis covectors, and when you do that and use the definition of the tensor product, you find that indeed, the components of the tensor product are the Kronecker product of the components of the factors.
+
+Also, it can be shown that $T^p_qV$ is a vector space in its own right, and therefore the $(p,q)$-tensors can be written as the linear combination of a basis that is $1$ exactly for one combination of basis vectors and basis covectors and $0$ for all other combinations. However it can then easily be seen that this is just the tensor product of the corresponding dual covectors/vectors. Since furthermore in that basis, the coefficients on the basis vectors are just the components of the tensor as introduced before, we finally arrive at the formula
+$$T = \sum T^{i\ldots j}_{k\ldots l}\underbrace{e_i\color{blue}{\otimes}\dots\color{blue}{\otimes} e_j}_{p}\color{blue}{\otimes}\underbrace{\omega^k\color{blue}{\otimes}\dots,\color{blue}{\otimes}\;\omega^l}_{q}$$
 
 ---
 
