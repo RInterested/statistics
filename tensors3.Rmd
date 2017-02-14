@@ -1,3 +1,9 @@
+---
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+<link rel="shortcut icon" type="image/png"href="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"/>
+---
+
+
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
@@ -129,7 +135,7 @@ Here the second equality is exactly that identification.
 
 Now again it should be obvious why $p$ copies of $V$ in the tensor product $(2)$ give $p$ factors of $V^*$ for the domain of the multilinear functions in $(3)$.
 
-On the relations of those terms to the Kronecker product.
+On the relations of those terms to the Kronecker product:
 
 The tensor product $\color{darkorange}{\otimes}$ in $(2)$ is a tensor product not of (co)vectors, but of (co)vector *spaces*. The result of that tensor product describes not one tensor, but the set of all tensors of a given type. The tensors are then elements of the corresponding set. And given a basis of $V$, the tensors can then be specified by giving their coefficients in that basis.
 
@@ -144,12 +150,12 @@ $$f(v,w) = f(\sum_i v^i e_i, \sum_j w^j e_j) = \sum_{i,j}v^i w^j f(e_i,e_j)$$
 and therefore we can define as components $f_{ij} = f(e_i,e_j)$ and get $f(v,w)=\sum_{i,j}f_{ij}v^iw^j$.
 
 This goes also for general tensors: A single tensor $T\in T^p_qV$ is a multilinear function $T:(V^*)^p\times V^q\to K$, and it is completely determined by the values you get when inserting basis vectors and basis covectors everywhere, giving the components (components are **numbers!**)
-$$T^{i\ldots j}_{k\ldots l}=T(\underbrace{\omega^i,\ldots,\omega^j}_{p},\underbrace{e_k,\ldots,e_l}_{q})$$
+$$T^{i\ldots j}_{k\ldots l}=T(\underbrace{\omega^i,\ldots,\omega^j}_{p},\underbrace{e_k,\ldots,e_l}_{q})\in K$$
 
 OK, we now have components, but we have still not defined the tensor product *of tensors.* But that is actually quite easy:
 
 Be $x\in T^p_qV$, and $y\in T^r_sV$. That is, $x$ is a function that takes $p$ vectors and $q$ covectors, and gives a scalar, while $y$ takes $r$ vectors and $s$ covectors to a scalar. Then the tensor product $x\color{blue}{\otimes} y$ is a function that takes $p+r$ covectors and $q+s$ vectors, feeds the first $p$ covectors and the first $q$ vectors to $x$, and the remaining $r$ covectors and $s$ vectors to $y$, and them multiplies the result. That is,
-$$(x\color{blue}{\otimes} y)(v_1,\ldots,v_{p+r},\phi_1,\ldots,\phi_{q+s}) = x(\phi_1,\ldots,\phi_p,v_1,\ldots,v_q)\cdot y(\phi_{p+1},\ldots,\phi_{p+r},v_{q+1},\ldots,v_{p+s})$$
+$$(x\color{blue}{\otimes} y)(v_1,\ldots,v_{p+r},\phi_1,\ldots,\phi_{q+s}) = x(\phi_1,\ldots,\phi_p,v_1,\ldots,v_q)\underset{\text{scalar}}{\cdot} y(\phi_{p+1},\ldots,\phi_{p+r},v_{q+1},\ldots,v_{p+s})$$
 It is not hard to check that this function is indeed also multilinear, and therefore $x\color{blue}{\otimes} y\in T^{p+r}_{q+s}V$.
 
 And now finally, we get to the question what the components of $x\color{blue}{\otimes} y$ are. Well, the components of $x\color{blue}{\otimes} y$ are just the function values when inserting basis vectors and basis covectors, and when you do that and use the definition of the tensor product, you find that indeed, the components of the tensor product are the Kronecker product of the components of the factors.
