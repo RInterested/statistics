@@ -32,7 +32,7 @@ Example: $m\times n$ matrices over $\mathbb R$ are not commutative, and not all 
 
 ---
 
-A $k$ ($k$ is a field) **vector space** $(V, \color{red}{+}, \color{red}{\cdot})$ has two operations defined, and different from the operations ($+$ and $\cdot$) in the field, such that:
+A $k$ ($k$ is a field) **vector space** $(V, \color{red}{+}, \color{red}{\cdot})$ has two operations defined, and different from the operations ($+$ and $\cdot$) in the field, such that
 
 $$+: V \times V \rightarrow V$$
 
@@ -155,7 +155,9 @@ $$T^{i\ldots j}_{k\ldots l}=T(\underbrace{\omega^i,\ldots,\omega^j}_{p},\underbr
 
 OK, we now have components, but we have still not defined the tensor product *of tensors.* This is a way to generate new tensors from old tensors. Another way is to add tensors, which is a map from the Cartesian product $T^p_q\,V\,\times\,T^p_q\,V\rightarrow T^p_q\,V.$ Notice that the valence of the tensor does not change.
 
+
 #####Tensor product:
+
 
 Be $x\in T^p_qV$, and $y\in T^r_sV$. That is, $x$ is a function that takes $p$ vectors and $q$ covectors, and gives a scalar, while $y$ takes $r$ vectors and $s$ covectors to a scalar. Then the tensor product $x\color{blue}{\otimes} y$ is a function that takes $p+r$ covectors and $q+s$ vectors, feeds the first $p$ covectors and the first $q$ vectors to $x$, and the remaining $r$ covectors and $s$ vectors to $y$, and them multiplies the result. That is,
 $$(x\color{blue}{\otimes} y)(v_1,\ldots,v_{p+r},\phi_1,\ldots,\phi_{q+s}) = x(\phi_1,\ldots,\phi_p,v_1,\ldots,v_q)\underset{\text{scalar}}{\cdot} y(\phi_{p+1},\ldots,\phi_{p+r},v_{q+1},\ldots,v_{p+s})$$
