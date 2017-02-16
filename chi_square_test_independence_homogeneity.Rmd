@@ -182,7 +182,7 @@ $\sum \frac{(O-E)^2}{E}$ with $\small df = (rows-1)*(cols - 1)$
 
 The exact p-value can be obtained with a Monte Carlo simulation:
 
-```{r,echo=F, warning=F}
+```{r, warning=F}
 library(gsheet)
 data <- read.csv(text =  gsheet2text('https://docs.google.com/spreadsheets/d/1w575Rfj2QY30wWc6piunwcyDOfYQfL-5KSulJIQ3ego/edit?usp=sharing',format ='csv'))
 data <- data[,-1]
@@ -191,7 +191,8 @@ data <- data[,-1]
 We need first the dataset in long format:
 
 ```{r}
-head(data)
+data[1:3,]
+tail(data)
 ```
 
 If we perform first the chi square test on the dataset:
