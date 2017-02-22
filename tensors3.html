@@ -140,6 +140,18 @@ $(document).ready(function () {
 <p>and</p>
 <p><span class="math display">\[\cdot: k\times V \rightarrow V\]</span></p>
 <p><a href="http://math.stackexchange.com/q/1133260/152225">fulfilling</a> CANI for the <span class="math inline">\(\color{red}{+}\)</span> operation, but also ADDU: associativity, two distributive laws (over the <span class="math inline">\(+\)</span> of the field elements; or over the <span class="math inline">\(\color{red}{+}\)</span> of the vector sum operation), and scalar identity.</p>
+<p>More formally,</p>
+<ol style="list-style-type: decimal">
+<li>Associativity of addition</li>
+<li>Commutativity of addition</li>
+<li>Identity element of addition</li>
+<li>Inverse element of addition</li>
+<li>Compatibility of scalar multiplication with field multiplication <span class="math inline">\(a(b\mathbf v)=(ab)\mathbf v\)</span></li>
+<li>Identity element of scalar multiplication</li>
+<li>Distributivity of scalar multiplication w.r.t. vector addition</li>
+<li>Distributivity of scalar multiplication w.r.t. field addition</li>
+</ol>
+<hr />
 <p>A <strong>MODULE</strong> is the equivalent of a vector space over a RING, as opposed to a FIELD.</p>
 <hr />
 <p>A <a href="https://en.wikipedia.org/wiki/Homomorphism">homomorphism</a> is a structure-preserving linear map <span class="math inline">\(\large f\)</span> between two algebraic structures of the same type (such as two groups, two rings, or two vector spaces). In the case of two vector spaces, each equipped with <span class="math inline">\(+\)</span> and <span class="math inline">\(\cdot\)</span> operations (<span class="math inline">\(V\)</span> with <span class="math inline">\(\color{red}{+}\)</span> and <span class="math inline">\(\color{red}{\cdot}\)</span> and <span class="math inline">\(W\)</span> with <span class="math inline">\(\color{orange}{+}\)</span> and <span class="math inline">\(\color{orange}{\cdot}\)</span>):</p>
@@ -182,7 +194,9 @@ $(document).ready(function () {
 <p><span class="math display">\[(T+S)(\underbrace{\sigma}_{\text{eat element of }V^*},\underbrace{\mathbf v}_{\text{eat element of }V}) :=T(\sigma,\mathbf v) \underbrace{+}_{\text{field}}S(\sigma,\mathbf v)\]</span></p>
 <p>and</p>
 <p><span class="math display">\[(\lambda T)(\sigma,\mathbf v) :=\lambda \underbrace{\cdot}_{\text{multip. in k}}T(\sigma, \mathbf v)\]</span></p>
+<p>So this set of tensors, equipped with these two operations fulfills the requisites of a vector space <span class="math inline">\((T^p_qV, +, \cdot)\)</span>.</p>
 <p>This is (not surprisingly) consistent with the <a href="https://en.wikipedia.org/wiki/Tensor#As_multilinear_maps">Wikipedia definition of tensors as multilinear maps</a>.</p>
+<hr />
 <p><a href="http://math.stackexchange.com/a/2141663/152225">This answer</a> in MathSE expains this notation:</p>
 <p>Let’s first look at a very special type of tensor, namely the (0,1) tensor. What is it? Well, it is the tensor product of <span class="math inline">\(0\)</span> copies of members of <span class="math inline">\(V\)</span> and one copy of members of <span class="math inline">\(V^*\)</span>. That is, it is a member of <span class="math inline">\(V^*\)</span>.</p>
 <p>But what is a member of <span class="math inline">\(V^*\)</span>? Well, by the very definition of <span class="math inline">\(V^*\)</span> is is a linear function <span class="math inline">\(\phi:V\to K\)</span>. Let’s write this explicitly: <span class="math display">\[T^0_1V = V^* = \{\phi:V\to K|\phi \text{ is linear}\}\]</span> You see, already at this point, where we didn’t even use a tensor product, we get a <span class="math inline">\(V^*\)</span> on one side, and a <span class="math inline">\(V\)</span> on the other, simply by inserting the definition of <span class="math inline">\(V^*\)</span>.</p>
