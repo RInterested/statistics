@@ -61,19 +61,19 @@ A bijective linear map is called a vector space **ISOMORPHISM**.
 
 Two vector spaces $V$ and $W$ are isomorphic $V\cong W$ if $\exists$ and isomorphism: $f: V\rightarrow W.$
 
-An **ENDOMORPHISM** is a linear map of $V$ onto itself. Hence, $End(V) := Hom(V,V).$
+An **ENDOMORPHISM** is a linear map of $V$ onto itself. Hence, $\text{End}(V) := \text{Hom}(V,V).$
 
-An **AUTOMORPHISM** is an **invertible** linear map of $V$ on itself. Hence, $Aut(V) := \{f: V {overset}{sim}\rightarrow V | \text{invertible}\}$
+An **AUTOMORPHISM** is an **invertible** linear map of $V$ on itself. Hence, $\text{Aut}(V) := \{f: V \overset{\sim}\rightarrow V | \text{invertible}\}$
 
-Automorphisms are a subset $Aut(V) \subset End(V)$ of endomorphisms.
+Automorphisms are a subset $\text{Aut}(V) \subset \text{End}(V)$ of endomorphisms.
 
 ---
 
-We can define the set of **ALL LINEAR MAPS** from $V \rightarrow W$ as $Hom(V,W):= \{f:V \overset{\sim}\rightarrow W\}$ with the $\sim$ denoting *linear* map.
+We can define the set of **ALL LINEAR MAPS** from $V \rightarrow W$ as $\text{Hom}(V,W):= \{f:V \overset{\sim}\rightarrow W\}$ with the $\sim$ denoting *linear* map.
 
 Is this set of all linear maps a vector space? Yes, by defining,
 
-$$\boxed{\color{blue}{+}}: Hom(V, W) \times Hom(V,W) \rightarrow Hom(V,W)$$ by taking the pair of linear functions and mapping it to
+$$\boxed{\color{blue}{+}}: \text{Hom}(V, W) \times \text{Hom}(V,W) \rightarrow \text{Hom}(V,W)$$ by taking the pair of linear functions and mapping it to
 
 $$(f,g)\mapsto f\;\boxed{+}\;g,$$ 
 
@@ -85,7 +85,7 @@ $$\boxed{\color{blue}{\cdot}}:(\lambda\,\boxed{\color{blue}{\cdot}}\,g) (V)= \la
 
 ---
 
-####$V$ Star, DUAL VECTOR SPACE or $V^*:$
+####$V$ STAR, DUAL VECTOR SPACE or $V^*:$
 
 $$\large V^* := \text{Hom}(V, k)$$
 
@@ -159,8 +159,8 @@ OK, we now have components, but we have still not defined the tensor product *of
 #####Tensor product:
 
 
-Be $x\in T^p_qV$, and $y\in T^r_sV$. That is, $x$ is a function that takes $p$ vectors and $q$ covectors, and gives a scalar, while $y$ takes $r$ vectors and $s$ covectors to a scalar. Then the tensor product $x\color{blue}{\otimes} y$ is a function that takes $p+r$ covectors and $q+s$ vectors, feeds the first $p$ covectors and the first $q$ vectors to $x$, and the remaining $r$ covectors and $s$ vectors to $y$, and them multiplies the result. That is,
-$$(x\color{blue}{\otimes} y)(v_1,\ldots,v_{p+r},\phi_1,\ldots,\phi_{q+s}) = x(\phi_1,\ldots,\phi_p,v_1,\ldots,v_q)\underset{\text{scalar}}{\cdot} y(\phi_{p+1},\ldots,\phi_{p+r},v_{q+1},\ldots,v_{p+s})$$
+Be $x\in T^p_qV$, and $y\in T^r_sV$. That is, $x$ is a function that takes $p$ covectors and $q$ vectors, and gives a scalar, while $y$ takes $r$ covectors and $s$ vectors to a scalar. Then the tensor product $x\color{blue}{\otimes} y$ is a function that takes $p+r$ covectors and $q+s$ vectors, feeds the first $p$ covectors and the first $q$ vectors to $x$, and the remaining $r$ covectors and $s$ vectors to $y$, and them multiplies the result. That is,
+$$(x\color{blue}{\otimes} y)(\phi_1,\ldots,\phi_{p+r},v_1,\ldots,v_{q+s}) = x(\phi_1,\ldots,\phi_p,v_1,\ldots,v_q)\underset{\text{scalar}}{\cdot} y(\phi_{p+1},\ldots,\phi_{p+r},v_{q+1},\ldots,v_{q+s})$$
 It is not hard to check that this function is indeed also multilinear, and therefore $x\color{blue}{\otimes} y\in T^{p+r}_{q+s}V$.
 
 And now finally, we get to the question what the components of $x\color{blue}{\otimes} y$ are. Well, the components of $x\color{blue}{\otimes} y$ are just the function values when inserting basis vectors and basis covectors, and when you do that and use the definition of the tensor product, you find that indeed, the components of the tensor product are the Kronecker product of the components of the factors.
