@@ -220,21 +220,29 @@ $(document).ready(function () {
 </ol>
 <hr />
 </div>
-<div id="basis-of-a-tensor-space" class="section level4">
-<h4>Basis of a tensor space:</h4>
-<p>We need a basis for a tensor spce in order to talk about the components of a tensor. So if we have <span class="math inline">\(T\in T^p_q V\)</span> and <span class="math inline">\(V&lt;\infty\)</span> with <span class="math inline">\(\large\{e_1,\cdots,e_{\text{dim } V}\}\)</span> being the basis of <span class="math inline">\(V\)</span>, and <span class="math inline">\(\large\{\epsilon^1,\cdots,\epsilon^{\text{dim} V=V^*}\}\)</span> being the basis of <span class="math inline">\(V^*\)</span>.We define the components of this abstract thing that is the tensor (abstract in that it is simply a multilinear map) as:</p>
-<p>But first, <strong>the components of the tensor space</strong> are more concrete: they are numbers, and depend on the basis of <span class="math inline">\(V\)</span> and <span class="math inline">\(v^*\)</span>.</p>
-<p><span class="math display">\[\large T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}:= T(\epsilon^{a_1}, \epsilon^{a_2},\cdots,\epsilon^{a_p},e_{b_1},\cdots,e_{b_q})\in K\]</span></p>
-<p>The basis for <span class="math inline">\(V\)</span> and <span class="math inline">\(V^*\)</span> are arbritarily chosen so that the basis for <span class="math inline">\(V^*\)</span> is induced by a previous choice of basis for <span class="math inline">\(V\)</span>, so that:</p>
-<p><span class="math display">\[\large \epsilon^a(\underbrace{e_b}_{\text{eating a vec from basis V}})=\delta_b^a\]</span></p>
-<hr />
-</div>
 <div id="contructing-new-tensor-out-of-old-tensors" class="section level4">
 <h4>Contructing new tensor out of old tensors:</h4>
 <p>The most important way is <strong>tensor product</strong> (<span class="math inline">\(\color{blue}{\otimes}\)</span> <strong>different</strong> from the definition of the tensor space <span class="math inline">\(\color{orange}{\otimes}\)</span>). It doesn’t take tensors of the same rank (as was the case with addition). It can take <span class="math inline">\(T\in T_q^p V\)</span> and <span class="math inline">\(S\in T^r_s V\)</span> and:</p>
 <p><span class="math display">\[T\color{blue}{\otimes}S\in T_{q+s}^{p+r}V\]</span></p>
 <p>defined as:</p>
-<p><span class="math display">\[(T\color{blue}{\otimes}S)(\underbrace{v_1,\cdots,v_p,\cdots,v_{p+r}, \omega_1,\cdots,\omega_q,\cdots,w_{q+s}}_\text{&quot;eats&quot;... &quot;the diet&quot;}):= T(\underbrace{v_1,\cdots,v_p,\omega_1,\cdots,\omega_q}_{\text{&quot;eats up&quot; p vecs and q covecs yielding a no.}})\underbrace{\cdot}_{\text{in k}}S(\underbrace{v_{p+1},\cdots,v_{p+r},\omega_{q+1},\cdots,\omega_{q+s}}_{\text{&quot;eats up&quot; p vecs and q covecs yielding a no.}})\]</span></p>
+<p><span class="math display">\[(T\color{blue}{\otimes}S)(\underbrace{ \omega_1,\cdots,\omega_q,\cdots,\omega_{q+s}, v_1,\cdots,v_p,\cdots,v_{p+r}}_\text{&quot;eats&quot;... &quot;the diet&quot;}):= T(\underbrace{\omega_1,\cdots,\omega_q, v_1,\cdots,v_p}_{\text{&quot;eats up&quot; p vecs and q covecs yielding a no.}})\underbrace{\cdot}_{\text{in k}}S(\underbrace{\omega_{q+1},\cdots,\omega_{q+s}, v_{p+1},\cdots,v_{p+r}}_{\text{&quot;eats up&quot; p vecs and q covecs yielding a no.}})\]</span></p>
+<hr />
+</div>
+<div id="components-of-a-tensor" class="section level4">
+<h4>Components of a tensor:</h4>
+<p>We need a basis for a tensor spce in order to talk about the components of a tensor. So if we have <span class="math inline">\(T\in T^p_q V\)</span> and <span class="math inline">\(V&lt;\infty\)</span> with <span class="math inline">\(\large\{e_1,\cdots,e_{\text{dim } V}\}\)</span> being the basis of <span class="math inline">\(V\)</span>, and <span class="math inline">\(\large\{\epsilon^1,\cdots,\epsilon^{\text{dim} V=V^*}\}\)</span> being the basis of <span class="math inline">\(V^*\)</span>.We define the components of this abstract thing that is the tensor (abstract in that it is simply a multilinear map) by first defining <strong>the components of the tensor space</strong> are more concrete: they are numbers, and depend on the basis of <span class="math inline">\(V\)</span> and <span class="math inline">\(v^*\)</span>.</p>
+<p><span class="math display">\[\large T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}:= T(\epsilon^{a_1}, \epsilon^{a_2},\cdots,\epsilon^{a_p},e_{b_1},\cdots,e_{b_q})\in K\]</span></p>
+<p>The basis for <span class="math inline">\(V\)</span> and <span class="math inline">\(V^*\)</span> are arbritarily chosen so that the basis for <span class="math inline">\(V^*\)</span> is induced by a previous choice of basis for <span class="math inline">\(V\)</span>, so that:</p>
+<p><span class="math display">\[\large \epsilon^a(\underbrace{e_b}_{\text{eating a vec from basis V}})=\delta_b^a\]</span></p>
+<p>This is the dual basis of the dual space.</p>
+<hr />
+<p>Once the basis of <span class="math inline">\(V\)</span> and <span class="math inline">\(V^*\)</span> are defined, and we have the tensor components we can we can RECONSTRUCT THE ABSTRACT TENSOR, <span class="math inline">\(T \in T^p_q\,V\)</span>! This is the point!</p>
+<p>How?</p>
+</div>
+<div id="reconstruction-of-t-from-its-components" class="section level4">
+<h4>Reconstruction of <span class="math inline">\(T\)</span> from its components:</h4>
+<p><span class="math display">\[\large T= T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}=
+\epsilon^{a_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}\epsilon^{a_q}\color{blue}{\otimes} e_{b_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}e_{b_p}\]</span></p>
 <hr />
 <p><a href="http://math.stackexchange.com/a/2141663/152225">This answer</a> in MathSE expains this notation:</p>
 <p>Let’s first look at a very special type of tensor, namely the (0,1) tensor. What is it? Well, it is the tensor product of <span class="math inline">\(0\)</span> copies of members of <span class="math inline">\(V\)</span> and one copy of members of <span class="math inline">\(V^*\)</span>. That is, it is a member of <span class="math inline">\(V^*\)</span>.</p>

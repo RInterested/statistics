@@ -168,21 +168,6 @@ Given $T\in V\color{orange}{\otimes} V^*$ we can construct an element of $\hat T
 
 ---
 
-####Basis of a tensor space:
-
-We need a basis for a tensor spce in order to talk about the components of a tensor. So if we have $T\in T^p_q V$ and $V<\infty$ with $\large\{e_1,\cdots,e_{\text{dim } V}\}$ being the basis of $V$, and $\large\{\epsilon^1,\cdots,\epsilon^{\text{dim} V=V^*}\}$ being the basis of $V^*$.We define the components of this abstract thing that is the tensor (abstract in that it is simply a multilinear map) as:
-
-But first, **the components of the tensor space** are more concrete: they are numbers, and depend on the basis of $V$ and $v^*$. 
-
-$$\large T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}:= T(\epsilon^{a_1}, \epsilon^{a_2},\cdots,\epsilon^{a_p},e_{b_1},\cdots,e_{b_q})\in K$$
-
-The basis for $V$ and $V^*$ are arbritarily chosen so that the basis for $V^*$ is induced by a previous choice of basis for $V$, so that:
-
-$$\large \epsilon^a(\underbrace{e_b}_{\text{eating a vec from basis V}})=\delta_b^a$$
-
-
----
-
 
 ####Contructing new tensor out of old tensors:
 
@@ -192,7 +177,35 @@ $$T\color{blue}{\otimes}S\in T_{q+s}^{p+r}V$$
 
 defined as:
 
-$$(T\color{blue}{\otimes}S)(\underbrace{v_1,\cdots,v_p,\cdots,v_{p+r}, \omega_1,\cdots,\omega_q,\cdots,w_{q+s}}_\text{"eats"... "the diet"}):= T(\underbrace{v_1,\cdots,v_p,\omega_1,\cdots,\omega_q}_{\text{"eats up" p vecs and q covecs yielding a no.}})\underbrace{\cdot}_{\text{in k}}S(\underbrace{v_{p+1},\cdots,v_{p+r},\omega_{q+1},\cdots,\omega_{q+s}}_{\text{"eats up" p vecs and q covecs yielding a no.}})$$
+$$(T\color{blue}{\otimes}S)(\underbrace{ \omega_1,\cdots,\omega_q,\cdots,\omega_{q+s}, v_1,\cdots,v_p,\cdots,v_{p+r}}_\text{"eats"... "the diet"}):= T(\underbrace{\omega_1,\cdots,\omega_q, v_1,\cdots,v_p}_{\text{"eats up" p vecs and q covecs yielding a no.}})\underbrace{\cdot}_{\text{in k}}S(\underbrace{\omega_{q+1},\cdots,\omega_{q+s}, v_{p+1},\cdots,v_{p+r}}_{\text{"eats up" p vecs and q covecs yielding a no.}})$$
+
+---
+
+
+####Components of a tensor:
+
+We need a basis for a tensor spce in order to talk about the components of a tensor. So if we have $T\in T^p_q V$ and $V<\infty$ with $\large\{e_1,\cdots,e_{\text{dim } V}\}$ being the basis of $V$, and $\large\{\epsilon^1,\cdots,\epsilon^{\text{dim} V=V^*}\}$ being the basis of $V^*$.We define the components of this abstract thing that is the tensor (abstract in that it is simply a multilinear map) by first defining **the components of the tensor space** are more concrete: they are numbers, and depend on the basis of $V$ and $v^*$. 
+
+$$\large T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}:= T(\epsilon^{a_1}, \epsilon^{a_2},\cdots,\epsilon^{a_p},e_{b_1},\cdots,e_{b_q})\in K$$
+
+The basis for $V$ and $V^*$ are arbritarily chosen so that the basis for $V^*$ is induced by a previous choice of basis for $V$, so that:
+
+$$\large \epsilon^a(\underbrace{e_b}_{\text{eating a vec from basis V}})=\delta_b^a$$
+
+This is the dual basis of the dual space.
+
+---
+
+Once the basis of $V$ and $V^*$ are defined, and we have the tensor components we can we can RECONSTRUCT THE ABSTRACT TENSOR, $T \in T^p_q\,V$! This is the point!
+
+How?
+
+#### Reconstruction of $T$ from its components:
+
+$$\large T= T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}=
+\epsilon^{a_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}\epsilon^{a_q}\color{blue}{\otimes} e_{b_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}e_{b_p}$$
+
+
 
 
 ---
