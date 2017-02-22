@@ -55,6 +55,18 @@ More formally,
 
 ---
 
+#### Basis of a vector space $(V, +, \cdot)$:
+
+If there is no further structure to the vector space we can only define a subset $B\in V$ called Hamel basis. Its conditions are:
+
+1. Every finite subset, $\{b_1,\cdots,b_n\}\subset B$ is linearly independent.
+
+2. For every element $\mathbf v\in V$ there exist $v^1,\cdots,v^m\in k$ such that $\mathbf v=\sum_{i=1}^m v^i\,b_i.$
+
+The dimension of the vector space is the cardinality of the basis.
+
+---
+
 A **MODULE** is the equivalent of a vector space over a RING, as opposed to a FIELD.
 
 ---
@@ -121,7 +133,7 @@ The **$(p,q)$ TENSOR SPACE** ("the space of (p,q) tensors over a vector space V"
 
 $$\bbox[20px, border:2px solid red]{T^p_q\,V = \underset{p}{\underbrace{V\color{darkorange}{\otimes}\cdots\color{darkorange}{\otimes} V}} \color{darkorange}{\otimes} \underset{q}{\underbrace{V^*\color{darkorange}{\otimes}\cdots\color{darkorange}{\otimes} V^*}}:=\{T\, |\, T\, \text{ is a (p,q) tensor}\}}\tag2$$
 
-$$\bbox[20px, border:2px solid red]{=\{T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times \cdots \times V}} \overset{\sim}\rightarrow K\}}\tag3$$ 
+$$\bbox[20px, border:2px solid red]{\underbrace{=\{T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times \cdots \times V}} \overset{\sim}\rightarrow K\}}_{\text{the set of all maps from p covecs and q vecs into K}}}\tag3$$ 
 
 This expression symbolizing the set of all tensors where $T$ is $(p,q)$, equipped this with pointwise addition and s-multiplication.
 
@@ -138,6 +150,37 @@ So this set of tensors, equipped with these two operations fulfills the requisit
 This is (not surprisingly) consistent with the [Wikipedia definition of tensors as multilinear maps](https://en.wikipedia.org/wiki/Tensor#As_multilinear_maps).
 
 
+Example of tensor spaces:
+
+1. $T^0_1 V \equiv V^*:=\{T: V\rightarrow k\}$. The whole tensor space is just the dual vector space, and the $T^0_1 V$ is just a covector.
+
+2. $T^1_1 V \equiv V \color{orange}{\otimes} V^*:= \{T:V^* \times V \rightarrow k\}\cong \text{End}(V^*)$
+
+This last statement implies a linear bijection. Proof:
+
+Given $T\in V\color{orange}{\otimes} V^*$ we can construct an element of $\hat T \in \text{End}(V^*)$, such that $\hat T: V^* \rightarrow V^*$, which means that for every $\omega \in V^* \mapsto \underbrace{\underbrace{\color{red}{T(\underbrace{\cdot}_{\text{plug a vec here to get no.}}, \omega)}}_{V\rightarrow K}}_{\in V^*}.$ We can reconstruct the $T^1_1$: $T(\mathbf v,\omega):= \underbrace{\hat T(\omega)}_{\in V^*}(\mathbf v) = T(\mathbf v,\omega).$
+
+3. $T^1_0 \equiv V$ only in finite vector spaces.
+
+4. $T^1_1 \equiv \text{End}(V)$ only in finite vector spaces.
+
+5. $\left(V^*\right)^*\equiv V$ only in finite vector spaces.
+
+
+
+
+---
+
+
+####Contructing new tensor out of old tensors:
+
+The most important way is **tensor product** ($\color{blue}{\otimes}$ **different** from the definition of the tensor space $\color{orange}{\otimes}$). It doesn't take tensors of the same rank (as was the case with addition). It can take $T\in T_q^p V$ and $S\in T^r_s V$ and:
+
+$$T\color{blue}{\otimes}S\in T_{q+s}^{p+r}V$$
+
+defined as:
+
+$$(T\color{blue}{\otimes}S)(\underbrace{v_1,\cdots,v_p,\cdots,v_{p+r}, \omega_1,\cdots,\omega_q,\cdots,w_{q+s}}_\text{"eats"... "the diet"}):= T(\underbrace{v_1,\cdots,v_p,\omega_1,\cdots,\omega_q}_{\text{"eats up" p vecs and q covecs yielding a no.}})\underbrace{\cdot}_{\text{in k}}S(\underbrace{v_{p+1},\cdots,v_{p+r},\omega_{q+1},\cdots,\omega_{q+s}}_{\text{"eats up" p vecs and q covecs yielding a no.}})$$
 
 
 ---

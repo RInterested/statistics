@@ -152,6 +152,16 @@ $(document).ready(function () {
 <li>Distributivity of scalar multiplication w.r.t. field addition</li>
 </ol>
 <hr />
+</div>
+<div id="basis-of-a-vector-space-v-cdot" class="section level4">
+<h4>Basis of a vector space <span class="math inline">\((V, +, \cdot)\)</span>:</h4>
+<p>If there is no further structure to the vector space we can only define a subset <span class="math inline">\(B\in V\)</span> called Hamel basis. Its conditions are:</p>
+<ol style="list-style-type: decimal">
+<li><p>Every finite subset, <span class="math inline">\(\{b_1,\cdots,b_n\}\subset B\)</span> is linearly independent.</p></li>
+<li><p>For every element <span class="math inline">\(\mathbf v\in V\)</span> there exist <span class="math inline">\(v^1,\cdots,v^m\in k\)</span> such that <span class="math inline">\(\mathbf v=\sum_{i=1}^m v^i\,b_i.\)</span></p></li>
+</ol>
+<p>The dimension of the vector space is the cardinality of the basis.</p>
+<hr />
 <p>A <strong>MODULE</strong> is the equivalent of a vector space over a RING, as opposed to a FIELD.</p>
 <hr />
 <p>A <a href="https://en.wikipedia.org/wiki/Homomorphism">homomorphism</a> is a structure-preserving linear map <span class="math inline">\(\large f\)</span> between two algebraic structures of the same type (such as two groups, two rings, or two vector spaces). In the case of two vector spaces, each equipped with <span class="math inline">\(+\)</span> and <span class="math inline">\(\cdot\)</span> operations (<span class="math inline">\(V\)</span> with <span class="math inline">\(\color{red}{+}\)</span> and <span class="math inline">\(\color{red}{\cdot}\)</span> and <span class="math inline">\(W\)</span> with <span class="math inline">\(\color{orange}{+}\)</span> and <span class="math inline">\(\color{orange}{\cdot}\)</span>):</p>
@@ -188,7 +198,7 @@ $(document).ready(function () {
 <p><span class="math display">\[\bbox[20px, border:2px solid red]{T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times \cdots  \times V}} \overset{\sim}\rightarrow K}\tag1\]</span></p>
 <p>The <strong><span class="math inline">\((p,q)\)</span> TENSOR SPACE</strong> (“the space of (p,q) tensors over a vector space V”) is defined as a set:</p>
 <p><span class="math display">\[\bbox[20px, border:2px solid red]{T^p_q\,V = \underset{p}{\underbrace{V\color{darkorange}{\otimes}\cdots\color{darkorange}{\otimes} V}} \color{darkorange}{\otimes} \underset{q}{\underbrace{V^*\color{darkorange}{\otimes}\cdots\color{darkorange}{\otimes} V^*}}:=\{T\, |\, T\, \text{ is a (p,q) tensor}\}}\tag2\]</span></p>
-<p><span class="math display">\[\bbox[20px, border:2px solid red]{=\{T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times \cdots \times V}} \overset{\sim}\rightarrow K\}}\tag3\]</span></p>
+<p><span class="math display">\[\bbox[20px, border:2px solid red]{\underbrace{=\{T: \underset{p}{\underbrace{V^*\times \cdots \times V^*}}\times \underset{q}{\underbrace{V\times \cdots \times V}} \overset{\sim}\rightarrow K\}}_{\text{the set of all maps from p covecs and q vecs into K}}}\tag3\]</span></p>
 <p>This expression symbolizing the set of all tensors where <span class="math inline">\(T\)</span> is <span class="math inline">\((p,q)\)</span>, equipped this with pointwise addition and s-multiplication.</p>
 <p>For example, for two <span class="math inline">\((1,1)\)</span> tensor, or <span class="math inline">\(T^1_1V\)</span> and <span class="math inline">\(S^1_1\)</span>:</p>
 <p><span class="math display">\[(T+S)(\underbrace{\sigma}_{\text{eat element of }V^*},\underbrace{\mathbf v}_{\text{eat element of }V}) :=T(\sigma,\mathbf v) \underbrace{+}_{\text{field}}S(\sigma,\mathbf v)\]</span></p>
@@ -196,6 +206,26 @@ $(document).ready(function () {
 <p><span class="math display">\[(\lambda T)(\sigma,\mathbf v) :=\lambda \underbrace{\cdot}_{\text{multip. in k}}T(\sigma, \mathbf v)\]</span></p>
 <p>So this set of tensors, equipped with these two operations fulfills the requisites of a vector space <span class="math inline">\((T^p_qV, +, \cdot)\)</span>.</p>
 <p>This is (not surprisingly) consistent with the <a href="https://en.wikipedia.org/wiki/Tensor#As_multilinear_maps">Wikipedia definition of tensors as multilinear maps</a>.</p>
+<p>Example of tensor spaces:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(T^0_1 V \equiv V^*:=\{T: V\rightarrow k\}\)</span>. The whole tensor space is just the dual vector space, and the <span class="math inline">\(T^0_1 V\)</span> is just a covector.</p></li>
+<li><p><span class="math inline">\(T^1_1 V \equiv V \color{orange}{\otimes} V^*:= \{T:V^* \times V \rightarrow k\}\cong \text{End}(V^*)\)</span></p></li>
+</ol>
+<p>This last statement implies a linear bijection. Proof:</p>
+<p>Given <span class="math inline">\(T\in V\color{orange}{\otimes} V^*\)</span> we can construct an element of <span class="math inline">\(\hat T \in \text{End}(V^*)\)</span>, such that <span class="math inline">\(\hat T: V^* \rightarrow V^*\)</span>, which means that for every <span class="math inline">\(\omega \in V^* \mapsto \underbrace{\underbrace{\color{red}{T(\underbrace{\cdot}_{\text{plug a vec here to get no.}}, \omega)}}_{V\rightarrow K}}_{\in V^*}.\)</span> We can reconstruct the <span class="math inline">\(T^1_1\)</span>: <span class="math inline">\(T(\mathbf v,\omega):= \underbrace{\hat T(\omega)}_{\in V^*}(\mathbf v) = T(\mathbf v,\omega).\)</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li><p><span class="math inline">\(T^1_0 \equiv V\)</span> only in finite vector spaces.</p></li>
+<li><p><span class="math inline">\(T^1_1 \equiv \text{End}(V)\)</span> only in finite vector spaces.</p></li>
+<li><p><span class="math inline">\(\left(V^*\right)^*\equiv V\)</span> only in finite vector spaces.</p></li>
+</ol>
+<hr />
+</div>
+<div id="contructing-new-tensor-out-of-old-tensors" class="section level4">
+<h4>Contructing new tensor out of old tensors:</h4>
+<p>The most important way is <strong>tensor product</strong> (<span class="math inline">\(\color{blue}{\otimes}\)</span> <strong>different</strong> from the definition of the tensor space <span class="math inline">\(\color{orange}{\otimes}\)</span>). It doesn’t take tensors of the same rank (as was the case with addition). It can take <span class="math inline">\(T\in T_q^p V\)</span> and <span class="math inline">\(S\in T^r_s V\)</span> and:</p>
+<p><span class="math display">\[T\color{blue}{\otimes}S\in T_{q+s}^{p+r}V\]</span></p>
+<p>defined as:</p>
+<p><span class="math display">\[(T\color{blue}{\otimes}S)(\underbrace{v_1,\cdots,v_p,\cdots,v_{p+r}, \omega_1,\cdots,\omega_q,\cdots,w_{q+s}}_\text{&quot;eats&quot;... &quot;the diet&quot;}):= T(\underbrace{v_1,\cdots,v_p,\omega_1,\cdots,\omega_q}_{\text{&quot;eats up&quot; p vecs and q covecs yielding a no.}})\underbrace{\cdot}_{\text{in k}}S(\underbrace{v_{p+1},\cdots,v_{p+r},\omega_{q+1},\cdots,\omega_{q+s}}_{\text{&quot;eats up&quot; p vecs and q covecs yielding a no.}})\]</span></p>
 <hr />
 <p><a href="http://math.stackexchange.com/a/2141663/152225">This answer</a> in MathSE expains this notation:</p>
 <p>Let’s first look at a very special type of tensor, namely the (0,1) tensor. What is it? Well, it is the tensor product of <span class="math inline">\(0\)</span> copies of members of <span class="math inline">\(V\)</span> and one copy of members of <span class="math inline">\(V^*\)</span>. That is, it is a member of <span class="math inline">\(V^*\)</span>.</p>
