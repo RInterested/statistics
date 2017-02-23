@@ -231,7 +231,7 @@ $(document).ready(function () {
 <div id="components-of-a-tensor" class="section level4">
 <h4>Components of a tensor:</h4>
 <p>We need a basis for a tensor spce in order to talk about the components of a tensor. So if we have <span class="math inline">\(T\in T^p_q V\)</span> and <span class="math inline">\(V&lt;\infty\)</span> with <span class="math inline">\(\large\{e_1,\cdots,e_{\text{dim } V}\}\)</span> being the basis of <span class="math inline">\(V\)</span>, and <span class="math inline">\(\large\{\epsilon^1,\cdots,\epsilon^{\text{dim} V=V^*}\}\)</span> being the basis of <span class="math inline">\(V^*\)</span>.We define the components of this abstract thing that is the tensor (abstract in that it is simply a multilinear map) by first defining <strong>the components of the tensor space</strong> are more concrete: they are numbers, and depend on the basis of <span class="math inline">\(V\)</span> and <span class="math inline">\(v^*\)</span>.</p>
-<p><span class="math display">\[\color{green}{\large T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}}:= \underbrace{T(\epsilon^{a_1}, \epsilon^{a_2},\cdots,\epsilon^{a_p},e_{b_1},\cdots,e_{b_q})}_{\text{...yielding a number...}}\in K\]</span></p>
+<p><span class="math display">\[\color{green}{\large T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}}:= \underbrace{T(\epsilon^{a_1}, \epsilon^{a_2},\cdots,\epsilon^{a_p},e_{b_1},\cdots,e_{b_q})}_{\text{...yielding a number...}}\in K\tag4\]</span></p>
 <p>The basis for <span class="math inline">\(V\)</span> and <span class="math inline">\(V^*\)</span> are arbritarily chosen so that the basis for <span class="math inline">\(V^*\)</span> is induced by a previous choice of basis for <span class="math inline">\(V\)</span>, so that:</p>
 <p><span class="math display">\[\Large\color{blue}{\epsilon^a(\underbrace{e_b}_{\text{eating a vec from basis V}})=\delta_b^a}\]</span></p>
 <p>This is the dual basis of the dual space.</p>
@@ -245,6 +245,14 @@ $(document).ready(function () {
 \epsilon^{b_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}\epsilon^{b_q}}_{(p,q)\text{ tensor}}\]</span></p>
 <p>Notice that it is the “blue” tensor product because we are not symbolizing the tensor space (as the set of all maps between the Cartesian product of vectors and covectors and <span class="math inline">\(K\)</span>), which would call for the “orange” tensor. Instead this is a vector product (the <span class="math inline">\(e_i\)</span> and <span class="math inline">\(\epsilon^i\)</span> are vectors and covectors).</p>
 <p>Why the sum signs are often omitted? Because the <span class="math inline">\(\color{green}{T^{a_1,\cdots,a_p}_{\quad\quad\quad\cdot\cdots}}\;e_{a_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}e_{a_p}\)</span> combines up and down indices (Einstein notation), and the same happens in the other direction <span class="math inline">\(\color{green}{T^{\cdots\cdots}_{\quad\quad b_1,\cdots,b_q}}\;\epsilon^{b_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}\epsilon^{b_q}\)</span>.</p>
+<hr />
+<p>Example:</p>
+<p>Tensor (1,1) expressed as a map <span class="math inline">\(\phi: V^* \times\rightarrow K\)</span></p>
+<p>We evaluate <span class="math inline">\(\phi\)</span> by plugging in some covector <span class="math inline">\(\underbrace{\mathbf \omega}_{\in V^*}\)</span> and some vector <span class="math inline">\(\underbrace{\mathbf v}_{\in V}\)</span>:</p>
+<p><span class="math display">\[\begin{align}\phi(\mathbf \omega, \mathbf v)&amp;\underbrace{=}_{\text{if we have basis}}\phi\left(\sum_{a=1}^d\omega_a \epsilon^a, \sum_{b=1}^d v^b\,e_b\right)\\[2ex]
+&amp;=\sum_{a=1}^d\sum_{b=1}^d\left(\omega_a\epsilon^a, v^b\,e_b\right)\\[2ex]
+&amp;= \sum_{a=1}^d\sum_{b=1}^d\; \underbrace{\omega_a\,v^b}_{\text{comp'ts cov and vec}}\; \underbrace{\underbrace{\phi\left(\epsilon^a\,e_b\right)}_{\text{comp'ts tensor }\phi^a_b\text{ Eq(4)}}}_{\text{this is a matrix}}
+\end{align}\]</span></p>
 <hr />
 </div>
 <div id="change-of-basis-from-e_i-to-tilde-e_i" class="section level4">
