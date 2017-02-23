@@ -241,9 +241,17 @@ $(document).ready(function () {
 </div>
 <div id="reconstruction-of-t-from-its-components" class="section level4">
 <h4>Reconstruction of <span class="math inline">\(T\)</span> from its components:</h4>
-<p><span class="math display">\[\large T=\underbrace{\color{green}{T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}}}_{\text{a number}}\underbrace{\cdot}_{\text{S-multiplication}}
+<p><span class="math display">\[\large T=\underbrace{\sum_{a_1=1}^{\text{dim v sp.}}\sum_{b_1=1}^{\text{dim v sp.}}}_{\text{p + q sums (usually omitted)}}\underbrace{\color{green}{T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}}}_{\text{a number}}\underbrace{\cdot}_{\text{S-multiplication}}
 \epsilon^{a_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}\epsilon^{a_q}\color{blue}{\otimes} e_{b_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}e_{b_p}\]</span></p>
 <p>Notice that it is the “blue” tensor product because we are not symbolizing the tensor space (as the set of all maps between the Cartesian product of vectors and covectors and <span class="math inline">\(K\)</span>), which would call for the “orange” tensor. Instead this is a vector product (the <span class="math inline">\(e_i\)</span> and <span class="math inline">\(\epsilon^i\)</span> are vectors and covectors).</p>
+<hr />
+</div>
+<div id="change-of-basis-from-e_i-to-tilde-e_i" class="section level4">
+<h4>Change of basis from <span class="math inline">\(e_i\)</span> to <span class="math inline">\(\tilde e_i\)</span>:</h4>
+<p><span class="math display">\[\tilde e_a =\sum_{b=1}^d\, \underbrace{A^b_a}_{\text{in K}}\underbrace{\cdot}_{\text{S-multiplication}}\,e_b\]</span></p>
+<p>and</p>
+<p><span class="math display">\[ e_a =\sum_{b=1}^d\, \underbrace{B^b_a}_{\text{in K}}\underbrace{\cdot}_{\text{S-multiplication}}\,\tilde e_b\]</span></p>
+<p>in which case <span class="math inline">\(B=A^{-1}\)</span>.</p>
 <hr />
 <p><a href="http://math.stackexchange.com/a/2141663/152225">This answer</a> in MathSE expains this notation:</p>
 <p>Let’s first look at a very special type of tensor, namely the (0,1) tensor. What is it? Well, it is the tensor product of <span class="math inline">\(0\)</span> copies of members of <span class="math inline">\(V\)</span> and one copy of members of <span class="math inline">\(V^*\)</span>. That is, it is a member of <span class="math inline">\(V^*\)</span>.</p>
