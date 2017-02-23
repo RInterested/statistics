@@ -231,7 +231,7 @@ $(document).ready(function () {
 <div id="components-of-a-tensor" class="section level4">
 <h4>Components of a tensor:</h4>
 <p>We need a basis for a tensor spce in order to talk about the components of a tensor. So if we have <span class="math inline">\(T\in T^p_q V\)</span> and <span class="math inline">\(V&lt;\infty\)</span> with <span class="math inline">\(\large\{e_1,\cdots,e_{\text{dim } V}\}\)</span> being the basis of <span class="math inline">\(V\)</span>, and <span class="math inline">\(\large\{\epsilon^1,\cdots,\epsilon^{\text{dim} V=V^*}\}\)</span> being the basis of <span class="math inline">\(V^*\)</span>.We define the components of this abstract thing that is the tensor (abstract in that it is simply a multilinear map) by first defining <strong>the components of the tensor space</strong> are more concrete: they are numbers, and depend on the basis of <span class="math inline">\(V\)</span> and <span class="math inline">\(v^*\)</span>.</p>
-<p><span class="math display">\[\large T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}:= \underbrace{T(\epsilon^{a_1}, \epsilon^{a_2},\cdots,\epsilon^{a_p},e_{b_1},\cdots,e_{b_q})}_{\text{...yielding a number...}}\in K\]</span></p>
+<p><span class="math display">\[\color{green}{\large T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}}:= \underbrace{T(\epsilon^{a_1}, \epsilon^{a_2},\cdots,\epsilon^{a_p},e_{b_1},\cdots,e_{b_q})}_{\text{...yielding a number...}}\in K\]</span></p>
 <p>The basis for <span class="math inline">\(V\)</span> and <span class="math inline">\(V^*\)</span> are arbritarily chosen so that the basis for <span class="math inline">\(V^*\)</span> is induced by a previous choice of basis for <span class="math inline">\(V\)</span>, so that:</p>
 <p><span class="math display">\[\Large\color{blue}{\epsilon^a(\underbrace{e_b}_{\text{eating a vec from basis V}})=\delta_b^a}\]</span></p>
 <p>This is the dual basis of the dual space.</p>
@@ -241,8 +241,9 @@ $(document).ready(function () {
 </div>
 <div id="reconstruction-of-t-from-its-components" class="section level4">
 <h4>Reconstruction of <span class="math inline">\(T\)</span> from its components:</h4>
-<p><span class="math display">\[\large T= T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}=
+<p><span class="math display">\[\large T=\underbrace{\color{green}{T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}}}_{\text{a number}}\underbrace{\cdot}_{\text{S-multiplication}}
 \epsilon^{a_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}\epsilon^{a_q}\color{blue}{\otimes} e_{b_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}e_{b_p}\]</span></p>
+<p>Notice that it is the “blue” tensor product because we are not symbolizing the tensor space (as the set of all maps between the Cartesian product of vectors and covectors and <span class="math inline">\(K\)</span>), which would call for the “orange” tensor. Instead this is a vector product (the <span class="math inline">\(e_i\)</span> and <span class="math inline">\(\epsilon^i\)</span> are vectors and covectors).</p>
 <hr />
 <p><a href="http://math.stackexchange.com/a/2141663/152225">This answer</a> in MathSE expains this notation:</p>
 <p>Let’s first look at a very special type of tensor, namely the (0,1) tensor. What is it? Well, it is the tensor product of <span class="math inline">\(0\)</span> copies of members of <span class="math inline">\(V\)</span> and one copy of members of <span class="math inline">\(V^*\)</span>. That is, it is a member of <span class="math inline">\(V^*\)</span>.</p>
