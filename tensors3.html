@@ -127,6 +127,42 @@ $(document).ready(function () {
 <p>An example of a higher-order tensor is the <strong>determinant</strong>: given any linear transformation <span class="math inline">\(A\)</span>, from a vector space (of dimension <span class="math inline">\(n\)</span>) to itself, <span class="math inline">\(\det(A)\)</span> is a <span class="math inline">\(T^0_n=(\underbrace{0}_{\text{takes 0 cov's}},\underbrace{n}_{\text{takes n vec's}})\)</span>-tensor: <span class="math inline">\(\det(A) (v_1,\cdots, v_N) = (A(v_1)) \land (A(v_2)) \land\cdots\land (A(v_N))\)</span>, where “<span class="math inline">\(\land\)</span>” is the fully-antisymmetrized tensor product (the “wedge” product).</p>
 <p>And of course as others have mentioned, differential topology and geometry are littered with tensors (and tensor fields / densities).</p>
 <hr />
+<p>Practically the same, but <a href="http://math.stackexchange.com/a/2139399/152225">more mathy</a>:</p>
+<p><span class="math inline">\(\newcommand{\Reals}{\mathbf{R}}\newcommand{\Basis}{\mathbf{e}}\newcommand{\Brak}[1]{\left\langle #1\right\rangle}\)</span>Let <span class="math inline">\((\Basis_{j})_{j=1}^{n}\)</span> denote the standard basis of <span class="math inline">\(V = \Reals^{n}\)</span> and let <span class="math inline">\((\Basis^{i})_{i=1}^{n}\)</span> be the dual basis of <span class="math inline">\(V^{*} = (\Reals^{n})^{*}\)</span>. (Where possible below, I’ve taken case to use the dummy indices <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> “globally”.)</p>
+<ul>
+<li>The identity transformation <span class="math inline">\(I_{n}:\Reals^{n} \to \Reals^{n}\)</span> is <span class="math display">\[
+\sum_{i,j=1}^{n} \delta_{i}^{j}\, \Basis_{j} \otimes \Basis^{i}
+= \sum_{j=1}^{n} \Basis_{j} \otimes \Basis^{j}.
+\]</span> Specifically, if <span class="math inline">\(v = \sum\limits_{j=1}^{n} v^{j} \Basis_{j}\)</span>, then <span class="math display">\[
+I_{n}(v) = \sum_{j=1}^{n} \Basis_{j} \otimes \Basis^{j}(v)
+= \sum_{j=1}^{n} v^{j}\Basis_{j}
+= v.
+\]</span> Similarly, if <span class="math inline">\(A = [a_{i}^{j}]\)</span> is an <span class="math inline">\(n \times n\)</span> matrix, the tensor <span class="math display">\[
+T = \sum_{i,j=1}^{n} a_{i}^{j}\, \Basis_{j} \otimes \Basis^{i} \in T_{1}^{1}\Reals^{n}
+\]</span> is the linear operator whose standard matrix is <span class="math inline">\(A\)</span>.</li>
+</ul>
+<p>If <span class="math inline">\(\Basis_{j}\)</span> is written as an <span class="math inline">\(n \times 1\)</span> column matrix with a <span class="math inline">\(1\)</span> in the <span class="math inline">\(j\)</span>th row and <span class="math inline">\(0\)</span>’s elsewhere, then <span class="math inline">\(\Basis^{i}\)</span> is the <span class="math inline">\(1 \times n\)</span> row matrix with a <span class="math inline">\(1\)</span> in the <span class="math inline">\(i\)</span>th column and <span class="math inline">\(0\)</span>’s elsewhere, and the tensor product <span class="math inline">\(\Basis_{j}^{i} := \Basis_{j} \otimes \Basis^{i}\)</span> may be denoted with ordinary matrix multiplication, the <em>outer product</em> of a column and a row, the <span class="math inline">\(n \times n\)</span> matrix with a <span class="math inline">\(1\)</span> in the <span class="math inline">\((i, j)\)</span>-entry and <span class="math inline">\(0\)</span>’s elsewhere.</p>
+<ul>
+<li><p>The Euclidean inner product is <span class="math display">\[
+\Brak{\ ,\ } = \sum_{i=1}^{n} \Basis^{i} \otimes \Basis^{i}.
+\]</span> If <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are arbitrary vectors, then <span class="math display">\[
+\Brak{u, v} = \sum_{i=1}^{n} \Basis^{i}(u)\, \Basis^{i}(v)
+= \sum_{i=1}^{n} u^{i}\, v^{i}.
+\]</span></p></li>
+<li>If <span class="math inline">\(n = 2\)</span>, the determinant viewed as a bilinear function of two vectors in <span class="math inline">\(\Reals^{2}\)</span> is
+\begin{align*}
+\det &amp;= \Basis^{1} \otimes \Basis^{2} - \Basis^{2} \otimes \Basis^{1} \in T_{2}^{0} \Reals^{2}; \\
+\det(u, v) &amp;= \Basis^{1}(u)\, \Basis^{2}(v) - \Basis^{2}(v)\, \Basis^{1}(u) \\
+&amp;= u^{1} v^{2} - u^{2} v^{1}.
+\end{align*}</li>
+<li><p>Similarly, if <span class="math inline">\(n = 3\)</span>, the ordinary cross product is</p></li>
+</ul>
+<p><span class="math display">\[\begin{align}&amp;(\Basis^{2} \otimes \Basis^{3} - \Basis^{3} \otimes \Basis^{2})\otimes \Basis_{1} \\
++ &amp;(\Basis^{3} \otimes \Basis^{1} - \Basis^{1} \otimes \Basis^{3})\otimes \Basis_{2} \\
++ &amp;(\Basis^{1} \otimes \Basis^{2} - \Basis^{2} \otimes \Basis^{1})\otimes \Basis_{3}
+ \in T_{2}^{1} \Reals^{3}.
+\end{align}\]</span></p>
+<hr />
 </div>
 <div id="coordinate-free-approach-to-tensors" class="section level3">
 <h3>COORDINATE-FREE APPROACH TO TENSORS:</h3>

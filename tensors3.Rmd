@@ -6,6 +6,7 @@
 
 ###MOTIVATING EXAMPLES:
 
+
 From [this Quora answer](https://www.quora.com/Can-I-get-a-concrete-example-of-a-mathematical-not-physics-tensor?srid=utSnl):
 
 Any vector space imbued with an **inner product** has a natural $T^0_2=(\underbrace{0}_{\text{takes 0 cov's}},\underbrace{2}_{\text{takes 2 vec's}})$-tensor sitting there: the inner product itself: it linearly takes in a pair of vectors and spits out their inner product, an element of the base field.
@@ -16,6 +17,56 @@ An example of a higher-order tensor is the **determinant**: given any linear tra
 
 And of course as others have mentioned, differential topology and geometry are littered with tensors (and tensor fields / densities).
 
+
+---
+
+Practically the same, but [more mathy](http://math.stackexchange.com/a/2139399/152225):
+
+$\newcommand{\Reals}{\mathbf{R}}\newcommand{\Basis}{\mathbf{e}}\newcommand{\Brak}[1]{\left\langle #1\right\rangle}$Let $(\Basis_{j})_{j=1}^{n}$ denote the standard basis of $V = \Reals^{n}$ and let $(\Basis^{i})_{i=1}^{n}$ be the dual basis of $V^{*} = (\Reals^{n})^{*}$. (Where possible below, I've taken case to use the dummy indices $i$&nbsp;and&nbsp;$j$ "globally".)
+
+* The identity transformation $I_{n}:\Reals^{n} \to \Reals^{n}$ is
+$$
+\sum_{i,j=1}^{n} \delta_{i}^{j}\, \Basis_{j} \otimes \Basis^{i}
+= \sum_{j=1}^{n} \Basis_{j} \otimes \Basis^{j}.
+$$
+Specifically, if $v = \sum\limits_{j=1}^{n} v^{j} \Basis_{j}$, then
+$$
+I_{n}(v) = \sum_{j=1}^{n} \Basis_{j} \otimes \Basis^{j}(v)
+= \sum_{j=1}^{n} v^{j}\Basis_{j}
+= v.
+$$
+Similarly, if $A = [a_{i}^{j}]$ is an $n \times n$ matrix, the tensor
+$$
+T = \sum_{i,j=1}^{n} a_{i}^{j}\, \Basis_{j} \otimes \Basis^{i} \in T_{1}^{1}\Reals^{n}
+$$
+is the linear operator whose standard matrix is&nbsp;$A$.
+
+  If $\Basis_{j}$&nbsp;is written as an $n \times 1$ column matrix with a&nbsp;$1$ in the $j$th&nbsp;row and $0$'s&nbsp;elsewhere, then $\Basis^{i}$&nbsp;is the $1 \times n$ row matrix with a&nbsp;$1$ in the $i$th&nbsp;column and $0$'s&nbsp;elsewhere, and the tensor product $\Basis_{j}^{i} := \Basis_{j} \otimes \Basis^{i}$ may be denoted with ordinary matrix multiplication, the _outer product_ of a column and a row, the $n \times n$ matrix with a&nbsp;$1$ in the $(i, j)$-entry and $0$'s&nbsp;elsewhere.
+
+* The Euclidean inner product is
+$$
+\Brak{\ ,\ } = \sum_{i=1}^{n} \Basis^{i} \otimes \Basis^{i}.
+$$
+If $u$&nbsp;and $v$ are arbitrary vectors, then
+$$
+\Brak{u, v} = \sum_{i=1}^{n} \Basis^{i}(u)\, \Basis^{i}(v)
+= \sum_{i=1}^{n} u^{i}\, v^{i}.
+$$
+
+* If $n = 2$, the determinant viewed as a bilinear function of two vectors in&nbsp;$\Reals^{2}$ is
+\begin{align*}
+\det &= \Basis^{1} \otimes \Basis^{2} - \Basis^{2} \otimes \Basis^{1} \in T_{2}^{0} \Reals^{2}; \\
+\det(u, v) &= \Basis^{1}(u)\, \Basis^{2}(v) - \Basis^{2}(v)\, \Basis^{1}(u) \\
+&= u^{1} v^{2} - u^{2} v^{1}.
+\end{align*}
+
+* Similarly, if $n = 3$, the ordinary cross product is
+
+$$\begin{align}&(\Basis^{2} \otimes \Basis^{3} - \Basis^{3} \otimes \Basis^{2})\otimes \Basis_{1} \\
++ &(\Basis^{3} \otimes \Basis^{1} - \Basis^{1} \otimes \Basis^{3})\otimes \Basis_{2} \\
++ &(\Basis^{1} \otimes \Basis^{2} - \Basis^{2} \otimes \Basis^{1})\otimes \Basis_{3}
+ \in T_{2}^{1} \Reals^{3}.
+\end{align}$$
 
 
 ---
