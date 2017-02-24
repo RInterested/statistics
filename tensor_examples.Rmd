@@ -1,0 +1,150 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###PRACTICAL EXAMPLES AND REVIEW OF TENSORS:
+<br>
+
+From [this source](https://drive.google.com/file/d/0Bwl-HpVJ_5PeTXBLWkZFSkl2ZFk/view?usp=sharing):
+
+<br>
+
+<img width="700" src="https://cloud.githubusercontent.com/assets/9312897/23309287/15f82fea-fa7c-11e6-941d-c7179d18afa6.png">
+
+---
+
+
+Applied to the case in [this question](http://math.stackexchange.com/q/2158892/152225), the change of basis matrix is $\small\begin{bmatrix}3&4&-1\\0&3&7\\1&3&0.5\end{bmatrix}$, and its inverse $\small\begin{bmatrix}0.7&0.2&-1.1\\-0.3&-0.1&0.8\\0.1&0.2&-0.3\end{bmatrix}$. The vectors $v$ and $w$ in the new coordinate system are 
+
+$v =\small\begin{bmatrix}0.7&0.2&-1.1\\-0.3&-0.1&0.8\\0.1&0.2&-0.3\end{bmatrix}\begin{bmatrix}1\\2\\3\end{bmatrix} =\begin{bmatrix}-2.3\\1.9\\-0.5\end{bmatrix}$ and $w=\small\begin{bmatrix}0.7&0.2&-1.1\\-0.3&-0.1&0.8\\0.1&0.2&-0.3\end{bmatrix}\begin{bmatrix}1\\0\\0\end{bmatrix}=\begin{bmatrix}0.7\\-0.3\\0.1\end{bmatrix}$. 
+
+Therefore,
+
+$$\begin{align}\large v\otimes w=\left(-.23\tilde x + 1.9\tilde y -0.5 \tilde z\right)\otimes \left(0.7\tilde x -0.3\tilde y + 0.1\tilde z\right)\\[2ex]=-1.6\;\tilde x\otimes \tilde x + 1.3\;\tilde x\otimes \tilde y  -0.3 \;\tilde x\otimes \tilde z + 0.6\;\tilde y\otimes \tilde x -0.5\;\tilde y\otimes \tilde y+ 0.1\;\tilde y\otimes \tilde z -0.3\;\tilde z\otimes \tilde x +0.2 \;\tilde z\otimes \tilde y-0.1\;\tilde z\otimes \tilde z\end{align}$$
+
+So what's the point?
+
+Starting off defining the tensor product of two vector spaces ($V\otimes W$) with the same bases, we end up calculating the [outer product of two vectors](http://math.stackexchange.com/q/796709/152225):
+
+$$\large v\otimes_o w=\small \begin{bmatrix}-2.3\\1.9\\-0.5\end{bmatrix}\begin{bmatrix}0.7&-0.3&0.1\end{bmatrix}=\begin{bmatrix}-1.6&1.3&-0.3\\0.6&-0.5&0.1\\-0.3&0.2&-0.1\end{bmatrix}$$
+
+
+This connect this post to [this more general question](http://math.stackexchange.com/q/2158734/152225).
+
+  [1]: https://i.stack.imgur.com/Ga68v.png
+  
+  
+---
+
+From the [answer to this question](http://math.stackexchange.com/q/164975/152225) about Spivak's definition of tensor product as:
+
+$$(S \otimes T)(v_1,...v_n,v_{n+1},...,v_{n+m})= S(v_1,...v_n) * T(v_{n+1},...,v_{n+m})$$
+
+Let's first set some terminology.
+
+Let $V$ be an $n$-dimensional real vector space, and let $V^*$ denote its dual space.  We let $V^k = V \times \cdots \times V$ ($k$ times).
+
+- A _tensor of type $(r,s)$_ on $V$ is a multilinear map $T\colon V^r \times (V^*)^s \to \mathbb{R}$.
+
+- A _covariant $k$-tensor_ on $V$ is a multilinear map $T\colon V^k \to \mathbb{R}$.
+
+In other words, a covariant $k$-tensor is a tensor of type $(k,0)$.  This is what Spivak refers to as simply a "$k$-tensor."
+
+- A _contravariant $k$-tensor_ on $V$ is a multilinear map $T\colon (V^*)^k\to \mathbb{R}$.
+
+In other words, a contravariant $k$-tensor is a tensor of type $(0,k)$.
+
+- We let $T^r_s(V)$ denote the vector space of tensors of type $(r,s)$.  So, in particular,
+
+$$\begin{align*}
+T^k(V) := T^k_0(V) & = \{\text{covariant $k$-tensors}\} \\
+T_k(V) := T^0_k(V) & = \{\text{contravariant $k$-tensors}\}.
+\end{align*}$$
+Two important special cases are:
+$$\begin{align*}
+T^1(V) & = \{\text{covariant $1$-tensors}\} = V^* \\
+T_1(V) & = \{\text{contravariant $1$-tensors}\} = V^{**} \cong V.
+\end{align*}$$
+This last line means that we can regard vectors $v \in V$ as contravariant 1-tensors.  That is, every vector $v \in V$ can be regarded as a linear functional $V^* \to \mathbb{R}$ via
+$$v(\omega) := \omega(v),$$
+where $\omega \in V^*$.
+
+- The _rank_ of an $(r,s)$-tensor is defined to be $r+s$.
+
+In particular, vectors (contravariant 1-tensors) and dual vectors (covariant 1-tensors) have rank 1.
+
+--------
+
+If $S \in T^{r_1}_{s_1}(V)$ is an $(r_1,s_1)$-tensor, and $T \in T^{r_2}_{s_2}(V)$ is an $(r_2,s_2)$-tensor, we can define their _tensor product_ $S \otimes T \in T^{r_1 + r_2}_{s_1 + s_2}(V)$ by
+
+$$(S\otimes T)(v_1, \ldots, v_{r_1 + r_2}, \omega_1, \ldots, \omega_{s_1 + s_2}) = \\
+S(v_1, \ldots, v_{r_1}, \omega_1, \ldots,\omega_{s_1})\cdot T(v_{r_1 + 1}, \ldots, v_{r_1 + r_2}, \omega_{s_1 + 1}, \ldots, \omega_{s_1 + s_2}).$$
+
+Taking $s_1 = s_2 = 0$, we recover Spivak's definition as a special case.
+
+**Example:** Let $u, v \in V$.  Again, since $V \cong T_1(V)$, we can regard $u, v \in T_1(V)$ as $(0,1)$-tensors.  Their tensor product $u \otimes v \in T_2(V)$ is a $(0,2)$-tensor defined by
+$$(u \otimes v)(\omega, \eta) = u(\omega)\cdot v(\eta)$$
+
+--------
+
+As I suggested in the comments, every bilinear map -- i.e. every rank-2 tensor, be it of type $(0,2)$, $(1,1)$, or $(2,0)$ -- can be regarded as a matrix, and vice versa.
+
+Admittedly, sometimes the notation can be constraining.  That is, we're used to considering vectors as _column vectors_, and dual vectors as _row vectors_.  So, when we write something like $$u^\top A v,$$
+our notation suggests that $u^\top \in T^1(V)$ is a dual vector and that $v \in T_1(V)$ is a vector.  This means that the bilinear map $V \times V^* \to \mathbb{R}$ given by
+$$(v, u^\top) \mapsto u^\top A v$$
+is a type $(1,1)$-tensor.
+
+**Example:** Let $V = \mathbb{R}^3$.  Write $u = (1,2,3) \in V$ in the standard basis, and $\eta = (4,5,6)^\top \in V^*$ in the dual basis.  For the inputs, let's also write $\omega = (x,y,z)^\top \in V^*$ and $v = (p,q,r) \in V$.  Then
+$$\begin{align*}
+(u \otimes \eta)(\omega, v) & = u(\omega) \cdot \eta(v) \\
+& = \begin{pmatrix}
+ 1 \\
+ 2 \\
+ 3
+\end{pmatrix} (x,y,z)
+\cdot
+(4,5,6) \begin{pmatrix}
+ p \\
+ q \\
+ r
+\end{pmatrix} \\
+& = (x + 2y + 3z)(4p + 5q + 6r) \\
+& = 4px + 5 qx + 6rx \\
+& \ \ \ \ \ 8py + 10qy + 12py \\
+& \ \ \ \ \ 12pz + 15qz + 18rz \\
+& = (x,y,z)\begin{pmatrix}
+ 4 & 5 & 6 \\
+ 8 & 10 & 12 \\
+ 12 & 15 & 18
+\end{pmatrix}\begin{pmatrix}
+ p \\
+ q \\
+ r
+\end{pmatrix} \\
+& = \omega \begin{pmatrix}
+ 4 & 5 & 6 \\
+ 8 & 10 & 12 \\
+ 12 & 15 & 18
+\end{pmatrix} v.
+\end{align*}$$
+
+**Conclusion:** The tensor $u \otimes \eta \in T^1_1(V)$ is the bilinear map $(\omega, v)\mapsto \omega A v$, where $A$ is the $3 \times 3$ matrix above.
+
+The Wikipedia article you linked to would then _regard_ the matrix $A$ as being equal to the tensor product $u \otimes \eta$.
+
+--------
+
+Finally, I should point out two things that you might encounter in the literature.
+
+First, some authors take the definition of an $(r,s)$-tensor to mean a multilinear map $V^s \times (V^*)^r \to \mathbb{R}$ (note that the $r$ and $s$ are reversed).  This also means that some indices will be raised instead of lowered, and vice versa.  You'll just have to check each author's conventions every time you read something.
+
+Second, note that there is also a notion of tensor products _of vector spaces_.  Many textbooks, particularly ones focused on abstract algebra, regard this as the central concept.  I won't go into this here, but note that there is an isomorphism
+$$T^r_s(V) \cong \underbrace{V^* \otimes \cdots \otimes V^*}_{r\text{ copies}} \otimes \underbrace{V \otimes \cdots \otimes V}_{s \text{ copies}}.$$
+
+Confusingly, some books on differential geometry _define_ the tensor product of vector spaces in this way, but I think this is becoming rarer.
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
