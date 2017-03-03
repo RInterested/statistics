@@ -71,6 +71,55 @@ $$\begin{align}&(\Basis^{2} \otimes \Basis^{3} - \Basis^{3} \otimes \Basis^{2})\
 
 ---
 
+From [this answer on Quora](https://www.quora.com/What-is-a-good-way-to-understand-tensors/answer/David-Joyce-11?srid=utSnl):
+
+Tensors are useful when you've got a whole lot of coordinates that are related to each other in some structured way.  A simple vector like $\mathbf v=(1,4,2)$ is an example of a tensor, but it's simple enough so that you don't need to understand tensors in general to understand vectors.  Likewise, matrices are examples of tensors, but again, they're best understood just as matrices.
+The best way to understand a mathematical construct is not individually, but in context of the set (or space) of all the constructs of that type.  Rather than trying to define a number, instead define what a field of numbers is; instead of defining what a vector is, consider instead all the vectors that make up a vector space.  So to understand tensors of a particular type, instead consider all those tensors of the same type together.
+
+
+**Covariant tensor products**
+
+
+The simplest tensors are vectors, so we'll build tensors up from vector spaces, which I'll assume we already know about.  Suppose we've got two vector spaces $V$ and $W$ over a field $F$.  You can start with more than two, but so I don't have to use indices to begin with, I'll take just two.  You can join them together to get their tensor product $V\otimes W$ which will be another vector space.  
+The individual elements of $V\otimes W$ are named as linear combinations of elements of the form $\mathbf v\otimes\mathbf w$ where $\mathbf v\in V$ and $\mathbf w\in W$.  Since they're linear combinations, if you have $k$ scalars $a_1,\ldots,a_k$ in $F$, vectors $\mathbf v_1,\ldots,\mathbf v_k$ in $V$, and vectors vectors $\mathbf w_1,\ldots,\mathbf w_k$ in $W$, then 
+           $\displaystyle\sum_{i=1}^k a_i\mathbf v_i\otimes\mathbf w_i=a_1\mathbf v_1\otimes\mathbf w_1+\cdots+a_k\mathbf v_k\otimes\mathbf w_k$
+is a typical tensor in $V\otimes W$.  But there's a requirement that we make on the symbol $\otimes$, and that's that it be linear in each coordinate. So we require that
+           $(a_1\mathbf v_1+a_2\mathbf v_2)\otimes\mathbf w=a_1\mathbf v_1\otimes\mathbf w+a_2\mathbf v_2\otimes\mathbf w$ 
+and
+           $\mathbf v\otimes (a_1\mathbf w_1+a_2\mathbf w_2)=a_1\mathbf v\otimes\mathbf w_1+a_2\mathbf v\otimes\mathbf w_2$.
+That condition allows us to specify a basis for the vector space $V\otimes W$ if we have bases for both $V$ and $W$.  Suppose that $V$ is a vector space of dimension $m$ with basis $\mathbf b_1,\ldots,\mathbf b_m$, and that $W$ is a vector space of dimension $n$ with basis $\mathbf c_1,\ldots,\mathbf c_n$.  Then $V\otimes W$ is a vector space of dimension $mn$ and a basis whose elements are $\mathbf b_i\otimes\mathbf c_j$ where $i$ varies from $1$ through $m$ and $j$ varies from $1$ through $n$.  That means a typical element of $V\otimes W$ can be written as 
+          $\displaystyle\sum_{i=1}^m\sum_{j=1}^n a_{ij}\mathbf b_i\otimes\mathbf c_j$
+Rather than write this as an double sum with specified ranges for the indices, you can assume that those can be determined by context, and write the sum more simply as
+          $\displaystyle\sum_{ij} a_{ij}\mathbf b_i\otimes\mathbf c_j$
+and if the bases of the component vector spaces $V$ and $W$ are fixed, they don't have to be mentioned either, and the $\sum$ symbol can be suppressed. That yields the greatly abbreviated notation
+          $a_{ij}$
+for this tensor.
+Now, of course you can take a tensor product of more than two vector spaces.  If you have three vector spaces with specified dimensions and bases, then a typical element of the triple tensor product would be expressed as $a_{ijk}$.  Although that's a simple expression, remember that each of the three subscripts varies over a range, and it's a triple sum where each $a_{ijk}$ is a coefficient in that sum.
+
+
+**Dual vector spaces**
+
+If $V$ is a vector space, there is a dual vector space $V^{*}$ whose elements are linear transformations to the scalar field, $V\to F$.  If $V$ has a finite basis $\mathbf b_1,\ldots,\mathbf b_n$, then $V^{*}$ is a vector space of the same dimension with a basis $\mathbf b_1^{*},\ldots,\mathbf b_n^{*}$ where $\mathbf b_i^{*}:V\to F$ is the transformation that sends the vector $a_1\mathbf b_1+\cdots+a_n\mathbf b_n$ to the scalar $a_i$.
+When writing the elements of $V$ and $V^{*}$ as vectors, you can write the elements of $V$ as column vectors and $V^{*}$ as row vectors (or vice versa).
+
+
+**Covariant and contravariant tensor products**
+
+These are tensor products where some of the component vector spaces are dual vector spaces.  For those that are dual vector spaces, rather than using subscripts, superscripts are usually used.  Take for example the tensor product $V^{*}\otimes W$.  A typical element would be written as $a^i_j$. It is, as before, actually a sum.  Here $i$ is made a superscript because the tensor product is contravariant in $V$, which is just another way of saying that the dual vector space $V^{*}$ is being used instead of $V$ itself.  
+You can think of $a^i_j$ as being a linear transformation $V$ to $W$, that is, a matrix.  In that way, an ordinary matrix is one of these tensors where one coordinate is contravariant.
+
+
+**Composition of tensors**
+
+If you have two tensor products, and a vector space V appears in one of the tensor products covariantly and the other contravariantly, then you can compose them
+          $(V^{*}\otimes W)\times(V\otimes U)\to W\otimes U$
+Given $a^i_j\in V^{*}\otimes W$ and $b_{ik}\in V\otimes U$, the result is $\mathbf\sum_ia^i_jb_{ik}\in W\otimes U$.  The summation sign in the result is usually suppressed so it's written more simply as $a^i_jb_{ik}$.
+More generally, if you have two complicated tensors where the same index appears as a superscript in one and a subscript in the other, they can be multiplied by writing them next to each other with an understood summation over that index.
+As an example, a matrix $V^{*}\otimes W$ times a (column) vector in $V$ gives a (column) vector in $W$.
+
+
+---
+
 ###COORDINATE-FREE APPROACH TO TENSORS:
 
 From [this youtube lecture](https://www.youtube.com/watch?v=4l-qzZOZt50&t=2395s).
