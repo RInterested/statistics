@@ -1,0 +1,63 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###MONTE CARLO OPTION IN CHISQ.TEST():
+<br>
+
+From [this post](http://stats.stackexchange.com/a/262745/67822).
+
+So we have a $3 \times 2$ matrix with margins as follows:
+
+    m = matrix(c(4,5,23,20,104,496), nrow=3)
+    dimnames(m) = list(c("A", "B", "C"), c("Yes","No"))
+    addmargins(m)
+
+        Yes  No Sum
+    A     4  20  24
+    B     5 104 109
+    C    23 496 519
+    Sum  32 620 652
+
+The key lines in the `chisq.test()` function dealing with the Monte Carlo option are:
+
+    if (simulate.p.value) {
+                nx <- length(x)
+                sm <- matrix(sample.int(nx, B * n, TRUE, prob = p), 
+                    nrow = n)
+                ss <- apply(sm, 2L, function(x, E, k) {
+                    sum((table(factor(x, levels = 1L:k)) - E)^2/E)
+                }, E = E, k = nx)
+                PARAMETER <- NA
+                PVAL <- (1 + sum(ss >= almost.1 * STATISTIC))/(B + 
+                    1)
+            }
+
+The function takes in as input at the beginning of the call `x` in   
+
+           chisq.test(x, y = NULL, correct = TRUE,
+           p = rep(1/length(x), length(x)), rescale.p = FALSE,
+           simulate.p.value = FALSE, B = 2000)
+
+Therefore `x = m`. Now, `nx` is the `length(x)`, which is the number of cells ($6$ cells in this example). `n` is the total number of counts, which can be observed as the grand total in the printed out table above $(652)$, and is generally calculated as `n = sum(x)`.
+
+*Under the null hypothesis* of independence, the probability of each cell in the matrix is uniformly `p = rep(1/length(x), length(x)) # 0.1666667`, which implies that the expected value is `E = n * p # 108.6667.`
+
+With this the actual Monte Carlo simulation is carried out with the line:
+
+`sm = matrix(sample.int(nx, B * n, TRUE, prob = p), nrow = n)` which spells the following command: Sample from the integers `nx` (i.e. $1$ to $6$) so as to randomly choose one of the six cells in the matrix, `B * n` times, where `B` is the number of simulations, and `n` is the total number of counts in the original matrix  $(652)$. `TRUE` stands for `replace = TRUE` because we want to be able to select each cell more than once. And `p` gives directions to use uniform probability across cells in this case. So we get an insane amount of picks from $1$ to $6$, which the `matrix( , nrow = n)` organizes in columns of in this case `n` entries, i.e. $652$ (the total counts above). Each column is therefore a random table with the same totals as in the original matrix. Now it is just a matter of counting:
+
+    ss = apply(sm, 2L, function(x, E, k) {sum((table(factor(x, levels = 1L:k)) - E)^2/E)}, E = E, k = nx)
+
+is commanding to do the following operations on `sm`, columnwise (`2L`), i.e. for each simulation:
+
+1. Tabulate the number of times each cell $1: 6$ was picked (`table(x, levels = 1L:K)`. Here 'k =  nx = c`.
+
+2. Calculate the chi square statistic as $\chi^2=\displaystyle \sum_i \frac{(O_i-E_i)^2}{E_i}$ for each column (simulation).
+
+The last step is simply to calculate in what proportion of cases this chi square statistic is bigger than the chi square statistic calculated on the original matrix. This is the `PVAL.`
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
