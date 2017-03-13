@@ -149,7 +149,7 @@ $(document).ready(function () {
 <hr />
 <p>In Hinton’s Coursera course on NN, this expression (*) is seen as:</p>
 <p><span class="math display">\[\frac{\partial E}{\partial w_i}=\sum_n \frac{\partial y^n}{\partial w_i}\color{orange}{\frac{\partial E}{\partial y^n}}=\color{orange}{-}\sum_n \color{red}{x_i^n}\,\color{blue}{y^n \,(1-y^n)}\,\color{orange}{(t^n-y^n)}\]</span></p>
-<p>where <span class="math inline">\(E\)</span> stands for the error, <span class="math inline">\(w_i\)</span> is the weight <span class="math inline">\(i\)</span>, and <span class="math inline">\(n\)</span> is the index of the examples in the training set.</p>
+<p>where <span class="math inline">\(E\)</span> stands for the error, <span class="math inline">\(w_i\)</span> is the weight <span class="math inline">\(i\)</span>, <span class="math inline">\(n\)</span> is the index of the examples in the training set, and <span class="math inline">\(t\)</span> stands for training case.</p>
 <p>because,</p>
 <p><span class="math display">\[\frac{\partial y^n}{\partial w_i}=\color{red}{\frac{\partial z}{\partial w_i}}\color{blue}{\frac{dy}{dz}}=\color{red}{x_i^n}\,\color{blue}{y^n(1-y^n)}\]</span></p>
 <p>the latter part in blue is derived here:</p>
