@@ -207,7 +207,7 @@ $(document).ready(function () {
 <p><span class="math display">\[\frac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}}.\]</span></p>
 <p><span class="math inline">\(\delta_j^{(l)}\)</span> is the “error”of node <span class="math inline">\(j\)</span> in layer <span class="math inline">\(l\)</span>.</p>
 <p>For the <em>last</em> layer:</p>
-<p><span class="math inline">\(\Large \delta^{(L)}= a^{(L)}-y\)</span> with <span class="math inline">\(L\)</span> being the total number of layers, and <span class="math inline">\(a^{(L)}\)</span> is the vector of outputs of the activation units in the last layer.</p>
+<p><span class="math inline">\(\Large \delta^{(L)}= a^{(L)}-y\)</span> with <span class="math inline">\(L\)</span> being the total number of layers, and <span class="math inline">\(a^{(L)}\)</span> is the vector of outputs of the activation units in the last layer. So it’s simply the difference between the activation (or result of <span class="math inline">\(h(z)\)</span>) and the actual value of the training example (<span class="math inline">\(y\)</span>).</p>
 <p>The other layers are calculated as:</p>
 <p><span class="math inline">\(\Large \delta^{(l)}=\left(\Theta^{(l)}\right)^\top\delta^{(l+1)}\,g'(z^{(l)})\)</span> with <span class="math inline">\(g'(z^{(l)}) = a^{(l)}\cdot (1 - a^{(l)})\)</span>.</p>
 <p>stopping at <span class="math inline">\(\delta^{(2)}\)</span>.</p>
