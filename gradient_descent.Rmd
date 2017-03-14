@@ -58,7 +58,7 @@ $\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot 
 
 The derivative of the sigmoid activation function with respect to $z$ is:
 
-$\Large\color{blue}{ g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}=\left(\frac{1}{1+e^{-z}}\right)\times \left(1 - \frac{1}{1+e^{-z}}\right)}$ (see embedded mathy picture below for derivation).
+$\Large\color{blue}{ g'(z)=\frac{e^{-z}}{\left(1+e^{-z}\right)^2}=\left(\frac{1}{1+e^{-z}}\right)\times \left(1 - \frac{1}{1+e^{-z}}\right)}$ (see embedded mathy picture below for derivation).
 
 ---
 
@@ -101,7 +101,7 @@ $$\color{orange}{\frac{\partial E}{\partial y^n}=-(t^n-y^n)}.$$
 Going back to Eq. 1:
 
 
-<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/15807589/1fdf269c-2b30-11e6-9f97-ad17bcd8a993.png">
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/23912522/41dcf904-08b6-11e7-9b98-e1f6de908417.png">
 
 
 
@@ -145,7 +145,7 @@ $\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{
 
 For the case of a multi-class logistic regression NN the cost function is:
 
-$\large J(\Theta)=-\frac{1}{m}\big[\displaystyle\sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} \log(h_\Theta(x^{(i)}))_k + (1-y_k^{(i)})\log(1-(h_\Theta(x^{(i)}))_k)  \big]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ji}^l)^2$
+$$\large J(\Theta)=-\frac{1}{m}\left[\displaystyle\sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} \log(h_\Theta(x^{(i)}))_k + (1-y_k^{(i)})\log(1-(h_\Theta(x^{(i)}))_k)  \right]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ji}^l)^2$$
 
 
 $K$ is the number of classes or labels (output nodes).
