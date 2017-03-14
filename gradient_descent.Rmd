@@ -49,28 +49,28 @@ The cost function adds cost from each example. In what follows we will use the c
 
 $\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\frac{\partial \sum \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}=\sum \frac{\partial \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}$ by he sum rule in differentiation that says that $\frac{d}{dx}(u+v)=\frac{du}{dx}+\frac{dv}{dx}$
 
-Focusing on the expression inside the sum, and applying the chain rule, $(f\circ g)'=(f'\circ g)\cdot g'$ or $\frac{dz}{dx}=\frac{dz}{dy}\cdot\frac{dy}{dx}$.
+Focusing on the expression inside the sum, and applying the chain rule, $\large(f\circ g)'=(f'\circ g)\cdot g'$ or $\large\frac{dz}{dx}=\frac{dz}{dy}\cdot\frac{dy}{dx}$.
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot \frac{-\partial \hat y}{\partial \Theta^{(2)}}$
+$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\frac{\partial J}{\partial y}\frac{\partial y}{\partial \Theta^{(2)}}=\frac{\partial \left(\frac{1}{2}\sum (y-\hat y)^2\right)}{\partial y}\frac{\partial y}{\partial \Theta^{(2)}}=\color{fuchsia}{(y-\hat y)}\cdot \frac{\color{fuchsia}{-}\partial \hat y}{\partial \Theta^{(2)}}$
 
 Since $\hat y$ is the sigmoid activation function of $z^{(3)}$, which is $g\big(z^{(3)}\big)$ we can apply the chain rule again:
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot \frac{-\partial \hat y}{\partial z^{(3)}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=-(y-\hat y)\cdot g'(z^{(3)}) \cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\tag 1$
+$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot \frac{-\partial \hat y}{\partial z^{(3)}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\color{fuchsia}{-(y-\hat y)}\cdot \color{blue}{g'(z^{(3)})} \cdot \color{lime}{\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}}\tag 1$
 
 ---
 
 The derivative of the sigmoid activation function with respect to $z$ is:
 
-$\Large\color{blue}{ g'(z)=\frac{e^{-z}}{\left(1+e^{-z}\right)^2}=\left(\frac{1}{1+e^{-z}}\right)\times \left(1 - \frac{1}{1+e^{-z}}\right)}$ (see embedded mathy picture below for derivation).
+$\Large \color{blue}{g'(z)}=\frac{e^{-z}}{\left(1+e^{-z}\right)^2}=\left(\frac{1}{1+e^{-z}}\right)\times \left(1 - \frac{1}{1+e^{-z}}\right)=\color{blue}{\hat y\left(1-\hat y\right)}$ (see embedded mathy picture below for derivation).
 
 ---
 
 
-Now, $\Large z^{(3)}=a^{(2)}\Theta^{(2)}$, and hence $a$ is the slope of $z$ with respect to $z$ for each synapse.  Therefore $\large \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix}$
+Now, $\Large z^{(3)}=a^{(2)}\Theta^{(2)}$, and hence $a$ is the slope of $z$ with respect to $z$ for each synapse.  Therefore $\large \color{lime}{\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix}}$
 
 ---
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=-(y-\hat y)\cdot \left (\hat y\,(1-\hat y)\right)\cdot a^{(2)}\tag{*}$
+$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\color{fuchsia}{-(y-\hat y)}\cdot \color{blue}{\left (\hat y\,(1-\hat y)\right)}\cdot \color{lime}{a^{(2)}}\tag{*}$
 
 ---
 
