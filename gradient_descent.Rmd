@@ -18,6 +18,7 @@ The index notation of a neural network is as follows:
 
 <img width=900 src="https://cloud.githubusercontent.com/assets/9312897/23920218/2cd13db2-08d0-11e7-8032-7f3369a55e17.png">
 
+Notice that $\large x_1 =a_1^{(1)}$ and that $\large x_2 = a_2^{(1)}.$
 
 $L$ is the total number of layers.
 $s_l$ is the number of units (excluding the bias unit) in layer $l$.
@@ -176,7 +177,9 @@ $\lambda$ is the regularization constant.
 
 The number of columns in our current theta matrix $i$ (nothing to do with the training example index notation) is equal to the number of nodes in our current layer (including the bias unit): $i=1$ to $s_{l}$. The number of rows, $j$, in our current theta matrix is equal to the number of nodes in the next layer (excluding the bias unit): $s_{l+1}$.
 
-In backpropagation we try to minimize $\frac{\partial}{\partial \Theta_{i,j}^{(l)}}J(\Theta)$.
+In backpropagation we try to minimize 
+
+$$\frac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}}.$$
 
 $\delta_j^{(l)}$ is the "error"of node $j$ in layer $l$.
 
@@ -187,14 +190,14 @@ $\Large \delta^{(L)}= a^{(L)}-y$ with $L$ being the total number of layers, and 
 
 The other layers are calculated as:
 
-$\Large \delta^{(l)}=(\Theta^{(l)})^T\delta^{(l+1)}\,g'(z^{(l)})$ with $g'(z^{(l)}) = a^{(l)}\cdot (1 - a^{(l)})$.
+$\Large \delta^{(l)}=\left(\Theta^{(l)}\right)^\top\delta^{(l+1)}\,g'(z^{(l)})$ with $g'(z^{(l)}) = a^{(l)}\cdot (1 - a^{(l)})$.
 
 stopping at $\delta^{(2)}$.
 
 
-We can compute our partial derivative terms by multiplying our activation values and our error values for each training example t:
+We can compute our partial derivative terms by multiplying our activation values and our error values for each training example $t$:
 
-$\Large \dfrac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}} = \frac{1}{m}\sum_{t=1}^m a_j^{(t)(l)} {\delta}_i^{(t)(l+1)}$
+$$\Large \dfrac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}} = \frac{1}{m}\sum_{t=1}^m a_j^{(t)(l)} {\delta}_i^{(t)(l+1)}$$
 
 
 Backpropagation Algorithm:
@@ -308,8 +311,8 @@ $$\large\delta^{(L-1)} = \delta^{(L)} \theta^{(L-1)} a^{(L-1)}(1-a^{(L-1)})$$
 $$\Large\delta^{(2)} = \delta^{(3)} \theta^{(2)} a^{(2)}(1-a^{(2)})$$
 * **Put it together for the [last] hidden layer**:  
 $$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \delta^{(L-1)} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}$$  
-$$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = (\delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}) (a^{(L-2)})$$  
-$$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = ((a^{(L)} - y) (\theta^{(L-1)})(a^{(L-1)}(1-a^{(L-1)}))) (a^{(L-2)})$$  
+$$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \left(\delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}\right) (a^{(L-2)})$$  
+$$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \left((a^{(L)} - y) (\theta^{(L-1)})(a^{(L-1)}(1-a^{(L-1)}))\right) (a^{(L-2)})$$  
 
 
 
