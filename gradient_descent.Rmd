@@ -3,14 +3,18 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###GRADIENT DESCENT NEURAL NETWORKS:
+###NEURAL NETWORKS:
 <br>
 
 The general notation of a neural network is as follows:
 
-<img width=800 src ="https://cloud.githubusercontent.com/assets/9312897/23903640/93310978-089b-11e7-89e0-f4de4c959f61.png">
+<br>
 
-<img height="700" width="900" src="https://cloud.githubusercontent.com/assets/9312897/15808527/6b48a01a-2b47-11e6-868c-a97a9b0a392b.png">
+<img width=600 src ="https://cloud.githubusercontent.com/assets/9312897/23905568/e1461dbe-08a1-11e7-92a5-e1ca2669450f.png">
+
+<br>
+
+<img width=900 src="https://cloud.githubusercontent.com/assets/9312897/23909437/1f3605b6-08ad-11e7-8936-e99d8342db8f.png">
 
 
 $L$ is the total number of layers.
@@ -54,9 +58,7 @@ $\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot 
 
 The derivative of the sigmoid activation function with respect to $z$ is:
 
-$\Large\color{blue}{ g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}=\big(\frac{1}{1+e^{-z}}\big)\times \big(1 - \frac{1}{1+e^{-z}}\big)}$ because:
-
-$\large g(z)=\frac{u}{1+e^{-zv}}$; hence $\large g'(z)=\frac{u'v-uv'}{v^2}=\frac{0v-1(-e^{-z})}{(1+e^{-z})^2}$.
+$\Large\color{blue}{ g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}=\left(\frac{1}{1+e^{-z}}\right)\times \left(1 - \frac{1}{1+e^{-z}}\right)}$ (see embedded mathy picture below for derivation).
 
 ---
 
@@ -139,7 +141,7 @@ $\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^T \color{
 
 For the case of a multi-class logistic regression NN the cost function is:
 
-$\large J(\Theta)=-\frac{1}{m}\big[\displaystyle\sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} log(h_\Theta(x^{(i)}))_k + (1-y_k^{(i)})log(1-(h_\Theta(x^{(i)}))_k)  \big]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ji}^l)^2$
+$\large J(\Theta)=-\frac{1}{m}\big[\displaystyle\sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} \log(h_\Theta(x^{(i)}))_k + (1-y_k^{(i)})\log(1-(h_\Theta(x^{(i)}))_k)  \big]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ji}^l)^2$
 
 
 $K$ is the number of classes or labels (output nodes).
@@ -216,7 +218,7 @@ From the Coursera Wiki:
 #### Explanation of Derivatives Used in Backpropagation
 
 
-* We know that for a logistic regression classifier (which is what all of the output neurons in a neural network are), we use the cost function, $$\large J(\theta) = -y\,log(h_{\theta}(x)) - (1-y)\,log(1-h_{\theta}(x))$$ and apply this over the $K$ output neurons (labels), and for all $m$ examples.
+* We know that for a logistic regression classifier (which is what all of the output neurons in a neural network are), we use the cost function, $$\large J(\theta) = -y\,\log(h_{\theta}(x)) - (1-y)\,\log(1-h_{\theta}(x))$$ and apply this over the $K$ output neurons (labels), and for all $m$ examples.
 * The equation to compute the partial derivatives of the theta terms in the output neurons:
 $$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}$$
 * And the equation to compute partial derivatives of the theta terms in the [last] hidden layer neurons (layer L-1):
@@ -244,7 +246,7 @@ We need to evaluate both partial derivatives.
 
 <br>
 
-* Given $\large J(\theta) = -ylog(a^{(L)}) - (1-y)log(1-a^{(L)})$, where $a^{(L)} = h_{\theta}(x))$, the partial derivative is:
+* Given $\large J(\theta) = -y\log(a^{(L)}) - (1-y)\log(1-a^{(L)})$, where $a^{(L)} = h_{\theta}(x))$, the partial derivative is:
 $$\large\frac{\partial J(\theta)}{\partial a^{(L)}} = \frac{y-1}{a^{(L)}-1} - \frac{y}{a^{(L)}}$$
 
 * And given $a = g(z)$, where $g = \frac{1}{1+e^{-z}}$, the partial derivative is:
