@@ -73,7 +73,7 @@ $\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=-(y-\hat y)\cdot
 
 In [Hinton's Coursera course on NN](https://drive.google.com/file/d/0Bwl-HpVJ_5PedHh3OWw5b2M0aHc/view?usp=sharing), this expression (*) is seen as:
 
-$$\frac{\partial E}{\partial w_i}=\sum_n \frac{\partial y^n}{\partial w_i}\color{orange}{\frac{\partial E}{\partial y^n}}=\color{orange}{-}\sum_n \color{red}{x_i^n}\,\color{blue}{y^n \,(1-y^n)}\,\color{orange}{(t^n-y^n)}$$
+$$\frac{\partial E}{\partial w_i}=\sum_n \frac{\partial y^n}{\partial w_i}\color{orange}{\frac{\partial E}{\partial y^n}}=\color{orange}{-}\sum_n \color{red}{x_i^n}\,\color{blue}{y^n \,(1-y^n)}\,\color{orange}{(t^n-y^n)}=\sum_n \color{red}{x_i^n}\color{brown}{\delta^n}$$
 
 where $E$ stands for the error, $w_i$ is the weight $i$, $n$ is the index of the examples in the training set, and $t$ stands for training case.
 
@@ -107,11 +107,7 @@ Going back to Eq. 1:
 
 So we end up with:
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\color{gray}{(y-\hat y)}\cdot \color{purple}{\frac{-\partial \hat y}{\partial z^{(3)}}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\color{gray}{(y-\hat y)}\cdot \color{purple}{-g'(z^{(3)})}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\color{orange}{\delta^{(3)}}\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=(a^{2})^T\,\color{orange}{\delta^{(3)}}=$
-
-<br>
-
-$=\large \begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix} \begin{bmatrix}\delta^{(3)}_1\\\delta^{(3)}_2\\\delta^{(3)}_3\end{bmatrix}=\begin{bmatrix}a_{11}^{(2)}\delta^{(3)}_1+a_{12}^{(2)}\delta^{(3)}_2+a_{13}^{(2)}\delta^{(3)}_3\\a_{21}^{(2)}\delta^{(3)}_1+a_{22}^{(2)}\delta^{(3)}_2+a_{23}^{(2)}\delta^{(3)}_3\\a_{31}^{(2)}\delta^{(3)}_1+a_{32}^{(2)}\delta^{(3)}_2+a_{33}^{(2)}\delta^{(3)}_3\end{bmatrix}$
+$$\begin{align}\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}&=\color{gray}{(y-\hat y)}\cdot \color{purple}{\frac{-\partial \hat y}{\partial z^{(3)}}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\\&=\color{gray}{(y-\hat y)}\cdot \color{purple}{-g'(z^{(3)})}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\\&=\color{orange}{\delta^{(3)}}\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=(a^{2})^T\,\color{orange}{\delta^{(3)}}\\&=\large \begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix} \begin{bmatrix}\delta^{(3)}_1\\\delta^{(3)}_2\\\delta^{(3)}_3\end{bmatrix}=\begin{bmatrix}a_{11}^{(2)}\delta^{(3)}_1+a_{12}^{(2)}\delta^{(3)}_2+a_{13}^{(2)}\delta^{(3)}_3\\a_{21}^{(2)}\delta^{(3)}_1+a_{22}^{(2)}\delta^{(3)}_2+a_{23}^{(2)}\delta^{(3)}_3\\a_{31}^{(2)}\delta^{(3)}_1+a_{32}^{(2)}\delta^{(3)}_2+a_{33}^{(2)}\delta^{(3)}_3\end{bmatrix}\end{align}$$
 
 <br>
 
