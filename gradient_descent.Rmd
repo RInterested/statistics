@@ -10,13 +10,13 @@ The anatomy of a neural network is as follows:
 
 <br>
 
-<img width=700 src ="https://cloud.githubusercontent.com/assets/9312897/23905568/e1461dbe-08a1-11e7-92a5-e1ca2669450f.png">
+<img width=500 src ="https://cloud.githubusercontent.com/assets/9312897/23905568/e1461dbe-08a1-11e7-92a5-e1ca2669450f.png">
 
 <br>
 
 The index notation of a neural network is as follows:
 
-<img width=900 src="https://cloud.githubusercontent.com/assets/9312897/23920218/2cd13db2-08d0-11e7-8032-7f3369a55e17.png">
+<img width=700 src="https://cloud.githubusercontent.com/assets/9312897/23920218/2cd13db2-08d0-11e7-8032-7f3369a55e17.png">
 
 Notice that $\large x_1 =a_1^{(1)}$ and that $\large x_2 = a_2^{(1)}.$
 
@@ -24,59 +24,59 @@ $L$ is the total number of layers.
 $s_l$ is the number of units (excluding the bias unit) in layer $l$.
 
 
+---
 
-
-####Example with regression after [this youtube video](https://youtu.be/GlcnxUlrtek):
+#####Example with regression after [this youtube video](https://youtu.be/GlcnxUlrtek):
 
 <img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/15833481/017cfe16-2bf5-11e6-9378-a770db1c9c78.png">
 
 
 $a_j^{(l)}$ is the *activation node* $j$ in layer $l$.
 
-We need to calculate $\Large \frac {\partial J}{\partial \Theta}$. The weights $\Large \Theta$ are spread in two matrices: $\Large \Theta^{1}$ and $\Large \Theta^{2}$:
+We need to calculate $\large \frac {\partial J}{\partial \Theta}$. The weights $\large \Theta$ are spread in two matrices: $\large \Theta^{1}$ and $\large \Theta^{2}$:
 
 
-$\color{red}{\Large \Theta^{1}=\begin{bmatrix}\theta_{11}^{(1)} & \theta_{12}^{(1)} & \theta_{13}^{(1)}\\\theta_{21}^{(1)} & \theta_{22}^{(1)} & \theta_{23}^{(1)} \end{bmatrix}}$ and $\color{green}{\Large \Theta^{2}=\begin{bmatrix}\theta_{11}^{(2)} \\ \theta_{21}^{(2)} \\ \theta_{31}^{(2)} \end{bmatrix}}$
+$\color{red}{\large \Theta^{1}=\begin{bmatrix}\theta_{11}^{(1)} & \theta_{12}^{(1)} & \theta_{13}^{(1)}\\\theta_{21}^{(1)} & \theta_{22}^{(1)} & \theta_{23}^{(1)} \end{bmatrix}}$ and $\color{green}{\large \Theta^{2}=\begin{bmatrix}\theta_{11}^{(2)} \\ \theta_{21}^{(2)} \\ \theta_{31}^{(2)} \end{bmatrix}}$
 
 We need to calculate:
 
-$\color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}} = \begin{bmatrix}\frac{\partial J}{\partial \theta_{11}^{(1)}} & \frac{\partial J}{\partial \theta_{12}^{(1)}} & \frac{\partial J}{\partial \theta_{13}^{(1)}}\\ \frac{\partial J}{\partial \theta_{21}^{(1)}} & \frac{\partial J}{\partial \theta_{22}^{(1)}} & \frac{\partial J}{\partial \theta_{23}^{(1)}}\end{bmatrix}}$ and $\color{green}{\Large \frac {\partial J}{\partial \Theta^{(2)}}=\begin{bmatrix}\frac{\partial J}{\partial\theta_{11}^{(2)}} \\ \frac{\partial J}{\partial\theta_{21}^{(2)}} \\ \frac{\partial J}{\partial\theta_{31}^{(2)}} \end{bmatrix}}$
+$\color{red}{\large \frac{\partial J}{\partial \Theta^{(1)}} = \begin{bmatrix}\frac{\partial J}{\partial \theta_{11}^{(1)}} & \frac{\partial J}{\partial \theta_{12}^{(1)}} & \frac{\partial J}{\partial \theta_{13}^{(1)}}\\ \frac{\partial J}{\partial \theta_{21}^{(1)}} & \frac{\partial J}{\partial \theta_{22}^{(1)}} & \frac{\partial J}{\partial \theta_{23}^{(1)}}\end{bmatrix}}$ and $\color{green}{\large \frac {\partial J}{\partial \Theta^{(2)}}=\begin{bmatrix}\frac{\partial J}{\partial\theta_{11}^{(2)}} \\ \frac{\partial J}{\partial\theta_{21}^{(2)}} \\ \frac{\partial J}{\partial\theta_{31}^{(2)}} \end{bmatrix}}$
 
 
 
 The cost function adds cost from each example. In what follows we will use the cost function of a regression model as $\frac{1}{2}\sum (y-\hat y)^2$, although it would be more accurate as $\frac{1}{2m}\sum (y-\hat y)^2$.
 
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\frac{\partial \sum \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}=\sum \frac{\partial \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}$ by he sum rule in differentiation that says that $\frac{d}{dx}(u+v)=\frac{du}{dx}+\frac{dv}{dx}$
+$\large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\frac{\partial \sum \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}=\sum \frac{\partial \frac{1}{2}(y-\hat y)^2}{\partial \Theta^{(2)}}$ by he sum rule in differentiation that says that $\frac{d}{dx}(u+v)=\frac{du}{dx}+\frac{dv}{dx}$
 
 Focusing on the expression inside the sum, and applying the chain rule, $\large(f\circ g)'=(f'\circ g)\cdot g'$ or $\large\frac{dz}{dx}=\frac{dz}{dy}\cdot\frac{dy}{dx}$.
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\frac{\partial J}{\partial y}\frac{\partial y}{\partial \Theta^{(2)}}=\frac{\partial \left(\frac{1}{2}\sum (y-\hat y)^2\right)}{\partial y}\frac{\partial y}{\partial \Theta^{(2)}}=\color{fuchsia}{(y-\hat y)}\cdot \frac{\color{fuchsia}{-}\partial \hat y}{\partial \Theta^{(2)}}$
+$\large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\frac{\partial J}{\partial y}\frac{\partial y}{\partial \Theta^{(2)}}=\frac{\partial \left(\frac{1}{2}\sum (y-\hat y)^2\right)}{\partial y}\frac{\partial y}{\partial \Theta^{(2)}}=\color{fuchsia}{(y-\hat y)}\cdot \frac{\color{fuchsia}{-}\partial \hat y}{\partial \Theta^{(2)}}$
 
 Since $\hat y$ is the sigmoid activation function of $z^{(3)}$, which is $g\big(z^{(3)}\big)$ we can apply the chain rule again:
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot \frac{-\partial \hat y}{\partial z^{(3)}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\color{fuchsia}{-(y-\hat y)}\cdot \color{blue}{g'(z^{(3)})} \cdot \color{lime}{\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}}\tag 1$
+$\large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=(y-\hat y)\cdot \frac{-\partial \hat y}{\partial z^{(3)}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\color{fuchsia}{-(y-\hat y)}\cdot \color{blue}{g'(z^{(3)})} \cdot \color{lime}{\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}}\tag 1$
 
 ---
 
 The derivative of the sigmoid activation function with respect to $z$ is:
 
-$\Large \color{blue}{g'(z)}=\frac{e^{-z}}{\left(1+e^{-z}\right)^2}=\left(\frac{1}{1+e^{-z}}\right)\times \left(1 - \frac{1}{1+e^{-z}}\right)=\color{blue}{\hat y\left(1-\hat y\right)}$ (see embedded mathy picture below for derivation).
+$\large \color{blue}{g'(z)}=\frac{e^{-z}}{\left(1+e^{-z}\right)^2}=\left(\frac{1}{1+e^{-z}}\right)\times \left(1 - \frac{1}{1+e^{-z}}\right)=\color{blue}{\hat y\left(1-\hat y\right)}$ (see embedded mathy picture below for derivation).
 
 ---
 
 
-Now, $\Large z^{(3)}=a^{(2)}\Theta^{(2)}$, and hence $a$ is the slope of $z$ with respect to $z$ for each synapse.  Therefore $\large \color{lime}{\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix}}$
+Now, $\large z^{(3)}=a^{(2)}\Theta^{(2)}$, and hence $a$ is the slope of $z$ with respect to $z$ for each synapse.  Therefore $\large \color{lime}{\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}=\begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix}}$
 
 ---
 
-$\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\color{fuchsia}{-(y-\hat y)}\cdot \color{blue}{\left (\hat y\,(1-\hat y)\right)}\cdot \color{lime}{a^{(2)}}\tag{*}$
+$\large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}=\color{fuchsia}{-(y-\hat y)}\cdot \color{blue}{\left (\hat y\,(1-\hat y)\right)}\cdot \color{lime}{a^{(2)}}\tag{*}$
 
 ---
 
 In [Hinton's Coursera course on NN](https://drive.google.com/file/d/0Bwl-HpVJ_5PedHh3OWw5b2M0aHc/view?usp=sharing), this expression (*) is seen as:
 
-$$\frac{\partial E}{\partial w_i}=\sum_n \frac{\partial y^n}{\partial w_i}\color{orange}{\frac{\partial E}{\partial y^n}}=\color{orange}{-}\sum_n \color{red}{x_i^n}\,\color{blue}{y^n \,(1-y^n)}\,\color{orange}{(t^n-y^n)}=\sum_n \color{red}{x_i^n}\color{brown}{\delta^n}$$
+$$\frac{\partial E}{\partial w_i}=\sum_n \frac{\partial y^n}{\partial w_i}\color{orange}{\frac{\partial E}{\partial y^n}}=\color{orange}{-}\sum_n \color{red}{x_i^n}\,\color{blue}{y^n \,(1-y^n)}\,\color{orange}{(t^n-y^n)}$$
 
 where $E$ stands for the error, $w_i$ is the weight $i$, $n$ is the index of the examples in the training set, and $t$ stands for training case.
 
@@ -110,33 +110,41 @@ Going back to Eq. 1:
 
 So we end up with:
 
-$$\begin{align}\Large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}&=\color{gray}{(y-\hat y)}\cdot \color{purple}{\frac{-\partial \hat y}{\partial z^{(3)}}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\\[2ex]&=\color{gray}{(y-\hat y)}\cdot \color{purple}{-g'(z^{(3)})}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\\&=\color{orange}{\delta^{(3)}}\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\\[2ex]&=(a^{2})^T\,\color{orange}{\delta^{(3)}}\\[2ex]&=\large \begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix} \begin{bmatrix}\delta^{(3)}_1\\\delta^{(3)}_2\\\delta^{(3)}_3\end{bmatrix}=\begin{bmatrix}a_{11}^{(2)}\delta^{(3)}_1+a_{12}^{(2)}\delta^{(3)}_2+a_{13}^{(2)}\delta^{(3)}_3\\a_{21}^{(2)}\delta^{(3)}_1+a_{22}^{(2)}\delta^{(3)}_2+a_{23}^{(2)}\delta^{(3)}_3\\a_{31}^{(2)}\delta^{(3)}_1+a_{32}^{(2)}\delta^{(3)}_2+a_{33}^{(2)}\delta^{(3)}_3\end{bmatrix}\end{align}$$
+$$\begin{align}\large \color{green}{\frac{\partial J}{\partial \Theta^{(2)}}}&=\color{gray}{(y-\hat y)}\cdot \color{purple}{\frac{-\partial \hat y}{\partial z^{(3)}}}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\\[2ex]&=\color{gray}{(y-\hat y)}\cdot \color{purple}{-g'(z^{(3)})}\cdot \frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\\&=\color{orange}{\delta^{(3)}}\frac{\partial z^{(3)}}{\partial \Theta^{(2)}}\\[2ex]&=(a^{2})^T\,\color{orange}{\delta^{(3)}}\\[2ex]&=\large \begin{bmatrix}a_{11}^{(2)}&a_{12}^{(2)}&a_{13}^{(2)}\\a_{21}^{(2)}&a_{22}^{(2)}&a_{23}^{(2)}\\a_{31}^{(2)}&a_{32}^{(2)}&a_{33}^{(2)}\end{bmatrix} \begin{bmatrix}\delta^{(3)}_1\\\delta^{(3)}_2\\\delta^{(3)}_3\end{bmatrix}=\begin{bmatrix}a_{11}^{(2)}\delta^{(3)}_1+a_{12}^{(2)}\delta^{(3)}_2+a_{13}^{(2)}\delta^{(3)}_3\\a_{21}^{(2)}\delta^{(3)}_1+a_{22}^{(2)}\delta^{(3)}_2+a_{23}^{(2)}\delta^{(3)}_3\\a_{31}^{(2)}\delta^{(3)}_1+a_{32}^{(2)}\delta^{(3)}_2+a_{33}^{(2)}\delta^{(3)}_3\end{bmatrix}\end{align}$$
 
 <br>
 
-Then $\Large\color{orange}{\delta^{(3)}}=\color{gray}{(y-\hat y)}\cdot \color{purple}{g'(z^{(3)})}$
+Then $\large\color{orange}{\delta^{(3)}}=\color{gray}{(y-\hat y)}\cdot \color{purple}{g'(z^{(3)})}$
 
 Therefore, the matrix multiplication also takes care of the $\sum$ part in front of the first derivative formula.
 
 ---
 
-<img width=600 src="https://cloud.githubusercontent.com/assets/9312897/23920280/5ceb65a4-08d0-11e7-8006-d3fe9332b409.png">
+Notice that the more general efinition of $\delta$ outside the last layer is:
+
+$\bbox[10px,border:2px solid purple]{\large \delta^{(l)}=\left(\Theta^{(l)}\right)^\top\delta^{(l+1)}\,g'(z^{(l)})}$ with $g'(z^{(l)}) = a^{(l)}\cdot (1 - a^{(l)})$
+
+
+---
 
 As for...
 
-$\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=\color{orange}{\delta^{(3)}}\frac{\partial z^{(3)}}{\partial a^{(2)}}\frac{\partial a^{(2)}}{\partial \Theta^{(1)}}=\color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top \frac{\partial a^{(2)}}{\partial \Theta^{(1)}}$
+$\large \color{red}{\large \frac{\partial J}{\partial \Theta^{(1)}}}=\color{orange}{\delta^{(3)}}\frac{\partial z^{(3)}}{\partial a^{(2)}}\frac{\partial a^{(2)}}{\partial \Theta^{(1)}}=\color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top \frac{\partial a^{(2)}}{\partial \Theta^{(1)}}$
 
-since, $\Large\frac{\partial z^{(3)}}{\partial a^{(2)}}=\Theta^{(2)}$.
+since, $\large\frac{\partial z^{(3)}}{\partial a^{(2)}}=\Theta^{(2)}$.
 
 Next,
 
-$\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=\color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top \frac{\partial a^{(2)}}{\partial \Theta^{(1)}}=\color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top \frac{\partial a^{(2)}}{\partial z^{(2)}}\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=\color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top g'(z^{(2)})\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}$
+$\large \color{red}{\large \frac{\partial J}{\partial \Theta^{(1)}}}=\color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top \frac{\partial a^{(2)}}{\partial \Theta^{(1)}}=\color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top \frac{\partial a^{(2)}}{\partial z^{(2)}}\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=\color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top g'(z^{(2)})\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}$
 
 Finally, 
 
-$\Large\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=X$. Therefore,
+$\large\frac{\partial z^{(2)}}{\partial \Theta^{(1)}}=X$. Therefore,
 
-$\Large \color{red}{\Large \frac{\partial J}{\partial \Theta^{(1)}}}=X^\top \color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top \color{purple}{g'(z^{(2)})}=X^\top \color{brown}{\delta^{(2)}}.$
+$\large \color{red}{\large \frac{\partial J}{\partial \Theta^{(1)}}}=X^\top \color{orange}{\delta^{(3)}} \left(\Theta^{(2)}\right)^\top \color{purple}{g'(z^{(2)})}=X^\top \color{brown}{\delta^{(2)}}.$
+
+#####End of example with regression after [this youtube video](https://youtu.be/GlcnxUlrtek).
+
 
 ---
 
@@ -188,12 +196,12 @@ $\delta_j^{(l)}$ is the "error"of node $j$ in layer $l$.
 
 For the *last* layer:
 
-$\Large \delta^{(L)}= a^{(L)}-y$ with $L$ being the total number of layers, and $a^{(L)}$ is the vector of outputs of the activation units in the last layer. So it's simply the difference between the activation (or result of $h(z)$) and the actual value of the training example ($y$).
+$\large \delta^{(L)}= a^{(L)}-y$ with $L$ being the total number of layers, and $a^{(L)}$ is the vector of outputs of the activation units in the last layer. So it's simply the difference between the activation (or result of $h(z)$) and the actual value of the training example ($y$).
 
 
 The other layers are calculated as:
 
-$\Large \delta^{(l)}=\left(\Theta^{(l)}\right)^\top\delta^{(l+1)}\,g'(z^{(l)})$ with $g'(z^{(l)}) = a^{(l)}\cdot (1 - a^{(l)})$.
+$\large \delta^{(l)}=\left(\Theta^{(l)}\right)^\top\delta^{(l+1)}\,g'(z^{(l)})$ with $g'(z^{(l)}) = a^{(l)}\cdot (1 - a^{(l)})$.
 
 stopping at $\delta^{(2)}$.
 
@@ -202,7 +210,7 @@ stopping at $\delta^{(2)}$.
 
 We can compute our partial derivative terms by multiplying our activation values and our error values for each training example $t$:
 
-$$\Large \dfrac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}} = \frac{1}{m}\sum_{t=1}^m a_j^{(t)(l)} {\delta}_i^{(t)(l+1)}$$
+$$\large \dfrac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}} = \frac{1}{m}\sum_{t=1}^m a_j^{(t)(l)} {\delta}_i^{(t)(l+1)}$$
 
 
 Backpropagation Algorithm:
@@ -229,7 +237,7 @@ Backpropagation Algorithm:
 
 The capital-delta matrix is used as an "accumulator" to add up our values as we go along and eventually compute our partial derivative. It can be proven that:
 
-$\Large D_{i,j}^{(l)} = \dfrac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}}.$
+$\large D_{i,j}^{(l)} = \dfrac{\partial J(\Theta)}{\partial \Theta_{i,j}^{(l)}}.$
 
 ---
 
@@ -247,14 +255,14 @@ From the [Coursera Wiki](http://mlwiki.org/index.php/Machine_Learning_(coursera)
 
 * We know that for a logistic regression classifier (which is what all of the output neurons in a neural network are), we use the cost function, $$\large J(\theta) = -y\,\log(h_{\theta}(x)) - (1-y)\,\log(1-h_{\theta}(x))$$ and apply this over the $K$ output neurons (labels), and for all $m$ examples.
 * The equation to compute the partial derivatives of the theta terms in the output neurons:
-$$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}$$
+$$\large\frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}$$
 * And the equation to compute partial derivatives of the theta terms in the [last] hidden layer neurons (layer L-1):
-$$\Large \frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}$$
+$$\large \frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}$$
 * Clearly they share some pieces in common, so a delta term $\delta^{(L)}$ can be used for the common pieces between the output layer and the hidden layer immediately before it (with the possibility that there could be many hidden layers if we wanted):
 $$\large \delta^{(L)} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}}$$
 * And we can go ahead and use another delta term $\delta^{(L-1)}$ for the pieces that would be shared by the final hidden layer and a hidden layer before that, if we had one.  Regardless, this delta term will still serve to make the math and implementation more concise.
-$$\Large\delta^{(L-1)} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}$$  
-$$\Large\delta^{(L-1)} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}$$
+$$\large\delta^{(L-1)} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}$$  
+$$\large\delta^{(L-1)} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}$$
 * With these delta terms, our equations become:
 $$\frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}$$  
 $$\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \delta^{(L-1)} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}$$
@@ -266,7 +274,7 @@ Now, time to evaluate these derivatives:
 
 * Let's start with the output layer:
 
-$$\Large \frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}$$
+$$\large \frac{\partial J(\theta)}{\partial \theta^{(L-1)}} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial \theta^{(L-1)}}$$
 using $$\large \delta^{(L)} = \frac{\partial J(\theta)}{\partial a^{(L)}} \frac{\partial a^{(L)}}{\partial z^{(L)}}.$$ 
 
 We need to evaluate both partial derivatives.
@@ -313,11 +321,11 @@ $$\large\delta^{(L-1)} = \delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}
 $$\large\delta^{(L-1)} = \delta^{(L)} (\theta^{(L-1)}) (a^{(L-1)}(1-a^{(L-1)}))$$  
 $$\large\delta^{(L-1)} = \delta^{(L)} \theta^{(L-1)} a^{(L-1)}(1-a^{(L-1)})$$
 * So, for a 3-layer network,  
-$$\Large\delta^{(2)} = \delta^{(3)} \theta^{(2)} a^{(2)}(1-a^{(2)})$$
+$$\large\delta^{(2)} = \delta^{(3)} \theta^{(2)} a^{(2)}(1-a^{(2)})$$
 * **Put it together for the [last] hidden layer**:  
-$$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \delta^{(L-1)} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}$$  
-$$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \left(\delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}\right) (a^{(L-2)})$$  
-$$\Large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \left((a^{(L)} - y) (\theta^{(L-1)})(a^{(L-1)}(1-a^{(L-1)}))\right) (a^{(L-2)})$$  
+$$\large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \delta^{(L-1)} \frac{\partial z^{(L-1)}}{\partial \theta^{(L-2)}}$$  
+$$\large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \left(\delta^{(L)} \frac{\partial z^{(L)}}{\partial a^{(L-1)}} \frac{\partial a^{(L-1)}}{\partial z^{(L-1)}}\right) (a^{(L-2)})$$  
+$$\large\frac{\partial J(\theta)}{\partial \theta^{(L-2)}} = \left((a^{(L)} - y) (\theta^{(L-1)})(a^{(L-1)}(1-a^{(L-1)}))\right) (a^{(L-2)})$$  
 
 
 
