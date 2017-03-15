@@ -1,0 +1,56 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###Statistical Soup: ANOVA, ANCOVA, MANOVA, & MANCOVA
+August 11, 2014 Jeremy J. Taylor
+<br>
+
+Copied verbatim from [here](http://www.statsmakemecry.com/smmctheblog/stats-soup-anova-ancova-manova-mancova).
+
+The distinctions between ANOVA, ANCOVA, MANOVA, and MANCOVA can be difficult to keep straight. Before one can appreciate the differences, it is helpful to review the similarities among them.
+
+ANOVA
+
+The core component of all four of these analyses (ANOVA, ANCOVA, MANOVA, AND MANCOVA) is the first in the list,  the ANOVA. An "Analysis of Variance" (ANOVA) tests three or more groups for mean differences based on a continuous (i.e. scale or interval) response variable (a.k.a. dependent variable). The term "factor" refers to the variable that distinguishes this group membership. Race, level of education, and treatment condition are examples of factors.
+
+There are two main types of ANOVA: (1) "one-way" ANOVA compares levels (i.e. groups) of a single factor based on single continuous response variable (e.g. comparing test score by 'level of education') and (2) a "two-way" ANOVA compares levels of two or more factors for mean differences on a single continuous response variable(e.g. comparing test score by both 'level of education' and 'zodiac sign'). In practice, you will see one-way ANOVAs more often and when the term ANOVA is generically used, it often refers to a one-way ANOVA. Henceforth in this blog entry, I use the term ANOVA to refer to the one-way flavor.
+
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/23958845/bc05e8f8-0979-11e7-81bd-6bc6d3b2da0e.png">
+
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/23958758/7c56bd72-0979-11e7-819b-273f0ddfe293.png">
+
+ANCOVA
+
+The obvious difference between ANOVA and ANCOVA is the the letter "C", which stands for 'covariance'. Like ANOVA, "Analysis of Covariance" (ANCOVA) has a single continuous response variable. Unlike ANOVA, ANCOVA compares a response variable by both a factor and a continuous independent variable (e.g. comparing test score by both 'level of education' and 'number of hours spent studying'). The term for the continuous independent variable (IV) used in ANCOVA is "covariate". 
+
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/23958911/0106efd8-097a-11e7-9d54-87e7cadf1a74.png">
+
+ANCOVA is also commonly used to describe analyses with a single response variable, continuous IVs, and no factors. Such an analysis is also known as a regression. In fact, you can get almost identical results in SPSS by conducting this analysis using either the "Analyze > Regression > Linear" dialog menus or the "Analze > General Linear Model (GLM) > Univariate" dialog menus. 
+
+A key (but not only) difference in these methods is that you get slightly different output tables. Also, regression requires that user dummy code factors, while GLM handles dummy coding through the "contrasts" option. The linear regression command in SPSS also allows for variable entry in hierarchical blocks (i.e. stages).
+
+MANOVA
+
+The obvious difference between ANOVA and a "Multivariate Analysis of Variance" (MANOVA) is the “M”, which stands for multivariate. In basic terms, A MANOVA is an ANOVA with two or more continuous response variables. Like ANOVA, MANOVA has both a one-way flavor and a two-way flavor. The number of factor variables involved distinguish a one-way MANOVA from a two-way MANOVA. 
+
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/23959027/55d6bd22-097a-11e7-9614-57ff6a71c42c.png">
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/23959073/7d44ead2-097a-11e7-96f2-7bcf249737f3.png">
+
+
+When comparing two or more continuous response variables by a single factor, a one-way MANOVA is appropriate (e.g. comparing ‘test score’ and ‘annual income’ together by ‘level of education’). A two-way MANOVA also entails two or more continuous response variables, but compares them by at least two factors (e.g. comparing ‘test score’ and ‘annual income’ together by both ‘level of education’ and ‘zodiac sign’). 
+
+A more subtle way that MANOVA differs from ANOVA is that MANOVA compares levels of a factor that has only two levels (a.k.a. binary). When dealing with a single response variable and binary factor (e.g. gender), one uses an independent sample t-test. However, a t-test can not estimate differences for more than one response variable together, thus a MANOVA fills that need.
+
+MANCOVA
+
+Like ANOVA and ANCOVA, the main difference between MANOVA and MANCOVA is the “C,” which again stands for “covariance.” Both a MANOVA and MANCOVA feature two or more response variables, but the key difference between the two is the nature of the IVs. While a MANOVA can include only factors, an analysis evolves from MANOVA to MANCOVA when one or more more covariates are added to the mix. 
+
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/23959125/ac33d68c-097a-11e7-9e3f-de9d947346c7.png">
+
+SPSS NOTE: When running either a MANOVA or MANCOVA, SPSS produces tables that show whether response variables (on the whole) vary by levels of your factor(s). SPSS also produces a table that presents follow-up univariate analyses (i.e. one response variable at a time - ANOVA/ANCOVA). This table shows which response variables in particular vary by level of the factors tested. In most cases, we are only concerned with this table when we find significant differences in the initial multivariate (a.k.a. omnibus) test.  In other words, we first determine if our set of response variables differ by levels of our factor(s) and then explore which are driving any significant differences we find. 
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
