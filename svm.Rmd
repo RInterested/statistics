@@ -12,7 +12,7 @@ It is predicated upon drawing a decision boundary line leaving as ample a margin
 
 <br>
 
-<img width="600" length="700" src="https://cloud.githubusercontent.com/assets/9312897/23883316/92ad9534-083c-11e7-9119-aeb10293422f.png">
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/23883316/92ad9534-083c-11e7-9119-aeb10293422f.png">
 
 
 As in the illustration above, if we select an orthogonal vector such that $\large \lVert w \rVert=1$ we can establish a decision criterium for any unknown example $\bf u$ to be catalogued as positive of the form:
@@ -31,14 +31,14 @@ First constraint we are going to impose is that for any positive sample $x_+$ (w
 
 <br>
 
-<img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22609841/b95bad6c-ea30-11e6-9d4e-2d0c22f6628c.png">
+<img width=300 src="https://cloud.githubusercontent.com/assets/9312897/22609841/b95bad6c-ea30-11e6-9d4e-2d0c22f6628c.png">
 
 <br>
 
 In the division boundary or hyperplane (**median**) the value would be $0$, leaving the values of the different strips as:
 
 
-<img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22609386/04efe678-ea2f-11e6-83c4-956ac7309d7f.png">
+<img width=300 src="https://cloud.githubusercontent.com/assets/9312897/22609386/04efe678-ea2f-11e6-83c4-956ac7309d7f.png">
 
 The vector $\bf w$ is the **weight vector**, whereas $b$ is the **bias**.
 
@@ -56,7 +56,7 @@ $$\Large y_i \,(x_i\cdot \color{blue}{w} + b) -1 = 0\tag{Eq.2}$$
 Notice that this is equivalent to requiring that $y_i \,(x_i\cdot \color{blue}{w} + b)  = 1.$
 
 <br>
-<img width="500" src="https://cloud.githubusercontent.com/assets/9312897/22610364/19ac44fe-ea33-11e6-93a7-47b7d6db1dd5.png">
+<img width=300 src="https://cloud.githubusercontent.com/assets/9312897/22610364/19ac44fe-ea33-11e6-93a7-47b7d6db1dd5.png">
 
 ---
 
@@ -66,19 +66,21 @@ Notice that this is equivalent to requiring that $y_i \,(x_i\cdot \color{blue}{w
 Second constraint: the distance of the decision hypeplane to the tips of the support vectors will be maximized. In other words the **margin of separation ("street")** will be maximized:
 
 
-<img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/22608760/3e164864-ea2c-11e6-896b-42c3cb5cf59e.png">
+<img width=300 src="https://cloud.githubusercontent.com/assets/9312897/22608760/3e164864-ea2c-11e6-896b-42c3cb5cf59e.png">
 
 Again, assuming a unit vector perpendicular to the decision boundary, the dot product with the difference between two "bordering" plus and minus examples is the width of "the street":
 
-$$\Large \text{width}= (x_+ \,{\bf -}\, x_-) \cdot \frac{w}{\lVert w \rVert} \tag{the width of the street}$$
+$$\large \text{width}= (x_+ \,{\bf -}\, x_-) \cdot \frac{w}{\lVert w \rVert} \tag{the width of the street}$$
 
 <br>
 
-Now, key observation: on the equation above $x_+$ and $x_-$ *are* in the gutter (on hyperplanes maximizing the separation)! Therefore, for the positive example: $\large ({\bf x_i}\cdot \color{blue}{w} + b) -1 = 0$, or $\large {\bf x_+}\cdot \color{blue}{w} = 1 - b$; and for the negative example: $\large {\bf x_-}\cdot \color{blue}{w} = -1 - b$. So, reformulating the width of the street:
+Now, key observation: on the equation above $x_+$ and $x_-$ *are* in the gutter (on hyperplanes maximizing the separation)! Therefore, for the positive example:
+
+$\large ({\bf x_i}\cdot \color{blue}{w} + b) -1 = 0$, or $\large {\bf x_+}\cdot \color{blue}{w} = 1 - b$; and for the negative example: $\large {\bf x_-}\cdot \color{blue}{w} = -1 - b$. So, reformulating the width of the street:
 
 <br>
 
-$\text{width}=(x_+ \,{\bf -}\, x_-) \cdot \frac{w}{\lVert w \rVert}= \frac{x_+\cdot w \,{\bf -}\, x_-\cdot w}{\lVert w \rVert}=\frac{1-b-(-1-b)}{\lVert w \rVert}= \frac{2}{\lVert w \rVert} \tag{the width of the street: Eq.3}$
+$$\begin{align}\text{width}&=(x_+ \,{\bf -}\, x_-) \cdot \frac{w}{\lVert w \rVert}\\&= \frac{x_+\cdot w \,{\bf -}\, x_-\cdot w}{\lVert w \rVert}\\&=\frac{1-b-(-1-b)}{\lVert w \rVert}\\&= \frac{2}{\lVert w \rVert} \tag{the width of the street: Eq.3}\end{align}$$
 
 <br>
 
@@ -94,7 +96,7 @@ So we want to:
 
 1. Minimize $\lvert x\rvert^2$ with the constraint:
 
-3. $(y_i(w x_i) - b_-1=0$
+3. $y_i(x_i\cdot w + b)-1=0$
 
 ---
 
