@@ -37,7 +37,7 @@ Total net input is also referred to as just net input by some sources.
 Here’s how we calculate the total net input for $h_1$:
 
 
-<img width=800 src="https://cloud.githubusercontent.com/assets/9312897/24077446/c238592a-0c23-11e7-9435-3dfe2f8023fc.png">
+<img width=650 src="https://cloud.githubusercontent.com/assets/9312897/24077446/c238592a-0c23-11e7-9435-3dfe2f8023fc.png">
 
 $\text{net}_{h1} = w_1 \times i_1 + w_2 \times i_2 + b_1 \times 1$
 
@@ -70,6 +70,8 @@ $\text{out}_{o2} = 0.772928465$
 
 ---
 
+#####TOTAL ERROR of the NEURAL NETWORK (output of the outter layer to true values)
+
 We can now calculate the error for each output neuron using the squared error function and sum them to get the total error:
 
 $E_{\text{total}} = \sum \frac{1}{2}(\text{target - output})^{2}$
@@ -94,9 +96,15 @@ $E_{\text{total}} = E_{o1} + E_{o2} = 0.274811083 + 0.023560026 = 0.298371109$
 
 Our goal with backpropagation is to update each of the weights in the network so that they cause the actual output to be closer the target output, thereby minimizing the error for each output neuron and the network as a whole.
 
-######Output Layer
+####Output Layer
+
+<br>
+
+#### Example: $\Large w_5$:
 
 Consider $w_5$. We want to know how much a change in $w_5$ affects the total error, aka $\large\frac{\partial E_{\text{total}}}{\partial w_{5}}$ (the partial derivative of $E_{\text{total}}$ with respect to $w_{5}$ or the gradient with respect to $w_{5}$).
+
+<img width=450 src="https://cloud.githubusercontent.com/assets/9312897/24077638/c919f18e-0c2a-11e7-96c5-168ac86e8e28.png">
 
 Applying the chain rule we know that:
 
@@ -110,13 +118,21 @@ We need to figure out each piece in this equation.
 
 First, how much does the total error change with respect to the output?
 
+---
+
+#####CHANGE IN ERROR WRT OUTPUT OF OUTTER LAYER NODE 1:
+
 $E_{total} = \frac{1}{2}(\text{target}_{o1} - \text{out}_{o1})^{2} + \frac{1}{2}(\text{target}_{o2} - \text{out}_{o2})^{2}$
 
 $\frac{\partial E_{\text{total}}}{\partial \text{out}_{o1}} = 2 * \frac{1}{2}(\text{target}_{o1} - \text{out}_{o1})^{2 - 1} * -1 + 0$
 
-$\frac{\partial E_{\text{total}}}{\partial \text{out}_{o1}} = -(\text{target}_{o1} - \text{out}_{o1}) = -(0.01 - 0.75136507) = 0.74136507$
+$\color{red}{\frac{\partial E_{\text{total}}}{\partial \text{out}_{o1}}} = -(\text{target}_{o1} - \text{out}_{o1}) = -(0.01 - 0.75136507) = \color{red}{0.74136507}$
 
 When we take the partial derivative of the total error with respect to $\text{out}_{o1}$, the quantity $\frac{1}{2}(\text{target}_{o2} - \text{out}_{o2})^{2}$ becomes zero because $\text{out}_{o1}$ does not affect it which means we’re taking the derivative of a constant which is zero.
+
+---
+
+#####CHANGE IN OUTPUT OUTTER LAYER NODE 1 WRT ITS INPUT (SIGMOID ACTIVATION):
 
 Next, how much does the output of $o_1$ change with respect to its total net input?
 
@@ -124,9 +140,13 @@ The partial derivative of the logistic function is the output multiplied by $1$ 
 
 $\text{out}_{o1} = \frac{1}{1+e^{-\text{net}_{o1}}}$
 
-$\frac{\partial \text{out}_{o1}}{\partial \text{net}_{o1}} = \text{out}_{o1}(1 - \text{out}_{o1}) = 0.75136507(1 - 0.75136507) = 0.186815602$
+$\color{blue}{\frac{\partial \text{out}_{o1}}{\partial \text{net}_{o1}}} = \text{out}_{o1}(1 - \text{out}_{o1}) = 0.75136507(1 - 0.75136507) = \color{blue}{0.186815602}$
 
-Finally, how much does the total net input of o1 change with respect to $w_5$?
+---
+
+#####CHANGE IN INPUT OF OUTTER LAYER NODE 1 WRT $w_5$ (Logit linear equation):
+
+Finally, how much does the total net input of $o_1$ change with respect to $w_5$?
 
 $\text{net}_{o1} = w_5 \times \text{out}_{h1} + w_6 \times \text{out}_{h2} + b_2 \times 1$
 
@@ -137,6 +157,8 @@ Putting it all together:
 $\large\frac{\partial\, E_{\text{total}}}{\partial \,w_{5}} = \frac{\partial\, E_{\text{total}}}{\partial\, \text{out}_{o1}} \frac{\partial\, \text{out}_{o1}}{\partial\, \text{net}_{o1}} \frac{\partial\, \text{net}_{o1}}{\partial\, w_{5}}$
 
 $\frac{\partial E_{\text{total}}}{\partial w_{5}} = 0.74136507 * 0.186815602 * 0.593269992 = 0.082167041$
+
+---
 
 You’ll often see this calculation combined in the form of the delta rule:
 
@@ -156,6 +178,8 @@ Some sources extract the negative sign from \delta so it would be written as:
 
 $\frac{\partial E_{\text{total}}}{\partial w_{5}} = -\delta_{o1} \text{out}_{h1}$
 
+---
+
 To decrease the error, we then subtract this value from the current weight (optionally multiplied by some learning rate, eta, which we’ll set to $0.5$):
 
 $w_5^{+} = w_5 - \eta \times \frac{\partial E_{\text{total}}}{\partial w_{5}} = 0.4 - 0.5 \times 0.082167041 = 0.35891648$
@@ -172,9 +196,13 @@ $w_8^{+} = 0.561370121$
 
 We perform the actual updates in the neural network after we have the new weights leading into the hidden layer neurons (ie, we use the original weights, not the updated weights, when we continue the backpropagation algorithm below).
 
-######Hidden Layer
+---
+
+####Hidden Layer
 
 Next, we’ll continue the backwards pass by calculating new values for $w_1, w_2, w_3$, and $w_4$.
+
+####Example: Calculating $\Large w_1$:
 
 Big picture, here’s what we need to figure out:
 
@@ -188,23 +216,34 @@ We’re going to use a similar process as we did for the output layer, but sligh
 
 $\frac{\partial E_{\text{total}}}{\partial \text{out}_{h1}} = \frac{\partial E_{o1}}{\partial \text{out}_{h1}} + \frac{\partial E_{o2}}{\partial \text{out}_{h1}}$
 
-Starting with $\frac{\partial E_{o1}}{\partial \text{out}_{h1}}$:
+---
 
-$\large \frac{\partial E_{o1}}{\partial \text{out}_{h1}} = \frac{\partial E_{o1}}{\partial \text{net}_{o1}}  \frac{\partial \text{net}_{o1}}{\partial \text{out}_{h1}}$
+#####CHANGE IN ERROR OF TARGET NEURON 1 OUTTER LAYER WRT OUTPUT OF HIDDEN LAYER NODE 1:
 
-We can calculate $\frac{\partial E_{o1}}{\partial \text{net}_{o1}}$ using values we calculated earlier:
+Starting with $\frac{\partial\, E_{o1}}{\partial \,\text{out}_{h1}}$:
 
-$\frac{\partial E_{o1}}{\partial \text{net}_{o1}} = \frac{\partial E_{o1}}{\partial \text{out}_{o1}} * \frac{\partial \text{out}_{o1}}{\partial \text{net}_{o1}} = 0.74136507 \times 0.186815602 = 0.138498562$
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/24077821/1e3cfbca-0c30-11e7-9de1-4dc50bfc45b9.png">
+
+
+$\large \frac{\partial\, E_{o1}}{\partial\, \text{out}_{h1}} = \frac{\partial\, E_{o1}}{\partial\, \text{net}_{o1}}  \frac{\partial\, \text{net}_{o1}}{\partial\, \text{out}_{h1}}$
+
+We can calculate $\frac{\partial \,E_{o1}}{\partial \,\text{net}_{o1}}$ using values we calculated earlier:
+
+$\frac{\partial\, E_{o1}}{\partial\, \text{net}_{o1}} = \color{red}{\frac{\partial\, E_{o1}}{\partial\, \text{out}_{o1}}} \, \color{blue}{\frac{\partial\, \text{out}_{o1}}{\partial\, \text{net}_{o1}}} = 0.74136507 \times 0.186815602 = 0.138498562$
 
 And $\frac{\partial \text{net}_{o1}}{\partial \text{out}_{h1}}$ is equal to $w_5$:
 
-$\text{net}_{o1} = w_5 \times out_{h1} + w_6 \times \text{out}_{h2} + b_2 \times 1$
+$\text{net}_{o1} = w_5 \times \text{out}_{h1} + w_6 \times \text{out}_{h2} + b_2 \times 1$
 
 $\frac{\partial \text{net}_{o1}}{\partial \text{out}_{h1}} = w_5 = 0.40$
 
 Plugging them in:
 
 $\large \frac{\partial E_{o1}}{\partial \text{out}_{h1}} = \frac{\partial E_{o1}}{\partial \text{net}_{o1}}  \frac{\partial \text{net}_{o1}}{\partial \text{out}_{h1}} = 0.138498562 \times 0.40 = 0.055399425$
+
+---
+
+#####CHANGE IN ERROR OF TARGET OUTTER LAYER NEURON 2 WRT OUTPUT OF HIDDEN LAYER NODE 1:
 
 Following the same process for $\frac{\partial E_{o2}}{\partial \text{out}_{h1}}$, we get:
 
@@ -214,21 +253,34 @@ Therefore:
 
 $\frac{\partial E_{\text{total}}}{\partial \text{out}_{h1}} = \frac{\partial E_{o1}}{\partial \text{out}_{h1}} + \frac{\partial E_{o2}}{\partial \text{out}_{h1}} = 0.055399425 + -0.019049119 = 0.036350306$
 
+---
+
 Now that we have $\frac{\partial E_{total}}{\partial \text{out}_{h1}}$, we need to figure out $\frac{\partial \text{out}_{h1}}{\partial \text{net}_{h1}}$ and then $\frac{\partial \text{net}_{h1}}{\partial w}$ for each weight:
+
+---
+
+#####CHANGE IN OUTPUT NODE 1 HIDDEN LAYER WRT INPUT:
 
 $\text{out}_{h1} = \frac{1}{1+e^{-\text{net}_{h1}}}$
 
-$\frac{\partial \text{out}_{h1}}{\partial \text{net}_{h1}} = \text{out}_{h1}(1 - \text{out}_{h1}) = 0.59326999(1 - 0.59326999 ) = 0.241300709$
+$\frac{\partial\, \text{out}_{h1}}{\partial \,\text{net}_{h1}} = \text{out}_{h1}(1 - \text{out}_{h1}) = 0.59326999(1 - 0.59326999 ) = 0.241300709$
+
+---
+
+#####CHANGE IN INPUT NODE 1 HIDDEN LAYER WRT $w_1$:
 
 We calculate the partial derivative of the total net input to $h_1$ with respect to $w_1$ the same as we did for the output neuron:
 
-$net_{h1} = w_1 \times i_1 + w_2 \times i_2 + b_1 \times 1$
+$\text{net}_{h1} = w_1 \times i_1 + w_2 \times i_2 + b_1 \times 1$
 
 $\frac{\partial \text{net}_{h1}}{\partial w_1} = i_1 = 0.05$
 
+<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/24077710/887f76be-0c2d-11e7-950f-5a28d6563158.png">
+
+
 Putting it all together:
 
-$\frac{\partial E_{\text{total}}}{\partial w_{1}} = \frac{\partial E_{\text{total}}}{\partial \text{out}_{h1}} * \frac{\partial \text{out}_{h1}}{\partial \text{net}_{h1}} * \frac{\partial \text{net}_{h1}}{\partial w_{1}}$
+$\frac{\partial E_{\text{total}}}{\partial w_{1}} = \frac{\partial E_{\text{total}}}{\partial \text{out}_{h1}} \, \frac{\partial \text{out}_{h1}}{\partial \text{net}_{h1}} \, \frac{\partial \text{net}_{h1}}{\partial w_{1}}$
 
 $\frac{\partial E_{\text{total}}}{\partial w_{1}} = 0.036350306 \times 0.241300709 \times 0.05 = 0.000438568$
 
