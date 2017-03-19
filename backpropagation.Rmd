@@ -8,7 +8,7 @@
 
 From [this source](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/).
 
-For this tutorial, we’re going to use a neural network with two inputs, two hidden neurons, two output neurons. Additionally, the hidden and output neurons will include a bias.
+For this tutorial, we’re going to use a neural network with two **inputs**, $i_1$ and $i_2$, two **hidden neurons**, $h_1$ and $h_2$, and two **output neurons**, $o_1$ and $o_2$. Additionally, the hidden and output neurons will include a bias.
 
 Here’s the basic structure:
 
@@ -22,9 +22,13 @@ The goal of backpropagation is to optimize the weights so that the neural networ
 
 For the rest of this tutorial we’re going to work with a single training set: given inputs 0.05 and 0.10, we want the neural network to output 0.01 and 0.99.
 
-####The Forward Pass
+Training set: $\{0.05, 0.10 \}\mapsto \{0.01, 0.99\}$.
 
-To begin, lets see what the neural network currently predicts given the weights and biases above and inputs of 0.05 and 0.10. To do this we’ll feed those inputs forward though the network.
+---
+
+####The Forward Pass:
+
+To begin, let"s see what the neural network currently predicts given the weights and biases above and inputs of 0.05 and 0.10. To do this we’ll feed those inputs forward though the network.
 
 We figure out the total net input to each hidden layer neuron, squash the total net input using an activation function (here we use the logistic function), then repeat the process with the output layer neurons.
 
@@ -32,7 +36,8 @@ Total net input is also referred to as just net input by some sources.
 
 Here’s how we calculate the total net input for $h_1$:
 
-<img width=300 src="https://cloud.githubusercontent.com/assets/9312897/24068618/ec8cd616-0b69-11e7-9b24-6e8ee7abbbfb.png">
+
+<img width=800 src="https://cloud.githubusercontent.com/assets/9312897/24077446/c238592a-0c23-11e7-9435-3dfe2f8023fc.png">
 
 $\text{net}_{h1} = w_1 \times i_1 + w_2 \times i_2 + b_1 \times 1$
 
@@ -45,6 +50,9 @@ $\text{out}_{h1} = \frac{1}{1+e^{-\text{net}_{h1}}} = \frac{1}{1+e^{-0.3775}} = 
 Carrying out the same process for $h_2$ we get:
 
 $\text{out}_{h2} = 0.596884378$
+
+
+---
 
 We repeat this process for the output layer neurons, using the output from the hidden layer neurons as inputs.
 
@@ -59,6 +67,8 @@ $\text{out}_{o1} = \frac{1}{1+e^{-net_{o1}}} = \frac{1}{1+e^{-1.105905967}} = 0.
 And carrying out the same process for $o_2$ we get:
 
 $\text{out}_{o2} = 0.772928465$
+
+---
 
 We can now calculate the error for each output neuron using the squared error function and sum them to get the total error:
 
