@@ -70,7 +70,7 @@ $\text{out}_{o2} = 0.772928465$
 
 ---
 
-#####TOTAL ERROR of the NEURAL NETWORK (output of the outter layer to true values)
+#####TOTAL ERROR of the NEURAL NETWORK (output of the outer layer to true values)
 
 We can now calculate the error for each output neuron using the squared error function and sum them to get the total error:
 
@@ -120,7 +120,7 @@ First, how much does the total error change with respect to the output?
 
 ---
 
-#####CHANGE IN ERROR WRT OUTPUT OF OUTTER LAYER NODE 1:
+#####CHANGE IN ERROR WRT OUTPUT OF OUTER LAYER NODE 1:
 
 $E_{total} = \frac{1}{2}(\text{target}_{o1} - \text{out}_{o1})^{2} + \frac{1}{2}(\text{target}_{o2} - \text{out}_{o2})^{2}$
 
@@ -132,7 +132,7 @@ When we take the partial derivative of the total error with respect to $\text{ou
 
 ---
 
-#####CHANGE IN OUTPUT OUTTER LAYER NODE 1 WRT ITS INPUT (SIGMOID ACTIVATION):
+#####CHANGE IN OUTPUT OUTER LAYER NODE 1 WRT ITS INPUT (SIGMOID ACTIVATION):
 
 Next, how much does the output of $o_1$ change with respect to its total net input?
 
@@ -144,7 +144,7 @@ $\color{blue}{\frac{\partial \text{out}_{o1}}{\partial \text{net}_{o1}}} = \text
 
 ---
 
-#####CHANGE IN INPUT OF OUTTER LAYER NODE 1 WRT $w_5$ (Logit linear equation):
+#####CHANGE IN INPUT OF OUTER LAYER NODE 1 WRT $w_5$ (Logit linear equation):
 
 Finally, how much does the total net input of $o_1$ change with respect to $w_5$?
 
@@ -218,7 +218,7 @@ $\frac{\partial E_{\text{total}}}{\partial \text{out}_{h1}} = \frac{\partial E_{
 
 ---
 
-#####CHANGE IN ERROR OF TARGET NEURON 1 OUTTER LAYER WRT OUTPUT OF HIDDEN LAYER NODE 1:
+#####CHANGE IN ERROR OF TARGET NEURON 1 OUTER LAYER WRT OUTPUT OF HIDDEN LAYER NODE 1:
 
 Starting with $\frac{\partial\, E_{o1}}{\partial \,\text{out}_{h1}}$:
 
@@ -243,7 +243,7 @@ $\large \frac{\partial E_{o1}}{\partial \text{out}_{h1}} = \frac{\partial E_{o1}
 
 ---
 
-#####CHANGE IN ERROR OF TARGET OUTTER LAYER NEURON 2 WRT OUTPUT OF HIDDEN LAYER NODE 1:
+#####CHANGE IN ERROR OF TARGET OUTER LAYER NEURON 2 WRT OUTPUT OF HIDDEN LAYER NODE 1:
 
 Following the same process for $\frac{\partial E_{o2}}{\partial \text{out}_{h1}}$, we get:
 
