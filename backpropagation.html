@@ -303,9 +303,11 @@ $(document).ready(function () {
 <p><span class="math display">\[I=\begin{bmatrix}.9&amp;.9\\.9&amp;-.9\\-.9&amp;.9\\-.9&amp;-.9\end{bmatrix}\]</span></p>
 <p>The target matrix is:</p>
 <p><span class="math display">\[T=\begin{bmatrix}-.9\\.9\\.9\\-.9\end{bmatrix}\]</span></p>
+<hr />
 </div>
-<div id="forward-pass" class="section level5">
-<h5>Forward Pass:</h5>
+</div>
+<div id="forward-pass" class="section level4">
+<h4>Forward Pass:</h4>
 <ol style="list-style-type: decimal">
 <li>Add bias to input matrix:</li>
 </ol>
@@ -326,9 +328,9 @@ $(document).ready(function () {
 <li>The activation will yield:</li>
 </ol>
 <p><span class="math display">\[\text{outer}_{\text{out}}=\tanh\left( \begin{bmatrix} 1.03\\.72\\.56\\.13 \end{bmatrix}\right) = \begin{bmatrix} .77\\.62\\.51\\.13 \end{bmatrix}\]</span></p>
-</div>
+<hr />
 <div id="backpropagation-pass-to-weights-to-the-outer-layer-w_2" class="section level5">
-<h5>Backpropagation pass to weights to the outer layer (<span class="math inline">\(W_2\)</span>):</h5>
+<h5>Backpropagation pass to weights to the outer layer <span class="math inline">\((W_2)\)</span>:</h5>
 <ol style="list-style-type: decimal">
 <li>Computing the error as simply <span class="math inline">\(E_{outer}=T - Y_{outer}\)</span> the difference between the target and the output:</li>
 </ol>
@@ -354,9 +356,10 @@ $(document).ready(function () {
 </ol>
 <p>With a learning rate of <span class="math inline">\(\eta\)</span>, the with:</p>
 <p><span class="math display">\[W_2:= W_2 + \eta\Delta_0= \begin{bmatrix}.22\\-.34\\.54 \end{bmatrix}+0.03\,\begin{bmatrix} .23\\-.35\\.5\end{bmatrix}\]</span></p>
+<hr />
 </div>
 <div id="backpropagation-pass-to-updates-the-weights-to-the-hidden-layer-w_1" class="section level5">
-<h5>Backpropagation pass to updates the weights to the hidden layer (<span class="math inline">\(W_1\)</span>):</h5>
+<h5>Backpropagation pass to updates the weights to the hidden layer <span class="math inline">\((W_1)\)</span>:</h5>
 <ol style="list-style-type: decimal">
 <li>Computing the error:</li>
 </ol>

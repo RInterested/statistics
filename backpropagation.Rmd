@@ -321,7 +321,11 @@ The target matrix is:
 
 $$T=\begin{bmatrix}-.9\\.9\\.9\\-.9\end{bmatrix}$$
 
-##### Forward Pass:
+---
+
+#### Forward Pass:
+
+
 
 1. Add bias to input matrix:
 
@@ -343,7 +347,11 @@ $$\text{outer}_{\text{net}}=\begin{bmatrix} .8&-.94&1\\-.22&-.68&1\\.59&.33&1\\-
 
 $$\text{outer}_{\text{out}}=\tanh\left( \begin{bmatrix} 1.03\\.72\\.56\\.13 \end{bmatrix}\right) = \begin{bmatrix} .77\\.62\\.51\\.13 \end{bmatrix}$$
 
-##### Backpropagation pass to weights to the outer layer ($W_2$):
+---
+
+##### Backpropagation pass to weights to the outer layer $(W_2)$:
+
+
 
 1. Computing the error as simply $E_{outer}=T - Y_{outer}$ the difference between the target and the output:
 
@@ -380,7 +388,11 @@ With a learning rate of $\eta$, the with:
 
 $$W_2:= W_2 + \eta\Delta_0= \begin{bmatrix}.22\\-.34\\.54 \end{bmatrix}+0.03\,\begin{bmatrix} .23\\-.35\\.5\end{bmatrix}$$
 
-##### Backpropagation pass to updates the weights to the hidden layer ($W_1$):
+---
+
+##### Backpropagation pass to updates the weights to the hidden layer $(W_1)$:
+
+
 
 1. Computing the error:
 
