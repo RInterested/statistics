@@ -352,18 +352,17 @@ $$\text{outer}_{\text{out}}=\tanh\left( \begin{bmatrix} 1.03\\.72\\.56\\.13 \end
 ##### Backpropagation pass to weights to the outer layer $(W_2)$:
 
 
-
 1. Computing the error as simply $E_{outer}=T - Y_{outer}$ the difference between the target and the output:
 
 $$E_o=T-Y_0=\begin{bmatrix}-.9\\.9\\.9\\-.9\end{bmatrix}  -   \begin{bmatrix}.77\\.62\\.51\\.13\end{bmatrix}=\begin{bmatrix}-1.67\\.28\\.39\\-1.03\end{bmatrix}$$
 
-2. We want to update $W_2$, and finding our way back the NN tree:
+2. We want to update $W_2$, finding our way back the NN tree:
 
 What we want is to update the weights backpropagating the error as:
 
-$$\frac{\partial L}{\partial W_2}=\color{blue}{\large\frac{\partial \text{outer}_{input}}{\partial W_2}}\,\color{red}{\large \frac{\partial L}{\partial \text{outer}_{input}}}\tag 1$$
+$$\frac{\partial L}{\partial W_2}=\Delta_0=\color{blue}{\large\frac{\partial \text{outer}_{input}}{\partial W_2}}\,\color{red}{\large \frac{\partial L}{\partial \text{outer}_{input}}}\tag 1$$
 
-$$\color{red}{\delta_0}=\color{red}{\large \frac{\partial L}{\partial \text{outer}_{input}}} = \frac{\partial L}{\partial \text{outer}_{output}}\,\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}= \color{red}{E_0 \circ D_0}$$
+$$\color{red}{\delta_0}=\color{red}{\large \frac{\partial L}{\partial \text{outer}_{input}}} = \color{orange}{E_0} \circ \color{brown}{D_0}= \color{orange}{\frac{\partial L}{\partial \text{outer}_{output}}}\,\circ\color{brown}{\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}}$$
 
 where $E_0$ is the error calculated under (1) and $D_0$ is the derivative of the activation of the $\tanh$ in the outer layer.
 
@@ -399,16 +398,16 @@ $$W_2:= W_2 + \eta\Delta_0= \begin{bmatrix}.22\\-.34\\.54 \end{bmatrix}+0.03\,\b
 The error in the output layer can be propagated back to the hidden layer
 
 $$\begin{align}E_{\text{hidden}}&=\frac{\partial L}{\partial \text{hidden}_{output}}\\[2ex]
-&=\frac{\partial L}{\partial \text{outer}_{output}}\,\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}\,\frac{\partial\text{outer}_{input}}{\partial \text{hidden}_{output}}\\[2ex]
-&=\delta_0\cdot W_1^\top= E_0\circ D_0 \cdot W_1^T\\[2ex]
+&=\color{orange}{\frac{\partial L}{\partial \text{outer}_{output}}}\,\circ\color{brown}{\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}}\,\frac{\partial\text{outer}_{input}}{\partial \text{hidden}_{output}}\\[2ex]
+&=\color{red}{\delta_0}\cdot W_1^\top= \color{orange}{E_0}\circ \color{brown}{D_0} \cdot W_1^T\\[2ex]
 &=\begin{bmatrix} -.67\\.18\\.29\\-1.01\end{bmatrix}\begin{bmatrix}.22&-.34\end{bmatrix}\\[2ex]
 &=\begin{bmatrix} -.15&.23\\.04&-.06\\.07&-.1\\-.23&.35\end{bmatrix}
 \end{align}$$
 
 2. Calculating delta for the hidden layer:
 
-$$\begin{align}\delta_H&=\frac{\partial L}{\partial \text{hidden}_{output}}\,\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}\\[2ex]
-&=E_H\circ D_H\\[2ex]
+$$\begin{align}\color{red}{\delta_H}&=\color{orange}{\frac{\partial L}{\partial \text{hidden}_{output}}}\,\circ\color{brown}{\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}}\\[2ex]
+&=\color{orange}{E_H}\circ \color{brown}{D_H}\\[2ex]
 &=E_h \circ \left(1 - Y_H^2\right)\\[2ex]
 &=\begin{bmatrix}-.15&.23\\.04&-.06\\.07&-.1\\-.23&.35\end{bmatrix}\circ\begin{bmatrix}.36&.12\\.95&.54\\.65&.89\\.69&.3\end{bmatrix}\\[2ex]
 &=\begin{bmatrix}-.06&.03\\.04&-.03\\.04&-.09\\-.16&.1\end{bmatrix}
