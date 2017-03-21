@@ -400,8 +400,8 @@ The error in the output layer can be propagated back to the hidden layer
 $$\begin{align}E_{\text{hidden}}&=\frac{\partial L}{\partial \text{hidden}_{output}}\\[2ex]
 &=\color{orange}{\frac{\partial L}{\partial \text{outer}_{output}}}\,\circ\color{brown}{\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}}\,\frac{\partial\text{outer}_{input}}{\partial \text{hidden}_{output}}\\[2ex]
 &=\color{red}{\delta_0}\cdot W_1^\top= \color{orange}{E_0}\circ \color{brown}{D_0} \cdot W_1^T\\[2ex]
-&=\begin{bmatrix} -.67\\.18\\.29\\-1.01\end{bmatrix}\begin{bmatrix}.22&-.34\end{bmatrix}\\[2ex]
-&=\begin{bmatrix} -.15&.23\\.04&-.06\\.07&-.1\\-.23&.35\end{bmatrix}
+&=\begin{bmatrix} -.67\\.18\\.29\\-1.01\end{bmatrix}\begin{bmatrix}.22&-.34\end{bmatrix}
+=\begin{bmatrix} -.15&.23\\.04&-.06\\.07&-.1\\-.23&.35\end{bmatrix}
 \end{align}$$
 
 2. Calculating delta for the hidden layer:
@@ -415,7 +415,7 @@ $$\begin{align}\color{red}{\delta_H}&=\color{orange}{\frac{\partial L}{\partial 
 
 3. Compute the delta weight matrix:
 
-$$\begin{align}\Delta_H&=\frac{\partial L}{\partial \text{hidden}_{output}}\,\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}\frac{\partial \text{hidden}_{input}}{W_1}\\[2ex]
+$$\begin{align}\Delta_H&=\color{orange}{\frac{\partial L}{\partial \text{hidden}_{output}}}\,\circ\,\color{brown}{\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}}\frac{\partial \text{hidden}_{input}}{W_1}\\[2ex]
 &=I^\top \cdot \delta_H\\[2ex]
 &=\begin{bmatrix}.9&.9&-.9&-.9\\.9&-.9&.9&-.9\\1&1&1&1 \end{bmatrix}\cdot\begin{bmatrix}-.06&.03\\.04&-.03\\.04&-.09\\-.16&.1 \end{bmatrix}\\[2ex]
 &=\begin{bmatrix}.09&-.02\\.1&-.12\\-.13&.01\end{bmatrix}

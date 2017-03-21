@@ -368,8 +368,8 @@ $(document).ready(function () {
 <p><span class="math display">\[\begin{align}E_{\text{hidden}}&amp;=\frac{\partial L}{\partial \text{hidden}_{output}}\\[2ex]
 &amp;=\color{orange}{\frac{\partial L}{\partial \text{outer}_{output}}}\,\circ\color{brown}{\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}}\,\frac{\partial\text{outer}_{input}}{\partial \text{hidden}_{output}}\\[2ex]
 &amp;=\color{red}{\delta_0}\cdot W_1^\top= \color{orange}{E_0}\circ \color{brown}{D_0} \cdot W_1^T\\[2ex]
-&amp;=\begin{bmatrix} -.67\\.18\\.29\\-1.01\end{bmatrix}\begin{bmatrix}.22&amp;-.34\end{bmatrix}\\[2ex]
-&amp;=\begin{bmatrix} -.15&amp;.23\\.04&amp;-.06\\.07&amp;-.1\\-.23&amp;.35\end{bmatrix}
+&amp;=\begin{bmatrix} -.67\\.18\\.29\\-1.01\end{bmatrix}\begin{bmatrix}.22&amp;-.34\end{bmatrix}
+=\begin{bmatrix} -.15&amp;.23\\.04&amp;-.06\\.07&amp;-.1\\-.23&amp;.35\end{bmatrix}
 \end{align}\]</span></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Calculating delta for the hidden layer:</li>
@@ -383,7 +383,7 @@ $(document).ready(function () {
 <ol start="3" style="list-style-type: decimal">
 <li>Compute the delta weight matrix:</li>
 </ol>
-<p><span class="math display">\[\begin{align}\Delta_H&amp;=\frac{\partial L}{\partial \text{hidden}_{output}}\,\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}\frac{\partial \text{hidden}_{input}}{W_1}\\[2ex]
+<p><span class="math display">\[\begin{align}\Delta_H&amp;=\color{orange}{\frac{\partial L}{\partial \text{hidden}_{output}}}\,\circ\,\color{brown}{\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}}\frac{\partial \text{hidden}_{input}}{W_1}\\[2ex]
 &amp;=I^\top \cdot \delta_H\\[2ex]
 &amp;=\begin{bmatrix}.9&amp;.9&amp;-.9&amp;-.9\\.9&amp;-.9&amp;.9&amp;-.9\\1&amp;1&amp;1&amp;1 \end{bmatrix}\cdot\begin{bmatrix}-.06&amp;.03\\.04&amp;-.03\\.04&amp;-.09\\-.16&amp;.1 \end{bmatrix}\\[2ex]
 &amp;=\begin{bmatrix}.09&amp;-.02\\.1&amp;-.12\\-.13&amp;.01\end{bmatrix}
