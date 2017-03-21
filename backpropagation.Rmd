@@ -6,6 +6,247 @@
 ###BACKPROPAGATION:
 <br>
 
+##Hyperbolic tangent example:
+
+
+Another illuminating example can be found [here](http://www.ling.uni-potsdam.de/~vasishth/sprache/docs/neuralnet.pdf).
+
+<img width=650 src="https://cloud.githubusercontent.com/assets/9312897/24109602/895e2c8e-0d67-11e7-88bb-19fefe493414.png">
+
+The input matrix ($X$ or $I$) is: $X =I=\begin{bmatrix}.9&.9\\.9&-.9\\-.9&.9\\-.9&-.9\end{bmatrix}$ 
+
+But we'll add a bias column to $X$:
+
+```{r}
+(X = matrix(c(.9,.9,-.9,-.9,.9,-.9,.9,-.9), nrow = 4))
+```
+
+The target matrix is: $T=\begin{bmatrix}-.9\\.9\\.9\\-.9\end{bmatrix}.$
+
+```{r}
+(true = matrix(c(-.9,.9,.9,-.9), nrow= 4))
+```
+
+---
+
+#### Forward Pass:
+
+1. Add bias to input matrix:
+
+$$\begin{bmatrix}.9&.9&1\\.9&-.9&1\\-.9&.9&1\\-.9&-.9&1\end{bmatrix}$$
+
+```{r}
+# Introducing a bias term to the input data:
+(X_bias = cbind(X, rep(1, nrow(X))))
+```
+
+---
+
+2. Dot product with the weight matrix $W_1 = W_h$ gives the input of the hidden layer (**hidden net**):
+
+$$\text{hidden}_{\text{net}}= I \, W_1 = \begin{bmatrix}.9&.9&1\\.9&-.9&1\\-.9&.9&1\\-.9&-.9&1\end{bmatrix}\begin{bmatrix}.23&-1.13\\.73&-.48\\.23&-.24\end{bmatrix}=\begin{bmatrix}1.09&-1.7\\-.22&-.83\\.68&.34\\-.63&1.21 \end{bmatrix}$$
+
+
+```{r}
+# First set of weights (to produce the h = hidden layer):
+(W_h= matrix (c(.23,.73,.23,-1.13,-.48,-.24), nrow = 3))
+# Getting the hidden layer:
+(hidd_net = round(X_bias %*% W_h, 2))
+```
+
+---
+
+3. The activation is $\tanh$ giving the output of the hidden layer (**hidden out**):
+
+$$\text{hidden}_{\text{out}}=\tanh\left(\begin{bmatrix}1.09&-1.7\\-.22&-.83\\.68&.34\\-.63&1.21 \end{bmatrix}\right)=\begin{bmatrix} .8&-.93\\-.22&-.68\\.59&.33\\-.56&.84\end{bmatrix}$$
+
+```{r}
+# Activation (tanh) of the hidden layer:
+(hidd_out = round(tanh(hidd_net),2))
+```
+
+---
+
+4. The input of the outer layer (**outer net**) will result of the matrix multiplication by the second set of weights $W_o= W_{out}=W_2$ **after adding a column of ones for the bias**:
+
+$$\text{outer}_{\text{net}}=\begin{bmatrix} .8&-.94&1\\-.22&-.68&1\\.59&.33&1\\-.56&.84&1\end{bmatrix}\begin{bmatrix}.22\\-.34\\.54\end{bmatrix}=\begin{bmatrix}1.03\\.72\\.56\\.13\end{bmatrix}$$
+
+```{r}
+# Adding the bias AFTER the activation of the hidden layer:
+(hidd_out_bias = cbind(hidd_out, rep(1, ncol(hidd_out))))
+# Second matrix of weights (a given):
+(W_out = matrix(c(.22,-.34,.54), nrow =3))
+(outer_net = round(hidd_out_bias %*% W_out,2))
+```
+
+---
+
+5. The activation will yield the **outer out** (output of the outer layer):
+
+$$\text{outer}_{\text{out}}=\tanh\left( \begin{bmatrix} 1.03\\.72\\.56\\.13 \end{bmatrix}\right) = \begin{bmatrix} .77\\.62\\.51\\.13 \end{bmatrix}$$
+
+```{r}
+# Activation (tanh) of the outer layer:
+(outer_out = round(tanh(outer_net),2))
+```
+
+---
+
+#### Backpropagation pass to weights to the outer layer $(W_2 = W_o)$:
+
+
+1. Computing the error as simply $E_{outer}=T - Y_{outer}$ the difference between the target and the output:
+
+$$E_o=T-Y_0=\begin{bmatrix}-.9\\.9\\.9\\-.9\end{bmatrix}  -   \begin{bmatrix}.77\\.62\\.51\\.13\end{bmatrix}=\begin{bmatrix}-1.67\\.28\\.39\\-1.03\end{bmatrix}$$
+
+```{r}
+# Simple calculation of the actual error at the end of forward pass:
+(E_o = true - outer_out)
+```
+
+---
+
+2. We want to update $W_2$, backpropagating the error $(L)$ through the NN tree. So we need to see how much the loss $(L)$ changes with changes in $W_2$. This is the $\Delta_o$ (output delta):
+
+$$\frac{\partial L}{\partial W_2}=\Delta_0=\color{blue}{\large\frac{\partial \text{outer}_{input}}{\partial W_2}}\,\color{red}{\large \frac{\partial L}{\partial \text{outer}_{input}}}\tag 1$$
+
+$$\color{red}{\delta_0}=\color{red}{\large \frac{\partial L}{\partial \text{outer}_{input}}} = \color{orange}{E_0} \circ \color{brown}{D_0}= \color{orange}{\frac{\partial L}{\partial \text{outer}_{output}}}\,\circ\color{brown}{\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}}$$
+
+where $E_0$ is the error calculated under (1) and $D_0$ is the derivative of the activation of the $\tanh$ in the outer layer.
+
+The derivative of the $\tanh$ is $D_0 = 1 - Y_0^2$:
+
+$$D_0 = 1 - Y_0^2=\begin{bmatrix}1\\1\\1\\1\end{bmatrix}-\begin{bmatrix}.77\\.62\\.51\\.13\end{bmatrix}^2=\begin{bmatrix}.41\\.62\\.74\\.98 \end{bmatrix}$$
+
+```{r}
+# Calculating the changes in the activation (tanh) results wrt input outer layer:
+(D_o = round(c(rep(1, nrow(outer_out))) - outer_out^2, 2))
+```
+
+
+And $\circ$ stands for the [Hadamard product](https://en.wikipedia.org/wiki/Hadamard_product_(matrices)).
+
+$$\color{red}{\delta_0} = E_0\circ D_0 = E_0\circ \left(1 - Y_0^2 \right)= \begin{bmatrix}-1.67\\.28\\.39\\-1.03\end{bmatrix} \circ \begin{bmatrix}.4\\.62\\.74\\.98 \end{bmatrix} = \begin{bmatrix}-.68 \\ .18 \\.29 \\-1.01 \end{bmatrix}$$
+
+```{r}
+# Calculating the change in the error wrt input of the outer layer (small delta):
+(delta_o = round(E_o * D_o, 2))
+```
+
+
+Now, to finally calculate (1) or big delta:
+
+$$\begin{align}\Delta_0 = \color{blue}{\large\frac{\partial \text{outer}_{input}}{\partial W_2}}\,\color{red}{\delta_0}&= \text{hidden}_{out}^\top\quad\delta_0\\[2ex]
+&= \begin{bmatrix} .8 & -.22 & .59 & -.56\\ -.94 & -.68 &.33 & .84\\1&1&1&1\end{bmatrix}
+\begin{bmatrix} -.67 \\ .18 \\.29 \\-1.01\end{bmatrix}=\begin{bmatrix}.16\\-.24\\-1.23  \end{bmatrix}
+\end{align}$$
+
+```{r}
+# Calculating loss wrt to W2 (Delta outer layer):
+(Delta_o = round(t(hidd_out_bias) %*% delta_o, 2))
+```
+
+
+3. Updating weights:
+
+With a learning rate of $\eta$, the with:
+
+$$W_2:= W_2 + \eta\Delta_0= \begin{bmatrix}.22\\-.34\\.54 \end{bmatrix}+0.03\,\begin{bmatrix} .22\\-.35\\.5\end{bmatrix}$$
+
+```{r}
+# learning rate:
+eta = .03
+# update weights:
+(W_out_update = round(W_out + eta * Delta_o, 2))
+```
+
+---
+
+#### Backpropagation pass to updates the weights to the hidden layer $(W_1 = W_h)$:
+
+
+
+1. Computing the error:
+
+The error in the output layer can be propagated back to the output of the hidden layer:
+
+$$\begin{align}E_H=E_h=E_{\text{hidden}}&=\frac{\partial L}{\partial \text{hidden}_{output}}\\[2ex]
+&=\color{orange}{\frac{\partial L}{\partial \text{outer}_{output}}}\,\circ\color{brown}{\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}}\,\frac{\partial\text{outer}_{input}}{\partial \text{hidden}_{output}}\\[2ex]
+&=\color{red}{\delta_0}\cdot W_2^\top= \color{orange}{E_0}\circ \color{brown}{D_0} \cdot W_2^T\\[2ex]
+&=\begin{bmatrix} -.67\\.18\\.29\\-1.01\end{bmatrix}\begin{bmatrix}.22&-.34\end{bmatrix}
+=\color{aqua}{\begin{bmatrix} -.15&.23\\.04&-.06\\.06&-.1\\-.22&.34\end{bmatrix}}
+\end{align}$$
+
+```{r}
+# It wouldn't be fair to blame the hidden layer for the bias 
+# (introduced after activating the layer).
+# Notice also that we use the original W2 or W outer weights - not the updated!
+
+(W_out_minus_bias = W_out[-length(W_out)]) 
+(E_h = round(delta_o %*% t(W_out_minus_bias), 2))
+```
+
+---
+
+2. Calculating delta for the hidden layer (change in error wrt input in the hidden layer):
+
+First we need to calculate the derivative of the activation function:
+
+$$\begin{align}
+D_H &= \frac{\partial\text{hidden}_{output}}{\partial\text{hidden}_{input}}\\[2ex]
+&= 1 - Y_H^2\\[2ex]
+&= \begin{bmatrix}1\\1\\1\\1 \end{bmatrix} - \begin{bmatrix} .8&-.93\\-.22&-.68\\.59&.33\\-.56&.84\end{bmatrix}^2 = \begin{bmatrix}.36&.14\\.95&.54\\.65&.89\\.69&.29 \end{bmatrix}
+\end{align}$$
+
+```{r}
+(D_h = round(c(rep(1, nrow(hidd_out))) - hidd_out^2, 2))
+```
+
+... and the change in the error wrt the input of the hidden layer (small $\delta$):
+
+$$\begin{align}\color{red}{\delta_H}&=\color{orange}{\frac{\partial L}{\partial \text{hidden}_{output}}}\,\circ\color{brown}{\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}}\\[2ex]
+&=\color{orange}{E_H}\circ \color{brown}{D_H}\\[2ex]
+&=E_h \circ \left(1 - Y_H^2\right)\\[2ex]
+&=\color{aqua}{\begin{bmatrix}-.15&.23\\.04&-.06\\.06&-.1\\-.22&.34\end{bmatrix}}\circ\begin{bmatrix}.36&.12\\.95&.54\\.65&.89\\.69&.29\end{bmatrix}=\begin{bmatrix}-.05&.03\\.04&-.03\\.04&-.09\\-.15&.1\end{bmatrix}
+\end{align}$$
+
+```{r}
+# Calculating small delta of the hidden layer:
+(delta_h = round(E_h * D_h, 2))
+```
+
+
+
+3. Compute the big delta weight matrix (change in error wrt $W_1$):
+
+$$\begin{align}\Delta_H&=\color{orange}{\frac{\partial L}{\partial \text{hidden}_{output}}}\,\circ\,\color{brown}{\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}}\frac{\partial \text{hidden}_{input}}{W_1}\\[2ex]
+&=I^\top \cdot \delta_H\\[2ex]
+&=\begin{bmatrix}.9&.9&-.9&-.9\\.9&-.9&.9&-.9\\1&1&1&1 \end{bmatrix}\cdot\begin{bmatrix}-.05&.03\\.04&-.03\\.04&-.09\\-.15&.1 \end{bmatrix}=\begin{bmatrix}.09&-.01\\.09&-.12\\-.12&.01\end{bmatrix}
+\end{align}$$
+
+```{r}
+# Big Delta for the W1 or weights in the hidden layer (W Hidden):
+(Delta_h = round(t(X_bias) %*% delta_h, 2))
+```
+
+4. Udate $W_1$ using delta weight change matrix:
+
+$$W_1 := W_1 + \eta \Delta_H$$
+
+$$W_1:= \begin{bmatrix}.23&-1.13\\.73&-.48\\.23&-.24\end{bmatrix}+0.03 \begin{bmatrix}.09&-.02\\.1&-.12\\-.13&.01\end{bmatrix}$$
+
+```{r}
+# Updating the first set of weights:
+(W_h_update = round(W_h + eta * Delta_h, 2))
+```
+
+
+---
+
+<br>
+
+##Example with Logistic activation function:
+
 From [this source](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/).
 
 For this tutorial, we’re going to use a neural network with two **inputs**, $i_1$ and $i_2$, two **hidden neurons**, $h_1$ and $h_2$, and two **output neurons**, $o_1$ and $o_2$. Additionally, the hidden and output neurons will include a bias.
@@ -306,130 +547,6 @@ $w_4^{+} = 0.29950229$
 
 Finally, we’ve updated all of our weights! When we fed forward the $0.05$ and $0.1$ inputs originally, the error on the network was $0.298371109$. After this first round of backpropagation, the total error is now down to $0.291027924$. It might not seem like much, but after repeating this process $10,000$ times, for example, the error plummets to $0.000035085$. At this point, when we feed forward $0.05$ and $0.1$, the two outputs neurons generate $0.015912196$ (vs $0.01$ target) and $0.984065734$ (vs $0.99$ target).
 
-
----
-
-
-##Hyperbolic tangent example:
-
-
-Another illuminating example can be found [here](http://www.ling.uni-potsdam.de/~vasishth/sprache/docs/neuralnet.pdf).
-
-<img width=650 src="https://cloud.githubusercontent.com/assets/9312897/24109602/895e2c8e-0d67-11e7-88bb-19fefe493414.png">
-
-The input matrix ($X$ or $I$) is:
-
-$$I=\begin{bmatrix}.9&.9\\.9&-.9\\-.9&.9\\-.9&-.9\end{bmatrix}$$
-
-The target matrix is:
-
-$$T=\begin{bmatrix}-.9\\.9\\.9\\-.9\end{bmatrix}$$
-
----
-
-#### Forward Pass:
-
-
-
-1. Add bias to input matrix:
-
-$$\begin{bmatrix}.9&.9&1\\.9&-.9&1\\-.9&.9&1\\-.9&-.9&1\end{bmatrix}$$
-
-2. Dot product with the weight matrix $W_1$ gives the input of the hidden layer:
-
-$$\text{hidden}_{\text{net}}= I \, W_1 = \begin{bmatrix}.9&.9&1\\.9&-.9&1\\-.9&.9&1\\-.9&-.9&1\end{bmatrix}\begin{bmatrix}.23&-1.13\\.73&-.48\\.23&-.24\end{bmatrix}=\begin{bmatrix}1.09&-1.7\\-.22&-.83\\.68&.34\\-.63&1.21 \end{bmatrix}$$
-
-3. The activation is $\tanh$ giving the output of the hidden layer:
-
-$$\text{hidden}_{\text{out}}=\tanh\left(\begin{bmatrix}1.09&-1.7\\-.22&-.83\\.68&.34\\-.63&1.21 \end{bmatrix}\right)=\begin{bmatrix} .8&-.94\\-.22&-.68\\.59&.33\\-.56&.84\end{bmatrix}$$
-
-4. The input of the outer layer will reasult of the matrix multiplication by the second set of weights $W_2$ **after adding a column of ones for the bias**:
-
-$$\text{outer}_{\text{net}}=\begin{bmatrix} .8&-.94&1\\-.22&-.68&1\\.59&.33&1\\-.56&.84&1\end{bmatrix}\begin{bmatrix}.22\\-.34\\.54\end{bmatrix}=\begin{bmatrix}1.03\\.72\\.56\\.13\end{bmatrix}$$
-
-5. The activation will yield:
-
-$$\text{outer}_{\text{out}}=\tanh\left( \begin{bmatrix} 1.03\\.72\\.56\\.13 \end{bmatrix}\right) = \begin{bmatrix} .77\\.62\\.51\\.13 \end{bmatrix}$$
-
----
-
-##### Backpropagation pass to weights to the outer layer $(W_2)$:
-
-
-1. Computing the error as simply $E_{outer}=T - Y_{outer}$ the difference between the target and the output:
-
-$$E_o=T-Y_0=\begin{bmatrix}-.9\\.9\\.9\\-.9\end{bmatrix}  -   \begin{bmatrix}.77\\.62\\.51\\.13\end{bmatrix}=\begin{bmatrix}-1.67\\.28\\.39\\-1.03\end{bmatrix}$$
-
-2. We want to update $W_2$, finding our way back the NN tree:
-
-What we want is to update the weights backpropagating the error as:
-
-$$\frac{\partial L}{\partial W_2}=\Delta_0=\color{blue}{\large\frac{\partial \text{outer}_{input}}{\partial W_2}}\,\color{red}{\large \frac{\partial L}{\partial \text{outer}_{input}}}\tag 1$$
-
-$$\color{red}{\delta_0}=\color{red}{\large \frac{\partial L}{\partial \text{outer}_{input}}} = \color{orange}{E_0} \circ \color{brown}{D_0}= \color{orange}{\frac{\partial L}{\partial \text{outer}_{output}}}\,\circ\color{brown}{\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}}$$
-
-where $E_0$ is the error calculated under (1) and $D_0$ is the derivative of the activation of the $\tanh$ in the outer layer.
-
-The derivative of the $\tanh$ is $D_0 = 1 - Y_0^2$:
-
-$$D_0 = 1 - Y_0^2=\begin{bmatrix}1\\1\\1\\1\end{bmatrix}-\begin{bmatrix}.77\\.62\\.51\\.13\end{bmatrix}^2=\begin{bmatrix}.4\\.62\\.74\\.98 \end{bmatrix}$$
-
-And $\circ$ stands for the [Hadamard product](https://en.wikipedia.org/wiki/Hadamard_product_(matrices)).
-
-$$\color{red}{\delta_0} = E_0\circ D_0 = E_0\circ \left(1 - Y_0^2 \right)= \begin{bmatrix}-1.67\\.28\\.39\\-1.03\end{bmatrix} \circ \begin{bmatrix}.4\\.62\\.74\\.98 \end{bmatrix} = \begin{bmatrix}-.67 \\ .18 \\.29 \\-1.01 \end{bmatrix}$$
-
-Now, to finally calculate (1):
-
-$$\begin{align}\Delta_0 = \color{blue}{\large\frac{\partial \text{outer}_{input}}{\partial W_2}}\,\color{red}{\delta_0}&= \text{hidden}_{out}^\top\quad\delta_0\\[2ex]
-&= \begin{bmatrix} .8 & -.22 & .59 & -.56\\ -.94 & -.68 &.33 & .84\\1&1&1&1\end{bmatrix}
-\begin{bmatrix} -.67 \\ .18 \\.29 \\-1.01\end{bmatrix}=\begin{bmatrix}.16\\-.24\\-1.21  \end{bmatrix}
-\end{align}$$
-
-3. Updating weights:
-
-With a learning rate of $\eta$, the with:
-
-$$W_2:= W_2 + \eta\Delta_0= \begin{bmatrix}.22\\-.34\\.54 \end{bmatrix}+0.03\,\begin{bmatrix} .23\\-.35\\.5\end{bmatrix}$$
-
----
-
-##### Backpropagation pass to updates the weights to the hidden layer $(W_1)$:
-
-
-
-1. Computing the error:
-
-The error in the output layer can be propagated back to the hidden layer
-
-$$\begin{align}E_{\text{hidden}}&=\frac{\partial L}{\partial \text{hidden}_{output}}\\[2ex]
-&=\color{orange}{\frac{\partial L}{\partial \text{outer}_{output}}}\,\circ\color{brown}{\frac{\partial \text{outer}_{output}}{\partial \text{outer}_{input}}}\,\frac{\partial\text{outer}_{input}}{\partial \text{hidden}_{output}}\\[2ex]
-&=\color{red}{\delta_0}\cdot W_1^\top= \color{orange}{E_0}\circ \color{brown}{D_0} \cdot W_1^T\\[2ex]
-&=\begin{bmatrix} -.67\\.18\\.29\\-1.01\end{bmatrix}\begin{bmatrix}.22&-.34\end{bmatrix}
-=\begin{bmatrix} -.15&.23\\.04&-.06\\.07&-.1\\-.23&.35\end{bmatrix}
-\end{align}$$
-
-2. Calculating delta for the hidden layer:
-
-$$\begin{align}\color{red}{\delta_H}&=\color{orange}{\frac{\partial L}{\partial \text{hidden}_{output}}}\,\circ\color{brown}{\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}}\\[2ex]
-&=\color{orange}{E_H}\circ \color{brown}{D_H}\\[2ex]
-&=E_h \circ \left(1 - Y_H^2\right)\\[2ex]
-&=\begin{bmatrix}-.15&.23\\.04&-.06\\.07&-.1\\-.23&.35\end{bmatrix}\circ\begin{bmatrix}.36&.12\\.95&.54\\.65&.89\\.69&.3\end{bmatrix}\\[2ex]
-&=\begin{bmatrix}-.06&.03\\.04&-.03\\.04&-.09\\-.16&.1\end{bmatrix}
-\end{align}$$
-
-3. Compute the delta weight matrix:
-
-$$\begin{align}\Delta_H&=\color{orange}{\frac{\partial L}{\partial \text{hidden}_{output}}}\,\circ\,\color{brown}{\frac{\partial \text{hidden}_{output}}{\partial\text{hidden}_{input}}}\frac{\partial \text{hidden}_{input}}{W_1}\\[2ex]
-&=I^\top \cdot \delta_H\\[2ex]
-&=\begin{bmatrix}.9&.9&-.9&-.9\\.9&-.9&.9&-.9\\1&1&1&1 \end{bmatrix}\cdot\begin{bmatrix}-.06&.03\\.04&-.03\\.04&-.09\\-.16&.1 \end{bmatrix}\\[2ex]
-&=\begin{bmatrix}.09&-.02\\.1&-.12\\-.13&.01\end{bmatrix}
-\end{align}$$
-
-4. Udate $W_1$ using delta weight change matrix:
-
-$$W_1 := W_1 + \eta \Delta_H$$
-
-$$W_1:= \begin{bmatrix}.23&-1.13\\.73&-.48\\.23&-.24\end{bmatrix}+0.03 \begin{bmatrix}.09&-.02\\.1&-.12\\-.13&.01\end{bmatrix}$$
 
 
 ---
