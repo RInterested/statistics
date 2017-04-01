@@ -93,6 +93,23 @@ $$
 
 leading to the [Fast Fourier (FFT)](http://www.lsi-contest.com/2012/shiyou_3-2e.html) expedited method.
 
+There is a great insight found [here](https://www.dsprelated.com/freebooks/mdft/Mathematics_DFT.html):
+
+Defining $s_k(n)\equiv e^{i\,\frac{2\pi}{N}kn}$.
+
+>Finally, we need to understand what the summation over $n$ is doing in the definition of the DFT. We'll learn that it should be seen as the computation of the inner product of the signals $x$ and $s_k$ defined above, so that we may write the DFT, using inner-product notation, as
+
+$$ X(k) \equiv \langle x,s_k\rangle$$
+
+>where  $s_k(n) \equiv e^{j{2\pi n k/N}}$ is the sampled complex sinusoid at (normalized) radian frequency  $\omega_k T=2\pi k/N$, where $T$ is the [sampling interval or sampling period](https://www.dsprelated.com/freebooks/mdft/DFT_Definition.html), and the inner product operation  $\left<\,\cdot\,,\,\cdot\,\right>$ is defined by
+$\left<x,y\right> \equiv \displaystyle\sum_{n=0}^{N-1}x(n) \overline{y(n)}$.
+
+This idea of DFT as a measure of similarity between the sampled signal and the sinusoids is very well explained on [this video](https://youtu.be/B2iUDBZzBpY), containing a great example:
+
+<img width=900 src= "https://cloud.githubusercontent.com/assets/9312897/24582942/da3769bc-1709-11e7-8f36-0632c3a572c9.png">
+
+
+
 ---
 
 ####2D DISCRETE FOURIER TRANSFORM:
