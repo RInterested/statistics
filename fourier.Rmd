@@ -8,15 +8,99 @@
 
 This is a great [reference](http://www.dspguide.com/ch8/4.htm).
 
-We are dealing with $N=6$ points, corresponding to integers from $0$ to $N-1=5$, and the sinusoids are truncated at length $N$. There are $N$ **basis functions** of amplitude one: $N/2$ sine, and $N/2$ cosine.
+We are dealing with $N=6$ points, corresponding to integers from $0$ to $N-1=5$, and the sinusoids are truncated at length $N$. There are $N$ **basis functions** of amplitude $1$: $N/2$ sine, and $N/2$ cosine according to [*The Scientist and Engineer's Guide to Digital Signal Processing*](http://www.dspguide.com/ch8/4.htm) by Steven W. Smith, and I'm trying to get the explanation for it [here](http://math.stackexchange.com/q/2213221/152225).
 
 The **fundamental angular frequency** is given by $\frac{2\pi}{N}$, which can be thought of as slicing the $2\pi$ circle into $N$ equal slices.
 
-The frequency of each sinusoid is determined by the parameter $k$. The frequency parameter, $k$, is equal to the number of complete cycles that occur over the $N$ points of the signal.
+The frequency of each sinusoid is determined by the parameter $k$. The **frequency parameter**, $k$, is equal to the number of complete cycles that occur over the $N$ points of the signal.
 
 Each point on the left column of the plot below is calculated as $\sin\left(\frac{2\pi}{N}kn\right)$ with $n\in\{0,\dots,5\}$. The first plot is for $k=0$; the second, $k=1$; $k=2$ and, finally, $k=3$. The column on the right is calculated as $\cos\left(\frac{2\pi}{N}kn\right)$.
 
 <img width=900 src="https://cloud.githubusercontent.com/assets/9312897/24575442/9b43d4e8-1673-11e7-82ae-befc3c18917b.png">
+
+The dots in the plots above were simply defined as $(x,f(x))=(0,f(0)), (1,f(1)), (2,f(2)),(3,f(3)),(4,f(4)),(5,f(5))$ with $f(x)=\exp\{\frac{2\pi}{N}kn\}=\exp\{\frac{2\pi}{6}kx\}$. The amplitude is $1$. $k$ was advanced from $0$ to $N/2=3$ for both sine and cosine basis functions.
+
+
+---
+
+The [DFT is defined](https://www.dsprelated.com/freebooks/mdft/Mathematics_DFT.html) as:
+
+$$X(k)\equiv \sum_{n=0}^{N-1}\underset{\text{time sequence}}{\underbrace{ x(n)}}\; \underset{\text{basis funcs.}}{\underbrace{\exp\left(\color{red}{\mathbf-}i\frac{2\pi}{N}kn\right)}}, \quad k=0,1,\dots,N-1$$
+
+although also found with a [normalizing $1/N$](https://users.cs.cf.ac.uk/Dave.Marshall/Multimedia/node228.html) in front:
+
+$$X(k)\equiv \frac{1}{N}\sum_{n=0}^{N-1}\underset{\text{time sequence}}{\underbrace{ x(n)}}\; \underset{\text{basis funcs.}}{\underbrace{\exp\left(\color{red}{\mathbf-}i\frac{2\pi}{N}kn\right)}}, \quad k=0,1,\dots,N-1$$
+
+The minus sign is just a [convention](http://math.stackexchange.com/a/60423/152225) so that the inverse (IDFT) ends up expressed as the sum of positive frequencies:
+
+$$x[n]= \sum_k X(k) \exp\left(i\,\frac{2\pi}{N} kn\right)$$
+
+which is a sum of sines and cosines if we use the [Euler's formula](https://en.wikipedia.org/wiki/Euler%27s_formula):
+
+$$e^{ix}=\cos x + i \sin x$$
+
+<img width=250 src="https://cloud.githubusercontent.com/assets/9312897/24579488/aa2c3fc6-16c4-11e7-895a-75ec1194c830.png">
+
+There is another explanation of this convention [here](http://dsp.stackexchange.com/a/19007/27561). The only important part is that the direct and inverse DFT have opposite signs.
+
+We definine $w_N$ - the [**twiddle factor**](http://www.lsi-contest.com/2012/shiyou_3-2e.html):
+
+$$\large w_N \equiv e^{-i\,\frac{2\pi}{N}}$$
+
+which has periodic properties. The $N$ power of the twiddle factor is:
+
+$$w_N^N=e^{-i\,\frac{2\pi}{N}N}=e^{-i2\pi}=1$$
+
+thanks to Euler's identity, $e^{i\pi}+1 = 0$, and $e^{-i2\pi}=1$.
+
+And $w_N^{k+N}=w_N^k$ because $w_N^{k+N}=w_N^k\,w_N^N$.
+
+The exponents are $w_N^{kn}=\left(e^{-i\,\frac{2\pi}{N}}\right)^{kn}$.
+
+It makes sense then to express the DFT as a matrix. The $N=4$ (four-point) DFT is especially cool, because splitting the circle into quadrant result in pure sine and cosine waves - in the complex plane, we are either along the $x$-axis (real / cosine), or along the $y$-axis (imaginary /sine). The matrix (really well [explained by Professor Stang](https://youtu.be/M0Sa8fLOajA?t=24m21s)) then simplifies nicely as:
+
+$$W = 
+\begin{bmatrix}
+ \omega^0  & \omega^0  &\omega^0  &\omega^0 \\
+ \omega^0  & \omega^1  &\omega^2  &\omega^3  \\
+ \omega^0  & \omega^2  &\omega^4  &\omega^6  \\
+ \omega^0  & \omega^3  &\omega^6  &\omega^9  \\
+\end{bmatrix} = 
+\begin{bmatrix}
+1 &  1 &  1 &  1\\
+1 &  -i & -1 & i\\
+1 & -1 &  1 & -1\\
+1 & i & -1 &  -i\end{bmatrix}$$
+
+where $\omega = e^{-\frac{\pi i}{2}} = -i.$
+
+The DFT would therefore be calculated as:
+
+$$
+\begin{bmatrix}
+X[0]\\X[1]\\X[2]\\X[3]
+\end{bmatrix}=
+\begin{bmatrix}
+ \omega^0  & \omega^0  &\omega^0  &\omega^0 \\
+ \omega^0  & \omega^1  &\omega^2  &\omega^3  \\
+ \omega^0  & \omega^2  &\omega^4  &\omega^6  \\
+ \omega^0  & \omega^3  &\omega^6  &\omega^9  \\
+\end{bmatrix}
+\begin{bmatrix}
+x[0]\\x[1]\\x[2]\\x[3]
+\end{bmatrix}
+$$
+
+leading to the [Fast Fourier (FFT)](http://www.lsi-contest.com/2012/shiyou_3-2e.html) expedited method.
+
+---
+
+####2D DISCRETE FOURIER TRANSFORM:
+
+Now we are going to need two frequency parameters as explained [here](https://youtu.be/nyk75ufbP74) - so instead of $k$, now we have $k$ and $l$.We will also have two indices for the points - so we have not just $n$, but $n$ and $m$:
+
+$$X[k,l]=\frac{1}{MN}\sum_{m=0}^{M-1}\,\sum_{n=0}^{N-1}\,x(m,n)\,\exp\left(-i\,2\pi\left(\frac{km}{M}+\frac{ln}{N}\right)\right)$$
+
 
 
 ---
