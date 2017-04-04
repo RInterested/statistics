@@ -137,13 +137,23 @@ After this bookkeeping preliminaries I run:
 
     A = fft2(double(Im));
     
+    
+Here are the plots:
+    
+    subplot(131);
+    h = imshow(Im);
+    h2 = get(h,'Parent');
+    set(h2,'YDir','Normal');
+    axis equal tight;
+    title("Circle");
+
     subplot(132);
-    h = imshow(abs(fftshift(A)),[24 100000]);
+    h = imshow(abs(fftshift(A)),[24 100]);
     h2 = get(h,'Parent');
     set(h2,'YDir','Normal');
     axis equal tight;
     title("2D FFT Magnitude");
-    
+
     subplot(133);
     h = imshow(angle(fftshift(A)),[-pi pi]);
     h2 = get(h,'Parent');
@@ -157,7 +167,7 @@ Now I take the same image, and analyze it with ImageJ, checking the output at po
 
 <img width=500 src="https://cloud.githubusercontent.com/assets/9312897/24640903/eeb34a30-18c8-11e7-8cfb-835bbf773c72.png">
 
-So the magnitude is going to be $sqrt{7.448^2 + 10.458^2} = 12.83.$
+So the magnitude is going to be $\sqrt{7.448^2 + 10.458^2} = 12.83.$
 
 And the phase, $\arctan(-10.458 / 7.448) = 54.54^\circ.$
 
@@ -197,11 +207,54 @@ Let say you have a particular pixel `A(i,j)`, then the direction and frequency i
 
     center = size(A)/2 + 1;
     dx = (j-center(2))/size(A,2);
-    dy = (i-center(1))/size(A,1);
+    dy = (center(1) - i - 1)/size(A,1);
 
-    direction = atan2(dy, dx);
+    direction = atan2(dy, dx); %in radians
     frequency = 1/sqrt(dx*dx + dy*dy);
 
+---
+
+####EXAMPLE COMPARING MATLAB AND IMAGEJ OUTPUTS:
+
+<img width=700 src="https://cloud.githubusercontent.com/assets/9312897/24681151/f5ccae76-1961-11e7-94e9-bf4af345313a.png">
+
+
+**with ImageJ:**
+
+    Frequency = 10.24 pixels/cycle (25 cycles)
+    Theta (direction) = 16.26 degrees
+    Real part = -1.255
+    Imaginary part = 10.142
+    Phase = arctan(10.142 / -1.255) = -82.95 degrees
+    Magnitude = sqrt(10.142^2 + 1.255^2) = 10.2194
+
+and **with Matlab:**
+
+    Im = imread('circ.png');
+    pkg load image
+    Im = rgb2gray(Im);
+    
+    A = fft2(double(Im) / 255);
+    Ashifted = fftshift(A);
+    Ashifted(121,153)
+    
+    i = 121;
+    j = 153;
+    
+    center = size(A) / 2 + 1;
+    dx = (j - center(2)) / size(A,2);
+    dy = (center(1) - i - 1) / size(A,1);
+    
+    direction = (atan2(dy, dx))
+    dir_degrees = direction * (360 / (2*pi)) 
+    frequency = 1 /sqrt(dx*dx + dy*dy)
+
+The output:
+
+    ans =  -1.2553 + 10.1425i
+    direction =  0.28379
+    dir_degrees =  16.260
+    frequency =  10.240
 
 ---
 
