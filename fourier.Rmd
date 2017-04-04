@@ -118,6 +118,89 @@ Now we are going to need two frequency parameters as explained [here](https://yo
 
 $$X[k,l]=\frac{1}{MN}\sum_{m=0}^{M-1}\,\sum_{n=0}^{N-1}\,x(m,n)\,\exp\left(-i\,2\pi\left(\frac{km}{M}+\frac{ln}{N}\right)\right)$$
 
+---
+
+#### MATHLAB to IMAGEJ CORRESPONDENCE:
+
+In this toy example, I am aiming at producing the 2D DFT of the following 256 x 256 png image:
+
+To be able to understand the output easily, I try to convert this image into a 256 x 256 image, eliminating color information:
+
+    Im = imread('circ.png');
+    pkg load image
+    Im = rgb2gray(Im);
+    figure, imshow(Im)
+    
+<img width=100 src="https://cloud.githubusercontent.com/assets/9312897/24640837/5db7c560-18c8-11e7-9272-9229f6ed47f6.png">
+
+After this bookkeeping preliminaries I run:
+
+    A = fft2(double(Im));
+    
+    subplot(132);
+    h = imshow(abs(fftshift(A)),[24 100000]);
+    h2 = get(h,'Parent');
+    set(h2,'YDir','Normal');
+    axis equal tight;
+    title("2D FFT Magnitude");
+    
+    subplot(133);
+    h = imshow(angle(fftshift(A)),[-pi pi]);
+    h2 = get(h,'Parent');
+    set(h2,'YDir','Normal');
+    axis equal tight;
+    title("2D FFT Phase");
+
+<img width=500 src="https://cloud.githubusercontent.com/assets/9312897/24640869/b840abfa-18c8-11e7-999a-5143aedcc55e.png">
+
+Now I take the same image, and analyze it with ImageJ, checking the output at point `(157, 96)`, like this:
+
+<img width=500 src="https://cloud.githubusercontent.com/assets/9312897/24640903/eeb34a30-18c8-11e7-8cfb-835bbf773c72.png">
+
+So the magnitude is going to be $sqrt{7.448^2 + 10.458^2} = 12.83.$
+
+And the phase, $\arctan(-10.458 / 7.448) = 54.54^\circ.$
+
+The question is, [**How can I get these values out of the `fft2()` output?**](http://stackoverflow.com/a/43196792/4089351)
+
+Here are a few observations which should clarify the scaling used:
+
+- ImageJ's X and Y positions are 0-based whereas Matlab's indexing is 1-based.
+- Incrementing ImageJ's X position corresponds to incrementing the column index in Matlab, and incrementing ImageJ's Y position corresponds to incrementing the row index in Matlab, so that an `(X,Y)` coordinate pair in ImageJ will be found at index `(Y+1,X+1)` in Matlab.
+- ImageJ displays the image with the 0 frequency component in the middle of the image, so measurements are effectively made on the equivalent of `fftshift(Im)`
+- ImageJ scales the 0-255 grayscale values to floating point values in the 0.0-1.0 range (i.e. scaling all values by dividing by 255)
+
+So with that in mind, we have:
+
+    >> Ashifted = fftshift(A);
+    >> Ashifted(97,158)/255
+    ans =   7.4484 - 10.4582i
+    >> Ashifted(93,165)/255
+    ans =  12.1928 -  4.9850i
+
+which correspond exactly to your illustrated measurements of the real and imaginary parts at positions `(X,Y) = (157,96)` and `(X,Y) = (164,92)` respectively.
+
+Note that by the linearity property of the FFT, you could also divide the input and get the same results:
+
+    A = fft2(double(Im)/255.0);
+    >> Ashifted = fftshift(A);
+    >> Ashifted(97,158)
+    ans =   7.4484 - 10.4582i
+    >> Ashifted(93,165)
+    ans =  12.1928 -  4.9850i
+
+---
+
+[**The next question is how to extract the direction (theta) and frequency (e.g. pixels/cycle)?**](http://stackoverflow.com/a/43197349/4089351)
+
+Let say you have a particular pixel `A(i,j)`, then the direction and frequency in pixels/cycle (as similarly obtained by ImageJ) can be obtained using the following:
+
+    center = size(A)/2 + 1;
+    dx = (j-center(2))/size(A,2);
+    dy = (i-center(1))/size(A,1);
+
+    direction = atan2(dy, dx);
+    frequency = 1/sqrt(dx*dx + dy*dy);
 
 
 ---
