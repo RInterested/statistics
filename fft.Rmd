@@ -50,7 +50,7 @@ $\vdots$
 For $k = 4$, though, this reasoning, runs into a "problem" because summarizing the corresponding expression as a sum of DFT of even and odd numbers, such as 
 
 $$\begin{align}X[\color{red}{4}]&\overset{?}=X_e[\color{red}{4}]+W_8^4\,X_o[\color{red}{4}]\tag{1}\\[2ex]
-&\overset{?}=\sum_{r=0}^{\color{red}{3}}\,x[2r]\,W_{4}^{\color{red}{4}r} +W_N^{4} \sum_{r=0}^{\color{red}{3}}\,x[2r+1]\,W_{4}^{\color{red}{4}r}
+&\overset{?}=\sum_{r=0}^{\color{red}{3}}\,x[2r]\,W_{4}^{\color{red}{4}r} +W_8^{4} \sum_{r=0}^{\color{red}{3}}\,x[2r+1]\,W_{4}^{\color{red}{4}r}
 \end{align}$$
 
 makes apparently no sense, since $k$ in DFT runs from $0,1,2,\cdots,r-1=3$. 
@@ -74,13 +74,22 @@ Going back to Eq. $1$:
 
 $$X[\color{red}{4}]=X_e[\color{red}{4}]+W_8^4\,X_o[\color{red}{4}]=X_e[\color{red}{0}]+W_8^1\,X_o[\color{red}{0}]$$
 
-and
 
 $$X[\color{red}{5}]=X_e[\color{red}{5}]+W_8^5\,X_o[\color{red}{5}]=X_e[\color{red}{1}]+W_8^5\,X_o[\color{red}{1}]$$
 
-$\vdots$
+$$X[\color{red}{6}]=X_e[\color{red}{6}]+W_8^6\,X_o[\color{red}{6}]=X_e[\color{red}{2}]+W_8^6\,X_o[\color{red}{2}]$$
 
-$$X[\color{red}{7}]=X_e[\color{red}{7}]+W_8^7\,X_o[\color{red}{7}]=X_e[\color{red}{3}]+W_8^7\,X_o[\color{red}{3}]$$
+
+$$\begin{align}X[\color{red}{7}]&=X_e[\color{red}{7}]+W_8^7\,X_o[\color{red}{7}]=X_e[\color{red}{3}]+W_8^7\,X_o[\color{red}{3}]\\[2ex]
+&=\underset{X_e[3]}{\underbrace{\sum_{r=0}^{\color{red}{3}}\,x[2r]\,W_{\color{blue}{4}}^{\color{red}{3}r}}} +W_8^{7} \underset{X_o[3]}{\underbrace{\sum_{r=0}^{\color{red}{3}}\,x[2r+1]\,W_{\color{blue}{4}}^{\color{red}{3}r}}}
+\end{align}$$
+
+Explaining the plot in [this youtube video](https://youtu.be/EsJGuI7e_ZQ):
+
+---
+
+
+<img width =700 src ="https://cloud.githubusercontent.com/assets/9312897/24812280/6fa4f69a-1b97-11e7-9938-a8aba314c69b.png">
 
 
 ---
