@@ -91,6 +91,22 @@ Explaining the plot in [this youtube video](https://youtu.be/EsJGuI7e_ZQ):
 
 <img width =700 src ="https://cloud.githubusercontent.com/assets/9312897/24812280/6fa4f69a-1b97-11e7-9938-a8aba314c69b.png">
 
+---
+
+So regularly calculated DFTs take $O( N^2)$, but splitting the $2^N$ signals into even and odd results in $\left(\frac{N}{2}\right)^2\cdot 2$ plus the multiplication by the $W_8$ factors in the example above, resulting in $O\left(\frac{N}{2}\right)^2 +N$
+
+since we started off with a number of the form $2^N$ we can split each $\frac{N}{2}$-point DFTs into $2\frac{N}{4}$-point DFTs:
+
+$$\frac{N}{2}, \frac{N}{4},\cdots,\frac{N}{2^{p-1}}, \frac{N}{2^{p}}$$
+
+where $p = \log_2 N$, such that $\frac{N}{2^{p}}=1. Hence we end up with a $1$-point DFT at the end. And we'll end up with $O(N\log_2 N)$ for large $N$.
+
+The resultant idea is:
+
+---
+
+<img width=600 src="https://cloud.githubusercontent.com/assets/9312897/24815310/b0baee22-1ba2-11e7-8032-4c922550641c.png">
+
 
 ---
 
