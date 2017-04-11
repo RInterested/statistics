@@ -16,17 +16,17 @@ Notice that since we are testing under the $H_o$ how likely it is to get the $p$
 
 <br>
 
-$\large \hat p \pm Z_{1-\alpha/2} *  \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
+$\large \hat p \pm Z_{1-\alpha/2} \times  \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
 
 In [R]:
 
-$\large \hat p + c(-1, 1) * \small pnorm(0.975) * \large \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
+$\large \hat p + \text{c}(-1, 1) \,*\, \small \text{pnorm}(0.975) \,*\, \large \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$
 
 Example: We want to test if the proportion of side effects is greater than 0.1 for a new drug ($p=0.1$). In our sample of $20$ cases, $11$ had complications for a $\hat p = 0.55$:
 
 <br>
 
-*test statistic* = $\Large \frac{0.55 - 0.1}{\sqrt{\frac{0.1 * 0.9}{20}}} =$$6.7$, which is clearly significant:
+$\text{test statistic}=\Large \frac{0.55 - 0.1}{\sqrt{\frac{0.1 \times 0.9}{20}}} =6.7$, which is clearly significant:
 
 <br>
 
@@ -36,7 +36,7 @@ qnorm(0.95) # One-sided test
 
 Alternatively, we can just run an [exact binomial test](https://en.wikipedia.org/wiki/Binomial_test), which doesn't need to rely on the normal approximation:
 
-$p(counts \geq 11)= \displaystyle \sum_{11}^{20} {20\choose X} \,0.1^X\, 0.9^{20-X}$
+$\Pr(\text{counts} \geq 11)= \displaystyle \sum_{11}^{20} {20\choose X} \,0.1^X\, 0.9^{20-X}$
 
 With [R], 
 
