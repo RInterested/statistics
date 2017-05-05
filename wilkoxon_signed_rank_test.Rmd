@@ -8,9 +8,9 @@
 
 From this [question in CV](http://stats.stackexchange.com/a/91038/67822) about the difference with the rank sum test:
 
-```
-You should use the signed rank test when the data are paired. You'll find many definitions of pairing, but at heart the criterion is something that makes pairs of values at least somewhat positively dependent, while unpaired values are not dependent. Often the dependence-pairing occurs because they're observations on the same unit (repeated measures), but it doesn't have to be on the same unit, just in some way tending to be associated (while measuring the same kind of thing), to be considered as 'paired'.
-```
+
+> You should use the signed rank test when the data are paired. You'll find many definitions of pairing, but at heart the criterion is something that makes pairs of values at least somewhat positively dependent, while unpaired values are not dependent. Often the dependence-pairing occurs because they're observations on the same unit (repeated measures), but it doesn't have to be on the same unit, just in some way tending to be associated (while measuring the same kind of thing), to be considered as 'paired'.
+
 
 ---
 
@@ -36,7 +36,7 @@ I want to test whether the difference between the pairs of students's scores  fo
 
 Since the data is not normally distributed, I assume i can use wilcoxon signed-rank test here, but in this case we only  know the difference of the pairs, so if perform wilcoxon signed-rank test in r here, normally the code should be:
 
-    wilcox.test(before,after,paired=T, exact=T)
+    wilcox.test(before, after, paired = T, exact = T)
 
 but the problem is that, I don't have the data of 'before' and 'after', instead I only know the difference between them, so it seems wilcoxon signed-rank test can not be applied here. Is there other alternative method to this case? 
 

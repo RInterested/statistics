@@ -12,9 +12,9 @@ These questions are extracted from a Coursera course. In time they will be repla
 
 From this [question in CV](http://stats.stackexchange.com/a/91038/67822) about the difference with the rank sum test:
 
-```
-You should use the rank-sum test when the data are not paired. You'll find many definitions of pairing, but at heart the criterion is something that makes pairs of values at least somewhat positively dependent, while unpaired values are not dependent. Often the dependence-pairing occurs because they're observations on the same unit (repeated measures), but it doesn't have to be on the same unit, just in some way tending to be associated (while measuring the same kind of thing), to be considered as 'paired'.
-```
+
+>You should use the rank-sum test when the data are not paired. You'll find many definitions of pairing, but at heart the criterion is something that makes pairs of values at least somewhat positively dependent, while unpaired values are not dependent. Often the dependence-pairing occurs because they're observations on the same unit (repeated measures), but it doesn't have to be on the same unit, just in some way tending to be associated (while measuring the same kind of thing), to be considered as 'paired'.
+
 
 ---
 
@@ -22,7 +22,75 @@ The [procedure](en.wikipedia.org/wiki/Mann–Whitney_U_test#Calculations) is out
 
 ---
 
+####Example 1:
+
+```{r}
+a = c(110, 115, 128, 142, 123, 129, 130, 128 ,134, 133, 128, 147, 137, 112, 138, 128, 132, 139, 133, 135, 133, 125, 134, 139, 138, 142, 152, 140, 144, 147 ,153 ,141)
+b = c(122, 118, 120 ,131 ,124 ,118 ,120 ,140 ,124, 120, 134, 127, 127 ,134, 133, 137 ,137 ,135 ,129 ,138 ,143, 128 ,121 ,129, 133, 138, 142, 131, 135, 132, 146, 135)
+```
+
+>In statistics, the **Mann–Whitney U test** (also called the **Mann–Whitney–Wilcoxon (MWW)**, **Wilcoxon rank-sum test**, or **Wilcoxon–Mann–Whitney test**) is a nonparametric test of the null hypothesis that it is equally likely that a randomly selected value from one sample will be less than or greater than a randomly selected value from a second sample.
+
+>Under the null hypothesis $\text{H}_0$, the probability of an observation from the population $X$ exceeding an observation from the second population $Y$ equals the probability of an observation from $Y$ exceeding an observation from $X$.
+
+```{r}
+wilcox.test(a,b)
+```
+
+$632.5$ can be reproduced manually as
+
+```{r}
+n1 = length(a)
+n2 = length(b)
+d = data.frame(a,b)
+d = stack(d)
+pooled = d[order(d$values),]
+pooled$ranks = rank(pooled$values)
+(R1 = sum(pooled[pooled$ind == "a", "ranks"]))
+(R2 = sum(pooled[pooled$ind == "b", "ranks"]))
+(U1 = R1 - n1 * (n1 + 1) / 2)
+(U2 = R2 - n2 * (n2 + 1) / 2)
+```
+
+---
+
+####Example 2:
+
+From the [mtcars R dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html):
+
+```{r}
+a = mtcars[mtcars$am == 0, "mpg"]
+b = mtcars[mtcars$am == 1, "mpg"]
+
+n1 = length(a)
+n2 = length(b)
+
+lab.a = rep("a", n1)
+lab.b = rep("b", n2)
+
+values = c(a,b)
+labs = c(lab.a, lab.b)
+d = data.frame(labs, values)
+
+pooled = d[order(d$values),]
+pooled$ranks = rank(pooled$values)
+
+(R1 = sum(pooled[pooled$labs == "a", "ranks"]))
+(R2 = sum(pooled[pooled$labs == "b", "ranks"]))
+
+(U1 = R1 - n1 * (n1 + 1) / 2)
+(U2 = R2 - n2 * (n2 + 1) / 2)
+
+wilcox.test(a, b)
+```
+
+---
+
+####Example 3:
+
 A topical rash treatment was applied to a portion of a rash on $n$ patients. A quantitative measure of redness was calculated for the treated and untreated regions of the rash. A sign of + was given when the treated area was less red (more improved) than the untreated area and a - sign when it was not. It is desired to know whether the treatment improves the rash. 
+
+Surprisingly R seems to pick the maximum value of the adjusted rank sums for both groups, whereas the minimum value is typically chosen. This is likely anecdotal since the sum of all unadjusted ranks $R1+R2=\frac{N(N+1)}{2}$ with $N$ being the total number of observations.
 
 ---
 
@@ -67,6 +135,8 @@ By the previous question, we will only reject for 5 subjects when all of them ar
 ```
 
 ---
+
+####Example 4:
 
 
 The Biostatistics and Epidemilogy departments are running a 10K road race. There are *three pairs* of runners. In each case, a runner from Biostat was matched to a runner from Epi of the same age, gender and degree of running experience. The difference in each pairs times was taken and a signed rank test performed.
@@ -128,24 +198,6 @@ W[i] <- sum(rank * sign)
 ```
 
 Or simply: There are $2^3$ cases, of which 2 are the most extreme, hence the minimum p value is $1/4$. For $n$ pairs the minimum p value is $(1/2)^{(n-1)}$. The signed rank test  effectively just counts all the ways to allocate $\pm 1$ to the observations. The extreme cases are "all -1" and "all +1". since those will lead to the largest and smallest values of the statistic.
-
-
----
-
-The Biostatistics and Epidemiology departments are running a 10K road race. There are threepairs of runners. In each case, a runner from Biostat was matched to a runner from Epi of thesame age, gender and degree of running experience. For the pair with the largest difference intheir finishing times, the winner was from Epi; for the pair with the second largest difference intheir times, the winner was was from Biostat and for the final pair, the winner was from Epi.Ranking differences in times from least to greatest and assuming that the times weresubtracted as (Epi - Biostat), what would the observed signed rank statistic (sum of thepositive ranks) be?
-
-Recall we are ranking from smallest time difference to largest time difference. If the order ofsubtraction was Epi - Biostat, if the winner of the pair was from Epi, the difference would benegative (a lower time for the Epi runner)
-
-Sign Rank
-
-`- 3`
-`+ 2`
-`- 1`
-
-Thus the observed signed rank statistic is 2.
-
-<br>
-
 
 ---
 
