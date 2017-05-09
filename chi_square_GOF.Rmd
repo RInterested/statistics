@@ -227,13 +227,13 @@ The squared difference is far too large for the proportion of vowels in your doc
 
 <br>
 
-We can test how good is [R] at generating random uniform numbers by generating $\small 1 \,million$ draws:
+We can test how good is [R] at generating random uniform numbers by generating $\small 1 \,\text{million}$ draws:
 
 <img HEIGHT="500" WIDTH="400" src="https://cloud.githubusercontent.com/assets/9312897/10918018/8ec2a2bc-8231-11e5-9c67-df4e50c7b4c9.png">
 
 which looks very good, but let's look at the actual counts compared to the expected frequency ($0.25$) for every quartile:
 
-```{r,echo=F,results='hide'}
+```{r}
 uniform_sample <- runif(1e6)
 
 first    <- length(uniform_sample[uniform_sample<0.25])
@@ -254,10 +254,9 @@ tableau <- rbind(tab, exp_counts)
 tableau # tableau is just a name for this object
 ```
 
-Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case $\small df=3$). The name I gave to the table presenting the counts and expected frequencies is `tableau`:
+The name I gave to the table presenting the counts and expected frequencies is `tableau`. Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case $\small \text{df}=3$):
 
 ```{r}
-tableau
 TS <- sum((tableau[1,] - tableau[3,])^2/tableau[3,])
 TS
 pchisq(TS, df=3, lower.tail = F)
