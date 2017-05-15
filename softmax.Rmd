@@ -1,0 +1,32 @@
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###SOFTMAX:
+<br>
+
+In multiclass classification networks the softmax function:
+
+The last hidden layer produces output values forming a vector $\vec x = \mathbf x$. The output neuronal layer is meant to classify among $K=1,\dots,k$ categories with a SoftMax activation function assigning conditional probabilities (given $\mathbf x$) to each one the $K$ categories. In each node in the final (or ouput) layer the pre-activated values (logit values) will consist of the scalar products $\mathbf{w}_j^\top\mathbf{x}$, where $\mathbf w_j\in\{\mathbf{w}_1, \mathbf{w}_2,\dots,\mathbf{w}_k\}$. In other words, each category, $k$ will have a different vector of weights pointing at it, determining the contribution of each element in the output of the previous layer (including a bias), encapsulated in $\mathbf x$. However, the activation of this final layer will not take place element-wise (as for example with a sigmoid function in each neuron), but rather through the application of a SoftMax function, which will map a vector in $\mathbb R^k$ to a vector of $K$ elements in $[0,1]$. Here is a made-up NN to classify colors:
+
+
+<img src = "https://cloud.githubusercontent.com/assets/9312897/26070674/6a74668e-3973-11e7-9029-357948fd405e.png">
+
+
+The softmax as
+
+$$ \sigma(j)=\frac{\exp(\mathbf{w}_j^\top \mathbf x)}{\displaystyle\sum_{k=1}^K \exp(\mathbf{w}_k^\top\mathbf x)}=\frac{\exp(z_j)}{\displaystyle\sum_{k=1}^K \exp(z_k)}$$
+
+This will result in a normalization of the output adding up to $1$, interpretable as a probability mass functionn.
+
+From Wikipedia:
+
+>In probability theory, the output of the softmax function can be used to represent a categorical distribution – that is, a probability distribution over K different possible outcomes.
+
+
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
