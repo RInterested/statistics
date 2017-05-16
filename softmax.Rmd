@@ -67,25 +67,6 @@ $$-\left( (\log(0.3)\times 0) + (\log (0.3)\times 0) + (\log (0.4)\times1) \righ
 
 With one-hot encoding, the $y$ vector will eliminate all elements, except for one (the correct value for the example). The expression $y_k\log \hat y_k + (1-y_k)\log(1-\hat y_k)$ will become $\log \hat y_k$ so that if the calculated probability for that category is close to $1$, the loss function will approach zero, whereas, if the probabily (output of the softmax for that category) is close to zero, the loss will tend to infinity.
 
----
-
-The [backpropagation partial derivatives](http://neuralnetworksanddeeplearning.com/chap3.html) would work like this:
-
-$$\begin{eqnarray}
-  \frac{\partial C}{\partial w_j} & = & -\frac{1}{k} \sum_k \left(
-    \frac{y_k }{\sigma(z_k)} -\frac{(1-y_k)}{1-\sigma(z_k)} \right)
-  \frac{\partial \sigma(z_k)}{\partial w_j} \\
- & = & -\frac{1}{k} \sum_k \left( 
-    \frac{y_k}{\sigma(z_k)} 
-    -\frac{(1-y_k)}{1-\sigma(z_k)} \right)\sigma'(z_k) x_j\\
-& = &  \frac{1}{n}
-  \sum_x \frac{\sigma'(z_k) x_j}{\sigma(z_k) (1-\sigma(z_k))}
-  (\sigma(z_k)-y_k)
-\end{eqnarray}$$
-
-As for the $\sigma'$ derivative,
-
-<img src = "https://cloud.githubusercontent.com/assets/9312897/23877727/105a071a-081a-11e7-9036-4514b85cd771.png" width = 400>
 
 ---
 
