@@ -20,6 +20,7 @@ The softmax as
 
 $$ \sigma(j)=\frac{\exp(\mathbf{w}_j^\top \mathbf x)}{\sum_{k=1}^K \exp(\mathbf{w}_k^\top\mathbf x)}=\frac{\exp(z_j)}{\sum_{k=1}^K \exp(z_k)}$$
 
+
 This will result in a normalization of the output adding up to $1$, interpretable as a probability mass functionn.
 
 From Wikipedia:
@@ -46,7 +47,11 @@ So why do it?
 
 Although we can use mean squared error, [cross-entropy is the preferred loss function](https://www.quora.com/Is-the-softmax-loss-the-same-as-the-cross-entropy-loss?srid=utSnl) for classification NN with softmax activation in the last layer. It is given by the function:
 
-$$J(\mathbf w) = \frac{1}{K}\sum_{k=1}^K H(p_k, q_k) = -\frac{1}{K}\sum_{k=1}^K\left[y_k\log \hat y_k + (1-y_k)\log(1-\hat y_k) \right]$$
+
+
+$$\begin{eqnarray} 
+  C = -\frac{1}{k} \sum_{k=1}^K \left[y_k \log (\sigma(z_k)) + (1-y_k ) \log (1-\sigma(z_k)) \right]
+\end{eqnarray}$$
 
 As explained [here](https://jamesmccaffrey.wordpress.com/2013/11/05/why-you-should-use-cross-entropy-error-instead-of-classification-error-or-mean-squared-error-for-neural-network-classifier-training/), average cross-entropy (ACE) would be calculated as:
 
@@ -61,6 +66,26 @@ computed       | targets              | correct?
 $$-\left( (\log(0.3)\times 0) + (\log (0.3)\times 0) + (\log (0.4)\times1) \right) = -\log(0.4)$$
 
 With one-hot encoding, the $y$ vector will eliminate all elements, except for one (the correct value for the example). The expression $y_k\log \hat y_k + (1-y_k)\log(1-\hat y_k)$ will become $\log \hat y_k$ so that if the calculated probability for that category is close to $1$, the loss function will approach zero, whereas, if the probabily (output of the softmax for that category) is close to zero, the loss will tend to infinity.
+
+---
+
+The [backpropagation partial derivatives](http://neuralnetworksanddeeplearning.com/chap3.html) would work like this:
+
+$$\begin{eqnarray}
+  \frac{\partial C}{\partial w_j} & = & -\frac{1}{k} \sum_k \left(
+    \frac{y_k }{\sigma(z_k)} -\frac{(1-y_k)}{1-\sigma(z_k)} \right)
+  \frac{\partial \sigma(z_k)}{\partial w_j} \\
+ & = & -\frac{1}{k} \sum_k \left( 
+    \frac{y_k}{\sigma(z_k)} 
+    -\frac{(1-y_k)}{1-\sigma(z_k)} \right)\sigma'(z_k) x_j\\
+& = &  \frac{1}{n}
+  \sum_x \frac{\sigma'(z_k) x_j}{\sigma(z_k) (1-\sigma(z_k))}
+  (\sigma(z_k)-y_k)
+\end{eqnarray}$$
+
+As for the $\sigma'$ derivative,
+
+<img src = "https://cloud.githubusercontent.com/assets/9312897/23877727/105a071a-081a-11e7-9036-4514b85cd771.png" width = 400>
 
 ---
 
