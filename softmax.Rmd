@@ -3,8 +3,10 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###SOFTMAX:
+####SOFTMAX ACTIVATION:
 <br>
+
+This is a good [resource](http://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/).
 
 In multiclass classification networks the softmax function:
 
@@ -16,7 +18,7 @@ The last hidden layer produces output values forming a vector $\vec x = \mathbf 
 
 The softmax as
 
-$$ \sigma(j)=\frac{\exp(\mathbf{w}_j^\top \mathbf x)}{\displaystyle\sum_{k=1}^K \exp(\mathbf{w}_k^\top\mathbf x)}=\frac{\exp(z_j)}{\displaystyle\sum_{k=1}^K \exp(z_k)}$$
+$$ \sigma(j)=\frac{\exp(\mathbf{w}_j^\top \mathbf x)}{\sum_{k=1}^K \exp(\mathbf{w}_k^\top\mathbf x)}=\frac{\exp(z_j)}{\sum_{k=1}^K \exp(z_k)}$$
 
 This will result in a normalization of the output adding up to $1$, interpretable as a probability mass functionn.
 
@@ -33,7 +35,7 @@ So why do it?
 
 #### [Advantages](http://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/):
 
-1. softmax is optimal for maximum-likelihood estimation of the model parameters
+1. softmax is optimal for maximum-likelihood estimation of the model parameters.
 
 2. The properties of softmax (all output values in the range (0, 1) and sum up to 1.0) make it suitable for a probabilistic interpretation that's very useful in machine learning.
 
@@ -59,6 +61,40 @@ computed       | targets              | correct?
 $$-\left( (\log(0.3)\times 0) + (\log (0.3)\times 0) + (\log (0.4)\times1) \right) = -\log(0.4)$$
 
 With one-hot encoding, the $y$ vector will eliminate all elements, except for one (the correct value for the example). The expression $y_k\log \hat y_k + (1-y_k)\log(1-\hat y_k)$ will become $\log \hat y_k$ so that if the calculated probability for that category is close to $1$, the loss function will approach zero, whereas, if the probabily (output of the softmax for that category) is close to zero, the loss will tend to infinity.
+
+---
+
+#####Derivative of the softmax function with respect to the logit $(z_j =\mathbf W_j^\top \cdot \mathbf x)$:
+
+Computing the 
+
+$$\frac{\partial}{\partial z_i}\sigma(j)=\frac{\partial}{\partial z_i}\frac{\exp(z_j)}{\sum_{k=1}^K \exp(z_k)}$$
+
+The derivative of $\sum_{k=1}^K \exp(z_k)$ with respect to any $z_i$ will be $\exp(z_i)$. As for the numerator, $\exp(z_j)$ the derivative will be $\exp(z_i)$ if and only if $z_i = z_j$; otherwise the derivative is $0$.
+
+If $i = j$, and using the quotient rule,
+
+$$\begin{align}\frac{\partial}{\partial z_i}\frac{\exp(z_j)}{\sum_{k=1}^K \exp(z_k)}
+&= 
+\frac{\mathbf \exp(z_j)\sum_{k=1}^K \exp(z_k)\quad - \exp(z_i)\exp(z_j)}{\left[\sum_{k=1}^K \exp(z_k)\right]^2}\\[2ex]
+&=
+\frac{\exp(z_j)}{\sum_{k=1}^K \exp(z_k)}\frac{\sum_{k=1}^K \exp(z_k)-\exp(z_i)}{\sum_{k=1}^K \exp(z_k)}\\[2ex]
+&=\sigma(z_j)\,(1 - \sigma(z_i))
+\end{align}$$
+
+If on the other hand, $i \neq j$:
+
+$$\begin{align}\frac{\partial}{\partial z_i}\frac{\exp(z_j)}{\sum_{k=1}^K \exp(z_k)}
+&= \frac{0\quad - \exp(z_i)\exp( z_j)}{\left[\sum_{k=1}^K \exp(z_k)\right]^2}\\[2ex]
+&= -
+\frac{\exp(z_j)}{\sum_{k=1}^K \exp(z_k)}\frac{\exp(z_i)}{\sum_{k=1}^K \exp(z_k)}\\[2ex]
+&=-\sigma(z_j)\,\sigma(z_i)
+\end{align}$$
+
+These two scenarios can be brought together as
+
+$$\frac{\partial}{\partial z_i} \sigma(z_j)= \sigma(z_j)\left(\delta_{ij}-\sigma(z_i)\right)$$
+
 
 ---
 
