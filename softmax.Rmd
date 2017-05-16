@@ -24,6 +24,12 @@ From Wikipedia:
 
 >In probability theory, the output of the softmax function can be used to represent a categorical distribution – that is, a probability distribution over K different possible outcomes.
 
+Notice that there is truly no strict need for an activation function. As in [this post](https://www.quora.com/What-is-the-benefit-of-using-softmax-function-in-the-last-layer-of-DNN-What-is-the-relation-between-cross-entropy-and-loss-functions?srid=utSnl):
+
+> At the end of a network, you can either use nothing (logits) and get a multi parameter regression. 
+
+So why do it?
+
 
 #### [Advantages](http://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/):
 
@@ -32,6 +38,29 @@ From Wikipedia:
 2. The properties of softmax (all output values in the range (0, 1) and sum up to 1.0) make it suitable for a probabilistic interpretation that's very useful in machine learning.
 
 3. Softmax normalization is a way of reducing the influence of extreme values or outliers in the data without removing data points from the set.
+
+
+---
+
+Although we can use mean squared error, [cross-entropy is the preferred loss function](https://www.quora.com/Is-the-softmax-loss-the-same-as-the-cross-entropy-loss?srid=utSnl) for classification NN with softmax activation in the last layer. It is given by the function:
+
+$$J(\mathbf w) = \frac{1}{K}\sum_{k=1}^K H(p_k, q_k) = -\frac{1}{K}\sum_{k=1}^K\left[y_k\log \hat y_k + (1-y_k)\log(1-\hat y_k) \right]$$
+
+As explained [here](https://jamesmccaffrey.wordpress.com/2013/11/05/why-you-should-use-cross-entropy-error-instead-of-classification-error-or-mean-squared-error-for-neural-network-classifier-training/), average cross-entropy (ACE) would be calculated as:
+
+```
+computed       | targets              | correct?
+-----------------------------------------------
+0.3  0.3  0.4  | 0  0  1 (democrat)   | yes
+0.3  0.4  0.3  | 0  1  0 (republican) | yes
+0.1  0.2  0.7  | 1  0  0 (other)      | no
+```
+
+$$-\left( (\log(0.3)\times 0) + (\log (0.3)\times 0) + (\log (0.4)\times1) \right) = -\log(0.4)$$
+
+With one-hot encoding, the $y$ vector will eliminate all elements, except for one (the correct value for the example). The expression $y_k\log \hat y_k + (1-y_k)\log(1-\hat y_k)$ will become $\log \hat y_k$ so that if the calculated probability for that category is close to $1$, the loss function will approach zero, whereas, if the probabily (output of the softmax for that category) is close to zero, the loss will tend to infinity.
+
+---
 
 
 [MIT Deep Learning book](http://www.deeplearningbook.org/contents/TOC.html)
