@@ -9,18 +9,21 @@ Example:
 
 We'll concoct a times series with a cyclical sine pattern superimposed on a trend line, and noise, and plot the R generated ACF. I got this example from an [online post](http://www.christoph-scherber.de/content/Statistics%20Course%20files/A%20short%20introduction%20to%20time%20series%20analysis%20in%20R.pdf) by Christoph Scherber, and just added the noise to it:
 
+```{r,fig.width=7,fig.height=3}
     set.seed(0)                          # To reproduce results.
     x = seq(pi, 10 * pi, 0.1)            # Creating time-series as sin function.
     y = 0.1 * x + sin(x) + rnorm(x)      # Time-series sinusoidal points with noise.
     y = ts(y, start = 1800)              # Labeling time axis.
-[![enter image description here][1]][1]
+    plot.ts(y)
+```
+
 
 Ordinarily we would have to test the data for stationarity (or just look at the plot above), but we know there is a trend in it, so let's skip this part, and go directly to the de-trending step:
 
     model = lm(y ~ I(1801:2083))         # Detrending (0.1 * x)
     st.y = y - predict(model)            # Final de-trended ts (st.y)
 
-[![enter image description here][2]][2]
+<img src="https://camo.githubusercontent.com/146eafa91cdeb78e0ba067874d9d80ed277c225e/687474703a2f2f692e737461636b2e696d6775722e636f6d2f44517076742e706e67">
 
 Now we are ready to takle this time series by first generating the ACF with the `acf()` function in R, and then comparing the results to the makeshift loop I put together:
 
@@ -39,12 +42,38 @@ Now we are ready to takle this time series by first generating the ACF with the 
     acf(st.y, type = "correlation")                      # Plotting the built-in function (left)
     plot(ACF, type="h", main="ACF Manual calculation"); abline(h = 0) # and manual results (right).
 
-[![enter image description here][3]][3]
+<img width=400 src="https://camo.githubusercontent.com/78cc19b5f643413a33c35fbb6a46f59cf7024e11/687474703a2f2f692e737461636b2e696d6775722e636f6d2f354d4838762e706e67">
 
 
 Schematically, this is what we have done as:
 
-<img WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/26457203/52659244-413d-11e7-8277-32bf09476eb6.png">
+<img WIDTH="800" src="https://cloud.githubusercontent.com/assets/9312897/26457203/52659244-413d-11e7-8277-32bf09476eb6.png">
+
+#####Intution:
+
+> **[Identification of an MA model is often best done with the ACF rather
+> than the PACF]((https://onlinecourses.science.psu.edu/stat510/node/62))**.
+> 
+> For an MA model, the theoretical PACF does not shut off, but instead
+> tapers toward 0 in some manner.  A clearer pattern for an MA model is
+> in the ACF.  The ACF will have non-zero autocorrelations only at lags
+> involved in the model.
+> 
+> A moving average term in a time series model is a past error (multiplied by a coefficient).
+
+The $q^{\text{th}}$-order moving average model, denoted by MA(q) is
+
+$$x_t = \mu + w_t +\theta_1w_{t-1}+\theta_2w_{t-2}+\dots + \theta_qw_{t-q}$$
+
+with $w_t \overset{iid}{\sim} N(0, \sigma^2_w).$
+
+Here, it is not the message resemblance across time points that is searched backwards in time step-by-step, but rather the contribution of the noise, which I picture as the often massive deviations that a random walk can lead along the time line:
+
+<img width = 300 src="https://cloud.githubusercontent.com/assets/9312897/16595391/da0bb3d4-42bc-11e6-8c11-97dc9200189e.png">
+
+Here there are multiple, progressively offset sequences that are correlated, discarding any contribution of the intermediate steps. 
+
+In the telephone game analogy introduced below to explain PACF, "CV is cool!" is not completely different than "Naomi has a pool". From the noise point of view, the rhymes are still there all the way to the beginning of the game.
 
 ----------
 
@@ -72,7 +101,7 @@ OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_
     
 Schematically, this is what we have done:
 
-<img WIDTH="900" src="https://cloud.githubusercontent.com/assets/9312897/26460040/70788030-4146-11e7-9702-85a02c3f22eb.png">
+<img WIDTH="800" src="https://cloud.githubusercontent.com/assets/9312897/26460040/70788030-4146-11e7-9702-85a02c3f22eb.png">
 
 And finally plotting again side-by-side, R-generated and manual calculations:
 
@@ -80,10 +109,38 @@ And finally plotting again side-by-side, R-generated and manual calculations:
 
 That the idea is correct, beside probable computational issues, can be seen comparing `PACF` to `pacf(st.y, plot = F)`.
 
-  [1]: http://i.stack.imgur.com/lSjTT.png
-  [2]: http://i.stack.imgur.com/DQpvt.png
-  [3]: http://i.stack.imgur.com/5MH8v.png
-  [4]: http://i.stack.imgur.com/oYQ2w.png
+
+<img width=400 src="https://camo.githubusercontent.com/aa2ec2f9c3231a1185a0960ce51f3967675eef5d/687474703a2f2f692e737461636b2e696d6775722e636f6d2f6f595132772e706e67">
+
+#####Intuition:
+
+> **[Identification of an AR model is often best done with the PACF.](https://onlinecourses.science.psu.edu/stat510/node/62)**
+>
+> For an AR model, the theoretical PACF “shuts off” past the order of
+> the model.  The phrase “shuts off” means that in theory the partial
+> autocorrelations are equal to 0 beyond that point.  Put another way,
+> the number of non-zero partial autocorrelations gives the order of the
+> AR model.  By the “order of the model” we mean the most extreme lag of
+> x that is used as a predictor.
+
+A $k^{\text{th}}$ order autoregression, written as AR(k), is a multiple linear regression in which the value of the series at any time t is a (linear) function of the values at times $t-1,t-2,\ldots,t-k:$
+
+$$y_{t}=\beta_{0}+\beta_{1}y_{t-1}+\beta_{2}y_{t-2}+\cdots+\beta_{2}y_{t-2}\epsilon_{t}.$$
+
+This looks like a regression model.
+
+What is a possible intuition of what we are doing here... 
+
+In Chinese whispers or the [telephone game](https://en.wikipedia.org/wiki/Chinese_whispers) as illustrated [here](https://twitter.com/hitrecord/status/484102920795729920)
+
+<img width=700 src="https://camo.githubusercontent.com/ecdabafc54c5011e43bc20e188b4eb60a41e37ff/68747470733a2f2f692e737461636b2e696d6775722e636f6d2f446a454b682e706e67">
+
+the message gets distorted as it is whispered from person to person, and all traces of resemblance (any truthful words, if you will) are lost after the red participant (with the exception of the article 'a'). PACF would tell us that the coefficients for the blue and the yellow participants are non-contributory once the effect of the brown and red participants are accounted for.
+
+It is not difficult to come very close to the actual output of the R function by actually obtaining consecutive OLS regressions through the origin of farther lagged sequences, and collecting the coefficients into a vector - a very similar process to the telephone game: it'll come a point, when there won't be any variability in the signal of the actual initial time series found in progressively more distant snippets of itself.
+
+
+
   
 ---
 
