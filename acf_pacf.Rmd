@@ -24,27 +24,27 @@ Ordinarily we would have to test the data for stationarity (or just look at the 
 
 Now we are ready to takle this time series by first generating the ACF with the `acf()` function in R, and then comparing the results to the makeshift loop I put together:
 
-    cent = st.y - mean(st.y)                     # Centering the time series.
-    n = length(cent)                             # Length of time series
-    ACF = 0                                      # Starting an empty vector to capture the auto-correlations.
-    z = sum(cent * cent) / n                     # Variance of time series.
-    ACF[1] = z/z                                 # Normalizing first entry to 1.
-    for(i in 1:24){                              # Took 24 points to parallel the output of `acf()`
-      lag = cent[-c(1:i)]                        # Introducing lags in the stationary ts.
-      clipped = cent[1:(length(lag))]            # Compensating by clipping the tail of the ts.
-      ACF[i + 1] = (sum(clipped * lag) / n) / z  # Storing each normalized correlation.
+    cent = st.y - mean(st.y)                             # Centering the time series.
+    n = length(cent)                                     # Length of time series
+    ACF = 0                                              # Starting an empty vector to capture the auto-correlations.
+    z = sum(cent * cent) / n                             # Variance of time series.
+    ACF[1] = z/z                                         # Normalizing first entry to 1.
+    for(i in 1:24){                                      # Took 24 points to parallel the output of `acf()`
+    lag = cent[-c(1:i)]                                  # Introducing lags in the stationary ts.
+    clipped = cent[1:(length(lag))]                      # Compensating by clipping the tail of the ts.
+    ACF[i + 1] = (sum(clipped * lag) / n) / z  # Storing each normalized correlation.
     }
-    w = acf(st.y)                                # Extracting values of acf without plotting
-    all.equal(ACF, as.vector(w$acf))             # TRUE
-    acf(st.y, type = "correlation")              # Plotting the built-in function (left)
+    w = acf(st.y)                                        # Extracting values of acf without plotting
+    all.equal(ACF, as.vector(w$acf))                     # TRUE
+    acf(st.y, type = "correlation")                      # Plotting the built-in function (left)
     plot(ACF, type="h", main="ACF Manual calculation"); abline(h = 0) # and manual results (right).
 
 [![enter image description here][3]][3]
 
 
-Schematically, this is what we have done:
+Schematically, this is what we have done as:
 
-<img WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/21581281/6cb354fc-cff9-11e6-9b1f-8c75bee5769f.png">
+<img WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/26457203/52659244-413d-11e7-8277-32bf09476eb6.png">
 
 ----------
 
@@ -72,7 +72,7 @@ OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_
     
 Schematically, this is what we have done:
 
-<img WIDTH="900" src="https://cloud.githubusercontent.com/assets/9312897/21581447/63055246-d000-11e6-99e9-66dd72ffd048.png">
+<img WIDTH="900" src="https://cloud.githubusercontent.com/assets/9312897/26460040/70788030-4146-11e7-9702-85a02c3f22eb.png">
 
 And finally plotting again side-by-side, R-generated and manual calculations:
 
