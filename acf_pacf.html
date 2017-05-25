@@ -194,11 +194,11 @@ all.equal(PACF, as.vector(v$acf)) [1]  #&quot;Mean relative difference: 0.055806
 <div id="intuition" class="section level5">
 <h5>Intuition:</h5>
 <blockquote>
-<p><strong><a href="https://onlinecourses.science.psu.edu/stat510/node/62">Identification of an AR model is often best done with the PACF.</a></strong></p>
+<p><strong><a href="https://onlinecourses.science.psu.edu/stat501/node/358">Identification of an AR model is often best done with the PACF.</a></strong></p>
 <p>For an AR model, the theoretical PACF “shuts off” past the order of the model. The phrase “shuts off” means that in theory the partial autocorrelations are equal to 0 beyond that point. Put another way, the number of non-zero partial autocorrelations gives the order of the AR model. By the “order of the model” we mean the most extreme lag of x that is used as a predictor.</p>
 </blockquote>
 <p>A <span class="math inline">\(k^{\text{th}}\)</span> order autoregression, written as AR(k), is a multiple linear regression in which the value of the series at any time t is a (linear) function of the values at times <span class="math inline">\(t-1,t-2,\ldots,t-k:\)</span></p>
-<p><span class="math display">\[y_{t}=\beta_{0}+\beta_{1}y_{t-1}+\beta_{2}y_{t-2}+\cdots+\beta_{2}y_{t-2}\epsilon_{t}.\]</span></p>
+<p><span class="math display">\[y_{t}=\beta_{0}+\beta_{1}y_{t-1}+\beta_{2}y_{t-2}+\cdots+\beta_{2}y_{t-2}+\epsilon_{t}.\]</span></p>
 <p>This looks like a regression model.</p>
 <p>What is a possible intuition of what we are doing here…</p>
 <p>In Chinese whispers or the <a href="https://en.wikipedia.org/wiki/Chinese_whispers">telephone game</a> as illustrated <a href="https://twitter.com/hitrecord/status/484102920795729920">here</a></p>
