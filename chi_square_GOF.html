@@ -66,6 +66,7 @@ h6 {
 }
 </style>
 
+<link href="data:text/css;charset=utf-8,blockquote%20%7B%0Apadding%3A%2010px%2020px%3B%0Amargin%3A%200%200%2020px%3B%0Afont%2Dsize%3A%2014px%3B%0Aborder%2Dleft%3A%205px%20solid%20%23eee%3B%0A%7D" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -326,15 +327,15 @@ exp_counts &lt;- c(rep(1e6 * 0.25, times = 4))
 tableau &lt;- rbind(tab, exp_counts)
 tableau # tableau is just a name for this object</code></pre>
 <pre><code>##             [0,0.25) [0.25,0.5) [0.5,0.75)  [0.75,1)
-## counts     250673.00  250567.00  248666.00 250094.00
+## counts     250089.00  251555.00  249088.00 249268.00
 ## TargFreq        0.25       0.25       0.25      0.25
 ## exp_counts 250000.00  250000.00  250000.00 250000.00</code></pre>
 <p>The name I gave to the table presenting the counts and expected frequencies is <code>tableau</code>. Now we can run the test with degress of freedom corresponding to the cells minus 1 (in this case <span class="math inline">\(\small \text{df}=3\)</span>):</p>
 <pre class="r"><code>TS &lt;- sum((tableau[1,] - tableau[3,])^2/tableau[3,])
 TS</code></pre>
-<pre><code>## [1] 10.25124</code></pre>
+<pre><code>## [1] 15.17406</code></pre>
 <pre class="r"><code>pchisq(TS, df=3, lower.tail = F)</code></pre>
-<pre><code>## [1] 0.01654691</code></pre>
+<pre><code>## [1] 0.001673788</code></pre>
 <p>Which is clearly not a value extreme enough to consider that the sample is not distributed according to the 0.25 fractions in each quartile.</p>
 <p>In [R]’s built-in functions we can easily calculate this GOF test:</p>
 <pre class="r"><code>chisq.test(tableau[1,], p = tableau[2,])</code></pre>
@@ -342,7 +343,7 @@ TS</code></pre>
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  tableau[1, ]
-## X-squared = 10.251, df = 3, p-value = 0.01655</code></pre>
+## X-squared = 15.174, df = 3, p-value = 0.001674</code></pre>
 <p><br><br></p>
 </div>
 <div id="example-8-comparing-distributions-are-investment-returns-normal" class="section level4">
