@@ -26,13 +26,16 @@ We'll concoct a times series with a cyclical sine pattern superimposed on a tren
 
 Ordinarily we would have to test the data for stationarity (or just look at the plot above), but we know there is a trend in it, so let's skip this part, and go directly to the de-trending step:
 
+```{r}
     model = lm(y ~ I(1801:2083))         # Detrending (0.1 * x)
     st.y = y - predict(model)            # Final de-trended ts (st.y)
+```
 
 <img src="https://camo.githubusercontent.com/146eafa91cdeb78e0ba067874d9d80ed277c225e/687474703a2f2f692e737461636b2e696d6775722e636f6d2f44517076742e706e67">
 
 Now we are ready to takle this time series by first generating the ACF with the `acf()` function in R, and then comparing the results to the makeshift loop I put together:
 
+```{r, fig.height=3, fig.width=6}
     cent = st.y - mean(st.y)                             # Centering the time series.
     n = length(cent)                                     # Length of time series
     ACF = 0                                              # Starting an empty vector to capture the auto-correlations.
@@ -45,10 +48,11 @@ Now we are ready to takle this time series by first generating the ACF with the 
     }
     w = acf(st.y)                                        # Extracting values of acf without plotting
     all.equal(ACF, as.vector(w$acf))                     # TRUE
+    par(mfrow = c(1,2))
     acf(st.y, type = "correlation")                      # Plotting the built-in function (left)
     plot(ACF, type="h", main="ACF Manual calculation"); abline(h = 0) # and manual results (right).
-
-<img width=400 src="https://camo.githubusercontent.com/78cc19b5f643413a33c35fbb6a46f59cf7024e11/687474703a2f2f692e737461636b2e696d6775722e636f6d2f354d4838762e706e67">
+    abline(h = c(1,-1) * 1.96/sqrt(length(st.y)), lty = 2, col="blue")
+```
 
 
 Schematically, this is what we have done as:
@@ -86,6 +90,7 @@ In the telephone game analogy introduced below to explain PACF, "CV is cool!" is
 
 OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_autocorrelation_function). Much more tricky to hack... The idea here is to again clone the initial ts a bunch of times, and then select multiple time points. However, instead of just correlating with the initial time series, we put together all the lags in-between, and perform a regression analysis, so that the variance explained by the previous time points can be excluded (controlled). For example, if we are focusing on the PACF ending at time $ts_{t-4}$, we keep $ts_t$, $ts_{t-1}$, $ts_{t-2}$ and $ts_{t-3}$, as well as $ts_{t-4}$, and we regress $ts_t \sim ts_{t-1} + ts_{t-2} + ts_{t-3}+ts_{t-4}$ **through** the origin and keeping only the coefficient for $ts_{t-4}$:
 
+```{r, fig.height=4, fig.width=8}
     PACF = 0                               # Starting up an empty storage vector.
     for(j in 2:25){                        # Picked up 25 lag points to parallel R `pacf()` output.
       cols = j        
@@ -103,20 +108,18 @@ OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_
     PACF = PACF[-1]                        # Getting rid of zero at the head of the vector
     v = acf(st.y, type = "partial")        # PACF calculated by R
     all.equal(PACF, as.vector(v$acf)) [1]  #"Mean relative difference: 0.05580641"
-    
+    par(mfrow = c(1,2))
+    pacf(st.y)
+    plot(PACF, type="h", main="PACF Manual calculation"); abline(h = 0) # and manual results (right).
+    abline(h = c(1,-1) * 1.96/sqrt(length(st.y)), lty = 2, col="blue")
+```
     
 Schematically, this is what we have done:
 
 <img WIDTH="800" src="https://cloud.githubusercontent.com/assets/9312897/26460040/70788030-4146-11e7-9702-85a02c3f22eb.png">
 
-And finally plotting again side-by-side, R-generated and manual calculations:
-
-[![enter image description here][4]][4]
-
 That the idea is correct, beside probable computational issues, can be seen comparing `PACF` to `pacf(st.y, plot = F)`.
 
-
-<img width=400 src="https://camo.githubusercontent.com/aa2ec2f9c3231a1185a0960ce51f3967675eef5d/687474703a2f2f692e737461636b2e696d6775722e636f6d2f6f595132772e706e67">
 
 #####Intuition:
 
