@@ -1,3 +1,9 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
@@ -15,9 +21,9 @@ library(forecast)
 
 DJI = read.csv("^DJI.csv")
 DJI$Date <- as.Date(DJI$Date,format="%m/%d/%Y")
-toDate <- function(x) as.Date(x, origin = "1985-01-29")
-z <- read.zoo(DJI, header = TRUE, sep = ",", FUN = toDate)
-DJI <- as.xts(z)
+rownames(DJI) <- DJI$Date
+DJI$Date <- NULL 
+head(DJI)
 ```
 
 ```{r}
