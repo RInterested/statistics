@@ -1,3 +1,9 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
@@ -6,18 +12,34 @@
 ###SAMPLE SIZE:
 <br>
 
+From [Brian Caffo's Coursera biostatistics video](https://www.coursera.org/learn/biostatistics-2/lecture/JLyrB/calculating-power):
+
+>Suppose that we wanted to detect an increase in mean RDI (respiratory disturbance index in the context of sleep apnea) of at least $2 \text{ events/hour}$ above $30$. Assume normality and that the sample in question has a standard deviation of $4$. What would be the power if we took a sample of $16?$
+
+$$Z_{1-\alpha}=1.645$$
+
+and 
+
+$$\frac{\mu_a - 30}{\sigma/\sqrt{n}}=\frac{2}{4/\sqrt{16}}=2$$
+
+Therefore, 
+
+$$\Pr(Z>1.645-2)=\Pr(Z>-0.355)=64\%$$
+
+---
+
 What $n$ sample size would be required to get a power of $80\,\%$, which is a common benchmark in the sciences?
 
 For a one-sided test ($H_a: \mu_a > \mu_o$):
 
 <br>
 
-$\Large=\,0.8\Big(Z> \, z_{1-\alpha} -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\Big)$
+$0.8=\Pr\left(Z> \, z_{1-\alpha} -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\right)$
 
 
-We set $z_{1-\alpha} - \frac{\mu_a -\mu_o}{s/\sqrt{n}} = z_{0.2}$ and solve for $n$.
+We set $z_{1-\alpha} - \frac{\mu_a -\mu_o}{s/\sqrt{n}} = z_{0.2}$ and solve for $n$ for any value of $\mu_a$. We pick $\mu_a$ as the smallest effect that we would reasonably like to detect.
 
-In the cases of $H_a: mu_a \neq mu_o$ we can just take one of the sides but with $\alpha/2$.
+In the cases of $H_a:\mu_a \neq \mu_o$ we can just take one of the sides but with $\alpha/2$.
 
 ---
 
