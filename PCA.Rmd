@@ -1,110 +1,181 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-
-###PCA:
+###PRINCIPAL COMPONENT ANALYSIS (PCA):
 <br>
 
 [What follows was first [posted in CrossValidated](http://stats.stackexchange.com/a/150978/67822).]
 <br>
 
-I used a data set that I found online on semiconductors [here][1], and I trimmed it to just two dimensions - "atomic number" and "melting point" - to facilitate plotting. Further, I truncated the observations from 44 to 15 to ease the task of tracking individual points. The ultimate result was a skeleton data frame:  
+---
+
+[The dataset and code can be directly copied and pasted into R form Github](https://github.com/RInterested/PCA/blob/master/PCA%20SEMICONDUCTORS).
+
+I used a data set that I found online on semiconductors [here][1], and I trimmed it to just two dimensions - "atomic number" and "melting point" - to facilitate plotting. 
+
+---
+
+>As a caveat the idea is purely illustrative of the computational process: PCA is used to reduce more than two variables to a few derived principal components, or to identify collinearity also in the case of multiple features. So it wouldn't find much application in the case of two variables, nor would there be a need to calculate eigenvectors of correlation matrices as pointed out by @amoeba.
+
+---
+
+Further, I truncated the observations from 44 to 15 to ease the task of tracking individual points. The ultimate result was a skeleton data frame (`dat1`):  
 
 <!-- language-all: lang-r -->
 
     compounds   atomic.no      melting.point
     AIN         10             498.0
     AIP         14             625.0
-    AIAs        23             1011.5 
+    AIAs        23             1011.5
+    ...         ...            ... 
 
 The "compounds" column indicate the chemical constitution of the semiconductor, and plays the role of row name.
 
-This can be reproduced as follows:
 
-```{r}
-library(gsheet)
-dat <- read.csv(text = gsheet2text('https://docs.google.com/spreadsheets/d/1X9ccexhCU2xNI99MDj6WWRdOza1J_IbTSI-yuPDsxOE/edit?usp=sharing'))
-colnames(dat)[2] <- "atomic.no"; dat1 <- subset(dat[1:15,1:3]); row.names(dat1) <- dat1$compounds; dat1 <- dat1[,-1]
-```
+This can be reproduced as follows (ready to copy and paste on R console):
+
+    
+    dat              <- read.csv(url("http://rinterested.github.io/datasets/semiconductors"))
+    colnames(dat)[2] <- "atomic.no"
+    dat1             <- subset(dat[1:15,1:3])
+    row.names(dat1)  <- dat1$compounds
+    dat1             <- dat1[,-1]
 
 The data were then scaled:
-
-```{r}   
-    scaled_dat <- as.data.frame(scale(dat1,center=T))   
-    X          <- as.matrix(scaled_dat) 
-```
+   
+    X <- apply(dat1, 2, function(x) (x - mean(x)) / sd(x))
+    # This centers data points around the mean and standardizes by dividing by SD.
+    # It is the equivalent to `X <- scale(dat1, center = T, scale = T)`  
 
 The linear algebra steps followed:
 
-```{r}
-C <- cov(X)                                    # Covariance matrix
-lambda <- eigen(C)$values                      #Eigenvalues
-lambda_matrix <- diag(2)*eigen(C)$values       #Eigenvalues matrix
-e_vectors <- eigen(C)$vectors                  # Eigenvectors
-```
+    C <- cov(X)                                           # Covariance matrix (centered data)
+
+$\begin{bmatrix} 
+&\text{at_no}&\text{melt_p}\\
+\text{at_no}&1&0.296\\
+\text{melt_p}&0.296&1
+\end{bmatrix}$
+  
+The correlation function `cor(dat1)` gives the same output on the non-scaled data as the function `cov(X)` on the scaled data.
+
+    lambda        <- eigen(C)$values                      # Eigenvalues
+lambda_matrix <- diag(2)*eigen(C)$values              # Eigenvalues matrix
+
+$\begin{bmatrix} 
+&\color{purple}{\lambda_{\text{PC1}}}&\color{orange}{\lambda_{\text{PC2}}}\\
+&1.296422& 0\\
+&0&0.7035783
+\end{bmatrix}$
+        
+    e_vectors     <- eigen(C)$vectors                     # Eigenvectors
     
-Since the first eigenvector is ~ [-0.7,-0.7] we choose to change it to [.7, .7] to make it consistent with built-in formulas through:
+$\frac{1}{\sqrt{2}}\begin{bmatrix} 
+&\color{purple}{\text{PC1}}&\color{orange}{\text{PC2}}\\
+&1&\,\,\,\,\,1\\
+&1&-1
+\end{bmatrix}$
 
-```{r}
-e_vectors[,1] <- e_vectors[,1]*-1; colnames(e_vectors) <- c("PC1","PC2")
-```
+Since the first eigenvector initially returns as $\sim \small [-0.7,-0.7]$ we choose to change it to $\small [0.7, 0.7]$ to make it consistent with built-in formulas through:
 
-The resultant eigenvalues were `1.2964217` and `0.7035783`. Under less minimalistic conditions, this result would have helped decide which eigenvectors to include (largest eigenvalues). For instance, the relative contribution of the first eigenvalue is 64.8%: `eigen(C)$values[1]/sum(eigen(C)$values) * 100` - accounts for ~ 65% of the variability in the data. We'll include both eigenvectors; excluding one of the eigenvectors would result in dimensionality reduction - the idea behind PCA.
+    e_vectors[,1] = - e_vectors[,1]; colnames(e_vectors) <- c("PC1","PC2")
 
-The score matrix was determined as the matrix multiplication of the scaled data (`X`) by the matrix of eigenvectors ("loadings"):
+The resultant eigenvalues were $\small 1.2964217$ and $\small 0.7035783$. Under less minimalistic conditions, this result would have helped decide which eigenvectors to include (largest eigenvalues). For instance, the relative contribution of the first eigenvalue is $\small 64.8\%$: `eigen(C)$values[1]/sum(eigen(C)$values) * 100`, meaning that it accounts for $\sim\small 65\%$ of the variability in the data. The variability in the direction of the second eigenvector is $35.2\%$. This is typically shown on a scree plot depicting the value of the eigenvalues:
 
-```{r}
-score_matrix <-  X %*% e_vectors          # Identical to the often found operation:
-t(t(e_vectors) %*% t(X))
-```
+[![enter image description here][2]][2]
 
-The concept entails a linear combination of each entry (row / subject / observation / superconductor in this case) of the centered (and in this case scaled) data weighted by the rows of each eigenvector, so that in each of the final columns of the *score matrix*, we'll find a contribution from each variable (column) of the data (the entire `X`), BUT only the corresponding eigenvector will have taken part in the computation (i.e. the first eigenvector $[0.7, 0.7]^{T}$ will contribute to $PC1$ (Principal Component 1)  and $[0.7, -0.7]^{T}$ to $PC2$, as in:
+We'll include both eigenvectors given the small size of this toy data set example, understanding that excluding one of the eigenvectors would result in dimensionality reduction - the idea behind PCA.
 
-![enter image description here][2]
+The **score matrix** was determined as the matrix multiplication of the **scaled data** (`X`) by the **matrix of eigenvectors (or "rotations")**:
+
+    score_matrix <-  X %*% e_vectors    
+    # Identical to the often found operation: t(t(e_vectors) %*% t(X))
+
+The concept entails a linear *combination of each entry* (row / subject / observation / superconductor in this case) of the centered (and in this case scaled) data weighted by the *rows of each eigenvector*, so that in each of the final columns of the score matrix, we'll find a contribution from each variable (column) of the data (the entire `X`), BUT only the corresponding eigenvector will have taken part in the computation (i.e. the first eigenvector $[0.7, 0.7]^{T}$ will contribute to $\text{PC}\,1$ (Principal Component 1)  and $[0.7, -0.7]^{T}$ to $\text{PC}\,2$, as in:
+
+[![enter image description here][3]][3]
 
 Therefore each eigenvector will influence each variable differently, and this will be reflected in the "loadings" of the PCA. In our case, the negative sign in the second component of the second eigenvector $[0.7, - 0.7]$ will change the sign of the melting point values in the linear combinations that produce PC2, whereas the effect of the first eigenvector will be consistently positive:  
 
-![enter image description here][3]
+[![enter image description here][4]][4]
+
+The eigenvectors are scaled to $1$:
+
+    > apply(e_vectors, 2, function(x) sum(x^2))
+    PC1 PC2 
+      1   1 
+
+whereas the ([**loadings**](https://stats.stackexchange.com/a/143949/67822)) are the eigenvectors scaled by the eigenvalues (despite the confusing terminology in the in-built R functions displayed below). Consequently, the loadings can be calculated as:
+
+    > e_vectors          %*% lambda_matrix
+              [,1]      [,2]
+    [1,] 0.9167086  0.497505
+    [2,] 0.9167086 -0.497505
+    
+    > prcomp(X)$rotation %*% diag(princomp(covmat = C)$sd^2)
+                       [,1]      [,2]
+    atomic.no     0.9167086  0.497505
+    melting.point 0.9167086 -0.497505
+
+It is interesting to note that the rotated data cloud (the score plot) will have variance along each component (PC) equal to the eigenvalues:
+
+    > apply(score_matrix, 2, function(x) var(x))
+           PC1        PC2 
+    53829.7896   110.8414 
+    > lambda
+    [1] 53829.7896   110.8414
+
+---
 
 Utilizing the built-in functions the results can be replicated:
 
-```{r}
-    # For scores:
-    prcomp(dat1, center=T, scale=T) # or prcomp(scaled_dat)
-        # or...
-    princomp(scaled_dat)$scores
-    
-    # and for eigenvectors:
-    prcomp(scaled_dat)$rotation
+    # For the SCORE MATRIX:
+      prcomp(X)$x
     # or...
-    princomp(scaled_dat)$loadings
+      princomp(X)$scores # The signs of the PC 1 column will be reversed.
     
-    # and for eigenvalues:
-    prcomp(scaled_dat)$sdev^2
+    # and for EIGENVECTOR MATRIX:
+      prcomp(X)$rotation
     # or...
-    princomp(covmat=C)$sd^2
-```
+      princomp(X)$loadings
     
+    # and for EIGENVALUES:
+      prcomp(X)$sdev^2
+    # or...
+      princomp(covmat = C)$sd^2
+
+Alternatively, the [singular value decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition) ($\text{U}\Sigma \text{V}^\text{T}$) method can be applied to manually calculate PCA; in fact, this is the method used in `prcomp()`. The steps can be spelled out as:
+
+    svd_scaled_dat <-svd(scale(dat1))
+    eigen_vectors <- svd_scaled_dat$v
+    eigen_values <- (svd_scaled_dat$d/sqrt(nrow(dat1) - 1))^2
+    scores<-scale(dat1) %*% eigen_vectors
 
 The result is shown below, with first, the distances from the individual points to the first eigenvector, and on a second plot, the orthogonal distances to the second eigenvector:
 
-![enter image description here][6]
+[![enter image description here][5]][5]
 
 If instead we plotted the values of the score matrix (PC1 and PC2) - no longer "melting.point" and "atomic.no", but really a change of basis of the point coordinates with the eigenvectors as basis, these distances would be preserved, but would naturally become perpendicular to the xy axis:
 
-![enter image description here][7]
+[![enter image description here][6]][6]
 
-The trick was now to **recover the original data**. The points had been transformed through a simple matrix multiplication by the eigenvectors. Now the data was rotated back by multiplying by the **inverse of the matrix of eigenvectors** with a resultant marked change in the location of the data points. For instance, notice the change in pink dot "GaN" in the left upper quadrant (left plot, below), returning to its initial position in the left lower quadrant (right plot, below). 
+The trick was now to **recover the original data**. The points had been transformed through a simple matrix multiplication by the eigenvectors. Now the data was rotated back by multiplying by the **inverse of the matrix of eigenvectors** with a resultant marked change in the location of the data points. For instance, notice the change in pink dot "GaN" in the left upper quadrant (black circle in the left plot, below), returning to its initial position in the left lower quadrant (black circle in the right plot, below). 
 
 Now we finally had the original data restored in this "de-rotated" matrix:
 
-![enter image description here][8]
+[![enter image description here][7]][7]
 
 Beyond the change of coordinates of rotation of the data in PCA, the results must be interpreted, and this process tends to involve a `biplot`, on which the data points are plotted with respect to the new eigenvector coordinates, and the original variables are now superimposed as vectors. It is interesting to note the equivalence in the position of the points between the plots in the second row of rotation graphs above ("Scores with xy Axis = Eigenvectors") (to the left in the plots that follow), and the `biplot` (to the right):
 
-![enter image description here][9]
+[![enter image description here][8]][8]
 
 The superimposition of the original variables as red arrows offers a path to the interpretation of `PC1` as a vector in the direction (or with a positive correlation) with both `atomic no` and `melting point`; and of `PC2` as a component along increasing values of `atomic no` but negatively correlated with  `melting point`, consistent with the values of the eigenvectors:
 
@@ -113,14 +184,15 @@ The superimposition of the original variables as red arrows offers a path to the
     atomic.no     0.7071068  0.7071068
     melting.point 0.7071068 -0.7071068
 
-  [1]: http://cosmic.mse.iastate.edu/library/pdf/pcainterpretation.pdf
-  [2]: https://cloud.githubusercontent.com/assets/9312897/10499370/da561dec-729d-11e5-82be-5c55f917944c.gif
-  [3]: https://cloud.githubusercontent.com/assets/9312897/10548442/cf4e0e98-7408-11e5-9e10-ef43564010b0.png
-  [6]: https://cloud.githubusercontent.com/assets/9312897/10548466/f974d152-7408-11e5-943e-614538cd80de.png
-  [7]: https://cloud.githubusercontent.com/assets/9312897/10548450/dc9fff2a-7408-11e5-8b45-872a187daf91.png
-  [8]: https://cloud.githubusercontent.com/assets/9312897/10548558/ae5f2734-7409-11e5-9671-0157575c1e32.png
-  [9]: https://cloud.githubusercontent.com/assets/9312897/10548456/e8c56894-7408-11e5-9da6-1c11a6b512bb.png
 
+  [1]: http://cosmic.mse.iastate.edu/library/pdf/pcainterpretation.pdf
+  [2]: http://i.stack.imgur.com/66VS3.png
+  [3]: http://i.stack.imgur.com/ffA7K.gif
+  [4]: https://i.stack.imgur.com/OxoFB.png
+  [5]: http://i.stack.imgur.com/6GYPz.png
+  [6]: http://i.stack.imgur.com/WnWp1.png
+  [7]: http://i.stack.imgur.com/9bcf8.png
+  [8]: http://i.stack.imgur.com/pkDdS.png
 
 
 ---
