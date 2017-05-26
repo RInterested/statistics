@@ -128,16 +128,16 @@ $(document).ready(function () {
 <p>The cost function would be generally expressed as:</p>
 <p><span class="math display">\[J(\hat \beta)= (y - \mathbf{X}\hat \beta)^\top(y- \mathbf{X} \hat \beta)= \displaystyle \sum_{i=1}^n (y_i - x_i^\top\hat \beta)^2= \sum_{i=1}^n(y_i - \hat y_i)^2\]</span></p>
 <p>Expanding the quadratic in matrix notation:</p>
-<p><span class="math display">\[J(\hat \beta)= (y - {\bf X}\hat \beta)^T(y- {{\bf X} \hat \beta})= y^Ty + \color{red}{\hat \beta^T\,X^TX\,\hat \beta} - 2y^TX\hat \beta\]</span></p>
-<p>The term in red is a positive semidefinite matrix. A positive definite matrix fulfills the requirement, <span class="math inline">\(x^TAx&gt;0\)</span>. The other two terms are scalars.</p>
+<p><span class="math display">\[J(\hat \beta)= (y - {\bf X}\hat \beta)^\top (y- {{\bf X} \hat \beta})= y^\top y + \color{red}{\hat \beta^\top\,X^\top X\,\hat \beta} - 2y^\top X\hat \beta\]</span></p>
+<p>The term in red is a positive semidefinite matrix. A positive definite matrix fulfills the requirement, <span class="math inline">\(x^\top Ax&gt;0\)</span>. The other two terms are scalars.</p>
 <p>To differentiate the cost function to obtain a minimum we need two pieces of information:</p>
-<p><span class="math inline">\(\frac{\partial {\bf A}\hat \beta}{\partial \hat \beta}={\bf A}^T\)</span> (the derivative of a matrix with respect to a vector); and <span class="math inline">\(\frac{\partial \hat \beta^T{\bf A}\hat \beta}{\partial \hat \beta}= 2{\bf A}^T\hat \beta\)</span> (derivative of a quadratic form with respect to a vector).</p>
-<p><span class="math display">\[\frac{\partial J(\hat \beta)}{\partial \hat \beta}=\frac{\partial}{\partial\hat \beta}\left[y^Ty + \color{red}{\hat \beta^T\,X^TX\,\hat \beta} - 2y^TX\hat \beta \right]=0 +2 \color{red}{X^TX\,\hat \beta}-2X^Ty\]</span></p>
+<p><span class="math inline">\(\frac{\partial {\bf A}\hat \beta}{\partial \hat \beta}={\bf A}^\top\)</span> (the derivative of a matrix with respect to a vector); and <span class="math inline">\(\frac{\partial \hat \beta^\top{\bf A}\hat \beta}{\partial \hat \beta}= 2{\bf A}^\top \hat \beta\)</span> (derivative of a quadratic form with respect to a vector).</p>
+<p><span class="math display">\[\frac{\partial J(\hat \beta)}{\partial \hat \beta}=\frac{\partial}{\partial\hat \beta}\left[y^\top y + \color{red}{\hat \beta^\top \,X^\top X\,\hat \beta} - 2y^\top X\hat \beta \right]=0 +2 \color{red}{X^\top X\,\hat \beta}-2X^\top y\]</span></p>
 <p>which gives:</p>
-<p><span class="math display">\[2X^TX\hat \beta = 2X^Ty\]</span></p>
+<p><span class="math display">\[2X^\top X\hat \beta = 2X^\top y\]</span></p>
 </div>
-<div id="hat-beta-xtx-1xty" class="section level2">
-<h2><span class="math display">\[\hat \beta = (X^TX)^{-1}X^Ty\]</span></h2>
+<div id="hat-beta-xtop-x-1xtop-y" class="section level2">
+<h2><span class="math display">\[\hat \beta = (X^\top X)^{-1}X^\top y\]</span></h2>
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
 

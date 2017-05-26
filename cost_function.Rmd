@@ -20,21 +20,21 @@ $$J(\hat \beta)= (y - \mathbf{X}\hat \beta)^\top(y- \mathbf{X} \hat \beta)= \dis
 
 Expanding the quadratic in matrix notation:
 
-$$J(\hat \beta)= (y - {\bf X}\hat \beta)^T(y- {{\bf X} \hat \beta})= y^Ty + \color{red}{\hat \beta^T\,X^TX\,\hat \beta} - 2y^TX\hat \beta$$
+$$J(\hat \beta)= (y - {\bf X}\hat \beta)^\top (y- {{\bf X} \hat \beta})= y^\top y + \color{red}{\hat \beta^\top\,X^\top X\,\hat \beta} - 2y^\top X\hat \beta$$
 
-The term in red is a positive semidefinite matrix. A positive definite matrix fulfills the requirement, $x^TAx>0$. The other two terms are scalars.
+The term in red is a positive semidefinite matrix. A positive definite matrix fulfills the requirement, $x^\top Ax>0$. The other two terms are scalars.
 
 To differentiate the cost function to obtain a minimum we need two pieces of information:
 
-$\frac{\partial {\bf A}\hat \beta}{\partial \hat \beta}={\bf A}^T$ (the derivative of a matrix with respect to a vector); and $\frac{\partial \hat \beta^T{\bf A}\hat \beta}{\partial \hat \beta}= 2{\bf A}^T\hat \beta$ (derivative of a quadratic form with respect to a vector).
+$\frac{\partial {\bf A}\hat \beta}{\partial \hat \beta}={\bf A}^\top$ (the derivative of a matrix with respect to a vector); and $\frac{\partial \hat \beta^\top{\bf A}\hat \beta}{\partial \hat \beta}= 2{\bf A}^\top \hat \beta$ (derivative of a quadratic form with respect to a vector).
 
-$$\frac{\partial J(\hat \beta)}{\partial \hat \beta}=\frac{\partial}{\partial\hat \beta}\left[y^Ty + \color{red}{\hat \beta^T\,X^TX\,\hat \beta} - 2y^TX\hat \beta \right]=0 +2 \color{red}{X^TX\,\hat \beta}-2X^Ty$$
+$$\frac{\partial J(\hat \beta)}{\partial \hat \beta}=\frac{\partial}{\partial\hat \beta}\left[y^\top y + \color{red}{\hat \beta^\top \,X^\top X\,\hat \beta} - 2y^\top X\hat \beta \right]=0 +2 \color{red}{X^\top X\,\hat \beta}-2X^\top y$$
 
 which gives:
 
-$$2X^TX\hat \beta = 2X^Ty$$
+$$2X^\top X\hat \beta = 2X^\top y$$
 
-$$\hat \beta = (X^TX)^{-1}X^Ty$$
+$$\hat \beta = (X^\top X)^{-1}X^\top y$$
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
