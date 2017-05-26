@@ -12,11 +12,16 @@ From this [R-bloggers](http://programming-r-pro-bro.blogspot.com/2013/04/forecas
 library(quantmod)
 library(tseries)
 library(forecast)
-getSymbols("^DJI")
+
+DJI = read.csv("^DJI.csv")
+DJI$Date <- as.Date(DJI$Date,format="%m/%d/%Y")
+toDate <- function(x) as.Date(x, origin = "1985-01-29")
+z <- read.zoo(DJI, header = TRUE, sep = ",", FUN = toDate)
+DJI <- as.xts(z)
 ```
 
 ```{r}
-d = DJI$DJI.Adjusted
+d = DJI$Adj.Close
 summary(d)
 chartSeries(DJI)
 adf.test(d) 
