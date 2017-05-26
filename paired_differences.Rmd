@@ -6,17 +6,17 @@
 ###PAIRED $t$ TEST:
 <br>
 
-We can compare the difference in mean between paired observations by just focusing on the whether the difference is consistent with zero as though it was a single group: $H_o: \mu_{diff} = 0$ and $H_a: \mu_{diff} \neq 0$.
+We can compare the difference in mean between paired observations by just focusing on the whether the difference is consistent with zero as though it was a single group: $H_o: \mu_{\text{diff}} = 0$ and $H_a: \mu_{\text{diff}} \neq 0$.
 
 In this case the $t$ statistic is:
 
 <br><br>
 
-test statitic $\Large=\frac{\bar X_{diff} - \,0}{SD_{diff}\,\sqrt{n_{diff}}} \geq \,qt\,(0.95,\, n_{diff} - 1)$
+$$\text{test statistic}=\frac{\bar X_{\text{diff}} - \,0}{SD_{\text{diff}}\,\sqrt{n_{\text{diff}}}} \geq \,\text{qt}\,(0.95,\, n_{\text{diff}} - 1)$$
 
 Of note, the standard error of the difference in pair data is:
 
-$\sqrt{\frac{\sigma_x^2}{n}+\frac{\sigma_y^2}{n}-2\frac{cov(X,Y)}{n}}$.
+$$\sqrt{\frac{\sigma_x^2}{n}+\frac{\sigma_y^2}{n}-2\frac{\text{cov}(X,Y)}{n}}$$
 
 Of course, for a large sample we could also use a z statistic.
 
@@ -25,9 +25,7 @@ Of course, for a large sample we could also use a z statistic.
 It's a good thing for paired data to get the **Mean-Difference Plot":
 
 ```{r,warning=FALSE,message=FALSE}
-library(RCurl)
-x <- getURL("http://rinterested.github.io/statistics/dat.csv")
-dat <- read.csv(text = x, header=T)
+dat <- read.csv("dat.csv", header=T)
 attach(dat)
 dat
 mean <- (Before + After)/2
