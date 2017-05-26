@@ -1,3 +1,9 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
@@ -7,60 +13,55 @@
 
 <br>
 
-I'd like to post some illustrations about the way our preconceptions about the "fairness" of the coin (or the experiment in general) affects the *posterior probability density*, i.e. the $p\,(\theta\,|\,Data)$, where $\theta$ stands for the probability of ending up with $heads$ in the coin toss.
+I'd like to post some illustrations about the way our preconceptions about the "fairness" of the coin (or the experiment in general) affects the *posterior probability density*, i.e. the $p\,(\theta\,|\,\text{Data})$, where $\theta$ stands for the probability of ending up with $\text{heads}$ in the coin toss.
 
-Luckily, we have a [conjugate prior distribution][1] for the binomial case that occupies us - the $beta$ distribution, facilitating the calculation of the posterior distribution.
+Luckily, we have a [conjugate prior distribution][1] for the binomial case that occupies us - the $\text{beta}$ distribution, facilitating the calculation of the posterior distribution.
 
-A *prior* is *conjugate* to the *likelihood* when the *posterior* is in the same family of distributions as the *prior*: $posterior\, p(\theta|y) \propto \,likelihood\,p(y|\theta)\,*\,prior\,p(\theta)$. $y$ stands for the data observed; $\theta$ is the parameter we want to estimate. The *binomial-beta* is a conjugate model. Let's call the probability of the binomial $\theta$:
+A *prior* is *conjugate* to the *likelihood* when the *posterior* is in the same family of distributions as the *prior*: $\text{posterior}\, \Pr(\theta|y) \propto \,\text{likelihood}\,\Pr(y|\theta)\,\times\,\text{prior}\,\Pr(\theta)$. $y$ stands for the data observed; $\theta$ is the parameter we want to estimate. The *binomial-beta* is a conjugate model. Let's call the probability of the binomial $\theta$:
 <br><br>
 
-$\large p(\theta|y) \propto p(y|\theta)\,p(\theta)
-=Bin(n,\theta) * Beta(a,b)$
-<br><br>
-
-$={n\choose y}\,\theta^y\,(1\,-\,theta)^{(n-y)}\,*\,\frac{\Gamma(a+b)}{
+$$\begin{align}
+p(\theta|y) \propto p(y|\theta)\,p(\theta)
+&=\text{Bin}(n,\theta) \times \text{Beta}(a,b)\\[2ex]
+&={n\choose y}\,\theta^y\,(1\,-\,theta)^{(n-y)}\,\times\,\frac{\Gamma(a+b)}{
 \Gamma(a)\Gamma(b)}\,\theta^{(a-1)}\,(1-\theta)^{b-1}
-\propto \theta^y\,(1-\theta)^{(n-y)}\theta^{a-1}(1-\theta)^{b-1}$
-<br><br>
+\propto \theta^y\,(1-\theta)^{(n-y)}\theta^{a-1}(1-\theta)^{b-1}\\[2ex]
+&=p(\theta|y) \propto \theta^{(y+a-1)}\,(1\,-\,\theta)^{(n-y+b-1)}
+\end{align}
+$$
 
-$\Large p(\theta|y) \propto \theta^{(y+a-1)}\,(1\,-\,\theta)^{(n-y+b-1)}$
-
-Hence, the posterior distribution is a $Beta\,(y+a,\,n-y+b)$.
+Hence, the posterior distribution is a $\text{Beta}\,(y+a,\,n-y+b)$.
 
     First scenario - The Fair-Minded Player:
 
-We walk into the game (not a very exciting game, but still...), and we have absolutely no reason to assume that there is foul play going on. Things being by nature less than perfect, we have it in our mind that the coin is fair-*ish*. In other words, we think that the probability of heads, $\theta$, falls somewhere around $\frac{1}{2}$. Later, the unexpected single $tail$ out of $6$ tosses, will force us to move the posterior probability of $\theta$ to the left (the arrows indicate the influence of the data on the prior distribution):
+We walk into the game (not a very exciting game, but still...), and we have absolutely no reason to assume that there is foul play going on. Things being by nature less than perfect, we have it in our mind that the coin is fair-*ish*. In other words, we think that the probability of heads, $\theta$, falls somewhere around $\frac{1}{2}$. Later, the unexpected single $\text{tail}$ out of $6$ tosses, will force us to move the posterior probability of $\theta$ to the left (the arrows indicate the influence of the data on the prior distribution):
 
-[![enter image description here][2]][2]
+<img src="https://camo.githubusercontent.com/a0d7bc9e2c5ff12b24842a9f6437090f4d1eb59e/687474703a2f2f692e737461636b2e696d6775722e636f6d2f35757872322e706e67">
 
     Second Scenario - The Shrewd Player:
 
 We strongly suspect from insider's leaked information that the game is markedly biased towards tails, and we not only are about to make a killing, but also in need to further reinforce our conviction after the first round, doubling down our bet:
 
-[![enter image description here][3]][3]
+<img src="https://camo.githubusercontent.com/aa1a5a43394bc5e9cea42876927df38d508f1e24/687474703a2f2f692e737461636b2e696d6775722e636f6d2f5158316b352e706e67">
 
     Third Scenario - Losing Your Shirt:
 
-We've never played before, but we have read a manual, and we feel ready. All signs clearly indicate that the coin is markedly biased towards $heads$, a mistake that we will soon start to correct at a high $\ $\$ cost:
+We've never played before, but we have read a manual, and we feel ready. All signs clearly indicate that the coin is markedly biased towards $\text{heads}$, a mistake that we will soon start to correct at a high $\$$ cost:
 
-[![enter image description here][4]][4]
+<img src="https://camo.githubusercontent.com/78e58350a622d530f691d15e2388823e1bec6d92/687474703a2f2f692e737461636b2e696d6775722e636f6d2f6c4b31556a2e706e67">
 
 
     Fourth Scenario - No Idea Whatsoever:
 
-It's a good thing that the $\beta(1,1)$ distribution turns into a $U\,(0,1)$ to address this scenario, where only the $likelihood$ will influence the $posterior$ probability of $\theta$. As brought up to my attention, a [Jeffreys prior is close and possibly more correct][5]:
+It's a good thing that the $\text{Beta}(1,1)$ distribution turns into a $\text{Unif}\,(0,1)$ to address this scenario, where only the $\text{likelihood}$ will influence the $\text{posterior}$ probability of $\theta$. As brought up to my attention, a [Jeffreys prior is close and possibly more correct][5]:
 
-[![enter image description here][6]][6]
+<img src="https://camo.githubusercontent.com/8d8d22d4039b946316b7433e00ccc1dc4117606c/687474703a2f2f692e737461636b2e696d6775722e636f6d2f55784c48502e706e67">
 
 So I hope this provides a bit of a light-hearted visual depiction of our approach to estimating the chances of this game being rigged, perhaps encapsulating more of a real scenario than calculations of the type `pbinom(1, 6, 0.5)`. If you want the code in R, and the credits to a great video with Matlab illustrations, [I posted it here][7].
 
 
   [1]: https://en.wikipedia.org/wiki/Conjugate_prior
-  [2]: http://i.stack.imgur.com/5uxr2.png
-  [3]: http://i.stack.imgur.com/QX1k5.png
-  [4]: http://i.stack.imgur.com/lK1Uj.png
   [5]: https://tamino.wordpress.com/2010/11/25/prior-knowledge/
-  [6]: http://i.stack.imgur.com/UxLHP.png
   [7]: https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/BAYES%20FAIR%20COIN
 <br>
 
