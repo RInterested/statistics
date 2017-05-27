@@ -103,7 +103,7 @@ summary(params)
 
  
 library(lattice)
-contourplot(logL ~ mu*sigma, data = params, cuts = 30, col=2, aspect=.7)
+contourplot(logL ~ mu*sigma, data = params, cuts = 30, col=2, labels = list(cex = 0.5))
 
 # Zooming in
 params = expand.grid(mu = seq(120, 126, 0.01),
@@ -111,7 +111,8 @@ params = expand.grid(mu = seq(120, 126, 0.01),
 params$logL = with(params, loglike(diams, mu, sigma))
 summary(params)
  
-contourplot(logL ~ mu*sigma, data = params, cuts = 10, col=2)
+contourplot(logL ~ mu*sigma, data = params, cuts = 10, col=2,
+            labels = list(cex = 0.5))
 
 
 # Compare to:
