@@ -17,13 +17,13 @@ output:
 
 ```{r, warning=F, message=F, fig.height=3, fig.width=5}
 library(quantmod)
-VTI = read.csv("VTI historical data.csv", header = T)
-Date <- as.Date(VTI$Date) # Turning the date into a date for later.
-VTI$Date <- as.Date(VTI$Date)
-rownames(VTI) <- VTI$Date
+VTI.raw = read.csv("VTI historical data.csv", header = T)
+VTI.raw$Date <- as.Date(VTI.raw$Date)
+rownames(VTI.raw) <- VTI.raw$Date
+VTI = VTI.raw
 VTI$Date <- NULL #to remove the column
 VTI = as.xts(VTI)
-chartSeries(VTI)
+chartSeries(VTI, type="auto", theme=chartTheme('white'))
 ```
 
 Notice the [split of the shares](https://www.splithistory.com/vti/) reflected as the broad band on the left of the plot:
@@ -47,6 +47,7 @@ D2D = function (x) {
     delta
 }
 VTI$InterDay = D2D(z)               # Included as add'l column to VTI.
+VTI.raw$InterDay = D2D(z)
 head(VTI$InterDay)                  # A zero in entry 1 spells trouble...
 #... we need something to fill in the 0 in row 1. Why not the mean?
 VTI$InterDay[1]<-mean(VTI$InterDay) 
@@ -81,9 +82,8 @@ sum(VTI$InterDay < -5) / 16   # or between 0 and 1 days every year.
 
 But they can't be distributed uniformly...
 
-```{r}
-mat = matrix(c(Date, VTI$InterDay), ncol=2)
-plot(mat[,2] < -4 ~ as.Date(mat[,1]), pch=19, col=2, type='h', xlab="Year", ylab="Days with > 4% change", cex.axis=.5, cex.main=.5,las=2,main  = "Clustering of big drop days")
+```{r, fig.height=5, fig.width=7}
+plot(VTI.raw$Date, VTI.raw$InterDay < -4, pch=19, col=2, type='h', xlab="Year", ylab="Days with > 4% change", cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, main  = "Clustering of big drop days")
 ```
 
 ---
