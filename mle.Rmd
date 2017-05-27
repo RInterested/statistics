@@ -103,7 +103,7 @@ summary(params)
 
  
 library(lattice)
-contourplot(logL ~ mu*sigma, data = params, cuts = 30, col=2)
+contourplot(logL ~ mu*sigma, data = params, cuts = 30, col=2, aspect=.7)
 
 # Zooming in
 params = expand.grid(mu = seq(120, 126, 0.01),
@@ -131,7 +131,7 @@ If our experiment is a single Bernoulli trial and we observe $X = 1$ (success) t
 
 Suppose that $X = (X_1, X_2, \dots, X_n)$ represents the outcomes of $n$ independent Bernoulli trials, each with success probability $p$. The likelihood for $p$ based on $X$ is defined as the joint probability distribution of $X = (X_1, X_2, \dots, X_n)$. Since $X = (X_1, X_2, \dots, X_n)$ are iid random variables, the joint distribution is
 
-\begin{align}\mathcal L(\theta;x) &=\prod_{i=1}^{n}f_X(x_i;\theta)=\prod_{i=1}^{n} \theta^x_i(1−\theta)^{1−x}\\
+\begin{align}\mathcal L(\theta;x) &=\prod_{i=1}^{n}f_X(x_i;\theta)=\prod_{i=1}^{n} \theta^x_i(1−\theta)^{1−x}\\[2ex]
 &=\theta^{x_1}(1-\theta)^{1-x_1}\dots\theta^{x_n}(1-\theta)^{1-x_n}\tag{1}\\
 \end{align}
 
@@ -140,14 +140,14 @@ $(1)$ just reflects the probability mass function of the Bernouilli distribution
 For the log-likelihood,
 
 \begin{align}\ln \mathcal L(\theta ; x)&=
-\ln \theta \left(\sum_{i=1}^n x_i\right) + \ln(1- \theta)\left(n -\sum_{i=1}^n x_i\right)\\
+\ln \theta \left(\sum_{i=1}^n x_i\right) + \ln(1- \theta)\left(n -\sum_{i=1}^n x_i\right)\\[2ex]
 &=n\bar x \ln \theta + n(1- \bar x)\ln(1- \theta)
 \end{align}
 
 Differentiating and setting it up to zero,
 
 \begin{align}
-\frac{\partial}{\partial \theta} \ln \mathcal L(\theta; x) &= n\left(\frac{\bar x}{\theta}-\frac{1-\bar x}{1-\theta}\right) \\
+\frac{\partial}{\partial \theta} \ln \mathcal L(\theta; x) &= n\left(\frac{\bar x}{\theta}-\frac{1-\bar x}{1-\theta}\right) \\[2ex]
 &=\frac{\bar x (1-\theta) - \theta(1 - \bar x)}{\theta (1-\theta)}=0
 \end{align}
 
