@@ -1,10 +1,17 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
 
-###CONTINGENCY TABLES:
+####CONTINGENCY TABLES:
 <br>
 
 [What follows was initially a [post on CrossValidated](http://stats.stackexchange.com/a/173749/67822).]
@@ -14,7 +21,7 @@ I've looked into it using [R], and I am a bit surprised to see no packaged formu
 
 <br><br>
 
-###1. LARGER SAMPLES (> 5 expected counts in each cell):
+#####1. LARGER SAMPLES (> 5 expected counts in each cell):
 
 <br>
 
@@ -76,7 +83,7 @@ Actually the alternative function `chisq.test()` doesn't seem te require the tra
 
 We can even feed the probabilities expected for each cell to [R] instead of the expected counts like this:
 
-Benford’s law states that the leading digit $d = 1,2,3,4,5,6,7,8,9$ occurs with probability $log10(d + 1) − log 10(d)$. The following table was obtained for the leading digits from addresses randomly sampled from the phone book:
+Benford’s law states that the leading digit $d = 1,2,3,4,5,6,7,8,9$ occurs with probability $\log10(d + 1) − \log 10(d)$. The following table was obtained for the leading digits from addresses randomly sampled from the phone book:
 
 <br>
 ```{r}
@@ -99,7 +106,8 @@ chisq.test(Digits, p = p, correct = FALSE)
 <br>
 Therefore, with a p value of $50\%$ we can't rule out that the digits follow Benford's law.
 
-We reject when the test statistic is too large, and being that $\chi^2$ on a $2$ x $2$ contingency table (i.e. with 1 df) is the same as a z test squared, we will reject at around $qnorm(0.975)^2  ~ 3.8$. The alternative is always two sided because of the squared makes it non-directinal (we simply test if the proportions are different), and when setting up the alpha risk we don't divide by two.
+We reject when the test statistic is too large, and being that $\chi^2$ on a $2\times2$ contingency table (i.e. with 1 df) is the same as a z test squared, we will reject at around `qnorm(0.975)^2
+= 3.841459`. The alternative is always two sided because of the squared makes it non-directinal (we simply test if the proportions are different), and when setting up the alpha risk we don't divide by two.
 
 So we know that we are not dealing with drugs of equal efficiency to treat heartburn, but we want to know more specifically what the pairwise comparisons have to say. Again, we have to stick with our transposed matrix `t()`:
 
@@ -164,7 +172,7 @@ The column to the right also includes the exact same p-value we just got for the
 
 <br><br>
 
-###2. SMALLER SAMPLES:
+#####2. SMALLER SAMPLES:
 
 <br>
 
