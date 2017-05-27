@@ -101,11 +101,11 @@ The **score matrix** was determined as the matrix multiplication of the **scaled
 
 The concept entails a linear *combination of each entry* (row / subject / observation / superconductor in this case) of the centered (and in this case scaled) data weighted by the *rows of each eigenvector*, so that in each of the final columns of the score matrix, we'll find a contribution from each variable (column) of the data (the entire `X`), BUT only the corresponding eigenvector will have taken part in the computation (i.e. the first eigenvector $[0.7, 0.7]^{T}$ will contribute to $\text{PC}\,1$ (Principal Component 1)  and $[0.7, -0.7]^{T}$ to $\text{PC}\,2$, as in:
 
-[![enter image description here][3]][3]
+<img width=700 src="https://cloud.githubusercontent.com/assets/9312897/26517449/ca8a4f4c-4266-11e7-8eb1-5ccce3b066fb.gif">
 
 Therefore each eigenvector will influence each variable differently, and this will be reflected in the "loadings" of the PCA. In our case, the negative sign in the second component of the second eigenvector $[0.7, - 0.7]$ will change the sign of the melting point values in the linear combinations that produce PC2, whereas the effect of the first eigenvector will be consistently positive:  
 
-[![enter image description here][4]][4]
+<img width=500 height=300 src="https://cloud.githubusercontent.com/assets/9312897/26517517/1c80ab42-4268-11e7-99c6-f3c7bcdbafc3.png">
 
 The eigenvectors are scaled to $1$:
 
