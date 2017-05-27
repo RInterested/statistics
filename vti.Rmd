@@ -18,7 +18,10 @@ output:
 ```{r, warning=F, message=F, fig.height=3, fig.width=5}
 library(quantmod)
 VTI = read.csv("VTI historical data.csv", header = T)
-VTI$Date <- as.Date(VTI$Date) # Turning the date into a date for time series.
+Date <- as.Date(VTI$Date) # Turning the date into a date for time series.
+VTI$Date = Date
+# The data comprise 5,824 trading dates over 16 years:
+VTI$Date[nrow(VTI)] - VTI$Date[1]
 rownames(VTI) <- VTI$Date     # Time series have Date as row names.
 VTI$Date <- NULL              # Remove the column with date
 chartSeries(VTI)              # Plotting...
@@ -60,6 +63,31 @@ VTI[VTI$InterDay == max(VTI$InterDay),]
 ```
 
 ... both during the financial crisis of 2008.
+
+How often does a drop of say, $4\%$ occurs?
+
+```{r}
+sum(VTI$InterDay < -4)
+mean(VTI$InterDay < -4) * 100 # or 0.7% of the days
+sum(VTI$InterDay < -4) / 16   # or between 1 and 2 days every year.
+```
+
+... and $5\%$?
+
+```{r}
+sum(VTI$InterDay < -5)
+mean(VTI$InterDay < -5) * 100 # or 0.3% of the days
+sum(VTI$InterDay < -5) / 16   # or between 0 and 1 days every year.
+```
+
+But they can't be distributed uniformly...
+
+```{r}
+mat = matrix(c(Date, VTI$InterDay), ncol=2)
+plot(mat[,2] < -4 ~ as.Date(mat[,1]), pch=19, col=2, type='h', xlab="Year", ylab="Days with > 4% change", cex.axis=.5, cex.main=.5,las=2,main  = "Clustering of big drop days")
+```
+
+---
 
 Finally, let's take a look at the fat tails of VTI as representative of the market, and as compared to the normal distribution:
 
