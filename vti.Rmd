@@ -1,0 +1,84 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###TIME SERIES WITH VTI:
+<br>
+
+>The [Vanguard Total Stock Market ETF (NYSEARCA: VTI)](http://www.investopedia.com/articles/investing/122315/vti-vanguard-total-stock-market-etf.asp) tracks the performance of the [CRSP U.S. Total Market Index](http://www.crsp.com/products/investment-products/crsp-us-total-market-index). The fund has returned 6.23% since its inception in 2001. The fund is a market capitalization-weighted index that measures the entire investable U.S. equities market. It includes small-, mid- and large-cap companies. The fund is managed in a passive manner and uses an index-sampling strategy.
+
+
+```{r, warning=F, message=F, fig.height=3, fig.width=5}
+library(quantmod)
+VTI = read.csv("VTI historical data.csv", header = T)
+VTI$Date <- as.Date(VTI$Date) # Turning the date into a date for time series.
+rownames(VTI) <- VTI$Date     # Time series have Date as row names.
+VTI$Date <- NULL              # Remove the column with date
+chartSeries(VTI)              # Plotting...
+```
+
+Notice the [split of the shares](https://www.splithistory.com/vti/) reflected as the broad band on the left of the plot:
+
+>Vanguard Total Stock Market ETF (VTI) has 1 split in our VTI split history database. The split for VTI took place on June 18, 2008. This was a 2 for 1 split, meaning for each share of VTI owned pre-split, the shareholder now owned 2 shares.
+
+---
+
+#####How much can the VTI shares oscillate from day to day?
+
+```{r}
+z = as.data.frame(VTI$Adj.Close)    # Subsetting closing price
+
+# Function to calculate % change in closing price between days:
+D2D = function (x) {              
+    days = nrow(x)
+    delta = numeric(days)
+    for(i in 2:days){
+        delta[i] <- (100*((x[i,1] - x[i - 1,1])/(x[i - 1,1])))
+    }
+    delta
+}
+VTI$InterDay = D2D(z)               # Included as add'l column to VTI.
+head(VTI$InterDay)                  # A zero in entry 1 spells trouble...
+#... we need something to fill in the 0 in row 1. Why not the mean?
+VTI$InterDay[1]<-mean(VTI$InterDay) 
+
+summary(VTI$InterDay)
+```
+
+So the maximum loss between days has been $9.4\%$, and the maximum gain $12.8\%$. When did these events occur?
+
+```{r}
+VTI[VTI$InterDay == min(VTI$InterDay),]
+VTI[VTI$InterDay == max(VTI$InterDay),]
+```
+
+... both during the financial crisis of 2008.
+
+Finally, let's take a look at the fat tails of VTI as representative of the market, and as compared to the normal distribution:
+
+```{r}
+hist(VTI$InterDay,main="INTERDAY VTI % CHANGES: FAT TAILS",sub="fitted normal (in purple); pdf estimate (in blue)",xlab = "PERCENTAGE CHANGE FROM DAY TO DAY",
+     ylab = "FREQUENCY", prob = TRUE, col ="coral", ylim=c(0,0.5),
+     xlim=c(-4,4), cex.main=.9, cex.sub=.8, cex.lab=.7, border=F,
+     breaks = 33)
+
+#Add density estimate
+lines(density(VTI$InterDay,adjust=7),col="darkred",lwd=2) #Prettier, adjusted pdf estimate
+sd = sd(VTI$InterDay)
+m = mean(VTI$InterDay)
+curve(dnorm(x,mean=m,sd=sd),col="grey60",lwd=2,add=T,yaxt="n")
+lines(density(VTI$InterDay,adjust=7),col="darkred",lwd=2) #Prettier, adjusted pdf estimate
+
+
+```
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
