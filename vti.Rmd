@@ -64,7 +64,7 @@ VTI[VTI$InterDay == max(VTI$InterDay),]
 
 ... both during the financial crisis of 2008.
 
-How often does a drop of say, $4\%$ occurs?
+How often does a drop of say, $-4\%$ occurs?
 
 ```{r}
 sum(VTI$InterDay < -4)
@@ -72,18 +72,28 @@ mean(VTI$InterDay < -4) * 100 # or 0.7% of the days
 sum(VTI$InterDay < -4) / 16   # or between 1 and 2 days every year.
 ```
 
-... and $5\%$?
+... and what about gains of $4\%$?
 
 ```{r}
-sum(VTI$InterDay < -5)
-mean(VTI$InterDay < -5) * 100 # or 0.3% of the days
-sum(VTI$InterDay < -5) / 16   # or between 0 and 1 days every year.
+sum(VTI$InterDay > 4)
+mean(VTI$InterDay > 4) * 100 # or 0.6% of the days
+sum(VTI$InterDay > 4) / 16   # or between 1 and 2 days every year.
 ```
 
-But they can't be distributed uniformly...
+But they can't be distributed uniformly... Let's first look at the losses...
 
 ```{r, fig.height=5, fig.width=7}
-plot(VTI.raw$Date, VTI.raw$InterDay < -4, pch=19, col=2, type='h', xlab="Year", ylab="Days with > 4% change", cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, main  = "Clustering of big drop days")
+at = VTI.raw$Date[format(VTI.raw$Date, '%m-%d') %in% c('01-05','01-07','01-07')]
+plot(VTI.raw$Date, VTI.raw$InterDay < -4, pch=19, col=2, type='h', xaxt="n", xlab="Year", ylab="Days with > 4% loss", cex.axis=.5, cex.main=.8, cex.lab =.8, las=2, main  = "Clustering of big drop days")
+axis(side=1, at=at, labels=format(at, '%y'), las=2, cex.axis=.7)
+```
+
+... and the wins...
+
+```{r, fig.height=5, fig.width=7}
+at = VTI.raw$Date[format(VTI.raw$Date, '%m-%d') %in% c('01-05','01-07','01-07')]
+plot(VTI.raw$Date, VTI.raw$InterDay > 4, pch=19, col=3, type='h', xaxt="n", xlab="Year", ylab="Days with > 4% gain", cex.axis=.5, cex.main=.8, cex.lab =.8, las=2, main  = "Clustering of big gain days")
+axis(side=1, at=at, labels=format(at, '%y'), las=2, cex.axis=.7)
 ```
 
 ---
@@ -102,7 +112,6 @@ sd = sd(VTI$InterDay)
 m = mean(VTI$InterDay)
 curve(dnorm(x,mean=m,sd=sd),col="grey60",lwd=2,add=T,yaxt="n")
 lines(density(VTI$InterDay,adjust=7),col="darkred",lwd=2) #Prettier, adjusted pdf estimate
-
 
 ```
 
