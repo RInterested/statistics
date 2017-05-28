@@ -17,13 +17,15 @@ output:
 
 ```{r, warning=F, message=F, fig.height=3, fig.width=5}
 library(quantmod)
-VTI.raw = read.csv("VTI historical data.csv", header = T)
-VTI.raw$Date <- as.Date(VTI.raw$Date)
-rownames(VTI.raw) <- VTI.raw$Date
-VTI = VTI.raw
-VTI$Date <- NULL #to remove the column
-VTI = as.xts(VTI)
-chartSeries(VTI, type="auto", theme=chartTheme('white'))
+library(quantmod)
+require(RCurl)
+require(foreign)
+x <- getURL("https://raw.githubusercontent.com/RInterested/datasets/gh-pages/VTI%20historical%20data.csv")
+VTI <- read.csv(text = x, sep =",")
+
+VTI$Date <- as.Date(VTI$Date)
+rownames(VTI) <- VTI$Date
+chartSeries(VTI[,-1], type="auto", theme=chartTheme('white'))
 ```
 
 Notice the [split of the shares](https://www.splithistory.com/vti/) reflected as the broad band on the left of the plot:
@@ -39,15 +41,15 @@ z = as.data.frame(VTI$Adj.Close)    # Subsetting closing price
 
 # Function to calculate % change in closing price between days:
 D2D = function (x) {              
-    days = nrow(x)
-    delta = numeric(days)
-    for(i in 2:days){
-        delta[i] <- (100*((x[i,1] - x[i - 1,1])/(x[i - 1,1])))
-    }
-    delta
+  days = nrow(x)
+  delta = numeric(days)
+  for(i in 2:days){
+    delta[i] <- (100*((x[i,1] - x[i - 1,1])/(x[i - 1,1])))
+  }
+  delta
 }
 VTI$InterDay = D2D(z)               # Included as add'l column to VTI.
-VTI.raw$InterDay = D2D(z)
+
 head(VTI$InterDay)                  # A zero in entry 1 spells trouble...
 #... we need something to fill in the 0 in row 1. Why not the mean?
 VTI$InterDay[1]<-mean(VTI$InterDay) 
@@ -58,8 +60,8 @@ summary(VTI$InterDay)
 So the maximum loss between days has been $-9.4\%$, and the maximum gain $12.8\%$. When did these events occur?
 
 ```{r}
-VTI[VTI$InterDay == min(VTI$InterDay),]
-VTI[VTI$InterDay == max(VTI$InterDay),]
+rownames(VTI)[VTI$InterDay == min(VTI$InterDay)]
+rownames(VTI)[VTI$InterDay == max(VTI$InterDay)]
 ```
 
 ... both during the financial crisis of 2008.
@@ -77,23 +79,27 @@ sum(VTI$InterDay < -4) / 16   # or between 1 and 2 days every year.
 ```{r}
 sum(VTI$InterDay > 4)
 mean(VTI$InterDay > 4) * 100 # or 0.6% of the days
-sum(VTI$InterDay > 4) / 16   # or between 1 and 2 days every year.
+sum(VTI$InterDay > 4) / 16   # or between 1 and 2 days every year?
 ```
 
 But they can't be distributed uniformly... Let's first look at the losses...
 
 ```{r, fig.height=5, fig.width=7}
-at = VTI.raw$Date[format(VTI.raw$Date, '%m-%d') %in% c('01-05','01-07','01-07')]
-plot(VTI.raw$Date, VTI.raw$InterDay < -4, pch=19, col=2, type='h', xaxt="n", xlab="Year", ylab="Days with > 4% loss", cex.axis=.5, cex.main=.8, cex.lab =.8, las=2, main  = "Clustering of big drop days")
-axis(side=1, at=at, labels=format(at, '%y'), las=2, cex.axis=.7)
+plot(VTI$Date, VTI$InterDay < -4, pch=19, col=2, type='h', xaxt="n",
+     xlab="Year", ylab="Days with > - 4% change", 
+     cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
+     main  = "Clustering of big drop days")
+axis(side=1, at=as.Date(paste0(2001:2017, "-01-01")), labels = 2001:2017, las=2, cex.axis=.7)
 ```
 
 ... and the wins...
 
 ```{r, fig.height=5, fig.width=7}
-at = VTI.raw$Date[format(VTI.raw$Date, '%m-%d') %in% c('01-05','01-07','01-07')]
-plot(VTI.raw$Date, VTI.raw$InterDay > 4, pch=19, col=3, type='h', xaxt="n", xlab="Year", ylab="Days with > 4% gain", cex.axis=.5, cex.main=.8, cex.lab =.8, las=2, main  = "Clustering of big gain days")
-axis(side=1, at=at, labels=format(at, '%y'), las=2, cex.axis=.7)
+plot(VTI$Date, VTI$InterDay > 4, pch=19, col=3, type='h', xaxt="n",
+     xlab="Year", ylab="Days with > 4% change", 
+     cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
+     main  = "Clustering of big winning days")
+axis(side=1, at=as.Date(paste0(2001:2017, "-01-01")), labels = 2001:2017, las=2, cex.axis=.7)
 ```
 
 ---
