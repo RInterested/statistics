@@ -17,15 +17,15 @@ output:
 
 ```{r, warning=F, message=F, fig.height=3, fig.width=5}
 library(quantmod)
-library(quantmod)
 require(RCurl)
 require(foreign)
 x <- getURL("https://raw.githubusercontent.com/RInterested/datasets/gh-pages/VTI%20historical%20data.csv")
 VTI <- read.csv(text = x, sep =",")
-
-VTI$Date <- as.Date(VTI$Date)
+VTI$Date <- as.Date(VTI$Date, format = "%Y-%m-%d")
 rownames(VTI) <- VTI$Date
-chartSeries(VTI[,-1], type="auto", theme=chartTheme('white'))
+VTI$Date <- NULL                   # Removing the Date column
+VTI <- as.xts(VTI)
+chartSeries(VTI, type="auto", theme=chartTheme('white'))
 ```
 
 Notice the [split of the shares](https://www.splithistory.com/vti/) reflected as the broad band on the left of the plot:
@@ -51,8 +51,8 @@ D2D = function (x) {
 VTI$InterDay = D2D(z)               # Included as add'l column to VTI.
 
 head(VTI$InterDay)                  # A zero in entry 1 spells trouble...
-#... we need something to fill in the 0 in row 1. Why not the mean?
-VTI$InterDay[1]<-mean(VTI$InterDay) 
+#... we need something to fill in the 0 in row 1. Why not the 2nd  value?
+VTI$InterDay[1]<-VTI$InterDay[2]
 
 summary(VTI$InterDay)
 ```
@@ -60,8 +60,8 @@ summary(VTI$InterDay)
 So the maximum loss between days has been $-9.4\%$, and the maximum gain $12.8\%$. When did these events occur?
 
 ```{r}
-rownames(VTI)[VTI$InterDay == min(VTI$InterDay)]
-rownames(VTI)[VTI$InterDay == max(VTI$InterDay)]
+time(VTI)[VTI$InterDay == min(VTI$InterDay)]
+time(VTI)[which.max(VTI$InterDay)]
 ```
 
 ... both during the financial crisis of 2008.
@@ -85,21 +85,31 @@ sum(VTI$InterDay > 4) / 16   # or between 1 and 2 days every year?
 But they can't be distributed uniformly... Let's first look at the losses...
 
 ```{r, fig.height=5, fig.width=7}
-plot(VTI$Date, VTI$InterDay < -4, pch=19, col=2, type='h', xaxt="n",
+plot(time(VTI), VTI$InterDay < -4, col=2, type='h', xaxt="n",
      xlab="Year", ylab="Days with > - 4% change", 
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
      main  = "Clustering of big drop days")
-axis(side=1, at=as.Date(paste0(2001:2017, "-01-01")), labels = 2001:2017, las=2, cex.axis=.7)
+
+tt = time(VTI)
+ix = seq(1, nrow(VTI), by = 365 - 2*4*12)
+fmt = "%Y"
+labs = format(tt, fmt) # Generate the vector of your labels
+axis(side = 1, at = tt[ix], labels = labs[ix], cex.axis = 0.7, las = 2)
 ```
 
 ... and the wins...
 
 ```{r, fig.height=5, fig.width=7}
-plot(VTI$Date, VTI$InterDay > 4, pch=19, col=3, type='h', xaxt="n",
-     xlab="Year", ylab="Days with > 4% change", 
+plot(time(VTI), VTI$InterDay > 4, col=3, type='h', xaxt="n",
+     xlab="Year", ylab="Days with > 4% gains", 
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
      main  = "Clustering of big winning days")
-axis(side=1, at=as.Date(paste0(2001:2017, "-01-01")), labels = 2001:2017, las=2, cex.axis=.7)
+
+tt = time(VTI)
+ix = seq(1, nrow(VTI), by = 365 - 2*4*12)
+fmt = "%Y"
+labs = format(tt, fmt) # Generate the vector of your labels
+axis(side = 1, at = tt[ix], labels = labs[ix], cex.axis = 0.7, las = 2)
 ```
 
 ---
