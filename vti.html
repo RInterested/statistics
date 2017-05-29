@@ -246,6 +246,11 @@ sum(VTI[&quot;2008/2009&quot;]$InterDay &gt;  4) / sum(VTI$InterDay &gt; 4)</cod
 <pre class="r"><code>VTI[&quot;2008-10-13&quot;]</code></pre>
 <pre><code>##             Open  High   Low Close Adj.Close  Volume InterDay
 ## 2008-10-13 47.05 50.23 46.66 50.04     50.04 7777500 12.82977</code></pre>
+<p>Between the start of the crisis around September 2008, and the nadir, there was a loss of</p>
+<pre class="r"><code>(drop = as.numeric(VTI$Adj.Close[&quot;2009-03-06&quot;]) - as.numeric(VTI$Adj.Close[&quot;2008-09-10&quot;]))</code></pre>
+<pre><code>## [1] -27.81</code></pre>
+<pre class="r"><code>drop/as.numeric(VTI$Adj.Close[&quot;2008-09-10&quot;]) * 100 # In percentage...</code></pre>
+<pre><code>## [1] -44.91279</code></pre>
 <hr />
 <p>Finally, let’s take a look at the fat tails of VTI as representative of the market, and as compared to the normal distribution:</p>
 <pre class="r"><code>hist(VTI$InterDay,main=&quot;INTERDAY VTI % CHANGES: FAT TAILS&quot;,sub=&quot;fitted normal (in purple); pdf estimate (in blue)&quot;,xlab = &quot;PERCENTAGE CHANGE FROM DAY TO DAY&quot;,
