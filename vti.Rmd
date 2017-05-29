@@ -15,7 +15,7 @@ output:
 >The [Vanguard Total Stock Market ETF (NYSEARCA: VTI)](http://www.investopedia.com/articles/investing/122315/vti-vanguard-total-stock-market-etf.asp) tracks the performance of the [CRSP U.S. Total Market Index](http://www.crsp.com/products/investment-products/crsp-us-total-market-index). The fund has returned 6.23% since its inception in 2001. The fund is a market capitalization-weighted index that measures the entire investable U.S. equities market. It includes small-, mid- and large-cap companies. The fund is managed in a passive manner and uses an index-sampling strategy.
 
 
-```{r, warning=F, message=F, fig.height=3, fig.width=5}
+```{r, warning=F, message=F, fig.height=5, fig.width=5}
 library(quantmod)
 require(RCurl)
 require(foreign)
@@ -25,12 +25,12 @@ VTI$Date <- as.Date(VTI$Date, format = "%Y-%m-%d")
 rownames(VTI) <- VTI$Date
 VTI$Date <- NULL                   # Removing the Date column
 VTI <- as.xts(VTI)
-chartSeries(VTI, type="auto", theme=chartTheme('white'))
+chartSeries(VTI, type="auto", theme=chartTheme('white'), yrange = c(0,180))
 ```
 
 Notice the [split of the shares](https://www.splithistory.com/vti/) reflected as the broad band on the left of the plot:
 
->Vanguard Total Stock Market ETF (VTI) has 1 split in our VTI split history database. The split for VTI took place on June 18, 2008. This was a 2 for 1 split, meaning for each share of VTI owned pre-split, the shareholder now owned 2 shares.
+> Vanguard Total Stock Market ETF (VTI) has $1$ split in our VTI split history database. The split for VTI took place on **June $18$, 2008**. This was a $2$ for $1$ split, meaning for each share of VTI owned pre-split, the shareholder now owned $2$ shares.
 
 ---
 
