@@ -112,6 +112,43 @@ labs = format(tt, fmt) # Generate the vector of your labels
 axis(side = 1, at = tt[ix], labels = labs[ix], cex.axis = 0.7, las = 2)
 ```
 
+Wow! Huge spike around 2008 - 2009. [How much clustering is there](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/xts_Cheat_Sheet_R.pdf)?
+
+```{r}
+sum(VTI["2008/2009"]$InterDay < - 4) # Total number of drops > -4%
+# As a percentage of all losing days...
+sum(VTI["2008/2009"]$InterDay < - 4) / sum(VTI$InterDay < -4) 
+```
+
+What about wins during the same period?
+
+```{r}
+sum(VTI["2008/2009"]$InterDay >  4) # Total number of drops > -4%
+# As a percentage of all winning days...
+sum(VTI["2008/2009"]$InterDay >  4) / sum(VTI$InterDay > 4)
+```
+
+So, during the crisis there were $22$ "big losing" days, and $15$ "big winning days". Yet, the market tanked. Were the losing days worse, not just more numerous?
+
+The maximum drop did occur during the crisis...
+
+```{r}
+min(VTI["2008/2009"]$InterDay)
+```
+
+a whopping $9\%$! As compared to the maximum inter-day win
+
+```{r}
+max(VTI["2008/2009"]$InterDay)
+```
+
+Wow! When did it happen?
+
+```{r}
+time(VTI["2008/2009"])[which.max(VTI["2008/2009"]$InterDay)]
+VTI["2008-10-13"]
+```
+
 ---
 
 Finally, let's take a look at the fat tails of VTI as representative of the market, and as compared to the normal distribution:
