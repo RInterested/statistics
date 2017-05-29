@@ -138,7 +138,15 @@ sum(VTI["2008/2009"]$InterDay >  4) # Total number of winning days > 4%
 sum(VTI["2008/2009"]$InterDay >  4) / sum(VTI$InterDay > 4)
 ```
 
-So, during the crisis there were $22$ "big losing" days, and $15$ "big winning days". Yet, the market tanked. Were the losing days worse, not just more numerous?
+So, during the crisis there were $22$ "big losing" days, and $15$ "big winning days". 
+
+```{r}
+plot(VTI$InterDay["2008-09-01/2009-03-01"], las=2, cex.axis=.6, main="Interday changes during crisis")
+abline(h = 0)
+```
+
+
+Yet, the market tanked. Were the losing days worse, not just more numerous?
 
 The maximum drop did occur during the crisis...
 
