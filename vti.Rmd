@@ -82,9 +82,10 @@ mean(VTI$InterDay > 4) * 100 # or 0.6% of the days
 sum(VTI$InterDay > 4) / 16   # or between 1 and 2 days every year?
 ```
 
-But they can't be distributed uniformly... Let's first look at the losses...
+But they can't be distributed uniformly... Let's first look at the losing days (to the left), and compare to winning days:
 
-```{r, fig.height=5, fig.width=7}
+```{r, fig.height=5, fig.width=10}
+par(mfrow=c(1,2))
 plot(time(VTI), VTI$InterDay < -4, col=2, type='h', xaxt="n",
      xlab="Year", ylab="Days with > - 4% change", 
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
@@ -101,11 +102,8 @@ fmt = "%Y"
 labs = format(tt, fmt) 
 # Plotting the x axis:
 axis(side = 1, at = tt[ix], labels = labs[ix], cex.axis = 0.7, las = 2)
-```
 
-... and the wins...
 
-```{r, fig.height=5, fig.width=7}
 plot(time(VTI), VTI$InterDay > 4, col=3, type='h', xaxt="n",
      xlab="Year", ylab="Days with > 4% gains", 
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
@@ -148,7 +146,26 @@ The maximum drop did occur during the crisis...
 min(VTI["2008/2009"]$InterDay)
 ```
 
-a whopping $-9\%$! As compared to the maximum inter-day win
+when?
+
+```{r}
+time(VTI["2008/2009"])[which.min(VTI["2008/2009"]$InterDay)]
+```
+
+Here is the news flashback:
+
+> **Another huge Dow loss**
+> Blue-chip indicator drubbed $733$ points - $2$nd biggest point loss ever - as recession fears resurface.
+>
+> By Alexandra Twin, CNNMoney.com senior writer
+>
+> Last Updated: **October 15, 2008**: 6:21 PM ET
+>
+> NEW YORK (CNNMoney.com) -- Recession talk scared Wall Street Wednesday, sending the Dow Jones industrial average to its second biggest one-day point loss ever.
+>
+> A weak retail sales report and dour forecasts from the Federal Reserve, coupled with sober comments from Fed Chairman Ben Bernanke, sent stocks tumbling.
+
+a whopping $-9\%$! Incredibly the maximum inter-day win also happen around this period...
 
 ```{r}
 max(VTI["2008/2009"]$InterDay)
@@ -160,6 +177,20 @@ Wow! When did it happen?
 time(VTI["2008/2009"])[which.max(VTI["2008/2009"]$InterDay)]
 VTI["2008-10-13"]
 ```
+
+and the news reflected it:
+
+> **Dow jumps $936$ points and S&P up $104$, in the biggest point gains ever**. The Dow, S&P and Nasdaq all gain over $11\%$.
+> 
+> By Alexandra Twin, CNNMoney.com senior writer
+>
+> Last Updated: **October 13, 2008**: 6:15 PM ET
+>
+> NEW YORK(CNNMoney.com) 
+>
+> Stocks rallied Monday afternoon, with the Dow rallying $976$ points during the session, as investors bet that the worst of the credit crisis is over, following a series of global initiatives announced over the last few days.
+>
+> That bounce was predicated by the day's news, with investors breathing a sigh of relief that some specifics were finally released regarding the $\$700$ billion bank bailout.
 
 Between the start of the crisis around September 2008, and the nadir, on March 06, 2009, there was a loss of
 
