@@ -90,10 +90,16 @@ plot(time(VTI), VTI$InterDay < -4, col=2, type='h', xaxt="n",
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
      main  = "Clustering of big drop days")
 
+# Selecting the time information in the names of the rows of VTI:
 tt = time(VTI)
-ix = seq(1, nrow(VTI), by = 365 - 2*4*12)
+# We select points spaced by approximately 1 business year:
+# 365 days - 2 days off each weekend - 9 Holidays in the USA
+ix = seq(1, nrow(VTI), by = 365 - 2*4*12 - 9)
+# Formatting the labels as just simply the year with 4 digits:
 fmt = "%Y"
-labs = format(tt, fmt) # Generate the vector of your labels
+# Generating vector of potential labels:
+labs = format(tt, fmt) 
+# Plotting the x axis:
 axis(side = 1, at = tt[ix], labels = labs[ix], cex.axis = 0.7, las = 2)
 ```
 
@@ -105,10 +111,16 @@ plot(time(VTI), VTI$InterDay > 4, col=3, type='h', xaxt="n",
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
      main  = "Clustering of big winning days")
 
+# Selecting the time information in the names of the rows of VTI:
 tt = time(VTI)
-ix = seq(1, nrow(VTI), by = 365 - 2*4*12)
+# We select points spaced by approximately 1 business year:
+# 365 days - 2 days off each weekend - 9 Holidays in the USA
+ix = seq(1, nrow(VTI), by = 365 - 2*4*12 - 9)
+# Formatting the labels as just simply the year with 4 digits:
 fmt = "%Y"
-labs = format(tt, fmt) # Generate the vector of your labels
+# Generating vector of potential labels:
+labs = format(tt, fmt) 
+# Plotting the x axis:
 axis(side = 1, at = tt[ix], labels = labs[ix], cex.axis = 0.7, las = 2)
 ```
 
@@ -123,7 +135,7 @@ sum(VTI["2008/2009"]$InterDay < - 4) / sum(VTI$InterDay < -4)
 What about wins during the same period?
 
 ```{r}
-sum(VTI["2008/2009"]$InterDay >  4) # Total number of drops > -4%
+sum(VTI["2008/2009"]$InterDay >  4) # Total number of winning days > 4%
 # As a percentage of all winning days...
 sum(VTI["2008/2009"]$InterDay >  4) / sum(VTI$InterDay > 4)
 ```
@@ -136,7 +148,7 @@ The maximum drop did occur during the crisis...
 min(VTI["2008/2009"]$InterDay)
 ```
 
-a whopping $9\%$! As compared to the maximum inter-day win
+a whopping $-9\%$! As compared to the maximum inter-day win
 
 ```{r}
 max(VTI["2008/2009"]$InterDay)
@@ -149,7 +161,7 @@ time(VTI["2008/2009"])[which.max(VTI["2008/2009"]$InterDay)]
 VTI["2008-10-13"]
 ```
 
-Between the start of the crisis around September 2008, and the nadir, there was a loss of
+Between the start of the crisis around September 2008, and the nadir, on March 06, 2009, there was a loss of
 
 ```{r}
 (drop = as.numeric(VTI$Adj.Close["2009-03-06"]) - as.numeric(VTI$Adj.Close["2008-09-10"]))
