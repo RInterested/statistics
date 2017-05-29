@@ -192,11 +192,39 @@ and the news reflected it:
 >
 > That bounce was predicated by the day's news, with investors breathing a sigh of relief that some specifics were finally released regarding the $\$700$ billion bank bailout.
 
-Between the start of the crisis around September 2008, and the nadir, on March 06, 2009, there was a loss of
+Between the start of the crisis around September 2008, and the nadir, on March 09, 2009, 
+
+> A year later, we know that March 9 was the bottom of a months-long financial panic that wiped away trillions of dollars in assets. But on what now appears to have been the best buying opportunity of a generation, many only wondered how much lower the markets would tumble. (Forbes)
+
+> For Dow, another $12$-year low.
+>
+> S&P also finishes at lowest level in more than a decade as Wall Street resumes its retreat on economic worries.
+>
+> By Alexandra Twin, CNNMoney.com senior writer
+> Last Updated: March 9, 2009: 6:18 PM ET
+
+there was a loss of
 
 ```{r}
-(drop = as.numeric(VTI$Adj.Close["2009-03-06"]) - as.numeric(VTI$Adj.Close["2008-09-10"]))
+(drop = as.numeric(VTI$Adj.Close["2009-03-09"]) - as.numeric(VTI$Adj.Close["2008-09-10"]))
 drop/as.numeric(VTI$Adj.Close["2008-09-10"]) * 100 # In percentage...
+```
+
+
+which didn't recover fully until March 2013, four years later:
+
+<img  src="https://cloud.githubusercontent.com/assets/9312897/26534869/6cee3434-43f6-11e7-9937-f7b9db1bb1b0.png">
+
+What happened on October 10, 2009? Not much, it was Saturday. And on Monday
+
+```{r}
+VTI["2009-10-12"]
+```
+
+not much happened, either... October 14, 2009, perhaps?
+
+```{r}
+VTI["2009-10-14"]
 ```
 
 ---
