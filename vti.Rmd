@@ -192,6 +192,21 @@ and the news reflected it:
 >
 > That bounce was predicated by the day's news, with investors breathing a sigh of relief that some specifics were finally released regarding the $\$700$ billion bank bailout.
 
+---
+
+Let's hone down on the crisis period:
+
+```{r}
+crisis = VTI["2008-09-01/2013-03-01"]
+plot(time(crisis), crisis$InterDay < - 4, col=2, type='h',
+     xlab="Year", ylab="", 
+     cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
+     main  = "Big losing and winning days during the crisis")
+points(time(crisis), crisis$InterDay > 4, col=3, type='h')
+```
+
+---
+
 Between the start of the crisis around September 2008, and the nadir, on March 09, 2009, 
 
 > A year later, we know that March 9 was the bottom of a months-long financial panic that wiped away trillions of dollars in assets. But on what now appears to have been the best buying opportunity of a generation, many only wondered how much lower the markets would tumble. (Forbes)
