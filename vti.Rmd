@@ -269,6 +269,15 @@ lines(density(VTI$InterDay,adjust=7),col="darkred",lwd=2) #Prettier, adjusted pd
 
 ```
 
+But let's objectivize the lack of normality:
+
+```{r, fig.width=4, fig.height=4}
+qqnorm(VTI$InterDay, pch=19, cex=.1, col=rgb(0,0,1,0.5), cex.main=.8, cex.lab=.7, cex.axis=.7)
+qqline(VTI$InterDay, col=rgb(0,0,1,0.8))
+shapiro.test(as.vector(VTI$InterDay))
+```
+
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
