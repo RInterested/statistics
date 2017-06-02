@@ -9,12 +9,45 @@ output:
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
+
 ###UNCONSTRAINED OPTIMIZATION:
 <br>
 
-From [this video by Nando de Freitas](https://www.youtube.com/watch?v=QGOda9mz_yA).
+For constrained optimization see [Lagrange's method](http://rinterested.github.io/statistics/lagrange.html).
 
-We want to optimize a scalar-value function of a $d$-dimensional vector $\mathbf\theta$:  $f(\theta)$, the loss function.
+####NEWTON'S ALGORITHM:
+
+From [this video by Nando de Freitas](https://www.youtube.com/watch?v=QGOda9mz_yA), as well as [this](https://www.youtube.com/watch?v=28BMpgxn_Ec) and [this](https://www.youtube.com/watch?v=42zJ5xrdOqo) videos by mathematicalmonk on youtube.
+
+It is a method analogous to the Newton's method to obtaining the roots of a function, as shown in [this Geogebra example](https://ggbm.at/ukn4nTYa),
+
+$$x_{t+1} = x_t - \frac{f(x_t)}{f'(x_t)}$$
+
+but the difference is that for optimization the goal is to find where the derivative is zero, as opposed to the actual function (as in finding the roots). Hence, the formula becomes
+
+$$x_{t+1} = x_t - \frac{f'(x_t)}{f''(x_t)}$$
+
+which amounts to finding the minima of a quadratic through a second order approximation at a given point:
+
+---
+
+<img src="https://cloud.githubusercontent.com/assets/9312897/26708297/059ded6c-4719-11e7-9052-645e340a1de4.png">
+
+---
+
+which has the distinct problem that if the function is not convex, we may be headed to a maximum, and the approximation proceeds in the wrong direction:
+
+---
+
+<img src="https://cloud.githubusercontent.com/assets/9312897/26708502/1cdf3840-471a-11e7-910b-4de6e95f5253.png">
+
+---
+
+if this is the case, there may be a need to shift to gradient descent.
+
+---
+
+We want to optimize a scalar-value function of a $d$-dimensional vector $\mathbf\theta$:  $f(\theta)$, the loss or objective function.
 
 The gradient vector of $f(\cdot)$ with respect to $\mathbf \theta$ is the first derivative of a vector-value function:
 
@@ -46,8 +79,6 @@ $$H=\nabla^2_{\mathbf \theta}f(\mathbf \theta) =
 \end{bmatrix}
 $$
 
-####NEWTON'S ALGORITHM:
-
 The most common second-order (second derivative) algorithm is Newton's algorithm, consisting of weights update of the form:
 
 $$\mathbf \theta_{k+1} = \mathbf \theta_k - \mathbf H_k^{-1}\mathbf g_k$$ 
@@ -61,6 +92,10 @@ This is different than...
 $$\mathbf \theta_{k+1} = \mathbf \theta_k - \eta_k \mathbf g_k = \mathbf \theta_k - \eta_k \nabla f(\mathbf \theta_k)$$
 
 where $\eta_k$ is the learning rate at step $k$.
+
+Gradient descent is a first order optimization method.
+
+---
 
 So what is the point of Newton's algorithm?
 
