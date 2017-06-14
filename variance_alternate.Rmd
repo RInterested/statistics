@@ -1,0 +1,95 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###VARIANCE IN TERMS OF RAW MOMENTS (KÖNIG-HUYGENS FORMULA):
+<br>
+
+The [variance](https://en.wikipedia.org/wiki/Variance) of the random variable $X$ is defined as:
+
+$$\text{Var}(X)= \mathbb E\left[ \left(\,X - \mathbb E(X)\,   \right)^2\right]\tag 1.$$
+
+> In many practical situations, the true variance of a population is not known a priori and must be computed somehow. When dealing with extremely large populations, it is not possible to count every object in the population, so the computation must be performed on a sample of the population. 
+
+An [unbiased estimator of the population variance](https://en.wikipedia.org/wiki/Variance#Sample_variance) is obtained with the formula:
+
+$$s^2 = \frac{1}{n-1}\displaystyle \sum_1^n\,\left(x_i - \bar x\right)^2$$
+
+---
+
+In terms of the raw moments, $\mathbb E(X)$ and $(\mathbb E(X^2))$, the variance of a random variable $X$ can be calculated using the [König-Huygens formula](https://en.wikipedia.org/wiki/Algebraic_formula_for_the_variance):
+
+$$\text{Var}(X) = \mathbb E\left(X^2 \right)\quad-\quad \left[\;\mathbb E\left(X\right)\;\right]^2$$
+
+Proof:
+
+$$
+\begin{align}
+\text{Var}(X) &= \mathbb E\left[ \left(\,X - \mathbb E(X)\,   \right)^2\right]\\[2ex]
+&=\mathbb E\left[X^2 - 2\,X\,\mathbb E(X)\, +\left[\,\mathbb E(X)\, \right]^2  \right]\\[2ex]
+&=\mathbb E (X^2) -\mathbb E \left[\,2\,X\,\mathbb E(X)\, \right]+\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
+&=\mathbb E (X^2) -2\,\mathbb E[X]\;\mathbb E(X)\, +\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
+&=\mathbb E (X^2) -2\,\left[\mathbb E(X)\right]^2\, +\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
+&=\mathbb E\left(X^2 \right)\quad-\quad \left[\;\mathbb E\left(X\right)\;\right]^2
+\end{align}
+$$
+
+When estimating from the sample, though, we have to keep in mind **when applying this formula** that it is derived with the understanding that the denominator is $n$ as implicit in Eq.$(1)$. So if we want to make the denominator $n-1$, we have to multiply by $\frac{n}{n-1}$, and we have to do the same in the alternate formula:
+
+$$\frac{n}{n-1}\,\left[\,\displaystyle \sum_1^n\frac{x_i^2}{n}  -\left[ \displaystyle \sum_1^n \frac{x_i}{n}\right]^2\right]=
+\displaystyle \sum_1^n\,\frac{x_i^2}{n-1}  -\frac{n}{n-1}\left[ \displaystyle \sum_1^n \frac{x_i}{n}\right]^2$$
+
+In R
+
+```{r}
+X = rnorm(5)
+var(X)
+( (t(X) %*% X) / (length(X) - 1) ) - (length(X)/(length(X)-1)) * mean(X)^2
+```
+
+
+The same applies to the [covariance between different random vectors](https://stats.stackexchange.com/a/285358/67822):
+
+```{r}
+set.seed(0)
+
+# Sampling three random vectors: V1, V2 and V3:
+
+V1 = 1:5
+V2 = rnorm(5, 5, 1)
+V3 = runif(5)
+
+# Forming a matrix with each row representing a sample from a random vector:
+
+(X = (rbind(V1,V2,V3)))
+
+# Taking the estimate of the expectation for each random vector E(V):
+
+mu = rowMeans(X)
+
+# Forming a matrix of means for the next step:
+
+(means = t(cbind(rep(mu[1],ncol(X)),
+                 rep(mu[2],ncol(X)),
+                 rep(mu[3],ncol(X)))))
+
+# Calculating manually the variance with the alternate formula
+
+((X %*% t(X)) / (ncol(X) - 1)) - (ncol(X)/(ncol(X) - 1))* (means[,1] %*% t(means[,1])) 
+
+# Comparing to the built-in formula:
+
+cov(t(X))
+```
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
