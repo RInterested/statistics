@@ -85,34 +85,25 @@ The same applies to the [covariance between different random vectors](https://st
 
 ```{r}
 set.seed(0)
-
 # Sampling three random vectors: V1, V2 and V3:
-
-V1 = 1:5
-V2 = rnorm(5, 5, 1)
-V3 = runif(5)
+X1 = 1:5
+X2 = rnorm(5, 5, 1)
+X3 = runif(5)
 
 # Forming a matrix with each row representing a sample from a random vector:
+(X = (rbind(X1,X2,X3)))
 
-(X = (rbind(V1,V2,V3)))
-
-# Taking the estimate of the expectation for each random vector E(V):
-
+# Taking the estimate of the expectation for each random vector bar X_i:
 mu = rowMeans(X)
 
-# Forming a matrix of means for the next step:
-
-(means = t(cbind(rep(mu[1],ncol(X)),
-                 rep(mu[2],ncol(X)),
-                 rep(mu[3],ncol(X)))))
-
 # Calculating manually the variance with the alternate formula
-
-((X %*% t(X)) / (ncol(X) - 1)) - (ncol(X)/(ncol(X) - 1))* (means[,1] %*% t(means[,1])) 
+(man.cov = ((X %*% t(X)) / (ncol(X) - 1)) - (ncol(X)/(ncol(X) - 1)) * (mu %*% t(mu)))
 
 # Comparing to the built-in formula:
-
 cov(t(X))
+
+# are the same...
+all.equal(man.cov, cov(t(X)))
 ```
 
 
