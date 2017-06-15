@@ -41,10 +41,36 @@ $$
 \end{align}
 $$
 
+
+The same applies to the covariance matrix. In the following [proof](https://www.statlect.com/fundamentals-of-probability/covariance-matrix) $X$ is a $p\times 1$ random vector:
+
+$$
+\begin{align}
+\text{Var}(X)&=\mathbb E\left[\,\left(X- \mathbb E[X] \right) \, \left(X- \mathbb E[X] \right)^\top  \right]\\[2ex]
+&= \mathbb E\left[\,XX^\top - X\,\mathbb E[X]^\top - \mathbb E[X] \,X^\top + \mathbb E[X] \mathbb E\, [X]^\top  \right]\\[2ex]
+&= \mathbb E\left[\,XX^\top\right] - \mathbb E [X]\,\mathbb E[X]^\top - \mathbb E[X] \,\mathbb E [X]^\top + \mathbb E[X] \mathbb E\, [X]^\top  \\[2ex]
+&= \mathbb E[XX^\top] \; -\; \mathbb E[X]\, \mathbb E[X]^\top
+\end{align}
+$$
+
+---
+
 When estimating from the sample, though, we have to keep in mind **when applying this formula** that it is derived with the understanding that the denominator is $n$ as implicit in Eq.$(1)$. So if we want to make the denominator $n-1$, we have to multiply by $\frac{n}{n-1}$, and we have to do the same in the alternate formula:
 
 $$\frac{n}{n-1}\,\left[\,\displaystyle \sum_1^n\frac{x_i^2}{n}  -\left[ \displaystyle \sum_1^n \frac{x_i}{n}\right]^2\right]=
 \displaystyle \sum_1^n\,\frac{x_i^2}{n-1}  -\frac{n}{n-1}\left[ \displaystyle \sum_1^n \frac{x_i}{n}\right]^2$$
+
+We can apply the same concept to the covariance matrix. In what follows $X$ is a $p \times n$ data matrix:
+
+$$\begin{align}
+\sigma^2(X)&=\frac{XX^\top}{n-1} \; -\; \frac{n}{n-1}\; \begin{bmatrix}\bar X_1\\ \bar X_2\\ \vdots \\ \bar X_p \end{bmatrix}\,  
+\; \begin{bmatrix}\bar X_1 & \bar X_2 & \cdots & \bar X_p \end{bmatrix} 
+\end{align}
+$$
+
+because it is necessary to multiply by $\frac{n}{n-1}$ to get rid of the biased $n$ denominator, and replace it with $n-1$. Evidently anything after the minus sign disappears if the mean is zero.
+
+
 
 In R
 
