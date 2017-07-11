@@ -19,51 +19,65 @@ In probability theory, the probability generating function of a discrete random 
 
 If $X$ is a discrete random variable taking values in the non-negative integers $\{0,1, \dots\}$, then the probability generating function of $X$ is defined as:
 
-$$\color{blue}{\displaystyle G(z)=\operatorname{E} (z^{X})=\sum_{x=0}^{\infty }p(x)z^{x}}$$
+$$\color{blue}{\displaystyle G(z)=\mathbb{E} \left(z^{X}\right)=\sum_{x=0}^{\infty }p(x)\;z^{x}}$$
 
 where $p$ is the probability mass function of $X$. Note that the subscripted notations $G_X$ and $p_X$ are often used to emphasize that these pertain to a particular random variable $X$, and to its distribution.
 
 **CHARACTERISTICS:**
 
+From [this video](https://youtu.be/T1Q1v5wLJNo?list=PL87AE7DAE546FCD8E):
+
 1. IT GIVES YOU PROBABILITIES by differentiating:
 
-$$\color{blue}{\large p_i = \frac{1}{i!}\frac{d^i \, G(z)}{dx^i} \vert_{z=0}=\frac{1}{i!}G^{(i)}(0)}$$
+$$\color{blue}{\large p_i = \left. \frac{1}{i!}\quad\frac{d^i \, G(z)}{dx^i} \right|_{z=0}=\frac{1}{i!} \;G^{(i)}\;(0)}$$
 
-2. $G(1)=1$ because $\displaystyle\sum_{i=0}^\infty p_i 1^i=1$
+2. $G\,(1)=1$ because 
+$$\displaystyle\sum_{i=0}^\infty p_i \; 1^i=1$$
 
-3. First differential $G^{(1)}(z) =\frac{d}{dz}\mathbb E[z^X]=\mathbb E[X\,z^{X-1}]$
+3. First differential 
 
-4. The first differential evaluated at $1$ gives you the mean: $G^{(1)}(1) =\mathbb E[X\,z^{X-1}]\vert_{z=1}=\mathbb E[X\,1^{X-1}]= \mathbb E[X].$
+$$G^{(1)}(z) =\frac{d}{dz}\mathbb E\left[z^X\right]=\mathbb E\left[X\,z^{X-1}\right]$$
 
-5. $G^{(2)}(1) =\frac{d^2}{dz^2}\mathbb E[z^X]\vert_{z=1}=\mathbb E[X(X-1)z^{X-2}]=\mathbb E[X(X-1)]=\mathbb E[X^2-X]=\mathbb E[X^2] - \mathbb E[X]$, which is the factorial momment, and is NOT the variance, because the second term is not squared.
+4. The first differential evaluated at $1$ gives you the mean: 
+$$G^{(1)}(1) =\left.\mathbb E\left[X\,z^{X-1}\right]\right|_{z=1}=\mathbb E\left[X\quad1^{X-1}\right]= \mathbb E[X].$$
 
-6. $G^{(i)}(1)= \mathbb E[X(X-1)\cdots(X-i+1)]=i^{th}$ factorial moment.
+5. The second derivative evaluated at $1$ is the factorial momment, and is NOT the variance, because the second term is not squared.
 
-7. To get the variance, $\sigma^2=\mathbb E[X^2]-\mathbb E[X]^2=G^{(2)}(1)+G^{(1)}(1)-(G^{(1)}(1))^2$
+$$G^{(2)}\;(1) =\frac{d^2}{dz^2}\; \left.\mathbb E\left[z^X\right]\right|_{z=1}=\mathbb E\left[X\;(X-1)\;z^{X-2}\right]=\mathbb E\left[X\;(X-1)\right]=\mathbb E\left [X^2-X\right ]=\mathbb E\left[X^2\right] - \mathbb E\left[X\right]$$
 
-8. We can get raw moments by differentiating the pdf and multiply  it by $z$: $\mathbb E[X^i]=(z\frac{d}{dz})^iG(z)\vert_{z=1}$
+6. Generalizing, then, the $i$-th derivative evaluated at $1$ is the $i$-th factorial moment:
+
+$$G^{(i)}\;(1)= \mathbb E\left[X\;(X-1)\;\cdots\;(X-i+1)\right]$$ 
+
+7. To get the variance, 
+
+$$\sigma^2=\mathbb E\left[X^2\right]-\mathbb E\left[X\right]^2=G^{(2)}\;(1)+G^{(1)}\;(1)-\left[G^{(1)}\;(1)\right]^2$$
+
+8. We can get raw moments by differentiating the pgf and multipling it by $z$: 
+
+$$\mathbb E\left[X^i\right]=  \left. \left( z\;\left(\frac{d}{dz}\right)^i \; G(z)\right)\right|_{z=1}$$
 
 ---
 
 ####PGF FOR BERNOULLI DISTRIBUTION
 
-$$f(i,p)= p^i(1-p)^{(1-i)} \text{for }i\in \{0,1\}$$
+$$f(i,p)= p^i\;(1-p)^{(1-i)} \text{  for  }i\in \{0,1\}$$
 
 The PGF is:
 
-$$G(z)=\sum_{i=0}^\infty p_iz^i= p_0z^0+p_1z^1=p^0(1-p)^{(1-0)}\times z^0 + p^1(1-p)^{(1-1)}\times z^1= (1-p)+p^1\times z^1=\color{red}{ (1-p)+pz=q + pz}$$
+$$\begin{align}G(z)&=\sum_{i=0}^\infty p_i\;z^i\\[2ex]&= p_0\;z^0+p_1\;z^1\\[2ex] &= p^0\;(1-p)^{(1-0)}\times z^0 + p^1\;(1-p)^{(1-1)}\times z^1\\[2ex]&= (1-p)+p^1\times z^1\\[2ex]&= (1-p)+pz\\[2ex]&=\color{red}{q + pz}\end{align}$$
 
 Differentiating and evaluating at zero it gives probabilities:
 
-$$p_i = \frac{1}{i!}\frac{d^iG(z)}{dz^i}\vert_{z=0}=\frac{1}{i!}G^{(i)}(0)$$
+$$p_i = \left.\frac{1}{i!}\frac{d^iG(z)}{dz^i}\right|_{z=0}=\frac{1}{i!}G^{(i)}(0)$$
 
 so
 
-$\color{red}{p_1= \frac{1}{1!}G^{(1)}(0)=\frac{1}{1!}\frac{d}{dz}(q+pz)\vert_{z=0}=p}$
+$$\color{red}{p_1= \frac{1}{1!}G^{(1)}(0)=\left.\frac{1}{1!}\frac{d}{dz}(q+pz)\right|_{z=0}=\;p}$$
 
 and
 
-$\color{red}{p_0= \frac{1}{0!}G^{(0)}(0)=\frac{1}{0!}(q+pz)\vert_{z=0}=q}$
+$$\color{red}{p_0= \frac{1}{0!}G^{(0)}(0)=\left.\frac{1}{0!}(q+pz)\right|_{z=0}=\;q}$$
 
 
 ---
