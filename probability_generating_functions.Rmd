@@ -43,7 +43,7 @@ $$G^{(1)}(1) =\left.\mathbb E\left[X\,z^{X-1}\right]\right|_{z=1}=\mathbb E\left
 
 5. The second derivative evaluated at $1$ is the factorial momment, and is NOT the variance, because the second term is not squared.
 
-$$G^{(2)}\;(1) =\frac{d^2}{dz^2}\; \left.\mathbb E\left[z^X\right]\right|_{z=1}=\mathbb E\left[X\;(X-1)\;z^{X-2}\right]=\mathbb E\left[X\;(X-1)\right]=\mathbb E\left [X^2-X\right ]=\mathbb E\left[X^2\right] - \mathbb E\left[X\right]$$
+$$\begin{align}G^{(2)}\;(1) &=\frac{d^2}{dz^2}\; \left.\mathbb E\left[z^X\right]\right|_{z=1}\\[2ex]&=\mathbb E\left[X\;(X-1)\;z^{X-2}\right]\\[2ex]&=\mathbb E\left[X\;(X-1)\right]\\[2ex]&=\mathbb E\left [X^2-X\right ]\\[2ex]&=\mathbb E\left[X^2\right] - \mathbb E\left[X\right]\end{align}$$
 
 6. Generalizing, then, the $i$-th derivative evaluated at $1$ is the $i$-th factorial moment:
 
@@ -51,7 +51,8 @@ $$G^{(i)}\;(1)= \mathbb E\left[X\;(X-1)\;\cdots\;(X-i+1)\right]$$
 
 7. To get the variance, 
 
-$$\sigma^2=\mathbb E\left[X^2\right]-\mathbb E\left[X\right]^2=G^{(2)}\;(1)+G^{(1)}\;(1)-\left[G^{(1)}\;(1)\right]^2$$
+$$\begin{align}\sigma^2 &= \mathbb E\left[X^2\right]-\mathbb E\left[X\right]^2 \\[2ex] &=G^{(2)}\;(1)+G^{(1)}\;(1)-\left[G^{(1)}\;(1)\right]^2
+\end{align}$$
 
 8. We can get raw moments by differentiating the pgf and multipling it by $z$: 
 

@@ -143,7 +143,7 @@ $(document).ready(function () {
 <li><p>The first differential evaluated at <span class="math inline">\(1\)</span> gives you the mean: <span class="math display">\[G^{(1)}(1) =\left.\mathbb E\left[X\,z^{X-1}\right]\right|_{z=1}=\mathbb E\left[X\quad1^{X-1}\right]= \mathbb E[X].\]</span></p></li>
 <li><p>The second derivative evaluated at <span class="math inline">\(1\)</span> is the factorial momment, and is NOT the variance, because the second term is not squared.</p></li>
 </ol>
-<p><span class="math display">\[G^{(2)}\;(1) =\frac{d^2}{dz^2}\; \left.\mathbb E\left[z^X\right]\right|_{z=1}=\mathbb E\left[X\;(X-1)\;z^{X-2}\right]=\mathbb E\left[X\;(X-1)\right]=\mathbb E\left [X^2-X\right ]=\mathbb E\left[X^2\right] - \mathbb E\left[X\right]\]</span></p>
+<p><span class="math display">\[\begin{align}G^{(2)}\;(1) &amp;=\frac{d^2}{dz^2}\; \left.\mathbb E\left[z^X\right]\right|_{z=1}\\[2ex]&amp;=\mathbb E\left[X\;(X-1)\;z^{X-2}\right]\\[2ex]&amp;=\mathbb E\left[X\;(X-1)\right]\\[2ex]&amp;=\mathbb E\left [X^2-X\right ]\\[2ex]&amp;=\mathbb E\left[X^2\right] - \mathbb E\left[X\right]\end{align}\]</span></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Generalizing, then, the <span class="math inline">\(i\)</span>-th derivative evaluated at <span class="math inline">\(1\)</span> is the <span class="math inline">\(i\)</span>-th factorial moment:</li>
 </ol>
@@ -151,7 +151,8 @@ $(document).ready(function () {
 <ol start="7" style="list-style-type: decimal">
 <li>To get the variance,</li>
 </ol>
-<p><span class="math display">\[\sigma^2=\mathbb E\left[X^2\right]-\mathbb E\left[X\right]^2=G^{(2)}\;(1)+G^{(1)}\;(1)-\left[G^{(1)}\;(1)\right]^2\]</span></p>
+<p><span class="math display">\[\begin{align}\sigma^2 &amp;= \mathbb E\left[X^2\right]-\mathbb E\left[X\right]^2 \\[2ex] &amp;=G^{(2)}\;(1)+G^{(1)}\;(1)-\left[G^{(1)}\;(1)\right]^2
+\end{align}\]</span></p>
 <ol start="8" style="list-style-type: decimal">
 <li>We can get raw moments by differentiating the pgf and multipling it by <span class="math inline">\(z\)</span>:</li>
 </ol>
