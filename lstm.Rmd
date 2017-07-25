@@ -146,7 +146,7 @@ Backpropagating this error to the cell state, $C_t,$
 
 $$ h_t = \tanh\left( C_t   \right)\odot o_t$$
    
-We can get the cost in relation to the cell state:
+we can get the cost in relation to the cell state:
 
 $$\color{blue}{\frac{\partial}{\partial C_t} J} = \Delta_t \odot \left( 1 - \tanh^2\left( C_t \right)\right) \odot o_t + \frac{\partial}{\partial C_{t+1}} \odot f_{t+1}$$
 
@@ -173,7 +173,16 @@ Bundling these gate partial derivatives of the loss function:
 
 
 $$\Delta_{\text{gate}_t}= \begin{bmatrix}\frac {\partial}{\partial a_t}J\\ \frac{\partial}{\partial i_t} J \\ \frac{\partial}{\partial f_t} J \\ \frac{\partial}{\partial o_t} J\end{bmatrix}$$
+will be then used to calcuate:
 
+$$\Delta \mathbf W =\sum_{t=1}^T \Delta_{\text{gate}_t}\otimes \mathbf x_t$$
+$$\Delta \mathbf U =\sum_{t=1}^{T-1} \Delta_{\text{gate}_{t+1}}\otimes \mathbf h_t$$
+
+$$\Delta \mathbf b =\sum_{t=1}^{T} \Delta_{\text{gate}_{t+1}}$$
+
+to proceed with the update:
+
+$$W^{new} = W^{old} - \lambda * \Delta W^{old}$$
 
 
 ---

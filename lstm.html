@@ -213,7 +213,7 @@ bias_o = 0.1
 <hr />
 <p>Backpropagating this error to the cell state, <span class="math inline">\(C_t,\)</span></p>
 <p><span class="math display">\[ h_t = \tanh\left( C_t   \right)\odot o_t\]</span></p>
-<p>We can get the cost in relation to the cell state:</p>
+<p>we can get the cost in relation to the cell state:</p>
 <p><span class="math display">\[\color{blue}{\frac{\partial}{\partial C_t} J} = \Delta_t \odot \left( 1 - \tanh^2\left( C_t \right)\right) \odot o_t + \frac{\partial}{\partial C_{t+1}} \odot f_{t+1}\]</span></p>
 <p>Or the activation:</p>
 <p><span class="math display">\[\frac {\partial}{\partial a_t}J = \color{blue}{\frac{\partial}{\partial C_t} J} \odot i_{t} \odot (1 - a_{t}^{2})\]</span></p>
@@ -225,7 +225,11 @@ bias_o = 0.1
 <p>the output gate:</p>
 <p><span class="math display">\[\frac{\partial}{\partial o_t} J = \color{blue}{\Delta_{T_t}}\odot \tanh\left( C_t\right)\odot  \underbrace{o_t \odot (1 - o_t)}\]</span></p>
 <p>Bundling these gate partial derivatives of the loss function:</p>
-<p><span class="math display">\[\Delta_{\text{gate}_t}= \begin{bmatrix}\frac {\partial}{\partial a_t}J\\ \frac{\partial}{\partial i_t} J \\ \frac{\partial}{\partial f_t} J \\ \frac{\partial}{\partial o_t} J\end{bmatrix}\]</span></p>
+<p><span class="math display">\[\Delta_{\text{gate}_t}= \begin{bmatrix}\frac {\partial}{\partial a_t}J\\ \frac{\partial}{\partial i_t} J \\ \frac{\partial}{\partial f_t} J \\ \frac{\partial}{\partial o_t} J\end{bmatrix}\]</span> will be then used to calcuate:</p>
+<p><span class="math display">\[\Delta \mathbf W =\sum_{t=1}^T \Delta_{\text{gate}_t}\otimes \mathbf x_t\]</span> <span class="math display">\[\Delta \mathbf U =\sum_{t=1}^{T-1} \Delta_{\text{gate}_{t+1}}\otimes \mathbf h_t\]</span></p>
+<p><span class="math display">\[\Delta \mathbf b =\sum_{t=1}^{T} \Delta_{\text{gate}_{t+1}}\]</span></p>
+<p>to proceed with the update:</p>
+<p><span class="math display">\[W^{new} = W^{old} - \lambda * \Delta W^{old}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
