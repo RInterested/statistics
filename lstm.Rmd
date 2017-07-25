@@ -22,6 +22,104 @@ output:
 
 Adapted from [this online post](https://blog.aidangomez.ca/2016/04/17/Backpropogating-an-LSTM-A-Numerical-Example/):
 
+<img height = 10  src = "https://user-images.githubusercontent.com/9312897/28549944-aa01ee06-70ab-11e7-8c3d-d9ae2b65ebef.png">
+
+The activation $a_t$ is not a gate, but rather an affine transformation followed by an activation. 
+
+$$\mathbf a_t = \widetilde{C} = \mathbf W_a \cdot \begin{bmatrix} \mathbf x_t \\ h_{t-1}\end{bmatrix}  + \mathbf b_a$$
+
+In the example from the linked tutorial (including the toy numbers that follow), and at the step $t-1,$
+
+
+$$\mathbf a_{t-1} =\tanh \left( \mathbf W_a \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_a \right)
+=\tanh \left( \begin{bmatrix}0.45 & 0.25 & 0.15 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.2 \right)=0.82
+$$
+
+```{r}
+W_a = c(0.45, 0.25)
+update_prior_output = 0.15
+x_initial = c(1,2)
+prior_output = 0
+bias_a = 0.2
+tanh(c(W_a, update_prior_output)%*%c(x_initial, prior_output) + bias_a )
+```
+
+### Input gate:
+
+$$i_t = \sigma \left( \mathbf W_i  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)$$
+Therefore for the first layer $(t-1),$
+
+$$i_t = \sigma \left( \mathbf W_i  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)=\sigma \left( \begin{bmatrix}0.95 & 0.8 & 0.8 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.65 \right)=0.96$$
+
+```{r}
+W_i = c(0.95, 0.8)
+update_prior_output_i = 0.8
+x_initial = c(1,2)
+prior_output = 0
+bias_i = 0.65
+1/(1 + exp(-(c(W_i, update_prior_output_i)%*%c(x_initial, prior_output) + bias_i)))
+```
+
+###Forget gate:
+
+$$f_t = \sigma \left( \mathbf W_f  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)$$
+
+Therefore for the first layer $(t-1),$
+
+$$f_t = \sigma \left( \mathbf W_f  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)=\sigma \left( \begin{bmatrix}0.7 & 0.45 & 0.1 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.15 \right)=0.85$$
+
+```{r}
+W_f = c(0.7, 0.45)
+update_prior_output_f = 0.1
+x_initial = c(1,2)
+prior_output = 0
+bias_f = 0.15
+1/(1 + exp(-(c(W_f, update_prior_output_f)%*%c(x_initial, prior_output) + bias_f)))
+```
+
+
+###Output gate:
+
+$$o_t = \sigma \left( \mathbf W_o  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_0 \right)$$
+
+Therefore for the first layer $(t-1),$
+
+$$o_t = \sigma \left( \mathbf W_o  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_o \right)=\sigma \left( \begin{bmatrix}0.6 & 0.4 & 0.25 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.1 \right)=0.82$$
+
+```{r}
+W_o = c(0.6, 0.4)
+update_prior_output_o = 0.25
+x_initial = c(1,2)
+prior_output = 0
+bias_o = 0.1
+1/(1 + exp(-(c(W_o, update_prior_output_o)%*%c(x_initial, prior_output) + bias_o)))
+```
+
+---
+
+After calculating the values of the gates (and the activation of the input and prior output) we can calculate:
+
+####Cell state $(C_t):$
+
+$$C_t =  a_t \odot i_t + f_t \odot C_{t-1}$$
+For the $t-1$ the calculation is
+
+$$C_{t-1}=0.82\times0.96+0.85×0=0.79$$
+
+####Ouput:
+
+$$h_t = \tanh\left( C_t \odot o_t  \right)$$
+For the $t-1$ layer the calculation is:
+
+$$h_{t-1} = \tanh(0.79) \odot 0.82=0.53$$
+
+Now the calculations can be repeated for the layer $t$ with the following inputs:
+
+$$x_t =\begin{bmatrix}0.5\\0.3\\0.53 \end{bmatrix}$$
+where $0.53$ is the output of the prior layer.
+
+The matrix of weights is **the same as in the prior step!**
+
 
 
 ---
