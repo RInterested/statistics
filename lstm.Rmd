@@ -26,12 +26,12 @@ Adapted from [this online post](https://blog.aidangomez.ca/2016/04/17/Backpropog
 
 The activation $a_t$ is not a gate, but rather an affine transformation followed by an activation. 
 
-$$\mathbf a_t = \widetilde{C} = \mathbf W_a \cdot \begin{bmatrix} \mathbf x_t \\ h_{t-1}\end{bmatrix}  + \mathbf b_a$$
+$$\mathbf a_t = \widetilde{C} = \begin{bmatrix}\mathbf W_a&\mathbf U_a\end{bmatrix} \cdot \begin{bmatrix} \mathbf x_t \\ h_{t-1}\end{bmatrix}  + \mathbf b_a$$
 
 In the example from the linked tutorial (including the toy numbers that follow), and at the step $t-1,$
 
 
-$$\mathbf a_{t-1} =\tanh \left( \mathbf W_a \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_a \right)
+$$\mathbf a_{t-1} =\tanh \left( \begin{bmatrix}\mathbf W_a&\mathbf U_a\end{bmatrix} \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_a \right)
 =\tanh \left( \begin{bmatrix}0.45 & 0.25 & 0.15 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.2 \right)=0.82
 $$
 
@@ -46,10 +46,10 @@ tanh(c(W_a, update_prior_output)%*%c(x_initial, prior_output) + bias_a )
 
 ### Input gate:
 
-$$i_t = \sigma \left( \mathbf W_i  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)$$
+$$i_t = \sigma \left( \begin{bmatrix}\mathbf W_i&\mathbf U_i\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)$$
 Therefore for the first layer $(t-1),$
 
-$$i_t = \sigma \left( \mathbf W_i  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)=\sigma \left( \begin{bmatrix}0.95 & 0.8 & 0.8 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.65 \right)=0.96$$
+$$i_t = \sigma \left( \begin{bmatrix}\mathbf W_i&\mathbf U_i\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)=\sigma \left( \begin{bmatrix}0.95 & 0.8 & 0.8 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.65 \right)=0.96$$
 
 ```{r}
 W_i = c(0.95, 0.8)
@@ -62,11 +62,11 @@ bias_i = 0.65
 
 ###Forget gate:
 
-$$f_t = \sigma \left( \mathbf W_f  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)$$
+$$f_t = \sigma \left( \begin{bmatrix}\mathbf W_f&\mathbf U_f\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)$$
 
 Therefore for the first layer $(t-1),$
 
-$$f_t = \sigma \left( \mathbf W_f  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)=\sigma \left( \begin{bmatrix}0.7 & 0.45 & 0.1 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.15 \right)=0.85$$
+$$f_t = \sigma \left(\begin{bmatrix}\mathbf W_f&\mathbf U_f\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)=\sigma \left( \begin{bmatrix}0.7 & 0.45 & 0.1 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.15 \right)=0.85$$
 
 ```{r}
 W_f = c(0.7, 0.45)
@@ -80,11 +80,11 @@ bias_f = 0.15
 
 ###Output gate:
 
-$$o_t = \sigma \left( \mathbf W_o  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_0 \right)$$
+$$o_t = \sigma \left( \begin{bmatrix}\mathbf W_o&\mathbf U_o\end{bmatrix} \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_0 \right)$$
 
 Therefore for the first layer $(t-1),$
 
-$$o_t = \sigma \left( \mathbf W_o  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_o \right)=\sigma \left( \begin{bmatrix}0.6 & 0.4 & 0.25 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.1 \right)=0.82$$
+$$o_t = \sigma \left( \begin{bmatrix}\mathbf W_o&\mathbf U_o\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_o \right)=\sigma \left( \begin{bmatrix}0.6 & 0.4 & 0.25 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.1 \right)=0.82$$
 
 ```{r}
 W_o = c(0.6, 0.4)
@@ -106,9 +106,9 @@ For the $t-1$ the calculation is
 
 $$C_{t-1}=0.82\times0.96+0.85×0=0.79$$
 
-####Ouput:
+####Ouput $(h_t):$
 
-$$h_t = \tanh\left( C_t \odot o_t  \right)$$
+$$h_t = \tanh\left( C_t\right)\odot o_t$$
 For the $t-1$ layer the calculation is:
 
 $$h_{t-1} = \tanh(0.79) \odot 0.82=0.53$$
@@ -118,9 +118,35 @@ Now the calculations can be repeated for the layer $t$ with the following inputs
 $$x_t =\begin{bmatrix}0.5\\0.3\\0.53 \end{bmatrix}$$
 where $0.53$ is the output of the prior layer.
 
-The matrix of weights is **the same as in the prior step!**
+The matrix of weights is **the same as in the prior step!** The results are embedded in the figure above.
+
+---
+
+### Backpropagation:
+
+<img height = 10  src = "https://user-images.githubusercontent.com/9312897/28578631-4d8bde16-7128-11e7-9a26-3804f51fcad9.png">
 
 
+
+We start with the loss function, and to make it simple, $J = \frac{(h_t - y_t)^2}{2}$ with derivative $\frac{d}{d h_t}J = h_t - y_t:$
+
+$$\Delta_t = 0.77197−1.25=−0.47803$$
+
+Since there are no additional layers, there is no error from layers on top to add up to this value. If it weren't the last layer, we'd need to add it: it is as though we were imputing "blame" to the output of a layer for the bad "karma" it has contributed upstream. So in the layer $t - 1$ the error will be:
+
+$$\Delta h_{t-1}=\Delta_{t-1}\Delta_{\text{out}_{t-1}}=0.03631-0.01828=0.01803$$
+
+---
+
+Backpropagating this error to the cell state, $C_t,$
+
+$$\begin{align} h_t &= \tanh\left( C_t   \right)\odot o_t\\[2ex] 
+   &= \tanh\left(a_t \odot i_t + f_t \odot C_{t-1}\right) \odot o_t
+   \end{align}$$
+   
+We can get the 
+
+$$\frac{\partial}{\partial C_t} J = \Delta_t \odot \left( 1 - \tanh^2\left( C_t \right)\right) \odot o_t + \frac{\partial}{\partial C_{t+1}} \odot f_{t+1}$$
 
 ---
 
