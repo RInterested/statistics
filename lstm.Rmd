@@ -16,17 +16,17 @@ output:
 
 <br>
 
-<img height = 10  src = "https://user-images.githubusercontent.com/9312897/28521315-07a2f1d8-7041-11e7-80d0-ef255b5d12f6.png">
+<img src = "https://user-images.githubusercontent.com/9312897/28521315-07a2f1d8-7041-11e7-80d0-ef255b5d12f6.png">
 
 ---
 
 Adapted from [this online post](https://blog.aidangomez.ca/2016/04/17/Backpropogating-an-LSTM-A-Numerical-Example/):
 
-<img height = 10  src = "https://user-images.githubusercontent.com/9312897/28549944-aa01ee06-70ab-11e7-8c3d-d9ae2b65ebef.png">
+<img height = 7  src = "https://user-images.githubusercontent.com/9312897/28549944-aa01ee06-70ab-11e7-8c3d-d9ae2b65ebef.png">
 
 The activation $a_t$ is not a gate, but rather an affine transformation followed by an activation. 
 
-$$\mathbf a_t = \widetilde{C} = \begin{bmatrix}\mathbf W_a&\mathbf U_a\end{bmatrix} \cdot \begin{bmatrix} \mathbf x_t \\ h_{t-1}\end{bmatrix}  + \mathbf b_a$$
+$$\mathbf a_t = \widetilde{C} = \tanh\left(\begin{bmatrix}\mathbf W_a&\mathbf U_a\end{bmatrix} \cdot \begin{bmatrix} \mathbf x_t \\ h_{t-1}\end{bmatrix}  + \mathbf b_a\right)$$
 
 In the example from the linked tutorial (including the toy numbers that follow), and at the step $t-1,$
 
@@ -101,14 +101,14 @@ After calculating the values of the gates (and the activation of the input and p
 
 ####Cell state $(C_t):$
 
-$$C_t =  a_t \odot i_t + f_t \odot C_{t-1}$$
+$$\Large C_t =  a_t \odot i_t + f_t \odot C_{t-1}$$
 For the $t-1$ the calculation is
 
 $$C_{t-1}=0.82\times0.96+0.85×0=0.79$$
 
 ####Ouput $(h_t):$
 
-$$h_t = \tanh\left( C_t\right)\odot o_t$$
+$$\Large h_t = \tanh\left( C_t\right)\odot o_t$$
 For the $t-1$ layer the calculation is:
 
 $$h_{t-1} = \tanh(0.79) \odot 0.82=0.53$$
@@ -132,21 +132,49 @@ We start with the loss function, and to make it simple, $J = \frac{(h_t - y_t)^2
 
 $$\Delta_t = 0.77197−1.25=−0.47803$$
 
-Since there are no additional layers, there is no error from layers on top to add up to this value. If it weren't the last layer, we'd need to add it: it is as though we were imputing "blame" to the output of a layer for the bad "karma" it has contributed upstream. So in the layer $t - 1$ the error will be:
+Since there are no additional layers, there is no error from layers on top to add up to this value. If it weren't the last layer, we'd need to add it: it is as though we were imputing "blame" to the output of a layer for the bad "karma" it has contributed upstream. 
 
-$$\Delta h_{t-1}=\Delta_{t-1}\Delta_{\text{out}_{t-1}}=0.03631-0.01828=0.01803$$
+$$\color{blue}{\Delta_{T_t} }= \Delta_t + \Delta_{\text{out}_t}$$
+
+So in the layer $t - 1$ the error will be:
+
+$$\Delta _{T_{t-1}}=\Delta_{t-1}+\Delta_{\text{out}_{t-1}}=0.03631-0.01828=0.01803$$
 
 ---
 
 Backpropagating this error to the cell state, $C_t,$
 
-$$\begin{align} h_t &= \tanh\left( C_t   \right)\odot o_t\\[2ex] 
-   &= \tanh\left(a_t \odot i_t + f_t \odot C_{t-1}\right) \odot o_t
-   \end{align}$$
+$$ h_t = \tanh\left( C_t   \right)\odot o_t$$
    
-We can get the 
+We can get the cost in relation to the cell state:
 
-$$\frac{\partial}{\partial C_t} J = \Delta_t \odot \left( 1 - \tanh^2\left( C_t \right)\right) \odot o_t + \frac{\partial}{\partial C_{t+1}} \odot f_{t+1}$$
+$$\color{blue}{\frac{\partial}{\partial C_t} J} = \Delta_t \odot \left( 1 - \tanh^2\left( C_t \right)\right) \odot o_t + \frac{\partial}{\partial C_{t+1}} \odot f_{t+1}$$
+
+Or the activation:
+
+$$\frac {\partial}{\partial a_t}J = \color{blue}{\frac{\partial}{\partial C_t} J} \odot i_{t} \odot (1 - a_{t}^{2})$$
+
+the input gate:
+
+$$\frac{\partial}{\partial i_t} J = \color{blue}{\frac{\partial}{\partial C_t} J}\odot a_{t} \odot \underbrace{i_{t} \odot (1 - i_{t})}$$
+
+remembering that the derivative of the logistic function is $\sigma(x)\;[1-\sigma(x)].$
+
+
+the forget gate:
+
+$$\frac{\partial}{\partial i_t} J = \color{blue}{\frac{\partial}{\partial C_t} J}\odot \color{blue}{\frac{\partial}{\partial C_{t-1}} J} \odot \underbrace{f_{t} \odot (1 - f_{t})}$$
+
+the output gate:
+
+$$\frac{\partial}{\partial o_t} J = \color{blue}{\Delta_{T_t}}\odot \tanh\left( C_t\right)\odot  \underbrace{o_t \odot (1 - o_t)}$$
+
+Bundling these gate partial derivatives of the loss function:
+
+
+$$\Delta_{\text{gate}_t}= \begin{bmatrix}\frac {\partial}{\partial a_t}J\\ \frac{\partial}{\partial i_t} J \\ \frac{\partial}{\partial f_t} J \\ \frac{\partial}{\partial o_t} J\end{bmatrix}$$
+
+
 
 ---
 
