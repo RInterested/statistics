@@ -28,7 +28,7 @@ Adapted from [this online post](https://blog.aidangomez.ca/2016/04/17/Backpropog
 
 <img height = 7  src = "https://user-images.githubusercontent.com/9312897/28549944-aa01ee06-70ab-11e7-8c3d-d9ae2b65ebef.png">
 
-The activation $a_t$ is not a gate, but rather an affine transformation followed by a tanh function: 
+The activation $a_t$ is not a gate, but rather an affine transformation followed by a tanh function. It proposes the new cell state: 
 
 $$\mathbf a_t = \widetilde{C} = \tanh\left(\begin{bmatrix}\mathbf W_a&\mathbf U_a\end{bmatrix} \cdot \begin{bmatrix} \mathbf x_t \\ h_{t-1}\end{bmatrix}  + \mathbf b_a\right)$$
 
@@ -53,7 +53,7 @@ prior_output = 0              # Since it is the first layer, there is no prior o
 $$i_t = \sigma \left( \begin{bmatrix}\mathbf W_i&\mathbf U_i\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)$$
 Therefore for the first layer $(t-1),$
 
-$$i_t = \sigma \left( \begin{bmatrix}\mathbf W_i&\mathbf U_i\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)=\sigma \left( \begin{bmatrix}0.95 & 0.8 & 0.8 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.65 \right)=0.96$$
+$$i_{t-1} = \sigma \left( \begin{bmatrix}\mathbf W_i&\mathbf U_i\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)=\sigma \left( \begin{bmatrix}0.95 & 0.8 & 0.8 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.65 \right)=0.96$$
 
 ```{r}
 W_i = c(0.95, 0.8)            # These are the given weights in the example in the linked post for the input step
@@ -70,7 +70,7 @@ $$f_t = \sigma \left( \begin{bmatrix}\mathbf W_f&\mathbf U_f\end{bmatrix}  \cdot
 
 Therefore for the first layer $(t-1),$
 
-$$f_t = \sigma \left(\begin{bmatrix}\mathbf W_f&\mathbf U_f\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)=\sigma \left( \begin{bmatrix}0.7 & 0.45 & 0.1 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.15 \right)=0.85$$
+$$f_{t-1} = \sigma \left(\begin{bmatrix}\mathbf W_f&\mathbf U_f\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)=\sigma \left( \begin{bmatrix}0.7 & 0.45 & 0.1 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.15 \right)=0.85$$
 
 ```{r}
 W_f = c(0.7, 0.45)           # These are the given weights in the example in the linked post for the forget gate step
@@ -86,7 +86,7 @@ $$o_t = \sigma \left( \begin{bmatrix}\mathbf W_o&\mathbf U_o\end{bmatrix} \cdot 
 
 Therefore for the first layer $(t-1),$
 
-$$o_t = \sigma \left( \begin{bmatrix}\mathbf W_o&\mathbf U_o\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_o \right)=\sigma \left( \begin{bmatrix}0.6 & 0.4 & 0.25 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.1 \right)=0.82$$
+$$o_{t-1} = \sigma \left( \begin{bmatrix}\mathbf W_o&\mathbf U_o\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_o \right)=\sigma \left( \begin{bmatrix}0.6 & 0.4 & 0.25 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.1 \right)=0.82$$
 
 ```{r}
 W_o = c(0.6, 0.4)             # These are the given weights in the example in the linked post for the output gate step
