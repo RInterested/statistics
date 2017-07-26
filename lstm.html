@@ -187,7 +187,7 @@ bias_o = 0.1                  # The given bias in the output gate
 <p>After calculating the values of the gates (and the activation of the input and prior output) we can calculate:</p>
 <div id="cell-state-c_t" class="section level4">
 <h4>Cell state <span class="math inline">\((C_t):\)</span></h4>
-<p><span class="math display">\[\Large C_t =  a_t \odot i_t + f_t \odot C_{t-1}\]</span> For the <span class="math inline">\(t-1\)</span> the calculation is</p>
+<p><span class="math display">\[\color{red}{\Large C_t =  a_t \odot i_t + f_t \odot C_{t-1}}\]</span> For the <span class="math inline">\(t-1\)</span> the calculation is</p>
 <p><span class="math display">\[C_{t-1}=0.82\times0.96+0.85×0=0.79\]</span></p>
 <pre class="r"><code>C_t_minus_2 = 0
 (C_t_minus_1 = a_t_minus_1 * i_t_minus_1 + f_t_minus_1 * C_t_minus_2)</code></pre>
@@ -197,7 +197,7 @@ bias_o = 0.1                  # The given bias in the output gate
 </div>
 <div id="ouput-h_t" class="section level4">
 <h4>Ouput <span class="math inline">\((h_t):\)</span></h4>
-<p><span class="math display">\[\Large h_t = \tanh\left( C_t\right)\odot o_t\]</span> For the <span class="math inline">\(t-1\)</span> layer the calculation is:</p>
+<p><span class="math display">\[\color{red}{\Large h_t = \tanh\left( C_t\right)\odot o_t}\]</span> For the <span class="math inline">\(t-1\)</span> layer the calculation is:</p>
 <p><span class="math display">\[h_{t-1} = \tanh(0.79) \odot 0.82=0.53\]</span></p>
 <pre class="r"><code>(h_t_minus_1 = tanh(C_t_minus_1) * o_t_minus_1)</code></pre>
 <pre><code>##           [,1]
