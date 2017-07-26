@@ -229,7 +229,20 @@ $$\frac{\partial}{\partial o_t} J = \color{blue}{\Delta_{T_t}}\odot \tanh\left( 
 Bundling these gate partial derivatives of the loss function:
 
 
-$$\Delta_{\text{gate}_t}= \begin{bmatrix}\frac {\partial}{\partial a_t}J\\ \frac{\partial}{\partial i_t} J \\ \frac{\partial}{\partial f_t} J \\ \frac{\partial}{\partial o_t} J\end{bmatrix}$$
+$$\Delta_{\text{gate}_t}= \begin{bmatrix}\frac {\partial}{\partial a_t}J\\ \frac{\partial}{\partial i_t} J \\ \frac{\partial}{\partial f_t} J \\ \frac{\partial}{\partial o_t} J\end{bmatrix}=
+\begin{bmatrix} 
+\text{delta_a_t}\\
+\text{delta_i_t}\\
+\text{delta_f_t}\\
+\text{delta_o_t}
+\end{bmatrix}=
+\begin{bmatrix}
+-0.019\\
+-0.0011\\
+-0.0063\\
+-0.055
+\end{bmatrix}
+$$
 
 ```{r}
 (delta_gate_t = c(delta_a_t, delta_i_t, delta_f_t, delta_o_t))
@@ -237,7 +250,7 @@ $$\Delta_{\text{gate}_t}= \begin{bmatrix}\frac {\partial}{\partial a_t}J\\ \frac
 The "karma" passed back to $t-1$ is
 
 ```{r}
-(U = c(update_prior_output_a, update_prior_output_i, update_prior_output_f, update_prior_output_o))
+U = c(update_prior_output_a, update_prior_output_i, update_prior_output_f, update_prior_output_o)
 (delta_out_t_minus_1 = U %*% delta_gate_t)
 ```
 
@@ -259,17 +272,80 @@ for a total delta at $t-1$
 (delta_o_t_minus_1 = delta_total_t_minus_1 * tanh(C_t_minus_1) * o_t_minus_1 * (1 - o_t_minus_1))
 ```
 
-will be then used to calcuate:
+We can compile these results into
 
-$$\Delta \mathbf W =\sum_{t=1}^T \Delta_{\text{gate}_t}\otimes \mathbf x_t$$
-$$\Delta \mathbf U =\sum_{t=1}^{T-1} \Delta_{\text{gate}_{t+1}}\otimes \mathbf h_t$$
+
+$$\Delta_{\text{gate}_{t-1}} = \begin{bmatrix}\text{delta_a_t_minus_1}\\
+\text{delta_i_t_minus_1}\\
+\text{delta_f_t_minus_1}\\
+\text{elta_o_t_minus_1}
+\end{bmatrix}= \begin{bmatrix}-0.017\\-0.0016\\0\\0.0017\end{bmatrix}$$
+
+
+We will be then used to calcuate:
+
+$$\begin{align}
+\Delta \mathbf W &=\sum_{t=1}^T \Delta_{\text{gate}_t}\otimes \mathbf x_t\\[2ex]&=
+\begin{bmatrix}\text{delta_a_t_minus_1}\\
+\text{delta_i_t_minus_1}\\
+\text{delta_f_t_minus_1}\\
+\text{elta_o_t_minus_1}
+\end{bmatrix} \begin{bmatrix}\text{x_t_minus_1}\end{bmatrix}+
+\begin{bmatrix} 
+\text{delta_a_t}\\
+\text{delta_i_t}\\
+\text{delta_f_t}\\
+\text{delta_o_t}
+\end{bmatrix}
+\begin{bmatrix}\text{x_t}\end{bmatrix}\\[2ex]
+&=
+\begin{bmatrix}-0.017\\-0.0016\\0\\0.0017\end{bmatrix} 
+\begin{bmatrix}1&2\end{bmatrix} +
+\begin{bmatrix}
+-0.019\\
+-0.0011\\
+-0.0063\\
+-0.055
+\end{bmatrix}
+\begin{bmatrix}0.5&3\end{bmatrix}
+\end{align}
+$$
+
+```{r}
+Delta_t_minus_1 = c(delta_a_t_minus_1, delta_i_t_minus_1,
+                    delta_f_t_minus_1, delta_o_t_minus_1)
+Delta_t         = c(delta_a_t, delta_i_t,
+                    delta_f_t, delta_o_t)
+(Delta_W = outer(Delta_t_minus_1, x_t_minus_1,"*") + 
+           outer(Delta_t, x_t, "*"))
+```
+
+$$\Delta \mathbf U =\sum_{t=1}^{T} \Delta_{\text{gate}_{t}}\otimes \mathbf h_{t-1}$$
+```{r}
+(Delta_U = outer(Delta_t, h_t_minus_1,"*"))
+```
 
 $$\Delta \mathbf b =\sum_{t=1}^{T} \Delta_{\text{gate}_{t+1}}$$
+
+```{r}
+(Delta_bias = Delta_t_minus_1 + Delta_t)
+```
 
 to proceed with the update:
 
 $$W^{new} = W^{old} - \lambda * \Delta W^{old}$$
+If we fix the learning rate at $\lambda =0.1$,
 
+```{r}
+(W = matrix(c(W_a, W_i, W_f, W_o), ncol=2, byrow=T))
+(W_new = W - 0.1 * Delta_W)
+(U_new = U - 0.1 * Delta_U)
+bias = matrix(c(bias_a, bias_i, bias_f, bias_o), ncol=1)
+(bias_new = bias - 0.1 * Delta_bias)
+```
+
+
+<img src="https://user-images.githubusercontent.com/9312897/28632005-18aa8eba-71fd-11e7-9072-c11430d4fafc.png">
 
 ---
 
