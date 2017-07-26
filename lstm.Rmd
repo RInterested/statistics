@@ -16,33 +16,37 @@ output:
 
 <br>
 
-<img src = "https://user-images.githubusercontent.com/9312897/28521315-07a2f1d8-7041-11e7-80d0-ef255b5d12f6.png">
+<img src = "https://user-images.githubusercontent.com/9312897/28601994-83592f92-7189-11e7-9d59-506c1ceed2d1.png">
 
 ---
 
 Adapted from [this online post](https://blog.aidangomez.ca/2016/04/17/Backpropogating-an-LSTM-A-Numerical-Example/):
 
+<img src = "https://user-images.githubusercontent.com/9312897/28602075-faa03262-7189-11e7-861d-5a24a096fea9.png">
+
+---
+
 <img height = 7  src = "https://user-images.githubusercontent.com/9312897/28549944-aa01ee06-70ab-11e7-8c3d-d9ae2b65ebef.png">
 
-The activation $a_t$ is not a gate, but rather an affine transformation followed by an activation. 
+The activation $a_t$ is not a gate, but rather an affine transformation followed by a tanh function: 
 
 $$\mathbf a_t = \widetilde{C} = \tanh\left(\begin{bmatrix}\mathbf W_a&\mathbf U_a\end{bmatrix} \cdot \begin{bmatrix} \mathbf x_t \\ h_{t-1}\end{bmatrix}  + \mathbf b_a\right)$$
 
 In the example from the linked tutorial (including the toy numbers that follow), and at the step $t-1,$
-
 
 $$\mathbf a_{t-1} =\tanh \left( \begin{bmatrix}\mathbf W_a&\mathbf U_a\end{bmatrix} \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_a \right)
 =\tanh \left( \begin{bmatrix}0.45 & 0.25 & 0.15 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.2 \right)=0.82
 $$
 
 ```{r}
-W_a = c(0.45, 0.25)
-update_prior_output = 0.15
-x_initial = c(1,2)
-prior_output = 0
-bias_a = 0.2
-tanh(c(W_a, update_prior_output)%*%c(x_initial, prior_output) + bias_a )
+W_a = c(0.45, 0.25)           # These are the given weights in the example in the linked post for the activation step
+update_prior_output_a = 0.15  # This is the weight in the activation given to the output (h) in the prior layer - also given
+bias_a = 0.2                  # The given bias in the activation.
+x_t_minus_1 = c(1,2)          # The given input values at t - 1.
+prior_output = 0              # Since it is the first layer, there is no prior output
+(a_t_minus_1 = tanh(c(W_a, update_prior_output_a)%*%c(x_t_minus_1, prior_output) + bias_a ))
 ```
+---
 
 ### Input gate:
 
@@ -52,13 +56,13 @@ Therefore for the first layer $(t-1),$
 $$i_t = \sigma \left( \begin{bmatrix}\mathbf W_i&\mathbf U_i\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_i \right)=\sigma \left( \begin{bmatrix}0.95 & 0.8 & 0.8 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.65 \right)=0.96$$
 
 ```{r}
-W_i = c(0.95, 0.8)
-update_prior_output_i = 0.8
-x_initial = c(1,2)
-prior_output = 0
-bias_i = 0.65
-1/(1 + exp(-(c(W_i, update_prior_output_i)%*%c(x_initial, prior_output) + bias_i)))
+W_i = c(0.95, 0.8)            # These are the given weights in the example in the linked post for the input step
+update_prior_output_i = 0.8   # This is the weight in the input given to the output (h) in the prior layer - also given
+bias_i = 0.65                 # The given bias in the input gate
+(i_t_minus_1 = 1/(1 + exp(-(c(W_i, update_prior_output_i)%*%c(x_t_minus_1, prior_output) + bias_i))))
 ```
+
+---
 
 ###Forget gate:
 
@@ -69,14 +73,12 @@ Therefore for the first layer $(t-1),$
 $$f_t = \sigma \left(\begin{bmatrix}\mathbf W_f&\mathbf U_f\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_f \right)=\sigma \left( \begin{bmatrix}0.7 & 0.45 & 0.1 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.15 \right)=0.85$$
 
 ```{r}
-W_f = c(0.7, 0.45)
-update_prior_output_f = 0.1
-x_initial = c(1,2)
-prior_output = 0
-bias_f = 0.15
-1/(1 + exp(-(c(W_f, update_prior_output_f)%*%c(x_initial, prior_output) + bias_f)))
+W_f = c(0.7, 0.45)           # These are the given weights in the example in the linked post for the forget gate step
+update_prior_output_f = 0.1  # This is the weight in the forget gate given to the output (h) in the prior layer - also given
+bias_f = 0.15                # The given bias in the forget gate
+(f_t_minus_1 = 1/(1 + exp(-(c(W_f, update_prior_output_f)%*%c(x_t_minus_1, prior_output) + bias_f))))
 ```
-
+---
 
 ###Output gate:
 
@@ -87,12 +89,10 @@ Therefore for the first layer $(t-1),$
 $$o_t = \sigma \left( \begin{bmatrix}\mathbf W_o&\mathbf U_o\end{bmatrix}  \cdot \begin{bmatrix} \mathbf x_{t-1} \\ h_{t-2}\end{bmatrix}  + \mathbf b_o \right)=\sigma \left( \begin{bmatrix}0.6 & 0.4 & 0.25 \end{bmatrix} \cdot \begin{bmatrix} 1\\2\\0 \end{bmatrix}  + 0.1 \right)=0.82$$
 
 ```{r}
-W_o = c(0.6, 0.4)
-update_prior_output_o = 0.25
-x_initial = c(1,2)
-prior_output = 0
-bias_o = 0.1
-1/(1 + exp(-(c(W_o, update_prior_output_o)%*%c(x_initial, prior_output) + bias_o)))
+W_o = c(0.6, 0.4)             # These are the given weights in the example in the linked post for the output gate step
+update_prior_output_o = 0.25  # This is the weight in the output gate given to the output (h) in the prior layer - also given
+bias_o = 0.1                  # The given bias in the output gate
+(o_t_minus_1 = 1/(1 + exp(-(c(W_o, update_prior_output_o)%*%c(x_t_minus_1, prior_output) + bias_o))))
 ```
 
 ---
@@ -106,6 +106,13 @@ For the $t-1$ the calculation is
 
 $$C_{t-1}=0.82\times0.96+0.85×0=0.79$$
 
+```{r}
+C_t_minus_2 = 0
+(C_t_minus_1 = a_t_minus_1 * i_t_minus_1 + f_t_minus_1 * C_t_minus_2)
+```
+
+---
+
 ####Ouput $(h_t):$
 
 $$\Large h_t = \tanh\left( C_t\right)\odot o_t$$
@@ -113,16 +120,35 @@ For the $t-1$ layer the calculation is:
 
 $$h_{t-1} = \tanh(0.79) \odot 0.82=0.53$$
 
+```{r}
+(h_t_minus_1 = tanh(C_t_minus_1) * o_t_minus_1)
+```
+
+---
+
 Now the calculations can be repeated for the layer $t$ with the following inputs:
 
 $$x_t =\begin{bmatrix}0.5\\0.3\\0.53 \end{bmatrix}$$
 where $0.53$ is the output of the prior layer.
 
-The matrix of weights is **the same as in the prior step!** The results are embedded in the figure above.
+The matrix of weights is **the same as in the prior step!** The results are embedded in the figure above. In R code:
+
+
+```{r}
+x_t = c(.5,3)
+(a_t = tanh(c(W_a, update_prior_output_a)%*%c(x_t, h_t_minus_1) + bias_a ))
+(i_t = 1/(1 + exp(-(c(W_i, update_prior_output_i)%*%c(x_t, h_t_minus_1) + bias_i))))
+(f_t = 1/(1 + exp(-(c(W_f, update_prior_output_f)%*%c(x_t, h_t_minus_1) + bias_f))))
+(o_t = 1/(1 + exp(-(c(W_o, update_prior_output_o)%*%c(x_t, h_t_minus_1) + bias_o))))
+(C_t = a_t * i_t + f_t * C_t_minus_1)
+(h_t = tanh(C_t) * o_t)
+```
+
+
 
 ---
 
-### Backpropagation:
+## Backpropagation:
 
 <img height = 10  src = "https://user-images.githubusercontent.com/9312897/28578631-4d8bde16-7128-11e7-9a26-3804f51fcad9.png">
 
@@ -132,9 +158,19 @@ We start with the loss function, and to make it simple, $J = \frac{(h_t - y_t)^2
 
 $$\Delta_t = 0.77197−1.25=−0.47803$$
 
+```{r}
+y_t = 1.25
+(delta_t = h_t - y_t)
+```
+
 Since there are no additional layers, there is no error from layers on top to add up to this value. If it weren't the last layer, we'd need to add it: it is as though we were imputing "blame" to the output of a layer for the bad "karma" it has contributed upstream. 
 
 $$\color{blue}{\Delta_{T_t} }= \Delta_t + \Delta_{\text{out}_t}$$
+
+```{r}
+delta_out_t = 0
+(delta_total_t = delta_t + delta_out_t)
+```
 
 So in the layer $t - 1$ the error will be:
 
@@ -145,34 +181,84 @@ $$\Delta _{T_{t-1}}=\Delta_{t-1}+\Delta_{\text{out}_{t-1}}=0.03631-0.01828=0.018
 Backpropagating this error to the cell state, $C_t,$
 
 $$ h_t = \tanh\left( C_t   \right)\odot o_t$$
+
    
 we can get the cost in relation to the cell state:
 
 $$\color{blue}{\frac{\partial}{\partial C_t} J} = \Delta_t \odot \left( 1 - \tanh^2\left( C_t \right)\right) \odot o_t + \frac{\partial}{\partial C_{t+1}} \odot f_{t+1}$$
 
+```{r}
+(delta_C_t = delta_total_t * (1 - tanh(C_t)^2) * o_t + 0)
+```
+
 Or the activation:
 
 $$\frac {\partial}{\partial a_t}J = \color{blue}{\frac{\partial}{\partial C_t} J} \odot i_{t} \odot (1 - a_{t}^{2})$$
 
+```{r}
+(delta_a_t = delta_C_t * i_t * (1 - a_t^2))
+```
+
 the input gate:
 
 $$\frac{\partial}{\partial i_t} J = \color{blue}{\frac{\partial}{\partial C_t} J}\odot a_{t} \odot \underbrace{i_{t} \odot (1 - i_{t})}$$
+
+```{r}
+(delta_i_t = delta_C_t * a_t * i_t *(1 - i_t))
+```
 
 remembering that the derivative of the logistic function is $\sigma(x)\;[1-\sigma(x)].$
 
 
 the forget gate:
 
-$$\frac{\partial}{\partial i_t} J = \color{blue}{\frac{\partial}{\partial C_t} J}\odot \color{blue}{\frac{\partial}{\partial C_{t-1}} J} \odot \underbrace{f_{t} \odot (1 - f_{t})}$$
+$$\frac{\partial}{\partial f_t} J = \color{blue}{\frac{\partial}{\partial C_t} J}\odot C_{t-1} \odot \underbrace{f_{t} \odot (1 - f_{t})}$$
+```{r}
+(delta_f_t = delta_C_t * C_t_minus_1 * f_t * (1 - f_t))
+```
+
 
 the output gate:
 
 $$\frac{\partial}{\partial o_t} J = \color{blue}{\Delta_{T_t}}\odot \tanh\left( C_t\right)\odot  \underbrace{o_t \odot (1 - o_t)}$$
 
+```{r}
+(delta_o_t = delta_total_t * tanh(C_t) * o_t * (1 - o_t))
+```
+
 Bundling these gate partial derivatives of the loss function:
 
 
 $$\Delta_{\text{gate}_t}= \begin{bmatrix}\frac {\partial}{\partial a_t}J\\ \frac{\partial}{\partial i_t} J \\ \frac{\partial}{\partial f_t} J \\ \frac{\partial}{\partial o_t} J\end{bmatrix}$$
+
+```{r}
+(delta_gate_t = c(delta_a_t, delta_i_t, delta_f_t, delta_o_t))
+```
+The "karma" passed back to $t-1$ is
+
+```{r}
+(U = c(update_prior_output_a, update_prior_output_i, update_prior_output_f, update_prior_output_o))
+(delta_out_t_minus_1 = U %*% delta_gate_t)
+```
+
+And the delta at $t-1$
+
+```{r}
+y_t_minus_1 = .5
+(delta_t_minus_1 = h_t_minus_1 - y_t_minus_1)
+```
+
+for a total delta at $t-1$
+
+```{r}
+(delta_total_t_minus_1 = delta_t_minus_1 + delta_out_t_minus_1)
+(delta_C_t_minus_1 = delta_total_t_minus_1 * (1 - tanh(C_t_minus_1)^2) * o_t_minus_1 + delta_C_t * f_t)
+(delta_a_t_minus_1 = delta_C_t_minus_1 * i_t_minus_1 * (1 - a_t_minus_1^2))
+(delta_i_t_minus_1 = delta_C_t_minus_1 * a_t_minus_1 * i_t_minus_1 *(1 - i_t_minus_1))
+(delta_f_t_minus_1 = delta_C_t_minus_1 * C_t_minus_2 * f_t_minus_1 * (1 - f_t_minus_1))
+(delta_o_t_minus_1 = delta_total_t_minus_1 * tanh(C_t_minus_1) * o_t_minus_1 * (1 - o_t_minus_1))
+```
+
 will be then used to calcuate:
 
 $$\Delta \mathbf W =\sum_{t=1}^T \Delta_{\text{gate}_t}\otimes \mathbf x_t$$
