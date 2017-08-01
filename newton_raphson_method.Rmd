@@ -1,0 +1,54 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###NEWTON-RAPHSON METHOD APPLIED TO FINDING INTEREST RATE ON A LOAN:
+<br>
+
+##### LOAN MATHEMATICS:
+
+We take a loan out from the bank: the principal $P$ to be repaid in a fixed amount of time (let's assume monthly payments $n =360$, corresponding to monthly payments for $30$ years) with interest compounded every month $i = \text{nominal interest}/12$. Every month the payment is $R$ ("rent") dollars.
+
+At time zero, we take the loan, and it starts accruing interest. After a month, the amount owed will be:
+
+$$P \; (1 +i)$$
+
+at which point we make the first payment. Now the balance will be left at
+
+$$\text{balance owed}= P \; (1 +i) - R$$
+
+on which interest will be accrued, so that by the end of the second month (and after making the second payment) the balance will be
+
+$$\begin{align}\text{balance owed} &= \left [P\; (1 + i) - R\; \right] \;(1 + i) - R\\[2ex]
+&= P\;(1+i)^2-R(1+i)-R
+\end{align}$$
+
+At the end of the third month the balance will be
+
+$$\begin{align}\text{balance owed} &= \left[P\;(1+i)^2-R\;(1+i)-R\;\right]\;(1+i)-R\\[2ex]
+&= P\;(1+i)^3-R\;(1+i)^2-R\;(1+i)-R
+\end{align}$$
+
+At the end of the $n$ payments, the balance will be zero
+
+$$\begin{align} 0 &= P\;(1+i)^n-R\;(1+i)^{n-1}-R\;(1+i)^{n-2}-\;\cdots\;-R\;(1+i)^0\\[2ex]
+&=P\;(1+i)^n - R\;\frac{1-(1+i)^n}{1-(1+i)}\\[2ex]
+&=P\;(1+i)^n - R\;\frac{1-(1+i)^n}{i}\\[2ex]
+&=P\;(1+i)^n + R\;\frac{(1+i)^n-1}{i}
+\end{align}$$
+
+because $-R\;(1+i)^{n-1}-R\;(1+i)^{n-2}-\;\cdots\;-R\;(1+i)^0$ forms a geometrical series, and
+
+$$\sum_{k=0}^{n-1}a\;r^k=a\;\frac{1-r^n}{1-r}$$
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
