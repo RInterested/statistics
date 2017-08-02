@@ -123,14 +123,16 @@ And the R code,
 interest = function(loan, pmt, n){
   F =       function(x) (loan * x^(n+1) - (loan + pmt) * x^n + pmt)
   F_prime = function(x) (loan * (n+1) * x^n - (loan + pmt) * n * x^(n-1))
+  
   guess = 1 + (((pmt * n / loan) - 1) / 12) 
 
   x = guess
-    while(F(x) > (1 + 10e-6)){
+  
+    while(abs(F(x)) > (1e-6)){
       x = x -  F(x)/ F_prime(x)
       print(x)
     }
-  x  
+  print(12 * (x - 1))
 }
 
 interest(700,35,24)

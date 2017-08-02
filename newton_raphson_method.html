@@ -195,18 +195,23 @@ P x (x+1)^{2 n-1}}{\left((x+1)^n-1\right)^2}\\[2ex]
 <pre class="r"><code>interest = function(loan, pmt, n){
   F =       function(x) (loan * x^(n+1) - (loan + pmt) * x^n + pmt)
   F_prime = function(x) (loan * (n+1) * x^n - (loan + pmt) * n * x^(n-1))
+  
   guess = 1 + (((pmt * n / loan) - 1) / 12) 
 
   x = guess
-    while(F(x) &gt; (1 + 10e-6)){
+  
+    while(abs(F(x)) &gt; (1e-6)){
       x = x -  F(x)/ F_prime(x)
       print(x)
     }
-  x  
+  print(12 * (x - 1))
 }
 
 interest(700,35,24)</code></pre>
-<pre><code>## [1] 1.016667</code></pre>
+<pre><code>## [1] 1.01529
+## [1] 1.015133
+## [1] 1.015131
+## [1] 0.1815701</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
