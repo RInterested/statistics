@@ -170,7 +170,12 @@ R&amp;=P\;i\;\frac{(1+i)^n}{\left((1+i)^n-1\right)}\tag 1
 <p>Going back to equation <span class="math inline">\((1),\)</span> and taking into consideration that <span class="math inline">\(i\)</span> is the variable to optimize,</p>
 <p><span class="math display">\[F(x) = \frac{P\;x\;(1+x)^n}{\left((1+x)^n-1\right)}-R\]</span></p>
 <p>Therefore,</p>
-<p><span class="math display">\[F'(x)=\frac{P (x+1)^{n-1} \left(x (x+1)^n+(x+1)^n-n x-x-1\right)}{\left((x+1)^n-1\right)^2}\]</span></p>
+<p><span class="math display">\[\begin{align}
+F'(x)&amp;=\frac{\partial \left(\frac{P x (x+1)^n}{(x+1)^n-1}-R\right)}{\partial x}\\[2ex]
+&amp;=\frac{n P x (x+1)^{n-1}}{(x+1)^n-1}+\frac{P (x+1)^n}{(x+1)^n-1}-\frac{n
+P x (x+1)^{2 n-1}}{\left((x+1)^n-1\right)^2}\\[2ex]
+&amp;=\frac{P (x+1)^{n-1} \left(x (x+1)^n+(x+1)^n-n x-x-1\right)}{\left((x+1)^n-1\right)^2}
+\end{align}\]</span></p>
 <p>Let’s now give some values to the principal and the payment… Say we bought a new phone because we were eligible after a couple of years of using a the iFone 3.0. The new phone is the iFone 3.1, and costs <span class="math inline">\(P= \$ 700\)</span>. The salesman at AT&amp;T tells you that you’ll pay <span class="math inline">\(R =\$ 35\)</span> for <span class="math inline">\(n=24\)</span> months. What is the interest rate being charged?</p>
 <p><span class="math display">\[F(x) = \frac{700\;x\;(1+x)^{24}}{\left((1+x)^{24}-1\right)}-35\]</span></p>
 <p>Plotting</p>
