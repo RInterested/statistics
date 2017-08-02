@@ -110,12 +110,31 @@ $$\begin{align}
 &P\;(1+i)^n = R\;\frac{(1+i)^n-1}{(1+i)-1}\\[2ex]
 &P\,x^n\,(x-1)=R\,(x^n-1)\\[2ex]
 &F(x)=P\,x^n\,(x-1)-R\,(x^n-1)\\[2ex]
-&F(x)=P\,x^{n+1}\,-(P+R)\,x^n-R
+&F(x)=P\,x^{n+1}\,-(P+R)\,x^n+R
 \end{align}$$
 
 a nice polynomial, which derivative is
 
 $$F'(x)=P\, (n+1)\, x^n-(P+R)\,n\,x^{n-1}$$
+
+And the R code,
+
+```{r}
+interest = function(loan, pmt, n){
+  F =       function(x) (loan * x^(n+1) - (loan + pmt) * x^n + pmt)
+  F_prime = function(x) (loan * (n+1) * x^n - (loan + pmt) * n * x^(n-1))
+  guess = 1 + (((pmt * n / loan) - 1) / 12) 
+
+  x = guess
+    while(F(x) > (1 + 10e-6)){
+      x = x -  F(x)/ F_prime(x)
+      print(x)
+    }
+  x  
+}
+
+interest(700,35,24)
+```
 
 ---
 

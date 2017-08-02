@@ -187,10 +187,26 @@ P x (x+1)^{2 n-1}}{\left((x+1)^n-1\right)^2}\\[2ex]
 &amp;P\;(1+i)^n = R\;\frac{(1+i)^n-1}{(1+i)-1}\\[2ex]
 &amp;P\,x^n\,(x-1)=R\,(x^n-1)\\[2ex]
 &amp;F(x)=P\,x^n\,(x-1)-R\,(x^n-1)\\[2ex]
-&amp;F(x)=P\,x^{n+1}\,-(P+R)\,x^n-R
+&amp;F(x)=P\,x^{n+1}\,-(P+R)\,x^n+R
 \end{align}\]</span></p>
 <p>a nice polynomial, which derivative is</p>
 <p><span class="math display">\[F'(x)=P\, (n+1)\, x^n-(P+R)\,n\,x^{n-1}\]</span></p>
+<p>And the R code,</p>
+<pre class="r"><code>interest = function(loan, pmt, n){
+  F =       function(x) (loan * x^(n+1) - (loan + pmt) * x^n + pmt)
+  F_prime = function(x) (loan * (n+1) * x^n - (loan + pmt) * n * x^(n-1))
+  guess = 1 + (((pmt * n / loan) - 1) / 12) 
+
+  x = guess
+    while(F(x) &gt; (1 + 10e-6)){
+      x = x -  F(x)/ F_prime(x)
+      print(x)
+    }
+  x  
+}
+
+interest(700,35,24)</code></pre>
+<pre><code>## [1] 1.016667</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
