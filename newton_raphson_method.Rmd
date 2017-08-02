@@ -40,14 +40,62 @@ At the end of the $n$ payments, the balance will be zero
 
 $$\begin{align} 0 &= P\;(1+i)^n-R\;(1+i)^{n-1}-R\;(1+i)^{n-2}-\;\cdots\;-R\;(1+i)^0\\[2ex]
 &=P\;(1+i)^n - R\;\frac{1-(1+i)^n}{1-(1+i)}\\[2ex]
-&=P\;(1+i)^n - R\;\frac{1-(1+i)^n}{i}\\[2ex]
-&=P\;(1+i)^n + R\;\frac{(1+i)^n-1}{i}
+&=P\;(1+i)^n - R\;\frac{(1+i)^n-1}{(1+i)-1}\\[2ex]
+&=P\;(1+i)^n - R\;\frac{(1+i)^n-1}{i}
 \end{align}$$
 
 because $-R\;(1+i)^{n-1}-R\;(1+i)^{n-2}-\;\cdots\;-R\;(1+i)^0$ forms a geometrical series, and
 
 $$\sum_{k=0}^{n-1}a\;r^k=a\;\frac{1-r^n}{1-r}$$
 
+Rearranging,
+
+$$\begin{align}
+R\;\frac{(1+i)^n-1}{i}&=P\;(1+i)^n\\[2ex]
+R\;\left((1+i)^n-1\right)&=P\;i\;(1+i)^n\\[2ex]
+R&=P\;i\;\frac{(1+i)^n}{\left((1+i)^n-1\right)}\tag 1
+\end{align}
+$$
+
+---
+
+##### NEWTON-RAPHSON METHOD:
+
+We want to find the zro values for Eq $(1)$, and we resort to the Newton-Raphson method, which solves for the $x$ value at which $F(x)=0$ based on a guess that this $x$ value is close to an $a$ value, wuch that
+
+$$F'(a) = \lim_{a\to x}\; \frac{F(x)-F(a)}{x-a}$$
+
+Assuming that the guess gets better and better, we can get rid of the $\lim$, and express this formula as
+
+$$F'(a) \approx \frac{F(x)-F(a)}{x-a}$$
+
+Keeping in mind that $F(x)$ is a zero,
+
+$$x\approx a -\frac{F(a)}{F'(a)}$$
+
+Since $a$ can actually be far from $x$ we update $x$ as
+
+$$x_{i+1} = x_i-\frac{F(x_i)}{F'(x_i)}$$
+
+---
+
+Going back to equation $(1),$ and taking into consideration that $i$ is the variable to optimize,
+
+$$F(x) = \frac{P\;x\;(1+x)^n}{\left((1+x)^n-1\right)}-R$$
+
+Therefore,
+
+$$F'(x)=\frac{P (x+1)^{n-1} \left(x (x+1)^n+(x+1)^n-n x-x-1\right)}{\left((x+1)^n-1\right)^2}$$
+
+Let's now give some values to the principal and the payment... Say we bought a new phone because we were eligible after a couple of years of using a the iFone 3.0. The new phone is the iFone 3.1, and costs $P= \$ 700$. The salesman at AT&T tells you that you'll pay $R =\$ 35$ for $n=24$ months. What is the interest rate being charged?
+
+$$F(x) = \frac{700\;x\;(1+x)^{24}}{\left((1+x)^{24}-1\right)}-35$$
+
+Plotting
+
+<img src="https://user-images.githubusercontent.com/9312897/28857598-ac8ff140-7718-11e7-9174-270c9eea1316.png">
+
+would allow us to start the guessing game at $0.02$, which corresponds to a nominal annual interest of $0.02 \times 12=24\%.$ Otherwise we could just pretend that there is no compounding and guess $\frac{R\times n}{P}=\frac{35\times 24}{700}= 1.2\implies i = 0.2/12= 0.016.$
 
 ---
 
