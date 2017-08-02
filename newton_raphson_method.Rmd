@@ -132,7 +132,32 @@ interest = function(loan, pmt, n){
       x = x -  F(x)/ F_prime(x)
       print(x)
     }
-  print(12 * (x - 1))
+  paste("Yearly interest: ", round((12 * (x - 1) * 100),3)," percent")
+}
+
+interest(700,35,24)
+```
+
+Double-checking with a financial calculator:
+
+<img src="https://user-images.githubusercontent.com/9312897/28888001-120b441a-778d-11e7-975d-26f0ce4b9f44.png">
+
+Of course, this should also work out using the more convoluted formulas:
+
+```{r}
+interest = function(loan, pmt, n){
+  F =       function(x) (loan * x * (1 + x)^n)/((1+x)^n - 1) - pmt
+  F_prime = function(x) (loan * (x+1)^(n-1) * (x*(x+1)^n + (x+1)^n-n*x-x-1)) / ((x+1)^n - 1)^2
+  
+  guess = 1 + (((pmt * n / loan) - 1) / 12) 
+
+  x = guess
+  
+    while(abs(F(x)) > (1e-6)){
+      x = x -  F(x)/ F_prime(x)
+      print(x)
+    }
+  paste("Yearly interest: ", round((12 * x * 100),3)," percent")
 }
 
 interest(700,35,24)
