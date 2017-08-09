@@ -349,4 +349,64 @@ bias = matrix(c(bias_a, bias_i, bias_f, bias_o), ncol=1)
 
 ---
 
+[This video by Brandon Rohrer](https://youtu.be/WCUNPb-5EYI) gave me some intuition into this concept. I still don't understand this well; however, what follows may be a very rough, intuitive approximation with many loose ends, and with the intention of spurring new, knowledgeable answers or feedback.
+
+Using **Google search autocomplete**, which [allegedly could have LSTM cells in its architecture](https://www.quora.com/What-are-some-projects-I-can-do-in-text-analysis-using-Recurrent-neural-networks-LSTMs?srid=utSnl), and typing the letter $x_{t-1}=\text{ "t"}$ returns these suggestions:
+
+[![enter image description here][1]][1]
+
+The actual process is, no doubt, much more complex. However, I suppose we can imagine these suggestions as a vector of library words with an attached vote (squashed from $-1$ to $1$ via a tanh function). The weights are the result of news (e.g. the mega-chain of department stores Target has announced some changes in their fashion department), and / or number of recent Google searches (e.g. *Trump*), applications starting with *t* (e.g. Google Translate), and local businesses (e.g. TD Bank). It is imaginable that a word like *Tzuyu*
+
+> Chou Tzu-yu (born June 14, 1999), known as Tzuyu, is a Taiwanese singer based in South Korea and a member of the K-pop girl group Twice, under JYP Entertainment.
+
+is likely to have, on a search within the US and with the user's history erased, a "negative vote". 
+
+The cell state, $C_{t-1}$, vector before the second letter is typed could be something like 
+
+$$\small \left[\text{target}, 0.89;\text{ trump}, 0.85; \dots; \text{ tzuyu}, -0.89\right].$$
+
+And looking for a place to get the story going, let's say that at this point the cell state coincides with the output, $h_{t-1}.$
+
+The next letter entered on the keyboard happens to be $x_t = \text{ "r"}$, which will, through learned weights and the sigmoid activation, end up giving a value very close to zero to suggestions that are incompatible with the spelling: immediately, the word *Target* will be gone from the suggestion list, thanks to the **forget gate layer**. This gate is simply the Hadamard product of the initial $C_{t-1}$ with the output of the sigmoid function in the step:
+
+[![enter image description here][2]][2]
+
+The interesting part is that **if** the user history is cleared up before the search, and no account is logged on at the time of the search, the predictions now are:
+
+[![enter image description here][3]][3]
+
+whereas if I am logged on as a user and type **tr**, the predictions are completely different:
+
+[![enter image description here][4]][4]
+
+because the weights have been adjusted based on a prior search, and Google remembers a prior inquire into the [African parasitic disease Trypanosomiasis](https://en.wikipedia.org/wiki/Trypanosomiasis). *Trump* is still an option, but voted much lower. This could possibly have been regulated by the matrix of weights for **new candidate values**, $\widetilde W_c,$ voting up that, otherwise, implausible prediction:
+
+[![enter image description here][5]][5]
+
+and updating the cell state. The first step $(\otimes)$ will be a gate (**input gate**), where the current input will decide which of these prior memories in $\widetilde W_c$ can be made available - I suppose the idea could be that if I had typed **ty** instead of **tr**, the word **trypanosomiasis** would never had appeared, even if it were the only search ever performed on my computer. The second step is the elementwise sum $(\oplus)$ to update the state.
+
+At this point, the cell state has been updated twice (once initially through a sigmoid activation in the forget gate; and a second time through this memory gate just analyzed): 
+
+$$C_t = f_t \otimes  C_{t-1} + i_t \otimes \widetilde C_t$$
+
+The vector of "votes" in the cell state at this time will be further squashed by the last tanh function, and "gated" by the result of the activation of the sigmoid function applied to $[x_t, h_{t-1}]$ (**output gate**) to produce the output of the cell:
+
+[![enter image description here][6]][6]
+
+The $*$ operation in the equation above standing for element-wise product, also expressed as
+
+$$h_t = \sigma\left(W_0 \cdot \left[ h_{t-1}, x_t   \right] +b_0  \right) \odot \tanh\left(C_t\right)$$ 
+
+Interestingly, the cell state $C_t$ is not squashed, as it moves on to the next cell.
+
+
+  [1]: https://i.stack.imgur.com/oHu5m.png
+  [2]: https://i.stack.imgur.com/9ia5t.png
+  [3]: https://i.stack.imgur.com/Q6x1O.png
+  [4]: https://i.stack.imgur.com/qaSxM.png
+  [5]: https://i.stack.imgur.com/7Set7.png
+  [6]: https://i.stack.imgur.com/ViEjP.png
+
+---
+
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
