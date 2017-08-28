@@ -182,8 +182,63 @@ x_2 &amp;= -2 -2x_3
 <p><span class="math display">\[\vec x = \begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}= \begin{bmatrix}3\\-2\\0 \end{bmatrix}+x_3\,\begin{bmatrix}-1\\-2\\1\end{bmatrix}\]</span></p>
 <p>which is the equation for a line (a point plus a direction vector), and is equivalent to a particular solution (the vector <span class="math inline">\(\begin{bmatrix}3\\-2\\0\end{bmatrix}\)</span>) plus a general solution. The general solution has the property <span class="math inline">\(A\vec x =\vec 0\)</span>, i.e. it is the null space of <span class="math inline">\(A.\)</span></p>
 <p>The vector <span class="math inline">\(\begin{bmatrix} -1\\-2\\1\end{bmatrix}\)</span> is orthogonal to each one of the rows of <span class="math inline">\(A.\)</span> It is in the <span class="math inline">\(\vec x \in \text{span}\left(\vec A_1,\dots,\vec A_n \right)\)</span> (the span of the row vectors).</p>
+<p>It is worth noting that the dimension of the null space of <span class="math inline">\(A\)</span> is <span class="math inline">\(n-r\)</span> (number of columns minus the rank), which in this case is just <span class="math inline">\(3-2=1.\)</span></p>
+<hr />
+<div id="keeping-track-of-elementary-row-operations" class="section level5">
+<h5>Keeping track of elementary row operations:</h5>
+<p><span class="math display">\[A = \begin{bmatrix}
+1&amp;-1&amp;2&amp;3&amp;0\\
+2&amp;-2&amp;-1&amp;1&amp;5\\
+1&amp;-1&amp;1&amp;2&amp;1\\
+-1&amp;1&amp;3&amp;2&amp;-5
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[\left[\begin{array}{rrrrr|r}
+1&amp;-1&amp;2&amp;3&amp;0&amp;b_1\\
+2&amp;-2&amp;-1&amp;1&amp;5&amp;b_2\\
+1&amp;-1&amp;1&amp;2&amp;1&amp;b_3\\
+-1&amp;1&amp;3&amp;2&amp;-5&amp;b_4
+\end{array}\right]\]</span></p>
+<p><span class="math display">\[\left[\begin{array}{rrrrr|r}
+1&amp;-1&amp;2&amp;3&amp;0&amp;b_1\\
+0&amp;0&amp;-5&amp;-5&amp;5&amp;b_2-2b_1\\
+0&amp;0&amp;-1&amp;-1&amp;1&amp;b_3-b_1\\
+0&amp;0&amp;5&amp;5&amp;-5&amp;b_4+b_1
+\end{array}\right]\]</span></p>
+<p>Changing rows to avoid fractions:</p>
+<p><span class="math display">\[\left[\begin{array}{rrrrr|r}
+1&amp;-1&amp;2&amp;3&amp;0&amp;b_1\\
+0&amp;0&amp;1&amp;1&amp;-1&amp;b_1-b_3\\
+0&amp;0&amp;0&amp;0&amp;0&amp;3b_1 +b_2-5b_3\\
+0&amp;0&amp;0&amp;0&amp;0&amp;-4b_1+5b_3+b_4
+\end{array}\right]\]</span></p>
+<p>This is the non-reduced echelon form:</p>
+<p><span class="math display">\[\begin{bmatrix}
+1&amp;-1&amp;2&amp;3&amp;0\\
+0&amp;0&amp;1&amp;1&amp;-1\\
+0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0
+\end{bmatrix}\]</span></p>
+<p>with the matrix of elementary row operations:</p>
+<p><span class="math display">\[\begin{bmatrix}
+1&amp;0&amp;0&amp;0\\
+1&amp;0&amp;-1&amp;0\\
+3&amp;1&amp;-5&amp;0\\
+-4&amp;0&amp;5&amp;1
+\end{bmatrix}\]</span></p>
+<p>The reduced row echelon, which is meant to obtain the constraint equations:</p>
+<p><span class="math display">\[3b_1 +b_2-5b_3\]</span></p>
+<p>and</p>
+<p><span class="math display">\[-4b_1+5b_3+b_4\]</span></p>
+<p>can be obtained without keeping track of <span class="math inline">\(b\)</span>’s, and just to read out the general solution. To get it, we subtract two times the second row from the first:</p>
+<p><span class="math display">\[\begin{bmatrix}
+1&amp;-1&amp;0&amp;1&amp;2\\
+0&amp;0&amp;1&amp;1&amp;-1\\
+0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0
+\end{bmatrix}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
+</div>
 </div>
 </div>
 

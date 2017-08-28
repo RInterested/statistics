@@ -90,7 +90,76 @@ which is the equation for a line (a point plus a direction vector), and is equiv
 
 The vector $\begin{bmatrix} -1\\-2\\1\end{bmatrix}$ is orthogonal to each one of the rows of $A.$ It is in the $\vec x \in \text{span}\left(\vec A_1,\dots,\vec A_n \right)$ (the span of the row vectors).
 
+It is worth noting that the dimension of the null space of $A$ is $n-r$ (number of columns minus the rank), which in this case is just $3-2=1.$
 
+---
+
+#####Keeping track of elementary row operations:
+
+$$A = \begin{bmatrix}
+1&-1&2&3&0\\
+2&-2&-1&1&5\\
+1&-1&1&2&1\\
+-1&1&3&2&-5
+\end{bmatrix}$$
+
+$$\left[\begin{array}{rrrrr|r}
+1&-1&2&3&0&b_1\\
+2&-2&-1&1&5&b_2\\
+1&-1&1&2&1&b_3\\
+-1&1&3&2&-5&b_4
+\end{array}\right]$$
+
+$$\left[\begin{array}{rrrrr|r}
+1&-1&2&3&0&b_1\\
+0&0&-5&-5&5&b_2-2b_1\\
+0&0&-1&-1&1&b_3-b_1\\
+0&0&5&5&-5&b_4+b_1
+\end{array}\right]$$
+
+Changing rows to avoid fractions:
+
+$$\left[\begin{array}{rrrrr|r}
+1&-1&2&3&0&b_1\\
+0&0&1&1&-1&b_1-b_3\\
+0&0&0&0&0&3b_1 +b_2-5b_3\\
+0&0&0&0&0&-4b_1+5b_3+b_4
+\end{array}\right]$$
+
+This is the non-reduced echelon form:
+
+$$\begin{bmatrix}
+1&-1&2&3&0\\
+0&0&1&1&-1\\
+0&0&0&0&0\\
+0&0&0&0&0
+\end{bmatrix}$$
+
+with the matrix of elementary row operations:
+
+$$\begin{bmatrix}
+1&0&0&0\\
+1&0&-1&0\\
+3&1&-5&0\\
+-4&0&5&1
+\end{bmatrix}$$
+
+The reduced row echelon, which is meant to obtain the constraint equations:
+
+$$3b_1 +b_2-5b_3$$
+
+and
+
+$$-4b_1+5b_3+b_4$$
+
+can be obtained without keeping track of $b$'s, and just to read out the general solution. To get it, we subtract two times the second row from the first:
+
+$$\begin{bmatrix}
+1&-1&0&1&2\\
+0&0&1&1&-1\\
+0&0&0&0&0\\
+0&0&0&0&0
+\end{bmatrix}$$
 
 
 
