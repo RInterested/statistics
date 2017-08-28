@@ -212,14 +212,14 @@ x_2 &amp;= -2 -2x_3
 0&amp;0&amp;0&amp;0&amp;0&amp;-4b_1+5b_3+b_4
 \end{array}\right]\]</span></p>
 <p>This is the non-reduced echelon form:</p>
-<p><span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[\text{ef}(A)=\begin{bmatrix}
 1&amp;-1&amp;2&amp;3&amp;0\\
 0&amp;0&amp;1&amp;1&amp;-1\\
 0&amp;0&amp;0&amp;0&amp;0\\
 0&amp;0&amp;0&amp;0&amp;0
 \end{bmatrix}\]</span></p>
 <p>with the matrix of elementary row operations:</p>
-<p><span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[E= \begin{bmatrix}
 1&amp;0&amp;0&amp;0\\
 1&amp;0&amp;-1&amp;0\\
 3&amp;1&amp;-5&amp;0\\
@@ -246,8 +246,10 @@ x_5&amp;=x_5
 \end{align}\]</span></p>
 <p>The general solution of <span class="math inline">\(A\vec x =\vec 0\)</span> is:</p>
 <p><span class="math display">\[\vec x= x_2 \,\begin{bmatrix}1\\1\\0\\0\\0\end{bmatrix}+x_4\,\begin{bmatrix}-1\\0\\-1\\1\\0\end{bmatrix}+x_5\,\begin{bmatrix}-2\\0\\1\\0\\1\end{bmatrix}\]</span></p>
-<p>These vectors are the solution to the homogeneous system of linear equations, and span the null space of <span class="math inline">\(A\)</span>, plus they are linearly independent. Hence they are a basis of the null space. It has a dimension of <span class="math inline">\(3\)</span>, corresponding to the number of free variables.</p>
-<p>A basis for the column space of <span class="math inline">\(A\)</span> can be obtained from the pivot columns <strong>of the original</strong> <span class="math inline">\(A.\)</span></p>
+<p>These vectors are the solution to the homogeneous system of linear equations, and span the null space of <span class="math inline">\(A\)</span>, plus they are linearly independent. Hence they are a <span class="math inline">\(\color{blue}{\text{basis of the null space}}.\)</span> It has a dimension of <span class="math inline">\(3\)</span>, corresponding to the number of free variables.</p>
+<p>A <span class="math inline">\(\color{blue}{\text{basis of the column space}}\)</span> can be obtained from the <strong>pivot columns of the original matrix</strong> <span class="math inline">\(A,\)</span> i.e. <span class="math inline">\(\begin{bmatrix}1&amp;2\\2&amp;-1\\1&amp;1\\1&amp;3\end{bmatrix}.\)</span></p>
+<p>A <span class="math inline">\(\color{blue}{\text{basis of the row space}}\)</span> can be found in the <strong>non-zero rows of any echelon form</strong>: <span class="math inline">\(\begin{bmatrix}1&amp;-1&amp;2&amp;3&amp;0\\0&amp;0&amp;1&amp;1&amp;-1\\\end{bmatrix}.\)</span></p>
+<p>A <span class="math inline">\(\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}\)</span> can be obtained by transposing the bottom rows of <span class="math inline">\(E\)</span>, corresponding to the zero rows in the echelon form: <span class="math inline">\(\begin{bmatrix}3&amp;1&amp;-5&amp;0\\-4&amp;0&amp;5&amp;1\end{bmatrix}.\)</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

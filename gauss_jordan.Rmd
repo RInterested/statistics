@@ -128,7 +128,7 @@ $$\left[\begin{array}{rrrrr|r}
 
 This is the non-reduced echelon form:
 
-$$\begin{bmatrix}
+$$\text{ef}(A)=\begin{bmatrix}
 1&-1&2&3&0\\
 0&0&1&1&-1\\
 0&0&0&0&0\\
@@ -137,7 +137,7 @@ $$\begin{bmatrix}
 
 with the matrix of elementary row operations:
 
-$$\begin{bmatrix}
+$$E= \begin{bmatrix}
 1&0&0&0\\
 1&0&-1&0\\
 3&1&-5&0\\
@@ -175,9 +175,13 @@ The general solution of $A\vec x =\vec 0$ is:
 
 $$\vec x= x_2 \,\begin{bmatrix}1\\1\\0\\0\\0\end{bmatrix}+x_4\,\begin{bmatrix}-1\\0\\-1\\1\\0\end{bmatrix}+x_5\,\begin{bmatrix}-2\\0\\1\\0\\1\end{bmatrix}$$
 
-These vectors are the solution to the homogeneous system of linear equations, and span the null space of $A$, plus they are linearly independent. Hence they are a basis of the null space. It has a dimension of $3$, corresponding to the number of free variables.
+These vectors are the solution to the homogeneous system of linear equations, and span the null space of $A$, plus they are linearly independent. Hence they are a $\color{blue}{\text{basis of the null space}}.$ It has a dimension of $3$, corresponding to the number of free variables.
 
-A basis for the column space of $A$ can be obtained from the pivot columns **of the original** $A.$
+A $\color{blue}{\text{basis of the column space}}$ can be obtained from the **pivot columns of the original matrix** $A,$ i.e. $\begin{bmatrix}1&2\\2&-1\\1&1\\1&3\end{bmatrix}.$
+
+A $\color{blue}{\text{basis of the row space}}$ can be found in the **non-zero rows of any echelon form**: $\begin{bmatrix}1&-1&2&3&0\\0&0&1&1&-1\\\end{bmatrix}.$ 
+
+A $\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}$ can be obtained by transposing the bottom rows of $E$, corresponding to the zero rows in the echelon form: $\begin{bmatrix}3&1&-5&0\\-4&0&5&1\end{bmatrix}.$
 
 ---
 
