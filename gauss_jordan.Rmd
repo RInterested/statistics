@@ -128,7 +128,7 @@ $$\left[\begin{array}{rrrrr|r}
 
 This is the non-reduced echelon form:
 
-$$\text{ef}(A)=\begin{bmatrix}
+$$\text{ef}(A)=U=\begin{bmatrix}
 1&-1&2&3&0\\
 0&0&1&1&-1\\
 0&0&0&0&0\\
@@ -144,15 +144,20 @@ $$E= \begin{bmatrix}
 -4&0&5&1
 \end{bmatrix}$$
 
-The reduced row echelon, which is meant to obtain the constraint equations:
+The reduced row echelonis meant to obtain the constraint equations:
 
-$$3b_1 +b_2-5b_3$$
+$$
+\left\{ 
+\begin{array}{c}
+3b_1 +1b_2-5b_3 +0b_4&= 0 \\ 
+-4b_1+0b_2+5b_3+1b_4 &=0
+\end{array}
+\right. 
+$$
+For instance, taking the first column vector of $\vec a_1=\begin{bmatrix}1\\2\\1\\-1\end{bmatrix}$ and carry out the dot product with the first constraint equation, $\begin{bmatrix}3&1&-5&0 \end{bmatrix}\cdot\begin{bmatrix}1\\2\\1\\-1\end{bmatrix}=0.$ Same with the second constraint equation: $\begin{bmatrix}1&2&1&-1\end{bmatrix}\cdot \begin{bmatrix}-4\\0\\5\\1\end{bmatrix}=0.$
 
-and
 
-$$-4b_1+5b_3+b_4$$
-
-can be obtained without keeping track of $b$'s, and just to read out the general solution. To get it, we subtract two times the second row from the first:
+The reduced row echelon can be obtained without keeping track of $b$'s, and just to read out the general solution. To get it, we subtract two times the second row from the first:
 
 $$\text{rref}(A)=\begin{bmatrix}
 1&-1&0&1&2\\
@@ -175,13 +180,37 @@ The general solution of $A\vec x =\vec 0$ is:
 
 $$\vec x= x_2 \,\begin{bmatrix}1\\1\\0\\0\\0\end{bmatrix}+x_4\,\begin{bmatrix}-1\\0\\-1\\1\\0\end{bmatrix}+x_5\,\begin{bmatrix}-2\\0\\1\\0\\1\end{bmatrix}$$
 
-These vectors are the solution to the homogeneous system of linear equations, and span the null space of $A$, plus they are linearly independent. Hence they are a $\color{blue}{\text{basis of the null space}}.$ It has a dimension of $3$, corresponding to the number of free variables.
+These vectors are the solution to the homogeneous system of linear equations $A\vec x=\vec 0,$ and span the null space of $A$, plus they are linearly independent. Hence they are a $\color{blue}{\text{basis of the null space}}.$ It has a dimension of $3$, corresponding to the number of free variables. Vectors in the null space of $A$ are orthogonal to the rows of $A$, an express what linear combinations of the columns of $A$ result in $\vec 0.$
+
+---
 
 A $\color{blue}{\text{basis of the column space}}$ can be obtained from the **pivot columns of the original matrix** $A,$ i.e. $\begin{bmatrix}1&2\\2&-1\\1&1\\1&3\end{bmatrix}.$
 
+Observe that the column space of $A$ is precisely the span of the column vectors, and also the $\vec b$ for which the system of linear equations $A\vec x = \vec b$ is **consistent** (i.e. it has one or more solutions):
+
+$$\begin{align}
+\text{Col }(A) &=\text{Span }\left(\{\vec a_1, \vec a_2,\dots , \vec a_n\} \right)\\[2ex]
+&=\{\vec b: \; A\,\vec x=\vec b\text{ is consistent}\}
+\end{align}$$
+
+and for these equations to be consistent the constraint equations have to hold. Or in other words, if a vector is in the null space of $\vec w\in A^\top$, then $\vec w \vec b = vec 0.$
+
+---
+
 A $\color{blue}{\text{basis of the row space}}$ can be found in the **non-zero rows of any echelon form**: $\begin{bmatrix}1&0\\-1&0\\2&1\\3&1\\0&-1\\\end{bmatrix}.$ 
 
-A $\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}$ can be obtained by transposing the bottom rows of $E$, corresponding to the zero rows in the echelon form: $\begin{bmatrix}3&-4\\1&0\\-5&5\\0&1\end{bmatrix}.$
+---
+
+A $\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}$ can be obtained by transposing the bottom rows of $E$, corresponding to the zero rows in the echelon form: $\begin{bmatrix}3&-4\\1&0\\-5&5\\0&1\end{bmatrix}.$ Vectors in the null space of $A^\top$ express what cominations of the rows of $A$ result in $\vec 0.$
+
+Since in the null space of $A^\top$ (the left null space) we are looking at vectors that $A^\top \,y=\vec 0\implies y^\top\,A =\vec 0^\top$, or referring back to the matrix example above, where
+
+$\begin{align}
+E\,A &=U\\[2ex]
+\begin{bmatrix}\\ \\ 3&1&-5&0\\-4&0&5&1\end{bmatrix}\;A &=\begin{bmatrix}\\ \\ 0&0&0&0\\0&0&0&0\end{bmatrix}
+\end{align}$
+
+The components of the null space of $A^\top$ are the coefficients of the constraint equations
 
 ---
 
