@@ -94,7 +94,9 @@ It is worth noting that the dimension of the null space of $A$ is $n-r$ (number 
 
 ---
 
-#####Keeping track of elementary row operations:
+####FINDING BASIS FOR SUBSPACES IN ECHELON AND RREF:
+
+Starting with an example - matrix $A:$
 
 $$A = \begin{bmatrix}
 1&-1&2&3&0\\
@@ -103,12 +105,16 @@ $$A = \begin{bmatrix}
 -1&1&3&2&-5
 \end{bmatrix}$$
 
+and augmenting the matrix with "$b$'s", allows keeping track of elementary row operations:
+
 $$\left[\begin{array}{rrrrr|r}
 1&-1&2&3&0&b_1\\
 2&-2&-1&1&5&b_2\\
 1&-1&1&2&1&b_3\\
 -1&1&3&2&-5&b_4
 \end{array}\right]$$
+
+We bring out the pivot columns...
 
 $$\left[\begin{array}{rrrrr|r}
 1&-1&2&3&0&b_1\\
@@ -117,7 +123,7 @@ $$\left[\begin{array}{rrrrr|r}
 0&0&5&5&-5&b_4+b_1
 \end{array}\right]$$
 
-Changing rows to avoid fractions:
+...changing rows to avoid fractions:
 
 $$\left[\begin{array}{rrrrr|r}
 1&-1&2&3&0&b_1\\
@@ -126,7 +132,7 @@ $$\left[\begin{array}{rrrrr|r}
 0&0&0&0&0&-4b_1+5b_3+b_4
 \end{array}\right]$$
 
-This is the non-reduced echelon form:
+and ending with a non-reduced echelon form:
 
 $$\text{ef}(A)=U=\begin{bmatrix}
 1&-1&2&3&0\\
@@ -138,13 +144,13 @@ $$\text{ef}(A)=U=\begin{bmatrix}
 with the matrix of elementary row operations:
 
 $$E= \begin{bmatrix}
-1&0&0&0\\
-1&0&-1&0\\
-3&1&-5&0\\
--4&0&5&1
+\text{takes first row unaltered:}&1&0&0&0\\
+\text{subtacts third row from first:}&1&0&-1&0\\
+\text{takes (3 x 1st) + (2nd) - (5 x 3rd) row:}&3&1&-5&0\\
+\text{takes (-4 x 1st) + (5x3rd) + (1x4th):} &-4&0&5&1
 \end{bmatrix}$$
 
-The reduced row echelonis meant to obtain the constraint equations:
+The reduced row echelon is meant to obtain the constraint equations:
 
 $$
 \left\{ 
@@ -166,7 +172,16 @@ $$\text{rref}(A)=\begin{bmatrix}
 0&0&0&0&0
 \end{bmatrix}$$
 
-From this rref,
+From this rref, the pivot columns are expressed in terms of the free variables, which only depend on themselves, to obtain the general solution, as well as a basis of the null space of $A:$
+
+$$\begin{bmatrix}
+x_1 & x_2 & x_3 & x_4 & x_5 \\
+1   &  -1& 0 &1 & 2\\
+0 &0 &1 &1 &-1\\
+0&0&0&0&0\\
+0&0&0&0&0
+\end{bmatrix}
+\vec x=\begin{bmatrix}0\\0\\0\\0\end{bmatrix}$$
 
 $$\begin{align}
 x_1&=x_2 -x_4-2x_5\\
@@ -186,7 +201,7 @@ These vectors are the solution to the homogeneous system of linear equations $A\
 
 A $\color{blue}{\text{basis of the column space}}$ can be obtained from the **pivot columns of the original matrix** $A,$ i.e. $\begin{bmatrix}1&2\\2&-1\\1&1\\1&3\end{bmatrix}.$
 
-Observe that the column space of $A$ is precisely the span of the column vectors, and also the $\vec b$ for which the system of linear equations $A\vec x = \vec b$ is **consistent** (i.e. it has one or more solutions):
+Observe that the column space of $A$ is precisely the span of the column vectors, and also the $\vec b$'s for which the system of linear equations $A\vec x = \vec b$ is **consistent** (i.e. it has one or more solutions):
 
 $$\begin{align}
 \text{Col }(A) &=\text{Span }\left(\{\vec a_1, \vec a_2,\dots , \vec a_n\} \right)\\[2ex]
@@ -210,7 +225,7 @@ E\,A &=U\\[2ex]
 \begin{bmatrix}\\ \\ 3&1&-5&0\\-4&0&5&1\end{bmatrix}\;A &=\begin{bmatrix}\\ \\ 0&0&0&0\\0&0&0&0\end{bmatrix}
 \end{align}$
 
-The components of the null space of $A^\top$ are the coefficients of the constraint equations
+The components of the null space of $A^\top$ are the coefficients of the constraint equations (above), and are orthogonal to the column vectors of $A$ because for each one of them, a vector in the left null space expresses the combinations of each entry (rows) that result in zero.
 
 ---
 

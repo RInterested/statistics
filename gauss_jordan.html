@@ -184,34 +184,38 @@ x_2 &amp;= -2 -2x_3
 <p>The vector <span class="math inline">\(\begin{bmatrix} -1\\-2\\1\end{bmatrix}\)</span> is orthogonal to each one of the rows of <span class="math inline">\(A.\)</span> It is in the <span class="math inline">\(\vec x \in \text{span}\left(\vec A_1,\dots,\vec A_n \right)\)</span> (the span of the row vectors).</p>
 <p>It is worth noting that the dimension of the null space of <span class="math inline">\(A\)</span> is <span class="math inline">\(n-r\)</span> (number of columns minus the rank), which in this case is just <span class="math inline">\(3-2=1.\)</span></p>
 <hr />
-<div id="keeping-track-of-elementary-row-operations" class="section level5">
-<h5>Keeping track of elementary row operations:</h5>
+</div>
+<div id="finding-basis-for-subspaces-in-echelon-and-rref" class="section level4">
+<h4>FINDING BASIS FOR SUBSPACES IN ECHELON AND RREF:</h4>
+<p>Starting with an example - matrix <span class="math inline">\(A:\)</span></p>
 <p><span class="math display">\[A = \begin{bmatrix}
 1&amp;-1&amp;2&amp;3&amp;0\\
 2&amp;-2&amp;-1&amp;1&amp;5\\
 1&amp;-1&amp;1&amp;2&amp;1\\
 -1&amp;1&amp;3&amp;2&amp;-5
 \end{bmatrix}\]</span></p>
+<p>and augmenting the matrix with “<span class="math inline">\(b\)</span>’s”, allows keeping track of elementary row operations:</p>
 <p><span class="math display">\[\left[\begin{array}{rrrrr|r}
 1&amp;-1&amp;2&amp;3&amp;0&amp;b_1\\
 2&amp;-2&amp;-1&amp;1&amp;5&amp;b_2\\
 1&amp;-1&amp;1&amp;2&amp;1&amp;b_3\\
 -1&amp;1&amp;3&amp;2&amp;-5&amp;b_4
 \end{array}\right]\]</span></p>
+<p>We bring out the pivot columns…</p>
 <p><span class="math display">\[\left[\begin{array}{rrrrr|r}
 1&amp;-1&amp;2&amp;3&amp;0&amp;b_1\\
 0&amp;0&amp;-5&amp;-5&amp;5&amp;b_2-2b_1\\
 0&amp;0&amp;-1&amp;-1&amp;1&amp;b_3-b_1\\
 0&amp;0&amp;5&amp;5&amp;-5&amp;b_4+b_1
 \end{array}\right]\]</span></p>
-<p>Changing rows to avoid fractions:</p>
+<p>…changing rows to avoid fractions:</p>
 <p><span class="math display">\[\left[\begin{array}{rrrrr|r}
 1&amp;-1&amp;2&amp;3&amp;0&amp;b_1\\
 0&amp;0&amp;1&amp;1&amp;-1&amp;b_1-b_3\\
 0&amp;0&amp;0&amp;0&amp;0&amp;3b_1 +b_2-5b_3\\
 0&amp;0&amp;0&amp;0&amp;0&amp;-4b_1+5b_3+b_4
 \end{array}\right]\]</span></p>
-<p>This is the non-reduced echelon form:</p>
+<p>and ending with a non-reduced echelon form:</p>
 <p><span class="math display">\[\text{ef}(A)=U=\begin{bmatrix}
 1&amp;-1&amp;2&amp;3&amp;0\\
 0&amp;0&amp;1&amp;1&amp;-1\\
@@ -220,12 +224,12 @@ x_2 &amp;= -2 -2x_3
 \end{bmatrix}\]</span></p>
 <p>with the matrix of elementary row operations:</p>
 <p><span class="math display">\[E= \begin{bmatrix}
-1&amp;0&amp;0&amp;0\\
-1&amp;0&amp;-1&amp;0\\
-3&amp;1&amp;-5&amp;0\\
--4&amp;0&amp;5&amp;1
+\text{takes first row unaltered:}&amp;1&amp;0&amp;0&amp;0\\
+\text{subtacts third row from first:}&amp;1&amp;0&amp;-1&amp;0\\
+\text{takes (3 x 1st) + (2nd) - (5 x 3rd) row:}&amp;3&amp;1&amp;-5&amp;0\\
+\text{takes (-4 x 1st) + (5x3rd) + (1x4th):} &amp;-4&amp;0&amp;5&amp;1
 \end{bmatrix}\]</span></p>
-<p>The reduced row echelonis meant to obtain the constraint equations:</p>
+<p>The reduced row echelon is meant to obtain the constraint equations:</p>
 <p><span class="math display">\[
 \left\{ 
 \begin{array}{c}
@@ -241,7 +245,15 @@ x_2 &amp;= -2 -2x_3
 0&amp;0&amp;0&amp;0&amp;0\\
 0&amp;0&amp;0&amp;0&amp;0
 \end{bmatrix}\]</span></p>
-<p>From this rref,</p>
+<p>From this rref, the pivot columns are expressed in terms of the free variables, which only depend on themselves, to obtain the general solution, as well as a basis of the null space of <span class="math inline">\(A:\)</span></p>
+<p><span class="math display">\[\begin{bmatrix}
+x_1 &amp; x_2 &amp; x_3 &amp; x_4 &amp; x_5 \\
+1   &amp;  -1&amp; 0 &amp;1 &amp; 2\\
+0 &amp;0 &amp;1 &amp;1 &amp;-1\\
+0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0
+\end{bmatrix}
+\vec x=\begin{bmatrix}0\\0\\0\\0\end{bmatrix}\]</span></p>
 <p><span class="math display">\[\begin{align}
 x_1&amp;=x_2 -x_4-2x_5\\
 x_2&amp;=x_2\\
@@ -254,7 +266,7 @@ x_5&amp;=x_5
 <p>These vectors are the solution to the homogeneous system of linear equations <span class="math inline">\(A\vec x=\vec 0,\)</span> and span the null space of <span class="math inline">\(A\)</span>, plus they are linearly independent. Hence they are a <span class="math inline">\(\color{blue}{\text{basis of the null space}}.\)</span> It has a dimension of <span class="math inline">\(3\)</span>, corresponding to the number of free variables. Vectors in the null space of <span class="math inline">\(A\)</span> are orthogonal to the rows of <span class="math inline">\(A\)</span>, an express what linear combinations of the columns of <span class="math inline">\(A\)</span> result in <span class="math inline">\(\vec 0.\)</span></p>
 <hr />
 <p>A <span class="math inline">\(\color{blue}{\text{basis of the column space}}\)</span> can be obtained from the <strong>pivot columns of the original matrix</strong> <span class="math inline">\(A,\)</span> i.e. <span class="math inline">\(\begin{bmatrix}1&amp;2\\2&amp;-1\\1&amp;1\\1&amp;3\end{bmatrix}.\)</span></p>
-<p>Observe that the column space of <span class="math inline">\(A\)</span> is precisely the span of the column vectors, and also the <span class="math inline">\(\vec b\)</span> for which the system of linear equations <span class="math inline">\(A\vec x = \vec b\)</span> is <strong>consistent</strong> (i.e. it has one or more solutions):</p>
+<p>Observe that the column space of <span class="math inline">\(A\)</span> is precisely the span of the column vectors, and also the <span class="math inline">\(\vec b\)</span>’s for which the system of linear equations <span class="math inline">\(A\vec x = \vec b\)</span> is <strong>consistent</strong> (i.e. it has one or more solutions):</p>
 <p><span class="math display">\[\begin{align}
 \text{Col }(A) &amp;=\text{Span }\left(\{\vec a_1, \vec a_2,\dots , \vec a_n\} \right)\\[2ex]
 &amp;=\{\vec b: \; A\,\vec x=\vec b\text{ is consistent}\}
@@ -266,10 +278,9 @@ x_5&amp;=x_5
 <p>A <span class="math inline">\(\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}\)</span> can be obtained by transposing the bottom rows of <span class="math inline">\(E\)</span>, corresponding to the zero rows in the echelon form: <span class="math inline">\(\begin{bmatrix}3&amp;-4\\1&amp;0\\-5&amp;5\\0&amp;1\end{bmatrix}.\)</span> Vectors in the null space of <span class="math inline">\(A^\top\)</span> express what cominations of the rows of <span class="math inline">\(A\)</span> result in <span class="math inline">\(\vec 0.\)</span></p>
 <p>Since in the null space of <span class="math inline">\(A^\top\)</span> (the left null space) we are looking at vectors that <span class="math inline">\(A^\top \,y=\vec 0\implies y^\top\,A =\vec 0^\top\)</span>, or referring back to the matrix example above, where</p>
 <p><span class="math inline">\(\begin{align} E\,A &amp;=U\\[2ex] \begin{bmatrix}\\ \\ 3&amp;1&amp;-5&amp;0\\-4&amp;0&amp;5&amp;1\end{bmatrix}\;A &amp;=\begin{bmatrix}\\ \\ 0&amp;0&amp;0&amp;0\\0&amp;0&amp;0&amp;0\end{bmatrix} \end{align}\)</span></p>
-<p>The components of the null space of <span class="math inline">\(A^\top\)</span> are the coefficients of the constraint equations</p>
+<p>The components of the null space of <span class="math inline">\(A^\top\)</span> are the coefficients of the constraint equations (above), and are orthogonal to the column vectors of <span class="math inline">\(A\)</span> because for each one of them, a vector in the left null space expresses the combinations of each entry (rows) that result in zero.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
-</div>
 </div>
 </div>
 
