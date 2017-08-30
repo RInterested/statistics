@@ -150,6 +150,15 @@ $$E= \begin{bmatrix}
 \text{takes (-4 x 1st) + (5x3rd) + (1x4th):} &-4&0&5&1
 \end{bmatrix}$$
 
+Side by side:
+
+$$U\vert E=\left[\begin{array}{rrrrr|rrrr}
+1&-1&2&3&0&1&0&0&0\\
+0&0&1&1&-1&1&0&-1&0\\
+0&0&0&0&0&3&1&-5&0\\
+0&0&0&0&0&-4&0&5&1
+\end{array}\right]$$
+
 These are the constraint equations:
 
 $$
@@ -233,11 +242,27 @@ and for these equations to be consistent the constraint equations have to hold. 
 
 ---
 
-A $\color{blue}{\text{basis of the row space}}$ can be found in the **non-zero rows of any echelon form**: $\begin{bmatrix}1&0\\-1&0\\2&1\\3&1\\0&-1\\\end{bmatrix}.$ 
+A $\color{blue}{\text{basis of the row space}}$ can be found in the **non-zero rows of any echelon form**: $\begin{bmatrix}1&0\\-1&0\\2&1\\3&1\\0&-1\\\end{bmatrix}:$
+
+$$U\vert E=\left[\begin{array}{rrrrr|rrrr}
+\bbox[5px,border:2px solid magenta]1&\bbox[5px,border:2px solid magenta]{-1}&\bbox[5px,border:2px solid magenta]2&\bbox[5px,border:2px solid magenta]3&\bbox[5px,border:2px solid magenta]0&1&0&0&0\\
+\bbox[5px,border:2px solid red]0&\bbox[5px,border:2px solid red]0&\bbox[5px,border:2px solid red]1&\bbox[5px,border:2px solid red]1&\bbox[5px,border:2px solid red]{-1}&1&0&-1&0\\
+0&0&0&0&0&3&1&-5&0\\
+0&0&0&0&0&-4&0&5&1
+\end{array}\right]$$
 
 ---
 
-A $\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}$ can be obtained by transposing the bottom rows of $E$, corresponding to the zero rows in the echelon form: $\begin{bmatrix}3&-4\\1&0\\-5&5\\0&1\end{bmatrix}.$ Vectors in the null space of $A^\top$ express what cominations of the rows of $A$ result in $\vec 0.$
+A $\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}$ can be obtained by transposing the bottom rows of $E$
+
+$$U\vert E=\left[\begin{array}{rrrrr|rrrr}
+1&-1&2&3&0&1&0&0&0\\
+0&0&1&1&-1&1&0&-1&0\\
+0&0&0&0&0&\bbox[5px,border:2px solid magenta]{3}&\bbox[5px,border:2px solid magenta]1&\bbox[5px,border:2px solid magenta]{-5}&\bbox[5px,border:2px solid magenta]{0}\\
+0&0&0&0&0&\bbox[5px,border:2px solid red]{-4}&\bbox[5px,border:2px solid red]0&\bbox[5px,border:2px solid red]5&\bbox[5px,border:2px solid red]1
+\end{array}\right]$$
+
+corresponding to the zero rows in the echelon form: $\begin{bmatrix}3&-4\\1&0\\-5&5\\0&1\end{bmatrix}.$ Vectors in the null space of $A^\top$ express what cominations of the rows of $A$ result in $\vec 0.$
 
 Since in the null space of $A^\top$ (the left null space) we are looking at vectors that $A^\top \,y=\vec 0\implies y^\top\,A =\vec 0^\top$, or referring back to the matrix example above, where
 
