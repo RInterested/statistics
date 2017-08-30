@@ -183,6 +183,15 @@ x_1 & x_2 & x_3 & x_4 & x_5 \\
 \end{bmatrix}
 \vec x=\begin{bmatrix}0\\0\\0\\0\end{bmatrix}$$
 
+Therefore, the combinations of column vectors elementwise in the solution of the homogeneous system of equations can be expressed as
+
+$$\begin{align}
+1x_1 - 1x_2 +0x_3+1x_4+2x_5 &=0\\
+0x_1 + 0x_2 +1x_3+1x_4-1x_5 &=0\\
+\end{align}$$
+
+The pivot columns are $x_1$ and $x_3$, and we want to express every entry in terms of the free variables $x_2, x_4, x_5:$
+
 $$\begin{align}
 x_1&=x_2 -x_4-2x_5\\
 x_2&=x_2\\
@@ -190,6 +199,7 @@ x_3&=-x_4+x_5\\
 x_4 &= x_4\\
 x_5&=x_5
 \end{align}$$
+
 
 The general solution of $A\vec x =\vec 0$ is:
 
