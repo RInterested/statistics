@@ -150,7 +150,7 @@ $$E= \begin{bmatrix}
 \text{takes (-4 x 1st) + (5x3rd) + (1x4th):} &-4&0&5&1
 \end{bmatrix}$$
 
-The reduced row echelon is meant to obtain the constraint equations:
+These are the constraint equations:
 
 $$
 \left\{ 
@@ -172,18 +172,7 @@ $$\text{rref}(A)=\begin{bmatrix}
 0&0&0&0&0
 \end{bmatrix}$$
 
-From this rref, the pivot columns are expressed in terms of the free variables, which only depend on themselves, to obtain the general solution, as well as a basis of the null space of $A:$
-
-$$\begin{bmatrix}
-x_1 & x_2 & x_3 & x_4 & x_5 \\
-1   &  -1& 0 &1 & 2\\
-0 &0 &1 &1 &-1\\
-0&0&0&0&0\\
-0&0&0&0&0
-\end{bmatrix}
-\vec x=\begin{bmatrix}0\\0\\0\\0\end{bmatrix}$$
-
-Therefore, the combinations of column vectors elementwise in the solution of the homogeneous system of equations can be expressed as
+From this rref, the pivot columns are expressed in terms of the free variables, which only depend on themselves, to obtain the general solution, as well as a basis of the null space of $A.$ The combinations of column vectors elementwise in the solution of the homogeneous system of equations can be expressed as
 
 $$\begin{align}
 1x_1 - 1x_2 +0x_3+1x_4+2x_5 &=0\\
@@ -204,6 +193,28 @@ x_5&=x_5
 The general solution of $A\vec x =\vec 0$ is:
 
 $$\vec x= x_2 \,\begin{bmatrix}1\\1\\0\\0\\0\end{bmatrix}+x_4\,\begin{bmatrix}-1\\0\\-1\\1\\0\end{bmatrix}+x_5\,\begin{bmatrix}-2\\0\\1\\0\\1\end{bmatrix}$$
+
+and the basis of the null space can be read directly from the rref matrix:
+
+$$\text{rref}(A)=\begin{bmatrix}
+1&-1&0&1&2\\
+0&0&1&1&-1\\
+0&0&0&0&0\\
+0&0&0&0&0
+\end{bmatrix}\to\begin{bmatrix}
+\text{pivot}&\text{free}&\text{pivot}&\text{free}&\text{free}\\\bbox[5px,border:2px solid red]1&\bbox[5px,border:2px solid magenta]{+1}&0&\bbox[5px,border:2px solid green]{-1}&\bbox[5px,border:2px solid orange]{-2}\\
+0&0&\bbox[5px,border:2px solid red]1&\bbox[5px,border:2px solid green]{-1}&\bbox[5px,border:2px solid orange]{+1}\\
+0&0&0&0&0\\
+0&0&0&0&0
+\end{bmatrix}$$
+
+the null space has basis vectors with $5$ elements, which will incorporate the magenta elements above:
+
+$$\begin{pmatrix}\begin{bmatrix}0\\1\\0\\0\\0 \end{bmatrix},
+\begin{bmatrix}0\\0\\0\\1\\0 \end{bmatrix},\begin{bmatrix}0\\0\\0\\0\\1 \end{bmatrix} \end{pmatrix} \to 
+\begin{matrix}\text{pivot }\to\\\text{free }\to\\\text{pivot }\to\\\text{free }\to\\\text{free }\to\\\end{matrix}
+\begin{pmatrix}\begin{bmatrix}\bbox[5px,border:2px solid magenta]{+1}\\1\\0\\0\\0 \end{bmatrix},
+\begin{bmatrix}\bbox[5px,border:2px solid green]{-1}\\0\\\bbox[5px,border:2px solid green]{-1}\\1\\0 \end{bmatrix},\begin{bmatrix}\bbox[5px,border:2px solid orange]{-2}\\0\\\bbox[5px,border:2px solid orange]{+1}\\0\\1 \end{bmatrix} \end{pmatrix}$$
 
 These vectors are the solution to the homogeneous system of linear equations $A\vec x=\vec 0,$ and span the null space of $A$, plus they are linearly independent. Hence they are a $\color{blue}{\text{basis of the null space}}.$ It has a dimension of $3$, corresponding to the number of free variables. Vectors in the null space of $A$ are orthogonal to the rows of $A$, an express what linear combinations of the columns of $A$ result in $\vec 0.$
 

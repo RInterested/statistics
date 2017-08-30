@@ -229,7 +229,7 @@ x_2 &amp;= -2 -2x_3
 \text{takes (3 x 1st) + (2nd) - (5 x 3rd) row:}&amp;3&amp;1&amp;-5&amp;0\\
 \text{takes (-4 x 1st) + (5x3rd) + (1x4th):} &amp;-4&amp;0&amp;5&amp;1
 \end{bmatrix}\]</span></p>
-<p>The reduced row echelon is meant to obtain the constraint equations:</p>
+<p>These are the constraint equations:</p>
 <p><span class="math display">\[
 \left\{ 
 \begin{array}{c}
@@ -245,16 +245,7 @@ x_2 &amp;= -2 -2x_3
 0&amp;0&amp;0&amp;0&amp;0\\
 0&amp;0&amp;0&amp;0&amp;0
 \end{bmatrix}\]</span></p>
-<p>From this rref, the pivot columns are expressed in terms of the free variables, which only depend on themselves, to obtain the general solution, as well as a basis of the null space of <span class="math inline">\(A:\)</span></p>
-<p><span class="math display">\[\begin{bmatrix}
-x_1 &amp; x_2 &amp; x_3 &amp; x_4 &amp; x_5 \\
-1   &amp;  -1&amp; 0 &amp;1 &amp; 2\\
-0 &amp;0 &amp;1 &amp;1 &amp;-1\\
-0&amp;0&amp;0&amp;0&amp;0\\
-0&amp;0&amp;0&amp;0&amp;0
-\end{bmatrix}
-\vec x=\begin{bmatrix}0\\0\\0\\0\end{bmatrix}\]</span></p>
-<p>Therefore, the combinations of column vectors elementwise in the solution of the homogeneous system of equations can be expressed as</p>
+<p>From this rref, the pivot columns are expressed in terms of the free variables, which only depend on themselves, to obtain the general solution, as well as a basis of the null space of <span class="math inline">\(A.\)</span> The combinations of column vectors elementwise in the solution of the homogeneous system of equations can be expressed as</p>
 <p><span class="math display">\[\begin{align}
 1x_1 - 1x_2 +0x_3+1x_4+2x_5 &amp;=0\\
 0x_1 + 0x_2 +1x_3+1x_4-1x_5 &amp;=0\\
@@ -269,6 +260,24 @@ x_5&amp;=x_5
 \end{align}\]</span></p>
 <p>The general solution of <span class="math inline">\(A\vec x =\vec 0\)</span> is:</p>
 <p><span class="math display">\[\vec x= x_2 \,\begin{bmatrix}1\\1\\0\\0\\0\end{bmatrix}+x_4\,\begin{bmatrix}-1\\0\\-1\\1\\0\end{bmatrix}+x_5\,\begin{bmatrix}-2\\0\\1\\0\\1\end{bmatrix}\]</span></p>
+<p>and the basis of the null space can be read directly from the rref matrix:</p>
+<p><span class="math display">\[\text{rref}(A)=\begin{bmatrix}
+1&amp;-1&amp;0&amp;1&amp;2\\
+0&amp;0&amp;1&amp;1&amp;-1\\
+0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0
+\end{bmatrix}\to\begin{bmatrix}
+\text{pivot}&amp;\text{free}&amp;\text{pivot}&amp;\text{free}&amp;\text{free}\\\bbox[5px,border:2px solid red]1&amp;\bbox[5px,border:2px solid magenta]{+1}&amp;0&amp;\bbox[5px,border:2px solid green]{-1}&amp;\bbox[5px,border:2px solid orange]{-2}\\
+0&amp;0&amp;\bbox[5px,border:2px solid red]1&amp;\bbox[5px,border:2px solid green]{-1}&amp;\bbox[5px,border:2px solid orange]{+1}\\
+0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0
+\end{bmatrix}\]</span></p>
+<p>the null space has basis vectors with <span class="math inline">\(5\)</span> elements, which will incorporate the magenta elements above:</p>
+<p><span class="math display">\[\begin{pmatrix}\begin{bmatrix}0\\1\\0\\0\\0 \end{bmatrix},
+\begin{bmatrix}0\\0\\0\\1\\0 \end{bmatrix},\begin{bmatrix}0\\0\\0\\0\\1 \end{bmatrix} \end{pmatrix} \to 
+\begin{matrix}\text{pivot }\to\\\text{free }\to\\\text{pivot }\to\\\text{free }\to\\\text{free }\to\\\end{matrix}
+\begin{pmatrix}\begin{bmatrix}\bbox[5px,border:2px solid magenta]{+1}\\1\\0\\0\\0 \end{bmatrix},
+\begin{bmatrix}\bbox[5px,border:2px solid green]{-1}\\0\\\bbox[5px,border:2px solid green]{-1}\\1\\0 \end{bmatrix},\begin{bmatrix}\bbox[5px,border:2px solid orange]{-2}\\0\\\bbox[5px,border:2px solid orange]{+1}\\0\\1 \end{bmatrix} \end{pmatrix}\]</span></p>
 <p>These vectors are the solution to the homogeneous system of linear equations <span class="math inline">\(A\vec x=\vec 0,\)</span> and span the null space of <span class="math inline">\(A\)</span>, plus they are linearly independent. Hence they are a <span class="math inline">\(\color{blue}{\text{basis of the null space}}.\)</span> It has a dimension of <span class="math inline">\(3\)</span>, corresponding to the number of free variables. Vectors in the null space of <span class="math inline">\(A\)</span> are orthogonal to the rows of <span class="math inline">\(A\)</span>, an express what linear combinations of the columns of <span class="math inline">\(A\)</span> result in <span class="math inline">\(\vec 0.\)</span></p>
 <hr />
 <p>A <span class="math inline">\(\color{blue}{\text{basis of the column space}}\)</span> can be obtained from the <strong>pivot columns of the original matrix</strong> <span class="math inline">\(A,\)</span> i.e. <span class="math inline">\(\begin{bmatrix}1&amp;2\\2&amp;-1\\1&amp;1\\1&amp;3\end{bmatrix}.\)</span></p>
