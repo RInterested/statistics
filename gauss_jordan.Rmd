@@ -198,6 +198,8 @@ x_4 &= x_4\\
 x_5&=x_5
 \end{align}$$
 
+####NULL SPACE:
+
 
 The general solution of $A\vec x =\vec 0$ is:
 
@@ -227,7 +229,11 @@ $$\begin{pmatrix}\begin{bmatrix}0\\1\\0\\0\\0 \end{bmatrix},
 
 These vectors are the solution to the homogeneous system of linear equations $A\vec x=\vec 0,$ and span the null space of $A$, plus they are linearly independent. Hence they are a $\color{blue}{\text{basis of the null space}}.$ It has a dimension of $3$, corresponding to the number of free variables. Vectors in the null space of $A$ are orthogonal to the rows of $A$, an express what linear combinations of the columns of $A$ result in $\vec 0.$
 
+**The dimension of the null space $N(A)$ is the number of columns minus the rank: $n-r$.**
+
 ---
+
+####COLUMN SPACE:
 
 A $\color{blue}{\text{basis of the column space}}$ can be obtained from the **pivot columns of the original matrix** $A,$ i.e. $\begin{bmatrix}1&2\\2&-1\\1&1\\1&3\end{bmatrix}.$
 
@@ -240,7 +246,11 @@ $$\begin{align}
 
 and for these equations to be consistent the constraint equations have to hold. Or in other words, if a vector is in the null space of $\vec w\in A^\top$, then $\vec w \vec b = \vec 0.$
 
+**The dimension of the column space $\text{Col}(A)$ is the rank $r$.**
+
 ---
+
+####ROW SPACE:
 
 A $\color{blue}{\text{basis of the row space}}$ can be found in the **non-zero rows of any echelon form**: $\begin{bmatrix}1&0\\-1&0\\2&1\\3&1\\0&-1\\\end{bmatrix}:$
 
@@ -251,7 +261,11 @@ $$U\vert E=\left[\begin{array}{rrrrr|rrrr}
 0&0&0&0&0&-4&0&5&1
 \end{array}\right]$$
 
+**The dimension of the row space $\text{Row}(A)$ is the rank $r$.**
+
 ---
+
+####LEFT NULL SPACE:
 
 A $\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}$ can be obtained by transposing the bottom rows of $E$
 
@@ -272,6 +286,8 @@ E\,A &=U\\[2ex]
 \end{align}$
 
 The components of the null space of $A^\top$ are the coefficients of the constraint equations (above), and are orthogonal to the column vectors of $A$ because for each one of them, a vector in the left null space expresses the combinations of each entry (rows) that result in zero.
+
+**The dimension of the left null space $N(A^\top)$ is the number of rows minus the rank $m-r$.**
 
 ---
 

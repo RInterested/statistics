@@ -265,6 +265,9 @@ x_3&amp;=-x_4+x_5\\
 x_4 &amp;= x_4\\
 x_5&amp;=x_5
 \end{align}\]</span></p>
+</div>
+<div id="null-space" class="section level4">
+<h4>NULL SPACE:</h4>
 <p>The general solution of <span class="math inline">\(A\vec x =\vec 0\)</span> is:</p>
 <p><span class="math display">\[\vec x= x_2 \,\begin{bmatrix}1\\1\\0\\0\\0\end{bmatrix}+x_4\,\begin{bmatrix}-1\\0\\-1\\1\\0\end{bmatrix}+x_5\,\begin{bmatrix}-2\\0\\1\\0\\1\end{bmatrix}\]</span></p>
 <p>and the basis of the null space can be read directly from the rref matrix:</p>
@@ -286,7 +289,11 @@ x_5&amp;=x_5
 \begin{pmatrix}\begin{bmatrix}\bbox[5px,border:2px solid magenta]{+1}\\1\\0\\0\\0 \end{bmatrix},
 \begin{bmatrix}\bbox[5px,border:2px solid green]{-1}\\0\\\bbox[5px,border:2px solid green]{-1}\\1\\0 \end{bmatrix},\begin{bmatrix}\bbox[5px,border:2px solid orange]{-2}\\0\\\bbox[5px,border:2px solid orange]{+1}\\0\\1 \end{bmatrix} \end{pmatrix}\]</span></p>
 <p>These vectors are the solution to the homogeneous system of linear equations <span class="math inline">\(A\vec x=\vec 0,\)</span> and span the null space of <span class="math inline">\(A\)</span>, plus they are linearly independent. Hence they are a <span class="math inline">\(\color{blue}{\text{basis of the null space}}.\)</span> It has a dimension of <span class="math inline">\(3\)</span>, corresponding to the number of free variables. Vectors in the null space of <span class="math inline">\(A\)</span> are orthogonal to the rows of <span class="math inline">\(A\)</span>, an express what linear combinations of the columns of <span class="math inline">\(A\)</span> result in <span class="math inline">\(\vec 0.\)</span></p>
+<p><strong>The dimension of the null space <span class="math inline">\(N(A)\)</span> is the number of columns minus the rank: <span class="math inline">\(n-r\)</span>.</strong></p>
 <hr />
+</div>
+<div id="column-space" class="section level4">
+<h4>COLUMN SPACE:</h4>
 <p>A <span class="math inline">\(\color{blue}{\text{basis of the column space}}\)</span> can be obtained from the <strong>pivot columns of the original matrix</strong> <span class="math inline">\(A,\)</span> i.e. <span class="math inline">\(\begin{bmatrix}1&amp;2\\2&amp;-1\\1&amp;1\\1&amp;3\end{bmatrix}.\)</span></p>
 <p>Observe that the column space of <span class="math inline">\(A\)</span> is precisely the span of the column vectors, and also the <span class="math inline">\(\vec b\)</span>’s for which the system of linear equations <span class="math inline">\(A\vec x = \vec b\)</span> is <strong>consistent</strong> (i.e. it has one or more solutions):</p>
 <p><span class="math display">\[\begin{align}
@@ -294,7 +301,11 @@ x_5&amp;=x_5
 &amp;=\{\vec b: \; A\,\vec x=\vec b\text{ is consistent}\}
 \end{align}\]</span></p>
 <p>and for these equations to be consistent the constraint equations have to hold. Or in other words, if a vector is in the null space of <span class="math inline">\(\vec w\in A^\top\)</span>, then <span class="math inline">\(\vec w \vec b = \vec 0.\)</span></p>
+<p><strong>The dimension of the column space <span class="math inline">\(\text{Col}(A)\)</span> is the rank <span class="math inline">\(r\)</span>.</strong></p>
 <hr />
+</div>
+<div id="row-space" class="section level4">
+<h4>ROW SPACE:</h4>
 <p>A <span class="math inline">\(\color{blue}{\text{basis of the row space}}\)</span> can be found in the <strong>non-zero rows of any echelon form</strong>: <span class="math inline">\(\begin{bmatrix}1&amp;0\\-1&amp;0\\2&amp;1\\3&amp;1\\0&amp;-1\\\end{bmatrix}:\)</span></p>
 <p><span class="math display">\[U\vert E=\left[\begin{array}{rrrrr|rrrr}
 \bbox[5px,border:2px solid magenta]1&amp;\bbox[5px,border:2px solid magenta]{-1}&amp;\bbox[5px,border:2px solid magenta]2&amp;\bbox[5px,border:2px solid magenta]3&amp;\bbox[5px,border:2px solid magenta]0&amp;1&amp;0&amp;0&amp;0\\
@@ -302,7 +313,11 @@ x_5&amp;=x_5
 0&amp;0&amp;0&amp;0&amp;0&amp;3&amp;1&amp;-5&amp;0\\
 0&amp;0&amp;0&amp;0&amp;0&amp;-4&amp;0&amp;5&amp;1
 \end{array}\right]\]</span></p>
+<p><strong>The dimension of the row space <span class="math inline">\(\text{Row}(A)\)</span> is the rank <span class="math inline">\(r\)</span>.</strong></p>
 <hr />
+</div>
+<div id="left-null-space" class="section level4">
+<h4>LEFT NULL SPACE:</h4>
 <p>A <span class="math inline">\(\color{blue}{\text{basis of the null space of the transposed (left null space) }N(A^\top)}\)</span> can be obtained by transposing the bottom rows of <span class="math inline">\(E\)</span></p>
 <p><span class="math display">\[U\vert E=\left[\begin{array}{rrrrr|rrrr}
 1&amp;-1&amp;2&amp;3&amp;0&amp;1&amp;0&amp;0&amp;0\\
@@ -314,6 +329,7 @@ x_5&amp;=x_5
 <p>Since in the null space of <span class="math inline">\(A^\top\)</span> (the left null space) we are looking at vectors that <span class="math inline">\(A^\top \,y=\vec 0\implies y^\top\,A =\vec 0^\top\)</span>, or referring back to the matrix example above, where</p>
 <p><span class="math inline">\(\begin{align} E\,A &amp;=U\\[2ex] \begin{bmatrix}\\ \\ 3&amp;1&amp;-5&amp;0\\-4&amp;0&amp;5&amp;1\end{bmatrix}\;A &amp;=\begin{bmatrix}\\ \\ 0&amp;0&amp;0&amp;0\\0&amp;0&amp;0&amp;0\end{bmatrix} \end{align}\)</span></p>
 <p>The components of the null space of <span class="math inline">\(A^\top\)</span> are the coefficients of the constraint equations (above), and are orthogonal to the column vectors of <span class="math inline">\(A\)</span> because for each one of them, a vector in the left null space expresses the combinations of each entry (rows) that result in zero.</p>
+<p><strong>The dimension of the left null space <span class="math inline">\(N(A^\top)\)</span> is the number of rows minus the rank <span class="math inline">\(m-r\)</span>.</strong></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
