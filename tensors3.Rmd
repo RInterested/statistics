@@ -12,6 +12,65 @@ output:
 
 ---
 
+
+[XylyXylyX](https://www.youtube.com/channel/UCn88wjHSqECSbgrakivJjjg) has a great series of videos on manifolds and tensors. I would like to go over [the definition of tensor product](https://youtu.be/3EBMFBep1uA?t=18m47s)
+
+In the [Wikipedia example of the tensor product vector spaces](https://en.wikipedia.org/wiki/Tensor_product#Tensor_product_of_vector_spaces), as well as in [here](https://math.stackexchange.com/q/2158892/152225), the tensor product is of the form $V\otimes V,$ a $(0,2)$ tensor, and results in a form akin to $(1)$ in the OP:
+
+$$A^0 B^0 e_0 \otimes e_0 + A^0 B^1 e_0 \otimes e_1 + \cdots + A^4 B^4 e_4 \otimes e_4$$
+
+equivalent to an [outer product](https://math.stackexchange.com/a/2159487/152225), as illustrated in [this post](https://math.stackexchange.com/a/2159487/152225): 
+
+The tensor product of two vectors $v\in V$ and $w \in W$, i.e. $(V\otimes W)$ is akin to calculating the outer product of two vectors:
+
+$$\large v\otimes_o w=\small \begin{bmatrix}-2.3\;e_1\\+1.9\;e_2\\-0.5\;e_3\end{bmatrix}\begin{bmatrix}0.7\;e_1&-0.3\;e_2&0.1\;e_3\end{bmatrix}=
+\begin{bmatrix}-1.61\;e_1\otimes e_1&+0.69\;e_1\otimes e_2&-0.23\;e_1\otimes e_3\\+1.33\;e_2 \otimes e_1&-0.57\;e_2 \otimes e_2&+0.19\;e_2 \otimes e_3\\-0.35\;e_3 \otimes e_1&+0.15\;e_3 \otimes e_2&-0.05\;e_3 \otimes e_3\end{bmatrix}$$
+
+---
+
+This is equivalent to the tensor product space $V^*\otimes V^*$ (the set of all tensor $(2,0))$ on the video. The presenter is tensor-multiplying two co-vectors in the vector basis of $V^*$, *without coefficients*, yielding the $16$ pairs of basis vectors of $V^*\otimes V^*$: $$\{e^0\otimes e^0, \; e^0\otimes e^1, \; e^0\otimes e^3, \;\cdots, e^4\otimes e^4\}.$$
+
+---
+
+The key is to distinguish these forms of tensor product of vector spaces from their **application to other vectors** (or covectors), i.e. when the $$<\beta_\mu\,e^\mu\;,\;A^\nu\,e_\nu>\;=\beta_\mu\,A^\nu\,<e^\mu\;,\;e_\nu>\;=\beta_\mu\,A^\nu\,\delta^\mu_{\;\nu}\;=\beta_\mu\,A^\mu\;\in \mathbb R$$ operations are carried out, yielding a real number - which is what is explained in the video.
+
+These linear mappings $\beta\otimes\gamma:V\times V \to \mathbb R$ properly interpreted as $[\beta\otimes\gamma](v,w)=\langle \beta,v\rangle\langle\gamma,w\rangle$ (i.e. the tensor $\beta\otimes\gamma$ *acting on two vectors*, $v$ and $w$) would function as follows:
+
+$\begin{align}
+&(\beta\otimes\gamma)\left(\sum A^\mu e_\mu,\sum B^\nu e_\nu\right)= \\[2ex]
+&=\left [ \beta_0\gamma_0\;e^0\otimes  e^0+ \; \beta_0\gamma_1\;e^0\otimes e^1+ \;\beta_0\gamma_3\; e^0\otimes e^3+\cdots+ \;\beta_4\gamma_4\; e^4\otimes e^4 \right]\,\small{\left(\sum A^\mu e_\mu,\sum B^\nu e_\nu\right) }
+\\[2ex]
+&= \beta_0\gamma_0 A^\mu B^\nu   \langle e^0,e_\mu \rangle \; \langle e^0,e_\nu \rangle \; + \; \beta_0\gamma_1 A^\mu B^\nu   \langle e^0,e_\mu \rangle \; \langle e^1,e_\nu \rangle +\cdots +\beta_4\gamma_4 A^\mu B^\nu   \langle e^4,e_\mu \rangle \; \langle e^4,e_\nu \rangle
+\\[2ex]
+&=\beta_0\gamma_0 A^\mu B^\nu \;  \delta^0_{\;\mu}\; \delta^0_{\;\nu} \; + \; \beta_0\gamma_1 A^\mu B^\nu  \; \delta^0_{\;\mu}\; \delta^1_{\;\nu}  +\cdots +\beta_4\gamma_4 A^\mu B^\nu  \; \delta^4_{\;\mu}\; \delta^4_{\;\nu}
+\\[2ex]&= \sum \beta_\mu\gamma_\nu A^\mu B^\nu
+\end{align}$
+
+indeed a real number, exemplifying the mapping $V\times V \to \mathbb R.$ The tensor is defined as 
+
+$$\begin{align}\beta\otimes \gamma&:= \beta_0\gamma_0\, e^0\otimes e^0+\beta_0\gamma_1\, e^0\otimes e^1 + \beta_0\gamma_2\, e^0\otimes e^2+\cdots+\beta_3\gamma_3\, e^3\otimes e^3\\[2ex]
+&=T_{00}\, e^0\otimes e^0+T_{01}\, e^0\otimes e^1 + T_{02}\, e^0\otimes e^2+\cdots+T_{33}\, e^3\otimes e^3
+\end{align}$$
+
+As an example, I believe we could illustrate this as follows:
+
+$\beta \in V^*$ is $\beta=\begin{bmatrix}1 &2 &3 \end{bmatrix}$ and $\gamma\in V^*$ is $\gamma=\begin{bmatrix}2 &4 &6 \end{bmatrix}$. The $(2,0)$-tensor $\beta\otimes \gamma$ is the outer product:
+
+$$\beta\otimes_o \gamma=\begin{bmatrix}2\,e^1\otimes e^1&4\,e^1\otimes e^2&6\,e^1\otimes e^3\\4\,e^2\otimes e^1&8\,e^2\otimes e^2&12\,e^2\otimes e^3\\6\,e^3\otimes e^1&12\,e^3\otimes e^2&18\,e^3\otimes e^3\end{bmatrix}$$
+
+Now if apply this tensor product on the vectors
+
+$$v=\begin{bmatrix}1\\-1\\5\end{bmatrix}, w = \begin{bmatrix}2\\0\\3\end{bmatrix}$$
+
+$$\begin{align} (\beta \otimes \gamma)[v,w]&=\\[2ex]
+& 2 \times  1 \times 2   \quad+\quad    4 \times   1  \times  0   \quad +\quad    6  \times  1  \times 3 \\
++\;&4 \times -1 \times 2  \quad + \quad   8 \times  -1  \times  0   \quad + \quad  12  \times -1  \times 3 \\
++\;&6 \times  5 \times 2  \quad + \quad  12 \times   5  \times  0  \quad  + \quad  18  \times  5  \times 3 \\[2ex]
+&= 308\end{align}$$
+
+
+---
+
 <img WIDTH=600 src="https://cloud.githubusercontent.com/assets/9312897/23579577/46a915b2-00be-11e7-888d-a80818f74b24.png">
 
 
