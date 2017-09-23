@@ -23,18 +23,143 @@ Examples of multilinear maps:
 
 ---
 
-#####Inner products:
+####Comparison of multilinear maps to linear maps:
 
-$$\left( \begin{bmatrix} 3\\2\\1 \end{bmatrix} \cdot\color{red}{\begin{bmatrix} 4\\-1\\2 \end{bmatrix} } \right)+
-\left( \begin{bmatrix} 1\\2\\3 \end{bmatrix} \cdot \color{red}{\begin{bmatrix} 4\\-1\\2 \end{bmatrix}}  \right)
-=
-\left( \begin{bmatrix} 3\\2\\1 \end{bmatrix} +\begin{bmatrix} 1\\2\\3 \end{bmatrix}  \right) \cdot \color{red}{\begin{bmatrix} 4\\-1\\2 \end{bmatrix}}
+Given two vector spaces $V$ and $W$, the direct sum is the Cartesian product $$V \times W$$ inbued with a linear algebraic structure. We have the set $X\oplus W =\{(v_i,w_i)\}$ of ordered pairs, and we define
+
+Addition:
+
+$$(v_1,w_1) + (v_2,w_2)=(v_1 + v_2, w_1 + w_2)$$
+Scalar multiplication:
+
+$$\lambda(v_i,w_i)=(\lambda\,v_i\quad,\quad\lambda \,w_i)$$
+
+Instead, the **TENSOR PRODUCT SPACE (TPS)** $V\otimes W$ also departs from the set of Cartesian products of individual vector spaces, renaming the pais $(v_i,w_i)$ to $v_i\otimes w_i.$ BUT in the TPS, 
+
+addition is **only** defined when one of the two components is identical:
+
+$$(v_1\;\otimes\;\color{red}{ w_1}) + (v_2\;\otimes\;\color{red}{w_1}) = (v_1 + v_2\quad\otimes\quad\color{red}{w_1})$$
+
+and scalar multiplication is defined to be the same applied to any component:
+
+$$\lambda\,(v_i \otimes w_i) = \lambda\,v_i \otimes w_i=v_i \otimes \lambda w_i$$
+
+---
+
+Examples:
+
+
+####Tensor product of two copies of $\mathbb R:$
+
+This is the TPS $\mathbb R \otimes \mathbb R,$ comprising vectors such as $3\otimes 5.$
+
+$$3\otimes 5 \quad+\quad 1\otimes (-5)\quad=\quad 3\otimes \color{red}5 \quad + \quad (-1)\otimes \color{red} 5 \quad =\quad 2 \otimes \color{red}5$$
+
+also
+
+$$6\otimes 1 \quad+\quad 3\pi\otimes\pi\quad = \quad \underbrace{\color{red}3\otimes 2}_{2\times 3\otimes1=3\otimes 2\times 1}\quad + \quad \color{red}3\otimes \pi^2\quad=\quad \color{red}3 \otimes(2 +\pi^2)$$
+
+---
+
+
+####Matrices:
+
+Considering matrices as vectors, and $m(\cdot)$ representing the matrix product operator, i.e. given matrices $A$ and $B,$ the product $m(A,B) = AB,$
+
+$$\begin{align}
+m(A +B\;,\;C+D)\quad&\neq\quad m(A,C) \quad+\quad m(B,D)\\[2ex]
+(A+B)(C+D)\quad &\neq \quad AC + BD
+\end{align}$$
+
+but if we fix the second coordinate,
+
+$$m(A +C\;,\; B) \quad= \quad(A+C)B\quad=\quad AB + CB \quad =\quad m(A,B) \quad+\quad m(C,B)$$
+
+Here is an obvious numeric example:
+ 
+$$\left( \begin{bmatrix} 6&2\\0&-1 \end{bmatrix} + \begin{bmatrix} 4&2\\0&-5 \end{bmatrix}\right)\,\color{red}{\begin{bmatrix} 1&2\\3&-1 \end{bmatrix}}=\left( \begin{bmatrix} 6&2\\0&-1 \end{bmatrix} \, \color{red}{\begin{bmatrix} 1&2\\3&-1 \end{bmatrix}}\right)+\left( \begin{bmatrix} 4&2\\0&-5 \end{bmatrix} \, \color{red}{\begin{bmatrix} 1&2\\3&-1 \end{bmatrix}}\right)$$
+
+```{r}
+A = matrix(c(6,0,2,-1),2,2)
+B = matrix(c(4,0,2,-5),2,2)
+C = matrix(c(1,3,2,-1),2,2)
+D = matrix(c(2,0,-2,5),2,2)
+
+all.equal((A + C) %*% B        ,  (A %*% B) + (C %*% B))
+```
+
+but
+
+$$\left( \begin{bmatrix} 6&2\\0&-1 \end{bmatrix} + \begin{bmatrix} 4&2\\0&-5 \end{bmatrix}\right)\,\left(\begin{bmatrix} 1&2\\3&-1 \end{bmatrix}+\begin{bmatrix}2&-2\\0&5\end{bmatrix}\right)
+\neq
+\left( \begin{bmatrix} 6&2\\0&-1 \end{bmatrix} \,\begin{bmatrix} 1&2\\3&-1 \end{bmatrix}\right)+\left( \begin{bmatrix} 4&2\\0&-5 \end{bmatrix} \, \begin{bmatrix} 2&-2\\0&5 \end{bmatrix}\right)$$
+
+```{r}
+all.equal((A + B) %*% (C + D)  ,  (A %*% C) + (B %*% D))
+```
+
+so $m(\cdot)$ as defined is more akin to a multilinear map than a linear map from a vector space $V$ to a vector space $W$: $\varphi: V \to W$ as in a change of coordinates, where 
+
+$$\begin{bmatrix}a_{11}& a_{12} & a_{13}\\
+a_{21}& a_{22} & a_{23}\\
+a_{31}& a_{32} & a_{33}\\
+a_{41}& a_{42} & a_{43}
+\end{bmatrix}
+\begin{bmatrix}v_1^1\\v_1^2\\v_1^3
+\end{bmatrix}=\begin{bmatrix}w_1^1\\w_1^2\\w_1^3\\w_1^4\end{bmatrix}
 $$
 
-#####Matrices:
+in which case
 
-$$\left( \begin{bmatrix} 6&2\\0&-1 \end{bmatrix} \, \color{red}{\begin{bmatrix} 1&2\\3&-1 \end{bmatrix}}\right)+\left( \begin{bmatrix} 4&2\\0&-5 \end{bmatrix} \, \color{red}{\begin{bmatrix} 1&2\\3&-1 \end{bmatrix}}\right)=\left( \begin{bmatrix} 6&2\\0&-1 \end{bmatrix} + \begin{bmatrix} 4&2\\0&-5 \end{bmatrix}\right)\,\color{red}{\begin{bmatrix} 1&2\\3&-1 \end{bmatrix}}$$
+$$\varphi(v_1,v_2)+\varphi(v_3, v_4) = \left(\varphi(v_1 + v_3),\varphi(v_2+v_4)\right)$$
 
+Here is the idea encoded:
+
+```{r}
+set.seed(0)
+m = matrix(rnorm(12),4,3)
+v1 = 1:3
+v2 = 3:5
+v3 = 5:7
+v4 = 7:9
+varphi_v1 = m %*% v1
+varphi_v2 = m %*% v2
+varphi_v3 = m %*% v3
+varphi_v4 = m %*% v4
+
+sum_after_lin_map = varphi_v1 + varphi_v3
+lin_map_after_sum = varphi_v1_plus_v3 = m %*% (v1 + v3)
+all.equal(sum_after_lin_map, lin_map_after_sum)
+
+sum_after_lin_map_2 = varphi_v2 + varphi_v4
+lin_map_after_sum_2 = varphi_v2_plus_v4 = m %*% (v2 + v4)
+all.equal(sum_after_lin_map_2, lin_map_after_sum_2)
+```
+
+
+
+Same goes for scalar multiplication:
+
+$$m(\alpha A,B) = \alpha AB = A(\alpha B) =m(A,\alpha B)= \alpha m (A,B)$$
+```{r}
+alpha = sample(2:10,1)
+all.equal((alpha * A) %*% B, alpha * (A %*% B), A%*%(alpha * B), A %*% (alpha * B), alpha * (A%*%B))
+```
+
+whereas in the case of vectors:
+
+$$\lambda \,\varphi(v_1,v_2)+\lambda\;\varphi(v_3, v_4) = \left(\lambda\;\varphi(v_1 + v_3)\quad,\quad\lambda\;\varphi(v_2+v_4)\right)$$
+
+```{r}
+lambda = alpha
+lambda_times_sum_after_lin_map = lambda * varphi_v1 + lambda * varphi_v3
+lambda_times_lin_map_after_sum = varphi_v1_plus_v3 = lambda * ( m %*% (v1 + v3) )
+all.equal(lambda_times_sum_after_lin_map, lambda_times_lin_map_after_sum)
+```
+
+###CONCLUSION:
+
+Pairings of matrices (simbolized by $(\cdot, \cdot)$) above, but clearly hinting at $(\cdot \otimes \cdot)$ don't show a linear behavior when subjected to a function such as matrix multiplication. So, although we can pair (Cartesian product) matrix to create a vector space, it will not show the same linear properties as with a typical "arrow" vector space. The properties for a vector space formed by pairing matrices will behave like a TPS with bilinear, or more generally, multilinear features.
 
 ---
 
