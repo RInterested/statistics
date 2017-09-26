@@ -34,4 +34,48 @@ From [this post](http://math.blogoverflow.com/2014/11/03/more-than-infinitesimal
 
 ---
 
+And from [this answer](https://math.stackexchange.com/a/664725/152225):
+
+
+Let $f(x,y) = x^2y$.
+
+The derivative of a function gives the best linear approximation to the function at a point.  This remains true in higher dimensions.  The derivative of the function $f$ above is 
+
+$df = \begin{bmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y}\end{bmatrix} = \begin{bmatrix} 2xy & x^2\end{bmatrix}$.
+
+The conceptual meaning of the derivative is this:  
+
+$$f(x+\Delta x, y+\Delta y) \approx f(x,y) + df(\begin{bmatrix} \Delta x \\ \Delta y\end{bmatrix}) = x^2y + \begin{bmatrix} 2xy & x^2\end{bmatrix}\begin{bmatrix} \Delta x \\ \Delta y\end{bmatrix}  = x^2y+2xy\Delta x + x^2\Delta y$$
+
+In other words, at each point $(x,y)$ the derivative is a linear map which takes a small change $\begin{bmatrix} \Delta x \\ \Delta y\end{bmatrix}$ away from the point $(x,y)$ and returns the approximate change in $f$ resulting from that.
+
+Now say someone told me that a certain function $g$ with $g(0,0)=0$ had derivative $\begin{bmatrix} y\cos(xy) & x\cos(xy)\end{bmatrix}$, and I wanted to figure out what $g$ was.  In this case I could probably just solve the differential equations $\frac{\partial g}{\partial x} = y\cos(xy)$ and $\frac{\partial g}{\partial y} = y\cos(xy)$ by inspection, but this would not always be possible.
+
+Let us stick to the somewhat easier problem of approximating $g(1,1)$.  Here is my idea for doing that:  I will pick a path from $(0,0)$ (whose value I know) to $(1,1)$.  I will split that path up into millions of vector changes.  Then I will use what I know about the derivative to approximate the change in $g$ over each of those small changes and add them up.  This should give me a pretty reasonable approximation.
+
+In this case, I can see that I can pick the path $\gamma:[0,1] \to \mathbb{R}^2$ given by $\gamma(t) = (t,t)$.  Splitting this into $k$ pieces, I have the following approximations:
+
+$$g(\frac{1}{k},\frac{1}{k}) \approx g(0,0) + dg|_{(0,0)}\left(\begin{bmatrix} \frac{1}{k} \\ \frac{1}{k}\end{bmatrix}\right)$$. 
+
+So then 
+
+$$g(\frac{2}{k},\frac{2}{k}) \approx g(\frac{1}{k},\frac{1}{k}) + dg|_{(\frac{1}{k},\frac{1}{k})}\left(\begin{bmatrix} \frac{1}{k} \\ \frac{1}{k}\end{bmatrix}\right) \approx g(0,0) + dg|_{(0,0)}\left(\begin{bmatrix} \frac{1}{k} \\ \frac{1}{k}\end{bmatrix}\right) + dg|_{(\frac{1}{k},\frac{1}{k})}\left(\begin{bmatrix} \frac{1}{k} \\ \frac{1}{k}\end{bmatrix}\right)$$.
+
+Continuing on in this way , we will see that 
+
+$$g(1,1) \approx g(0,0) + \sum_{i=0}^k dg\big|_{\frac{i}{k}}\left(\begin{bmatrix} \frac{1}{k} \\ \frac{1}{k}\end{bmatrix}\right)$$
+
+It makes sense to give some name to this process.  We define the limit of the sum above to be the integral of the covector field $dg$ along the path $\gamma$.  Refer to my other post for the general definition, instead of just a particular example like this.
+
+So far we have defined the integral only for derivatives of functions, and we have defined it exactly in such a way that the following fundamental theorem of calculus holds:
+
+$$g(P_1) - g(P_0) = \int_\gamma dg$$ for any path $\gamma$ from $P_0$ to $P_1$.  But the definition of the integral never used the fact that we were integrating the derivative of a function:  it only mattered that we are integrating a covector field (i.e. a gadget which eats change vectors and spits out numbers).  So we can use exactly the same definition to give the integral of a general covector field $\begin{bmatrix} f(x,y) & g(x,y)\end{bmatrix}$, which may or may not be the differential of a function.  
+
+(There are certainly covector fields which are not derivatives of functions.  For example, $\begin{bmatrix} x & x\end{bmatrix}$ could not be the differential of a function, for if it were we would have $\frac{\partial f}{\partial x} = x$ and $\frac{\partial f}{\partial y} = x$.  But then the mixed partials of $f$ would not be equal, contradicting Clairout's theorem.)
+
+$dx$ is the constant covector field $\begin{bmatrix} 1 & 0\end{bmatrix}$, and $dy$ is the constant covector field $\begin{bmatrix} 0 & 1\end{bmatrix}$.  So we can write any covector field $\begin{bmatrix} f(x,y) & g(x,y)\end{bmatrix}$ as $f(x,y)dx + g(x,y)dy$.  Integrating this thing along a curve is PRECISELY what you defined as a line integral in your first multivariable calculus course.  
+
+
+---
+
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
