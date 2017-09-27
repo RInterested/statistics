@@ -44,6 +44,17 @@ and scalar multiplication is defined to be the same applied to any component:
 
 $$\lambda\,(v_i \otimes w_i) = \lambda\,v_i \otimes w_i=v_i \otimes \lambda w_i$$
 
+In general, multilinearity is characterized by
+
+$$T\left(v_1 , v_2 , v_3 , v_i + v_j , \cdots, v_n\right)
+= T\left(v_1 , v_2 , v_3 , v_i, \cdots , v_n\right)+T\left(v_1 , v_2 , v_3 , v_j, \cdots , v_n\right)$$
+
+and 
+
+$$T\left(v_1 , v_2 , k\,v_3 , \cdots , v_n\right)=k\,T\left(v_1 , v_2 , v_3 , \cdots , v_n\right)$$
+
+with $T$ standing for linear transformation.
+
 ---
 
 Examples:
@@ -60,6 +71,23 @@ also
 $$6\otimes 1 \quad+\quad 3\pi\otimes\pi\quad = \quad \underbrace{\color{red}3\otimes 2}_{2\times 3\otimes1=3\otimes 2\times 1}\quad + \quad \color{red}3\otimes \pi^2\quad=\quad \color{red}3 \otimes(2 +\pi^2)$$
 
 ---
+
+####Dot products:
+
+$$\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)=1\times 1 + 2\times 0+3\times 1 =4$$
+
+$$\begin{align}
+\text{dot}\left(5 \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)&=5\;\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)\\[2ex]
+&=5\times1\times 1 + 5\times 2\times 0+5\times3\times 1\\[2ex] &=5\,\left(1\times 1 + 2\times 0+3\times 1 \right)=20
+\end{align}$$
+
+and
+
+$$\begin{align}
+\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}+\begin{bmatrix} 2\\1\\1\end{bmatrix}\right)&=\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)+\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 2\\1\\1\end{bmatrix}\right)\\[2ex]
+11&=4+7
+\end{align}$$
+
 
 
 ####Matrices:

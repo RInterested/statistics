@@ -144,6 +144,12 @@ $(document).ready(function () {
 <p><span class="math display">\[(v_1\;\otimes\;\color{red}{ w_1}) + (v_2\;\otimes\;\color{red}{w_1}) = (v_1 + v_2\quad\otimes\quad\color{red}{w_1})\]</span></p>
 <p>and scalar multiplication is defined to be the same applied to any component:</p>
 <p><span class="math display">\[\lambda\,(v_i \otimes w_i) = \lambda\,v_i \otimes w_i=v_i \otimes \lambda w_i\]</span></p>
+<p>In general, multilinearity is characterized by</p>
+<p><span class="math display">\[T\left(v_1 , v_2 , v_3 , v_i + v_j , \cdots, v_n\right)
+= T\left(v_1 , v_2 , v_3 , v_i, \cdots , v_n\right)+T\left(v_1 , v_2 , v_3 , v_j, \cdots , v_n\right)\]</span></p>
+<p>and</p>
+<p><span class="math display">\[T\left(v_1 , v_2 , k\,v_3 , \cdots , v_n\right)=k\,T\left(v_1 , v_2 , v_3 , \cdots , v_n\right)\]</span></p>
+<p>with <span class="math inline">\(T\)</span> standing for linear transformation.</p>
 <hr />
 <p>Examples:</p>
 </div>
@@ -154,6 +160,19 @@ $(document).ready(function () {
 <p>also</p>
 <p><span class="math display">\[6\otimes 1 \quad+\quad 3\pi\otimes\pi\quad = \quad \underbrace{\color{red}3\otimes 2}_{2\times 3\otimes1=3\otimes 2\times 1}\quad + \quad \color{red}3\otimes \pi^2\quad=\quad \color{red}3 \otimes(2 +\pi^2)\]</span></p>
 <hr />
+</div>
+<div id="dot-products" class="section level4">
+<h4>Dot products:</h4>
+<p><span class="math display">\[\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)=1\times 1 + 2\times 0+3\times 1 =4\]</span></p>
+<p><span class="math display">\[\begin{align}
+\text{dot}\left(5 \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)&amp;=5\;\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)\\[2ex]
+&amp;=5\times1\times 1 + 5\times 2\times 0+5\times3\times 1\\[2ex] &amp;=5\,\left(1\times 1 + 2\times 0+3\times 1 \right)=20
+\end{align}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\begin{align}
+\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}+\begin{bmatrix} 2\\1\\1\end{bmatrix}\right)&amp;=\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)+\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 2\\1\\1\end{bmatrix}\right)\\[2ex]
+11&amp;=4+7
+\end{align}\]</span></p>
 </div>
 <div id="matrices" class="section level4">
 <h4>Matrices:</h4>
