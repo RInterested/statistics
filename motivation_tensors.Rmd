@@ -18,8 +18,8 @@ Examples of multilinear maps:
 
 1. If $V$ is an inner product space over $\mathbb{R},$ then the inner product is bilinear.
 2. Matrix multiplication as an operation.
-2. The determinant of a matrix is a multilinear map if we view the columns of the matrix as vector arguments.
-3. The cross product of vectors in $\mathbb{R}^3$ is bilinear.
+3. The determinant of a matrix is a multilinear map if we view the columns of the matrix as vector arguments.
+4. The cross product of vectors in $\mathbb{R}^3$ is bilinear.
 
 ---
 
@@ -55,12 +55,14 @@ $$T\left(v_1 , v_2 , k\,v_3 , \cdots , v_n\right)=k\,T\left(v_1 , v_2 , v_3 , \c
 
 with $T$ standing for linear transformation.
 
+
 ---
 
-Examples:
+
+Tensor product of two copies of $\mathbb R:$
+---
 
 
-####Tensor product of two copies of $\mathbb R:$
 
 This is the TPS $\mathbb R \otimes \mathbb R,$ comprising vectors such as $3\otimes 5.$
 
@@ -72,7 +74,10 @@ $$6\otimes 1 \quad+\quad 3\pi\otimes\pi\quad = \quad \underbrace{\color{red}3\ot
 
 ---
 
-####Dot products:
+Dot products:
+---
+
+
 
 $$\text{dot}\left( \begin{bmatrix}1\\2\\3 \end{bmatrix} , \begin{bmatrix} 1\\0\\1\end{bmatrix}\right)=1\times 1 + 2\times 0+3\times 1 =4$$
 
@@ -88,9 +93,10 @@ $$\begin{align}
 11&=4+7
 \end{align}$$
 
+---
 
-
-####Matrices:
+Matrices:
+---
 
 Considering matrices as vectors, and $m(\cdot)$ representing the matrix product operator, i.e. given matrices $A$ and $B,$ the product $m(A,B) = AB,$
 
@@ -185,9 +191,39 @@ lambda_times_lin_map_after_sum = varphi_v1_plus_v3 = lambda * ( m %*% (v1 + v3) 
 all.equal(lambda_times_sum_after_lin_map, lambda_times_lin_map_after_sum)
 ```
 
-###CONCLUSION:
+
+CONCLUSION:
 
 Pairings of matrices (simbolized by $(\cdot, \cdot)$) above, but clearly hinting at $(\cdot \otimes \cdot)$ don't show a linear behavior when subjected to a function such as matrix multiplication. So, although we can pair (Cartesian product) matrix to create a vector space, it will not show the same linear properties as with a typical "arrow" vector space. The properties for a vector space formed by pairing matrices will behave like a TPS with bilinear, or more generally, multilinear features.
+
+
+---
+
+Determinants:
+---
+
+
+The idea is to consider the determinant of a matrix as an alternating (changing signs) multilinear operator. Matrices have to be square to have a determinant, and in the case of a matrix in $\mathbb R^3$ formed by two linearly independent column vectors, we'll need to add an additional vector. For example:
+
+$\vec v = \begin{bmatrix}1\\2\\3\end{bmatrix}$ and $\vec w = \begin{bmatrix}-1\\7\\-2 \end{bmatrix}$ can form a matrix with an element of the standard basis added in the third column resulting in the determinant:
+
+$$\det\begin{bmatrix} 1 &-1 &1\\\bbox[5px,border:2px solid red]{2}&\bbox[5px,border:2px solid red]7&0\\\bbox[5px,border:2px solid yellow]3&\bbox[5px,border:2px solid yellow]{-2}&0\end{bmatrix}=\begin{vmatrix}2&7\\3&-2\end{vmatrix}=-25$$
+while using $\vec e_2$ in the last column would result in:
+
+
+$$\det\begin{bmatrix} \bbox[5px,border:2px solid red]1 &\bbox[5px,border:2px solid red]{-1} &0\\2&7&1\\\bbox[5px,border:2px solid yellow]3&\bbox[5px,border:2px solid yellow]{-2}&0\end{bmatrix}=\begin{vmatrix}1&-1\\3&-2\end{vmatrix}=-1$$
+
+We are really doing determinants of $2 \times 2$ determinants by choosing rows of the matrix
+
+$$\begin{bmatrix}\vert & \vert \\ \vec v & \vec w \\\vert&\vert \end{bmatrix}$$
+
+in this case we are choosing $3 \choose 2$ combinations of rows.
+
+Notationally, we could select these rows using the differential form $\text{d}x_i$ mapping or function, which selects the $i$-th entry of a vector, but extending it to a row by using two indices. So, in general $\phi_i = \text{d}x_i$ applied to the vector $\vec v$ would produce $\text{d}x_i(\vec v)=v_i =\vec v\cdot \vec e_i.$ We could use the notation $\text{d}(\vec x_{12}(\vec v, \vec w)$ to indicate the determinant of the first and second rows in that order.
+
+If the vectors $\vec v$ and $\vec w$ determine a parallelogram, the result of the function described would correspond to the signed projection of this parallelogram on combinations of $(x,y,z)$ coordinate planes:
+
+<img src=https://user-images.githubusercontent.com/9312897/30923561-2a8598ce-a37a-11e7-807e-3c3dd2e44a34.png>
 
 ---
 
