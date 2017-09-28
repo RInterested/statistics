@@ -202,8 +202,17 @@ Pairings of matrices (simbolized by $(\cdot, \cdot)$) above, but clearly hinting
 Determinants:
 ---
 
+$$\det(\begin{bmatrix} \vert& \vert & \vert\\ v_1 & v_2 & v_3\\ \vert & \vert & \vert  \end{bmatrix}+\det\begin{bmatrix} \vert& \vert & \vert\\ v_1 & v_2 & v_4\\ \vert & \vert & \vert \end{bmatrix}
+= \det\begin{bmatrix} \vert& \vert & \vert\\ v_1 & v_2 & (v_3 + v_4)\\ \vert & \vert & \vert \end{bmatrix} $$
 
-The idea is to consider the determinant of a matrix as an alternating (changing signs) multilinear operator. Matrices have to be square to have a determinant, and in the case of a matrix in $\mathbb R^3$ formed by two linearly independent column vectors, we'll need to add an additional vector. For example:
+```{r}
+v1 = 1:3; v2 = 3:5; v3 = 5:7; v4 = c(0,1,-2)
+mat.1 = cbind(v1,v2,v3); mat.2 = cbind(v1,v2,v4)
+all.equal(det(mat.1) + det(mat.2) ,  det(cbind(v1, v2, v3 + v4)))
+```
+
+
+Consider the determinant of a matrix as an alternating (changing signs) multilinear operator. Matrices have to be square to have a determinant, and in the case of a matrix in $\mathbb R^3$ formed by two linearly independent column vectors, we'll need to add an additional vector. For example:
 
 $\vec v = \begin{bmatrix}1\\2\\3\end{bmatrix}$ and $\vec w = \begin{bmatrix}-1\\7\\-2 \end{bmatrix}$ can form a matrix with an element of the standard basis added in the third column resulting in the determinant:
 

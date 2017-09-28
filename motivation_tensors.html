@@ -248,7 +248,13 @@ all.equal(lambda_times_sum_after_lin_map, lambda_times_lin_map_after_sum)</code>
 </div>
 <div id="determinants" class="section level2">
 <h2>Determinants:</h2>
-<p>The idea is to consider the determinant of a matrix as an alternating (changing signs) multilinear operator. Matrices have to be square to have a determinant, and in the case of a matrix in <span class="math inline">\(\mathbb R^3\)</span> formed by two linearly independent column vectors, we’ll need to add an additional vector. For example:</p>
+<p><span class="math display">\[\det(\begin{bmatrix} \vert&amp; \vert &amp; \vert\\ v_1 &amp; v_2 &amp; v_3\\ \vert &amp; \vert &amp; \vert  \end{bmatrix}+\det\begin{bmatrix} \vert&amp; \vert &amp; \vert\\ v_1 &amp; v_2 &amp; v_4\\ \vert &amp; \vert &amp; \vert \end{bmatrix}
+= \det\begin{bmatrix} \vert&amp; \vert &amp; \vert\\ v_1 &amp; v_2 &amp; (v_3 + v_4)\\ \vert &amp; \vert &amp; \vert \end{bmatrix} \]</span></p>
+<pre class="r"><code>v1 = 1:3; v2 = 3:5; v3 = 5:7; v4 = c(0,1,-2)
+mat.1 = cbind(v1,v2,v3); mat.2 = cbind(v1,v2,v4)
+all.equal(det(mat.1) + det(mat.2) ,  det(cbind(v1, v2, v3 + v4)))</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Consider the determinant of a matrix as an alternating (changing signs) multilinear operator. Matrices have to be square to have a determinant, and in the case of a matrix in <span class="math inline">\(\mathbb R^3\)</span> formed by two linearly independent column vectors, we’ll need to add an additional vector. For example:</p>
 <p><span class="math inline">\(\vec v = \begin{bmatrix}1\\2\\3\end{bmatrix}\)</span> and <span class="math inline">\(\vec w = \begin{bmatrix}-1\\7\\-2 \end{bmatrix}\)</span> can form a matrix with an element of the standard basis added in the third column resulting in the determinant:</p>
 <p><span class="math display">\[\det\begin{bmatrix} 1 &amp;-1 &amp;1\\\bbox[5px,border:2px solid red]{2}&amp;\bbox[5px,border:2px solid red]7&amp;0\\\bbox[5px,border:2px solid yellow]3&amp;\bbox[5px,border:2px solid yellow]{-2}&amp;0\end{bmatrix}=\begin{vmatrix}2&amp;7\\3&amp;-2\end{vmatrix}=-25\]</span> while using <span class="math inline">\(\vec e_2\)</span> in the last column would result in:</p>
 <p><span class="math display">\[\det\begin{bmatrix} \bbox[5px,border:2px solid red]1 &amp;\bbox[5px,border:2px solid red]{-1} &amp;0\\2&amp;7&amp;1\\\bbox[5px,border:2px solid yellow]3&amp;\bbox[5px,border:2px solid yellow]{-2}&amp;0\end{bmatrix}=\begin{vmatrix}1&amp;-1\\3&amp;-2\end{vmatrix}=-1\]</span></p>
