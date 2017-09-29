@@ -12,16 +12,33 @@ output:
 ###THE ROLE OF $dx$ AS A FUNCTIONAL:
 <br>
 
-Following [Prof. Shifrin's youtube explanation](https://youtu.be/Rci22jC_pS8), and [XylyXylyX's Invitation to K forms](https://youtu.be/yvH1ECuc7YU).
-
-The $\text{d}$ operator would act like
-
-$$\text{d}f = \sum \frac{\partial f}{\partial x^i}\,dx^i$$
+Following [Prof. Shifrin's youtube explanation](https://youtu.be/Rci22jC_pS8), and [XylyXylyX's Invitation to n forms](https://youtu.be/yvH1ECuc7YU).
 
 
-this is usually interpreted as changing the variables "a little bit" to see how the function changes (the total differential of the function).
+$0$-forms are functions $f(\vec x).$ In GR, $f(x^0,x^1,x^2,x^3).$
 
-The idea is that the operator $dx^i$ is part of a basis of $V^*$ (I am using superscript following the convention for covector, and as in XylyXylyX's video), and would select the $i$-th coordinate of the matrix of partial derivatives of a function $f$ at a point $\vec a$ (the derivative matrix only makes sense at a point):
+The **operator** $\text{d}$ is the **[exterior derivative](https://en.wikipedia.org/wiki/Exterior_derivative).** 
+
+[The exterior derivative of a differential form of degree $k$ is a differential form of degree $k + 1.$](The exterior derivative of a differential form of degree k is a differential form of degree k + 1.)
+
+The exterior derivative of a zero-form can only be understood through definition (according to the XylyXylyX video):
+
+$$\underbrace{\quad\text{d}f\quad}_{\text{differential of a function}} =  \underbrace{\quad\frac{\partial f}{\partial x^i}\quad}_{\text{coefficients}}\quad\underbrace{\quad dx^i\quad}_{\text{basis of }V^*}$$
+
+
+$\text{d}f$ is a $1$-form. [If $f$ is a smooth function (a $0$-form), then the exterior derivative of $f$ is the differential of $f.$ That is, $df$ is the unique 1-form such that for every smooth vector field $X,$ $df(X) = d_Xf$, where $d_Xf$ is the directional derivative of $f$ in the direction of $X.$](https://en.wikipedia.org/wiki/Exterior_derivative#Definition)
+
+This is usually interpreted in physics as changing the variables "a little bit" to see how the function changes (the total differential of the function).
+
+$\text{d}f$ is a covector, and as such is a map, or a $(0,1)$-tensor, $\langle \text{d}f \quad, \quad \rangle$ that takes in a vector and
+
+
+$$\langle\; \text{d}f \quad, \quad \vec v\;\rangle=\left\langle \frac{df}{dx^i}\,dx^i\;,\;V^j\,\partial _j \right \rangle=\frac{\partial f}{\partial x^i}\, V^j\; \delta^i_j=\frac{df}{dx^i}\,V^i=\partial_i f\,V^i$$
+
+
+The idea is that the operator $dx^i$ is part of a basis of $V^*$ (I am using superscript following the convention for covector, and as in XylyXylyX's video). Prof. Shifrin introduces them as an alternative notation for the "standard basis" of $V^*$ (which he refers to as $(\mathbb R^n)^*$) axiomatically [at this point](https://youtu.be/Nh5XFX0iKgE?t=28m20s), as $\phi^i(\vec x) =\vec e_i \cdot \vec x= dx^i\cdot \vec x$. In fact he uses subscripts and writes $\phi_i = dx_i.$ Further, he says that $dx_i$ is a "symbol that represents the linear map $dx_i(\vec)= \vec e_i\cdot \vec v.$"
+
+These $dx^i$-s would select the $i$-th coordinate of the matrix of partial derivatives of a function $f$ at a point $\vec a$ (the derivative matrix only makes sense at a point):
 
 $$D\,f(\vec a)=\begin{bmatrix}\frac{\partial f}{\partial x^i }(\vec a)&\cdots &\frac{\partial f}{\partial x^n }(\vec a)\end{bmatrix}$$
 
@@ -29,7 +46,7 @@ and
 
 $$\text{d}f(\vec a) =\sum \frac{\partial f}{\partial x^i}(\vec a) dx^i$$
 
-so that the [one-form](https://en.wikipedia.org/wiki/One-form) $\text d f(\cdot)$, after $\vec a$ is input into the $(\cdot),$ it would "eat" a vector $\vec v,$ to produce the partial derivative of $f$ at point $\vec a$ in the direction of $\vec v,$ notated as $D_{\vec v} f(\vec a)$ - i.e. the **directional derivative.** 
+After $\vec a$ is input into $(\cdot),$ $\text{d}f()$ "eats" a vector $\vec v,$ to produce the partial derivative of $f$ at point $\vec a$ in the direction of $\vec v,$ notated as $D_{\vec v} f(\vec a)$ - i.e. the **directional derivative.** 
 
 $$\text{d}f(\vec a) (\vec v)= \sum \frac{\partial f}{\partial x^i}(\vec a)\; dx^i\, (\vec v)$$
 
@@ -42,6 +59,48 @@ This would be the illustration:
 <img src="https://user-images.githubusercontent.com/9312897/30996914-36eea4ca-a492-11e7-8f79-ec7a4150779b.png">
 
 
+---
+
+What is an $n$-form? Just $(0, n)$ tensors. For a $1$-form, the basis is $e^\nu$, so that $\langle e^\nu,e_\mu \rangle=\delta^\nu_\mu$ or, in the coordinate basis, $\langle dx^\nu\,,\,e_\mu \rangle= \delta^\mu_\nu.$ In this expression $dx^\nu$ is a $1$-form in which instead of using the $\text{d}f$, assuming an arbitray function, we just use $dx^\nu.$
+
+A $2$-form will be expressed, as any (0,2)-tensor, as
+
+$$\omega = \underbrace{\omega_{\mu\nu}}_{\text{components}}\;\underbrace{ dx^\mu \otimes dx^\nu }_{\text{basis}}$$
+which will take on two vectors
+
+$$\omega_{\mu\nu}\; dx^\mu \otimes dx^\nu \;\left(V^\delta\,\partial_\delta, W^\lambda\,\partial_\lambda  \right)=\omega_{\mu\nu}V^\delta W^\lambda \left\langle dx^\mu,\partial_\delta\right\rangle\; \left\langle dx^\nu,\partial_\lambda\right\rangle= \omega_{\mu\nu}V^\delta W^\lambda \; \delta^\mu_\delta\, \delta^\nu_\lambda= \omega_{\delta\lambda}V^\delta W^\lambda$$
+
+What makes these $n$-forms different from regular tensors: There is a constraint. We are seeking anti-symmetry. We want a tensor acting on two vectors to be
+
+$$\omega\,(\vec v, \vec w)\quad = \quad- \quad\omega\,(\vec w, \vec v)$$
+
+we pass this constraint to the components $\omega_{\mu\nu} = - \omega_{\nu\mu}.$ This implies that 
+
+$$\omega_{00}=-\omega_{00}$$
+
+and 
+
+$$\omega_{01}=-\omega_{10}$$
+
+These contraints would imply that a $2$-form would be written as
+
+$$\begin{align}
+\omega &= \omega_{01}\left [ dx^0 \otimes dx^1 - dx^1 \otimes dx^0 \right] + \\[2ex]
+&= \omega_{02}\left [ dx^0 \otimes dx^2 - dx^2 \otimes dx^0 \right] + \\[2ex]
+&= \omega_{03}\left [ dx^0 \otimes dx^3 - dx^3 \otimes dx^0 \right] + \\[2ex]
+&= \omega_{12}\left [ dx^1 \otimes dx^2 - dx^2 \otimes dx^1 \right] + \\[2ex]
+&= \omega_{13}\left [ dx^1 \otimes dx^3 - dx^3 \otimes dx^1 \right] + \\[2ex]
+&= \omega_{23}\left [ dx^2 \otimes dx^3 - dx^3 \otimes dx^2 \right] 
+\end{align}$$
+
+
+Instead of the $16$ vector basis of the regular tensor product we end up with only $6$, and we can define the wedge operator of two one-forms:
+
+$$dx^\mu \wedge dx^\nu= dx^\mu \otimes dx^\nu - dx^\nu \otimes dx^\mu$$
+
+so that the $2$-form above results in
+
+$$\omega =1/2\quad \omega_{\mu\nu}\,dx^\mu\wedge dx^\nu$$
 
 ---
 
