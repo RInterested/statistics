@@ -12,7 +12,9 @@ output:
 ###THE ROLE OF $dx$ AS A FUNCTIONAL:
 <br>
 
-Following [Prof. Shifrin's youtube explanation](https://youtu.be/Rci22jC_pS8), and [XylyXylyX's Invitation to n forms](https://youtu.be/yvH1ECuc7YU). Of note we can call them k-forms, as well.
+Following [Prof. Shifrin's youtube explanation](https://youtu.be/Rci22jC_pS8), and [XylyXylyX's Invitation to n forms](https://youtu.be/yvH1ECuc7YU). Of note we can call them k-forms, as well. See discussion on forms below.
+
+---
 
 
 $0$-forms are functions $f(\vec x).$ In GR, $f(x^0,x^1,x^2,x^3).$
@@ -48,7 +50,7 @@ $$\text{d}f(\vec a) =\sum \frac{\partial f}{\partial x^i}(\vec a) dx^i$$
 
 After $\vec a$ is input into $(\cdot),$ $\text{d}f()$ "eats" a vector $\vec v,$ to produce the partial derivative of $f$ at point $\vec a$ in the direction of $\vec v,$ notated as $D_{\vec v} f(\vec a)$ - i.e. the **directional derivative.** 
 
-$$\text{d}f(\vec a) (\vec v)= \sum \frac{\partial f}{\partial x^i}(\vec a)\; dx^i\, (\vec v)$$
+$$\text{d}f(\vec a) (\vec v)= \sum \frac{\partial f}{\partial x^i}(\vec a)\; dx^i\, (\vec v)= D_{\vec v}\,f(\vec a)$$
 
 
 
@@ -121,7 +123,7 @@ which will have $n\choose k$ basis vectors.
 
 Professor Shifrin describes these forms with functions $f\in C^\infty$ as coefficients, and calls the basis vectors $d\vec x_I$ with $I$ being and increasing multi-index $i_1<i_2<\cdots<i_k.$ He [introduced it when describing the vector space of **alternating multilinear maps**](https://youtu.be/Nh5XFX0iKgE?t=28m3s), $T(\vec v_1,\cdots,\vec v_k)\to R$ given by the determinant of combinations of rows from a matrix with more rows than columns. This mapping of determinants is explained in [my post here](http://rinterested.github.io/statistics/motivation_tensors.html).
 
-He describes for any open set, $U\subset \mathbb R^n,$ the vector space of the form
+He describes for any open set, $U\subset \mathbb R^n,$ the vector space $\mathcal A^k(U)$ of the form
 
 
 $$\sum f_I\,(\vec x)\,d\vec x_I$$
@@ -129,6 +131,77 @@ where $f_I: U \to \mathbb R.$ The index $I$ will extend from $1$ to $k$, with $k
 
 $$e^{xy}\;dx\wedge dy$$
 
+If $\omega \in \mathcal A^k(U),$ then $\omega=\sum f_I(\vec x)\,d\vec x_I$ where $\vert I \vert=k$ with the rule:
+
+$$d\omega \in \mathcal A^{k+1}(U): d\omega = \sum df_I(\vec x) \wedge d\vec x_I$$
+
+First example:
+
+First the function $f\in C^\infty:$
+
+$$f\begin{pmatrix}x\\y\\z\end{pmatrix}= \exp\,(x)\,\sin\,(y\,z)$$
+
+Now $\text{d}f:$
+
+$$df = \left( \exp\,(x)\,\sin\,(yz)  \right)\; dx+ \left( z\,\exp(x)\,\cos\,(yz)  \right)\;dy+ \left(y\,\exp(x)\,\cos\,(yz) \right) dz$$
+
+which is a $1$-form
+
+What if we took $\text d$ of this $d$ we just took...
+
+$$\small\text{d}\left(\text{d}f\right)=\exp(x)\left[(\cos(yz)) (z\,dy + y\,dz)  \wedge dx +  \left(z\cos(yz) dx +(\cos(yz) - z y\sin(yz))dz\right)\wedge dy+
+(y\cos(yz)dx + (\cos(yz)- yz\sin(yz))dy)\wedge dz\right]$$
+
+Notice that only some partials matter, because of the wedging.
+
+Second example:
+
+If $\omega \in \mathcal A^1(\mathbb R^3)$ as
+
+$$\omega = y\,dx + z\,dy + x\,dz$$
+
+
+$$d\omega = dy\wedge dz + dz\wedge dy + dx\wedge dz$$
+
+which follows the rule of differentiating the coefficient functions, and wedge them with the $dx$ they are sitting next to. For instance, for the first term, $y\,dx$, differentiating $y$ gets us $dy = \frac{\partial y}{\partial x}dx+ \frac{\partial y}{\partial y}dy+\frac{\partial y}{\partial z}dz= dy.$ So we end up with $dy\wedge dx.$ 
+
+
+If we were to $\text{d}(d\omega)=0$ because all the coefficients are $1.$
+
+Third example:
+
+
+$$\omega = (x+y^2) dx + (yz + x) dy + (z^3 + 3xy)dz$$
+
+$$d\omega= (1 dx + 2ydy + 0 dz)\wedge dx +(1 dx + z dy + y dz)\wedge dy + (3ydx+ 3x dy+ 3z^2 dz)\wedge dz$$
+
+which greatly simplifies given that $dx\wedge dx=0,$ for example. And that $dx\wedge dy=-dy\wedge dx.$
+
+Now $d\omega \in \mathcal A^2(\mathbb R^3).$
+
+Fourth example:
+
+$$\varphi\in \mathcal A^2(\mathbb R^3)$$
+$$\varphi=(x e^z) dy\wedge dz + (y\cos x) dz\wedge dx+ (x^3+ y^3+z^3) dx\wedge dy$$
+
+taking $d\varphi\in \mathcal A^3(\mathbb R^3).$ For the first term, we have an $x$ partial $(e^z)$ and a $z$ partial $xe^z$, but we don't care about the latter because there is a $dz$ in $dy \wedge dz:$
+
+
+$$d\varphi=e^z dx\wedge dy\wedge dz+ \cos x\, dy\wedge dz \wedge dx+ 3z^2 dz\wedge dx \wedge dy= (e^z+ \cos x+ 3z^2)dx\wedge dy\wedge dz$$
+
+---
+
+Properties of $\text d$:
+
+If $\omega, \phi \in \mathcal A^k(U),$
+
+$$\text{d}(\omega + \phi ) = \text d\omega + \text d\phi$$
+
+$$\text d(\text d \omega)=0$$
+
+If $\omega \in \mathcal A^k(U),$ and $\phi \in \mathcal A^l(U),$
+
+$$\text d(\omega \wedge \phi)= \text{d}\omega\wedge \phi + (-1)^k\omega \wedge \text d\phi$$
 
 ---
 
