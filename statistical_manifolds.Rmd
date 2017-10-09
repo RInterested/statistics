@@ -56,11 +56,38 @@ From this [youtube video](https://youtu.be/1jlYn7M5wSk)
 
 <img src="https://user-images.githubusercontent.com/9312897/31319071-f5024968-ac2a-11e7-857d-ab926930aa95.png">
 
-<img src="https://user-images.githubusercontent.com/9312897/31319081-1d893d2e-ac2b-11e7-95b1-c1216cf44329.png">
+
+####Riemann metric:
+
+A Riemannian metric on a differentiable manifold $M$ is a mapping that assigns to each point of the manifold $M$ an inner product $g_p$ on the tangent space $T_pM;$ thus, for every two vector fields $X_p, Y_p \in M$, the function $g_p(X_p, Y_p)=\left<X_p,Y_p\right>_p$ is smooth. An $M$ manifold provided with a Riemannian metric is called Riemannian manifold. The metric does not depend on the choice of local coordinates. In addition it can be expressed
+
+$$g_p(X_p, Y_p) =\sum_{i,j}^n v_i\,w_j\,\left< \partial_{i\vert p, \partial_{j\vert p}}  \right>$$
+
+with $\large \partial_i =\frac{\partial}{\partial x_i},$
+
+where $v_i$ and $w_j$ are the coefficients in the representation of $X_p$ and $Y_p$ in the canonical basis of the tangent space $T_p(M)$ given by $\{\partial_{1\vert p},\dots,\partial_{n\vert p}\}.$ The terms $g_{ij}(p)$ represent the entries of the matrix $g(p),$ which is symmetric and definite positive.
+
+The existence of the metric allows defining the length of vectors (of curves). The curve for which the shortest distance is presented is called geodesic.
+
+
 
 <img src="https://user-images.githubusercontent.com/9312897/31319084-29241366-ac2b-11e7-86fe-803b1d28ee6c.png">
 
-<img src="https://user-images.githubusercontent.com/9312897/31319086-3328e58a-ac2b-11e7-8249-86f534a4683c.png">
+####Laplacian operator:
+
+Let $(M,g)$ be a Riemannian manifold. For any smooth function $f$ over $M,$ the gradient is defined as the vector field $\text{grad}(f)$ in $T(M)$ that satisfies $\left<\text{grad}(f), X(f) \right>_g= X(f)$ for all $X\in T(M).$ In local coordinates, the gradient is written as 
+
+$$(\text{grad(f)})_i =\sum_j g^{ij}\,\frac{\partial f}{\partial x_j},$$ where $g^{ij}$ are the components of the inverse matrix of $g=[g_{ij}].$ Then
+
+$$\text{grad}(f) = \sum_{i,j=1}^n  \underbrace{\left(g^{ij} \frac{\partial f}{\partial x_j} \right)}_{\text{grad}(f)}\partial_i$$
+
+In the same local coordinates, the divergent of $X$ is written
+
+$$\text{div}(X) = \frac{1}{\sqrt{\det g}}\sum_i \frac{\partial}{\partial x_i}\left(\sqrt{\det g}\,X_i\right)$$
+The Laplacian or Laplace-Beltrami operator on $(M,g)$ of a smooth function $f: M\to \mathbb R$ is defined as:
+
+$$\Delta_g \, f = \text{div(grad)}(f))= \frac{1}{\sqrt{\det g}}\sum_j \frac{\partial}{\partial x_j}\left(\sum_i g^{ij}\sqrt{\det g}\,\frac{\partial f}{\partial X_i}\right)$$
+
 
 The Laplacian operator has to do with partial derivatives.
 
