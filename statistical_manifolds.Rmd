@@ -30,9 +30,29 @@ with each ellipse showing one of the $698$ faces.
 1. Input data iid points $p_1,p_2,\dots,p_n.$
 2. Construct neighborhood graph where $p,p'$ are neighbors iff $\Vert p - p' \Vert^2\leq \epsilon.$ Neighbors will have an edge connecting them.
 3. Represent the graph as an $n \times n$ matrix with leading eigenvectors as the coordinates $\phi(p_{1:n}).$ The only information taken into consideration is the distances between neighbors.
-4. Construct diffusion maps (This step varies between algorithms):
+4. Construct embedding (This step varies between algorithms):
 
 <img src="https://user-images.githubusercontent.com/9312897/31342297-4c0d874a-acda-11e7-8bf0-d1aca667953f.png">
+
+The idea is that PCA makes the implicit assumption that the manifold is a linear space, projecting onto it. However this is not the case in high-dimensional datasets, motivating the topic - i.e. non-linear dimensionality reduction or manifold learning.
+
+---
+
+#####Types of embeddings:
+
+* Local Linear Embedding
+* Laplacian Eigenmap
+* Diffusion Map
+* Linear Tangent Space Alignment
+* Isomap / MDS
+
+Local linear embedding expresses every point as a linear combination of its neighbors (it's a weighted average).
+
+Diffusion Map and Laplacian Eigenmap work by defining a random walk on a set of points and do an eigen decomposition of the random walk.
+
+Linear Tangent Space Alignment do local PCA, and patch them together.
+
+Isomaps preserve the geodesics, i.e. the distances on the manifold.
 
 The question that arises, then, is which of these embeddings is "correct."
 
@@ -72,7 +92,7 @@ From this [youtube video](https://youtu.be/1jlYn7M5wSk)
 
 The context is a metric $g_{\alpha\beta},$ which in full notation would be a (0,2) tensor $g_{\alpha\beta}\, dx^\alpha \otimes dx^\beta,$ taking two vectors of the $T_p(M)$ to the real line. Since $g_{\alpha\beta}$ is a function of space-time, i.e. $g_{\alpha\beta}(x)$ with $x=( x^0, x^1,x^2, x^3),$ it turns out that $g_{\alpha\beta}$ is a field.
 
-A Riemannian metric on a differentiable manifold $M$ is a mapping that assigns to each point of the manifold $M$ an inner product $g_p$ on the tangent space $T_pM;$ thus, for every two vector fields $X_p, Y_p \in M$, the function $g_p(X_p, Y_p)=\left<X_p,Y_p\right>_p$ is smooth. An $M$ manifold provided with a Riemannian metric is called Riemannian manifold. The metric does not depend on the choice of local coordinates. In addition it can be expressed
+A Riemannian metric on a differentiable manifold $M$ is a mapping that assigns to each point of the manifold $M$ an inner product $g_p$ on the tangent space $T_pM.$ Thus, for every two vector fields $X_p, Y_p \in M$, the function $g_p(X_p, Y_p)=\left<X_p,Y_p\right>_p$ is smooth. An $M$ manifold provided with a Riemannian metric is called Riemannian manifold. The metric does not depend on the choice of local coordinates. In addition it can be expressed
 
 $$g_p(X_p, Y_p) =\sum_{i,j}^n v_i\,w_j\,\left< \partial_{i\vert p, \partial_{j\vert p}}  \right>$$
 
