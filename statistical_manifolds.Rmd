@@ -9,8 +9,46 @@ output:
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###STATISTICAL MANIFOLDS:
+###STATISTICAL LEARNING or NON-LINEAR DIMENSION-REDUCTION ALGORITHM:
 <br>
+
+From this [MMDS lecture](https://youtu.be/ddhbjCLIjho), an this [parallel presentation](https://youtu.be/kTJoFLcdtn8).
+
+Manifold learning addresses the problem of high-dimensional data. Dimensionality reduction improves computational analysis, and it is beneficial as long as it preserves most of the important information.
+
+An $n = 698$ dataset of $64 \times 64$ gray images of faces, where the faces only vary in terms of the head moving up and down or left to right, a 2D manifold is defined.
+
+
+Steps:
+
+1. Input data iid points $p_1,p_2,\dots,p_n.$
+2. Construct neighborhood graph where $p,p'$ are neighbors iff $\Vert p - p' \Vert^2\leq \epsilon.$ Neighbors will have an edge connecting them.
+3. Represent the graph as an $n \times n$ matrix with leading eigenvectors as the coordinates $\phi(p_{1:n}).$ The only information taken into consideration is the distances between neighbors.
+4. Construct diffusion maps (This step varies between algorithms):
+
+<img src="https://user-images.githubusercontent.com/9312897/31342297-4c0d874a-acda-11e7-8bf0-d1aca667953f.png">
+
+One type of diffusion maps is the LAPLACIAN EIGENMAPS:
+
+1. Construct similarity matrix:
+
+$$S = \left [ S_{pp'}\right ]_{p,p'} \in \mathcal D$$
+
+with $S_{pp'}= \exp\left(-\frac{1}{2} \Vert p - p' \Vert^2 \right)$ iff $p,p'$ are neighbors.
+
+2. Construct a Laplacian matrix
+
+$$L = I - T^{-1}S$$
+
+with $T=\text{diag}(S1).$
+
+3. Calculate smallest eigenvectors of $L,$ labelled $\psi^{1,\dots,m}.$
+4. Cordinates of $p\in \mathcal D$ are $\psi^1(p),\psi^2(p),\dots,\psi^m(p).$
+
+
+
+---
+
 
 From this [youtube video](https://youtu.be/1jlYn7M5wSk)
 
