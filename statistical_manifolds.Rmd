@@ -16,10 +16,16 @@ From this [MMDS lecture](https://youtu.be/ddhbjCLIjho), an this [parallel presen
 
 Manifold learning addresses the problem of high-dimensional data. Dimensionality reduction improves computational analysis, and it is beneficial as long as it preserves most of the important information.
 
-An $n = 698$ dataset of $64 \times 64$ gray images of faces, where the faces only vary in terms of the head moving up and down or left to right, a 2D manifold is defined.
+An $n = 698$ dataset of $64 \times 64$ gray images of faces, where the faces only vary in terms of the head moving up and down or left to right, a 2D manifold is defined. In this case the different orientations are shown on an isomap embedding:
+
+<img src="https://user-images.githubusercontent.com/9312897/31346046-c76e23d0-ace5-11e7-95d1-4b9477c2022f.png">
+
+with each ellipse showing one of the $698$ faces.
+
+---
 
 
-Steps:
+###Steps in the process:
 
 1. Input data iid points $p_1,p_2,\dots,p_n.$
 2. Construct neighborhood graph where $p,p'$ are neighbors iff $\Vert p - p' \Vert^2\leq \epsilon.$ Neighbors will have an edge connecting them.
@@ -27,6 +33,9 @@ Steps:
 4. Construct diffusion maps (This step varies between algorithms):
 
 <img src="https://user-images.githubusercontent.com/9312897/31342297-4c0d874a-acda-11e7-8bf0-d1aca667953f.png">
+
+The question that arises, then, is which of these embeddings is "correct."
+
 
 One type of diffusion maps is the LAPLACIAN EIGENMAPS:
 
@@ -47,6 +56,8 @@ with $T=\text{diag}(S1).$
 
 
 
+
+
 ---
 
 
@@ -54,7 +65,7 @@ From this [youtube video](https://youtu.be/1jlYn7M5wSk)
 
 
 
-<img src="https://user-images.githubusercontent.com/9312897/31319071-f5024968-ac2a-11e7-857d-ab926930aa95.png">
+<img src="https://user-images.githubusercontent.com/9312897/31319071-f5024968-ac2a-11e7-857d-ab926930aa95.png" width="500">
 
 
 ####Riemann metric:
@@ -71,7 +82,7 @@ The existence of the metric allows defining the length of vectors (of curves). T
 
 
 
-<img src="https://user-images.githubusercontent.com/9312897/31319084-29241366-ac2b-11e7-86fe-803b1d28ee6c.png">
+<img src="https://user-images.githubusercontent.com/9312897/31319084-29241366-ac2b-11e7-86fe-803b1d28ee6c.png" width="500">
 
 ####Laplacian operator:
 
