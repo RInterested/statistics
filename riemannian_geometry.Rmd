@@ -18,20 +18,61 @@ It deals with intrinsic geometry on surfaces. Transitioning from extrinsic coord
 
 <img src="https://user-images.githubusercontent.com/9312897/31397768-df16a3a2-adb4-11e7-83c5-72ca622fafd9.png" width="500">
 
+expressed as differential changes in the position vector to point $P$ on the manifold as the coordinates given in the extrinsic basis are incremented differentially. The new basis will be $\frac{\partial}{\partial x^i}$ or $\partial x^i.$
+
 As we move differentially along the manifold, the tangent plane changes:
 
 <img src="https://user-images.githubusercontent.com/9312897/31398934-99a12550-adb8-11e7-9c46-ef747a5a3e31.png" width="500">
 
 
-The change of coordinates between two points
+The change of coordinates between two points $P$ and $Q$ separated by a differential value $dx$ as expressed in the extrinsic coordinate system (position vectors from the origin) could be encapsulated with the Taylor series. The new extrinsic coordinates in the extrinsic plane will be $x+dx$ and $y+dy$, and the height will be a function of these two coordinates:
+
+
+$$z(x+dx,y+dy)=z(x,y) + \frac{\partial z}{\partial x} dx+ \frac{\partial z}{\partial y} dy$$
+
+The distance vector $ds$ will be the difference between these two position vectors:
+
+$$ds=z(x+dx,y+dy)- z(x,y)=\frac{\partial z}{\partial x} dx+ \frac{\partial z}{\partial y} dy$$
+
+and the square distance (changing now to covariant notation for covectors)
+
+$$dx^2=ds \cdot ds=g_{ij}\;dx^idy^j$$
+
+with $g_{ij}$ constituting the **metric tensor.** In Cartesian coordinates the metric tensor is simply the identity matrix.
+
+as we move on the manifold, the basis will change...
 
 
 <img src="https://user-images.githubusercontent.com/9312897/31403494-3afa36ea-adc7-11e7-9797-5a1066651355.png" width="500">
 
 
-will entail a projection orthogonal to
+entailing a projection orthogonal the parallelogram formed by $e_1$ and $e_2.$ 
+
+$\frac{\partial \vec e_i}{\partial x^k}=\Gamma^j_{ki}\vec e_j+\text N^J_{ki}\; \vec n_j$
 
 <img src="https://user-images.githubusercontent.com/9312897/31405576-25ac725c-adcd-11e7-9f35-efbb258eb168.png" width="600">
+
+Defining a vector field $\vec V = V^i  e_i$ using the basis $\vec e_1$ and $\vec e_1$ at point $P$ on the manifold, the derivative with respect to the coordinates $k=\{1,2\}$ will be be
+
+
+$$\begin{align}
+\frac{\partial \vec V}{\partial x^k}&=\left(\frac{\partial V^i}{\partial x^k} \right)
+\,\vec e_i \quad +\quad V^i\,\left(\frac{\partial e_i}{\partial x^k}\right)\\[2ex]
+&= 
+\left[\frac{\partial V^i}{\partial x^k}\,\vec e_i + V^i\Gamma^j_{ki} \,\vec e_j\right]
+ \quad +\quad V^i\,\text{N}^j_{ki}\,n_j\\[2ex]
+ &=
+ \left[\frac{\partial V^i}{\partial x^k}\,\vec e_i + V^j\Gamma^i_{kj} \,\vec e_i\right]
+ \quad +\quad V^i\,\text{N}^j_{ki}\,n_j\\[2ex]
+ &= \underbrace{\left[\frac{\partial V^i}{\partial x^k} + V^j\Gamma^i_{kj} \right]}_{\text{covariant derivative}}\,\vec e_i
+ \quad +\quad V^i\,\text{N}^j_{ki}\,n_j\\[2ex]
+\end{align}$$
+
+
+$$D_k V^i= \frac{\partial V^i}{\partial x^k} + V^j\Gamma^i_{kj} $$
+
+with $\Gamma^i_{kj}$ corresponding to the Christoffel symbol, which is geometrically intepretable in the case of one single basis vector, i.e. $K=1$ as the projection of $e_1'$ on $e_1$ minus $e_1$, or $\Gamma^1_{11}dx^1\vec e_1.$ The projection of $e_1'$ on $e_2$ minus $e_2$ is $\Gamma^2_{11}dx1.$ Similarly, the projection of $e_2'$ on $e_1$ minus $e_1$ is $\Gamma^1_{12}dx^1$; and for $e_2'$ on $e_2,$ $\Gamma^1_{22}dx^1.$
+
 
 
 ---
