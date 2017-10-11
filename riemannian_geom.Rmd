@@ -43,20 +43,20 @@ $$dx^2=ds \cdot ds=g_{ij}\;dx^idy^j$$
 with $g_{ij}$ constituting the **metric tensor.** In Cartesian coordinates the metric tensor is simply the identity matrix.
 
 
-[XylyXylyX](https://youtu.be/hK3lt6ovgYc?t=16m59s) labels the vector that the vector field places at $x + \delta x,$ i.e. the position in space-time shifted by small incremenet, 
+[XylyXylyX](https://youtu.be/hK3lt6ovgYc?t=16m59s) labels the vector that the vector field places at $x + \delta x,$ i.e. the position in space-time shifted by a small increment, 
 
 
 
 <img src="https://user-images.githubusercontent.com/9312897/31463362-ea457166-ae9c-11e7-9829-9816881f99f6.png" width="500">
 
 
-as $X^\alpha(x+\delta x),$ with a [Taylor expansion](https://physics.stackexchange.com/q/361380/150551):
+as $X^\alpha(x+\delta x),$ with a first grade [Taylor expansion](https://physics.stackexchange.com/q/361380/150551):
 
 
 $$\begin{align}
-X^\alpha\,(x + \delta x) &= X^\alpha (x)+\delta x^b\;\partial_bX^\alpha+\cdots\\[2ex]
-&=X^\alpha(x) + \delta x^b\;\frac{\partial X^\alpha}{\partial x^b}+\cdots\\[2ex]
-&= X^\alpha(x) + \delta X^\alpha + \cdots
+X^\alpha\,(x + \delta x) &= \underbrace{X^\alpha (x)}_{\text{value at }x}+\delta x^b\;\underbrace{\partial_bX^\alpha}_{\partial \text{wrt compon's } \delta x}\\[2ex]
+&=X^\alpha(x) + \delta x^b\;\frac{\partial X^\alpha}{\partial x^b}\\[2ex]
+&= X^\alpha(x) + \delta X^\alpha
 \end{align}$$
 
 
@@ -107,7 +107,36 @@ This establishes the notion of a parallel vector in the translated point as:
 
 $$\left(\frac{\partial \vec V}{\partial x^K} \right)_{\vert\vert} = \left(D_k V^i\right)\,\vec e_i = \left[\frac{\partial V^i}{\partial x^k}+\Gamma^i_{jk}V^j \right]\vec e_i$$
 
+[XylyXylyX](https://youtu.be/hK3lt6ovgYc?t=22m49s) talks about $X^\alpha(x)_{\vert\vert},$ (see third plot above) and defines
 
+$$\bar \delta X^\alpha = X^\alpha(x)_{||}- X^\alpha(x)$$
+
+Since
+
+$$X^\alpha(x+\delta x) = X^\alpha (x) + \delta X^\alpha$$
+
+and 
+
+$$X^\alpha(x)_{||}= X^\alpha(x) + \bar \delta X^\alpha$$
+
+the difference between the "parallel" vector to the original and the vector at a differential point along the vector field is going to be
+
+$$X^\alpha (x+\delta x) - X^\alpha (x)_{||}=\delta X^\alpha(x)- \bar \delta X^\alpha$$
+
+and dividing by $\delta x$ we get the notion of a derivative (rate of change of a vector field), breaking the seal between the vector field at point $P$ and $Q.$
+
+So we have
+
+$$X^\alpha (x+\delta x) - \underbrace{\left[X^\alpha(x) +\hat \delta X^\alpha\right]}_{\text{parallel vec}}=\delta  X^\alpha (x)- \bar \delta X^\alpha$$
+
+using the [Taylor expansion for the first term](https://physics.stackexchange.com/q/361380/150551):
+
+$$X^\alpha(x) + \delta X^\alpha - X^\alpha(x) - \bar\delta X^\alpha= \delta X^\alpha - \bar \delta X^\alpha$$
+
+which we want to divide by $\delta X$ to get the rate of change:
+
+$$\lim_{\delta X\to 0}\frac{\delta X^\alpha - \bar \delta X^\alpha}{\delta X}$$
+which is the **covariant derivative of the vector field $X$.**
 
 ---
 
