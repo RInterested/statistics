@@ -14,13 +14,15 @@ output:
 
 From [this reference](https://youtu.be/BHKd6-IJgVI).
 
-It deals with intrinsic geometry on surfaces. Transitioning from extrinsic coordinates to intrinsic coordinates at each point on the manifold, results in a basis in the tangent space at each point:
+Riemannian geometry deals with intrinsic geometry on surfaces. The position vector at point P can be expressed on the basis of the extrinsic coordinates, or on the intrinsic coordinates on the manifold (the mesh of space-time). At each point of the manifold (referenced either extrinsically through the Cartesian system; or intrinsically via the curvilinear coordinate lines on the manifold), there will be a tangent vector space (and a dual). However, each point will have its own tangent vector space $T_P(M).$ Over the manifold, there will be a collection of vector spaces - one for each point, $T_x(M).$ A single vector can be selected at each point as a function of the coordinates (a function of space-time), creating a vector field: $\underbrace{X^\alpha(x)}_{\text{components as f(space-time)}}\underbrace{\quad\partial _\alpha\quad}_{basis}\in\quad T_x(M).$
 
 <img src="https://user-images.githubusercontent.com/9312897/31397768-df16a3a2-adb4-11e7-83c5-72ca622fafd9.png" width="500">
 
-expressed as differential changes in the position vector to point $P$ on the manifold as the coordinates given in the extrinsic basis are incremented differentially. The new basis will be $\frac{\partial}{\partial x^i}$ or $\partial x^i.$
+The basis of the tangent space will be $\frac{\partial}{\partial x^i}$ or $\partial x^i.$
 
-As we move differentially along the manifold, the tangent plane changes:
+The vectors in the tangent space and in the dual of the tangent space at every point are related through the metric $g_{\mu\nu}(x)\,dx^\mu\otimes dx^\nu,$ which is also a function of space time. This gives us an inner product at each point. For each vector in the tangent space $\left<\vec v,\;\right>\to \mathbb R,$ i.e. filling in the space with any other vector will produce a real number. Hence,  $\left<\vec v,\;\right>\in V^*, $ linking the vector space with its dual.
+
+However, we are still stuck at any particular point in space-time. As we move differentially along the manifold, the tangent plane changes since the vector space changes with every point. So we need a connector to relate vectors across the field.
 
 <img src="https://user-images.githubusercontent.com/9312897/31398934-99a12550-adb8-11e7-9c46-ef747a5a3e31.png" width="500">
 
@@ -40,7 +42,27 @@ $$dx^2=ds \cdot ds=g_{ij}\;dx^idy^j$$
 
 with $g_{ij}$ constituting the **metric tensor.** In Cartesian coordinates the metric tensor is simply the identity matrix.
 
-as we move on the manifold, the basis will change...
+[XylyXylyX](https://youtu.be/hK3lt6ovgYc?t=16m59s) labels the vector that the vector field places at $x + \delta x,$ i.e. the position in space-time shifted by small incremenet, 
+
+
+
+<img src="https://user-images.githubusercontent.com/9312897/31463362-ea457166-ae9c-11e7-9829-9816881f99f6.png" width="500">
+
+
+as $X^\alpha(x+\delta x),$ with a [Taylor expansion](https://physics.stackexchange.com/q/361380/150551):
+
+
+$$\begin{align}
+X^\alpha\,(x + \delta x) &= X^\alpha (x)+\delta x^b\;\partial_bX^\alpha+\cdots\\[2ex]
+&=X^\alpha(x) + \delta x^b\;\frac{\partial X^\alpha}{\partial x^b}+\cdots\\[2ex]
+&= X^\alpha(x) + \delta X^\alpha + \cdots
+\end{align}$$
+
+
+
+---
+
+As we move on the manifold, the basis will change...
 
 
 <img src="https://user-images.githubusercontent.com/9312897/31403494-3afa36ea-adc7-11e7-9797-5a1066651355.png" width="500">
