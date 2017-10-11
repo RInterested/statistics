@@ -24,7 +24,7 @@ The vectors in the tangent space and in the dual of the tangent space at every p
 
 However, we are still stuck at any particular point in space-time. As we move differentially along the manifold, the tangent plane changes since the vector space changes with every point. So we need a connector to relate vectors across the field.
 
-<img src="https://user-images.githubusercontent.com/9312897/31398934-99a12550-adb8-11e7-9c46-ef747a5a3e31.png" width="500">
+<img src="https://user-images.githubusercontent.com/9312897/31398934-99a12550-adb8-11e7-9c46-ef747a5a3e31.png" width="1000">
 
 
 The change of coordinates between two points $P$ and $Q$ separated by a differential value $dx$ as expressed in the extrinsic coordinate system (position vectors from the origin) could be encapsulated with the Taylor series. The new extrinsic coordinates in the extrinsic plane will be $x+dx$ and $y+dy$, and the height will be a function of these two coordinates:
@@ -41,6 +41,7 @@ and the square distance (changing now to covariant notation for covectors)
 $$dx^2=ds \cdot ds=g_{ij}\;dx^idy^j$$
 
 with $g_{ij}$ constituting the **metric tensor.** In Cartesian coordinates the metric tensor is simply the identity matrix.
+
 
 [XylyXylyX](https://youtu.be/hK3lt6ovgYc?t=16m59s) labels the vector that the vector field places at $x + \delta x,$ i.e. the position in space-time shifted by small incremenet, 
 
@@ -62,13 +63,20 @@ X^\alpha\,(x + \delta x) &= X^\alpha (x)+\delta x^b\;\partial_bX^\alpha+\cdots\\
 
 ---
 
-As we move on the manifold, the basis will change...
+
+
+
+#### [Covariant derivative](https://youtu.be/hK3lt6ovgYc):
+
+
+Differential changes across a vector field will necessitate a way of moving across tangent spaces
+
 
 
 <img src="https://user-images.githubusercontent.com/9312897/31403494-3afa36ea-adc7-11e7-9797-5a1066651355.png" width="500">
 
 
-entailing a projection orthogonal the parallelogram formed by $e_1$ and $e_2.$ 
+entailing a projection orthogonal to the parallelogram formed by $e_1$ and $e_2.$ 
 
 $\frac{\partial \vec e_i}{\partial x^k}=\Gamma^j_{ki}\vec e_j+\text N^J_{ki}\; \vec n_j$
 
@@ -94,6 +102,10 @@ $$\begin{align}
 $$D_k V^i= \frac{\partial V^i}{\partial x^k} + V^j\Gamma^i_{kj} $$
 
 with $\Gamma^i_{kj}$ corresponding to the Christoffel symbol, which is geometrically intepretable in the case of one single basis vector, i.e. $K=1$ as the projection of $e_1'$ on $e_1$ minus $e_1$, or $\Gamma^1_{11}dx^1\vec e_1.$ The projection of $e_1'$ on $e_2$ minus $e_2$ is $\Gamma^2_{11}dx1.$ Similarly, the projection of $e_2'$ on $e_1$ minus $e_1$ is $\Gamma^1_{12}dx^1$; and for $e_2'$ on $e_2,$ $\Gamma^1_{22}dx^1.$
+
+This establishes the notion of a parallel vector in the translated point as:
+
+$$\left(\frac{\partial \vec V}{\partial x^K} \right)_{\vert\vert} = \left(D_k V^i\right)\,\vec e_i = \left[\frac{\partial V^i}{\partial x^k}+\Gamma^i_{jk}V^j \right]\vec e_i$$
 
 
 
