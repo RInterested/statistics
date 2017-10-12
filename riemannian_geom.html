@@ -188,7 +188,7 @@ X^\alpha\,(x + \delta x) &amp;= \underbrace{X^\alpha (x)}_{\text{value at }x}+\d
 <p><span class="math display">\[X^\alpha(x) + \delta X^\alpha - X^\alpha(x) - \bar\delta X^\alpha= \delta X^\alpha - \bar \delta X^\alpha\]</span></p>
 <p>which we want to divide by <span class="math inline">\(\delta X\)</span> to get the rate of change:</p>
 <p><span class="math display">\[\begin{align}
-\lim_{\delta X\to 0}\frac{\delta X^\alpha - \bar \delta X^\alpha}{\delta X}&amp;= \lim_{\delta X\to 0}\frac{\delta X^\alpha }{\delta X}-\lim_{\delta X\to 0} \frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
+\nabla X^\alpha&amp;=\lim_{\delta X\to 0}\frac{\delta X^\alpha - \bar \delta X^\alpha}{\delta X}\\[2ex]&amp;= \lim_{\delta X\to 0}\frac{\delta X^\alpha }{\delta X}-\lim_{\delta X\to 0} \frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
 &amp;= \lim_{\delta X\to 0}\partial X^\alpha- \lim_{\delta X\to 0}\frac{ \bar \delta X^\alpha}{\delta X}
 \end{align}\]</span> which is the <strong>covariant derivative of the vector field <span class="math inline">\(X\)</span>.</strong></p>
 <p>In the limit we can expect <span class="math inline">\(\delta X\)</span> and <span class="math inline">\(X^\alpha(x)\)</span> to have a linear relation to <span class="math inline">\(\bar \delta X^\alpha\)</span>. But since both <span class="math inline">\(\delta X\)</span> and <span class="math inline">\(X^\alpha(x)\)</span> have <span class="math inline">\(4\)</span> components, it will need to be linear in <span class="math inline">\(16\)</span> combinations of components. In comes <span class="math inline">\(\Gamma^\alpha_{kj}\)</span> or Christoffel symbol, as the multiplier for these pairwise linear relations:</p>
@@ -197,6 +197,12 @@ X^\alpha\,(x + \delta x) &amp;= \underbrace{X^\alpha (x)}_{\text{value at }x}+\d
 <p>The Cristoffel symbol is a function of space-time:</p>
 <p><span class="math display">\[ \bar \delta^\alpha=-\Gamma^\alpha_{kj}(x)\,X^k(x)\,\delta x^j\]</span></p>
 <p>This is called the <strong>CONNECTION</strong>. And this connection comes from the <strong>METRIC</strong>.</p>
+<p>The <strong>covariant derivative</strong> is thus expressed as</p>
+<p><span class="math display">\[\begin{align}\nabla X^\alpha&amp;=\lim_{\delta X\to 0}\partial X^\alpha- \lim_{\delta X\to 0}\frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
+&amp;=\lim_{\delta X\to 0}\partial X^\alpha+ \lim_{\delta X\to 0}\Gamma^\alpha_{kj}(x)\,X^k(x)
+\end{align}\]</span></p>
+<p>which is stated as</p>
+<p><span class="math display">\[\underbrace{\nabla_c X^\alpha}_{(1,1)-\text{tensor}} =\underbrace{\partial_c X^\alpha}_{\partial \text { of vec field wrt components}} + \Gamma^\alpha_{kj}X^k\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

@@ -140,7 +140,7 @@ $$X^\alpha(x) + \delta X^\alpha - X^\alpha(x) - \bar\delta X^\alpha= \delta X^\a
 which we want to divide by $\delta X$ to get the rate of change:
 
 $$\begin{align}
-\lim_{\delta X\to 0}\frac{\delta X^\alpha - \bar \delta X^\alpha}{\delta X}&= \lim_{\delta X\to 0}\frac{\delta X^\alpha }{\delta X}-\lim_{\delta X\to 0} \frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
+\nabla X^\alpha&=\lim_{\delta X\to 0}\frac{\delta X^\alpha - \bar \delta X^\alpha}{\delta X}\\[2ex]&= \lim_{\delta X\to 0}\frac{\delta X^\alpha }{\delta X}-\lim_{\delta X\to 0} \frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
 &= \lim_{\delta X\to 0}\partial X^\alpha- \lim_{\delta X\to 0}\frac{ \bar \delta X^\alpha}{\delta X}
 \end{align}$$
 which is the **covariant derivative of the vector field $X$.**
@@ -159,6 +159,15 @@ $$ \bar \delta^\alpha=-\Gamma^\alpha_{kj}(x)\,X^k(x)\,\delta x^j$$
 
 This is called the **CONNECTION**. And this connection comes from the **METRIC**.
 
+The **covariant derivative** is thus expressed as
+
+$$\begin{align}\nabla X^\alpha&=\lim_{\delta X\to 0}\partial X^\alpha- \lim_{\delta X\to 0}\frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
+&=\lim_{\delta X\to 0}\partial X^\alpha+ \lim_{\delta X\to 0}\Gamma^\alpha_{kj}(x)\,X^k(x)
+\end{align}$$
+
+which is stated as
+
+$$\underbrace{\nabla_c X^\alpha}_{(1,1)-\text{tensor}} =\underbrace{\partial_c X^\alpha}_{\partial \text { of vec field wrt components}} + \Gamma^\alpha_{kj}X^k$$
 
 ---
 
