@@ -6,6 +6,9 @@
 ###THE METRIC TENSOR:
 <br>
 
+
+
+
 <img width=600 src="https://cloud.githubusercontent.com/assets/9312897/22626987/0d62c42a-eb87-11e6-9e53-263ab8c1036a.png">
 
 The **length or magnitude** of the vector $dS$ **in Cartesian coordinates** is given by:
@@ -16,7 +19,7 @@ Notice that the dummy indexes are set up to sum over. We start with $m=1$, and w
 
 But how to write the same for the curvilinear system?
 
-We have to refer back to the following expression expressing a change of coordinate system at the beginning of the [notes on tensors](http://rinterested.github.io/statistics/tensors.html):
+We have to refer back to the following expression of a change of coordinate system at the beginning of the [notes on tensors](http://rinterested.github.io/statistics/tensors.html):
 
 $$dy^n = \frac{\partial y^n}{\partial x^\color{blue}{m}} dx^{\color{blue}{m}} \tag{Ref.1}$$
 
@@ -32,7 +35,54 @@ $$dS^2 = \large \delta_{mn} \;dX^m\, dX^n= \large \underset{\text{METRIC TENSOR 
 
 $$\huge \bbox[10px, border:2px solid aqua]{g^{(y)}_{\color{red}{rs}}=\delta_{mn}\frac{\partial x^m}{\partial y^\color{red}{r}}\frac{\partial x^n}{\partial y^\color{red}{s}}}\tag 3$$
 
-So it seems to be the instrument that transforms from one set of coordinates to another and at the same time indicates when to actually measure the magnitude of the vector.
+---
+
+Here is [another derivation](https://youtu.be/BHKd6-IJgVI?t=3m37s):
+
+<img src="https://user-images.githubusercontent.com/9312897/31546162-2869215a-aff0-11e7-8221-e5465a45c51a.png" width="500">
+
+We can define the position vector $y$ in terms of the surface coordinates $x_1$ and $x_2.$
+
+Substracting the shifted vector along one of the coordinates from the original one we end up with a tangent vector:
+
+$$\frac{y(x_1 + dx_1, x_2)- y(x_1,x_2)}{dx_1}=\vec e_1$$
+The same applies to $\vec e_2:$
+
+$$\frac{y(x_1, x_2+dx_2)- y(x_1,x_2)}{dx_2}=\vec e_2$$
+
+So the $\vec e_1$ and $\vec e_2$ is a basis for the tangent space at the point $y(x_1,x_2).$
+
+Expanding the Taylor series of the position vector for the translated point:
+
+
+$$\begin{align}
+y(x_1 + dx_1, x_2 + dx_2) &= y(x_1, x_2) + \frac{\partial y}{\partial x_1}dx_1+ \frac{\partial y}{\partial x_2}dx_2\\[2ex]
+&= y(x_1,x_2) + \vec e_1 dx_1 + \vec e_2 dx_2
+\end{align}$$
+
+The difference in position vectors gives a distance vector:
+
+$$d\vec s= y(x_1 + dx_1, x_2 + dx_2) - y(x_1,x_2)=\vec e_1 dx_1 + \vec e_2 dx_2$$
+
+and the square distance is (changing to covariant/contravariant notation)
+$$
+d\vec s \cdot d\vec s = (\vec e_1 dx^1 + \vec e_2 dx^2)\cdot (\vec e_1 dx^1 + \vec e_2 dx^2)=\sum_{i=1}^2 \sum_{j=1}^2 g_{ij}dx^idx^j$$
+
+with $g_{ij}=\vec e_i \cdot \vec e_j$ being the metric tensor waiting for two vectors to produce a scalar. It can be represented as a symmetric matrix with dim equal to the number of intrinsic  coordinates:
+
+$$ds^2 = \begin{bmatrix}dx_1& dx_2\end{bmatrix}\color{blue}{\begin{bmatrix}g_{11}&g_{12}\\g_{21}&g_{22}\end{bmatrix}}\begin{bmatrix}dx_1\\dx_2\end{bmatrix}$$
+which is exactly the same operation as the (0,2) tensor presented [here](https://youtu.be/kMm7JVvlMOE?t=21m56s):
+
+$$g_{\mu\nu}\,dx^\mu\otimes dx^\nu=g_{\mu\nu}(x)\,dx^\mu\otimes dx^\nu= \sum_{i=1}^2 \sum_{j=1}^2 g_{ij}dx^idx^j=\begin{bmatrix}dx_1& dx_2\end{bmatrix}\color{blue}{\begin{bmatrix}g_{11}&g_{12}\\g_{21}&g_{22}\end{bmatrix}}\begin{bmatrix}dx_1\\dx_2\end{bmatrix}$$
+with $g_{\mu\nu}(x)$ indicating that it is a function of the space time (depends on the point on the manifold).
+
+Of note, the metric tensor is the identity matrix in Cartesian coordinates:
+
+$$ds^2 = \begin{bmatrix}dx_1& dx_2\end{bmatrix}\color{blue}{\begin{bmatrix}1&0\\0&1\end{bmatrix}}\begin{bmatrix}dx_1\\dx_2\end{bmatrix}$$
+
+
+---
+
 
 We write,
 
