@@ -14,7 +14,9 @@ output:
 
 From [this reference](https://youtu.be/BHKd6-IJgVI).
 
-Riemannian geometry deals with intrinsic geometry on surfaces. The position vector at point P can be expressed on the basis of the extrinsic coordinates, or on the intrinsic coordinates on the manifold (the mesh of space-time). At each point of the manifold (referenced either extrinsically through the Cartesian system; or intrinsically via the curvilinear coordinate lines on the manifold), there will be a tangent vector space (and a dual). However, each point will have its own tangent vector space $T_P(M).$ Over the manifold, there will be a collection of vector spaces - one for each point, $T_x(M).$ A single vector can be selected at each point as a function of the coordinates (a function of space-time), creating a vector field: $\underbrace{X^\alpha(x)}_{\text{components as f(space-time)}}\underbrace{\quad\partial _\alpha\quad}_{basis}\in\quad T_x(M).$
+Riemannian geometry deals with intrinsic geometry on surfaces. The position vector at point P can be expressed on the basis of the extrinsic coordinates, or on the intrinsic coordinates on the manifold (the mesh of space-time). At each point of the manifold (referenced either extrinsically through the Cartesian system; or intrinsically via the curvilinear coordinate lines on the manifold), there will be a tangent vector space (and a dual). However, each point will have its own tangent vector space $T_P(M).$ Over the manifold, there will be a collection of vector spaces - one for each point, $T_x(M).$ A single vector can be selected at each point as a function of the coordinates (a function of space-time), creating a vector field: 
+
+$$\underbrace{X^\alpha(x)}_{\text{components as f(space-time)}}\underbrace{\quad\partial _\alpha\quad}_{basis}\in\quad T_x(M).$$
 
 <img src="https://user-images.githubusercontent.com/9312897/31397768-df16a3a2-adb4-11e7-83c5-72ca622fafd9.png" width="500">
 
@@ -107,6 +109,8 @@ This establishes the notion of a parallel vector in the translated point as:
 
 $$\left(\frac{\partial \vec V}{\partial x^K} \right)_{\vert\vert} = \left(D_k V^i\right)\,\vec e_i = \left[\frac{\partial V^i}{\partial x^k}+\Gamma^i_{jk}V^j \right]\vec e_i$$
 
+---
+
 [XylyXylyX](https://youtu.be/hK3lt6ovgYc?t=22m49s) talks about $X^\alpha(x)_{\vert\vert},$ (see third plot above) and defines
 
 $$\bar \delta X^\alpha = X^\alpha(x)_{||}- X^\alpha(x)$$
@@ -136,13 +140,38 @@ $$X^\alpha(x) + \delta X^\alpha - X^\alpha(x) - \bar\delta X^\alpha= \delta X^\a
 which we want to divide by $\delta X$ to get the rate of change:
 
 $$\begin{align}
-\lim_{\delta X\to 0}\frac{\delta X^\alpha - \bar \delta X^\alpha}{\delta X}&= \lim_{\delta X\to 0}\frac{\delta X^\alpha }{\delta X}-\lim_{\delta X\to 0} \frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
+\nabla X^\alpha&=\lim_{\delta X\to 0}\frac{\delta X^\alpha - \bar \delta X^\alpha}{\delta X}\\[2ex]&= \lim_{\delta X\to 0}\frac{\delta X^\alpha }{\delta X}-\lim_{\delta X\to 0} \frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
 &= \lim_{\delta X\to 0}\partial X^\alpha- \lim_{\delta X\to 0}\frac{ \bar \delta X^\alpha}{\delta X}
 \end{align}$$
 which is the **covariant derivative of the vector field $X$.**
 
+In the limit we can expect $\delta X$ and $X^\alpha(x)$ to have a linear relation to $\bar \delta X^\alpha$. But since both $\delta X$ and $X^\alpha(x)$ have $4$ components, it will need to be linear in $16$ combinations of components. In comes $\Gamma^\alpha_{kj}$ or Christoffel symbol, as the multiplier for these pairwise linear relations:
+
+$$\bar \delta^\alpha=-\Gamma^\alpha_{kj}\,X^k(x)\,\delta x^j$$
+The Christoffel symbol is not a tensor, but just components, and the parallel vector is
+
+$$X^\alpha(x)_{\vert\vert}=X^\alpha(x) -\Gamma^\alpha_{kj}\,X^k(x)\,\delta x^j$$
+
+The Cristoffel symbol is a function of space-time:
 
 
+$$ \bar \delta^\alpha=-\Gamma^\alpha_{kj}(x)\,X^k(x)\,\delta x^j$$
+
+This is called the **CONNECTION**. And this connection comes from the **METRIC**.
+
+The **covariant derivative** is thus expressed as
+
+$$\begin{align}\nabla X^\alpha&=\lim_{\delta X\to 0}\partial X^\alpha- \lim_{\delta X\to 0}\frac{ \bar \delta X^\alpha}{\delta X}\\[2ex]
+&=\lim_{\delta X\to 0}\partial X^\alpha+ \lim_{\delta X\to 0}\Gamma^\alpha_{kj}(x)\,X^k(x)
+\end{align}$$
+
+which is stated as
+
+$$\underbrace{\nabla_c X^\alpha}_{(1,1)-\text{tensor}} =X^\alpha_{;c}= X^\alpha_{||c}=\underbrace{\partial_c X^\alpha}_{\partial \text { of vec field wrt components}} + \Gamma^\alpha_{kj}X^k$$
+
+and it could be fully expressed as 
+
+$$X^\alpha_{;c}\,\partial_\alpha\otimes dx^c$$
 
 ---
 
