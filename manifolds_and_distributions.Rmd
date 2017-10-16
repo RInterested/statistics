@@ -24,6 +24,74 @@ Below are three examples of likelihood functions (see figure below) -- the distr
 
 <img src="https://user-images.githubusercontent.com/9312897/31625462-2928f576-b274-11e7-8e74-d0ce02f8b41a.jpg" width=300>
 
+However, given a broad distribution like that of the cyan curve, although we are still most likely to recover data at the center $\lambda$, there is also a great deal of likelihood we can recover data at values of $\lambda$ further away since these still have very high values of $\mathcal{L}$. Thus, we are still quite likely to describe the measured data with many values of $\lambda$ even though there is a true value. 
+
+These differences in the types of curves we can obtain can be quantified and become very useful. To that end, we wish to quantify how quickly the curves fall off from the maximum as a function of the parameter, i.e. the width of the curve. From this, we can ask, given a set of measured data, how constraining are we on the underlying theory--i.e. how well does the data fit the theory? If the curve is narrow (falls off very quickly), the data constrains the theory relatively well, but if the curve is broad (falls off very slowly), the theory is not well constrained by the data. 
+
+To quantify this, we Taylor expand the likelihood function around its peak for this simple one-parameter example, $\lambda_0$:
+
+\begin{equation}
+\mathcal{L} = \mathcal{L}(\lambda_0) + \frac{d \mathcal{L}}{d \lambda} \Bigg|_{\lambda_0} (\lambda - \lambda_0) + {1 \over 2} \frac{d^2 \mathcal{L}}{d \lambda ^2} \Bigg|_{\lambda_0} (\lambda - \lambda_0)^2 + \cdots
+\end{equation}
+\noindent 
+
+Since we've defined $\lambda_0$ to be the maximum, the first derivative is equal to zero. Therefore, our first piece of information is in the second derivative of the likelihood function with respect to our parameter. If we neglect terms of higher order than second, we obtain
+
+
+\begin{equation}
+\mathcal{L} \approx \mathcal{L}(\lambda_0) + {1 \over 2} \frac{d^2 \mathcal{L}}{d \lambda ^2} \Bigg|_{\lambda_0} (\lambda - \lambda_0)^2
+\end{equation}
+
+Here, then, we are approximating our likelihood function as a parabola, which is not a good approximation in general since it can have any shape and in fact, even in the simplest cases, the likelihood function is not quadratic in form. A better approximation comes from Taylor expanding the natural log of the likelihood function, which leads to a second derivative that is Gaussian in form ($\frac{d^2 \ln\mathcal{L}}{d \lambda ^2}$ for one parameter), which is a far better approximation of a general peak shape (as in those in the above figure).
+
+
+We can generalize the above to more parameters, and thereby define the Fisher (or curvature) matrix. Here, we define it for the more general case of two parameters
+
+
+\begin{equation}
+\mathcal{F} \equiv - \Bigg \langle \frac{d \ln \mathcal{L}}{d \lambda_{\alpha}} \frac{d \ln \mathcal{L}}{d \lambda_{\beta}} \Bigg \rangle
+\end{equation}
+
+where $\lambda_{\alpha}$ and $\lambda_{\beta}$ are two different parameters we're using to describe our underlying theory. The Fisher matrix is often called the curvature matrix since it's the second derivative of the likelihood function, and it indeed describes the curvature of $\mathcal{L}$--how quickly it falls off as a function of our parameters. The size of the Fisher matrix values corresponds directly to the shape of the likelihood function--the larger the values, the narrower the curve and the narrower the curve, the more constraining your data is for that parameter and the smaller the uncertainties on the parameter--given by $\sqrt{\mathcal{F}^{-1}}$. Thus, the Fisher matrix can be used to forecast how effective an experiment will be in constraining the parameters of an underlying theory; it tells you the best possible constraints you can hope to obtain with a particular experiment and does so by maximizing the likelihood function without the need to cover the whole parameter space.
+
+If Gaussian errors are assumed for each observable, characterized by $\sigma_l$, then the elements of the general Fisher matrix (again, assuming Gaussian statistics) are given by
+
+\begin{equation}
+\mathcal{F}_{ij} = \sum_l {\frac{1}{\sigma_l^2} \frac{d f_l}{d \lambda_i} \frac{d f_l}{d \lambda_j }}
+\end{equation}
+
+where the $\lambda_i$ and $\lambda_j$ represent N model parameters and there are L observables related to the model parameters by the $f_l$ equations, $f_l = f_l(\lambda_1, \lambda_2, \ldots, \lambda_N)$.
+
+\section{Covariance Matrix}
+\indent Another important matrix in statistics is the covariance matrix, and it relates to the Fisher matrix in a very useful way. If we take the inverse of the Fisher matrix ($\mathcal{F}^{-1}$), the diagonal elements give us the variance (the square of the uncertainty) of the parameters and the off-diagonal elements are the covariances between the parameters. In particular, the covariance is the degree to which the uncertainty in one parameter affects the uncertainty of another. Therefore, high covariance is not desirable since this can result in errors which are significantly influenced by the covariance when doing the actual data analysis. \\
+\indent As an explicit example, we can use the above two-parameter ($\alpha, \beta$) space. The covariance matrix is given by
+\begin{equation}
+\mathcal{F}_{\alpha \beta}^{-1} = \mathcal{C}_{\alpha \beta}
+\end{equation}
+\noindent where $\mathcal{C}_{\alpha \beta}$ is the covariance matrix. Writing this more explicitly, we have
+\begin{equation}
+\mathcal{C}_{\alpha \beta} = \begin{bmatrix} \sigma_{\alpha}^2 & \sigma_{\beta \alpha} \\ \sigma_{\alpha \beta} & \sigma_{\beta}^2 \end{bmatrix}
+\end{equation}
+\noindent where the diagonal elements are the variance of the parameters, which have the conventional statistical definition--they give the spread around the true value (that of the peak)--the off-diagonal are the covariances (the degree to which $\alpha$ and $\beta$ covary with respect to each other), and the $\sigma$ are the uncertainties. \\
+\indent In the below figure (Figure \ref{contourplots}), we have two types of contour plots, one with no covariance and one with covariance. In the first figure, there is no covariance--that is, we can take a step in $\beta$ without having to change $\alpha$ at all. And in the second, there is covariance--each step in $\alpha$ or $\beta$ forces a change in the other parameter in order to remain consistent with the data. \\
+
+
+<img src="https://user-images.githubusercontent.com/9312897/31627254-9aa319ce-b27a-11e7-91f8-84328057c801.png" width=400>
+	
+In the first figure, there is no covariance. In the second figure, the variance is defined in the same way, but now the covariance is nonzero. 
+
+How do we make these plots? First, we need to develop a fiducial model. This model uses your best guess values for the true parameter values. In our two-parameter case, we guess a value for $\lambda_{\alpha}$ and $\lambda_{\beta}$ and this set becomes the center of the contours. Keep in mind then that your Fisher matrix is valid only for models near the fiducial model.
+
+Next, 1- and 2-sigma are defined by the chi-squared distribution (again, this assumes Gaussian statistics!), so from this we can calculate the contours. We calculate chi-squared directly from the Fisher matrix. (This reinforces the usefulness of the Fisher matrix in predicting how well a given experiment or multiple experiments will constrain the parameters of a theory.) The chi-squared is given by
+\begin{equation}
+\chi^2 = \delta \mathcal{F} \delta^T
+\end{equation}
+\noindent where $\mathcal{F}$ is the Fisher matrix and $\delta$ is some small step away from our fiducial $\lambda_{\alpha}$ and $\lambda_{\beta}$. From here, we can do a brute force computation [See Numerical Recipes or Carl Heiles' handbook](http://astro.berkeley.edu/~heiles/ay204_2010/lsfit_2008.ps) with our Fisher matrix to get the contours. Depending on the number of parameters you have in your model, there are also well defined $\Delta \chi^2$ corresponding to $1-, 2-, 3-\sigma,$ etc. contours (See Numerical Recipes). An important feature to note in these contour plots is there dependence on the Fisher matrix, namely that the larger the Fisher matrix element values are (corresponding to narrower likelihood curves), the smaller the covariance and therefore variance, and thus, the smaller the contours become. Therefore, with larger Fisher matrices, we get smaller contours and thus, parameters that are better constrained, which is exactly what we want! For examples of calculating the chi-squared and Fisher matrix see [Jonathan Pober's](http://youtu.be/m62I5_ow3O8 video). An important thing to note in all of this as well is that when calculating the Fisher matrix, it has no dependence on the observed data--only on how the parameters are related to the model--so we can determine the validity of experiments and how well a theory can be constrained before we ever observe--saving time and resources!
+
+From [here](https://www.quora.com/What-does-statistical-Fisher-information-have-to-do-with-information-theory/answer/Carlos-E-Perez?srid=utSnl):
+
+Fisher Information is the [KL divergence](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence) between a model estimate and an infinitesimal change in that estimate.     It is also inversely proportional to the error rate between.  Therefore, it is a extremely important metric on what model parameters to adjust to improve one's model fitting.  Shannon entropy is a global estimate of a probability distribution as compared to Fisher Information which is a local estimate.
+
 
 ---
 
