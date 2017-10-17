@@ -105,13 +105,69 @@ An exponential family is a set of probability distributions admitting the follow
 
 $$p(x;θ) = \exp (\left < t(x), \theta\right>−F(\theta) +k(x))$$
 
-where $t(x)$ is the sufficient statistic; $\theta$ are the natural parameters, $\left<\;,\;\right>$ is the inner product (commonly called dot product), $F(\cdot)$ is the log-normalizer, and $k(x)$ is the carrier measure. 
+where $t(x)$ is the sufficient statistic. The sufficient statistic $t(x)$ should be elementary functions (often polynomial functions) with leading unit coefficient. $\theta$ are the natural parameters, $\left<\;,\;\right>$ is the inner product (commonly called dot product), $F(\cdot)$ is the log-normalizer
+
+$F(\theta) = \log \int_x \exp(\left< t(x), \theta \right> +k(x))dx,$
+
+and $k(x)$ is the carrier measure. The carrier measure should not have constant term, so that we prefer to ab-sorb the constant in the log-normalizer. 
 
 Exponential families include many familiar distributions, characterized by their log-normaliser functions: 
 
 *Gaussian or normal (generic, isotropic Gaussian, diagonal Gaussian, rectified Gaussian or Wald distributions, log-normal), Poisson, Bernoulli, binomial, multinomial (trinomial, Hardy-Weinberg distribution), Laplacian, Gamma (including the chi-squared), Beta, exponential, Wishart, Dirich-let, Rayleigh, probability simplex, negative binomial distribution, Weibull, Fisher-von Mises, Pareto distributions, skew logistic, hyperbolic secant, negative binomial, etc.*
 
 <img src="https://user-images.githubusercontent.com/9312897/31636454-7d87e5ea-b298-11e7-862b-abdf1e246c4e.png">
+
+For exponential families, we have 
+
+$E[t(X)]=\mu=\nabla F(\theta)$
+
+$E[(t(X)-\mu)^\top(t(X)-\mu)]=\nabla^2F(\theta)$
+
+$\nabla^2 F$ denotes the Hessian of the log-normalizer. It is a positive definite matrix since $F$ is strictly convex and differentiable function. In fact, exponential families have all finite moments, and $F$ is $C^\infty$ differentiable. 
+
+The natural parameter space $\mathcal P = \{\Theta | F(\Theta)| < +\infty\}$ is necessarily an open convex set. 
+
+A family of parametric distributions $\{p(x;\theta)\}$ (exponential or not) may be thought as a smooth manifold that can be studied using the framework of differential geometry. Two main types of geometries: (1) Riemannian geometry defined by a bilinear tensor with an induced Levi-Cevita connection, and non-metric geometry induced by a symmetric affine connection. 
+
+the only Riemannian metric that “makes sense” for statistical manifolds is the Fisher information metric: 
+
+$$I(\theta) = \left [\int \frac{\partial \log p(x;\theta)}{\partial \theta_i} \frac{\partial \log p(x;\theta)}{\partial \theta_j} p(x; \theta)\;dx\right ]= [g_{ij}]$$
+The infinitesimal length element is given by 
+
+$$ \mathrm d s^2 = \sum_{i=1}^d\sum_{i=1}^d \mathrm d\theta_i^\top \nabla^2F(\theta)\mathrm \theta_j$$
+
+Cencov proved that for a non-singular transformation of the parameters $\lambda=f(\theta),$ the information matrix 
+
+$$I(\lambda)=\left[ \frac{\partial \theta_i}{\partial \lambda_j} \right]\quad I(\theta)=\left[ \frac{\partial \theta_i}{\partial \lambda_j} \right]$$
+
+is such that $\mathrm ds^2(\lambda)=\mathrm d s^2(\theta).$
+
+Equipped with the tensor $I(\theta)$, the metric distance between two distributions on a statistical manifold can be computed from the geodesic length (e.g., shortest path): 
+
+$$D\,\left ( p(x;\theta_1)\,,\,p(x;\theta_2)    \right)=\min_{\theta(t)\,|\,\theta(0)=\theta_1\;,\;\theta(1)=\theta_2}\;\int_0^1 \; \sqrt{\left(\frac{\mathrm d\theta}{\mathrm dt} \right)^\top\;I(\theta)\frac{\mathrm d \theta}{\mathrm dt}dt}$$
+
+The multinomial Fisher-Rao-Riemannian geometry yields a spherical geometry, and the normal Fisher-Rao-Riemannian geometry yields a hyperbolic geometry. Indeed, the Fisher information matrix for univariate normal distributions is 
+
+$$I(\theta) = \frac{1}{\sigma^2}\begin{bmatrix}1&0\\0&2 \end{bmatrix}$$
+
+The Fisher information matrix can be interpreted as the Hessian of the [Shannon entropy](https://en.wiktionary.org/wiki/Shannon_entropy): 
+
+$$g_{ij}(\theta)=-E\left[ \frac{\partial^2\log p(x;\theta)}{\partial \theta_i \partial\theta_j} \right]=\frac{\partial^2 H(p)}{\partial \theta_i \partial \theta_j}$$
+
+with $$H(p) = -\int p(x;\theta)\,\log p(x;\theta) \mathrm dx.$$
+
+For an exponential family, the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence) is a Bregman divergence on the natural parameters. Using Taylor approximation with exact remainder, we get 
+
+$$KL(\theta||\theta + \mathrm d\theta) = \frac{1}{2} \mathrm d\theta^\top \nabla^2\,F(θ)\mathrm d\theta.$$
+
+Moreover, the infinitesimal Rao distance is $$\sqrt{\mathrm d\theta^T I(\theta)\mathrm d\theta}$$ for $I(\theta) = \nabla^2 F(\theta).$ We deduce that $(\theta, \theta+ \mathrm d\theta) = \sqrt{} 2KL(\theta||\theta + \mathrm d\theta)}. $
+
+The inner product of two vectors $\vec x$ and $\vec y$ at a tangent space of point $p$ is
+
+$$\left< x,y  \right >_p=\vec x^\top\, g_p \vec y.$$
+
+The length of the vector $\vec v$ in the tangent space at $T_p$ at $p$ is defined by $\Vert \vec v \Vert_p = \sqrt{\left<v,v \right>_p}$
+
 
 ---
 
