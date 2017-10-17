@@ -158,7 +158,7 @@ with $$H(p) = -\int p(x;\theta)\,\log p(x;\theta) \mathrm dx.$$
 
 For an exponential family, the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence) is a Bregman divergence on the natural parameters. Using Taylor approximation with exact remainder, we get 
 
-$$KL(\theta||\theta + \mathrm d\theta) = \frac{1}{2} \mathrm d\theta^\top \nabla^2\,F(θ)\mathrm d\theta.$$
+$$\mathrm {KL}(\theta||\theta + \mathrm d\theta) = \frac{1}{2} \mathrm d\theta^\top \nabla^2\,F(θ)\mathrm d\theta.$$
 
 Moreover, the infinitesimal Rao distance is $$\sqrt{\mathrm d\theta^T I(\theta)\mathrm d\theta}$$ for $I(\theta) = \nabla^2 F(\theta).$ We deduce that $(\theta, \theta+ \mathrm d\theta) = \sqrt{} 2KL(\theta||\theta + \mathrm d\theta)}. $
 
@@ -166,19 +166,52 @@ The inner product of two vectors $\vec x$ and $\vec y$ at a tangent space of poi
 
 $$\left< x,y  \right >_p=\vec x^\top\, g_p \vec y.$$
 
+Technically speaking, it is a bilinear symmetric positive definite oprator. A tensor $[T_p]^2_2$ of covariant degree $2$ and a contravariant degree $0: <\cdot,\cdot>_p: T_p \times T_p \to \mathbb R.$
+
 The length of the vector $\vec v$ in the tangent space at $T_p$ at $p$ is defined by $\Vert \vec v \Vert_p = \sqrt{\left<v,v \right>_p}$
 
 
 For exponential families, the logarithm of the density is concave (since $F$ is convex), and we have
 
-$$I(\theta)=\left[] \frac{\partial \eta}{\partial \theta}\right]=\nabla^2F(\theta)=I^{-1}(\eta)=\left[\frac{\partial\theta}{\partial \eta}  \right]$$
+$$I(\theta)=\left[ \frac{\partial \eta}{\partial \theta}\right]=\nabla^2F(\theta)=I^{-1}(\eta)=\left[\frac{\partial\theta}{\partial \eta}  \right]$$
 That is, the Fisher information is the Hessian of the log-normalizer $\nabla^2 F(\theta).$ 
 
 To a given manifold $\mathcal M$ with tensor $G,$ we may associeate a probability measure as follows: Let $p(\theta)=\frac{1}{V}\sqrt{\det G(\theta)}$ with overall volume $V=\int_{\theta\in \Theta}\sqrt{G(\theta)}\mathrm d\theta.$ These distributions are built from infinetisimal volume elements and bear the name of Jeffreys priors. They are used in Bayesisan estimation.
 
 Furthermore, in an exponential family manifold, the geometry is flat and $\theta/\eta$ are dual coordinate systems. 
 
-Amari focused on a pair of dual affine mixture/exponential connections $\nabla^m$ and $\nabla^e$ induced by a contrast function $F$ (also called potential function).
+Amari focused on a pair of dual affine mixture/exponential connections $\nabla^m$ and $\nabla^e$ induced by a contrast function $F$ (also called potential function). A connection $\nabla$ yields a function $\Pi_{p,q}$ that maps vectors in any pair of tangent spaces $T_p$ and $T_q.$ An affine connection is defined by $d^3$ coefficients. $\nabla^{(0)}$, the metric Levi-Civita connection, is obtained from the dual $\nabla^{(\alpha)}$ and $\nabla^{(-\alpha)}$ $\alpha$-connections:
+
+$$\nabla^{(0)}=\frac{\nabla^{(\alpha)}+\nabla^{(-\alpha)}}{2}.$$
+
+In particular, the $\nabla^{(1)}$ connection is called the **exponential connection** and the $\nabla^{(-1)}$ connection is called the **mixture connection**. The mixture/exponential geodesics for the two distributions $p(x)$ and $q(x)$ induced by these dual connections are defined by
+
+$$\gamma_\lambda(x)=(1-\lambda)p(x)+\lambda q(x)$$
+
+$$\log_{\gamma_\lambda}(x) = (1-\lambda)\log p(x) + \lambda \log q(x) - \log Z_\lambda$$
+
+with $Z_\lambda$ the normalization coefficient $Z_\lambda =\int f^{(1-\lambda)}(x)g^\lambda(x) dx.$
+
+
+---
+
+####Appendix:
+
+In information geometry, the [Fisher information metric](https://en.wikipedia.org/wiki/Fisher_information_metric) is a particular Riemannian metric which can be defined on a smooth statistical manifold, i.e., a smooth manifold whose points are probability measures defined on a common probability space. It can be used to calculate the informational difference between measurements.
+
+It can be understood to be the infinitesimal form of the relative entropy (i.e., the [Kullback–Leibler divergence](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence)); specifically, it is the Hessian of the divergence. In turn, the Kullback-Leibler divergence is a generalization of the [Mahalanobis distance](https://en.wikipedia.org/wiki/Mahalanobis_distance).
+
+In mathematical statistics, the Kullback–Leibler divergence (also called relative entropy) is a measure of how one probability distribution diverges from a second, expected probability distribution.
+
+For distributions $P$ and $Q$ of a continuous random variable, the Kullback–Leibler divergence is defined to be the integral:
+
+$$D_\mathrm {KL}(P||Q) = \int_{-\infty}^\infty p(x)\log\frac{p(x)}{q(x)} dx$$
+
+which amounts to the expectation of the logarithmic difference between the probabilities $P$ and $Q.$ Actually, $\frac{p(x)}{q(x)}$ is the likelihood ratio.
+
+
+
+
 
 
 ---
