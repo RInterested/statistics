@@ -169,6 +169,18 @@ $$\left< x,y  \right >_p=\vec x^\top\, g_p \vec y.$$
 The length of the vector $\vec v$ in the tangent space at $T_p$ at $p$ is defined by $\Vert \vec v \Vert_p = \sqrt{\left<v,v \right>_p}$
 
 
+For exponential families, the logarithm of the density is concave (since $F$ is convex), and we have
+
+$$I(\theta)=\left[] \frac{\partial \eta}{\partial \theta}\right]=\nabla^2F(\theta)=I^{-1}(\eta)=\left[\frac{\partial\theta}{\partial \eta}  \right]$$
+That is, the Fisher information is the Hessian of the log-normalizer $\nabla^2 F(\theta).$ 
+
+To a given manifold $\mathcal M$ with tensor $G,$ we may associeate a probability measure as follows: Let $p(\theta)=\frac{1}{V}\sqrt{\det G(\theta)}$ with overall volume $V=\int_{\theta\in \Theta}\sqrt{G(\theta)}\mathrm d\theta.$ These distributions are built from infinetisimal volume elements and bear the name of Jeffreys priors. They are used in Bayesisan estimation.
+
+Furthermore, in an exponential family manifold, the geometry is flat and $\theta/\eta$ are dual coordinate systems. 
+
+Amari focused on a pair of dual affine mixture/exponential connections $\nabla^m$ and $\nabla^e$ induced by a contrast function $F$ (also called potential function).
+
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
