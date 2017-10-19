@@ -74,9 +74,96 @@ with $T=\text{diag}(S1).$
 3. Calculate smallest eigenvectors of $L,$ labelled $\psi^{1,\dots,m}.$
 4. Cordinates of $p\in \mathcal D$ are $\psi^1(p),\psi^2(p),\dots,\psi^m(p).$
 
+---
 
 
+An embedding of a manifold $\mathcal M$ into $\mathcal N$ is an injective map $\phi: \mathcal M\to \mathcal N$ with $\text{rank}(\phi)=\dim(\mathcal M),$ such that $\mathcal M$ is [homeomorphic](https://en.wikipedia.org/wiki/Homeomorphism) to its image under $\phi.$
 
+Rank of a smooth map is $k$ if the [Jacobian](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant) $d\phi_p:T_p\mathcal M \to T_{\phi(p)}\mathcal N$ of the map has rank $k$ for all points $p\in \mathcal M.$
+
+The geometry is defined in terms of the Reimannian metric (RM), $g,$ which is a symmetric and positive definite vector field which defines and inner product $\<\;,\;>_g$ on the tangent space $T_p\mathcal M.$
+
+A Riemannian manifold $(\mathcal M, g)$ is a smooth manifold with a RM defined at every point in $T_p\mathcal M.$
+
+It allows defining angles between vectors in the tangent space:
+
+$$\cos \theta=\frac{<u,v>_g}{\Vert u\Vert \Vert v \Vert }$$
+
+The arc length of a curve $c \in \mathcal M:$
+
+
+$$l(c) = \int_a^b \sqrt{g_{ij}\frac{dx^i}{dt}\frac{dx^j}{dt}}dt$$
+
+where $(x^1,\dots,x^d)$ are the coordinates of chart $(U,\vec x)$ with $c([a,b])\in U.$
+
+Similarly the volume of $W\subset U$ is given by
+
+$$\text{vol}(W)= \int_W\sqrt{\det(g)} dx^1\dots dx^d$$
+
+#####ISOMETRY:
+
+The smooth map $f: \mathcal M \to \mathcal N$ between to R. manifolds $(\mathcal M, g)$ and $(\mathcal N, h)$ is called an isometry iff for all $p\in \mathcal M$ and all $u,v\in T_p(\mathcal M),$ $<u,v>_{g(p)}=\left< df_p u, df_p w  \right>_{h(f(p))},$ where $df_p$ denotes the Jacobian of $f$ at $p,$ i.e. the map $df_p:T_p(\mathcal M)\to T_{f(p)}(\mathcal N).$
+
+#####RANK DEFICIENT MATRIX - THE EMBEDDING PUSHFORWARD METRIC:
+
+For every $u,v \in T_{f(p)}f(\mathcal M) \oplus T_{f(p)}f(\mathcal M)^\perp,$ the embedding pushforward metric $h$ of an embedding $f$ at point $p \in \mathcal M$ is defined by the inner product $<u,v>_h(f(p))\equiv\left <  df_p^\dagger (n), df_p^\dagger (v)  \right >_{g(p)}$ where $df_p^\dagger: T_{f(p)}f(\mathcal M) \oplus T_{f(p)}f(\mathcal M)^\perp \to T_p\mathcal M$ is the pseudoinverse of the Jacobian $df_p$ of $f: \mathcal M \to \mathbb R^\mathcal s.$
+
+It's a way of passing on the inner product to the embedded space to preserve the isometry.
+
+#####LAPLACIAN ON $\mathcal M$: THE LAPLACE-BELTRAMI OPERATOR:
+
+The L-B operator $\Delta_\mu$ acting on a twice differentiable function $f: \mathcal M \to \mathbb R$ is defined as the divergence of the gradient:
+
+
+$$\Delta_\mathcal M f \equiv \text{div grad}(f)$$
+In local coordinates, for chart $(U,x),$ the L-B operator is expressed by means of $g:$
+
+$$\Delta_\mathbb M f = \frac{1}{\sqrt{\det(g)}}\frac{\partial}{\partial x^l}\left(\sqrt{\det(g)}g^{lk}\frac{\partial}{\partial x^k}   f\right ).$$
+
+The L-B operator contains all the geometry of the object, and at the same time, it is coordinate free.
+
+#####OBTAINING THE RIEMANNIAN METRIC:
+
+Given the coordinate chart $(U,x)$ of a smooth R.Manifold, $M$ and $\Delta_\mu$ defined on $M,$ then the $g(p)^{-1},$ the inverse of the RM at point $p\in U$ as expressed in local coordinates $x$ can be derived from 
+
+
+$$g^{ij}=\frac{1}{2}\Delta_\mu (x^i - x^i(p))\,(x^j - x^j (p))\rvert_{x^i=x^i(p),x^j=x^j(p)}$$
+
+with $i,j=1,\dots, d.$
+
+For an embedding this takes the form
+
+$$\tilde h^{ij}=\frac{1}{2}\Delta_M\; (f^i-f^i(p))\,(f^j-f^j(p))\rvert_{f^i=f^i(p),f^j=f^j(p)}$$
+
+and so $h(p)$ is given by the pseudoinverse $\tilde h.$
+
+#####DISCRETIZED PROBLEM:
+
+The input level for the embedding algorith is a set of points $\mathcal D =p_1,\dots,p_n\subset M.$ These points are assumed to be a sample from the distribution
+
+$$p(x) = e^{-U(x)}$$ on $M,$ absolutely continuous with respect to the Lebesgue measure on $M.$
+
+Embedding algorithms construct a map $f_n: \mathcal D\to \mathbb R^\mathcal s.$
+
+We go on to define the symmetric positive semidefinite embedding pushforward $h_n$ on the set of points $\mathcal D.$ We obtain it by defining a discrete estimator $\tilde{ \mathcal L}_{n,\epsilon}$ that is consistent with $\Delta_M.$ The idea being to get an approximation of the Laplacian.
+
+#####RANDOM WALK GRAPH LAPLACIAN:
+
+Construct graph $g_n$ to have adjacency matrix $k_n =[k_\epsilon(p,p')]_{p,p'\in \mathcal D}$ given by $k_\epsilon(p,p') = \exp(-\Vert p-p'\Vert^2/\epsilon),$ which is the Gaussian kernel.
+
+If the sampling density is uniform over $M,$ then one can immediately construct the random walk graph Laplacian:
+
+$$\mathcal L_{n,\epsilon}\equiv \frac{I_n - T_n^{-1}k_n}{\epsilon}$$
+
+where $T_n$ is the diagonal matrix of outdegrees, i.e. $T_n= \text{diag}\left\{t(p), p\in \mathcal D  \right\}$ with $t(p) =\sum_{p'\in \mathcal D}k_n(p,p').$
+
+A simple renormalization exists when $p(x)$ is not uniform.
+
+#####ALGORITHM LEARN METRIC:
+
+1. Construct the graph Laplacian $\tilde\mathcal L_{n,\epsilon}$
+2. Obtain the embedding coordinates $f_n(p) =\left( f_n^1(p),\dots,f_n^\mathcal s (p)   \right)$ of each point $p \in \mathcal D$ by $[f_n(p)]_{p\in \mathcal D}\equiv \text{GENERIC EMBED}(\mathcal D,\mathcal s, \epsilon_n)$
+3. Calculate the embedding metric $h_n(p)$ at each point, using $\tilde L_{n,\epsilon}$. Output $\left( f_n(p), h_n(p)   \right)_{p\in \mathcal D}.$
 
 ---
 
