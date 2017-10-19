@@ -110,7 +110,7 @@ For every $u,v \in T_{f(p)}f(\mathcal M) \oplus T_{f(p)}f(\mathcal M)^\perp,$ th
 
 It's a way of passing on the inner product to the embedded space to preserve the isometry.
 
-#####LAPLACIAN ON $\mathcal M$: THE LAPLACE-BELTRAMI OPERATOR:
+#####LAPLACIAN ON $\mathcal M$: [THE LAPLACE-BELTRAMI OPERATOR](https://en.wikipedia.org/wiki/Laplace–Beltrami_operator):
 
 The L-B operator $\Delta_\mu$ acting on a twice differentiable function $f: \mathcal M \to \mathbb R$ is defined as the divergence of the gradient:
 
@@ -161,9 +161,47 @@ A simple renormalization exists when $p(x)$ is not uniform.
 
 #####ALGORITHM LEARN METRIC:
 
-1. Construct the graph Laplacian $\tilde\mathcal L_{n,\epsilon}$
+1. Construct the graph Laplacian $\tilde{\mathcal L}_{n,\epsilon}$
 2. Obtain the embedding coordinates $f_n(p) =\left( f_n^1(p),\dots,f_n^\mathcal s (p)   \right)$ of each point $p \in \mathcal D$ by $[f_n(p)]_{p\in \mathcal D}\equiv \text{GENERIC EMBED}(\mathcal D,\mathcal s, \epsilon_n)$
-3. Calculate the embedding metric $h_n(p)$ at each point, using $\tilde L_{n,\epsilon}$. Output $\left( f_n(p), h_n(p)   \right)_{p\in \mathcal D}.$
+3. Calculate the embedding metric $h_n(p)$ at each point, using $\tilde{\mathcal L}_{n,\epsilon}$. Output $\left( f_n(p), h_n(p)   \right)_{p\in \mathcal D}.$
+
+
+#####LOCALLY ISOMETRIC EMBEDDING:
+
+Using the pushforward metric $h_p$ at point $p \in M,$ we can construct an affine tranformation of $f$ that defines a local isometry at $p:$
+
+Given $(f(\mathcal D), h(\mathcal D))$ metric embedding of $\mathcal D:$
+
+1. Select a point $p\in \mathcal D$ on the manifold
+2. Transform coordinates $\tilde f(p') \leftarrow  h_p^{-1/2}\,f(p')$ for $p'\in \mathcal D$
+
+Display $\mathcal D$ in coordinates $\tilde f$
+
+
+#####COMPUTING GEODESIC DISTANCE:
+
+Computing the geodesic distance between two points $p$ and $p'$ requires discretizing the arclength integral and finding the shortest path:
+
+$$\hat d_\mathcal M \,(f(P),f(p'))= \min\left \{ \sum_{i=1}^l \mathcal H_{q_i,q_{i-1}},l\geq 1, (q_0=p,\dots,q_1=p')\in\mathcal G   \right\}$$
+
+where $\hat d$ is the metric, $\Vert f(p) - f(p')\Vert$ is the distance between two points and $d_\mathcal G$ the shortest path.
+
+$$\mathcal H_{q_i,q_{i-1}}= \frac{1}{2}\sqrt{(f(q_i)-f(q_{i-1}))'\,h_{q_i}(f(q_i)-f(q_{i-1}))}+ \frac{1}{2}\sqrt{(f(q_i)-f(q_{i-1}))'\,h_{q_{i-1}}(f(q_i)-f(q_{i-1}))} $$
+
+The computation can be done regardless of the embedding.
+
+#####COMPUTING AREA / VOLUME:
+
+By performing a Voronoi tessellation of a coordinate chart $(U,x)$ we can obtain the estimator $\Delta x^1,\dots \Delta x^d$ around $p$ and multiply it by $\sqrt{\det (h)}$ to obtain $\Delta \text{Vol}\approx d\text{Vol}.$ Summing over all points in a set $W\subset \mathcal M$ gives the estimator:
+
+$$\text{Vol}(W) =\sum_{p\in W} \sqrt{\det(h_p)}\Delta x^1(p),\dots \Delta x^d(p).$$
+
+#####GAUSSIAN PROCESSES ON MANIFOLDS:
+
+GP's can be extended to M via SPDE's. Let $(k^2 - \Delta_{\mathbb R^d})^{\alpha/2}u(x) = \xi$ with $\xi$ Gaussian with noise, then $u(x)$ is a Matérn GP. Substituting $\Delta_\mathcal M$ allows us to define a Matérn GP on $\mathcal M.$ 
+
+Unlabelled points can be learned by GP regression (semi-supervised learning) using the covariance matrix $\Sigma=(k^2 - \Delta_{\mathbb R^d})^{-\alpha}$ of GP $u(x).$
+
 
 ---
 
