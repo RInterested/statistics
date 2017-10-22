@@ -9,8 +9,126 @@ output:
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###OLS DIAGNOSTICS - Df Betas:
+###OLS DIAGNOSTICS:
 <br>
+
+
+First off, setting up a toy example, from the first rows of the dataset `mtcars`:
+
+```{r}
+d = mtcars[1:6,]                          # The dataset
+fit = lm(mpg ~ wt + disp, d)              # The OLS model
+X = model.matrix(fit)                     # The model matrix X
+H = X %*% (solve(t(X) %*% X) %*% t(X))    # The hat matrix
+diagonal = hat(model.matrix(fit))         # The diagonal of the hat matrix
+```
+
+####Dfbeta:
+
+DFBETA measures the difference in each parameter estimate with and without a presumably influential point. There is a DFBETA for each point and each observation (if there are $N$ points and $k$ variables there are $N\times k$ DFBETAs).
+
+```{r}
+# Let's look at the leverage of the fist entry in the database:
+d[1,]
+# First calculate the coefficients fitting the model without this entry:
+dno = d[-1,]
+fitno = lm(mpg ~ wt + disp, dno)
+coefficients(fit) - coefficients(fitno)
+# More expediently,
+dfbeta(fit)[1,]
+```
+
+
+---
+
+####[Leverage or influence or hat value](https://en.wikipedia.org/wiki/Projection_matrix):
+
+In statistics, the projection matrix , sometimes also called the influence matrix or hat matrix , maps the vector of response values (dependent variable values) to the vector of fitted values (or predicted values). It describes the influence each response value has on each fitted value.
+
+```{r}
+1 - (residuals(fit)[1] / (d[1,'mpg'] - predict(fitno, d[1,])))
+
+# In-built function:
+
+hatvalues(fit)[1]
+
+# Or find the value in the diagnonal of the hat matrix:
+
+H[1]
+```
+
+---
+
+####Standardized residuals:
+
+First some definitions:
+
+The **deviance** is the sum of squared residuals:
+
+```{r}
+all.equal(deviance(fit), sum(residuals(fit)^2))
+```
+
+The [**MSE (MEAN SQUARED ERROR)**](http://rinterested.github.io/statistics/variance_estimated_parameters.html) is defined as $s^2=\frac{e^\top e}{n-p}$ with $\vec e$ corresponding to the residuals, and $\mathbf e^\top \mathbf e$ given by the deviance; $n,$ the number of observations `nrow(X)`; and $p,$ the number of parameters `col(X)`, including the intersect.
+
+```{r}
+MSE = deviance(fit)/ df.residual(fit)
+
+# Notice that
+
+all.equal(nrow(X) - ncol(X), df.residual(fit))
+```
+
+```{r}
+
+# Standardized residuals:
+
+fit$residuals / sqrt(MSE * (1 - hatvalues(fit)))
+
+# The built-in formula is
+
+rstandard(fit) 
+
+```
+
+---
+
+####Studentized residuals:
+
+```{r}
+MSEno = deviance(fitno) / fitno$df.residual
+resid(fit)[1]/ sqrt(MSEno * (1 - hatvalues(fit)[1]))
+
+# or
+
+rstudent(fit)[1]
+```
+
+---
+
+####[Cook's distance:](https://www.mathworks.com/help/stats/cooks-distance.html?requestedDomain=www.mathworks.com)
+
+Cook’s distance is the scaled change in fitted values. Each element in Cook's distance is the normalized change in the vector of coefficients due to the deletion of an observation. The Cook’s distance, $D_i,$ of observation $i$ is
+
+$$D_i=\frac{\sum_{j=1}^N\,\left( \hat y_j-\hat y_{j(i)} \right)^2}{\text{MSE}\; p}$$
+
+where $\hat y_j$ is the $j$-th fitted response; $\hat y_{j(i)}$ is the $j$-th fitted response value when the coefficients are calculated without the observation $i;$ $\text {MSE}$ is the mean squared error; and $p$ is the number of coefficients, including the intercept.
+
+```{r}
+dy = predict(fitno, d) - predict(fit, d)
+sum(dy^2) / (ncol(X) * MSE)
+
+# alternative formula:
+
+fit$residuals[1]^2 /(ncol(X)*sum(fit$residuals^2)/df.residual(fit))*(hatvalues(fit)[1]/(1-hatvalues(fit)[1])^2)
+
+cooks.distance(fit)[1]
+```
+
+
+
+
+---
 
 This was an [original question posted in CV](http://stats.stackexchange.com/q/141243/67822).
 
