@@ -1,0 +1,59 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###RANDOM GENERATION OF POWERPOINT DISTRIBUTED VALUES:
+<br>
+
+From [Wolfram alpha](http://mathworld.wolfram.com/RandomNumber.html),
+
+The pdf of the power law is
+
+$$f_X(x) =C x^n, x \in [x_0, x_1]$$
+and the normaliztion constant can be determined by considering that $f_X(x)$ has to integrate to 1:
+
+$$\int_{x_0}^{x_1} f_X(x)dx= C \frac{[x^{n+1}]_{x_0}^{x_1}}{n+1}=1$$
+and hence,
+
+$$C=\frac{n+1}{x_1^{n+1}- x_0^{n+1}}.$$
+
+The cumulative probability distribution is
+
+$$F_X(x) = \Pr(X <x)=\int_{x_0}^x C x^n dx =\frac{C}{n+1}\left(x^{n+1}-x_0^{n+1  }\right)$$
+
+If $Y\sim U[0,1]$ and by the [probability integral transform
+](https://en.wikipedia.org/wiki/Inverse_transform_sampling),
+
+$$y\equiv \frac{C}{n+1} \left(x^{n+1}-x_0^{n+1} \right)$$
+
+So $y=g(x)$ with inverse
+
+$$X = \left( \frac{n+1}{C}y + x_0^{n+1}    \right)^{1/{n+1}}$$
+
+
+and replacing $C$
+
+$$X = \left[ (x_1^{n+1}-x_0^{n+1})y + x_0^{n+1}    \right]^{1/{n+1}}$$
+which is different from page 3 of [this document](https://drive.google.com/file/d/0Bwl-HpVJ_5PeUWliQ2F0OUo3NVE/view?usp=sharing).
+
+In R
+
+```{r}
+x1 = 8
+x0 = 0
+n = 2.5
+y = runif(1e5)
+x = ((x1^(n+1) - x0^(n+1))*y + x0^(n+1))^(1/(n+1))
+hist(x)
+```
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
