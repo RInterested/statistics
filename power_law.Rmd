@@ -9,54 +9,66 @@ output:
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###RANDOM GENERATION OF POWERPOINT DISTRIBUTED VALUES:
+###POWER LAW DISTRIBUTION:
 <br>
 
 From [Wolfram alpha](http://mathworld.wolfram.com/RandomNumber.html),
 
 The pdf of the power law is
 
-$$f_X(x) =C x^n, x \in [x_0, x_1]$$
+$$f_X(x) =C x^\alpha, x \in [x_0, x_1]$$
 and the normaliztion constant can be determined by considering that $f_X(x)$ has to integrate to 1:
 
-$$\int_{x_0}^{x_1} f_X(x)dx= C \frac{[x^{n+1}]_{x_0}^{x_1}}{n+1}=1$$
+$$\int_{x_0}^{x_1} f_X(x)dx= C \frac{[x^{\alpha+1}]_{x_0}^{x_1}}{\alpha+1}=1$$
 and hence,
 
-$$C=\frac{n+1}{x_1^{n+1}- x_0^{n+1}}.$$
+$$C=\frac{\alpha+1}{x_1^{\alpha+1}- x_0^{\alpha+1}}.$$
+
+However, notice that in [other sources](https://en.wikipedia.org/wiki/Power_law#Power-law_probability_distributions), the negative value of alpha is explicit in the equations. For instance:
+
+
+$$p(x)=\frac{\alpha - 1}{x_{\mathrm{min}}}\left(\frac{x}{x_{\mathrm{min}}} \right)^{-\alpha}$$
 
 The cumulative probability distribution is
 
-$$F_X(x) = \Pr(X <x)=\int_{x_0}^x C x^n dx =\frac{C}{n+1}\left(x^{n+1}-x_0^{n+1  }\right)$$
+$$F_X(x) = \Pr(X <x)=\int_{x_0}^x C x^\alpha dx =\frac{C}{\alpha+1}\left(x^{\alpha+1}-x_0^{\alpha+1  }\right)$$
 
 If $Y\sim U[0,1]$ and by the [probability integral transform
 ](https://en.wikipedia.org/wiki/Inverse_transform_sampling),
 
-$$y\equiv \frac{C}{n+1} \left(x^{n+1}-x_0^{n+1} \right)$$
+$$y\equiv \frac{C}{\alpha+1} \left(x^{\alpha+1}-x_0^{\alpha+1} \right)$$
 
 So $y=g(x)$ with inverse
 
-$$X = \left( \frac{n+1}{C}y + x_0^{n+1}    \right)^{1/{n+1}}$$
+$$X = \left( \frac{\alpha+1}{C}y + x_0^{\alpha+1}    \right)^{1/{\alpha+1}}$$
 
 
 and replacing $C$
 
-$$X = \left[ (x_1^{n+1}-x_0^{n+1})y + x_0^{n+1}    \right]^{1/{n+1}}$$
-which is different from page 3 of [this document](https://drive.google.com/file/d/0Bwl-HpVJ_5PeUWliQ2F0OUo3NVE/view?usp=sharing).
+$$X = \left[ (x_1^{\alpha+1}-x_0^{\alpha+1})y + x_0^{\alpha+1}    \right]^{1/{\alpha+1}}$$
+
+and $X\sim L(x),$ i.e. it is distributed following a power law.
+
+Note that it is different from page 3 of [this document](https://drive.google.com/file/d/0Bwl-HpVJ_5PeUWliQ2F0OUo3NVE/view?usp=sharing).
+
+
 
 In R
 
 ```{r, warning=F}
 x1 = 5
 x0 = 0.1  # It can't be zero; otherwise X^0^(neg) is 1/0.
-n = -2.5  # It has to be negative.
+alpha = -2.5  # It has to be negative.
 y = runif(1e5)
-x = ((x1^(n+1) - x0^(n+1))*y + x0^(n+1))^(1/(n+1))
+x = ((x1^(alpha+1) - x0^(alpha+1))*y + x0^(alpha+1))^(1/(alpha+1))
 hist(x, prob = T, breaks=40, ylim=c(0,10), xlim=c(0,1.2), border=F, col="yellowgreen", main="Power law density")
 lines(density(x), col="chocolate", lwd=1)
 lines(density(x, adjust=2), lty="dotted", col="darkblue", lwd=2)
 h = hist(x, prob=T, breaks=40, plot=F)
 plot(h$count, log="xy", type='l', lwd=1, lend=2, xlab="", ylab="", main="Density in logarithmic scale")
 ```
+
+The number of samples in the bins becomes small towards the right of the plot, leading to statistical fluctuations, and the noisy right tails.
 
 ---
 
