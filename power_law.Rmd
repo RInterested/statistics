@@ -46,12 +46,14 @@ which is different from page 3 of [this document](https://drive.google.com/file/
 In R
 
 ```{r}
-x1 = 8
-x0 = 0.1
-n = -2.5
+x1 = 5
+x0 = 0.1  # It can't be zero; otherwise X^0^(neg) is 1/0.
+n = -2.5  # It has to be negative.
 y = runif(1e5)
 x = ((x1^(n+1) - x0^(n+1))*y + x0^(n+1))^(1/(n+1))
-hist(x, breaks=20, probability = T)
+hist(x, prob = T, breaks=40, ylim=c(0,10), xlim=c(0,1.2), border=F, col="yellowgreen", main="Power law density")
+lines(density(x), col="chocolate", lwd=1)
+lines(density(x, adjust=2), lty="dotted", col="darkblue", lwd=2)
 ```
 
 ---
