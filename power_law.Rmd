@@ -47,11 +47,11 @@ In R
 
 ```{r}
 x1 = 8
-x0 = 0
-n = 2.5
+x0 = 0.1
+n = -2.5
 y = runif(1e5)
 x = ((x1^(n+1) - x0^(n+1))*y + x0^(n+1))^(1/(n+1))
-hist(x)
+hist(x, breaks=20, probability = T)
 ```
 
 ---
