@@ -55,12 +55,14 @@ Note that it is different from page 3 of [this document](https://drive.google.co
 
 In R
 
-```{r, warning=F}
+```{r, warning=F, fig.width=4, fig.height=4}
 x1 = 5
 x0 = 0.1  # It can't be zero; otherwise X^0^(neg) is 1/0.
 alpha = -2.5  # It has to be negative.
+set.seed(123)
 y = runif(1e5)
 x = ((x1^(alpha+1) - x0^(alpha+1))*y + x0^(alpha+1))^(1/(alpha+1))
+summary(x)
 hist(x, prob = T, breaks=40, ylim=c(0,10), xlim=c(0,1.2), border=F, col="yellowgreen", main="Power law density")
 lines(density(x), col="chocolate", lwd=1)
 lines(density(x, adjust=2), lty="dotted", col="darkblue", lwd=2)
@@ -69,6 +71,42 @@ plot(h$count, log="xy", type='l', lwd=1, lend=2, xlab="", ylab="", main="Density
 ```
 
 The number of samples in the bins becomes small towards the right of the plot, leading to statistical fluctuations, and the noisy right tails.
+
+If we hadn't generated these data synthetically, and were looking at $x$ as empirical data from an experiment, we could try to fit a power law distribution with the package `igraph` and the function`power.law.fit()`. This is not run live due to the long running time, but these are the results:
+
+
+```
+> power.law.fit(x)
+$continuous
+[1] TRUE
+
+$alpha
+[1] 2.528831
+
+$xmin
+[1] 0.1000154
+
+$logLik
+[1] 107268.9
+
+$KS.stat
+[1] 0.004489128
+
+$KS.p
+[1] 0.03555093
+```
+
+`xmin` = the lower bound for fitting the power-law
+
+`alpha` =  the exponent of the fitted power-law distribution
+
+`logLik` =  the log-likelihood of the fitted parameters
+
+`KS.stat` =  the test statistic of a Kolmogorov-Smirnov test that compares the fitted  distribution with the input vector. Smaller scores denote better fit.
+
+`KS.p` = the p-value of the Kolmogorov-Smirnov test. Small p-values (less than 0.05) indicate that the test rejected the hypothesis that the original data could have been drawn from the fitted power-law distribution.
+
+Therefore, the results would exclude that the data was drawn from a power-law distribution, even if we know that they were!
 
 ---
 
