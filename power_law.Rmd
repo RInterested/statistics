@@ -72,41 +72,43 @@ plot(h$count, log="xy", type='l', lwd=1, lend=2, xlab="", ylab="", main="Density
 
 The number of samples in the bins becomes small towards the right of the plot, leading to statistical fluctuations, and the noisy right tails.
 
-If we hadn't generated these data synthetically, and were looking at $x$ as empirical data from an experiment, we could try to fit a power law distribution with the package `igraph` and the function`power.law.fit()`. This is not run live due to the long running time, but these are the results:
+If we hadn't generated these data synthetically, and were looking at $x$ as empirical data from an experiment, we could try to fit a power law distribution with the package `igraph` and the function`power.law.fit()`. 
+
+---
+
+####[Subexponential distributions](https://rigorandrelevance.wordpress.com/2013/12/05/catastrophes-conspiracies-and-subexponential-distributions-part-i/):
+
+There are three important subclasses of heavy-tailed distributions: the fat-tailed distributions, the long-tailed distributions and the subexponential distributions. In practice, all commonly used heavy-tailed distributions belong to the subexponential class.
+
+From these [CalTech notes](http://users.cms.caltech.edu/~adamw/papers/2013-SIGMETRICS-heavytails.pdf)...
+
+<img src="https://user-images.githubusercontent.com/9312897/32154809-9bd34c94-bd09-11e7-8dbf-26595392f579.png">
 
 
-```
-> power.law.fit(x)
-$continuous
-[1] TRUE
+Exponential distributions are not subexponential!
 
-$alpha
-[1] 2.528831
+These distributions can be intuitively approximated through these heuristics:
 
-$xmin
-[1] 0.1000154
+1. The principle of the single big jump
 
-$logLik
-[1] 107268.9
+2. Many mice and a few elephants
 
-$KS.stat
-[1] 0.004489128
+3. The catastophe principle (versus the conspiracy principle of light tailed distributions).
 
-$KS.p
-[1] 0.03555093
-```
+> E.g. the sum up the estimated cost of the damages from each hurricane during a given year is unexpectedly large.  It is probably not because there were a lot of hurricanes that caused larger than typical amounts of damage.The catastrophe principle for heavy-tailed distributions tells us that the most likely reason that the sum is unexpectedly large is because there was one hurricane that caused an extremely large amount of damage.  In fact, we should expect that there was one hurricane that caused nearly all of the damage caused during the year, i.e., there was a catastrophe.
 
-`xmin` = the lower bound for fitting the power-law
+Mathematically,
 
-`alpha` =  the exponent of the fitted power-law distribution
+A distribution $F$ on the positive half-line is subexponential if
 
-`logLik` =  the log-likelihood of the fitted parameters
+$$\overline{F^{*n}}(x) \sim n\,\bar F(x), x \to \infty$$
 
-`KS.stat` =  the test statistic of a Kolmogorov-Smirnov test that compares the fitted  distribution with the input vector. Smaller scores denote better fit.
+The probabilistic interpretation of this is that, for a sum of $\displaystyle n$ independent random variables $\displaystyle X_{1},\ldots ,X_{n}$  with common distribution $\displaystyle F$,
 
-`KS.p` = the p-value of the Kolmogorov-Smirnov test. Small p-values (less than 0.05) indicate that the test rejected the hypothesis that the original data could have been drawn from the fitted power-law distribution.
+$$\displaystyle \Pr[X_{1}+\cdots +X_{n}>x]\sim \Pr[\max(X_{1},\ldots ,X_{n})>x]\quad {\text{as }}x\to \infty .$$
 
-Therefore, the results would exclude that the data was drawn from a power-law distribution, even if we know that they were!
+
+
 
 ---
 
