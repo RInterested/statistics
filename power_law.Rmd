@@ -117,6 +117,8 @@ $$\displaystyle \Pr[X_{1}+\cdots +X_{n}>x]\sim \Pr[\max(X_{1},\ldots ,X_{n})>x]\
 
 ####CONNECTION POWERLAW AND LOGNORMAL:
 
+Not all highly right-skewed distributions follow the power law. The log-normal distribution can have very similar plots.
+
 From [this source](http://www.uvm.edu/pdodds/teaching/courses/2013-01UVM-300/docs/2013-01UVM-300lognormals-flat.pdf)
 
 The log-normal (or lognormal) distribution is a continuous probability distribution of a random variable whose logarithm is normally distributed. It is a subexponential distribution, $\text{Lognormal}(\mu,\sigma^2)$ with pdf,
@@ -146,6 +148,24 @@ If we substitute $y = 10^x,$
 
 $$f_X(x) =\frac{\log_{10}(e)}{10^x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( x-\mu)^2}{2\sigma^2}}\right]$$
 
+In the log-log plots, the log-normal will assume a shifted and inverted parabola:
+
+$$\log\left(f_X(x)\right) =\log\left\{\frac{\exp\left[{-\frac{(\ln x-\mu)^2}{2\sigma^2}}\right]}{x\sqrt{2\pi \sigma^2}}\right\}$$
+
+$$\begin{align}
+\log\left(f_X(x)\right) &=\log\left\{\exp\left[{-\frac{(\ln x-\mu)^2}{2\sigma^2}}\right]\right\}- \log \left\{x\sqrt{2\pi \sigma^2}\right\}\\[2ex]
+&=-\frac{(\ln x-\mu)^2}{2\sigma^2}- \log \left\{x\sqrt{2\pi \sigma^2}\right\}
+\end{align}$$
+
+```{r, warning=F, fig.width=5}
+set.seed(1)
+x = rlnorm(1e5)
+x = x[x < 10]
+plot(density(x), log="xy", type="l", xlim=c(.03, 8), col = 4, lwd = 2,
+     main="Log-normal distribution")
+```
+
+which in the downsloping part can simulate a line as in the power law plotted in log-log.
 
 ---
 
