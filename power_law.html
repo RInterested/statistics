@@ -141,6 +141,10 @@ $(document).ready(function () {
 <p><span class="math display">\[X = \left[ (x_1^{\alpha+1}-x_0^{\alpha+1})y + x_0^{\alpha+1}    \right]^{1/{\alpha+1}}\]</span></p>
 <p>and <span class="math inline">\(X\sim L(x),\)</span> i.e. it is distributed following a power law.</p>
 <p>Note that it is different from page 3 of <a href="https://drive.google.com/file/d/0Bwl-HpVJ_5PeUWliQ2F0OUo3NVE/view?usp=sharing">this document</a>.</p>
+<p>Plotting a power law distribution in log-log will result in a line:</p>
+<p><span class="math display">\[f_X(x)= C\, x^{-\alpha}\]</span></p>
+<p><span class="math display">\[\log(f_X(x))=\log C + -\alpha\, \log x\]</span></p>
+<p>with slope <span class="math inline">\(-\alpha\)</span></p>
 <p>In R</p>
 <pre class="r"><code>x1 = 5
 x0 = 0.1  # It can't be zero; otherwise X^0^(neg) is 1/0.
