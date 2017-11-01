@@ -192,8 +192,17 @@ plot(h$count, log=&quot;xy&quot;, type='l', lwd=1, lend=2, xlab=&quot;&quot;, yl
 <p>From <a href="http://www.uvm.edu/pdodds/teaching/courses/2013-01UVM-300/docs/2013-01UVM-300lognormals-flat.pdf">this source</a></p>
 <p>The log-normal (or lognormal) distribution is a continuous probability distribution of a random variable whose logarithm is normally distributed. It is a subexponential distribution, <span class="math inline">\(\text{Lognormal}(\mu,\sigma^2)\)</span> with pdf,</p>
 <p><span class="math display">\[f_X(x) =\frac{1}{x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{(\ln x-\mu)^2}{2\sigma^2}}\right]\]</span></p>
+<p>Derivation from the normal:</p>
+<p><span class="math display">\[f_X(x) =\frac{1}{\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( x-\mu)^2}{2\sigma^2}}\right]\]</span></p>
+<p>If we look at it as a change of variables, the Jacobian will account for <span class="math inline">\(\frac{1}{x}\)</span> as we apply the chain rule, <span class="math inline">\(\frac{d}{dx}\ln x= \frac{1}{x}.\)</span></p>
 <p>In base <span class="math inline">\(10\)</span> the pdf is</p>
-<p><span class="math display">\[f_X(x) =\frac{\log_{10}(e)}{10^x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{(\ln x-\mu)^2}{2\sigma^2}}\right]\]</span></p>
+<p><span class="math display">\[f_X(x) =\frac{\log_{10}(e)}{10^x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( x-\mu)^2}{2\sigma^2}}\right]\]</span></p>
+<p>If we start off with</p>
+<p><span class="math display">\[f_X(x) =\frac{1}{y\ln(10)\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( \log_{10}(y)-\mu)^2}{2\sigma^2}}\right]\]</span></p>
+<p>because <span class="math inline">\(d/dx \log_{10}(y) = \frac{1}{y \ln(10)}.\)</span> Now, since <span class="math inline">\(\ln(10)=\frac{\log_{10}(10)}{\log_{10}(e)}=\frac{1}{\log_{10}e},\)</span></p>
+<p><span class="math display">\[f_X(x) =\frac{\log_{10}(e)}{y\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( \log_{10}(y)-\mu)^2}{2\sigma^2}}\right]\]</span></p>
+<p>If we substitute <span class="math inline">\(y = 10^x,\)</span></p>
+<p><span class="math display">\[f_X(x) =\frac{\log_{10}(e)}{10^x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( x-\mu)^2}{2\sigma^2}}\right]\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>

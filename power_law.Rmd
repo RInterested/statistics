@@ -123,10 +123,28 @@ The log-normal (or lognormal) distribution is a continuous probability distribut
 
 $$f_X(x) =\frac{1}{x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{(\ln x-\mu)^2}{2\sigma^2}}\right]$$
 
+Derivation from the normal:
+
+$$f_X(x) =\frac{1}{\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( x-\mu)^2}{2\sigma^2}}\right]$$
+
+If we look at it as a change of variables, the Jacobian will account for $\frac{1}{x}$ as we apply the chain rule, $\frac{d}{dx}\ln x= \frac{1}{x}.$
+
 
 In base $10$ the pdf is
 
-$$f_X(x) =\frac{\log_{10}(e)}{10^x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{(\ln x-\mu)^2}{2\sigma^2}}\right]$$
+$$f_X(x) =\frac{\log_{10}(e)}{10^x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( x-\mu)^2}{2\sigma^2}}\right]$$
+
+If we start off with
+
+$$f_X(x) =\frac{1}{y\ln(10)\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( \log_{10}(y)-\mu)^2}{2\sigma^2}}\right]$$
+
+because $d/dx \log_{10}(y) = \frac{1}{y \ln(10)}.$ Now, since $\ln(10)=\frac{\log_{10}(10)}{\log_{10}(e)}=\frac{1}{\log_{10}e},$
+
+$$f_X(x) =\frac{\log_{10}(e)}{y\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( \log_{10}(y)-\mu)^2}{2\sigma^2}}\right]$$
+
+If we substitute $y = 10^x,$
+
+$$f_X(x) =\frac{\log_{10}(e)}{10^x\sqrt{2\pi \sigma^2}}\,\exp\left[{-\frac{( x-\mu)^2}{2\sigma^2}}\right]$$
 
 
 ---
