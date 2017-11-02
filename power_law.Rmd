@@ -29,6 +29,8 @@ However, notice that in [other sources](https://en.wikipedia.org/wiki/Power_law#
 
 $$p(x)=\frac{\alpha - 1}{x_{\mathrm{min}}}\left(\frac{x}{x_{\mathrm{min}}} \right)^{-\alpha}$$
 
+From pag 4 of [this article by M. E. J. Newman]((http://www-personal.umich.edu/~mejn/courses/2006/cmplxsys899/powerlaws.pdf)), the majority of power law distributions occurring in nature $2\leq \alpha \leq 3.$
+
 The cumulative probability distribution is
 
 $$F_X(x) = \Pr(X <x)=\int_{x_0}^x C x^\alpha dx =\frac{C}{\alpha+1}\left(x^{\alpha+1}-x_0^{\alpha+1  }\right)$$
@@ -80,8 +82,10 @@ The number of samples in the bins becomes small towards the right of the plot, l
 
 If we hadn't generated these data synthetically, and were looking at $x$ as empirical data from an experiment, we could try to fit a power law distribution with the package `igraph` and the function`power.law.fit()`. 
 
+---
 
-#####Power-law distributions:
+
+#####**Power-law distributions:**
 
 1. Zeta distribution
 2. Lévy distribution
@@ -90,11 +94,15 @@ If we hadn't generated these data synthetically, and were looking at $x$ as empi
 5. Zipf-Mandelbrot law
 6. Infinitely divisible distribution
 
+---
+
 ######Pareto distribution:
 
 $$f_X(x) = \frac{\alpha \, x^\alpha_m}{x^{\alpha+1}}$$
 
-with support $x\in [x_m, +\infty),$ and $x_m>0$ and $\alpha>0$ corresponding to shape parameters.
+with support $x\in [x_m, +\infty),$ and $x_m>0$ and $\alpha>0$ corresponding to shape parameters. The parameter $\alpha$ is called the tail index, or the Pareto index when discussing distribution of wealth.
+
+When plotted on linear axes, the distribution assumes the familiar J-shaped curve which approaches each of the orthogonal axes asymptotically. All segments of the curve are self-similar (subject to appropriate scaling factors). When plotted in a log-log plot, the distribution is represented by a straight line.
 
 
 ---
@@ -102,6 +110,29 @@ with support $x\in [x_m, +\infty),$ and $x_m>0$ and $\alpha>0$ corresponding to 
 ####[Subexponential distributions](https://rigorandrelevance.wordpress.com/2013/12/05/catastrophes-conspiracies-and-subexponential-distributions-part-i/):
 
 There are three important subclasses of heavy-tailed distributions: the fat-tailed distributions, the long-tailed distributions and the subexponential distributions. In practice, all commonly used heavy-tailed distributions belong to the subexponential class.
+
+
+---
+
+#####**Heavy-tailed distributions:**
+
+All commonly used heavy-tailed distributions are subexponential.
+
+1. Pareto
+2. Log-normal
+3. Lévy distribution
+4. Weibull distribution
+5. Burr distribution
+6. Log-gamma distribution
+7. Log-Cauchy distribution ("super heavy tail")
+8. Cauchy
+9. Stable distributions (except for the Gaussian) - Cauchy, Lévy and Lommel
+10. Student t distribution
+11. Skew lognormal cascade
+
+---
+
+#####**Subexponential distributions:**
 
 From these [CalTech notes](http://users.cms.caltech.edu/~adamw/papers/2013-SIGMETRICS-heavytails.pdf)...
 
@@ -137,6 +168,8 @@ $$\displaystyle \Pr[X_{1}+\cdots +X_{n}>x]\sim \Pr[\max(X_{1},\ldots ,X_{n})>x]\
 Not all highly right-skewed distributions follow the power law. The log-normal distribution can have very similar plots.
 
 From [this source](http://www.uvm.edu/pdodds/teaching/courses/2013-01UVM-300/docs/2013-01UVM-300lognormals-flat.pdf)
+
+The log-normal is seen as a result of multiplying random variables, as much as adding random variables result in a normal distribution (central limit theorem).
 
 The log-normal (or lognormal) distribution is a continuous probability distribution of a random variable whose logarithm is normally distributed. It is a subexponential distribution, $\text{Lognormal}(\mu,\sigma^2)$ with pdf,
 
