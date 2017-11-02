@@ -217,6 +217,16 @@ plot(density(x), log="xy", type="l", xlim=c(.03, 8), col = 4, lwd = 2,
 
 which in the downsloping part can simulate a line as in the power law plotted in log-log.
 
+Actually the lognormal plotted in log-log form is linear when the $\sigma$ value is high:
+
+```{r, warning=F, fig.width=5}
+set.seed(1)
+x = rlnorm(1e5, 0, 10)
+x = x[x < 10]
+plot(density(x), log="xy", type="l", xlim=c(.03, 8), col = 4, lwd = 2,
+     main="Log-normal distribution")
+```
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
