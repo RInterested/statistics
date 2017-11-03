@@ -36,7 +36,9 @@ In this context $T$ is the cdf $F.$ We have that $F(F^-(y))=y.$ And $X \sim F^-(
 
 <img src="https://user-images.githubusercontent.com/9312897/32376482-4523cf7a-c07b-11e7-912f-6cb97bb4ac11.png" width=500>
 
-So if we have a vector of random variables, $\{X_1, \dots,X_n\}$ and we think of them as the variable $y,$ we have that $X_i = F^-(u)$ and $F(X_i) = U(0,1).$ So each variable will be transformed as $\{F_1,\dots,F_n\}.$
+[From here on, instead of $y$ we will use $u$] 
+
+So if we have a vector of random variables, $\{X_1, \dots,X_n\}$ and we think of them as the variable $u,$ we have that $X_i = F^-_i(u)$ and $F(X_i) = U(0,1).$ So each variable will be transformed as $\{F_1,\dots,F_n\}.$
 
 
 <img src="https://user-images.githubusercontent.com/9312897/32380482-8e5057d0-c086-11e7-90e9-1aa30a78260f.png" width=500>
@@ -44,6 +46,36 @@ So if we have a vector of random variables, $\{X_1, \dots,X_n\}$ and we think of
 We can say that $F_i(X_i) \sim U_i$ and $F_i^- (U_i) \sim X_i.$
 
 
+We can look at the vector $\vec u =(F_1(X_1), \dots, F_n(X_n)),$ and call the joint distribution of vector \vec u$ the **copula**: 
+
+$$\Pr(U_1 \leq u_1, \dots, U_n \leq u_n).$$
+
+So the copula is a joint distribution function on $[0,1]^d$ with marginal distributions standard uniform.
+
+For example, *if we assume independence* between $X_i$ variables,
+
+$$C(\vec u) = \Pr(U_1 \leq u_1, \dots, U_d \leq u_d) = \Pr(F_1(X_1)\leq u_1, \dots, F_d(X_d) \leq u_d)=\Pi_{i=1}^d (F_i(X_i)\leq u_i)= \Pi_{i=1}^d u_i.$$
+
+This is the independence copula.
+
+
+---
+
+Objectives:
+
+Sklar's theorem:
+
+Given $F, F_1, \dots, F_d,$ what is $C?$
+
+Given $C, F_1,\dots, F_d,$ what is $F?$
+
+---
+
+Given a joint distribution $F$ with marginal distributions $F_1, F_2, \dots, F_d,$ there exists a copula, $C,$ such that $C(F_1(x_1), \dots, F_d(x_d))= F(x_1, \dots, x_d).$
+
+If $F$ is continuous, $C$ is unique and given by 
+
+$$C(u_1,\dots,u_d) = F(F^-_1(u_1),\dots,F^-_d(u_d))$$
 
 ---
 
