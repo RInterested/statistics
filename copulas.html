@@ -179,11 +179,34 @@ $(document).ready(function () {
 <p><span class="math display">\[C(\vec u) = \Pr(U_1 \leq u_1, \dots, U_d \leq u_d) = \Pr(F_1(X_1)\leq u_1, \dots, F_d(X_d) \leq u_d)=\Pi_{i=1}^d (F_i(X_i)\leq u_i)= \Pi_{i=1}^d u_i.\]</span></p>
 <p>This is the independence copula.</p>
 <hr />
-<p>Objectives:</p>
 <p>Sklar’s theorem:</p>
 <p>Given a joint distribution function <span class="math inline">\(F\)</span> with marginal distribution functions <span class="math inline">\(F_1,\dots, F_d,\)</span> there exists a function <span class="math inline">\(C\)</span> (copula), such that <span class="math inline">\(F(X_1,\dots, X_d)=C(F_1(x_1),\dots,F_d(x_d)),\)</span> and that for <span class="math inline">\(F\)</span> continuous, <span class="math inline">\(C\)</span> is uniquely given by <span class="math inline">\(C(u_1,\dots,u_d)= F(F_1^-(u_1),\dots,F_d^-(u_d)).\)</span></p>
 <hr />
+<p>Linear correlation does not translate well into the copula space, but rank correlation does - Spearman or Kindall;</p>
+<p><span class="math display">\[\tau(X_1, X_2) = 4 \,\mathbb E\left[ C(U_1, U_2)  \right]-1\]</span></p>
+<p><span class="math display">\[\rho (X_1, X_2) =3\left( 4\, \mathbb E [U_1, U_2] -1 \right)=r(U_1, U_2)\]</span></p>
+<p>The coefficient of upper tail dependence tells us how high values of one variable relate to high values of the other:</p>
+<p><span class="math display">\[\lambda_U(X_1, X_2) \lim_{U\to 1}\frac{1 + C(U, U) -2U}{1-U}\]</span></p>
+<hr />
+<div id="examples-of-copulas" class="section level4">
+<h4>EXAMPLES OF COPULAS:</h4>
+<div id="fundamental-copulas-frechet-bounds" class="section level5">
+<h5>Fundamental copulas (Frechét bounds):</h5>
+<div id="comonotonicity" class="section level6">
+<h6>Comonotonicity:</h6>
+<p>Random variable <span class="math inline">\(X_1, \dots, X_d\)</span> are comonotone if their distribution can be written as</p>
+<p><span class="math display">\[(X_1,X_2)\overset{D}=\alpha_1(Z), \dots, \alpha_d(Z))\]</span></p>
+<p>for the same stochastic variable <span class="math inline">\(Z\)</span> and strictly increasing functions <span class="math inline">\(\alpha_i.\)</span></p>
+</div>
+<div id="countermonotonicity" class="section level6">
+<h6>Countermonotonicity:</h6>
+<p>Only defined for two variables, whose distribution can be expressed as</p>
+<p><span class="math display">\[(X_1, X_2) \overset{D}=\alpha(Z), \beta(Z)\]</span> with alpha increasing and beta decreasing.</p>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
+</div>
+</div>
+</div>
 </div>
 
 

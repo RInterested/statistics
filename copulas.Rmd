@@ -135,13 +135,45 @@ This is the independence copula.
 
 ---
 
-Objectives:
 
 Sklar's theorem:
 
 Given a joint distribution function $F$ with marginal distribution functions $F_1,\dots, F_d,$ there exists a function $C$ (copula), such that $F(X_1,\dots, X_d)=C(F_1(x_1),\dots,F_d(x_d)),$ and that for $F$ continuous, $C$ is uniquely given by $C(u_1,\dots,u_d)= F(F_1^-(u_1),\dots,F_d^-(u_d)).$
 
 
+---
+
+Linear correlation does not translate well into the copula space, but rank correlation does - Spearman or Kindall;
+
+$$\tau(X_1, X_2) = 4 \,\mathbb E\left[ C(U_1, U_2)  \right]-1$$
+
+$$\rho (X_1, X_2) =3\left( 4\, \mathbb E [U_1, U_2] -1 \right)=r(U_1, U_2)$$
+
+The coefficient of upper tail dependence tells us how high values of one variable relate to high values of the other:
+
+$$\lambda_U(X_1, X_2) \lim_{U\to 1}\frac{1 + C(U, U) -2U}{1-U}$$
+
+---
+
+####EXAMPLES OF COPULAS:
+
+#####Fundamental copulas (Frechét bounds):
+
+######Comonotonicity:
+
+Random variable $X_1, \dots, X_d$ are comonotone if their distribution can be written as
+
+$$(X_1,X_2)\overset{D}=\alpha_1(Z), \dots, \alpha_d(Z))$$
+
+for the same stochastic variable $Z$ and strictly increasing functions $\alpha_i.$
+
+######Countermonotonicity:
+
+Only defined for two variables, whose distribution can be expressed as
+
+
+$$(X_1, X_2) \overset{D}=\alpha(Z), \beta(Z)$$
+with alpha increasing and beta decreasing.
 
 
 
