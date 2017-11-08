@@ -219,9 +219,26 @@ $(document).ready(function () {
 <h6>Countermonotonicity:</h6>
 <p>Only defined for two variables, whose distribution can be expressed as</p>
 <p><span class="math display">\[(X_1, X_2) \overset{D}=\alpha(Z), \beta(Z)\]</span> with alpha increasing and beta decreasing.</p>
+</div>
+</div>
+<div id="archimedean-copula" class="section level5">
+<h5>Archimedean copula:</h5>
+<p>A copula that can be expressed as</p>
+<p><span class="math display">\[C(u,v) = \varphi^{[-1]}\left( \varphi(u) + \varphi(v) \right)\]</span></p>
+<p>where <span class="math inline">\(\varphi\)</span> is a strictly decreasing, continuous function, and <span class="math inline">\(\varphi^{[-1]}\)</span> is the pseudo-inverse of it.</p>
+<p><span class="math inline">\(\varphi^{[-1]}(t)\)</span> is <span class="math inline">\(\varphi^{-1}\)</span> (i.e. the actual inverse function) if <span class="math inline">\(0\leq t \leq \varphi(0),\)</span> and <span class="math inline">\(\varphi^{[-1]}(t)=0\)</span> if <span class="math inline">\(\varphi(0)\leq t &lt; \infty.\)</span></p>
+<p>Example</p>
+<p>Let <span class="math inline">\(\varphi_\theta(t) = (1-t)^\theta\)</span> for <span class="math inline">\(1\leq \theta &lt; \infty\)</span></p>
+<p>Now <span class="math inline">\(\varphi_\theta(0) =1\)</span> and</p>
+<p><span class="math inline">\(\varphi^{[-1]}(t)=(1-t)^{-\theta}\)</span> at <span class="math inline">\(0\leq t \leq 1\)</span> and zero otherwise.</p>
+<p>The copula through this generator is</p>
+<p><span class="math display">\[\begin{align}
+C(u,v) &amp;= \varphi^{[-1]}(\varphi(u)+\varphi(v))\\[2ex]
+&amp;= \varphi^{[-1]}\left( (1-u)^\theta + (1-v)^\theta \right)\\[2ex]
+&amp;=\left(1 - \left [(1-u)^\theta + (1-v)^\theta  \right]  \right)^{-\theta}
+\end{align}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
-</div>
 </div>
 </div>
 </div>

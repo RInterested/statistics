@@ -194,7 +194,31 @@ Only defined for two variables, whose distribution can be expressed as
 $$(X_1, X_2) \overset{D}=\alpha(Z), \beta(Z)$$
 with alpha increasing and beta decreasing.
 
+#####Archimedean copula:
 
+A copula that can be expressed as
+
+$$C(u,v) = \varphi^{[-1]}\left( \varphi(u) + \varphi(v) \right)$$
+
+where $\varphi$ is a strictly decreasing, continuous function, and $\varphi^{[-1]}$ is the pseudo-inverse of it.
+
+$\varphi^{[-1]}(t)$ is $\varphi^{-1}$ (i.e. the actual inverse function) if $0\leq t \leq \varphi(0),$ and $\varphi^{[-1]}(t)=0$ if $\varphi(0)\leq t < \infty.$
+
+Example
+
+Let $\varphi_\theta(t) = (1-t)^\theta$ for $1\leq \theta < \infty$
+
+Now $\varphi_\theta(0) =1$ and
+
+$\varphi^{[-1]}(t)=(1-t)^{-\theta}$ at $0\leq t \leq 1$ and zero otherwise.
+
+The copula through this generator is
+
+$$\begin{align}
+C(u,v) &= \varphi^{[-1]}(\varphi(u)+\varphi(v))\\[2ex]
+&= \varphi^{[-1]}\left( (1-u)^\theta + (1-v)^\theta \right)\\[2ex]
+&=\left(1 - \left [(1-u)^\theta + (1-v)^\theta  \right]  \right)^{-\theta}
+\end{align}$$
 
 ---
 
