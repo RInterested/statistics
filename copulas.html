@@ -193,8 +193,15 @@ $(document).ready(function () {
 <p>Given a joint distribution function <span class="math inline">\(F\)</span> with marginal distribution functions <span class="math inline">\(F_1,\dots, F_d,\)</span> there exists a function <span class="math inline">\(C\)</span> (copula), such that <span class="math inline">\(F(X_1,\dots, X_d)=C(F_1(x_1),\dots,F_d(x_d)),\)</span> and that for <span class="math inline">\(F\)</span> continuous, <span class="math inline">\(C\)</span> is uniquely given by <span class="math inline">\(C(u_1,\dots,u_d)= F(F_1^-(u_1),\dots,F_d^-(u_d)).\)</span></p>
 <hr />
 <p>Linear correlation does not translate well into the copula space, but rank correlation does - Spearman or Kindall;</p>
-<p><span class="math display">\[\tau(X_1, X_2) = 4 \,\mathbb E\left[ C(U_1, U_2)  \right]-1\]</span></p>
-<p><span class="math display">\[\rho (X_1, X_2) =3\left( 4\, \mathbb E [U_1, U_2] -1 \right)=r(U_1, U_2)\]</span></p>
+<p><span class="math display">\[\begin{align}
+\tau(X_1, X_2) &amp;= 4 \,\mathbb E\left[ C(U_1, U_2)  \right]-1\\[2ex]
+&amp;=4\int C(u,v)dC(u,v)-1
+\end{align}\]</span></p>
+<p><span class="math display">\[\begin{align}
+\rho (X_1, X_2) &amp;=12 \, \mathbb E [U_1, U_2] -3 \\[2ex]
+&amp;=12\int\int uv\,dC(u,v)-3\\[2ex]
+&amp;=r(U_1, U_2)
+\end{align}\]</span></p>
 <p>The coefficient of upper tail dependence tells us how high values of one variable relate to high values of the other:</p>
 <p><span class="math display">\[\lambda_U(X_1, X_2) \lim_{U\to 1}\frac{1 + C(U, U) -2U}{1-U}\]</span></p>
 <hr />

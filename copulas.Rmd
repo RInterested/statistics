@@ -157,9 +157,16 @@ Given a joint distribution function $F$ with marginal distribution functions $F_
 
 Linear correlation does not translate well into the copula space, but rank correlation does - Spearman or Kindall;
 
-$$\tau(X_1, X_2) = 4 \,\mathbb E\left[ C(U_1, U_2)  \right]-1$$
+$$\begin{align}
+\tau(X_1, X_2) &= 4 \,\mathbb E\left[ C(U_1, U_2)  \right]-1\\[2ex]
+&=4\int C(u,v)dC(u,v)-1
+\end{align}$$
 
-$$\rho (X_1, X_2) =3\left( 4\, \mathbb E [U_1, U_2] -1 \right)=r(U_1, U_2)$$
+$$\begin{align}
+\rho (X_1, X_2) &=12 \, \mathbb E [U_1, U_2] -3 \\[2ex]
+&=12\int\int uv\,dC(u,v)-3\\[2ex]
+&=r(U_1, U_2)
+\end{align}$$
 
 The coefficient of upper tail dependence tells us how high values of one variable relate to high values of the other:
 
