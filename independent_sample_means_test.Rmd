@@ -6,23 +6,25 @@
 ###SAMPLE TEST of two INDEPENDENT GROUPS:
 <br>
 
-$H_o: \mu_1=\mu_2$ while $\mu_1\neq \mu_2$. We can also test $\mu_1 \geq mu_2$ and $\mu_2 \geq mu_1$.
+$H_o: \mu_1=\mu_2$ while $\mu_1\neq \mu_2$. We can also test $\mu_1 \geq \mu_2$ and $\mu_2 \geq \mu_1$.
 
 It's convenience to assume a normal variance and utilize a test statistic as follows:
 
-test statistic = $\large \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}$. $S_p$ is the *pooled* standard deviation across both samples. It is the mean of *variances* when the sample size is the same - not standard deviations - and then square rooting: $\large S_p=\sqrt{SD_x^2+SD_y^2}$. It follows a $t$ distribution with $n_x + n_y - 2$ degrees of freedom.
+$$\text{test statistic} = \large \frac{\bar X - \bar Y}{S_p\,\sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}.$$ 
+
+$S_p$ is the *pooled* standard deviation across both samples. It is the square root of the mean of *variances* when the sample size is the same: $\large S_p=\sqrt{\mathrm{SD}_x^2+\mathrm{SD}_y^2}$. It follows a $t$ distribution with $n_x + n_y - 2$ degrees of freedom.
 
 However, [if the groups are not equal](https://en.wikipedia.org/wiki/Pooled_variance): 
 
 In statistics, pooled variance (also known as combined, composite, or overall variance) is a method for estimating variance of several different populations when the mean of each population may be different, but one may assume that the variance of each population is the same. If the populations are indexed $i = 1,\ldots,k$, then the pooled variance $s_p^2$ can be estimated by the weighted average of the sample variances $s^2_i$:
 
-$\Large s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}$
+$$ s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}$$
 
-where $n_i$ is the sample size of population $i$ and $s^2_i$ is $\Large \frac{1}{n_i-1} \sum_{j=1}^{n_i} \left(y_j - \bar y_j \right)^2$ . Use of $(n_i-1)$ weighting factors instead of $n_i$ comes from Bessel's correction.
+where $n_i$ is the sample size of population $i$ and $s^2_i$ is $ \frac{1}{n_i-1} \sum_{j=1}^{n_i} \left(y_j - \bar y_j \right)^2$ . Use of $(n_i-1)$ weighting factors instead of $n_i$ comes from Bessel's correction.
 
 For two samples the $S_p$ will therefore be:
 
-$\Large S_p\,=\,\sqrt{\frac{(n_x - 1)\,S_x^2\,+\,(n_y - 1)\,S_y^2}{n_x + n_y -2}}$
+$$S_p\,=\,\sqrt{\frac{(n_x - 1)\,S_x^2\,+\,(n_y - 1)\,S_y^2}{n_x + n_y -2}}$$
 
 <br>
 
@@ -32,11 +34,15 @@ We want to look into the effects of Dexmethylphenidate on weight in children wit
 
 First off we need to calculate the [pooled variance][1]:
 
-$$\small s_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}$$
+$$\small S_p^2=\frac{\sum_{i=1}^k (n_i - 1)s_i^2}{\sum_{i=1}^k(n_i - 1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2+\cdots+(n_k - 1)s_k^2}{n_1+n_2+\cdots+n_k - k}$$
 
-In our case: $sp^2 =\frac{(n1-1) * SD_1^2 \,+\, (n2-2)^ * SD_2^2}{n1 + n2 -2} = \frac{1}{2} (SD_1^2+ SD_2^2)$. 
+In our case: 
 
-The SE will be calculated as $SE = \sqrt {sp^2} * \sqrt {\frac{1}{n1}+\frac{1}{n2}}$. 
+$$Sp^2 =\frac{(n_1-1) \times \mathrm{SD}_1^2 \,+\, (n_2-1) \times \mathrm{SD}_2^2}{n_1 + n_2 -2} = \frac{1}{2} (\mathrm{SD}_1^2+ \mathrm{SD}_2^2).$$ 
+
+The SE will be calculated as 
+
+$$\mathrm{SE} = \sqrt {sp^2} \times \sqrt {\frac{1}{n1}+\frac{1}{n2}}.$$ 
 
 In [R]: 
 
@@ -56,13 +62,13 @@ The result is clearly significant at a `p = 4.880225e-07`.
 
 If the assumption of common variance is not warranted, the test will be:
 
-test statistic = $\Large \frac{\bar X - \bar Y}{\sqrt{\frac{SD_x^2}{n_x}+\frac{SD_y^2}{n_y}}}$.
+$$\text{test statistic} = \Large \frac{\bar X - \bar Y}{\sqrt{\frac{\mathrm{SD}_x^2}{n_x}+\frac{\mathrm{SD}_y^2}{n_y}}}.$$
 
 This follows a $t$ distribution if $X_i$ and $Y_i$ are normally distributed.
 
 The degrees of freedom are calculated as:
 
-degrees of freedom = $\Large \frac{(S_x^2/n_x + S_y^2/n_y)^2}{\frac{(S_x^2/n_x)^2}{n_x-1}+\frac{(S_y^2/n_y)^2}{n_y-1}}$
+$$\text{degrees of freedom} = \Large \frac{(S_x^2/n_x + S_y^2/n_y)^2}{\frac{(S_x^2/n_x)^2}{n_x-1}+\frac{(S_y^2/n_y)^2}{n_y-1}}.$$
 
 **Example:**
 
@@ -109,11 +115,11 @@ Clearly different means.
 
 For samples of less than 30:
 
-$(\bar X - \bar Y) \pm qt(0.975, n_x + n_y - 1) \,S_p\, \sqrt{\frac{1}{n_x}+\frac{1}{n_y}}$
+$$(\bar X - \bar Y) \pm \mathrm{qt}(0.975, n_x + n_y - 1) \,S_p\, \sqrt{\frac{1}{n_x}+\frac{1}{n_y}}$$
 
 And for larger samples:
 
-$(\bar X - \bar Y) \pm qnorm(0.975)\,S_p \,\sqrt{\frac{1}{n_x}+\frac{1}{n_y}}$
+$$(\bar X - \bar Y) \pm \mathrm{qnorm}(0.975)\,S_p \,\sqrt{\frac{1}{n_x}+\frac{1}{n_y}}$$
 
 We don't want two different confidence intervals. We want the CI of the difference.
 
