@@ -176,7 +176,7 @@ $$\lambda_U(X_1, X_2) \lim_{U\to 1}\frac{1 + C(U, U) -2U}{1-U}$$
 
 ####EXAMPLES OF COPULAS:
 
-#####Fundamental copulas (Frechét bounds):
+####Fundamental copulas (Frechét bounds):
 
 ######Comonotonicity:
 
@@ -194,13 +194,17 @@ Only defined for two variables, whose distribution can be expressed as
 $$(X_1, X_2) \overset{D}=\alpha(Z), \beta(Z)$$
 with alpha increasing and beta decreasing.
 
-#####Archimedean copula:
+---
+
+####Archimedean copula:
 
 A copula that can be expressed as
 
 $$C(u,v) = \varphi^{[-1]}\left( \varphi(u) + \varphi(v) \right)$$
 
-where $\varphi$ is a strictly decreasing, continuous function, and $\varphi^{[-1]}$ is the pseudo-inverse of it.
+where $\varphi$ is a strictly decreasing, convex continuous function, called the **generator**
+
+and $\varphi^{[-1]}$ is the pseudo-inverse of it.
 
 $\varphi^{[-1]}(t)$ is $\varphi^{-1}$ (i.e. the actual inverse function) if $0\leq t \leq \varphi(0),$ and $\varphi^{[-1]}(t)=0$ if $\varphi(0)\leq t < \infty.$
 
@@ -222,7 +226,56 @@ C(u,v) &= \varphi^{[-1]}(\varphi(u)+\varphi(v))\\[2ex]
 
 From [Wikipedia](https://en.wikipedia.org/wiki/Copula_(probability_theory)#Most_important_Archimedean_copulas):
 
-<img src="https://user-images.githubusercontent.com/9312897/32566872-68efc0e8-c487-11e7-8ad8-37928af2673a.png" width=1500>
+<img src="https://user-images.githubusercontent.com/9312897/32566872-68efc0e8-c487-11e7-8ad8-37928af2673a.png">
+
+In Archimedean copulas Kendall's tau can be reduced to
+
+
+$$\tau = 1 + 4 \int_0^1 \frac{\varphi(u)}{\varphi'(u)}du$$
+
+and the sample estimate of Kendall's tau
+
+$$\hat \tau = \Pr\left[(x_i- x_j)(y_i - y_j) >0 \right ]- \Pr\left[ (x_i - x_j)(y_i -y_j) <0\right]= \frac{c}{\binom{n}{2}}-\frac{d}{\binom{n}{2}}$$
+
+#####Example of steps involved:
+
+1. Sample estimate of Kendall's tau.
+
+---
+
+2. Using $\tau = 1 + 4 \int_0^1 \frac{\varphi(u)}{\varphi(u)}du$, get the generator. For instance tau is
+
+    $$\tau = \frac{\theta}{\theta+2}$$
+    
+    for Clayton's copula.
+
+    $$\tau = 1 - \frac{4}{\theta}\left[ \frac{1}{x}\int_0^\theta \frac{t}{\exp(t)-1}dt (-\theta)-1    \right]$$
+
+    for Frank's copula.
+
+    $$\tau = \left(\frac{3\theta-2}{\theta}  \right)-2/3 \left(1 -\frac{1}{\theta}  \right)^2 \ln(1-\theta)$$
+
+    for Ali-Mikhail-Haq copula. And
+
+
+    $$\tau = \frac{\theta -1}{\theta}$$
+
+    for Gumble-Hougard.
+
+---
+
+3. Simulation with a particular copula to generate a dependent pair $U$ and $V:$
+
+    $U = [\sim U(0,1)]$; $T=[\sim U(0,1)]$; $S= \varphi'(U)/T$; $W=\varphi^{'(-1)}(S)$; and $V=\varphi^{[-1]}(\varphi(W) - \varphi(U))$
+
+---
+
+4. Transform $U$ and $V$ by the inverse cumulative distribution function.
+
+---
+
+5. Select the most appropriate copula with parametric or non-parametric tests.
+
 
 ---
 
