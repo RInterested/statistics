@@ -6,22 +6,27 @@
 ###STANDARD ERROR OF A PROPORTION:
 <br>
 
-The proportion is the mean of a variable that is $1$ when the individual has a trait and $0$ otherwise. The standard deviation involves the expression $\sum_{i=1}^n (x_i-\bar x)^2$.
+The proportion is the mean of a random variable, $X,$ that is $x_i =1$ when the individual has a trait, and $x_i = 0$ otherwise. The standard deviation involves the expression $\displaystyle \sum_{i=1}^n (x_i-\bar x)^2$.
 
-Let's suppose there are $m$ $1$'s (and $n-m$ $0$'s) among the $n$ subjects. Then,  $\bar x = \hat p = \frac{m}{n}$ and $x_i-\hat x$is equal to $1-\frac{m}{n}$ for $m$ observations and $0-\frac{m}{n}$ for $n-m$ observations. Hence,
+Let's suppose there are $m$ $x_i = 1$'s (and $n-m$ $x_i = 0$'s) among the $n$ subjects. Then, the mean corresponds to the proportion  $\bar x = \hat p = \frac{m}{n}$ and $x_i-\bar x$is equal to $1-\frac{m}{n}$ for $m$ observations and $0-\frac{m}{n}$ for $n-m$ observations. Hence,
 
-$$\sum_{i=1}^n (x_i-\bar x)^2 = m\left(1-\frac{m}{n}\right)^2 + (n-m)\left(0-\frac{m}{n}\right)^2=m\left(1-2\frac{m}{n}+\frac{m^2}{n^2}\right) +(n-m)\left(\frac{m^2}{n^2}\right)$$
-$$=m-2\left(\frac{m^2}{n}\right)+\frac{m^3}{n^2}+\frac{m^2}{n}-\frac{m^3}{n^2}=m-\frac{m^2}{n}=m\left(1-\frac{m}{n}\right)=n\hat p(1-\hat p)$$.
+$$\begin{align}\sum_{i=1}^n (x_i-\bar x)^2 &= m\left(1-\frac{m}{n}\right)^2 + (n-m)\left(0-\frac{m}{n}\right)^2\\[2ex]
+&=m\left(1-2\frac{m}{n}+\frac{m^2}{n^2}\right) +(n-m)\left(\frac{m^2}{n^2}\right)\\[2ex]
+&=m-2\left(\frac{m^2}{n}\right)+\frac{m^3}{n^2}+\frac{m^2}{n}-\frac{m^3}{n^2}\\[2ex]
+&=m-\frac{m^2}{n}\\[2ex]
+&=m\left(1-\frac{m}{n}\right)\\[2ex]
+&=n\hat p(1-\hat p)
+\end{align}$$.
 
 
 The sample variance is,
 
-$$\frac{\sum_{i=1}^n (x_i-\bar x)^2}{n}=\hat p(1-\hat p)$$
+$$\mathrm{var}=\frac{\sum_{i=1}^n (x_i-\bar x)^2}{n}=\hat p(1-\hat p)$$
 
 
-The sample proportion is the mean of $n$ observations, so the standard error of the proportion is calculated like the standard error of the mean: the SD of one of them divided by the square root of the sample size or
+The sample proportion is the mean of $n$ observations, so the standard error of the proportion is calculated like the standard error of the mean: the SD divided by the square root of the sample size or
 
-$$\sqrt{\frac{\hat p(1-\hat p)}{n}}$$
+$$\mathrm{SE}=\sqrt{\frac{\hat p(1-\hat p)}{n}}$$
 
 <br>
 References:
