@@ -196,6 +196,50 @@ with alpha increasing and beta decreasing.
 
 ---
 
+####Gaussian copula:
+
+It was blamed for the financial meltdown of 2008, because it was used to calculate the risk of default of financial instruments.
+
+If $\vec X = X_1, X_2, \dots$ are normally distributed $\mathcal N(0,\Sigma)$ with $\Sigma$ being the dependence matrix with $1$'s in the diagonal,
+
+$$C_\Sigma^\mathrm{Ga}(\vec u)=\Phi_\Sigma \left(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d)   \right)$$
+with $\Phi_\Sigma$ being the joint distribution function; and $\Phi^{-1}$ the inverse for the standard normal.
+
+We can take $\vec Y$ as the linear transformation $\vec Y = \vec \mu + \beta \vec X$ with $\beta$ corresponding to a diagonal matrix (0's off diagonal) with $\sigma_1,\dots,\sigma_d$ in the diagonal. Then,
+
+$$Y\sim \mathcal N(\vec \mu, \beta^\top \Sigma \beta)$$
+
+which has the same copula.
+
+In the bivariate case, if $X$ and $Y$ are marginally distributed as $\mathcal N(0,1),$ and have a joint distribution determined by the covariance matrix $\begin{bmatrix}1 &\rho\\\rho&1 \end{bmatrix}$ with $\rho$ being the correlation. To build up such joint distribution we can resort to $Z\sim \mathcal N(1,0)$ with $\mathrm{cor}(X,Z)=0.$ And we define $$Y= \rho X+\sqrt{1-\rho^2} Z.$$ Because $X$ and $Z$ have expected value of zero, so will $Y.$ As for the variance of $Y,$
+
+$$\begin{align}
+\sigma^2(Y)&=\sigma^2\left( \rho X+\sqrt{1-\rho^2} Z \right)\\[2ex]
+&= \rho^2\mathrm{var}(X)+\left(\sqrt{1-\rho^2} \right)^2\mathrm{var}(Z)+2\rho\sqrt{1-\rho^2}\mathrm{cov}(X,Z)\\[2ex]
+&= \rho^2 + 1 -\rho^2=1
+\end{align}$$
+
+because $\mathrm{cov}(X,Z)=0.$
+
+So, since $Y$ is a linear combinations of two mutually independent normal random variables, [it will be Gaussian](https://www.statlect.com/probability-distributions/normal-distribution-linear-combinations) with mean 0, variance 1, and correlated to $X$ through $\rho.$
+
+This is reflected in [this answer in CV.SE](https://stats.stackexchange.com/a/38867/67822) in the function
+
+```
+correlatedValue = function(x, r){
+  r2 = r**2
+  ve = 1-r2
+  SD = sqrt(ve)
+  e  = rnorm(length(x), mean=0, sd=SD)
+  y  = r*x + e
+  return(y)
+}
+```
+
+where $r=\rho$ and $Y= \rho X+ \sqrt{1-\rho^2}Z$
+
+---
+
 ####Archimedean copula:
 
 A copula that can be expressed as

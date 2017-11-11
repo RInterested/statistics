@@ -223,6 +223,34 @@ $(document).ready(function () {
 <hr />
 </div>
 </div>
+<div id="gaussian-copula" class="section level4">
+<h4>Gaussian copula:</h4>
+<p>It was blamed for the financial meltdown of 2008, because it was used to calculate the risk of default of financial instruments.</p>
+<p>If <span class="math inline">\(\vec X = X_1, X_2, \dots\)</span> are normally distributed <span class="math inline">\(\mathcal N(0,\Sigma)\)</span> with <span class="math inline">\(\Sigma\)</span> being the dependence matrix with <span class="math inline">\(1\)</span>’s in the diagonal,</p>
+<p><span class="math display">\[C_\Sigma^\mathrm{Ga}(\vec u)=\Phi_\Sigma \left(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d)   \right)\]</span> with <span class="math inline">\(\Phi_\Sigma\)</span> being the joint distribution function; and <span class="math inline">\(\Phi^{-1}\)</span> the inverse for the standard normal.</p>
+<p>We can take <span class="math inline">\(\vec Y\)</span> as the linear transformation <span class="math inline">\(\vec Y = \vec \mu + \beta \vec X\)</span> with <span class="math inline">\(\beta\)</span> corresponding to a diagonal matrix (0’s off diagonal) with <span class="math inline">\(\sigma_1,\dots,\sigma_d\)</span> in the diagonal. Then,</p>
+<p><span class="math display">\[Y\sim \mathcal N(\vec \mu, \beta^\top \Sigma \beta)\]</span></p>
+<p>which has the same copula.</p>
+<p>In the bivariate case, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are marginally distributed as <span class="math inline">\(\mathcal N(0,1),\)</span> and have a joint distribution determined by the covariance matrix <span class="math inline">\(\begin{bmatrix}1 &amp;\rho\\\rho&amp;1 \end{bmatrix}\)</span> with <span class="math inline">\(\rho\)</span> being the correlation. To build up such joint distribution we can resort to <span class="math inline">\(Z\sim \mathcal N(1,0)\)</span> with <span class="math inline">\(\mathrm{cor}(X,Z)=0.\)</span> And we define <span class="math display">\[Y= \rho X+\sqrt{1-\rho^2} Z.\]</span> Because <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> have expected value of zero, so will <span class="math inline">\(Y.\)</span> As for the variance of <span class="math inline">\(Y,\)</span></p>
+<p><span class="math display">\[\begin{align}
+\sigma^2(Y)&amp;=\sigma^2\left( \rho X+\sqrt{1-\rho^2} Z \right)\\[2ex]
+&amp;= \rho^2\mathrm{var}(X)+\left(\sqrt{1-\rho^2} \right)^2\mathrm{var}(Z)+2\rho\sqrt{1-\rho^2}\mathrm{cov}(X,Z)\\[2ex]
+&amp;= \rho^2 + 1 -\rho^2=1
+\end{align}\]</span></p>
+<p>because <span class="math inline">\(\mathrm{cov}(X,Z)=0.\)</span></p>
+<p>So, since <span class="math inline">\(Y\)</span> is a linear combinations of two mutually independent normal random variables, <a href="https://www.statlect.com/probability-distributions/normal-distribution-linear-combinations">it will be Gaussian</a> with mean 0, variance 1, and correlated to <span class="math inline">\(X\)</span> through <span class="math inline">\(\rho.\)</span></p>
+<p>This is reflected in <a href="https://stats.stackexchange.com/a/38867/67822">this answer in CV.SE</a> in the function</p>
+<pre><code>correlatedValue = function(x, r){
+  r2 = r**2
+  ve = 1-r2
+  SD = sqrt(ve)
+  e  = rnorm(length(x), mean=0, sd=SD)
+  y  = r*x + e
+  return(y)
+}</code></pre>
+<p>where <span class="math inline">\(r=\rho\)</span> and <span class="math inline">\(Y= \rho X+ \sqrt{1-\rho^2}Z\)</span></p>
+<hr />
+</div>
 <div id="archimedean-copula" class="section level4">
 <h4>Archimedean copula:</h4>
 <p>A copula that can be expressed as</p>
