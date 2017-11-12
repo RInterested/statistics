@@ -60,6 +60,8 @@ The variability **between groups**:
 
 Now we can calculate the **variability within groups**:
 
+It's worth at this point remembering that the sample variance is calculated as $s^2=\frac{\sum (x_i - \bar x )^2}{n-1}$ so that the $\text{SS}_{\text{within groups}}= (n-1) s^2.$
+
 ```{r}
     # We obtained the sum of squares within adding the numerators of the var's):
     (SS_within   = sum((n - 1) * group_var))
