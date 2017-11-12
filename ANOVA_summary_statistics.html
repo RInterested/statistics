@@ -125,6 +125,81 @@ $(document).ready(function () {
 <h3>ANOVA with SUMMARY STATISTICS:</h3>
 <p><br></p>
 <p>Extracted from <a href="http://www.stat.wisc.edu/~st571-1/13-anova-4.pdf">this document</a>.</p>
+<p>As an illustration of the one-way ANOVA calculated from summary statistics in R, we can look at the differences in sepal length between three species of Iris, comparing the output of the “manual” code with the built-in output for the ANOVA table.</p>
+<p>We are looking at these differences:</p>
+<pre class="r"><code>plot(iris$Sepal.Length ~ iris$Species, xlab=&quot;species&quot;, ylab=&quot;sepal length&quot;,
+     main = &quot;Differences in Sepal length across species&quot;, cex.main=.8)</code></pre>
+<p><img src="data:image/png;base64,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" width="288" /></p>
+<p>The SUMMARY STATISTICS (including the number of specimens) are as follows:</p>
+<pre class="r"><code>    # Number of specimens per species:
+    (n           = tapply(iris$Sepal.Length, iris$Species, length))</code></pre>
+<pre><code>##     setosa versicolor  virginica 
+##         50         50         50</code></pre>
+<pre class="r"><code>    #    setosa versicolor  virginica 
+    # E        50         50         50 
+    # Mean sepal length for each species:
+    (group_means = tapply(iris$Sepal.Length, iris$Species, mean))</code></pre>
+<pre><code>##     setosa versicolor  virginica 
+##      5.006      5.936      6.588</code></pre>
+<pre class="r"><code>    #    setosa versicolor  virginica 
+    #     5.006      5.936      6.588 
+    # Sample variance of the sepal length for each species:
+    (group_var   = tapply(iris$Sepal.Length, iris$Species, var))</code></pre>
+<pre><code>##     setosa versicolor  virginica 
+##  0.1242490  0.2664327  0.4043429</code></pre>
+<pre class="r"><code>    #    setosa versicolor  virginica 
+    #    0.1242490  0.2664327  0.4043429 </code></pre>
+<p>Now, working with these summary statistics we can calculate…</p>
+<p>The variability <strong>between groups</strong>:</p>
+<pre class="r"><code>    # First we need to calculate the overall mean:
+    grand_mean  = sum(n * group_means) / sum(n) 
+    #... to calculate the sum of square differences between groups:
+    (SS_between  = sum(n * (group_means - grand_mean)^2))</code></pre>
+<pre><code>## [1] 63.21213</code></pre>
+<pre class="r"><code>    # [1] 63.21213
+    # with the corresponding degrees of freedom:
+    (df_between  = length(unique(iris$Species)) - 1)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>    # [1] 2
+    # and the mean square error:
+    (MS_between  = SS_between / df_between)</code></pre>
+<pre><code>## [1] 31.60607</code></pre>
+<pre class="r"><code>    # [1] 31.60607</code></pre>
+<p>Now we can calculate the <strong>variability within groups</strong>:</p>
+<pre class="r"><code>    # We obtained the sum of squares within adding the numerators of the var's):
+    (SS_within   = sum((n - 1) * group_var))</code></pre>
+<pre><code>## [1] 38.9562</code></pre>
+<pre class="r"><code>    # [1] 38.9562
+    # And calculate the degrees of freedom:
+    (df_within   = sum(n - 1))</code></pre>
+<pre><code>## [1] 147</code></pre>
+<pre class="r"><code>    # [1] 147
+    # And the mean squared error:
+    (MS_within   = SS_within / df_within)</code></pre>
+<pre><code>## [1] 0.2650082</code></pre>
+<pre class="r"><code>    # [1] 0.2650082</code></pre>
+<p>We calculate the <strong>F value</strong> and the <strong>p value</strong> as:</p>
+<pre class="r"><code>    # The ratio of mean squared errors:
+    (F_value = MS_between / MS_within)</code></pre>
+<pre><code>## [1] 119.2645</code></pre>
+<pre class="r"><code>    # [1] 119.2645
+    # and the corresponding probability:
+    (p_value = pf(F_value, df_between, df_within, lower.tail = F))</code></pre>
+<pre><code>## [1] 1.669669e-31</code></pre>
+<pre class="r"><code>    # [1] 1.669669e-31</code></pre>
+<p>Now we can compare these values to the output in R using the original dataset:</p>
+<pre><code>    &gt; anova(lm(iris$Sepal.Length ~ iris$Species))
+    Analysis of Variance Table
+    
+    Response: iris$Sepal.Length
+                  Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+    iris$Species   2 63.212  31.606  119.26 &lt; 2.2e-16 ***
+    Residuals    147 38.956   0.265   </code></pre>
+<p>Finally,</p>
+<pre><code>    &gt; (SS_total = SS_between + SS_within)
+    [1] 102.1683
+    &gt; (df       = df_between + df_within)
+    [1] 149</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
