@@ -127,16 +127,30 @@ $(document).ready(function () {
 <p>From <a href="https://youtu.be/0jQo8lVRHRY">this lecture by Nando de Freitas</a>.</p>
 <p>For a Bernoulli distribution the conjugate prior is the beta distribution, as derived <a href="http://rinterested.github.io/statistics/bayes.html">here</a>.</p>
 <p>For a <a href="https://en.wikipedia.org/wiki/Categorical_distribution">categorical distribution</a>, where there is a single experiment with <span class="math inline">\(K\)</span> possible values.</p>
-<p>We are given <span class="math inline">\(n\)</span> datapoints from such distribution, <span class="math inline">\(x_{i:n}=\{x_i,\dots,x_n\}\)</span> were each point <span class="math inline">\(x_i\)</span> can assume <span class="math inline">\(K=3\)</span> classes, <span class="math inline">\(\{1 = (100), 2= (010), 3=(001)\},\)</span> each with likelihood</p>
+<p>We are given <span class="math inline">\(n\)</span> data points from such distribution, <span class="math inline">\(x_{i:n}=\{x_i,\dots,x_n\}\)</span> were each point <span class="math inline">\(x_i\)</span> can assume <span class="math inline">\(K=3\)</span> classes, <span class="math inline">\(\{1 = (100), 2= (010), 3=(001)\},\)</span> each with likelihood</p>
 <p><span class="math display">\[p(x_i|\theta)=\prod_{j=1}^k \theta_j^{\mathbb I(x_{ij}=1)}\]</span> In other words if the probability of <span class="math inline">\((100)\)</span> is <span class="math inline">\(\theta_{j=1},\)</span> and the probability of <span class="math inline">\((010)\)</span> is <span class="math inline">\(\theta_{j=2},\)</span> etc., the probability that the sample <span class="math inline">\(x_i\)</span> is <span class="math inline">\((010)\)</span> is <span class="math inline">\(\theta_2,\)</span> and <span class="math inline">\(\mathbb I(x_{i2}=1)=1\)</span> indicates that the sample <span class="math inline">\(x_i=2,\)</span> in which case its probability will be <span class="math inline">\(\theta_{2}.\)</span></p>
 <p>For the entire sample, the likelihood will be</p>
 <p><span class="math display">\[p(x_{1:n}\vert \theta)=\prod_{i=1}^n \prod_{j=1}^k \theta_j^{\mathbb I(x_{ij}=1)}.\]</span></p>
-<p>the generalization of the beta distribution that provides a prior for this categorical distribution is the Dirichet distribution with the pdf defined as</p>
+<p>the generalization of the beta distribution that provides a prior for this categorical distribution is the Dirichlet distribution with the pdf defined as</p>
 <p><span class="math display">\[\mathrm{Dir}(\mathbf \theta\vert \mathbf \alpha) := \frac{1}{B(\mathbf \alpha)}\prod_{k=1}^K\, \theta_{k=1}^{\alpha_k -1}\]</span></p>
 <p>defined on the probability simplex, i.e. the set of vectors such that <span class="math inline">\(0\leq \theta_k \leq 1,\)</span> and <span class="math inline">\(\displaystyle \sum_{k=1}^K \theta_k =1.\)</span></p>
 <p><span class="math inline">\(B(\alpha_1,\dots,\alpha_K)\)</span> is the generalization of the beta function to <span class="math inline">\(K\)</span> variables:</p>
 <p><span class="math display">\[B(\mathbf \alpha) := \frac{\prod_{i=1}^K \Gamma(\alpha_i)}{\Gamma(\alpha_0)}\]</span></p>
-<p>wehre <span class="math inline">\(\alpha_0:=\sum_{k=1}^K \alpha_k.\)</span></p>
+<p>where <span class="math inline">\(\alpha_0:=\sum_{k=1}^K \alpha_k.\)</span></p>
+<p>For instance, in the Beta prior of a coin toss, the form is <span class="math inline">\(\theta^{\alpha_1-1}(1-\theta)^{\alpha_2 -1}=\theta^{\alpha_1-1}\theta_2^{\alpha_2 -1},\)</span> with <span class="math inline">\(\theta_2\)</span> being the probability of tails, and <span class="math inline">\(\theta_1 + \theta_2 =1,\)</span> while in the case of a die of K = 6 sides the Dirichlet will be <span class="math inline">\(\theta_1^{\alpha_1 - 1}\dots \theta_K^{\alpha_K-1}=\theta_1^{\alpha_1 - 1}\dots (1 -\theta_1-\dots-\theta_5)^{\alpha_6 -1}.\)</span></p>
+<p>In the case of a beta-Bernoulli conjugate we derive the posterior as:</p>
+<p><span class="math display">\[\begin{align}
+p(\theta|\mathcal D) &amp;\propto p(\mathcal D | \theta)\,p(\theta)\\[2ex]
+&amp;\propto \underset{\text{Bern likelihood}}{\big[\theta^{N_1} (1-\theta)^{N_2} \big]}\underset{\text{Beta}}{\big[\theta^{\alpha_1 - 1}(1-\theta)^{\alpha_2-1} \big]}
+\end{align}\]</span></p>
+<p>whereas in the case of a categorical distribution (dice):</p>
+<p><span class="math display">\[\begin{align}
+p(\mathbf\theta|X_{1:n}) &amp;\propto p(X_{1:n} | \mathbf\theta)\,p(\mathbf\theta)\\[2ex]
+&amp;\propto \underbrace{\prod_{i=1}^n \prod_{j=1}^k \theta_j^{\mathbb I(x_{ij}=1)}}_{\text{cat'l likelihood}} \underbrace{\prod_{j=1}^K \theta_j^{\alpha_j -1}}_{\text{Dir}}\\[2ex]
+&amp;=\prod_{j=1}^K\theta_j^{N_j}\prod_{j=1}^K \theta_j^{\alpha_j-1}\\[2ex]
+&amp;=\prod_{j=1}^K\theta^{(N_j +\alpha_j)-1}
+\end{align}\]</span></p>
+<p>Hence, the posterior is Dirichlet.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
