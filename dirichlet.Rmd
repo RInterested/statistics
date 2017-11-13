@@ -1,0 +1,32 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###DIRICHLET DISTRIBUTION:
+<br>
+
+From [this lecture by Nando de Freitas](https://youtu.be/0jQo8lVRHRY).
+
+For a Bernoulli distribution the conjugate prior is the beta distribution, as derived [here](http://rinterested.github.io/statistics/bayes.html).
+
+For a [categorical distribution](https://en.wikipedia.org/wiki/Categorical_distribution), where there is a single experiment with $K$ possible values. 
+
+We are given $n$ datapoints from such distribution, $x_{i:n}=\{x_i,\dots,x_n\}$ were each point $x_i$ can assume $K=3$ classes, $\{1 = (100), 2= (010), 3=(001)\},$ each with likelihood
+
+$$p(x_i|\theta)=\prod_{j=1}^k \theta_j^{\mathbb I(x_{ij}=1)}$$
+In other words if the probability of $(100)$ is $\theta_{j=1},$ and the probability of $(010)$ is $\theta_{j=2},$ etc., the probability that the sample $x_i$ is $(010)$ is $\theta_2,$ and $\mathbb I(x_{i2}=1)=1$ indicates that the sample $x_i=2,$ in which case its probability will be $\theta_{2}.$
+
+For the entire sample, the likelihood will be
+
+$$p(x_{1:n}\vert \theta)=\prod_{i=1}^n \prod_{j=1}^k \theta_j^{\mathbb I(x_{ij}=1)}.$$
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
