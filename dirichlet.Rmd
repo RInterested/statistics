@@ -27,6 +27,20 @@ For the entire sample, the likelihood will be
 
 $$p(x_{1:n}\vert \theta)=\prod_{i=1}^n \prod_{j=1}^k \theta_j^{\mathbb I(x_{ij}=1)}.$$
 
+the generalization of the beta distribution that provides a prior for this categorical distribution is the Dirichet distribution with the pdf defined as
+
+$$\mathrm{Dir}(\mathbf \theta\vert \mathbf \alpha) := \frac{1}{B(\mathbf \alpha)}\prod_{k=1}^K\, \theta_{k=1}^{\alpha_k -1}$$
+
+defined on the probability simplex, i.e. the set of vectors such that $0\leq \theta_k \leq 1,$ and $\displaystyle \sum_{k=1}^K \theta_k =1.$
+
+$B(\alpha_1,\dots,\alpha_K)$ is the generalization of the beta function to $K$ variables:
+
+$$B(\mathbf \alpha) := \frac{\prod_{i=1}^K \Gamma(\alpha_i)}{\Gamma(\alpha_0)}$$
+
+wehre $\alpha_0:=\sum_{k=1}^K \alpha_k.$
+
+
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
