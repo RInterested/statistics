@@ -10,7 +10,6 @@ output:
 <br><br>
 
 ###POISSON:
-<br>
 
 In probability theory, a Poisson process is a stochastic process that counts the number of events and the time points at which these events occur in a given time interval. The time between each pair of consecutive events has an **exponential distribution** with parameter $\lambda$ and each of these inter-arrival times is assumed to be independent of other inter-arrival times. The process is named after the French mathematician Siméon Denis Poisson and is a good model of radioactive decay, telephone calls and requests for a particular document on a web server among many other phenomena.
 
@@ -18,20 +17,38 @@ The Poisson process is a continuous-time process; the sum of a Bernoulli process
 
 Probability of getting $5$ e-mails (n Poisson events) in $1$ day, given an average rate. Mnemonic: Probability of getting $n$ fishes - “poissons” in French.
 
+---
+
 
 ###EXPONENTIAL:
-<br>
 
 Probability of having to wait $1$ hour before the next e-mail arrives (Poisson event). Parameter: 
 
 Describes the time between events in a Poisson process, i.e. a process in which events occur continuously and independently at a constant average rate. It is the continuous analogue of the **geometric distribution** (number of Bernoulli trials before getting the first success, e.g. Heads), and it has the key property of being memoryless.
 
+---
+
 ###GAMMA:
-<br>
 
 Probability of having to wait $1$ day to get $5$ e-mails (time to $n$-th Poisson event). We add inter-arrival times (exponential lambda). This fact: that the gamma distribution represents the sum of exponential distributions (convolution) is proved by deriving the mgf of the gamma. 
 
 Parameters: $n$ ($a$ or $K$ or $\alpha$) (shape) and $\lambda$ (or $\beta$ or $1/\theta$) (scale). It’s the continuous analogue of the **negative binomial** (i.e. sum of geometric) = number of Bernoulli trials before reaching n successes (eg. $4$ heads).
+
+---
+
+###MULTINOMIAL and CATEGORICAL:
+
+The [multinomial distribution](https://en.wikipedia.org/wiki/Multinomial_distribution#Example) is a generalization of the binomial. In the binomial, there are $n$ independent trials or experiments, and we add the number of successes. In each trial there are only two possibilities: success or failure - each trial or experiment is a Bernouilli trial.
+
+In a multinomial distribution there are also $n$ experiments, but the outcome of each experiment is not S or F, but rather $K$ possible **categories**. For instance, we survey $n=15$ people, asking them whether they intend to vote Democrat, Republican or Independent, i.e. $K = 3.$ Knowing the percentage of supporters for each option in the general popoulation we can calculate the probability of the event $(D=7, R=5, I=3).$
+
+If $K=2$ we are back to $(0,1)$ binary outcomes with $n$ experiments, which is the definition of the binomial distribution.
+
+If $n=1$ and $K = 2,$ we have a Bernouilli experiment.
+
+If $n=1$ but we have more than $2$ categories, we are dealing with a [categorical distribution](https://en.wikipedia.org/wiki/Categorical_distribution). The categorical distribution is the generalization of the Bernoulli distribution for a categorical random variable, i.e. for a discrete variable with more than two possible outcomes, such as the roll of a die, $K=6$. On the other hand, the categorical distribution is a special case of the multinomial distribution, in that it gives the probabilities of potential outcomes of a single drawing, $(n=1),$ rather than multiple drawings.
+
+The parameters specifying the probabilities of each possible outcome are constrained only by the fact that each must be in the range 0 to 1, and all must sum to 1.
 
 
 ---
