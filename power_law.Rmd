@@ -1,4 +1,4 @@
----
+.---
 output: 
   html_document:
     css: custom.css
@@ -65,15 +65,18 @@ In R
 
 ```{r, warning=F, fig.width=4, fig.height=4}
 x1 = 5
-x0 = 0.1  # It can't be zero; otherwise X^0^(neg) is 1/0.
+x0 = 0.1     # It can't be zero; otherwise X^0^(neg) is 1/0.
 alpha = -2.5  # It has to be negative.
 set.seed(123)
 y = runif(1e5)
 x = ((x1^(alpha+1) - x0^(alpha+1))*y + x0^(alpha+1))^(1/(alpha+1))
 summary(x)
-hist(x, prob = T, breaks=40, ylim=c(0,10), xlim=c(0,1.2), border=F, col="yellowgreen", main="Power law density")
-lines(density(x), col="chocolate", lwd=1)
-lines(density(x, adjust=2), lty="dotted", col="darkblue", lwd=2)
+hist(x, xlim = c(0,1), ylim = c(0,12), border=F, col=rgb(0,0,0.8,.5), 
+     breaks=200, 
+     cex.main=.7, cex.lab=.7, prob=T,
+     main="Power law")
+lines(density(x), col=4, lwd=1)
+lines(density(x, adjust=2), lty="dotted", col="turquoise", lwd=2)
 h = hist(x, prob=T, breaks=40, plot=F)
 plot(h$count, log="xy", type='l', lwd=1, lend=2, xlab="", ylab="", main="Density in logarithmic scale")
 ```
@@ -141,6 +144,29 @@ From these [CalTech notes](http://users.cms.caltech.edu/~adamw/papers/2013-SIGME
 
 Exponential distributions are not subexponential!
 
+```{r}
+
+x1 = 5
+x0 = 0.07     # It can't be zero; otherwise X^0^(neg) is 1/0.
+alpha = -2.5  # It has to be negative.
+
+set.seed(123)
+y = runif(1e5)
+x = ((x1^(alpha+1) - x0^(alpha+1))*y + x0^(alpha+1))^(1/(alpha+1))
+
+par(mfrow = c(1,2))
+
+hist(x, xlim = c(0,1), border=F, col=2, breaks=80, 
+     cex.main=.7, cex.lab=.7, ylim= c(0,12000),
+     main="Power law")
+abline(v=.4, lty=2)
+
+y = rexp(1e5, rate = 15)
+hist(y, breaks=20, xlim = c(0,1), ylim= c(0,12000),border=F, col=2, cex.main=.7, cex.lab=.7,
+     main="Exponential")
+abline(v=.4, lty=2)
+```
+
 These distributions can be intuitively approximated through these heuristics:
 
 1. The principle of the single big jump
@@ -149,7 +175,7 @@ These distributions can be intuitively approximated through these heuristics:
 
 3. The catastophe principle (versus the conspiracy principle of light tailed distributions).
 
-> E.g. the sum up the estimated cost of the damages from each hurricane during a given year is unexpectedly large.  It is probably not because there were a lot of hurricanes that caused larger than typical amounts of damage.The catastrophe principle for heavy-tailed distributions tells us that the most likely reason that the sum is unexpectedly large is because there was one hurricane that caused an extremely large amount of damage.  In fact, we should expect that there was one hurricane that caused nearly all of the damage caused during the year, i.e., there was a catastrophe.
+    E.g. the sum up the estimated cost of the damages from each hurricane during a given year is unexpectedly large.  It is probably not because there were a lot of hurricanes that caused larger than typical amounts of damage.The catastrophe principle for heavy-tailed distributions tells us that the most likely reason that the sum is unexpectedly large is because there was one hurricane that caused an extremely large amount of damage.  In fact, we should expect that there was one hurricane that caused nearly all of the damage caused during the year, i.e., there was a catastrophe.
 
 Mathematically,
 
