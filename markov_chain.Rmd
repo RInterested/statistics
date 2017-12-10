@@ -10,8 +10,131 @@ The objective of [Markov matrices](https://en.wikipedia.org/wiki/Stochastic_matr
 
 For example, if we know that a certain percentage of people leave the city for the suburbs every year, and a different proportion of city dwellers move to the suburbs, we can find out the percentage or number of people living in the city and suburbs one year from now:
 
- <img src="https://cloud.githubusercontent.com/assets/9312897/12528694/e882eada-c16c-11e5-8fba-27f2a9193815.png" width="800" height="400">
+---
 
+ <img src="https://user-images.githubusercontent.com/9312897/33806516-6339d796-dd97-11e7-9b99-e7fde13d4a36.png" width="800" height="400">
+ 
+---
+ 
+ $$\begin{bmatrix}
+  & \text{City} & \text{Suburbs} \\
+\text{City} & \color{red}{0.88} & \color{magenta}{0.05}\\
+\text{Suburbs} & \color{red}{0.12}
+& \color{magenta}{0.95}\end{bmatrix}
+\underbrace{\begin{bmatrix}\text{C}\\\text{S}\end{bmatrix}}_{\text{initial state}}=\underbrace{\begin{bmatrix}\text{C}\\\text{S}\end{bmatrix}}_{\text{state 1 yr later}}$$
+
+---
+ 
+ 
+####ABSORBING MARKOV CHAINS:
+<br>
+
+From [this series of lectures](https://youtu.be/BsOkOaB8SFk).
+
+An absorbing state in a transition MC is such that when it is entered, it becomes impossible to leave. They are identified as $1$'s in the diagonal matrix.
+
+An absorbing MC, like a regular MC, tends to a limiting matrix by calculating powers. The presence of absorbing states does not guarantee a limiting matrix: for its to happen, the absorbing states have to be able to transition to absorbing states.
+
+For instance, in the matrix
+
+$$\tiny\begin{bmatrix} & A & B & C \\ A & 0 & 0 & 1 \\ B & 0 & 1 & 0 \\ C & 1 & 0 & 0 \end{bmatrix}$$
+
+has an absorbing state in $B; $ however, it is impossible to reach from either $A$ or $C.$ Note that an absorbing state can be reach indirectly through other states.
+
+A MC is an absorbing chain if 1. There is at least one absorbing state; and 2. It is possible to go from each non-absorbing states to at least one absorbing state in a finite number of steps.
+
+Absorbing MC are organized in standard form with absorbing states in the upper-left block submatrix as an identity matrix.
+
+Consider the following transition diagram:
+
+
+
+ <img src="https://user-images.githubusercontent.com/9312897/33806859-06ea036c-dd9c-11e7-8f67-eb85ff0d2b82.png">
+ 
+
+The standard form will be:
+
+
+$$\small\begin{align}
+\begin{bmatrix}
+& \text{A} & \text{non-A}\\
+\text{A} & I & 0 \\
+\text{non-A}& R & Q
+\end{bmatrix}
+=
+\begin{bmatrix}
+      & \text{B} & \text{A} & \text{C} & \text{D}\\
+\text{B} &1       &  0       &   0      &   0      \\
+\text{A} &.4     &  .6     &   0      &   0      \\
+\text{C} &.7     &  0       &   0      &   .3    \\
+\text{D} &0       &  0       &   1      &   0
+\end{bmatrix}
+\end{align}$$
+
+Another example clarifies the block matrices. If we have a MC transition matrix given as
+
+$$\small\begin{align}
+\begin{bmatrix}
+      & \text{A} & \text{B} & \text{C} & \text{D}\\
+\text{A} &0       &  .3       &   .3      &   .4    \\
+\text{B} &0       &  1         &   0        &   0      \\
+\text{C} &0       &  0         &   1        &   0      \\
+\text{D} &.8     &  .1       &   .1      &   0
+\end{bmatrix}
+\end{align}
+$$
+
+can be written in standard form as
+
+$$\small\begin{align}
+P=\begin{bmatrix}
+      & \text{B} & \text{C} & \text{A} & \text{D}\\
+\text{B} &1       &  0         &   0      &   0    \\
+\text{C} &0       &  1         &   0        &   0      \\
+\text{A} &.3       &  .3         &   0        &   .4      \\
+\text{D} &.1     &  .1       &   .8      &   0
+\end{bmatrix}
+\end{align}
+$$
+
+
+The matrix $R=\begin{bmatrix}.3&.3\\.1&.1\end{bmatrix}$ and the matrix $Q= \begin{bmatrix}0&.4\\.8&0\end{bmatrix}.$
+
+The limiting matrix, $\bar P$ is approached as powers of the standard form of the absorbing MC $P^k$ when $k$ increases as
+
+$$\bar P =\begin{bmatrix}
+I& 0\\ FR & 0
+\end{bmatrix}$$
+
+where the block matrix $FR$ is calculated from the fundamental matrix $F=(I-Q)^{-1}.$
+
+#####Properties:
+
+1. The entry in row $i$, column $j$  of $\bar P$ is the long-run probability of going from state $i$ to state $j.$
+
+2. The sum of the entries in each row of the fundamental matrix $F$ is the average number of trials it takes to go from each non-absorbing state to some absorbing state.
+
+
+---
+
+#####Example problem:
+
+Suppose a credit union classifies car loans into four categories: paid in full (F); in good standing (G); in arrears (A); or bad debt (B). Each month, $10\%$ of G accounts pay the loan in full; $80\%$ remain in G; and $10\%$ go to A. For accounts in A, $10\%$ are paid in full, $40\%$ become G; $40\%$ stay in A; and $10\%$ go to B.
+
+We want to know what percentage of accounts in A will default. And how many months the accounts in A will remain so, until they default or paid in full (the two absorbing states).
+
+```{r}
+(P = matrix(c(1,0,0,0,0,1,0,0,.1,0,.8,.1,.1,.1,.4,.4), nrow=4, byrow=T))
+(R = P[3:4, 1:2]); (Q = P[3:4, 3:4]); (F = solve(diag(2) - Q)); F%*%R
+```
+
+Just reading from the last matrix, $75\%$ of accounts in arrears (last row) will be paid in full (F), and $25\%$ will ultimately default. The average of months the accounts in A will remain in A before reaching an absorbing state (either F or B) will be
+
+```{r}
+rowSums(F)[2]
+```
+
+$7.5$ months until it is paid in full, or goes into default.
 
 ---
 
