@@ -125,16 +125,22 @@ We want to know what percentage of accounts in A will default. And how many mont
 
 ```{r}
 (P = matrix(c(1,0,0,0,0,1,0,0,.1,0,.8,.1,.1,.1,.4,.4), nrow=4, byrow=T))
-(R = P[3:4, 1:2]); (Q = P[3:4, 3:4]); (F = solve(diag(2) - Q)); F%*%R
+(R = P[3:4, 1:2])
+(Q = P[3:4, 3:4])
+(F = solve(diag(2) - Q)) 
+(FR = F %*% R)
 ```
 
-Just reading from the last matrix, $75\%$ of accounts in arrears (last row) will be paid in full (F), and $25\%$ will ultimately default. The average of months the accounts in A will remain in A before reaching an absorbing state (either F or B) will be
+Just reading from the last matrix, $75\%$ of accounts in arrears (last row) will be paid in full (F), and $25\%$ will ultimately default. Likewise, of the good (G) accounts $87\%$ will ultimately be paid in full, and $13\%$ will default (B).
+
+
+The average of months the accounts in A will remain in A before reaching an absorbing state (either F or B) will be
 
 ```{r}
 rowSums(F)[2]
 ```
 
-$7.5$ months until it is paid in full, or goes into default.
+That is, an average of $7.5$ months until they are paid in full, or go into default.
 
 ---
 
