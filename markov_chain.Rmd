@@ -33,13 +33,13 @@ From [this series of lectures](https://youtu.be/BsOkOaB8SFk).
 
 An absorbing state in a transition MC is such that when it is entered, it becomes impossible to leave. They are identified as $1$'s in the diagonal matrix.
 
-An absorbing MC, like a regular MC, tends to a limiting matrix by calculating powers. The presence of absorbing states does not guarantee a limiting matrix: for its to happen, the absorbing states have to be able to transition to absorbing states.
+An absorbing MC, like a regular MC, tends to a limiting matrix by calculating powers of the transition matrix, $P.$ The presence of absorbing states does not guarantee a limiting matrix: for its to happen, the absorbing states have to be able to transition to absorbing states.
 
 For instance, in the matrix
 
-$$\tiny\begin{bmatrix} & A & B & C \\ A & 0 & 0 & 1 \\ B & 0 & 1 & 0 \\ C & 1 & 0 & 0 \end{bmatrix}$$
+$$\tiny P=\begin{bmatrix} & A & B & C \\ A & 0 & 0 & 1 \\ B & 0 & 1 & 0 \\ C & 1 & 0 & 0 \end{bmatrix}$$
 
-has an absorbing state in $B; $ however, it is impossible to reach from either $A$ or $C.$ Note that an absorbing state can be reach indirectly through other states.
+has an absorbing state in $B$; however, it is impossible to reach from either $A$ or $C.$ Note that an absorbing state can be reach indirectly through other states.
 
 A MC is an absorbing chain if 1. There is at least one absorbing state; and 2. It is possible to go from each non-absorbing states to at least one absorbing state in a finite number of steps.
 
@@ -56,7 +56,7 @@ The standard form will be:
 
 
 $$\small\begin{align}
-\begin{bmatrix}
+P=\begin{bmatrix}
 & \text{A} & \text{non-A}\\
 \text{A} & I & 0 \\
 \text{non-A}& R & Q
@@ -73,7 +73,7 @@ $$\small\begin{align}
 
 Another example clarifies the block matrices. If we have a MC transition matrix given as
 
-$$\small\begin{align}
+$$\small P=\begin{align}
 \begin{bmatrix}
       & \text{A} & \text{B} & \text{C} & \text{D}\\
 \text{A} &0       &  .3       &   .3      &   .4    \\
@@ -106,13 +106,40 @@ $$\bar P =\begin{bmatrix}
 I& 0\\ FR & 0
 \end{bmatrix}$$
 
-where the block matrix $FR$ is calculated from the fundamental matrix $F=(I-Q)^{-1}.$
+where the block matrix $FR$ is calculated from the fundamental matrix $F=(I-Q)^{-1}.$'
+
+The $R$ matrix is not necessarily square: if there are $n_a$ absorbing states, and $n_t$ transient states, the matrix $R$ will be $n_t \times n_a,$ and contain the transition probabilities between transient and absorbent states. On the other hand, $Q$ is square, $n_t \times n_t,$ containing the transition probabilities between transient states. The submatrix $I$ will be square $n_a \times n_a,$ and the matrix of zeroes will be square and $n_t \times n_t.$
 
 #####Properties:
 
 1. The entry in row $i$, column $j$  of $\bar P$ is the long-run probability of going from state $i$ to state $j.$
 
 2. The sum of the entries in each row of the fundamental matrix $F$ is the average number of trials it takes to go from each non-absorbing state to some absorbing state.
+
+---
+
+#####Proof:
+
+[This](https://www.ssc.wisc.edu/~jmontgom/absorbingchains.pdf) is a good resource.
+The submatrix $P$ contains the transition probabilities from transient to absorbing states, while $Q$ contains the transition probabilities from transient to transient states.
+
+Powers of the transition matrix $P$ approach a limiting matrix with a pattern:
+
+$$\begin{align}
+P^2 &=\begin{bmatrix}I & 0 \\ R & Q \end{bmatrix}^2= \begin{bmatrix}I & 0 \\ R+QR & Q^2 \end{bmatrix}\\[3ex]
+P^3 &=\begin{bmatrix}I & 0 \\ R+QR & Q^2 \end{bmatrix}\begin{bmatrix}I & 0 \\ R & Q \end{bmatrix}=\begin{bmatrix}I & 0 \\ R+QR+Q^2R & Q^3 \end{bmatrix}\\[3ex]
+P^k &=\begin{bmatrix}I & 0 \\ \left(I+Q+Q^2+\cdots+Q^{k-1}\right)R & Q^k \end{bmatrix}\tag 1
+\end{align}$$
+
+The key now is that $Q^k\to 0$ as $k\to \infty.$
+
+The fundamental matrix is a [geometric series](https://math.stackexchange.com/q/867768/152225):
+
+$$F= I+Q+Q^2+\cdots=(I-Q)^{-1}$$
+
+and replacing the expression $I+Q+Q^2+\cdots+Q^{k-1}$ in (1) with $F:$
+
+$$\begin{align}P^{\infty}&=\begin{bmatrix}I & 0 \\ FR & 0 \end{bmatrix}\end{align}$$
 
 
 ---
