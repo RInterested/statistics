@@ -185,6 +185,25 @@ Fund = solve(diag(3) - Q)
 (FR = Fund %*% R)
 ```
 
+We can see the absorbsion process in play if we focus back on the $P$ matrix of the insurance company example: 
+
+```{r}
+(P = matrix(c(1,0,0,0,0,1,0,0,.1,0,.8,.1,.1,.1,.4,.4), nrow=4, byrow=T))
+```
+
+After the second month...
+
+```{r}
+P%*%P
+```
+
+there'll be a lot of accounts in the transient states. But after six years there is no account in the transition states, having all been absorbed (notice the empty lower-right corner block matrix:
+
+```{r, warning=F, message=F}
+require(expm)
+round(P %^% 75, 3)
+```
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
