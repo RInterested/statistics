@@ -249,6 +249,14 @@ P^k &amp;=\begin{bmatrix}I &amp; 0 \\ \left(I+Q+Q^2+\cdots+Q^{k-1}\right)R &amp;
 <pre class="r"><code>rowSums(Fund)[2]</code></pre>
 <pre><code>## [1] 7.5</code></pre>
 <p>That is, an average of <span class="math inline">\(7.5\)</span> months until they are paid in full, or go into default.</p>
+<p>The interpretation of the entries of the fundamental matrix, <code>Fund</code>, or <span class="math inline">\(F\)</span> in general is as follows: <span class="math inline">\(F(i,j)\)</span> is the number of periods (in this case, months) spent in the <span class="math inline">\(j\)</span> non-absorbing state when the chain started in the <span class="math inline">\(i\)</span> non-absorbing state. And <span class="math inline">\(\sum_j F(i,j)\)</span> yields the expected number of period spent in any non-absorbing state, given that we started at state <span class="math inline">\(i,\)</span> which is the calculation of <span class="math inline">\(7.5\)</span> months in the example above.</p>
+</div>
+<div id="proof-1" class="section level5">
+<h5>Proof:</h5>
+<p>Since</p>
+<p><span class="math display">\[F = (I- Q)^{-1}= I + Q + Q^2 +\cdots\]</span></p>
+<p><span class="math display">\[F(i,j) = Q^0(i,j) + Q^1(i,j) + Q^2(i,j)+\cdots\]</span></p>
+<p>where <span class="math inline">\(Q^t(i,j)\)</span> is that the probability that the process that started in the <span class="math inline">\(i\)</span> non-absorbing state will be in the <span class="math inline">\(j\)</span> non-absorbing state at time <span class="math inline">\(t.\)</span> Or intepreted differently, the fraction of period <span class="math inline">\(t\)</span> spent in state <span class="math inline">\(j.\)</span> Therefore, the sum over all periods is the expected periods spent in <span class="math inline">\(j.\)</span></p>
 <hr />
 <p>Finally, going back to the transition diagram above, all initial states will be unavoidably absorbed into B:</p>
 <pre class="r"><code>(P = matrix(c(1,0,0,0,.4,.6,0,0,.7,0,0,.3,0,0,1,0), nrow=4, byrow=T))</code></pre>

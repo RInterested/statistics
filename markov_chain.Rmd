@@ -172,6 +172,19 @@ rowSums(Fund)[2]
 
 That is, an average of $7.5$ months until they are paid in full, or go into default.
 
+The interpretation of the entries of the fundamental matrix, `Fund`, or $F$ in general is as follows: $F(i,j)$ is the number of periods (in this case, months) spent in the $j$ non-absorbing state when the chain started in the $i$ non-absorbing state. And $\sum_j F(i,j)$ yields the expected number of period spent in any non-absorbing state, given that we started at state $i,$ which is the calculation of $7.5$ months in the example above.
+
+#####Proof:
+
+Since
+
+$$F = (I- Q)^{-1}= I + Q + Q^2 +\cdots$$
+
+$$F(i,j) = Q^0(i,j) + Q^1(i,j) + Q^2(i,j)+\cdots$$
+
+where $Q^t(i,j)$ is that the probability that the process that started in the $i$ non-absorbing state will be in the $j$ non-absorbing state at time $t.$ Or intepreted differently, the fraction of period $t$ spent in state $j.$ Therefore, the sum over all periods is the expected periods spent in $j.$
+
+
 ---
 
 
