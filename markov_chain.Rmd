@@ -154,8 +154,8 @@ We want to know what percentage of accounts in A will default. And how many mont
 (P = matrix(c(1,0,0,0,0,1,0,0,.1,0,.8,.1,.1,.1,.4,.4), nrow=4, byrow=T))
 (R = P[3:4, 1:2])
 (Q = P[3:4, 3:4])
-(F = solve(diag(2) - Q)) 
-(FR = F %*% R)
+(Fund = solve(diag(2) - Q)) 
+(FR = Fund %*% R)
 ```
 
 Just reading from the last matrix, $75\%$ of accounts in arrears (last row) will be paid in full (F), and $25\%$ will ultimately default. Likewise, of the good (G) accounts $87\%$ will ultimately be paid in full, and $13\%$ will default (B).
@@ -164,10 +164,23 @@ Just reading from the last matrix, $75\%$ of accounts in arrears (last row) will
 The average of months the accounts in A will remain in A before reaching an absorbing state (either F or B) will be
 
 ```{r}
-rowSums(F)[2]
+rowSums(Fund)[2]
 ```
 
 That is, an average of $7.5$ months until they are paid in full, or go into default.
+
+---
+
+
+Finally, going back to the transition diagram above, all initial states will be absorbed into B:
+
+```{r}
+(P = matrix(c(1,0,0,0,.4,.6,0,0,.7,0,0,.3,0,0,1,0), nrow=4, byrow=T))
+R = P[2:4, 1, drop=F]
+Q = P[2:4, 2:4]
+Fund = solve(diag(3) - Q)
+(FR = Fund %*% R)
+```
 
 ---
 
