@@ -12,15 +12,15 @@ For example, if we know that a certain percentage of people leave the city for t
 
 ---
 
- <img src="https://user-images.githubusercontent.com/9312897/33806516-6339d796-dd97-11e7-9b99-e7fde13d4a36.png" width="800" height="400">
+ <img src="https://user-images.githubusercontent.com/9312897/33838012-2b845a68-de5c-11e7-9ab9-d46b8d60c2e4.png" width=500>
  
 ---
  
  $$\begin{bmatrix}
   & \text{City} & \text{Suburbs} \\
-\text{City} & \color{red}{0.88} & \color{magenta}{0.05}\\
-\text{Suburbs} & \color{red}{0.12}
-& \color{magenta}{0.95}\end{bmatrix}
+\text{City} & 0.88 & \color{red}{0.12}\\
+\text{Suburbs} & \color{magenta}{0.05}
+& 0.95\end{bmatrix}
 \underbrace{\begin{bmatrix}\text{C}\\\text{S}\end{bmatrix}}_{\text{initial state}}=\underbrace{\begin{bmatrix}\text{C}\\\text{S}\end{bmatrix}}_{\text{state 1 yr later}}$$
 
 ---
@@ -146,7 +146,10 @@ $$\begin{align}P^{\infty}&=\begin{bmatrix}I & 0 \\ FR & 0 \end{bmatrix}\end{alig
 
 #####Example problem:
 
-Suppose a credit union classifies car loans into four categories: paid in full (F); in good standing (G); in arrears (A); or bad debt (B). Each month, $10\%$ of G accounts pay the loan in full; $80\%$ remain in G; and $10\%$ go to A. For accounts in A, $10\%$ are paid in full, $40\%$ become G; $40\%$ stay in A; and $10\%$ go to B.
+Suppose a credit union classifies car loans into four categories: paid in full (F); in good standing (G); in arrears (A); or bad debt (B). Each month, $10\%$ of G accounts pay the loan in full; $80\%$ remain in G; and $10\%$ go to A. For accounts in A, $10\%$ are paid in full, $40\%$ become G; $40\%$ stay in A; and $10\%$ go to B:
+
+
+ <img src="https://user-images.githubusercontent.com/9312897/33840499-1a6de0a8-de63-11e7-8c1c-585727467dae.png" width=300>
 
 We want to know what percentage of accounts in A will default. And how many months the accounts in A will remain so, until they default or paid in full (the two absorbing states).
 
@@ -154,8 +157,8 @@ We want to know what percentage of accounts in A will default. And how many mont
 (P = matrix(c(1,0,0,0,0,1,0,0,.1,0,.8,.1,.1,.1,.4,.4), nrow=4, byrow=T))
 (R = P[3:4, 1:2])
 (Q = P[3:4, 3:4])
-(F = solve(diag(2) - Q)) 
-(FR = F %*% R)
+(Fund = solve(diag(2) - Q)) 
+(FR = Fund %*% R)
 ```
 
 Just reading from the last matrix, $75\%$ of accounts in arrears (last row) will be paid in full (F), and $25\%$ will ultimately default. Likewise, of the good (G) accounts $87\%$ will ultimately be paid in full, and $13\%$ will default (B).
@@ -164,10 +167,55 @@ Just reading from the last matrix, $75\%$ of accounts in arrears (last row) will
 The average of months the accounts in A will remain in A before reaching an absorbing state (either F or B) will be
 
 ```{r}
-rowSums(F)[2]
+rowSums(Fund)[2]
 ```
 
 That is, an average of $7.5$ months until they are paid in full, or go into default.
+
+The interpretation of the entries of the fundamental matrix, `Fund`, or $F$ in general is as follows: $F(i,j)$ is the number of periods (in this case, months) spent in the $j$ non-absorbing state when the chain started in the $i$ non-absorbing state. And $\sum_j F(i,j)$ yields the expected number of period spent in any non-absorbing state, given that we started at state $i,$ which is the calculation of $7.5$ months in the example above.
+
+#####Proof:
+
+Since
+
+$$F = (I- Q)^{-1}= I + Q + Q^2 +\cdots$$
+
+$$F(i,j) = Q^0(i,j) + Q^1(i,j) + Q^2(i,j)+\cdots$$
+
+where $Q^t(i,j)$ is that the probability that the process that started in the $i$ non-absorbing state will be in the $j$ non-absorbing state at time $t.$ Or intepreted differently, the fraction of period $t$ spent in state $j.$ Therefore, the sum over all periods is the expected periods spent in $j.$
+
+
+---
+
+
+Finally, going back to the transition diagram above, all initial states will be unavoidably absorbed into B:
+
+```{r}
+(P = matrix(c(1,0,0,0,.4,.6,0,0,.7,0,0,.3,0,0,1,0), nrow=4, byrow=T))
+R = P[2:4, 1, drop=F]
+Q = P[2:4, 2:4]
+Fund = solve(diag(3) - Q)
+(FR = Fund %*% R)
+```
+
+We can see the absorbsion process in play if we focus back on the $P$ matrix of the insurance company example: 
+
+```{r}
+(P = matrix(c(1,0,0,0,0,1,0,0,.1,0,.8,.1,.1,.1,.4,.4), nrow=4, byrow=T))
+```
+
+After the second month...
+
+```{r}
+P%*%P
+```
+
+there'll be a lot of accounts in the transient states. But after six years there is no account in the transition states, having all been absorbed (notice the empty lower-right corner block matrix:
+
+```{r, warning=F, message=F}
+require(expm)
+round(P %^% 75, 3)
+```
 
 ---
 
