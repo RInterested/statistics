@@ -9,58 +9,53 @@ output:
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###FINDING THE PDF OF $Z = X + Y$:
+
+####Finding the pdf of $Z = X + Y$:
 
 <br>
 
 We are given the joint pdf. For instance in the case of the uniform distribution:
 
-$\large f_{XY}(x,y)= I_{(0,a)}\times I_{(0,b)}$
+$$f_{XY}(x,y)= \mathbb 1_{(0,a)}\times \mathbb 1_{(0,b)}$$
 
-and we want to find the pdf of $f_Z(z)$ when $Z=X+Y$.
+and we want to find the pdf of $f_Z(z)$ where $Z=X+Y$.
 
-We start with the distribution function:
+We start with the distribution (cdf) function:
 
-$F_Z(z) = P(Z \leq z) = P(X+Y \leq z)$ to later obtain the pdf through the derivative.
+$$F_Z(z) = \Pr(Z \leq z) = \Pr(x+y \leq z)$$ 
+
+to later obtain the pdf through the derivative.
 
 This is what would go on integrating under the bivariate uniform:
 
 <img height="500" width="500" src="https://cloud.githubusercontent.com/assets/9312897/17458165/07be9808-5bd8-11e6-9d58-0eadf26a23dd.gif">
 
+---
+
 In general, we would have to integrate as follows:
 
-$\color{orange}{F(z)} = P(Z \leq z) = P(X + Y  \leq z) = \displaystyle \int_{-\infty}^{\infty} \color{orange}{\int_{-\infty}^{z-y} f_{XY} (x,y)\, dx} \, dy$
+$$\begin{align}
+\color{orange}{F(z)} &= \Pr(Z \leq z)\\ &= \Pr(x + y  \leq z) = \displaystyle \int_{-\infty}^{\infty} \color{orange}{\int_{-\infty}^{z-y} f_{XY} (x,y)\, d x} \, dy
+\end{align}
+$$
 
 To take the derivative on both sides of the equation we have to use Leibniz rule because $z$ is in the limits of integration of the expression in orange. In trying to get the derivative of a function like that we do:
 
 
-$\frac{d}{dx} \left (\displaystyle \int_\color{red}{{b(x)}}^\color{red}{{a(x)}} f(x,t) \, dt \right) =\displaystyle \int_\color{red}{{b(x)}}^\color{red}{{a(x)}}\, \frac{\partial f(x,t)}{\partial x}\,dt + \color{blue}{f(a(x), x)} \, \color{red}{a'(x)} - \color{blue}{f(b(x), x)} \color{red}{ \, b'(x)}\tag {*}$
+$$\frac{d}{dx}\left(\displaystyle \int_\color{red}{{b(x)}}^\color{red}{{a(x)}} f(x,t) \, dt \right) =\displaystyle \int_\color{red}{{b(x)}}^\color{red}{{a(x)}}\, \frac{\partial f(x,t)}{\partial x}\,dt + \color{blue}{f(a(x), x)} \, \color{red}{a'(x)} - \color{blue}{f(b(x), x)} \color{red}{ \, b'(x)}\tag {*}$$
 
-In what follows, though we have not just $x$ and $t$, but rather $z$, $y$ and $x$, which makes it a bit confusing. Keep in mind that we are differentiating with respect to $z$ ($z$ being the "new player" not in the two-variable equation (*)) and the new $x$ will play the role of the old $t$, while $y$ will play the role of the old $x$:
+In what follows, though, we have not just $x$ and $t$, but rather $z$, $y$ and $x$, which makes it a bit confusing. We are differentiating with respect to $z$ ($z$ being the "new player" not in the two-variable equation (*)); the new $x$ will play the role of the old $t$, while $y$ will play the role of the old $x$:
 
-\begin{align}
-f_Z(z) =& \frac{dF_z (z)}{dz}\\\\
-=& \displaystyle \int_{-\infty}^{\infty} \left[ \color{orange}{\frac{d}{dz} \int_{-\infty}^{z-y} f_{XY}(x,y)\,dx} \right]\,dy \\\\
-=& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{\frac{d(z-y)}{dz}} - \color{blue}{f_{XY}(b(y),y)} \color{red}{\frac{d(-\infty)}{dz}}   \right] dy
-\end{align}
+$$\begin{align}
+f_Z(z) =& \frac{dF_z (z)}{dz}\\[2ex]
+=& \displaystyle \int_{-\infty}^{\infty} \left[ \color{orange}{\frac{d}{dz} \int_{-\infty}^{z-y} f_{XY}(x,y)\,dx} \right]\,dy \\[2ex]
+=& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{\frac{d(z-y)}{dz}} - \color{blue}{f_{XY}(b(y),y)} \color{red}{\frac{d(-\infty)}{dz}}   \right] dy\\[2ex]
+=&\int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{1} - \color{red}{0}   \right] dy\tag 1\\[2ex]
+=& \int_{-\infty}^{\infty}   \color{blue}{\, f_{XY}(z-y,\, y)}  \, dy \tag 2\\[2ex]
+=&\int_{-\infty}^{\infty} \, f_{X}(z-y) \, f_{Y}(y) \,dy \tag 3
+\end{align}$$
 
-Noting that $-\infty$ is a constant, the derivative with respect to $z$, or anything else, will be $0$.
-
-\begin{align}
-f_Z(z) =& \displaystyle \int_{-\infty}^{\infty} \left[ \int_{-\infty}^{z-y} \frac{\partial f_{XY}(x,y)}{\partial z}dx + \color{blue}{\, f_{XY}(z-y,\, y)} \, \color{red}{1} - \color{red}{0}   \right] dy
-\end{align}
-
-$\frac{\partial f_{XY}(x,y)}{\partial z}$ is zero. Hence,
-
-\begin{align}
-f_Z(z)=& \displaystyle \int_{-\infty}^{\infty}   \color{blue}{\, f_{XY}(z-y,\, y)}  \, dy \tag{**}
-\end{align}
-
-Since $X$ and $Y$ are independent:
-
-$pdf(Z)=f_Z(z) = \displaystyle \int_{-\infty}^{\infty} f_{XY}(z-y, \, y) \,dy = \displaystyle \int_{-\infty}^{\infty} \, f_{X}(z-y) \, f_{Y}(y) \,dy$
-
-which is the convolution $f_X(z)*f_Y(z)$.
+Notice that $-\infty$ is a constant (yielding eq 1); therefore, the derivative with respect to $z$, or anything else, will be $0$. Also $\frac{\partial f_{XY}(x,y)}{\partial z}$ is zero (yielding eq 2).  $X$ and $Y$ are independent, justifying eq. 3, which is the convolution $f_X(z)*f_Y(z)$.
 
 ---
 
@@ -70,22 +65,65 @@ Especial case: the uniform distribution:
 
 Hence,
 
-$f_Z(z)=\displaystyle\int_0^z f_{X}(z-y)f_{Y}(y)\,dy=\displaystyle\int_0^z I_{\{(z-y)\in [0,1]\}}\,I_{\{(y\in [0,1]\}}\,dy$
+$$\begin{align}
+f_Z(z)&=\displaystyle\int_0^z f_{X}(z-y)f_{Y}(y)\,dy\\[2ex]
+&=\displaystyle\int_0^z \mathbb 1_{\{(z-y)\in [0,1]\}}\;\mathbb 1_{\{(y\in [0,1]\}}\,dy\\[2ex]
+&=\int_0^z \mathbb 1_{\{(z-y)\in [0,1]\}}\,dy\tag 4
+\end{align}$$
 
-Since $f_Y(y)=1$ if $0\leq y\leq 1$ and $0$ otherwise,
+Since $f_Y(y)=1$ if $0\leq y\leq 1$ and $0$ otherwise, we get eq. 4.
 
-$f_Z(z)=\displaystyle\int_0^z f_{X}(z-y)f_{Y}(y)\,dy=\displaystyle\int_0^z I_{\{(z-y)\in [0,1]\}}\,dy$
 
 Since $z = x+y$, it can reach $2$. If $0\leq z \leq 1$,
 
-$f_Z(z)=\displaystyle \int_0^z dy = z$
+$$f_Z(z)=\displaystyle \int_0^z dy = z$$
 
 whereas if $1 \leq z \leq 2$, and given that we are integrating over $y$, and the integrand is $1$ only when $0\leq z-y \leq 1$ (rearranged: $z-1 \leq y \leq z$):
 
-$f_Z(z)=\int_{z-1}^{1} dy = 2-z$.
+$$f_Z(z)=\int_{z-1}^{1} dy = 2-z.$$
 
 
+Problem from [SE](https://math.stackexchange.com/a/2611145/152225):
 
+> Calculate $\Pr\left(x_1 + x_2 < 1 \, \vert \, x_1 < \frac{1}{7}\right)$ with $X_1$ and $X_2$ corresponding to iid standard uniform distributions. 
+
+By the definition of conditional probability:
+
+$$\Pr\left(x_1 + x_2 < 1 \, \vert \, x_1 < \frac{1}{7}\right) = \frac{\Pr\left(x_1 + x_2 < 1 \;\cap\; x_1 < \frac{1}{7}\right)}{\Pr\left(x_1 < \frac{1}{7}\right)}.$$
+
+The denominator is $\Pr\left(x_1 < \frac{1}{7}\right)=\frac{1}{7}.$
+
+As for the numerator: Since $X_1$ and $X_2$ are independent and $U(0,1)$, it corresponds to the area of the region 
+
+$$\Bigg\{(x,y) \in [0,1]\times[0,1] : x + y < 1\;,\; x < \frac{1}{7}\Bigg\}.$$  
+
+Here is the area to calculate for the numerator (in dashed purple lines):
+
+[![enter image description here][1]][1]
+
+We can calculate it as the area of the vertical rectangle under the purple dashed lines, and excluding the red square
+
+$$\text{base} \times \text{height} =\frac{1}{7}\left(1- \frac{1}{7}\right)$$
+
+plus the 1/2 of the red square:
+
+$$\frac{1}{2}(\text{side})^2=\frac{1}{2}\left(\frac{1}{7}\right)^2$$
+
+Hence,
+
+$$\Pr\left(x_1 + x_2 < 1 \,\cap\, x_1 < \frac{1}{7} \right)=\frac{1}{7}\left(1- \frac{1}{7}\right)+\frac{1}{2}\left(\frac{1}{7}\right)^2=\frac{13}{98}.$$
+
+
+  [1]: https://i.stack.imgur.com/dCFl6.png
+
+
+Integrating instead,
+
+$$\int_0^{1/7} \int_0^{1 - x} dy\,dx = \int_0^{1/7} (1 - x)\,dx = \frac{13}{98}.$$
+
+Dividing this by the denominator $1/7,$  
+
+$$\Pr\left(x_1 + x_2 < 1 \, \vert \, x_1 < \frac{1}{7}\right) = \frac{13}{14}\,.$$
 
 ---
 
