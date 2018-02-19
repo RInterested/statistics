@@ -142,7 +142,8 @@ $(document).ready(function () {
 &amp;=\mathbb E (X^2) -\mathbb E \left[\,2\,X\,\mathbb E(X)\, \right]+\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
 &amp;=\mathbb E (X^2) -2\,\mathbb E[X]\;\mathbb E(X)\, +\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
 &amp;=\mathbb E (X^2) -2\,\left[\mathbb E(X)\right]^2\, +\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
-&amp;=\mathbb E\left(X^2 \right)\quad-\quad \left[\;\mathbb E\left(X\right)\;\right]^2
+&amp;=\mathbb E\left(X^2 \right)\quad-\quad \left[\;\mathbb E\left(X\right)\;\right]^2\\[2ex]
+&amp;=\frac{\displaystyle\sum_{i=1}^n x_i^2}{n}  \quad-\quad \left[  \frac{\displaystyle\sum_{i=1}^n x_i}{n}\right]^2
 \end{align}
 \]</span></p>
 <p>The same applies to the covariance matrix. In the following <a href="https://www.statlect.com/fundamentals-of-probability/covariance-matrix">proof</a> <span class="math inline">\(X\)</span> is a <span class="math inline">\(p\times 1\)</span> random vector:</p>
@@ -155,9 +156,12 @@ $(document).ready(function () {
 \end{align}
 \]</span></p>
 <hr />
-<p>When estimating from the sample, though, we have to keep in mind <strong>when applying this formula</strong> that it is derived with the understanding that the denominator is <span class="math inline">\(n\)</span> as implicit in Eq.<span class="math inline">\((1)\)</span>. So if we want to make the denominator <span class="math inline">\(n-1\)</span>, we have to multiply by <span class="math inline">\(\frac{n}{n-1}\)</span>, and we have to do the same in the alternate formula:</p>
-<p><span class="math display">\[\frac{n}{n-1}\,\left[\,\displaystyle \sum_1^n\frac{x_i^2}{n}  -\left[ \displaystyle \sum_1^n \frac{x_i}{n}\right]^2\right]=
-\displaystyle \sum_1^n\,\frac{x_i^2}{n-1}  -\frac{n}{n-1}\left[ \displaystyle \sum_1^n \frac{x_i}{n}\right]^2\]</span></p>
+<p>When estimating from the sample, though, we have to keep in mind <strong>when applying this formula</strong> that it is derived with the understanding that the denominator is <span class="math inline">\(n\)</span> as implicit in Eq.<span class="math inline">\((1)\)</span>. So if we want to make the denominator <span class="math inline">\(n-1\)</span>, we have to multiply by <span class="math inline">\(\frac{n}{n-1}\)</span> (<a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a>), and we have to do the same in the alternate formula:</p>
+<p><span class="math display">\[\begin{align}S^2 &amp;=
+\frac{n}{n-1}\,\left(\, \frac{\sum_{1}^n x_i^2}{n}  -\left[  \frac{\sum_{1}^n x_i}{n}\right]^2\right)\\[2ex]
+&amp;=
+ \,\frac{n\displaystyle \sum_{i=1}^n x_i^2  -\left[ \displaystyle \sum_{i=1}^n  x_i\right]^2}{(n-1)\,n}
+\end{align}\]</span></p>
 <p>We can apply the same concept to the covariance matrix. In what follows <span class="math inline">\(X\)</span> is a <span class="math inline">\(p \times n\)</span> data matrix:</p>
 <p><span class="math display">\[\begin{align}
 \sigma^2(X)&amp;=\frac{XX^\top}{n-1} \; -\; \frac{n}{n-1}\; \begin{bmatrix}\bar X_1\\ \bar X_2\\ \vdots \\ \bar X_p \end{bmatrix}\,  
@@ -168,10 +172,10 @@ $(document).ready(function () {
 <p>In R</p>
 <pre class="r"><code>X = rnorm(5)
 var(X)</code></pre>
-<pre><code>## [1] 0.8653492</code></pre>
+<pre><code>## [1] 0.4059979</code></pre>
 <pre class="r"><code>( (t(X) %*% X) / (length(X) - 1) ) - (length(X)/(length(X)-1)) * mean(X)^2</code></pre>
 <pre><code>##           [,1]
-## [1,] 0.8653492</code></pre>
+## [1,] 0.4059979</code></pre>
 <p>The same applies to the <a href="https://stats.stackexchange.com/a/285358/67822">covariance between different random vectors</a>:</p>
 <pre class="r"><code>set.seed(0)
 # Sampling three random vectors: V1, V2 and V3:

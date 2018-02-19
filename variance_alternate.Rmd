@@ -37,7 +37,8 @@ $$
 &=\mathbb E (X^2) -\mathbb E \left[\,2\,X\,\mathbb E(X)\, \right]+\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
 &=\mathbb E (X^2) -2\,\mathbb E[X]\;\mathbb E(X)\, +\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
 &=\mathbb E (X^2) -2\,\left[\mathbb E(X)\right]^2\, +\left[\,\mathbb E(X)\, \right]^2  \\[2ex]
-&=\mathbb E\left(X^2 \right)\quad-\quad \left[\;\mathbb E\left(X\right)\;\right]^2
+&=\mathbb E\left(X^2 \right)\quad-\quad \left[\;\mathbb E\left(X\right)\;\right]^2\\[2ex]
+&=\frac{\displaystyle\sum_{i=1}^n x_i^2}{n}  \quad-\quad \left[  \frac{\displaystyle\sum_{i=1}^n x_i}{n}\right]^2
 \end{align}
 $$
 
@@ -55,10 +56,13 @@ $$
 
 ---
 
-When estimating from the sample, though, we have to keep in mind **when applying this formula** that it is derived with the understanding that the denominator is $n$ as implicit in Eq.$(1)$. So if we want to make the denominator $n-1$, we have to multiply by $\frac{n}{n-1}$, and we have to do the same in the alternate formula:
+When estimating from the sample, though, we have to keep in mind **when applying this formula** that it is derived with the understanding that the denominator is $n$ as implicit in Eq.$(1)$. So if we want to make the denominator $n-1$, we have to multiply by $\frac{n}{n-1}$ ([Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)), and we have to do the same in the alternate formula:
 
-$$\frac{n}{n-1}\,\left[\,\displaystyle \sum_1^n\frac{x_i^2}{n}  -\left[ \displaystyle \sum_1^n \frac{x_i}{n}\right]^2\right]=
-\displaystyle \sum_1^n\,\frac{x_i^2}{n-1}  -\frac{n}{n-1}\left[ \displaystyle \sum_1^n \frac{x_i}{n}\right]^2$$
+$$\begin{align}S^2 &=
+\frac{n}{n-1}\,\left(\, \frac{\sum_{1}^n x_i^2}{n}  -\left[  \frac{\sum_{1}^n x_i}{n}\right]^2\right)\\[2ex]
+&=
+ \,\frac{n\displaystyle \sum_{i=1}^n x_i^2  -\left[ \displaystyle \sum_{i=1}^n  x_i\right]^2}{(n-1)\,n}
+\end{align}$$
 
 We can apply the same concept to the covariance matrix. In what follows $X$ is a $p \times n$ data matrix:
 
