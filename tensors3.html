@@ -141,29 +141,48 @@ $(document).ready(function () {
 &amp;= T_{\mu\nu}\,e^\mu\otimes\,e^\nu
 \end{align}\]</span></p>
 <p>As an example, I believe we could illustrate this as follows:</p>
-<p><span class="math inline">\(\beta \in V^*\)</span> is <span class="math inline">\(\beta=\begin{bmatrix}1 &amp;2 &amp;3 \end{bmatrix}\)</span> and <span class="math inline">\(\gamma\in V^*\)</span> is <span class="math inline">\(\gamma=\begin{bmatrix}-5 &amp;4 &amp;9 \end{bmatrix}\)</span>. The <span class="math inline">\((2,0)\)</span>-tensor <span class="math inline">\(\beta\otimes \gamma\)</span> is the outer product:</p>
-<p><span class="math display">\[\beta\otimes_o \gamma=\begin{bmatrix}-05\;e^1\otimes e^1&amp;04\;e^1\otimes e^2&amp;09\;e^1\otimes e^3\\-10\;e^2\otimes e^1&amp;08\;e^2\otimes e^2&amp;18\;e^2\otimes e^3\\-15\;e^3\otimes e^1&amp;12\;e^3\otimes e^2&amp;27\;e^3\otimes e^3\end{bmatrix}\]</span></p>
-<pre><code>beta = 1:3; gamma = c(-5, 4, 9); beta %*% t(gamma)
-     [,1] [,2] [,3]
-[1,]   -5    4    9
-[2,]  -10    8   18
-[3,]  -15   12   27</code></pre>
+<p><span class="math inline">\(\beta \in V^*\)</span> is <span class="math inline">\(\beta=\color{blue}{\begin{bmatrix}1 &amp;2 &amp;3 \end{bmatrix}}\)</span> and <span class="math inline">\(\gamma\in V^*\)</span> is <span class="math inline">\(\gamma=\color{red}{\begin{bmatrix}2 &amp;4 &amp;6 \end{bmatrix}}\)</span>. The <span class="math inline">\((2,0)\)</span>-tensor <span class="math inline">\(\beta\otimes \gamma\)</span> is the outer product:</p>
+<p><span class="math display">\[\begin{align}\beta\otimes_o \gamma&amp;=
+\begin{bmatrix}\color{blue}1\times \color{red}2\,e^1\otimes e^1
+&amp;\color{blue}1\times\color{red}4\,e^1\otimes e^2
+&amp;\color{blue}1\times\color{red}6\,e^1\otimes e^3\\
+\color{blue}2\times\color{red}2\,e^2\otimes e^1
+&amp;\color{blue}2\times\color{red}4\,e^2\otimes e^2
+&amp;\color{blue}2\times\color{red}6\,e^2\otimes e^3
+\\\color{blue}3\times\color{red}2\,e^3\otimes e^1
+&amp;\color{blue}3\times\color{red}4\,e^3\otimes e^2
+&amp;\color{blue}3\times \color{red}6\,e^3\otimes e^3\end{bmatrix}\\[2ex]
+&amp;=\begin{bmatrix}2\,e^1\otimes e^1&amp;4\,e^1\otimes e^2&amp;6\,e^1\otimes e^3\\4\,e^2\otimes e^1&amp;8\,e^2\otimes e^2&amp;12\,e^2\otimes e^3\\6\,e^3\otimes e^1&amp;12\,e^3\otimes e^2&amp;18\,e^3\otimes e^3\end{bmatrix}
+\end{align}\]</span></p>
+<pre class="r"><code>beta = 1:3; gamma = c(2,4,6); beta %*% t(gamma)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    2    4    6
+## [2,]    4    8   12
+## [3,]    6   12   18</code></pre>
 <p>Now if apply this tensor product on the vectors</p>
-<p><span class="math display">\[v=\begin{bmatrix}1\\-1\\5\end{bmatrix}, w = \begin{bmatrix}2\\0\\3\end{bmatrix}\]</span></p>
+<p><span class="math display">\[v=\color{magenta}{\begin{bmatrix}1\\-1\\5\end{bmatrix}}, w = \color{orange}{\begin{bmatrix}2\\0\\3\end{bmatrix}}\]</span></p>
 <p><span class="math display">\[\begin{align} (\beta \otimes \gamma)[v,w]&amp;=\\[2ex]
-&amp; -05 \times  01 \times \;2   \quad\quad\,+\quad    04 \times   01  \;\times  0   \quad\quad \,\;+\quad    09  \,\times  01  \times 03 \\
-+\;&amp;-10 \times -1 \times 2  \quad \quad+ \quad   08 \times  -1 \; \times  0   \quad\quad \;+ \quad  18  \times -1  \times 03 \\
-+\;&amp;-15 \times  05 \times \;2  \quad \quad+ \quad  12 \times   05  \;\,\times  0  \quad\quad\,  \,+ \quad  27  \times  05 \; \times 03 \\[2ex]
-&amp;= 238\end{align}\]</span></p>
+&amp; \color{blue}1\times \color{red}2 \times \color{magenta}  1 \times \color{orange}2  \quad\quad \quad+\quad   \color{blue}1\times\color{red}4 \times   \color{magenta}1  \times \color{orange} 0   \quad\quad\quad +\quad    \color{blue}1\times\color{red}6 \times  \color{magenta}1  \times \color{orange}3 \\
++
+&amp;\color{blue}2\times\color{red}2 \times \color{magenta}{-1} \times \color{orange}2  
+\quad\quad \;+ \quad   
+\color{blue}2\times\color{red}4 \times  \color{magenta}{-1}  \times  \color{orange}0   
+\quad\quad \;+ \quad  \color{blue}2\times\color{red}6  \times \color{magenta}{-1}  \times \color{orange}3 \\
+\;+
+&amp;\color{blue}3\times\color{red}2 \times \color{magenta} 5 \times \color{orange}2  \quad\quad\quad+ \quad  
+\color{blue}3\times\color{red}4 \times  \color{magenta} 5  \times  \color{orange}0  
+\quad \quad \quad+ \quad  
+\color{blue}3\times \color{red}6  \times  \color{magenta}5  \times \color{orange}3 \\[2ex]
+&amp;= 308\end{align}\]</span></p>
 <p><a href="https://math.stackexchange.com/a/2437637/152225">Or more simply</a>, <span class="math inline">\(\vec \beta \cdot \vec v \times \vec \gamma \cdot \vec w = 308\)</span></p>
-<pre><code>v = c(1,-1,5); w = c(2,0,3); beta = 1:3; gamma = c(-5,4,9); beta %*% v * gamma %*% w
-     [,1]
-[1,]  238</code></pre>
+<pre class="r"><code>v = c(1,-1,5); w = c(2,0,3); beta = 1:3; gamma = c(2,4,6); beta %*% v * gamma %*% w</code></pre>
+<pre><code>##      [,1]
+## [1,]  308</code></pre>
 <p><span class="math display">\[\begin{align} (\beta \otimes \gamma)[v,w]&amp;=\langle \beta,v \rangle \times \langle \gamma,w \rangle\\[2ex]
-&amp; =(1 \times  1   \quad+\quad    2 \times   -1   \quad +\quad    3  \times  5 )  
-\times (-5 \times  2   \quad+\quad    4 \times   0   \quad +\quad    9  \times  3 ) \\[2ex]
-&amp;=14\times 17\\[2ex]
-&amp;= 238\end{align}\]</span></p>
+&amp; =(\color{blue}1 \times \color{magenta} 1   \quad+\quad    \color{blue}2 \times  \color{magenta}{-1}   \quad +\quad    \color{blue}3  \times  \color{magenta}5 )  
+\times (\color{red}2 \times  \color{orange}2   \quad+\quad    \color{red}4 \times \color{orange}  0   \quad +\quad    \color{red}6  \times \color{orange} 3 ) \\[2ex]
+&amp;=14\times 22\\[2ex]
+&amp;= 308\end{align}\]</span></p>
 <hr />
 <p>So in general, maps can be more and more complicated, and for example, <span class="math display">\[V\times V\times V^*\times V\times V^* \to \mathbb R\]</span> would be the set of all possible tensor products of the form <span class="math display">\[T_{\mu\;\nu}{}^{\gamma}{}_\rho{}^\eta\quad e^\mu\otimes  e^\nu\otimes e _\gamma\otimes e^\rho \otimes e_\eta\]</span></p>
 <p>with <span class="math inline">\(T_{\mu\;\nu}{}^{\gamma}{}_\rho{}^\eta\)</span> corresponding to the <em>components</em> of the tensor, which are the only part usually transcribed (the basis vectors are implicit). Hence, is important to keep the spaces and order of the sub- and supra-scripted Greek letters.</p>
