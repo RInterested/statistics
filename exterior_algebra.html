@@ -152,12 +152,21 @@ $(document).ready(function () {
 <p><span class="math display">\[\psi\wedge\varphi=\sum  \text {minors}_{ij}\; \mathrm d_{ij}\]</span></p>
 <p>The wedge product can be carried out between vector spaces <span class="math inline">\(\Lambda^l(\mathbb R^n)^*\wedge \Lambda^k(\mathbb R^n)^*\in \Lambda^{l+k}(\mathbb R^n)^*.\)</span></p>
 <hr />
-<p>This all comes together when two vectors in <span class="math inline">\(\mathbb R^3\)</span> are fed into the expression in Eq (1), for example <span class="math inline">\(\small\vec p =\begin{bmatrix}-1&amp;-\pi&amp;-\sqrt 2\end{bmatrix}^\top\)</span> and <span class="math inline">\(\small\vec q =\begin{bmatrix}10^1&amp;10^2&amp;10^3\end{bmatrix}^\top:\)</span></p>
-<p><span class="math display">\[\begin{align}
-\left(\psi \wedge \varphi\right)[p,q] &amp;=
-\left(-14\;\mathrm dx_{12}+20\;\mathrm d_{13}+35\; \mathbb d_{23} \right)\,[p,q]\\&amp;=(-14)(-1)(10^2)+(20)(-1)(10^3)+(35)(-\pi)(10^3)
+<p>This all comes together when two vectors in <span class="math inline">\(\mathbb R^3\)</span> are fed into the expression in Eq (1), for example <span class="math display">\[\small\vec p =\begin{bmatrix}-1&amp;-\pi&amp;-\sqrt 2\end{bmatrix}^\top\]</span> and <span class="math display">\[\small\vec q =\begin{bmatrix}10^1&amp;10^2&amp;10^3\end{bmatrix}^\top:\]</span></p>
+<p><span class="math display">\[\begin{align}\left(\psi \wedge \varphi\right)(p,q) &amp;=
+-14\,\mathrm dx_{12}(p,q) + 20 \,\mathrm dx_{13}(p,q) + 35\, \mathrm dx_{23}(p,q)\\[2ex]
+&amp;=-14 \,\begin{vmatrix}-1&amp;10 \\-\pi &amp; 10^2\end{vmatrix}+ 20\, \begin{vmatrix}-1 &amp; 10 \\-\sqrt 2 &amp; 10^3\end{vmatrix} + 35\, 
+\begin{vmatrix}-\pi &amp; 10^2 \\-\sqrt 2 &amp; 10^3\end{vmatrix}
 \end{align}\]</span></p>
-<p>which is essentially what is carried out <a href="https://math.stackexchange.com/a/2436543/152225">here</a>. In a way we have that the wedge product in Eq. (1) has reduced the tensor product eliminating elements such as <span class="math inline">\(\mathrm e^1 \otimes \mathrm e^1,\)</span> and adjusting signs for skew commutativity, but ultimately, the form that is left “eats” vectors much like a tensor.</p>
+<p>As for the equivalence to tensor algebra pointed out in the answer</p>
+<p><span class="math display">\[\begin{align}
+\mathrm dx_{12}(p,q)&amp;=\mathrm dx_1 \wedge \mathrm dx_2 (p,q)\\[2ex]
+&amp;= \left(\mathrm dx_1 \otimes \mathrm dx_2 - \mathrm dx_2\otimes \mathrm dx_1\right)(p,q)\\[2ex]
+&amp;= (\mathrm dx_1 \otimes \mathrm dx_2 )(p,q)-(\mathrm dx_2\otimes \mathrm dx_1)(p,q)\\[2ex]
+&amp;=\mathrm dx_1(p)\,\mathrm dx_2(q) - \mathrm dx_2(p) \,\mathrm dx_1(q)\\[2ex]
+&amp;= (-1)(10^2) - (-\pi)(10)\\[2ex]
+&amp;=\begin{vmatrix}-1&amp;10 \\-\pi &amp; 10^2\end{vmatrix}.
+\end{align}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home Page</a></p>
 </div>
