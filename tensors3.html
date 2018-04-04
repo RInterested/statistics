@@ -202,6 +202,14 @@ beta %*% v * gamma %*% (u + w)
 1288
 (beta %*% v * gamma %*% u) + (beta %*% v * gamma %*% w)
 1288</code></pre>
+<p>But the evaluation of the vectors is not commutative (in the example above, it is as a fluke, but changing the <code>beta</code> vector shows it):</p>
+<pre class="r"><code>beta = c(-7,15,9); gamma = c(2,4,6); v = c(1,-1,5); w = c(2,0,3)
+beta %*% w * gamma %*% v</code></pre>
+<pre><code>##      [,1]
+## [1,]  364</code></pre>
+<pre class="r"><code>beta %*% v * gamma %*% w</code></pre>
+<pre><code>##      [,1]
+## [1,]  506</code></pre>
 <hr />
 <p>So in general, maps can be more and more complicated, and for example, <span class="math display">\[V\times V\times V^*\times V\times V^* \to \mathbb R\]</span> would be the set of all possible tensor products of the form <span class="math display">\[T_{\mu\;\nu}{}^{\gamma}{}_\rho{}^\eta\quad e^\mu\otimes  e^\nu\otimes e _\gamma\otimes e^\rho \otimes e_\eta\]</span></p>
 <p>with <span class="math inline">\(T_{\mu\;\nu}{}^{\gamma}{}_\rho{}^\eta\)</span> corresponding to the <em>components</em> of the tensor, which are the only part usually transcribed (the basis vectors are implicit). Hence, is important to keep the spaces and order of the sub- and supra-scripted Greek letters.</p>

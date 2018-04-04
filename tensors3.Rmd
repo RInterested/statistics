@@ -135,6 +135,13 @@ $$(\beta\otimes \gamma)[v, u + w]\overset{?}=(\beta\otimes \gamma)[v,u] + (\beta
     (beta %*% v * gamma %*% u) + (beta %*% v * gamma %*% w)
     1288
 
+But the evaluation of the vectors is not commutative (in the example above, it is as a fluke, but changing the `beta` vector shows it):
+
+```{r}
+beta = c(-7,15,9); gamma = c(2,4,6); v = c(1,-1,5); w = c(2,0,3)
+beta %*% w * gamma %*% v
+beta %*% v * gamma %*% w
+```
 
 
 ---
