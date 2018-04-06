@@ -56,65 +56,60 @@ $$\begin{align}\beta\otimes \gamma&:= \beta_0\gamma_0\, e^0\otimes e^0+\beta_0\g
 
 As an example, I believe we could illustrate this as follows:
 
-$\beta \in V^*$ is $\beta=\color{blue}{\begin{bmatrix}1 &2 &3 \end{bmatrix}}$ and $\gamma\in V^*$ is $\gamma=\color{red}{\begin{bmatrix}2 &4 &6 \end{bmatrix}}$. The $(2,0)$-tensor $\beta\otimes \gamma$ is the outer product:
+$\beta \in V^*$ is $\beta=\color{blue}{\begin{bmatrix}\pi & \sqrt 5 &\sqrt 2 \end{bmatrix}}$ and $\gamma\in V^*$ is $\gamma=\color{red}{\begin{bmatrix}2 &4 &6 \end{bmatrix}}$. The $(2,0)$-tensor $\beta\otimes \gamma$ is the outer product:
 
 $$\begin{align}\beta\otimes_o \gamma&=
-\begin{bmatrix}\color{blue}1\times \color{red}2\,e^1\otimes e^1
-&\color{blue}1\times\color{red}4\,e^1\otimes e^2
-&\color{blue}1\times\color{red}6\,e^1\otimes e^3\\
-\color{blue}2\times\color{red}2\,e^2\otimes e^1
-&\color{blue}2\times\color{red}4\,e^2\otimes e^2
-&\color{blue}2\times\color{red}6\,e^2\otimes e^3
-\\\color{blue}3\times\color{red}2\,e^3\otimes e^1
-&\color{blue}3\times\color{red}4\,e^3\otimes e^2
-&\color{blue}3\times \color{red}6\,e^3\otimes e^3\end{bmatrix}\\[2ex]
-&=\begin{bmatrix}2\,e^1\otimes e^1&4\,e^1\otimes e^2&6\,e^1\otimes e^3\\4\,e^2\otimes e^1&8\,e^2\otimes e^2&12\,e^2\otimes e^3\\6\,e^3\otimes e^1&12\,e^3\otimes e^2&18\,e^3\otimes e^3\end{bmatrix}
+\begin{bmatrix}\color{blue}\pi\times \color{red}2\quad e^1\otimes e^1
+&\color{blue}\pi\times\color{red}4\quad e^1\otimes e^2
+&\color{blue}\pi\times\color{red}6\quad e^1\otimes e^3\\
+\color{blue}{\sqrt 5}\times\color{red}2\quad e^2\otimes e^1
+&\color{blue}{\sqrt 5}\times\color{red}4\quad e^2\otimes e^2
+&\color{blue}{\sqrt 5}\times\color{red}6\quad e^2\otimes e^3
+\\\color{blue}{\sqrt 2}\times\color{red}2\quad e^3\otimes e^1
+&\color{blue}{\sqrt 2}\times\color{red}4\quad e^3\otimes e^2
+&\color{blue}{\sqrt 2}\times \color{red}6\quad e^3\otimes e^3\end{bmatrix}\\[2ex]
+&=\begin{bmatrix}2\pi\quad e^1\otimes e^1&4\pi\quad e^1\otimes e^2&6\pi\quad e^1\otimes e^3\\2\sqrt 5\quad e^2\otimes e^1&4\sqrt 5\quad e^2\otimes e^2&6\sqrt 5\quad e^2\otimes e^3\\2\sqrt 2\quad e^3\otimes e^1&4\sqrt 2\quad e^3\otimes e^2&6 \sqrt 2\quad e^3\otimes e^3\end{bmatrix}
 \end{align}$$
-
-```{r}
-beta = 1:3; gamma = c(2,4,6); beta %*% t(gamma)
-```
 
 Now if apply this tensor product on the vectors
 
 $$v=\color{magenta}{\begin{bmatrix}1\\-1\\5\end{bmatrix}}, w = \color{orange}{\begin{bmatrix}2\\0\\3\end{bmatrix}}$$
 
 $$\begin{align} (\beta \otimes \gamma)[v,w]&=\\[2ex]
-& \color{blue}1\times \color{red}2 \times \color{magenta}  1 \times \color{orange}2  \quad\quad \quad+\quad   \color{blue}1\times\color{red}4 \times   \color{magenta}1  \times \color{orange} 0   \quad\quad\quad +\quad    \color{blue}1\times\color{red}6 \times  \color{magenta}1  \times \color{orange}3 \\
+& \;\color{blue}\pi\times \color{red}2 \times \color{magenta}  1 \times \color{orange}2  \quad\quad \quad\quad+\quad   \color{blue}\pi\times\color{red}4 \times   \color{magenta}1  \times \color{orange} 0   \quad\quad\quad\quad +\quad    \color{blue}\pi\times\color{red}6 \times  \color{magenta}1  \times \color{orange}3 \\
 +
-&\color{blue}2\times\color{red}2 \times \color{magenta}{-1} \times \color{orange}2  
+&\color{blue}{\sqrt5}\times\color{red}2 \times \color{magenta}{-1} \times \color{orange}2  
 \quad\quad \;+ \quad   
-\color{blue}2\times\color{red}4 \times  \color{magenta}{-1}  \times  \color{orange}0   
-\quad\quad \;+ \quad  \color{blue}2\times\color{red}6  \times \color{magenta}{-1}  \times \color{orange}3 \\
+\color{blue}{\sqrt5}\times\color{red}4 \times  \color{magenta}{-1}  \times  \color{orange}0   
+\quad\quad \;+ \quad  \color{blue}{\sqrt5}\times\color{red}6  \times \color{magenta}{-1}  \times \color{orange}3 \\
 \;+
-&\color{blue}3\times\color{red}2 \times \color{magenta} 5 \times \color{orange}2  \quad\quad\quad+ \quad  
-\color{blue}3\times\color{red}4 \times  \color{magenta} 5  \times  \color{orange}0  
+&\color{blue}{\sqrt2}\times\color{red}2 \times \color{magenta} 5 \times \color{orange}2  \quad\quad\quad+ \quad  
+\color{blue}{\sqrt2}\times\color{red}4 \times  \color{magenta} 5  \times  \color{orange}0  
 \quad \quad \quad+ \quad  
-\color{blue}3\times \color{red}6  \times  \color{magenta}5  \times \color{orange}3 \\[2ex]
-&= 308\end{align}$$
+\color{blue}{\sqrt2}\times \color{red}6  \times  \color{magenta}5  \times \color{orange}3 \\[2ex]
+&= 175.485\end{align}$$
 
-
-The elements of the first vector, $v,$ multiply separate rows of the outer product $\beta \otimes_o \gamma,$ while the elements of the second vector $w$ multiply separate columns.
+The elements of the first vector, $v,$ multiply separate rows of the outer product $\beta \otimes_o \gamma,$ while the elements of the second vector $w$ multiply separate columns. Hence, the operation is not commutative.
 
 Here is the idea with R code:
 
-    v = c(1,-1,5); w = c(2,0,3); beta = 1:3; gamma = c(2,4,6) 
+    v = c(1,-1,5); w = c(2,0,3); beta=c(pi,sqrt(5),sqrt(2)); gamma = c(2,4,6) 
     sum(((beta %o% gamma) * v) %*% w)
-    308
+    175.485
 
 ---
 
 [Or more simply](https://math.stackexchange.com/a/2437637/152225), $\vec \beta \cdot \vec v \times \vec \gamma \cdot \vec w = 308$
 
 $$\begin{align} (\beta \otimes \gamma)[v,w]&=\langle \beta,v \rangle \times \langle \gamma,w \rangle\\[2ex]
-& =(\color{blue}1 \times \color{magenta} 1   \quad+\quad    \color{blue}2 \times  \color{magenta}{-1}   \quad +\quad    \color{blue}3  \times  \color{magenta}5 )  
+& =(\color{blue}{\pi} \times \color{magenta} 1   \quad+\quad    \color{blue}{\sqrt 5} \times  \color{magenta}{-1}   \quad +\quad    \color{blue}{\sqrt 2}  \times  \color{magenta}5 )  
 \times (\color{red}2 \times  \color{orange}2   \quad+\quad    \color{red}4 \times \color{orange}  0   \quad +\quad    \color{red}6  \times \color{orange} 3 ) \\[2ex]
-&=14\times 22\\[2ex]
-&= 308\end{align}$$
+&=7.97\times 22\\[2ex]
+&= 175.485\end{align}$$
 
-    v = c(1,-1,5); w = c(2,0,3); beta = 1:3; gamma = c(2,4,6)
+    v = c(1,-1,5); w = c(2,0,3); beta=c(pi,sqrt(5),sqrt(2)); gamma = c(2,4,6) 
     beta %*% v * gamma %*% w
-    308
+    175.485
 
 ---
 
@@ -125,23 +120,25 @@ $$(\beta\otimes \gamma)[v,w]\overset{?}=(\beta\otimes \gamma)[(\frac{1}{5}v),(5\
     v_prime = 1/5 * v
     w_prime = 5 * w
     beta %*% v_prime * gamma %*% w_prime
-    308
+    175.485
 
 $$(\beta\otimes \gamma)[v, u + w]\overset{?}=(\beta\otimes \gamma)[v,u] + (\beta\otimes \gamma)[v,w] $$
 
     u = c(-2, 5, 9)
     beta %*% v * gamma %*% (u + w)
-    1288
+    733.846
     (beta %*% v * gamma %*% u) + (beta %*% v * gamma %*% w)
-    1288
+    733.846
 
-But the evaluation of the vectors is not commutative (in the example above, it is as a fluke, but changing the `beta` vector shows it):
+But the evaluation of the vectors is not commutative:
 
-```{r}
-beta = c(-7,15,9); gamma = c(2,4,6); v = c(1,-1,5); w = c(2,0,3)
-beta %*% w * gamma %*% v
-beta %*% v * gamma %*% w
-```
+
+    v = c(1,-1,5); w = c(2,0,3); beta=c(pi,sqrt(5),sqrt(2)); gamma = c(2,4,6)
+    beta %*% w * gamma %*% v
+    294.7231
+    beta %*% v * gamma %*% w
+    175.485
+
 
 
 ---
