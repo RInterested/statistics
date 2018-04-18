@@ -1,0 +1,71 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+The following is simply a literal capture of the explanation found [here](http://www.physicsinsights.org/pbp_one_forms.html). Pictorially, this is nicely explained [here](https://youtu.be/LNoQ_Q5JQMY).
+
+<br>
+
+###1-FORMS, COVECTORS and GRADIENT:
+<br>
+
+Fundamentally, a 1-form can be imagined to be a gradient.  Cover the manifold with numbers.  That's a "scalar field".  The gradient is the rate at which those numbers are changing at each point.
+
+Let our "scalar field" represent height.  Then the "gradient" of the scalar field is exactly what we think of as a gradient in "real life".  When we look at a point on a hillside, the "gradient" is a measure of which way the hill slopes "up", and how steep the slope is.
+
+The most natural way to represent a gradient is as a series of contour lines.  This is how gradients have been drawn on maps of the Earth for centuries.  In more than two dimensions, the "contour lines" are actually hypersurfaces, but the principle is unchanged.
+
+Locally, the best linear approximation of the contours is a collection of straight lines (or hyperplanes).  At a particular point on the manifold, the local linear approximation to the contours is a "covector" (or dual vector) and it's represented as a collection of hyperplanes in the tangent space at that point.  On this page, all drawings are restricted to 2 dimensions, and the hyperplanes appear as straight lines.
+
+Now, having given this description, I must hasten to add that, while every gradient is a 1-form, not all 1-forms are actually the gradients of functions.  In particular, only "closed", or curl-free, 1-forms are actually the gradients of functions.  But for the purposes of understanding 1-forms and their action on vectors, it's perfectly reasonable to think in terms of gradients.  And the covector associated with a 1-form at each point is the same, whether or not the 1-form globally represents a gradient.
+
+
+#####Definition of a Covector
+
+
+A "covector" is a rank (0,1) tensor, also called a "dual vector".  It is a linear function which maps vectors into real numbers.  The term "dual vector" is actually more popular than "covector" but seems cumbersome to me.  "Covector" also suggests "covariant vector", in contrast to ordinary vectors, which are "contravariant".
+
+A covector provides a way to measure a vector.  If we visualize it, as Misner, Thorne, and Wheeler do, as a collection of parallel hyperplanes (see figure 1), then the length of a vector corresponds to the number of hyperplanes "pierced" by the vector.
+
+<img src = "https://user-images.githubusercontent.com/9312897/38940049-4d9e2f8e-42f7-11e8-9e4d-01297fcc8039.png">
+
+Alternatively, we can view it as a "spatial frequency".  It's a frequency and a direction.  The length of a vector is then the number of wavecrests the vector crosses.
+
+In Figure 2 we show a the covector being "applied" to a vector.  The result is the number of hyperplanes the vector crosses.  In the figure, the product of the covector and the vector is 5.  In other words, the length of the vector along the direction of the covector is 5 times the "wavelength" of the covector.
+
+It's worth pointing out that, if we were to multiply the covector by 2, we would double the number of blue lines -- the distance between the lines would decrease if the magnitude of the covector increased.  Once again, the covector is a spatial frequency; double it, and the density of wavecrests increases; the "wavelength", on the other hand, decreases when we do that.
+
+Taking the analogy one step farther, a covector is a frequency, a vector is like a wavelength, and their "product" is analagous to a velocity.
+Coordinates
+So far we've talked about covectors with no mention of coordinates.   In a particular coordinate system, the "coordinates" of a covector are coefficients on the basis covectors, just as the "coordinates" of a vector are coefficients on the basis vectors.  The "basis covector" corresponding to a particular "basis vector" is the covector which points in the same direction as that basis vector, and which has a wavelength exactly as long as the basis vector.  No mention of a "metric" is made here; the metric doesn't enter into it.  (Under rigid rotations, the correspondence between basis vectors and basis covectors is fixed.  However, if we allow more general transformations, then the correspondance is dependent on the chosen basis.  In the absence of a metric, there is no distinguished "natural" isomorphism between covectors and vectors.)
+
+To find the coordinates of a particular covector, all we need to do is apply it to each of the basis vectors.  The length of each basis vector, as measured by the covector, is the coefficient of the corresponding basis covector.  In Figure 3, we show the coordinates of our example covector in terms of a particular coordinate system.  Basis vector ex crosses 2 lines, and basis vector ey crosses about 2.3 lines.  So, the components of the covector, in this coordinate system, are (2, 2.3).
+
+#####1-forms
+
+A "1-form" is a covector field.  In other words, a 1-form associates a covector with each point on the manifold -- or each point in spacetime, if you prefer.  Most of the time, no distinction is drawn between a 1-form and the covector associated with it at a particular point, and the term "covector" is, in fact, hardly ever used in some texts.
+
+Throughout this website, I tend to use "1-form" to refer to both the covector field on the manifold, and the covector associated with that field at each point.
+
+
+The dot product of a vector and a covector, or the result of applying a 1-form to a vector, is just the number of lines of the 1-form which the vector crosses.  It's the length of the vector, as measured by the 1-form.
+
+If we look at the 1-form and the vector in a particular coordinate system, then we see that the total number of lines the vector crosses is just the number of lines it crosses in the direction of each basis vector in turn.  It doesn't matter what path you follow -- you need to cross the same number of lines no matter how you go!  The number of lines crossed in the direction of each basis vector is just the number of lines crossed by that basis vector, times the distance the vector travels in along that axis.  In other words, it's the product of the corresponding component of the vector, with the corresponding component of the covector.
+
+Or, again in other words, it's just the dot product of the vector and the covector.
+
+It doesn't matter how the axes are chosen.
+
+In Cartesian space, under rigid rotations, the basis covectors are naturally isomorphic with the basis vectors, and each vector has a natural covector corresponding to it, which has the same components as the vector.  In this case, we have just exhibited a simple visual proof that dot product is unaffected by rigid rotations.
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
