@@ -20,37 +20,42 @@ From [this introductory differential geometry series online](https://youtu.be/AK
 
 In the setting of oblique coordinates, $y$ axis is tilted, but the $x$ axis stays unchanged:
 
-<img src="http://i.stack.imgur.com/ESBuw.png" width="400">
+<img src="https://user-images.githubusercontent.com/9312897/38968539-e52896ac-4359-11e8-9622-72fcec7f8f02.png">
 
 
 The **contravariant** is calculated as:
 
-Assigning to the pink segment the symbol $*$:
 
-$\text{tan}(\alpha) = \frac{b}{*}$; and therefore, $* = \frac{b}{\text{tan}(\alpha)}$
 
-and $c^u = a - * = a - \frac{b}{\text{tan}(\alpha)}$
+$\tan(\alpha) =\large \frac{y}{*}$; and therefore, $\large * = \frac{y}{\tan(\alpha)}$
 
-while $c^v = \frac{b}{\text{sin}(\alpha)}$
+and 
 
+$$\begin{align}c^u &= x - * \\[3ex]&= x - \frac{y}{\tan(\alpha)}\end{align}$$
+
+while 
+
+$$c^v = \frac{y}{\sin(\alpha)}$$
+
+
+Therefore the original orthogonal coordinates will transform into the new oblique coordinates through the matrix
 
 $$H = \begin{bmatrix} 1 & - \frac{1}{\text{tan}(\alpha)} \\
                   0 & \frac{1}{\text{sin}(\alpha)}
 \end{bmatrix}$$
 
-Therefore,
+as follows:
 
 $$\begin{bmatrix} 1 & - \frac{1}{\text{tan}(\alpha)} \\
                   0 & \frac{1}{\text{sin}(\alpha)}
 \end{bmatrix}
-\begin{bmatrix} c_x \\ c_y
+\begin{bmatrix} x \\ y
 \end{bmatrix}=
 \begin{bmatrix} c^u \\ c^v
 \end{bmatrix} = \begin{bmatrix} c^1 \\ c^2
 \end{bmatrix}
 $$
 
-and
 
 ---
 
@@ -58,21 +63,21 @@ On the other hand, the **covariant** is calculated as:
 
 
 
-<img src="http://i.stack.imgur.com/y1til.png" width="350">
+<img src="https://user-images.githubusercontent.com/9312897/38969425-40dbed9c-435e-11e8-8111-758c2059e4ef.png" >
 
 where,
 
-$c_u = a$ and 
+$$c_u = x$$ 
+and
 
-
-$\bf c_v = a\,\text{cos}(\alpha) + b\, \text{sin}(\alpha)$
+$$c_v = x\,\cos(\alpha) + y\, \sin(\alpha)\tag 1$$
 
 ---
 
-This expression is derived as follows:
+This expression (1) is derived as follows:
 
 
-<img src="https://cloud.githubusercontent.com/assets/9312897/22278003/0a71579c-e28e-11e6-8eba-220f242fc233.png" width="800">
+<img src="https://cloud.githubusercontent.com/assets/9312897/22278003/0a71579c-e28e-11e6-8eba-220f242fc233.png" width=450>
 
 
 The angles $\alpha$ and $\beta$ are complementary, and $\sin \alpha = \cos \beta$.
@@ -83,7 +88,9 @@ $\psi = a \cos \alpha$
 
 $c_v = \psi + \varphi = a \cos \alpha + b \sin \alpha$
 
-It follows that
+---
+
+It follows that the covariant transformation will be through the matrix
 
 $$M = \begin{bmatrix} 1 & 0 \\ \cos \alpha & \sin \alpha \end{bmatrix}$$
 
@@ -92,7 +99,7 @@ Therefore,
 $$\begin{bmatrix} 1 & 0 \\
                   \cos\alpha & \sin \alpha
 \end{bmatrix}
-\begin{bmatrix} c_x \\ c_y
+\begin{bmatrix} x \\ y
 \end{bmatrix}=
 \begin{bmatrix} c_u \\ c_v
 \end{bmatrix} = \begin{bmatrix} c_1 \\ c_2
@@ -104,9 +111,9 @@ $$
 From [this video](https://youtu.be/qDLmJE2bOy4),
 
 
-<img src="https://cloud.githubusercontent.com/assets/9312897/18643415/fe9641fa-7e72-11e6-9cb7-648848df8627.png" width="600">
+<img src="https://cloud.githubusercontent.com/assets/9312897/18643415/fe9641fa-7e72-11e6-9cb7-648848df8627.png" width="500">
 
-$G$ is the **METRIC TENSOR** turns the covariate into the contravariate:
+$G$ is the **METRIC TENSOR**, and turns the covariate into the contravariate:
 
 \begin{align}
 \bf G &= H\,M^{-1}\\[3ex]
@@ -122,9 +129,9 @@ $G$ is the **METRIC TENSOR** turns the covariate into the contravariate:
 
 ---
 
-We can prove that the equivalent of the Cartesian length of a vector in oblique coordinates is:
+We can prove that the equivalent of the Cartesian square norm of a vector in oblique coordinates is the dot product:
 
-$$L^2 =  c_x^2 + c_y^2 = u_1\,u^1 + u_2\,u^2=u_k\,u^k$$
+$$\bbox[5px,border:2px solid red]{L^2 =  c_x^2 + c_y^2 = u_1\,u^1 + u_2\,u^2=u_k\,u^k}$$
 
 ---
 
