@@ -9,6 +9,8 @@ output:
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
+<br>
+
 ###COVARIANT, CONTRAVARIANT and METRIC TENSOR:
 
 <br>
@@ -129,9 +131,57 @@ $G$ is the **METRIC TENSOR**, and turns the covariate into the contravariate:
 
 ---
 
-We can prove that the equivalent of the Cartesian square norm of a vector in oblique coordinates is the dot product:
+#####METRIC TENSOR:
 
-$$\bbox[5px,border:2px solid red]{L^2 =  c_x^2 + c_y^2 = u_1\,u^1 + u_2\,u^2=u_k\,u^k}$$
+From [this presentation](https://youtu.be/C76lWSOTqnc):
+
+To preserve the length of a vector $\vec v$ regardless of the whether referenced to coordinates with orthonormal basis vectors $\{\vec e_1,\vec e_2\},$ or the alternative oblique coordinates $\{\vec{ \tilde e_1}, \vec {\tilde e_2}\}$ we need to calculate norm as the dot product.
+
+<img src="https://user-images.githubusercontent.com/9312897/39078850-e21d0a30-44dd-11e8-896c-ac0f3ade6c4e.png">
+
+With respect to the orthonormal basis vectors,
+
+$$\begin{align}
+\Vert \vec v \Vert^2 &= \vec v \cdot \vec v \\[2ex]
+&=(v^1\vec e_1 + v^2 \vec e_2) \cdot (v^1 \vec e_1 + v^2 \vec e_2)\\[2ex]
+&=(v^1)^2 (\vec e_1 \cdot \vec e_2) + 2 v^1v^2(\vec e_1 \cdot e_2) + (v^2)^2(\vec e_2\cdot \vec e_2)\tag 1\\[2ex]
+&=(v^1)^2 (\vec e_1 \cdot \vec e_2) + (v^2)^2(\vec e_2\cdot \vec e_2)\\[2ex]
+&=(2)^2 + (1)^2
+=5\end{align}$$
+
+The last line is consequence of the orthogonality of the basis vectors. However, when using non-orthogonal coordinates we'll need to calculate the dot products of the basis vectors. Paralleling equation (1):
+
+$$\begin{align}\Vert \vec v \Vert^2&=(\tilde v^1)^2 \left(\vec{\tilde e_1}\cdot \vec{\tilde e_1}\right)+ 2 \tilde v^1 \tilde v^2 \left(\vec{\tilde e_1}\cdot \vec{\tilde e_2}\right)+(\tilde v^2)^2\left(\vec{\tilde e_2 }\cdot\vec{\tilde e_2}\right)\end{align}\tag 2$$
+
+Calculating the dot products, then,
+
+$$\begin{align}
+\vec{\tilde e_1}\cdot \vec{\tilde e_1}&= (2\vec e_1+1\vec e_2)\cdot (2\vec e_1 + 1\vec e_2)\\[2ex]
+&=4 \vec e_1 \cdot \vec e_1 + 2\cdot 2 \vec e_1 \vec e_2 + 1 \vec e_2\vec e_2\\[2ex]
+&= 4 + 1 \\[2ex]
+&=5
+\end{align}$$
+$$\begin{align}
+\vec{\tilde e_2}\cdot \vec{\tilde e_2}&= \left(-\frac{1}{2}\vec e_1+\frac{1}{4}\vec e_2\right)\cdot \left(-\frac{1}{2}\vec e_1+\frac{1}{4}\vec e_2\right)\\[2ex]
+&=\frac{1}{4} \vec e_1 \cdot \vec e_1 - 2\cdot \frac{1}{8} \vec e_1 \vec e_2 + \frac{1}{16} \vec e_2\vec e_2\\[2ex]
+&= \frac{1}{4} + \frac{1}{16} \\[2ex]
+&=\frac{5}{16}
+\end{align}$$
+
+$$\begin{align}
+\vec{\tilde e_1}\cdot \vec{\tilde e_2}&= (2\vec e_1+1\vec e_2)\cdot \left(-\frac{1}{2}\vec e_1+\frac{1}{4}\vec e_2\right)\\[2ex]
+&=-1 \vec e_1 \cdot \vec e_1 + 2\cdot \frac{1}{2} \vec e_1 \vec e_2 + \frac{1}{4} \vec e_2\vec e_2\\[2ex]
+&= -1 + \frac{1}{4} \\[2ex]
+&=-\frac{3}{4}
+\end{align}$$
+
+Plugging these results in equation (2):
+
+$$\begin{align}\Vert \vec v \Vert^2&=(\tilde v^1)^2 5+ 2 \tilde v^1 \tilde v^2 \left(-\frac{3}{4}\right)+(\tilde v^2)^2\left(\frac{5}{16}\right)\end{align}$$
+Now, in the graph above we have as given that $\vec v = \frac{5}{4} \vec {\tilde e_1} + 3 \vec{\tilde e_2}.$ Therefore,
+
+$$\begin{align}\Vert \vec v \Vert^2&=\left(\frac{5}{4}\right)^2 5- 2 \left(\frac{5}{4}3\right) \frac{3}{4}+\left(3\right)^2\left(\frac{5}{16}\right)=5\end{align}$$
+
 
 ---
 
