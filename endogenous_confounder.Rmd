@@ -1,0 +1,92 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+
+####CONFOUNDERS, CONTROLLING, ENDOGENEITY AND OMITTED VARIABLE BIAS:
+<br>
+
+From the [Encyclopedia of Health Economics](https://www.elsevier.com/books/encyclopedia-of-health-economics/culyer/978-0-12-375678-7):
+
+
+Unobserved Confounder Bias:
+
+At issue here is the presence of confounding variables which serve to mask the true causal effect of $X$ on $Y.$ The author begins by defining a confounder as a variable that is correlated with both $X$ and $Y.$ Confounders may be observable and unobservable (denoted $C_o$ and $C_u$ respectively. In modeling $Y,$ if the presence of $C_u$ cannot be legitimately ruled out, then $X$ is said to be endogenous. Observations on $C_o$ can be obtained from the survey data, so its influence can be controlled in estimation of the true causal effect. $C_u,$ however, cannot be directly controlled and, if left unaccounted for, will likely cause bias in statistical inference regarding the true causal effect. This happens because estimation methods that ignore the presence of $C_u$ will spuriously attribute to $X$ observed differences in $Y$ that are, in fact, due to $C_u.$ The author refers to such bias as unobserved confounder bias (henceforth $C_u$-bias) (sometimes called endogeneity bias, hidden selection bias, or omitted variables bias). One can formally characterize $C_u$-bias in a useful way. For simplicity of exposition, the author casts the true causal relationship between $X$ and $Y$ as a linear and writes
+
+$$Y = X\beta + C_o\beta_o + C_u\beta_u +e\tag 1$$
+
+where $\beta$ is the parameter that captures the true causal effect, $\beta_o$ and $\beta_u$ are parametric coefficients for the confounders, and $e$ is the random error term (without loss of generality, it can be assumed that the $Y$ intercept is $0$). In the naive approach to the estimation of the true causal effect (ignoring the presence of $C_u$), the ordinary least squares (OLS) method is applied to 
+
+$$Y = Xb + C_ob_o+\varepsilon\tag 2$$
+
+where the $b$'s are parameters and $\varepsilon$ is the random error term. The parameter $b$ is taken to represent the true causal effect. It can be shown that the OLS will produce an unbiased estimate of $b.$ It is also easy to show, however, that
+
+$$b=\beta + b_{XC_u}\beta_u\tag 3$$
+
+where $b_{XC_u}$ is a measure of the correlation between $C_u$ and $X.$ As it is clear from eqn (3), $C_u$-bias in OLS estimation is $b_{XC_u}\beta_u,$ which has two salient components: the correlation between the unobserved confounder and the causal variable of interest and the correlation between the unobserved confounder and the outcome. Equation (3) is helpful because it can be used to diagnose potential $C_u$-bias. Consider the smoking ($X$) and birth weight ($Y$) example, in which $C_u$ is health mindedness. In this case one would expect that $b_{XC_u}$ would be negative and that $\beta_u$ would be positive. The net effect of which would be negative $C_u$-bias in the estimation of the true causal effect via OLS.
+
+Clearly an approach to estimation is needed that, unlike OLS, does not ignore the presence and potential bias of $C_u.$ One such approach exploits the sample variation in a particular type of variable (a so-called instrumental variable) to eliminate bias due to correlation between $C_u$ and $X.$
+
+Here is a simulation in R:
+
+```{r}
+#Endogenity - Bu is affecting X and Y (hence confounder), but unknown.
+set.seed(41)
+
+n <- 1e4
+
+X  <- rnorm(n)
+B  <- 0.5
+Cu <- rnorm(n) + 0.5 * X
+Bu <- 0.2
+Co <- rnorm(n)
+Bo <- 0.3
+e  <- rnorm(n)
+Y  <- B * X + Bo * Co + Bu * Cu + e
+
+OLStrue <- lm(Y ~ X + Co + Cu)
+OLSreal_life <- lm(Y ~ X + Co)
+
+OLStrue$coefficients[2] + cor(X,Cu) * OLStrue$coefficients[4] 
+OLSreal_life$coefficients[2]
+```
+
+---
+
+From [Anything but R-bitrary](http://anythingbutrbitrary.blogspot.com/2016/01/how-to-create-confounders-with.html):
+
+Sentences that begin with "Controlling for [factors $X,$ $Y,$ and $Z$], ..." are reassuring amidst controversial subject matter. But less reassuring is the implicit assumption that $X,$ $Y,$ and $Z$ are indeed the things we call "confounders." We review the definition of a confounder via the following causal graph: 
+
+In the above diagram, $W$ is a confounder and will distort the percieved causal relationship between $X$ and $Y$ if unaccounted for. An example from [Counterfactuals and Causal Inference: Methods and Principles for Social Research](https://www.amazon.com/Counterfactuals-Causal-Inference-Principles-Analytical/dp/0521671930) is the effect of educational attainment ($X$) on earnings ($Y$) where mental ability ($W$) is a confounder. The authors remark that the amount of "ability bias" in estimates of educational impact has remained one of the largest causal controversies in the social sciences since the 1970s." 
+
+We now review adjustment for confounding via linear models. Open R. Define a sample size that affords us the luxury of ignoring standard errors (without guilt!):
+
+```{r}
+N <- 100000
+# Now we generate data consistent with the above diagram:
+w <- rnorm(N)
+x <- .5 * w + rnorm(N)
+y <- .3 * w + .4 * x + rnorm(N)
+```
+
+Note that our confounder $W$ is the only variable that is determined from factors outside the system. It is "exogenous," and the only variable that we can set in any way we want. Both $X$ and $Y$ depend on $W,$ and they are "endogenous" to the system. This is very different than in an experimental design where an artificial grid is created for $X$ and those levels prescribed. In that case, $X$ would be exogenous too. 
+
+Now run the following two regressions in R, noting the very different coefficient estimates for $X:$
+
+```{r}
+summary(lm(y ~ x))
+summary(lm(y ~ x + w))
+```
+
+The first regression (that ignores $W$) incurs upward bias in $X$'s coefficient due to the confounder's positive effects on both $X$ and $Y.$ The second regression (with $W$ included) recovers $X$'s true coefficient while increasing the R-squared by a few percentage points. That's a win-win. 
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
