@@ -10,8 +10,10 @@ output:
 <br><br>
 
 
-####CONFOUNDERS, CONTROLLING, ENDOGENEITY AND OMITTED VARIABLE BIAS:
+###[CONFOUNDERS, CONTROLLING, ENDOGENEITY & OMITTED VARIABLE BIAS](http://www.indiana.edu/~educy520/sec5982/week_2/variable_types.pdf):
 <br>
+
+A good deal of the passages below are verbatim copied from the sources quotes, although there are added comments and code.
 
 From the [Encyclopedia of Health Economics](https://www.elsevier.com/books/encyclopedia-of-health-economics/culyer/978-0-12-375678-7):
 
@@ -32,31 +34,79 @@ $$b=\beta + b_{XC_u}\beta_u\tag 3$$
 
 where $b_{XC_u}$ is a measure of the correlation between $C_u$ and $X.$ As it is clear from eqn (3), $C_u$-bias in OLS estimation is $b_{XC_u}\beta_u,$ which has two salient components: the correlation between the unobserved confounder and the causal variable of interest and the correlation between the unobserved confounder and the outcome. Equation (3) is helpful because it can be used to diagnose potential $C_u$-bias. Consider the smoking ($X$) and birth weight ($Y$) example, in which $C_u$ is health mindedness. In this case one would expect that $b_{XC_u}$ would be negative and that $\beta_u$ would be positive. The net effect of which would be negative $C_u$-bias in the estimation of the true causal effect via OLS.
 
-Clearly an approach to estimation is needed that, unlike OLS, does not ignore the presence and potential bias of $C_u.$ One such approach exploits the sample variation in a particular type of variable (a so-called instrumental variable) to eliminate bias due to correlation between $C_u$ and $X.$
+Clearly an approach to estimation is needed that, unlike OLS, does not ignore the presence and potential bias of $C_u.$ One such approach exploits the sample variation in a particular type of variable (a so-called instrumental variable - a good explantion can be found on [this Quora post](http://qr.ae/TUTR3p)) to eliminate bias due to correlation between $C_u$ and $X.$
 
 Here is a simulation in R:
 
-```{r}
-#Endogenity - Bu is affecting X and Y (hence confounder), but unknown.
+```{r,fig.height = 4, fig.width = 4}
+#Endogenity - Cu is affecting X and Y (hence confounder), but unknown.
 set.seed(41)
 
-n <- 1e4
+n <- 1e4 # Number of observations.
 
-X  <- rnorm(n)
-B  <- 0.5
-Cu <- rnorm(n) + 0.5 * X
-Bu <- 0.2
-Co <- rnorm(n)
-Bo <- 0.3
-e  <- rnorm(n)
-Y  <- B * X + Bo * Co + Bu * Cu + e
+Cu <- rnorm(n)  # unobservable confounding variable.
+Bu <- 0.3       # Coefficient in the final regression (when calculating the true OLS)
+X  <- rnorm(n) + 0.5 * Cu # The unobservable confounding variable affect the regressor of interest. It is correlated approximately 50% with the confounding variable.
+cor(X,Cu)
+plot(Cu,X, pch=20, cex=.2, col=rgb(0,0,.5,.2), xlab="", ylab="", cex.axis=0.7, tck=-.01, main="Correlation of the regressor with the confounder", cex.main=.7)
+B  <- 0.5      # This is the true coefficient of the regressor of interest.
+Co <- rnorm(n) # Co is the observable confounder.
+Bo <- 0.3      # It has a .3 coefficient in the real (unknown) OLS.
+e  <- rnorm(n) # The error term.
+Y  <- B * X + Bo * Co + Bu * Cu + e # The actual generator with Cu indeed influencing Y.
 
-OLStrue <- lm(Y ~ X + Co + Cu)
-OLSreal_life <- lm(Y ~ X + Co)
+OLStrue <- lm(Y ~ X + Co + Cu) # This is the true causal relationship.
+OLSreal_life <- lm(Y ~ X + Co) # This is what we can get without being aware of Cu.
 
-OLStrue$coefficients[2] + cor(X,Cu) * OLStrue$coefficients[4] 
-OLSreal_life$coefficients[2]
+OLStrue$coefficients[2] # The true coefficient in the data generator:
 ```
+This coefficient will be overestimated when Cu is left out (because it is unknown). This is what we will get:
+
+```{r}
+OLSreal_life$coefficients[2] #Versus the coefficient we get without Cu:
+```
+
+The idea of endogeneity is simulated "differently" [here](https://blog.stata.com/2016/05/23/understanding-omitted-confounders-endogeneity-omitted-variable-bias-and-related-concepts/):
+
+```{r}
+require("MASS")
+sigma <- matrix(c(1,.5,.5,1),2,2,1)
+ex <- mvrnorm(n,rep(0,2),sigma)
+x <- ex[,1]
+e  <- ex[,2]
+Co <- rnorm(n)
+y  <- 0.3 * Co + 0.5 * x + e
+lm(y ~ Co + x) # The true parameters being 0.3 and 0.5...
+```
+
+The influence of $X$ on the error (unknonw, not calculable, and critically different from the residuals) essentially makes this error term $e$ the equivalent to the excluded $C_u$ in the simulation above: $C_u$ becomes assimilated in the error. In both cases the set up is such that this variable influences both the independent and the dependent variable, as per the definition of confounder.
+
+So, even if the simulation tries to parallel the definition of endogeneity in the linked text:
+
+>The following statements allow us to obtain a causal relationship in a regression framework.
+
+\begin{eqnarray*} 
+y &=& g\left(X\right) + \varepsilon \\ 
+E\left(\varepsilon|X\right) &=& 0 
+\end{eqnarray*}
+
+>In the expression above, $y$ is the outcome vector of interest, $X$ is a matrix of covariates, $\varepsilon$ is a vector of unobservables, and $g(X)$ is a vector-valued function. The statement $E(\varepsilon \vert X)=0$ implies that once we account for all the information in the covariates, what we did not include in our model, $varepsilon,$ does not give us any information, on average. It also implies that, on average, we can infer the causal relationship of our outcome of interest and our covariates. In other words, it implies that
+
+\begin{equation*} 
+E\left(y|X\right) = g\left(X\right) 
+\end{equation*}
+
+>The opposite occurs when
+
+\begin{eqnarray*} 
+y &=& g\left(X\right) + \varepsilon \\ 
+E\left(\varepsilon|X\right) &\neq& 0 
+\end{eqnarray*}
+
+>The expression $E(\varepsilon \vert X)≠0$ implies that it does not suffice to control for the covariates $X$ to obtain a causal relationship because the unobservables are not negligible when we incorporate the information of the covariates in our model.
+
+... the inner workings of the simulation are identical. The essential idea, then, is that an exogenous variable, unknown to us, and hence one which cannot be controlled for, influences both $Y$ and $X,$ which are endogenous. This gives us an error estimating the coefficients - and error that we can expressed as an increase in the non-measurable (in the real world) $e$ error, or simly as an omitted unobservable confounder, $C_u.$
+
 
 ---
 
@@ -64,17 +114,19 @@ From [Anything but R-bitrary](http://anythingbutrbitrary.blogspot.com/2016/01/ho
 
 Sentences that begin with "Controlling for [factors $X,$ $Y,$ and $Z$], ..." are reassuring amidst controversial subject matter. But less reassuring is the implicit assumption that $X,$ $Y,$ and $Z$ are indeed the things we call "confounders." We review the definition of a confounder via the following causal graph: 
 
+<img src="https://camo.githubusercontent.com/45d3837d821a11dcffedaddafdd9ff706571e0d6/687474703a2f2f342e62702e626c6f6773706f742e636f6d2f2d59306f53714572337a4e6b2f566e38552d7a2d4a4b6d492f41414141414141414333412f3467484b434e7952686d772f733332302f636f6e666f756e6465722e504e47">
+
 In the above diagram, $W$ is a confounder and will distort the percieved causal relationship between $X$ and $Y$ if unaccounted for. An example from [Counterfactuals and Causal Inference: Methods and Principles for Social Research](https://www.amazon.com/Counterfactuals-Causal-Inference-Principles-Analytical/dp/0521671930) is the effect of educational attainment ($X$) on earnings ($Y$) where mental ability ($W$) is a confounder. The authors remark that the amount of "ability bias" in estimates of educational impact has remained one of the largest causal controversies in the social sciences since the 1970s." 
 
 We now review adjustment for confounding via linear models. Open R. Define a sample size that affords us the luxury of ignoring standard errors (without guilt!):
 
 ```{r}
-N <- 100000
-# Now we generate data consistent with the above diagram:
-w <- rnorm(N)
-x <- .5 * w + rnorm(N)
-y <- .3 * w + .4 * x + rnorm(N)
+w <- rnorm(n) # This is the confounder, which will affect both X and Y.
+x <- .5 * w +          rnorm(n) # The correlation between W and X is 0.5.
+y <- .3 * w + .4 * x + rnorm(n) # Here we set up the effect of W and X on the Y variable.
 ```
+
+This is essentially identical to the simulation of endogeneity above, except for the fact that no controlable variable $C_o$ is included. In [this post](https://blog.stata.com/2016/05/23/understanding-omitted-confounders-endogeneity-omitted-variable-bias-and-related-concepts/), the simulation is set up similarly to simulate omitted variable bias.
 
 Note that our confounder $W$ is the only variable that is determined from factors outside the system. It is "exogenous," and the only variable that we can set in any way we want. Both $X$ and $Y$ depend on $W,$ and they are "endogenous" to the system. This is very different than in an experimental design where an artificial grid is created for $X$ and those levels prescribed. In that case, $X$ would be exogenous too. 
 
