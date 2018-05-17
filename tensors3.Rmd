@@ -13,9 +13,11 @@ output:
 ---
 
 
-[XylyXylyX](https://www.youtube.com/channel/UCn88wjHSqECSbgrakivJjjg) has a great series of videos on manifolds and tensors. I would like to go over [the definition of tensor product](https://youtu.be/3EBMFBep1uA?t=18m47s)
+ATTEMPT TO ORGANIZE THIS MATERIAL (now validated by Prof. Shifrin - at least in part; errors, mine):
 
-In the [Wikipedia example of the tensor product vector spaces](https://en.wikipedia.org/wiki/Tensor_product#Tensor_product_of_vector_spaces), as well as in [here](https://math.stackexchange.com/q/2158892/152225), the tensor product is of the form $V\otimes V,$ a $(0,2)$ tensor, and results in a form akin to $(1)$ in the OP:
+---
+
+In the [Wikipedia example of the tensor product vector spaces](https://en.wikipedia.org/wiki/Tensor_product#Tensor_product_of_vector_spaces), included in my OP, as well as in [my previous post here](https://math.stackexchange.com/q/2158892/152225), the tensor product is of the form $V\otimes V,$ a $(0,2)$ tensor, and results in a form akin to $(1)$ in the OP:
 
 $$A^0 B^0 e_0 \otimes e_0 + A^0 B^1 e_0 \otimes e_1 + \cdots + A^4 B^4 e_4 \otimes e_4$$
 
@@ -28,14 +30,13 @@ $$\large v\otimes_o w=\small \begin{bmatrix}-2.3\;e_1\\+1.9\;e_2\\-0.5\;e_3\end{
 
 ---
 
-This is equivalent to the tensor product space $V^*\otimes V^*$ (the set of all $(2,0))$-tensors  on the video. The presenter is tensor-multiplying two co-vectors in the vector basis of $V^*$, *without coefficients*, yielding the $16$ pairs of basis vectors of $V^*\otimes V^*$: $$\{e^0\otimes e^0, \; e^0\otimes e^1, \; e^0\otimes e^3, \;\cdots, e^4\otimes e^4\}.$$
-
+This is equivalent to the tensor product space $V^*\otimes V^*$ (the set of all tensor $(2,0))$ on the slide in the OP. The presenter is tensor-multiplying two co-vectors in the vector basis of $V^*$, *without coefficients*, yielding the $16$ pairs of basis vectors of $V^*\otimes V^*$: $$\{e^0\otimes e^0, \; e^0\otimes e^1, \; e^0\otimes e^3, \;\cdots, e^4\otimes e^4\}.$$
 
 ---
 
-The key is to distinguish these forms of tensor product of vector spaces from their **application to other vectors** (or covectors), i.e. when the $$<\beta_\mu\,e^\mu\;,\;A^\nu\,e_\nu>\;=\beta_\mu\,A^\nu\,<e^\mu\;,\;e_\nu>\;=\beta_\mu\,A^\nu\,\delta^\mu_{\;\nu}\;=\beta_\mu\,A^\mu\;\in \mathbb R$$ operations are carried out, yielding a real number - which is what is explained in the video. These operations are defined as **the dual space mapping**: $\langle e^\mu,e_\nu\rangle=\delta^\mu_\nu.$ 
+The key is to distinguish these forms of tensor product of vector spaces from their **application to other vectors** (or covectors), i.e. when the $$\langle\beta_\mu\,e^\mu\;,\;A^\nu\,e_\nu \rangle\;=\beta_\mu\,A^\nu\,\langle e^\mu\;,\;e_\nu\rangle \;=\beta_\mu\,A^\nu\,\delta^\mu_{\;\nu}\;=\beta_\mu\,A^\mu\;\in \mathbb R$$ operations are carried out, yielding a real number - which is what is explained in the video.
 
-These linear mappings $\beta\otimes\gamma:V\times V \to \mathbb R$ properly interpreted as $[\beta\otimes\gamma](v,w)=\langle \beta,v\rangle\langle\gamma,w\rangle$ (i.e. the tensor $\beta\otimes\gamma$ *acting on two vectors*, $v$ and $w$) would function as follows:
+These linear mappings $\beta\otimes\gamma:V\times V \to \mathbb R$ properly interpreted as $[\beta\otimes\gamma](v,w)=\langle \beta,v\rangle\langle\gamma,w\rangle$ (i.e. the tensor $\beta\otimes\gamma$ *acting on two vectors*, $v$ and $w$) would correct the $(2)$ part of the OP (after Professor Shifrin's answer) as:
 
 $\begin{align}
 &(\beta\otimes\gamma)\left(\sum A^\mu e_\mu,\sum B^\nu e_\nu\right)= \\[2ex]
@@ -54,91 +55,113 @@ $$\begin{align}\beta\otimes \gamma&:= \beta_0\gamma_0\, e^0\otimes e^0+\beta_0\g
 &= T_{\mu\nu}\,e^\mu\otimes\,e^\nu
 \end{align}$$
 
+---
+
 As an example, I believe we could illustrate this as follows:
 
-$\beta \in V^*$ is $\beta=\color{blue}{\begin{bmatrix}\pi & \sqrt 5 &\sqrt 2 \end{bmatrix}}$ and $\gamma\in V^*$ is $\gamma=\color{red}{\begin{bmatrix}2 &4 &6 \end{bmatrix}}$. The $(2,0)$-tensor $\beta\otimes \gamma$ is the outer product:
+$\beta \in V^*$ is $\beta=\color{blue}{\begin{bmatrix}\sqrt{\pi} & \sqrt[3]{\pi} &\sqrt[5]{\pi} \end{bmatrix}}$ and $\gamma\in V^*$ is $\gamma=\color{red}{\begin{bmatrix}\frac{1}{3} &\frac{1}{5} &\frac{1}{7} \end{bmatrix}}$. The $(2,0)$-tensor $\beta\otimes \gamma$ is the outer product:
 
 $$\begin{align}\beta\otimes_o \gamma&=
-\begin{bmatrix}\color{blue}\pi\times \color{red}2\quad e^1\otimes e^1
-&\color{blue}\pi\times\color{red}4\quad e^1\otimes e^2
-&\color{blue}\pi\times\color{red}6\quad e^1\otimes e^3\\
-\color{blue}{\sqrt 5}\times\color{red}2\quad e^2\otimes e^1
-&\color{blue}{\sqrt 5}\times\color{red}4\quad e^2\otimes e^2
-&\color{blue}{\sqrt 5}\times\color{red}6\quad e^2\otimes e^3
-\\\color{blue}{\sqrt 2}\times\color{red}2\quad e^3\otimes e^1
-&\color{blue}{\sqrt 2}\times\color{red}4\quad e^3\otimes e^2
-&\color{blue}{\sqrt 2}\times \color{red}6\quad e^3\otimes e^3\end{bmatrix}\\[2ex]
-&=\begin{bmatrix}2\pi\quad e^1\otimes e^1&4\pi\quad e^1\otimes e^2&6\pi\quad e^1\otimes e^3\\2\sqrt 5\quad e^2\otimes e^1&4\sqrt 5\quad e^2\otimes e^2&6\sqrt 5\quad e^2\otimes e^3\\2\sqrt 2\quad e^3\otimes e^1&4\sqrt 2\quad e^3\otimes e^2&6 \sqrt 2\quad e^3\otimes e^3\end{bmatrix}
+\begin{bmatrix}\color{blue}{\sqrt\pi}\times \color{red}{\frac{1}{3}}\quad e^1\otimes e^1
+&\color{blue}{\sqrt\pi}\times\color{red}{\frac{1}{5}}\quad e^1\otimes e^2
+&\color{blue}{\sqrt\pi}\times\color{red}{\frac{1}{7}}\quad e^1\otimes e^3\\
+\color{blue}{\sqrt[3]{\pi}}\times\color{red}{\frac{1}{3}}\quad e^2\otimes e^1
+&\color{blue}{\sqrt[3]{\pi}}\times\color{red}{\frac{1}{5}}\quad e^2\otimes e^2
+&\color{blue}{\sqrt[3]{\pi}}\times\color{red}{\frac{1}{7}}\quad e^2\otimes e^3
+\\\color{blue}{\sqrt[5]{\pi}}\times\color{red}{\frac{1}{3}}\quad e^3\otimes e^1
+&\color{blue}{\sqrt[5]{\pi}}\times\color{red}{\frac{1}{5}}\quad e^3\otimes e^2
+&\color{blue}{\sqrt[5]{\pi}}\times \color{red}{\frac{1}{7}}\quad e^3\otimes e^3\end{bmatrix}\\[2ex]
+&=\begin{bmatrix}\color{red}{\frac{1}{3}}\color{blue}{\sqrt\pi}\quad e^1\otimes e^1&\color{red}{\frac{1}{5}}\color{blue}{\sqrt\pi}\quad e^1\otimes e^2&\color{red}{\frac{1}{7}}\color{blue}{\sqrt\pi}\quad e^1\otimes e^3\\\color{red}{\frac{1}{3}}\color{blue}{\sqrt[3]{\pi}}\quad e^2\otimes e^1&\color{red}{\frac{1}{5}}\color{blue}{\sqrt[3]{\pi}}\quad e^2\otimes e^2&\color{red}{\frac{1}{7}}\color{blue}{\sqrt[3]{\pi}}\quad e^2\otimes e^3\\\color{red}{\frac{1}{3}}\color{blue}{\sqrt[5]{\pi}}\quad e^3\otimes e^1&\color{red}{\frac{1}{5}}\color{blue}{\sqrt[5]{\pi}}\quad e^3\otimes e^2&\color{red}{\frac{1}{7}} \color{blue}{\sqrt[5]{\pi}}\quad e^3\otimes e^3\end{bmatrix}
 \end{align}$$
 
-Now if apply this tensor product on the vectors
+Now if we apply this tensor product on the vectors
 
-$$v=\color{magenta}{\begin{bmatrix}1\\-1\\5\end{bmatrix}}, w = \color{orange}{\begin{bmatrix}2\\0\\3\end{bmatrix}}$$
+$$v=\color{magenta}{\begin{bmatrix}1\\7\\5\end{bmatrix}}, w = \color{orange}{\begin{bmatrix}2\\0\\3\end{bmatrix}}$$
 
-$$\begin{align} (\beta \otimes \gamma)[v,w]&=\\[2ex]
-& \;\color{blue}\pi\times \color{red}2 \times \color{magenta}  1 \times \color{orange}2  \quad\quad \quad\quad+\quad   \color{blue}\pi\times\color{red}4 \times   \color{magenta}1  \times \color{orange} 0   \quad\quad\quad\quad +\quad    \color{blue}\pi\times\color{red}6 \times  \color{magenta}1  \times \color{orange}3 \\
+\begin{align} (\beta \otimes \gamma)[v,w]=&\\[2ex]
+& \;\color{blue}{\sqrt\pi}\times \color{red}{\frac{1}{3}} \times \color{magenta}  1 \times \color{orange}2  \quad+\quad   \color{blue}{\sqrt\pi}\times\color{red}{\frac{1}{5}} \times   \color{magenta}1  \times \color{orange} 0   \quad+\quad   \color{blue}{\sqrt\pi}\times\,\color{red}{\frac{1}{7}}  \times  \color{magenta}1  \times \color{orange}3 \\
 +
-&\color{blue}{\sqrt5}\times\color{red}2 \times \color{magenta}{-1} \times \color{orange}2  
-\quad\quad \;+ \quad   
-\color{blue}{\sqrt5}\times\color{red}4 \times  \color{magenta}{-1}  \times  \color{orange}0   
-\quad\quad \;+ \quad  \color{blue}{\sqrt5}\times\color{red}6  \times \color{magenta}{-1}  \times \color{orange}3 \\
+&\;\color{blue}{\sqrt[3]{\pi}}\times\color{red}{\frac{1}{3}} \times \color{magenta}{7} \times \color{orange}2  
+\quad+\quad   
+\color{blue}{\sqrt[3]{\pi}}\times\color{red}{\frac{1}{5}} \times  \color{magenta}{7}  \times  \color{orange}0   
+\quad+\quad  \color{blue}{\sqrt[3]{\pi}}\times\color{red}{\frac{1}{7}}   \times \color{magenta}{7}  \times \color{orange}3 \\
 \;+
-&\color{blue}{\sqrt2}\times\color{red}2 \times \color{magenta} 5 \times \color{orange}2  \quad\quad\quad+ \quad  
-\color{blue}{\sqrt2}\times\color{red}4 \times  \color{magenta} 5  \times  \color{orange}0  
-\quad \quad \quad+ \quad  
-\color{blue}{\sqrt2}\times \color{red}6  \times  \color{magenta}5  \times \color{orange}3 \\[2ex]
-&= 175.485\end{align}$$
+&\;\color{blue}{\sqrt[5]{\pi}}\times\color{red}{\frac{1}{3}} \times \color{magenta} 5 \times \color{orange}2  \quad+\quad 
+\color{blue}{\sqrt[5]{\pi}}\times\color{red}{\frac{1}{5}} \times  \color{magenta} 5  \times  \color{orange}0  
+\quad+\quad 
+\color{blue}{\sqrt[5]{\pi}}\times \color{red}{\frac{1}{7}}   \times  \color{magenta}5  \times \color{orange}3 \\[2ex]
+=&\\
+& \color{blue}{\sqrt{\pi}}\;\times\color{magenta}  1 \quad\left(\color{red}{\frac{1}{3}} \times \color{orange}2  \quad+\quad  \color{red}{\frac{1}{5}} \times \color{orange} 0   \quad+\quad  \color{red}{\frac{1}{7}}   \times \color{orange}3\right) \\
++
+&\,\color{blue}{\sqrt[3]\pi} \times \color{magenta}{7}\quad\left(\color{red}{\frac{1}{3}} \times \color{orange}2  
+\quad+\quad   
+\color{red}{\frac{1}{5}} \times      \color{orange}0   
+\quad+\quad \color{red}{\frac{1}{7}}    \times \color{orange}3\right) \\
+\;+
+&\,\color{blue}{\sqrt[5]{\pi}}\times \color{magenta} 5\quad\left(\color{red}{\frac{1}{3}}  \times \color{orange}2  \quad+\quad 
+\color{red}{\frac{1}{5}}   \times  \color{orange}0  
+\quad+\quad
+\color{red}{\frac{1}{7}}   \times \color{orange}3 \right)\\[2ex]
+=&\\&\small \left(\color{blue}{\sqrt\pi} \times \color{magenta} 1   \quad+\quad    \color{blue}{\sqrt[3]\pi} \times  \color{magenta}{7}   \quad +\quad    \color{blue}{\sqrt[5]\pi}  \times  \color{magenta}5 \right)  
+\times \left(\color{red}{\frac{1}{3}} \times  \color{orange}2   \quad+\quad    \color{red}{\frac{1}{5}} \times \color{orange}  0   \quad +\quad    \color{red}{\frac{1}{7}}  \times \color{orange} 3 \right)\\[2ex]
+=&\\[2ex]&\langle \color{blue}\beta,\color{magenta}v \rangle \times \langle \color{red}\gamma,\color{orange}w \rangle\\[2ex]
+=& 20.05487\end{align}
 
 The elements of the first vector, $v,$ multiply separate rows of the outer product $\beta \otimes_o \gamma,$ while the elements of the second vector $w$ multiply separate columns. Hence, the operation is not commutative.
 
 Here is the idea with R code:
 
-    v = c(1,-1,5); w = c(2,0,3); beta=c(pi,sqrt(5),sqrt(2)); gamma = c(2,4,6) 
-    sum(((beta %o% gamma) * v) %*% w)
-    175.485
+    > v = c(1,7,5); w = c(2,0,3); beta=c(pi^(1/2),pi^(1/3),pi^(1/5)); gamma = c(1/3,1/5,1/7)
+    > sum(((beta %o% gamma) * v) %*% w) # same as sum((beta %*% t(gamma) * v) %*% w)
+    [1] 20.05487
+    > sum(((beta %o% gamma) * w) %*% v) # not a commutative operation:
+    [1] 17.90857
 
 ---
 
 [Or more simply](https://math.stackexchange.com/a/2437637/152225), $\vec \beta \cdot \vec v \times \vec \gamma \cdot \vec w = 308$
 
 $$\begin{align} (\beta \otimes \gamma)[v,w]&=\langle \beta,v \rangle \times \langle \gamma,w \rangle\\[2ex]
-& =(\color{blue}{\pi} \times \color{magenta} 1   \quad+\quad    \color{blue}{\sqrt 5} \times  \color{magenta}{-1}   \quad +\quad    \color{blue}{\sqrt 2}  \times  \color{magenta}5 )  
-\times (\color{red}2 \times  \color{orange}2   \quad+\quad    \color{red}4 \times \color{orange}  0   \quad +\quad    \color{red}6  \times \color{orange} 3 ) \\[2ex]
-&=7.97\times 22\\[2ex]
-&= 175.485\end{align}$$
+& =\small \left(\color{blue}{\sqrt\pi} \times \color{magenta} 1   \quad+\quad    \color{blue}{\sqrt[3]\pi} \times  \color{magenta}{7}   \quad +\quad    \color{blue}{\sqrt[5]\pi}  \times  \color{magenta}5 \right)  
+\times \left(\color{red}{\frac{1}{3}} \times  \color{orange}2   \quad+\quad    \color{red}{\frac{1}{5}} \times \color{orange}  0   \quad +\quad    \color{red}{\frac{1}{7}}  \times \color{orange} 3 \right) \\[2ex]
+&=18.31097\times 1.095238\\[2ex]
+&= 20.05487\end{align}$$
 
-    v = c(1,-1,5); w = c(2,0,3); beta=c(pi,sqrt(5),sqrt(2)); gamma = c(2,4,6) 
-    beta %*% v * gamma %*% w
-    175.485
+    > v = c(1,7,5); w = c(2,0,3); beta=c(pi^(1/2),pi^(1/3),pi^(1/5)); gamma = c(1/3,1/5,1/7)
+    > beta %*% v * gamma %*% w
+             [,1]
+    [1,] 20.05487
 
 ---
 
 Does it obey bilinearity?
 
-$$(\beta\otimes \gamma)[v,w]\overset{?}=(\beta\otimes \gamma)[(\frac{1}{5}v),(5\,w)] $$
+$$(\beta\otimes \gamma)[v,w]\overset{?}=(\beta\otimes \gamma)\Bigg[\left(\frac{1}{5}v\right),\left(5\,w\right)\Bigg] $$
 
-    v_prime = 1/5 * v
-    w_prime = 5 * w
-    beta %*% v_prime * gamma %*% w_prime
-    175.485
+    > v_prime = 1/5 * v
+    > w_prime = 5 * w
+    > beta %*% v_prime * gamma %*% w_prime
+             [,1]
+    [1,] 20.05487   #Check!
 
 $$(\beta\otimes \gamma)[v, u + w]\overset{?}=(\beta\otimes \gamma)[v,u] + (\beta\otimes \gamma)[v,w] $$
 
-    u = c(-2, 5, 9)
-    beta %*% v * gamma %*% (u + w)
-    733.846
-    (beta %*% v * gamma %*% u) + (beta %*% v * gamma %*% w)
-    733.846
+    > u = c(-2, 5, 9)    # Introducing a new vector...
+    > beta %*% v * gamma %*% (u + w)
+            [,1]
+    [1,] 49.7012
+    > (beta %*% v * gamma %*% u) + (beta %*% v * gamma %*% w)
+            [,1]
+    [1,] 49.7012 #... And check!
 
 But the evaluation of the vectors is not commutative:
 
 
-    v = c(1,-1,5); w = c(2,0,3); beta=c(pi,sqrt(5),sqrt(2)); gamma = c(2,4,6)
+```{r}
+    v = c(1,7,5); w = c(2,0,3); beta=c(pi^(1/2),pi^(1/3),pi^(1/5)); gamma = c(1/3,1/5,1/7)
     beta %*% w * gamma %*% v
-    294.7231
     beta %*% v * gamma %*% w
-    175.485
-
+```
 
 
 ---
