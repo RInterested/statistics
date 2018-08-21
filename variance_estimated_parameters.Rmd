@@ -3,7 +3,13 @@
 <img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-Proof that the variance of the estimated coefficients $\hat \beta = \sigma^2 \left(X^\top X \right)^{-1}:$
+Proof that the [variance of the estimated coefficients](https://stats.stackexchange.com/a/358847/67822) $\hat \beta = \sigma^2 \left(X^\top X \right)^{-1}$ where the estimation of $\sigma$ depends on the number of estimated parameters, $p,$ and the number of observations, $n$: $\text{SSE} = e^\top
+e$ has $\text{df}_E = n − p.$ The estimate for $\sigma^2$ is
+
+$$s^2 = \frac{\mathrm e^\top \mathrm e}{n-p}= \frac{(\mathrm Y − \mathrm{Xb})^\top(\mathrm Y − \mathrm{Xb})}{n-p}= \frac{\text{SSE}}
+{\text{df}_E}= \text{MSE}$$
+
+$$s = \sqrt{s^2}= \text{Root MSE}$$
 
 From [this video](https://youtu.be/jyBtfhQsf44?list=PLVhS9-aIl4U-Guw_wvCHMhF2unUGVyWEu) and [this post](http://math.stackexchange.com/a/687361/152225):
 
@@ -12,7 +18,7 @@ We know that $\hat \beta= \left(X^\top X \right)^{-1} X^\top Y.$
 And we want to calcualte the variance of the parameter estimate:
 
 $\begin{align}\text{var}\left(\hat \beta\right) &= \text{var}\left[\left(X^\top X \right)^{-1} X^\top y\right]\\\quad
-&\underset{\text{var}(Ay)=A\,\text{var}(y)\,A}{=}\quad\left[\left(X^\top X \right)^{-1} X^\top \right] \color{blue}{\text{var}(y)} \left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
+&\underset{\text{var}(Ay)=A\,\text{var}(y)\,A^\top}{=}\quad\left[\left(X^\top X \right)^{-1} X^\top \right] \color{blue}{\text{var}(y)} \left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
 &\underset{*}=\quad\left[\left(X^\top X \right)^{-1} X^\top \right] {\bf I}\sigma^2 \left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
 &=\sigma^2\left[\left(X^\top X \right)^{-1} X^\top \right]\left[\left(X^\top X \right)^{-1} X^\top \right]^\top\\
 &\quad\underset{(AB)^\top = B^\top A^\top}{=}\quad\sigma^2\left[\left(X^\top X \right)^{-1} X^\top \right]\left[\left(X^\top\right)^\top \left(\left(X^\top X \right)^{-1}\right)^\top \right]\\
