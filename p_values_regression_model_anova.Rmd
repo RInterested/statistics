@@ -38,9 +38,16 @@ This explains $85$ percent of the variation based on the variables selected.
 
 There are two sets of p-values returned:
 
-- One to assess the the overall model: $\mathrm {p-value:} 1.21e-11.$ This indicates that a significant amount of the variance in the dependent variable is explained by the model.
+- One to assess the the overall model: $\mathrm {p-value:} 1.21e-11.$ This indicates that a significant amount of the variance in the dependent variable is explained by the model. While the R-squared provides an estimate of the strength of the relationship between the model and the response variable, the F-test p-value intends to assess the significance of including the independence variables selected, compared to NO independent variables (intercept-only model). The R-squared value is not a formal test of the strength of the relationship between the dependent an independent variables. If the p-value is significant, we can conclude that the R-squared value is different from zero.
 
-- One for each predictor, in the output besides each variable, indicating whether a variable contributes to explaining a significant amount of unique variance (information).
+- One for each predictor, in the output besides each variable, indicating whether a variable contributes to explaining a significant amount of unique variance (information). This is the result of a t-test for each individual variable.
+
+All this needs to be constrasted with checking that the statistical conditions are met by looking at the residual diagnostic plots:
+
+```{r}
+par(mfrow=c(2,2))
+plot(best,pch=19, cex=.8, cex.axis=.5)
+```
 
 
 ### Using ANOVA to compare models:
