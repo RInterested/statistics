@@ -1,0 +1,54 @@
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Two sets of p-values are returned in a linear model:
+
+We have an idea that the miles per gallon consumed by different vehicles is related to the type of transmission:
+
+```{r}
+aggregate(mpg ~ am, mtcars, mean)
+t.test(mtcars$mpg[which(mtcars$am==0)],mtcars$mpg[which(mtcars$am==1)])
+```
+
+The base model explains
+
+```{r}
+base <- lm(mpg ~ am, mtcars)
+summary(base)
+```
+
+$36$ percent of the variation (R squared), which is statistically significant at a p-value: $0.000285.$ But we can include additional variables:
+
+```{r}
+all <- lm(mpg ~.,mtcars)
+summary(all)
+```
+
+We can use the AIC to search for the best model:
+
+```{r}
+best <- step(all, direction='both')
+summary(best)
+```
+
+This explains $85$ percent of the variation based on the variables selected.
+
+There are two sets of p-values returned:
+
+- One to assess the the overall model: $\mathrm {p-value:} 1.21e-11.$
+
+- One for each predictor, in the output besides each variable.
+
+
+### Using ANOVA to compare models:
+
+And now we use ANOVA to compare both models to see that the difference explained by the two models is statistically significant:
+
+```{r}
+anova(base,best)
+```
+
+There is a significant difference between both models.
