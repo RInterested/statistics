@@ -6,7 +6,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Two sets of p-values are returned in a linear model:
 
-We have an idea that the miles per gallon consumed by different vehicles is related to the type of transmission:
+As a toy example, let's look at different linear models predicting the variable miles-per-gallon in the dataset mtcars.
+
+For instance, we have an idea that the miles per gallon consumed by different vehicles may be related to the type of transmission:
 
 ```{r}
 aggregate(mpg ~ am, mtcars, mean)
