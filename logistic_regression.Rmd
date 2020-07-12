@@ -108,12 +108,108 @@ It does detect differences in proportions but [it doesn't address](https://onlin
 we want to develop a social network model, adjust for "bias", 
 These are just some of the possibilities of logistic regression, which cannot be handled within a framework of goodness-of-fit only.
 
+Here is the same model splitting mothers and fathers as predictors:
+
+```{r}
+kids.smoke <- matrix(c(188,599,816-205,1168,1456,3203-1456), nrow = 3)
+dimnames(kids.smoke) = list(Parents = c("None", "Mother", "Father"), Kids = c("Smokers", "Non-smokers"))
+kids.smoke
+bad.example <- as.factor(c(0,"1Mother","2Father"))
+smoke.logistic <- glm(kids.smoke~bad.example, family=binomial(link=logit))
+smoke.logistic
+summary(smoke.logistic)
+```
+
+---
+
+An example with credit defaults:
+
+```{r}
+set.seed(123)
+
+gender <- factor(round(runif(100,0,1)),
+                labels=c("female", "male"))
+age <- round(runif(100,20,80))
+profession <- factor(round(runif(100,1,4)),
+             labels=c("student", "worker", "teacher", "self-employed"))
+
+
+# Let's make males, teachers and self-employed more likely to default:
+
+credit.default <-  round(((as.numeric(gender)/2 + as.numeric(profession)/4)/2) * runif(100,0.5,1))
+
+df <- data.frame(credit.default,gender,age,profession)
+head(df)
+
+catlogis <- glm(credit.default ~ gender+age+profession, df, family=binomial(link="logit"))
+summary(catlogis)
+require(pROC)
+auc(df$credit.default, predict(catlogis, type="response"))
+
+catlogis <- glm(credit.default ~ gender+profession, df, family=binomial(link="logit"))
+summary(catlogis)
+auc(df$credit.default, predict(catlogis, type="response"))
+
+
+genlogis <- glm(credit.default ~ gender, df, family=binomial(link="logit"))
+summary(genlogis)
+auc(df$credit.default, predict(genlogis, type="response"))
+
+
+fitted.results <- predict(genlogis, type="response")
+fitted.results <- ifelse(fitted.results > 0.5,1,0)
+misClasificError <- mean(fitted.results != df$credit.default)
+print(paste('Accuracy', 1-misClasificError))
+
+library(ROCR)
+pr <- prediction(predict(genlogis, type="response"), df$credit.default)
+prf <- performance(pr, measure = "tpr", x.measure = "fpr")
+plot(prf)
+
+auc <- performance(pr, measure = "auc")
+auc <- auc@y.values[[1]]
+auc
+
+
+proflogis <- glm(credit.default ~ profession, df, family=binomial(link="logit"))
+summary(proflogis)
+auc(df$credit.default, predict(proflogis, type="response"))
+
+pr <- prediction(predict(proflogis, type="response"), df$credit.default)
+prf <- performance(pr, measure = "tpr", x.measure = "fpr")
+plot(prf)
+
+auc <- performance(pr, measure = "auc")
+auc <- auc@y.values[[1]]
+auc
+```
+
+---
+
 ###TESTING A LOGISTIC REGRESSION MODEL:
-<br>
+
 
 1. GOODNESS-OF-FIT: Model calibration
 
-The Hosmer-Lemeshow goodness of fit test divides up in boxes the predicted probabilities (in R the function is `fitted` as opposed to `predict`), and runs a chi-square test comparing to the percentage of cases that have $Y=1$ among those with predicted probability within a certain interval. See [here](http://thestatsgeek.com/2014/02/16/the-hosmer-lemeshow-goodness-of-fit-test-for-logistic-regression/)
+The Hosmer-Lemeshow goodness of fit test divides up in boxes the predicted probabilities (in R the function is `fitted` as opposed to `predict`), and runs a chi-square test comparing to the percentage of cases that have $Y=1$ among those with predicted probability within a certain interval. See [here](http://thestatsgeek.com/2014/02/16/the-hosmer-lemeshow-goodness-of-fit-test-for-logistic-regression/):
+
+The Hosmer-Lemeshow goodness of fit test is based on dividing the sample up according to their predicted probabilities, or risks. Specifically, based on the estimated parameter values $\hat{\beta}_{0},\hat{\beta}_{1},..,\hat{\beta}_{p},$ for each observation in the sample the probability that $Y=1$ is calculated, based on each observation's covariate values:
+
+$$\hat{\pi} = \frac{\exp(\hat{\beta}_{0}+\hat{\beta}_{1}X_{1}+..+\hat{\beta}_{p}X_{p})}{1+\exp(\hat{\beta}_{0}+\hat{\beta}_{1}X_{1}+..+\hat{\beta}_{p}X_{p})}$$
+
+The observations in the sample are then split into $g$ groups (we come back to choice of g later) according to their predicted probabilities. Suppose (as is commonly done) that $g=10.$ Then the first group consists of the observations with the lowest $10\%$ predicted probabilities. The second group consists of the $10\%$ of the sample whose predicted probabilities are next smallest, etc etc.
+
+Suppose for the moment that all of the observations in the first group had a predicted probability of $0.1.$ Then, if our model is correctly specified, we would expect the proportion of these observations who have $Y=1$ to be $10\%.$ Of course, even if the model is correctly specified, the observed proportion will deviate to some extent from 10%, but not by too much. If the proportion of observations with $Y=1$ in the group were instead $90\%,$ this is suggestive that our model is not accurately predicting probability (risk), i.e. an indication that our model is not fitting the data well.
+
+In practice, as soon as some of our model covariates are continuous, each observation will have a different predicted probability, and so the predicted probabilities will vary in each of the groups we have formed. To calculate how many Y=1 observations we would expect, the Hosmer-Lemeshow test takes the average of the predicted probabilities in the group, and multiplies this by the number of observations in the group. The test also performs the same calculation for $Y=0,$ and then calculates a Pearson goodness of fit statistic
+
+$$\sum^{1}_{k=0} \sum^{g}_{l=1} \frac{(o_{kl}-e_{kl})^{2}}{e_{kl}}$$
+
+where $o_{0l}$ denotes the number of observed $Y=0$ observations in the $l$-th group, $o_{1l}$ denotes the number of observed $Y=1$ observations in the $l$-th group, and $e_{0l}$ and $e_{1l}$ similarly denote the expected number of zeros.
+
+In a 1980 paper Hosmer-Lemeshow showed by simulation that (provided $p+1<g$) their test statistic approximately followed a chi-squared distribution on $g-2$ degrees of freedom, when the model is correctly specified. This means that given our fitted model, the p-value can be calculated as the right hand tail probability of the corresponding chi-squared distribution using the calculated test statistic. If the p-value is small, this is indicative of poor fit.
+
+It should be emphasized that a large p-value does not mean the model fits well, since lack of evidence against a null hypothesis is not equivalent to evidence in favor of the alternative hypothesis. In particular, if our sample size is small, a high p-value from the test may simply be a consequence of the test having lower power to detect mis-specification, rather than being indicative of good fit.
 
 2. C-STATISTIC or AUC (area under the curve of the ROC): Discriminatory power of the model
 
