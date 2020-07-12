@@ -67,6 +67,47 @@ $\Large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1
 
 <br><br>
 
+
+###CATEGORICAL INDEPENDENT VARIABLES:
+
+Here is an example extracted form [this site](https://online.stat.psu.edu/stat504/node/225/):
+
+```{r}
+# Define an explanatory variable with two levels:
+parentsmoke <- as.factor(c(1,0))
+# create response vector:
+response <- cbind(yes=c(816,188), no=c(3203,1168))
+response
+smoke.logistic <- glm(response~parentsmoke, family=binomial(link=logit))
+smoke.logistic
+summary(smoke.logistic)
+```
+
+This information gives us the fitted model:
+
+$$\text{logit}(\hat\pi_i)=\log\frac{\hat\pi_i}{1-\hat\pi_i}=\hat\beta_0+\hat\beta_1X_i=-1.837+0.459\,(\text{parents smoke = 1})$$
+where `parentsmoke` is a dummy variable ((e.g. design variable) that takes value $1$ if at least one parents is smoking and $0$ if neither is smoking.  
+
+`parent smoking =  0 is the baseline`. We are modeling here probability of "children smoking". Estimated $\beta_0=1.827$
+with a standard error of $0.078$ is significant and it says that log-odds of a child smoking versus not smoking if neither parents is smoking (the baseline level) is $-1.827$ and it's statistically significant.
+
+Estimated $\beta_1=0.459$ with a standard error of $0.088$ is significant and it says that log-odds-ratio of a child smoking versus not smoking if at least one parent is smoking versus neither parents is smoking (the baseline level) is $0.459$ and it's statistically significant. $\exp(0.459)=1.58$ are the estimated odds-ratios.
+
+Why not just ran a Chi square test:
+
+```{r}
+prop.test(response, correct = F)
+```
+
+It does detect differences in proportions but [it doesn't address](https://online.stat.psu.edu/stat504/node/150/):
+
+- Modeling the "risk" of student smoking as a function of parents' smoking behavior.
+- Describing the differences between student smokers and nonsmokers as a function of parents smoking behavior via descriptive discriminate analyses.
+-Predicting the probabilities that individuals fall into two categories of the binary response as a function of some explanatory variables, e.g. what is the probability that a student is a smoker given that neither of his/her parents smokes.
+- Predicting that a student is a smoker given that neither of his/her parents smokes, i.e. probabilities that individuals fall into two categories of the binary response as a function of some explanatory variables, we want to classify new students into "smoking" or "nonsmoking" group depending on parents smoking behavior.
+we want to develop a social network model, adjust for "bias", 
+These are just some of the possibilities of logistic regression, which cannot be handled within a framework of goodness-of-fit only.
+
 ###TESTING A LOGISTIC REGRESSION MODEL:
 <br>
 
@@ -76,7 +117,34 @@ The Hosmer-Lemeshow goodness of fit test divides up in boxes the predicted proba
 
 2. C-STATISTIC or AUC (area under the curve of the ROC): Discriminatory power of the model
 
-It is based on selecting different probabilities from $0$ to $1$ and calculating sensitivity and specificity in an ROC curve, and then measuring the AUC. See [here](http://thestatsgeek.com/2014/05/05/area-under-the-roc-curve-assessing-discrimination-in-logistic-regression/).
+It is based on selecting different probabilities from $0$ to $1$ and calculating sensitivity and specificity in an ROC curve, and then measuring the AUC. See [here](http://thestatsgeek.com/2014/05/05/area-under-the-roc-curve-assessing-discrimination-in-logistic-regression/):
+
+Our model or prediction rule is perfect at classifying observations if it has 100% sensitivity and 100% specificity. Unfortunately in practice this is (usually) not attainable. So how can we summarize the discrimination ability of our logistic regression model? For each observation, our fitted model can be used to calculate the fitted probabilities $P(Y=1|X_{1},..,X_{p}).$ On their own, these don't tell us how to classify observations as positive or negative. One way to create such a classification rule is to choose a cut-point $c,$ and classify those observations with a fitted probability above $c$ as positive and those at or below it as negative. For this particular cut-off, we can estimate the sensitivity by the proportion of observations with $Y=1$ which have a predicted probability above $c,$ and similarly we can estimate specificity by the proportion of $Y=0$ observations with a predicted probability at or below $c.$ If we increase the cut-point $c,$ fewer observations will be predicted as positive. This will mean that fewer of the $Y=1$ observations will be predicted as positive (reduced sensitivity), but more of the $Y=0$ observations will be predicted as negative (increased specificity). In picking the cut-point, there is thus an intrinsic trade off between sensitivity and specificity. Now we come to the ROC curve, which is simply a plot of the values of sensitivity against one minus specificity, as the value of the cut-point $c$ is increased from $0$ through to $1.$ Example:
+
+```{r}
+set.seed(63126)
+n <- 1000
+x <- rnorm(n)
+pr <- exp(x)/(1+exp(x))
+y <- 1*(runif(n) < pr)
+mod <- glm(y~x, family="binomial")
+predpr <- predict(mod,type=c("response"))
+library(pROC)
+roccurve <- roc(y ~ predpr)
+plot(roccurve)
+```
+
+A popular way of summarizing the discrimination ability of a model is to report the area under the ROC curve. We have seen that a model with discrimination ability has an ROC curve which goes closer to the top left hand corner of the plot, whereas a model with no discrimination ability has an ROC curve close to a $45$ degree line. Thus the area under the curve ranges from $1,$ corresponding to perfect discrimination, to $0.5,$ corresponding to a model with no discrimination ability. The area under the ROC curve is also sometimes referred to as the **c-statistic** (c for concordance).
+
+```{r}
+auc(roccurve)
+```
+
+The ROC curve (AUC) has a somewhat appealing interpretation. It turns out that the AUC is the probability that if you were to take a random pair of observations, one with $Y=1$ and one with $Y=0,$ the observation with $Y=1$ has a higher predicted probability than the other. The AUC thus gives the probability that the model correctly ranks such pairs of observations.
+
+In the biomedical context of risk prediction modelling, the AUC has been criticized by some. In the risk prediction context, individuals have their risk of developing (for example) coronary heart disease over the next 10 years predicted. Thus a measure of discrimination which examines the predicted probability of pairs of individuals, one with $Y=1$ and one with $Y=0,$ does not really match the prospective risk prediction setting, where we do not have such pairs.
+
+---
 
 <br><br>
 
