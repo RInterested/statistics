@@ -235,6 +235,16 @@ roc(obese, glm.fit$fitted.values, plot=T, legacy.axes=T, percent=T,
     auc.polygon=T, auc.polygon.col='turquoise')
 ```
 
+
+Can we bootstrap:
+
+```{r}
+ci.auc(roc(obese, glm.fit$fitted.values), conf.level=0.95, method=
+"bootstrap", boot.n = 2000, boot.stratified = TRUE, reuse.auc=TRUE,
+progress = getOption("pROCProgress")$name, parallel=FALSE)
+```
+
+
 ---
 
 ###TESTING A LOGISTIC REGRESSION MODEL:
