@@ -1,6 +1,6 @@
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="20" WIDTH="40" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
 The essence of the problem addressed by logistic regression is the binary nature of the dependent variable. We want to estimate the probability of success/failure of the dependent variable ($p(Y=1)$), given the explanatory variables: $p(Y=1|X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
@@ -122,7 +122,7 @@ summary(smoke.logistic)
 
 ---
 
-An example with credit defaults:
+An example with credit defaults with some calculations extracted from [here](https://www.r-bloggers.com/how-to-perform-a-logistic-regression-in-r/):
 
 ```{r}
 set.seed(123)
@@ -145,7 +145,11 @@ catlogis <- glm(credit.default ~ gender+age+profession, df, family=binomial(link
 summary(catlogis)
 require(pROC)
 auc(df$credit.default, predict(catlogis, type="response"))
+```
 
+We can generate an ANOVA to analyze the table of variance, paying attention at the difference between the `NULL` variance and the `Resid. Deviance` to see which variable reduce this residual variance in comparison to the model with only an intecept. The p-values also help select variables. We want a drop in the deviance and AIC.
+
+```{r}
 catlogis <- glm(credit.default ~ gender+profession, df, family=binomial(link="logit"))
 summary(catlogis)
 auc(df$credit.default, predict(catlogis, type="response"))
@@ -182,6 +186,53 @@ plot(prf)
 auc <- performance(pr, measure = "auc")
 auc <- auc@y.values[[1]]
 auc
+```
+
+---
+
+Another example from [this video](https://www.youtube.com/watch?v=qcvAqAH60Yw&t=242s):
+
+```{r}
+set.seed(420)
+n.samples <- 100
+weight <- sort(rnorm(n.samples,172,29))
+obese <- ifelse(runif(n.samples) < (rank(weight)/100), yes=1, no=0)
+plot(weight,obese)
+glm.fit <- glm(obese ~ weight, family="binomial")
+lines(weight, glm.fit$fitted.values)
+par(pty="s")
+roc(obese, glm.fit$fitted.values, plot=T)
+roc.info <- roc(obese, glm.fit$fitted.values)
+roc.df <- data.frame(ttp=roc.info$sensitivities*100, fpp=(1-roc.info$specificities) *100, thresholds=roc.info$thresholds)
+head(roc.df)
+tail(roc.df)
+```
+
+Notice that the first row of `head(roc.df)` with a threshold for labeling "obese" of $-\inf$ the ttp (true positive percentage) will be of $100\%,$ and so will be the fpp (false positive percentage), and it corresponds to the upper-right hand part of the ROC curve. The bottom-left part of the curve corresponds to the last row of `tail(roc.df)`.
+
+We can isolate part of the data, for example with ttp between $60$ and $80$, to select an optimal threshold value:
+
+```{r}
+roc.df[roc.df$ttp > 60 & roc.df$ttp < 80,]
+```
+
+We can plot the ROC differently:
+
+```{r}
+par(pty="s")
+roc(obese, glm.fit$fitted.values, plot=T, legacy.axes=T, percent=T,
+    xlab='False positive percentage', ylab='True positive percentage',
+    col="#377eb8",lwd=4, print.auc=T)
+```
+
+To calculate the partial AUC of the beginning, where only a small number of false positives are allowed...
+
+```{r}
+par(pty="s")
+roc(obese, glm.fit$fitted.values, plot=T, legacy.axes=T, percent=T,
+    xlab='False positive percentage', ylab='True positive percentage',
+    col='blue',lwd=4, print.auc=T, print.auc.x=45, partial.auc=c(100,90),
+    auc.polygon=T, auc.polygon.col='turquoise')
 ```
 
 ---
