@@ -3,39 +3,36 @@
 <img HEIGHT="20" WIDTH="40" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-The essence of the problem addressed by logistic regression is the binary nature of the dependent variable. We want to estimate the probability of success/failure of the dependent variable ($p(Y=1)$), given the explanatory variables: $p(Y=1|X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
+We want to estimate the probability of success / failure of the dependent variable ($\Pr(Y=1)$), given the explanatory variables: $\Pr(Y=1|X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
 
 
 Logistic regression addresses the following issues:
 
 1. There is a need to bound at $1$ since we are estimating a probability, but lines are not naturally bounded. So we transform probability into odds:
 
-$\Large \text{odds}=\frac{p(Y=1)}{1-p(Y=1)}$.
+$$\large \text{odds}=\frac{\Pr(Y=1)}{1-\Pr(Y=1)}$$
 
-In addition, this also helps turning a sigmoid curve of the typical cummulative probability distribution (e.g. normal) into a linear relation.
+In addition, this also helps turning a sigmoid curve of a typical cummulative probability distribution (e.g. normal) into a linear relation.
 
-2. Now, when the probability goes down to zero, the odds also tend to zero; yet there is no floor restriction in a line.
-
-This problem can be addressed by expressing the linear relation in log scale: $log(\text{odds})$, which will tend to $-\infty$ as the odds tend to zero. This is the **logit** or log-odds function.
+2. Now, when the probability goes down to zero, the odds also tend to zero; yet there is no floor restriction in a line. This problem can be addressed by expressing the linear relation in log scale: $\log(\text{odds})$, which will tend to $-\infty$ as the odds tend to zero. This is the **logit** or log-odds function.
 
 The logistic regression model is therefore:
 
 
-$\Large \color{red}{\text{log}} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{\hat p\,(Y=1)}{1-\hat p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p$
-
+$\large \color{red}{\log} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{\hat p\,(Y=1)}{1-\hat p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p$
 
 
 Consequently,
 
-$\Large \color{blue}{\text{odds(Y=1)}} = \frac{p\,(Y=1)}{1\,-\,p\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$
+$\large \color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$
 
 Therefore a unit increase in $x_1$ increases the odds $e^{\,\beta_1}$ times. The factors $e^{\,\beta_i}$ are the **ODDS RATIO**s. On the other hand, $\beta_i$ (the coefficients) are the **LOG ODDS-RATIO**:
 
 <br>
-<img HEIGHT="900" WIDTH="900" src="https://cloud.githubusercontent.com/assets/9312897/13310362/745ac3ac-db53-11e5-8147-5dcd27f73224.png">
+<img HEIGHT="500" WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/13310362/745ac3ac-db53-11e5-8147-5dcd27f73224.png">
 <br>
 
-For CATEGORICAL VARIABLES,  are the **ODDS RATIO** denote how much the presence or absence of a factor variable increases the odds of a positive dependent variable. 
+For CATEGORICAL VARIABLES, the **ODDS RATIO** denote how much the presence or absence of a factor variable increases the odds of a positive dependent variable. 
 
 For CONTINOUS VARIABLES the odds ratio tell us how much the odds increase multiplicatively with a one-unit change in the independent variable. To calculate the difference in odds you raise the OR to the power of the difference between the observations.
 
@@ -48,27 +45,21 @@ exp(cbind(OR = coef(mylogit), confint(mylogit)))
 See [here](http://www.ats.ucla.edu/stat/r/dae/logit.htm).
 
 
-<br><br>
-
 #### Translation into probabilities:
 
 <br>
 
-$\large p(Y = 1) = (1-p(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}$
-
-<br>
-
-$\large p(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}$
-
-<br>
-
-$\Large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$
+$$\begin{align}
+\large \Pr(Y = 1) &= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\
+\large \Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) &= e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\
+\large \color{green}{\Pr(Y = 1)} &= \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
+\end{align}$$
 
 
-<br><br>
+---
 
 
-###CATEGORICAL INDEPENDENT VARIABLES:
+####CATEGORICAL INDEPENDENT VARIABLES:
 
 Here is an example extracted form [this site](https://online.stat.psu.edu/stat504/node/225/):
 
@@ -236,7 +227,7 @@ roc(obese, glm.fit$fitted.values, plot=T, legacy.axes=T, percent=T,
 ```
 
 
-Can we bootstrap:
+Can we bootstrap?
 
 ```{r}
 ci.auc(roc(obese, glm.fit$fitted.values), conf.level=0.95, method=
@@ -247,7 +238,7 @@ progress = getOption("pROCProgress")$name, parallel=FALSE)
 
 ---
 
-###TESTING A LOGISTIC REGRESSION MODEL:
+####TESTING A LOGISTIC REGRESSION MODEL:
 
 
 1. GOODNESS-OF-FIT: Model calibration
@@ -305,7 +296,7 @@ In the biomedical context of risk prediction modelling, the AUC has been critici
 
 <br><br>
 
-###INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
+####INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
 <br>
 
 ***QUESTION:***
