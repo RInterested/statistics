@@ -58,6 +58,124 @@ $$\begin{align}
 
 ---
 
+####INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
+<br>
+
+***QUESTION:***
+
+(Initially posted [here](http://stats.stackexchange.com/q/136193/67822))
+
+I ran a linear regression of acceptance into college against SAT scores and family / ethnic background. The data are fictional. The question focuses in the gathering and interpretation of odds ratios when leaving the SAT scores aside for simplicity. 
+
+The variables are `Accepted` (0 or 1) and `Background` ("red" or "blue"). I set up the data so that people of "red" background were more likely to get in:
+
+    fit <- glm(Accepted ~ Background, data=dat, family="binomial")
+    exp(cbind(Odds_Ratio_RedvBlue = coef(fit), confint(fit)))
+    
+                            Odds_Ratio_RedvBlue             2.5 %       97.5 %
+    (Intercept)             0.7088608                     0.5553459   0.9017961
+    Backgroundred           2.4480042                     1.7397640   3.4595454
+
+
+Questions:
+
+1. Is 0.7 the odd ratio of a person of "blue" background being accepted? I'm asking this because I also get 0.7 for "`Backgroundblue`" if instead I run the following code:
+
+        fit <- glm(Accepted~Background - 1, data=dat, family="binomial")
+        exp(cbind(OR=coef(fit), confint(fit)))
+
+2. Shouldn't the odds ratio of "red" being accepted ($\rm Accepted/Red:Accepted/Blue$) just the reciprocal: ($\rm OddsBlue = 1 / OddsRed$)?
+
+***ANSWER:***
+
+I've been working on answering my question by calculating manually the odds and odds ratios:
+
+    Acceptance   blue	         red	        Grand Total
+    0	           158	         102	            260
+    1	           112	         177	            289
+    Total	       270	         279	            549
+
+So the *Odds Ratio* of getting into the school of Red over Blue is: 
+
+$$
+\frac{\rm Odds\ Accept\ If\ Red}{\rm Odds\ Acccept\ If\ Blue} = \frac{^{177}/_{102}}{^{112}/_{158}} = \frac {1.7353}{0.7089} = 2.448
+$$ 
+
+And this is the `Backgroundred`return of: 
+
+    fit <- glm(Accepted~Background, data=dat, family="binomial")
+    exp(cbind(Odds_and_OR=coef(fit), confint(fit)))
+    
+                          Odds_and_OR                         2.5 %      97.5 %
+    (Intercept)             0.7088608                     0.5553459   0.9017961
+    Backgroundred           2.4480042                     1.7397640   3.4595454
+
+At the same time, the `(Intercept)`corresponds to the numerator of the *odds ratio*, which is exactly the *odds* of getting in being of 'blue' family background: $112/158 = 0.7089$.
+
+If instead, I run:
+
+    fit2 <- glm(Accepted~Background-1, data=dat, family="binomial")
+    exp(cbind(Odds=coef(fit2), confint(fit2)))
+
+                            Odds            2.5 %      97.5 %
+    Backgroundblue     0.7088608        0.5553459   0.9017961
+    Backgroundred      1.7352941        1.3632702   2.2206569
+
+The returns are precisely the *odds* of getting in being 'blue': `Backgroundblue` (0.7089) and the *odds* of being accepted being 'red':  `Backgroundred` (1.7353). No *Odds Ratio* there. Therefore the two return values are not expected to be reciprocal.
+
+Finally, How to read the results if there are 3 factors in the categorical regressor?
+
+Same manual versus [R] calculation:
+
+I created a different fictitious data set with the same premise, but this time there were three ethnic backgrounds: "red", "blue" and "orange", and ran the same sequence:
+
+First, the contingency table:
+
+    Acceptance	blue	orange	red	  Total
+    0	          86	    65	130	    281
+    1	          64	    42	162	    268
+    Total	     150	   107	292	    549
+
+And calculated the *Odds* of getting in for each ethnic group:
+
+ - Odds Accept If Red = 1.246154;
+ - Odds Accept If Blue = 0.744186; 
+ - Odds Accept If Orange = 0.646154
+
+As well as the different *Odds Ratios*:
+
+ - OR red v blue = 1.674519; 
+ - OR red v orange = 1.928571; 
+ - OR blue v red = 0.597186; 
+ - OR blue v orange = 1.151717; 
+ - OR orange v red = 0.518519; and
+ - OR orange v blue = 0.868269  
+
+And proceeded with the now routine logistic regression followed by exponentiation of coefficients:
+
+    fit <- glm(Accepted~Background, data=dat, family="binomial")
+    exp(cbind(ODDS=coef(fit), confint(fit)))
+
+                          ODDS     2.5 %   97.5 %
+    (Intercept)      0.7441860 0.5367042 1.026588
+    Backgroundorange 0.8682692 0.5223358 1.437108
+    Backgroundred    1.6745192 1.1271430 2.497853
+
+Yielding the *odds* of getting in for "blues" as the `(Intercept)`, and the *Odds Ratios* of Orange versus Blue in `Backgroundorange`, and the OR of Red v Blue in `Backgroundred` .
+
+On the other hand, the regression without intercept predictably returned just the three independent *odds*:
+
+    fit2 <- glm(Accepted~Background-1, data=dat, family="binomial")
+    exp(cbind(ODDS=coef(fit2), confint(fit2)))
+
+                          ODDS     2.5 %    97.5 %
+    Backgroundblue   0.7441860 0.5367042 1.0265875
+    Backgroundorange 0.6461538 0.4354366 0.9484999
+    Backgroundred    1.2461538 0.9900426 1.5715814
+
+
+
+---
 
 ####CATEGORICAL INDEPENDENT VARIABLES:
 
@@ -188,7 +306,7 @@ set.seed(420)
 n.samples <- 100
 weight <- sort(rnorm(n.samples,172,29))
 obese <- ifelse(runif(n.samples) < (rank(weight)/100), yes=1, no=0)
-plot(weight,obese)
+plot(weight,obese, pch=19, col='tan4')
 glm.fit <- glm(obese ~ weight, family="binomial")
 lines(weight, glm.fit$fitted.values)
 par(pty="s")
@@ -295,121 +413,6 @@ In the biomedical context of risk prediction modelling, the AUC has been critici
 ---
 
 <br><br>
-
-####INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
-<br>
-
-***QUESTION:***
-
-(Initially posted [here](http://stats.stackexchange.com/q/136193/67822))
-
-I ran a linear regression of acceptance into college against SAT scores and family / ethnic background. The data are fictional. The question focuses in the gathering and interpretation of odds ratios when leaving the SAT scores aside for simplicity. 
-
-The variables are `Accepted` (0 or 1) and `Background` ("red" or "blue"). I set up the data so that people of "red" background were more likely to get in:
-
-    fit <- glm(Accepted ~ Background, data=dat, family="binomial")
-    exp(cbind(Odds_Ratio_RedvBlue = coef(fit), confint(fit)))
-    
-                            Odds_Ratio_RedvBlue             2.5 %       97.5 %
-    (Intercept)             0.7088608                     0.5553459   0.9017961
-    Backgroundred           2.4480042                     1.7397640   3.4595454
-
-
-Questions:
-
-1. Is 0.7 the odd ratio of a person of "blue" background being accepted? I'm asking this because I also get 0.7 for "`Backgroundblue`" if instead I run the following code:
-
-        fit <- glm(Accepted~Background - 1, data=dat, family="binomial")
-        exp(cbind(OR=coef(fit), confint(fit)))
-
-2. Shouldn't the odds ratio of "red" being accepted ($\rm Accepted/Red:Accepted/Blue$) just the reciprocal: ($\rm OddsBlue = 1 / OddsRed$)?
-
-***ANSWER:***
-
-I've been working on answering my question by calculating manually the odds and odds ratios:
-
-    Acceptance   blue	         red	        Grand Total
-    0	           158	         102	            260
-    1	           112	         177	            289
-    Total	       270	         279	            549
-
-So the *Odds Ratio* of getting into the school of Red over Blue is: 
-
-$$
-\frac{\rm Odds\ Accept\ If\ Red}{\rm Odds\ Acccept\ If\ Blue} = \frac{^{177}/_{102}}{^{112}/_{158}} = \frac {1.7353}{0.7089} = 2.448
-$$ 
-
-And this is the `Backgroundred`return of: 
-
-    fit <- glm(Accepted~Background, data=dat, family="binomial")
-    exp(cbind(Odds_and_OR=coef(fit), confint(fit)))
-    
-                          Odds_and_OR                         2.5 %      97.5 %
-    (Intercept)             0.7088608                     0.5553459   0.9017961
-    Backgroundred           2.4480042                     1.7397640   3.4595454
-
-At the same time, the `(Intercept)`corresponds to the numerator of the *odds ratio*, which is exactly the *odds* of getting in being of 'blue' family background: $112/158 = 0.7089$.
-
-If instead, I run:
-
-    fit2 <- glm(Accepted~Background-1, data=dat, family="binomial")
-    exp(cbind(Odds=coef(fit2), confint(fit2)))
-
-                            Odds            2.5 %      97.5 %
-    Backgroundblue     0.7088608        0.5553459   0.9017961
-    Backgroundred      1.7352941        1.3632702   2.2206569
-
-The returns are precisely the *odds* of getting in being 'blue': `Backgroundblue` (0.7089) and the *odds* of being accepted being 'red':  `Backgroundred` (1.7353). No *Odds Ratio* there. Therefore the two return values are not expected to be reciprocal.
-
-Finally, How to read the results if there are 3 factors in the categorical regressor?
-
-Same manual versus [R] calculation:
-
-I created a different fictitious data set with the same premise, but this time there were three ethnic backgrounds: "red", "blue" and "orange", and ran the same sequence:
-
-First, the contingency table:
-
-    Acceptance	blue	orange	red	  Total
-    0	          86	    65	130	    281
-    1	          64	    42	162	    268
-    Total	     150	   107	292	    549
-
-And calculated the *Odds* of getting in for each ethnic group:
-
- - Odds Accept If Red = 1.246154;
- - Odds Accept If Blue = 0.744186; 
- - Odds Accept If Orange = 0.646154
-
-As well as the different *Odds Ratios*:
-
- - OR red v blue = 1.674519; 
- - OR red v orange = 1.928571; 
- - OR blue v red = 0.597186; 
- - OR blue v orange = 1.151717; 
- - OR orange v red = 0.518519; and
- - OR orange v blue = 0.868269  
-
-And proceeded with the now routine logistic regression followed by exponentiation of coefficients:
-
-    fit <- glm(Accepted~Background, data=dat, family="binomial")
-    exp(cbind(ODDS=coef(fit), confint(fit)))
-
-                          ODDS     2.5 %   97.5 %
-    (Intercept)      0.7441860 0.5367042 1.026588
-    Backgroundorange 0.8682692 0.5223358 1.437108
-    Backgroundred    1.6745192 1.1271430 2.497853
-
-Yielding the *odds* of getting in for "blues" as the `(Intercept)`, and the *Odds Ratios* of Orange versus Blue in `Backgroundorange`, and the OR of Red v Blue in `Backgroundred` .
-
-On the other hand, the regression without intercept predictably returned just the three independent *odds*:
-
-    fit2 <- glm(Accepted~Background-1, data=dat, family="binomial")
-    exp(cbind(ODDS=coef(fit2), confint(fit2)))
-
-                          ODDS     2.5 %    97.5 %
-    Backgroundblue   0.7441860 0.5367042 1.0265875
-    Backgroundorange 0.6461538 0.4354366 0.9484999
-    Backgroundred    1.2461538 0.9900426 1.5715814
 
 
 ---
