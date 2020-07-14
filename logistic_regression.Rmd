@@ -10,7 +10,7 @@ Logistic regression addresses the following issues:
 
 1. There is a need to bound at $1$ since we are estimating a probability, but lines are not naturally bounded. So we transform probability into odds:
 
-$$\large \text{odds}=\frac{\Pr(Y=1)}{1-\Pr(Y=1)}$$
+$$ \text{odds}=\frac{\Pr(Y=1)}{1-\Pr(Y=1)}\tag 1$$
 
 In addition, this also helps turning a sigmoid curve of a typical cummulative probability distribution (e.g. normal) into a linear relation.
 
@@ -49,10 +49,13 @@ See [here](http://www.ats.ucla.edu/stat/r/dae/logit.htm).
 
 <br>
 
+From equation $(1):$
+
 $$\begin{align}
-\large \Pr(Y = 1) &= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\
-\large \Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) &= e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\
-\large \color{green}{\Pr(Y = 1)} &= \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
+\large \Pr(Y = 1) &= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\[2ex]
+e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}&=
+\large \Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) \\[2ex]
+\large \color{green}{\Pr(Y = 1)} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}&=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
 \end{align}$$
 
 

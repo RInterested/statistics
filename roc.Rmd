@@ -58,7 +58,7 @@ Generating ROC curves with pROC:
 
 ```{r, fig.width=6, fig.height=4, message=FALSE}
 # With total PSA:
-
+par(pty="s")
 r = roc(data$outcome, data$tpsa)
 plot.roc(r, print.auc=TRUE, auc.polygon=TRUE, auc.polygon.col=rgb(.3,0,.8,0.2), print.thres=TRUE)
 plot.roc(smooth(r), add=TRUE, col=2)
@@ -132,6 +132,8 @@ The ***maximized sum threshold or MST*** or the [**probability** of the outcome]
 
 <br>
 $$\Large \mathbb{E}[Y_i|X_i]=\frac{1}{1 + e^{-(\beta_0+\beta_1\times\text{s100b})}}$$
+The `lr.eta` corresponds to the probability at the input corresponding to the [Youden's index](https://stackoverflow.com/a/38532555/4089351).
+
 <br>
 
 ```{r, fig.width=6, fig.height=5}
@@ -428,6 +430,8 @@ AUC(sens,specif)
 roc(data$outcome, data$s100b, print.auc = T)
 
 ```
+
+
 ---
 
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>

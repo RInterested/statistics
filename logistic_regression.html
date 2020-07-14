@@ -186,7 +186,7 @@ summary {
 <ol style="list-style-type: decimal">
 <li>There is a need to bound at <span class="math inline">\(1\)</span> since we are estimating a probability, but lines are not naturally bounded. So we transform probability into odds:</li>
 </ol>
-<p><span class="math display">\[\large \text{odds}=\frac{\Pr(Y=1)}{1-\Pr(Y=1)}\]</span></p>
+<p><span class="math display">\[ \text{odds}=\frac{\Pr(Y=1)}{1-\Pr(Y=1)}\tag 1\]</span></p>
 <p>In addition, this also helps turning a sigmoid curve of a typical cummulative probability distribution (e.g. normal) into a linear relation.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Now, when the probability goes down to zero, the odds also tend to zero; yet there is no floor restriction in a line. This problem can be addressed by expressing the linear relation in log scale: <span class="math inline">\(\log(\text{odds})\)</span>, which will tend to <span class="math inline">\(-\infty\)</span> as the odds tend to zero. This is the <strong>logit</strong> or log-odds function.</li>
@@ -205,10 +205,12 @@ summary {
 <div id="translation-into-probabilities" class="section level4">
 <h4>Translation into probabilities:</h4>
 <p><br></p>
+<p>From equation <span class="math inline">\((1):\)</span></p>
 <p><span class="math display">\[\begin{align}
-\large \Pr(Y = 1) &amp;= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\
-\large \Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) &amp;= e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\
-\large \color{green}{\Pr(Y = 1)} &amp;= \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
+\large \Pr(Y = 1) &amp;= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\[2ex]
+e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}&amp;=
+\large \Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) \\[2ex]
+\large \color{green}{\Pr(Y = 1)} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}&amp;=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
 \end{align}\]</span></p>
 <hr />
 </div>
