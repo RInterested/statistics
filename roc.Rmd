@@ -221,11 +221,11 @@ rc$lr
 
 this "optimal sensitivity/specificity" value in row 18 corresponds to:
 
-$$\large 0.30426295405785 =\frac{1}{1+e^{-(-1.759+4.904\times \text{s100b})}}$$
+$$0.30426295405785 =\frac{1}{1+e^{-(-1.759+4.904\times \text{s100b})}}$$
 
 and
 
-$$\large \text{s100b}= 0.1900327$$
+$$\text{s100b}= 0.1900327$$
 
 A plausible value of `s100b`:
 
@@ -318,6 +318,10 @@ fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic re
 ---
 
 [ODDS RATIOS:](https://drive.google.com/file/d/0Bwl-HpVJ_5PeVE5BTU5QVUlxRGs/view?usp=sharing)
+
+$$\large \color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$$
+
+Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ times. The factors $\large e^{\,\beta_i}$ are the **ODDS RATIO**'s. On the other hand, $\beta_i$ (the coefficients) are the **LOG ODDS-RATIO**.
 
 ```{r, warning=F, message=FALSE}
 
