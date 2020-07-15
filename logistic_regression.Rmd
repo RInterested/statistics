@@ -1,6 +1,6 @@
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="40" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="30" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
 We want to estimate the probability of success / failure of the dependent variable ($\Pr(Y=1)$), given the explanatory variables: $\Pr(Y=1|X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
@@ -52,10 +52,10 @@ See [here](http://www.ats.ucla.edu/stat/r/dae/logit.htm).
 From equation $(1):$
 
 $$\begin{align}
-\large \Pr(Y = 1) &= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\[2ex]
+\Pr(Y = 1) &= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\[2ex]
 e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}&=
-\large \Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) \\[2ex]
-\large \color{green}{\Pr(Y = 1)} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}&=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
+\Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) \\[2ex]
+\color{green}{\Pr(Y = 1)} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}&=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
 \end{align}$$
 
 
@@ -236,7 +236,7 @@ summary(smoke.logistic)
 
 An example with credit defaults with some calculations extracted from [here](https://www.r-bloggers.com/how-to-perform-a-logistic-regression-in-r/):
 
-```{r}
+```{r, fig.width=4, fig.height=4}
 set.seed(123)
 
 gender <- factor(round(runif(100,0,1)),
@@ -261,7 +261,7 @@ auc(df$credit.default, predict(catlogis, type="response"))
 
 We can generate an ANOVA to analyze the table of variance, paying attention at the difference between the `NULL` variance and the `Resid. Deviance` to see which variable reduce this residual variance in comparison to the model with only an intecept. The p-values also help select variables. We want a drop in the deviance and AIC.
 
-```{r}
+```{r, fig.height=3, fig.width=3}
 catlogis <- glm(credit.default ~ gender+profession, df, family=binomial(link="logit"))
 summary(catlogis)
 auc(df$credit.default, predict(catlogis, type="response"))
@@ -304,12 +304,12 @@ auc
 
 Another example from [this video](https://www.youtube.com/watch?v=qcvAqAH60Yw&t=242s):
 
-```{r}
+```{r, fig.width=5, fig.height=4}
 set.seed(420)
 n.samples <- 100
 weight <- sort(rnorm(n.samples,172,29))
 obese <- ifelse(runif(n.samples) < (rank(weight)/100), yes=1, no=0)
-plot(weight,obese, pch=19, col='tan4')
+plot(weight,obese, pch=19, col='tan4', cex=.7)
 glm.fit <- glm(obese ~ weight, family="binomial")
 lines(weight, glm.fit$fitted.values)
 par(pty="s")
@@ -324,27 +324,27 @@ Notice that the first row of `head(roc.df)` with a threshold for labeling "obese
 
 We can isolate part of the data, for example with ttp between $60$ and $80$, to select an optimal threshold value:
 
-```{r}
+```{r, fig.width=5, fig.height=4}
 roc.df[roc.df$ttp > 60 & roc.df$ttp < 80,]
 ```
 
 We can plot the ROC differently:
 
-```{r}
+```{r, fig.width=5, fig.height=4}
 par(pty="s")
 roc(obese, glm.fit$fitted.values, plot=T, legacy.axes=T, percent=T,
     xlab='False positive percentage', ylab='True positive percentage',
-    col="#377eb8",lwd=4, print.auc=T)
+    col="darkslateblue",lwd=4, print.auc=T)
 ```
 
 To calculate the partial AUC of the beginning, where only a small number of false positives are allowed...
 
-```{r}
+```{r, fig.width=4, fig.height=4}
 par(pty="s")
 roc(obese, glm.fit$fitted.values, plot=T, legacy.axes=T, percent=T,
     xlab='False positive percentage', ylab='True positive percentage',
-    col='blue',lwd=4, print.auc=T, print.auc.x=45, partial.auc=c(100,90),
-    auc.polygon=T, auc.polygon.col='turquoise')
+    col='darkslateblue',lwd=4, print.auc=T, print.auc.x=45, partial.auc=c(100,90),
+    auc.polygon=T, auc.polygon.col='midnightblue')
 ```
 
 
@@ -390,7 +390,7 @@ It is based on selecting different probabilities from $0$ to $1$ and calculating
 
 Our model or prediction rule is perfect at classifying observations if it has 100% sensitivity and 100% specificity. Unfortunately in practice this is (usually) not attainable. So how can we summarize the discrimination ability of our logistic regression model? For each observation, our fitted model can be used to calculate the fitted probabilities $P(Y=1|X_{1},..,X_{p}).$ On their own, these don't tell us how to classify observations as positive or negative. One way to create such a classification rule is to choose a cut-point $c,$ and classify those observations with a fitted probability above $c$ as positive and those at or below it as negative. For this particular cut-off, we can estimate the sensitivity by the proportion of observations with $Y=1$ which have a predicted probability above $c,$ and similarly we can estimate specificity by the proportion of $Y=0$ observations with a predicted probability at or below $c.$ If we increase the cut-point $c,$ fewer observations will be predicted as positive. This will mean that fewer of the $Y=1$ observations will be predicted as positive (reduced sensitivity), but more of the $Y=0$ observations will be predicted as negative (increased specificity). In picking the cut-point, there is thus an intrinsic trade off between sensitivity and specificity. Now we come to the ROC curve, which is simply a plot of the values of sensitivity against one minus specificity, as the value of the cut-point $c$ is increased from $0$ through to $1.$ Example:
 
-```{r}
+```{r, fig.height=3, fig.width=3}
 set.seed(63126)
 n <- 1000
 x <- rnorm(n)

@@ -6,7 +6,7 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="30" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
 ##ROC curves and AUC:
@@ -18,23 +18,79 @@ DEFINITIONS:
 
 $\text{Sensitivity or TP Rate} = \frac{TP}{TP\, +\, FN}$
 
+![](https://user-images.githubusercontent.com/9312897/87492385-77d23100-c618-11ea-9ff3-a2005e57bd0d.png)
+
+---
+
 $\text{Specificity} = \frac{TN}{TN\, +\, FP}$
+
+![](https://user-images.githubusercontent.com/9312897/87492580-d9929b00-c618-11ea-8bcd-51066f50e9f2.png)
+
+---
 
 $\text{FP Rate or Fall-out} = \frac{FP}{TN\, +\, FP} = 1 - \text{Specificity}$
 
-An accuracy of 100% means that the measured values are exactly the same as the given values:
+![](https://user-images.githubusercontent.com/9312897/87492732-3726e780-c619-11ea-94f8-fcb76e3b826b.png)
 
-$\text{Accuracy} = \frac{TP\, +\, TN}{TP\, +\, TN\, +\, FP\, +\, FN}$
+---
 
-$\text{Precision or PPV} = \frac{TP}{TP\, +\, FP}$
+$\text{FN Rate or Miss rate} = \frac{FN}{TP\, +\, FN}$
 
-$\text{NPV} = \frac{TN}{TN\, +\, FN}$
+![](https://user-images.githubusercontent.com/9312897/87493173-38a4df80-c61a-11ea-97fa-36da8852a929.png)
+
+
+---
+
+$\text{PPV or Precision} = \frac{TP}{TP\, +\, FP}$
+
+![](https://user-images.githubusercontent.com/9312897/87493392-b7018180-c61a-11ea-948c-7335de534166.png)
+
+---
+
+$\text{NPV or Negative predictive value} = \frac{TN}{FN\, +\, TN}$
+
+![](https://user-images.githubusercontent.com/9312897/87493624-2d05e880-c61b-11ea-927d-18f5795dc8db.png)
+
+---
+
+$\text{FOR or False omission rate} = \frac{FN}{FN\, +\, TN}$
+
+![](https://user-images.githubusercontent.com/9312897/87493729-735b4780-c61b-11ea-8910-48b7fc9d7db6.png)
+
+---
+
+$\text{FDR or False discovery rate} = \frac{FP}{TP\, +\, FP}$
+
+![](https://user-images.githubusercontent.com/9312897/87493975-f086bc80-c61b-11ea-8fd7-5a6e25127b3f.png)
+
+
+---
+
+In addition we can get the following rates using the entire table:
+
+$\text{Prevalence} = \frac{TP+FN}{TP\, +\, FP +\, TN +\, FN}$
+
+
+![](https://user-images.githubusercontent.com/9312897/87494088-2f1c7700-c61c-11ea-94de-6734c3b27a92.png)
+
+---
+
+$\text{Accuracy or % correct classif.} = \frac{TP+TN}{TP\, +\, FP +\, TN +\, FN}$
+
+![](https://user-images.githubusercontent.com/9312897/87494311-a9e59200-c61c-11ea-99b9-3e6c2debaa49.png)
+
+---
+
+$\text{% incorrect classif.} = \frac{FP+FN}{TP\, +\, FP +\, TN +\, FN}$
+
+![](https://user-images.githubusercontent.com/9312897/87494408-ed400080-c61c-11ea-8e2d-9fc7da6de66c.png)
+
 
 ---
 
 Utilizing the PSA antigen data from [here](http://research.fhcrc.org/content/dam/stripe/diagnostic-biomarkers-statistical-center/files/psa2b.csv), where `fpsa` stands for "free PSA" and `tpsa` stands for "total PSA". There are repeated measures in time `t` at different `age`-s. The outcome is `d` and is coded as `0` or `1`:
 
-```{r, warning = F, message=FALSE}
+```{r, warning = F, message=FALSE, echo=FALSE}
 library(gsubfn)
 library(sqldf)
 library(tcltk)
@@ -44,9 +100,9 @@ library(Epi)
 library(gsheet)
 ```
 
-The following is the dataset from a an age-matched case-control study: each diagnosed case was assigned a control matched to case by date of birth. There are 70 non diagnosed and 71 diagnosed:
+The following is the dataset from an age-matched case-control study: each diagnosed case was assigned a control matched to case by date of birth. There are 70 non diagnosed and 71 diagnosed:
 
-```{r}
+```{r, warning=F}
 data = read.csv(text = gsheet2text('https://docs.google.com/spreadsheets/d/1ba1IYjX79EEmgBmsEzZgNs6Joe4v-SECWZUhbfhewhc/edit?usp=sharing', format ='csv'))
 data = sqldf("select id, d, min(t), fpsa, tpsa, age from 'data'\n group by id")
 data$age_group <- cut(data$age, breaks = c(45,55,65,75), labels = c("(45,55]","(55,65]","(65,75]"))
@@ -78,7 +134,7 @@ head(roc_scaffolding)
 
 In addition to the PSA we can stratify by patient's age:
 
-```{r, message = F, fig.width=6, fig.height=3}
+```{r, message = F, fig.width=5, fig.height=3}
 # With age groups:
 
 plot.roc(x = data$outcome[data$age_gr == "(45,55]"], 
@@ -99,7 +155,7 @@ plot.roc(x = data$outcome[data$age_gr == "(65,75]"],
 
 And with ROCR:
 
-```{r, fig.width=5, fig.height=3}
+```{r, fig.width=5, fig.height=5}
 # With ROCR:
 pred <- prediction(data$tpsa, data$outcome)
 perf <- performance(pred, "tpr", "fpr")
@@ -131,7 +187,7 @@ The ***maximized sum threshold or MST*** or the [**probability** of the outcome]
 
 
 <br>
-$$\Large \mathbb{E}[Y_i|X_i]=\frac{1}{1 + e^{-(\beta_0+\beta_1\times\text{s100b})}}$$
+$$\large \mathbb{E}[Y_i|X_i]=\frac{1}{1 + e^{-(\beta_0+\beta_1\times\text{s100b})}}$$
 The `lr.eta` corresponds to the probability at the input corresponding to the [Youden's index](https://stackoverflow.com/a/38532555/4089351).
 
 <br>
@@ -188,6 +244,67 @@ we'd have to use `sort(unique(aSAH))`. Let's see the value in position $18$...
 
 <br>
 
+---
+
+#### DETERMINING A THRESHOLD VALUE:
+
+From [here](https://www.researchgate.net/publication/321363535_ThresholdROC_Optimum_Threshold_Estimation_Tools_for_Continuous_Diagnostic_Tests_in_R):
+
+For the two-state setting, we used a dataset from Kapaki, Paraskevas, Zalonis, and Zournas(2003), which contains measurements of tau protein levels in the cerebrospinal ﬂuid of $49$ control subjects and $49$ patients with Alzheimer’s disease (AD). The authors reported that the cut-oﬀ of 317 led to an optimal combination of sensitivity $(0.88)$ and speciﬁcity $(0.96),$ producing $R = 1.$ We calculated an alternative threshold for this dataset using the functions in ThresholdROC. This approach accounts for speciﬁc characteristics of the problem by choosinga reasonable combination of costs based on clinical criteria. We set the costs corresponding to correct classiﬁcation at zero (that is, $\text{CTP = CTN = 0}$) given that there are no consequences when correct decisions are made. The costs corresponding to false classiﬁcations were set at $1$ (i.e., $\text{CFP = CFN = 1}$), placing the same weight on false positives and false negatives. The value for AD prevalence was set at $0.2$ based on the literature (Tsolaki, Fountoulakis, Pavlopoulos, Chatzi, and Kazis 1999; Ferri et al. 2005). To determine if the measurements from both the control and diseased groups could be assumed to follow a normal distribution in deciding the method to use for threshold estimation, we applied Shapiro-Wilk’s test to the measurements, obtaining $p < 0.01$ in both cases. Since the data failed the normality tests, the empirical method was used. Thus, using `thres2()`, the threshold that minimizes the cost function for these cost and prevalence values was estimated to be $384.45,$ corresponding to a sensitivity of $0.76$ and a speciﬁcity of $1.$ Using a conﬁdence level of $95\% $ and applying the bootstrap methodology with $1000$ resamples, the conﬁdence intervals of the threshold were $(304.40,464.51)$ for the bootstrap method based on the normal distribution and $(295.37,444.03)$ for the percentile technique. It should be noted that this approach leads to $R= 4.$
+
+```{r, fig.height = 4, fig.width = 10}
+# thres2(k1, k2, rho,
+# costs = matrix(c(0, 0, 1, (1 - rho)/rho), 2, 2, byrow = TRUE),
+# TPC TNC
+# FNC FPC
+# method = c("equal", "unequal", "empirical", "parametric"),
+# dist1 = NULL, dist2 = NULL, ci = TRUE, ci.method = c("delta", "boot"),
+# B = 1000, alpha = 0.05, extra.info = FALSE, na.rm = FALSE, q1=0.05, q2=0.95)
+
+require(ThresholdROC)
+k1 = AD[AD$Status==0,'Tau']
+k2 = AD[AD$Status==1,'Tau']
+rho = 0.2   # Disease prevalence
+FPC = 1     # False negative cost
+FNC = 1     # False positive cost
+
+costs = matrix(c(0,0,FPC,FNC),2,2,byrow=T)
+thresh <- thres2(k1, k2, rho, costs, "empirical", ci.method='boot', extra.info=T)
+
+par(mfrow=c(1,3))
+plot(thresh)
+plotCostROC(thresh)
+```
+
+
+If we can't tolerate any false positives:
+
+```{r, fig.height = 4, fig.width = 10}
+par(mfrow=c(1,3))
+FPC = 1000
+FNC = 1     # If the cost of missing any cases is huge:
+costs = matrix(c(0,0,FPC,FNC),2,2,byrow=T)
+thresh <- thres2(k1, k2, rho, costs, "empirical", ci.method='boot', extra.info=T)
+plot(thresh)
+plotCostROC(thresh)
+```
+
+If the cost of missing any cases is huge:
+
+```{r, fig.height = 4, fig.width = 10}
+par(mfrow=c(1,3))
+FPC = 1  
+FNC = 1000
+costs = matrix(c(0,0,FPC,FNC),2,2,byrow=T)
+thresh <- thres2(k1, k2, rho, costs, "empirical", ci.method='boot', extra.info=T)
+plot(thresh)
+plotCostROC(thresh)
+
+```
+
+
+---
+
 #### MANUAL REPRODUCTION:
 
 <br>
@@ -210,12 +327,12 @@ exp(confint(fit))
 
 ---
 
-PROBABILITIES:
+####PROBABILITIES:
 
 PROBABILITIES given again by the sigmoid function:
 
 
-$$\Large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$$
+$$\large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$$
 
 In a `glm()` (logistic regression) model, `predict()` simply gives you the LINEAR EQUATION ($\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p$).
 
