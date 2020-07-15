@@ -250,7 +250,7 @@ we'd have to use `sort(unique(aSAH))`. Let's see the value in position $18$...
 
 From [here](https://www.researchgate.net/publication/321363535_ThresholdROC_Optimum_Threshold_Estimation_Tools_for_Continuous_Diagnostic_Tests_in_R):
 
-For the two-state setting, we used a dataset from Kapaki, Paraskevas, Zalonis, and Zournas(2003), which contains measurements of tau protein levels in the cerebrospinal ﬂuid of $49$ control subjects and $49$ patients with Alzheimer’s disease (AD). The authors reported that the cut-oﬀ of 317 led to an optimal combination of sensitivity $(0.88)$ and speciﬁcity $(0.96),$ producing $R = 1.$ We calculated an alternative threshold for this dataset using the functions in ThresholdROC. This approach accounts for speciﬁc characteristics of the problem by choosinga reasonable combination of costs based on clinical criteria. We set the costs corresponding to correct classiﬁcation at zero (that is, $\text{CTP = CTN = 0}$) given that there are no consequences when correct decisions are made. The costs corresponding to false classiﬁcations were set at $1$ (i.e., $\text{CFP = CFN = 1}$), placing the same weight on false positives and false negatives. The value for AD prevalence was set at $0.2$ based on the literature (Tsolaki, Fountoulakis, Pavlopoulos, Chatzi, and Kazis 1999; Ferri et al. 2005). To determine if the measurements from both the control and diseased groups could be assumed to follow a normal distribution in deciding the method to use for threshold estimation, we applied Shapiro-Wilk’s test to the measurements, obtaining $p < 0.01$ in both cases. Since the data failed the normality tests, the empirical method was used. Thus, using `thres2()`, the threshold that minimizes the cost function for these cost and prevalence values was estimated to be $384.45,$ corresponding to a sensitivity of $0.76$ and a speciﬁcity of $1.$ Using a conﬁdence level of $95\% $ and applying the bootstrap methodology with $1000$ resamples, the conﬁdence intervals of the threshold were $(304.40,464.51)$ for the bootstrap method based on the normal distribution and $(295.37,444.03)$ for the percentile technique. It should be noted that this approach leads to $R= 4.$
+For the two-state setting, we used a dataset from Kapaki, Paraskevas, Zalonis, and Zournas(2003), which contains measurements of tau protein levels in the cerebrospinal ﬂuid of $49$ control subjects and $49$ patients with Alzheimer’s disease (AD). The authors reported that the cut-oﬀ of 317 led to an optimal combination of sensitivity $(0.88)$ and speciﬁcity $(0.96),$ producing $R = 1.$ We calculated an alternative threshold for this dataset using the functions in ThresholdROC. This approach accounts for speciﬁc characteristics of the problem by choosinga reasonable combination of costs based on clinical criteria. We set the costs corresponding to correct classiﬁcation at zero (that is, $\text{CTP = CTN = 0}$) given that there are no consequences when correct decisions are made. The costs corresponding to false classiﬁcations were set at $1$ (i.e., $\text{CFP = CFN = 1}$), placing the same weight on false positives and false negatives. The value for AD prevalence was set at $0.2$ based on the literature (Tsolaki, Fountoulakis, Pavlopoulos, Chatzi, and Kazis 1999; Ferri et al. 2005). To determine if the measurements from both the control and diseased groups could be assumed to follow a normal distribution in deciding the method to use for threshold estimation, we applied Shapiro-Wilk’s test to the measurements, obtaining $p < 0.01$ in both cases. Since the data failed the normality tests, the empirical method was used. Thus, using `thres2()`, the threshold that minimizes the cost function for these cost and prevalence values was estimated to be $384.45,$ corresponding to a sensitivity of $0.76$ and a speciﬁcity of $1.$ Using a conﬁdence level of $95\% $ and applying the bootstrap methodology with $1000$ resamples, the conﬁdence intervals of the threshold were $(304.40,464.51)$ for the bootstrap method based on the normal distribution and $(295.37,444.03)$ for the percentile technique. 
 
 ```{r, fig.height = 4, fig.width = 10}
 # thres2(k1, k2, rho,
@@ -319,7 +319,7 @@ fit <- glm(outcome ~ s100b, data, family = "binomial") # This is the logistic re
 
 [ODDS RATIOS:](https://drive.google.com/file/d/0Bwl-HpVJ_5PeVE5BTU5QVUlxRGs/view?usp=sharing)
 
-$$\large \color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$$
+$$\color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$$
 
 Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ times. The factors $\large e^{\,\beta_i}$ are the **ODDS RATIO**'s. On the other hand, $\beta_i$ (the coefficients) are the **LOG ODDS-RATIO**.
 
@@ -331,12 +331,12 @@ exp(confint(fit))
 
 ---
 
-####PROBABILITIES:
+#### PROBABILITIES:
 
 PROBABILITIES given again by the sigmoid function:
 
 
-$$\large \color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$$
+$$\color{green}{\text{p(Y = 1)}} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}$$
 
 In a `glm()` (logistic regression) model, `predict()` simply gives you the LINEAR EQUATION ($\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p$).
 
