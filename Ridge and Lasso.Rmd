@@ -24,6 +24,8 @@ $$\text{\$ spent on vacation} \sim \beta_0 + \beta_1 \text{income} + \beta_2 \te
 
 where the two explanatory variables are highly correlated. In this case the calculated coefficients will be highly variable between samples.
 
+This is the case where the model matrix is nearly singular, presenting inverse problems.
+
 Using ridge regression the estimated coefficients will be biased, although with a lower variance. Ridge is going to control the magnitude of the coefficients.
 
 The way this is accomplished is by modifying the cost function as

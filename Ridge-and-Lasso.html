@@ -191,6 +191,7 @@ summary {
 <p>This would not work if there was high correlation between the features or explanatory variables, as for example:</p>
 <p><span class="math display">\[\text{\$ spent on vacation} \sim \beta_0 + \beta_1 \text{income} + \beta_2 \text{taxes paid} + \varepsilon\]</span></p>
 <p>where the two explanatory variables are highly correlated. In this case the calculated coefficients will be highly variable between samples.</p>
+<p>This is the case where the model matrix is nearly singular, presenting inverse problems.</p>
 <p>Using ridge regression the estimated coefficients will be biased, although with a lower variance. Ridge is going to control the magnitude of the coefficients.</p>
 <p>The way this is accomplished is by modifying the cost function as</p>
 <p><span class="math display">\[\underset{\vec \beta}{\text{min}}\Vert \vec y- X\vec \beta\Vert^2_2\text{ such that }\Vert \vec \beta\Vert^2_2\leq c^2\]</span></p>
