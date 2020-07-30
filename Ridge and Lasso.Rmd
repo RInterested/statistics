@@ -104,7 +104,7 @@ $\bf (X^\prime X + \lambda I)\beta = X^\prime y.$
 
 ####LASSO REGRESSION:
 
-On the other hand, in Lasso regression we change the constraint so that some coefficient are nullified. Geometrically, the points jutting out are "hit" more often.
+On the other hand, in Lasso regression we change the constraint so that some coefficient are nullified. Geometrically, the points jutting out are "hit" more often, and in those corners a number of coefficients will be zero, and the variable associated with it will be nullified (sparsification or feature selection).
 
 ![](https://user-images.githubusercontent.com/9312897/88947305-5e5af700-d25e-11ea-8f5a-8b85c6aefc0f.png)
 
@@ -112,6 +112,8 @@ On the other hand, in Lasso regression we change the constraint so that some coe
 by minimizing the cost function with the l-$1$ norm:
 
 $$\underset{\vec \beta}{\text{min}}\Vert \vec y- X\vec \beta\Vert^2_2\text{ such that }\Vert \vec \beta\Vert^1\leq c$$
+
+It will be calculated through Lagrange multiplier, but there will not be an explicit formula for Lasso.
 
 ---
 
