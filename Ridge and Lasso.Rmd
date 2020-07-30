@@ -1,0 +1,77 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="30" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###RIDGE REGRESSION:
+<br>
+
+OLS minimizes the cost function
+
+$$\underset{\vec \beta}{\text{min}}\Vert \vec y- X\vec \beta\Vert^2_2$$
+
+which is to say the 2-norm or square residuals. The Gauss-Markov theorem says that these coefficients are BLUE. They are best (B) because they have the smallest variance; and they are also un-biased (U).
+
+This would not work if there was high correlation between the features or explanatory variables, as for example:
+
+$$\text{\$ spent on vacation} \sim \beta_0 + \beta_1 \text{income} + \beta_2 \text{taxes paid} + \varepsilon$$
+
+where the two explanatory variables are highly correlated. In this case the calculated coefficients will be highly variable between samples.
+
+Using ridge regression the estimated coefficients will be biased, although with a lower variance. Ridge is going to control the magnitude of the coefficients.
+
+The way this is accomplished is by modifying the cost function as
+
+
+$$\underset{\vec \beta}{\text{min}}\Vert \vec y- X\vec \beta\Vert^2_2\text{ such that }\Vert \vec \beta\Vert^2_2\leq c^2$$
+
+so in the case of $2$ coeffients, we want $c^2 \leq \beta_0^2 + \beta_1^2,$ which is a disc of radius $c:$
+
+![](https://user-images.githubusercontent.com/9312897/88944121-5a2cda80-d25a-11ea-9dd0-2d2b6127d5d1.png)
+
+Naturally, this should only be remotely applicable when there is more than the intercept and a variable. So it would be a sphere. The estimated values will be at the point of tangential contact of the cost function level curves and the constraint of the parameters (sphere).
+
+This is solved with Lagrange multipliers.
+
+If $E=\sum_i \left( y_i - \beta_o-\beta_1\right)^2$
+
+$$F=E + \lambda \left(\beta_0^2 + \beta_1^2 - c^2 \right)$$
+
+and we look for 
+
+
+$$\underset{\vec \lambda,\beta_0,\beta_1}{\text{min}}F$$
+
+by trying different $\lambda$'s. We could try by differentiating with respect to $\lambda,\beta_0,\beta_1$ and setting to zero, but it is usually done numerically. The computation takes into account the R-squared values with different lambdas, which in turn, output different optimal betas. Once we settle on a lambda, $\lambda  c^2 $ becomes a constant. So at that point the minimization will be of the function
+
+
+$$F=E + \lambda \left(\beta_0^2 + \beta_1^2  \right)$$
+
+or
+
+$$\underset{\vec \beta}{\text{min}}\Vert \vec y- X\vec \beta\Vert^2_2 \lambda \Vert\vec \beta \Vert^2_2$$
+
+the solution will be
+
+$$\vec \beta^R=\left( X^\top X+\lambda I \right)^{-1}X^\top \vec y$$
+
+---
+
+On the other hand, in Lasso regression we change the constraint so that some coefficient are nullified:
+
+![](https://user-images.githubusercontent.com/9312897/88947305-5e5af700-d25e-11ea-8f5a-8b85c6aefc0f.png)
+
+
+by minimizing the cost function with the l-$1$ norm:
+
+$$\underset{\vec \beta}{\text{min}}\Vert \vec y- X\vec \beta\Vert^2_2\text{ such that }\Vert \vec \beta\Vert^1\leq c$$
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
