@@ -20,11 +20,98 @@ which is to say the 2-norm or square residuals. The Gauss-Markov theorem says th
 
 This would not work if there was high correlation between the features or explanatory variables, as for example:
 
-$$\text{\$ spent on vacation} \sim \beta_0 + \beta_1 \text{income} + \beta_2 \text{taxes paid} + \varepsilon$$
+$$\text{income} \sim \text{income taxes} + \text{money spent on weekends}$$
 
-where the two explanatory variables are highly correlated. In this case the calculated coefficients will be highly variable between samples.
+where the two explanatory variables are highly correlated. In this case the calculated coefficients will be highly variable between samples. This is the case where the model matrix is nearly singular, presenting inverse problems.
 
-This is the case where the model matrix is nearly singular, presenting inverse problems.
+Let's see what this means with a toy example:
+
+The toy model is trying to predict the yearly income based on paid income taxes and weekend expenses, and all variables are highly correlated:
+
+
+```{r}
+    set.seed(561)
+
+    # The manufacturing of the toy dataset with 100 entries
+    weekend_expend = runif(100, 100, 2000)
+    income = weekend_expend * 100 + runif(100, 10000, 20000)
+    taxes = 0.4 * income + runif(100, 10000, 20000)
+    df = cbind(income, taxes, weekend_expend)
+    upper.panel<-function(x, y){
+        points(x,y, pch=19, col=c("firebrick"), cex=.5)
+        r <- round(cor(x, y), digits=2)
+        txt <- paste0("R = ", r)
+        usr <- par("usr"); on.exit(par(usr))
+        par(usr = c(0, 1, 0, 1))
+        text(0.5, 0.9, txt)
+}
+pairs(df[,1:3], lower.panel = NULL, 
+      upper.panel = upper.panel, cex.labels=.9)
+```
+
+```{r}
+options(scipen = 999)
+
+summary(mod <- lm(income ~ weekend_expend + taxes))
+
+head(A <- model.matrix(mod))
+(A_tr_A <- t(A) %*% A)
+(inv_A_tr_A <- solve(A_tr_A))
+
+eigen(A_tr_A)$values
+eigen(inv_A_tr_A)$values
+```
+
+But this seems to fly on the face of the promised "giant inverse" of $A^\top A$ ([Prof. Strang's word](https://youtu.be/Z_5uLqcwDgM?t=866) when explaining penalized regression) in the presence of highly co-linear regressors. Instead the larger eigenvalues seem to go with $A^\top A$ as opposed to $(A^\top A)^{-1}.$ Professor Strang continues by saying that the matrix $A$ is poorly conditioned, "taking vectors almost to zero."
+
+Is it badly conditioned? Let's see the condition number (ratio of largest to smallest eigenvalue):
+
+
+But first we need to center the mean at zero, and of course, there is no eigenvalues for $A$ because it is not square, but we can use the SVD instead:
+
+```{r}
+svd(scale(A,scale = FALSE))$d
+```
+
+in effect, one of its eigenvalues is zero! Let's take a look at the condition number:
+
+
+```{r}
+max(svd(scale(A,scale = FALSE))$d) / min(svd(scale(A,scale = FALSE))$d)
+```
+
+Well, $\inf$ is pretty large!
+
+
+Same goes for $A^\top A,$ also after centering:
+
+```{r}
+svd(scale(A_tr_A,scale = FALSE))$d
+```
+
+which outputs an singular value extremely close to zero. Same if we use the `eigen()` function:
+
+```{r}
+eigen(scale(A_tr_A,scale = FALSE))$values
+```
+
+What is the condition number?
+
+
+```{r}
+abs(max(eigen(scale(A_tr_A,scale = FALSE))$values) / min(eigen(scale(A_tr_A,scale = FALSE))$values))
+```
+
+Giant!
+
+The inverse of $A^\top A,$ called as `solve(scale(A_tr_A,scale = FALSE))` returns a error: `"computationally singular"`, but if it where numerically computable, it would be pretty large.
+
+This is consistent with the fact that when the explanatory variables are highly correlated the variance of the estimated coefficients is large, and related to the inverse of A transpose A: $\text{Var}(\vec \beta)=\sigma^2 (A^\top A)^{-1}.$
+
+It is therefore true that when the variables are highly correlated, $A^\top A$ will have very low (close to zero) eigenvalues, and $(A^\top A)^{-1}$ very high ones.
+
+
+---
 
 Using ridge regression the estimated coefficients will be biased, although with a lower variance. Ridge is going to control the magnitude of the coefficients.
 
