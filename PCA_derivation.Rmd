@@ -1,0 +1,159 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="30" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+###PCA DERIVATION:
+<br>
+
+Extracted from [this series](https://youtu.be/PMoV0w8by2A) by the Imperial College of London.
+
+We want lower dimensional orthogonal projections of data that retain as much information as possible.
+
+We have a dataset with $\mathbf X=\{\vec x_1,\dots,\vec x_n\}$ such that $\vec x_i\in\mathbb R^D.$
+
+Each $$\vec x_n =\sum_{i=1}^D \beta_{in} \vec e_i$$ 
+
+with $\vec e_i$ being orthonormal basis of $\mathbb R^D.$ This implies that
+
+$$\beta_{in}= \vec x_n'\vec e_i$$ the projection of $\vec x_n$ onto the $\vec e_i$ vector.
+
+If we have a subspace with an ONB $\mathbf B=\begin{bmatrix}\vec e_1,\dots, \vec e_M\end{bmatrix}$ (principal subspace),
+
+$$\tilde{\vec x}=BB^\top\vec x$$
+
+is the projection of $\vec x$ onto the subspace, since $B'B=I$ in $(B'B)^{-1}BB'.$
+
+Every 
+
+$$\tilde{\vec x}_n=\color{red}{\sum_{j=1}^M \beta_{in} \vec e_j} + \sum_{i=M+1}^D \beta_{in} \vec e_i \in \mathbb R^D$$
+
+the second sum lives in the orthogonal complement of the part we want:
+
+$$\tilde{\vec x}_n=\color{red}{\sum_{j=1}^M \beta_{in} \vec e_j}\tag 1$$
+
+The objective function to minimize is the average squared reconstruction error:
+
+$$J=\frac 1 N\sum_{i=1}^N\Vert \vec x_n - \tilde{\vec x}_n\Vert^2\tag 2$$
+
+
+Differentiating wrt to the parameters in the red expression above and equating to zero will minimize the loss. We will need to apply the chain rule, differentiating wrt $\tilde{\vec x}_n:$
+
+$$\frac{\partial J}{\partial \tilde{\vec x}_n}=-\frac 2 N( \vec x_n - \tilde{\vec x}_n)^\top\tag 3$$
+
+Now
+
+$$\frac{\partial J}{\partial \beta_{in}}=\frac{\partial J}{\partial \tilde{\vec x}_n} \frac{\partial \tilde{\vec x}_n}{\partial \beta_{in}}$$
+where $$\frac{\partial \tilde{\vec x}_n}{\partial \beta_{in}}=\vec e_i$$ because only a component of the sum in $(1)$ will play a role.
+
+Therefore
+
+$$\frac{\partial J}{\partial \beta_{in}}=-\frac 2 N( \vec x_n - \tilde{\vec x}_n)^\top \vec e_i$$
+
+using $(1),$ and then noticing that we are using ONB to rearrange indexes based on cancellation through orthogonality, and dotting when identical to $1$...
+
+$$\begin{align}
+\frac{\partial J}{\partial \beta_{in}} &=-\frac 2 N \left( \vec x_n - \sum_{j=1}^M \beta_{jn} \vec e_i \right)^\top \vec e_i\\
+&=\frac 2 N \left( x_n^\top \vec e_i -\beta_{in} \vec e_i^\top \vec e_i   \right)\\
+&= \frac 2 N \left( x_n^\top \vec e_i -\beta_{in}  \right)
+\end{align}$$
+
+leaves us with the equation to find the parameters $\beta$ as follows
+
+
+$$\beta _{in}=  x_n^\top \vec e_i \tag 4$$
+Hence, the optimal coordinates of $\tilde{\vec x}_n$ wrt to the basis are the orthogonal projections of the coordinates of the original vector $\vec x_n$ (data point) on the $i$-th vector that spans the principal subspace.
+
+Splicing $(1)$ and $(4)$ after matching indexes,
+
+$$\begin{align}
+\tilde{\vec x}_n &=\color{red}{\sum_{j=1}^M \beta_{jn} \vec e_j}\\
+&= \sum_{j=1}^M \left( x_n^\top \vec e_j  \right) \vec e_j\\
+&= \sum_{j=1}^M \vec e_j \vec e_j^\top x_n\\
+&= \left( \sum_{j=1}^M \underset{\text{proj.mat.}}{\vec e_j \vec e_j^\top} \right) x_n
+\end{align}$$
+
+so $\tilde{\vec x}_n$ is the orthogonal projection of $\vec x_n$ onto the subspace spanned by the $M$ basis vectors $\vec e_j$ with $j=1,\dots, M$
+
+
+We can similarly write $\vec x_n$ including the orthogonal complement:
+
+$$\vec x_n=  \left( \sum_{j=1}^M \vec e_j \vec e_j^\top \right)  x_n +
+\left( \sum_{j=M+1}^D \vec e_j \vec e_j^\top \right)  x_n$$
+
+and compare to the prior equation to see that
+
+$$\vec x_n - \tilde{\vec x}_n=\left( \sum_{j=M+1}^D \vec e_j \vec e_j^\top \right) x_n$$
+
+so the difference is in the orthogonal subspace that was ignored (orthogonal complement to the principal subspace).
+
+The last equation can be re-written as
+
+$$\vec x_n - \tilde{\vec x}_n=\left( \sum_{j=M+1}^D \vec e_j^\top x_n \right)\vec e_j \tag 5 $$
+
+Going back to $(2),$ and using the fact that $\vec e_j$ is an ONB:
+
+$$\begin{align}
+J &=\frac 1 N\sum_{i=1}^N \left \Vert \left( \sum_{j=M+1}^D \vec e_j^\top x_n \right)\vec e_j \right \Vert^2\\
+&=\frac 1 N\sum_{i=1}^N   \sum_{j=M+1}^D \left( \vec e_j^\top x_n \right)^2\\
+&=\frac 1 N\sum_{i=1}^N   \sum_{j=M+1}^D \vec e_j^\top x_n x_n^\top \vec e_j\\
+&=\sum_{j=M+1}^D   \vec e_j^\top \left(  \frac 1 N\sum_{i=1}^N    x_n x_n^\top \right) \vec e_j \\
+\end{align}$$
+
+And, critically, $\frac 1 N\sum_{i=1}^N x_n x_n^\top$ in the above expression is the data covariance $(\Sigma)$ since we have centered data!
+
+We can re-write the loss function as
+
+$$\begin{align}
+J &= \sum_{j=M+1}^D   \vec e_j^\top \Sigma \vec e_j \tag 6\\
+&= \text{Trace} \left( \color{blue}{\left( \sum_{j=M+1}^D \vec e_j  \vec e_j^\top   \right)}\Sigma\right)
+\end{align}$$
+
+with the blue expression projecting $\Sigma$ onto the orthogonal component of the principal subspace: the loss function is the variance of the data projected onto the subspace that we ignore - minimizing the loss is minimizing the variance of the data orthogonal to the principal subspace.
+
+We need to find the ONB for the subspace that we want to ignore. 
+
+In $\mathbb R^2,$ we have $\vec e_1, \vec e_2$ with $\vec e_1$ spanning the principal subspace, and $\vec e_2$ spanning the subspace to ignore. They are orthonormal, and hence, $\vec e_i^\top \vec e_j=\delta_{ij}.$ The loss function is
+
+$$J= \vec e_2^\top \Sigma \vec e_2, \; \vec e_2^\top e_2=1$$
+
+The Lagrangian is 
+
+$$L =\vec e_2^\top \Sigma \vec e_2 + \lambda \left(1 - \vec e_2^\top \vec e_2 \right)$$
+calculating partial derivatives
+
+
+$$\frac{\partial L}{\partial \lambda}=1 - \vec e_2^\top \vec e_2=0\implies \vec e_2^\top \vec e_2=1$$
+
+that is the constraint Of ONB.
+
+$$\frac{\partial L}{\partial \vec e_2} = 2 \vec e_2^\top \Sigma - 2 \lambda \vec e_2^\top =0 \implies \Sigma \vec e_2 = \lambda \vec e_2$$
+
+this is an eigenvalue problem, and going back to the loss function:
+
+$$J = \vec e_2^\top \Sigma \vec e_2 =\vec e_2^\top \vec e_2 \lambda =\lambda$$
+
+this last result due to the ONB. So the error is minimized if $\lambda$ is the smallest eigenvalue of the data covariance matrix, corresponding to the eigenvector $\vec e_2,$ which spans the subspace to be ignored. On the other hand, $\vec e_1$ will correspond to the largest eigenvalue to the data covariance matrix. The e-vectors of the covariance matrix are orthogonal because of the symmetry of the covariance matrix.
+
+In the general $\mathbb R^D,$ solving for $\vec e_j, \; j=M+1, \dots, D$ will entail
+
+
+$$\text{CovMat } \vec e_j =\lambda_j \vec e_j, \; j = M+1, \dots, D$$
+
+and the loss funcion
+
+$$J = \sum_{j=M+1}^D \lambda_j$$
+
+yielding a basis for the subspace to be ignored corresponding to the smallest eigenvalues. The principal subspace will be spanned by the e-vectors corresponding to the largest eigenvalues.
+<br>
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
