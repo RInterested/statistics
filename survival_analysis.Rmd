@@ -74,6 +74,7 @@ legend(800,0.9, legend=c('Under 55', 'Over 55'), col=c('firebrick','tan'), lty=1
 # Log rank test:
 
 survdiff(Surv(d$time,d$status) ~ d$over55,)
+
 ```
 
 Running an exponential model:
@@ -81,6 +82,78 @@ Running an exponential model:
 ```{r}
 summary(survreg(Surv(time, status) ~ age+sex, data=lung, dist="exponential") )
 ```
+
+
+Exploring the Cox PH model:
+
+```{r}
+Stan <- na.omit(stanford2)
+Stan <- Stan[order(Stan$t5),]
+Stan$MisMatchLevel <- as.factor(c(rep(0,60),rep(1,53),rep(2,44)))
+Stan <- Stan[order(Stan$age),]
+colnames(Stan) <- c("ID", "Time", "Status", "Age", "t5Score", "MisMatchLevel")
+Stan$Over40 <- as.factor(ifelse(Stan$Age >40, 1, 0))
+Stan <- Stan[,c(1:4,7,5,6)]
+cox.mod <- coxph(Surv(Stan$Time,Stan$Status) ~ Stan$Over40 + Stan$MisMatchLevel)
+summary(cox.mod)
+```
+
+The number of "events" is the number of deaths (below in the output).
+
+Notice there is no intercept.
+
+The `exp(coef)` are the **Hazard ratio**-s. For instance, at a given instant in time, someone over 40 years of age is `1.6813` times as likely to die as someone who is less than 40 years of age, adjusting for mismatch level. Now at a given instant in time, someone who is over 40 is  `1. 6813 - 1 = 68.13 %` as likley to die as someone who is under 40, adjusting for mismatch level.
+
+The `exp(-coef)` is $1/\text{Hazard ratio},$ which would be the hazard ratio for under 40, rather than over 40.
+
+The tests at the bottom test the null hypothesis that $\beta_1,\dots,\beta_n=0.$
+
+The Concordance or C-statistic is a goodness-of-fit statistic for survival analysis, equivalent to AUC in logistic regression. Compares the concordance between surviving in real life to predicted survival according to the model. It's the percentage of *pairs of observations* that are concordant. If the model did random guesses, the concordance would be 50 percent.
+
+Let's compare to another model dropping a variable:
+
+```{r}
+cox.mod2 <- coxph(Surv(Stan$Time,Stan$Status) ~ Stan$Over40)
+
+anova(cox.mod2, cox.mod, test='LRT') # Likelihood ratio test (LRT)
+```
+
+So `MisMatchLevel` is not important in terms of survival.
+
+What about a model with numerical predictors?
+
+```{r}
+cox.num <- coxph(Surv(Stan$Time,Stan$Status) ~ Stan$Age + Stan$t5Score)
+summary(cox.num)
+```
+
+At a given point in time the probability of dying for someone who is 1 year older is `1.03006` higher (3 percent) than someone who is 1 year younger, adjusting for `t5` score.
+
+Checking the linearity assumption:
+
+```{r}
+plot(predict(cox.num), residuals(cox.num, type='martingale'), 
+      xlab='Fitted values', ylab= 'Residual plot', las=1, pch=19, col='firebrick')
+abline(h=0)
+lines(smooth.spline(predict(cox.num), residuals(cox.num, type='martingale')))
+```
+
+There is a bit of non-linearity. It can be addressed by identifying the variable that is non-linear, and transforming it, or using polynomials, etc.
+
+The proportional hazards can be tested with the Schoenfeld test H0: Hazards are proportional; Ha: Hazards are not proportional. The p values are higher than 5 percent. We can plot this test.
+
+```{r}
+cox.zph(cox.num)
+par(mfrow=c(1,2))
+plot(cox.zph(cox.num)[1])
+abline(h=0,col=2)
+plot(cox.zph(cox.num)[2])
+abline(h=0,col=2)
+```
+
+The line tells us how the coefficient (or hazard ratio) would change over time if we allowed it to change. The dashed lines are a confidence bands. The zero change (in red) is sometimes within the interval, but not always in the first plot. So the assumption is a bit suspect.
+
+The proportional hazard assumption is better in the second plot.
 
 
 ---
