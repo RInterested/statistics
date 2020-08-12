@@ -42,21 +42,23 @@ The kaplan-Meier can be predictive, but doesn't allow calculating hazard ratios.
 
 The assumptions of the Cox HP model are:
 
-1. Non-informative censoring (points censored are neither more or less likely to die. This is common to all other models
+1. Non-informative censoring (points censored are neither more or less likely to die. This is common to all other models. People who stay in the study are no different than those lost to follow up.
 2. Survival times are independent. This is common to all other models.
-3. Hazards are proportional (hazard ratios are constant over time). This can be tested with the c-log-log plot and the Schoenfeld's test. This is also assumed in exponential and Weibull. If this is not fulfilled, the coefficients in the regression can be allowed to change over time by including interactions.
-4. Log of the hazard is a linear function of the variables. Check with residual plots. This is also assumed in exponential and Weibull. Otherwise, the variables can be transformed or polynomial regression can be attempted.
-5. Values of the dependent variables do not change over time. Remedied with time-dependent covariates model.
+3. Hazards are proportional (hazard ratios are constant over time - the hazards vary, but not the ratios, i.e. the lines do not cross). This can be tested with the log-log plot (looking for cross over of the curves or "megaphoning" out) and the Schoenfeld's test. This is also assumed in exponential and Weibull. If this is not fulfilled, the coefficients in the regression can be allowed to change over time by including interactions.
+4. Log of the hazard is a linear function of the variables like in Poisson or logistic. Check with residual plots. This is also assumed in exponential and Weibull. Otherwise, the variables can be transformed or polynomial regression can be attempted.
+5. Values of the dependent variables do not change over time. Remedied with time-dependent covariates model. Smokers remain smokers. There are time-updated Cox models.
 6. Baseline hazard ($h_0$) is un-specified.
 
 
 ```{r, error=F, warning=F, message=F}
+options(repr.plot.width=7, repr.plot.height=7)
+
+library(survival)
 require(survival)
-require(RcmdrPlugin.survival)
+head(lung)
 ```
 
 ```{r}
-head(lung)
 lung$over55 <- ifelse(lung$age >= 55, 1, 0)
 lung$status <- ifelse(lung$status == 1, 0, 1)
 d <- lung[,c(2,3,11)]
@@ -76,6 +78,28 @@ legend(800,0.9, legend=c('Under 55', 'Over 55'), col=c('firebrick','tan'), lty=1
 survdiff(Surv(d$time,d$status) ~ d$over55,)
 
 ```
+
+H0: No differences in survival ($S(t)$) between groups.
+
+Ha: Survival curves are different.
+
+In the case above the groups are below and above 55 years of age.
+
+It compares the number of deaths to the expected, much like a chi square test.
+
+Limitations of the Kaplan-Meier method:
+
+1. Only valid to stratify based on categorical variables ("above 55").
+2. Can't incorporate many explanatory variables.
+3. Non-parametric: no simpler way (as in coefficients of line) to summarize.
+
+K-M is a good starting (exploratory) starting point.
+
+The Cox proportional hazards model is semi-parametric. It does not assume a constant hazard (probability of dying now, given that you are alive - instantaneous risk of death). Because the hazard varies over time, there is no intercept (no baseline hazard). So we won't be able to estimate the hazard for an individual, just the hazard ratios (akin to odds ratio) between groups.
+
+The hazard ratios are obtained by exponentiating coefficients. If the HR is greater than $1$ compared to the un-specified baseline hazard, the median survival will be shorter. 
+
+The coefficients in the output tell us the difference in the log-hazard function between groups (categorical) or the change in the log-hazard per one-unit change in $X$ (continuous).
 
 Running an exponential model:
 
@@ -119,6 +143,16 @@ anova(cox.mod2, cox.mod, test='LRT') # Likelihood ratio test (LRT)
 ```
 
 So `MisMatchLevel` is not important in terms of survival.
+
+In both cases the standard error in the calculated coefficient for over 40 has remained around `0.2` with the coefficient remaining at `0.5`, indicating that the mismatch level was not acting as confounder to the primary explanatory variable (age). So it should be excluded.
+
+H0: There is no difference between models.
+
+Ha: Full model explains more (larger predictive value).
+
+It is a chi-square test.
+
+Mismatched may not be a confounder, as seen from the analysis of the two models outputs, but *if* it were significant (it is NOT) despite what was discussed about the lack of change in the coefficient of the age predictor (or its SE), which indicates that mismatch is not a confounder, we would consider including mismatch in the final model to add precision (better model). In that case mismatch would be another significant predictor (although not a confounder).
 
 What about a model with numerical predictors?
 
@@ -208,18 +242,6 @@ Cox-Proportional Hazard Model is a semiparametric hazard model. This proportiona
 $\mbox h(X,T) = h_0 (t)  \exp {\left(\sum_i(\beta_iX_i)\right)}$ Where $h_o(t)$ is the baseline hazard, and $\exp{(\sum_i(\beta_iX_i))}$ is the exponential term. The major advantage of Cox-Proportional hazard model is that the baseline hazard does not need to be specified/semiparametric. In addition to that the exponential term of this Cox-Proportional Hazard Model will ensure that the Hazard function will always be non-negative.
 
 One of the assumption of Cox-Proportional Hazard model is the time-independent covariates, or the covariates must not be changing over time. The Covariates like smoking status will easily failed this assumption, because people can change their smoking habit. For this reason, there are extension of this cox-proportional hazard model using joint probability technique.
-
-There are Three Statistical Objectives in Cox-Proportional Hazard model: 
-   1. Test for significance of the effect. 
-   2. Point estimate of the effect 
-   3. Convidence-Interval of the effect.
-   
-
-```{r,echo=F,warning=F, message=FALSE}
-Rossi[1:2,1:10]
-fit = coxph(formula = Surv(week, arrest) ~ fin + age + race + wexp + mar + paro + prio, data = Rossi)
-summary(fit)
-```
 
 
 ---
