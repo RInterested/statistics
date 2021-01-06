@@ -1,0 +1,294 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="30" WIDTH=40" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+
+> What follows is extracted from [here](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/).
+
+```{r}
+hsb2 <- within(read.csv("https://stats.idre.ucla.edu/stat/data/hsb2.csv"), {
+    race <- as.factor(race)
+    schtyp <- as.factor(schtyp)
+    prog <- as.factor(prog)
+})
+
+attach(hsb2)
+
+names(hsb2)
+```
+
+## $\S$ ONE DEPENDENT VARIABLE:
+<br>
+
+### $\dagger$ ZERO INDEPENDENT VARIABLES:
+<br>
+
+#### INTERVAL and NORMAL DEPENDENT VARIABLE: one-sample t test
+
+```{r}
+summary(write)
+t.test(write, mu = 50)
+```
+
+#### ORDINAL or INTERVAL: one-sample median
+
+```{r}
+wilcox.test(write, mu = 50)
+```
+
+#### CATEGORICAL (2 categories): Binomial test
+
+```{r}
+table(female)
+prop.test(sum(female), length(female), p = 0.5)
+```
+
+#### CATEGORICAL: Chi-square goodness-of-fit
+
+```{r}
+prop.table(table(race))
+chisq.test(table(race), p = c(10, 10, 10, 70)/100)
+```
+
+### $\dagger$ 1 INDEPENDENT VARIABLE with 2 LEVELS (independent groups):
+<br>
+
+#### INTERVAL and NORMAL: 2 independent sample t-test
+
+```{r}
+t.test(write ~ female)
+```
+
+#### ORDINAL or INTERVAL: Wilcoxon-Mann Whitney test
+
+```{r}
+wilcox.test(write ~ female)
+``` 
+
+#### CATEGORICAL: Chi-square test and Fisher's exact test
+
+```{r}
+summary(schtyp)
+chisq.test(table(female, schtyp))
+fisher.test(table(race, schtyp))
+``` 
+
+### $\dagger$ 1 INDEPENDENT VARIABLE with 2 or more LEVELS (independent groups): 
+<br>
+
+#### INTERVAL & NORMAL: one-way ANOVA
+
+```{r}
+summary(prog)
+aov(write ~ prog)
+summary(aov(write ~ prog))
+``` 
+
+#### ORDINAL or INTERVAL: Kruskal Wallis
+
+```{r}
+kruskal.test(write, prog)
+``` 
+
+#### CATEGORICAL: Chi-square test
+
+```{r}
+chisq.test(table(female, schtyp))
+``` 
+
+### $\dagger$ 1 INDEPENDENT VARIABLE with 2 levels (dependent/matched groups):
+<br>
+
+#### INTERVAL & NORMAL: paired t-test
+
+```{r}
+t.test(write, read, paired = TRUE)
+``` 
+
+#### ORDINAL or INTERVAL: Wilcoxon signed ranks test
+
+```{r}
+wilcox.test(write, read, paired = TRUE)
+``` 
+
+#### CATEGORICAL: McNemar test
+
+```{r}
+X <- matrix(c(172, 7, 6, 15), 2, 2)
+mcnemar.test(X)
+``` 
+
+### $\dagger$ 1 INDEPENDENT VARIABLE with 2 or more levels (dependent/matched groups)
+<br>
+
+#### INTERVAL & NORMAL: one-way repeated measures ANOVA
+
+```{r}
+require(car)
+require(foreign)
+kirk <- within(read.dta("https://stats.idre.ucla.edu/stat/stata/examples/kirk/rb4.dta"), 
+    {
+        s <- as.factor(s)
+        a <- as.factor(a)
+    })
+
+model <- lm(y ~ a + s, data = kirk)
+analysis <- Anova(model, idata = kirk, idesign = ~s)
+print(analysis)
+``` 
+
+#### ORDINAL or INTERVAL: Friedman test
+
+```{r}
+friedman.test(cbind(read, write, math))
+``` 
+
+#### CATEGORICAL (2 categories): repeated measures logistic regression
+
+```{r}
+require(lme4)
+exercise <- within(read.dta("https://stats.idre.ucla.edu/stat/stata/whatstat/exercise.dta"), 
+    {
+        id <- as.factor(id)
+        diet <- as.factor(diet)
+    })
+glmer(highpulse ~ diet + (1 | id), data = exercise, family = binomial)
+``` 
+
+
+### $\dagger$ 2 or more INDEPENDENT VARIABLES (independent groups):
+<br>
+
+#### INTERVAL & NORMAL: factorial ANOVA
+
+```{r}
+table(hsb2$ses)
+anova(lm(write ~ female * ses, data = hsb2))
+``` 
+#### ORDINAL & INTERVAL: ordered logistic regression
+
+
+```{r}
+library(MASS)
+hsb2$write3 <- cut(hsb2$write, c(0, 48, 57, 70),  right = TRUE, labels = c(1,2,3))
+table(hsb2$write3)
+m <- polr(write3 ~ female + read + socst, data = hsb2, Hess=TRUE)
+summary(m)
+``` 
+
+
+#### CATEGORICAL (2 categories): factorial logistic regression
+<br>
+
+#### $\dagger$ 1 interval IV:
+
+#### INTERVAL & NORMAL: Correlation
+
+```{r}
+cor(read, write)
+cor.test(read, write)
+``` 
+
+#### INTERVAL & NORMAL: Simple linear regression
+
+```{r}
+lm(write ~ read)
+``` 
+
+#### ORDINAL or INTERVAL: non-parametric correlation
+
+```{r}
+cor.test(write, read, method = "spearman")
+``` 
+
+#### CATEGORICAL: simple logistic regression
+
+```{r}
+glm(female ~ read, family = binomial)
+``` 
+
+### $\dagger$ 1 or more interval IVs and/or 1 or more categorical IVs:
+<br>
+
+#### INTERVAL and NORMAL: Multiple regression
+
+```{r}
+lm(write ~ female + read + math + science + socst)
+``` 
+
+#### INTERVAL and NORMAL: Analysis of covariance ANCOVA
+
+```{r}
+lm(write ~ female + read + math + science + socst)
+``` 
+
+#### CATEGORICAL: multiple logistic regression
+
+```{r}
+glm(female ~ read + write, family = binomial)
+``` 
+
+#### CATEGORICAL: discriminant analysis
+
+```{r}
+(fit <- lda(factor(prog) ~ read + write + math, data = hsb2))
+```
+
+---
+
+
+## $\S$ TWO OR MORE DEPENDENT VARIABLE:
+<br>
+
+### $\dagger$ 1 IV with 2 or more levels (independent groups)
+<br>
+
+#### INTERVAL and NORMAL: One-way MANOVA
+
+```{r}
+summary(manova(cbind(read, write, math) ~ prog))
+```
+
+### $\dagger$ 2 +
+<br>
+
+#### INTERVAL and NORMAL: multivariate multiple linear regression
+
+```{r}
+M1 <- lm(cbind(write, read) ~ female + math + science + socst, data = hsb2)
+summary(Anova(M1))
+```
+
+### $\dagger$ 0
+<br>
+
+#### INTERVAL and NORMAL: factor analysis
+
+```{r}
+require(psych)
+fa(r = cor(model.matrix(~read + write + math + science + socst - 1, data = hsb2)), rotate = "none", fm = "pa", 2)
+```
+
+## $\S$ TWO SETS OF 2 +:
+<br>
+
+### $\dagger$ O
+<br>
+
+#### INTERVAL and NORMAL: canonical correlation
+
+```{r}
+require(CCA)
+cc(cbind(read, write), cbind(math, science))
+```
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
