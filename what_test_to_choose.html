@@ -389,16 +389,15 @@ summary {
 attach(hsb2)
 
 names(hsb2)</code></pre>
-<pre><code>##  [1] &quot;id&quot;      &quot;female&quot;  &quot;race&quot;    &quot;ses&quot;     &quot;schtyp&quot;  &quot;prog&quot;    &quot;read&quot;   
-##  [8] &quot;write&quot;   &quot;math&quot;    &quot;science&quot; &quot;socst&quot;</code></pre>
 <div id="s-one-dependent-variable" class="section level2">
 <h2><span class="math inline">\(\S\)</span> ONE DEPENDENT VARIABLE:</h2>
-<p><br></p>
+<hr />
 <div id="dagger-zero-independent-variables" class="section level3">
 <h3><span class="math inline">\(\dagger\)</span> ZERO INDEPENDENT VARIABLES:</h3>
 <p><br></p>
 <div id="interval-and-normal-dependent-variable-one-sample-t-test" class="section level4">
 <h4>INTERVAL and NORMAL DEPENDENT VARIABLE: one-sample t test</h4>
+<p>A one sample t-test allows us to test whether a sample mean (of a normally distributed interval variable) significantly differs from a hypothesized value.</p>
 <pre class="r"><code>summary(write)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   31.00   45.75   54.00   52.77   60.00   67.00</code></pre>
@@ -414,9 +413,12 @@ names(hsb2)</code></pre>
 ## sample estimates:
 ## mean of x 
 ##    52.775</code></pre>
+<p>The mean of the variable write for this particular sample of students is 52.775, which is statistically significantly different from the test value of 50. We would conclude that this group of students has a significantly higher mean on the writing test than 50.</p>
+<hr />
 </div>
-<div id="ordinal-or-interval-one-sample-median" class="section level4">
-<h4>ORDINAL or INTERVAL: one-sample median</h4>
+<div id="ordinal-or-interval-one-sample-median-test" class="section level4">
+<h4>ORDINAL or INTERVAL: one-sample median test</h4>
+<p>A one sample median test allows us to test whether a sample median differs significantly from a hypothesized value. We will use the same variable, write, as we did in the one sample t-test example above, but we do not need to assume that it is interval and normally distributed (we only need to assume that write is an ordinal variable and that its distribution is symmetric). We will test whether the median writing score (write) differs significantly from 50.</p>
 <pre class="r"><code>wilcox.test(write, mu = 50)</code></pre>
 <pre><code>## 
 ##  Wilcoxon signed rank test with continuity correction
@@ -424,9 +426,12 @@ names(hsb2)</code></pre>
 ## data:  write
 ## V = 13177, p-value = 3.702e-05
 ## alternative hypothesis: true location is not equal to 50</code></pre>
+<p>The results indicate that the median of the variable write for this group is statistically significantly different from 50.</p>
+<hr />
 </div>
 <div id="categorical-2-categories-binomial-test" class="section level4">
 <h4>CATEGORICAL (2 categories): Binomial test</h4>
+<p>A one sample binomial test allows us to test whether the proportion of successes on a two-level categorical dependent variable significantly differs from a hypothesized value. For example, using the hsb2 data file, say we wish to test whether the proportion of females (female) differs significantly from 50%, i.e., from .5.</p>
 <pre class="r"><code>table(female)</code></pre>
 <pre><code>## female
 ##   0   1 
@@ -443,9 +448,12 @@ names(hsb2)</code></pre>
 ## sample estimates:
 ##     p 
 ## 0.545</code></pre>
+<p>The results indicate that there is no statistically significant difference (p = .2292). In other words, the proportion of females does not significantly differ from the hypothesized value of 50%.</p>
+<hr />
 </div>
 <div id="categorical-chi-square-goodness-of-fit" class="section level4">
 <h4>CATEGORICAL: Chi-square goodness-of-fit</h4>
+<p>A chi-square goodness of fit test allows us to test whether the observed proportions for a categorical variable differ from hypothesized proportions. For example, let’s suppose that we believe that the general population consists of 10% Hispanic, 10% Asian, 10% African American and 70% White folks. We want to test whether the observed proportions from our sample differ significantly from these hypothesized proportions. T</p>
 <pre class="r"><code>prop.table(table(race))</code></pre>
 <pre><code>## race
 ##     1     2     3     4 
@@ -456,6 +464,8 @@ names(hsb2)</code></pre>
 ## 
 ## data:  table(race)
 ## X-squared = 5.0286, df = 3, p-value = 0.1697</code></pre>
+<p>These results show that racial composition in our sample does not differ significantly from the hypothesized values that we supplied (chi-square with three degrees of freedom = 5.03, p = .1697).</p>
+<hr />
 </div>
 </div>
 <div id="dagger-1-independent-variable-with-2-levels-independent-groups" class="section level3">
@@ -463,6 +473,7 @@ names(hsb2)</code></pre>
 <p><br></p>
 <div id="interval-and-normal-2-independent-sample-t-test" class="section level4">
 <h4>INTERVAL and NORMAL: 2 independent sample t-test</h4>
+<p>An independent samples t-test is used when you want to compare the means of a normally distributed interval dependent variable for two independent groups. For example, using the hsb2 data file, say we wish to test whether the mean for write is the same for males and females.</p>
 <pre class="r"><code>t.test(write ~ female)</code></pre>
 <pre><code>## 
 ##  Welch Two Sample t-test
@@ -475,9 +486,12 @@ names(hsb2)</code></pre>
 ## sample estimates:
 ## mean in group 0 mean in group 1 
 ##        50.12088        54.99083</code></pre>
+<p>The results indicate that there is a statistically significant difference between the mean writing score for males and females (t = -3.6564, p = .0003). In other words, females have a statistically significantly higher mean score on writing (54.99) than males (50.12).</p>
+<hr />
 </div>
 <div id="ordinal-or-interval-wilcoxon-mann-whitney-test" class="section level4">
 <h4>ORDINAL or INTERVAL: Wilcoxon-Mann Whitney test</h4>
+<p>The Wilcoxon-Mann-Whitney test is a non-parametric analog to the independent samples t-test and can be used when you do not assume that the dependent variable is a normally distributed interval variable (you only assume that the variable is at least ordinal). We will use the same data file (the hsb2 data file) and the same variables in this example as we did in the independent t-test example above and will not assume that write, our dependent variable, is normally distributed.</p>
 <pre class="r"><code>wilcox.test(write ~ female)</code></pre>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
@@ -485,9 +499,12 @@ names(hsb2)</code></pre>
 ## data:  write by female
 ## W = 3606, p-value = 0.0008749
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>The results suggest that there is a statistically significant difference between the underlying distributions of the write scores of males and the write scores of females. You can determine which group has the higher rank by looking at the how the actual rank sums compare to the expected rank sums under the null hypothesis. The sum of the female ranks was higher while the sum of the male ranks was lower. Thus the female group had higher rank.</p>
+<hr />
 </div>
 <div id="categorical-chi-square-test-and-fishers-exact-test" class="section level4">
 <h4>CATEGORICAL: Chi-square test and Fisher’s exact test</h4>
+<p>A chi-square test is used when you want to see if there is a relationship between two categorical variables. Using the hsb2 data file, let’s see if there is a relationship between the type of school attended (schtyp) and students’ gender (female). Remember that the chi-square test assumes the expected value of each cell is five or higher. This assumption is easily met in the examples below. However, if this assumption is not met in your data, please see the section on Fisher’s exact test below.</p>
 <pre class="r"><code>summary(schtyp)</code></pre>
 <pre><code>##   1   2 
 ## 168  32</code></pre>
@@ -497,6 +514,17 @@ names(hsb2)</code></pre>
 ## 
 ## data:  table(female, schtyp)
 ## X-squared = 0.00054009, df = 1, p-value = 0.9815</code></pre>
+<p>These results indicate that there is no statistically significant relationship between the type of school attended and gender (chi-square with one degree of freedom = 0.00054, p = 0.9815.</p>
+<p>Let’s look at another example, this time looking at the relationship between gender (female) and socio-economic status (ses). The point of this example is that one (or both) variables may have more than two levels, and that the variables do not have to have the same number of levels. In this example, female has two levels (male and female) and ses has three levels (low, medium and high).</p>
+<pre class="r"><code>chisq.test(table(female, ses))</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  table(female, ses)
+## X-squared = 4.5765, df = 2, p-value = 0.1014</code></pre>
+<p>Again we find that there is no statistically significant relationship between the variables (chi-square with two degrees of freedom = 4.5765, p = 0.101).</p>
+<hr />
+<p>The Fisher’s exact test is used when you want to conduct a chi-square test, but one or more of your cells has an expected frequency of five or less. Remember that the chi-square test assumes that each cell has an expected frequency of five or more, but the Fisher’s exact test has no such assumption and can be used regardless of how small the expected frequency is. In the example below, we have cells with observed frequencies of two and one, which may indicate expected frequencies that could be below five, so we will use Fisher’s exact test.</p>
 <pre class="r"><code>fisher.test(table(race, schtyp))</code></pre>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
@@ -504,6 +532,8 @@ names(hsb2)</code></pre>
 ## data:  table(race, schtyp)
 ## p-value = 0.5975
 ## alternative hypothesis: two.sided</code></pre>
+<p>These results suggest that there is not a statistically significant relationship between race and type of school (p = 0.597). Note that the Fisher’s exact test does not have a “test statistic”, but computes the p-value directly.</p>
+<hr />
 </div>
 </div>
 <div id="dagger-1-independent-variable-with-2-or-more-levels-independent-groups" class="section level3">
@@ -511,6 +541,7 @@ names(hsb2)</code></pre>
 <p><br></p>
 <div id="interval-normal-one-way-anova" class="section level4">
 <h4>INTERVAL &amp; NORMAL: one-way ANOVA</h4>
+<p>A one-way analysis of variance (ANOVA) is used when you have a categorical independent variable (with two or more categories) and a normally distributed interval dependent variable and you wish to test for differences in the means of the dependent variable broken down by the levels of the independent variable. For example, using the hsb2 data file, say we wish to test whether the mean of write differs between the three program types (prog). The command for this test would be:</p>
 <pre class="r"><code>summary(prog)</code></pre>
 <pre><code>##   1   2   3 
 ##  45 105  50</code></pre>
@@ -531,24 +562,20 @@ names(hsb2)</code></pre>
 ## Residuals   197  14703    74.6                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The mean of the dependent variable differs significantly among the levels of program type. However, we do not know if the difference is between only two of the levels or all three of the levels. (The F test for the Model is the same as the F test for prog because prog was the only variable entered into the model. If other variables had also been entered, the F test for the Model would have been different from prog.)</p>
+<hr />
 </div>
 <div id="ordinal-or-interval-kruskal-wallis" class="section level4">
 <h4>ORDINAL or INTERVAL: Kruskal Wallis</h4>
+<p>The Kruskal Wallis test is used when you have one independent variable with two or more levels and an ordinal dependent variable. In other words, it is the non-parametric version of ANOVA and a generalized form of the Mann-Whitney test method since it permits 2 or more groups. We will use the same data file as the one way ANOVA example above (the hsb2 data file) and the same variables as in the example above, but we will not assume that write is a normally distributed interval variable.</p>
 <pre class="r"><code>kruskal.test(write, prog)</code></pre>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  write and prog
 ## Kruskal-Wallis chi-squared = 34.045, df = 2, p-value = 4.047e-08</code></pre>
-</div>
-<div id="categorical-chi-square-test" class="section level4">
-<h4>CATEGORICAL: Chi-square test</h4>
-<pre class="r"><code>chisq.test(table(female, schtyp))</code></pre>
-<pre><code>## 
-##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-## 
-## data:  table(female, schtyp)
-## X-squared = 0.00054009, df = 1, p-value = 0.9815</code></pre>
+<p>If some of the scores receive tied ranks, then a correction factor is used, yielding a slightly different value of chi-squared. With or without ties, the results indicate that there is a statistically significant difference among the three type of programs.</p>
+<hr />
 </div>
 </div>
 <div id="dagger-1-independent-variable-with-2-levels-dependentmatched-groups" class="section level3">
@@ -556,6 +583,7 @@ names(hsb2)</code></pre>
 <p><br></p>
 <div id="interval-normal-paired-t-test" class="section level4">
 <h4>INTERVAL &amp; NORMAL: paired t-test</h4>
+<p>A paired (samples) t-test is used when you have two related observations (i.e. two observations per subject) and you want to see if the means on these two normally distributed interval variables differ from one another. For example, using the hsb2 data file we will test whether the mean of read is equal to the mean of write.</p>
 <pre class="r"><code>t.test(write, read, paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
@@ -568,9 +596,43 @@ names(hsb2)</code></pre>
 ## sample estimates:
 ## mean of the differences 
 ##                   0.545</code></pre>
+<p>These results indicate that the mean of read is not statistically significantly different from the mean of write (t = -0.8673, p = 0.3868).</p>
 </div>
-<div id="ordinal-or-interval-wilcoxon-signed-ranks-test" class="section level4">
-<h4>ORDINAL or INTERVAL: Wilcoxon signed ranks test</h4>
+<div id="ordinal-or-interval-wilcoxon-signed-rank-test" class="section level4">
+<h4>ORDINAL or INTERVAL: Wilcoxon signed rank test</h4>
+<p>Mann–Whitney U test (also called the Mann–Whitney–Wilcoxon (MWW), Wilcoxon rank-sum test, or Wilcoxon–Mann–Whitney test) is a nonparametric test of the null hypothesis that it is equally likely that a randomly selected value from one sample will be less than or greater than a randomly selected value from a second sample.</p>
+<p>Under the null hypothesis H0, the probability of an observation from the population X exceeding an observation from the second population Y equals the probability of an observation from Y exceeding an observation from X.</p>
+<p>You should use the rank-sum test when the data are not paired. You’ll find many definitions of pairing, but at heart the criterion is something that makes pairs of values at least somewhat positively dependent, while unpaired values are not dependent. Often the dependence-pairing occurs because they’re observations on the same unit (repeated measures), but it doesn’t have to be on the same unit, just in some way tending to be associated (while measuring the same kind of thing), to be considered as ‘paired’.</p>
+<p>You use the Wilcoxon signed rank sum test when you do not wish to assume that the difference between the two variables is interval and normally distributed (but you do assume the difference is ordinal).</p>
+<pre class="r"><code>a = c(110, 115, 128, 142, 123, 129, 130, 128 ,134, 133, 128, 147, 137, 112, 138, 128, 132, 139, 133, 135, 133, 125, 134, 139, 138, 142, 152, 140, 144, 147 ,153 ,141)
+b = c(122, 118, 120 ,131 ,124 ,118 ,120 ,140 ,124, 120, 134, 127, 127 ,134, 133, 137 ,137 ,135 ,129 ,138 ,143, 128 ,121 ,129, 133, 138, 142, 131, 135, 132, 146, 135)
+
+wilcox.test(a,b)</code></pre>
+<pre><code>## Warning in wilcox.test.default(a, b): cannot compute exact p-value with ties</code></pre>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  a and b
+## W = 632.5, p-value = 0.1067
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>You should use the signed rank test when the data are paired:</p>
+<pre class="r"><code>after = c(125, 115, 130, 140, 140, 115, 140, 125, 140, 135)
+before = c(110, 122, 125, 120, 140, 124, 123, 137, 135, 145)
+sgn = sign(after-before)
+abs = abs(after - before)
+d = data.frame(after,before,sgn,abs)
+wilcox.test(d$before,d$after, paired = T, alternative = &quot;two.sided&quot;, correct=F)</code></pre>
+<pre><code>## Warning in wilcox.test.default(d$before, d$after, paired = T, alternative =
+## &quot;two.sided&quot;, : cannot compute exact p-value with ties</code></pre>
+<pre><code>## Warning in wilcox.test.default(d$before, d$after, paired = T, alternative =
+## &quot;two.sided&quot;, : cannot compute exact p-value with zeroes</code></pre>
+<pre><code>## 
+##  Wilcoxon signed rank test
+## 
+## data:  d$before and d$after
+## V = 18, p-value = 0.5936
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>Or using the same example as above, but without assuming that the difference between read and write is interval and normally distributed.</p>
 <pre class="r"><code>wilcox.test(write, read, paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Wilcoxon signed rank test with continuity correction
@@ -578,16 +640,25 @@ names(hsb2)</code></pre>
 ## data:  write and read
 ## V = 9261, p-value = 0.3666
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>The results suggest that there is not a statistically significant difference between read and write.</p>
+<p>If you believe the differences between read and write were not ordinal but could merely be classified as positive and negative, then you may want to consider a sign test in lieu of sign rank test.</p>
+<hr />
 </div>
 <div id="categorical-mcnemar-test" class="section level4">
 <h4>CATEGORICAL: McNemar test</h4>
-<pre class="r"><code>X &lt;- matrix(c(172, 7, 6, 15), 2, 2)
-mcnemar.test(X)</code></pre>
+<p>You would perform McNemar’s test if you were interested in the marginal frequencies of two binary outcomes. These binary outcomes may be the same outcome variable on matched pairs (like a case-control study) or two outcome variables from a single group. For example, let us consider two questions, Q1 and Q2, from a test taken by 200 students. Suppose 172 students answered both questions correctly, 15 students answered both questions incorrectly, 7 answered Q1 correctly and Q2 incorrectly, and 6 answered Q2 correctly and Q1 incorrectly. These counts can be considered in a two-way contingency table. The null hypothesis is that the two questions are answered correctly or incorrectly at the same rate (or that the contingency table is symmetric).</p>
+<pre class="r"><code>(X &lt;- matrix(c(172, 7, 6, 15), 2, 2))</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]  172    6
+## [2,]    7   15</code></pre>
+<pre class="r"><code>mcnemar.test(X)</code></pre>
 <pre><code>## 
 ##  McNemar&#39;s Chi-squared test with continuity correction
 ## 
 ## data:  X
 ## McNemar&#39;s chi-squared = 0, df = 1, p-value = 1</code></pre>
+<p>McNemar’s chi-square statistic suggests that there is not a statistically significant difference in the proportions of correct/incorrect answers to these two questions.</p>
+<hr />
 </div>
 </div>
 <div id="dagger-1-independent-variable-with-2-or-more-levels-dependentmatched-groups" class="section level3">
@@ -595,6 +666,7 @@ mcnemar.test(X)</code></pre>
 <p><br></p>
 <div id="interval-normal-one-way-repeated-measures-anova" class="section level4">
 <h4>INTERVAL &amp; NORMAL: one-way repeated measures ANOVA</h4>
+<p>You would perform a one-way repeated measures analysis of variance if you had one categorical independent variable and a normally distributed interval dependent variable that was repeated at least twice for each subject. This is the equivalent of the paired samples t-test, but allows for two or more levels of the categorical variable. This tests whether the mean of the dependent variable differs by the categorical variable. We have an example data set called rb4, which is used in Kirk’s book Experimental Design. In this data set, y is the dependent variable, a is the repeated measure and s is the variable that indicates the subject number.</p>
 <pre class="r"><code>require(car)</code></pre>
 <pre><code>## Loading required package: car</code></pre>
 <pre><code>## Loading required package: carData</code></pre>
@@ -618,18 +690,24 @@ print(analysis)</code></pre>
 ## Residuals   29.5 21                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>There may be up to four different p-values. The “regular” (0.0001) is the p-value that you would get if you assumed compound symmetry in the variance-covariance matrix. Because that assumption is often not valid, the three other p-values offer various corrections (the Huynh-Feldt, H-F, Greenhouse-Geisser, G-G and Box’s conservative, Box). No matter which p-value you use, our results indicate that we have a statistically significant effect of a at the .05 level.</p>
 </div>
 <div id="ordinal-or-interval-friedman-test" class="section level4">
 <h4>ORDINAL or INTERVAL: Friedman test</h4>
+<p>You perform a Friedman test when you have one within-subjects independent variable with two or more levels and a dependent variable that is not interval and normally distributed (but at least ordinal). We will use this test to determine if there is a difference in the reading, writing and math scores. The null hypothesis in this test is that the distribution of the ranks of each type of score (i.e., reading, writing and math) are the same.</p>
 <pre class="r"><code>friedman.test(cbind(read, write, math))</code></pre>
 <pre><code>## 
 ##  Friedman rank sum test
 ## 
 ## data:  cbind(read, write, math)
 ## Friedman chi-squared = 0.64491, df = 2, p-value = 0.7244</code></pre>
+<p>Friedman’s chi-square has a value of 0.64 and a p-value of 0.7244 and is not statistically significant. Hence, there is no evidence that the distributions of the three types of scores are different.</p>
+<hr />
 </div>
 <div id="categorical-2-categories-repeated-measures-logistic-regression" class="section level4">
 <h4>CATEGORICAL (2 categories): repeated measures logistic regression</h4>
+<p>If you have a binary outcome measured repeatedly for each subject and you wish to run a logistic regression that accounts for the effect of these multiple measures from each subjects, you can perform a repeated measures logistic regression. The exercise data file contains 3 pulse measurements of 30 people assigned to 2 different diet regiments and 3 different exercise regiments. If we define a “high” pulse as being over 100, we can then predict the probability of a high pulse using diet regiment.</p>
+<p>First, we use xtset to define which variable defines the repetitions. In this dataset, there are three measurements taken for each id, so we will use id as our panel variable. Then we can use i: before diet so that we can create indicator variables as needed.</p>
 <pre class="r"><code>require(lme4)</code></pre>
 <pre><code>## Loading required package: lme4</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
@@ -644,21 +722,54 @@ print(analysis)</code></pre>
         id &lt;- as.factor(id)
         diet &lt;- as.factor(diet)
     })
-glmer(highpulse ~ diet + (1 | id), data = exercise, family = binomial)</code></pre>
+
+lmm &lt;- glmer(highpulse ~ diet + (1 | id), data = exercise, family = binomial)
+
+
+library(lmerTest)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lmerTest&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:lme4&#39;:
+## 
+##     lmer</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     step</code></pre>
+<pre class="r"><code>summary(lmm)</code></pre>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
 ## Formula: highpulse ~ diet + (1 | id)
 ##    Data: exercise
+## 
 ##      AIC      BIC   logLik deviance df.resid 
-## 105.4679 112.9674 -49.7340  99.4679       87 
+##    105.5    113.0    -49.7     99.5       87 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.1218 -0.3639 -0.2650  0.5249  1.7553 
+## 
 ## Random effects:
-##  Groups Name        Std.Dev.
-##  id     (Intercept) 1.821   
+##  Groups Name        Variance Std.Dev.
+##  id     (Intercept) 3.315    1.821   
 ## Number of obs: 90, groups:  id, 30
-## Fixed Effects:
-## (Intercept)        diet2  
-##      -2.004        1.145</code></pre>
+## 
+## Fixed effects:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)  -2.0036     0.8102  -2.473   0.0134 *
+## diet2         1.1446     0.9487   1.207   0.2276  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##       (Intr)
+## diet2 -0.719</code></pre>
+<pre class="r"><code>anova(lmm)</code></pre>
+<pre><code>## Analysis of Variance Table
+##      npar Sum Sq Mean Sq F value
+## diet    1 1.6262  1.6262  1.6262</code></pre>
+<p>These results indicate that diet is not statistically significant (Z = 1.2, p = 0.228).</p>
+<hr />
 </div>
 </div>
 <div id="dagger-2-or-more-independent-variables-independent-groups" class="section level3">
@@ -666,6 +777,7 @@ glmer(highpulse ~ diet + (1 | id), data = exercise, family = binomial)</code></p
 <p><br></p>
 <div id="interval-normal-factorial-anova" class="section level4">
 <h4>INTERVAL &amp; NORMAL: factorial ANOVA</h4>
+<p>A factorial ANOVA has two or more categorical independent variables (either with or without the interactions) and a single normally distributed interval dependent variable. For example, using the hsb2 data file we will look at writing scores (write) as the dependent variable and gender (female) and socio-economic status (ses) as independent variables, and we will include an interaction of female by ses.</p>
 <pre class="r"><code>table(hsb2$ses)</code></pre>
 <pre><code>## 
 ##  1  2  3 
@@ -681,9 +793,32 @@ glmer(highpulse ~ diet + (1 | id), data = exercise, family = binomial)</code></p
 ## Residuals  196 15660.3   79.90                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>summary(lm(write ~ female * ses, data = hsb2))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = write ~ female * ses, data = hsb2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -22.279  -6.079   1.462   6.971  18.527 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 43.31092    3.12020  13.881   &lt;2e-16 ***
+## female       5.36679    3.94610   1.360   0.1754    
+## ses          3.16176    1.38180   2.288   0.0232 *  
+## female:ses   0.03884    1.79471   0.022   0.9828    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 8.939 on 196 degrees of freedom
+## Multiple R-squared:  0.1241, Adjusted R-squared:  0.1107 
+## F-statistic: 9.256 on 3 and 196 DF,  p-value: 9.384e-06</code></pre>
+<p>These results indicate that the overall model is statistically significant (F = 9.2, p = 0.000). The variables female and ses are also statistically significant (F = 14.7212, p = 0.0001 and F = 13.0454, p = 0.0003, respectively). However, that interaction between female and ses is not statistically significant (F = 0.0005, p = 0.982).</p>
 </div>
 <div id="ordinal-interval-ordered-logistic-regression" class="section level4">
 <h4>ORDINAL &amp; INTERVAL: ordered logistic regression</h4>
+<p>Ordered logistic regression is used when the dependent variable is ordered, but not continuous. For example, using the hsb2 data file we will create an ordered variable called write3. This variable will have the values 1, 2 and 3, indicating a low, medium or high writing score. We do not generally recommend categorizing a continuous variable in this way; we are simply creating a variable to use for this example. We will use gender (female), reading score (read) and social studies score (socst) as predictor variables in this model.</p>
 <pre class="r"><code>library(MASS)
 hsb2$write3 &lt;- cut(hsb2$write, c(0, 48, 57, 70),  right = TRUE, labels = c(1,2,3))
 table(hsb2$write3)</code></pre>
@@ -708,16 +843,48 @@ summary(m)</code></pre>
 ## 
 ## Residual Deviance: 312.5526 
 ## AIC: 322.5526</code></pre>
+<p>The results indicate that the overall model is statistically significant (p &lt; .0000), as are each of the predictor variables (p &lt; .000). There are two cutoff points for this model because there are three levels of the outcome variable.</p>
+<p>One of the assumptions underlying ordinal logistic (and ordinal probit) regression is that the relationship between each pair of outcome groups is the same. In other words, ordinal logistic regression assumes that the coefficients that describe the relationship between, say, the lowest versus all higher categories of the response variable are the same as those that describe the relationship between the next lowest category and all higher categories, etc. This is called the proportional odds assumption or the parallel regression assumption. Because the relationship between all pairs of groups is the same, there is only one set of coefficients (only one model). If this was not the case, we would need different models (such as a generalized ordered logit model) to describe the relationship between each pair of outcome groups.</p>
+<hr />
 </div>
 <div id="categorical-2-categories-factorial-logistic-regression" class="section level4">
 <h4>CATEGORICAL (2 categories): factorial logistic regression</h4>
 <p><br></p>
+<p>A factorial logistic regression is used when you have two or more categorical independent variables but a dichotomous dependent variable. For example, using the hsb2 data file we will use female as our dependent variable, because it is the only dichotomous (0/1) variable in our data set; certainly not because it common practice to use gender as an outcome variable. We will use type of program (prog) and school type (schtyp) as our predictor variables. Because prog is a categorical variable (it has three levels), we need to create dummy codes for it.</p>
+<pre class="r"><code>summary(glm(female ~ prog * schtyp, data = hsb2, family = binomial))</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = female ~ prog * schtyp, family = binomial, data = hsb2)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.893  -1.249   1.064   1.107   1.199  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)   -0.05129    0.32036  -0.160    0.873
+## prog2          0.32459    0.39108   0.830    0.407
+## prog3          0.21835    0.43191   0.506    0.613
+## schtyp2        1.66073    1.14131   1.455    0.146
+## prog2:schtyp2 -1.93402    1.23271  -1.569    0.117
+## prog3:schtyp2 -1.82779    1.84025  -0.993    0.321
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 275.64  on 199  degrees of freedom
+## Residual deviance: 272.49  on 194  degrees of freedom
+## AIC: 284.49
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
+<p>The results indicate that the overall model is not statistically significant. Furthermore, none of the coefficients are statistically significant either.</p>
+<hr />
 </div>
 <div id="dagger-1-interval-iv" class="section level4">
 <h4><span class="math inline">\(\dagger\)</span> 1 interval IV:</h4>
 </div>
 <div id="interval-normal-correlation" class="section level4">
 <h4>INTERVAL &amp; NORMAL: Correlation</h4>
+<p>A correlation is useful when you want to see the linear relationship between two (or more) normally distributed interval variables. For example, using the hsb2 data file we can run a correlation between two continuous variables, read and write.</p>
 <pre class="r"><code>cor(read, write)</code></pre>
 <pre><code>## [1] 0.5967765</code></pre>
 <pre class="r"><code>cor.test(read, write)</code></pre>
@@ -732,9 +899,27 @@ summary(m)</code></pre>
 ## sample estimates:
 ##       cor 
 ## 0.5967765</code></pre>
+<p>In the second example, we will run a correlation between a dichotomous variable, female, and a continuous variable, write. Although it is assumed that the variables are interval and normally distributed, we can include dummy variables when performing correlations.</p>
+<pre class="r"><code>cor(female, write)</code></pre>
+<pre><code>## [1] 0.2564915</code></pre>
+<pre class="r"><code>cor.test(read, write)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  read and write
+## t = 10.465, df = 198, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.4993831 0.6792753
+## sample estimates:
+##       cor 
+## 0.5967765</code></pre>
+<p>In the first example above, we see that the correlation between read and write is 0.5968. By squaring the correlation and then multiplying by 100, you can determine what percentage of the variability is shared. Let’s round 0.5968 to be 0.6, which when squared would be .36, multiplied by 100 would be 36%. Hence read shares about 36% of its variability with write. In the output for the second example, we can see the correlation between write and female is 0.2565. Squaring this number yields .06579225, meaning that female shares approximately 6.5% of its variability with write.</p>
+<hr />
 </div>
 <div id="interval-normal-simple-linear-regression" class="section level4">
 <h4>INTERVAL &amp; NORMAL: Simple linear regression</h4>
+<p>Simple linear regression allows us to look at the linear relationship between one normally distributed interval predictor and one normally distributed interval outcome variable. For example, using the hsb2 data file, say we wish to look at the relationship between writing scores (write) and reading scores (read); in other words, predicting write from read.</p>
 <pre class="r"><code>lm(write ~ read)</code></pre>
 <pre><code>## 
 ## Call:
@@ -743,9 +928,30 @@ summary(m)</code></pre>
 ## Coefficients:
 ## (Intercept)         read  
 ##     23.9594       0.5517</code></pre>
+<pre class="r"><code>summary(lm(write ~ read))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = write ~ read)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20.5447  -5.1225   0.6451   6.3259  15.4553 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.95944    2.80574   8.539 3.55e-15 ***
+## read         0.55171    0.05272  10.465  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.625 on 198 degrees of freedom
+## Multiple R-squared:  0.3561, Adjusted R-squared:  0.3529 
+## F-statistic: 109.5 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We see that the relationship between write and read is positive (.5517051) and based on the t-value (10.47) and p-value (0.000), we would conclude this relationship is statistically significant. Hence, we would say there is a statistically significant positive linear relationship between reading and writing.</p>
 </div>
 <div id="ordinal-or-interval-non-parametric-correlation" class="section level4">
 <h4>ORDINAL or INTERVAL: non-parametric correlation</h4>
+<p>A Spearman correlation is used when one or both of the variables are not assumed to be normally distributed and interval (but are assumed to be ordinal). The values of the variables are converted in ranks and then correlated. In our example, we will look for a relationship between read and write. We will not assume that both of these variables are normal and interval.</p>
 <pre class="r"><code>cor.test(write, read, method = &quot;spearman&quot;)</code></pre>
 <pre><code>## Warning in cor.test.default(write, read, method = &quot;spearman&quot;): Cannot compute
 ## exact p-value with ties</code></pre>
@@ -758,9 +964,12 @@ summary(m)</code></pre>
 ## sample estimates:
 ##       rho 
 ## 0.6167455</code></pre>
+<p>The results suggest that the relationship between read and write (rho = 0.6167, p = 0.000) is statistically significant.</p>
+<hr />
 </div>
 <div id="categorical-simple-logistic-regression" class="section level4">
 <h4>CATEGORICAL: simple logistic regression</h4>
+<p>Logistic regression assumes that the outcome variable is binary (i.e., coded as 0 and 1). We have only one variable in the hsb2 data file that is coded 0 and 1, and that is female. We understand that female is a silly outcome variable (it would make more sense to use it as a predictor variable), but we can use female as the outcome variable to illustrate how the code for this command is structured and how to interpret the output. In our example, female will be the outcome variable, and read will be the predictor variable. As with OLS regression, the predictor variables must be either dichotomous or continuous; they cannot be categorical.</p>
 <pre class="r"><code>glm(female ~ read, family = binomial)</code></pre>
 <pre><code>## 
 ## Call:  glm(formula = female ~ read, family = binomial)
@@ -772,6 +981,29 @@ summary(m)</code></pre>
 ## Degrees of Freedom: 199 Total (i.e. Null);  198 Residual
 ## Null Deviance:       275.6 
 ## Residual Deviance: 275.1     AIC: 279.1</code></pre>
+<pre class="r"><code>summary(glm(female ~ read, family = binomial))</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = female ~ read, family = binomial)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.352  -1.243   1.045   1.094   1.206  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)  0.72609    0.74195   0.979    0.328
+## read        -0.01044    0.01392  -0.750    0.453
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 275.64  on 199  degrees of freedom
+## Residual deviance: 275.07  on 198  degrees of freedom
+## AIC: 279.07
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
+<p>The results indicate that reading score (read) is not a statistically significant predictor of gender (i.e., being female), z = -0.75, p = 0.453. Likewise, the test of the overall model is not statistically significant, LR chi-squared 0.56, p = 0.4527.</p>
+<hr />
 </div>
 </div>
 <div id="dagger-1-or-more-interval-ivs-andor-1-or-more-categorical-ivs" class="section level3">
@@ -779,6 +1011,7 @@ summary(m)</code></pre>
 <p><br></p>
 <div id="interval-and-normal-multiple-regression" class="section level4">
 <h4>INTERVAL and NORMAL: Multiple regression</h4>
+<p>Multiple regression is very similar to simple regression, except that in multiple regression you have more than one predictor variable in the equation. For example, using the hsb2 data file we will predict writing score from gender (female), reading, math, science and social studies (socst) scores.</p>
 <pre class="r"><code>lm(write ~ female + read + math + science + socst)</code></pre>
 <pre><code>## 
 ## Call:
@@ -787,20 +1020,70 @@ summary(m)</code></pre>
 ## Coefficients:
 ## (Intercept)       female         read         math      science        socst  
 ##      6.1388       5.4925       0.1254       0.2381       0.2419       0.2293</code></pre>
+<pre class="r"><code>summary(lm(write ~ female + read + math + science + socst))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = write ~ female + read + math + science + socst)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -17.040  -4.015  -0.264   3.938  14.989 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  6.13876    2.80842   2.186 0.030025 *  
+## female       5.49250    0.87542   6.274 2.24e-09 ***
+## read         0.12541    0.06496   1.931 0.054989 .  
+## math         0.23807    0.06713   3.547 0.000489 ***
+## science      0.24194    0.06070   3.986 9.51e-05 ***
+## socst        0.22926    0.05284   4.339 2.30e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.059 on 194 degrees of freedom
+## Multiple R-squared:  0.6017, Adjusted R-squared:  0.5914 
+## F-statistic:  58.6 on 5 and 194 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The results indicate that the overall model is statistically significant (F = 58.60, p = 0.0000). Furthermore, all of the predictor variables are statistically significant except for read.</p>
+<hr />
 </div>
 <div id="interval-and-normal-analysis-of-covariance-ancova" class="section level4">
 <h4>INTERVAL and NORMAL: Analysis of covariance ANCOVA</h4>
-<pre class="r"><code>lm(write ~ female + read + math + science + socst)</code></pre>
+<p>Analysis of covariance is like ANOVA, except in addition to the categorical predictors you also have continuous predictors as well. For example, the one way ANOVA example used write as the dependent variable and prog as the independent variable. Let’s add read as a continuous variable to this model, as shown below.</p>
+<pre class="r"><code>lm(write ~ read + prog)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = write ~ female + read + math + science + socst)
+## lm(formula = write ~ read + prog)
 ## 
 ## Coefficients:
-## (Intercept)       female         read         math      science        socst  
-##      6.1388       5.4925       0.1254       0.2381       0.2419       0.2293</code></pre>
+## (Intercept)         read        prog2        prog3  
+##     27.8195       0.4726       1.8963      -2.8930</code></pre>
+<pre class="r"><code>summary(lm(write ~ read + prog))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = write ~ read + prog)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -17.5558  -4.7721   0.5312   5.3848  18.4442 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 27.81953    3.03415   9.169  &lt; 2e-16 ***
+## read         0.47259    0.05676   8.327 1.41e-14 ***
+## prog2        1.89626    1.37528   1.379   0.1695    
+## prog3       -2.89303    1.54287  -1.875   0.0623 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.444 on 196 degrees of freedom
+## Multiple R-squared:  0.3925, Adjusted R-squared:  0.3832 
+## F-statistic: 42.21 on 3 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The results indicate that even after adjusting for reading score (read), writing scores still significantly differ by program type.</p>
+<hr />
 </div>
 <div id="categorical-multiple-logistic-regression" class="section level4">
 <h4>CATEGORICAL: multiple logistic regression</h4>
+<p>Multiple logistic regression is like simple logistic regression, except that there are two or more predictors. The predictors can be interval variables or dummy variables, but cannot be categorical variables. If you have categorical predictors, they should be coded into one or more dummy variables. We have only one variable in our data set that is coded 0 and 1, and that is female. We understand that female is a silly outcome variable (it would make more sense to use it as a predictor variable), but we can use female as the outcome variable to illustrate how the code for this command is structured and how to interpret the output.</p>
 <pre class="r"><code>glm(female ~ read + write, family = binomial)</code></pre>
 <pre><code>## 
 ## Call:  glm(formula = female ~ read + write, family = binomial)
@@ -812,9 +1095,12 @@ summary(m)</code></pre>
 ## Degrees of Freedom: 199 Total (i.e. Null);  197 Residual
 ## Null Deviance:       275.6 
 ## Residual Deviance: 247.8     AIC: 253.8</code></pre>
+<p>These results show that both read and write are significant predictors of female.</p>
+<hr />
 </div>
 <div id="categorical-discriminant-analysis" class="section level4">
 <h4>CATEGORICAL: discriminant analysis</h4>
+<p>Discriminant analysis is used when you have one or more normally distributed interval independent variables and a categorical dependent variable. It is a multivariate technique that considers the latent dimensions in the independent variables for predicting group membership in the categorical dependent variable. For example, using the hsb2 data file, say we wish to use read, write and math scores to predict the type of program a student belongs to (prog).</p>
 <pre class="r"><code>(fit &lt;- lda(factor(prog) ~ read + write + math, data = hsb2))</code></pre>
 <pre><code>## Call:
 ## lda(factor(prog) ~ read + write + math, data = hsb2)
@@ -838,24 +1124,28 @@ summary(m)</code></pre>
 ## Proportion of trace:
 ##    LD1    LD2 
 ## 0.9874 0.0126</code></pre>
+<p>The main point is that two canonical variables are identified by the analysis, the first of which seems to be more related to program type than the second.</p>
 <hr />
 </div>
 </div>
+<div id="s-two-or-more-dependent-variables" class="section level3">
+<h3><span class="math inline">\(\S\)</span> TWO OR MORE DEPENDENT VARIABLES:</h3>
+<hr />
 </div>
-<div id="s-two-or-more-dependent-variables" class="section level2">
-<h2><span class="math inline">\(\S\)</span> TWO OR MORE DEPENDENT VARIABLES:</h2>
-<p><br></p>
 <div id="dagger-1-iv-with-2-or-more-levels-independent-groups" class="section level3">
 <h3><span class="math inline">\(\dagger\)</span> 1 IV with 2 or more levels (independent groups)</h3>
 <p><br></p>
 <div id="interval-and-normal-one-way-manova" class="section level4">
 <h4>INTERVAL and NORMAL: One-way MANOVA</h4>
+<p>MANOVA (multivariate analysis of variance) is like ANOVA, except that there are two or more dependent variables. In a one-way MANOVA, there is one categorical independent variable and two or more dependent variables. For example, using the hsb2 data file, say we wish to examine the differences in read, write and math broken down by program type (prog).</p>
 <pre class="r"><code>summary(manova(cbind(read, write, math) ~ prog))</code></pre>
 <pre><code>##            Df  Pillai approx F num Df den Df    Pr(&gt;F)    
 ## prog        2 0.26721   10.075      6    392 2.304e-10 ***
 ## Residuals 197                                             
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>According to all three criteria, the students in the different programs differ in their joint distribution of read, write and math.</p>
+<hr />
 </div>
 </div>
 <div id="dagger-2" class="section level3">
@@ -863,6 +1153,7 @@ summary(m)</code></pre>
 <p><br></p>
 <div id="interval-and-normal-multivariate-multiple-linear-regression" class="section level4">
 <h4>INTERVAL and NORMAL: multivariate multiple linear regression</h4>
+<p>Multivariate multiple regression is used when you have two or more dependent variables that are to be predicted from two or more predictor variables. In our example, we will predict write and read from female, math, science and social studies (socst) scores.</p>
 <pre class="r"><code>M1 &lt;- lm(cbind(write, read) ~ female + math + science + socst, data = hsb2)
 summary(Anova(M1))</code></pre>
 <pre><code>## 
@@ -944,6 +1235,9 @@ summary(Anova(M1))</code></pre>
 ## Roy               1 0.2831551 27.46604      2    194 3.1399e-11 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Many researchers familiar with traditional multivariate analysis may not recognize the tests above. They do not see Wilks’ Lambda, Pillai’s Trace or the Hotelling-Lawley Trace statistics, the statistics with which they are familiar.</p>
+<p>These results show that female has a significant relationship with the joint distribution of write and read.</p>
+<hr />
 </div>
 </div>
 <div id="dagger-0" class="section level3">
@@ -951,6 +1245,7 @@ summary(Anova(M1))</code></pre>
 <p><br></p>
 <div id="interval-and-normal-factor-analysis" class="section level4">
 <h4>INTERVAL and NORMAL: factor analysis</h4>
+<p>Factor analysis is a form of exploratory multivariate analysis that is used to either reduce the number of variables in a model or to detect relationships among variables. All variables involved in the factor analysis need to be continuous and are assumed to be normally distributed. The goal of the analysis is to try to identify factors which underlie the variables. There may be fewer factors than variables, but there may not be more factors than variables. For our example, let’s suppose that we think that there are some common factors underlying the various test scores.</p>
 <pre class="r"><code>require(psych)</code></pre>
 <pre><code>## Loading required package: psych</code></pre>
 <pre><code>## 
@@ -993,55 +1288,21 @@ summary(Anova(M1))</code></pre>
 ## Correlation of (regression) scores with factors   0.95 0.79
 ## Multiple R square of scores with factors          0.91 0.62
 ## Minimum correlation of possible factor scores     0.82 0.23</code></pre>
+<hr />
 </div>
 </div>
 </div>
 <div id="s-two-sets-of-2" class="section level2">
 <h2><span class="math inline">\(\S\)</span> TWO SETS OF 2 +:</h2>
-<p><br></p>
+<hr />
 <div id="dagger-o" class="section level3">
 <h3><span class="math inline">\(\dagger\)</span> O</h3>
 <p><br></p>
 <div id="interval-and-normal-canonical-correlation" class="section level4">
 <h4>INTERVAL and NORMAL: canonical correlation</h4>
-<pre class="r"><code>require(CCA)</code></pre>
-<pre><code>## Loading required package: CCA</code></pre>
-<pre><code>## Loading required package: fda</code></pre>
-<pre><code>## Loading required package: splines</code></pre>
-<pre><code>## Loading required package: fds</code></pre>
-<pre><code>## Loading required package: rainbow</code></pre>
-<pre><code>## Loading required package: pcaPP</code></pre>
-<pre><code>## Loading required package: RCurl</code></pre>
-<pre><code>## 
-## Attaching package: &#39;fda&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:graphics&#39;:
-## 
-##     matplot</code></pre>
-<pre><code>## Loading required package: fields</code></pre>
-<pre><code>## Loading required package: spam</code></pre>
-<pre><code>## Loading required package: dotCall64</code></pre>
-<pre><code>## Loading required package: grid</code></pre>
-<pre><code>## Spam version 2.6-0 (2020-12-14) is loaded.
-## Type &#39;help( Spam)&#39; or &#39;demo( spam)&#39; for a short introduction 
-## and overview of this package.
-## Help for individual functions is also obtained by adding the
-## suffix &#39;.spam&#39; to the function name, e.g. &#39;help( chol.spam)&#39;.</code></pre>
-<pre><code>## 
-## Attaching package: &#39;spam&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:Matrix&#39;:
-## 
-##     det</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     backsolve, forwardsolve</code></pre>
-<pre><code>## See https://github.com/NCAR/Fields for
-##  an extensive vignette, other supplements and source code</code></pre>
-<pre><code>## 
-## Attaching package: &#39;fields&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:psych&#39;:
-## 
-##     describe</code></pre>
-<pre class="r"><code>cc(cbind(read, write), cbind(math, science))</code></pre>
+<p>Canonical correlation is a multivariate technique used to examine the relationship between two groups of variables. For each set of variables, it creates latent variables and looks at the relationships among the latent variables. It assumes that all variables in the model are interval and normally distributed.</p>
+<pre class="r"><code>require(CCA)
+head(cc(cbind(read, write), cbind(math, science)))</code></pre>
 <pre><code>## $cor
 ## [1] 0.7728409 0.0234784
 ## 
