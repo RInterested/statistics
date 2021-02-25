@@ -1,10 +1,39 @@
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###COMPARING SAMPLE TO POPULATION PROPORTION - BINOMIAL TEST:
+### COMPARING SAMPLE TO POPULATION PROPORTION - BINOMIAL TEST:
 <br>
+
+Motivating example:
+
+> The national proportion of people experiencing complications after having a particular operation in hospitals is $20 \%.$ A hospital decides to take a sample of sized $n=20$ from their records. Find the critial regions, at $5\%$ level of significance, to test whether or not their proportion of complications differs from the national population. The probability in each tail should be as close to $2.5\%$ as possible.
+
+The standardized z value at this level of significance is
+
+```{r}
+qnorm(0.975)
+```
+
+which corresponds to a proportion $\hat p$ value to reject $H_o$ of
+
+$$\hat p = p + z \sqrt{\frac{p(1-q)}{n}}$$
+
+
+or
+
+```{r}
+p = 0.2
+n = 20
+qnorm(0.975) * sqrt((p * (1 - p)) / n) + p
+```
+
+
+<img height=350, width=450
+src='https://user-images.githubusercontent.com/9312897/109200165-47d23b00-776e-11eb-8791-36f75933b878.png'>
+
+---
 
 If we want to test whether a *one* sample proportion $\hat p$ is consistent with a population parameter $p$ the **score** test statistic is:
 
