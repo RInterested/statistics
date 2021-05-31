@@ -20,6 +20,10 @@ Normalizing:
 $0.05\,=\Pr \left (\frac{\bar X - \mu_o}{s/\sqrt{n}}\,\geq\frac{C - \mu_o}{s/\sqrt{n}} \mid \mu_o=30 \right)$
 <br><br>
 
+For this to be true the second part of the inequality must be equal to:
+
+$\frac{C - \mu_o}{s/\sqrt{n}}$ `= qnorm(0.95)= 1.6448`
+
 And the first part of the inequality is really the *Z-statistic*:
 
 $\text{Z test statistic} = \frac{\bar X - \mu_o}{s/\sqrt{n}}$
@@ -33,13 +37,11 @@ based on the central limit theorem. Before we can do a Z-test, we need to make c
 set.seed(2021)
 n <- 100
 sample <- rnorm(n, 35, 5)
-qqnorm(sample, pch=19)
+qqnorm(sample, pch=19, cex=.7, col='orange')
 qqline(sample)
 ```
 
-For this to be true the second part of the inequality must be equal to:
 
-$\frac{C - \mu_o}{s/\sqrt{n}}$ `= qnorm(0.95)= 1.6448`
 
 ```{r, message=F}
 library(BSDA)
@@ -89,12 +91,34 @@ t.test(sample, mu=30, alternative = 'greater')
 ```
 
 
+what if we don't have the sample vector, but rather just the sample standard deviation and the mean?
 
-<br><br>
+Let's say the mean is 37.04197, which is `mean(sample)` as above, but instead of plugging in the sample into the function, we just have the $\bar x$ value or sample mean, and the sample standard deviation (or the population's, perhaps).
 
-Pertinent posts:
 
-**Is the Mean of a Large Sample Consistent with Known Population Mean?**
+INCREDIBLY WE NEED AN AD HOC FUNCTIONN! Which for a one-sided ('greater') test involves the following calculation:
+
+```{r}
+mu <- 30                 # Population mean
+x.bar <- mean(sample)    # Sample mean
+n <- 15                  # Sample size
+se <- sd(sample)         # Sample SD
+t <- (x.bar - mu) / (se/sqrt(n)) # t statistic
+
+# Which is greater than:
+qt(0.95, n - 1) # We test for a 'greater' alternative hypothesis.
+
+# This corresponds to a p-value of
+1-pt(abs(t), n - 1)
+
+# And for lower bound of confidence intervals (see below for formula derivation):
+
+x.bar - qt(0.95, n - 1) * se/sqrt(n)
+
+```
+
+Here is an example calculating a one-sided hypothesis test of 'lower' alternative:
+
 
 [What follows was first posted on [CrossValidated](http://stats.stackexchange.com/a/175142/67822)]
 
@@ -102,10 +126,15 @@ Example: We know that mean glucose concentration in blood is `100 mg/dL`, and we
 
 When sample size is larger than 30, we can consider using a z-test. Typically the standard deviation of the sample will have to be used to substitute for the unknown parameter. In the example above we want a left-tailed test: $\small H_1: \bar X < \mu$. We use the central limit theorem, which tells us that the sample distribution of the sample means has a standard error, $\small SE=\frac{\sigma}{\sqrt n}$, with $\sigma$ corresponding to the population standard deviation, and we get the following statistic:
 
-$\large z = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$. Again, since $\sigma$ is unknown we have to use the unbiased SD of the sample.
+$$\large z = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$$. Again, since $\sigma$ is unknown we have to use the unbiased SD of the sample.
 
-What would happen if we sampled multiple times from the presumed population (Monte Carlo): `means <- replicate(1e6, mean(rnorm(100, 100, 10)))`? We would end up with the following density with the area of type 1 error shaded in red:
+$$\large z = \frac{\bar X - \mu}{\frac{s}{\sqrt n}}$$
 
+
+What would happen if we sampled multiple times from the presumed population (Monte Carlo): `means <- replicate(1e6, mean(rnorm(100, 100, 10)))`? 
+
+
+We would end up with the following density with the area of type I error shaded in red:
 
  <img src="https://cloud.githubusercontent.com/assets/9312897/10556675/1013cc70-7458-11e5-9744-edce1c20ba3a.png" width="300" height="300">
 
@@ -116,7 +145,9 @@ In our example: `z= (98-100)/(10/sqrt(100)) = -2`, which needs to be compared to
 
 Consider the example above, but with a sample size of `n = 16` individuals. The distribution of the same statistic would follow a $t$-distribution, and the test applied is the "one-sample $t$ test":
 
-$t = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$. So, identical statistic, but now we go to the $t$ tables: `n = 16; qt(0.05, n - 1) = -1.75305` (`n - 1` corresponds to the degrees of freedom). We reject the null just as well, but notice that this time it was a bit harder to reject (broader tails of the $t$ distribution).
+$t = \frac{\bar X - \mu}{\frac{s}{\sqrt n}}$. 
+
+So, nearly identical statistic, but now we go to the $t$ tables: `n = 16; qt(0.05, n - 1) = -1.75305` (`n - 1` corresponds to the degrees of freedom). We reject the null just as well, but notice that this time it was a bit harder to reject (broader tails of the $t$ distribution).
 
 **Confidence Interval Calculation:**
 
@@ -132,6 +163,62 @@ In R, `n = 16; 98 + c(-1,1) * qt(1 - 0.5/2, n -1) * 10/sqrt(n) = 96.27201 to 99.
 
 Alternatively, the confidence interval can be calculated using the normal distribution in larger samples (let's imagine `n=100`), using the formula: `n = 100; 98 + c(-1,1) * qnorm(1 - 0.5/2) * 10/sqrt(n)`.
 
+---
+
+Altogether, this would be the calculation in R:
+
+```{r}
+mu <- 100                 # Population mean
+x.bar <- 98               # Sample mean
+n <- 16                   # Sample size
+sd <- 10                  # Sample SD
+(t <- (x.bar - mu) / (sd/sqrt(n))) # t statistic
+
+# Which is not lower than:
+qt(0.05, n - 1)
+
+# And therefore we don't reject the null.
+
+# This corresponds to a p-value of
+pt(abs(t), n - 1)
+
+# And for upper bound of confidence intervals:
+
+x.bar + qt(0.05, n - 1) * sd/sqrt(n)
+
+```
+
+---
+
+When we have summary statistics only but two means to compare we can use the function:
+
+```
+# m1, m2: the sample means
+# s1, s2: the sample standard deviations
+# n1, n2: the same sizes
+# m0: the null value for the difference in means to be tested for. Default is 0. 
+# equal.variance: whether or not to assume equal variance. Default is FALSE. 
+t.test2 <- function(m1,m2,s1,s2,n1,n2,m0=0,equal.variance=FALSE)
+{
+    if( equal.variance==FALSE ) 
+    {
+        se <- sqrt( (s1^2/n1) + (s2^2/n2) )
+        # welch-satterthwaite df
+        df <- ( (s1^2/n1 + s2^2/n2)^2 )/( (s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1) )
+    } else
+    {
+        # pooled standard deviation, scaled by the sample sizes
+        se <- sqrt( (1/n1 + 1/n2) * ((n1-1)*s1^2 + (n2-1)*s2^2)/(n1+n2-2) ) 
+        df <- n1+n2-2
+    }      
+    t <- (m1-m2-m0)/se 
+    dat <- c(m1-m2, se, t, 2*pt(-abs(t),df))    
+    names(dat) <- c("Difference of means", "Std Error", "t", "p-value")
+    return(dat) 
+}
+```
+
+from [this post](https://stats.stackexchange.com/a/30450/67822).
 
 
 <br>
