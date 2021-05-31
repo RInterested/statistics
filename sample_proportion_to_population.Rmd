@@ -37,7 +37,9 @@ src='https://user-images.githubusercontent.com/9312897/120207617-a807cb80-c1fa-1
 
 Second example:
 
-> Calculate the CI and margin of errors of proportion of university females based on the data `survey` within the package `MASS`. This is extracted from [here](https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion):
+> Calculate the CI and margin of errors of proportion of university females based on the data `survey` within the package `MASS`. 
+
+This is extracted from [here](https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion):
 
 ```{r}
 library(MASS)
@@ -50,9 +52,10 @@ SE = sqrt((pbar * ( 1 - pbar)) / n)  # Standard error
 E = qnorm(1 - 0.05/2) * SE        # Margin of error
 CI = pbar + c(- E, E)              # Confidence interval
 paste('At',100*(1 - 0.05),'percent confidence level, between', 100 * round(pbar-E,3), 
-      'percent and', 100 * round(pbar+E, 3), 
-      'percent of the university students are female, and the margin of error is', 
-      100 * round(E,3),'percent.')
+      'percent and', 100 * round(pbar+E, 3),
+      'percent of the university students are female.')
+
+paste('The margin of error is', 100 * round(E,3),'percent.')
 ```
 
 equivalently, this can be done with
