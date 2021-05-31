@@ -3,12 +3,16 @@
 <img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-### ONE SAMPLE MEAN TO POPULATION COMPARISON Z and T TESTS:
+### ONE SAMPLE MEAN TO POPULATION COMPARISON Z and t-TESTS:
 <br>
 
-The one-sample z-test (or t-test) is used when we want to know whether our sample comes from a particular population but we do not have full population information available to us.
+The one-sample z-test (or t-test) is used when we want to know whether our sample comes from a particular population but we may or may not have full population information (population standard deviation) available to us.
 
-We test whether the population mean is bigger than a reference accepted value ($\mu_o=30$) based on the mean obtained from sample $(\bar X)$.
+Motivating example:
+
+> Suppose that we wanted to detect whether a sample mean in a hospital is higher than the national mean of the RDI (respiratory disturbance index) in the context of sleep apnea. Assume normality and that the sample in question has a standard deviation of $4$. 
+
+**We test whether the population mean is bigger than a reference accepted value ($\mu_0=30$) based on the mean obtained from sample $(\bar X)$.**
 
 We compare the sample mean, $\bar X$ to a constant $C$ so that the probability of a type I error is $\alpha$ (typically $0.05$ or $5\%$):
 
@@ -28,26 +32,28 @@ And the first part of the inequality is really the *Z-statistic*:
 
 $\text{Z test statistic} = \frac{\bar X - \mu_o}{s/\sqrt{n}}$
 
-based on the central limit theorem. Before we can do a Z-test, we need to make check if we can reasonably treat the mean of this sample as normally distributed. This happens is the case of either of following hold:
+Before we can do a Z-test, in general we need to make check if we can reasonably treat the mean of this sample as normally distributed (also for a t-test) (see [discussion for two samples here](https://stats.stackexchange.com/a/204594/67822)), and we have enough data for a Z test:
 
 1. The data comes from a normal distribution.
-2. We have lots of data. How much? Many textbooks use $30$ data points as a rule of thumb.
+2. How much data do we need? Many textbooks use $30$ data points as a rule of thumb.
 
-```{r, fig.height=5, fig.width=5}
+```{r, fig.height=4, fig.width=4}
 set.seed(2021)
 n <- 100
-sample <- rnorm(n, 35, 5)
-qqnorm(sample, pch=19, cex=.7, col='orange')
+sample <- rnorm(n, 35, 5) # The actual sample values.
+par(mar=c(3,3,3,3))
+par(mgp=c(1,0.2,0))
+qqnorm(sample, pch=19, cex=0.5, cex.main = .9, cex.lab = .5, cex.axis =.4, tck = -.01, col='red4')
 qqline(sample)
 ```
 
+Here is the Z-test using the package `BSDA`. First (even though we are deviating from the example above) the two-sided alternative):
 
 
 ```{r, message=F}
 library(BSDA)
-# Population standard deviation:
-sigma <- 5
-mu <- 30
+sigma <- 4   # Population standard deviation:
+mu    <- 30  # Population mean
 z.test(sample, mu=mu, sigma.x=sigma)
 ```
 
@@ -55,15 +61,23 @@ Manually, and following [this post](https://cran.r-project.org/web/packages/dist
 
 ```{r}
 # calculate the z-statistic
-z_stat <- (mean(sample) - mu) / (sigma / sqrt(n))
-z_stat
-1 - pnorm(abs(z_stat)) + pnorm(-abs(z_stat))
+paste('The z statistic is', z_stat <- (mean(sample) - mu) / (sigma / sqrt(n)))
+paste('The p-value is', 2 * (1 - pnorm(z_stat)))
+paste('The CI is between', mean(sample) - qnorm(0.975) * sigma / sqrt(n),'and', mean(sample) + qnorm(0.975) * sigma / sqrt(n) )
 ```
 
-The one-sided test assesses whether the mean is larger than the population mean:
+And finally, the one-sided test assesses whether the mean is larger than the population mean:
 
 ```{r, message=F}
 z.test(sample, mu=mu, sigma.x=sigma, alternative='greater')
+```
+
+which manually would work like:
+
+```{r}
+paste('The z statistic is', z_stat <- (mean(sample) - mu) / (sigma / sqrt(n)))
+paste('The p-value is', 1 - pnorm(z_stat))
+paste('The CI is between', mean(sample) - qnorm(0.95) * sigma / sqrt(n),'and infinity.')
 ```
 
 ---
@@ -85,18 +99,20 @@ t.test(sample, mu=30)
 For a one-sided test to assess if the sample mean is greater:
 
 ```{r}
+set.seed(2021)
 n <- 15
 sample <- rnorm(n, 35, 5)
 t.test(sample, mu=30, alternative = 'greater')
 ```
 
 
-what if we don't have the sample vector, but rather just the sample standard deviation and the mean?
 
-Let's say the mean is 37.04197, which is `mean(sample)` as above, but instead of plugging in the sample into the function, we just have the $\bar x$ value or sample mean, and the sample standard deviation (or the population's, perhaps).
+**what if we don't have the sample vector, but rather just the sample standard deviation and the mean?**
+
+Let's say the mean is 36.65826, which is `mean(sample)` as above, but instead of plugging in the sample into the function, we just have the $\bar x$ value or sample mean, and the sample standard deviation (or the population's, perhaps).
 
 
-INCREDIBLY WE NEED AN AD HOC FUNCTIONN! Which for a one-sided ('greater') test involves the following calculation:
+Incredibly we need an *ad hoc* function! Which for a one-sided ('greater') test involves the following calculation:
 
 ```{r}
 mu <- 30                 # Population mean
@@ -109,7 +125,7 @@ t <- (x.bar - mu) / (se/sqrt(n)) # t statistic
 qt(0.95, n - 1) # We test for a 'greater' alternative hypothesis.
 
 # This corresponds to a p-value of
-1-pt(abs(t), n - 1)
+1 - pt(abs(t), n - 1)
 
 # And for lower bound of confidence intervals (see below for formula derivation):
 
@@ -117,29 +133,28 @@ x.bar - qt(0.95, n - 1) * se/sqrt(n)
 
 ```
 
-Here is an example calculating a one-sided hypothesis test of 'lower' alternative:
 
 
 [What follows was first posted on [CrossValidated](http://stats.stackexchange.com/a/175142/67822)]
 
-Example: We know that mean glucose concentration in blood is `100 mg/dL`, and we are studying an ethnic group with very low prevalence of metabolic syndrome. We sample 100 of these individuals, and we get a `mean [glucose] = 98 mg/dL` with a `sd = 10 mg/dL`. Is it reasonable to conclude with a risk alpha of 5% that this group has lower glucose levels than the general population?
+Example: 
+
+>We know that mean glucose concentration in blood is `100 mg/dL`, and we are studying an ethnic group with very low prevalence of metabolic syndrome. We sample 100 of these individuals, and we get a `mean [glucose] = 98 mg/dL` with a `sd = 10 mg/dL`. Is it reasonable to conclude with a risk alpha of 5% that this group has lower glucose levels than the general population?
 
 When sample size is larger than 30, we can consider using a z-test. Typically the standard deviation of the sample will have to be used to substitute for the unknown parameter. In the example above we want a left-tailed test: $\small H_1: \bar X < \mu$. We use the central limit theorem, which tells us that the sample distribution of the sample means has a standard error, $\small SE=\frac{\sigma}{\sqrt n}$, with $\sigma$ corresponding to the population standard deviation, and we get the following statistic:
 
-$$\large z = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$$. Again, since $\sigma$ is unknown we have to use the unbiased SD of the sample.
-
-$$\large z = \frac{\bar X - \mu}{\frac{s}{\sqrt n}}$$
-
-
-What would happen if we sampled multiple times from the presumed population (Monte Carlo): `means <- replicate(1e6, mean(rnorm(100, 100, 10)))`? 
-
-
-We would end up with the following density with the area of type I error shaded in red:
-
- <img src="https://cloud.githubusercontent.com/assets/9312897/10556675/1013cc70-7458-11e5-9744-edce1c20ba3a.png" width="300" height="300">
-
+$$z = \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}$$ If $\sigma$ is unknown we have to use the unbiased SD of the sample $z = \frac{\bar X - \mu}{\frac{s}{\sqrt n}}.$
 
 In our example: `z= (98-100)/(10/sqrt(100)) = -2`, which needs to be compared to `qnorm(0.05) = -1.644854`. Therefore we reject the $\small H_0: \bar X=\mu$.
+
+```{r}
+x.bar = 98
+mu = 100
+s = 10
+n = 100
+paste('The z statistic is', z_stat <- (x.bar - mu) / (s / sqrt(n)))
+paste('The p-value is', pnorm(z_stat))
+```
 
 **Is the Mean of a Small Sample Consistent with Known Population Mean?**
 
@@ -147,19 +162,30 @@ Consider the example above, but with a sample size of `n = 16` individuals. The 
 
 $t = \frac{\bar X - \mu}{\frac{s}{\sqrt n}}$. 
 
-So, nearly identical statistic, but now we go to the $t$ tables: `n = 16; qt(0.05, n - 1) = -1.75305` (`n - 1` corresponds to the degrees of freedom). We reject the null just as well, but notice that this time it was a bit harder to reject (broader tails of the $t$ distribution).
+So, the statistic is calculated identically if we have been using the sample SD all along, but now we go to the $t$ tables: `n = 16; qt(0.05, n - 1) = -1.75305` (`n - 1` corresponds to the degrees of freedom). Now we can reject the null.
+
+```{r}
+x.bar = 98
+mu = 100
+s = 10
+n = 16
+paste('The t statistic is', t_stat <- (x.bar - mu) / (s / sqrt(n)))
+paste('The p-value is', pt(t_stat, n - 1))
+```
 
 **Confidence Interval Calculation:**
 
 Based on the prior example and with `n = 16` we want to calculate the 95% percent confidence interval around the sample mean. In this case we don't know the population mean, but we will assume that if we were to repeat the sampling from the population 100 times, in 95% of the times, it would be comprised within the interval. The formula is derived from the two-tailed $t$ test:
 
-Under $H_0$,
-
-$\left| \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}\right|\leq t_{(1-\alpha/2, \,n - 1)}$. Hence, $\left| \bar X - \mu\right|\leq t_{(1-\alpha/2, \,n - 1)}\, \frac{\sigma}{\sqrt n}$, or:
+Under $H_0$, $\left| \frac{\bar X - \mu}{\frac{\sigma}{\sqrt n}}\right|\leq t_{(1-\alpha/2, \,n - 1)}$. Hence, $\left| \bar X - \mu\right|\leq t_{(1-\alpha/2, \,n - 1)}\, \frac{\sigma}{\sqrt n}$, or:
 
 $$\bar X- t_{(1-\alpha/2, \,n - 1)}\, \frac{\sigma}{\sqrt n}\, <\mu<\bar X + t_{(1-\alpha/2, \,n - 1)}\, \frac{\sigma}{\sqrt n}$$
 
-In R, `n = 16; 98 + c(-1,1) * qt(1 - 0.5/2, n -1) * 10/sqrt(n) = 96.27201 to 99.72799`
+In R, 
+
+```{r}
+x.bar + c(-1,1) * qt(1 - 0.5/2, n - 1) * s / sqrt(n)
+```
 
 Alternatively, the confidence interval can be calculated using the normal distribution in larger samples (let's imagine `n=100`), using the formula: `n = 100; 98 + c(-1,1) * qnorm(1 - 0.5/2) * 10/sqrt(n)`.
 
@@ -180,7 +206,7 @@ qt(0.05, n - 1)
 # And therefore we don't reject the null.
 
 # This corresponds to a p-value of
-pt(abs(t), n - 1)
+pt(t, n - 1)
 
 # And for upper bound of confidence intervals:
 
@@ -190,7 +216,7 @@ x.bar + qt(0.05, n - 1) * sd/sqrt(n)
 
 ---
 
-When we have summary statistics only but two means to compare we can use the function:
+**When we have summary statistics only but two means to compare** we can use the function:
 
 ```
 # m1, m2: the sample means
