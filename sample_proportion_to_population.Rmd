@@ -3,7 +3,7 @@
 <img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-### COMPARING SAMPLE TO POPULATION PROPORTION - Z-TEST, CHI-SQUARE, and BINOMIAL TEST:
+### COMPARING SAMPLE TO POPULATION PROPORTION - Z-TEST, $\chi$-SQUARE, and BINOMIAL TEST:
 <br>
 
 Motivating example:
@@ -41,16 +41,14 @@ Second example:
 
 ```{r}
 library(MASS)
-head(survey)
 gender.response = na.omit(survey$Sex) 
-
 
 n = length(gender.response)
 k = sum(gender.response == "Female")
-pbar = k/n # Proportion of females among responders
-SE = sqrt((pbar ∗ (1−pbar)) / n)  # Standard error
-E = qnorm(1 - 0.05/2) ∗ SE        # Margin of error
-CI = pbar + c(−E, E)              # Confidence interval
+pbar = k/n # Proportion of females among respondents
+SE = sqrt((pbar * ( 1 - pbar)) / n)  # Standard error
+E = qnorm(1 - 0.05/2) * SE        # Margin of error
+CI = pbar + c(- E, E)              # Confidence interval
 paste('At',100*(1 - 0.05),'percent confidence level, between', 100 * round(pbar-E,3), 
       'percent and', 100 * round(pbar+E, 3), 
       'percent of the university students are female, and the margin of error is', 
