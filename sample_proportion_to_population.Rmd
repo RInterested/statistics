@@ -30,8 +30,38 @@ p + c(-1,1) * qnorm(0.975) * sqrt((p * (1 - p)) / n)
 ```
 
 
-<img height=350, width=450
+<img height=250, width=350
 src='https://user-images.githubusercontent.com/9312897/120207617-a807cb80-c1fa-11eb-920b-e14f7e646e33.png'>
+
+
+
+Second example:
+
+> Calculate the CI and margin of errors of proportion of university females based on the data `survey` within the package `MASS`. This is extracted from [here](https://www.r-tutor.com/elementary-statistics/interval-estimation/interval-estimate-population-proportion):
+
+```{r}
+library(MASS)
+head(survey)
+gender.response = na.omit(survey$Sex) 
+
+
+n = length(gender.response)
+k = sum(gender.response == "Female")
+pbar = k/n # Proportion of females among responders
+SE = sqrt((pbar ∗ (1−pbar)) / n)  # Standard error
+E = qnorm(1 - 0.05/2) ∗ SE        # Margin of error
+CI = pbar + c(−E, E)              # Confidence interval
+paste('At',100*(1 - 0.05),'percent confidence level, between', 100 * round(pbar-E,3), 
+      'percent and', 100 * round(pbar+E, 3), 
+      'percent of the university students are female, and the margin of error is', 
+      100 * round(E,3),'percent.')
+```
+
+equivalently, this can be done with
+
+```{r}
+prop.test(k, n, correct=F) 
+```
 
 ---
 
@@ -58,8 +88,6 @@ paste('The z statistic is', z_stat <- (p.hat - p) / sqrt(p * (1 - p) / n))
 
 This is greater than
 
-<br>
-
 ```{r}
 qnorm(0.95) # One-sided test
 ```
@@ -73,7 +101,7 @@ p <- 0.1
 prop.test(success, n=n, p=p, alternative="greater", conf.level=0.95, correct = F)
 ```
 
-Notice that the CI does not include zero. We reject the null hypothesis.
+Notice that the CI does not include the population probability $p=0.1.$ We reject the null hypothesis.
 
 ---
 
@@ -123,9 +151,9 @@ First off let me get the algebraic nomenclature out of the way - I find this ext
 
 In our case we have $\small \pi = 0.82$ and $\small \hat \pi = 1012/1290 = 0.78$. And $\small n = 1290$.
 
-The MLE of $\pi$ is the sample proportion, $\hat \pi = \small \text{successes/trials}$, and the expectation for the number of $\small\text{successes}$ is $n\pi$. The sample proportion is an unbiased estimator of the population: $\small E(\hat \pi)=\pi$ (and $\small E(Y)=n\pi$) and the standard error behaves very similarly to that of sampling distributions of sample means: $\small SE\,(\hat \pi) = \sqrt{\frac{\pi(1-\pi)}{n}}$, remembering that $var(\hat \pi)= \pi(1-\pi)$ (and $var(Y)=n\pi(1-\pi)$).
+The MLE of $\pi$ is the sample proportion, $\hat \pi = \small \text{successes/trials}$, and the expectation for the number of $\small\text{successes}$ is $n\pi$. The sample proportion is an unbiased estimator of the population: $\small E(\hat \pi)=\pi$ (and $\small E(Y)=n\pi$) and the standard error behaves very similarly to that of sampling distributions of sample means: $\small SE\,(\hat \pi) = \sqrt{\frac{\pi(1-\pi)}{n}}$, remembering that $\text{var}(\hat \pi)= \pi(1-\pi)$ (and $\text{var}(Y)=n\pi(1-\pi)$).
 
-The test here is a two-sided one-sample proportion test: $H_0: \pi = \pi_0$ versus $H_A: \pi \neq \pi_0$. Typically, a normal approximation with mean $\pi$ and $var = \pi(1-\pi)/n$ under the following conditions: $n\hat\pi>5$ and $n(1-\hat\pi)>5$. In our case this is clearly met ($\small 1290 * 0.78 = 1006$).
+The test here is a two-sided one-sample proportion test: $H_0: \pi = \pi_0$ versus $H_A: \pi \neq \pi_0$. Typically, a normal approximation with mean $\pi$ and $\text{var} = \pi(1-\pi)/n$ under the following conditions: $n\hat\pi>5$ and $n(1-\hat\pi)>5$. In our case this is clearly met ($\small 1290 * 0.78 = 1006$).
 
 The $z$ test statistic is 
 
@@ -166,7 +194,7 @@ p + c(-1,1) * qnorm(1 - 0.05/2) * sqrt((p * (1 - p)) / n)
 
 This excludes the sample value $0.78$.
 
-The p-value of this one-sided test is
+The [p-value of this two-sided test](https://cran.r-project.org/web/packages/distributions3/vignettes/one-sample-z-test.html) is
 
 ```{r}
 2 * (1 - pnorm(abs(z.statistic)))
