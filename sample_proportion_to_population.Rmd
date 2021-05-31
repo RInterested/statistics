@@ -3,7 +3,7 @@
 <img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-### COMPARING SAMPLE TO POPULATION PROPORTION - BINOMIAL TEST:
+### COMPARING SAMPLE TO POPULATION PROPORTION - Z-TEST and BINOMIAL TEST:
 <br>
 
 Motivating example:
@@ -16,9 +16,9 @@ The standardized z value at this level of significance is
 qnorm(0.975)
 ```
 
-which corresponds to a proportion $\hat p$ value to reject $H_o$ of
+which corresponds to a proportion $\hat p$ value to reject $H_0$ of
 
-$$\hat p = p + z \sqrt{\frac{p(1-q)}{n}}$$
+$$\hat p = p \pm z \sqrt{\frac{p(1-q)}{n}}$$
 
 
 or
@@ -26,12 +26,12 @@ or
 ```{r}
 p = 0.2
 n = 20
-qnorm(0.975) * sqrt((p * (1 - p)) / n) + p
+p + c(-1,1) * qnorm(0.975) * sqrt((p * (1 - p)) / n) 
 ```
 
 
 <img height=350, width=450
-src='https://user-images.githubusercontent.com/9312897/109200165-47d23b00-776e-11eb-8791-36f75933b878.png'>
+src='https://user-images.githubusercontent.com/9312897/120207617-a807cb80-c1fa-11eb-920b-e14f7e646e33.png'>
 
 ---
 
@@ -39,29 +39,43 @@ If we want to test whether a *one* sample proportion $\hat p$ is consistent with
 
 $$\text{test statistic} = \large \frac{\hat p - p}{\sqrt{\frac{p\,(1\,-\,p)}{n}}}$$
 
-This is [equivalent to the z test statistic](http://rinterested.github.io/statistics/one_sample_test.html) for sample means, and does follow a Z distribution in large samples. Compare to the z test of proportions to compare two samples [here](http://rinterested.github.io/statistics/tests_of_proportions.html).
+This is [equivalent to the z test statistic for sample means](http://rinterested.github.io/statistics/one_sample_mean_test.html), and does follow a Z distribution in large samples. Compare to the z test of proportions to compare two samples [here](http://rinterested.github.io/statistics/tests_of_proportions.html).
 
-Notice that since we are testing under the $H_o$ how likely it is to get the $\hat p$ we obtained we use the population proportion $p$ to calculate the standard error, as opposed to the sample proportion we would use to build the confidence interval with a [Wald interval](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Normal_approximation_interval):
+The expression in the denominator is all under a squared root because the standard deviation of the Bernoulli distribution is $\sqrt{p(1 - p)}.$
 
-<br>
+Notice that since we are testing under the $H_0$ how likely it is to get the $\hat p$ we obtained, we use the population proportion $p$ to calculate the standard error, as opposed to the sample proportion we would use to build the confidence interval with a [Wald interval when the population parameter is not known](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Normal_approximation_interval).
 
-$$\large \mathrm{CI}=\hat p \pm Z_{1-\alpha/2} \times  \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$$
+Example: 
 
-In [R]:
+>We want to test if the proportion of side effects is greater than $p=0.1$ for a new drug. In our sample of $n=20$ cases, $11$ had complications.
 
-$$\large \hat p + \text{c}(-1, 1) \,\times\, \small \text{pnorm}(0.975) \,\times\, \large \sqrt{\frac{\hat p\,(1\,-\,\hat p)}{n}}$$
+```{r}
+p     <- 0.1 
+p.hat <- 11/22
+n     <- 20
+paste('The z statistic is', z_stat <- (p.hat - p) / sqrt(p * (1 - p) / n))
+```
 
-Example: We want to test if the proportion of side effects is greater than $0.1$ for a new drug ($p=0.1$). In our sample of $20$ cases, $11$ had complications for a $\hat p = 0.55$:
-
-<br>
-
-$$\text{test statistic}=\large \frac{0.55 - 0.1}{\sqrt{\frac{0.1 \times 0.9}{20}}} =6.7,$$ which is clearly significant:
+This is greater than
 
 <br>
 
 ```{r}
 qnorm(0.95) # One-sided test
 ```
+
+We can do all this with:
+
+```{r}
+success <- 11
+n <- 20
+p <- 0.1
+prop.test(success, n=n, p=p, alternative="greater", conf.level=0.95, correct = F)
+```
+
+Notice that the CI does not include zero. We reject the null hypothesis.
+
+---
 
 Alternatively, we can just run an [exact binomial test](https://en.wikipedia.org/wiki/Binomial_test), which doesn't need to rely on the normal approximation:
 
@@ -83,22 +97,15 @@ For two-sided tests calculate both one-sided tests and double the smallest p-val
 
 <br><br>
 
-**QUESTION:**
+Example:
 
 <br>
 
 This question [appeared here](http://stats.stackexchange.com/q/50112/67822).
 
-A report says that 82%  of British Columbians over the age of $25$ are high school graduates. A survey of randomly selected residents of a certain city included $1290$ who were over the age of $25$, and $1012$ of them were high school graduates. 
+> A report says that $82\%$  of British Columbians over the age of $25$ are high school graduates. A survey of randomly selected residents of a certain city included $1290$ who were over the age of $25$, and $1012$ of them were high school graduates. 
 Is the city's result of $1012$ unusually high, low, or neither? 
 
-How should I approach this question? Any help and hints would be appreciated.
-
-<br>
-
-**ANSWER:**
-
-<br>
 
 First off let me get the algebraic nomenclature out of the way - I find this extremely slippery and often implied:
 
@@ -112,23 +119,70 @@ First off let me get the algebraic nomenclature out of the way - I find this ext
 
 (v) $\small Y$ number of "successes" ("success" interpreted sometimes like the word "positive" in Medicine - you don't necessarily want it for yourself).
 
-We are done! Well almost...
+
 
 In our case we have $\small \pi = 0.82$ and $\small \hat \pi = 1012/1290 = 0.78$. And $\small n = 1290$.
 
-The MLE of $\pi$ is the sample proportion, $\hat \pi = \small successes/trials$, and the expectation for the number of $\small successes$ is $n\pi$. The sample proportion is an unbiased estimator of the population: $\small E(\hat \pi)=\pi$ (and $\small E(Y)=n\pi$) and the standard error behaves very similarly to that of sampling distributions of sample means: $\small SE\,(\hat \pi) = \sqrt{\frac{\pi(1-\pi)}{n}}$, remembering that $var(\hat \pi)= \pi(1-\pi)$ (and $var(Y)=n\pi(1-\pi)$).
+The MLE of $\pi$ is the sample proportion, $\hat \pi = \small \text{successes/trials}$, and the expectation for the number of $\small\text{successes}$ is $n\pi$. The sample proportion is an unbiased estimator of the population: $\small E(\hat \pi)=\pi$ (and $\small E(Y)=n\pi$) and the standard error behaves very similarly to that of sampling distributions of sample means: $\small SE\,(\hat \pi) = \sqrt{\frac{\pi(1-\pi)}{n}}$, remembering that $var(\hat \pi)= \pi(1-\pi)$ (and $var(Y)=n\pi(1-\pi)$).
 
-The test here as Glen indicates is a two-sided one-sample proportion test: $H_0: \pi = \pi_0$ versus $H_A: \pi \neq \pi_0$. Typically, a normal approximation with mean $\pi$ and $var = \pi(1-\pi)/n$ under the following conditions: $n\hat\pi>5$ and $n(1-\hat\pi)>5$. In our case this is clearly met ($\small 1290 * 0.78 = 1006$).
+The test here is a two-sided one-sample proportion test: $H_0: \pi = \pi_0$ versus $H_A: \pi \neq \pi_0$. Typically, a normal approximation with mean $\pi$ and $var = \pi(1-\pi)/n$ under the following conditions: $n\hat\pi>5$ and $n(1-\hat\pi)>5$. In our case this is clearly met ($\small 1290 * 0.78 = 1006$).
 
-The $z$ test statistic is $\large z=\Large\frac{\hat\pi-\pi_0}{\sqrt{\frac{\pi_0\,(1-\pi_0)}{n}}}$. In our case, $z =\large \frac{0.78 - 0.82}{\sqrt{\frac{0.82(1-0.82)}{1290}}}=\large \frac{-0.04}{\sqrt{\frac{0.15}{1290}}}= \small-3.32$, which is clearly significant since `c(-1,1) * qnorm(1 - 0.05/2) = [1] -1.96  1.96`, and `pnorm(-3.32) =0.00045`. This latter expression corresponding to the [R] code for the two-tailed cut-off quantile values fixing the alpha significance level at 5%: $z_{(1 - \alpha/2)}$ where $\small \alpha = 0.05$.
+The $z$ test statistic is 
+
+$$z=\Large\frac{\hat\pi-\pi_0}{\sqrt{\frac{\pi_0\,(1-\pi_0)}{n}}}$$ 
+In our case, $z =\large \frac{0.78 - 0.82}{\sqrt{\frac{0.82(1-0.82)}{1290}}}=\large \frac{-0.04}{\sqrt{\frac{0.15}{1290}}}= \small-3.32$ 
+
+```{r}
+p <- 0.82
+n <- 1290
+p.hat <- 1012/n
+paste('The z-statistic is', z.statistic  <- (p.hat - p) / sqrt((p * (1 - p))/n))
+```
+
+
+which is clearly significant since
+
+```{r}
+c(-1,1) * qnorm(1 - 0.05/2)
+```
+
+This latter expression corresponding to the [R] code for the two-tailed cut-off quantile values fixing the alpha significance level at 5%: $z_{(1 - \alpha/2)}$ where $\small \alpha = 0.05$.
 
 As for the Wald confidence intervals, the calculation is:
 
 $\large \hat \pi \pm z_{(1-\alpha/2)}\,\sqrt{\frac{\hat\pi(1-\hat\pi)}{n}}$. Coded in [R]:
 
-`0.78 + c(-1,1) * qnorm(1 - 0.05/2) * sqrt((0.78 * (1 - 0.78)) / 1290) = 0.7573946 to 0.8026054`, which does not include $\small \pi_0 = 0.82$.
+```{r}
+p.hat + c(-1,1) * qnorm(1 - 0.05/2) * sqrt((p.hat * (1 - p.hat)) / n)
+```
 
-Since we know the population proportion $\pi$ in this case as being $0.82$ we can use it to construct the confidence interval as: $\large \pi \pm z_{(1-\alpha/2)}\,\sqrt{\frac{\pi(1-\pi)}{n}}$, or: `0.82 + c(-1,1) * qnorm(1 - 0.05/2) * sqrt((0.82 * (1 - 0.82)) / 1290) = 0.7990349 to 0.8409651`. This excludes the sample value $0.78$.
+which does not include $\small \pi_0 = 0.82$.
+
+Since we know the population proportion $\pi$ in this case as being $0.82$ we can use it to construct the confidence interval as: 
+
+```{r}
+p + c(-1,1) * qnorm(1 - 0.05/2) * sqrt((p * (1 - p)) / n)
+```
+
+This excludes the sample value $0.78$.
+
+The p-value of this one-sided test is
+
+```{r}
+2 * (1 - pnorm(abs(z.statistic)))
+```
+
+
+We can do all this with `prop.test()`:
+
+```{r}
+success <- 1012
+n <- 1290
+p <- 0.82
+prop.test(success, n=n, p=p, alternative="two.sided", conf.level=0.95, correct = F)
+```
+
+
 
 Reference:
 
