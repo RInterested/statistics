@@ -1,9 +1,9 @@
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###COMPARING PROPORTIONS BETWEEN SAMPLES:
+### COMPARING PROPORTIONS BETWEEN SAMPLES:
 <br>
 
 [What follows was initially [posted in CrossValidated](http://stats.stackexchange.com/a/167988/67822)].
@@ -114,13 +114,17 @@ or..
 <br><br>
 
 
-**4.** [Z-TEST OF PROPORTIONS][3]: The normal distribution is a good approximation for a binomial when $np>5$ and $n(1-p)>5$. When the occurrences of successes are small in comparison with the total amount of observations, it is the actual number of expected observations that will determine if a [normal approximation of a poisson process][8] can be considered ($\lambda \geq 5$).
+**4.** [Z-TEST OF PROPORTIONS][3]: 
 
-Although the [post hyperlinked][3] is old, I haven't found in CV an `R` function for it. This may be due to the fact explained above re: $\chi^2_{(df=1)}\sim \, N_{(0,1)}^2$.  
+The normal distribution is a good approximation for a binomial when $np>5$ and $n(1-p)>5$. When the occurrences of successes are small in comparison with the total amount of observations, it is the actual number of expected observations that will determine if a [normal approximation of a Poisson process][8] can be considered ($\lambda \geq 5$).
+
+Although the [post hyperlinked][3] is old, I haven't found in CV an `R` function for it. This is also reflected in [this R-Bloggers post](https://www.r-bloggers.com/2009/07/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/). This may be due to the fact explained above re: $\chi^2_{(df=1)}\sim \, N_{(0,1)}^2$.  
 
 The Test Statistic (TS) is:
 
-$\displaystyle Z =\frac{\frac{x_1}{n_1}-\frac{x_2}{n_2}}{\sqrt{p\,(1-p)(1/n_1+1/n_2)}}$ with $\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}$, where $x_1$ and $x_2$ are the number of "successes" (in our case, sadly, heartburn), over the number of subjects in that each one of the levels of the categorical variable (`Drug A` and `Drug B`), i.e. $n_1$ and $n_2$.
+$$Z=\frac{\frac{x_1}{n_1}-\frac{x_2}{n_s}}{\sqrt{\widehat{p}(1-\widehat{p})(\frac{1}{n_1}+\frac{1}{n_2})}}$$ 
+
+with $\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}$, where $x_1$ and $x_2$ are the number of "successes" (in our case, sadly, heartburn), over the number of subjects in that each one of the levels of the categorical variable (`Drug A` and `Drug B`), i.e. $n_1$ and $n_2$.
 
 For a double-tailed test the $p$-value will be calcuated as the $p(|Z|\geq TS)$, which in [R] corresponds to `2 * pnorm(ts,lower.tail = F)` with `ts = test statistic`.
 
