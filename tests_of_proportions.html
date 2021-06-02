@@ -270,28 +270,45 @@ G = 5.8703, X-squared df = 1, p-value = 0.0154</code></pre>
 <p><br><br></p>
 <p><strong>4.</strong> <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">Z-TEST OF PROPORTIONS</a>:</p>
 <p>The normal distribution is a good approximation for a binomial when <span class="math inline">\(np&gt;5\)</span> and <span class="math inline">\(n(1-p)&gt;5\)</span>. When the occurrences of successes are small in comparison with the total amount of observations, it is the actual number of expected observations that will determine if a <a href="http://stats.stackexchange.com/q/51494/67822">normal approximation of a Poisson process</a> can be considered (<span class="math inline">\(\lambda \geq 5\)</span>).</p>
-<p>Although the <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">post hyperlinked</a> is old, I haven’t found in CV an <code>R</code> function for it. This is also reflected in <a href="https://www.r-bloggers.com/2009/07/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">this R-Bloggers post</a>. This may be due to the fact explained above re: <span class="math inline">\(\chi^2_{(df=1)}\sim \, N_{(0,1)}^2\)</span>.</p>
+<p>Although this <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">r-bloggers post</a> is old, I haven’t found in CV an <code>R</code> function for it. This is also reflected in <a href="https://www.r-bloggers.com/2009/07/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">this R-Bloggers post</a>. This may be due to the fact explained above re: <span class="math inline">\(\chi^2_{(df=1)}\sim \, N_{(0,1)}^2\)</span>.</p>
 <p>The Test Statistic (TS) is:</p>
 <p><span class="math display">\[Z=\frac{\frac{x_1}{n_1}-\frac{x_2}{n_s}}{\sqrt{\widehat{p}(1-\widehat{p})(\frac{1}{n_1}+\frac{1}{n_2})}}\]</span></p>
 <p>with <span class="math inline">\(\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}\)</span>, where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are the number of “successes” (in our case, sadly, heartburn), over the number of subjects in that each one of the levels of the categorical variable (<code>Drug A</code> and <code>Drug B</code>), i.e. <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span>.</p>
 <p>For a double-tailed test the <span class="math inline">\(p\)</span>-value will be calcuated as the <span class="math inline">\(p(|Z|\geq TS)\)</span>, which in [R] corresponds to <code>2 * pnorm(ts,lower.tail = F)</code> with <code>ts = test statistic</code>.</p>
-<p>In the <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">linked page</a> there is an <em>ad hoc</em> formula. I have been toying with a spin-off with a lot of loose ends. It defaults to a two-tailed alpha value of <code>0.05</code>, but can be changed, as much as it can be turned into a one tailed <code>t = 1</code>:</p>
-<pre><code>zprop = function(x1, x2, n1, n2, alpha=0.05, t = 2){
-  nume = (x1/n1) - (x2/n2)
-  p = (x1 + x2) / (n1 + n2)
-  deno = sqrt(p * (1 - p) * (1/n1 + 1/n2))
-  z = nume / deno
-  print(c(&quot;Z value:&quot;,abs(round(z,4))))
-  print(c(&quot;Cut-off quantile:&quot;, 
-    abs(round(qnorm(alpha/t),2))))
-  print(c(&quot;pvalue:&quot;, pnorm(-abs(z))))
+<p>In the <a href="http://www.r-bloggers.com/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">linked page</a> there is an <em>ad hoc</em> formula with a toy example:</p>
+<blockquote>
+<p>The owner of a betting company wants to verify whether a customer is cheating or not. To do this want to compare the number of successes of one player with the number of successes of one of his employees, of which he is certain that he is not cheating. In a month’s time, the player performs <span class="math inline">\(n_1 =74\)</span> bets and wins <span class="math inline">\(x_1 = 30;\)</span> the player in the same period of time making <span class="math inline">\(n_2 = 103\)</span> bets, wins <span class="math inline">\(x_2 v= 65.\)</span> Your client is a cheat or not?</p>
+</blockquote>
+<p>I have been toying with a spin-off with a lot of loose ends. It defaults to a two-tailed alpha value of <code>0.05</code>, but can be changed, as much as it can be turned into a one tailed <code>t = 1</code>:</p>
+<pre class="r"><code>    zprop = function(x1, x2, n1, n2, alpha=0.05, t = 2){
+      nume = (x1/n1) - (x2/n2)
+      p = (x1 + x2) / (n1 + n2)
+      deno = sqrt(p * (1 - p) * (1/n1 + 1/n2))
+      z = nume / deno
+      print(c(&quot;Z value:&quot;, abs(round(z,4))))
+      print(c(&quot;Cut-off quantile:&quot;, 
+        abs(round(qnorm(alpha/t),2))))
+      print(c(&quot;pvalue:&quot;, pnorm(-abs(z))))
+    }</code></pre>
+<p>In our of antacid example: Of the patients on Drug A, i.e. <span class="math inline">\(n_1= 178,\)</span> <span class="math inline">\(x_1=64\)</span> experienced heartburn (“success”), whereas of the <span class="math inline">\(n_2=190\)</span> patients on Drug B, <span class="math inline">\(x_2=92,\)</span> had heartburn:</p>
+<pre class="r"><code>zprop(64, 92, 178, 190)</code></pre>
+<pre><code>## [1] &quot;Z value:&quot; &quot;2.4183&quot;  
+## [1] &quot;Cut-off quantile:&quot; &quot;1.96&quot;             
+## [1] &quot;pvalue:&quot;             &quot;0.00779692912707934&quot;</code></pre>
+<p>Using the example above from the <a href="https://www.r-bloggers.com/2009/07/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/">r-loggers post</a>:</p>
+<pre class="r"><code>zprop(30,65,74,103) </code></pre>
+<pre><code>## [1] &quot;Z value:&quot; &quot;2.9697&quot;  
+## [1] &quot;Cut-off quantile:&quot; &quot;1.96&quot;             
+## [1] &quot;pvalue:&quot;             &quot;0.00149047672261619&quot;</code></pre>
+<p>the output is identical, although I have eliminated the possibility of negative Z values with <code>abs(round(z,4))</code> because the order in the difference is not providing information that is not already apparent. Instead, the <code>z.prop()</code> function in the linked post:</p>
+<pre><code>z.prop = function(x1,x2,n1,n2){
+numerator = (x1/n1) - (x2/n2)
+p.common = (x1+x2) / (n1+n2)
+denominator = sqrt(p.common * (1-p.common) * (1/n1 + 1/n2))
+z.prop.ris = numerator / denominator
+return(z.prop.ris)
 }</code></pre>
-<p>In our case:</p>
-<pre><code>    zprop(64, 92 , 178, 190)
-    [1] Z value:          2.4183  
-    [1] Cut-off quantile: 1.96             
-    [1] pvalue:           0.0077</code></pre>
-<p>Giving the same z value as the function in the R-Bloggers: <code>z.prop(64, 178 , 92, 190) [1] -5.44273</code></p>
+<p>allows for positive and negative Z-test values.</p>
 <p>An alternate test statistic is the Wald test:</p>
 <p><em>test statistic</em> = <span class="math inline">\(\Large \frac{\hat p_1 - \hat p_2}{\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-(\hat p_2))}{n_2}}}\)</span></p>
 <p>which is useful to create confidence intervals for the difference:</p>

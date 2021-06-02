@@ -118,7 +118,7 @@ or..
 
 The normal distribution is a good approximation for a binomial when $np>5$ and $n(1-p)>5$. When the occurrences of successes are small in comparison with the total amount of observations, it is the actual number of expected observations that will determine if a [normal approximation of a Poisson process][8] can be considered ($\lambda \geq 5$).
 
-Although the [post hyperlinked][3] is old, I haven't found in CV an `R` function for it. This is also reflected in [this R-Bloggers post](https://www.r-bloggers.com/2009/07/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/). This may be due to the fact explained above re: $\chi^2_{(df=1)}\sim \, N_{(0,1)}^2$.  
+Although this [r-bloggers post][3] is old, I haven't found in CV an `R` function for it. This is also reflected in [this R-Bloggers post](https://www.r-bloggers.com/2009/07/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/). This may be due to the fact explained above re: $\chi^2_{(df=1)}\sim \, N_{(0,1)}^2$.  
 
 The Test Statistic (TS) is:
 
@@ -128,27 +128,51 @@ with $\displaystyle p = \frac{x_1\,+\,x_2}{n_1\,+\,n_2}$, where $x_1$ and $x_2$ 
 
 For a double-tailed test the $p$-value will be calcuated as the $p(|Z|\geq TS)$, which in [R] corresponds to `2 * pnorm(ts,lower.tail = F)` with `ts = test statistic`.
 
-In the [linked page][3] there is an *ad hoc* formula. I have been toying with a spin-off with a lot of loose ends. It defaults to a two-tailed alpha value of `0.05`, but can be changed, as much as it can be turned into a one tailed `t = 1`:
+In the [linked page][3] there is an *ad hoc* formula with a toy example:
 
+> The owner of a betting company wants to verify whether a customer is cheating or not. To do this want to compare the number of successes of one player with the number of successes of one of his employees, of which he is certain that he is not cheating. In a month’s time, the player performs $n_1 =74$ bets and wins $x_1 = 30;$ the player in the same period of time making $n_2 = 103$ bets, wins $x_2 v= 65.$ Your client is a cheat or not? 
+
+I have been toying with a spin-off with a lot of loose ends. It defaults to a two-tailed alpha value of `0.05`, but can be changed, as much as it can be turned into a one tailed `t = 1`:
+
+```{r}
     zprop = function(x1, x2, n1, n2, alpha=0.05, t = 2){
       nume = (x1/n1) - (x2/n2)
       p = (x1 + x2) / (n1 + n2)
       deno = sqrt(p * (1 - p) * (1/n1 + 1/n2))
       z = nume / deno
-      print(c("Z value:",abs(round(z,4))))
+      print(c("Z value:", abs(round(z,4))))
       print(c("Cut-off quantile:", 
         abs(round(qnorm(alpha/t),2))))
       print(c("pvalue:", pnorm(-abs(z))))
     }
+```
 
-In our case:
+In our of antacid example: Of the patients on Drug A, i.e. $n_1= 178,$ $x_1=64$ experienced heartburn ("success"), whereas of the $n_2=190$ patients on Drug B, $x_2=92,$ had heartburn:
 
-        zprop(64, 92 , 178, 190)
-        [1] Z value:          2.4183  
-        [1] Cut-off quantile: 1.96             
-        [1] pvalue:           0.0077
+```{r}
+zprop(64, 92, 178, 190)
+```
 
-Giving the same z value as the function in the R-Bloggers: `z.prop(64, 178 , 92, 190) [1] -5.44273`
+
+Using the example above from the [r-loggers post](https://www.r-bloggers.com/2009/07/comparison-of-two-proportions-parametric-z-test-and-non-parametric-chi-squared-methods/):
+
+```{r}
+zprop(30,65,74,103) 
+```
+
+the output is identical, although I have eliminated the possibility of negative Z values with `abs(round(z,4))` because the order in the difference is not providing information that is not already apparent. Instead, the `z.prop()` function in the linked post: 
+
+```
+z.prop = function(x1,x2,n1,n2){
+numerator = (x1/n1) - (x2/n2)
+p.common = (x1+x2) / (n1+n2)
+denominator = sqrt(p.common * (1-p.common) * (1/n1 + 1/n2))
+z.prop.ris = numerator / denominator
+return(z.prop.ris)
+}
+```
+
+allows for positive and negative Z-test values.
 
 An alternate test statistic is the Wald test:
 
