@@ -1,9 +1,9 @@
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###POWER CALCULATIONS:
+### POWER CALCULATIONS:
 <br>
 
 *Motivating scenario: Meta-alpha protein (MAP) levels of 25 mg/mL are considered top normal in the population at large ($\mu_o$). However, we are studying a group of 20 ($n=20$) subjects with a severe deficit in glycophospholids (GLy) with MAP concentrations of 28 mg/mL with a standard deviation of 5 mg/mL. The question is what is the power of a $t$ test to reject the $H_o$ hypothesis when it is false, and conclude that people with deficit in GLy have higher levels of MAP?*
@@ -27,7 +27,7 @@ Therefore, probability of rejecting $H_o$ when it is false will be $1 - \beta$. 
 
 <br>
 
-$POWER \, = \, 1\,-\,\beta$
+### $POWER \, = \, 1\,-\,\beta$
 
 <br>
 
@@ -37,7 +37,7 @@ For a single-group mean test we are comparing a normalized mean to a $t$ quantil
 
 <br>
 
-$p\,\Big(\Large\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> t_{1-\alpha,\,n-1}|\mu=\mu_a\Big)$
+$\Pr\left(\Large\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> t_{1-\alpha,\,n-1}\mid \mu=\mu_a\right)$
 
 <br>
 
@@ -45,7 +45,7 @@ However, if $n$ is large we can do instead normal calculations:
 
 <br>
 
-$p\,\Big(\Large\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> z_{1-\alpha}|\mu=\mu_a\Big)\small \tag 1$
+$\Pr\left(\Large\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> z_{1-\alpha}\mid\mu=\mu_a\right)\small \tag 1$
 
 <br>
 That is to say, we want to calculate the probability that our test statistic will reject the null *under* or given that the alternative is true.
@@ -53,50 +53,61 @@ That is to say, we want to calculate the probability that our test statistic wil
 <br>
 
 $$\begin{align}
-\Pr\left(\Large\frac{\bar X - \mu_a \, + \mu_a -\mu_o}{s/\sqrt{n}}\,> z_{1-\alpha}|\mu=\mu_a\right)\\[2ex]
-=\Pr\left(\Large\frac{\bar X - \mu_a}{\sigma/\sqrt{n}} > \,z_{1-\alpha}\, -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\right)\small \tag 2\\[2ex]
-=\Pr\left(Z> \, z_{1-\alpha} -\frac{\mu_a -\mu_o}{s/\sqrt{n}}|\mu=\mu_a\right)
+\Pr\left(\Large\frac{\bar X - \mu_a \, + \mu_a -\mu_o}{s/\sqrt{n}}\,> z_{1-\alpha}\mid \mu=\mu_a\right)\\[2ex]
+=\Pr\left(\Large\frac{\bar X - \mu_a}{\sigma/\sqrt{n}} > \,z_{1-\alpha}\, -\frac{\mu_a -\mu_o}{s/\sqrt{n}}\mid \mu=\mu_a\right)\small \tag 2\\[2ex]
+=\Pr\left(Z> \, z_{1-\alpha} -\frac{\mu_a -\mu_o}{s/\sqrt{n}}\mid \mu=\mu_a\right)
 \end{align}$$
 
 ---
 
 Here're two examples from a Coursera course:
 
-1. Researchers would like to conduct a study of $100$ healthy adults to detect a four year mean brain volume loss of $0.01 \,mm^3$. Assume that the standard deviation of four year volume loss in this population is $0.04 \,mm^3$. What would be the power of the study for a 5% one sided test versus a null hypothesis of
+1. Researchers would like to conduct a study of $100$ healthy adults to detect a four year mean brain volume loss of $0.01 \,\text{mm}^3$. Assume that the standard deviation of four year volume loss in this population is $0.04 \,\text{mm}^3$. What would be the power of the study for a 5% one sided test versus a null hypothesis of
 no volume loss?
 
 The hypothesis is $H_o: \mu_{\Delta}=0$ v. $H_a: \mu_{\Delta}>0$ where $\mu_{\Delta}$ is the volume loss. The test statistics is $\large \frac{\bar X_{\Delta}}{\frac{sd}{\sqrt{n}}}=10\frac{\bar X_{\Delta}}{0.04}$ which is rejected if it is larger than $Z_{0.95}=1.645$.
 
+
 We want to calculate:
 
-$\Pr\left(\frac{\bar X_\Delta}{\sigma_\Delta / 10} > 1.645 ~|~ \mu_\Delta = .01\right) \,\text{[eq.1 above]}
-= \Pr\left( \frac{\bar X_\Delta - .01}{.004} > 1. 645 - \frac{.01}{.004} ~|~ \mu_\Delta = .01\right)\,\text{[eq.2 above]}
+$\Pr\left(\frac{\bar X_\Delta}{\sigma_\Delta / 10} > 1.645 \mid \mu_\Delta = .01\right) \,\text{[eq.1 above]}
+= \Pr\left( \frac{\bar X_\Delta - .01}{.004} > 1. 645 - \frac{.01}{.004} \mid \mu_\Delta = .01\right)\,\text{[eq.2 above]}
 = \Pr(Z > −.855) = .80$
+
+<br><br>
 
 ```{r}
 pnorm(-0.855, lower.tail = FALSE)
 ```
 
-Or note that $\bar X_{\Delta}$ is $N(0.01,0.004)$ under the alternative and we want the $P(\bar X_{\Delta} > 1.645*0.04)$ under $H_a$ (this can be seen by simplifying equation $P\left( \frac{\bar X_\Delta - .01}{.004} > 1. 645 - \frac{.01}{.004} ~|~ \mu_\Delta = .01\right)\,=P\left( \frac{\bar X_\Delta}{.004} > 1. 645 ~|~ \mu_\Delta = .01\right)\,$.
+<br><br>
+
+Or note that $\bar X_{\Delta}$ is $N(0.01,0.004)$ under the alternative and we want the $\Pr(\bar X_{\Delta} > 1.645\times 0.04)$ under $H_a$ (this can be seen by simplifying equation $\Pr\left( \frac{\bar X_\Delta - .01}{.004} > 1. 645 - \frac{.01}{.004} \mid \mu_\Delta = .01\right)\,=\Pr\left( \frac{\bar X_\Delta}{.004} > 1. 645 \mid \mu_\Delta = .01\right)\,$.
+
+<br><br>
 
 ```{r}
 pnorm(1.645 * 0.004, mean = 0.01, sd = 0.004, lower.tail = FALSE)
 ```
 
-2. Researchers would like to conduct a study of $n$ healthy adults to detect a four year mean brain volume loss of $0.01\,mm^3$. Assume that the standard deviation of four year volume loss in this population is $0.04\, mm^3$.
+<br><br>
 
-What would be the value of $n$ needded for $90\%$ power of type one error rate of $5\%$ one sided test versus a null hypothesis of no volume loss?
+2. Researchers would like to conduct a study of $n$ healthy adults to detect a four year mean brain volume loss of $0.01\,\text{mm}^3$. Assume that the standard deviation of four year volume loss in this population is $0.04\, \text{mm}^3$.
+
+What would be the value of $n$ needed for $90\%$ power of type one error rate of $5\%$ one sided test versus a null hypothesis of no volume loss?
 
 The hypothesis is $H_o: \mu_{\Delta}=0$ v. $H_a: \mu_{\Delta}>0$ where $\mu_{\Delta}$ is the volume loss. The test statistics is $\frac{\bar X_{\Delta}}{0.04/\sqrt{n}}$ which is rejected if it is larger than $Z_{0.95}=1.645$.
+
+
 We want to calculate:
 <br><br>
 
-$P\left(\frac{\bar X_\Delta}{\sigma_\Delta / \sqrt{n}} > 1.645 ~|~ \mu_\Delta = .01\right)
-= P\left( \frac{\bar X_\Delta - .01}{.04 / \sqrt{n}} > 1. 645 - \frac{.01}{.04 / \sqrt{n}} ~|~ \mu_\Delta = .01\right)
-= P(Z > 1.645 - \sqrt{n} / 4) = .90$
+$\Pr\left(\frac{\bar X_\Delta}{\sigma_\Delta / \sqrt{n}} > 1.645 \mid \mu_\Delta = .01\right)
+= \Pr\left( \frac{\bar X_\Delta - .01}{.04 / \sqrt{n}} > 1. 645 - \frac{.01}{.04 / \sqrt{n}} \mid \mu_\Delta = .01\right)
+= \Pr(Z > 1.645 - \sqrt{n} / 4) = .90$
 <br><br>
 
-So we need $1.645 - \sqrt{n} / 4 = Z_{.10} = qnorm(.1) = -1.282$ and thus $n = ( 4 * (1.645 + 1.282)  )^ 2=137.0773$
+So we need $1.645 - \sqrt{n} / 4 = Z_{.10} = \text{qnorm}(.1) = -1.282$ and thus $n = ( 4 \times (1.645 + 1.282)  )^ 2=137.0773.$
 
 ```{r}
 ceiling((4 * (qnorm(0.95) - qnorm(0.1)))^2) # The negative sign is because qnorm(0.1) is negative.
@@ -108,12 +119,12 @@ But we started off saying that we were comparing to a $t$ quantile, so how do we
 <br><br>
 
 $$\begin{align}
-\Pr\,\left(\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> t_{(1-\alpha, n-1)}\,\vert \mu=\mu_a\right)\\[2ex]
-=\Pr\,\left(\sqrt{n} (\bar X - \mu_o)\,> t_{(1-\alpha, n-1)}\, s\,\vert \mu=\mu_a\right)\\[2ex]
-=\Pr\,\left(\frac{\sqrt{n}\,(\bar X - \mu_o)}{\sigma}\,> t_{(1-\alpha, n-1)}\,\frac{s}{\sigma}\,\vert \mu=\mu_a\right)\\[2ex]
-=\Pr\,\left( \frac{\sqrt{n}\,(\bar X - \mu_a)}{\sigma} + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,> \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\frac{(n-1)\,s^2}{\sigma^2}}\,\,\vert \mu=\mu_a\right)\\[2ex]
-=\Pr\,\left( \frac{\sqrt{n}\,(\bar X - \mu_a)}{\sigma} + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,> \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\chi^2_{n-1}}\,\,\vert\mu=\mu_a\right)\\[2ex]
-\Pr\,\Big( Z + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,> \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\chi^2_{n-1}}\,\,\vert\mu=\mu_a\Big)
+\Pr\,\left(\frac{\bar X - \mu_o}{s/\sqrt{n}}\,> t_{(1-\alpha, n-1)}\,\mid \mu=\mu_a\right)\\[2ex]
+=\Pr\,\left(\sqrt{n} (\bar X - \mu_o)\,> t_{(1-\alpha, n-1)}\, s\,\mid \mu=\mu_a\right)\\[2ex]
+=\Pr\,\left(\frac{\sqrt{n}\,(\bar X - \mu_o)}{\sigma}\,> t_{(1-\alpha, n-1)}\,\frac{s}{\sigma}\,\mid \mu=\mu_a\right)\\[2ex]
+=\Pr\,\left( \frac{\sqrt{n}\,(\bar X - \mu_a)}{\sigma} + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,> \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\frac{(n-1)\,s^2}{\sigma^2}}\,\,\mid \mu=\mu_a\right)\\[2ex]
+=\Pr\,\left( \frac{\sqrt{n}\,(\bar X - \mu_a)}{\sigma} + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,> \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\chi^2_{n-1}}\,\,\mid\mu=\mu_a\right)\\[2ex]
+\Pr\,\left( Z + \frac{\sqrt{n}\,(\mu_a - \mu_o)}{\sigma}\,> \frac{t_{(1-\alpha, n-1)}}{\sqrt{n-1}}\,\sqrt{\chi^2_{n-1}}\,\,\mid\mu=\mu_a\right)
 \end{align}$$
 
 Note that $\frac{(\mu_a - \mu_o)}{\sigma}$ is the *effect size*. We don't really have to know $\mu_a$: the effect size (or standardized effect size) is all we need. 
