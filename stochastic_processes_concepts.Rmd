@@ -1,0 +1,69 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+### RANDOM WALK:
+
+$$X_n = \sum_{i=1}^n X_i $$
+
+with $$\Pr(X_i = 1) = p, \;\;\; \Pr(X_1 = -1) = q$$
+
+where if $p=q$ we have a simple, symmetric random walk, whereas if $p \neq q$ we have a random walk with drift. See [here](https://www.softcover.io/read/bf34ea25/math_for_finance/random_walks).
+
+Brownian motion is the continuous time equivalent.
+
+Now, from [here](https://quant.stackexchange.com/q/19454/31759), a random walk is different from white noise, which is stationary, has constant variance, and no autocorrelation. The variance of a random walk is increasing.
+
+In a random walk,
+
+$$x_{t+1} = x_t + \varepsilon_{t+1}$$
+
+with $\varepsilon$ being white noise.
+
+#### MULTIPLICATIVE STOCHASTIC PROCESS:
+
+Will follow a lognormal or power-law distribution as explained [here](https://www.youtube.com/watch?v=yA1pkyanbzw&ab_channel=ComplexityExplorer).
+
+Geometric Brownian motion comes instead as the limit of a **multiplicative random walk** : look at an initial stock price, $X_0,$ multiplied by factors $\varepsilon_i$ at each time step:
+
+$$X_n=X_0 \; \varepsilon_1\;\varepsilon_2 \;\cdots\; \varepsilon_n.$$
+
+Therefore we will have
+
+$$x_{t+1} = x_t  \varepsilon_{t+1}$$
+
+where $\varepsilon$ can be a variable interest rate.
+
+If we model these $L_i$ as independent and identically distributed random variables, applying the logarithm allows us to write the equation additively:
+
+$$\ln X_n=\ln X_0+ \sum_{i=1}^n\ln \varepsilon_i$$
+
+
+The Central Limit Theorem applies, and $\sum_{i=1}^n\ln \varepsilon_i$ is a sum of random variables, and it is distributed normally independently of the distribution of $\varepsilon$. Consequently, $\ln X_n$ is distributed normally as more terms are added, and $\ln X_0$ becomes less significant. So $X$ is log-normally distributed. Positive normal variables that multiply together are log-normal in distribution: investments, city size...
+
+But, if there is a lower bound to $X_n,$ then $X$ will be distributed as a power law.
+
+### MARKOV PROCESS and AR(1):
+
+From [here](https://stats.stackexchange.com/q/23789/67822) a Markov process fulfills:
+
+$$P(X_{t} = x_t | {\rm entire \ history \ of \ the \ process }) = P(X_{t}=x_t| X_{t-1}=x_{t-1})$$
+
+and an AR(1) process is
+
+$$X_{t} = c + \varphi X_{t-1} + \varepsilon_{t}$$
+
+Hence, a Markov process is an AR(1) process.
+
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
