@@ -19,12 +19,12 @@ In addition, this also helps turning a sigmoid curve of a typical cummulative pr
 The logistic regression model is therefore:
 
 
-$$\large \color{red}{\log} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{ p\,(Y=1)}{1- p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p$$
+$$\large \color{red}{\log} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{ p\,(Y=1)}{1- p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_k x_k$$
 
 
 Consequently,
 
-$$\large \color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$$
+$$\large \color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_kx_k}$$
 
 Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ times. 
 
@@ -35,6 +35,13 @@ Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ tim
 <br>
 <img HEIGHT="500" WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/13310362/745ac3ac-db53-11e5-8147-5dcd27f73224.png">
 <br>
+
+
+The actual probability of success is:
+
+$$\large \color{blue}{\text{p}(Y=1)} = \frac{\exp(\beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k)}{1+\exp(\beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k)}.$$
+
+---
 
 For CATEGORICAL VARIABLES, the **ODDS RATIO** denote how much the presence or absence of a factor variable increases the odds of a positive dependent variable. 
 
@@ -485,7 +492,7 @@ Why do we take all the trouble doing the transformation from probability to log 
 
 A logistic regression model allows us to establish a relationship between a binary outcome variable and a group of predictor variables.  It models the logit-transformed probability as a linear relationship with the predictor variables.  More formally, let $Y$ be the binary outcome variable indicating failure/success with $\{0,1\}$ and $p$ be the probability of $y$ to be 1. Let $x_1,x_2,\dots$ be a set of predictor variables.  Then the logistic regression of $Y$ on $x_1,x_2,\dots$ estimates parameter values via maximum likelihood method of the following equation
 
-$$\text{logit}(p) = \log(\frac{p}{1-p}) = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k.$$
+$$\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k.$$
 
 Exponentiate and take the multiplicative inverse of both sides,
 
