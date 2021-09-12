@@ -3,7 +3,7 @@
 <img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-We want to estimate the probability of success / failure of the dependent variable ($\Pr(Y=1)$), given the explanatory variables: $\Pr(Y=1|X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
+We want to estimate the probability of success / failure of the dependent variable $(\Pr(Y=1))$, given the explanatory variables: $\Pr(Y=1\mid X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
 
 
 Logistic regression addresses the following issues:
@@ -19,14 +19,18 @@ In addition, this also helps turning a sigmoid curve of a typical cummulative pr
 The logistic regression model is therefore:
 
 
-$$\large \color{red}{\log} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{\hat p\,(Y=1)}{1-\hat p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p$$
+$$\large \color{red}{\log} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{ p\,(Y=1)}{1- p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_p x_p$$
 
 
 Consequently,
 
 $$\large \color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_px_p}$$
 
-Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ times. The factors $\large e^{\,\beta_i}$ are the **ODDS RATIO**'s. On the other hand, $\beta_i$ (the coefficients) are the **LOG ODDS-RATIO**:
+Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ times. 
+
+* The factors $\large e^{\,\beta_i}$ are the **ODDS RATIO**'s. 
+
+* On the other hand, $\beta_i$ (the coefficients) are the **LOG ODDS-RATIO**:
 
 <br>
 <img HEIGHT="500" WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/13310362/745ac3ac-db53-11e5-8147-5dcd27f73224.png">
@@ -259,20 +263,20 @@ summary(catlogis)
 
 ```{R, message=F}
 require(pROC)
-auc(df$credit.default, predict(catlogis, type="response"))
+auc(credit.default, predict(catlogis, type="response"), quiet=T)
 ```
 
 We can generate an ANOVA to analyze the table of variance, paying attention at the difference between the `NULL` variance and the `Resid. Deviance` to see which variable reduce this residual variance in comparison to the model with only an intecept. The p-values also help select variables. We want a drop in the deviance and AIC.
 
-```{r, fig.height=3, fig.width=3}
+```{r, fig.height=4, fig.width=4}
 catlogis <- glm(credit.default ~ gender+profession, df, family=binomial(link="logit"))
 summary(catlogis)
-auc(df$credit.default, predict(catlogis, type="response"))
+auc(df$credit.default, predict(catlogis, type="response"), quiet=T)
 
 
 genlogis <- glm(credit.default ~ gender, df, family=binomial(link="logit"))
 summary(genlogis)
-auc(df$credit.default, predict(genlogis, type="response"))
+auc(df$credit.default, predict(genlogis, type="response"), quiet=T)
 
 
 fitted.results <- predict(genlogis, type="response")
@@ -286,21 +290,19 @@ prf <- performance(pr, measure = "tpr", x.measure = "fpr")
 plot(prf)
 
 auc <- performance(pr, measure = "auc")
-auc <- auc@y.values[[1]]
-auc
+(auc <- auc@y.values[[1]])
 
 
 proflogis <- glm(credit.default ~ profession, df, family=binomial(link="logit"))
 summary(proflogis)
-auc(df$credit.default, predict(proflogis, type="response"))
+auc(df$credit.default, predict(proflogis, type="response"), quiet=T)
 
 pr <- prediction(predict(proflogis, type="response"), df$credit.default)
 prf <- performance(pr, measure = "tpr", x.measure = "fpr")
 plot(prf)
 
 auc <- performance(pr, measure = "auc")
-auc <- auc@y.values[[1]]
-auc
+(auc <- auc@y.values[[1]])
 ```
 
 ---
@@ -346,8 +348,8 @@ To calculate the partial AUC of the beginning, where only a small number of fals
 par(pty="s")
 roc(obese, glm.fit$fitted.values, plot=T, legacy.axes=T, percent=T,
     xlab='False positive percentage', ylab='True positive percentage',
-    col='darkslateblue',lwd=4, print.auc=T, print.auc.x=45, partial.auc=c(100,90),
-    auc.polygon=T, auc.polygon.col='midnightblue')
+    col='darkslateblue',lwd=4, print.auc=T, print.auc.x=45,         partial.auc=c(100,90),
+    auc.polygon=T, auc.polygon.col='midnightblue', quiet=T)
 ```
 
 
@@ -401,7 +403,6 @@ pr <- exp(x)/(1+exp(x))
 y <- 1*(runif(n) < pr)
 mod <- glm(y~x, family="binomial")
 predpr <- predict(mod,type=c("response"))
-library(pROC)
 roccurve <- roc(y ~ predpr)
 plot(roccurve)
 ```
@@ -636,6 +637,57 @@ For females, the equation is
 $$\text{logit}(p) = \log(p/(1-p))= β_0 + β_1\text{female} + β_2\text{math} + β_3 \text{math}\times \text{female} .$$
 
 Now we can map the logistic regression output to these two equations. So we can say that the coefficient for `math` is the effect of math when `female = 0`.  More explicitly, we can say that for male students, a one-unit increase in math score yields a change in log odds of $0.13.$  On the other hand, for the female students, a one-unit increase in math score yields a change in log odds of $(.13 + .067) = 0.197.$  In terms of odds ratios, we can say that for male students, the odds ratio is $\exp(.13)  = 1.14$ for a one-unit increase in math score and the odds ratio for female students is $\exp(.197) = 1.22$ for a one-unit increase in math score.  The ratio of these two odds ratios (female over male) turns out to be the exponentiated coefficient for the interaction term of female by math: $1.22/1.14 = \exp(.067) = 1.07.$
+
+
+---
+
+#### Odds Ratios as Effect Size Statistics:
+
+From [here](https://www.theanalysisfactor.com/effect-size-statistics-logistic-regression/):
+
+First, it’s important to understand what effect size statistics are for and why they’re worth reporting.
+
+This quotation by Joseph Durlak explains it nicely:
+
+“…provide information about the magnitude and direction of the difference between two groups or the relationship between two variables.”
+
+There are two types of effect size statistics: standardized and unstandardized.
+
+Standardized statistics have been stripped of all units of measurement.
+
+Correlation is a nice example.  People like correlation because the strength and direction of any two correlations can be compared, regardless of the units of the variables on which the correlation was measured.
+
+Unstandardized statistics are still measured in the original units of the variables.  So a difference in two means and a regression coefficient are both effect size statistics and both are useful to report.
+
+Most people mean standardized when they say “effect size statistic.”  But both describe the magnitude and direction of the research findings.
+
+If you’re at all familiar with logistic regression, you’re also familiar with odds ratios.  Odds ratios measure how many times bigger the odds of one outcome is for one value of an IV, compared to another value.
+
+For example, let’s say you’re doing a logistic regression for a ecology study on whether or not a wetland in a certain area has been infected with a specific invasive plant.  Predictors include water temperature in degrees Celsius, altitude, and whether the wetland is a fen or a marsh.
+
+If the odds ratio for water temperature is $1.12,$ that means that for each one-degree Celsius increase in water temperature, the odds of the wetland having the invasive plant species is $1.12$ times as big, after controlling for the other predictors.
+
+That odds ratio is an unstandardized effect size statistic.  It tells you the direction and the strength of the relationship between water temperature and the odds that the plant is present.
+
+It’s unstandardized because it’s based on the units of temperature.
+
+I realize no ecologist would do so, but if the water were measured in degrees Fahrenheit, that odds ratio would have a different value.  The direction and the strength of the relationship would be the same, but the statistic would be evaluated on a different scale.
+
+#### Odds Ratios as Standardized Effect Size Statistics
+
+Surprisingly, I’ve seen odds ratios listed as standardized effect size statistics.
+
+A little digging showed those authors were referring to one of two situations.
+
+The first situation is when the predictor is also binary.  The odds ratio for whether the wetland was a fen or a marsh can be considered standardized, not because we’ve removed any units, but because there never were any.
+
+So if the odds ratio for fen vs. marsh is 2.3, we know the odds of the invasive plant being in a fen is 2.3 times that of a marsh.
+
+The second is when the numerical predictor is standardized.  If we standardize the temperature (aka, convert the scale to Z scores), we’ve removed the units. 
+
+We’ll get the same Z scores from degrees Fahrenheit as degrees Celsius, and the new odds ratio will be in terms of one standard deviation increases in temperature, rather than one degree.
+
+Voila! Units removed.
 
 <br><br>
 
