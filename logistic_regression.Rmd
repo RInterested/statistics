@@ -36,10 +36,19 @@ Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ tim
 <img HEIGHT="500" WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/13310362/745ac3ac-db53-11e5-8147-5dcd27f73224.png">
 <br>
 
+#### Translation into probabilities:
 
-The actual probability of success is:
+<br>
 
-$$\large \color{blue}{\text{p}(Y=1)} = \frac{\exp(\beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k)}{1+\exp(\beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k)}.$$
+From equation $(1)$ and $(2)$:
+
+$$\begin{align}
+\Pr(Y = 1) &= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\[2ex]
+e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}&=
+\Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) \\[2ex]
+\color{blue}{\Pr(Y = 1)} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}&=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
+\end{align}$$
+
 
 ---
 
@@ -56,24 +65,32 @@ exp(cbind(OR = coef(mylogit), confint(mylogit)))
 See [here](http://www.ats.ucla.edu/stat/r/dae/logit.htm).
 
 
-#### Translation into probabilities:
-
-<br>
-
-From equation $(1):$
-
-$$\begin{align}
-\Pr(Y = 1) &= (1-\Pr(Y=1))\times\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}\\[2ex]
-e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}&=
-\Pr(Y = 1)\,\times (1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}) \\[2ex]
-\color{green}{\Pr(Y = 1)} = \frac{\color{blue}{\text{odds(Y=1)}}}{1\,+\,\color{blue}{\text{odds(Y=1)}}}&=\frac{e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}{1 \,+\,e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}}=\frac{1}{1 \,+\,e^{-(\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p)}}
-\end{align}$$
-
-
 ---
 
 #### INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
 <br>
+
+Nothing better than simulating the data to obtain the coefficients through a logistic model (from [here](https://data.library.virginia.edu/simulating-a-logistic-regression-model/)):
+
+```{r}
+set.seed(1)
+n <- 100
+
+gender <- sample(c(0,1), size = n, replace = TRUE)
+age <- round(runif(n, 18, 80))
+
+beta0 <- - 10
+beta1 <-   2.5
+beta2 <-   0.4
+linear <- beta0 + beta1 * gender + beta2 * age
+
+p <- exp(linear) / (1 + exp(linear))
+
+y <- rbinom(n, size = 1, prob = p)
+          
+mod <- glm(y ~ gender + age, family = "binomial")
+summary(mod)
+```
 
 ***QUESTION:***
 
