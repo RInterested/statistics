@@ -311,7 +311,13 @@ print(paste('Accuracy', 1-misClasificError))
 library(ROCR)
 pr <- prediction(predict(genlogis, type="response"), df$credit.default)
 prf <- performance(pr, measure = "tpr", x.measure = "fpr")
-plot(prf)
+plot(prf, main= 'ROC curve',
+     colorize=TRUE,
+     lwd= 3)
+plot(prf,
+     lty=3,
+     col="grey78",
+     add=TRUE)
 
 auc <- performance(pr, measure = "auc")
 (auc <- auc@y.values[[1]])
@@ -323,7 +329,15 @@ auc(df$credit.default, predict(proflogis, type="response"), quiet=T)
 
 pr <- prediction(predict(proflogis, type="response"), df$credit.default)
 prf <- performance(pr, measure = "tpr", x.measure = "fpr")
-plot(prf)
+
+plot(prf,
+     colorize=TRUE,
+     lwd= 3,
+     main= "ROC curve")
+plot(prf,
+     lty=3,
+     col="grey78",
+     add=TRUE)
 
 auc <- performance(pr, measure = "auc")
 (auc <- auc@y.values[[1]])
