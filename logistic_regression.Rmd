@@ -67,6 +67,21 @@ See [here](http://www.ats.ucla.edu/stat/r/dae/logit.htm).
 
 ---
 
+OUTPUT IN R:
+
+```{r}
+f = glm(am ~ mpg, 'binomial', mtcars)
+# The linear part applied to values of i.v.'s:
+summary(predict(f))
+# Pr(Y = 1 | x1, x2,...)
+summary(fitted.values(f))
+# Pr(Y = 1 | x1, x2,...) = exp(predict(f)) / (1 + exp(predict(f)) = 1 / (1 + exp(-predict(f))
+all.equal(exp(predict(f)) / (1 + exp(predict(f))), fitted.values(f))
+```
+
+
+---
+
 #### INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
 <br>
 

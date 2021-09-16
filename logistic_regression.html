@@ -205,6 +205,20 @@ e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_p x_p}&amp;=
 <pre><code>exp(cbind(OR = coef(mylogit), confint(mylogit)))</code></pre>
 <p>See <a href="http://www.ats.ucla.edu/stat/r/dae/logit.htm">here</a>.</p>
 <hr />
+<p>OUTPUT IN R:</p>
+<pre class="r"><code>f = glm(am ~ mpg, &#39;binomial&#39;, mtcars)
+# The linear part applied to values of i.v.&#39;s:
+summary(predict(f))</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -3.4104 -1.8676 -0.7086 -0.4351  0.3967  3.8047</code></pre>
+<pre class="r"><code># Pr(Y = 1 | x1, x2,...)
+summary(fitted.values(f))</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## 0.03197 0.13388 0.32991 0.40625 0.59790 0.97822</code></pre>
+<pre class="r"><code># Pr(Y = 1 | x1, x2,...) = exp(predict(f)) / (1 + exp(predict(f)) = 1 / (1 + exp(-predict(f))
+all.equal(exp(predict(f)) / (1 + exp(predict(f))), fitted.values(f))</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<hr />
 </div>
 <div id="interpretation-of-logistic-regression-results" class="section level4">
 <h4>INTERPRETATION OF LOGISTIC REGRESSION RESULTS:</h4>
