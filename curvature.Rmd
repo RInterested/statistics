@@ -42,6 +42,8 @@ In 3D the Frenet frame will need an additional orthogonal vector to $\vec T(s)$ 
 
 <img height = 300  src = "https://user-images.githubusercontent.com/9312897/170062227-5af63f3d-37e5-4ed8-a142-0de6848bf180.gif">
 
+---
+
 
 In 2D $k(s)$ gives as the rate of change of $\vec T(s),$ but in 3D, we will also have the torsion $\tau(s)$ which will give us the rate of change of the normal $\vec n (s)$ vector.
 
@@ -52,6 +54,8 @@ $$\vec T'(s)=k(s) \vec n(s)$$
 and $k(s)$ can also be defined as the scalar product $k(s) =\langle \vec n(s), T'(s) \rangle.$ It can be seen written down as simply $k.$ This expresses the similarity of the changes in the tangent vector with respect to the unit normal to the curve. As in in the 2D case, it can be related to the inverse of the radius of the osculating circle:
 
 <img height = 300  src = "https://user-images.githubusercontent.com/9312897/170089671-7c3be128-7bb4-4c9f-801c-a6a2540d8e13.gif">
+
+---
 
 The expression $k(s)\vec n(s)$ can be found as **curvature vector** and written as $k\bf n$ or $k\vec n.$
 
@@ -65,14 +69,20 @@ $$(k\mathbf n)\cdot \mathbf N = k(\mathbf n\cdot \mathbf N) = k\cos\theta$$ as i
 
 <img height = 300  src = "https://user-images.githubusercontent.com/9312897/170087759-1826be9e-15c6-49f9-ae9d-432b1ba03b24.png">
 
+---
+
 with the angle $\theta$ being:
 
 
 <img height = 300  src = "https://user-images.githubusercontent.com/9312897/170088572-2ca86438-f707-4e22-b4d3-826db87ac054.png">
 
+---
+
 And finally, **GEODESIC curvature** $\vec K_g$ is the component ("portion")  of the curvature vector projected on the surface tangent plane: it measure how far the curve deviates from a geodesic:
 
 <img height = 300  src = "https://user-images.githubusercontent.com/9312897/170090411-21d17d79-7fca-459f-a365-6401194b082e.png">
+
+---
 
 To conclude, the torsion comes the derivative of the binormal vector $\vec B,$ which can be expressed as $B'(s)=\tau (s) \vec n,$ where $\tau (s)$ is the **torsion of the curve $C$ at $s,$** which can also be expressed as a scalar product as $\tau (s) =\langle \vec n(s), B'(s) \rangle.$ That it makes sense for $\tau$ to denote the torsion of the curve can be seen by noticing how it stays constant if the curve is planar:
 
@@ -92,17 +102,71 @@ The unit normal to the surface $\vec N$ is a function from the surface $\cal M$ 
 
 <img height = 300  src ="https://user-images.githubusercontent.com/9312897/170093667-3a288b26-9a41-47f7-83c4-e28429527f31.png">
 
-Its derivative $\rm d\vec N$ a linear function from the tangent space $T_P\cal M$ to itself:
+---
+
+Its derivative $\rm d\vec N$ a linear function from the tangent space $T_P\cal M$ to itself.
 
 <img height = 300  src ="https://user-images.githubusercontent.com/9312897/170094667-a6b9af3f-fca6-4756-8147-f2988b4a7897.gif">
 
-
 ---
 
+The differential $dN$ of the Gauss map $N$ can be used to define a type of **extrinsic curvature**, known as the shape operator $S_x$ or Weingarten map (see [here](https://en.wikipedia.org/wiki/Differential_geometry_of_surfaces#Shape_operator)). The shape operator tells us how the normal to the tangent plane (and thus the tangent plane itself) is moving in every direction; so it tells us the way $\mathcal M$ is curving in all directions at a point.
 
-References:
+The **shape operator** is differential of the Gauss map, i.e. $dN_P(v)$ at a point $P$ in the direction of a tangent vector $\vec v$ to a curve $\gamma (t)$ on the surface $\cal M,$ such that $\gamma(0)=P$ and $\gamma'(0)=\vec v,$ is (see [here](https://youtu.be/UewzuzaPlxA?t=1106)):
 
-<a href="https://youtu.be/z_9oY7d8x5E">Curvature of a curve</a>
+$$dN_P(\vec v)=(N \circ\gamma)'(0)\in T_P\cal M$$
+Therefore, the shape operator is a map from the tangent space to itself: $T_P\cal M \to T_P\cal M.$
+
+The negative of the shape operator is the [**second fundamental form**](https://en.wikipedia.org/wiki/Second_fundamental_form#Physicist's_notation), denoted $\rm{II}$:
+
+$$\begin{align}
+{\rm II}(\vec v, \vec w) &=-\langle\rm dNp(\vec v), \vec w \rangle\\[2ex]
+&=\rm dNp(\vec v)\cdot \vec w
+\end{align}$$
+
+which would take in a directional or tangent vector $\vec v$ and a second tangent vector $\vec w$ and result in a real value, i.e. (from [here](https://youtu.be/UewzuzaPlxA?t=1257)):
+
+$$\begin{align}
+{\rm II}:T_P\cal M \times T_P\cal M &\to \mathbb R\\[2ex]
+{\rm II}(\vec v, \vec w) &:= -   \rm dN_P(\vec v) \cdot \vec w
+\end{align}$$
+
+so it is the negative of the dot product of the shape operator at $P$ evaluated at $\vec v$ and $\vec w.$  
+
+It is therefore more than a change of sign: The shape operator "eats a vector and outputs a vector," whereas the second fundamental form would "eat two vectors and output a real". But in both cases, a matrix representation is possible and routine.
+
+**IMPORTANT: Whereas the shape operator inputs a tangent vector and outputs another tangent vector, the second fundamental form inputs two tangent vectors and outputs a scalar.**
+
+The matrix representation for the fundamental forms in the covariant basis vectors $r_u$ and $r_v$, meaning the partial of the positional vector with respect to the coordinates $u$ and $v$ is as follows. First of the first fundamental form:
+
+$$\rm I = \begin{bmatrix} E & F \\ F & G\end{bmatrix}=\begin{bmatrix}\langle r_u,r_u\rangle & \langle r_u,r_v\rangle \\ \langle r_u,r_v\rangle & \langle r_v,r_v\rangle\end{bmatrix}$$
+and now for the second fundamental form it is necessary to note that the dot product for the entries in the matrix are not $dN$ as the definition would call for, but $N:$
+
+$$\rm II = \begin{bmatrix} e & f \\ f & g\end{bmatrix}=\begin{bmatrix}\langle N,r_{uu}\rangle & \langle N, r_{uv}\rangle \\ \langle N, r_{uv}\rangle & \langle N,r_{vv}\rangle\end{bmatrix}$$
+
+The explanation for these entries stems from differentiating $\vec N \cdot \mathbf r_u= 0$ as explained [here](https://math.stackexchange.com/a/3632076/152225), which is $\vec N \cdot \mathbf r_{uu} + \vec N_u\cdot \mathbf r_u=0$. Therefore
+
+$$\begin{align}
+\vec N \cdot \mathbf r_{uu} &= -\vec N_u\cdot \mathbf r_u = -\rm dN_p(\mathbf r_u)\cdot \mathbf r_u.
+\end{align}$$
+This is the explanation for the negative sign in the second fundamental form:
+
+> The main reason for the negative sign is to remove a negative sign from the second fundamental form when you compute it with second-order partial derivatives using a parametrization. That is, if you have a parametrization $\mathbf x(u,v)$, then, for example,
+$$\text{II}_p(\mathbf x_u,\mathbf x_u) = \mathbf x_{uu}\cdot N.$$
+This is how one usually computes the matrix $\text{II}$.
+
+In tensorial notation, 
+
+$$B_{\alpha\beta}=\vec r_\alpha \cdot \frac{\partial N}{\partial r_\beta}$$
+corresponds to $\langle N_v,r_u\rangle$, which by the immediately preceding explanation is the negative of the second fundamental form. To repeat the same concept (from [here](https://math.stackexchange.com/a/4457198/994433)):
+
+$$\langle N_v,r_u\rangle = - \langle N,r_{uv} \rangle = -f.$$
+The covariant-contravariant form is the result of raising an index by multiplying by the inverse of the metric tensor, which is simply the first fundamental form, i.e. $$\text I^{-1}\text{II}=B^\alpha_\beta = I^{\alpha\gamma}B_{\gamma\beta}.$$ 
+
+This covariant-contravariant expression (resulting from "eating a vector $\vec v$") is the shape operator, and its determinant is the **Gaussian curvature (intrinsic curvature)**:
+
+$$K =\frac{\det \mathrm {II}}{\det \mathrm I}=\det \left(\mathrm {I}^{-1}\rm {II}\right)=k_1({\rm I}^{-1} {\rm {II}})k_2(\rm {I}^{-1} \rm {II})$$
+where $k_1$ and $k_2$ are the eigenvalues of $\mathrm {II}^{-1}\rm I$ or principal curvatures.
 
 
 ---
