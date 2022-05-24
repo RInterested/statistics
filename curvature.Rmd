@@ -184,14 +184,30 @@ an alternative definition for mean curvature is
 $$H=\frac 1 {2\pi}\int_0^{2\pi}k(\theta) d\theta$$
 where the mean is taken over all curvatures around the circle at a point (not just principal curvatures). Minimal surfaces have minimal mean curvature - they minimize area (eg. bubbles).
 
+The associated vectors to the minimum $k_1(p)$ and maximum $k_2(p)$ eigenvalues of the $\mathrm{II}_p$ restricted to vectors of norm $1$ in $T_pS$ will form an orthonormal basis of $T_pS,$ because $\mathrm{II}$ is a [symmetric matrix][19]. $\{k_1,k_2\}$ are the **principal curvatures** of the surface at $p.$
 
-**Connection between the curves on a surface and the second fundamental form:***
+A unit vector $\vec v\in T_pS$ in the tangent space can be thus represented in relation to the angle with these orthonormal basis vectors with $\vec v:$
+
+$$\vec v=\cos \varphi \vec e_1 + \sin \varphi e_2$$
+
+and applying the quadratic of the second fundamental form to $\vec v:$
+
+$$\begin{align}
+k_n=\mathrm{II}_p(\vec v)&=-\langle dN_p(\vec v), \vec v \rangle\\
+&=-\langle dN_p(\cos \varphi \vec e_1 + \sin \varphi e_2), \cos \varphi \vec e_1 + \sin \varphi e_2 \rangle\\
+&=\bbox[5px,border:2px solid black]{-\cos^2 \varphi k_1 - \sin^2 \varphi k_2}
+\end{align}$$
+
+which is [**Euler's curvature formula**](https://mathworld.wolfram.com/EulerCurvatureFormula.html).
+
+
+**Connection between the curves on a surface and the second fundamental form:**
 
 The tangent to a curve parameterized by arc length $T(s)=\gamma'(s)$ is orthogonal to the normal to the surface at a given point. The derivative of the tangent is as above $\vec T'(s)=k(s) \vec n(s)$ with $\vec n$ being normal to the curve (not the surface) and $k(s)$ the curve curvature (a scalar property - defined above as a dot product).
 
 Considering the orthogonalitiy $T(s) \cdot vec N(\gamma(s))=0$ and differentiting,
 
-$$k\cdot n(s) \cdot vec N + T(s) \cdot \rm dN(T(s))=0$$
+$$k\cdot n(s) \cdot \vec N + T(s) \cdot \rm dN(T(s))=0$$
 which implies that
 
 $${\rm II}(T(s),T(s))=k\cdot n(s) \cdot \vec N= k_n\vec N$$
