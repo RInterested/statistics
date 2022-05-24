@@ -161,12 +161,33 @@ $$B_{\alpha\beta}=\vec r_\alpha \cdot \frac{\partial N}{\partial r_\beta}$$
 corresponds to $\langle N_v,r_u\rangle$, which by the immediately preceding explanation is the negative of the second fundamental form. To repeat the same concept (from [here](https://math.stackexchange.com/a/4457198/994433)):
 
 $$\langle N_v,r_u\rangle = - \langle N,r_{uv} \rangle = -f.$$
-The covariant-contravariant form is the result of raising an index by multiplying by the inverse of the metric tensor, which is simply the first fundamental form, i.e. $$\text I^{-1}\text{II}=B^\alpha_\beta = I^{\alpha\gamma}B_{\gamma\beta}.$$ 
+The covariant-contravariant form $B^\alpha_\beta$ is the result of raising an index by multiplying by the inverse of the metric tensor (which is simply the first fundamental form), i.e. 
+
+$$\text I^{-1}\text{II}=B^\alpha_\beta = I^{\alpha\gamma}B_{\gamma\beta}.$$ 
 
 This covariant-contravariant expression (resulting from "eating a vector $\vec v$") is the shape operator, and its determinant is the **Gaussian curvature (intrinsic curvature)**:
 
 $$K =\frac{\det \mathrm {II}}{\det \mathrm I}=\det \left(\mathrm {I}^{-1}\rm {II}\right)=k_1({\rm I}^{-1} {\rm {II}})k_2(\rm {I}^{-1} \rm {II})$$
-where $k_1$ and $k_2$ are the eigenvalues of $\mathrm {II}^{-1}\rm I$ or principal curvatures.
+where $k_1$ and $k_2$ are the eigenvalues of $\mathrm {II}^{-1}\rm I$ or **principal curvatures.**
+
+The trace of $B^\alpha_\beta$ is the **mean curvature.** These concepts are explained [here](https://youtu.be/l7coUMHHpQE). Sometimes the mean curvature is considered to be the average $1/2$ of the principal curvatures.
+
+
+**Connection between the curves on a surface and the second fundamental form:***
+
+The tangent to a curve parameterized by arc length $T(s)=\gamma'(s)$ is orthogonal to the normal to the surface at a given point. The derivative of the tangent is as above $\vec T'(s)=k(s) \vec n(s)$ with $\vec n$ being normal to the curve (not the surface) and $k(s)$ the curve curvature (a scalar property - defined above as a dot product).
+
+Considering the orthogonalitiy $T(s) \cdot vec N(\gamma(s))=0$ and differentiting,
+
+$$k\cdot n(s) \cdot vec N + T(s) \cdot \rm dN(T(s))=0$$
+which implies that
+
+$${\rm II}(T(s),T(s))=k\cdot n(s) \cdot vec N= k_n\vec N$$
+as above (normal curvature of the curve).
+
+**Intuition: So the second fundamental form looks for similarities between the curve curvature and the normal to the surface, or what component of the forces experienced by someone driving on a car along the curve would be related not to the steering of the wheel, but to the geometry of the surface.**
+
+
 
 
 ---
