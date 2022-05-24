@@ -20,18 +20,68 @@ Concepts:
  
  ---
  
-##### CURVATURE of a CURVE on a SURFACE (ONE DIMENSIONAL CASE):
+##### **CURVATURE of a CURVE on a SURFACE (ONE DIMENSIONAL CASE):**
 
 In 2D, the tangent to a curved parameterized by arc length $s$ can be thought of as decomposed in Cartesian coordinates as:
 
 $$T(s)=\gamma ' (s) = \cos (\theta(s)) \vec e_1 +\sin(\theta(s)) \vec e_2$$
 and the rate of change of $\theta(s),$ that is to say $\theta'(s)$ as the curvature. We can imagine $\theta$ as the steering wheel on a car driving through the curve. However, the curvature is usually denoted as $k(s)=\theta'(s)$ and it is the inverse of the radius of the osculating circle.
 
+In 2D the Frenet frame only involves the tangent to the curve $T(s)$ and its orthogonal $N(s).$ The rate of change of the tangent is
+
+$$T'(s) = \theta'(s) \vec n(s)$$
+with $\vec n(s)$ being a $90^\circ$ counterclock rotation of $T(s).$
+
+NB: I am using lower case $\vec n(s)$ for the normal to the curve because I will reserve $\vec N$ for the normal to the surface, coming up next.
+
+---
+
+In 3D the Frenet frame will need an additional orthogonal vector to $\vec T(s)$ and $\vec n(s),$ which is the "binormal vector" $\vec B(s):$
 
 
 <br>
 
 <img height = 300  src = "https://user-images.githubusercontent.com/9312897/170062227-5af63f3d-37e5-4ed8-a142-0de6848bf180.gif">
+
+
+In 2D $k(s)$ gives as the rate of change of $\vec T(s),$ but in 3D, we will also have the torsion $\tau(s)$ which will give us the rate of change of the normal $\vec n (s)$ vector.
+
+The curvature of the curve is again given by the formula:
+
+$$\vec T'(s)=k(s) \vec n(s)$$
+
+and $k(s)$ can also be defined as the scalar product $k(s) =\langle \vec n(s), T'(s) \rangle.$ It can be seen written down as simply $k.$ This expresses the similarity of the changes in the tangent vector with respect to the unit normal to the curve. As in in the 2D case, it can be related to the inverse of the radius of the osculating circle:
+
+<img height = 300  src = "https://user-images.githubusercontent.com/9312897/170089671-7c3be128-7bb4-4c9f-801c-a6a2540d8e13.gif">
+
+The expression $k(s)\vec n(s)$ can be found as **curvature vector** and written as $k\bf n$ or $k\vec n.$
+
+In 3D there are two additional curvatures to define:
+
+**NORMAL curvature** expressed as $k_n$ is the component of the curvature vector $k\bf n$ normal to the **surface** in which the curve lives, i.e. in the direction of the normal vector **to the surface** as a point $P$ $\vec N_P$ (see the note above). From [here](https://math.stackexchange.com/a/3508996/152225):
+
+> You're looking at the portion of the curvature vector $k\mathbf n$ that is *normal* to the surface (i.e., in the direction of $\mathbf N$). That is, you take 
+
+$$(k\mathbf n)\cdot \mathbf N = k(\mathbf n\cdot \mathbf N) = k\cos\theta$$ as in the following diagram:
+
+<img height = 300  src = "https://user-images.githubusercontent.com/9312897/170087759-1826be9e-15c6-49f9-ae9d-432b1ba03b24.png">
+
+with the angle $\theta$ being:
+
+
+<img height = 300  src = "https://user-images.githubusercontent.com/9312897/170088572-2ca86438-f707-4e22-b4d3-826db87ac054.png">
+
+And finally, **GEODESIC curvature** $\vec K_g$ is the component ("portion")  of the curvature vector projected on the surface tangent plane: it measure how far the curve deviates from a geodesic:
+
+<img height = 300  src = "https://user-images.githubusercontent.com/9312897/170090411-21d17d79-7fca-459f-a365-6401194b082e.png">
+
+---
+
+##### **CURVATURE of a SURFACE:**
+
+
+---
+
 
 References:
 
