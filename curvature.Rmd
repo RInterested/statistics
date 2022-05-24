@@ -172,6 +172,18 @@ where $k_1$ and $k_2$ are the eigenvalues of $\mathrm {II}^{-1}\rm I$ or **princ
 
 The trace of $B^\alpha_\beta$ is the **mean curvature.** These concepts are explained [here](https://youtu.be/l7coUMHHpQE). Sometimes the mean curvature is considered to be the average $1/2$ of the principal curvatures.
 
+Therefore:
+
+$$\begin{align}
+K (\text{Gaussian curvature}) &= k_{\text{min}} k_{\text{max}}=\det (\rm{II})\\
+H (\text{mean curvature}) &= 1/2\left(k_{\text{min}} + k_{\text{max}}\right)=1/2\text{Tr} (\rm{II})
+\end{align}$$
+
+an alternative definition for mean curvature is
+
+$$H=\frac 1 {2\pi}\int_0^{2\pi}k(\theta) d\theta$$
+where the mean is taken over all curvatures around the circle at a point (not just principal curvatures). Minimal surfaces have minimal mean curvature - they minimize area (eg. bubbles).
+
 
 **Connection between the curves on a surface and the second fundamental form:***
 
@@ -182,7 +194,7 @@ Considering the orthogonalitiy $T(s) \cdot vec N(\gamma(s))=0$ and differentitin
 $$k\cdot n(s) \cdot vec N + T(s) \cdot \rm dN(T(s))=0$$
 which implies that
 
-$${\rm II}(T(s),T(s))=k\cdot n(s) \cdot vec N= k_n\vec N$$
+$${\rm II}(T(s),T(s))=k\cdot n(s) \cdot \vec N= k_n\vec N$$
 as above (normal curvature of the curve).
 
 **Intuition: So the second fundamental form looks for similarities between the curve curvature and the normal to the surface, or what component of the forces experienced by someone driving on a car along the curve would be related not to the steering of the wheel, but to the geometry of the surface.**
