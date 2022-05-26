@@ -9,6 +9,8 @@ output:
 <img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
+
+
 ### CURVATURE:
 <br>
 
@@ -51,7 +53,7 @@ The curvature of the curve is again given by the formula:
 
 $$\vec T'(s)=k(s) \vec n(s)$$
 
-and $k(s)$ can also be defined as the scalar product $k(s) =\langle \vec n(s), T'(s) \rangle.$ It can be seen written down as simply $k.$ This expresses the similarity of the changes in the tangent vector with respect to the unit normal to the curve. As in in the 2D case, it can be related to the inverse of the radius of the osculating circle:
+with $k(s)$ defined as the scalar product $k(s) =\langle \vec n(s), T'(s) \rangle.$ It can be seen written down as simply $k.$ This expresses the similarity of the changes in the tangent vector with respect to the unit normal to the curve. As in in the 2D case, it can be related to the inverse of the radius of the osculating circle:
 
 <img height = 500  src = "https://user-images.githubusercontent.com/9312897/170089671-7c3be128-7bb4-4c9f-801c-a6a2540d8e13.gif">
 
@@ -135,7 +137,7 @@ $$\begin{align}
 which would take in a directional or tangent vector $\vec v$ and a second tangent vector $\vec w$ and result in a real value, i.e. (from [here](https://youtu.be/UewzuzaPlxA?t=1257)):
 
 $$\begin{align}
-{\rm II}:T_P{\cal M} \times T_P\cal M &\to \mathbb R\\[2ex]
+{\rm II}&:T_P{\cal M} \times T_P\cal M \to \mathbb R\\[2ex]
 {\rm II}(\vec v, \vec w) &:= -   \rm dN_P(\vec v) \cdot \vec w
 \end{align}$$
 
@@ -144,6 +146,55 @@ so it is the dot product of the shape operator at $P$ evaluated at $\vec v$ and 
 The shape operator "eats a vector and outputs a vector," whereas the second fundamental form would "eat two vectors and output a real". But in both cases, a matrix representation is possible and routine.
 
 **IMPORTANT: Whereas the shape operator inputs a tangent vector and outputs another tangent vector, the second fundamental form inputs two tangent vectors and outputs a scalar.**
+
+**Geometric representation of the second fundamental form:**
+
+As an operator on two vectors in the tangent space the second fundamental form only makes geometric sense when the vectors are the same, i.e. as a [quadratic form](https://uregina.ca/~mareal/cs5.pdf):
+
+$${\rm II}(\vec v, \vec v) = -   \rm dN_P(\vec v) \cdot \vec v$$
+The normal curvature of a curve $\alpha: (-\epsilon, \epsilon) \to \mathbb R^3$ parameterized by arc length and with $\alpha(0)=P$ is:
+
+$$k_n=(k\mathbf n\cdot \mathbf N = k(\mathbf
+n\cdot \mathbf N) = k\cos\theta$$
+
+with $k =\vec n(s) \cdot T'(s)=\vec n(s) \cdot \alpha''(s)$
+
+so we can write the normal curvature of $\alpha$ at $P$ as
+
+$$k_n=\alpha''(0)\cdot \vec N(P)$$
+Now the geometric insight of the second fundamental form is:
+
+$$k_n = {\rm II}_P(\alpha'(0))$$
+
+and if $\vec v$ is in the tangent space and $\Vert v \Vert =1$
+
+$$k_n (\vec v) = {\rm II}_P(\vec v)$$
+**Key insight: The second fundamental form is the normal curvature.**
+
+Proof:
+
+$$\vec N(s) \cdot T(s)=0 $$
+Differentiating,
+
+$$\vec N'(s) \cdot \vec T(s) + \underset{k_n}{\underbrace{N(s) \cdot T'(s)}}=0$$
+
+and $$\vec N'(s)\vert_{s=0} = \frac{d}{ds}\vert_0 \vec N(s)=  (d\vec N)_P \vec T(0)$$
+
+and hence
+
+$$\underset{- {\rm II}(\vec T(0))\vec T(0)}{\underbrace{d\vec N_P \cdot \vec T(0) \cdot \vec T(0)}} + \underset{k_n}{\underbrace{N(s) \cdot T'(s)}}=0$$
+
+or the desired result: $k_n = {\rm II}(\vec T(0))\cdot T(0).$
+
+If we choose $\alpha$ to fulfill the conditions above, but tracing along the intersection of the surface $S$ with the plane through $P$ containing $\vec N(P)$ and $\vec v,$ the curve will be along the **normal section** along $\vec v.$ In such case $\pm \vec N = n$ and $k    n = T'(0).$ The normal curvature:
+
+$$k_n = \vec T'(0) \cdot \vec N(P)= k \vec n \cdot \vec N(P)=k (\vec n \cdot\vec N(P))= \pm k$$
+
+so the curvature of such a curve equals the normal curvature. Or,
+
+> For any $\vec v$ in $T_P S$ with $\Vert v \Vert = 1, $the number ${\rm II)_P (v)$ equals the curvature of the normal section along $v$ at the point $P,$ up to a possible negative sign. Informally speaking, ${\rm II}_P (v)$ is telling you how curved will be your road if you go in the direction indicated by $v.$
+
+
 
 The matrix representation for the fundamental forms in the covariant basis vectors $r_u$ and $r_v$, meaning the partial of the positional vector with respect to the coordinates $u$ and $v$ is as follows. First of the first fundamental form:
 
@@ -154,7 +205,7 @@ $$\rm II = \begin{bmatrix} e & f \\ f & g\end{bmatrix}=\begin{bmatrix}\langle N,
 
 or with alternative notation:
 
-$${\bf II}=\begin{bmatrix} {\bf N} \cdot{\bf x}_{uu} &  {\bf N} \cdot {\bf x}_{uv} \\  {\bf N} \cdot {\bf x}_{uv} & {\bf N} \cdot {\bf r}_{vv}\end{bmatrix}=\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix} \tag 2$$
+$${\rm II}=\begin{bmatrix} {\bf N} \cdot{\bf x}_{uu} &  {\bf N} \cdot {\bf x}_{uv} \\  {\bf N} \cdot {\bf x}_{uv} & {\bf N} \cdot {\bf r}_{vv}\end{bmatrix}=\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix}$$
 
 The explanation for these entries stems from differentiating $\vec N \cdot \mathbf r_u= 0$ as explained [here](https://math.stackexchange.com/a/3632076/152225), which is $\vec N \cdot \mathbf r_{uu} + \vec N_u\cdot \mathbf r_u=0$. Therefore
 

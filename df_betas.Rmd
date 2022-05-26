@@ -6,10 +6,11 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###OLS DIAGNOSTICS:
+
+### OLS DIAGNOSTICS:
 <br>
 
 
@@ -23,7 +24,7 @@ H = X %*% (solve(t(X) %*% X) %*% t(X))    # The hat matrix
 diagonal = hat(model.matrix(fit))         # The diagonal of the hat matrix
 ```
 
-####Dfbeta:
+#### Dfbeta:
 
 DFBETA measures the difference in each parameter estimate with and without a presumably influential point. There is a DFBETA for each point and each observation (if there are $N$ points and $k$ variables there are $N\times k$ DFBETAs).
 
@@ -41,7 +42,7 @@ dfbeta(fit)[1,]
 
 ---
 
-####[Leverage or influence or hat value](https://en.wikipedia.org/wiki/Projection_matrix):
+#### [Leverage or influence or hat value](https://en.wikipedia.org/wiki/Projection_matrix):
 
 In statistics, the projection matrix , sometimes also called the influence matrix or hat matrix , maps the vector of response values (dependent variable values) to the vector of fitted values (or predicted values). It describes the influence each response value has on each fitted value.
 
@@ -59,7 +60,7 @@ H[1]
 
 ---
 
-####Standardized residuals:
+#### Standardized residuals:
 
 First some definitions:
 
@@ -93,7 +94,7 @@ rstandard(fit)
 
 ---
 
-####Studentized residuals:
+#### Studentized residuals:
 
 ```{r}
 MSEno = deviance(fitno) / fitno$df.residual
@@ -106,7 +107,7 @@ rstudent(fit)[1]
 
 ---
 
-####[Cook's distance:](https://www.mathworks.com/help/stats/cooks-distance.html?requestedDomain=www.mathworks.com)
+#### [Cook's distance:](https://www.mathworks.com/help/stats/cooks-distance.html?requestedDomain=www.mathworks.com)
 
 Cook’s distance is the scaled change in fitted values. Each element in Cook's distance is the normalized change in the vector of coefficients due to the deletion of an observation. The Cook’s distance, $D_i,$ of observation $i$ is
 
