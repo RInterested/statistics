@@ -117,7 +117,15 @@ The **shape operator** is differential of the Gauss map, i.e. $dN_P(v)$ at a poi
 $$dN_P(\vec v)=(N \circ\gamma)'(0)\in T_P\cal M$$
 Therefore, the shape operator is a map from the tangent space to itself: $T_P\cal M \to T_P\cal M.$
 
-The negative of the shape operator is the [**second fundamental form**](https://en.wikipedia.org/wiki/Second_fundamental_form#Physicist's_notation), denoted $\rm{II}$:
+However, the shape operator is actually defined with a negative sign:
+
+$$S_P(\vec v) = - D_\vec v \vec N(P)$$
+
+which reads: the negative of the directional derivative of the normal vector **to the surface** at point $P,$ i.e. $\vec N(P)$ in the direction of a velocity (tangent vector) along a curve as it passes through the point $P.$ Since a plane is defined by its normal, and $T_P\cal M$ (the tangent plane) changes with differential displacements on the surface in the direction of the vector $\vec v,$ the shape operator is a very intuitive way of capturing the bending of the surface as it measures the differential tilting of $\vec N$ in the direction of $\vec v.$
+
+For the basis vectors $\{{\bf r}_u, {\bf r}_v\}$ (or $\{{\bf x}_u, {\bf x}_u\}$) the shape operators can simply expressed as $-{\bf N}_u$ and $-{\bf N}_v.$
+
+The [**second fundamental form**](https://en.wikipedia.org/wiki/Second_fundamental_form#Physicist's_notation) is defined as $\rm{II}$:
 
 $$\begin{align}
 {\rm II}(\vec v, \vec w) &=-\langle\rm dNp(\vec v), \vec w \rangle\\[2ex]
@@ -131,18 +139,22 @@ $$\begin{align}
 {\rm II}(\vec v, \vec w) &:= -   \rm dN_P(\vec v) \cdot \vec w
 \end{align}$$
 
-so it is the negative of the dot product of the shape operator at $P$ evaluated at $\vec v$ and $\vec w.$  
+so it is the dot product of the shape operator at $P$ evaluated at $\vec v$ and $\vec w.$  
 
-It is therefore more than a change of sign: The shape operator "eats a vector and outputs a vector," whereas the second fundamental form would "eat two vectors and output a real". But in both cases, a matrix representation is possible and routine.
+The shape operator "eats a vector and outputs a vector," whereas the second fundamental form would "eat two vectors and output a real". But in both cases, a matrix representation is possible and routine.
 
 **IMPORTANT: Whereas the shape operator inputs a tangent vector and outputs another tangent vector, the second fundamental form inputs two tangent vectors and outputs a scalar.**
 
 The matrix representation for the fundamental forms in the covariant basis vectors $r_u$ and $r_v$, meaning the partial of the positional vector with respect to the coordinates $u$ and $v$ is as follows. First of the first fundamental form:
 
 $$\rm I = \begin{bmatrix} E & F \\ F & G\end{bmatrix}=\begin{bmatrix}\langle r_u,r_u\rangle & \langle r_u,r_v\rangle \\ \langle r_u,r_v\rangle & \langle r_v,r_v\rangle\end{bmatrix}$$
-and now for the second fundamental form it is necessary to note that the dot product for the entries in the matrix are not $dN$ as the definition would call for, but $N:$
+as for the second fundamental form there are two equivalent expressions:
 
-$$\rm II = \begin{bmatrix} e & f \\ f & g\end{bmatrix}=\begin{bmatrix}\langle N,r_{uu}\rangle & \langle N, r_{uv}\rangle \\ \langle N, r_{uv}\rangle & \langle N,r_{vv}\rangle\end{bmatrix}$$
+$$\rm II = \begin{bmatrix} e & f \\ f & g\end{bmatrix}=\begin{bmatrix}\langle N,r_{uu}\rangle & \langle N, r_{uv}\rangle \\ \langle N, r_{uv}\rangle & \langle N,r_{vv}\rangle\end{bmatrix}=\begin{bmatrix}-\langle N_u,r_{u}\rangle & \langle N_v, r_{u}\rangle \\ \langle N_u, r_{v}\rangle & \langle N_v,r_{v}\rangle\end{bmatrix}$$
+
+or with alternative notation:
+
+$${\bf II}=\begin{bmatrix} {\bf N} \cdot{\bf x}_{uu} &  {\bf N} \cdot {\bf x}_{uv} \\  {\bf N} \cdot {\bf x}_{uv} & {\bf N} \cdot {\bf r}_{vv}\end{bmatrix}=\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix} \tag 2$$
 
 The explanation for these entries stems from differentiating $\vec N \cdot \mathbf r_u= 0$ as explained [here](https://math.stackexchange.com/a/3632076/152225), which is $\vec N \cdot \mathbf r_{uu} + \vec N_u\cdot \mathbf r_u=0$. Therefore
 
@@ -154,6 +166,61 @@ This is the explanation for the negative sign in the second fundamental form:
 > The main reason for the negative sign is to remove a negative sign from the second fundamental form when you compute it with second-order partial derivatives using a parametrization. That is, if you have a parametrization $\mathbf x(u,v)$, then, for example,
 $$\text{II}_p(\mathbf x_u,\mathbf x_u) = \mathbf x_{uu}\cdot N.$$
 This is how one usually computes the matrix $\text{II}$.
+
+Since the shape operator is a linear transformation from $T_P{\cal M} \to T_P \cal M,$ it can be expressed as:
+
+$$\begin{align}
+S_P({\bf x}_u) = a {\bf x}_u + b{\bf x}_v\\
+S_P({\bf x}_v) = c {\bf x}_u + d{\bf x}_v
+\end{align}$$
+
+or in matrix form:
+
+$$\begin{bmatrix}S_P({\bf x}_u)\\
+S_P({\bf x}_v) \end{bmatrix} 
+=\begin{bmatrix}a & b\\
+c& d \end{bmatrix}
+\begin{bmatrix}{\bf x}_u\\
+{\bf x}_v \end{bmatrix}
+=
+\begin{bmatrix}{-\bf N}_u\\
+-{\bf N}_v \end{bmatrix}$$
+
+
+
+Now multiplying by $\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix}$ - yes, the transpose of the basis vectors:
+
+$$\begin{align}
+\begin{bmatrix}a & b\\
+c& d \end{bmatrix}
+\begin{bmatrix}{\bf x}_u\\
+{\bf x}_v \end{bmatrix}
+\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix} 
+&=
+\begin{bmatrix}{-\bf N}_u\\
+-{\bf N}_v \end{bmatrix}
+\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix} \\
+\begin{bmatrix}a & b\\
+c& d \end{bmatrix}\underset{\rm I \text{ = first fund form}}{\underbrace{
+\begin{bmatrix}{\bf x}_{u} \cdot{\bf x}_{u} & {\bf x}_{v} \cdot {\bf x}_{u} \\ {\bf x}_{u} \cdot {\bf x}_{v} & {\bf x}_{v} \cdot {\bf x}_{v}\end{bmatrix}}} &=
+\underset{{\rm II}\text{ = second fund form}}{
+\underbrace{\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix}}}
+\end{align}$$
+
+The very last step is just to multiply both sides by the inverse of the first fundamental form:
+
+$$\begin{bmatrix}a & b\\
+c& d \end{bmatrix} ={\rm II}\;\; {\rm I}^{-1}={\rm I}^{-1}\;\; {\rm II}$$
+
+The final rearrangement is warranted since the shape operator is symmetric, and if the product of two symmetric matrices is symmetric, then they must commute (provided orthogonal basis). This is the case [from Professor Shiffrin's DIFFERENTIAL GEOMETRY:A First Course in Curves and Surfaces][1]
+
+The shape operator...
+
+>is a symmetric linear map; i.e., for any $U, V \in T_P M,$ we have
+$S_P(U) \cdot  V =  U \cdot S_P(V).$
+
+
+---
 
 In tensorial notation, 
 
