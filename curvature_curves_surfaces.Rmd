@@ -1,0 +1,351 @@
+---
+output: 
+  html_document:
+    css: custom.css
+---
+
+<br>
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<br><br>
+
+
+
+### CURVATURE:
+<br>
+
+Concepts:
+
+ 1. Curvature of a curve on a surface.
+ 2. Extrinsic curvature of the surface itself.
+ 3. Intrinsic curvature of the surface (Gauss curvature).
+ 
+ ---
+ 
+##### **CURVATURE of a CURVE on a SURFACE (ONE DIMENSIONAL CASE):**
+
+In 2D, the tangent to a curved parameterized by arc length $s$ can be thought of as decomposed in Cartesian coordinates as:
+
+$$T(s)=\gamma ' (s) = \cos (\theta(s)) \vec e_1 +\sin(\theta(s)) \vec e_2$$
+and the rate of change of $\theta(s),$ that is to say $\theta'(s)$ as the curvature. We can imagine $\theta$ as the steering wheel on a car driving through the curve. However, the curvature is usually denoted as $k(s)=\theta'(s)$ and it is the inverse of the radius of the osculating circle.
+
+In 2D the Frenet frame only involves the tangent to the curve $T(s)$ and its orthogonal $N(s).$ The rate of change of the tangent is
+
+$$T'(s) = \theta'(s) \vec n(s)$$
+with $\vec n(s)$ being a $90^\circ$ counterclock rotation of $T(s).$
+
+NB: I am using lower case $\vec n(s)$ for the normal to the curve because I will reserve $\vec N$ for the normal to the surface, coming up next.
+
+---
+
+In 3D the Frenet frame will need an additional orthogonal vector to $\vec T(s)$ and $\vec n(s),$ which is the "binormal vector" $\vec B(s):$
+
+
+
+<img height = 300  src = "https://user-images.githubusercontent.com/9312897/170062227-5af63f3d-37e5-4ed8-a142-0de6848bf180.gif">
+
+---
+
+
+In 2D $k(s)$ gives as the rate of change of $\vec T(s),$ but in 3D, we will also have the torsion $\tau(s)$ which will give us the rate of change of the normal $\vec n (s)$ vector.
+
+The curvature of the curve is again given by the formula:
+
+$$\vec T'(s)=k(s) \vec n(s)$$
+
+with $k(s)$ defined as the scalar product $k(s) =\langle \vec n(s), T'(s) \rangle.$ It can be seen written down as simply $k.$ This expresses the similarity of the changes in the tangent vector with respect to the unit normal to the curve. As in in the 2D case, it can be related to the inverse of the radius of the osculating circle:
+
+<img height = 500  src = "https://user-images.githubusercontent.com/9312897/170089671-7c3be128-7bb4-4c9f-801c-a6a2540d8e13.gif">
+
+---
+
+The expression $k(s)\vec n(s)$ can be found as **curvature vector** and written as $k\bf n$ or $k\vec n.$
+
+In 3D there are two additional curvatures to define:
+
+**NORMAL curvature** expressed as $k_n$ is the component of the curvature vector $k\bf n$ normal to the **surface** in which the curve lives, i.e. in the direction of the normal vector **to the surface** as a point $P$ $\vec N_P$ (see the note above). From [here](https://math.stackexchange.com/a/3508996/152225):
+
+> You're looking at the portion of the curvature vector $k\mathbf n$ that is *normal* to the surface (i.e., in the direction of $\mathbf N$). That is, you take 
+
+$$(k\mathbf n)\cdot \mathbf N = k(\mathbf n\cdot \mathbf N) = k\cos\theta$$ as in the following diagram:
+
+<img height = 500  src = "https://user-images.githubusercontent.com/9312897/170087759-1826be9e-15c6-49f9-ae9d-432b1ba03b24.png">
+
+---
+
+with the angle $\theta$ being:
+
+
+<img height = 300  src = "https://user-images.githubusercontent.com/9312897/170088572-2ca86438-f707-4e22-b4d3-826db87ac054.png">
+
+---
+
+And finally, **GEODESIC curvature** $\vec K_g$ is the component ("portion")  of the curvature vector projected on the surface tangent plane: it measure how far the curve deviates from a geodesic:
+
+<img height = 500  src = "https://user-images.githubusercontent.com/9312897/170090411-21d17d79-7fca-459f-a365-6401194b082e.png">
+
+---
+
+To conclude, the torsion comes the derivative of the binormal vector $\vec B,$ which can be expressed as $B'(s)=\tau (s) \vec n,$ where $\tau (s)$ is the **torsion of the curve $C$ at $s,$** which can also be expressed as a scalar product as $\tau (s) =\langle \vec n(s), B'(s) \rangle.$ That it makes sense for $\tau$ to denote the torsion of the curve can be seen by noticing how it stays constant if the curve is planar:
+
+<img height = 300  src = "https://user-images.githubusercontent.com/9312897/170092405-48a58120-ff6a-4d06-ada9-3f86dd89630e.gif">
+
+---
+
+**Intuition: the curvature is the change in the steering wheel as we drive along a curve, whereas torsion  measures how the curve lifts out of a plane.**
+
+---
+
+##### **CURVATURE of a SURFACE:**
+
+We do so by tracing curves on a surface to extract properties of the surface itself - not the curve.
+
+The unit normal to the surface $\vec N$ is a function from the surface $\cal M$ to the unit sphere via the Gauss map.
+
+<img height = 300  src ="https://user-images.githubusercontent.com/9312897/170093667-3a288b26-9a41-47f7-83c4-e28429527f31.png">
+
+---
+
+Its derivative $\rm d\vec N$ a linear function from the tangent space $T_P\cal M$ to itself.
+
+<img height = 400  src ="https://user-images.githubusercontent.com/9312897/170094667-a6b9af3f-fca6-4756-8147-f2988b4a7897.gif">
+
+---
+
+The differential $dN$ of the Gauss map $N$ can be used to define a type of **extrinsic curvature**, known as the shape operator $S_x$ or Weingarten map (see [here](https://en.wikipedia.org/wiki/Differential_geometry_of_surfaces#Shape_operator)). The shape operator tells us how the normal to the tangent plane (and thus the tangent plane itself) is moving in every direction; so it tells us the way $\mathcal M$ is curving in all directions at a point.
+
+The **shape operator** is differential of the Gauss map, i.e. $dN_P(v)$ at a point $P$ in the direction of a tangent vector $\vec v$ to a curve $\gamma (t)$ on the surface $\cal M,$ such that $\gamma(0)=P$ and $\gamma'(0)=\vec v,$ is (see [here](https://youtu.be/UewzuzaPlxA?t=1106)):
+
+$$dN_P(\vec v)=(N \circ\gamma)'(0)\in T_P\cal M$$
+Therefore, the shape operator is a map from the tangent space to itself: $T_P\cal M \to T_P\cal M.$
+
+However, the shape operator is actually defined with a negative sign:
+
+$$S_P(\vec v) = - D_\vec v \vec N(P)$$
+
+which reads: the negative of the directional derivative of the normal vector **to the surface** at point $P,$ i.e. $\vec N(P)$ in the direction of a velocity (tangent vector) along a curve as it passes through the point $P.$ Since a plane is defined by its normal, and $T_P\cal M$ (the tangent plane) changes with differential displacements on the surface in the direction of the vector $\vec v,$ the shape operator is a very intuitive way of capturing the bending of the surface as it measures the differential tilting of $\vec N$ in the direction of $\vec v.$
+
+For the basis vectors $\{{\bf r}_u, {\bf r}_v\}$ (or $\{{\bf x}_u, {\bf x}_u\}$) the shape operators can simply expressed as $-{\bf N}_u$ and $-{\bf N}_v.$
+
+The [**second fundamental form**](https://en.wikipedia.org/wiki/Second_fundamental_form#Physicist's_notation) is defined as $\rm{II}$:
+
+$$\begin{align}
+{\rm II}(\vec v, \vec w) &=-\langle\rm dNp(\vec v), \vec w \rangle\\[2ex]
+&=\rm dNp(\vec v)\cdot \vec w
+\end{align}$$
+
+which would take in a directional or tangent vector $\vec v$ and a second tangent vector $\vec w$ and result in a real value, i.e. (from [here](https://youtu.be/UewzuzaPlxA?t=1257)):
+
+$$\begin{align}
+{\rm II}&:T_P{\cal M} \times T_P\cal M \to \mathbb R\\[2ex]
+{\rm II}(\vec v, \vec w) &:= -   \rm dN_P(\vec v) \cdot \vec w
+\end{align}$$
+
+so it is the dot product of the shape operator at $P$ evaluated at $\vec v$ and $\vec w.$  
+
+The shape operator "eats a vector and outputs a vector," whereas the second fundamental form would "eat two vectors and output a real". But in both cases, a matrix representation is possible and routine.
+
+**IMPORTANT: Whereas the shape operator inputs a tangent vector and outputs another tangent vector, the second fundamental form inputs two tangent vectors and outputs a scalar.**
+
+**Geometric representation of the second fundamental form:**
+
+As an operator on two vectors in the tangent space the second fundamental form only makes geometric sense when the vectors are the same, i.e. as a [quadratic form](https://uregina.ca/~mareal/cs5.pdf):
+
+$${\rm II}(\vec v, \vec v) = -   \rm dN_P(\vec v) \cdot \vec v$$
+The normal curvature of a curve $\alpha: (-\epsilon, \epsilon) \to \mathbb R^3$ parameterized by arc length and with $\alpha(0)=P$ is:
+
+$$k_n=(k\mathbf n\cdot \mathbf N = k(\mathbf
+n\cdot \mathbf N) = k\cos\theta$$
+
+with $k =\vec n(s) \cdot T'(s)=\vec n(s) \cdot \alpha''(s)$
+
+so we can write the normal curvature of $\alpha$ at $P$ as
+
+$$k_n=\alpha''(0)\cdot \vec N(P)$$
+Now the geometric insight of the second fundamental form is:
+
+$$k_n = {\rm II}_P(\alpha'(0))$$
+
+and if $\vec v$ is in the tangent space and $\Vert v \Vert =1$
+
+$$k_n (\vec v) = {\rm II}_P(\vec v)$$
+**Key insight: The second fundamental form is the normal curvature.**
+
+Proof:
+
+$$\vec N(s) \cdot T(s)=0 $$
+Differentiating,
+
+$$\vec N'(s) \cdot \vec T(s) + \underset{k_n}{\underbrace{N(s) \cdot T'(s)}}=0$$
+
+and $$\vec N'(s)\vert_{s=0} = \frac{d}{ds}\vert_0 \vec N(s)=  (d\vec N)_P \vec T(0)$$
+
+and hence
+
+$$\underset{- {\rm II}(\vec T(0))\vec T(0)}{\underbrace{d\vec N_P \cdot \vec T(0) \cdot \vec T(0)}} + \underset{k_n}{\underbrace{N(s) \cdot T'(s)}}=0$$
+
+or the desired result: $k_n = {\rm II}(\vec T(0))\cdot T(0).$
+
+If we choose $\alpha$ to fulfill the conditions above, but tracing along the intersection of the surface $S$ with the plane through $P$ containing $\vec N(P)$ and $\vec v,$ the curve will be along the **normal section** along $\vec v.$ In such case $\pm \vec N = n$ and $k    n = T'(0).$ The normal curvature:
+
+$$k_n = \vec T'(0) \cdot \vec N(P)= k \vec n \cdot \vec N(P)=k (\vec n \cdot\vec N(P))= \pm k$$
+
+so the curvature of such a curve equals the normal curvature. Or,
+
+> For any $\vec v$ in $T_P S$ with $\Vert v \Vert = 1,$ the number ${\rm II}_P (v)$ equals the curvature of the normal section along $v$ at the point $P,$ up to a possible negative sign. Informally speaking, ${\rm II}_P (v)$ is telling you how curved will be your road if you go in the direction indicated by $v.$
+
+
+
+The matrix representation for the fundamental forms in the covariant basis vectors $r_u$ and $r_v$, meaning the partial of the positional vector with respect to the coordinates $u$ and $v$ is as follows. First of the first fundamental form:
+
+$$\rm I = \begin{bmatrix} E & F \\ F & G\end{bmatrix}=\begin{bmatrix}\langle r_u,r_u\rangle & \langle r_u,r_v\rangle \\ \langle r_u,r_v\rangle & \langle r_v,r_v\rangle\end{bmatrix}$$
+as for the second fundamental form there are two equivalent expressions:
+
+$$\rm II = \begin{bmatrix} e & f \\ f & g\end{bmatrix}=\begin{bmatrix}\langle N,r_{uu}\rangle & \langle N, r_{uv}\rangle \\ \langle N, r_{uv}\rangle & \langle N,r_{vv}\rangle\end{bmatrix}=\begin{bmatrix}-\langle N_u,r_{u}\rangle & \langle N_v, r_{u}\rangle \\ \langle N_u, r_{v}\rangle & \langle N_v,r_{v}\rangle\end{bmatrix}$$
+
+or with alternative notation:
+
+$${\rm II}=\begin{bmatrix} {\bf N} \cdot{\bf x}_{uu} &  {\bf N} \cdot {\bf x}_{uv} \\  {\bf N} \cdot {\bf x}_{uv} & {\bf N} \cdot {\bf r}_{vv}\end{bmatrix}=\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix}$$
+
+The explanation for these entries stems from differentiating $\vec N \cdot \mathbf r_u= 0$ as explained [here](https://math.stackexchange.com/a/3632076/152225), which is $\vec N \cdot \mathbf r_{uu} + \vec N_u\cdot \mathbf r_u=0$. Therefore
+
+$$\begin{align}
+\vec N \cdot \mathbf r_{uu} &= -\vec N_u\cdot \mathbf r_u = -\rm dN_p(\mathbf r_u)\cdot \mathbf r_u.
+\end{align}$$
+This is the explanation for the negative sign in the second fundamental form:
+
+> The main reason for the negative sign is to remove a negative sign from the second fundamental form when you compute it with second-order partial derivatives using a parametrization. That is, if you have a parametrization $\mathbf x(u,v)$, then, for example,
+$$\text{II}_p(\mathbf x_u,\mathbf x_u) = \mathbf x_{uu}\cdot N.$$
+This is how one usually computes the matrix $\text{II}$.
+
+Since the shape operator is a linear transformation from $T_P{\cal M} \to T_P \cal M,$ it can be expressed as:
+
+$$\begin{align}
+S_P({\bf x}_u) = a {\bf x}_u + b{\bf x}_v\\
+S_P({\bf x}_v) = c {\bf x}_u + d{\bf x}_v
+\end{align}$$
+
+or in matrix form:
+
+$$\begin{bmatrix}S_P({\bf x}_u)\\
+S_P({\bf x}_v) \end{bmatrix} 
+=\begin{bmatrix}a & b\\
+c& d \end{bmatrix}
+\begin{bmatrix}{\bf x}_u\\
+{\bf x}_v \end{bmatrix}
+=
+\begin{bmatrix}{-\bf N}_u\\
+-{\bf N}_v \end{bmatrix}$$
+
+
+
+Now multiplying by $\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix}$ - yes, the transpose of the basis vectors:
+
+$$\begin{align}
+\begin{bmatrix}a & b\\
+c& d \end{bmatrix}
+\begin{bmatrix}{\bf x}_u\\
+{\bf x}_v \end{bmatrix}
+\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix} 
+&=
+\begin{bmatrix}{-\bf N}_u\\
+-{\bf N}_v \end{bmatrix}
+\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix} \\
+\begin{bmatrix}a & b\\
+c& d \end{bmatrix}\underset{\rm I \text{ = first fund form}}{\underbrace{
+\begin{bmatrix}{\bf x}_{u} \cdot{\bf x}_{u} & {\bf x}_{v} \cdot {\bf x}_{u} \\ {\bf x}_{u} \cdot {\bf x}_{v} & {\bf x}_{v} \cdot {\bf x}_{v}\end{bmatrix}}} &=
+\underset{{\rm II}\text{ = second fund form}}{
+\underbrace{\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix}}}
+\end{align}$$
+
+The very last step is just to multiply both sides by the inverse of the first fundamental form:
+
+$$\begin{bmatrix}a & b\\
+c& d \end{bmatrix} ={\rm II}\;\; {\rm I}^{-1}={\rm I}^{-1}\;\; {\rm II}$$
+
+The final rearrangement is warranted since the shape operator is symmetric, and if the product of two symmetric matrices is symmetric, then they must commute (provided orthogonal basis). This is the case [from Professor Shiffrin's DIFFERENTIAL GEOMETRY:A First Course in Curves and Surfaces](http://alpha.math.uga.edu/~shifrin/ShifrinDiffGeo.pdf)
+
+The shape operator...
+
+>is a symmetric linear map; i.e., for any $U, V \in T_P M,$ we have
+$S_P(U) \cdot  V =  U \cdot S_P(V).$
+
+
+---
+
+In tensorial notation, 
+
+$$B_{\alpha\beta}=\vec r_\alpha \cdot \frac{\partial N}{\partial r_\beta}$$
+corresponds to $\langle N_v,r_u\rangle$, which by the immediately preceding explanation is the negative of the second fundamental form. To repeat the same concept (from [here](https://math.stackexchange.com/a/4457198/994433)):
+
+$$\langle N_v,r_u\rangle = - \langle N,r_{uv} \rangle = -f.$$
+The covariant-contravariant form $B^\alpha_\beta$ is the result of raising an index by multiplying by the inverse of the metric tensor (which is simply the first fundamental form), i.e. 
+
+$$\text I^{-1}\text{II}=B^\alpha_\beta = I^{\alpha\gamma}B_{\gamma\beta}.$$ 
+
+This covariant-contravariant expression (resulting from "eating a vector $\vec v$") is the shape operator, and its determinant is the **Gaussian curvature (intrinsic curvature)**:
+
+$$K =\frac{\det \mathrm {II}}{\det \mathrm I}=\det \left(\mathrm {I}^{-1}\rm {II}\right)=k_1({\rm I}^{-1} {\rm {II}})k_2(\rm {I}^{-1} \rm {II})$$
+where $k_1$ and $k_2$ are the eigenvalues of $\mathrm {II}^{-1}\rm I$ or **principal curvatures.**
+
+The trace of $B^\alpha_\beta$ is the **mean curvature.** These concepts are explained [here](https://youtu.be/l7coUMHHpQE). Sometimes the mean curvature is considered to be the average $1/2$ of the principal curvatures.
+
+Therefore:
+
+$$\begin{align}
+K (\text{Gaussian curvature}) &= k_{\text{min}} k_{\text{max}}=\det (\rm{II})\\
+H (\text{mean curvature}) &= 1/2\left(k_{\text{min}} + k_{\text{max}}\right)=1/2\text{Tr} (\rm{II})
+\end{align}$$
+
+an alternative definition for mean curvature is
+
+$$H=\frac 1 {2\pi}\int_0^{2\pi}k(\theta) d\theta$$
+where the mean is taken over all curvatures around the circle at a point (not just principal curvatures). Minimal surfaces have minimal mean curvature - they minimize area (eg. bubbles).
+
+The associated vectors to the minimum $k_1(p)$ and maximum $k_2(p)$ eigenvalues of the $\mathrm{II}_p$ restricted to vectors of norm $1$ in $T_pS$ will form an orthonormal basis of $T_pS,$ because $\mathrm{II}$ is a [symmetric matrix][19]. $\{k_1,k_2\}$ are the **principal curvatures** of the surface at $p.$
+
+A unit vector $\vec v\in T_pS$ in the tangent space can be thus represented in relation to the angle with these orthonormal basis vectors with $\vec v:$
+
+$$\vec v=\cos \varphi \vec e_1 + \sin \varphi e_2$$
+
+and applying the quadratic of the second fundamental form to $\vec v:$
+
+$$\begin{align}
+k_n=\mathrm{II}_p(\vec v)&=-\langle dN_p(\vec v), \vec v \rangle\\
+&=-\langle dN_p(\cos \varphi \vec e_1 + \sin \varphi e_2), \cos \varphi \vec e_1 + \sin \varphi e_2 \rangle\\
+&=\bbox[5px,border:2px solid black]{-\cos^2 \varphi k_1 - \sin^2 \varphi k_2}
+\end{align}$$
+
+which is [**Euler's curvature formula**](https://mathworld.wolfram.com/EulerCurvatureFormula.html).
+
+
+**Connection between the curves on a surface and the second fundamental form:**
+
+The tangent to a curve parameterized by arc length $T(s)=\gamma'(s)$ is orthogonal to the normal to the surface at a given point. The derivative of the tangent is as above $\vec T'(s)=k(s) \vec n(s)$ with $\vec n$ being normal to the curve (not the surface) and $k(s)$ the curve curvature (a scalar property - defined above as a dot product).
+
+Considering the orthogonalitiy $T(s) \cdot \vec N(\gamma(s))=0$ and differentiting,
+
+$$k\cdot n(s) \cdot \vec N + T(s) \cdot \rm dN(T(s))=0$$
+which implies that
+
+$${\rm II}(T(s),T(s))=k\cdot n(s) \cdot \vec N= k_n\vec N$$
+as above (normal curvature of the curve).
+
+**Intuition: So the second fundamental form looks for similarities between the curve curvature and the normal to the surface, or what component of the forces experienced by someone driving on a car along the curve would be related not to the steering of the wheel, but to the geometry of the surface.**
+
+---
+
+**Relationship between curvature and the Laplacian:**
+
+In principle, curvature is a geometric property of a curve or a surface (a manifold), whereas the Laplacian is an operator on a smooth function.
+
+From [this paper](https://www.jstor.org/stable/2320201?seq=1), however,
+
+> Suppose that $F$ is a $\cal C^2$ function on an open set $U$ in $\mathbb R^2,$ Let $p$ be a point of $U$ and let $\Gamma$ be a curve in $U$ passing through $p.$ Denote the restriction of $F$ to $\Gamma$ by $f.$ Let $\vec n_p$ be a unit normal to $\Gamma$ at $p$ and let $K(p)$ be the corresponding curvature. Finally, denote arclength along $\Gamma$ by $s.$ Then
+
+$$(\Delta F)(p)=\frac{d^2 f}{ds^2}(p) - k(p)D_{n_p} F(p) + k(p)D^2_{n_p} F(p)$$
+
+
+---
+
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
