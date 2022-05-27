@@ -277,7 +277,7 @@ Training set: $\{0.05, 0.10 \}\mapsto \{0.01, 0.99\}$.
 
 ---
 
-####The Forward Pass:
+#### The Forward Pass:
 
 To begin, let"s see what the neural network currently predicts given the weights and biases above and inputs of 0.05 and 0.10. To do this we’ll feed those inputs forward though the network.
 
@@ -321,7 +321,7 @@ $\text{out}_{o2} = 0.772928465$
 
 ---
 
-#####TOTAL ERROR of the NEURAL NETWORK (output of the outer layer to true values)
+##### TOTAL ERROR of the NEURAL NETWORK (output of the outer layer to true values)
 
 We can now calculate the error for each output neuron using the squared error function and sum them to get the total error:
 
@@ -341,13 +341,13 @@ $E_{\text{total}} = E_{o1} + E_{o2} = 0.274811083 + 0.023560026 = 0.298371109$
 
 <br>
 
-####The Backwards Pass:
+#### The Backwards Pass:
 
 <br>
 
 Our goal with backpropagation is to update each of the weights in the network so that they cause the actual output to be closer the target output, thereby minimizing the error for each output neuron and the network as a whole.
 
-####Output Layer
+#### Output Layer
 
 <br>
 
@@ -371,7 +371,7 @@ First, how much does the total error change with respect to the output?
 
 ---
 
-#####CHANGE IN ERROR WRT OUTPUT OF OUTER LAYER NODE 1:
+##### CHANGE IN ERROR WRT OUTPUT OF OUTER LAYER NODE 1:
 
 $E_{total} = \frac{1}{2}(\text{target}_{o1} - \text{out}_{o1})^{2} + \frac{1}{2}(\text{target}_{o2} - \text{out}_{o2})^{2}$
 
@@ -383,7 +383,7 @@ When we take the partial derivative of the total error with respect to $\text{ou
 
 ---
 
-#####CHANGE IN OUTPUT OUTER LAYER NODE 1 WRT ITS INPUT (SIGMOID ACTIVATION):
+##### CHANGE IN OUTPUT OUTER LAYER NODE 1 WRT ITS INPUT (SIGMOID ACTIVATION):
 
 Next, how much does the output of $o_1$ change with respect to its total net input?
 
@@ -395,7 +395,7 @@ $\color{blue}{\frac{\partial \text{out}_{o1}}{\partial \text{net}_{o1}}} = \text
 
 ---
 
-#####CHANGE IN INPUT OF OUTER LAYER NODE 1 WRT $w_5$ (Logit linear equation):
+##### CHANGE IN INPUT OF OUTER LAYER NODE 1 WRT $w_5$ (Logit linear equation):
 
 Finally, how much does the total net input of $o_1$ change with respect to $w_5$?
 
@@ -449,11 +449,11 @@ We perform the actual updates in the neural network after we have the new weight
 
 ---
 
-####Hidden Layer
+#### Hidden Layer
 
 Next, we’ll continue the backwards pass by calculating new values for $w_1, w_2, w_3$, and $w_4$.
 
-####Example: Calculating $\Large w_1$:
+#### Example: Calculating $\Large w_1$:
 
 Big picture, here’s what we need to figure out:
 
@@ -469,7 +469,7 @@ $\frac{\partial E_{\text{total}}}{\partial \text{out}_{h1}} = \frac{\partial E_{
 
 ---
 
-#####CHANGE IN ERROR OF TARGET NEURON 1 OUTER LAYER WRT OUTPUT OF HIDDEN LAYER NODE 1:
+##### CHANGE IN ERROR OF TARGET NEURON 1 OUTER LAYER WRT OUTPUT OF HIDDEN LAYER NODE 1:
 
 Starting with $\frac{\partial\, E_{o1}}{\partial \,\text{out}_{h1}}$:
 
@@ -494,7 +494,7 @@ $\large \frac{\partial E_{o1}}{\partial \text{out}_{h1}} = \frac{\partial E_{o1}
 
 ---
 
-#####CHANGE IN ERROR OF TARGET OUTER LAYER NEURON 2 WRT OUTPUT OF HIDDEN LAYER NODE 1:
+##### CHANGE IN ERROR OF TARGET OUTER LAYER NEURON 2 WRT OUTPUT OF HIDDEN LAYER NODE 1:
 
 Following the same process for $\frac{\partial E_{o2}}{\partial \text{out}_{h1}}$, we get:
 
@@ -510,7 +510,7 @@ Now that we have $\frac{\partial E_{total}}{\partial \text{out}_{h1}}$, we need 
 
 ---
 
-#####CHANGE IN OUTPUT NODE 1 HIDDEN LAYER WRT INPUT:
+##### CHANGE IN OUTPUT NODE 1 HIDDEN LAYER WRT INPUT:
 
 $\text{out}_{h1} = \frac{1}{1+e^{-\text{net}_{h1}}}$
 
@@ -518,7 +518,7 @@ $\frac{\partial\, \text{out}_{h1}}{\partial \,\text{net}_{h1}} = \text{out}_{h1}
 
 ---
 
-#####CHANGE IN INPUT NODE 1 HIDDEN LAYER WRT $w_1$:
+##### CHANGE IN INPUT NODE 1 HIDDEN LAYER WRT $w_1$:
 
 We calculate the partial derivative of the total net input to $h_1$ with respect to $w_1$ the same as we did for the output neuron:
 
@@ -560,5 +560,6 @@ Finally, we’ve updated all of our weights! When we fed forward the $0.05$ and 
 
 
 ---
-
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**

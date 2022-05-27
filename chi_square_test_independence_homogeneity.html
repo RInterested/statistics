@@ -649,7 +649,7 @@ statistic &lt;- 0
 for(i in 1: 1000){dat[,2] &lt;- sample(dat[,2])
 statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 (p_value &lt;- length(statistic[statistic&gt;=baseline])/length(statistic))</code></pre>
-<pre><code>## [1] 0.038</code></pre>
+<pre><code>## [1] 0.04</code></pre>
 <p>So, under the assumption of independence (swingers) only in this
 small fraction of case would we obtain such a high chi square value to
 begin with. Hence, we can reject the hypothesis of independence, and
@@ -663,7 +663,7 @@ Fisher’s exact test) with the command:</p>
 ##  replicates)
 ## 
 ## data:  table(data)
-## X-squared = 16.955, df = NA, p-value = 0.04748</code></pre>
+## X-squared = 16.955, df = NA, p-value = 0.04648</code></pre>
 <p>This how <code>simulate.p.value</code> works:</p>
 <p>I realize what follows is not a formal answer to the question, and
 that the majority of users will find it self-evident. However, after
@@ -746,6 +746,8 @@ on the original matrix. This is the <code>PVAL.</code></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
+<p><strong>NOTE: These are tentative notes on different topics for
+personal use - expect mistakes and misunderstandings.</strong></p>
 </div>
 </div>
 

@@ -684,7 +684,7 @@ exp_counts &lt;- c(rep(1e6 * 0.25, times = 4))
 tableau &lt;- rbind(tab, exp_counts)
 tableau # tableau is just a name for this object</code></pre>
 <pre><code>##             [0,0.25) [0.25,0.5) [0.5,0.75)  [0.75,1)
-## counts     250585.00  249634.00  249927.00 249854.00
+## counts     248945.00  249988.00  250673.00 250394.00
 ## TargFreq        0.25       0.25       0.25      0.25
 ## exp_counts 250000.00  250000.00  250000.00 250000.00</code></pre>
 <p>The name I gave to the table presenting the counts and expected
@@ -693,9 +693,9 @@ degress of freedom corresponding to the cells minus 1 (in this case
 <span class="math inline">\(\small \text{df}=3\)</span>):</p>
 <pre class="r"><code>TS &lt;- sum((tableau[1,] - tableau[3,])^2/tableau[3,])
 TS</code></pre>
-<pre><code>## [1] 2.011304</code></pre>
+<pre><code>## [1] 6.885336</code></pre>
 <pre class="r"><code>pchisq(TS, df=3, lower.tail = F)</code></pre>
-<pre><code>## [1] 0.5700638</code></pre>
+<pre><code>## [1] 0.07564371</code></pre>
 <p>Which is clearly not a value extreme enough to consider that the
 sample is not distributed according to the 0.25 fractions in each
 quartile.</p>
@@ -706,7 +706,7 @@ test:</p>
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  tableau[1, ]
-## X-squared = 2.0113, df = 3, p-value = 0.5701</code></pre>
+## X-squared = 6.8853, df = 3, p-value = 0.07564</code></pre>
 <p><br><br></p>
 </div>
 <div id="example-8-comparing-distributions-are-investment-returns-normal" class="section level4">
@@ -838,6 +838,8 @@ longer valid. It typically must be determined by simulation.</li>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
+<p><strong>NOTE: These are tentative notes on different topics for
+personal use - expect mistakes and misunderstandings.</strong></p>
 </div>
 </div>
 
