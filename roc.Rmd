@@ -1,15 +1,17 @@
 ---
 output: 
   html_document:
+    includes:
+      in_header: "favicon.html" 
     css: custom.css
 ---
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-####  ROC curves and AUC:
+### ROC curves and AUC:
 
 There are reference answers on-line [here](https://www.unc.edu/courses/2010fall/ecol/563/001/docs/lectures/lecture21.htm) [here](http://stats.stackexchange.com/q/14153/67822), [here](http://stats.stackexchange.com/a/85413/67822) and [here](http://stackoverflow.com/q/23131897/4089351).
 
@@ -253,13 +255,6 @@ From [here](https://www.researchgate.net/publication/321363535_ThresholdROC_Opti
 For the two-state setting, we used a dataset from Kapaki, Paraskevas, Zalonis, and Zournas(2003), which contains measurements of tau protein levels in the cerebrospinal ﬂuid of $49$ control subjects and $49$ patients with Alzheimer’s disease (AD). The authors reported that the cut-oﬀ of 317 led to an optimal combination of sensitivity $(0.88)$ and speciﬁcity $(0.96),$ producing $R = 1.$ We calculated an alternative threshold for this dataset using the functions in ThresholdROC. This approach accounts for speciﬁc characteristics of the problem by choosinga reasonable combination of costs based on clinical criteria. We set the costs corresponding to correct classiﬁcation at zero (that is, $\text{CTP = CTN = 0}$) given that there are no consequences when correct decisions are made. The costs corresponding to false classiﬁcations were set at $1$ (i.e., $\text{CFP = CFN = 1}$), placing the same weight on false positives and false negatives. The value for AD prevalence was set at $0.2$ based on the literature (Tsolaki, Fountoulakis, Pavlopoulos, Chatzi, and Kazis 1999; Ferri et al. 2005). To determine if the measurements from both the control and diseased groups could be assumed to follow a normal distribution in deciding the method to use for threshold estimation, we applied Shapiro-Wilk’s test to the measurements, obtaining $p < 0.01$ in both cases. Since the data failed the normality tests, the empirical method was used. Thus, using `thres2()`, the threshold that minimizes the cost function for these cost and prevalence values was estimated to be $384.45,$ corresponding to a sensitivity of $0.76$ and a speciﬁcity of $1.$ Using a conﬁdence level of $95\% $ and applying the bootstrap methodology with $1000$ resamples, the conﬁdence intervals of the threshold were $(304.40,464.51)$ for the bootstrap method based on the normal distribution and $(295.37,444.03)$ for the percentile technique. 
 
 ```{r, fig.height = 4, fig.width = 10}
-# thres2(k1, k2, rho,
-# costs = matrix(c(0, 0, 1, (1 - rho)/rho), 2, 2, byrow = TRUE),
-# TPC TNC
-# FNC FPC
-# method = c("equal", "unequal", "empirical", "parametric"),
-# dist1 = NULL, dist2 = NULL, ci = TRUE, ci.method = c("delta", "boot"),
-# B = 1000, alpha = 0.05, extra.info = FALSE, na.rm = FALSE, q1=0.05, q2=0.95)
 
 require(ThresholdROC)
 k1 = AD[AD$Status==0,'Tau']
@@ -269,7 +264,7 @@ FPC = 1     # False negative cost
 FNC = 1     # False positive cost
 
 costs = matrix(c(0,0,FPC,FNC),2,2,byrow=T)
-thresh <- thres2(k1, k2, rho, costs, "empirical", ci.method='boot', extra.info=T)
+thresh <- thres2(k1, k2, rho, R=NULL, costs, "empirical", ci.method='boot', extra.info=T)
 
 par(mfrow=c(1,3))
 plot(thresh)
@@ -284,7 +279,7 @@ par(mfrow=c(1,3))
 FPC = 1000
 FNC = 1     # If the cost of missing any cases is huge:
 costs = matrix(c(0,0,FPC,FNC),2,2,byrow=T)
-thresh <- thres2(k1, k2, rho, costs, "empirical", ci.method='boot', extra.info=T)
+thresh <- thres2(k1, k2, rho, R=NULL, costs, "empirical", ci.method='boot', extra.info=T)
 plot(thresh)
 plotCostROC(thresh)
 ```
@@ -296,7 +291,7 @@ par(mfrow=c(1,3))
 FPC = 1  
 FNC = 1000
 costs = matrix(c(0,0,FPC,FNC),2,2,byrow=T)
-thresh <- thres2(k1, k2, rho, costs, "empirical", ci.method='boot', extra.info=T)
+thresh <- thres2(k1, k2, rho, R=NULL, costs, "empirical", ci.method='boot', extra.info=T)
 plot(thresh)
 plotCostROC(thresh)
 
