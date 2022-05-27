@@ -154,7 +154,7 @@ As an operator on two vectors in the tangent space the second fundamental form o
 $${\rm II}(\vec v, \vec v) = -   \rm dN_P(\vec v) \cdot \vec v$$
 The normal curvature of a curve $\alpha: (-\epsilon, \epsilon) \to \mathbb R^3$ parameterized by arc length and with $\alpha(0)=P$ is:
 
-$$k_n=(k\mathbf n\cdot \mathbf N = k(\mathbf
+$$k_n=(k\mathbf n)\cdot \mathbf N = k(\mathbf
 n\cdot \mathbf N) = k\cos\theta$$
 
 with $k =\vec n(s) \cdot T'(s)=\vec n(s) \cdot \alpha''(s)$
@@ -222,23 +222,23 @@ Since the shape operator is a linear transformation from $T_P{\cal M} \to T_P \c
 
 
 $$\begin{align}
-S_P({\bf x}_u)= -{\bf N}_u = a {\bf x}_u + b{\bf x}_v\\
-S_P({\bf x}_v) = -{\bf N}_v = c {\bf x}_u + d{\bf x}_v
-\end{align}\tag 1$$
+S_P({\bf x}_u) &= -{\bf N}_u = a {\bf x}_u + b{\bf x}_v\\
+S_P({\bf x}_v) &= -{\bf N}_v = c {\bf x}_u + d{\bf x}_v
+\end{align}$$
 
 and expressing it in matrix form as a linear transformation with respect to the basis:
 
 $$\begin{bmatrix}T({\bf x}_u) & T({\bf x}_v)\end{bmatrix}\equiv\begin{bmatrix}a & c\\
-b & d \end{bmatrix} \tag 2
+b & d \end{bmatrix}
 $$
 
 and then considering the definition of the entries of the second fundamental form $l$, $m$ and $n,$ the entries of the second fundamental form can be expressed as two different dot products:
 
-$${\rm II}=\begin{bmatrix} {\bf N} \cdot{\bf x}_{uu} &  {\bf N} \cdot {\bf x}_{uv} \\  {\bf N} \cdot {\bf x}_{uv} & {\bf N} \cdot {\bf r}_{vv}\end{bmatrix}=\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix} \tag 3$$
+$${\rm II}=\begin{bmatrix} {\bf N} \cdot{\bf x}_{uu} &  {\bf N} \cdot {\bf x}_{uv} \\  {\bf N} \cdot {\bf x}_{uv} & {\bf N} \cdot {\bf r}_{vv}\end{bmatrix}=\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix}$$
 
 which follows from the fact that the tangent plane is orthogonal to ${\bf N}$ and hence that dotting any of the basis vectors with is is zero, and then applying the product rule. 
 
-Now to match $(1),$ $(2)$ and $(3),$ I can just dot both sides of $(1)$ by the basis vectors:
+Now to match the three preceding expressions, I can just dot both sides of the first expression by the basis vectors:
 
 \begin{align}
 -{\bf N}_u {\bf x}_u &= a{\bf x}_u {\bf x}_u+ b{\bf x}_v {\bf x}_u\\
@@ -308,7 +308,7 @@ which is [**Euler's curvature formula**](https://mathworld.wolfram.com/EulerCurv
 
 The tangent to a curve parameterized by arc length $T(s)=\gamma'(s)$ is orthogonal to the normal to the surface at a given point. The derivative of the tangent is as above $\vec T'(s)=k(s) \vec n(s)$ with $\vec n$ being normal to the curve (not the surface) and $k(s)$ the curve curvature (a scalar property - defined above as a dot product).
 
-Considering the orthogonalitiy $T(s) \cdot \vec N(\gamma(s))=0$ and differentiting,
+Considering the orthogonality $T(s) \cdot \vec N(\gamma(s))=0$ and differentiating,
 
 $$k\cdot n(s) \cdot \vec N + T(s) \cdot \rm dN(T(s))=0$$
 which implies that
