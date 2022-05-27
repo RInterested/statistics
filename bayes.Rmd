@@ -1,30 +1,33 @@
 ---
 output: 
   html_document:
+    includes:
+      in_header: "favicon.html" 
     css: custom.css
 ---
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-####BAYESIAN PROBABILITY:
+
+#### BAYESIAN PROBABILITY:
 <br>
 
-#####CLASSICAL FRAMEWORK:
+##### CLASSICAL FRAMEWORK:
 
 It defines probabilities as favorable events over all possible events, and it works well when all outcomes are equally likely, i.e. probability of getting a sum of $4$ when rolling of two dice.
 
 ---
 
-#####FREQUENTIST FRAMEWORK:
+##### FREQUENTIST FRAMEWORK:
 
 It measures the relative frequency of an event in a hypothetical infinite sequence of experiments, relying on the law of large numbers.
 
 ---
 
-#####BAYESIAN FRAMEWORK:
+##### BAYESIAN FRAMEWORK:
 
 Bayesian probability comes in response to the limitations of the frequentist paradigm in definining an infinite sequence of experiments in cases such as $\mathbb P(\text{tomorrow will rain})$, or $\mathbb P(\text{the die is fair})$. In this latter case, rolling the die over and over, will not give an answer to the question - the die is fair or biased with a probability of $1$ or $0$: $\mathbb P(\text{fair})=\{0,1\}$.
 
@@ -42,7 +45,7 @@ From Herbert Lee's Coursera course on Bayesian statistics: "Frequentist **confid
 
 ---
 
-#####INFERENCE COMPARISON:
+##### INFERENCE COMPARISON:
 
     1. Frequentist:
 
@@ -86,7 +89,7 @@ $$\mathbb P(\theta=\text{loaded}|X=2)=0.388$$.
 
 ---
 
-#####CONTINUOUS VERSION BAYES THEOREM:
+##### CONTINUOUS VERSION BAYES THEOREM:
 
 $$f(\theta|X)=\frac{f(X|\theta)\,f(\theta)}{f(x)}
 =\frac{f(X|\theta)\,f(\theta)}{\int f(X|\theta)f(\theta)d\theta}=\frac{\text{likelihood}\times\text{prior}}{\text{normalizing constant}}\sim \text{likelihood}\times\text{prior}$$
@@ -103,7 +106,7 @@ $$f(\theta|X=1)=\frac{\theta^1(1-\theta)^0I_{(0\leq\theta\leq1)}}{\int_{-\infty}
 
 ---
 
-#####PRIOR INTERVAL ESTIMATES:
+##### PRIOR INTERVAL ESTIMATES:
 
 
 Since it is a uniform distribution, it is immediate:
@@ -114,14 +117,14 @@ and
 
 $\mathbb P(theta>0.05)=0.95$
 
-#####POSTERIOR INTERVAL ESTIMATES:
+##### POSTERIOR INTERVAL ESTIMATES:
 
 
 $\mathbb P(0.025<\theta<0.975)=\int_.025^.975 2\theta d\theta= .975^2-.025^2=.95$
 
 $\mathbb P(\theta>0.05)=1 - 0.05^2=0.9975$
 
-#####POSTERIOR CREDIBLE ESTIMATES:
+##### POSTERIOR CREDIBLE ESTIMATES:
 
 
 It's the equivalent of the CI of the frequentist paradigm:
@@ -148,7 +151,7 @@ So a $\theta$ parameter between $[.224,1]$ carries a probability of $95\%$.
 
 ---
 
-#####CONJUGATE PRIOR for a **Bernoulli or Binomial** Likelihood:
+##### CONJUGATE PRIOR for a **Bernoulli or Binomial** Likelihood:
 
 Any beta prior will give a beta posterior when the likelihood is Bernoulli or Binomial.
 
@@ -217,7 +220,7 @@ Notice how the weight fittingly add up to $1$.
 
 ---
 
-#####CONJUGATE PRIOR for a **Poisson** Likelihood:
+##### CONJUGATE PRIOR for a **Poisson** Likelihood:
 
 The likelihood is:
 
@@ -250,7 +253,7 @@ Strategies to choose the prior parameters:
 
 ---
 
-#####CONJUGATE PRIOR for a **Exponential** Likelihood:
+##### CONJUGATE PRIOR for a **Exponential** Likelihood:
 
 The conjugate prior is a gamma distribution.
 
@@ -264,7 +267,7 @@ Say that the bus comes after a waiting time of $12$ minutes once, the posterior 
 
 ---
 
-#####CONJUGATE PRIOR for a **Normal** Likelihood:
+##### CONJUGATE PRIOR for a **Normal** Likelihood:
 
 Normal is conjugate for itself. So for data following $N(\mu, \sigma^2)$, there will be a prior distribution $\mu \sim N(m_o,\S_o^2)$.
 
@@ -306,14 +309,14 @@ We can marginalized $\sigma^2$, and get a $\mu \vert X \sim t$.
 
 ##### OBJECTIVE BAYES STATISTICS: NON INFORMATIVE PRIORS:
 
-######Bernouilli:
+###### Bernouilli:
 
 We can have a prior for a coin toss ($Y_i \sim B(\theta)$) that follows $\theta \sim U[0,1]=\text{Beta}(1,1)$. The effective sample size of a beta prior is the sum of its parameters, which in this case is $2$ - not a completely non-informative prior. We can use $\text{Beta}(1/2,1/2)$, or $(.001,.001)$, or $(0,0)$. This latter case would have a density $\text{\Beta}(0,0) \sim f(\theta) \propto \theta^{-1}(1-\theta)^{-1}$, which does not integrate to $1$ (not a true density). It is an *improper prior*, but we can still use it, and get a posterior $f(\theta \vert y) \propto \theta^{y-1}(1-\theta)^{n-y-1} \sim \text{Beta}(y, n-y)$. This posterior *is* proper.
 
 The posterior mean will be $\frac{y}{n}$, which is the MLE of $\hat\theta$: $\hat \theta = \frac{y}{n}$, as in the frequentist approach.
 
 
-######Normal:
+###### Normal:
 
 We can take a vague prior with a huge variance: $\mu \sim N(0,1000000^2)$ At the limit of the variance, we spread across the real line, getting an improper prior $f(\mu) \propto 1$.
 
@@ -329,7 +332,7 @@ $\sigma^2 \vert y \sim \Gamma^{-1}\left(\frac{n-1}{2}, 1/2 \sum(y_i - \bar   y)^
 
 ---
 
-#####JEFFREY'S PRIOR:
+##### JEFFREY'S PRIOR:
 
 To address parametrization differences.
 

@@ -1,21 +1,23 @@
 ---
 output: 
   html_document:
+    includes:
+      in_header: "favicon.html" 
     css: custom.css
 ---
 
-
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###APPLICATION OF THE CHI SQUARE TEST:
+
+### APPLICATION OF THE CHI SQUARE TEST:
 
 
 <br><br>
 
-####GENERAL TEST STATISTIC (regardless of specific application):
+#### GENERAL TEST STATISTIC (regardless of specific application):
 
 The chi square statistic is denoted as $\chi^2=\displaystyle \sum_i \frac{(O_i-E_i)^2}{E_i}$ where $O_i$ is the observed number of cases in category $i$, and $E_i$ is the expected number of cases in category $i$. 
 
@@ -72,7 +74,7 @@ The degrees of freedom in this case are calculated with the formula: $\small \te
 
 <br><br>
 
-####Example 1:
+#### Example 1:
 <br>
 
 Consider a standard package of milk chocolate M&Ms. There are six different colors: red, orange, yellow, green, blue and brown. We get a sample of $600$ M&Ms and check whether the distribution of colors is homogeneous. We have ONE CATEGORICAL VARIABLE with SIX LEVELS. The null hypothesis is that all six colors occur with a frequency or probability of $1/6$. The degrees of freedom are the $\text{no. of levels - 1 = 5}$.
@@ -84,7 +86,7 @@ chisq.test(MM, p = expected_freq, correct = F)
 ```
 <br>
 
-####Example 2:
+#### Example 2:
 <br>
 
 A very generic example to see how the expected frequencies are generated would consist of testing whether the values in a vector representing a sample are consistent with a second vector representative of the population:
@@ -102,7 +104,7 @@ The sample definitely does not belong to the population distribution.
 
 <br><br>
 
-####Example 3:
+#### Example 3:
 <br>
 
 Does the distribution of ages in a sample matches that expected in the population:
@@ -168,7 +170,7 @@ chisq.test(dat$suicides, p = replicate(length(dat$suicides),
 Therefore, we don't have enough evidence to reject the idea that there may not be too much difference between years.
 <br><br>
 
-####Example 5:
+#### Example 5:
 
 <br>
 
@@ -199,7 +201,7 @@ chisq.test(dat$players, p = births)
 
 <br><br>
 
-####Example 6: COMPARING MANUSCRIPTS (modified Jane Austen example):
+#### Example 6: COMPARING MANUSCRIPTS (modified Jane Austen example):
 
 <br>
 
@@ -230,7 +232,7 @@ The squared difference is far too large for the proportion of vowels in your doc
 
 <br><br>
 
-####Example 7: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:
+#### Example 7: COMPARING DISTRIBUTIONS: RANDOM NUMBER GENERATION:
 
 <br>
 
@@ -280,7 +282,7 @@ chisq.test(tableau[1,], p = tableau[2,])
 
 <br><br>
 
-####Example 8: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS "NORMAL"?
+#### Example 8: COMPARING DISTRIBUTIONS: ARE INVESTMENT RETURNS "NORMAL"?
 
 <br>
 
@@ -355,7 +357,7 @@ we can't reject the hypothesis that the returns follow a normal distribution.
 
 <br>
 
-####CLOSING REMARKS for GOF test:
+#### CLOSING REMARKS for GOF test:
 
 <br>
 

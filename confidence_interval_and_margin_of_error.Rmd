@@ -1,21 +1,23 @@
 ---
 output: 
   html_document:
+    includes:
+      in_header: "favicon.html" 
     css: custom.css
 ---
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-**Standard Error:**
+### STANDARD ERROR:
 
 The [standard error (**SE**) of the *sampling distribution a proportion $p$*][1] is defined as:
 
 $\text{SE}_p=\sqrt{\frac{p\,(1-p)}{n}}$. This can be contrasted to the [standard deviation (**SD**) of the *sampling distribution* of a proportion $\pi$][2]:   $\sigma_p=\sqrt{\frac{\pi\,(1-\pi)}{n}}$.
 
-**Confidence Interval:**
+### CONFIDENCE INTERVAL:
 
 The [confidence interval](https://en.wikipedia.org/wiki/Confidence_interval#Confidence_intervals_for_proportions_and_related_quantities) estimates the population parameter $\pi$ based on the sampling distribution and the central limit theorem (CLT) that allows a normal approximation. Hence, given a SE, and a proportion, $95\%$ the confidence interval will be calculated as:
 
@@ -31,7 +33,7 @@ This raises a question regarding the utilization of the normal distribution even
 
 In the case of Bernoulli data (0s and 1s), there is really just one parameter to estimate. That is because in the special case of a population of 0's and 1's the variance is determined by the mean: the mean is the fraction $p$ of 1's, the variance is $p(1−p)$.  (This is easy to see if you know the variance is the averaged squared value minus the squared average value). The sample proportion gives us estimates of both the mean and variance, so we do not add uncertainty in the same way as if we had to estimate the variance separately. That is why the normal approximation works better in this case than the t-distribution."
 
-**Margin of Error:**
+### MARGIN OF ERROR:
 
 The [margin of error][3] is simply the "radius" (or half the width) of a confidence interval for a particular statistic, in this case the sample proportion:
 
