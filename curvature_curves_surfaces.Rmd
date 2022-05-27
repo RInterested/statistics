@@ -220,55 +220,40 @@ This is how one usually computes the matrix $\text{II}$.
 
 Since the shape operator is a linear transformation from $T_P{\cal M} \to T_P \cal M,$ it can be expressed as:
 
-$$\begin{align}
-S_P({\bf x}_u) = a {\bf x}_u + b{\bf x}_v\\
-S_P({\bf x}_v) = c {\bf x}_u + d{\bf x}_v
-\end{align}$$
-
-or in matrix form:
-
-$$\begin{bmatrix}S_P({\bf x}_u)\\
-S_P({\bf x}_v) \end{bmatrix} 
-=\begin{bmatrix}a & b\\
-c& d \end{bmatrix}
-\begin{bmatrix}{\bf x}_u\\
-{\bf x}_v \end{bmatrix}
-=
-\begin{bmatrix}{-\bf N}_u\\
--{\bf N}_v \end{bmatrix}$$
-
-
-
-Now multiplying by $\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix}$ - yes, the transpose of the basis vectors:
 
 $$\begin{align}
-\begin{bmatrix}a & b\\
-c& d \end{bmatrix}
-\begin{bmatrix}{\bf x}_u\\
-{\bf x}_v \end{bmatrix}
-\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix} 
-&=
-\begin{bmatrix}{-\bf N}_u\\
--{\bf N}_v \end{bmatrix}
-\begin{bmatrix}{\bf x}_u & {\bf x}_v\end{bmatrix} \\
-\begin{bmatrix}a & b\\
-c& d \end{bmatrix}\underset{\rm I \text{ = first fund form}}{\underbrace{
-\begin{bmatrix}{\bf x}_{u} \cdot{\bf x}_{u} & {\bf x}_{v} \cdot {\bf x}_{u} \\ {\bf x}_{u} \cdot {\bf x}_{v} & {\bf x}_{v} \cdot {\bf x}_{v}\end{bmatrix}}} &=
-\underset{{\rm II}\text{ = second fund form}}{
-\underbrace{\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix}}}
-\end{align}$$
+S_P({\bf x}_u)= -{\bf N}_u = a {\bf x}_u + b{\bf x}_v\\
+S_P({\bf x}_v) = -{\bf N}_v = c {\bf x}_u + d{\bf x}_v
+\end{align}\tag 1$$
 
-The very last step is just to multiply both sides by the inverse of the first fundamental form:
+and expressing it in matrix form as a linear transformation with respect to the basis:
 
-$$\begin{bmatrix}a & b\\
-c& d \end{bmatrix} ={\rm II}\;\; {\rm I}^{-1}={\rm I}^{-1}\;\; {\rm II}$$
+$$\begin{bmatrix}T({\bf x}_u) & T({\bf x}_v)\end{bmatrix}\equiv\begin{bmatrix}a & c\\
+b & d \end{bmatrix} \tag 2
+$$
 
-The final rearrangement is warranted since the shape operator is symmetric, and if the product of two symmetric matrices is symmetric, then they must commute (provided orthogonal basis). This is the case [from Professor Shiffrin's DIFFERENTIAL GEOMETRY:A First Course in Curves and Surfaces](http://alpha.math.uga.edu/~shifrin/ShifrinDiffGeo.pdf)
+and then considering the definition of the entries of the second fundamental form $l$, $m$ and $n,$ the entries of the second fundamental form can be expressed as two different dot products:
 
-The shape operator...
+$${\rm II}=\begin{bmatrix} {\bf N} \cdot{\bf x}_{uu} &  {\bf N} \cdot {\bf x}_{uv} \\  {\bf N} \cdot {\bf x}_{uv} & {\bf N} \cdot {\bf r}_{vv}\end{bmatrix}=\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix} \tag 3$$
 
->is a symmetric linear map; i.e., for any $U, V \in T_P M,$ we have
-$S_P(U) \cdot  V =  U \cdot S_P(V).$
+which follows from the fact that the tangent plane is orthogonal to ${\bf N}$ and hence that dotting any of the basis vectors with is is zero, and then applying the product rule. 
+
+Now to match $(1),$ $(2)$ and $(3),$ I can just dot both sides of $(1)$ by the basis vectors:
+
+\begin{align}
+-{\bf N}_u {\bf x}_u &= a{\bf x}_u {\bf x}_u+ b{\bf x}_v {\bf x}_u\\
+-{\bf N}_u {\bf x}_v &= a{\bf x}_u {\bf x}_v+ b{\bf x}_v {\bf x}_v\\
+-{\bf N}_v {\bf x}_u&= c{\bf x}_u {\bf x}_u+ d{\bf x}_v {\bf x}_u\\
+-{\bf N}_v {\bf x}_v&= c{\bf x}_u {\bf x}_v + d{\bf x}_v {\bf x}_v
+\end{align}
+
+which would then be collected as:
+
+$${\rm II}=\begin{bmatrix}- {\bf N}_u \cdot{\bf x}_{u} & - {\bf N}_v \cdot {\bf x}_{u} \\ - {\bf N}_u \cdot {\bf x}_{v} & -{\bf N}_v \cdot {\bf x}_{v}\end{bmatrix} = 
+\begin{bmatrix}{\bf x}_{u} \cdot{\bf x}_{u} & {\bf x}_{v} \cdot {\bf x}_{u} \\ {\bf x}_{u} \cdot {\bf x}_{v} & {\bf x}_{v} \cdot {\bf x}_{v}\end{bmatrix} \;\begin{bmatrix}a & c\\ b &d \end{bmatrix}$$
+
+
+
 
 
 ---
