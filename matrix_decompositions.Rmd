@@ -1,9 +1,18 @@
+---
+output: 
+  html_document:
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###LU DECOMPOSITION:
+
+### LU DECOMPOSITION:
 
 ```{r}
 require(Matrix)
@@ -25,7 +34,7 @@ L%*%U
 ```
 
 
-###LDL' DECOMPOSITION:
+### LDL DECOMPOSITION:
 
 In LDL' decomposition we separate the diagonal of $U$ from $U$. To make it work $U$ will have to be divided by its diagonal:
 
@@ -40,7 +49,7 @@ L %*% (D %*% Udiv)
 aTa
 ```
 
-###CHOLESKY DECOMPOSITION:
+### CHOLESKY DECOMPOSITION:
 
 
 We start with the ${\bf LDU} = \begin{bmatrix} \text{lower triangular L}\\ \text{1s on diagonal} \end{bmatrix} \begin{bmatrix} \text{pivot matrix}\\ \text{D is diagonal} \end{bmatrix} \begin{bmatrix} \text{upper triangular U}\\ \text{1s on diagonal} \end{bmatrix}$
