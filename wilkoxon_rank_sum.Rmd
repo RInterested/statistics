@@ -1,6 +1,8 @@
 ---
+title: 'Wilcoxon rank sum or U test'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,8 +10,10 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
+
+
 
 These questions are extracted from a Coursera course. In time they will be replaced by other examples.
 
@@ -28,7 +32,7 @@ The [procedure](en.wikipedia.org/wiki/Mann–Whitney_U_test#Calculations) is out
 
 ---
 
-####Example 1:
+#### Example 1:
 
 ```{r}
 a = c(110, 115, 128, 142, 123, 129, 130, 128 ,134, 133, 128, 147, 137, 112, 138, 128, 132, 139, 133, 135, 133, 125, 134, 139, 138, 142, 152, 140, 144, 147 ,153 ,141)
@@ -60,7 +64,7 @@ pooled$ranks = rank(pooled$values)
 
 ---
 
-####Example 2:
+#### Example 2:
 
 From the [mtcars R dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html):
 
@@ -92,7 +96,7 @@ wilcox.test(a, b)
 
 ---
 
-####Example 3:
+#### Example 3:
 
 A topical rash treatment was applied to a portion of a rash on $n$ patients. A quantitative measure of redness was calculated for the treated and untreated regions of the rash. A sign of + was given when the treated area was less red (more improved) than the untreated area and a - sign when it was not. It is desired to know whether the treatment improves the rash. 
 
@@ -142,7 +146,7 @@ By the previous question, we will only reject for 5 subjects when all of them ar
 
 ---
 
-####Example 4:
+#### Example 4:
 
 
 The Biostatistics and Epidemilogy departments are running a 10K road race. There are *three pairs* of runners. In each case, a runner from Biostat was matched to a runner from Epi of the same age, gender and degree of running experience. The difference in each pairs times was taken and a signed rank test performed.
