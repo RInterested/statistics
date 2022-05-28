@@ -1,6 +1,8 @@
 ---
+title: 'MCMC'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,12 +10,12 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
 
 
 ### MARKOV CHAIN MONTE CARLO:
-<br>
+
 
 OBJECTIVE: Find the expected value and value range (CI) of a high-dimensional pdf. We perform a random walk throught the pdf, favoring values with high "probability" (high density values). From a starting point, we pick a nearby point and its probability is higher, we move there; otherwise, we stay put. If we carry this long enough we hit every point in the manifold with a frequency proportional to its probability ([ergodicity](https://en.wikipedia.org/wiki/Ergodicity)).
 

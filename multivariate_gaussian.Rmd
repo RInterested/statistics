@@ -1,6 +1,8 @@
 ---
+title: 'Multivariate Gaussian'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,11 +10,12 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
 
+
 ### MULTIVARIATE GAUSSIAN:
-<br>
+
 
 The univariate Gaussian ($X \sim N(\mu, \sigma^2$) is:
 
@@ -38,7 +41,7 @@ If the variance is $1$ for both Gaussians:
 
 If the variances are different, say $1$ and $4$:
 
-<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/17905528/4d70fdca-6941-11e6-8df2-1f4578a42d95.png">
+<img  src="https://cloud.githubusercontent.com/assets/9312897/17905528/4d70fdca-6941-11e6-8df2-1f4578a42d95.png">
 
 This is the Matlab code:
 
@@ -71,7 +74,7 @@ A quadratic form in linear algebra is of the form $x^TAx$, providing the formula
 
 Ellipsoids are of the form $x^2/a^2+y^2/b^2+z^2/c^2 = 1$:
 
-<img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/17914054/f35715fa-696c-11e6-9a71-eca422b98985.png">
+<img src="https://cloud.githubusercontent.com/assets/9312897/17914054/f35715fa-696c-11e6-9a71-eca422b98985.png">
 
 ---
 
@@ -91,13 +94,13 @@ $$Q\Lambda Q^T= Q\Lambda^{1/2}\Lambda^{1/2} Q^T = (Q\Lambda^{1/2})(Q\Lambda^{1/2
 
 ---
 
-####Affine Property of the Gaussian:
+#### Affine Property of the Gaussian:
 
 Any affine transformation $f(x) = AX + b$ of a Gaussian is a Gaussian. If $X \sim N(\mu, \Sigma)$, $\color{red}{AX + b \sim N(A\mu + b, A\Sigma A^T)}$.
 
 So if $X_1, X_2, \dots, X_n \sim N(0,1)$ iid, placing them in a vector, we get $X \sim (0, I)$, and $\color{blue}{Ax + \mu \sim N(\mu ,\Sigma)}$, where $\Sigma = AA^T$. This is a form of generating multivariate Gaussians.
 
-####Sphering:
+#### Sphering:
 
 "Sphering" turns a Gaussian into a "sphere" (multivariate standard) through an affine transformation. So it converts Gaussians back to standard multivariate normal.
 
@@ -111,7 +114,7 @@ So by applying an affine transformation to $X \sim N(0,I)$ we end up stretching 
 
 ---
 
-####MARGINAL DISTRIBUTION:
+#### MARGINAL DISTRIBUTION:
 
 If we have a multivariate Gaussian $X = [X_1,X_2] \in \mathbb R^2$ with two dimensions, the coordinates are also Gaussian ($X_1$ and $X_2$ are Gaussian).
 
