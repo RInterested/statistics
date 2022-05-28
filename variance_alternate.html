@@ -466,10 +466,10 @@ minus sign disappears if the mean is zero.</p>
 <p>In R</p>
 <pre class="r"><code>X = rnorm(5)
 var(X)</code></pre>
-<pre><code>## [1] 2.576792</code></pre>
+<pre><code>## [1] 1.088759</code></pre>
 <pre class="r"><code>( (t(X) %*% X) / (length(X) - 1) ) - (length(X)/(length(X)-1)) * mean(X)^2</code></pre>
 <pre><code>##          [,1]
-## [1,] 2.576792</code></pre>
+## [1,] 1.088759</code></pre>
 <p>The same applies to the <a href="https://stats.stackexchange.com/a/285358/67822">covariance between
 different random vectors</a>:</p>
 <pre class="r"><code>set.seed(0)
@@ -505,6 +505,8 @@ all.equal(man.cov, cov(t(X)))</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
+<p><strong>NOTE: These are tentative notes on different topics for
+personal use - expect mistakes and misunderstandings.</strong></p>
 </div>
 
 
