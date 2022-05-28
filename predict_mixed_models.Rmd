@@ -44,11 +44,12 @@ So we have some repeated observations (`Time`) of a continuous measurement of th
 
 The idea is that it's easy to remember for hyper-caffeinated wired subjects, but the ability decreases over time, perhaps due to tiredness. Words with negative connotation are more difficult to remember. Education has an effect that is intuitive, and "surprisingly" the Auditorium also plays a role (perhaps one was more noisy, or less comfortable). Here're a couple of exploratory plots:
 
- <img src="http://i.stack.imgur.com/17TBp.png" width="400" height="500">
+ <img src="http://i.stack.imgur.com/17TBp.png" width="400" height="300">
 
 I know... so cool... Have you noticed that Tina doesn't drink coffee? How can anybody spend the night on CV, and be able to function in the morning without coffee?
 
-[![enter image description here][3]][3]
+
+ <img src="http://i.stack.imgur.com/R1Jli.png" width="300" height="300">
 
 **The issue:**
 
@@ -58,7 +59,7 @@ When fitting lines on the data cloud for the call:
 
 I get this plot:
 
- <img src="http://i.stack.imgur.com/mFMN2.png" width="600" height="500">
+ <img src="http://i.stack.imgur.com/mFMN2.png" width="300" height="300">
 
 with the following code (notice the call for $\small predict(fit1)$) in it:
 
@@ -79,7 +80,7 @@ incorporating `Time` and a parallel code gets a surprising plot:
       geom_line(aes(y = predict(fit2)),size=1) 
     print(p)
 
- <img src="http://i.stack.imgur.com/zZvX5.png" width="600" height="500">
+ <img src="http://i.stack.imgur.com/zZvX5.png" width="400" height="400">
 
 **The question:**
 
@@ -120,11 +121,11 @@ My best bet was `94.96442 + 0.2116271 * 95 = 115.0689945`... Not too far off, bu
 
   [1]: http://stats.stackexchange.com/a/4202/67822
   [2]: http://data.princeton.edu/wws509/datasets/
-  [3]: http://i.stack.imgur.com/R1Jli.png
 
-<br><br>
-###THE ANSWER:
-<br><br>
+
+
+### THE ANSWER:
+
 It's easy to get confused by the presentation of coefficients when you call `coef(fit2)`. Look at the summary of fit2:
 
 >     > summary(fit2)
@@ -195,5 +196,6 @@ The intercept values returned by `coef` seem to represent the overall intercept 
 
 
 ---
-
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**

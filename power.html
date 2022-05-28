@@ -539,7 +539,7 @@ chisqr &lt;- rchisq(simuls, df = n - 1)
 t &lt;- qt(.95, n - 1)
 # The power is:
 mean(Z + sqrt(n) * (mu_a - mu_0) / sigma &gt; t / sqrt(n - 1) * sqrt(chisqr))</code></pre>
-<pre><code>## [1] 0.82754</code></pre>
+<pre><code>## [1] 0.82706</code></pre>
 <p>Compare to built-in formulas (equivalent to
 <code>sample.prop.test</code> for proportions):</p>
 <pre class="r"><code>power.t.test(n = 20, delta = mu_a - mu_0, sd = sigma, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)</code></pre>
@@ -565,6 +565,8 @@ up.</p></li>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
+<p><strong>NOTE: These are tentative notes on different topics for
+personal use - expect mistakes and misunderstandings.</strong></p>
 </div>
 
 
