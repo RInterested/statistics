@@ -1,6 +1,8 @@
 ---
+title: 'SE and p-values OLS parameters'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,16 +10,14 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
 
 
 ### STANDARD ERRORS AND P VALUES OF COEFFICIENT ESTIMATES:
 <br>
 
-It's hard to step in when you had people commenting of the caliber of the names above, but I did tried to understand this the silly way... Using the power of [R] to simulate mathematical problems. So I hope it sheds some light into what these uncertainty quantification attached to the regression parameters *mean* - that was the question...
-
-So from the perspective of the frequentist there is this Platonic world of absolute representation of every single individual - the *population*, and we are looking at the shadows on the wall of the cave - the *sample*. We know that no matter how much we try we'll be off, but we want to have an idea of how far we'll be from the truth.
+From the perspective of the frequentist there is this Platonic world of absolute representation of every single individual - the *population*, and we are looking at the shadows on the wall of the cave - the *sample*. We know that no matter how much we try we'll be off, but we want to have an idea of how far we'll be from the truth.
 
 We can play god, and pretend to create the *population*, where everything is perfect, and the parameters governing the relationships between variables are glimmering gold. Let's do that by establishing that the variable $x$ will be related to the variable $y$  through the equation, $y = 10 + 0.4\,x$. We define the **x**'s as `x = seq(from = 0.0001, to = 100, by = 0.0001` (that is $1 \,million$ observations). The **y**'s will therefore be calculated as `y <- 0.4 * x + 10`. We can combine these values in a data.frame: `population = data.frame(x, y)`.
 

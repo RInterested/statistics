@@ -1,6 +1,8 @@
 ---
+title: 'Statistical manifold'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,11 +10,12 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
 
+
 ### STATISTICAL LEARNING or NON-LINEAR DIMENSION-REDUCTION ALGORITHM:
-<br>
+
 
 From this [MMDS lecture](https://youtu.be/ddhbjCLIjho), an this [parallel presentation](https://youtu.be/kTJoFLcdtn8).
 
@@ -124,7 +127,7 @@ $$\Delta_\mathbb M f = \frac{1}{\sqrt{\det(g)}}\frac{\partial}{\partial x^l}\lef
 
 The L-B operator contains all the geometry of the object, and at the same time, it is coordinate free.
 
-#####OBTAINING THE RIEMANNIAN METRIC:
+##### OBTAINING THE RIEMANNIAN METRIC:
 
 Given the coordinate chart $(U,x)$ of a smooth R.Manifold, $M$ and $\Delta_\mu$ defined on $M,$ then the $g(p)^{-1},$ the inverse of the RM at point $p\in U$ as expressed in local coordinates $x$ can be derived from 
 
@@ -139,7 +142,7 @@ $$\tilde h^{ij}=\frac{1}{2}\Delta_M\; (f^i-f^i(p))\,(f^j-f^j(p))\rvert_{f^i=f^i(
 
 and so $h(p)$ is given by the pseudoinverse $\tilde h.$
 
-#####DISCRETIZED PROBLEM:
+##### DISCRETIZED PROBLEM:
 
 The input level for the embedding algorith is a set of points $\mathcal D =p_1,\dots,p_n\subset M.$ These points are assumed to be a sample from the distribution
 
@@ -149,7 +152,7 @@ Embedding algorithms construct a map $f_n: \mathcal D\to \mathbb R^\mathcal s.$
 
 We go on to define the symmetric positive semidefinite embedding pushforward $h_n$ on the set of points $\mathcal D.$ We obtain it by defining a discrete estimator $\tilde{ \mathcal L}_{n,\epsilon}$ that is consistent with $\Delta_M.$ The idea being to get an approximation of the Laplacian.
 
-#####RANDOM WALK GRAPH LAPLACIAN:
+##### RANDOM WALK GRAPH LAPLACIAN:
 
 Construct graph $g_n$ to have adjacency matrix $k_n =[k_\epsilon(p,p')]_{p,p'\in \mathcal D}$ given by $k_\epsilon(p,p') = \exp(-\Vert p-p'\Vert^2/\epsilon),$ which is the Gaussian kernel.
 
@@ -161,14 +164,14 @@ where $T_n$ is the diagonal matrix of outdegrees, i.e. $T_n= \text{diag}\left\{t
 
 A simple renormalization exists when $p(x)$ is not uniform.
 
-#####ALGORITHM LEARN METRIC:
+##### ALGORITHM LEARN METRIC:
 
 1. Construct the graph Laplacian $\tilde{\mathcal L}_{n,\epsilon}$
 2. Obtain the embedding coordinates $f_n(p) =\left( f_n^1(p),\dots,f_n^\mathcal s (p)   \right)$ of each point $p \in \mathcal D$ by $[f_n(p)]_{p\in \mathcal D}\equiv \text{GENERIC EMBED}(\mathcal D,\mathcal s, \epsilon_n)$
 3. Calculate the embedding metric $h_n(p)$ at each point, using $\tilde{\mathcal L}_{n,\epsilon}$. Output $\left( f_n(p), h_n(p)   \right)_{p\in \mathcal D}.$
 
 
-#####LOCALLY ISOMETRIC EMBEDDING:
+##### LOCALLY ISOMETRIC EMBEDDING:
 
 Using the pushforward metric $h_p$ at point $p \in M,$ we can construct an affine tranformation of $f$ that defines a local isometry at $p:$
 
@@ -180,7 +183,7 @@ Given $(f(\mathcal D), h(\mathcal D))$ metric embedding of $\mathcal D:$
 Display $\mathcal D$ in coordinates $\tilde f$
 
 
-#####COMPUTING GEODESIC DISTANCE:
+##### COMPUTING GEODESIC DISTANCE:
 
 Computing the geodesic distance between two points $p$ and $p'$ requires discretizing the arclength integral and finding the shortest path:
 
@@ -192,13 +195,13 @@ $$\mathcal H_{q_i,q_{i-1}}= \frac{1}{2}\sqrt{(f(q_i)-f(q_{i-1}))'\,h_{q_i}(f(q_i
 
 The computation can be done regardless of the embedding.
 
-#####COMPUTING AREA / VOLUME:
+##### COMPUTING AREA / VOLUME:
 
 By performing a Voronoi tessellation of a coordinate chart $(U,x)$ we can obtain the estimator $\Delta x^1,\dots \Delta x^d$ around $p$ and multiply it by $\sqrt{\det (h)}$ to obtain $\Delta \text{Vol}\approx d\text{Vol}.$ Summing over all points in a set $W\subset \mathcal M$ gives the estimator:
 
 $$\text{Vol}(W) =\sum_{p\in W} \sqrt{\det(h_p)}\Delta x^1(p),\dots \Delta x^d(p).$$
 
-#####GAUSSIAN PROCESSES ON MANIFOLDS:
+##### GAUSSIAN PROCESSES ON MANIFOLDS:
 
 GP's can be extended to M via SPDE's. Let $(k^2 - \Delta_{\mathbb R^d})^{\alpha/2}u(x) = \xi$ with $\xi$ Gaussian with noise, then $u(x)$ is a Matérn GP. Substituting $\Delta_\mathcal M$ allows us to define a Matérn GP on $\mathcal M.$ 
 
@@ -215,7 +218,7 @@ From this [youtube video](https://youtu.be/1jlYn7M5wSk)
 <img src="https://user-images.githubusercontent.com/9312897/31319071-f5024968-ac2a-11e7-857d-ab926930aa95.png" width="500">
 
 
-####Riemann metric:
+#### Riemann metric:
 
 The context is a metric $g_{\alpha\beta},$ which in full notation would be a (0,2) tensor $g_{\alpha\beta}\, dx^\alpha \otimes dx^\beta,$ taking two vectors of the $T_p(M)$ to the real line. Since $g_{\alpha\beta}$ is a function of space-time, i.e. $g_{\alpha\beta}(x)$ with $x=( x^0, x^1,x^2, x^3),$ it turns out that $g_{\alpha\beta}$ is a field.
 
@@ -233,7 +236,7 @@ The existence of the metric allows defining the length of vectors (of curves). T
 
 <img src="https://user-images.githubusercontent.com/9312897/31319084-29241366-ac2b-11e7-86fe-803b1d28ee6c.png" width="500">
 
-####Laplacian operator:
+#### Laplacian operator:
 
 Let $(M,g)$ be a Riemannian manifold. For any smooth function $f$ over $M,$ the gradient is defined as the vector field $\text{grad}(f)$ in $T(M)$ that satisfies $\left<\text{grad}(f), X(f) \right>_g= X(f)$ for all $X\in T(M).$ In local coordinates, the gradient is written as 
 
