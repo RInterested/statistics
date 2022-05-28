@@ -118,7 +118,7 @@ where the block matrix $FR$ is calculated from the fundamental matrix $F=(I-Q)^{
 
 The $R$ matrix is not necessarily square: if there are $n_a$ absorbing states, and $n_t$ transient states, the matrix $R$ will be $n_t \times n_a,$ and contain the transition probabilities between transient and absorbent states. On the other hand, $Q$ is square, $n_t \times n_t,$ containing the transition probabilities between transient states. The submatrix $I$ will be square $n_a \times n_a,$ and the matrix of zeroes will be square and $n_t \times n_t.$
 
-#####Properties:
+##### Properties:
 
 1. The entry in row $i$, column $j$  of $\bar P$ is the long-run probability of going from state $i$ to state $j.$
 
@@ -126,7 +126,7 @@ The $R$ matrix is not necessarily square: if there are $n_a$ absorbing states, a
 
 ---
 
-#####Proof:
+##### Proof:
 
 [This](https://www.ssc.wisc.edu/~jmontgom/absorbingchains.pdf) is a good resource.
 The submatrix $P$ contains the transition probabilities from transient to absorbing states, while $Q$ contains the transition probabilities from transient to transient states.
@@ -152,7 +152,7 @@ $$\begin{align}P^{\infty}&=\begin{bmatrix}I & 0 \\ FR & 0 \end{bmatrix}\end{alig
 
 ---
 
-#####Example problem:
+##### Example problem:
 
 Suppose a credit union classifies car loans into four categories: paid in full (F); in good standing (G); in arrears (A); or bad debt (B). Each month, $10\%$ of G accounts pay the loan in full; $80\%$ remain in G; and $10\%$ go to A. For accounts in A, $10\%$ are paid in full, $40\%$ become G; $40\%$ stay in A; and $10\%$ go to B:
 
@@ -182,7 +182,7 @@ That is, an average of $7.5$ months until they are paid in full, or go into defa
 
 The interpretation of the entries of the fundamental matrix, `Fund`, or $F$ in general is as follows: $F(i,j)$ is the number of periods (in this case, months) spent in the $j$ non-absorbing state when the chain started in the $i$ non-absorbing state. And $\sum_j F(i,j)$ yields the expected number of period spent in any non-absorbing state, given that we started at state $i,$ which is the calculation of $7.5$ months in the example above.
 
-#####Proof:
+##### Proof:
 
 Since
 
@@ -226,5 +226,6 @@ round(P %^% 75, 3)
 ```
 
 ---
-
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
