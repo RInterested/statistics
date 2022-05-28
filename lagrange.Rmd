@@ -21,17 +21,32 @@ We want to optimize the value of the surface $z = x \times y$ with the constrain
 
 <img height="600" width="500" src="https://cloud.githubusercontent.com/assets/9312897/16436652/97b580c2-3d6d-11e6-8629-6bd9fe82e52a.png">
 
-To do so the key point is to see that the constraint will be the tangent of the "indifference line" in the contour plot:
+The level curves or contour lines on the function $z$ are points with the same value of the function. When it comes to consumer spending, for example, they are referred to **indifference lines.**
+
+The indifference line that kisses the constraint curve $y$ at one single point will contain either a maximum or a minimal value under the constraint. At the point of contact both the indifference curve in question and the line of constraint will have the same tangent. This implies that both the gradient of the function and the normal to the constraint will be on the same line at the point of contact: scalar to each other.
+
+We try to solve a system of two equations:
+
+$$\begin{align}
+\nabla z & = \lambda \nabla y\\[2ex]
+g &=0
+\end{align}$$
+
+with $g$ being $y$ with $0$ on one side of the equation.
 
 <img height="400" width="400" src="https://cloud.githubusercontent.com/assets/9312897/16436796/e7642c62-3d6e-11e6-926a-a83ed3130cdc.png">
 
-In an indifference line, $f(x,y) = z = x\times y = \text{constant}_1$. At the optimum point $\text{constant}_1=x\times y$ will have as a tangent $y = 3 - \frac{4}{3}x$. Expressing the constraint line as $g(x,y) = y + \frac{4}{3}x= 3 =\text{constant}_2$, both lines would reprsent the direction one must travel to avoid any changes: the direction of zero increase or change in the functions.
+In the indifference line touching the constraint at one single point, 
+
+$$f(x,y) = x\times y = \text{constant}_1.$$
+
+The constraint line can be expresssed as $$g(x,y) = y + \frac{4}{3}x- 3 = 0.$$
 
 On the other hand, the direction of maximum change will be given by the gradients, and they will be orthogonal to the contour lines:
 
-$$\nabla \left(f(x,y)=\text{constant}_1\right)=\left(\frac{df}{dx},\frac{df}{dy}\right)$$
+$$\nabla \left(f(x,y)=\text{constant}_1\right)=\left(\frac{dz}{dx},\frac{dz}{dy}\right)$$
 
-$$\nabla (g(x,y)=\text{constant}_2)=\left(\frac{dg}{dx},\frac{dg}{dy}\right)$$.
+$$\nabla (g(x,y)=0)=\left(\frac{dg}{dx},\frac{dg}{dy}\right)$$.
 
 Since the gradients of $f(\cdot)$ and $g(\cdot)$ are going in the same or opposite directions:
 
@@ -49,11 +64,9 @@ and
 
 $$\frac{\partial f(x,y)}{dy} - \lambda \frac{\partial g(x,y)}{dy}=0$$
 
-To obtain the Lagrangian we set $\text{Constant}_2$ to zero:
+To obtain the Lagrangian:
 
-$y + \frac{4}{3}x-3=0$, let's call it $g_2$, and we are ready:
-
-$$\mathscr{L}=f(x,y)+\lambda \,g_2(x,y)$$
+$$\mathscr{L}=f(x,y)+\lambda \,g(x,y)$$
 
 or
 
