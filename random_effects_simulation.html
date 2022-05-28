@@ -379,7 +379,8 @@ after 15 races:</h3>
 <p><br></p>
 <p>All the data is fictitious, and the source code can be found <a href="https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/athletes%20mixed%20effects">here</a>.</p>
 <p><br></p>
-<p>####Data set “manufacturing” process:</p>
+<div id="data-set-manufacturing-process" class="section level4">
+<h4>Data set “manufacturing” process:</h4>
 <p><br></p>
 <p>We’ll make the <code>sd</code> of the <em>slopes between
 athletes</em> <code>0.5</code>, and the <code>sd</code> between
@@ -387,7 +388,9 @@ athletes</em> <code>0.5</code>, and the <code>sd</code> between
 we’ll establish a <em>correlation between intercepts and slopes</em> of
 <code>0.8</code>.</p>
 <p><br></p>
-<p>####FOR ATHLETES:</p>
+</div>
+<div id="for-athletes" class="section level4">
+<h4>FOR ATHLETES:</h4>
 <p><br></p>
 <p>The covariance matrix will be:</p>
 <pre class="r"><code>i = 0.2 # sd between intercepts
@@ -422,7 +425,9 @@ summary(athletes.df$beta_athletes)  # The mean is the slope in the fixed effects
 <pre class="r"><code>cor(athletes.df$alpha_athletes, athletes.df$beta_athletes) # Set at 0.8.</code></pre>
 <pre><code>## [1] 0.7991471</code></pre>
 <p><br></p>
-<p>####FOR RACES:</p>
+</div>
+<div id="for-races" class="section level4">
+<h4>FOR RACES:</h4>
 <p><br></p>
 <p>The covariance matrix will be:</p>
 <pre class="r"><code>i =   0.8   # sd between intercepts
@@ -454,7 +459,9 @@ summary(races.df$beta_races)  # The mean is the slope in the fixed effects: 1 + 
 <pre class="r"><code>cor(races.df$alpha_races, races.df$beta_races) # Set at -0.01.</code></pre>
 <pre><code>## [1] 0.1491423</code></pre>
 <p><br></p>
-<p>####THE COVARIATE <code>AAA</code> - the fictitious amino acyd:</p>
+</div>
+<div id="the-covariate-aaa---the-fictitious-amino-acyd" class="section level4">
+<h4>THE COVARIATE <code>AAA</code> - the fictitious amino acyd:</h4>
 <p><br></p>
 <p>We need now produce the <code>[AAA]</code> with a mean of
 <code>50</code> and a sd of <code>5</code> as:</p>
@@ -486,6 +493,7 @@ head(D)</code></pre>
 ## 5       1    5 52.98130 159.0521
 ## 6       1    6 50.59859 154.3979</code></pre>
 <p><br></p>
+</div>
 </div>
 <div id="the-models" class="section level2">
 <h2>THE MODELS:</h2>
@@ -822,6 +830,8 @@ cheat-sheet.</a></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
+<p><strong>NOTE: These are tentative notes on different topics for
+personal use - expect mistakes and misunderstandings.</strong></p>
 </div>
 
 
