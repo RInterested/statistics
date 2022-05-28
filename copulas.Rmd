@@ -1,6 +1,8 @@
 ---
+title: 'Copulas'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,7 +10,7 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
 
 
@@ -52,7 +54,7 @@ $$\begin{align}
 
 and these conditional mean values will increase from left to right linearly as on the following plot:
 
-<img src="https://user-images.githubusercontent.com/9312897/32447648-ae7df9d0-c2da-11e7-9fc0-90f96ca9b9d5.png" width=300>
+<img src="https://user-images.githubusercontent.com/9312897/32447648-ae7df9d0-c2da-11e7-9fc0-90f96ca9b9d5.png">
 
 and assuming constant variance, its value will be $\mathrm{var}(X_2\vert X_1=x)=\sigma^2_{X_2}\,(1-\rho^2)=0.09$
 
@@ -62,7 +64,7 @@ Looking at second term of the multiplication, i.e. $(X_2-X_2'),$ we know that $\
 
 Therefore, precisely because it is highly likely that $x_1' > x_1,$ rendering $(X_1-X_1')<0,$ it is also going to be more likely for $x_2'>x_2,$ since it will more probably come from a conditional normal distribution with $\mathbb E[X_2'\vert X_1'=x_1' ] > \mathbb E[X_2\vert X_1=-1 ],$ in which case $(X_2-X_2') $ will also be negative, rendering $(X_1-X_1')\,(X_2 - X_2') >0.$
 
-<img src="https://user-images.githubusercontent.com/9312897/32447713-dc2f6f58-c2da-11e7-9f23-579009151770.png" width=300>
+<img src="https://user-images.githubusercontent.com/9312897/32447713-dc2f6f58-c2da-11e7-9f23-579009151770.png">
 
 The same argument (inverted) holds if we were to look at a value of $x_1 =+1.$
 
@@ -72,11 +74,8 @@ The inverse would be easy to show if the correlation decided upon had been negat
 
 ---
 
+### COPULAS:
 
-
-
-###COPULAS:
-<br>
 
 The objective is to look at dependency structure in a vector of random variables, knowing their marginal distributions.
 
@@ -177,11 +176,11 @@ $$\lambda_U(X_1, X_2) \lim_{U\to 1}\frac{1 + C(U, U) -2U}{1-U}$$
 
 ---
 
-####EXAMPLES OF COPULAS:
+#### EXAMPLES OF COPULAS:
 
-####Fundamental copulas (Frechét bounds):
+#### Fundamental copulas (Frechét bounds):
 
-######Comonotonicity:
+###### Comonotonicity:
 
 Random variable $X_1, \dots, X_d$ are comonotone if their distribution can be written as
 
@@ -189,7 +188,7 @@ $$(X_1,X_2)\overset{D}=\alpha_1(Z), \dots, \alpha_d(Z))$$
 
 for the same stochastic variable $Z$ and strictly increasing functions $\alpha_i.$
 
-######Countermonotonicity:
+###### Countermonotonicity:
 
 Only defined for two variables, whose distribution can be expressed as
 
@@ -199,7 +198,7 @@ with alpha increasing and beta decreasing.
 
 ---
 
-####Gaussian copula:
+#### Gaussian copula:
 
 It was blamed for the financial meltdown of 2008, because it was used to calculate the risk of default of financial instruments.
 
@@ -243,7 +242,7 @@ where $r=\rho$ and $Y= \rho X+ \sqrt{1-\rho^2}Z$
 
 ---
 
-####Archimedean copula:
+#### Archimedean copula:
 
 A copula that can be expressed as
 
@@ -299,7 +298,7 @@ and the sample estimate of Kendall's tau
 
 $$\hat \tau = \Pr\left[(x_i- x_j)(y_i - y_j) >0 \right ]- \Pr\left[ (x_i - x_j)(y_i -y_j) <0\right]= \frac{c}{\binom{n}{2}}-\frac{d}{\binom{n}{2}}$$
 
-#####Example of steps involved:
+##### Example of steps involved:
 
 1. Sample estimate of Kendall's tau.
 

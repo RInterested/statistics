@@ -1,6 +1,8 @@
 ---
+title: 'Chi-square: Indep & Homogeneity'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,14 +10,12 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
 
 
 ### APPLICATION OF THE CHI SQUARE TEST:
-
-
-<br><br>
+<br>
 
 #### GENERAL TEST STATISTIC (regardless of specific application):
 
@@ -143,7 +143,7 @@ The independence of sex and class cannot be rejected.
 
 <br>
 
-#### TEST of INDEPENDENCE of TWO VARIABLES:
+### TEST of INDEPENDENCE of TWO VARIABLES:
 
 <br>
 
@@ -155,7 +155,7 @@ dimnames(sex_satis) = list(wife = c("Never","Sometimes","Often","Always"), husba
 addmargins(sex_satis) # Margins are considered fixed!
 ```
 
-It is to be excpected that, in general, the satisfaction of a spouse moves together with the other. 
+It is to be expected that, in general, the satisfaction of a spouse moves together with the other. 
 
 If we run a $\chi^2$ test we get,
 
@@ -167,7 +167,7 @@ that with a probability of $<\,5\%$ of making a type I error, the counts in the 
 
 In this test, the margins are considered fixed, and the expected counts calculated as follows:
 
-<img HEIGHT="800" WIDTH="500" src="https://cloud.githubusercontent.com/assets/9312897/10900528/0f965f56-81af-11e5-9e52-7f15234f9917.png">
+<img HEIGHT="600" WIDTH="500" src="https://cloud.githubusercontent.com/assets/9312897/10900528/0f965f56-81af-11e5-9e52-7f15234f9917.png">
 
 What this is saying is that the expected values in the cells are conditioned on both margins (row and column), and it should be read as along the lines as, for example: the expected value of "never/never" is the probability that the wife "never" experiences satisfaction ($19/91$)  ***times*** (independent of) the probability that the husband "never" experiences pleasure ($12/91$). Then we calculate based on the resultant probability the expected frequency in the cell by multiplying by the total number of cases ($91$).
 
