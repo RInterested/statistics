@@ -1,6 +1,8 @@
 ---
+title: 'Time series'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,12 +10,12 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
+
 
 ### TIME SERIES:
 
-<br>
 
 A time series **model** can only be built on a stationary time series. Stationary series fulfill the following criteria:
 
@@ -49,7 +51,7 @@ pacf(a, main="", xlab="")
 
 <br>
 
-####**RANDOM WALK:**
+#### **RANDOM WALK:**
 
 <br>
 
@@ -229,13 +231,13 @@ The series can be made stationary with one of the following techniques:
     2. Differencing
     3. Incorporating seasonality
     
-####Detrending:
+#### Detrending:
 
 $y_t = (\text{mean} + \text{trend} \times t) + \text{error}$
 
 gets rid of the parenthesis part.
 
-####Differencing:
+#### Differencing:
 
 We model the differences between time points:
 
@@ -243,7 +245,7 @@ $y_t – y_{t-1} = \text{ARMA (p,q)}$
 
 Differencing is called as the Integration part in AR(I)MA. Now, we have three parameters `p : AR; d : I; q : MA`.
 
-####Seasonality:
+#### Seasonality:
 
 Seasonality can easily be incorporated in the ARIMA model directly.
 
