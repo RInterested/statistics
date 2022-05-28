@@ -1,31 +1,41 @@
 ---
 output: 
   html_document:
+    includes:
+      in_header: "favicon.html" 
     css: custom.css
 ---
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="20" WIDTH="80" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
 <br><br>
 
-###TIME SERIES WITH VTI:
+### TIME SERIES WITH VTI:
 <br>
 
 >The [Vanguard Total Stock Market ETF (NYSEARCA: VTI)](http://www.investopedia.com/articles/investing/122315/vti-vanguard-total-stock-market-etf.asp) tracks the performance of the [CRSP U.S. Total Market Index](http://www.crsp.com/products/investment-products/crsp-us-total-market-index). The fund has returned 6.23% since its inception in 2001. The fund is a market capitalization-weighted index that measures the entire investable U.S. equities market. It includes small-, mid- and large-cap companies. The fund is managed in a passive manner and uses an index-sampling strategy.
 
 
 ```{r, warning=F, message=F, fig.height=5, fig.width=5}
-library(quantmod)
-require(RCurl)
-require(foreign)
-x <- getURL("https://raw.githubusercontent.com/RInterested/datasets/gh-pages/VTI%20historical%20data.csv")
-VTI <- read.csv(text = x, sep =",")
-VTI$Date <- as.Date(VTI$Date, format = "%Y-%m-%d")
-rownames(VTI) <- VTI$Date
-VTI$Date <- NULL                   # Removing the Date column
-VTI <- as.xts(VTI)
-chartSeries(VTI, type="auto", theme=chartTheme('white'), yrange = c(0,180))
+require(quantmod)
+
+getSymbols("VTI")
+# str(VTI) # We start with an xts
+z = as.data.frame(VTI$VTI.Adjusted) #Subsetting VTI.Adjusted
+
+D2D = function (x) {
+    days = nrow(x)
+    delta = numeric(days)
+    for(i in 2:days){
+        delta[i] <- (100*((x[i, 1] - x[i - 1, 1]) / (x[i - 1, 1])))
+    }
+    delta
+}
+
+VTI.InterDay = D2D(z)
+VTI.InterDay[1] <- mean(VTI.InterDay)#Something to fill in the 0 in row 1. 
+VTI = merge(VTI,VTI.InterDay)
 ```
 
 Notice the [split of the shares](https://www.splithistory.com/vti/) reflected as the broad band on the left of the plot:
@@ -34,59 +44,41 @@ Notice the [split of the shares](https://www.splithistory.com/vti/) reflected as
 
 ---
 
-#####How much can the VTI shares oscillate from day to day?
+##### How much can the VTI shares oscillate from day to day?
 
 ```{r}
-z = as.data.frame(VTI$Adj.Close)    # Subsetting closing price
-
-# Function to calculate % change in closing price between days:
-D2D = function (x) {              
-  days = nrow(x)
-  delta = numeric(days)
-  for(i in 2:days){
-    delta[i] <- (100*((x[i,1] - x[i - 1,1])/(x[i - 1,1])))
-  }
-  delta
-}
-VTI$InterDay = D2D(z)               # Included as add'l column to VTI.
-
-head(VTI$InterDay)                  # A zero in entry 1 spells trouble...
-#... we need something to fill in the 0 in row 1. Why not the 2nd  value?
-VTI$InterDay[1]<-VTI$InterDay[2]
-
-summary(VTI$InterDay)
+head(VTI$VTI.InterDay)  
+summary(VTI$VTI.InterDay)
 ```
 
-So the maximum loss between days has been $-9.4\%$, and the maximum gain $12.8\%$. When did these events occur?
+When did the max loss and max gain occur?
 
 ```{r}
-time(VTI)[VTI$InterDay == min(VTI$InterDay)]
-time(VTI)[which.max(VTI$InterDay)]
+time(VTI)[VTI$VTI.InterDay == min(VTI$VTI.InterDay)]
+time(VTI)[which.max(VTI$VTI.InterDay)]
 ```
-
-... both during the financial crisis of 2008.
 
 How often does a drop of say, $-4\%$ occurs?
 
 ```{r}
-sum(VTI$InterDay < -4)
-mean(VTI$InterDay < -4) * 100 # or 0.7% of the days
-sum(VTI$InterDay < -4) / 16   # or between 1 and 2 days every year.
+sum(VTI$VTI.InterDay < -4)
+mean(VTI$VTI.InterDay < -4) * 100 # or 0.7% of the days
+sum(VTI$VTI.InterDay < -4) / 16   # or between 1 and 2 days every year.
 ```
 
 ... and what about gains of $4\%$?
 
 ```{r}
-sum(VTI$InterDay > 4)
-mean(VTI$InterDay > 4) * 100 # or 0.6% of the days
-sum(VTI$InterDay > 4) / 16   # or between 1 and 2 days every year?
+sum(VTI$VTI.InterDay > 4)
+mean(VTI$VTI.InterDay > 4) * 100 # or 0.6% of the days
+sum(VTI$VTI.InterDay > 4) / 16   # or between 1 and 2 days every year?
 ```
 
 But they can't be distributed uniformly... Let's first look at the losing days (to the left), and compare to winning days:
 
 ```{r, fig.height=5, fig.width=10}
 par(mfrow=c(1,2))
-plot(time(VTI), VTI$InterDay < -4, col=2, type='h', xaxt="n",
+plot(time(VTI), VTI$VTI.InterDay < -4, col=2, type='h', xaxt="n",
      xlab="Year", ylab="Days with > - 4% change", 
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
      main  = "Clustering of big drop days")
@@ -104,7 +96,7 @@ labs = format(tt, fmt)
 axis(side = 1, at = tt[ix], labels = labs[ix], cex.axis = 0.7, las = 2)
 
 
-plot(time(VTI), VTI$InterDay > 4, col=3, type='h', xaxt="n",
+plot(time(VTI), VTI$VTI.InterDay > 4, col=3, type='h', xaxt="n",
      xlab="Year", ylab="Days with > 4% gains", 
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
      main  = "Clustering of big winning days")
@@ -125,23 +117,23 @@ axis(side = 1, at = tt[ix], labels = labs[ix], cex.axis = 0.7, las = 2)
 Wow! Huge spike around 2008 - 2009. [How much clustering is there](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/xts_Cheat_Sheet_R.pdf)?
 
 ```{r}
-sum(VTI["2008/2009"]$InterDay < - 4) # Total number of drops > -4%
+sum(VTI["2008/2009"]$VTI.InterDay < - 4) # Total number of drops > -4%
 # As a percentage of all losing days...
-sum(VTI["2008/2009"]$InterDay < - 4) / sum(VTI$InterDay < -4) 
+sum(VTI["2008/2009"]$VTI. < - 4) / sum(VTI$VTI.InterDay < -4) 
 ```
 
 What about wins during the same period?
 
 ```{r}
-sum(VTI["2008/2009"]$InterDay >  4) # Total number of winning days > 4%
+sum(VTI["2008/2009"]$VTI.InterDay >  4) # Total number of winning days > 4%
 # As a percentage of all winning days...
-sum(VTI["2008/2009"]$InterDay >  4) / sum(VTI$InterDay > 4)
+sum(VTI["2008/2009"]$VTI.InterDay >  4) / sum(VTI$VTI.InterDay > 4)
 ```
 
 So, during the crisis there were $22$ "big losing" days, and $15$ "big winning days". 
 
 ```{r}
-plot(VTI$InterDay["2008-09-01/2009-03-01"], las=2, cex.axis=.6, main="Interday changes during crisis")
+plot(VTI$VTI.InterDay["2008-09-01/2009-03-01"], las=2, cex.axis=.6, main="Interday changes during crisis")
 abline(h = 0)
 ```
 
@@ -151,13 +143,13 @@ Yet, the market tanked. Were the losing days worse, not just more numerous?
 The maximum drop did occur during the crisis...
 
 ```{r}
-min(VTI["2008/2009"]$InterDay)
+min(VTI["2008/2009"]$VTI.InterDay)
 ```
 
 when?
 
 ```{r}
-time(VTI["2008/2009"])[which.min(VTI["2008/2009"]$InterDay)]
+time(VTI["2008/2009"])[which.min(VTI["2008/2009"]$VTI.InterDay)]
 ```
 
 Here is the news flashback:
@@ -176,13 +168,13 @@ Here is the news flashback:
 a whopping $-9\%$! Incredibly the maximum inter-day win also happen around this period...
 
 ```{r}
-max(VTI["2008/2009"]$InterDay)
+max(VTI["2008/2009"]$VTI.InterDay)
 ```
 
 Wow! When did it happen?
 
 ```{r}
-time(VTI["2008/2009"])[which.max(VTI["2008/2009"]$InterDay)]
+time(VTI["2008/2009"])[which.max(VTI["2008/2009"]$VTI.InterDay)]
 VTI["2008-10-13"]
 ```
 
@@ -206,11 +198,11 @@ Let's hone down on the crisis period:
 
 ```{r}
 crisis = VTI["2008-09-01/2013-03-01"]
-plot(time(crisis), crisis$InterDay < - 4, col=2, type='h',
+plot(time(crisis), crisis$VTI.InterDay < - 4, col=2, type='h',
      xlab="Year", ylab="", 
      cex.axis=.5, cex.main=.8, cex.lab =.5,las=2, 
      main  = "Big losing and winning days during the crisis")
-points(time(crisis), crisis$InterDay > 4, col=3, type='h')
+points(time(crisis), crisis$VTI.InterDay > 4, col=3, type='h')
 ```
 
 ---
@@ -229,8 +221,8 @@ Between the start of the crisis around September 2008, and the nadir, on March 0
 there was a loss of
 
 ```{r}
-(drop = as.numeric(VTI$Adj.Close["2009-03-09"]) - as.numeric(VTI$Adj.Close["2008-09-10"]))
-drop/as.numeric(VTI$Adj.Close["2008-09-10"]) * 100 # In percentage...
+(drop = as.numeric(VTI$VTI.Close["2009-03-09"]) - as.numeric(VTI$VTI.Close["2008-09-10"]))
+drop/as.numeric(VTI$VTI.Close["2008-09-10"]) * 100 # In percentage...
 ```
 
 
@@ -255,29 +247,30 @@ VTI["2009-10-14"]
 Finally, let's take a look at the fat tails of VTI as representative of the market, and as compared to the normal distribution:
 
 ```{r}
-hist(VTI$InterDay,main="INTERDAY VTI % CHANGES: FAT TAILS",sub="fitted normal (in purple); pdf estimate (in blue)",xlab = "PERCENTAGE CHANGE FROM DAY TO DAY",
+hist(VTI$VTI.InterDay,main="INTERDAY VTI % CHANGES: FAT TAILS",sub="fitted normal (in purple); pdf estimate (in blue)",xlab = "PERCENTAGE CHANGE FROM DAY TO DAY",
      ylab = "FREQUENCY", prob = TRUE, col ="coral", ylim=c(0,0.5),
      xlim=c(-4,4), cex.main=.9, cex.sub=.8, cex.lab=.7, border=F,
      breaks = 33)
 
 #Add density estimate
-lines(density(VTI$InterDay,adjust=7),col="darkred",lwd=2) #Prettier, adjusted pdf estimate
-sd = sd(VTI$InterDay)
-m = mean(VTI$InterDay)
+lines(density(VTI$VTI.InterDay,adjust=7),col="darkred",lwd=2) #Prettier, adjusted pdf estimate
+sd = sd(VTI$VTI.InterDay)
+m = mean(VTI$VTI.InterDay)
 curve(dnorm(x,mean=m,sd=sd),col="grey60",lwd=2,add=T,yaxt="n")
-lines(density(VTI$InterDay,adjust=7),col="darkred",lwd=2) #Prettier, adjusted pdf estimate
+lines(density(VTI$VTI.InterDay,adjust=7),col="darkred",lwd=2) #Prettier, adjusted pdf estimate
 
 ```
 
 But let's objectivize the lack of normality:
 
 ```{r, fig.width=4, fig.height=4}
-qqnorm(VTI$InterDay, pch=19, cex=.1, col=rgb(0,0,1,0.5), cex.main=.8, cex.lab=.7, cex.axis=.7)
-qqline(VTI$InterDay, col=rgb(0,0,1,0.8))
-shapiro.test(as.vector(VTI$InterDay))
+qqnorm(VTI$VTI.InterDay, pch=19, cex=.1, col=rgb(0,0,1,0.5), cex.main=.8, cex.lab=.7, cex.axis=.7)
+qqline(VTI$VTI.InterDay, col=rgb(0,0,1,0.8))
+shapiro.test(as.vector(VTI$VTI.InterDay))
 ```
 
 
 ---
-
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**

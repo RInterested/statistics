@@ -645,7 +645,7 @@ sign &lt;- sample(c(1, -1), 3, replace = T)
 W[i] &lt;- sum(rank * sign) 
 } 
 (p_value &lt;- (sum(W==6) + sum(W==-6)) / nsim)</code></pre>
-<pre><code>## [1] 0.25011</code></pre>
+<pre><code>## [1] 0.2515</code></pre>
 <p>Or simply: There are <span class="math inline">\(2^3\)</span> cases,
 of which 2 are the most extreme, hence the minimum p value is <span class="math inline">\(1/4\)</span>. For <span class="math inline">\(n\)</span> pairs the minimum p value is <span class="math inline">\((1/2)^{(n-1)}\)</span>. The signed rank test
 effectively just counts all the ways to allocate <span class="math inline">\(\pm 1\)</span> to the observations. The extreme
@@ -654,6 +654,8 @@ and smallest values of the statistic.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
+<p><strong>NOTE: These are tentative notes on different topics for
+personal use - expect mistakes and misunderstandings.</strong></p>
 </div>
 
 
