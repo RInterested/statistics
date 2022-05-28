@@ -1,6 +1,8 @@
 ---
+title: 'A tr A and variance-covariance matrix'
 output: 
   html_document:
+    theme: paper
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,15 +10,12 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
 
 
+### $A^\top A$ (Gramian matrix) - PROPERTIES:
 
-<br>
-
-
-#### The matrix $A^\top A$ (Gramian matrix) - Properties:
 
 The matrix $\bf A^\top A$  is a key structure because of the role it plays in orthogonal projection, which is expressed in the form $A(A^\top A)^{-}A^\top$ as proven [here](https://drive.google.com/file/d/0Bwl-HpVJ_5PeVkpBcUFHc1hwNDg/view?usp=sharing).
 
@@ -31,6 +30,8 @@ The matrix $\bf A^\top A$  is a key structure because of the role it plays in or
 > 9. $\text{ker}(A^TA)=\text{ker}(A)$
 
 ---
+
+### VARIANCE-COVARIANCE MATRIX:
 
 $A^TA$ is the basis for the variance-covariance matrix, which really is the core of regression analysis and PCA - it gives a measure of the relationship between different variables, corresponding to the columns, between and within themselves. So it is important to see how it works.
 
@@ -94,6 +95,10 @@ $$\small \text{cor}(A)=\tiny\frac{1}{n-1}\small\begin{bmatrix}
 \frac{\color{red}{y_5 - \bar{y}}}{\color{red}{sd(y)}} & \frac{\color{blue}{g_5 - \bar{g}}}{\color{blue}{sd(g)}} & \frac{\color{green}{m_5 - \bar{m}}}{\color{green}{sd(m)}} \\
 &\color{purple} {5\times 3 \,\text{matrix}}
 \end{bmatrix}$$
+
+---
+
+### PORTFOLIO VARIANCE:
 
 One more quick thing for completeness sake: We have so far a clunky matrix as the result, but in general we want to estimate the portfolio variance: $1$ portfolio; $1$ variance. To do that we multiply the matrix of variance-covariance of $A$ to the left and to the right by the vector containing the proportions or weightings in each stock - $W$. Since we want to end up with a scalar single number, it is unsurprising that the algebra will be: $W^T\,\sigma(A)\,W$, with the vector of weights (fractions) being in this case $\color{blue}{3}\times \color{blue}{1}$ to match perfectly on the left as $W^T$, and on the right as $W$.
 
