@@ -20,6 +20,10 @@ output:
 
 ---
 
+NOTE: There is a companion post on ROC curves and AUC [here](https://rinterested.github.io/statistics/roc.html).
+
+---
+
 We want to estimate the probability of success / failure of the dependent variable $(\Pr(Y=1))$, given the explanatory variables: $\Pr(Y=1\mid X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
 
 
@@ -36,12 +40,12 @@ In addition, this also helps turning a sigmoid curve of a typical cummulative pr
 The logistic regression model is therefore:
 
 
-$$\large \color{red}{\log} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{ p\,(Y=1)}{1- p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_k x_k$$
+$$\color{red}{\log} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{ p\,(Y=1)}{1- p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_k x_k$$
 
 
 Consequently,
 
-$$\large \color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_kx_k}$$
+$$\color{blue}{\text{odds(Y=1)}} = \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k} = e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_kx_k}$$
 
 Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ times. 
 
@@ -125,7 +129,9 @@ mod <- glm(y ~ gender + age, family = "binomial")
 summary(mod)
 ```
 
+
 ---
+
 ---
 
 ***QUESTION:***
@@ -244,6 +250,8 @@ On the other hand, the regression without intercept predictably returned just th
     Backgroundorange 0.6461538 0.4354366 0.9484999
     Backgroundred    1.2461538 0.9900426 1.5715814
 
+---
+END OF THE STACK OVERFLOW POST
 ---
 
 ---
@@ -617,7 +625,7 @@ addmargins(table(t(d$hon)))
 ```
 
       
-So $p = 49/200 =  .245.$ The odds are $.245/(1-.245) = .3245$ and the log of the odds (logit) is $\log(.3245) = -1.12546.$  In other words, the intercept from the model with no predictor variables is the estimated log odds of being in honors class for the whole population of interest.  We can also transform the log of the odds back to a probability: $p = \exp(-1.12546)/(1+exp(-1.12546)) = .245.$
+So $p = 49/200 =  .245.$ The odds are $.245/(1-.245) = .3245$ and the log of the odds (logit) is $\log(.3245) = -1.12546.$  In other words, the intercept from the model with no predictor variables is the estimated log odds of being in honors class for the whole population of interest.  We can also transform the log of the odds back to a probability: $p = \exp(-1.12546)/(1+\exp(-1.12546)) = .245.$
 
 ---
 
@@ -709,7 +717,7 @@ summary(fit)
 ```
 
 
-This fitted model says that, holding math and reading at a fixed value, the odds of getting into an honors class for females (`female = 1`) over the odds of getting into an honors class for males (`female = 0`) is $exp(.979948) = 2.66.$  In terms of percent change, we can say that the odds for females are $166\%$ higher than the odds for males.  The coefficient for math says that, holding female and reading at a fixed value, we will see $13\%$ increase in the odds of getting into an honors class for a one-unit increase in math score since $\exp(.1229589) = 1.13.$
+This fitted model says that, holding math and reading at a fixed value, the odds of getting into an honors class for females (`female = 1`) over the odds of getting into an honors class for males (`female = 0`) is $\exp(.979948) = 2.66.$  In terms of percent change, we can say that the odds for females are $166\%$ higher than the odds for males.  The coefficient for math says that, holding female and reading at a fixed value, we will see $13\%$ increase in the odds of getting into an honors class for a one-unit increase in math score since $\exp(.1229589) = 1.13.$
 
 Logistic regression with an interaction term of two predictor variables
 In all the previous examples, we have said that the regression coefficient of a variable corresponds to the change in log odds and its exponentiated form corresponds to the odds ratio.  This is only true when our model does not have any interaction terms.  When a model has interaction term(s) of two predictor variables, it attempts to describe how the effect of a predictor variable depends on the level/value of another predictor variable.  The interpretation of the regression coefficients become more involved.

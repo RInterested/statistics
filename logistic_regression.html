@@ -392,6 +392,8 @@ MATHEMATICS</strong></h3>
 <div id="logistic-regression" class="section level3">
 <h3>Logistic Regression:</h3>
 <hr />
+<p>NOTE: There is a companion post on ROC curves and AUC <a href="https://rinterested.github.io/statistics/roc.html">here</a>.</p>
+<hr />
 <p>We want to estimate the probability of success / failure of the
 dependent variable <span class="math inline">\((\Pr(Y=1))\)</span>,
 given the explanatory variables: <span class="math inline">\(\Pr(Y=1\mid
@@ -416,12 +418,12 @@ addressed by expressing the linear relation in log scale: <span class="math inli
 This is the <strong>logit</strong> or log-odds function.</li>
 </ol>
 <p>The logistic regression model is therefore:</p>
-<p><span class="math display">\[\large \color{red}{\log}
+<p><span class="math display">\[\color{red}{\log}
 \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{
 p\,(Y=1)}{1- p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2
 x_2 +\cdots+ \beta_k x_k\]</span></p>
 <p>Consequently,</p>
-<p><span class="math display">\[\large \color{blue}{\text{odds(Y=1)}} =
+<p><span class="math display">\[\color{blue}{\text{odds(Y=1)}} =
 \frac{\Pr\,(Y=1)}{1\,-\,\Pr\,(Y=1)} = e^{\,\beta_0 + \beta_1 x_1 +
 \cdots + \beta_k x_k} =
 e^{\,\beta_o}\,e^{\,\beta_1x_1}\,e^{\,\beta_2x_2}\,\cdots\,e^{\,\beta_kx_k}\]</span></p>
@@ -527,6 +529,8 @@ summary(mod)</code></pre>
 ## AIC: 28.084
 ## 
 ## Number of Fisher Scoring iterations: 9</code></pre>
+<hr />
+<hr />
 <p><strong><em>QUESTION:</em></strong></p>
 <p>(Initially posted <a href="http://stats.stackexchange.com/q/136193/67822">here</a>)</p>
 <p>I ran a linear regression of acceptance into college against SAT
@@ -637,7 +641,13 @@ exp(cbind(ODDS=coef(fit2), confint(fit2)))
 Backgroundblue   0.7441860 0.5367042 1.0265875
 Backgroundorange 0.6461538 0.4354366 0.9484999
 Backgroundred    1.2461538 0.9900426 1.5715814</code></pre>
-<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td>END OF THE STACK OVERFLOW POST</td>
+</tr>
+</tbody>
+</table>
 <hr />
 </div>
 <div id="categorical-independent-variables" class="section level4">
@@ -1382,7 +1392,7 @@ log of the odds (logit) is <span class="math inline">\(\log(.3245) =
 predictor variables is the estimated log odds of being in honors class
 for the whole population of interest. We can also transform the log of
 the odds back to a probability: <span class="math inline">\(p =
-\exp(-1.12546)/(1+exp(-1.12546)) = .245.\)</span></p>
+\exp(-1.12546)/(1+\exp(-1.12546)) = .245.\)</span></p>
 <hr />
 </div>
 <div id="logistic-regression-with-a-single-dichotomous-predictor-variable" class="section level4">
@@ -1581,7 +1591,7 @@ summary(fit)</code></pre>
 <p>This fitted model says that, holding math and reading at a fixed
 value, the odds of getting into an honors class for females
 (<code>female = 1</code>) over the odds of getting into an honors class
-for males (<code>female = 0</code>) is <span class="math inline">\(exp(.979948) = 2.66.\)</span> In terms of percent
+for males (<code>female = 0</code>) is <span class="math inline">\(\exp(.979948) = 2.66.\)</span> In terms of percent
 change, we can say that the odds for females are <span class="math inline">\(166\%\)</span> higher than the odds for males. The
 coefficient for math says that, holding female and reading at a fixed
 value, we will see <span class="math inline">\(13\%\)</span> increase in
