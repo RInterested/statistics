@@ -400,21 +400,21 @@ Mathematics</a>]</p>
 <p>If <span class="math inline">\(X_1, \ldots, X_n\)</span> are iid
 observations <span class="math inline">\(\sim
 N(\mu,\sigma^2)\)</span>,</p>
-<p><br><br> <span class="math inline">\(\Large\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}} \sim
-N(0,1)\)</span>. <br><br> And <span class="math inline">\(\Large\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}}\)</span>
+<p><br><br> <span class="math inline">\(\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}} \sim
+N(0,1)\)</span>. <br><br> And <span class="math inline">\(\frac{\bar{X}\,-\,\mu}{\sigma/\sqrt{n}}\)</span>
 is the formula of the Z-statistic. <br><br> If the <span class="math inline">\(X_1,\ldots,X_n\)</span> are not normally
 distributed, the expression will tend to <span class="math inline">\(\sim N(0,1)\)</span> as <span class="math inline">\(n\mapsto\infty\)</span>, the basis for the central
 limit theorem (CLT).</p>
 <p>If the standard deviation of the population, <span class="math inline">\(\sigma\)</span>, is unknown we can replace it by
 the estimation based on a sample, <span class="math inline">\(S\)</span>, but then the expression (<a href="https://en.wikipedia.org/wiki/Student%27s_t-test">one-sample
 t-test statistic</a>) will follow a <span class="math inline">\(t\)</span>-distribution:</p>
-<p><span class="math inline">\(\Large
-\frac{\bar{X}\,-\,\mu}{S/\sqrt{n}}\sim t_{n-1}\)</span></p>
-<p>with <span class="math inline">\(\large S=\sqrt{\frac{\sum(X_i-\bar
+<p><span class="math inline">\(\frac{\bar{X}\,-\,\mu}{S/\sqrt{n}}\sim
+t_{n-1}\)</span></p>
+<p>with <span class="math inline">\(S=\sqrt{\frac{\sum(X_i-\bar
 X)^2}{n-1}}\)</span> (Bessel’s correction).</p>
 <p>Why?</p>
-<p><span class="math display">\[\Large\frac{\bar{X}\,-\,\mu}{S/\sqrt{n}}
-= \frac{\bar{X}\,-\,\mu}{\frac{\sigma}{\sqrt{n}}}
+<p><span class="math display">\[\frac{\bar{X}\,-\,\mu}{S/\sqrt{n}} =
+\frac{\bar{X}\,-\,\mu}{\frac{\sigma}{\sqrt{n}}}
 \frac{1}{\frac{S}{\sigma}}= Z\,\frac{1}{\frac{S}{\sigma}} =
 \frac{Z}{\sqrt{\frac{\sum(X_i-\bar X)^2}{(n-1)\,\sigma^2}}}
 \sim\frac{Z}{\sqrt{\frac{\chi_{n - 1}^2}{n-1}}} \sim t_{n-1}\small \tag
@@ -427,13 +427,13 @@ with <span class="math inline">\(X\sim N(0,1)\)</span>.</p>
 are <span class="math inline">\(\sim \chi^2_{1\,df}\)</span>, then <span class="math inline">\(X_1 +\cdots+X_n \sim \chi^2\,\small(n\text{
 df})\)</span> <a href="http://rinterested.github.io/statistics/chi_square.html">here</a>.</p>
 <p>And in the case of the <span class="math inline">\(t\)</span>-distribution the chi-square is suitable
-to model the sum of squared normals <span class="math inline">\(\large
-\sum(X_i-\bar X)^2\)</span> in (1)), a well known property <a href="http://math.stackexchange.com/q/1383709/152225">derived here</a>,
+to model the sum of squared normals <span class="math inline">\(\sum(X_i-\bar X)^2\)</span> in (1)), a well known
+property <a href="http://math.stackexchange.com/q/1383709/152225">derived here</a>,
 typically with <span class="math inline">\(n\)</span> degrees of
 freedom, but why is it <span class="math inline">\(n\,-\,1\)</span>
 here? In other words, why…</p>
-<p><span class="math inline">\(\Large \frac{\sum(X_i - \bar
-X)^2}{\sigma^2}\)</span> in equation (1) becomes <span class="math inline">\(\Large \chi_{n-1}^2\)</span> and not <span class="math inline">\(\Large \chi_{n}^2\)</span>?</p>
+<p><span class="math inline">\(\frac{\sum(X_i - \bar
+X)^2}{\sigma^2}\)</span> in equation (1) becomes <span class="math inline">\(\chi_{n-1}^2\)</span> and not <span class="math inline">\(\chi_{n}^2\)</span>?</p>
 <p>The explanation is in the <a href="http://math.stackexchange.com/a/1384414/152225">answer
 here</a>.</p>
 <p>In a nutshell, there aren’t <span class="math inline">\(n\)</span>
@@ -445,13 +445,14 @@ In fact there are only <span class="math inline">\(n-1\)</span> because
 of the insertion of the <span class="math inline">\(\bar X\)</span> in
 the mix.</p>
 <p><br><br></p>
-<p>###DERIVATION OF THE <span class="math inline">\(pdf\)</span> OF THE
-<span class="math inline">\(t\)</span> DISTRIBUTION:</p>
+<div id="derivation-of-the-textpdf-of-the-t-student-distribution" class="section level4">
+<h4>Derivation of the <span class="math inline">\(\text{pdf}\)</span> of
+the <span class="math inline">\(t\)</span>-Student Distribution:</h4>
 <p><br><br></p>
 <p>First let’s recapute equation (1) by multiplying by <span class="math inline">\(\frac{\sigma}{\sigma}\)</span> the Z-statistic
-<span class="math inline">\(\Large \frac{\bar X -
+<span class="math inline">\(\frac{\bar X -
 \mu}{\frac{\sigma}{\sqrt{n}}}\)</span>:</p>
-<p><span class="math inline">\(\Large t=
+<p><span class="math inline">\(t=
 \frac{\bar{X}-\mu}{S/\sqrt{n}}=\frac{\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}}{\sqrt{S^2/\sigma^2}}
 = \frac{Z}{\sqrt{\frac{\sum(X_i-\bar X)^2}{(n-1)\,\sigma^2}}} \small
 \tag1\)</span></p>
@@ -468,103 +469,103 @@ the mix.</p>
 <p><br><br></p>
 <p>With the premise of independence, the joint density is:</p>
 <p><br><br></p>
-<p><span class="math inline">\(\Large f_{U,V}(u,v) =
-\frac{1}{(2\pi)^{1/2}} e^{-u^2/2}
-\frac{1}{\Gamma(\frac{k}{2})\,2^{k/2}}\,v^{(k/2)-1}\, e^{-v/2}\)</span>
-with <span class="math inline">\(-\infty&lt;u&lt;\infty\)</span> and
-<span class="math inline">\(0&lt;v&lt;\infty\)</span>.</p>
+<p><span class="math inline">\(f_{U,V}(u,v) = \frac{1}{(2\pi)^{1/2}}
+e^{-u^2/2} \frac{1}{\Gamma(\frac{k}{2})\,2^{k/2}}\,v^{(k/2)-1}\,
+e^{-v/2}\)</span> with <span class="math inline">\(-\infty&lt;u&lt;\infty\)</span> and <span class="math inline">\(0&lt;v&lt;\infty\)</span>.</p>
 <p><br><br></p>
-<p>Making the transformation <span class="math inline">\(\Large
-t=\frac{u}{\sqrt{v/k}}\)</span> and <span class="math inline">\(\Large
-w=v\)</span>, (hence, <span class="math inline">\(\Large
-u=t\,(\frac{w}{k})^{1/2}\)</span>), and with <span class="math inline">\(\Large (w/k)^{1/2}\)</span> as the Jacobian, the
-marginal pdf will be:</p>
+<p>Making the transformation <span class="math inline">\(t=\frac{u}{\sqrt{v/k}}\)</span> and <span class="math inline">\(w=v\)</span>, (hence, <span class="math inline">\(u=t\,(\frac{w}{k})^{1/2}\)</span>), and with <span class="math inline">\((w/k)^{1/2}\)</span> as the Jacobian, the marginal
+pdf will be:</p>
 <p><br><br></p>
-<p><span class="math inline">\(\large f_T(t) = \int_0^\infty
-\,f_{U,V}\bigg(t\,(\frac{w}{k})^{1/2},w\bigg)(w/k)^{1/2}dw\)</span></p>
-<p><br><br></p>
-<p><span class="math inline">\(=\Large
-\frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}}\,  \int_0^\infty\,
-e^{-\frac{\bigg(t(\frac{w}{k})^{1/2}\bigg)^2}{2}} w^{(k/2)-1}
-e^{-(\frac{w}{2})} \frac{w^{1/2}}{k^{1/2}}\,dw\)</span></p>
-<p><br><br></p>
-<p><span class="math inline">\(=\Large
+<p><span class="math display">\[\begin{align}
+f_T(t) &amp;= \int_0^\infty
+\,f_{U,V}\bigg(t\,(\frac{w}{k})^{1/2},w\bigg)(w/k)^{1/2}dw \\[2ex]
+&amp;=\frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}}\,
+\int_0^\infty\,
+e^{-\frac{\bigg(t(\frac{w}{k})^{1/2}\bigg)^2}{2}}
+w^{(k/2)-1}
+e^{-(\frac{w}{2})}
+\frac{w^{1/2}}{k^{1/2}}\,dw \\[2ex]
+&amp;=
 \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,
-\Large \int_0^\infty\, w^{((k+1)/2)-1}\, e^{-(1/2)(1 + t^2/k)w}
-\,dw\)</span></p>
-<p><br><br></p>
+\int_0^\infty\,
+w^{((k+1)/2)-1}\,
+e^{-(1/2)(1 + t^2/k)w}
+\,dw
+\end{align}\]</span></p>
 <p>The next step entails identifying in the previous equation the kernel
 of a gamma distribution pdf:</p>
-<p><br><br></p>
-<p><span class="math inline">\(\Large
-x^{\alpha-1}\,e^{x\,\lambda}\)</span></p>
-<p><br><br></p>
-<p>with parameters <span class="math inline">\(\large
-(\alpha=(k+1)/2,\,\lambda=(1/2)(1+t^2/k))\)</span>. <br><br> The generic
-pdf for the gamma distribution is,</p>
-<p><span class="math inline">\(\Large
-\frac{\lambda^\alpha}{\Gamma(\alpha)}\,x^{\alpha-1}\,e^{x\,\lambda}\)</span></p>
-<p><br> The strategy is then to synthesize the entire gamma pdf within
-the improper integral in our <span class="math inline">\(f_T(t)\)</span>
-pdf in progress, so that we can simplify it as just <span class="math inline">\(1\)</span>, as we know to be true of all pdf’s. To
+<p><span class="math inline">\(x^{\alpha-1}\,e^{x\,\lambda}\)</span></p>
+<p>with parameters <span class="math inline">\((\alpha=(k+1)/2,\,\lambda=(1/2)(1+t^2/k))\)</span>.
+<br><br> The generic pdf for the gamma distribution is,</p>
+<p><span class="math inline">\(\frac{\lambda^\alpha}{\Gamma(\alpha)}\,x^{\alpha-1}\,e^{x\,\lambda}\)</span></p>
+<p>The strategy is then to synthesize the entire gamma pdf within the
+improper integral in our <span class="math inline">\(f_T(t)\)</span> pdf
+in progress, so that we can simplify it as just <span class="math inline">\(1\)</span>, as we know to be true of all pdf’s. To
 get away with it we need to multiply numerator and denominator by the
 same coefficient:</p>
-<p><span class="math inline">\(\Large
-\frac{\Gamma(\alpha)\,\lambda^\alpha}{\Gamma(\alpha)\,\lambda^\alpha}\)</span>.
+<p><span class="math inline">\(\frac{\Gamma(\alpha)\,\lambda^\alpha}{\Gamma(\alpha)\,\lambda^\alpha}\)</span>.
 And since neither <span class="math inline">\(\alpha\)</span> nor <span class="math inline">\(\lambda\)</span> include the integrating factor
 <span class="math inline">\(w\)</span> we can include them inside the
 integral, or leave them out. Naturally, we want to leave within the
-integral <span class="math inline">\(\Large
-\frac{\lambda^\alpha}{\Gamma(\alpha)}\)</span>, and keep <span class="math inline">\(\Large
-\frac{\Gamma(\alpha)}{\lambda^\alpha}\)</span> outside the integral. Now
-<span class="math inline">\(f_T(t)\)</span> will look hideous for just
-one second:</p>
+integral <span class="math inline">\(\frac{\lambda^\alpha}{\Gamma(\alpha)}\)</span>,
+and keep <span class="math inline">\(\frac{\Gamma(\alpha)}{\lambda^\alpha}\)</span>
+outside the integral. Now <span class="math inline">\(f_T(t)\)</span>
+will look hideous for just one second:</p>
+<p><span class="math display">\[\begin{align}
+f_T(t)
+&amp;=  \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,
+\int_0^\infty\,
+w^{((k+1)/2)-1}\,
+e^{-(1/2)(1 + t^2/k)w}
+\,dw \\[2ex]
+&amp;=\frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,
+\int_0^\infty\frac{((1/2)(1+t^2/k))^{(k+1)/2}}{\Gamma((k+1)/2)} \;
+w^{((k+1)/2)-1}
+e^{-(1/2)(1 + t^2/k)w}
+dw\,
+\frac{\Gamma((k+1)/2)}{((1/2)(1+t^2/k))^{(k+1)/2}}
+\end{align}\]</span></p>
 <p><br><br></p>
-<p><span class="math inline">\(\Large=
+<p>… because everything between <span class="math inline">\(\int\)</span> and <span class="math inline">\(\rm
+dw\)</span> (in blue) is just the gamma <span class="math inline">\(\text{pdf}\)</span> integrated over its entire
+support (so it becomes <span class="math inline">\(1\)</span>) and we
+are left with:</p>
+<p><span class="math display">\[\begin{align}
+f_T(t) &amp;=
 \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,
-\int_0^\infty\frac{((1/2)(1+t^2/k))^{(k+1)/2}}{\Gamma((k+1)/2)}\)</span>
-<span class="math inline">\(w^{((k+1)/2)-1} e^{-(1/2)(1 + t^2/k)w} dw\,
-\frac{\Gamma((k+1)/2)}{((1/2)(1+t^2/k))^{(k+1)/2}}\)</span></p>
-<p><br><br></p>
-<p>… because everything between <span class="math inline">\(\int\)</span> and <span class="math inline">\(dw\)</span> is just the gamma <span class="math inline">\(pdf\)</span> integrated over its entire support,
-so it becomes <span class="math inline">\(1\)</span>, and we are left
-with:</p>
-<p><br><br></p>
-<p><span class="math inline">\(=\Large
+\color{blue}{\int_0^\infty\frac{((1/2)(1+t^2/k))^{(k+1)/2}}{\Gamma((k+1)/2)}
+\; w^{((k+1)/2)-1}
+e^{-(1/2)(1 + t^2/k)w}
+dw}\,
+\frac{\Gamma((k+1)/2)}{((1/2)(1+t^2/k))^{(k+1)/2}} \\[2ex]
+&amp;=
 \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,
-\frac{\Gamma((k+1)/2)}{((1/2)(1+t^2/k))^{(k+1)/2}}\)</span></p>
-<p><br><br></p>
-<p><span class="math inline">\(=\Large
+\frac{\Gamma((k+1)/2)}{((1/2)(1+t^2/k))^{(k+1)/2}} \\[2ex]
+&amp;=
 \frac{1}{(2\pi)^{1/2}}\frac{1}{\Gamma(\frac{k}{2})2^{k/2}k^{1/2}}\,\Gamma((k+1)/2)\,
-\Big[\frac{2}{(1+t^2/k)}\Big]^{(k+1)/2}\)</span></p>
-<p><br><br></p>
-<p><span class="math inline">\(=\Large
-\frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
+\Big[\frac{2}{(1+t^2/k)}\Big]^{(k+1)/2} \\[2ex]
+&amp;= \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
 \frac{1}{(2\pi)^{1/2}2^{k/2}k^{1/2}}\,
-\Big[\frac{2}{(1+t^2/k)}\Big]^{(k+1)/2}\)</span></p>
-<p><br><br></p>
-<p><span class="math inline">\(=\Large
-\frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
+\Big[\frac{2}{(1+t^2/k)}\Big]^{(k+1)/2} \\[2ex]
+&amp;= \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
 \frac{1}{(2\pi)^{1/2}2^{k/2}k^{1/2}}\,
-\frac{2^{(k+1)/2}}{(1+t^2/k)^{(k+1)/2}}\)</span></p>
-<p><br><br></p>
-<p><span class="math inline">\(=\Large
-\frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
+\frac{2^{(k+1)/2}}{(1+t^2/k)^{(k+1)/2}} \\[2ex]
+&amp;= \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
 \frac{1}{(\pi)^{1/2}k^{1/2}}\,
-\frac{1}{(1+t^2/k)^{(k+1)/2}}\)</span></p>
-<p><br><br><br><br></p>
-<p><span class="math inline">\(\Large f_T(t)=
-\frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
+\frac{1}{(1+t^2/k)^{(k+1)/2}} \\[2ex]
+&amp;=\frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{k}{2})}\,
 \frac{1}{\sqrt{k\,\pi}}\,
-\Big(1+\frac{t^2}{k}\Big)^{-\frac{k+1}{2}}\)</span></p>
-<p><br><br></p>
-<p>which is the <span class="math inline">\(pdf\)</span> of the <span class="math inline">\(t\)</span>-Student or Gosset distribution with
-<span class="math inline">\(k\)</span> degrees of freedom.</p>
+\Big(1+\frac{t^2}{k}\Big)^{-\frac{k+1}{2}}
+\end{align}\]</span></p>
+<p>which is the <span class="math inline">\(\text{pdf}\)</span> of the
+<span class="math inline">\(t\)</span>-Student or Gosset distribution
+with <span class="math inline">\(k\)</span> degrees of freedom.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 
