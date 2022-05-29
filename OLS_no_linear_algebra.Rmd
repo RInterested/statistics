@@ -226,7 +226,7 @@ $$\begin{align}
 &=\displaystyle\sum_{i=1}^n\left\{Y_i - \hat\beta_1 X_{1i}-\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}+\frac{\displaystyle\sum_{i=1}^n \hat\beta_1X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right\}X_{1i}\\[2ex]
 &=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\,- \hat\beta_1 X_{1i}\right\}X_{1i}\\[2ex]
 &=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 X_{1i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right\}X_{1i}\\[2ex]
-&=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 \left(X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right)\right\}X_{1i} \small \tag 8
+&=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\right)\right\}X_{1i} \small \tag 8
 \end{align}$$
 <br><br>
 
@@ -257,10 +257,17 @@ $$\color{red}{e_{iX_1|X_2}=X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{
 
 <br><br>
 
-$$\begin{align}\large 0&=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i} \small \tag 9
+So continuing where we left it in eq $8:$
+
+$$\begin{align}
+0&=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\right)\right\}X_{1i}\\[2ex]
+&=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i} \small \tag 9
 \\[2ex]
 &=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\right\}\,X_{1i}
-\end{align}$$
+\end{align}
+$$
+
+
 
 Therefore,
 
@@ -270,7 +277,7 @@ $$\large \displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\
 
 <br><br>
 
-$$\large \hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {10}$$
+$$\hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {10}$$
 
 <br><br>
 
@@ -319,7 +326,7 @@ This can be shown to be equivalent to:
 <br><br>
 
 $$\begin{align}
-\large \displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \, e_{i,Y|X_2}
+\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \, e_{i,Y|X_2}
 &=\displaystyle\sum_{i=1}^n \left(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j} X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}\right)\,\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_{j}}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i}\right)\\[2ex]
 &=\small\displaystyle\sum_{i=1}^n \left(X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{\left(\displaystyle\sum_{j=1}^n X_{2j}^2\right)^2} X_{2i}^2 \right)\\[2ex]
 &=\small\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} \displaystyle\sum_{i=1}^n X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{\left(\displaystyle\sum_{j=1}^n X_{2j}^2\right)^2} \displaystyle\sum_{i=1}^nX_{2i}^2
@@ -345,8 +352,7 @@ Indeed, this is the same blue expression above - the equation "$X_1$ times resid
 Now,
 
 
-$$\begin{align}\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 &=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \left( \color{red}{X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}} \right)\\[2ex]
-&=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}
+$$\begin{align}\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 &=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \left( \color{red}{X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}} \right)
 \end{align}$$
 
 <br><br>
@@ -362,7 +368,7 @@ And plugging into the $\hat\beta_1$ equation $(11)$:
 
 <br><br>
 
-$$\large\hat\beta_1=\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}$$
+$$\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}$$
 
 <br><br>
 
@@ -382,17 +388,19 @@ The ingredients for the slope of the linear component to y afforded by one of th
 <br><br>
 Solving will entail p equations with p unknowns of the form of “system of equations”:
 
-$$\large\displaystyle\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i}-\dots-\hat\beta_pX_{pi})X_k=0$$
+$$\displaystyle\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i}-\dots-\hat\beta_pX_{pi})X_k=0$$
 
 Holding $\hat\beta_1$ through $\hat\beta_{p-1}$ fixed...
 
-$\hat\beta_p=\frac{\large\displaystyle\sum_{i=1}^n (Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i}-\dots-\hat\beta_{p-1}X_{i(p-1)})X_{ip}}{\large\displaystyle\sum_{i=1}^n X_{ip}^2}$ as in equation (7).
+$$\hat\beta_p=\frac{\displaystyle\sum_{i=1}^n (Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i}-\dots-\hat\beta_{p-1}X_{i(p-1)})X_{ip}}{\displaystyle\sum_{i=1}^n X_{ip}^2}$$ 
+
+as in equation (7).
 
 Plugging it into the equation above:
 
-$\large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})X_k=0$ as in equation (8).
+$$\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})X_k=0$$ as in equation (8).
 
-$X_k = e_{i,X_k|X_p}+\frac{\displaystyle\sum_{i=1}^n X_{ik}X_{ip}}{\displaystyle\sum_{i=1}^n X_{ip}^2}X_p$ and $\displaystyle\sum_{i=1}^n e_{i,X_k|X_p}X_{ip}=0$.
+$$X_k = e_{i,X_k|X_p}+\frac{\displaystyle\sum_{i=1}^n X_{ik}X_{ip}}{\displaystyle\sum_{i=1}^n X_{ip}^2}X_p$$ and $$\displaystyle\sum_{i=1}^n e_{i,X_k|X_p}X_{ip}=0$$
 
 <br><br>
 
@@ -400,9 +408,9 @@ Therefore:
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})X_k=0$ is equal to:
+$$\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})X_k=0$$ is equal to:
 
-$\large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})e_{i,X_kX_p}=0$
+$$\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p-1}|X_p}\hat\beta_{p-1})e_{i,X_kX_p}=0$$
 
 <br><br>
 
@@ -410,7 +418,10 @@ $\large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i
 <br><br>
 $$y_i\,=\,\beta_1X_{1i}\,+\,\beta_2X_{2i}+\dots+\,\beta_pX_{pi}\,+\,\varepsilon_i$$
 
-$$\min(\hat\beta_o,\hat\beta_1,\hat\beta_2)\large\displaystyle\sum_{i=1}^n e_i^2$ where $e_i= y_i - \hat\beta_o+\hat\beta_1X_{1i}+\hat\beta_2X_{2i}$$
+$$\min(\hat\beta_o,\hat\beta_1,\hat\beta_2)\large\displaystyle\sum_{i=1}^n e_i^2$$ 
+where 
+
+$$e_i= y_i - \hat\beta_o+\hat\beta_1X_{1i}+\hat\beta_2X_{2i}$$
 
 <br><br>
 
@@ -430,55 +441,57 @@ Set to zero and solve:
 
 <br><br>
 
-$-2\large\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
+$-2\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
+$\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^n y_i-n\hat\beta_o-\hat\beta_1 \large\displaystyle\sum_{i=1}^n x_{1i}-\hat\beta_2 \large\displaystyle\sum_{i=1}^nx_{2i}=0$
+$\displaystyle\sum_{i=1}^n y_i-n\hat\beta_o-\hat\beta_1 \displaystyle\sum_{i=1}^n x_{1i}-\hat\beta_2 \displaystyle\sum_{i=1}^nx_{2i}=0$
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^n y_i-\hat\beta_1 \large\displaystyle\sum_{i=1}^n x_{1i}-\hat\beta_2 \large\displaystyle\sum_{i=1}^nx_{2i}=n\hat\beta_o$
+$\displaystyle\sum_{i=1}^n y_i-\hat\beta_1 \displaystyle\sum_{i=1}^n x_{1i}-\hat\beta_2 \displaystyle\sum_{i=1}^nx_{2i}=n\hat\beta_o$
 
 <br>
 
-$\large\bar Y -\hat\beta_1 \bar X_1 -\hat\beta_2 \bar X_2 =\hat\beta_o$
+$\bar Y -\hat\beta_1 \bar X_1 -\hat\beta_2 \bar X_2 =\hat\beta_o$
 
 <br>
 
-$-2\large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
+$-2\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
+$\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})=0$
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\bar Y +\hat\beta_1 \bar X_1 +\hat\beta_2 \bar X_2 -\hat\beta_1 X_{1i} - \hat\beta_2 x_{2i})=0$
+$\displaystyle\sum_{i=1}^nX_{1i}(y_i-\bar Y +\hat\beta_1 \bar X_1 +\hat\beta_2 \bar X_2 -\hat\beta_1 X_{1i} - \hat\beta_2 x_{2i})=0$
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^nX_{1i}[(y_i-\bar Y -\hat\beta_1 (x_{1i}-\bar X_1) -\hat\beta_2 (x_{2i}-\bar X_2)]=0$
+$\displaystyle\sum_{i=1}^nX_{1i}[(y_i-\bar Y -\hat\beta_1 (x_{1i}-\bar X_1) -\hat\beta_2 (x_{2i}-\bar X_2)]=0$
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^n X_{1i}(y_i-\bar Y) -\hat\beta_1 \large\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1) -\hat\beta_2 \large\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)]=0$
+$\displaystyle\sum_{i=1}^n X_{1i}(y_i-\bar Y) -\hat\beta_1 \displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1) -\hat\beta_2 \displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)]=0$
 
 <br>
 
-$\large\displaystyle\sum_{i=1}^n X_{1i}(y_i-\bar Y)  -\hat\beta_2 \large\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)]=\hat\beta_1 \large\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)$
+$\displaystyle\sum_{i=1}^n X_{1i}(y_i-\bar Y)  -\hat\beta_2 \displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)]=\hat\beta_1 \displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)$
 
 <br>
 
-$\large\hat\beta_1=\large\frac{\displaystyle\sum_{i=1}^nx_{1i}(y_i-\bar Y)}{\displaystyle\sum_{i=1}^nx_{1i}(x_{1i}-\bar X_1)}\,-\, \hat\beta_2\, \frac{\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)}{\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)}$ compare to the formula with prior method through the origin (equation (11)):
+$\hat\beta_1=\frac{\displaystyle\sum_{i=1}^nx_{1i}(y_i-\bar Y)}{\displaystyle\sum_{i=1}^nx_{1i}(x_{1i}-\bar X_1)}\,-\, \hat\beta_2\, \frac{\displaystyle\sum_{i=1}^n x_{1i}(x_{2i}-\bar X_2)}{\displaystyle\sum_{i=1}^n x_{1i}(x_{1i}-\bar X_1)}$
 
-$\large \hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}$
+compare to the formula with prior method through the origin (equation $(11)$):
 
-$\large \hat\beta_2=\frac{\large\displaystyle\sum_{i=1}^n (Y_i-\hat\beta_1X_{1i})X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}$
+$\hat\beta_1=\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}$
+
+$\hat\beta_2=\frac{\displaystyle\sum_{i=1}^n (Y_i-\hat\beta_1X_{1i})X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}$
 
 <br><br>
 
