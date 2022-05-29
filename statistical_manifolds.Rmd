@@ -32,8 +32,9 @@ with each ellipse showing one of the $698$ faces.
 
 ---
 
-
 ###Steps in the process:
+
+---
 
 1. Input data iid points $p_1,p_2,\dots,p_n.$
 2. Construct neighborhood graph where $p,p'$ are neighbors iff $\Vert p - p' \Vert^2\leq \epsilon.$ Neighbors will have an edge connecting them.
@@ -107,18 +108,29 @@ where $(x^1,\dots,x^d)$ are the coordinates of chart $(U,\vec x)$ with $c([a,b])
 Similarly the volume of $W\subset U$ is given by
 
 $$\text{vol}(W)= \int_W\sqrt{\det(g)} dx^1\dots dx^d$$
+---
 
-#####ISOMETRY:
+##### ISOMETRY:
+
+---
 
 The smooth map $f: \mathcal M \to \mathcal N$ between to R. manifolds $(\mathcal M, g)$ and $(\mathcal N, h)$ is called an isometry iff for all $p\in \mathcal M$ and all $u,v\in T_p(\mathcal M),$ $<u,v>_{g(p)}=\left< df_p u, df_p w  \right>_{h(f(p))},$ where $df_p$ denotes the Jacobian of $f$ at $p,$ i.e. the map $df_p:T_p(\mathcal M)\to T_{f(p)}(\mathcal N).$
 
-#####RANK DEFICIENT MATRIX - THE EMBEDDING PUSHFORWARD METRIC:
+---
+
+##### RANK DEFICIENT MATRIX - THE EMBEDDING PUSHFORWARD METRIC:
+
+---
 
 For every $u,v \in T_{f(p)}f(\mathcal M) \oplus T_{f(p)}f(\mathcal M)^\perp,$ the embedding pushforward metric $h$ of an embedding $f$ at point $p \in \mathcal M$ is defined by the inner product $<u,v>_h(f(p))\equiv\left <  df_p^\dagger (n), df_p^\dagger (v)  \right >_{g(p)}$ where $df_p^\dagger: T_{f(p)}f(\mathcal M) \oplus T_{f(p)}f(\mathcal M)^\perp \to T_p\mathcal M$ is the pseudoinverse of the Jacobian $df_p$ of $f: \mathcal M \to \mathbb R^\mathcal s.$
 
 It's a way of passing on the inner product to the embedded space to preserve the isometry.
 
-#####LAPLACIAN ON $\mathcal M$: [THE LAPLACE-BELTRAMI OPERATOR](https://en.wikipedia.org/wiki/Laplace–Beltrami_operator):
+---
+
+##### LAPLACIAN ON $\mathcal M$: [THE LAPLACE-BELTRAMI OPERATOR](https://en.wikipedia.org/wiki/Laplace–Beltrami_operator):
+
+---
 
 The L-B operator $\Delta_\mu$ acting on a twice differentiable function $f: \mathcal M \to \mathbb R$ is defined as the divergence of the gradient:
 
@@ -130,7 +142,11 @@ $$\Delta_\mathbb M f = \frac{1}{\sqrt{\det(g)}}\frac{\partial}{\partial x^l}\lef
 
 The L-B operator contains all the geometry of the object, and at the same time, it is coordinate free.
 
+---
+
 ##### OBTAINING THE RIEMANNIAN METRIC:
+
+---
 
 Given the coordinate chart $(U,x)$ of a smooth R.Manifold, $M$ and $\Delta_\mu$ defined on $M,$ then the $g(p)^{-1},$ the inverse of the RM at point $p\in U$ as expressed in local coordinates $x$ can be derived from 
 
@@ -145,7 +161,11 @@ $$\tilde h^{ij}=\frac{1}{2}\Delta_M\; (f^i-f^i(p))\,(f^j-f^j(p))\rvert_{f^i=f^i(
 
 and so $h(p)$ is given by the pseudoinverse $\tilde h.$
 
+---
+
 ##### DISCRETIZED PROBLEM:
+
+---
 
 The input level for the embedding algorith is a set of points $\mathcal D =p_1,\dots,p_n\subset M.$ These points are assumed to be a sample from the distribution
 
@@ -155,7 +175,11 @@ Embedding algorithms construct a map $f_n: \mathcal D\to \mathbb R^\mathcal s.$
 
 We go on to define the symmetric positive semidefinite embedding pushforward $h_n$ on the set of points $\mathcal D.$ We obtain it by defining a discrete estimator $\tilde{ \mathcal L}_{n,\epsilon}$ that is consistent with $\Delta_M.$ The idea being to get an approximation of the Laplacian.
 
+---
+
 ##### RANDOM WALK GRAPH LAPLACIAN:
+
+---
 
 Construct graph $g_n$ to have adjacency matrix $k_n =[k_\epsilon(p,p')]_{p,p'\in \mathcal D}$ given by $k_\epsilon(p,p') = \exp(-\Vert p-p'\Vert^2/\epsilon),$ which is the Gaussian kernel.
 
@@ -167,14 +191,21 @@ where $T_n$ is the diagonal matrix of outdegrees, i.e. $T_n= \text{diag}\left\{t
 
 A simple renormalization exists when $p(x)$ is not uniform.
 
+---
+
 ##### ALGORITHM LEARN METRIC:
+
+---
 
 1. Construct the graph Laplacian $\tilde{\mathcal L}_{n,\epsilon}$
 2. Obtain the embedding coordinates $f_n(p) =\left( f_n^1(p),\dots,f_n^\mathcal s (p)   \right)$ of each point $p \in \mathcal D$ by $[f_n(p)]_{p\in \mathcal D}\equiv \text{GENERIC EMBED}(\mathcal D,\mathcal s, \epsilon_n)$
 3. Calculate the embedding metric $h_n(p)$ at each point, using $\tilde{\mathcal L}_{n,\epsilon}$. Output $\left( f_n(p), h_n(p)   \right)_{p\in \mathcal D}.$
 
+---
 
-##### LOCALLY ISOMETRIC EMBEDDING:
+##### LOCALLY ISOMETRIC EMBEDDING
+
+---
 
 Using the pushforward metric $h_p$ at point $p \in M,$ we can construct an affine tranformation of $f$ that defines a local isometry at $p:$
 
@@ -185,8 +216,11 @@ Given $(f(\mathcal D), h(\mathcal D))$ metric embedding of $\mathcal D:$
 
 Display $\mathcal D$ in coordinates $\tilde f$
 
+---
 
 ##### COMPUTING GEODESIC DISTANCE:
+
+---
 
 Computing the geodesic distance between two points $p$ and $p'$ requires discretizing the arclength integral and finding the shortest path:
 
@@ -198,13 +232,20 @@ $$\mathcal H_{q_i,q_{i-1}}= \frac{1}{2}\sqrt{(f(q_i)-f(q_{i-1}))'\,h_{q_i}(f(q_i
 
 The computation can be done regardless of the embedding.
 
+---
+
 ##### COMPUTING AREA / VOLUME:
+
+---
 
 By performing a Voronoi tessellation of a coordinate chart $(U,x)$ we can obtain the estimator $\Delta x^1,\dots \Delta x^d$ around $p$ and multiply it by $\sqrt{\det (h)}$ to obtain $\Delta \text{Vol}\approx d\text{Vol}.$ Summing over all points in a set $W\subset \mathcal M$ gives the estimator:
 
 $$\text{Vol}(W) =\sum_{p\in W} \sqrt{\det(h_p)}\Delta x^1(p),\dots \Delta x^d(p).$$
+---
 
 ##### GAUSSIAN PROCESSES ON MANIFOLDS:
+
+---
 
 GP's can be extended to M via SPDE's. Let $(k^2 - \Delta_{\mathbb R^d})^{\alpha/2}u(x) = \xi$ with $\xi$ Gaussian with noise, then $u(x)$ is a Matérn GP. Substituting $\Delta_\mathcal M$ allows us to define a Matérn GP on $\mathcal M.$ 
 
@@ -220,8 +261,11 @@ From this [youtube video](https://youtu.be/1jlYn7M5wSk)
 
 <img src="https://user-images.githubusercontent.com/9312897/31319071-f5024968-ac2a-11e7-857d-ab926930aa95.png" width="500">
 
+---
 
 #### Riemann metric:
+
+---
 
 The context is a metric $g_{\alpha\beta},$ which in full notation would be a (0,2) tensor $g_{\alpha\beta}\, dx^\alpha \otimes dx^\beta,$ taking two vectors of the $T_p(M)$ to the real line. Since $g_{\alpha\beta}$ is a function of space-time, i.e. $g_{\alpha\beta}(x)$ with $x=( x^0, x^1,x^2, x^3),$ it turns out that $g_{\alpha\beta}$ is a field.
 
@@ -235,11 +279,14 @@ where $v_i$ and $w_j$ are the coefficients in the representation of $X_p$ and $Y
 
 The existence of the metric allows defining the length of vectors (of curves). The curve for which the shortest distance is presented is called geodesic.
 
-
-
 <img src="https://user-images.githubusercontent.com/9312897/31319084-29241366-ac2b-11e7-86fe-803b1d28ee6c.png" width="500">
 
+
+---
+
 #### Laplacian operator:
+
+---
 
 Let $(M,g)$ be a Riemannian manifold. For any smooth function $f$ over $M,$ the gradient is defined as the vector field $\text{grad}(f)$ in $T(M)$ that satisfies $\left<\text{grad}(f), X(f) \right>_g= X(f)$ for all $X\in T(M).$ In local coordinates, the gradient is written as 
 
