@@ -1,5 +1,5 @@
 ---
-title: 'ANOVA test OLS models'
+title: 'ANOVA testing OLS'
 output: 
   html_document:
     theme: readable
@@ -8,13 +8,17 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
-### ANOVA: TESTING DIFFERENT REGRESSION MODELS:
+### ANOVA Testing of OLS Models:
+
+---
 
 I'll use the data set `mtcars`. You can find documentation of what it is about [here][1]. But just remember that there are 32 models, and for each one the miles-per-gallon, horse-power, and other variables are recorded. This is the beginning of it:
 
@@ -23,7 +27,11 @@ I'll use the data set `mtcars`. You can find documentation of what it is about [
     Mazda RX4 Wag     21.0   6   160    110   3.90    2.875  17.02  0   1    4    4
     Datsun 710        22.8   4   108    93    3.85    2.320  18.61  1   1    4    1
 
-### MODELS:
+---
+
+### Models:
+
+---
 
 We'll run two almost random OLS regressions as follows:
 
@@ -32,7 +40,11 @@ We'll run two almost random OLS regressions as follows:
 
 Notice that `fit1` is a ***constrained*** model in the way that we force the regression coefficient for `qsec` in `fit2` to be zero. `fit2`, conversely, is ***unconstrained***.
 
+---
+
 ### ANOVA:
+___
+
 
     anova(fit1, fit2)
 

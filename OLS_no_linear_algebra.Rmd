@@ -8,11 +8,13 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
 ### OLS REGRESSION WITHOUT LINEAR ALGEBRA:
 
@@ -84,7 +86,7 @@ $$\displaystyle \sum_{i=1}^{n}(Y_i-\mu_i)^2\,\geq \sum_{i=1}^{n}(Y_i-\hat \mu_i)
 
 <br><br>
 
-Considering only horizontal lines, and from equation (1):
+Considering only horizontal lines, and from equation $(1)$:
 <br><br>
 
 $$ \displaystyle\sum_{i=1}^{n} (Y_i - \hat \beta_o)\,(\hat \beta_o - \beta_o)\,=\,(\hat \beta_o - \beta_o)\,\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o)=\,0$$
@@ -105,7 +107,7 @@ or
 $$\bar Y = \beta_o \small \tag 2.$$
 <br><br>
 
-If we do regression through the origin:
+If we do regression through the origin $$y_i=x_{i}\beta_1+\epsilon$$
 
 <br>
 
@@ -237,13 +239,16 @@ $$\begin{align}
 
 $$\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}$$ 
 
-is the slope of the regression through the origin of $y_i=x_{2i}\beta_2+\epsilon$.
+is the slope of the regression through the origin of $y_i=x_{2i}\beta_2+\epsilon$. Why? Just see equation $(3).$
 <br><br>
 
 $$Y_i -\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}$$ 
 
-is the residual only including $X_{2i}$ as a regressor through the origin.
+is the residual only including $X_{2i}$ as a regressor through the origin. Why? Just consider that with one single variable, regression through the origin is $y_i=x_{i}\beta_1+\epsilon$ with the slope being as in equation $(3):$ i.e. $\small\hat\beta_1=\frac{\displaystyle\sum_{i=1}^{n}Y_iX_i}{\displaystyle\sum_{i=1}^{n}X_i^2},$ and therefore, the line is $\frac{\displaystyle\sum_{i=1}^{n}Y_iX_i}{\displaystyle\sum_{i=1}^{n}X_i^2}X_i$
+
 <br><br>
+
+Likewise,
 
 $$\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}$$ is the residual of the regression through the origin $x_{1i}=x_{2i}\gamma+\epsilon$, which is $X_1$ regressed over $X_2.$
 
@@ -359,17 +364,19 @@ e_{X_1|X_2}X_{1i}}=\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displa
 
 <br><br>
 
+which leads to the intended insight, or point of the entire exercise:
 
-Regression estimate for $\beta_1$ is the regression through the origin estimate having regressed $X_2$ out of both the response and the predictor.
 
-Regression estimate for $\beta_2$ is the regression through the origin estimate having regressed $X_1$ out of both the response and the predictor.
+**Regression estimate for $\beta_1$ is the regression through the origin estimate having regressed $X_2$ out of both the response and the predictor.**
 
-Multivariate regression estimates are exactly those having removed the linear relationship of the other variables from both the regressor and the response.
+**Regression estimate for $\beta_2$ is the regression through the origin estimate having regressed $X_1$ out of both the response and the predictor.**
+
+**Multivariate regression estimates are exactly those having removed the linear relationship of the other variables from both the regressor and the response.**
 
 
 INTUITION:
 
-The ingredients for the slope of the linear component to y afforded by one of the independent variables or regressors is the result of adding up and multiplying the residuals of the other variables with the regressor under consideration, as well as the residuals of the other variables with y. In essence, it's the measure of 1. Lack of correlation between regressors ($e_{x_1|x_2}$); and 2. How far off in predicting y the other variables are ($e{Y|x_2}$).
+The ingredients for the slope of the linear component to $y$ afforded by one of the independent variables or regressors is the result of adding up and multiplying the residuals of the other variables with the regressor under consideration, as well as the residuals of the other variables with $y.$ In essence, it's the measure of 1. Lack of correlation between regressors $(e_{x_1|x_2})$; and 2. How far off in predicting y the other variables are $(e{Y|x_2})$.
 
 ### More than two regressors:
 <br><br>

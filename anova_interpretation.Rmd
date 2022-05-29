@@ -1,5 +1,5 @@
 ---
-title: 'ANOVA: Results & pairwise comps'
+title: 'ANOVA results & pairwise comp'
 output: 
   html_document:
     theme: readable
@@ -8,14 +8,15 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
-### INTERPRETATION OF THE RESULTS OF AN ANOVA TEST IN R:
-<br>
+### ANOVA Results Interpretation in R:
 
 ---
 
@@ -69,7 +70,9 @@ OLS = lm(values ~ ind, datalong); summary(OLS); anova(OLS)
 
 ---
 
-#### PAIRWISE COMPARISONS:
+#### Pairwise Comparisons:
+
+---
 
 Additional analyses are required after an omnibus test. The `function pairwise.t.test()` computes the pair-wise comparisons between group means with corrections for multiple testing: 
 

@@ -1,5 +1,5 @@
 ---
-title: 'Time series: ACF & PACF plots'
+title: 'Time series ACF & PACF'
 output: 
   html_document:
     theme: readable
@@ -8,13 +8,17 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
-### TIME SERIES: ACF and PACF:
+### Time series plots ACF and PACF:
+
+---
 
 
 The [ACF](https://en.wikipedia.org/wiki/Autocorrelation) is rather straightforward: we have a time series, and basically make multiple "copies" (as in "copy and paste") of it, understanding that each copy is going to be offset by one entry from the prior copy, because the initial data contains $t$ data points, while the previous time series length (which excludes the last data point) is only $t-1$. We can make virtually as many copies as there are rows. Each copy is correlated to the original, keeping in mind that we need identical lengths, and to this end, we'll have to keep on clipping the tail end of the initial data series to make them comparable. For instance, to correlate the initial data to $ts_{t-3}$ we'll need to get rid of the last $3$ data points of the original time series (the first $3$ chronologically).
@@ -129,7 +133,7 @@ Schematically, this is what we have done:
 That the idea is correct, beside probable computational issues, can be seen comparing `PACF` to `pacf(st.y, plot = F)`.
 
 
-#####Intuition:
+##### Intuition:
 
 > **[Identification of an AR model is often best done with the PACF.](https://onlinecourses.science.psu.edu/stat501/node/358)**
 >

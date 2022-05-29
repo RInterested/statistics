@@ -1,5 +1,5 @@
 ---
-title: 'ATA & PORTFOLIO VAR-COV'
+title: 'ATA & Portfolio var-cov'
 output: 
   html_document:
     theme: readable
@@ -8,13 +8,17 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
-### $A^\top A$ (Gramian matrix) - PROPERTIES:
+### $A\top A$ Matrix properties:
+
+---
 
 
 The matrix $\bf A^\top A$  is a key structure because of the role it plays in orthogonal projection, which is expressed in the form $A(A^\top A)^{-}A^\top$ as proven [here](https://drive.google.com/file/d/0Bwl-HpVJ_5PeVkpBcUFHc1hwNDg/view?usp=sharing).
@@ -31,7 +35,9 @@ The matrix $\bf A^\top A$  is a key structure because of the role it plays in or
 
 ---
 
-### VARIANCE-COVARIANCE MATRIX:
+### Variance-Covariance Matrix:
+
+---
 
 $A^TA$ is the basis for the variance-covariance matrix, which really is the core of regression analysis and PCA - it gives a measure of the relationship between different variables, corresponding to the columns, between and within themselves. So it is important to see how it works.
 
@@ -98,7 +104,9 @@ $$\small \text{cor}(A)=\tiny\frac{1}{n-1}\small\begin{bmatrix}
 
 ---
 
-### PORTFOLIO VARIANCE:
+### Portfolio Variance:
+
+---
 
 One more quick thing for completeness sake: We have so far a clunky matrix as the result, but in general we want to estimate the portfolio variance: $1$ portfolio; $1$ variance. To do that we multiply the matrix of variance-covariance of $A$ to the left and to the right by the vector containing the proportions or weightings in each stock - $W$. Since we want to end up with a scalar single number, it is unsurprising that the algebra will be: $W^T\,\sigma(A)\,W$, with the vector of weights (fractions) being in this case $\color{blue}{3}\times \color{blue}{1}$ to match perfectly on the left as $W^T$, and on the right as $W$.
 
