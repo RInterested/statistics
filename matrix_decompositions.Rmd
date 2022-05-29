@@ -1,5 +1,5 @@
 ---
-title: 'Matrix decomposition'
+title: 'matrix decomposition'
 output: 
   html_document:
     theme: readable
@@ -8,13 +8,17 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
-### LU DECOMPOSITION:
+### LU Decomposition:
+
+---
 
 ```{r}
 require(Matrix)
@@ -35,8 +39,11 @@ But first, the LU Decomposition will be:
 L%*%U
 ```
 
+---
 
-### LDL DECOMPOSITION:
+### LDL Decomposition:
+
+---
 
 In LDL' decomposition we separate the diagonal of $U$ from $U$. To make it work $U$ will have to be divided by its diagonal:
 
@@ -51,7 +58,11 @@ L %*% (D %*% Udiv)
 aTa
 ```
 
-### CHOLESKY DECOMPOSITION:
+---
+
+### CHOLESKY Decomposition:
+
+---
 
 
 We start with the ${\bf LDU} = \begin{bmatrix} \text{lower triangular L}\\ \text{1s on diagonal} \end{bmatrix} \begin{bmatrix} \text{pivot matrix}\\ \text{D is diagonal} \end{bmatrix} \begin{bmatrix} \text{upper triangular U}\\ \text{1s on diagonal} \end{bmatrix}$

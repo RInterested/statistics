@@ -1,5 +1,5 @@
 ---
-title: 'Multivariate Normal draws'
+title: 'multivariate Gaussian draws'
 output: 
   html_document:
     theme: readable
@@ -8,14 +8,17 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
-#### THE CHOLESKY DECOMPOSITION:
+### The Cholesky Decomposition:
 
+---
 
 We start with the ${\bf LDU} = \begin{bmatrix} \text{lower triangular L}\\ \text{1s on diagonal} \end{bmatrix} \begin{bmatrix} \text{pivot matrix}\\ \text{D is diagonal} \end{bmatrix} \begin{bmatrix} \text{upper triangular U}\\ \text{1s on diagonal} \end{bmatrix}$
 
@@ -49,12 +52,12 @@ If you make an affine transformation
 $$X\equiv A+BZ$$
 then $X$ has a distribution
 $$X\sim N\left(A,BB'\right)$$
-In our case, we want $BB'=\Sigma$, so applying the cholesky decomposition to $\Sigma$ is one way to find a suitable $B$. Thus, to simulate from $X\sim N\left(\mu,\Sigma\right)$, you would simulate $Z$, set $A=\mu$ and $B=chol(\Sigma)$, and apply the transformation above.
+In our case, we want $BB'=\Sigma$, so applying the cholesky decomposition to $\Sigma$ is one way to find a suitable $B$. Thus, to simulate from $X\sim N\left(\mu,\Sigma\right)$, you would simulate $Z$, set $A=\mu$ and $B=\text{chol}(\Sigma)$, and apply the transformation above.
 
 So to answer your question, uncorrelated variables of mean 0 and variance 1 can be transformed to generic multivariate normal distributions through the use of affine transformations, depending on the mean vector and cholesky decomposition of the covariance matrix. This is how multivariate normal random number generators generally work. 
 
 To address your other point in the comments, suppose you simulate $Z$ and make a transformation 
-$$Y\equiv chol(C)Z$$
+$$Y\equiv \text{chol}(C)Z$$
 so that $Y\sim N(0, C)$. You can still get to $X$ from $Y$. As I discussed in the comments, you can easily do this by multiplying the univariate distributions by the respective standard deviations and adding the respective mean. 
 
 More formally, you can consider this another affine transformation
