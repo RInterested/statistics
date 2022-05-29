@@ -541,22 +541,25 @@ the intercept.</p>
 \beta_1X_{1i}+\beta_2X_{2i}\)</span>:</p>
 <p><br><br></p>
 <p><span class="math display">\[\displaystyle
-\sum_{i=1}^n(Y_i-\hat\mu_i)(\hat\mu_i-\mu_i)=\displaystyle
-\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})\{(\hat\beta_1-\beta_1)X_{1i}+(\hat\beta_2-\beta_2)X_{2i}\}.\]</span></p>
+\sum_{i=1}^n\color{brown}{(Y_i-\hat\mu_i)}\color{orange}{(\hat\mu_i-\mu_i)}=\displaystyle
+\sum_{i=1}^n
+\color{brown}{(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})}\color{orange}{\left((\hat\beta_1-\beta_1)X_{1i}+(\hat\beta_2-\beta_2)X_{2i}\right)}.\]</span></p>
 <p><br><br></p>
 <p>We need a system of equations:</p>
 <p><br><br></p>
-<p><span class="math display">\[\begin{cases}\displaystyle\sum_{n=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})X_{1i}=0\\
-\displaystyle\sum_{n=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})X_{2i}=0
+<p><span class="math display">\[\begin{cases}\sum_{n=1}^n\color{brown}{(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})}\color{orange}{X_{1i}}=0\\[2ex]
+\sum_{n=1}^n\color{brown}{(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})}\color{orange}{X_{2i}}=0
 \end{cases}\]</span></p>
 <p><br><br></p>
 <p>Solving for <span class="math inline">\(\hat\beta_2\)</span> in the
 second equation:</p>
 <p><br><br></p>
-<p><span class="math inline">\(\large
-\hat\beta_2\,=\,\frac{\displaystyle\sum_{i=1}^n(Y_i\,-\,\hat\beta_1\,X_{1i})\,X_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}
-\small \tag 7\)</span></p>
+<p><span class="math display">\[\bbox[5px,border:2px solid
+red]{\hat\beta_2\,=\,\frac{\displaystyle\sum_{i=1}^n(Y_i\,-\,\hat\beta_1\,X_{1i})\,X_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}\tag
+7\]</span></p>
 <p><br><br></p>
+<p>Now plugging <span class="math inline">\(\hat \beta_2\)</span> into
+the first of the equations in the system above:</p>
 <p><span class="math display">\[\begin{align}
 0&amp;=\displaystyle\sum_{i=1}^n\left\{Y_i - \hat\beta_1
 X_{1i}-\left(\frac{\displaystyle\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i})X_{2i}}{\displaystyle\sum_{i=1}^n
@@ -579,20 +582,21 @@ X_{1i}\right\}X_{1i}\\[2ex]
 X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n
 X_{2i}^2}X_{2i}\right\}X_{1i}\\[2ex]
 &amp;=\displaystyle\sum_{i=1}^n\left\{Y_i
--\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}-
+-\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}-
 \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n
 X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n
 X_{2i}^2}X_{2i}}\right)\right\}X_{1i} \small \tag 8
 \end{align}\]</span> <br><br></p>
-<p><span class="math display">\[\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}\]</span></p>
+<p><span class="math display">\[\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}\]</span></p>
 <p>is the slope of the regression through the origin of <span class="math inline">\(y_i=x_{2i}\beta_2+\epsilon\)</span>. <br><br></p>
 <p><span class="math display">\[Y_i
--\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}\]</span></p>
+-\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}\]</span></p>
 <p>is the residual only including <span class="math inline">\(X_{2i}\)</span> as a regressor through the origin.
 <br><br></p>
-<p><span class="math display">\[X_{1i}-\frac{\displaystyle\sum_{i=1}^n
-X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\]</span> is the
-residual of the regression through the origin <span class="math inline">\(x_{1i}=x_{2i}\gamma+\epsilon\)</span>.</p>
+<p><span class="math display">\[\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n
+X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\]</span> is the
+residual of the regression through the origin <span class="math inline">\(x_{1i}=x_{2i}\gamma+\epsilon\)</span>, which is
+<span class="math inline">\(X_1\)</span> regressed over <span class="math inline">\(X_2.\)</span></p>
 <p><br><br></p>
 <p>So rewriting the equation <span class="math display">\[e\,=\,\text{residuals}\left(Y\,-\,\left\{\hat\beta_1=\frac{\displaystyle\sum_{i=1}^n
 Y_i X_i}{\displaystyle\sum_{i=1}^n X_i^2}\right\}X\right)\]</span> (see
@@ -604,14 +608,13 @@ X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\,X_{2i}}\]</span></p>
 <p>So continuing where we left it in eq <span class="math inline">\(8:\)</span></p>
 <p><span class="math display">\[\begin{align}
 0&amp;=\displaystyle\sum_{i=1}^n\left\{Y_i
--\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}-
+-\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}-
 \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n
 X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n
 X_{2i}^2}X_{2i}}\right)\right\}X_{1i}\\[2ex]
 &amp;=\large
 \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i}
-\small \tag 9
-\\[2ex]
+\small \tag 9\\[2ex]
 &amp;=\large
 \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\right\}\,X_{1i}
 \end{align}
@@ -634,9 +637,8 @@ e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}
 model <span class="math inline">\(y_i =\beta_1 x_{1i} + \beta_2 x_{2i} +
 \dots + \epsilon_i\)</span> estimates the association between <span class="math inline">\(X_1\)</span> and <span class="math inline">\(Y\)</span> after “partialling out” <span class="math inline">\(X_2\)</span>. <span class="math inline">\(e_{i,
 Y|X_2}\)</span> is <span class="math inline">\(Y\)</span> after
-“partialling out” the variation that is explained by <span class="math inline">\(X_2\)</span> . <span class="math inline">\(e_{i,
-X_1|X_2}\)</span> is <span class="math inline">\(X_1\)</span> after
-“partialling out” the variation that is explained by <span class="math inline">\(X_2\)</span>.</p>
+“partialling out” the variation that is explained by <span class="math inline">\(X_2\)</span> . The expression <span class="math inline">\(e_{i, X_1|X_2}\)</span> is <span class="math inline">\(X_1\)</span> after “partialling out” the variation
+that is explained by <span class="math inline">\(X_2\)</span>.</p>
 <p>It can be shown that <span class="math inline">\(\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}\)</span>
 is equivalent to <span class="math inline">\(\displaystyle\sum_{i=1}^n
 \,e_{i,X_1|X_2}^2\)</span>.</p>
@@ -743,11 +745,12 @@ e_{X_1|X_2}^2 = \large\displaystyle\sum_{i=1}^n
 e_{X_1|X_2}X_{1i}\)</span>.</p>
 <p>And plugging into the <span class="math inline">\(\hat\beta_1\)</span> equation <span class="math inline">\((11)\)</span>:</p>
 <p><br><br></p>
-<p><span class="math display">\[\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n
+<p><span class="math display">\[\bbox[5px,border:2px solid
+red]{\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n
 e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n
 e_{X_1|X_2}^2}=\frac{\large\displaystyle\sum_{i=1}^n
 e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n
-e_{X_1|X_2}X_{1i}}\]</span></p>
+e_{X_1|X_2}X_{1i}}}\small\tag {12}\]</span></p>
 <p><br><br></p>
 <p>Regression estimate for <span class="math inline">\(\beta_1\)</span>
 is the regression through the origin estimate having regressed <span class="math inline">\(X_2\)</span> out of both the response and the

@@ -198,7 +198,7 @@ Let's assume two regressors: $Y_i = \beta_1X_{1i}+\beta_2X_{2i}$:
 
 <br><br>
 
-$$\displaystyle \sum_{i=1}^n(Y_i-\hat\mu_i)(\hat\mu_i-\mu_i)=\displaystyle \sum_{i=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})\{(\hat\beta_1-\beta_1)X_{1i}+(\hat\beta_2-\beta_2)X_{2i}\}.$$
+$$\displaystyle \sum_{i=1}^n\color{brown}{(Y_i-\hat\mu_i)}\color{orange}{(\hat\mu_i-\mu_i)}=\displaystyle \sum_{i=1}^n \color{brown}{(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})}\color{orange}{\left((\hat\beta_1-\beta_1)X_{1i}+(\hat\beta_2-\beta_2)X_{2i}\right)}.$$
 
 <br><br>
 
@@ -206,8 +206,8 @@ We need a system of equations:
 
 <br><br>
 
-$$\begin{cases}\displaystyle\sum_{n=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})X_{1i}=0\\
-\displaystyle\sum_{n=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})X_{2i}=0
+$$\begin{cases}\sum_{n=1}^n\color{brown}{(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})}\color{orange}{X_{1i}}=0\\[2ex]
+\sum_{n=1}^n\color{brown}{(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i})}\color{orange}{X_{2i}}=0
 \end{cases}$$
 
 <br><br>
@@ -216,9 +216,11 @@ Solving for $\hat\beta_2$ in the second equation:
 
 <br><br>
 
-$\large \hat\beta_2\,=\,\frac{\displaystyle\sum_{i=1}^n(Y_i\,-\,\hat\beta_1\,X_{1i})\,X_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2} \small \tag 7$
+$$\bbox[5px,border:2px solid red]{\hat\beta_2\,=\,\frac{\displaystyle\sum_{i=1}^n(Y_i\,-\,\hat\beta_1\,X_{1i})\,X_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}\tag 7$$
 
 <br><br>
+
+Now plugging $\hat \beta_2$ into the first of the equations in the system above:
 
 $$\begin{align}
 0&=\displaystyle\sum_{i=1}^n\left\{Y_i - \hat\beta_1 X_{1i}-\left(\frac{\displaystyle\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i})X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\right)X_{2i}\right\}X_{1i}\\[2ex]
@@ -226,23 +228,23 @@ $$\begin{align}
 &=\displaystyle\sum_{i=1}^n\left\{Y_i - \hat\beta_1 X_{1i}-\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}+\frac{\displaystyle\sum_{i=1}^n \hat\beta_1X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right\}X_{1i}\\[2ex]
 &=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\,- \hat\beta_1 X_{1i}\right\}X_{1i}\\[2ex]
 &=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 X_{1i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right\}X_{1i}\\[2ex]
-&=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\right)\right\}X_{1i} \small \tag 8
+&=\displaystyle\sum_{i=1}^n\left\{Y_i -\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}- \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\right)\right\}X_{1i} \small \tag 8
 \end{align}$$
 <br><br>
 
 
 
-$$\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}$$ 
+$$\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}$$ 
 
 is the slope of the regression through the origin of $y_i=x_{2i}\beta_2+\epsilon$.
 <br><br>
 
-$$Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}$$ 
+$$Y_i -\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}$$ 
 
 is the residual only including $X_{2i}$ as a regressor through the origin.
 <br><br>
 
-$$X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}$$ is the residual of the regression through the origin $x_{1i}=x_{2i}\gamma+\epsilon$.
+$$\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}$$ is the residual of the regression through the origin $x_{1i}=x_{2i}\gamma+\epsilon$, which is $X_1$ regressed over $X_2.$
 
 
 <br><br>
@@ -260,10 +262,10 @@ $$\color{red}{e_{iX_1|X_2}=X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{
 So continuing where we left it in eq $8:$
 
 $$\begin{align}
-0&=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\right)\right\}X_{1i}\\[2ex]
-&=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i} \small \tag 9
-\\[2ex]
-&=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\right\}\,X_{1i}
+0&=\displaystyle\sum_{i=1}^n\left\{Y_i -\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}- \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\right)\right\}X_{1i}\\[2ex]
+&=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i} \small \tag 9\\[2ex]
+&=\large
+\displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\right\}\,X_{1i}
 \end{align}
 $$
 
@@ -285,7 +287,7 @@ What happened to the numerators? It turns out they are the same (proof from equa
 
 The estimator $\beta_1$ from the model $y_i =\beta_1 x_{1i} + \beta_2 x_{2i} + \dots + \epsilon_i$ estimates the association between $X_1$ and $Y$ after “partialling out” $X_2$.
 $e_{i, Y|X_2}$ is $Y$ after “partialling out” the variation that is explained by $X_2$ .
-$e_{i, X_1|X_2}$ is $X_1$ after “partialling out” the variation that is explained by $X_2$.
+The expression $e_{i, X_1|X_2}$ is $X_1$ after “partialling out” the variation that is explained by $X_2$.
 
 It can be shown that $\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}$ is equivalent to $\displaystyle\sum_{i=1}^n \,e_{i,X_1|X_2}^2$.
 
@@ -368,7 +370,7 @@ And plugging into the $\hat\beta_1$ equation $(11)$:
 
 <br><br>
 
-$$\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}$$
+$$\bbox[5px,border:2px solid red]{\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}}\small\tag {12}$$
 
 <br><br>
 
