@@ -1,5 +1,5 @@
 ---
-title: 'Logistic regression'
+title: 'logistic regression'
 output: 
   html_document:
     theme: readable
@@ -8,14 +8,17 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
-### LOGISTIC REGRESSION:
+### Logistic Regression:
 
+---
 
 We want to estimate the probability of success / failure of the dependent variable $(\Pr(Y=1))$, given the explanatory variables: $\Pr(Y=1\mid X_1,X_2,\cdots, X_n)$. The explanatory variables can be categorical or continuous - it doesn't matter.
 
@@ -96,8 +99,9 @@ all.equal(exp(predict(f)) / (1 + exp(predict(f))), fitted.values(f))
 
 ---
 
-#### INTERPRETATION OF LOGISTIC REGRESSION RESULTS:
-<br>
+#### Interpretation of Logistic Regression Results:
+
+---
 
 Nothing better than simulating the data to obtain the coefficients through a logistic model (from [here](https://data.library.virginia.edu/simulating-a-logistic-regression-model/)):
 
@@ -120,6 +124,9 @@ y <- rbinom(n, size = 1, prob = p)
 mod <- glm(y ~ gender + age, family = "binomial")
 summary(mod)
 ```
+
+---
+---
 
 ***QUESTION:***
 
@@ -146,7 +153,11 @@ Questions:
 
 2. Shouldn't the odds ratio of "red" being accepted ($\rm Accepted/Red:Accepted/Blue$) just the reciprocal: ($\rm OddsBlue = 1 / OddsRed$)?
 
+
+
 ***ANSWER:***
+
+
 
 I've been working on answering my question by calculating manually the odds and odds ratios:
 
@@ -233,11 +244,13 @@ On the other hand, the regression without intercept predictably returned just th
     Backgroundorange 0.6461538 0.4354366 0.9484999
     Backgroundred    1.2461538 0.9900426 1.5715814
 
-
+---
 
 ---
 
-#### CATEGORICAL INDEPENDENT VARIABLES:
+#### Categorical Independent Variables:
+
+---
 
 Here is an example extracted form [this site](https://online.stat.psu.edu/stat504/node/225/):
 
@@ -431,7 +444,9 @@ progress = getOption("pROCProgress")$name, parallel=FALSE)
 
 ---
 
-#### TESTING A LOGISTIC REGRESSION MODEL:
+#### Testing a Logistic Regression Model:
+
+---
 
 
 1. GOODNESS-OF-FIT: Model calibration
@@ -488,7 +503,11 @@ In the biomedical context of risk prediction modelling, the AUC has been critici
 
 From [here](https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/):
 
-### HOW DO I INTERPRET ODDS RATIOS IN LOGISTIC REGRESSION?
+---
+
+#### How do I interpret odds ratios in logistic regression?
+
+---
 
 When a binary outcome variable is modeled using logistic regression, it is assumed that the logit transformation of the outcome variable has a linear relationship with the predictor variables.  This makes the interpretation of the regression coefficients somewhat tricky.  In this page, we will walk through the concept of odds ratio and try to interpret the logistic regression results using the concept of odds ratio in a couple of examples.
 
@@ -572,7 +591,11 @@ $${p} = \frac{\exp(\beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k)}{1+\exp(\beta_0
 
 We are now ready for a few examples of logistic regressions.  We will use a [this dataset](https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/Honors%20math%20write%20gender).  The data set has 200 observations and the outcome variable used will be `hon`, indicating if a student is in an honors class or not.  So our `p = prob(hon=1)`.  We will purposely ignore all the significance tests and focus on the meaning of the regression coefficients.  
 
+---
+
 #### Logistic regression with no predictor variables
+
+---
 
 Let’s start with the simplest logistic regression, a model without any predictor variables.  In an equation, we are modeling
 
@@ -594,9 +617,13 @@ addmargins(table(t(d$hon)))
 ```
 
       
-So $p = 49/200 =  .245.$ The odds are $.245/(1-.245) = .3245$ and the log of the odds (logit) is $log(.3245) = -1.12546.$  In other words, the intercept from the model with no predictor variables is the estimated log odds of being in honors class for the whole population of interest.  We can also transform the log of the odds back to a probability: $p = \exp(-1.12546)/(1+exp(-1.12546)) = .245.$
+So $p = 49/200 =  .245.$ The odds are $.245/(1-.245) = .3245$ and the log of the odds (logit) is $\log(.3245) = -1.12546.$  In other words, the intercept from the model with no predictor variables is the estimated log odds of being in honors class for the whole population of interest.  We can also transform the log of the odds back to a probability: $p = \exp(-1.12546)/(1+exp(-1.12546)) = .245.$
 
-#### Logistic regression with a single dichotomous predictor variables
+---
+
+#### Logistic regression with a single dichotomous predictor variable:
+
+---
 
 Now let’s go one step further by adding a binary predictor variable, female, to the model.  Writing it in an equation, the model describes the following linear relationship.
 
@@ -621,8 +648,11 @@ Now we can relate the odds for males and females and the output from the logisti
 exp(cbind(OR = coef(fit), confint(fit)))
 ```
 
+---
 
-#### Logistic regression with a single continuous predictor variable
+#### Logistic regression with a single continuous predictor variable:
+
+---
 
 Another simple example is a model with a single continuous predictor variable such as the model below.  It describes the relationship between students’ math scores and the log odds of being in an honors class.
 
@@ -710,6 +740,8 @@ Now we can map the logistic regression output to these two equations. So we can 
 
 #### Odds Ratios as Effect Size Statistics:
 
+---
+
 From [here](https://www.theanalysisfactor.com/effect-size-statistics-logistic-regression/):
 
 First, it’s important to understand what effect size statistics are for and why they’re worth reporting.
@@ -740,7 +772,11 @@ It’s unstandardized because it’s based on the units of temperature.
 
 I realize no ecologist would do so, but if the water were measured in degrees Fahrenheit, that odds ratio would have a different value.  The direction and the strength of the relationship would be the same, but the statistic would be evaluated on a different scale.
 
+---
+
 #### Odds Ratios as Standardized Effect Size Statistics
+
+---
 
 Surprisingly, I’ve seen odds ratios listed as standardized effect size statistics.
 
