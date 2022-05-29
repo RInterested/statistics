@@ -250,7 +250,7 @@ $$\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle
 <br><br>
 
 So rewriting the equation 
-$$e\,=\,\text{residuals}\left(Y\,-\,\left\{\hat\beta_1=\frac{\displaystyle\sum_{i=1}^n Y_i X_i}{\displaystyle\sum_{i=1}^n X_i^2}\right\}X\right)$$ 
+$$e\,=\,\text{residuals}\left(Y\,-\,\left\{\hat\beta_1=\frac{\displaystyle\sum_{i=1}^n Y_i X_i}{\displaystyle\sum_{i=1}^n X_i^2}\right\}X\right)\tag 9$$ 
 (see equation (3)). 
 
 For instance: 
@@ -263,7 +263,7 @@ So continuing where we left it in eq $8:$
 
 $$\begin{align}
 0&=\displaystyle\sum_{i=1}^n\left\{Y_i -\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}- \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\right)\right\}X_{1i}\\[2ex]
-&=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i} \small \tag 9\\[2ex]
+&=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i} \small \tag {10}\\[2ex]
 &=\large
 \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\right\}\,X_{1i}
 \end{align}
@@ -279,55 +279,38 @@ $$\large \displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\
 
 <br><br>
 
-$$\hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {10}$$
+$$\hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {11}$$
 
 <br><br>
 
-What happened to the numerators? It turns out they are the same (proof from equation $(9)$).
+What happened to the numerators? It turns out they are the same (proof from equation $(10)$).
 
 The estimator $\beta_1$ from the model $y_i =\beta_1 x_{1i} + \beta_2 x_{2i} + \dots + \epsilon_i$ estimates the association between $X_1$ and $Y$ after “partialling out” $X_2$.
 $e_{i, Y|X_2}$ is $Y$ after “partialling out” the variation that is explained by $X_2$ .
 The expression $e_{i, X_1|X_2}$ is $X_1$ after “partialling out” the variation that is explained by $X_2$.
 
-It can be shown that $\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}$ is equivalent to $\displaystyle\sum_{i=1}^n \,e_{i,X_1|X_2}^2$.
-
 $\hat\beta_1$ is simply the sample analogue of $\large \frac{\text{cov}(\bar X_1, \bar Y)}{\text{var}(\bar X_1)}$ or $\text{cor}(\hat X_1, \hat Y)\frac{\text{SD}(\bar Y)}{\text{SD}(\bar X)}$, where $\hat X_1$ and $\hat Y$ are partialled out by $X_1$ and $Y$.
 
 
 <br><br>
-Starting off with equation $(9)$:
-<br><br>
+
+The $(11)$ numerator expression, i.e. $\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \, e_{i,Y|X_2},$ can be shown to be true:
+
+by $(9),$
 
 $$\begin{align}
-0&=\large\displaystyle\sum_{i=1}^n (e_{i,Y|X_2}-\hat\beta_1\,e_{i,X_1|X_2})X_{1i} \\[2ex]
-&=\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}\\[2ex]
-&\iff\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}\\[2ex]
+\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2} &= \color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i} \right)}
 \end{align}$$
 
-<br><br>
 
-and
-
-$$\large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$$ or $$\large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}.$$
-
-<br><br>
-
-and
-
-$$\begin{align}
-\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2} &= \color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i} \right)}\\[2ex]
-&= \displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\, \displaystyle\sum_{i=1}^n X_{1i} X_{2i}
-\end{align}$$
 
 (replacing $e_{i,Y|X_2}$) by its expansion - see under equation $(8)$ - let's call this last equation "$X_1$ times residuals $X_2$ through origin").
 
 <br><br>
 
-This can be shown to be equivalent to:
+Now,
 
-<br><br>
-
-$$\begin{align}
+$$\begin{align}\small
 \displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \, e_{i,Y|X_2}
 &=\displaystyle\sum_{i=1}^n \left(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j} X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}\right)\,\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_{j}}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i}\right)\\[2ex]
 &=\small\displaystyle\sum_{i=1}^n \left(X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{\left(\displaystyle\sum_{j=1}^n X_{2j}^2\right)^2} X_{2i}^2 \right)\\[2ex]
@@ -343,7 +326,7 @@ Now, anything that is a summation indexed by either $i$ or $j$ are equivalent be
 $$\begin{align}
 &...=\small\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\displaystyle\sum_{i=1}^n X_{2i}y_i \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2}  + \frac{\displaystyle\sum_{j=1}^n X_{2j}y_j \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2j}^2}\\[2ex]
 &=\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i}\\[2ex]
-&=\color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i - \frac{\large\displaystyle\sum_{j=1}^n X_{2j}y_j}{\large\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\right)}
+&=\color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_j}{\large\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\right)}\quad\square
 \end{align}$$
 <br><br>
 
@@ -351,10 +334,10 @@ Indeed, this is the same blue expression above - the equation "$X_1$ times resid
 <br><br>
 
 
-Now,
+It can be shown that $\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}$ (denominator of $(11)$) is equivalent to $\displaystyle\sum_{i=1}^n \,e_{i,X_1|X_2}^2$.
 
 
-$$\begin{align}\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 &=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \left( \color{red}{X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}} \right)
+$$\begin{align}\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 &=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \left( \color{red}{X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}} \right)
 \end{align}$$
 
 <br><br>
@@ -364,13 +347,15 @@ $\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}=0$ (sum of the residuals time
 
 <br><br>
 
-$\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 = \large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}$. 
+$$\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 = \large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}\quad\square$$. 
 
 And plugging into the $\hat\beta_1$ equation $(11)$:
 
 <br><br>
 
-$$\bbox[5px,border:2px solid red]{\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}}\small\tag {12}$$
+$$\bbox[5px,border:2px solid red]{\hat\beta_1=\,\frac{\displaystyle\sum_{i=1}^n
+e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n
+e_{X_1|X_2}X_{1i}}=\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}=\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}}\small\tag {12}$$
 
 <br><br>
 

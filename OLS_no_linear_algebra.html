@@ -599,8 +599,8 @@ residual of the regression through the origin <span class="math inline">\(x_{1i}
 <span class="math inline">\(X_1\)</span> regressed over <span class="math inline">\(X_2.\)</span></p>
 <p><br><br></p>
 <p>So rewriting the equation <span class="math display">\[e\,=\,\text{residuals}\left(Y\,-\,\left\{\hat\beta_1=\frac{\displaystyle\sum_{i=1}^n
-Y_i X_i}{\displaystyle\sum_{i=1}^n X_i^2}\right\}X\right)\]</span> (see
-equation (3)).</p>
+Y_i X_i}{\displaystyle\sum_{i=1}^n X_i^2}\right\}X\right)\tag 9\]</span>
+(see equation (3)).</p>
 <p>For instance:</p>
 <p><span class="math display">\[\color{red}{e_{iX_1|X_2}=X_{1i}-\frac{\displaystyle\sum_{i=1}^n
 X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\,X_{2i}}\]</span></p>
@@ -614,7 +614,7 @@ X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n
 X_{2i}^2}X_{2i}}\right)\right\}X_{1i}\\[2ex]
 &amp;=\large
 \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i}
-\small \tag 9\\[2ex]
+\small \tag {10}\\[2ex]
 &amp;=\large
 \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\right\}\,X_{1i}
 \end{align}
@@ -629,63 +629,40 @@ e_{X_1|X_2}\,X_{1i}\]</span></p>
 e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n
 e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n
 e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}
-\small \tag {10}\]</span></p>
+\small \tag {11}\]</span></p>
 <p><br><br></p>
 <p>What happened to the numerators? It turns out they are the same
-(proof from equation <span class="math inline">\((9)\)</span>).</p>
+(proof from equation <span class="math inline">\((10)\)</span>).</p>
 <p>The estimator <span class="math inline">\(\beta_1\)</span> from the
 model <span class="math inline">\(y_i =\beta_1 x_{1i} + \beta_2 x_{2i} +
 \dots + \epsilon_i\)</span> estimates the association between <span class="math inline">\(X_1\)</span> and <span class="math inline">\(Y\)</span> after “partialling out” <span class="math inline">\(X_2\)</span>. <span class="math inline">\(e_{i,
 Y|X_2}\)</span> is <span class="math inline">\(Y\)</span> after
 “partialling out” the variation that is explained by <span class="math inline">\(X_2\)</span> . The expression <span class="math inline">\(e_{i, X_1|X_2}\)</span> is <span class="math inline">\(X_1\)</span> after “partialling out” the variation
 that is explained by <span class="math inline">\(X_2\)</span>.</p>
-<p>It can be shown that <span class="math inline">\(\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}\)</span>
-is equivalent to <span class="math inline">\(\displaystyle\sum_{i=1}^n
-\,e_{i,X_1|X_2}^2\)</span>.</p>
 <p><span class="math inline">\(\hat\beta_1\)</span> is simply the sample
 analogue of <span class="math inline">\(\large \frac{\text{cov}(\bar
 X_1, \bar Y)}{\text{var}(\bar X_1)}\)</span> or <span class="math inline">\(\text{cor}(\hat X_1, \hat Y)\frac{\text{SD}(\bar
 Y)}{\text{SD}(\bar X)}\)</span>, where <span class="math inline">\(\hat
 X_1\)</span> and <span class="math inline">\(\hat Y\)</span> are
 partialled out by <span class="math inline">\(X_1\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<p><br><br> Starting off with equation <span class="math inline">\((9)\)</span>: <br><br></p>
-<p><span class="math display">\[\begin{align}
-0&amp;=\large\displaystyle\sum_{i=1}^n
-(e_{i,Y|X_2}-\hat\beta_1\,e_{i,X_1|X_2})X_{1i} \\[2ex]
-&amp;=\large\displaystyle\sum_{i=1}^n X_{1i}
-e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i}
-e_{i,X_1|X_2}\\[2ex]
-&amp;\iff\large\displaystyle\sum_{i=1}^n X_{1i}
-e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i}
-e_{i,X_1|X_2}\\[2ex]
-\end{align}\]</span></p>
 <p><br><br></p>
-<p>and</p>
-<p><span class="math display">\[\large\hat\beta_1
-=\frac{\displaystyle\sum_{i=1}^n X_{1i}
-e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}\]</span> or
-<span class="math display">\[\large\hat\beta_1
-=\frac{\displaystyle\sum_{i=1}^n e_{i,X_1|X_2}
-e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i}
-e_{i,X_1|X_2}}.\]</span></p>
-<p><br><br></p>
-<p>and</p>
+<p>The <span class="math inline">\((11)\)</span> numerator expression,
+i.e. <span class="math inline">\(\displaystyle\sum_{i=1}^n X_{1i}
+e_{i,Y|X_2}=\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \,
+e_{i,Y|X_2},\)</span> can be shown to be true:</p>
+<p>by <span class="math inline">\((9),\)</span></p>
 <p><span class="math display">\[\begin{align}
-\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2} &amp;=
+\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2} &amp;=
 \color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i -
 \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n
-X_{2j}^2} X_{2i} \right)}\\[2ex]
-&amp;= \displaystyle\sum_{i=1}^n X_{1i}y_i -
-\frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n
-X_{2j}^2}\, \displaystyle\sum_{i=1}^n X_{1i} X_{2i}
+X_{2j}^2} X_{2i} \right)}
 \end{align}\]</span></p>
 <p>(replacing <span class="math inline">\(e_{i,Y|X_2}\)</span>) by its
 expansion - see under equation <span class="math inline">\((8)\)</span>
 - let’s call this last equation “<span class="math inline">\(X_1\)</span> times residuals <span class="math inline">\(X_2\)</span> through origin”).</p>
 <p><br><br></p>
-<p>This can be shown to be equivalent to:</p>
-<p><br><br></p>
-<p><span class="math display">\[\begin{align}
+<p>Now,</p>
+<p><span class="math display">\[\begin{align}\small
 \displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \, e_{i,Y|X_2}
 &amp;=\displaystyle\sum_{i=1}^n \left(X_{1i} -
 \frac{\displaystyle\sum_{j=1}^n X_{2j} X_{1j}}{\displaystyle\sum_{j=1}^n
@@ -724,12 +701,16 @@ X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2j}^2}\\[2ex]
 \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n
 X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i}\\[2ex]
 &amp;=\color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i -
-\frac{\large\displaystyle\sum_{j=1}^n
-X_{2j}y_j}{\large\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\right)}
+\frac{\displaystyle\sum_{j=1}^n
+X_{2j}y_j}{\large\displaystyle\sum_{j=1}^n
+X_{2j}^2}\,X_{2i}\right)}\quad\square
 \end{align}\]</span> <br><br></p>
 <p>Indeed, this is the same blue expression above - the equation “<span class="math inline">\(X_1\)</span> times residuals <span class="math inline">\(X_2\)</span> through the origin”). <br><br></p>
-<p>Now,</p>
-<p><span class="math display">\[\begin{align}\large\displaystyle\sum_{i=1}^n
+<p>It can be shown that <span class="math inline">\(\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}\)</span>
+(denominator of <span class="math inline">\((11)\)</span>) is equivalent
+to <span class="math inline">\(\displaystyle\sum_{i=1}^n
+\,e_{i,X_1|X_2}^2\)</span>.</p>
+<p><span class="math display">\[\begin{align}\displaystyle\sum_{i=1}^n
 e_{X_1|X_2}^2 &amp;=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \left(
 \color{red}{X_{1i} -
 \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n
@@ -740,16 +721,18 @@ X_{2i}^2}X_{2i}} \right)
 e_{X_1|X_2}X_{2i}=0\)</span> (sum of the residuals times the regressor
 is zero). So,</p>
 <p><br><br></p>
-<p><span class="math inline">\(\large\displaystyle\sum_{i=1}^n
+<p><span class="math display">\[\large\displaystyle\sum_{i=1}^n
 e_{X_1|X_2}^2 = \large\displaystyle\sum_{i=1}^n
-e_{X_1|X_2}X_{1i}\)</span>.</p>
+e_{X_1|X_2}X_{1i}\quad\square\]</span>.</p>
 <p>And plugging into the <span class="math inline">\(\hat\beta_1\)</span> equation <span class="math inline">\((11)\)</span>:</p>
 <p><br><br></p>
 <p><span class="math display">\[\bbox[5px,border:2px solid
-red]{\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n
-e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n
-e_{X_1|X_2}^2}=\frac{\large\displaystyle\sum_{i=1}^n
-e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n
+red]{\hat\beta_1=\,\frac{\displaystyle\sum_{i=1}^n
+e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n
+e_{X_1|X_2}X_{1i}}=\frac{\displaystyle\sum_{i=1}^n
+e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n
+e_{X_1|X_2}^2}=\frac{\displaystyle\sum_{i=1}^n
+e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n
 e_{X_1|X_2}X_{1i}}}\small\tag {12}\]</span></p>
 <p><br><br></p>
 <p>Regression estimate for <span class="math inline">\(\beta_1\)</span>
