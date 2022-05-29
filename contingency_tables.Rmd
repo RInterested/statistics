@@ -1,5 +1,5 @@
 ---
-title: 'Contingency tables'
+title: 'contingency tables'
 output: 
   html_document:
     theme: readable
@@ -8,23 +8,28 @@ output:
     css: custom.css
 ---
 
-<br>
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
 <a href="http://rinterested.github.io/statistics/index.html">
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
-<br><br>
 
+---
 
-#### CONTINGENCY TABLES:
+### Contingency Tables:
 
+---
 
 [What follows was initially a [post on CrossValidated](http://stats.stackexchange.com/a/173749/67822).]
 <br>
 
 I've looked into it using [R], and I am a bit surprised to see no packaged formula readily accessible for a test that is ubiquitous in the medical sciences. So it takes some minimal tweaking. First off, [the link in my comment to the OP][1] is excellent, providing a makeshift formula; however, the following is an example using well-known formulas in [R]:
 
-<br>
+---
 
-##### 1. LARGER SAMPLES (> 5 expected counts in each cell):
+#### 1. Larger Samples (> 5 expected counts in each cell):
+
+---
 
 
 I'll work with a toy example that I made up for a [different post in CV][2], summarized into a contingency table comparing how many patients suffered heartburn after being treated with two kinds of antacids. For your question, I have extended the data to a third antacid as follows:
@@ -172,11 +177,11 @@ And these results explain the color coding in terms of the hue of pink and blue.
 
 The column to the right also includes the exact same p-value we just got for the pairwise $\chi^2$ of Drug B versus Drug C with Bonferroni adjustment.
 
-<br><br>
+---
 
-##### 2. SMALLER SAMPLES:
+#### 2. Smaller Samples:
 
-<br>
+---
 
 We use the **Fisher exact test**, which is based on the hypergeometric distribution, and it is probably most adequate when the expected values in any of the cells of a contingency table are below 5 - 10. Although originally conceived for $2$ x $2$ contingency tables, only the quickly mounting number of permutation tables in the extension of the Fisher test to $m$ x $n$ tables (so-called **Freeman Halton test**) gets in the way of its direct applications beyond the more rudimentary contingency table. This is [discussed in CV][4], and elaborated further in this [Wolfram post][5]. The original article on the Freeman-Halton test can be found in *Biometrika (1951) 38 (1-2): 141-149. doi: 10.1093/biomet/38.1-2.141*.
 
