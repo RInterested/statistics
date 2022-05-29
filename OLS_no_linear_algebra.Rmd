@@ -1,6 +1,8 @@
 ---
+title: 'OLS without lin alg'
 output: 
   html_document:
+    theme: readable
     includes:
       in_header: "favicon.html" 
     css: custom.css
@@ -8,15 +10,23 @@ output:
 
 <br>
 <a href="http://rinterested.github.io/statistics/index.html">
-<img HEIGHT="40" WIDTH="50" src="https://cloud.githubusercontent.com/assets/9312897/10556783/a27a26fa-745c-11e5-9b1a-2d5bd737387a.PNG"></a>
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 <br><br>
 
+
 ### OLS REGRESSION WITHOUT LINEAR ALGEBRA:
-<br>
+
 
 The ideal line for the population is:
 
 $$\large \mu_i\,=\,\beta_o \,+\,\beta_1\,X_i$$
+
+The estimated regression line is:
+<br>
+
+$$\large \hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i$$
+ <br>
+
 
 <br><br>
 
@@ -31,15 +41,11 @@ $\large \text{cov} (X,Y) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X)
 <br><br>
 $\large \text{SD} (X) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (X_i - \bar X) =\frac{1}{n-1}\left (\displaystyle \sum_{i-1}^n X_i^2 - n\bar X^2\right)$
 <br><br>
-$\large  \text{cor}(X,Y) = \frac{\text{cov}(X,Y)}{\text{SD}(X) \text{SD}(Y)}$
+$\large  \text{cor}(X,Y) = \large \frac{\text{cov}(X,Y)}{\text{SD}(X) \text{SD}(Y)}$
 
 ---
 
-The estimated regression line is:
-<br>
 
-$\large \hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i$
- <br>
  
 We want to minimize the squared distances from all the observed values $Y_i$ in the population and $\mu_i$, which are the fitted values that we would get if we had the “ideal” regression line calculated based on all the population - it has the symbol of mean, because it’s the mean of every bell’s curve as in the diagram above; $\hat \mu_i$ is the fitted values for the sample based on our estimated regression line. 
 <br><br>
@@ -55,10 +61,10 @@ $$\begin{align}
 \end{align}$$
 <br><br>
 
-Finding the minimum to: 
+Finding the minimum amounts to: 
 <br><br>
 
-$$\large\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,0\,\small \tag 1$$
+$$\sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i)\,=\,0\,\small \tag 1$$
 
 <br>
 
@@ -80,7 +86,7 @@ $$\displaystyle \sum_{i=1}^{n}(Y_i-\mu_i)^2\,\geq \sum_{i=1}^{n}(Y_i-\hat \mu_i)
 Considering only horizontal lines, and from equation (1):
 <br><br>
 
-$$\large \displaystyle\sum_{i=1}^{n} (Y_i - \hat \beta_o)\,(\hat \beta_o - \beta_o)\,=\,(\hat \beta_o - \beta_o)\,\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o)=\,0$$
+$$ \displaystyle\sum_{i=1}^{n} (Y_i - \hat \beta_o)\,(\hat \beta_o - \beta_o)\,=\,(\hat \beta_o - \beta_o)\,\displaystyle\sum_{i=1}^{n}(Y_i - \hat \beta_o)=\,0$$
 
 <br>
 
@@ -157,15 +163,14 @@ Since $\displaystyle\sum_{i=1}^{n}(Y_i-\bar Y)=0$, also $\displaystyle\bar X\sum
 
 <br><br>
 
-$$\large\hat \beta_1\,=\,\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=1}^{n}(X_i-\bar X)X_i}
-=\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}$$
+$$\begin{align}\large\hat \beta_1&=\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=1}^{n}(X_i-\bar X)X_i}\\[2ex]
+&=\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}\\[2ex]
+&=
+\frac{\text{cov}(X,Y)}{\text{var}(X)}\\[2ex]
+&=\frac{\text{cor}(X,Y)\,\text{SD}(X)\text{SD}(Y)}{\text{SD}(X)\,\text{SD}(X)}
+\end{align}$$
 
-<br><br>
 
-
-
-$$\color{red}{\large \frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}
-=\frac{\text{cov}(X,Y)}{\text{var}(X)}=\frac{\text{cor}(X,Y)\,\text{SD}(X)\text{SD}(Y)}{\text{SD}(X)\,\text{SD}(X)}}.$$ 
 
 Hence,
 
@@ -220,8 +225,8 @@ $$\begin{align}
 &=\displaystyle\sum_{i=1}^n\left\{Y_i - \hat\beta_1 X_{1i}-\left(\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}-\frac{\displaystyle\sum_{i=1}^n \hat\beta_1X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\right)X_{2i}\right\}X_{1i}\\[2ex]
 &=\displaystyle\sum_{i=1}^n\left\{Y_i - \hat\beta_1 X_{1i}-\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}+\frac{\displaystyle\sum_{i=1}^n \hat\beta_1X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right\}X_{1i}\\[2ex]
 &=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\,- \hat\beta_1 X_{1i}\right\}X_{1i}\\[2ex]
-&=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}\,- \hat\beta_1 X_{1i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right\}X_{1i}\\[2ex]
-&=\displaystyle\sum_{i=1}^n\left\{Y_i -\left(\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}\Big)\,- \hat\beta_1 \Big(X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right)\right\}X_{1i} \small \tag 8
+&=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 X_{1i}+\hat\beta_1\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right\}X_{1i}\\[2ex]
+&=\displaystyle\sum_{i=1}^n\left\{Y_i -\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}X_{2i}- \hat\beta_1 \left(X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}\right)\right\}X_{1i} \small \tag 8
 \end{align}$$
 <br><br>
 
@@ -248,7 +253,7 @@ $$e\,=\,\text{residuals}\left(Y\,-\,\left\{\hat\beta_1=\frac{\displaystyle\sum_{
 
 For instance: 
 
-$$e_{iX_1|X_2}=X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\,X_{2i}.$$
+$$\color{red}{e_{iX_1|X_2}=X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}\,X_{2i}}$$
 
 <br><br>
 
@@ -261,15 +266,15 @@ Therefore,
 
 <br><br>
 
-$\large \displaystyle\sum_{i=1}^n\{e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\sum_{i=1}^n e_{X_1|X_2}\,X_{1i}$
+$$\large \displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\sum_{i=1}^n e_{X_1|X_2}\,X_{1i}$$
 
 <br><br>
 
-$\large \hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {10}$
+$$\large \hat\beta_1\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}\,=\,\frac{\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}} \small \tag {10}$$
 
 <br><br>
 
-What happened to the numerators? It turns out they are the same (proof from equation (9)).
+What happened to the numerators? It turns out they are the same (proof from equation $(9)$).
 
 The estimator $\beta_1$ from the model $y_i =\beta_1 x_{1i} + \beta_2 x_{2i} + \dots + \epsilon_i$ estimates the association between $X_1$ and $Y$ after “partialling out” $X_2$.
 $e_{i, Y|X_2}$ is $Y$ after “partialling out” the variation that is explained by $X_2$ .
@@ -277,28 +282,35 @@ $e_{i, X_1|X_2}$ is $X_1$ after “partialling out” the variation that is expl
 
 It can be shown that $\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}$ is equivalent to $\displaystyle\sum_{i=1}^n \,e_{i,X_1|X_2}^2$.
 
-$\hat\beta_1$ is simply the sample analogue of $\large \frac{\text{cov}(\bar X_1, \bar Y)}{var(\bar X_1)}$ or $\large \text{cor}(\hat X_1, \hat Y)\frac{\text{SD}(\bar Y)}{\text{SD}(\bar X)}$, where $\hat X_1$ and $\hat Y$ are partialled out by $X_1$ and $Y$.
+$\hat\beta_1$ is simply the sample analogue of $\large \frac{\text{cov}(\bar X_1, \bar Y)}{\text{var}(\bar X_1)}$ or $\text{cor}(\hat X_1, \hat Y)\frac{\text{SD}(\bar Y)}{\text{SD}(\bar X)}$, where $\hat X_1$ and $\hat Y$ are partialled out by $X_1$ and $Y$.
 
-
-
-Starting off with equation (9):
-<br><br>
-
-$\large\displaystyle\sum_{i=1}^n (e_{i,Y|X_2}-\hat\beta_1\,e_{i,X_1|X_2})X_{1i} = 0$
 
 <br><br>
-
-$\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2} = 0$
-
+Starting off with equation $(9)$:
 <br><br>
 
-$\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}=0$
-
-$\large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$ or $\large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$.
+$$\begin{align}
+0&=\large\displaystyle\sum_{i=1}^n (e_{i,Y|X_2}-\hat\beta_1\,e_{i,X_1|X_2})X_{1i} \\[2ex]
+&=\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}-\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}\\[2ex]
+&\iff\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\hat\beta_1\,\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}\\[2ex]
+\end{align}$$
 
 <br><br>
 
-$\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}=\displaystyle\sum_{i=1}^n X_{1i} \Bigg( y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}\,y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i} \Bigg)$ (replacing $e_{i,Y|X_2}$ by its expansion - see under equation 8 - let's call this last equation "$X_1$ times residuals $X_2$ through origin").
+and
+
+$$\large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}$$ or $$\large\hat\beta_1 =\frac{\displaystyle\sum_{i=1}^n e_{i,X_1|X_2} e_{i,Y|X_2}}{\displaystyle\sum_{i=1}^n X_{1i} e_{i,X_1|X_2}}.$$
+
+<br><br>
+
+and
+
+$$\begin{align}
+\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2} &= \color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i} \right)}\\[2ex]
+&= \displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\, \displaystyle\sum_{i=1}^n X_{1i} X_{2i}
+\end{align}$$
+
+(replacing $e_{i,Y|X_2}$) by its expansion - see under equation $(8)$ - let's call this last equation "$X_1$ times residuals $X_2$ through origin").
 
 <br><br>
 
@@ -306,62 +318,54 @@ This can be shown to be equivalent to:
 
 <br><br>
 
-$\large \displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \, e_{i,Y|X_2}$
-$=\displaystyle\sum_{i=1}^n \Bigg(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j} X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}\Bigg)\,\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_{j}}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i}\Bigg)$
+$$\begin{align}
+\large \displaystyle\sum_{i=1}^n e_{i,X_1|X_2} \, e_{i,Y|X_2}
+&=\displaystyle\sum_{i=1}^n \left(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j} X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}\right)\,\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_{j}}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i}\right)\\[2ex]
+&=\small\displaystyle\sum_{i=1}^n \left(X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{\left(\displaystyle\sum_{j=1}^n X_{2j}^2\right)^2} X_{2i}^2 \right)\\[2ex]
+&=\small\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} \displaystyle\sum_{i=1}^n X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{\left(\displaystyle\sum_{j=1}^n X_{2j}^2\right)^2} \displaystyle\sum_{i=1}^nX_{2i}^2
+\end{align}$$
 
-
-<br><br>
-
-$\large\displaystyle\sum_{i=1}^n X_{1i} e_{i,Y|X_2} = \displaystyle\sum_{i=1}^n X_{1i}\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i} \Bigg)
-= \displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\, \displaystyle\sum_{i=1}^n X_{1i} X_{2i}$
-
-<br><br>
-
-$\large\displaystyle\sum_{i=1}^n e_{i,X_1|X_2}\, e_{i,Y|X_2}
-= \large\displaystyle\sum_{i=1}^n \Bigg(X_{1i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i} \Bigg)\,\Bigg(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{2i} \Bigg)$
-
-
-<br><br>
-
-$\large\displaystyle\sum_{i=1}^n \Bigg[X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{(\displaystyle\sum_{j=1}^n X_{2j}^2)^2} X_{2i}^2 \Bigg]$
-
-<br><br>
-
-$\large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2} \large\displaystyle\sum_{i=1}^n X_{2i}y_i + \frac{\displaystyle\sum_{j=1}^n X_{2j}X_{1j} \displaystyle\sum_{j=1}^n X_{2j}y_j}{(\displaystyle\sum_{j=1}^n X_{2j}^2)^2} \large\displaystyle\sum_{i=1}^nX_{2i}^2$
 <br><br>
 
 Now, anything that is a summation indexed by either $i$ or $j$ are equivalent because they are summing the same $n$ observations, with the only difference being the index itself. So it follows that the above is equal to:
 <br><br>
 
 
-$=\large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\large\displaystyle\sum_{i=1}^n X_{2i}y_i \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2}  + \frac{\displaystyle\sum_{j=1}^n X_{2j}y_j \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2j}^2}$
+$$\begin{align}
+&...=\small\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\displaystyle\sum_{i=1}^n X_{2i}y_i \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2}  + \frac{\displaystyle\sum_{j=1}^n X_{2j}y_j \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2j}^2}\\[2ex]
+&=\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i}\\[2ex]
+&=\color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i - \frac{\large\displaystyle\sum_{j=1}^n X_{2j}y_j}{\large\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\right)}
+\end{align}$$
 <br><br>
 
-$=\large\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \large\displaystyle\sum_{i=1}^n X_{1i} X_{2i} =\large\displaystyle\sum_{i=1}^n X_{1i}\Bigg(y_i - \frac{\large\displaystyle\sum_{j=1}^n X_{2j}y_j}{\large\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\Bigg)$ (equation "$X_1$ times residuals $X_2$ through the origin").
+Indeed, this is the same blue expression above - the equation "$X_1$ times residuals $X_2$ through the origin").
 <br><br>
 
-$\Box$
 
-$=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 =\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \Bigg(X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n \hat\beta_1 X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i} \Bigg)$
+Now,
+
+
+$$\begin{align}\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 &=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \left( \color{red}{X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}} \right)\\[2ex]
+&=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}
+\end{align}$$
 
 <br><br>
 
-$=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 =\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n \hat\beta_1 X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}$
-<br><br>
 
 $\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}=0$ (sum of the residuals times the regressor is zero). So,
 
 <br><br>
 
-$\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 = \large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}$. And plugging into the $\hat\beta_1$ equation:
+$\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 = \large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}$. 
+
+And plugging into the $\hat\beta_1$ equation $(11)$:
 
 <br><br>
 
-$\large\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}$
+$$\large\hat\beta_1=\hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}}$$
 
 <br><br>
 
-$\large \hat\beta_1=\frac{\large\displaystyle\sum_{i=1}^n e_{Y|X_2}e_{X_1|X_2}}{\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2}\small \tag {11}$
 
 Regression estimate for $\beta_1$ is the regression through the origin estimate having regressed $X_2$ out of both the response and the predictor.
 
@@ -374,11 +378,11 @@ INTUITION:
 
 The ingredients for the slope of the linear component to y afforded by one of the independent variables or regressors is the result of adding up and multiplying the residuals of the other variables with the regressor under consideration, as well as the residuals of the other variables with y. In essence, it's the measure of 1. Lack of correlation between regressors ($e_{x_1|x_2}$); and 2. How far off in predicting y the other variables are ($e{Y|x_2}$).
 
-##More than two regressors:
+### More than two regressors:
 <br><br>
 Solving will entail p equations with p unknowns of the form of “system of equations”:
 
-$\large\displaystyle\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i}-\dots-\hat\beta_pX_{pi})X_k=0$
+$$\large\displaystyle\sum_{i=1}^n(Y_i-\hat\beta_1X_{1i}-\hat\beta_2X_{2i}-\dots-\hat\beta_pX_{pi})X_k=0$$
 
 Holding $\hat\beta_1$ through $\hat\beta_{p-1}$ fixed...
 
@@ -402,11 +406,11 @@ $\large\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i
 
 <br><br>
 
-###Different Approach with Multiple Regression Model and Intercept:
+### Different Approach with Multiple Regression Model and Intercept:
 <br><br>
-$y_i\,=\,\beta_1X_{1i}\,+\,\beta_2X_{2i}+\dots+\,\beta_pX_{pi}\,+\,\varepsilon_i$
+$$y_i\,=\,\beta_1X_{1i}\,+\,\beta_2X_{2i}+\dots+\,\beta_pX_{pi}\,+\,\varepsilon_i$$
 
-$min(\hat\beta_o,\hat\beta_1,\hat\beta_2)\large\displaystyle\sum_{i=1}^n e_i^2$ where $e_i= y_i - \hat\beta_o+\hat\beta_1X_{1i}+\hat\beta_2X_{2i}$
+$$\min(\hat\beta_o,\hat\beta_1,\hat\beta_2)\large\displaystyle\sum_{i=1}^n e_i^2$ where $e_i= y_i - \hat\beta_o+\hat\beta_1X_{1i}+\hat\beta_2X_{2i}$$
 
 <br><br>
 
