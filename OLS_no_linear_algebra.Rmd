@@ -19,12 +19,12 @@ output:
 
 The ideal line for the population is:
 
-$$\large \mu_i\,=\,\beta_o \,+\,\beta_1\,X_i$$
+$$\mu_i\,=\,\beta_o \,+\,\beta_1\,X_i$$
 
 The estimated regression line is:
 <br>
 
-$$\large \hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i$$
+$$\hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i$$
  <br>
 
 
@@ -37,11 +37,11 @@ $$\large \hat \mu_i\,=\,\hat\beta_o\,+\,\hat\beta_1\,X_i$$
 
 Preliminary definitions:
 
-$\large \text{cov} (X,Y) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (Y_i - \bar Y) =\frac{1}{n-1}\left (\displaystyle \sum_{i-1}^n X_i Y_i - n\bar X\bar Y\right)$
+$\text{cov} (X,Y) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (Y_i - \bar Y) =\frac{1}{n-1}\left (\displaystyle \sum_{i-1}^n X_i Y_i - n\bar X\bar Y\right)$
 <br><br>
-$\large \text{SD} (X) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (X_i - \bar X) =\frac{1}{n-1}\left (\displaystyle \sum_{i-1}^n X_i^2 - n\bar X^2\right)$
+$\text{SD} (X) = \frac{1}{n-1}\displaystyle \sum_{i-1}^n (X_i -\bar X) (X_i - \bar X) =\frac{1}{n-1}\left (\displaystyle \sum_{i-1}^n X_i^2 - n\bar X^2\right)$
 <br><br>
-$\large  \text{cor}(X,Y) = \large \frac{\text{cov}(X,Y)}{\text{SD}(X) \text{SD}(Y)}$
+$\text{cor}(X,Y) = \frac{\text{cov}(X,Y)}{\text{SD}(X) \text{SD}(Y)}$
 
 ---
 
@@ -55,7 +55,7 @@ Just subtracting and adding $\hat \mu_i$:
 
 
 $$\begin{align}
-\large \displaystyle \sum_{i=1}^n (Y_i-\mu_i)^2 &= \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i + \hat \mu_i - \mu_i)^2\\[2ex]
+\displaystyle \sum_{i=1}^n (Y_i-\mu_i)^2 &= \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i + \hat \mu_i - \mu_i)^2\\[2ex]
 &=
 \displaystyle \sum_{i=1}^{n}(Y_i-\hat \mu_i)^2 + 2 \sum_{i=1}^{n} (Y_i - \hat \mu_i)\,(\hat \mu_i - \mu_i) + \displaystyle \sum_{i=1}^n (\hat \mu_i - \mu_i)^2
 \end{align}$$
@@ -101,7 +101,7 @@ In other words if $$n\,\bar Y\,-\,n\,\hat \beta_o\,=\,0,$$
 or 
 
 <br><br>
-$$\Large \bar Y = \beta_o \small \tag 2.$$
+$$\bar Y = \beta_o \small \tag 2.$$
 <br><br>
 
 If we do regression through the origin:
@@ -122,7 +122,7 @@ $$\displaystyle\sum_{i=1}^{n}(Y_iX_i)-(\hat \beta_1 X_i^2)=\displaystyle\sum_{i=
 
 Hence, 
 
-$$\large \hat \beta_1=\frac{\displaystyle\sum_{i=1}^{n}Y_iX_i}{\displaystyle\sum_{i=1}^{n}X_i^2} \small \tag 3.$$
+$$\hat \beta_1=\frac{\displaystyle\sum_{i=1}^{n}Y_iX_i}{\displaystyle\sum_{i=1}^{n}X_i^2} \small \tag 3.$$
 
 ---
 
@@ -142,7 +142,7 @@ $$0=\displaystyle\sum_{i=1}^{n}(Y_i-\hat\beta_o-\hat\beta_1X_i)=n\bar Y_i-n\hat\
 
 Hence, 
 <br><br>
-$\color{blue}{\Large \hat\beta_o\,=\,\bar Y\,-\,\hat\beta_1\,\bar X \small \tag 5}$
+$\color{blue}{\hat\beta_o\,=\,\bar Y\,-\,\hat\beta_1\,\bar X \small \tag 5}$
 
 <br><br>
 
@@ -163,7 +163,7 @@ Since $\displaystyle\sum_{i=1}^{n}(Y_i-\bar Y)=0$, also $\displaystyle\bar X\sum
 
 <br><br>
 
-$$\begin{align}\large\hat \beta_1&=\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=1}^{n}(X_i-\bar X)X_i}\\[2ex]
+$$\begin{align}\hat \beta_1&=\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=1}^{n}(X_i-\bar X)X_i}\\[2ex]
 &=\frac{\sum_{i=1}^{n}(Y_i-\bar Y)(X_i-\bar X)}{\sum_{i=1}^{n}(X_i-\bar X)(X_i-\bar X)}\\[2ex]
 &=
 \frac{\text{cov}(X,Y)}{\text{var}(X)}\\[2ex]
@@ -175,7 +175,7 @@ $$\begin{align}\large\hat \beta_1&=\frac{\sum_{i=1}^{n}(Y_i-\bar Y)X_i}{\sum_{i=
 Hence,
 
 <br><br>
-$\color{blue}{\Large \hat\beta_1\,=\,\text{cor}(Y, X)\,\frac{\text{SD}(Y)}{\text{SD}(X)}\,=\,\frac{\text{cov}(Y,X)}{\text{var}(X)}\small \tag 6}$
+$\color{blue}{\hat\beta_1\,=\,\text{cor}(Y, X)\,\frac{\text{SD}(Y)}{\text{SD}(X)}\,=\,\frac{\text{cov}(Y,X)}{\text{var}(X)}\small \tag 6}$
 <br><br>
 
 ### MULTIVARIABLE REGRESSION:
@@ -263,9 +263,8 @@ So continuing where we left it in eq $8:$
 
 $$\begin{align}
 0&=\displaystyle\sum_{i=1}^n\left\{Y_i -\color{magenta}{\frac{\displaystyle\sum_{i=1}^nY_iX_{2i}}{\displaystyle\sum_{i=1}^nX_{2i}^2}}X_{2i}- \hat\beta_1 \left(\color{red}{X_{1i}-\frac{\displaystyle\sum_{i=1}^n X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}}\right)\right\}X_{1i}\\[2ex]
-&=\large \displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i} \small \tag {10}\\[2ex]
-&=\large
-\displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\right\}\,X_{1i}
+&=\displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\,-\,\hat\beta_1\,e_{iX_1|X_2}\right\}\,X_{1i} \small \tag {10}\\[2ex]
+&=\displaystyle\sum_{i=1}^n\left\{e_{iY|X_2}\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\,-\,\hat\beta_1\,e_{iX_1|X_2}\,\frac{e_{iX_1|X_2}}{e_{iX_1|X_2}}\right\}\,X_{1i}
 \end{align}
 $$
 
@@ -275,7 +274,7 @@ Therefore,
 
 <br><br>
 
-$$\large \displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\sum_{i=1}^n e_{X_1|X_2}\,X_{1i}$$
+$$\displaystyle\sum_{i=1}^n e_{Y|X_2}X_{1i}=\,\hat\beta_1\,\displaystyle\sum_{i=1}^n e_{X_1|X_2}\,X_{1i}$$
 
 <br><br>
 
@@ -289,7 +288,7 @@ The estimator $\beta_1$ from the model $y_i =\beta_1 x_{1i} + \beta_2 x_{2i} + \
 $e_{i, Y|X_2}$ is $Y$ after “partialling out” the variation that is explained by $X_2$ .
 The expression $e_{i, X_1|X_2}$ is $X_1$ after “partialling out” the variation that is explained by $X_2$.
 
-$\hat\beta_1$ is simply the sample analogue of $\large \frac{\text{cov}(\bar X_1, \bar Y)}{\text{var}(\bar X_1)}$ or $\text{cor}(\hat X_1, \hat Y)\frac{\text{SD}(\bar Y)}{\text{SD}(\bar X)}$, where $\hat X_1$ and $\hat Y$ are partialled out by $X_1$ and $Y$.
+$\hat\beta_1$ is simply the sample analogue of $\frac{\text{cov}(\bar X_1, \bar Y)}{\text{var}(\bar X_1)}$ or $\text{cor}(\hat X_1, \hat Y)\frac{\text{SD}(\bar Y)}{\text{SD}(\bar X)}$, where $\hat X_1$ and $\hat Y$ are partialled out by $X_1$ and $Y$.
 
 
 <br><br>
@@ -326,7 +325,7 @@ Now, anything that is a summation indexed by either $i$ or $j$ are equivalent be
 $$\begin{align}
 &...=\small\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i} - \frac{\displaystyle\sum_{i=1}^n X_{2i}y_i \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2i}^2}  + \frac{\displaystyle\sum_{j=1}^n X_{2j}y_j \displaystyle\sum_{j=1}^n X_{2j}X_{1j}}{\displaystyle\sum_{j=1}^n X_{2j}^2}\\[2ex]
 &=\displaystyle\sum_{i=1}^n X_{1i}y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j} y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2} \displaystyle\sum_{i=1}^n X_{1i} X_{2i}\\[2ex]
-&=\color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_j}{\large\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\right)}\quad\square
+&=\color{blue}{\displaystyle\sum_{i=1}^n X_{1i}\left(y_i - \frac{\displaystyle\sum_{j=1}^n X_{2j}y_j}{\displaystyle\sum_{j=1}^n X_{2j}^2}\,X_{2i}\right)}\quad\square
 \end{align}$$
 <br><br>
 
@@ -337,17 +336,17 @@ Indeed, this is the same blue expression above - the equation "$X_1$ times resid
 It can be shown that $\displaystyle\sum_{i=1}^n\,e_{i,X_1|X_2}\,X_{1i}$ (denominator of $(11)$) is equivalent to $\displaystyle\sum_{i=1}^n \,e_{i,X_1|X_2}^2$.
 
 
-$$\begin{align}\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 &=\large\displaystyle\sum_{i=1}^n e_{X_1|X_2} \left( \color{red}{X_{1i} - \frac{\large\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\large\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}} \right)
+$$\begin{align}\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 &=\displaystyle\sum_{i=1}^n e_{X_1|X_2} \left( \color{red}{X_{1i} - \frac{\displaystyle\sum_{i=1}^n  X_{1i}X_{2i}}{\displaystyle\sum_{i=1}^n X_{2i}^2}X_{2i}} \right)
 \end{align}$$
 
 <br><br>
 
 
-$\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}=0$ (sum of the residuals times the regressor is zero). So,
+$\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{2i}=0$ (sum of the residuals times the regressor is zero). So,
 
 <br><br>
 
-$$\large\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 = \large\displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}\quad\square$$. 
+$$\displaystyle\sum_{i=1}^n e_{X_1|X_2}^2 = \displaystyle\sum_{i=1}^n e_{X_1|X_2}X_{1i}\quad\square$$. 
 
 And plugging into the $\hat\beta_1$ equation $(11)$:
 
@@ -405,7 +404,7 @@ $$\displaystyle\sum_{i=1}^n(e_{i,Y|X_p}-e_{i,X_1|X_p}\hat\beta_1-\dots-e_{i,X_{p
 <br><br>
 $$y_i\,=\,\beta_1X_{1i}\,+\,\beta_2X_{2i}+\dots+\,\beta_pX_{pi}\,+\,\varepsilon_i$$
 
-$$\min(\hat\beta_o,\hat\beta_1,\hat\beta_2)\large\displaystyle\sum_{i=1}^n e_i^2$$ 
+$$\min(\hat\beta_o,\hat\beta_1,\hat\beta_2)\displaystyle\sum_{i=1}^n e_i^2$$ 
 where 
 
 $$e_i= y_i - \hat\beta_o+\hat\beta_1X_{1i}+\hat\beta_2X_{2i}$$
@@ -416,11 +415,11 @@ Then first order conditions are:
 
 <br><br>
 
-$\frac{\partial}{\partial\hat\beta_o}\large\displaystyle\sum_{i=1}^n e_i^2=-2\large\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})$
+$\frac{\partial}{\partial\hat\beta_o}\displaystyle\sum_{i=1}^n e_i^2=-2\displaystyle\sum_{i=1}^n(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})$
 
-$\frac{\partial}{\partial\hat\beta_1}\large\displaystyle\sum_{i=1}^n e_i^2=-2\large\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})$
+$\frac{\partial}{\partial\hat\beta_1}\displaystyle\sum_{i=1}^n e_i^2=-2\displaystyle\sum_{i=1}^nX_{1i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})$
 
-$\frac{\partial}{\partial\hat\beta_2}\large\displaystyle\sum_{i=1}^n e_i^2=-2\large\displaystyle\sum_{i=1}^n X_{2i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})$
+$\frac{\partial}{\partial\hat\beta_2}\displaystyle\sum_{i=1}^n e_i^2=-2\displaystyle\sum_{i=1}^n X_{2i}(y_i-\hat\beta_o-\hat\beta_1x_{1i}-\hat\beta_2x_{2i})$
 
 <br><br>
 
