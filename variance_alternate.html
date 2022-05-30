@@ -11,7 +11,7 @@
 
 
 
-<title>variance alternative</title>
+<title>Variance alternative equation</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -377,7 +377,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">variance alternative</h1>
+<h1 class="title toc-ignore">Variance alternative equation</h1>
 
 </div>
 
@@ -483,10 +483,10 @@ minus sign disappears if the mean is zero.</p>
 <p>In R</p>
 <pre class="r"><code>X = rnorm(5)
 var(X)</code></pre>
-<pre><code>## [1] 0.3786771</code></pre>
+<pre><code>## [1] 1.488821</code></pre>
 <pre class="r"><code>( (t(X) %*% X) / (length(X) - 1) ) - (length(X)/(length(X)-1)) * mean(X)^2</code></pre>
-<pre><code>##           [,1]
-## [1,] 0.3786771</code></pre>
+<pre><code>##          [,1]
+## [1,] 1.488821</code></pre>
 <p>The same applies to the <a href="https://stats.stackexchange.com/a/285358/67822">covariance between
 different random vectors</a>:</p>
 <pre class="r"><code>set.seed(0)
