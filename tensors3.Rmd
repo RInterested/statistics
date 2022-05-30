@@ -223,7 +223,9 @@ Notice that the components of the vectors are given with superscripts - the oppo
 
 ---
 
-###MOTIVATING EXAMPLES:
+##### Motivating Examples:
+
+---
 
 
 From [this Quora answer](https://www.quora.com/Can-I-get-a-concrete-example-of-a-mathematical-not-physics-tensor?srid=utSnl):
@@ -339,12 +341,12 @@ As an example, a matrix $V^{*}\otimes W$ times a (column) vector in $V$ gives a 
 
 ---
 
-###COORDINATE-FREE APPROACH TO TENSORS:
+### COORDINATE-FREE APPROACH TO TENSORS:
 
 From [this youtube lecture](https://www.youtube.com/watch?v=4l-qzZOZt50&t=2395s).
 
 
-####Preliminary definitions:
+#### Preliminary definitions:
 
 A [**field**](https://en.wikipedia.org/wiki/Field_(mathematics)) is a set $k$ with the triad $(k, +, \cdot)$ denoting two maps:
 
@@ -447,7 +449,7 @@ $$\boxed{\color{blue}{\cdot}}:(\lambda\,\boxed{\color{blue}{\cdot}}\,g) (V)= \la
 
 ---
 
-####$V$ STAR, DUAL VECTOR SPACE or $V^*:$
+#### $V$ STAR, DUAL VECTOR SPACE or $V^*:$
 
 $$\large V^* := \text{Hom}(V, k)$$
 
@@ -505,7 +507,7 @@ Given $T\in V\color{orange}{\otimes} V^*$ we can construct an element of $\hat T
 ---
 
 
-####Contructing new tensor out of old tensors:
+#### Contructing new tensor out of old tensors:
 
 The most important way is **tensor product** ($\color{blue}{\otimes}$ **different** from the definition of the tensor space $\color{orange}{\otimes}$). It doesn't take tensors of the same rank (as was the case with addition). It can take $T\in T_q^p V$ and $S\in T^r_s V$ and:
 
@@ -518,7 +520,7 @@ $$(T\color{blue}{\otimes}S)(\underbrace{ \omega_1,\cdots,\omega_q,\cdots,\omega_
 ---
 
 
-####Components of a tensor:
+#### Components of a tensor:
 
 We need a basis for a tensor spce in order to talk about the components of a tensor. So if we have $T\in T^p_q V$ and $V<\infty$ with $\large\{e_1,\cdots,e_{\text{dim } V}\}$ being the basis of $V$, and $\large\{\epsilon^1,\cdots,\epsilon^{\text{dim} V=V^*}\}$ being the basis of $V^*$.We define the components of this abstract thing that is the tensor (abstract in that it is simply a multilinear map) by first defining **the components of the tensor space** are more concrete: they are numbers, and depend on the basis of $V$ and $v^*$. 
 
@@ -585,7 +587,7 @@ $\mathbf \omega =\begin{bmatrix}\omega_1\\\vdots\\\omega_d\end{bmatrix}$ and $\m
 
 ---
 
-####Change of basis from $e_i$ to $\tilde e_i$:
+#### Change of basis from $e_i$ to $\tilde e_i$:
 
 $$\tilde e_a =\sum_{b=1}^d\, \underbrace{A^b_a}_{\text{in K}}\underbrace{\cdot}_{\text{S-multiplication}}\,e_b$$
 
@@ -644,7 +646,7 @@ $$T^{i\ldots j}_{k\ldots l}=T(\underbrace{\omega^i,\ldots,\omega^j}_{p},\underbr
 OK, we now have components, but we have still not defined the tensor product *of tensors.* This is a way to generate new tensors from old tensors. Another way is to add tensors, which is a map from the Cartesian product $T^p_q\,V\,\times\,T^p_q\,V\rightarrow T^p_q\,V.$ Notice that the valence of the tensor does not change.
 
 
-#####Tensor product:
+##### Tensor product:
 
 
 Be $x\in T^p_qV$, and $y\in T^r_sV$. That is, $x$ is a function that takes $p$ covectors and $q$ vectors, and gives a scalar, while $y$ takes $r$ covectors and $s$ vectors to a scalar. Then the tensor product $x\color{blue}{\otimes} y$ is a function that takes $p+r$ covectors and $q+s$ vectors, feeds the first $p$ covectors and the first $q$ vectors to $x$, and the remaining $r$ covectors and $s$ vectors to $y$, and them multiplies the result. That is,
