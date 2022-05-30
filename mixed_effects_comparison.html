@@ -11,7 +11,7 @@
 
 
 
-<title>mixed-effects models</title>
+<title>Mixed-effects models</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -377,7 +377,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">mixed-effects models</h1>
+<h1 class="title toc-ignore">Mixed-effects models</h1>
 
 </div>
 
@@ -417,11 +417,10 @@ which is the same as
 <code>lmer(Reaction ~ Days + (1 + Days|Subject), sleepstudy)</code> as
 defined in <a href="http://stats.stackexchange.com/a/13173/67822">this
 entry in Cross Validated</a>.</p>
-<p><br></p>
-</div>
-<div id="retrieving-results" class="section level3">
-<h3>RETRIEVING RESULTS:</h3>
-<p><br></p>
+<hr />
+<div id="retrieving-results" class="section level4">
+<h4>Retrieving Results:</h4>
+<hr />
 <pre class="r"><code>library(lme4)
 library(lmerTest)</code></pre>
 <pre class="r"><code>fm1 &lt;- lm(Reaction ~ Days, sleepstudy)
@@ -564,6 +563,7 @@ summary(fm3)</code></pre>
 ## attr(,&quot;class&quot;)
 ## [1] &quot;coef.mer&quot;</code></pre>
 <p><br><br></p>
+</div>
 </div>
 <div id="model-selection" class="section level3">
 <h3>MODEL SELECTION:</h3>
