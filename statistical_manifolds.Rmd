@@ -1,5 +1,5 @@
 ---
-title: 'statistical manifold'
+title: 'Manifold Learning'
 output: 
   html_document:
     theme: readable
@@ -32,7 +32,7 @@ with each ellipse showing one of the $698$ faces.
 
 ---
 
-### Steps in the process:
+##### Steps in the process:
 
 ---
 
@@ -47,7 +47,9 @@ The idea is that PCA makes the implicit assumption that the manifold is a linear
 
 ---
 
-#####Types of embeddings:
+##### Types of embeddings:
+
+---
 
 * Local Linear Embedding
 * Laplacian Eigenmap
@@ -85,12 +87,15 @@ with $T=\text{diag}(S1).$
 
 ---
 
+#### Embedding:
+
+---
 
 An embedding of a manifold $\mathcal M$ into $\mathcal N$ is an injective map $\phi: \mathcal M\to \mathcal N$ with $\text{rank}(\phi)=\dim(\mathcal M),$ such that $\mathcal M$ is [homeomorphic](https://en.wikipedia.org/wiki/Homeomorphism) to its image under $\phi.$
 
 Rank of a smooth map is $k$ if the [Jacobian](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant) $d\phi_p:T_p\mathcal M \to T_{\phi(p)}\mathcal N$ of the map has rank $k$ for all points $p\in \mathcal M.$
 
-The geometry is defined in terms of the Reimannian metric (RM), $g,$ which is a symmetric and positive definite vector field which defines and inner product $\<\;,\;>_g$ on the tangent space $T_p\mathcal M.$
+The geometry is defined in terms of the Reimannian metric (RM), $g,$ which is a symmetric and positive definite vector field which defines and inner product $<\;,\;>_g$ on the tangent space $T_p\mathcal M.$
 
 A Riemannian manifold $(\mathcal M, g)$ is a smooth manifold with a RM defined at every point in $T_p\mathcal M.$
 
@@ -107,10 +112,11 @@ where $(x^1,\dots,x^d)$ are the coordinates of chart $(U,\vec x)$ with $c([a,b])
 
 Similarly the volume of $W\subset U$ is given by
 
-$$\text{vol}(W)= \int_W\sqrt{\det(g)} dx^1\dots dx^d$$
+$$\text{vol}(W)= \int_W\sqrt{\det(g)}\; dx^1\dots dx^d$$
+
 ---
 
-##### ISOMETRY:
+##### Isomety:
 
 ---
 
@@ -118,7 +124,7 @@ The smooth map $f: \mathcal M \to \mathcal N$ between to R. manifolds $(\mathcal
 
 ---
 
-##### RANK DEFICIENT MATRIX - THE EMBEDDING PUSHFORWARD METRIC:
+##### Rank Deficient Matrix - The Embedding Pushforward Metric:
 
 ---
 
@@ -128,7 +134,7 @@ It's a way of passing on the inner product to the embedded space to preserve the
 
 ---
 
-##### LAPLACIAN ON $\mathcal M$: [THE LAPLACE-BELTRAMI OPERATOR](https://en.wikipedia.org/wiki/Laplace–Beltrami_operator):
+#### Laplacian on $\mathcal M$: [THE Laplace-Beltrami Operator](https://en.wikipedia.org/wiki/Laplace–Beltrami_operator):
 
 ---
 
@@ -144,7 +150,7 @@ The L-B operator contains all the geometry of the object, and at the same time, 
 
 ---
 
-##### OBTAINING THE RIEMANNIAN METRIC:
+#### Obtaining the Riemannian Metric:
 
 ---
 
@@ -163,7 +169,7 @@ and so $h(p)$ is given by the pseudoinverse $\tilde h.$
 
 ---
 
-##### DISCRETIZED PROBLEM:
+#### Discretized problem:
 
 ---
 
@@ -177,7 +183,7 @@ We go on to define the symmetric positive semidefinite embedding pushforward $h_
 
 ---
 
-##### RANDOM WALK GRAPH LAPLACIAN:
+#### Random Walk Graph Laplacian:
 
 ---
 
@@ -193,7 +199,7 @@ A simple renormalization exists when $p(x)$ is not uniform.
 
 ---
 
-##### Algorithm to Learn the METRIC:
+#### Algorithm to learn the metric:
 
 ---
 
@@ -203,7 +209,7 @@ A simple renormalization exists when $p(x)$ is not uniform.
 
 ---
 
-##### LOCALLY ISOMETRIC EMBEDDING
+#### Locally Isometric Embedding:
 
 ---
 
@@ -218,7 +224,7 @@ Display $\mathcal D$ in coordinates $\tilde f$
 
 ---
 
-##### COMPUTING GEODESIC DISTANCE:
+#### Computing Geodesic Distance:
 
 ---
 
@@ -234,16 +240,17 @@ The computation can be done regardless of the embedding.
 
 ---
 
-##### COMPUTING AREA / VOLUME:
+#### Computing Area and Volume:
 
 ---
 
 By performing a Voronoi tessellation of a coordinate chart $(U,x)$ we can obtain the estimator $\Delta x^1,\dots \Delta x^d$ around $p$ and multiply it by $\sqrt{\det (h)}$ to obtain $\Delta \text{Vol}\approx d\text{Vol}.$ Summing over all points in a set $W\subset \mathcal M$ gives the estimator:
 
-$$\text{Vol}(W) =\sum_{p\in W} \sqrt{\det(h_p)}\Delta x^1(p),\dots \Delta x^d(p).$$
+$$\small \text{Vol}(W) =\sum_{p\in W} \sqrt{\det(h_p)}\Delta x^1(p),\dots \Delta x^d(p).$$
+
 ---
 
-##### GAUSSIAN PROCESSES ON MANIFOLDS:
+#### Gaussian Processes on Manifolds:
 
 ---
 
