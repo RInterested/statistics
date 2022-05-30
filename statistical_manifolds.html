@@ -466,6 +466,144 @@ are <span class="math inline">\(\psi^1(p),\psi^2(p),\dots,\psi^m(p).\)</span></l
 </ol>
 <hr />
 </div>
+<div id="example-of-graph-laplacian-in-r" class="section level4">
+<h4>Example of Graph Laplacian in R:</h4>
+<hr />
+<pre class="r"><code>require(igraph)</code></pre>
+<pre><code>## Loading required package: igraph</code></pre>
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     union</code></pre>
+<pre class="r"><code>g &lt;- graph(edges=c(&#39;Alice&#39;,&#39;Sam&#39;,&#39;Sam&#39;,&#39;David&#39;,&#39;David&#39;,&#39;Alice&#39;,&#39;Frank&#39;,&#39;David&#39;,&#39;Frank&#39;,&#39;Paul&#39;,&#39;Paul&#39;,&#39;Tom&#39;,&#39;Tom&#39;,&#39;Frank&#39;), directed = FALSE)
+plot(g)
+laplacian_matrix(g)</code></pre>
+<p><img src="data:image/png;base64,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" width="672" /></p>
+<pre><code>## 6 x 6 sparse Matrix of class &quot;dgCMatrix&quot;
+##       Alice Sam David Frank Paul Tom
+## Alice     2  -1    -1     .    .   .
+## Sam      -1   2    -1     .    .   .
+## David    -1  -1     3    -1    .   .
+## Frank     .   .    -1     3   -1  -1
+## Paul      .   .     .    -1    2  -1
+## Tom       .   .     .    -1   -1   2</code></pre>
+<p>Reading out the output:</p>
+<p>From the linear algebra explanation by Professor Strang in <a href="https://youtu.be/cxTmmasBiC8">here</a>, and <a href="https://math.stackexchange.com/a/4095061/152225">this
+post</a>.</p>
+<div id="degree-matrix" class="section level5">
+<h5>Degree Matrix:</h5>
+<p>A square matrix with nodes in rows and columns.</p>
+<p>This is the diagonal in the Laplacian graph matrix. It says that node
+<code>Alice</code> has <span class="math inline">\(2\)</span> edges
+going in; <code>Sam</code> has <span class="math inline">\(2\)</span>
+edges going in; <code>David</code> and <code>Frank</code> have <span class="math inline">\(3\)</span> edges; and <code>Paul</code> and
+<code>Tom</code> have <span class="math inline">\(2.\)</span></p>
+<p>That is to say:</p>
+<p><span class="math display">\[D=\begin{bmatrix}
+&amp;\text{Alice}&amp;\text{Sam}&amp;\text{David}&amp;\text{Frank}&amp;\text{Paul}&amp;\text{Tom}\\
+\text{Alice}&amp;2&amp;0&amp;0&amp;0&amp;0&amp;0\\
+\text{Sam} &amp;0&amp;2&amp;0&amp;0&amp;0&amp;0\\
+\text{David}&amp;0&amp;0&amp;3&amp;0&amp;0&amp;0\\
+\text{Frank}&amp;0&amp;0&amp;0&amp;3&amp;0&amp;0\\
+\text{Paul}&amp;0&amp;0&amp;0&amp;0&amp;2&amp;0\\
+\text{Tom}&amp;0&amp;0&amp;0&amp;0&amp;0&amp;2
+\end{bmatrix}
+\]</span></p>
+</div>
+<div id="adjacency-matrix" class="section level5">
+<h5>Adjacency Matrix:</h5>
+<p>A square matrix of nodes.</p>
+<p>This is the off-diagonal, and tells us which node is connected to
+which. So no nodes are connected to themselves. In the case at hand,
+<code>Alice</code> is connected to <code>Sam</code> and
+<code>David</code>; <code>Sam</code> is connected to <code>Alice</code>
+and <code>David</code>; <code>David</code> is connected to
+<code>Alice</code>, <code>Sam</code> and <code>Frank</code>, etc. So the
+adjacency matrix is:</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+&amp;\text{Alice}&amp;\text{Sam}&amp;\text{David}&amp;\text{Frank}&amp;\text{Paul}&amp;\text{Tom}\\
+\text{Alice}&amp;0&amp;1&amp;1&amp;0&amp;0&amp;0\\
+\text{Sam} &amp;1&amp;0&amp;1&amp;0&amp;0&amp;0\\
+\text{David}&amp;1&amp;1&amp;0&amp;1&amp;0&amp;0\\
+\text{Frank}&amp;0&amp;0&amp;1&amp;0&amp;1&amp;1\\
+\text{Paul}&amp;0&amp;0&amp;0&amp;1&amp;0&amp;1\\
+\text{Tom}&amp;0&amp;0&amp;0&amp;1&amp;1&amp;0
+\end{bmatrix}
+\]</span></p>
+<hr />
+<p><strong>Laplacian Matrix:</strong></p>
+<p><span class="math display">\[\cal L =D-A= \begin{bmatrix}
+&amp;\text{Alice}&amp;\text{Sam}&amp;\text{David}&amp;\text{Frank}&amp;\text{Paul}&amp;\text{Tom}\\
+\text{Alice}&amp;2&amp;-1&amp;-1&amp;0&amp;0&amp;0\\
+\text{Sam} &amp;-1&amp;2&amp;-1&amp;0&amp;0&amp;0\\
+\text{David}&amp;-1&amp;-1&amp;3&amp;-1&amp;0&amp;0\\
+\text{Frank}&amp;0&amp;0&amp;-1&amp;3&amp;-1&amp;-1\\
+\text{Paul}&amp;0&amp;0&amp;0&amp;-1&amp;2&amp;-1\\
+\text{Tom}&amp;0&amp;0&amp;0&amp;-1&amp;-1&amp;2
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[ L = \text{Degree Mat (Diagonal) -
+Adjacency}\]</span> The matrix in the output (explaining the negative
+signs).</p>
+<p>The Laplacian matrix is positive semidefinite Gramian matrix of the
+<span class="math inline">\(A^\top A\)</span> type resulting from the
+multiplication of the transpose of the <strong>incidence</strong> matrix
+times itself:</p>
+<p>The incidence matrix is rectangular with edges on the rows and nodes
+in the columns:</p>
+<p><span class="math display">\[I = \begin{bmatrix}
+&amp;\text{Alice}&amp;\text{Sam}&amp;\text{David}&amp;\text{Frank}&amp;\text{Paul}&amp;\text{Tom}\\
+\text{e1}&amp;-1&amp;0&amp;1&amp;0&amp;0&amp;0\\
+\text{e2} &amp;-1&amp;1&amp;0&amp;0&amp;0&amp;0\\
+\text{e3}&amp;0&amp;-1&amp;1&amp;0&amp;0&amp;0\\
+\text{e4}&amp;0&amp;0&amp;-1&amp;1&amp;0&amp;0\\
+\text{e5}&amp;0&amp;0&amp;0&amp;-1&amp;1&amp;0\\
+\text{e6}&amp;0&amp;0&amp;0&amp;-1&amp;1&amp;0\\
+\text{e7}&amp;0&amp;0&amp;0&amp;0&amp;-1&amp;1
+\end{bmatrix}
+\]</span> For instance, the first row says that there is an edge leaving
+<code>Alice</code> and going to <code>David</code>. The second row
+denotes the edge from <code>Alice</code> to <code>Sam</code>, etc.</p>
+<p>Running the <span class="math inline">\(A^\top A\)</span>
+operation:</p>
+<pre class="r"><code>I = matrix(c(-1,0,1,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,0,0,-1,1,0,0,0,0,0,-1,1),nrow=7,byrow = T)
+
+# Now we recover the Laplacian:
+
+(Laplacian = t(I) %*% I)</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    2   -1   -1    0    0    0
+## [2,]   -1    2   -1    0    0    0
+## [3,]   -1   -1    3   -1    0    0
+## [4,]    0    0   -1    3   -2    0
+## [5,]    0    0    0   -2    3   -1
+## [6,]    0    0    0    0   -1    1</code></pre>
+<pre class="r"><code>eigen(Laplacian)</code></pre>
+<pre><code>## eigen() decomposition
+## $values
+## [1] 5.379512e+00 3.670843e+00 3.000000e+00 1.560145e+00 3.895002e-01
+## [6] 2.143879e-16
+## 
+## $vectors
+##             [,1]        [,2]          [,3]       [,4]       [,5]       [,6]
+## [1,]  0.07991338 -0.29580556  7.071068e-01  0.2090903 -0.4424110 -0.4082483
+## [2,]  0.07991338 -0.29580556 -7.071068e-01  0.2090903 -0.4424110 -0.4082483
+## [3,] -0.34998159  0.79005020 -7.771561e-16 -0.1171208 -0.2700919 -0.4082483
+## [4,]  0.67295865  0.06161149  1.110223e-16 -0.5868176  0.1797473 -0.4082483
+## [5,] -0.62566580 -0.41569092  1.110223e-15 -0.3639058  0.3696611 -0.4082483
+## [6,]  0.14286199  0.15564034 -9.992007e-16  0.6496637  0.6055056 -0.4082483</code></pre>
+<p>The last but one eigenvector is the Fiedler vector: <span class="math inline">\(\begin{bmatrix}-0.44&amp;-0.44&amp;-0.27&amp;0.18&amp;0.37&amp;0.61\end{bmatrix}^\top\)</span>
+which separates the negatives nodes (<code>Alice</code>,
+<code>Sam</code>, <code>David</code>) from the positive nodes
+(<code>Frank</code>, <code>Paul</code>,<code>Tom</code>) - two perfectly
+separate clusters!</p>
+<hr />
+</div>
+</div>
 <div id="embedding" class="section level4">
 <h4>Embedding:</h4>
 <hr />

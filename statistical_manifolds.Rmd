@@ -85,6 +85,111 @@ with $T=\text{diag}(S1).$
 3. Calculate smallest eigenvectors of $L,$ labelled $\psi^{1,\dots,m}.$
 4. Cordinates of $p\in \mathcal D$ are $\psi^1(p),\psi^2(p),\dots,\psi^m(p).$
 
+
+---
+
+#### Example of Graph Laplacian in R:
+
+---
+
+
+```{R}
+require(igraph)
+g <- graph(edges=c('Alice','Sam','Sam','David','David','Alice','Frank','David','Frank','Paul','Paul','Tom','Tom','Frank'), directed = FALSE)
+plot(g)
+laplacian_matrix(g)
+```
+
+Reading out the output:
+
+From the linear algebra explanation by Professor Strang in [here](https://youtu.be/cxTmmasBiC8), and [this post](https://math.stackexchange.com/a/4095061/152225).
+
+
+##### Degree Matrix:
+
+A square matrix with nodes in rows and columns.
+
+This is the diagonal in the Laplacian graph matrix. It says that node `Alice` has $2$ edges going in; `Sam` has $2$ edges going in; `David` and `Frank` have $3$ edges; and `Paul` and `Tom` have $2.$
+
+That is to say:
+
+$$D=\begin{bmatrix}
+&\text{Alice}&\text{Sam}&\text{David}&\text{Frank}&\text{Paul}&\text{Tom}\\
+\text{Alice}&2&0&0&0&0&0\\
+\text{Sam} &0&2&0&0&0&0\\
+\text{David}&0&0&3&0&0&0\\
+\text{Frank}&0&0&0&3&0&0\\
+\text{Paul}&0&0&0&0&2&0\\
+\text{Tom}&0&0&0&0&0&2
+\end{bmatrix}
+$$
+
+##### Adjacency Matrix:
+
+A square matrix of nodes.
+
+This is the off-diagonal, and tells us which node is connected to which. So no nodes are connected to themselves. In the case at hand, `Alice` is connected to `Sam` and `David`; `Sam` is connected to `Alice` and `David`; `David` is connected to `Alice`, `Sam` and `Frank`, etc. So the adjacency matrix is:
+
+$$A = \begin{bmatrix}
+&\text{Alice}&\text{Sam}&\text{David}&\text{Frank}&\text{Paul}&\text{Tom}\\
+\text{Alice}&0&1&1&0&0&0\\
+\text{Sam} &1&0&1&0&0&0\\
+\text{David}&1&1&0&1&0&0\\
+\text{Frank}&0&0&1&0&1&1\\
+\text{Paul}&0&0&0&1&0&1\\
+\text{Tom}&0&0&0&1&1&0
+\end{bmatrix}
+$$
+
+----
+
+**Laplacian Matrix:**
+
+$$\cal L =D-A= \begin{bmatrix}
+&\text{Alice}&\text{Sam}&\text{David}&\text{Frank}&\text{Paul}&\text{Tom}\\
+\text{Alice}&2&-1&-1&0&0&0\\
+\text{Sam} &-1&2&-1&0&0&0\\
+\text{David}&-1&-1&3&-1&0&0\\
+\text{Frank}&0&0&-1&3&-1&-1\\
+\text{Paul}&0&0&0&-1&2&-1\\
+\text{Tom}&0&0&0&-1&-1&2
+\end{bmatrix}
+$$
+
+$$ L = \text{Degree Mat (Diagonal) - Adjacency}$$
+The matrix in the output (explaining the negative signs).
+
+The Laplacian matrix is positive semidefinite Gramian matrix of the $A^\top A$ type resulting from the multiplication of the transpose of the **incidence** matrix times itself:
+
+The incidence matrix is rectangular with edges on the rows and nodes in the columns:
+
+$$I = \begin{bmatrix}
+&\text{Alice}&\text{Sam}&\text{David}&\text{Frank}&\text{Paul}&\text{Tom}\\
+\text{e1}&-1&0&1&0&0&0\\
+\text{e2} &-1&1&0&0&0&0\\
+\text{e3}&0&-1&1&0&0&0\\
+\text{e4}&0&0&-1&1&0&0\\
+\text{e5}&0&0&0&-1&1&0\\
+\text{e6}&0&0&0&-1&1&0\\
+\text{e7}&0&0&0&0&-1&1
+\end{bmatrix}
+$$
+For instance, the first row says that there is an edge leaving `Alice` and going to `David`. The second row denotes the edge from `Alice` to `Sam`, etc.
+
+Running the $A^\top A$ operation:
+
+```{R}
+I = matrix(c(-1,0,1,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,0,0,-1,1,0,0,0,0,0,-1,1),nrow=7,byrow = T)
+
+# Now we recover the Laplacian:
+
+(Laplacian = t(I) %*% I)
+eigen(Laplacian)
+```
+
+The last but one eigenvector is the Fiedler vector: $\begin{bmatrix}-0.44&-0.44&-0.27&0.18&0.37&0.61\end{bmatrix}^\top$ which separates the negatives nodes (`Alice`, `Sam`, `David`) from the positive nodes (`Frank`, `Paul`,`Tom`) - two perfectly separate clusters!
+
+
 ---
 
 #### Embedding:
