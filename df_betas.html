@@ -550,8 +550,8 @@ deviance and single case deletions. Applied Statistics 36, 181–191</p>
 <p>which I think may be one of the references in the R documentation
 under the package <strong>{stats}</strong>. There the formula for
 <strong><em>dfbetas</em></strong> is:</p>
-<p><span class="math inline">\(\large dfbetas (i,fit) = \Large {(\hat{b}
-- \hat{b_{-i}})\over SE\, \hat{b_{-i}}}\)</span></p>
+<p><span class="math display">\[ \text{dfbetas (i,fit)} =  {(\hat{b} -
+\hat{b}_{-i})\over \text{SE }\, \hat{b}_{-i}}\]</span></p>
 <p>This could be easily calculated in R:</p>
 <pre><code>(fit1$coef[2] - fit2$coef[2])/summary(fit2)$coef[4]</code></pre>
 <p>yielding: <code>-6.79799</code></p>

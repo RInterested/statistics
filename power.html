@@ -11,7 +11,7 @@
 
 
 
-<title>power calculation</title>
+<title>Statistical Power Calculation</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -377,7 +377,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">power calculation</h1>
+<h1 class="title toc-ignore">Statistical Power Calculation</h1>
 
 </div>
 
@@ -392,6 +392,8 @@ MATHEMATICS</strong></h3>
 <div id="power-calculation" class="section level3">
 <h3>Power Calculation:</h3>
 <hr />
+<p>See also <a href="https://rinterested.github.io/statistics/sample_size.html">this
+post</a>.</p>
 <p><em>Motivating scenario: Meta-alpha protein (MAP) levels of 25 mg/mL
 are considered top normal in the population at large (<span class="math inline">\(\mu_o\)</span>). However, we are studying a group
 of 20 (<span class="math inline">\(n=20\)</span>) subjects with a severe
@@ -556,7 +558,7 @@ chisqr &lt;- rchisq(simuls, df = n - 1)
 t &lt;- qt(.95, n - 1)
 # The power is:
 mean(Z + sqrt(n) * (mu_a - mu_0) / sigma &gt; t / sqrt(n - 1) * sqrt(chisqr))</code></pre>
-<pre><code>## [1] 0.827</code></pre>
+<pre><code>## [1] 0.8278</code></pre>
 <p>Compare to built-in formulas (equivalent to
 <code>sample.prop.test</code> for proportions):</p>
 <pre class="r"><code>power.t.test(n = 20, delta = mu_a - mu_0, sd = sigma, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)</code></pre>
