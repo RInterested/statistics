@@ -405,16 +405,18 @@ MATHEMATICS</strong></h3>
 attach(hsb2)
 
 names(hsb2)</code></pre>
-</div>
-<div id="s-one-dependent-variable" class="section level2">
-<h2><span class="math inline">\(\S\)</span> ONE DEPENDENT VARIABLE:</h2>
 <hr />
-<div id="dagger-zero-independent-variables" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> ZERO INDEPENDENT
-VARIABLES:</h3>
-<p><br></p>
+</div>
+<div id="one-dependent-variable" class="section level2">
+<h2>1. <strong>ONE DEPENDENT VARIABLE:</strong></h2>
+<hr />
+<div id="zero-independent-variables-one-population" class="section level3">
+<h3>1.1. ZERO INDEPENDENT VARIABLES (one population):</h3>
+<hr />
 <div id="interval-and-normal-dependent-variable-one-sample-t-test" class="section level4">
-<h4>INTERVAL and NORMAL DEPENDENT VARIABLE: one-sample t test</h4>
+<h4>1.1.1. INTERVAL and NORMAL DEPENDENT VARIABLE: one-sample t
+test</h4>
+<hr />
 <p>A one sample t-test allows us to test whether a sample mean (of a
 normally distributed interval variable) significantly differs from a
 hypothesized value.</p>
@@ -440,7 +442,8 @@ significantly higher mean on the writing test than 50.</p>
 <hr />
 </div>
 <div id="ordinal-or-interval-one-sample-median-test" class="section level4">
-<h4>ORDINAL or INTERVAL: one-sample median test</h4>
+<h4>1.1.2. ORDINAL or INTERVAL: one-sample median test</h4>
+<hr />
 <p>A one sample median test allows us to test whether a sample median
 differs significantly from a hypothesized value. We will use the same
 variable, write, as we did in the one sample t-test example above, but
@@ -460,7 +463,8 @@ group is statistically significantly different from 50.</p>
 <hr />
 </div>
 <div id="categorical-2-categories-binomial-test" class="section level4">
-<h4>CATEGORICAL (2 categories): Binomial test</h4>
+<h4>1.1.3. CATEGORICAL (2 categories): Binomial test</h4>
+<hr />
 <p>A one sample binomial test allows us to test whether the proportion
 of successes on a two-level categorical dependent variable significantly
 differs from a hypothesized value. For example, using the hsb2 data
@@ -488,14 +492,14 @@ not significantly differ from the hypothesized value of 50%.</p>
 <hr />
 </div>
 <div id="categorical-chi-square-goodness-of-fit" class="section level4">
-<h4>CATEGORICAL: Chi-square goodness-of-fit</h4>
+<h4>1.1.4. CATEGORICAL: Chi-square goodness-of-fit</h4>
+<hr />
 <p>A chi-square goodness of fit test allows us to test whether the
 observed proportions for a categorical variable differ from hypothesized
 proportions. For example, let’s suppose that we believe that the general
 population consists of 10% Hispanic, 10% Asian, 10% African American and
-70% White folks. We want to test whether the observed proportions from
-our sample differ significantly from these hypothesized proportions.
-T</p>
+70% White folks We want to test whether the observed proportions from
+our sample differ significantly from these hypothesized proportions.</p>
 <pre class="r"><code>prop.table(table(race))</code></pre>
 <pre><code>## race
 ##     1     2     3     4 
@@ -512,12 +516,13 @@ differ significantly from the hypothesized values that we supplied
 <hr />
 </div>
 </div>
-<div id="dagger-1-independent-variable-with-2-levels-independent-groups" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 1 INDEPENDENT VARIABLE
-with 2 LEVELS (independent groups):</h3>
-<p><br></p>
+<div id="one-independent-variable-with-two-levels-independent-groups" class="section level3">
+<h3>1.2. ONE INDEPENDENT VARIABLE with TWO LEVELS (independent
+groups):</h3>
+<hr />
 <div id="interval-and-normal-2-independent-sample-t-test" class="section level4">
-<h4>INTERVAL and NORMAL: 2 independent sample t-test</h4>
+<h4>1.2.1. INTERVAL and NORMAL: 2 independent sample t-test</h4>
+<hr />
 <p>An independent samples t-test is used when you want to compare the
 means of a normally distributed interval dependent variable for two
 independent groups. For example, using the hsb2 data file, say we wish
@@ -543,7 +548,8 @@ significantly higher mean score on writing (54.99) than males
 <hr />
 </div>
 <div id="ordinal-or-interval-wilcoxon-mann-whitney-test" class="section level4">
-<h4>ORDINAL or INTERVAL: Wilcoxon-Mann Whitney test</h4>
+<h4>1.2.2. ORDINAL or INTERVAL: Wilcoxon-Mann Whitney test</h4>
+<hr />
 <p>The Wilcoxon-Mann-Whitney test is a non-parametric analog to the
 independent samples t-test and can be used when you do not assume that
 the dependent variable is a normally distributed interval variable (you
@@ -568,7 +574,8 @@ female group had higher rank.</p>
 <hr />
 </div>
 <div id="categorical-chi-square-test-and-fishers-exact-test" class="section level4">
-<h4>CATEGORICAL: Chi-square test and Fisher’s exact test</h4>
+<h4>1.2.3. CATEGORICAL: Chi-square test and Fisher’s exact test</h4>
+<hr />
 <p>A chi-square test is used when you want to see if there is a
 relationship between two categorical variables. Using the hsb2 data
 file, let’s see if there is a relationship between the type of school
@@ -627,12 +634,13 @@ p-value directly.</p>
 <hr />
 </div>
 </div>
-<div id="dagger-1-independent-variable-with-2-or-more-levels-independent-groups" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 1 INDEPENDENT VARIABLE
-with 2 or more LEVELS (independent groups):</h3>
-<p><br></p>
+<div id="one-independent-variable-with-two-or-more-levels-independent-groups" class="section level3">
+<h3>1.3. ONE INDEPENDENT VARIABLE with TWO or more LEVELS (independent
+groups):</h3>
+<hr />
 <div id="interval-normal-one-way-anova" class="section level4">
-<h4>INTERVAL &amp; NORMAL: one-way ANOVA</h4>
+<h4>1.3.1. INTERVAL &amp; NORMAL: one-way ANOVA:</h4>
+<hr />
 <p>A one-way analysis of variance (ANOVA) is used when you have a
 categorical independent variable (with two or more categories) and a
 normally distributed interval dependent variable and you wish to test
@@ -670,7 +678,8 @@ prog.)</p>
 <hr />
 </div>
 <div id="ordinal-or-interval-kruskal-wallis" class="section level4">
-<h4>ORDINAL or INTERVAL: Kruskal Wallis</h4>
+<h4>1.3.2. ORDINAL or INTERVAL: Kruskal Wallis</h4>
+<hr />
 <p>The Kruskal Wallis test is used when you have one independent
 variable with two or more levels and an ordinal dependent variable. In
 other words, it is the non-parametric version of ANOVA and a generalized
@@ -691,13 +700,19 @@ without ties, the results indicate that there is a statistically
 significant difference among the three type of programs.</p>
 <hr />
 </div>
+<div id="categorical-chi-square-test" class="section level4">
+<h4>1.3.3. CATEGORICAL: Chi square test</h4>
+<hr />
+<hr />
 </div>
-<div id="dagger-1-independent-variable-with-2-levels-dependentmatched-groups" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 1 INDEPENDENT VARIABLE
-with 2 levels (dependent/matched groups):</h3>
-<p><br></p>
+</div>
+<div id="one-independent-variable-with-two-levels-dependentmatched-groups" class="section level3">
+<h3>1.4. ONE INDEPENDENT VARIABLE with TWO levels (dependent/matched
+groups):</h3>
+<hr />
 <div id="interval-normal-paired-t-test" class="section level4">
-<h4>INTERVAL &amp; NORMAL: paired t-test</h4>
+<h4>1.4.1. INTERVAL &amp; NORMAL: paired t-test:</h4>
+<hr />
 <p>A paired (samples) t-test is used when you have two related
 observations (i.e. two observations per subject) and you want to see if
 the means on these two normally distributed interval variables differ
@@ -718,9 +733,11 @@ whether the mean of read is equal to the mean of write.</p>
 <p>These results indicate that the mean of read is not statistically
 significantly different from the mean of write (t = -0.8673, p =
 0.3868).</p>
+<hr />
 </div>
 <div id="ordinal-or-interval-wilcoxon-signed-rank-test" class="section level4">
-<h4>ORDINAL or INTERVAL: Wilcoxon signed rank test</h4>
+<h4>1.4.2. ORDINAL or INTERVAL: Wilcoxon signed rank test</h4>
+<hr />
 <p>Mann–Whitney U test (also called the Mann–Whitney–Wilcoxon (MWW),
 Wilcoxon rank-sum test, or Wilcoxon–Mann–Whitney test) is a
 nonparametric test of the null hypothesis that it is equally likely that
@@ -787,7 +804,8 @@ you may want to consider a sign test in lieu of sign rank test.</p>
 <hr />
 </div>
 <div id="categorical-mcnemar-test" class="section level4">
-<h4>CATEGORICAL: McNemar test</h4>
+<h4>1.4.3. CATEGORICAL: McNemar test:</h4>
+<hr />
 <p>You would perform McNemar’s test if you were interested in the
 marginal frequencies of two binary outcomes. These binary outcomes may
 be the same outcome variable on matched pairs (like a case-control
@@ -816,12 +834,13 @@ correct/incorrect answers to these two questions.</p>
 <hr />
 </div>
 </div>
-<div id="dagger-1-independent-variable-with-2-or-more-levels-dependentmatched-groups" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 1 INDEPENDENT VARIABLE
-with 2 or more levels (dependent/matched groups)</h3>
-<p><br></p>
+<div id="one-independent-variable-with-two-or-more-levels-dependentmatched-groups" class="section level3">
+<h3>1.5. ONE INDEPENDENT VARIABLE with TWO or more levels
+(dependent/matched groups)</h3>
+<hr />
 <div id="interval-normal-one-way-repeated-measures-anova" class="section level4">
-<h4>INTERVAL &amp; NORMAL: one-way repeated measures ANOVA</h4>
+<h4>1.5.1. INTERVAL &amp; NORMAL: one-way repeated measures ANOVA:</h4>
+<hr />
 <p>You would perform a one-way repeated measures analysis of variance if
 you had one categorical independent variable and a normally distributed
 interval dependent variable that was repeated at least twice for each
@@ -862,9 +881,11 @@ the three other p-values offer various corrections (the Huynh-Feldt,
 H-F, Greenhouse-Geisser, G-G and Box’s conservative, Box). No matter
 which p-value you use, our results indicate that we have a statistically
 significant effect of a at the .05 level.</p>
+<hr />
 </div>
 <div id="ordinal-or-interval-friedman-test" class="section level4">
-<h4>ORDINAL or INTERVAL: Friedman test</h4>
+<h4>1.5.2. ORDINAL or INTERVAL: Friedman test:</h4>
+<hr />
 <p>You perform a Friedman test when you have one within-subjects
 independent variable with two or more levels and a dependent variable
 that is not interval and normally distributed (but at least ordinal). We
@@ -884,8 +905,9 @@ distributions of the three types of scores are different.</p>
 <hr />
 </div>
 <div id="categorical-2-categories-repeated-measures-logistic-regression" class="section level4">
-<h4>CATEGORICAL (2 categories): repeated measures logistic
+<h4>1.5.3. CATEGORICAL (2 categories): repeated measures logistic
 regression</h4>
+<hr />
 <p>If you have a binary outcome measured repeatedly for each subject and
 you wish to run a logistic regression that accounts for the effect of
 these multiple measures from each subjects, you can perform a repeated
@@ -957,12 +979,12 @@ library(lmerTest)</code></pre>
 <hr />
 </div>
 </div>
-<div id="dagger-2-or-more-independent-variables-independent-groups" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 2 or more INDEPENDENT
-VARIABLES (independent groups):</h3>
-<p><br></p>
+<div id="two-or-more-independent-variables-independent-groups" class="section level3">
+<h3>1.6. TWO or more INDEPENDENT VARIABLES (independent groups):</h3>
+<hr />
 <div id="interval-normal-factorial-anova" class="section level4">
-<h4>INTERVAL &amp; NORMAL: factorial ANOVA</h4>
+<h4>1.6.1. INTERVAL &amp; NORMAL: factorial ANOVA</h4>
+<hr />
 <p>A factorial ANOVA has two or more categorical independent variables
 (either with or without the interactions) and a single normally
 distributed interval dependent variable. For example, using the hsb2
@@ -1011,9 +1033,11 @@ significant (F = 9.2, p = 0.000). The variables female and ses are also
 statistically significant (F = 14.7212, p = 0.0001 and F = 13.0454, p =
 0.0003, respectively). However, that interaction between female and ses
 is not statistically significant (F = 0.0005, p = 0.982).</p>
+<hr />
 </div>
 <div id="ordinal-interval-ordered-logistic-regression" class="section level4">
-<h4>ORDINAL &amp; INTERVAL: ordered logistic regression</h4>
+<h4>1.6.2. ORDINAL &amp; INTERVAL: ordered logistic regression:</h4>
+<hr />
 <p>Ordered logistic regression is used when the dependent variable is
 ordered, but not continuous. For example, using the hsb2 data file we
 will create an ordered variable called write3. This variable will have
@@ -1065,8 +1089,9 @@ describe the relationship between each pair of outcome groups.</p>
 <hr />
 </div>
 <div id="categorical-2-categories-factorial-logistic-regression" class="section level4">
-<h4>CATEGORICAL (2 categories): factorial logistic regression</h4>
-<p><br></p>
+<h4>1.6.3. CATEGORICAL (2 categories): factorial logistic
+regression</h4>
+<hr />
 <p>A factorial logistic regression is used when you have two or more
 categorical independent variables but a dichotomous dependent variable.
 For example, using the hsb2 data file we will use female as our
@@ -1106,11 +1131,13 @@ significant. Furthermore, none of the coefficients are statistically
 significant either.</p>
 <hr />
 </div>
-<div id="dagger-1-interval-iv" class="section level4">
-<h4><span class="math inline">\(\dagger\)</span> 1 interval IV:</h4>
 </div>
+<div id="one-interval-iv" class="section level3">
+<h3>1.7. ONE INTERVAL IV:</h3>
+<hr />
 <div id="interval-normal-correlation" class="section level4">
-<h4>INTERVAL &amp; NORMAL: Correlation</h4>
+<h4>1.7.1. INTERVAL &amp; NORMAL: Correlation:</h4>
+<hr />
 <p>A correlation is useful when you want to see the linear relationship
 between two (or more) normally distributed interval variables. For
 example, using the hsb2 data file we can run a correlation between two
@@ -1159,7 +1186,8 @@ variability with write.</p>
 <hr />
 </div>
 <div id="interval-normal-simple-linear-regression" class="section level4">
-<h4>INTERVAL &amp; NORMAL: Simple linear regression</h4>
+<h4>1.7.2. INTERVAL &amp; NORMAL: Simple linear regression:</h4>
+<hr />
 <p>Simple linear regression allows us to look at the linear relationship
 between one normally distributed interval predictor and one normally
 distributed interval outcome variable. For example, using the hsb2 data
@@ -1198,9 +1226,11 @@ read.</p>
 would conclude this relationship is statistically significant. Hence, we
 would say there is a statistically significant positive linear
 relationship between reading and writing.</p>
+<hr />
 </div>
 <div id="ordinal-or-interval-non-parametric-correlation" class="section level4">
-<h4>ORDINAL or INTERVAL: non-parametric correlation</h4>
+<h4>1.7.3. ORDINAL or INTERVAL: non-parametric correlation:</h4>
+<hr />
 <p>A Spearman correlation is used when one or both of the variables are
 not assumed to be normally distributed and interval (but are assumed to
 be ordinal). The values of the variables are converted in ranks and then
@@ -1224,7 +1254,8 @@ and interval.</p>
 <hr />
 </div>
 <div id="categorical-simple-logistic-regression" class="section level4">
-<h4>CATEGORICAL: simple logistic regression</h4>
+<h4>1.7.4. CATEGORICAL: simple logistic regression:</h4>
+<hr />
 <p>Logistic regression assumes that the outcome variable is binary
 (i.e., coded as 0 and 1). We have only one variable in the hsb2 data
 file that is coded 0 and 1, and that is female. We understand that
@@ -1274,12 +1305,13 @@ significant, LR chi-squared 0.56, p = 0.4527.</p>
 <hr />
 </div>
 </div>
-<div id="dagger-1-or-more-interval-ivs-andor-1-or-more-categorical-ivs" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 1 or more interval IVs
-and/or 1 or more categorical IVs:</h3>
-<p><br></p>
+<div id="one-or-more-interval-ivs-andor-one-or-more-categorical-ivs" class="section level3">
+<h3>1.8. ONE or MORE INTERVAL IVs and/or ONE or MORE CATEGORICAL
+IVs:</h3>
+<hr />
 <div id="interval-and-normal-multiple-regression" class="section level4">
-<h4>INTERVAL and NORMAL: Multiple regression</h4>
+<h4>1.8.1.1. INTERVAL and NORMAL: Multiple regression:</h4>
+<hr />
 <p>Multiple regression is very similar to simple regression, except that
 in multiple regression you have more than one predictor variable in the
 equation. For example, using the hsb2 data file we will predict writing
@@ -1322,7 +1354,8 @@ variables are statistically significant except for read.</p>
 <hr />
 </div>
 <div id="interval-and-normal-analysis-of-covariance-ancova" class="section level4">
-<h4>INTERVAL and NORMAL: Analysis of covariance ANCOVA</h4>
+<h4>1.8.1.2 INTERVAL and NORMAL: Analysis of covariance ANCOVA:</h4>
+<hr />
 <p>Analysis of covariance is like ANOVA, except in addition to the
 categorical predictors you also have continuous predictors as well. For
 example, the one way ANOVA example used write as the dependent variable
@@ -1362,7 +1395,8 @@ variable to this model, as shown below.</p>
 <hr />
 </div>
 <div id="categorical-multiple-logistic-regression" class="section level4">
-<h4>CATEGORICAL: multiple logistic regression</h4>
+<h4>1.8.2.1. CATEGORICAL: multiple logistic regression:</h4>
+<hr />
 <p>Multiple logistic regression is like simple logistic regression,
 except that there are two or more predictors. The predictors can be
 interval variables or dummy variables, but cannot be categorical
@@ -1389,7 +1423,8 @@ predictors of female.</p>
 <hr />
 </div>
 <div id="categorical-discriminant-analysis" class="section level4">
-<h4>CATEGORICAL: discriminant analysis</h4>
+<h4>1.8.2.2. CATEGORICAL: discriminant analysis:</h4>
+<hr />
 <p>Discriminant analysis is used when you have one or more normally
 distributed interval independent variables and a categorical dependent
 variable. It is a multivariate technique that considers the latent
@@ -1426,17 +1461,16 @@ than the second.</p>
 <hr />
 </div>
 </div>
-<div id="s-two-or-more-dependent-variables" class="section level3">
-<h3><span class="math inline">\(\S\)</span> TWO OR MORE DEPENDENT
-VARIABLES:</h3>
-<hr />
 </div>
-<div id="dagger-1-iv-with-2-or-more-levels-independent-groups" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 1 IV with 2 or more
-levels (independent groups)</h3>
-<p><br></p>
+<div id="two-or-more-dependent-variables" class="section level2">
+<h2>2. <strong>TWO OR MORE DEPENDENT VARIABLES:</strong></h2>
+<hr />
+<div id="one-iv-with-two-or-more-levels-independent-groups" class="section level3">
+<h3>2.1. ONE IV with TWO or MORE levels (independent groups):</h3>
+<hr />
 <div id="interval-and-normal-one-way-manova" class="section level4">
-<h4>INTERVAL and NORMAL: One-way MANOVA</h4>
+<h4>2.1.1. INTERVAL and NORMAL: One-way MANOVA:</h4>
+<hr />
 <p>MANOVA (multivariate analysis of variance) is like ANOVA, except that
 there are two or more dependent variables. In a one-way MANOVA, there is
 one categorical independent variable and two or more dependent
@@ -1454,11 +1488,13 @@ programs differ in their joint distribution of read, write and math.</p>
 <hr />
 </div>
 </div>
-<div id="dagger-2" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 2 +</h3>
-<p><br></p>
+<div id="two-independent-variables" class="section level3">
+<h3>2.2. TWO + INDEPENDENT VARIABLES:</h3>
+<hr />
 <div id="interval-and-normal-multivariate-multiple-linear-regression" class="section level4">
-<h4>INTERVAL and NORMAL: multivariate multiple linear regression</h4>
+<h4>2.2.1. INTERVAL and NORMAL: multivariate multiple linear
+regression:</h4>
+<hr />
 <p>Multivariate multiple regression is used when you have two or more
 dependent variables that are to be predicted from two or more predictor
 variables. In our example, we will predict write and read from female,
@@ -1553,11 +1589,11 @@ the joint distribution of write and read.</p>
 <hr />
 </div>
 </div>
-<div id="dagger-0" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> 0</h3>
-<p><br></p>
+<div id="zero-independent-variables" class="section level3">
+<h3>2.3. ZERO INDEPENDENT VARIABLES:</h3>
+<hr />
 <div id="interval-and-normal-factor-analysis" class="section level4">
-<h4>INTERVAL and NORMAL: factor analysis</h4>
+<h4>2.3.1. INTERVAL and NORMAL: factor analysis:</h4>
 <p>Factor analysis is a form of exploratory multivariate analysis that
 is used to either reduce the number of variables in a model or to detect
 relationships among variables. All variables involved in the factor
@@ -1613,14 +1649,15 @@ various test scores.</p>
 </div>
 </div>
 </div>
-<div id="s-two-sets-of-2" class="section level2">
-<h2><span class="math inline">\(\S\)</span> TWO SETS OF 2 +:</h2>
+<div id="two-sets-of-two-dependent-variables" class="section level2">
+<h2>3. <strong>TWO SETS OF TWO + DEPENDENT VARIABLES</strong></h2>
 <hr />
-<div id="dagger-o" class="section level3">
-<h3><span class="math inline">\(\dagger\)</span> O</h3>
-<p><br></p>
+<div id="zero-independent-variables-1" class="section level3">
+<h3>3.1. ZERO INDEPENDENT VARIABLES:</h3>
+<hr />
 <div id="interval-and-normal-canonical-correlation" class="section level4">
-<h4>INTERVAL and NORMAL: canonical correlation</h4>
+<h4>3.1.1. INTERVAL and NORMAL: canonical correlation:</h4>
+<hr />
 <p>Canonical correlation is a multivariate technique used to examine the
 relationship between two groups of variables. For each set of variables,
 it creates latent variables and looks at the relationships among the
