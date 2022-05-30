@@ -20,6 +20,10 @@ output:
 
 ---
 
+#### Autocorrelation Function (ACF):
+
+---
+
 
 The [ACF](https://en.wikipedia.org/wiki/Autocorrelation) is rather straightforward: we have a time series, and basically make multiple "copies" (as in "copy and paste") of it, understanding that each copy is going to be offset by one entry from the prior copy, because the initial data contains $t$ data points, while the previous time series length (which excludes the last data point) is only $t-1$. We can make virtually as many copies as there are rows. Each copy is correlated to the original, keeping in mind that we need identical lengths, and to this end, we'll have to keep on clipping the tail end of the initial data series to make them comparable. For instance, to correlate the initial data to $ts_{t-3}$ we'll need to get rid of the last $3$ data points of the original time series (the first $3$ chronologically).
 
@@ -97,7 +101,11 @@ Here there are multiple, progressively offset sequences that are correlated, dis
 
 In the telephone game analogy introduced below to explain PACF, "CV is cool!" is not completely different than "Naomi has a pool". From the noise point of view, the rhymes are still there all the way to the beginning of the game.
 
-----------
+---
+
+#### Partial ACF (PACF):
+
+---
 
 
 OK. That was successful. On to the [PACF](https://en.wikipedia.org/wiki/Partial_autocorrelation_function). Much more tricky to hack... The idea here is to again clone the initial ts a bunch of times, and then select multiple time points. However, instead of just correlating with the initial time series, we put together all the lags in-between, and perform a regression analysis, so that the variance explained by the previous time points can be excluded (controlled). For example, if we are focusing on the PACF ending at time $ts_{t-4}$, we keep $ts_t$, $ts_{t-1}$, $ts_{t-2}$ and $ts_{t-3}$, as well as $ts_{t-4}$, and we regress $ts_t \sim ts_{t-1} + ts_{t-2} + ts_{t-3}+ts_{t-4}$ **through** the origin and keeping only the coefficient for $ts_{t-4}$:

@@ -11,7 +11,7 @@
 
 
 
-<title>ANOVA testing OLS</title>
+<title>ANOVA of OLS Models (RSS &amp; Square)</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -377,7 +377,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">ANOVA testing OLS</h1>
+<h1 class="title toc-ignore">ANOVA of OLS Models (RSS &amp; Square)</h1>
 
 </div>
 
@@ -432,7 +432,9 @@ Model 2: mpg ~ wt + qsec
 <p>I won’t enter into a lengthy explanation of what these values
 signify, but seeing where they come from will probably help you.</p>
 <hr />
-<p><strong>DEGREES OF FREEDOM:</strong></p>
+<div id="degrees-of-freedom" class="section level4">
+<h4>DEGREES OF FREEDOM:</h4>
+<hr />
 <p><strong>1. Error or Residual Degrees of Freedom:</strong> We see them
 in the output of the <code>anova</code> call as <code>Res. Df 30</code>
 and <code>Res. Df 29</code>. They are calculated as:</p>
@@ -452,7 +454,10 @@ between <span class="math inline">\(\text{model unconstrained df} -
 constraints, shown on the output of the anova table as
 <code>Df 1</code>.</p>
 <hr />
-<p><strong>RESIDUAL SUM OF SQUARES &amp; R SQUARED:</strong></p>
+</div>
+<div id="residual-sum-of-squares-r-squared" class="section level4">
+<h4>RESIDUAL SUM OF SQUARES &amp; R SQUARED:</h4>
+<hr />
 <p>Let’s calculate the <strong>RSS</strong> (<a href="https://en.wikipedia.org/wiki/Residual_sum_of_squares">residual
 sum of squares</a>), also known as sum of squared errors (SSE), and the
 <strong>F value</strong>. To do so these are the pertinent manual
@@ -489,7 +494,10 @@ summary(fit1)$r.square 0.7528328</p>
 <p><code>R.sq_fit2</code> <span class="math inline">\(\color{blue}{0.8264161}\)</span> Compare to
 summary(fit2)$r.square 0.8264161</p>
 <hr />
-<p><strong>F VALUE:</strong></p>
+</div>
+<div id="f-value" class="section level4">
+<h4>F VALUE:</h4>
+<hr />
 <pre><code>n &lt;- nrow(mtcars)                               # Number of subjects or observations
 
 Constraints &lt;- 1                 # Constraints imposed or difference in iv&#39;s fit2 vs. fit1
@@ -526,6 +534,7 @@ here</a>)</p>
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 

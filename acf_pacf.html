@@ -392,6 +392,9 @@ MATHEMATICS</strong></h3>
 <div id="time-series-plots-acf-and-pacf" class="section level3">
 <h3>Time series plots ACF and PACF:</h3>
 <hr />
+<div id="autocorrelation-function-acf" class="section level4">
+<h4>Autocorrelation Function (ACF):</h4>
+<hr />
 <p>The <a href="https://en.wikipedia.org/wiki/Autocorrelation">ACF</a>
 is rather straightforward: we have a time series, and basically make
 multiple “copies” (as in “copy and paste”) of it, understanding that
@@ -478,6 +481,11 @@ is cool!” is not completely different than “Naomi has a pool”. From the
 noise point of view, the rhymes are still there all the way to the
 beginning of the game.</p>
 <hr />
+</div>
+</div>
+<div id="partial-acf-pacf" class="section level4">
+<h4>Partial ACF (PACF):</h4>
+<hr />
 <p>OK. That was successful. On to the <a href="https://en.wikipedia.org/wiki/Partial_autocorrelation_function">PACF</a>.
 Much more tricky to hack… The idea here is to again clone the initial ts
 a bunch of times, and then select multiple time points. However, instead
@@ -516,7 +524,6 @@ keeping only the coefficient for <span class="math inline">\(ts_{t-4}\)</span>:<
 <p>That the idea is correct, beside probable computational issues, can
 be seen comparing <code>PACF</code> to
 <code>pacf(st.y, plot = F)</code>.</p>
-</div>
 <div id="intuition" class="section level5">
 <h5>Intuition:</h5>
 <blockquote>
@@ -557,6 +564,7 @@ itself.</p>
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 </div>
 

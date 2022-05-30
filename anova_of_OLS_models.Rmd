@@ -1,5 +1,5 @@
 ---
-title: 'ANOVA testing OLS'
+title: 'ANOVA of OLS Models (RSS & Square)'
 output: 
   html_document:
     theme: readable
@@ -43,6 +43,7 @@ Notice that `fit1` is a ***constrained*** model in the way that we force the reg
 ---
 
 ### ANOVA:
+
 ___
 
 
@@ -61,7 +62,9 @@ I won't enter into a lengthy explanation of what these values signify, but seein
 
 ---
 
-**DEGREES OF FREEDOM:**
+#### DEGREES OF FREEDOM:
+
+---
 
 **1. Error or Residual Degrees of Freedom:** We see them in the output of the `anova` call as `Res. Df 30` and `Res. Df 29`. They are calculated as:
 
@@ -76,7 +79,9 @@ $\text{no. observations} - \text{no. indepen't variables} - 1 = 32 - 1 - 1 = \co
 
 ---
 
-**RESIDUAL SUM OF SQUARES & R SQUARED:**
+#### RESIDUAL SUM OF SQUARES & R SQUARED:
+
+---
 
 Let's calculate the **RSS** ([residual sum of squares](https://en.wikipedia.org/wiki/Residual_sum_of_squares)), also known as sum of squared errors (SSE), and the **F value**. To do so these are the pertinent manual calculations:
 
@@ -127,7 +132,10 @@ $\text{RSS_fit1 - RSS_fit2} = \color{red}{82.85831}$, indicated in the anova tab
 
 ---
 
-**F VALUE:**
+#### F VALUE:
+
+---
+
 
     n <- nrow(mtcars)                               # Number of subjects or observations
     
