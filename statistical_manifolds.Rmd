@@ -188,10 +188,31 @@ I = matrix(c(-1,0,1,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,0,0,0,-1,1,0,0,
 # Now we recover the Laplacian:
 
 (Laplacian = t(I) %*% I)
-eigen(Laplacian)
 ```
 
-The last but one eigenvector is the Fiedler vector: $\begin{bmatrix}-0.44&-0.44&-0.27&0.18&0.37&0.61\end{bmatrix}^\top$ which separates the negatives nodes (`Alice`, `Sam`, `David`) from the positive nodes (`Frank`, `Paul`,`Tom`) - two perfectly separate clusters!
+From which we can extract the eigenvectors and eigenvalues:
+
+```{R}
+eig <- eigen(Laplacian)
+```
+The Laplacian matrix is not positive definite because it is singular, i.e. there is a vector in the null space: $\cal L \vec x= 0.$ This is the vector of all ones, or a multiple. Why? Because in each row of the Laplacian matrix we have summed all the $1$'s created by either $1 \times 1$ or $-1\times -1$ in the dot product of same-node column and placed it in the diagonal, but there'll be an equivalent amount of $-1$'s.
+
+The first eigenvalue will be zero, and the first eigenvector a vector of ones (or multiple):
+
+```{R}
+round(eig$vec[,ncol(eig$vec)],2)
+
+```
+
+
+The last but one eigenvector is the Fiedler vector: $\begin{bmatrix}-0.44&-0.44&-0.27&0.18&0.37&0.61\end{bmatrix}^\top$:
+
+```{R}
+eig <- eigen(Laplacian)
+round(eig$vec[,ncol(eig$vec)-1],2)
+```
+
+which separates the negatives nodes (`Alice`, `Sam`, `David`) from the positive nodes (`Frank`, `Paul`,`Tom`) - two perfectly separate clusters!
 
 
 ---
