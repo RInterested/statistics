@@ -570,18 +570,19 @@ in:</p>
 <strong><em>dfbetas</em></strong>?</p>
 <p>And this is the <a href="http://stats.stackexchange.com/a/141246/67822">answer in
 CV</a>:</p>
-<p><span class="math inline">\(DFBETAS_{k(i)}\)</span> is calculated
-by:</p>
-<p><span class="math inline">\(\Large
-\frac{b_k-b_{k(i)}}{\sqrt{MSE_{(i)}c_{kk}}}\)</span>, for <span class="math inline">\(k\)</span> = 1, 2, . . . , <span class="math inline">\(p\)</span>. <span class="math inline">\(p\)</span>
+<p><span class="math inline">\(\text{DFBETAS}_{k(i)}\)</span> is
+calculated as:</p>
+<p><span class="math display">\[\Large
+\frac{b_k-b_{k(i)}}{\sqrt{\text{MSE}_{(i)}c_{kk}}}\]</span></p>
+<p>for <span class="math inline">\(k\)</span> = 1, 2, . . . , <span class="math inline">\(p\)</span>. <span class="math inline">\(p\)</span>
 is the number of regression parameters or coefficients.</p>
 <p>where <span class="math inline">\(b_k\)</span> is the <span class="math inline">\(k\)</span>th regression coefficient that uses all
 the data and <span class="math inline">\(b_{k(i)}\)</span> is the same
 coefficient with the <span class="math inline">\(i\)</span>th case
-deleted. <span class="math inline">\(MSE_{(i)}\)</span> here is the
-mean-square error from the regression where the <span class="math inline">\(i\)</span> case is deleted and <span class="math inline">\(c_{kk}\)</span> is the <span class="math inline">\(k\)</span>th diagonal element of the unscaled
+deleted. <span class="math inline">\(\text{MSE}_{(i)}\)</span> here is
+the mean-square error from the regression where the <span class="math inline">\(i\)</span> case is deleted and <span class="math inline">\(c_{kk}\)</span> is the <span class="math inline">\(k\)</span>th diagonal element of the unscaled
 covariance matrix <span class="math inline">\((X^{\prime}X)^{-1}\)</span>.</p>
-<p>So you can calculate <span class="math inline">\(DFBETAS_{k(i)}\)</span> manually with the
+<p>So you can calculate <span class="math inline">\(\text{DFBETAS}_{k(i)}\)</span> manually with the
 following R code:</p>
 <pre><code>numerator&lt;-(fit1$coef[2] - fit2$coef[2])
 denominator&lt;-sqrt((summary(fit2)$sigma^2)*diag(summary(fit1)$cov.unscaled)[2])

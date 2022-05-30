@@ -209,13 +209,15 @@ What is the right equation to go from ***dfbeta*** to ***dfbetas***?
 
 And this is the [answer in CV](http://stats.stackexchange.com/a/141246/67822):
 
-$DFBETAS_{k(i)}$ is calculated by:
+$\text{DFBETAS}_{k(i)}$ is calculated as:
 
-$\Large \frac{b_k-b_{k(i)}}{\sqrt{MSE_{(i)}c_{kk}}}$, for $k$ = 1, 2, . . . , $p$. $p$ is the number of regression parameters or coefficients.
+$$\Large \frac{b_k-b_{k(i)}}{\sqrt{\text{MSE}_{(i)}c_{kk}}}$$
 
-where $b_k$ is the $k$th regression coefficient that uses all the data and $b_{k(i)}$ is the same coefficient with the $i$th case deleted.  $MSE_{(i)}$ here is the mean-square error from the regression where the $i$ case is deleted and $c_{kk}$ is the $k$th diagonal element of the unscaled covariance matrix $(X^{\prime}X)^{-1}$.  
+for $k$ = 1, 2, . . . , $p$. $p$ is the number of regression parameters or coefficients.
 
-So you can calculate $DFBETAS_{k(i)}$ manually with the following R code:
+where $b_k$ is the $k$th regression coefficient that uses all the data and $b_{k(i)}$ is the same coefficient with the $i$th case deleted.  $\text{MSE}_{(i)}$ here is the mean-square error from the regression where the $i$ case is deleted and $c_{kk}$ is the $k$th diagonal element of the unscaled covariance matrix $(X^{\prime}X)^{-1}$.  
+
+So you can calculate $\text{DFBETAS}_{k(i)}$ manually with the following R code:
 
     numerator<-(fit1$coef[2] - fit2$coef[2])
     denominator<-sqrt((summary(fit2)$sigma^2)*diag(summary(fit1)$cov.unscaled)[2])
