@@ -1,5 +1,5 @@
 ---
-title: 'Chi-square: Indep & Homogeneity'
+title: 'Chi-square: Independence, Homgeneity'
 output: 
   html_document:
     theme: readable
@@ -54,23 +54,29 @@ $H_a$: $X$ and $Y$ are dependent.
 
 • Homogeneity and independence sound the same. The difference is conceptual:
 
+---
+
 #### Test of independence:
+
+---
 
 1. Observational units are collected at random from a population and two categorical variables are observed for each unit. 
 2. Two variables are observed for each observational unit.
-3. The ***margins are considered fixed***. The test conditions on both margins - ***No cross-multiplication of margins***.
+3. The **margins are considered fixed**. The test conditions on both margins - **No cross-multiplication of margins**.
 
 <br>
       Example:
       
       Couples are sampled and "husband satisfaction" and "wife satisfaction are measured."
 
-<br>
+---
 
 #### Test of homogeneity: 
 
-1. The data are collected by randomly sampling from ***each sub-group separately***. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of ***another categorical variable.*** (Say, "chain smoker", "occasional smoker", "non-smoker".) 
-2. The ***margins of the variables are considered random variables*** distributed normally, and ***we cross-multiply*** to get expected frequencies.
+---
+
+1. The data are collected by randomly sampling from **each sub-group separately**. (Say, 100 blacks, 100 whites, 100 American Indians, and so on.) The null hypothesis is that each sub-group shares the same distribution of **another categorical variable.** (Say, "chain smoker", "occasional smoker", "non-smoker".) 
+2. The **margins of the variables are considered random variables** distributed normally, and **we cross-multiply** to get expected frequencies.
 
 
 <br>
@@ -80,13 +86,7 @@ $H_a$: $X$ and $Y$ are dependent.
       
     2. Relationship between "sex" and "class". Take samples of both genders and check their socioeconomic class.
 
-
-
 ---
-
-### TEST of HOMOGENEITY:
-
-<br>
 
 It is based on the analysis of a cross classification on a contingency table to test the possible dependency or relationship between variables.
 
@@ -106,9 +106,9 @@ The chi square statistic computed from the observed and expected values is calcu
 
 <br>
 
-####  1:
+####  Example 1:
 
-The example given in the [test of proportions entry](http://rinterested.github.io/statistics/tests_of_proportions.html) is a valid example.
+The example given in the [test of proportions entry](http://rinterested.github.io/statistics/tests_of_proportions.html).
 
 <br>
 
@@ -141,11 +141,11 @@ chisq.test(tab)
 
 The independence of sex and class cannot be rejected.
 
-<br>
+---
 
-### TEST of INDEPENDENCE of TWO VARIABLES:
+#### Test of Independence of Two Variables:
 
-<br>
+---
 
 The best illustration is Agresti's example with husband and wife marital satisfaction:
 

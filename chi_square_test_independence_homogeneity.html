@@ -11,7 +11,7 @@
 
 
 
-<title>Chi-square: Indep &amp; Homogeneity</title>
+<title>Chi-square: Independence, Homgeneity</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -377,7 +377,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Chi-square: Indep &amp; Homogeneity</h1>
+<h1 class="title toc-ignore">Chi-square: Independence, Homgeneity</h1>
 
 </div>
 
@@ -451,44 +451,42 @@ smoker”, “occasional smoker”, “non-smoker”).</p>
 <hr />
 <p>• Homogeneity and independence sound the same. The difference is
 conceptual:</p>
+<hr />
 </div>
 <div id="test-of-independence" class="section level4">
 <h4>Test of independence:</h4>
+<hr />
 <ol style="list-style-type: decimal">
 <li>Observational units are collected at random from a population and
 two categorical variables are observed for each unit.</li>
 <li>Two variables are observed for each observational unit.</li>
-<li>The <strong><em>margins are considered fixed</em></strong>. The test
-conditions on both margins - <strong><em>No cross-multiplication of
-margins</em></strong>.</li>
+<li>The <strong>margins are considered fixed</strong>. The test
+conditions on both margins - <strong>No cross-multiplication of
+margins</strong>.</li>
 </ol>
 <p><br> Example:</p>
 <pre><code>  Couples are sampled and &quot;husband satisfaction&quot; and &quot;wife satisfaction are measured.&quot;</code></pre>
-<p><br></p>
+<hr />
 </div>
 <div id="test-of-homogeneity" class="section level4">
 <h4>Test of homogeneity:</h4>
+<hr />
 <ol style="list-style-type: decimal">
-<li>The data are collected by randomly sampling from <strong><em>each
-sub-group separately</em></strong>. (Say, 100 blacks, 100 whites, 100
+<li>The data are collected by randomly sampling from <strong>each
+sub-group separately</strong>. (Say, 100 blacks, 100 whites, 100
 American Indians, and so on.) The null hypothesis is that each sub-group
-shares the same distribution of <strong><em>another categorical
-variable.</em></strong> (Say, “chain smoker”, “occasional smoker”,
+shares the same distribution of <strong>another categorical
+variable.</strong> (Say, “chain smoker”, “occasional smoker”,
 “non-smoker”.)</li>
-<li>The <strong><em>margins of the variables are considered random
-variables</em></strong> distributed normally, and <strong><em>we
-cross-multiply</em></strong> to get expected frequencies.</li>
+<li>The <strong>margins of the variables are considered random
+variables</strong> distributed normally, and <strong>we
+cross-multiply</strong> to get expected frequencies.</li>
 </ol>
 <p><br> Examples:</p>
 <pre><code>1. Patients on drug A and patients in drug B would be sub-groups of the variable (&quot;treatment&quot;), and each assessed for the variable &quot;heartburn&quot;.
   
 2. Relationship between &quot;sex&quot; and &quot;class&quot;. Take samples of both genders and check their socioeconomic class.</code></pre>
 <hr />
-</div>
-</div>
-<div id="test-of-homogeneity-1" class="section level3">
-<h3>TEST of HOMOGENEITY:</h3>
-<p><br></p>
 <p>It is based on the analysis of a cross classification on a
 contingency table to test the possible dependency or relationship
 between variables.</p>
@@ -533,10 +531,11 @@ values is calculated, and if this statistic is inthe region of rejection
 of the null hypothesis, then the assumption of no relationship between
 <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is rejected.</p>
 <p><br></p>
-<div id="section" class="section level4">
-<h4>1:</h4>
+</div>
+<div id="example-1" class="section level4">
+<h4>Example 1:</h4>
 <p>The example given in the <a href="http://rinterested.github.io/statistics/tests_of_proportions.html">test
-of proportions entry</a> is a valid example.</p>
+of proportions entry</a>.</p>
 <p><br></p>
 </div>
 <div id="example-2" class="section level4">
@@ -571,12 +570,11 @@ minus 1, times the number of columns minus 1.</p>
 ## data:  tab
 ## X-squared = 5.3691, df = 3, p-value = 0.1467</code></pre>
 <p>The independence of sex and class cannot be rejected.</p>
-<p><br></p>
+<hr />
 </div>
-</div>
-<div id="test-of-independence-of-two-variables" class="section level3">
-<h3>TEST of INDEPENDENCE of TWO VARIABLES:</h3>
-<p><br></p>
+<div id="test-of-independence-of-two-variables" class="section level4">
+<h4>Test of Independence of Two Variables:</h4>
+<hr />
 <p>The best illustration is Agresti’s example with husband and wife
 marital satisfaction:</p>
 <pre class="r"><code>sex_satis &lt;- matrix(c(7,2,1,2,7,8,5,8,2,3,4,9,3,7,9,14), nrow = 4)
@@ -662,7 +660,7 @@ statistic &lt;- 0
 for(i in 1: 1000){dat[,2] &lt;- sample(dat[,2])
 statistic[i] &lt;- chisq.test(table(dat), correct = F)$statistic}
 (p_value &lt;- length(statistic[statistic&gt;=baseline])/length(statistic))</code></pre>
-<pre><code>## [1] 0.043</code></pre>
+<pre><code>## [1] 0.055</code></pre>
 <p>So, under the assumption of independence (swingers) only in this
 small fraction of case would we obtain such a high chi square value to
 begin with. Hence, we can reject the hypothesis of independence, and
@@ -676,7 +674,7 @@ Fisher’s exact test) with the command:</p>
 ##  replicates)
 ## 
 ## data:  table(data)
-## X-squared = 16.955, df = NA, p-value = 0.05597</code></pre>
+## X-squared = 16.955, df = NA, p-value = 0.04848</code></pre>
 <p>This how <code>simulate.p.value</code> works:</p>
 <p>I realize what follows is not a formal answer to the question, and
 that the majority of users will find it self-evident. However, after
@@ -761,6 +759,7 @@ on the original matrix. This is the <code>PVAL.</code></p>
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 
