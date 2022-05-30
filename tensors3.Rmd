@@ -16,7 +16,7 @@ output:
 
 ---
 
-### Tensors as Multilinear Maps:
+### Tensor Product and Multilinear Maps:
 
 ---
 
@@ -57,6 +57,10 @@ $$\begin{align}\beta\otimes \gamma&:= \beta_0\gamma_0\, e^0\otimes e^0+\beta_0\g
 &=T_{00}\, e^0\otimes e^0+T_{01}\, e^0\otimes e^1 + T_{02}\, e^0\otimes e^2+\cdots+T_{33}\, e^3\otimes e^3\\[2ex]
 &= T_{\mu\nu}\,e^\mu\otimes\,e^\nu
 \end{align}$$
+
+---
+
+#### Tensor Product as the Kronecker product:
 
 ---
 
@@ -166,60 +170,6 @@ But the evaluation of the vectors is not commutative:
     beta %*% v * gamma %*% w
 ```
 
-
----
-
-So in general, maps can be more and more complicated, and for example, 
-$$V\times V\times V^*\times V\times V^* \to \mathbb R$$ 
-would be the set of all possible tensor products of the form $$T_{\mu\;\nu}{}^{\gamma}{}_\rho{}^\eta\quad e^\mu\otimes  e^\nu\otimes e _\gamma\otimes e^\rho \otimes e_\eta$$
-
-with $T_{\mu\;\nu}{}^{\gamma}{}_\rho{}^\eta$ corresponding to the *components* of the tensor, which are the only part usually transcribed (the basis vectors are implicit). Hence, is important to keep the spaces and order of the sub- and supra-scripted Greek letters.
-
-However, there is a system to the madness: The vectors in the tensor product come first by convention: e.g. $V\otimes V^*$ as opposed to $V^* \otimes V.$
-
-The **rank** of a tensor is similarly expressed as $(\text{number of vectors, number of covectors}),$ so that $V\otimes V^* \otimes V^*,$ symbolizes the set of all possible tensors of rank $(1,2):$
-
-
-$$\begin{align}
-T^\mu{}_{\nu\lambda}\left[e_\mu \otimes e^\nu \otimes e^\lambda\right]\left(B_\eta \,e^\eta, A^\delta\,e_\delta,C^\gamma\,e_\gamma\right)&=\langle B_\eta\,e^\eta, e_\mu \rangle\,\langle e^\nu,A^\delta e_\delta \rangle\,\langle e^\lambda, C^\gamma e_\gamma\rangle\\[2ex]
-&=T^\mu{}_{\nu\lambda}\;B_\eta A^\delta C^\gamma \; \langle e^\eta, e_\mu \rangle\,\langle e^\nu, e_\delta \rangle\,\langle e^\lambda,  e_\gamma\rangle\\[2ex]
-&=T^\mu{}_{\nu\lambda}\;B_\eta A^\delta C^\gamma \;\delta^\eta{}_\mu\; \delta^\nu{}_\delta\; \delta^\lambda{}_\gamma\\[2ex]
-&= T^\mu{}_{\nu\lambda}\;B_\mu\, A^\nu\, C^\lambda
-\end{align}$$
-
-with the indexes in the last line of our choice.
-
-A tensor $A$ is a member of the $T^3_2$ tensor product space, i.e. $A\in T^3_2(v),$ if it is of the form $A^{\alpha\beta\gamma}{}_{\mu\nu}\, \underbrace {e_\alpha\otimes e_\beta\otimes e_\gamma}_{\text{basis vecs }\in V}\otimes \underbrace{e^\mu\otimes e^\nu}_{\text{covecs }\in V^*},$ meaning that it would "eat" $3$ covectors and $2$ vectors to produce a real number: $V^*\times V^* \times V^* \times V\times V\to \mathbb R.$ So, $T^{\text{ no. vecs in }\otimes \text{ prod.}}_{\text{ no covecs in the }\otimes}$ or a $(3,2)$-rank tensor.
-
-Here is an example of the "eating" vectors and covectors by a tensor:
-
-$$T^{\alpha\beta\gamma}{}_{\mu\nu}\, \Big [ e_\alpha \otimes e_\beta \otimes e_\gamma\otimes e^\mu\otimes e^\nu\Big ]\left(\underbrace{B_\eta e^\eta, C_\omega e^\omega, F_\epsilon e^\epsilon}_{\text{eats 3 covectors}},\underbrace{Z^\theta e_\theta, Y^\rho e_\rho}_{\text{eats 2 vectors}}\right)\to \mathbb R$$
-
-
-NOTE on the difference between **tensor** and **tensor product** (from the comments by XylyXylyX):
-
->  A "tensor" is an element of a "tensor product space", i.e. $T^i_j\,(v).$ A tensor product space contains elements which are the "tensor product" of vectors and covectors. So a "tensor product" is a multi linear map built using the tensor product operator $(\otimes)$. So a tensor is the tensor product of some vectors and covectors. Keep in mind that a tensor product of rank $(1,0)$ or $(0,1)$ is not really "multi" linear, it is just "linear" but we still call it a tensor, so $V$ and $V^*$ are tensor product spaces but small ones. And rank $(0,0)$ tensor product spaces are just real numbers.
-
-Tensors are multilinear maps, meaning that if we multiply by a scalar any of the entries in $V\times V\times\cdots\times V^*\times V^*\times \cdots \to \mathbb R,$ keeping every other component constant, the result will be multiplied by the same scalar. 
-
-
----
-
-<img WIDTH=600 src="https://cloud.githubusercontent.com/assets/9312897/23579577/46a915b2-00be-11e7-888d-a80818f74b24.png">
-
-
-Bottom line definition:
-
-$$\begin{align}&\left(\mathbf e_1\otimes\mathbf e_2\otimes\dots\otimes\mathbf e_p\otimes\mathbf e^1\otimes\mathbf e^2\otimes\dots\otimes\mathbf e^q\right)  \left({\underbrace{\alpha_1, \alpha_2,\dots,\alpha_p,}_{\text{linear funcitonals }\in V^*}} \underbrace{ \vec v_1,\vec v_2, \dots, \vec v_q}_{\vec v_i\in V}\right)\\[2ex]
-&=\underbrace{\alpha_1(\mathbf e_1)\cdot \alpha_2(\mathbf e_2)\cdot\alpha_p(\mathbf e_p)\;}_{\text{row vec dotted col vec (basis of }V)\text{ and multiplied}}\quad\quad\underbrace{\mathbf e^1(\vec v_1)\cdot\mathbf e^2(\vec v_2)\cdots \mathbf e^q(\vec v_q)}_{\text{ row vecs (basis of V}^*)\text{ dotted with vecs and multiplied}}
-\end{align}$$
-
-
-For instance, $\mathbf e_1=\begin{bmatrix}1\\0\\\vdots\\0\end{bmatrix}$, and $\mathbf e^1=\begin{bmatrix} 1 & 0 & \cdots &0\end{bmatrix}$. Hence, all we are doing is selecting components from either row vectors $(\alpha_1)$ or column vectors $(\vec v_i)$, and then multiplying them.
-
-This would be a tensor space $T^p_{\quad q}(v), $ mapping the Cartesian product of $p$ elements of the dual, $\underbrace{V^* \times V^* \times \cdots}_{p}$ and $q$ elements of $V$, i.e. $\underbrace{\times V \times V\times\cdots}_q$ to $\mathbb R.$
-
-Notice that the components of the vectors are given with superscripts - the opposite to their basis vectors - [vectors are "contravariant"](https://physics.stackexchange.com/a/127510/150551): the longer a component of the basis vectors, the less number of that component vector needed to express any given vector. The gradient would naturally move in the opposite direction. If the components are $x^i$, the gradient is $\partial x_i=\frac{\partial}{\partial x^i}.$
 
 ---
 
@@ -405,7 +355,7 @@ The dimension of the vector space is the cardinality of the basis.
 
 ---
 
-A **MODULE** is the equivalent of a vector space over a RING, as opposed to a FIELD.
+A **module** is the equivalent of a vector space over a RING, as opposed to a FIELD.
 
 ---
 
@@ -449,7 +399,9 @@ $$\boxed{\color{blue}{\cdot}}:(\lambda\,\boxed{\color{blue}{\cdot}}\,g) (V)= \la
 
 ---
 
-#### $V$ STAR, DUAL VECTOR SPACE or $V^*:$
+#### $V$ Star, Dual Vector Space or $V^*:$
+
+---
 
 $$\large V^* := \text{Hom}(V, k)$$
 
@@ -457,9 +409,66 @@ Here $k$ is considered a vector space.
 
 So $V^*$ is a set of linear functionals from a vector space to the field $k$, which is considered in this context just another vector space with addition and multiplication inherited from the field operations.
 
+
 ---
 
-#### Multilinear Maps:
+#### Multilinear maps:
+
+---
+
+So in general, maps can be more and more complicated, and for example, 
+$$V\times V\times V^*\times V\times V^* \to \mathbb R$$ 
+would be the set of all possible tensor products of the form $$T_{\mu\;\nu}{}^{\gamma}{}_\rho{}^\eta\quad e^\mu\otimes  e^\nu\otimes e _\gamma\otimes e^\rho \otimes e_\eta$$
+
+with $T_{\mu\;\nu}{}^{\gamma}{}_\rho{}^\eta$ corresponding to the *components* of the tensor, which are the only part usually transcribed (the basis vectors are implicit). Hence, is important to keep the spaces and order of the sub- and supra-scripted Greek letters.
+
+However, there is a system to the madness: The vectors in the tensor product come first by convention: e.g. $V\otimes V^*$ as opposed to $V^* \otimes V.$
+
+The **rank** of a tensor is similarly expressed as $(\text{number of vectors, number of covectors}),$ so that $V\otimes V^* \otimes V^*,$ symbolizes the set of all possible tensors of rank $(1,2):$
+
+
+$$\begin{align}
+T^\mu{}_{\nu\lambda}\left[e_\mu \otimes e^\nu \otimes e^\lambda\right]\left(B_\eta \,e^\eta, A^\delta\,e_\delta,C^\gamma\,e_\gamma\right)&=\langle B_\eta\,e^\eta, e_\mu \rangle\,\langle e^\nu,A^\delta e_\delta \rangle\,\langle e^\lambda, C^\gamma e_\gamma\rangle\\[2ex]
+&=T^\mu{}_{\nu\lambda}\;B_\eta A^\delta C^\gamma \; \langle e^\eta, e_\mu \rangle\,\langle e^\nu, e_\delta \rangle\,\langle e^\lambda,  e_\gamma\rangle\\[2ex]
+&=T^\mu{}_{\nu\lambda}\;B_\eta A^\delta C^\gamma \;\delta^\eta{}_\mu\; \delta^\nu{}_\delta\; \delta^\lambda{}_\gamma\\[2ex]
+&= T^\mu{}_{\nu\lambda}\;B_\mu\, A^\nu\, C^\lambda
+\end{align}$$
+
+with the indexes in the last line of our choice.
+
+A tensor $A$ is a member of the $T^3_2$ tensor product space, i.e. $A\in T^3_2(v),$ if it is of the form $A^{\alpha\beta\gamma}{}_{\mu\nu}\, \underbrace {e_\alpha\otimes e_\beta\otimes e_\gamma}_{\text{basis vecs }\in V}\otimes \underbrace{e^\mu\otimes e^\nu}_{\text{covecs }\in V^*},$ meaning that it would "eat" $3$ covectors and $2$ vectors to produce a real number: $V^*\times V^* \times V^* \times V\times V\to \mathbb R.$ So, $T^{\text{ no. vecs in }\otimes \text{ prod.}}_{\text{ no covecs in the }\otimes}$ or a $(3,2)$-rank tensor.
+
+Here is an example of the "eating" vectors and covectors by a tensor:
+
+$$T^{\alpha\beta\gamma}{}_{\mu\nu}\, \Big [ e_\alpha \otimes e_\beta \otimes e_\gamma\otimes e^\mu\otimes e^\nu\Big ]\left(\underbrace{B_\eta e^\eta, C_\omega e^\omega, F_\epsilon e^\epsilon}_{\text{eats 3 covectors}},\underbrace{Z^\theta e_\theta, Y^\rho e_\rho}_{\text{eats 2 vectors}}\right)\to \mathbb R$$
+
+
+NOTE on the difference between **tensor** and **tensor product** (from the comments by XylyXylyX):
+
+>  A "tensor" is an element of a "tensor product space", i.e. $T^i_j\,(v).$ A tensor product space contains elements which are the "tensor product" of vectors and covectors. So a "tensor product" is a multi linear map built using the tensor product operator $(\otimes)$. So a tensor is the tensor product of some vectors and covectors. Keep in mind that a tensor product of rank $(1,0)$ or $(0,1)$ is not really "multi" linear, it is just "linear" but we still call it a tensor, so $V$ and $V^*$ are tensor product spaces but small ones. And rank $(0,0)$ tensor product spaces are just real numbers.
+
+Tensors are multilinear maps, meaning that if we multiply by a scalar any of the entries in $V\times V\times\cdots\times V^*\times V^*\times \cdots \to \mathbb R,$ keeping every other component constant, the result will be multiplied by the same scalar. 
+
+
+---
+
+<img WIDTH=600 src="https://cloud.githubusercontent.com/assets/9312897/23579577/46a915b2-00be-11e7-888d-a80818f74b24.png">
+
+
+Bottom line definition:
+
+$$\begin{align}&\left(\mathbf e_1\otimes\mathbf e_2\otimes\dots\otimes\mathbf e_p\otimes\mathbf e^1\otimes\mathbf e^2\otimes\dots\otimes\mathbf e^q\right)  \left({\underbrace{\alpha_1, \alpha_2,\dots,\alpha_p,}_{\text{linear funcitonals }\in V^*}} \underbrace{ \vec v_1,\vec v_2, \dots, \vec v_q}_{\vec v_i\in V}\right)\\[2ex]
+&=\underbrace{\alpha_1(\mathbf e_1)\cdot \alpha_2(\mathbf e_2)\cdot\alpha_p(\mathbf e_p)\;}_{\text{row vec dotted col vec (basis of }V)\text{ and multiplied}}\quad\quad\underbrace{\mathbf e^1(\vec v_1)\cdot\mathbf e^2(\vec v_2)\cdots \mathbf e^q(\vec v_q)}_{\text{ row vecs (basis of V}^*)\text{ dotted with vecs and multiplied}}
+\end{align}$$
+
+
+For instance, $\mathbf e_1=\begin{bmatrix}1\\0\\\vdots\\0\end{bmatrix}$, and $\mathbf e^1=\begin{bmatrix} 1 & 0 & \cdots &0\end{bmatrix}$. Hence, all we are doing is selecting components from either row vectors $(\alpha_1)$ or column vectors $(\vec v_i)$, and then multiplying them.
+
+This would be a tensor space $T^p_{\quad q}(v), $ mapping the Cartesian product of $p$ elements of the dual, $\underbrace{V^* \times V^* \times \cdots}_{p}$ and $q$ elements of $V$, i.e. $\underbrace{\times V \times V\times\cdots}_q$ to $\mathbb R.$
+
+Notice that the components of the vectors are given with superscripts - the opposite to their basis vectors - [vectors are "contravariant"](https://physics.stackexchange.com/a/127510/150551): the longer a component of the basis vectors, the less number of that component vector needed to express any given vector. The gradient would naturally move in the opposite direction. If the components are $x^i$, the gradient is $\partial x_i=\frac{\partial}{\partial x^i}.$
+
+---
 
 The definition of the space of $(p,q)$ tensors as the **set** of multilinear maps from the Cartesian product of elements of a vector space and its dual onto the field, equipped with addition and s-multiplication rules, given in [this series at this point in time](https://youtu.be/4l-qzZOZt50?t=33m7s) as follows:
 
@@ -538,9 +547,13 @@ Once the basis of $V$ and $V^*$ are defined, and we have the tensor components w
 
 How?
 
+---
+
 #### Reconstruction of $T$ from its components:
 
-$$\large T=\underbrace{\sum_{a_1=1}^{\text{dim v sp.}}\cdots\sum_{b_1=1}^{\text{dim v sp.}}}_{\text{p + q sums (usually omitted)}}\underbrace{\color{green}{T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}}}_{\text{a number}}\underbrace{\cdot}_{\text{S-multiplication}}\underbrace{e_{a_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}e_{a_p}\color{blue}{\otimes}
+---
+
+$$T=\underbrace{\sum_{a_1=1}^{\text{dim v sp.}}\cdots\sum_{b_1=1}^{\text{dim v sp.}}}_{\text{p + q sums (usually omitted)}}\underbrace{\color{green}{T^{\overbrace{a_1,\cdots,a_p}^{\text{numbers}}}_{\quad\quad\quad\quad\underbrace{b_1,\cdots,b_q}_{\text{numbers}}}}}_{\text{a number}}\underbrace{\cdot}_{\text{S-multiplication}}\underbrace{e_{a_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}e_{a_p}\color{blue}{\otimes}
 \epsilon^{b_1}\color{blue}{\otimes}\cdots\color{blue}{\otimes}\epsilon^{b_q}}_{(p,q)\text{ tensor}}$$
 
 Notice that it is the "blue" tensor product because we are not symbolizing the tensor space (as the set of all maps between the Cartesian product of vectors and covectors and $K$), which would call for the "orange" tensor. Instead this is a vector product (the $e_i$ and $\epsilon^i$ are vectors and covectors).
