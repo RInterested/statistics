@@ -29,7 +29,7 @@ I can generate as many samples from one or more uniform distribution (0,1) as I 
 
 I will use [R] not so much as a practical answer (`rbeta` would do the trick), but as an attempt at thinking through the probability integral transform. I hope you are familiar with the code so you can follow, or replicate (if this answers your question).
 
-The idea behind the [Probability Integral Transform][1] is that since a $cdf$ monotonically increases in value from $0$ to $1$, applying the $cdf$ function to random values form whichever distribution we may be interested in will on aggregate generate as many results say, between $0.1$ and $0.2$ as from $0.8$ to $0.9$. Now, this is exactly what a $pdf$ of a $U(0,1)$. It follows that if we start with values from a random uniform, $U \sim (0,1)$ instead, and we apply the ***inverse*** $cdf$ of the distribution we are aiming at, we'll end up with random values of that distribution.
+The idea behind the [Probability Integral Transform][1] is that since a $\text{cdf}$ monotonically increases in value from $0$ to $1$, applying the $\text{cdf}$ function to random values form whichever distribution we may be interested in will on aggregate generate as many results say, between $0.1$ and $0.2$ as from $0.8$ to $0.9$. Now, this is exactly what a $\text{pdf}$ of a $U(0,1)$. It follows that if we start with values from a random uniform, $U \sim (0,1)$ instead, and we apply the ***inverse*** $\text{cdf}$ of the distribution we are aiming at, we'll end up with random values of that distribution.
 
 Let's quickly show it with the queen of the distributions... The Normal $N(0,1)$. We generate $10,000$ random values, and plug them into the $erf$ function, plotting the results:
 
@@ -53,7 +53,7 @@ In your case, we are aiming for $X \sim Beta(\alpha, \beta)$. So let's get start
     b_rand <- qbeta(U, alpha, beta)
     hist(b_rand, col="skyblue", main = "Inverse U")
 
-Compare this to the shape of the $Beta(\alpha,\beta)$ $pdf$:
+Compare this to the shape of the $Beta(\alpha,\beta)$ $\text{pdf}$:
 
     x <- seq(0, 1, 0.001)
     beta_pdf <- dbeta(x, alpha, beta)

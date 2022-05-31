@@ -402,14 +402,14 @@ would do the trick), but as an attempt at thinking through the
 probability integral transform. I hope you are familiar with the code so
 you can follow, or replicate (if this answers your question).</p>
 <p>The idea behind the <a href="https://en.wikipedia.org/wiki/Probability_integral_transform">Probability
-Integral Transform</a> is that since a <span class="math inline">\(cdf\)</span> monotonically increases in value from
-<span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span>, applying the <span class="math inline">\(cdf\)</span> function to random values form
+Integral Transform</a> is that since a <span class="math inline">\(\text{cdf}\)</span> monotonically increases in
+value from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span>, applying the <span class="math inline">\(\text{cdf}\)</span> function to random values form
 whichever distribution we may be interested in will on aggregate
-generate as many results say, between <span class="math inline">\(0.1\)</span> and <span class="math inline">\(0.2\)</span> as from <span class="math inline">\(0.8\)</span> to <span class="math inline">\(0.9\)</span>. Now, this is exactly what a <span class="math inline">\(pdf\)</span> of a <span class="math inline">\(U(0,1)\)</span>. It follows that if we start with
+generate as many results say, between <span class="math inline">\(0.1\)</span> and <span class="math inline">\(0.2\)</span> as from <span class="math inline">\(0.8\)</span> to <span class="math inline">\(0.9\)</span>. Now, this is exactly what a <span class="math inline">\(\text{pdf}\)</span> of a <span class="math inline">\(U(0,1)\)</span>. It follows that if we start with
 values from a random uniform, <span class="math inline">\(U \sim
 (0,1)\)</span> instead, and we apply the
-<strong><em>inverse</em></strong> <span class="math inline">\(cdf\)</span> of the distribution we are aiming at,
-we’ll end up with random values of that distribution.</p>
+<strong><em>inverse</em></strong> <span class="math inline">\(\text{cdf}\)</span> of the distribution we are
+aiming at, we’ll end up with random values of that distribution.</p>
 <p>Let’s quickly show it with the queen of the distributions… The Normal
 <span class="math inline">\(N(0,1)\)</span>. We generate <span class="math inline">\(10,000\)</span> random values, and plug them into
 the <span class="math inline">\(erf\)</span> function, plotting the
@@ -435,7 +435,7 @@ alpha &lt;- 0.5
 beta &lt;- 0.5
 b_rand &lt;- qbeta(U, alpha, beta)
 hist(b_rand, col=&quot;skyblue&quot;, main = &quot;Inverse U&quot;)</code></pre>
-<p>Compare this to the shape of the <span class="math inline">\(Beta(\alpha,\beta)\)</span> <span class="math inline">\(pdf\)</span>:</p>
+<p>Compare this to the shape of the <span class="math inline">\(Beta(\alpha,\beta)\)</span> <span class="math inline">\(\text{pdf}\)</span>:</p>
 <pre><code>x &lt;- seq(0, 1, 0.001)
 beta_pdf &lt;- dbeta(x, alpha, beta)
 plot(beta_pdf, type =&quot;l&quot;, col=&#39;skyblue&#39;, lwd = 3,
