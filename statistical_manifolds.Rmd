@@ -99,7 +99,10 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{R}
 require(igraph)
+
 g <- graph(edges=c('Alice','Sam','Sam','David','David','Alice','Frank','David','Frank','Paul','Paul','Tom','Tom','Frank'), directed = FALSE)
+igraph_options(plot.layout=layout_as_tree, vertex.size=10, edge.width=5,
+     vertex.label.dist=3, vertex.color='red')
 plot(g)
 laplacian_matrix(g)
 ```
