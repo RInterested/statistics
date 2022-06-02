@@ -96,7 +96,7 @@ mean(fd[,5]>.9)
 
 The percentage goes up to $34\%.$
 
-The orthographic projection into $3$D can look like this:
+The orthographic projection $(*)$ into $3$D can look like this:
 
 ```{R}
 dist = 2
@@ -152,6 +152,41 @@ $40\%$ are peripheral!
 ---
 
 The Euclidean distance between points decreases with the number of dimensions. This is explained in [here](https://towardsdatascience.com/the-surprising-behaviour-of-distance-metrics-in-high-dimensions-c2cb72779ea6).
+
+---
+
+$(*)$ The orthographic projection for $3$D points $\begin{bmatrix}
+x & y & z & w\end{bmatrix}^\top$  on a plane can be obtained by the matrix multiplication:
+
+$$\begin{bmatrix}
+1/(\text{distance}-w) & 0 & 0 \\
+0 & 1/(\text{distance}-w)  &0
+\end{bmatrix}\begin{bmatrix}
+x \\ y \\ z \\ w\end{bmatrix}$$
+
+with $\text{dist}$ being the distance of the light to the projected point.
+
+Although the actual plot of the $3$D points is already a projection on the plane of the computer screen, the actual mathematics can be put in practice for a cube of points as above:
+
+```{R}
+dist = 12
+proj <- matrix(rep(0,nrow(M3)*2), ncol=2)
+for(i in 1:nrow(proj)){
+  matr <- matrix(c(1/(dist-M3[i,3]),0,0,
+                   0,1/(dist-M3[i,3]),0), ncol=3, byrow=T)
+  proj[i,] <- matr %*% M3[i,1:3]
+}
+
+par(mfrow = c(2,2))
+
+S <- seq(0, 315, 45)
+for(i in seq_along(S)){
+scatterplot3d(proj[,1], proj[,2], pch=20,
+              color=rgb(1,.38,0, alpha = 0.2), axis=F, grid=F,
+              angle=100*i, box=F, cex.symbols=.2)
+}
+```
+
 
 
 ---
