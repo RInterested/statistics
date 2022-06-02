@@ -1,0 +1,160 @@
+---
+title: 'OLS without linear algebra'
+output: 
+  html_document:
+    fig_width: 5
+    fig_height: 5
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### The Curse of Dimensionality:
+
+---
+
+This is a quick and dirty demonstration about the fact that Euclidean distances are not a good measure in high dimensions. The discussion on this is summarized [here](https://stats.stackexchange.com/a/99191/67822).
+
+Generating uniformly distributed points in a square:
+
+```{R}
+n <- 1e5
+M <- matrix(runif(2*n,-1,1),ncol=2)
+M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
+plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
+     xlab='', ylab='', tck=F, axes=F)
+```
+
+and selecting the points within a radius of $1$ to the center:
+
+```{R}
+d <- M[M[,3]<1,]
+plot(d[,1],d[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
+     xlab='', ylab='', tck=F, axes=F)
+```
+
+we can quickly realize how a high percentage of the points are within the outer $10 \%$ of the disk - the rind of the orange:
+
+> [O]ur intuitions, which come from a three-dimensional world, often do not apply in high-dimensional ones. In high dimensions, most of the mass of a multivariate Gaussian distribution is not near the mean, but in an increasingly distant “shell” around it; and most of the volume of a high-dimensional orange is in the skin, not the pulp. If a constant number of examples is distributed uniformly in a high-dimensional hypercube, beyond some dimensionality most examples are closer to a face of the hypercube than to their nearest neighbor. And if we approximate a hypersphere by inscribing it in a hypercube, in high dimensions almost all the volume of the hypercube is outside the hypersphere. This is bad news for machine learning, where shapes of one type are often approximated by shapes of another.
+
+from [here](https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf).
+
+This is calculated and plotted by simply running the following code:
+
+```{R}
+mean(d[,3]>.9)
+plot(d[,1],d[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
+     xlab='', ylab='', tck=F, axes=F)
+out <- d[d[,3]>0.9,1:3]
+points(out[,1], out[,2],  pch = 19, 
+     cex=.2,  col=rgb(.9,.2,0, alpha = 0.5))
+```
+
+Close to $20\%$ are in the outer rind!
+
+This gets more prominent as the dimensions increase. Here is for $3D:$
+
+```{R}
+library(plot3D)
+library(scatterplot3d)
+
+n <- 1e5
+
+M3 <- matrix(runif(3*n,-1,1),ncol=3)
+scatter3D(M3[,1], M3[,2], M3[,3], bty = "g", pch = 19, cex=.2, col=rgb(.9,.2,0, alpha = 0.7),
+          axes=F)
+
+M3 <- cbind(M3,sqrt(M3[,1]^2 + M3[,2]^2 +M3[,3]^2))
+s <- M3[M3[,4]<1,1:4]
+scatter3D(s[,1], s[,2], s[,3], bty = "g", pch = 19, 
+          cex=.2, col=rgb(1,.38,0, alpha = 0.3), axes=F)
+mean(s[,4] > 0.9)
+rind <- s[s[,4]>.9,1:4]
+scatter3D(rind[,1], rind[,2], rind[,3], bty = "g", pch = 19, 
+          cex=.2, col=rgb(.9,.2,0, alpha = 0.7), axes=F, add=T)
+
+```
+
+The proportion in the outer tenth has gone up to $27\%.$
+
+In four dimensions,
+
+```{R}
+four <- matrix(runif(4*n,-1,1), ncol=4)
+four <- cbind(four,sqrt(four[,1]^2+four[,2]^2+four[,3]^2+four[,4]^2))
+fd <- four[four[,5]<1,]
+mean(fd[,5]>.9)
+```
+
+The percentage goes up to $34\%.$
+
+The orthographic projection into $3$D can look like this:
+
+```{R}
+dist = 2
+proj <- matrix(rep(0,nrow(fd)*3), ncol=3)
+for(i in 1:nrow(proj)){
+  matr <- matrix(c(1/(dist-fd[i,4]),0,0,0,
+                   0,1/(dist-fd[i,4]),0,0,
+                   0,0,1/(dist-fd[i,4]),0), ncol=4, byrow=T)
+  proj[i,] <- matr %*% fd[i,1:4]
+}
+
+scatterplot3d(proj[,1], proj[,2], proj[,3], pch=20,
+              color=rgb(1,.38,0, alpha = 0.2), axis=F, grid=F,
+              angle=280, box=F, cex.symbols=.2)
+
+```
+
+In five dimensions,
+
+```{R}
+five <- matrix(runif(5*n,-1,1), ncol=5)
+five <- cbind(five,sqrt(five[,1]^2+five[,2]^2+
+                          five[,3]^2+five[,4]^2+five[,5]^2))
+fvd <- five[five[,6]<1,]
+mean(fvd[,6]>.9)
+
+
+dist = 2
+proj4 <- matrix(rep(0,nrow(fvd)*4), ncol=4)
+for(i in 1:nrow(proj4)){
+  matr <- matrix(c(1/(dist-fvd[i,5]),0,0,0,0,
+                   0,1/(dist-fvd[i,5]),0,0,0,
+                   0,0,1/(dist-fvd[i,5]),0,0,
+                   0,0,0,1/(dist-fvd[i,5]),0), ncol=5, byrow=T)
+  proj4[i,] <- matr %*% fvd[i,1:5]
+}
+
+proj3 <- matrix(rep(0,nrow(proj4)*3), ncol=3)
+for(i in 1:nrow(proj3)){
+  matr <- matrix(c(1/(dist-proj4[i,4]),0,0,0,
+                   0,1/(dist-proj4[i,4]),0,0,
+                   0,0,1/(dist-proj4[i,4]),0), ncol=4, byrow=T)
+  proj3[i,] <- matr %*% proj4[i,1:4]
+}
+
+scatterplot3d(proj3[,1], proj3[,2], proj3[,3], pch=20,
+              color=rgb(1,.38,0, alpha = 0.2), axis=F, grid=F,
+              angle=280, box=F, cex.symbols=.2)
+```
+
+$40\%$ are peripheral!
+
+---
+
+The Euclidean distance between points decreases with the number of dimensions. This is explained in [here](https://towardsdatascience.com/the-surprising-behaviour-of-distance-metrics-in-high-dimensions-c2cb72779ea6).
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
