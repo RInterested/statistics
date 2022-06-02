@@ -26,7 +26,7 @@ This is a quick and dirty demonstration about the fact that Euclidean distances 
 Generating uniformly distributed points in a square:
 
 ```{R}
-n <- 1e5
+n <- 1e4
 M <- matrix(runif(2*n,-1,1),ncol=2)
 M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
 plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
@@ -65,8 +65,6 @@ This gets more prominent as the dimensions increase. Here is for $3D:$
 ```{R}
 library(plot3D)
 library(scatterplot3d)
-
-n <- 1e5
 
 M3 <- matrix(runif(3*n,-1,1),ncol=3)
 scatter3D(M3[,1], M3[,2], M3[,3], bty = "g", pch = 19, cex=.2, col=rgb(.9,.2,0, alpha = 0.7),
@@ -155,8 +153,7 @@ The Euclidean distance between points decreases with the number of dimensions. T
 
 This includes the equation
 
-$$\frac{{\text{Dist}_\text{max}}^k_d -{\text{Dist}_\text{min}}^k_d}}{{\text{Dist}_\text{min}}^k_d}\to 0$$
-
+$$\frac{\text{Dist.max}^k_d -\text{Dist.min}^k_d}{\text{Dist.min}^k_d}\to 0$$
 if $$\lim_{d\to \infty}\text{Var}\left(\frac{\Vert X_d \Vert_k}{\mathbb E\left(\Vert X_d \Vert_k\right)} \right)=0.$$
 
 ---
@@ -174,7 +171,7 @@ with $\text{dist}$ being the distance of the light to the projected point.
 
 Although the actual plot of the $3$D points is already a projection on the plane of the computer screen, the actual mathematics can be put in practice for a cube of points as above:
 
-```{R}
+```{R, fig.width = 8, fig.height = 6}
 dist = 12
 proj <- matrix(rep(0,nrow(M3)*2), ncol=2)
 for(i in 1:nrow(proj)){
