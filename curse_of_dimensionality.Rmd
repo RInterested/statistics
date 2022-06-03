@@ -25,7 +25,7 @@ This is a quick and dirty demonstration about the fact that Euclidean distances 
 
 Generating uniformly distributed points in a square:
 
-```{R}
+```{R, fig.width = 5, fig.height = 5}
 n <- 1e4
 M <- matrix(runif(2*n,-1,1),ncol=2)
 M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
@@ -62,7 +62,7 @@ Close to $20\%$ are in the outer rind!
 
 This gets more prominent as the dimensions increase. Here is for $3D:$
 
-```{R}
+```{R, fig.width = 8, fig.height = 6}
 library(plot3D)
 library(scatterplot3d)
 
@@ -73,7 +73,7 @@ scatter3D(M3[,1], M3[,2], M3[,3], bty = "g", pch = 19, cex=.2, col=rgb(.9,.2,0, 
 M3 <- cbind(M3,sqrt(M3[,1]^2 + M3[,2]^2 +M3[,3]^2))
 s <- M3[M3[,4]<1,1:4]
 scatter3D(s[,1], s[,2], s[,3], bty = "g", pch = 19, 
-          cex=.2, col=rgb(1,.38,0, alpha = 0.3), axes=F)
+          cex=.2, col=rgb(1,.7,0, alpha = 0.3), axes=F)
 mean(s[,4] > 0.9)
 rind <- s[s[,4]>.9,1:4]
 scatter3D(rind[,1], rind[,2], rind[,3], bty = "g", pch = 19, 
