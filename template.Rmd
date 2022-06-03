@@ -34,7 +34,13 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ---
 
-
+```{R, fig.width = 5, fig.height = 5}
+n <- 1e4
+M <- matrix(runif(2*n,-1,1),ncol=2)
+M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
+plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
+     xlab='', ylab='', tck=F, axes=F)
+```
 
 ##### SUB-SUBHEADER
 
