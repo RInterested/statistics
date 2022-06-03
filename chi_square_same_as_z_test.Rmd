@@ -32,18 +32,18 @@ This has been asserted multiple times in CV ([here][2], [here][3], [here][4] and
 
 And indeed we can [prove][5] that $\chi^2_{1\,df}$ is equivalent to $X^2$ with $X\sim N(0,1)$:
 
-Let's say that $X \sim N(0,1)$ and that $Y=X^2$ and find the density of $Y$ by using the $cdf$ method:
+Let's say that $X \sim N(0,1)$ and that $Y=X^2$ and find the density of $Y$ by using the $\text{cdf}$ method:
 
-$p(Y \leq y) = p(X^2 \leq y)= p(-\sqrt{y} \leq x \leq \sqrt{y})$. The problem is that we cannot integrate in close form the density of the normal distribution. But we can express it:
+$$p(Y \leq y) = p(X^2 \leq y)= p(-\sqrt{y} \leq x \leq \sqrt{y}).$$ The problem is that we cannot integrate in close form the density of the normal distribution. But we can express it:
 
 $$ F_X(y) = F_X(\sqrt{y})- F_X(-\sqrt[]{y}).$$ Taking the derivative:
 
 $$ f_X(y)= F_X'(\sqrt{y})\,\frac{1}{2\sqrt{y}}+
 F_X'(\sqrt{-y})\,\frac{1}{2\sqrt{y}}.$$
 
-Since the values of the normal $pdf$ are symmetrical:
+Since the values of the normal $\text{pdf}$ are symmetrical:
 
-$f_X(y)= F_X'(\sqrt{y})\,\frac{1}{\sqrt{y}}$. Equating this to the $pdf$ of the normal (now the $x$ in the $pdf$ will be $\sqrt{y}$ to be plugged into the $e^{-\frac{x^2}{2}}$ part of the normal $pdf$); and remembering to in include $\frac{1}{\sqrt{y}}$ at the end:
+$f_X(y)= F_X'(\sqrt{y})\,\frac{1}{\sqrt{y}}$. Equating this to the $\text{pdf}$ of the normal (now the $x$ in the $\text{pdf}$ will be $\sqrt{y}$ to be plugged into the $e^{-\frac{x^2}{2}}$ part of the normal $\text{pdf}$); and remembering to in include $\frac{1}{\sqrt{y}}$ at the end:
 
 $$ f_X(y)= 
 F_X'(\sqrt[]{y})\,\frac{1}{\sqrt[]{y}}=
@@ -55,11 +55,11 @@ Compare to the pdf of the chi square:
 
 $$ f_X(x)= \frac{1}{2^{\nu/2}\Gamma(\frac{\nu}{2})}e^{\frac{-x}{2}}x^{\frac{\nu}{2}-1}$$
 
-Since $\Gamma(1/2)=\sqrt{\pi}$, for $1$ df, we have derived exactly the $pdf$ of the chi square.
+Since $\Gamma(1/2)=\sqrt{\pi}$, for $1$ df, we have derived exactly the $\text{pdf}$ of the chi square.
 
 Further, if we call the function `prop.test()` in R we are invoking the same $\chi^2$ test as if we decide upon `chisq.test()`.
 
-<br><br>
+---
 
 **THE QUESTION:**
 
@@ -73,7 +73,7 @@ The value of the [test-statistic for a $\chi^2$][6] is:
 
 <br>
 
-$\large \chi^2 = \displaystyle \sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i} =  \,N\, \displaystyle \sum_{i=1}^n \,p_i\, \left(\frac{\frac{O_i}{N} - p_i}{p_i}\right)^2= \frac{n(n_{11}\,n_{22}\,-\,n_{12}\,n_{21})^2}{n_{+1}\,n_{+2}\,n_{1+}\,n_{2+}}$
+$$ \chi^2 = \displaystyle \sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i} =  \,N\, \displaystyle \sum_{i=1}^n \,p_i\, \left(\frac{\frac{O_i}{N} - p_i}{p_i}\right)^2= \frac{n(n_{11}\,n_{22}\,-\,n_{12}\,n_{21})^2}{n_{+1}\,n_{+2}\,n_{1+}\,n_{2+}}$$
 <br>
 where
 
@@ -82,7 +82,7 @@ $n$ = the number of cells in the table.
 
 Of note the last expression of the $\chi^2$ statistic applies to $2$x$2$ tables and the nomenclature is as follows:
 
-<img HEIGHT="200" WIDTH="350" src="https://cloud.githubusercontent.com/assets/9312897/10680565/dfa1fd78-78ee-11e5-9390-fb63f6c7272d.png"></a>
+<img WIDTH="300" src="https://cloud.githubusercontent.com/assets/9312897/10680565/dfa1fd78-78ee-11e5-9390-fb63f6c7272d.png"></a>
 
 
 On the other hand, the test statistic for a $z$-test is:
@@ -112,7 +112,7 @@ Let us have a $2x2$ frequency table where columns are two groups of respondents 
 
 The usual (not Yates corrected) $\chi^2$ of this table, after you substitute proportions instead of frequencies in its formula, looks like this:
 
-$$n_1\left[\frac{(p_1-p)^2}{p}+\frac{(q_1-q)^2}{q}\right]+n_2\left[\frac{(p_2-p)^2}{p}+\frac{(q_2-q)^2}{q}\right]= \frac{n_1(p_1-p)^2+n_2(p_2-p)^2}{pq}.$$
+$$n_1\left[\frac{(p_1-p)^2}{p}+\frac{(q_1-q)^2}{q}\right]+n_2\left[\frac{(p_2-p)^2}{p}+\frac{(q_2-q)^2}{q}\right]= \frac{n_1(p_1-p)^2+n_2(p_2-p)^2}{pq} \tag {*}$$
 
 Remember that $p= \frac{n_1p_1+n_2p_2}{n_1+n_2}$, the element of the weighted average profile of the two profiles `(p1,q1)` and `(p2,q2)`, and plug it in the formula, to obtain
 
@@ -128,13 +128,14 @@ This is one demonstration of a link between a variables association measure (chi
 
 ----------
 
-Showing the expansion in the first line above:
+Showing the expansion in the first line above $(*)$:
 
-$\large n_1\left[\frac{(p_1-p)^2}{p}+\frac{(q_1-q)^2}{q}\right]+n_2\left[\frac{(p_2-p)^2}{p}+\frac{(q_2-q)^2}{q}\right] = \frac{n_1(p_1-p)^2q}{pq}+\frac{n_1(q_1-q)^2p}{pq}+\frac{n_2(p_2-p)^2q}{pq}+\frac{n_2(q_2-q)^2p}{pq}$ 
-<br><br>
-$\large= \frac{n_1(p_1-p)^2(1-p)+n_1(1-p_1-1+p)^2p+n_2(p_2-p)^2(1-p)+n_2(1-p_2-1+p)^2p}{pq}$ 
-<br><br>
-$\large= \frac{n_1(p_1-p)^2(1-p)+n_1(p-p_1)^2p+n_2(p_2-p)^2(1-p)+n_2(p-p_2)^2p}{pq} = \frac{[n_1(p_1-p)^2][(1-p)+p]+[n_2(p_2-p)^2][(1-p)+p]}{pq} = \frac{n_1(p_1-p)^2+n_2(p_2-p)^2}{pq}.$
+$$\begin{align}
+\small n_1\left[\frac{(p_1-p)^2}{p}+\frac{(q_1-q)^2}{q}\right]+n_2\left[\frac{(p_2-p)^2}{p}+\frac{(q_2-q)^2}{q}\right] &= \frac{n_1(p_1-p)^2q}{pq}+\frac{n_1(q_1-q)^2p}{pq}+\frac{n_2(p_2-p)^2q}{pq}+\frac{n_2(q_2-q)^2p}{pq}\\[2ex] 
+&= \frac{n_1(p_1-p)^2(1-p)+n_1(1-p_1-1+p)^2p+n_2(p_2-p)^2(1-p)+n_2(1-p_2-1+p)^2p}{pq}\\[2ex] 
+&= \frac{n_1(p_1-p)^2(1-p)+n_1(p-p_1)^2p+n_2(p_2-p)^2(1-p)+n_2(p-p_2)^2p}{pq}\\[2ex] 
+&= \frac{[n_1(p_1-p)^2][(1-p)+p]+[n_2(p_2-p)^2][(1-p)+p]}{pq} = \frac{n_1(p_1-p)^2+n_2(p_2-p)^2}{pq}.
+\end{align}$$
 
 
 
