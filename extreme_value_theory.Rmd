@@ -903,6 +903,360 @@ This is what is being computed internally within the `extRemes` package to creat
 
 We can get their relations from the plot.
 
+---
+
+#### Wind Engineering Example:
+
+From [this blog](https://blogs2.datall-analyse.nl/2016/02/17/extreme_value_analysis_maxima/#more-120).
+
+The equations are [here](https://raw.githubusercontent.com/RInterested/SIMULATIONS_and_PROOFS/master/Frechet).
+
+```{R}
+library(e1071)
+library(survival)
+library(extRemes)
+library(SPREDA)
+```
+
+The R functions for performing the extreme value analysis (for maxima) can be downloaded from [here]("http://www.datall-analyse.nl/R/eva_max.R").
+
+The dataset is from Castillo et al., Table 1.1, p. 9-10: yearly maximum wind speed (in miles/hour).
+
+```{R}
+evobs <- scan("https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/wind")
+
+#explore data visually
+
+options(repr.plot.width=7, repr.plot.height=7)
+hist(evobs, border=F, col='navajowhite')
+```
+
+MLE of Gumbel parameters:
+
+```{R}
+#Gumbel
+gumbelmod <- fevd(x=evobs, type="Gumbel", method="MLE")
+summary(gumbelmod)
+
+muG <- gumbelmod$results$par[1]
+sigmaG <- gumbelmod$results$par[2]
+```
+
+MLE of log-Frechet distribution:
+
+If the density function for a $\color{red}{\text{Fréchet}}$ random variable $T$, with the lower bound fixed at nought (natural bound for wind speed), i.e. with $\color{red}{\text{no location}}$ parameter, but otherwise parametrized with $\color{red}{\text{scale } \sigma}$ and $\color{red}{\text{shape } \xi}$, is
+
+$$f_T(t) = \xi\cdot\left(\frac{t}{\sigma}\right)^{-(\xi+1)} \cdot \exp\left[-\left(\frac{t}{\sigma}\right)^{-\xi}\right],$$
+
+given $s = \log(t),$
+
+$$\begin{align}
+f_S(s) &= \xi\cdot\left(\frac{\exp s}{\sigma}\right)^{-(\xi+1)} \cdot \exp\left[-\left(\frac{\exp s}{\sigma}\right)^{-\xi}\right] \cdot \left| \frac{\operatorname{d}\exp s}{\operatorname{d}s} \right| \\
+&= \xi\cdot \exp \{-\xi (s-\log\sigma) - \exp[-\xi (s-\log\sigma)]\}
+\end{align}
+$$
+
+the log-Fr&eacute;chet distribution will have $\color{yellow}{\text{location }\log\sigma}$ and parameter $\color{yellow}{\text{scale }\frac{1}{\xi}}$.
+
+
+```{R}
+#Fréchet
+frechetmod <- Lifedata.MLE(Surv(evobs) ~ 1, dist="frechet")
+frechetmod
+
+(muF <- coef(frechetmod)[1])
+(sigmaF <- coef(frechetmod)[2])
+```
+
+Therefore, the parameters for the Frechet will be
+
+$\text{scale }\color{red}\sigma=\exp(\text{Intercept})=\exp( 3.3579367)= 28.72985.$
+
+$\text{shape }\color{red}\xi=\frac 1 {\text{logsigma}}=\frac 1{ 0.1957559 }= 5.10840.$
+
+
+Probability plot for largest values (maxima) with Gumbel and Fréchet distribution (side by side):
+
+
+```{R}
+par(mfrow=c(1, 2))
+options(repr.plot.width=12, repr.plot.height=7) 
+
+source("https://raw.githubusercontent.com/RInterested/SIMULATIONS_and_PROOFS/master/Frechet")
+
+probplot(values=evobs, model=gumbelmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="gumbel")
+probplot(values=evobs, model=frechetmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="frechet")
+```
+
+Note: for the wind data, a **return period** of $20$ means that once every $20$ years the wind speed is (on average) expected to be larger than $949.4 \text{mph}$ (in case of a Gumbel distribution), or $51.4 \text{mph}$ (in case of a Fréchet distribution)
+(this expected wind speed is also called the **return level**).
+
+For the Gumbel the return level is calculated by
+
+$$X_T =\mu - \sigma \log\left(-\log\left(1 - \frac 1 T\right) \right)$$
+
+as found [here](https://agupubs.onlinelibrary.wiley.com/doi/epdf/10.1029/2009WR008517).
+
+For the Fréchet it is calculated as
+
+$$X_T=\mu +\frac{\sigma\left( 1 - \left( -\log\left(1-1/T \right)\right)^\xi\right)}{\xi}$$
+
+
+```{R}
+# Gumbel:
+
+muG
+sigmaG
+xi    <-  0 # By definition of the Gumbel
+Time  <-  20
+
+muG - sigmaG * log(-log(1 - 1/Time))
+```
+
+
+```{R}
+# Gumbel (text):
+return.level(gumbelmod, return.period =20)
+```
+
+```{R}
+# Frechet: Manually calculation:
+
+alpha <- 1/sigmaF
+beta <- exp(muF)
+xi <- -1/alpha
+sigma <- -beta * xi
+tau <- 0 # Tau is the lower bound on X, not mu.
+mu <- tau - sigma/xi
+T <- 20
+
+mu + sigma*(1-(-log(1-1/T))^xi)/xi
+```
+
+```{R}
+# qlev() quantiles of The Standard Largest Extreme Value Distribution
+# https://cran.rstudio.com/web/packages/SPREDA/SPREDA.pdf
+# https://variation.com/wp-content/distribution_analyzer_help/hs123.htm
+
+
+exp(muF+qlev(1-1/20)*sigmaF)
+```
+
+#### DIAGNOSTICS:
+
+```{R}
+##diagnostics
+#q-q and p-p plot for Gumbel and Fréchet distribution
+options(repr.plot.width=12, repr.plot.height=10)
+par(mfrow=c(2, 2))
+QQplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
+QQplot(values=evobs, mu=muF, sigma=sigmaF, dist="frechet")
+PPplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
+PPplot(values=evobs, mu=muF, sigma=sigmaF, dist="frechet")
+```
+
+```{R}
+##fit GEV distribution (largest values) to data
+gevmod <- fevd(x=evobs, units="Wind speed (mph)", period.basis="year",
+               type="GEV", method="MLE")
+gevmod
+#extract MLEs (these are needed for the remaining part of the analysis)
+muGev <- gevmod$results$par[1]
+sigmaGev <- gevmod$results$par[2]
+xiGev <- gevmod$results$par[3]
+```
+
+
+REMEMBER: the parameters for the Frechet will be
+
+$\text{scale }\color{red}\sigma=\exp(\text{Intercept})=\exp( 3.3579367)= 28.72985.$
+
+$\text{shape }\color{red}\xi=\frac 1 {\text{logsigma}}=\frac 1{ 0.1957559 }= 5.10840.$
+
+
+```{R}
+options(repr.plot.width=5, repr.plot.height=5)
+
+##confidence intervals for MLEs of GEV model
+#normal-approximation confidence intervals
+ci(gevmod, alpha=.05, type="parameter", method="normal")
+
+#likelihood based confidence intervals
+#mu (=location)
+ci(gevmod, alpha=.05, which.par=1, type="parameter", method="proflik",
+   xrange=c(26,30), nint=50, verbose=TRUE, main="GEV - largest values")
+```
+
+
+```{R}
+options(repr.plot.width=5, repr.plot.height=5)
+#sigma (=scale)
+ci(gevmod, alpha=.05, which.par=2, type="parameter", method="proflik",
+   xrange=c(3,7), nint=50, verbose=TRUE, main="GEV - largest values")
+```
+
+```{R}
+options(repr.plot.width=5, repr.plot.height=5)
+#xi (=shape)
+ci(gevmod, alpha=.05, which.par=3, type="parameter", method="proflik",
+   xrange=c(.1,.8), nint=50, verbose=TRUE, main="GEV - largest values",
+   ylim=c(-175,-171)) #change range of the y-axis
+```
+
+Relationship between GEV model and Gumbel/Weibull/Fréchet distribution: obtain parameters of Gumbel, Weibull, and Fréchet model from GEV model see Castillo et al., p. 200
+
+```{R}
+#xi = 0: GEV model fitted a Gumbel distribution
+parmsGumbel <- c(muGev, sigmaGev)
+names(parmsGumbel) <- c("Mu", "Sigma")
+parmsGumbel #GEV model's estimates of the Gumbel distribution
+#compare with Gumbel model
+fevd(x=evobs, type="Gumbel", method="MLE")$results$par
+```
+
+```{R}
+#xi > 0: GEV model fitted a Fréchet distribution
+
+parmsFrechet <- c(log(sigmaGev/xiGev), xiGev, muGev-sigmaGev/xiGev)
+
+names(parmsFrechet) <- c("Mu", "Sigma", "Gamma")
+
+parmsFrechet #GEV model's estimates of the Fréchet distribution
+
+#compare with Fréchet model
+
+gamma <- parmsFrechet[3] #threshold parameter of Fréchet distribution
+
+Lifedata.MLE(Surv(evobs-gamma) ~ 1, dist="frechet")
+```
+
+```{R}
+#xi < 0: GEV model fitted a Weibull distribution
+parmsWeibull <- c(log(sigmaGev/-xiGev), -xiGev, muGev-sigmaGev/xiGev)
+names(parmsWeibull) <- c("Mu", "Sigma", "Gamma")
+parmsWeibull #GEV model's estimates of the Weibull distribution
+#compare with Weibull model
+gamma <- parmsWeibull[3] #threshold parameter of Weibull distribution
+# survreg(Surv(gamma-evobs) ~ 1, dist="weibull") scale NaN shape -0.420068402690865 location 16.0379057798877
+```
+
+```{R}
+options(repr.plot.width=10, repr.plot.height=5)
+par(mfrow=c(1,2))
+
+##diagnostics histogram of the data together with the density of the fitted GEV distribution
+plot(gevmod, "hist", ylim=c(0,0.1), col="gray", main="GEV - largest values", border=F)
+#density plot of the data together with the density of the fitted GEV distribution
+plot(gevmod, "density", ylim=c(0,0.1), main="GEV - largest values")
+```
+
+```{R}
+#q-q and p-p plot for GEV (here: compare with Gumbel distribution)
+options(repr.plot.width=8, repr.plot.height=8)
+par(mfrow=c(2, 2))
+QQplot(values=evobs, mu=muGev, sigma=sigmaGev, xi=xiGev, dist="gev")
+QQplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
+PPplot(values=evobs, mu=muGev, sigma=sigmaGev, xi=xiGev, dist="gev")
+PPplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
+par(mfrow=c(1, 1))#q-q and p-p plot for GEV (here: compare with Gumbel distribution)
+```
+
+
+
+Probability plot for GEV distribution (here: compare with Gumbel distribution)
+
+The GEV model may display concave/convex behavior in the upper tail
+this concave/convex behavior depends on the xi-parameter of the GEV model - if this parameter differs from zero, then the GEV model fitted either the Weibull distribution (convex upper tail), or the Fréchet distribution (concave upper tail) - if this xi-parameter is very close to zero, then the GEV model fitted a Gumbel distribution, and no concave/convex upper tail will show up.
+
+
+```{R}
+options(repr.plot.width=10, repr.plot.height=5)
+par(mfrow=c(1, 2))
+probplot(values=evobs, model=gevmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="gev")
+probplot(values=evobs, model=gumbelmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="gumbel")
+par(mfrow=c(1, 1))
+
+#compare GEV and Gumbel model with likelihood-ratio test
+gummod <- fevd(x=evobs, units="Wind speed (mph)", type="Gumbel", method="MLE")
+lr.test(gevmod, gummod)
+```
+
+for the wind speed data, it is also interesting to compare the
+probability plot of the GEV model with that of the Fréchet model
+
+```{R}
+par(mfrow=c(1, 2))
+options(repr.plot.width=10, repr.plot.height=5)
+probplot(values=evobs, model=gevmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="gev")
+probplot(values=evobs, model=frechetmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="frechet")
+par(mfrow=c(1, 1))
+```
+
+Note that in the Fréchet probability plot on the right, the observed data points show signs of concave behavior in the upper tail this concave behavior in the upper tail suggests that the fit of the Fréchet distribution could be improved by adding a threshold parameter to the Fréchet model the blue line of fitted GEV model on the left, on the other hand,"bends towards" these observations in the upper tail the reason for this bending behavior is that the fitted GEV model is actually similar to a Fréchet model with a threshold parameter included (which is also called a three-parameter Fréchet model)
+
+
+```{R}
+#obtain the Fréchet threshold parameter (=gamma) from the fitted GEV model
+#(see Castillo et al., p. 200; see also Coles, p. 56)
+gamma <- muGev-sigmaGev/xiGev
+#fit the Fréchet model including the threshold parameter
+frechetmodG <- Lifedata.MLE(Surv(evobs-gamma) ~ 1, dist="frechet")
+
+#fitting a Fréchet model including the correct threshold parameter
+#should linearize the Fréchet probability plot, which can be seen as follows:
+
+#Fréchet probability plot of model with (left) and without (right) threshold
+par(mfrow=c(1, 2))
+options(repr.plot.width=10, repr.plot.height=5)
+probplot(values=evobs-gamma, model=frechetmodG,
+         varname="Wind speed (mph)", alpha=1-.95, dist="frechet")
+probplot(values=evobs, model=frechetmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="frechet")
+par(mfrow=c(1, 1))
+
+##cumulative probability plot for GEV model (including return period)
+#GEV distribution (largest values)
+options(repr.plot.width=7, repr.plot.height=6)
+cprobplot(values=evobs, model=gevmod, varname="Wind speed (mph)",
+          alpha=1-.95, dist="gev")
+
+
+#return period versus return level
+options(repr.plot.width=7, repr.plot.height=6)
+plot(gevmod, "rl", main="GEV - largest values")
+
+##likelihood based intervals for return levels (GEV model)
+#in case of the GEV model, the normal-approximation confidence intervals for the
+#return level can be unrealistically wide, especially in the tails
+#(see, for instance, the probability and cumulative probability plot of the GEV model)
+#likelihood based intervals, on the other hand, yield more realistic intervals
+
+#specify cumulative probability
+cumProb <- .99
+returnPeriod <- 1/(1-cumProb) #return period = 1/(1-cumulative probability)
+
+#normal-approximation confidence interval
+(ciRetperN <- ci(gevmod, type="return.level", return.period=returnPeriod,
+                 method="normal", alpha=.05))
+
+#likelihood based confidence interval
+options(repr.plot.width=4, repr.plot.height=4)
+ci(gevmod, type="return.level", return.period=returnPeriod,
+   main="GEV - largest values",
+   method="proflik", alpha=.05, nint=100,
+   xrange=c(ciRetperN[1], ciRetperN[3]), verbose=TRUE,
+   ylim=c(-180,-170)) #change range of the y-axis
+```
+
+
+
+```
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
