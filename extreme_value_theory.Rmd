@@ -1196,6 +1196,21 @@ probplot(values=evobs, model=gevmod, varname="Wind speed (mph)",
 probplot(values=evobs, model=frechetmod, varname="Wind speed (mph)",
          alpha=1-.95, dist="frechet")
 par(mfrow=c(1, 1))
+#compare GEV and Gumbel model with likelihood-ratio test
+gummod <- fevd(x=evobs, units="Wind speed (mph)", type="Gumbel", method="MLE")
+lr.test(gevmod, gummod)
+```
+
+for the wind speed data, it is also interesting to compare the probability plot of the GEV model with that of the Fréchet model
+
+```{R}
+par(mfrow=c(1, 2))
+options(repr.plot.width=10, repr.plot.height=5)
+probplot(values=evobs, model=gevmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="gev")
+probplot(values=evobs, model=frechetmod, varname="Wind speed (mph)",
+         alpha=1-.95, dist="frechet")
+par(mfrow=c(1, 1))
 ```
 
 Note that in the Fréchet probability plot on the right, the observed data points show signs of concave behavior in the upper tail this concave behavior in the upper tail suggests that the fit of the Fréchet distribution could be improved by adding a threshold parameter to the Fréchet model the blue line of fitted GEV model on the left, on the other hand,"bends towards" these observations in the upper tail the reason for this bending behavior is that the fitted GEV model is actually similar to a Fréchet model with a threshold parameter included (which is also called a three-parameter Fréchet model)
