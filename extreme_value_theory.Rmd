@@ -858,6 +858,13 @@ hist(annmax,xlab="Annual Maximum Temperature",font=2,main="",font.lab=2, breaks=
 
 There is one value very different and far away from all other values. This phenomenon is the feature of the extreme values.
 
+The function is 
+
+```
+extRemes (version 2.1-2)
+fevd: Fit An Extreme Value Distribution (EVD) to Data
+```
+
 ```{R}
 fit_temperature = fevd(annmax,type="GEV")
 
@@ -866,10 +873,11 @@ options(repr.plot.width=20, repr.plot.height=20)
 summary(fit_temperature)
 ```
 
-```{R}
+```
 plot(fit_temperature)
 ```
 
+![](https://user-images.githubusercontent.com/9312897/172034780-c3a5f390-42d8-4c3b-aab4-ab261479acf8.png)
 
 Focus on the bottom two images. The one in the bottom left is showing how well the GEV function (blue line) is matching the observed data (black line). Pretty reasonable.
 
@@ -948,19 +956,19 @@ The R functions for performing the extreme value analysis (for maxima) can be do
 The dataset is from Castillo et al., Table 1.1, p. 9-10: yearly maximum wind speed (in miles/hour).
 
 ```{R}
-evobs <- scan("https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/wind")
+wind <- scan("https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/wind")
 
 #explore data visually
-
+head(wind)
 options(repr.plot.width=7, repr.plot.height=7)
-hist(evobs, border=F, col='navajowhite')
+hist(wind, border=F, col='navajowhite')
 ```
 
 MLE of Gumbel parameters:
 
 ```{R}
 #Gumbel
-gumbelmod <- fevd(x=evobs, type="Gumbel", method="MLE")
+gumbelmod <- fevd(x=wind, type="Gumbel", method="MLE")
 summary(gumbelmod)
 
 muG <- gumbelmod$results$par[1]
@@ -976,7 +984,7 @@ $$f_T(t) = \xi\cdot\left(\frac{t}{\sigma}\right)^{-(\xi+1)} \cdot \exp\left[-\le
 given $s = \log(t),$
 
 $$\begin{align}
-f_S(s) &= \xi\cdot\left(\frac{\exp s}{\sigma}\right)^{-(\xi+1)} \cdot \exp\left[-\left(\frac{\exp s}{\sigma}\right)^{-\xi}\right] \cdot \left| \frac{\operatorname{d}\exp s}{\operatorname{d}s} \right| \\
+f_S(s) &= \xi\cdot\left(\frac{\exp s}{\sigma}\right)^{-(\xi+1)} \cdot \exp\left[-\left(\frac{\exp s}{\sigma}\right)^{-\xi}\right] \cdot \left| \frac{\operatorname{d}\exp s}{\operatorname{d}s} \right| \\[2ex]
 &= \xi\cdot \exp \{-\xi (s-\log\sigma) - \exp[-\xi (s-\log\sigma)]\}
 \end{align}
 $$
@@ -986,7 +994,7 @@ the log-Fréchet distribution will have $\color{orange}{\text{location }\log\sig
 
 ```{R}
 #Fréchet
-frechetmod <- Lifedata.MLE(Surv(evobs) ~ 1, dist="frechet")
+frechetmod <- Lifedata.MLE(Surv(wind) ~ 1, dist="frechet")
 frechetmod
 
 (muF <- coef(frechetmod)[1])
@@ -1009,9 +1017,9 @@ options(repr.plot.width=20, repr.plot.height=7)
 
 source("https://raw.githubusercontent.com/RInterested/SIMULATIONS_and_PROOFS/master/Frechet")
 
-probplot(values=evobs, model=gumbelmod, varname="Wind speed (mph)",
+probplot(values=wind, model=gumbelmod, varname="Wind speed (mph)",
          alpha=1-.95, dist="gumbel")
-probplot(values=evobs, model=frechetmod, varname="Wind speed (mph)",
+probplot(values=wind, model=frechetmod, varname="Wind speed (mph)",
          alpha=1-.95, dist="frechet")
 ```
 
@@ -1076,20 +1084,22 @@ exp(muF+qlev(1-1/20)*sigmaF)
 
 ---
 
-```{R}
+```
 ##diagnostics
 #q-q and p-p plot for Gumbel and Fréchet distribution
 options(repr.plot.width=20, repr.plot.height=20)
 par(mfrow=c(2, 2))
-QQplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
-QQplot(values=evobs, mu=muF, sigma=sigmaF, dist="frechet")
-PPplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
-PPplot(values=evobs, mu=muF, sigma=sigmaF, dist="frechet")
+QQplot(values=wind, mu=muG, sigma=sigmaG, dist="gumbel")
+QQplot(values=wind, mu=muF, sigma=sigmaF, dist="frechet")
+PPplot(values=wind, mu=muG, sigma=sigmaG, dist="gumbel")
+PPplot(values=wind, mu=muF, sigma=sigmaF, dist="frechet")
 ```
+
+![](https://user-images.githubusercontent.com/9312897/172035142-73c16795-0b4c-4b83-81ef-1fe854cc6667.png)
 
 ```{R}
 ##fit GEV distribution (largest values) to data
-gevmod <- fevd(x=evobs, units="Wind speed (mph)", period.basis="year",
+gevmod <- fevd(x=wind, units="Wind speed (mph)", period.basis="year",
                type="GEV", method="MLE")
 gevmod
 #extract MLEs (these are needed for the remaining part of the analysis)
@@ -1145,7 +1155,7 @@ parmsGumbel <- c(muGev, sigmaGev)
 names(parmsGumbel) <- c("Mu", "Sigma")
 parmsGumbel #GEV model's estimates of the Gumbel distribution
 #compare with Gumbel model
-fevd(x=evobs, type="Gumbel", method="MLE")$results$par
+fevd(x=wind, type="Gumbel", method="MLE")$results$par
 ```
 
 ```{R}
@@ -1161,7 +1171,7 @@ parmsFrechet #GEV model's estimates of the Fréchet distribution
 
 gamma <- parmsFrechet[3] #threshold parameter of Fréchet distribution
 
-Lifedata.MLE(Surv(evobs-gamma) ~ 1, dist="frechet")
+Lifedata.MLE(Surv(wind-gamma) ~ 1, dist="frechet")
 ```
 
 ```{R}
@@ -1171,7 +1181,7 @@ names(parmsWeibull) <- c("Mu", "Sigma", "Gamma")
 parmsWeibull #GEV model's estimates of the Weibull distribution
 #compare with Weibull model
 gamma <- parmsWeibull[3] #threshold parameter of Weibull distribution
-# survreg(Surv(gamma-evobs) ~ 1, dist="weibull") scale NaN shape -0.420068402690865 location 16.0379057798877
+# survreg(Surv(gamma-wind) ~ 1, dist="weibull") scale NaN shape -0.420068402690865 location 16.0379057798877
 ```
 
 ```{R}
@@ -1184,18 +1194,17 @@ plot(gevmod, "hist", ylim=c(0,0.1), col="gray", main="GEV - largest values", bor
 plot(gevmod, "density", ylim=c(0,0.1), main="GEV - largest values")
 ```
 
-```{R}
+```
 #q-q and p-p plot for GEV (here: compare with Gumbel distribution)
 options(repr.plot.width=8, repr.plot.height=8)
 par(mfrow=c(2, 2))
-QQplot(values=evobs, mu=muGev, sigma=sigmaGev, xi=xiGev, dist="gev")
-QQplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
-PPplot(values=evobs, mu=muGev, sigma=sigmaGev, xi=xiGev, dist="gev")
-PPplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
-par(mfrow=c(1, 1))#q-q and p-p plot for GEV (here: compare with Gumbel distribution)
+QQplot(values=wind, mu=muGev, sigma=sigmaGev, xi=xiGev, dist="gev")
+QQplot(values=wind, mu=muG, sigma=sigmaG, dist="gumbel")
+PPplot(values=wind, mu=muGev, sigma=sigmaGev, xi=xiGev, dist="gev")
+PPplot(values=wind, mu=muG, sigma=sigmaG, dist="gumbel")
 ```
 
-
+![](https://user-images.githubusercontent.com/9312897/172034880-ea70b461-374c-4674-9b67-4e383c2314b3.png)
 
 Probability plot for GEV distribution (here: compare with Gumbel distribution)
 
@@ -1206,14 +1215,14 @@ this concave/convex behavior depends on the xi-parameter of the GEV model - if t
 ```{R}
 options(repr.plot.width=10, repr.plot.height=5)
 par(mfrow=c(1, 2))
-probplot(values=evobs, model=gevmod, varname="Wind speed (mph)",
+probplot(values=wind, model=gevmod, varname="Wind speed (mph)",
          alpha=1-.95, dist="gev")
-probplot(values=evobs, model=gumbelmod, varname="Wind speed (mph)",
+probplot(values=wind, model=gumbelmod, varname="Wind speed (mph)",
          alpha=1-.95, dist="gumbel")
 par(mfrow=c(1, 1))
 
 #compare GEV and Gumbel model with likelihood-ratio test
-gummod <- fevd(x=evobs, units="Wind speed (mph)", type="Gumbel", method="MLE")
+gummod <- fevd(x=wind, units="Wind speed (mph)", type="Gumbel", method="MLE")
 lr.test(gevmod, gummod)
 ```
 
@@ -1223,9 +1232,9 @@ for the wind speed data, it is also interesting to compare the probability plot 
 ```{R}
 par(mfrow=c(1, 2))
 options(repr.plot.width=10, repr.plot.height=5)
-probplot(values=evobs, model=gevmod, varname="Wind speed (mph)",
+probplot(values=wind, model=gevmod, varname="Wind speed (mph)",
          alpha=1-.95, dist="gev")
-probplot(values=evobs, model=frechetmod, varname="Wind speed (mph)",
+probplot(values=wind, model=frechetmod, varname="Wind speed (mph)",
          alpha=1-.95, dist="frechet")
 par(mfrow=c(1, 1))
 ```
@@ -1238,7 +1247,7 @@ Note that in the Fréchet probability plot on the right, the observed data point
 #(see Castillo et al., p. 200; see also Coles, p. 56)
 gamma <- muGev-sigmaGev/xiGev
 #fit the Fréchet model including the threshold parameter
-frechetmodG <- Lifedata.MLE(Surv(evobs-gamma) ~ 1, dist="frechet")
+frechetmodG <- Lifedata.MLE(Surv(wind-gamma) ~ 1, dist="frechet")
 
 #fitting a Fréchet model including the correct threshold parameter
 #should linearize the Fréchet probability plot, which can be seen as follows:
@@ -1246,16 +1255,16 @@ frechetmodG <- Lifedata.MLE(Surv(evobs-gamma) ~ 1, dist="frechet")
 #Fréchet probability plot of model with (left) and without (right) threshold
 par(mfrow=c(1, 2))
 options(repr.plot.width=10, repr.plot.height=5)
-probplot(values=evobs-gamma, model=frechetmodG,
+probplot(values=wind-gamma, model=frechetmodG,
          varname="Wind speed (mph)", alpha=1-.95, dist="frechet")
-probplot(values=evobs, model=frechetmod, varname="Wind speed (mph)",
+probplot(values=wind, model=frechetmod, varname="Wind speed (mph)",
          alpha=1-.95, dist="frechet")
 par(mfrow=c(1, 1))
 
 ##cumulative probability plot for GEV model (including return period)
 #GEV distribution (largest values)
 options(repr.plot.width=7, repr.plot.height=6)
-cprobplot(values=evobs, model=gevmod, varname="Wind speed (mph)",
+cprobplot(values=wind, model=gevmod, varname="Wind speed (mph)",
           alpha=1-.95, dist="gev")
 
 
