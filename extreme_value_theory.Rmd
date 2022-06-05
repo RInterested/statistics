@@ -627,7 +627,6 @@ gpd.sfall(tailplot(fit), 0.99, ci.p = 0.95)
 
 ### EXAMPLE IN R OF EXTREME DATA:
 
-
 From [this site](https://www.dataanalysisclassroom.com/lesson60/).
 
 ```{R}
@@ -837,11 +836,20 @@ There is one value very different and far away from all other values. This pheno
 ```{R}
 fit_temperature = fevd(annmax,type="GEV")
 
-options(repr.plot.width=10, repr.plot.height=10)
+options(repr.plot.width=12, repr.plot.height=12)
 
-plot(fit_temperature)
 summary(fit_temperature)
 ```
+
+```{R}
+plot(fit_temperature)
+```
+
+
+```
+
+Focus on the bottom two images. The one in the bottom left is showing how well the GEV function (blue line) is matching the observed data (black line). Pretty reasonable.
+
 What is the probability that the annual maximum temperature will be less than or equal to 92 degrees F?
 
 Yes, you can compute this from the cumulative distribution function of the GEV distribution.
@@ -895,6 +903,8 @@ mu + sigma/xi * ((-log(1 - 1/Time))^(-xi) - 1)
 This is what is being computed internally within the `extRemes` package to create the plot you see in the lower right hand corner. For quantile z, extRemes package has `qevd() ` function where you have to input probability p and other parameters. For probability $P(Z \le z),$ it is `pevd(),` and you have to input the quantile z and the other parameters.
 
 We can get their relations from the plot.
+
+
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
 
