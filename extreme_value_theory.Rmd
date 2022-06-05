@@ -179,11 +179,13 @@ binom.test(length(which(losses>=qnorm(0.99,m,s))), n, 0.01, alternative = "great
 
 ---
 
-#### EVT:
+### Extreme Value Theorem:
 
 Within EVT, the role of the Gaussian is played by two distributions:
 
 ![](https://user-images.githubusercontent.com/9312897/120955835-48d91800-c720-11eb-8164-d065efb0940b.png)
+
+---
 
 The **Block Maxima approach** method (Fisher-Tippet theorem) leads to the Generalized Value Distribution:
 
@@ -210,9 +212,12 @@ $$\begin{align}
 The **Peak-Over-threshold** approach (Pikands-Balkema-de Haan theorem) is linked to the Generalized Pareto Distribution:
 
 $$G_\xi(x)=\begin{cases}1-(1+\xi x)^{-1/\xi},&& \xi\neq0\\1-e^{-\frac{x-\mu}{\sigma}}, && \xi=0\end{cases}$$
+
+
 ---
 
-#### GENERALIZED EXTREME VALUE DISTRIBUTION:
+### GENERALIZED EXTREME VALUE DISTRIBUTION:
+
 
 We want a sort of CLT for the maxima, or normalized maxima through two values: a sort of mean $b_n,$ and the equivalent of the standard deviation, $a_n>0,$ such that 
 
@@ -334,6 +339,7 @@ The PBdH theorem tells us that:
 ---
 
 ### EVT in practice:
+
 
 EVT from [here](https://www.youtube.com/watch?v=eUWlzAQfgFw&t=472s):
 
@@ -625,7 +631,7 @@ gpd.sfall(tailplot(fit), 0.99, ci.p = 0.95)
 
 ---
 
-### EXAMPLE IN R OF EXTREME DATA:
+### Example In R Of Extreme Data:
 
 From [this site](https://www.dataanalysisclassroom.com/lesson60/).
 
@@ -636,11 +642,11 @@ library(logspline)
 
 ```{R}
 # Normal Origins #
-options(repr.plot.width=12, repr.plot.height=8)
+options(repr.plot.width=15, repr.plot.height=7)
 par(mfrow=c(1,3))
 
 x = rnorm(10000,0,1)
-plot(logspline(x), xlim=c(-5,5), ylim=c(0,0.5), font=2, cex.lab=2, font.lab=2, xlab="Normal Distribution")
+plot(logspline(x), xlim=c(-5,5), ylim=c(0,0.5), font=2, font.lab=2, xlab="Normal Distribution")
 
 N = 1000
 ave = matrix(NA,nrow=N,ncol=1)
@@ -659,11 +665,11 @@ for (i in 1:N)
 
 
 plot(locfit(~ave), xlim=c(-1,1), ylim=c(0,14),
-        ylab="", cex.lab=2, font=2, font.lab=2, xlab="Normal Distribution", col='orange')
+        ylab="", font=2, font.lab=2, xlab="Normal Distribution", col='orange')
 lines(locfit(~ave),lwd=2,col="blue")
 
 plot(locfit(~max1),xlim=c(-5,5),
-font=2,font.lab=2,ylab="",xlab="Extreme Value Distribution (Gumbel)", col='magenta')
+font=2, font.lab=2,ylab="",xlab="Extreme Value Distribution (Gumbel)", col='magenta')
 lines(locfit(~max1),lwd=2,col="red")
 
 
@@ -673,7 +679,7 @@ par(mfrow=c(1,3))
 x = rexp(10000,0.5)
 hist(x, prob=T, xlim=c(0,25), ylim=c(0,0.5), ylab="", main="", font=2, border=F,
         col=rgb(0, 0, 255, max = 255, alpha = 125),
-        cex.lab=2, font.lab=2, xlab="Exponential Distribution")
+        font.lab=2, xlab="Exponential Distribution")
 
 plot(logspline(x), add=T, lty=2)
 
@@ -693,9 +699,9 @@ for (i in 1:N){
 }
 
 
-plot(locfit(~ave),xlim=c(0,25),ylim=c(0,8),ylab="",cex.lab=2,font=2,font.lab=2,xlab="Normal Distribution",col="orange")
+plot(locfit(~ave),xlim=c(0,25),ylim=c(0,8),ylab="", font=2,font.lab=2,xlab="Normal Distribution",col="orange")
 lines(locfit(~ave),lwd=2,col="blue")
-plot(locfit(~max1),xlim=c(0,40),font=2,font.lab=2,ylab="",xlab="Extreme Value Distribution (Gumbel)",cex.lab=2,col="magenta")
+plot(locfit(~max1),xlim=c(0,40),font=2,font.lab=2,ylab="",xlab="Extreme Value Distribution (Gumbel)", col="magenta")
 lines(locfit(~max1),lwd=2,col="red")
 
 # Uniform Origins #
@@ -705,7 +711,7 @@ par(mfrow=c(1,3))
 x = runif(100000,0,1)
 hist(x, prob=T, xlim=c(0,1), ylim=c(0,1.5), ylab="", main="", font=2, border=F,
         col=rgb(0, 0, 255, max = 255, alpha = 125),
-        cex.lab=2, font.lab=2, xlab="Uniform Distribution")
+        font.lab=2, xlab="Uniform Distribution")
 #hist(x,prob=T,xlim=c(0,1),ylab="",main="",font=2,cex.lab=2,font.lab=2,xlab="Uniform Distribution")
 
 
@@ -729,20 +735,23 @@ for (i in 1:N)
 }
 
 
-plot(locfit(~ave),xlim=c(0,1),ylim=c(0,30),ylab="",cex.lab=2,font=2,font.lab=2,
+plot(locfit(~ave),xlim=c(0,1),ylim=c(0,30),ylab="",font=2,font.lab=2,
       xlab="Normal Distribution",col="orange")
 lines(locfit(~ave),lwd=2,col="blue")
 
 
-plot(locfit(~max1),xlim=c(0,1),ylim=c(0,150),font=2,font.lab=2,ylab="",
-      xlab="Extreme Value Distribution (Weibull)",cex.lab=2,col="magenta")
+plot(locfit(~max1),xlim=c(0,1),ylim=c(0,150),font=2,font.lab=2, ylab="",
+      xlab="Extreme Value Distribution (Weibull)",col="magenta")
 lines(density(max1),lwd=2,col="red")
 ```
 
 
 ---
 
-### THE THREE TYPES (GUMBEL, FRECHET, WEIBULL) AND THE GENERALIZED EXTREME VALUE DISTRIBUTION (GEV)
+
+### The Three Types (Gumbel, Fréchet, Weibull) And The Generalized Extreme Value Distribution (GEV):
+
+
 The three types of extreme value distributions have double exponential and single exponential forms. The maxima of independent random variables converge (in the limit when $n \to \infty$) to one of the three types, Gumbel $(e^{-e^{-y}})$, Frechet $(e^{-y^{-\gamma}})$ or Weibull $(e^{-(-y)^{\gamma}})$ depending on the parent distribution.
 
 These three types can be combined into a single function called the generalized extreme value distribution (GEV) as in eq..$1$ above:
@@ -784,7 +793,7 @@ plot(logspline(x),add=T)
 options(repr.plot.width=8, repr.plot.height=8)
 y = revd(10000,loc=0,scale=1,shape=0.2)
 hist(y,prob=T,ylim=c(0,0.4),xlab="Random Variables from Frechet (location = 0, scale = 1, shape = 0.2)", breaks=30,
-  main="Fréchet Distribution",ylab="f(x)",font=2,family="serif", cex.lab=1.5, border=F)
+  main="Fréchet Distribution",ylab="f(x)",font=2,family="serif", border=F)
 plot(logspline(y),add=T,col="red")
 plot(logspline(x),add=T)
 
@@ -792,7 +801,7 @@ plot(logspline(x),add=T)
 options(repr.plot.width=8, repr.plot.height=8)
 z = revd(10000,loc=0,scale=1,shape=-0.6)
 hist(z,prob=T,ylim=c(0,0.5),xlab="Random Variables from Weibull (location = 0, scale = 1, shape = -0.6)", breaks=30,
-  main="Weibull Distribution",ylab="f(x)",font=2,family="serif", cex.lab=1.5, border=F)
+  main="Weibull Distribution",ylab="f(x)",font=2,family="serif", border=F)
 plot(logspline(z),add=T,col="red")
 
 fatigue <- c(726000,615000,508000,808000,755000,849000,384000,667000,515000,483000)
@@ -836,7 +845,7 @@ There is one value very different and far away from all other values. This pheno
 ```{R}
 fit_temperature = fevd(annmax,type="GEV")
 
-options(repr.plot.width=12, repr.plot.height=12)
+options(repr.plot.width=20, repr.plot.height=20)
 
 summary(fit_temperature)
 ```
@@ -905,7 +914,7 @@ We can get their relations from the plot.
 
 ---
 
-#### Wind Engineering Example:
+### Wind Engineering Example:
 
 From [this blog](https://blogs2.datall-analyse.nl/2016/02/17/extreme_value_analysis_maxima/#more-120).
 
@@ -956,7 +965,7 @@ f_S(s) &= \xi\cdot\left(\frac{\exp s}{\sigma}\right)^{-(\xi+1)} \cdot \exp\left[
 \end{align}
 $$
 
-the log-Fr&eacute;chet distribution will have $\color{yellow}{\text{location }\log\sigma}$ and parameter $\color{yellow}{\text{scale }\frac{1}{\xi}}$.
+the log-Fréchet distribution will have $\color{orange}{\text{location }\log\sigma}$ and parameter $\color{orange}{\text{scale }\frac{1}{\xi}}$.
 
 
 ```{R}
@@ -980,7 +989,7 @@ Probability plot for largest values (maxima) with Gumbel and Fréchet distributi
 
 ```{R}
 par(mfrow=c(1, 2))
-options(repr.plot.width=12, repr.plot.height=7) 
+options(repr.plot.width=20, repr.plot.height=7) 
 
 source("https://raw.githubusercontent.com/RInterested/SIMULATIONS_and_PROOFS/master/Frechet")
 
@@ -1044,12 +1053,12 @@ mu + sigma*(1-(-log(1-1/T))^xi)/xi
 exp(muF+qlev(1-1/20)*sigmaF)
 ```
 
-#### DIAGNOSTICS:
+#### Diagnostics:
 
 ```{R}
 ##diagnostics
 #q-q and p-p plot for Gumbel and Fréchet distribution
-options(repr.plot.width=12, repr.plot.height=10)
+options(repr.plot.width=20, repr.plot.height=20)
 par(mfrow=c(2, 2))
 QQplot(values=evobs, mu=muG, sigma=sigmaG, dist="gumbel")
 QQplot(values=evobs, mu=muF, sigma=sigmaF, dist="frechet")
