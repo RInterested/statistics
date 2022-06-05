@@ -349,14 +349,15 @@ library(evir)
 options(repr.plot.width=10, repr.plot.height=5)
 
 data(danish)
+head(danish)
 
-hist(danish, border=F, breaks=100, col=2)
+hist(danish, border=F, breaks=100, col=2, main='Fire losses')
 str(danish)
 summary(danish)
 sd(danish)
 ```
 
-The data comes from fire insurance claims. The quartiles show asymmetry in the data. The mean is $3.4$ whereas the median is far less, $1.8,$ signaling skewness to the right (positively skewed). The SD of $8.5$ is higher than the mean and the median, suggesting large variability.
+The data comes from fire insurance claims. The univariate dataset was collected at Copenhagen Reinsurance and comprise 2167 fire losses over the period 1980 to 1990. The quartiles show asymmetry in the data. The mean is $3.4$ whereas the median is far less, $1.8,$ signaling skewness to the right (positively skewed). The SD of $8.5$ is higher than the mean and the median, suggesting large variability.
 
 With a simple exponential Q-Q plot we can see if heavy tails are present. In regression OLS the Q-Q plot is used to verify that the residuals are normally distributed, but in extreme value theory it is used to verify the presence of exponentiality (Gumbel case): the exponential distribution is the benchmark to differentiate heavy versus light tails.
 
