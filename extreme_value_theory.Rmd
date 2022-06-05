@@ -631,7 +631,7 @@ gpd.sfall(tailplot(fit), 0.99, ci.p = 0.95)
 
 ---
 
-### Example In R Of Extreme Data:
+### [R] In Analysis Of Extreme Data:
 
 From [this site](https://www.dataanalysisclassroom.com/lesson60/).
 
@@ -640,9 +640,13 @@ library(locfit)
 library(logspline)
 ```
 
+`locfit()` Model Formula; e.g. `y~lp(x)` (`lp` is local polynomial) for a regression model; `~lp(x)` for a density estimation model.
+
+
 ```{R}
-# Normal Origins #
-options(repr.plot.width=15, repr.plot.height=7)
+# DISTRIBUTION MIN & MAX ON DRAWS FROM GAUSSIAN:
+
+options(repr.plot.width=20, repr.plot.height=7)
 par(mfrow=c(1,3))
 
 x = rnorm(10000,0,1)
@@ -665,21 +669,19 @@ for (i in 1:N)
 
 
 plot(locfit(~ave), xlim=c(-1,1), ylim=c(0,14),
-        ylab="", font=2, font.lab=2, xlab="Normal Distribution", col='orange')
+      ylab="", font=2, font.lab=2, xlab="Normal Distribution", col='orange')
 lines(locfit(~ave),lwd=2,col="blue")
 
 plot(locfit(~max1),xlim=c(-5,5),
-font=2, font.lab=2,ylab="",xlab="Extreme Value Distribution (Gumbel)", col='magenta')
+      font=2, font.lab=2, ylab="",xlab="Extreme Value Distribution (Gumbel)", col='magenta')
 lines(locfit(~max1),lwd=2,col="red")
 
 
 # DOING THE SAME FOR DRAWS FROM THE EXPONENTIAL DISTRIBUTION:
-options(repr.plot.width=12, repr.plot.height=5)
+
 par(mfrow=c(1,3))
 x = rexp(10000,0.5)
-hist(x, prob=T, xlim=c(0,25), ylim=c(0,0.5), ylab="", main="", font=2, border=F,
-        col=rgb(0, 0, 255, max = 255, alpha = 125),
-        font.lab=2, xlab="Exponential Distribution")
+hist(x, prob=T, xlim=c(0,25), ylim=c(0,0.5), ylab="", main="", font=2, border=F, col=rgb(0, 0, 255, max = 255, alpha = 125), font.lab=2, xlab="Exponential Distribution")
 
 plot(logspline(x), add=T, lty=2)
 
@@ -704,8 +706,8 @@ lines(locfit(~ave),lwd=2,col="blue")
 plot(locfit(~max1),xlim=c(0,40),font=2,font.lab=2,ylab="",xlab="Extreme Value Distribution (Gumbel)", col="magenta")
 lines(locfit(~max1),lwd=2,col="red")
 
-# Uniform Origins #
-options(repr.plot.width=14, repr.plot.height=5)
+# UNIFORM DRAWS:
+
 par(mfrow=c(1,3))
 
 x = runif(100000,0,1)
@@ -754,19 +756,19 @@ lines(density(max1),lwd=2,col="red")
 
 The three types of extreme value distributions have double exponential and single exponential forms. The maxima of independent random variables converge (in the limit when $n \to \infty$) to one of the three types, Gumbel $(e^{-e^{-y}})$, Frechet $(e^{-y^{-\gamma}})$ or Weibull $(e^{-(-y)^{\gamma}})$ depending on the parent distribution.
 
-These three types can be combined into a single function called the generalized extreme value distribution (GEV) as in eq..$1$ above:
+These three types can be combined into a single function called the **generalized extreme value distribution (GEV)** as in eq..$1$ above:
 
-$$G(z) = e^{-[1+\xi(\frac{z-\mu}{\sigma})]^{-1/\xi}_{+}}$$
+$$G(z) = e^{-\left(1+\xi(\frac{z-\mu}{\sigma})\right)^{-1/\xi}_{+}}$$
 
 $\mu$ is the location parameter. $\sigma > 0$ is the scale parameter. $\xi$ controls the shape of the distribution (shape parameter).
 
 When $\xi \to 0,$ GEV tends to a Gumbel distribution.
 
-When $\xi > 0,$ GEV tends to the Frechet distribution.
+When $\xi > 0,$ GEV tends to the Fréchet distribution.
 
 When $\xi < 0,$ GEV tends to the Weibull distribution.
 
-Its okay if you don’t know the origin distribution for an extreme dataset. GEV folds all the three types into one form, and the parameters $\mu, \sigma,$ and $\xi$ can be estimated from the data. The function has a closed form solution to compute the quantiles and probabilities.
+It's okay if you don’t know the origin distribution for an extreme dataset. GEV folds all the three types into one form, and the parameters $\mu, \sigma,$ and $\xi$ can be estimated from the data. The function has a closed form solution to compute the quantiles and probabilities.
 
 ---
 
@@ -774,13 +776,14 @@ Let’s examine the maximum cycles to fatigue data. We do not know which extreme
 
 Pay attention to the red highlighted text for now. It shows the results for the estimated parameters. The shape parameter is -0.52, i.e. $\xi < 0$. So, a Weibull distribution fits the data with high likelihood.
 
+
+
 ```{R}
-require('RCurl')
-
-temperature_data <-read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/cp_temperature.csv')
-
 require('extRemes')
 ```
+
+The function `revd(n, loc = 0, scale = 1, shape = 0, threshold = 0, type = c("GEV", "GP"))` generates random extreme values. The extreme value distributions (EVD’s) are generalized extreme value (GEV) or generalized Pareto(GP).
+
 ```{R}
 # Generate Gumbel Random numbers
 options(repr.plot.width=8, repr.plot.height=8)
@@ -813,9 +816,22 @@ summary(fit)
 
 It shows the results for the estimated parameters. The shape parameter is -0.52 $(\xi < 0)$. So, a Weibull distribution fits the data with high likelihood.
 
-Block Maxima
+### Block Maxima
 
-Let’s examine the temperature data. Assume we are interested in analyzing the data for maximum temperature each year. Remember we only care about the extremes. For this, we should first extract the annual maximum temperature values. This idea is called the block maxima. Each year is a block, and we get the maximum for each year.
+#### Temperatures example:
+
+Let’s examine the temperature data. 
+
+```{R}
+require('RCurl')
+
+temperature_data <-read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/cp_temperature.csv')
+head(temperature_data)
+```
+
+
+
+Assume we are interested in analyzing the data for maximum temperature each year. Remember we only care about the extremes. For this, we should first extract the annual maximum temperature values. This idea is called the block maxima. Each year is a block, and we get the maximum for each year.
 
 ![](https://user-images.githubusercontent.com/9312897/120946977-4d93d100-c70c-11eb-9901-081ae9b0b733.png)
 
@@ -914,7 +930,7 @@ We can get their relations from the plot.
 
 ---
 
-### Wind Engineering Example:
+#### Wind Engineering Example:
 
 From [this blog](https://blogs2.datall-analyse.nl/2016/02/17/extreme_value_analysis_maxima/#more-120).
 
