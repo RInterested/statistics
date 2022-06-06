@@ -40,19 +40,24 @@ Sequence of identically distributed variables $\epsilon_i$ with $\epsilon_i \sim
 
 Here is an example with plots of the autocorrelation function  `acf` telling us how the last value is correlated to the immediate prior values, as well as the partial autocorrelation function `pacf`, showing whether there is any residual correlation of $y_t$ to the prior values of $y$ after eliminating $y_{t-1}$.
 
-```{R,fig.width = 7, fig.height = 3}
+
+```{R, fig.height=4, fig.width=6}
+library(cowplot) 
+library(fpp2)  
 set.seed(0)
+
 a = rnorm(100)
 plot.ts(a, col="gray", ylab="white noise")
 abline(h=0, col="red3", lty=2)
-```
-```{r,fig.width = 7, fig.height = 3, echo=F}
-par(mfrow=c(1,2))
-acf(a, main="", xlab="")
-pacf(a, main="", xlab="")
+# ACF plot 
+r1 <- ggAcf(a, lag.max = 20) + labs(title = "ACF PLot residuals Model 2")
+# PACF plot
+r2 <- ggPacf(a, lag.max = 20) + labs(title = "PACF PLot residuals Model 2")
+# Plot both
+plot_grid(r1, r2, ncol = 1)
 ```
 
-<br>
+---
 
 #### **RANDOM WALK:**
 
@@ -258,9 +263,11 @@ In the case of `AirPassengers`:
 
 ```{r, fig.width = 5, fig.height = 4}
 plot.ts(AirPassengers)
+
+abline(lm(AirPassengers~time(AirPassengers)))
 ```
 
-we a trend (solution: taking differences), seasonality and increasing variance (solution: $log$).
+we can find a trend (the upward slope in the time series - solution: taking differences), seasonality and increasing variance (solution: $\log$).
 
 Testing for stationarity now:
 
