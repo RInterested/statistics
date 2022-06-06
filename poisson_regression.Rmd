@@ -1,5 +1,5 @@
 ---
-title: 'OLS without linear algebra'
+title: 'Poisson Regression'
 output: 
   html_document:
     theme: readable
@@ -15,13 +15,11 @@ output:
 
 ---
 
-### OLS Regression Curve:
+### Poisson Regression:
 
 ---
 
-Write here
-
-To silence R messages and warnings copy this before the first chunk of R code:
+From [this site](https://clelandcm.github.io/ITS/):
 
 ```{r setup, include=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
@@ -29,40 +27,101 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{R}
 library(curl)
-dat <- read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/sicily.csv')
-head(dat)
+library(lmtest)
+library(vcd)
+library(Epi)
+library(tsModel)
+library(splines)
+library(tidyverse)
 ```
 
+In the dataset `sicily` `aces` = count of acute coronary episodes in Sicily per month (the outcome) and `smokban` = smoking ban (the intervention) coded 0 before intervention. `time` = elapsed time since the start of the study. `pop` = the population of Sicily (in 10000s). `stdpop` = age standardised population
 
----
-
-#### SUBHEADER
-
----
-
-```{R, fig.width = 5, fig.height = 5}
-n <- 1e4
-M <- matrix(runif(2*n,-1,1),ncol=2)
-M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
-plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
-     xlab='', ylab='', tck=F, axes=F)
+```{R}
+data <- read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/sicily.csv')
+head(data)
 ```
 
-##### SUB-SUBHEADER
+---
+
+#### Descriptive analysis:
+
+Examining the data is an important first step. Looking at the pre-intervention trend can give an indication of how stable the trend is over time, whether a linear model is likely to be appropriate, and whether there appears to be a seasonal trend.
+
+```{R}
+data$rate <- with(data, aces/stdpop*10^5)
+
+plot(data$rate,type="n",ylim=c(00,300),xlab="Year", ylab="Std rate x 10,000", bty="l",xaxt="n")
+rect(36,0,60,300,col=grey(0.9),border=F)
+points(data$rate[data$smokban==0],cex=0.7)
+axis(1,at=0:5*12,labels=F)
+axis(1,at=0:4*12+6,tick=F,labels=2002:2006)
+title("Sicily, 2002-2006")
+
+# Summary statistics:
+data %>%
+  gather(Variable, Value) %>%
+  group_by(Variable) %>%
+  summarize(n = n(),
+            Mean = mean(Value),
+            SD = sd(Value),
+            Median = median(Value),
+            IQR = IQR(Value),
+            Min = min(Value),
+            Max = max(Value)) %>%
+  knitr::kable()
+
+# Statistics before and after smoking ban:
+data %>%
+  mutate(Period = case_when(smokban == 0 ~ "1. Before Ban",
+                            smokban == 1 ~ "2. After Ban")) %>%
+  select(Period, aces, rate) %>%
+  gather(Variable, Value, -Period) %>%
+  group_by(Period, Variable) %>%
+    summarize(n = n(),
+            Mean = mean(Value),
+            SD = sd(Value),
+            Median = median(Value),
+            IQR = IQR(Value),
+            Min = min(Value),
+            Max = max(Value)) %>%
+  knitr::kable()
+```
 
 ---
 
-### Portfolio Variance:
+#### Interrupted time series regression for the evaluation of public health interventions:
 
----
+from [here](https://academic.oup.com/ije/article/46/1/348/2622842?login=false):
 
-Example of an image:
+#### Poisson Regression Model:
 
-<img height = 100  src = "https://cloud.githubusercontent.com/assets/9312897/15807170/a0303b44-2b24-11e6-974b-bbbae9390f1b.png">
+We model the count data directly (rather than the rate which doesn’t follow a Poisson distribution), using the population (log transformed) as an offset variable in order to transform back to rates.
 
-References:
+```{R}
+model1 <- glm(aces ~ offset(log(stdpop)) + smokban + time, family=poisson, data)
+summary(model1)
+round(ci.lin(model1,Exp=T),3)
+```
 
-<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
+#### Predicting future values:
+
+```{R}
+datanew <- data.frame(stdpop = mean(data$stdpop),
+                      smokban = rep(c(0, 1), c(360, 240)),
+                      time = 1:600/10,
+                      month = rep(1:120/10, 5))
+
+pred1 <- predict(model1, type="response", datanew) / mean(data$stdpop) * 10^5
+
+plot(data$rate, type="n", ylim=c(0,300), xlab="Year", ylab="Std rate x 10,000", bty="l", xaxt="n")
+rect(36, 0, 60, 300, col=grey(0.9), border=F)
+points(data$rate,cex=0.7)
+axis(1, at=0:5*12, labels=F)
+axis(1, at=0:4*12+6, tick=F, labels=2002:2006)
+lines((1:600/10), pred1, col=2)
+title("Sicily, 2002-2006")
+```
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
