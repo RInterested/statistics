@@ -26,11 +26,11 @@ A time series **model** can only be built on a stationary time series. Stationar
     2. The variance should also be constant along the time line (homoscedasticity).
     3. The covariance between terms across a lag (t v. t - m) should not be a function of time.
     
-<br>
+---
     
 #### **WHITE NOISE:**
 
-<br>
+---
 
 White noise is stationary.
 
@@ -39,6 +39,11 @@ $\large y_t = \epsilon_t$
 Sequence of identically distributed variables $\epsilon_i$ with $\epsilon_i \sim N(0,\sigma^2)$
 
 Here is an example with plots of the autocorrelation function  `acf` telling us how the last value is correlated to the immediate prior values, as well as the partial autocorrelation function `pacf`, showing whether there is any residual correlation of $y_t$ to the prior values of $y$ after eliminating $y_{t-1}$.
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
 
 
 ```{R, fig.height=4, fig.width=6}
@@ -61,7 +66,7 @@ plot_grid(r1, r2, ncol = 1)
 
 #### **RANDOM WALK:**
 
-<br>
+---
 
 A random walk is not stationary because the variance is time-dependent: $\text{var}[y_t] = \text{var}[y_o]+\sum_1^t \text{var}[\epsilon_i]= t\, \text{var}[\epsilon].$
 
@@ -87,11 +92,11 @@ plot.ts(x, col="red", ylab="random walk")
 abline(h=0, col="red3", lty=2)
 ```
 
-<br>
+---
 
 #### **AUTOREGRESSIVE - AR(1):**
 
-<br>
+---
 
 $\large \color{blue}{y_t} = c + \color{red}{\rho}\, \color{blue}{y_{t-1}}+\epsilon_t\tag 1$
 
@@ -147,11 +152,11 @@ pacf(d, main="", xlab="")
 Notice the negative second lag related to the $-0.5$ AR value. Notice how the acf just gives us a significant correlation without the sign.
 
 
-<br>
+---
 
 #### **MOVING AVERAGE or MA:**
 
-<br>
+---
 
 MA is also stationary, and by affecting noise, it's effects are less long-lived than AR.
 
@@ -175,12 +180,11 @@ pacf(e, main="", xlab="")
 ```
 
 
-
-<br>
+---
 
 #### **MIXED MODELS or ARMA Models:**
 
-<br>
+---
 
 $\large y_t = C + \color{red}{\rho_1}\, y_{t-1}+
 \color{blue}{\rho_2}\, y_{t-2} +\cdots+
