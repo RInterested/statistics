@@ -15,7 +15,7 @@ output:
 
 ---
 
-#### Interrupted time series regression for the evaluation of public health interventions:
+### Interrupted time series regression for the evaluation of public health interventions:
 
 from [here](https://academic.oup.com/ije/article/46/1/348/2622842?login=false).
 
@@ -132,26 +132,14 @@ A second assumption of standard regression models is that observations are indep
 ### Checking for correlation, autocorrelation and seasonality:
 
 ```{R}
-# Checking residuals:
-
-res2 <- residuals(model2,type="deviance")
-
-plot(data$time, res2, ylim=c(-5,5), pch=19, cex=0.7, col=grey(0.6), main="Residuals over time", ylab="Deviance residuals", xlab="Date")
-
-abline(h=0, lty=2, lwd=2)
-```
-
-```{R}
 # Checking autocorrelation and partial autocorrelation:
+library(ggplot2)
 library(cowplot) 
 library(fpp2)  
 
-# ACF plot 
-r1 <- ggAcf(res2, lag.max = 20) + labs(title = "ACF PLot residuals Model 2")
-# PACF plot
-r2 <- ggPacf(res2, lag.max = 20) + labs(title = "PACF PLot residuals Model 2")
-# Plot both
-plot_grid(r1, r2, ncol = 1)
+res2 <- residuals(model2, type="deviance")
+
+ggtsdisplay(res2)
 ```
 
 There are various ways of adjusting for seasonality - here we use harmonic terms specifying the number of sin and cosine pairs to include (in this case 2) and the length of the period (12 months):
@@ -171,17 +159,7 @@ summary(model3)
 
 res3 <- residuals(model3,type="deviance")
 
-plot(data$time, res3, ylim=c(-5,5), pch=19, cex=0.7, 
-   col=grey(0.6), main="Residuals over time", ylab="Deviance residuals", xlab="Date")
-
-abline(h=0, lty=2, lwd=2)
-
-# ACF plot 
-o1 <- ggAcf(res3, lag.max = 20)
-# PACF plot
-o2 <- ggPacf(res3, lag.max = 20)
-# Plot both
-plot_grid(o1, o2, ncol = 1)
+ggtsdisplay(res3)
 ```
 
 ```{R}
