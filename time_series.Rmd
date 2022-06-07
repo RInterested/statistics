@@ -267,7 +267,23 @@ plot.ts(AirPassengers)
 abline(lm(AirPassengers~time(AirPassengers)))
 ```
 
-we can find a trend (the upward slope in the time series - solution: taking differences), seasonality and increasing variance (solution: $\log$).
+we can find a **trend** (the upward slope in the time series - solution: taking differences), 
+
+```{r, fig.width = 5, fig.height = 4}
+lm(AirPassengers~time(AirPassengers))
+```
+
+**seasonality**:
+
+```{R}
+x <- ts(AirPassengers, frequency=12) # 12 measurements per year
+fit <- tbats(x)
+!is.null(fit$seasonal)
+```
+
+and increasing variance (**heteroskedasticity of the time series**) (solution: $\log$).
+
+```
 
 Testing for stationarity now:
 
