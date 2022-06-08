@@ -205,9 +205,11 @@ model2 <- glm(infarcts ~ offset(log(stdpop)) + smokban + time,
 summary(model2)
 ```
 
-A second assumption of standard regression models is that observations are independent. This assumption is often violated in time series data because consecutive observations tend to be more similar to one another than those that are further apart, a phenomenon known as autocorrelation. Fortunately, in many epidemiological data, autocorrelation is largely explained by other variables, in particular seasonality (discussed above); therefore, after controlling for these factors, residual autocorrelation is rarely a problem. Nevertheless, autocorrelation should always be assessed by examining the plot of residuals and the partial autocorrelation function and, where data are normally distributed, conducting tests such as the Breusch-Godfrey test.22,25 Where residual autocorrelation remains, this should be adjusted for using methods such as Prais regression or autoregressive integrated moving average (ARIMA), described in more detail elsewhere.26,27 There is very little evidence of autocorrelation in the worked example and even less after adjustment for seasonality.
+A second assumption of standard regression models is that observations are independent. This assumption is often violated in time series data because consecutive observations tend to be more similar to one another than those that are further apart, a phenomenon known as autocorrelation. Fortunately, in many epidemiological data, autocorrelation is largely explained by other variables, in particular seasonality (discussed above); therefore, after controlling for these factors, residual autocorrelation is rarely a problem. Nevertheless, autocorrelation should always be assessed by examining the plot of residuals and the partial autocorrelation function and, where data are normally distributed, conducting tests such as the Breusch-Godfrey test.22,25 Where residual autocorrelation remains, this should be adjusted for using methods such as Prais regression or autoregressive integrated moving average (ARIMA), described in more detail elsewhere. There is very little evidence of autocorrelation in the worked example and even less after adjustment for seasonality.
 
-### Checking for correlation, autocorrelation and seasonality:
+---
+
+### Checking for correlation, autocorrelation and seasonality in the residuals:
 
 ```{R}
 # Checking autocorrelation and partial autocorrelation in the model (using residuals):
@@ -220,15 +222,34 @@ res2 <- residuals(model2, type="deviance")
 ggtsdisplay(res2)
 ```
 
-There are various ways of adjusting for seasonality - here we use harmonic terms specifying the number of sin and cosine pairs to include (in this case 2) and the length of the period (12 months):
+```{R}
+pattern <- decompose(ts(res2, frequency=12))
+plot(pattern)
+
+
+!is.null(tbats(ts(res2, frequency=12))$seasonal)
+```
+
+
+
+Clearly there is residual seasonality. There are various ways of adjusting for seasonality - here we use harmonic terms specifying the number of sin and cosine pairs to include (in this case 3) and the length of the period (12 months):
 
 ```{R}
 library(tsModel)
 
-model3 <- glm(infarcts ~ offset(log(stdpop)) + smokban + time + harmonic(month,2,12), 
+model3 <- glm(infarcts ~ offset(log(stdpop)) + smokban + time + harmonic(month,3,12), 
               family=quasipoisson, data)
 summary(model3)
 ```
+
+
+```{R}
+round(ci.lin(model3,Exp=T),3)
+ci.lin(model3,Exp=T)["smokban",5:7]
+```
+
+
+After adjusting for seasonality:
 
 ```{R}
 # After adjusting for seasonality:
@@ -240,10 +261,16 @@ res3 <- residuals(model3,type="deviance")
 ggtsdisplay(res3)
 ```
 
+
 ```{R}
-round(ci.lin(model3,Exp=T),3)
-ci.lin(model3,Exp=T)["smokban",5:7]
+pattern <- decompose(ts(res3, frequency=12))
+plot(pattern)
+
+
+!is.null(tbats(ts(res3, frequency=12))$seasonal)
 ```
+
+
 
 After adjustment for seasonality through a Fourier term, with results suggesting that the association is largely unaffected: `(RR: 0.885; 95% CI 0.839-0.933; P < 0.001).`
 
