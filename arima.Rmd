@@ -24,7 +24,15 @@ From [this youtube post](https://www.youtube.com/watch?v=-vSzKfqcTDg). Also, [he
 
 <img width="700" src="https://cloud.githubusercontent.com/assets/9312897/21590345/0dad63c8-d0c9-11e6-8dc9-9389405ff2aa.png">
 
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+
 Examples:
+
+#### Moving Average MA(1):
 
 <img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584005/513cf3d8-d065-11e6-9170-3acf829dede8.png">
 
@@ -34,15 +42,21 @@ The negative values in the plot respond to a process of the form $\large\color{b
 
 Here is a simulation of an MA(1) process with $\theta = - 0.7:$
 
-```{r, fig.width = 25, fig.height = 5}
+```{r, fig.width = 25, fig.height = 10}
 set.seed(2017)
 MA = arima.sim(model=list(ma = - 0.7), n = 100)
 par(mfrow = c(1,2)); acf(MA); pacf(MA)
+par(mfrow=c(1,1))
+library(ggplot2)
+library(fpp2) 
+ggtsdisplay(MA)
 ```
 
 
 
 ---
+
+#### Moving Average MA(2):
 
 <img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584007/5be50e42-d065-11e6-9d42-12fa3fa752f1.png">
 
@@ -50,13 +64,17 @@ In this example the ACF is significant in the first and second lags, while the P
 
 Here's an R simulation with $\theta_1 = 0.9$ and $\theta_2= -0.2:$
 
-```{r, fig.width = 25, fig.height = 5}
+```{r, fig.width = 25, fig.height = 10}
 set.seed(2017)
 MA2 = arima.sim(list(ma= c(0.9, - 0.2)), n = 100)
 par(mfrow = c(1,2));acf(MA2);pacf(MA2)
+par(mfrow = c(1,1))
+ggtsdisplay(MA2)
 ```
 
 ---
+
+#### Autoregressive AR(1):
 
 <img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584010/670b6de8-d065-11e6-8ec5-879079227380.png">
 
@@ -65,22 +83,26 @@ Here the ACF decays geometrically, and the PACF shows only one significant lag. 
 Here is the simulation in R with $\rho = 0.9:$
 
 
-```{r, fig.width = 25, fig.height = 5}
+```{r, fig.width = 25, fig.height = 10}
 set.seed(2017)
 AR = arima.sim(model=list(ar = .9), n = 100)
 par(mfrow = c(1,2));acf(AR);pacf(AR)
+ggtsdisplay(AR)
 ```
 
 ---
+
+#### Autocorrelation AR(1) with faster decay:
 
 <img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584012/71cb685a-d065-11e6-81ed-c22c2ed6b9bb.png">
 
 This is again an AR(1) process, but with a faster decay, $\rho=0.5:$
 
-```{r, fig.width = 25, fig.height = 5}
+```{r, fig.width = 25, fig.height = 10}
 set.seed(2017)
 AR = arima.sim(model=list(ar = .5), n = 100)
 par(mfrow = c(1,2));acf(AR);pacf(AR)
+ggtsdisplay(AR)
 ```
 
 ---
