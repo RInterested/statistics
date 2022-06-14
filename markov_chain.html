@@ -662,28 +662,31 @@ round(P %^% 75, 3)</code></pre>
 <p>From <a href="https://twitter.com/normonics/status/1509234405222535180?s=20&amp;t=rONOhathYVTHj9zam7aJTw">this
 post</a> on Twitter by <span class="citation">@normonics</span>.</p>
 <p>There were Markov chains without absorbing states that are
-non=ergodic, such as a simple random walk.</p>
+non-ergodic, such as a simple random walk.</p>
+<hr />
 <p>Conditions for <strong>ergodicity</strong>:</p>
-<ol style="list-style-type: decimal">
-<li><strong>Irreducible</strong>:</li>
-</ol>
+<div id="irreducibility" class="section level5">
+<h5><strong>Irreducibility</strong>:</h5>
 <p>In a Markov transition matrix <span class="math inline">\(P\)</span>
 with <span class="math inline">\(N\)</span> states all the entries in
 <span class="math display">\[\sum_{n=0}^{N-1} P^n\]</span></p>
 <p>must be <span class="math inline">\(&gt;0.\)</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li><strong>Aperiodicity</strong>:</li>
-</ol>
+</div>
+<div id="aperiodicity" class="section level5">
+<h5><strong>Aperiodicity</strong>:</h5>
 <p>The paths from one state to itself are not only multiples of a period
 <span class="math inline">\(T \geq 2.\)</span> It can be checked by
 finding a loop in the transition diagram of <span class="math inline">\(k\)</span> steps, and another loop of <span class="math inline">\(k+1\)</span> steps. Once is enough if irreducible.
 With transition matrices: Find <span class="math inline">\(k\)</span>
 and <span class="math inline">\(i\)</span> such that <span class="math inline">\(P^k_{ii}P^{k+1}_{ii}&gt;0.\)</span></p>
-<ol start="3" style="list-style-type: decimal">
-<li><strong>Positive recurrence</strong>: If I am at a given state the
-expected time before returning to that state is finite. If the matrix is
-irreducible and the number of states is finite, it is a given.</li>
-</ol>
+</div>
+<div id="positive-recurrence" class="section level5">
+<h5><strong>Positive recurrence</strong>:</h5>
+<p>If I am at a given state the expected time before returning to that
+state is finite. If the matrix is irreducible and the number of states
+is finite, it is a given.</p>
+<hr />
+</div>
 <div id="example" class="section level5">
 <h5>Example:</h5>
 <pre class="r"><code>library(expm)

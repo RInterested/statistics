@@ -237,21 +237,27 @@ round(P %^% 75, 3)
 
 From [this post](https://twitter.com/normonics/status/1509234405222535180?s=20&t=rONOhathYVTHj9zam7aJTw) on Twitter by @normonics.
 
-There were Markov chains without absorbing states that are non=ergodic, such as a simple random walk.
+There were Markov chains without absorbing states that are non-ergodic, such as a simple random walk.
+
+---
 
 Conditions for **ergodicity**:
 
-1. **Irreducible**:
+##### **Irreducibility**:
 
 In a Markov transition matrix $P$ with $N$ states all the entries in $$\sum_{n=0}^{N-1} P^n$$
 
 must be $>0.$
 
-2. **Aperiodicity**:
+##### **Aperiodicity**:
 
 The paths from one state to itself are not only multiples of a period $T \geq 2.$ It can be checked by finding a loop in the transition diagram of $k$ steps, and another loop of $k+1$ steps. Once is enough if irreducible. With transition matrices: Find $k$ and $i$ such that $P^k_{ii}P^{k+1}_{ii}>0.$
 
-3. **Positive recurrence**: If I am at a given state the expected time before returning to that state is finite. If the matrix is irreducible and the number of states is finite, it is a given.
+##### **Positive recurrence**: 
+
+If I am at a given state the expected time before returning to that state is finite. If the matrix is irreducible and the number of states is finite, it is a given.
+
+---
 
 ##### Example:
 
