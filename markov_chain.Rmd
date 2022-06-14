@@ -300,11 +300,8 @@ trans_mat %^% N
 ```{r}
 # Check lack of irreducibility... number of states is 5:
 
-N = 5 
-
-
-M <- matrix(rep(0,9),ncol=3)
-for (i in 0:2) M <- M + mat %^% i
+M <- matrix(rep(0,25),ncol=5)
+for (i in 0:4) M <- M + trans_mat %^% i
 M
 ```
 
