@@ -16,7 +16,7 @@ output:
 
 ---
 
-### Transition or Stochastic Matrices:
+### Transition or Stochastic Matrices and Discrete Time Markov Chains:
 
 ---
 
@@ -251,7 +251,9 @@ From any state it is possible to get to any state.
 
 In a Markov transition matrix $P$ with $N$ states all the entries in $$\sum_{n=0}^{N-1} P^n$$
 
-must be $>0.$
+must be $>0$ for the matrix to be irreducible. Why? Because for any given $P^n$ the enty $ij$ is the probability of reaching state $j$ from state $i$ in $n$ steps. The summation of these powers will tell us that if the entries are greater that zero **at least in one number of the steps** $n$ there is a a path (i.e. probability of greater than zero of that transition happening in $n$ steps). We want this to be true for all states.
+
+If there is a possibility of going from one state to another in a system with $N$ states, that will occur in a maximum of $N-1$ steps.
 
 ##### **Aperiodicity**:
 
@@ -283,7 +285,7 @@ mat
 ```
 
 
-A state $i$ is absorbing if once the system reaches state $i,$ it stays in that state; that is, $\Pr_{ii}=1$. There are no $1$'s in the diagonal.
+A state $i$ is absorbing if once the system reaches state $i,$ it stays in that state; that is, $\Pr_{ii}=1$. There are no $1$'s in the diagonal in this matrix.
 
 Checking irreducibility:
 
