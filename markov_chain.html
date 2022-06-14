@@ -669,6 +669,7 @@ non-ergodic, such as a simple random walk.</p>
 presentation</a>.</p>
 <div id="irreducibility" class="section level5">
 <h5><strong>Irreducibility</strong>:</h5>
+<p>From any state it is possible to get to any state.</p>
 <p>In a Markov transition matrix <span class="math inline">\(P\)</span>
 with <span class="math inline">\(N\)</span> states all the entries in
 <span class="math display">\[\sum_{n=0}^{N-1} P^n\]</span></p>
@@ -676,11 +677,15 @@ with <span class="math inline">\(N\)</span> states all the entries in
 </div>
 <div id="aperiodicity" class="section level5">
 <h5><strong>Aperiodicity</strong>:</h5>
-<p>The paths from one state to itself are not only multiples of a period
-<span class="math inline">\(T \geq 2.\)</span> It can be checked by
-finding a loop in the transition diagram of <span class="math inline">\(k\)</span> steps, and another loop of <span class="math inline">\(k+1\)</span> steps. Once is enough if irreducible.
-With transition matrices: Find <span class="math inline">\(k\)</span>
-and <span class="math inline">\(i\)</span> such that <span class="math inline">\(P^k_{ii}P^{k+1}_{ii}&gt;0.\)</span></p>
+<p>The paths from one state to itself <span class="math inline">\(i \to
+i=ii\)</span> are not only multiples of a period <span class="math inline">\(T \geq 2.\)</span> It can be checked by finding a
+loop in the transition diagram of <span class="math inline">\(k\)</span>
+steps, and another loop of <span class="math inline">\(k+1\)</span>
+steps. Once is enough if irreducible. With transition matrices: Find
+<span class="math inline">\(k\)</span> and <span class="math inline">\(i\)</span> such that <span class="math display">\[P^k_{ii}P^{k+1}_{ii}&gt;0.\]</span></p>
+<p>This means that there is a probability greater than zero of going
+from <span class="math inline">\(i \to i\)</span> in <span class="math inline">\(k\)</span> steps, and also positive in <span class="math inline">\(k+1\)</span> steps.</p>
+<p>We check the diagonal matrix entries in two consecutive powers.</p>
 </div>
 <div id="positive-recurrence" class="section level5">
 <h5><strong>Positive recurrence</strong>:</h5>
@@ -691,6 +696,11 @@ is finite, it is a given.</p>
 </div>
 <div id="example" class="section level5">
 <h5>Example:</h5>
+<hr />
+</div>
+<div id="non-ergodic-periodic-chain" class="section level5">
+<h5>Non-ergodic periodic chain:</h5>
+<hr />
 <pre class="r"><code>library(expm)
 # Example 1 -&gt; 2 -&gt; 3 -&gt; 1
 mat &lt;- matrix(c(0,1,0,0,0,1,1,0,0),ncol=3,byrow=T)
@@ -699,6 +709,10 @@ mat</code></pre>
 ## [1,]    0    1    0
 ## [2,]    0    0    1
 ## [3,]    1    0    0</code></pre>
+<p>A state <span class="math inline">\(i\)</span> is absorbing if once
+the system reaches state <span class="math inline">\(i,\)</span> it
+stays in that state; that is, <span class="math inline">\(\Pr_{ii}=1\)</span>. There are no <span class="math inline">\(1\)</span>’s in the diagonal.</p>
+<p>Checking irreducibility:</p>
 <pre class="r"><code># Irreducible:
 M &lt;- matrix(rep(0,9),ncol=3)
 for (i in 0:2) M &lt;- M + mat %^% i
@@ -707,6 +721,9 @@ M</code></pre>
 ## [1,]    1    1    1
 ## [2,]    1    1    1
 ## [3,]    1    1    1</code></pre>
+<p>It is irreducible because all values are positive.</p>
+<p>But it is not aperiodic because there are no two consecutive powers
+with any one diagonal entry positive in those consecutive powers:</p>
 <pre class="r"><code># Aperiodic:
 # Example: 1 -&gt; 2 -&gt; 3 -&gt; 1
 # If we want to move from 1 to itself we can do it in 3 steps or 6 or 9 or 12... So it&#39;s periodic with T = 3.
@@ -725,10 +742,13 @@ mat %^% 1</code></pre>
 ## [1,]    1    0    0
 ## [2,]    0    1    0
 ## [3,]    0    0    1</code></pre>
+<pre class="r"><code>mat %^% 4</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    1    0
+## [2,]    0    0    1
+## [3,]    1    0    0</code></pre>
 <pre class="r"><code># P to the power of 3 is the identity. Same for any P to the power of 1 + 3k or 2 + 3k or 3 + 3k.</code></pre>
-<p>A state i is an absorbing state if once the system reaches state
-<span class="math inline">\(i,\)</span> it stays in that state; that is,
-<span class="math inline">\(\Pr_{ii}=1\)</span>.</p>
+<p>This matrix is non-ergotic.</p>
 <hr />
 </div>
 <div id="non-ergodic-chain-with-no-absorbing-state" class="section level5">
@@ -747,6 +767,9 @@ trans_mat %^% N</code></pre>
 ## [3,]    0 0.50 0.50 0.00 0.00
 ## [4,]    0 0.00 0.00 0.50 0.50
 ## [5,]    0 0.00 0.00 0.50 0.50</code></pre>
+<p>We try to find an absorbing state (i.e. a <span class="math inline">\(1\)</span> in any entry) with a very high number
+of steps <span class="math inline">\(N = 100,\)</span> and it doesn’t
+happen: no absorbing states.</p>
 <pre class="r"><code># Check lack of irreducibility... number of states is 5:
 
 M &lt;- matrix(rep(0,25),ncol=5)
@@ -758,6 +781,8 @@ M</code></pre>
 ## [3,]    0 2.00 3.00 0.00 0.00
 ## [4,]    0 0.00 0.00 3.00 2.00
 ## [5,]    0 0.00 0.00 2.00 3.00</code></pre>
+<p>Not all states are greater than <span class="math inline">\(0\)</span> and therefore, the chain is not
+irreducible (hence, non-ergotic).</p>
 <hr />
 </div>
 <div id="non-ergodic-chain-with-no-absorbing-state-and-each-state-with-at-least-one-incoming-state" class="section level5">
@@ -777,6 +802,20 @@ trans_mat %^% N</code></pre>
 ## [3,] 0.000000000 0.5000000 0.5000000 0.00000000 0.00000000
 ## [4,] 0.004183637 0.4592089 0.4570634 0.03875293 0.04079114
 ## [5,] 0.003974592 0.4612471 0.4592089 0.03681655 0.03875293</code></pre>
+<p>We try to find an absorbing state (i.e. a <span class="math inline">\(1\)</span> in any entry) with a very high number
+of steps <span class="math inline">\(N = 100,\)</span> and it doesn’t
+happen: no absorbing states.</p>
+<p>Checking irreducibility:</p>
+<pre class="r"><code>M &lt;- matrix(rep(0,25),ncol=5)
+for (i in 0:4) M &lt;- M + trans_mat %^% i
+M</code></pre>
+<pre><code>##        [,1]   [,2]   [,3]   [,4]   [,5]
+## [1,] 1.0500 1.2625 0.7500 1.2000 0.7375
+## [2,] 0.0000 3.0000 2.0000 0.0000 0.0000
+## [3,] 0.0000 2.0000 3.0000 0.0000 0.0000
+## [4,] 0.1475 0.0625 0.0125 2.8400 1.9375
+## [5,] 0.2400 0.1600 0.0625 1.6975 2.8400</code></pre>
+<p>The matrix is not irreducible.</p>
 <hr />
 </div>
 <div id="ergodic-chain" class="section level5">
@@ -795,6 +834,33 @@ trans_mat %^% N</code></pre>
 ## [3,] 0.04761905 0.2390821 0.2391986 0.2371083 0.2369918
 ## [4,] 0.04761905 0.2369918 0.2368616 0.2391986 0.2393289
 ## [5,] 0.04761905 0.2371083 0.2369918 0.2390821 0.2391986</code></pre>
+<p>Checking irreducibility:</p>
+<pre class="r"><code>M &lt;- matrix(rep(0,25),ncol=5)
+for (i in 0:4) M &lt;- M + trans_mat %^% i
+M</code></pre>
+<pre><code>##        [,1]   [,2]   [,3]   [,4]   [,5]
+## [1,] 1.1000 1.2125 0.7375 1.2125 0.7375
+## [2,] 0.1475 2.8400 1.9375 0.0625 0.0125
+## [3,] 0.2425 1.6975 2.8400 0.1575 0.0625
+## [4,] 0.1475 0.0625 0.0125 2.8400 1.9375
+## [5,] 0.2425 0.1575 0.0625 1.6975 2.8400</code></pre>
+<p>Checking aperiodicity:</p>
+<pre class="r"><code>trans_mat %^% 2</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,] 0.00 0.25 0.25 0.25 0.25
+## [2,] 0.05 0.45 0.50 0.00 0.00
+## [3,] 0.05 0.45 0.45 0.05 0.00
+## [4,] 0.05 0.00 0.00 0.45 0.50
+## [5,] 0.05 0.05 0.00 0.45 0.45</code></pre>
+<pre class="r"><code>trans_mat %^% 3</code></pre>
+<pre><code>##       [,1]  [,2]  [,3]  [,4]  [,5]
+## [1,] 0.050 0.225 0.250 0.225 0.250
+## [2,] 0.050 0.450 0.475 0.025 0.000
+## [3,] 0.045 0.430 0.450 0.050 0.025
+## [4,] 0.050 0.025 0.000 0.450 0.475
+## [5,] 0.045 0.050 0.025 0.430 0.450</code></pre>
+<p>There are multiple diagonal terms positive in both consecutive
+powers.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
