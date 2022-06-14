@@ -40,7 +40,7 @@ For example, if we know that a certain percentage of people leave the city for t
 ---
  
  
-####[ABSORBING MARKOV CHAINS](https://en.wikipedia.org/wiki/Absorbing_Markov_chain):
+#### [ABSORBING MARKOV CHAINS](https://en.wikipedia.org/wiki/Absorbing_Markov_chain):
 <br>
 
 From [this series of lectures](https://youtu.be/BsOkOaB8SFk).
@@ -230,6 +230,116 @@ there'll be a lot of accounts in the transient states. But after six years there
 require(expm)
 round(P %^% 75, 3)
 ```
+
+---
+
+#### Markov Chains and Ergodicity:
+
+From [this post](https://twitter.com/normonics/status/1509234405222535180?s=20&t=rONOhathYVTHj9zam7aJTw) on Twitter by @normonics.
+
+There were Markov chains without absorbing states that are non=ergodic, such as a simple random walk.
+
+Conditions for **ergodicity**:
+
+1. **Irreducible**:
+
+In a Markov transition matrix $P$ with $N$ states all the entries in $$\sum_{n=0}^{N-1} P^n$$
+
+must be $>0.$
+
+2. **Aperiodicity**:
+
+The paths from one state to itself are not only multiples of a period $T \geq 2.$ It can be checked by finding a loop in the transition diagram of $k$ steps, and another loop of $k+1$ steps. Once is enough if irreducible. With transition matrices: Find $k$ and $i$ such that $P^k_{ii}P^{k+1}_{ii}>0.$
+
+3. **Positive recurrence**: If I am at a given state the expected time before returning to that state is finite. If the matrix is irreducible and the number of states is finite, it is a given.
+
+##### Example:
+
+```{r}
+library(expm)
+# Example 1 -> 2 -> 3 -> 1
+mat <- matrix(c(0,1,0,0,0,1,1,0,0),ncol=3,byrow=T)
+mat
+# Irreducible:
+M <- matrix(rep(0,9),ncol=3)
+for (i in 0:2) M <- M + mat %^% i
+M
+```
+
+
+
+```{r}
+# Aperiodic:
+# Example: 1 -> 2 -> 3 -> 1
+# If we want to move from 1 to itself we can do it in 3 steps or 6 or 9 or 12... So it's periodic with T = 3.
+mat %^% 1
+mat %^% 2
+mat %^% 3
+
+# P to the power of 3 is the identity. Same for any P to the power of 1 + 3k or 2 + 3k or 3 + 3k.
+```
+
+A state i is an absorbing state if once the system reaches state $i,$ it stays in that state; that is, $\Pr_{ii}=1$.
+
+---
+
+##### Non-ergodic chain with no absorbing state:
+
+---
+
+```{r}
+trans_mat <- matrix(c(0,1/2,0,1/2,0,
+                      0,1/2,1/2,0,0,
+                      0,1/2,1/2,0,0,
+                      0,0,0,1/2,1/2,
+                      0,0,0,1/2,1/2),ncol=5,byrow=T)
+N = 100
+trans_mat %^% N
+```
+
+```{r}
+# Check lack of irreducibility... number of states is 5:
+
+N = 5 
+
+
+M <- matrix(rep(0,9),ncol=3)
+for (i in 0:2) M <- M + mat %^% i
+M
+```
+
+---
+
+##### Non-ergodic chain with no absorbing state and each state with at least one incoming state:
+
+---
+
+```{r}
+trans_mat <- matrix(c(0,1/2,0,1/2,0,
+                      0,1/2,1/2,0,0,
+                      0,1/2,1/2,0,0,
+                      0,0,0,1/2,1/2,
+                      1/10,0,0,4/10,1/2),ncol=5,byrow=T)
+N = 100
+trans_mat %^% N
+```
+
+---
+
+##### Ergodic chain:
+
+---
+
+```{r}
+trans_mat <- matrix(c(0,1/2,0,1/2,0,
+                      0,1/2,1/2,0,0,
+                      1/10,4/10,5/10,0,0,
+                      0,0,0,1/2,1/2,
+                      1/10,0,0,4/10,1/2),ncol=5,byrow=T)
+N = 100
+trans_mat %^% N
+```
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>

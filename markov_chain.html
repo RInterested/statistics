@@ -412,8 +412,10 @@ of people living in the city and suburbs one year from now:</p>
 state}}=\underbrace{\begin{bmatrix}\text{C}\\\text{S}\end{bmatrix}}_{\text{state
 1 yr later}}\]</span></p>
 <hr />
-<p>####<a href="https://en.wikipedia.org/wiki/Absorbing_Markov_chain">ABSORBING
-MARKOV CHAINS</a>: <br></p>
+<div id="absorbing-markov-chains" class="section level4">
+<h4><a href="https://en.wikipedia.org/wiki/Absorbing_Markov_chain">ABSORBING
+MARKOV CHAINS</a>:</h4>
+<p><br></p>
 <p>From <a href="https://youtu.be/BsOkOaB8SFk">this series of
 lectures</a>.</p>
 <p>An absorbing state in a transition MC is such that when it is
@@ -653,10 +655,148 @@ round(P %^% 75, 3)</code></pre>
 ## [3,] 0.875 0.125    0    0
 ## [4,] 0.750 0.250    0    0</code></pre>
 <hr />
+</div>
+</div>
+<div id="markov-chains-and-ergodicity" class="section level4">
+<h4>Markov Chains and Ergodicity:</h4>
+<p>From <a href="https://twitter.com/normonics/status/1509234405222535180?s=20&amp;t=rONOhathYVTHj9zam7aJTw">this
+post</a> on Twitter by <span class="citation">@normonics</span>.</p>
+<p>There were Markov chains without absorbing states that are
+non=ergodic, such as a simple random walk.</p>
+<p>Conditions for <strong>ergodicity</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Irreducible</strong>:</li>
+</ol>
+<p>In a Markov transition matrix <span class="math inline">\(P\)</span>
+with <span class="math inline">\(N\)</span> states all the entries in
+<span class="math display">\[\sum_{n=0}^{N-1} P^n\]</span></p>
+<p>must be <span class="math inline">\(&gt;0.\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Aperiodicity</strong>:</li>
+</ol>
+<p>The paths from one state to itself are not only multiples of a period
+<span class="math inline">\(T \geq 2.\)</span> It can be checked by
+finding a loop in the transition diagram of <span class="math inline">\(k\)</span> steps, and another loop of <span class="math inline">\(k+1\)</span> steps. Once is enough if irreducible.
+With transition matrices: Find <span class="math inline">\(k\)</span>
+and <span class="math inline">\(i\)</span> such that <span class="math inline">\(P^k_{ii}P^{k+1}_{ii}&gt;0.\)</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Positive recurrence</strong>: If I am at a given state the
+expected time before returning to that state is finite. If the matrix is
+irreducible and the number of states is finite, it is a given.</li>
+</ol>
+<div id="example" class="section level5">
+<h5>Example:</h5>
+<pre class="r"><code>library(expm)
+# Example 1 -&gt; 2 -&gt; 3 -&gt; 1
+mat &lt;- matrix(c(0,1,0,0,0,1,1,0,0),ncol=3,byrow=T)
+mat</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    1    0
+## [2,]    0    0    1
+## [3,]    1    0    0</code></pre>
+<pre class="r"><code># Irreducible:
+M &lt;- matrix(rep(0,9),ncol=3)
+for (i in 0:2) M &lt;- M + mat %^% i
+M</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    1    1    1
+## [3,]    1    1    1</code></pre>
+<pre class="r"><code># Aperiodic:
+# Example: 1 -&gt; 2 -&gt; 3 -&gt; 1
+# If we want to move from 1 to itself we can do it in 3 steps or 6 or 9 or 12... So it&#39;s periodic with T = 3.
+mat %^% 1</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    1    0
+## [2,]    0    0    1
+## [3,]    1    0    0</code></pre>
+<pre class="r"><code>mat %^% 2</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    0    0    1
+## [2,]    1    0    0
+## [3,]    0    1    0</code></pre>
+<pre class="r"><code>mat %^% 3</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
+<pre class="r"><code># P to the power of 3 is the identity. Same for any P to the power of 1 + 3k or 2 + 3k or 3 + 3k.</code></pre>
+<p>A state i is an absorbing state if once the system reaches state
+<span class="math inline">\(i,\)</span> it stays in that state; that is,
+<span class="math inline">\(\Pr_{ii}=1\)</span>.</p>
+<hr />
+</div>
+<div id="non-ergodic-chain-with-no-absorbing-state" class="section level5">
+<h5>Non-ergodic chain with no absorbing state:</h5>
+<hr />
+<pre class="r"><code>trans_mat &lt;- matrix(c(0,1/2,0,1/2,0,
+                      0,1/2,1/2,0,0,
+                      0,1/2,1/2,0,0,
+                      0,0,0,1/2,1/2,
+                      0,0,0,1/2,1/2),ncol=5,byrow=T)
+N = 100
+trans_mat %^% N</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    0 0.25 0.25 0.25 0.25
+## [2,]    0 0.50 0.50 0.00 0.00
+## [3,]    0 0.50 0.50 0.00 0.00
+## [4,]    0 0.00 0.00 0.50 0.50
+## [5,]    0 0.00 0.00 0.50 0.50</code></pre>
+<pre class="r"><code># Check lack of irreducibility... number of states is 5:
+
+N = 5 
+
+
+M &lt;- matrix(rep(0,9),ncol=3)
+for (i in 0:2) M &lt;- M + mat %^% i
+M</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    1    1    1
+## [3,]    1    1    1</code></pre>
+<hr />
+</div>
+<div id="non-ergodic-chain-with-no-absorbing-state-and-each-state-with-at-least-one-incoming-state" class="section level5">
+<h5>Non-ergodic chain with no absorbing state and each state with at
+least one incoming state:</h5>
+<hr />
+<pre class="r"><code>trans_mat &lt;- matrix(c(0,1/2,0,1/2,0,
+                      0,1/2,1/2,0,0,
+                      0,1/2,1/2,0,0,
+                      0,0,0,1/2,1/2,
+                      1/10,0,0,4/10,1/2),ncol=5,byrow=T)
+N = 100
+trans_mat %^% N</code></pre>
+<pre><code>##             [,1]      [,2]      [,3]       [,4]       [,5]
+## [1,] 0.002145419 0.4790818 0.4779816 0.01987296 0.02091818
+## [2,] 0.000000000 0.5000000 0.5000000 0.00000000 0.00000000
+## [3,] 0.000000000 0.5000000 0.5000000 0.00000000 0.00000000
+## [4,] 0.004183637 0.4592089 0.4570634 0.03875293 0.04079114
+## [5,] 0.003974592 0.4612471 0.4592089 0.03681655 0.03875293</code></pre>
+<hr />
+</div>
+<div id="ergodic-chain" class="section level5">
+<h5>Ergodic chain:</h5>
+<hr />
+<pre class="r"><code>trans_mat &lt;- matrix(c(0,1/2,0,1/2,0,
+                      0,1/2,1/2,0,0,
+                      1/10,4/10,5/10,0,0,
+                      0,0,0,1/2,1/2,
+                      1/10,0,0,4/10,1/2),ncol=5,byrow=T)
+N = 100
+trans_mat %^% N</code></pre>
+<pre><code>##            [,1]      [,2]      [,3]      [,4]      [,5]
+## [1,] 0.04761905 0.2380952 0.2380952 0.2380952 0.2380952
+## [2,] 0.04761905 0.2391986 0.2393289 0.2369918 0.2368616
+## [3,] 0.04761905 0.2390821 0.2391986 0.2371083 0.2369918
+## [4,] 0.04761905 0.2369918 0.2368616 0.2391986 0.2393289
+## [5,] 0.04761905 0.2371083 0.2369918 0.2390821 0.2391986</code></pre>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 </div>
 
