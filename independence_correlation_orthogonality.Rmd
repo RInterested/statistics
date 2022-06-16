@@ -22,7 +22,7 @@ output:
 
 From [this post](http://stats.stackexchange.com/a/16315/67822):
 
-Orthogonality is defined as $E[XY⋆]=0$
+Orthogonality is defined as $E[XY^⋆]=0$
 
 So:
 
@@ -32,17 +32,121 @@ If $Y=X^2$ but pdf zero for negative values, then they dependent but not orthogo
 
 Therefore, orthogonality does not imply independence.
 
-See an illustration [here](http://math.stackexchange.com/a/2040727/152225).
+See a proof of orthogonality of these two random variables [here](http://math.stackexchange.com/a/2040727/152225).
 
-$E[XY]$ is the inner product of the random variables $X$ and $Y$, defined as the expectation of the product of their pdf's: $\langle X,Y\rangle=E[XY].$
+Another way of seeing this is by considering
+
+$$\text{Cov(X,Y)}=\sigma_{X,Y}=\mathbb E[XY]-\mathbb E[X] \mathbb E[Y]$$
+
+Since in the case of $X \sim N(0,1),$ the $\mathbb E[X]=0,$ zero covariance is equivalent to orthogonality. See also [this post](https://stats.stackexchange.com/a/452543/67822).
+
+
+---
 
 From [this post](https://alecospapadopoulos.wordpress.com/2014/08/16/orthogonality-and-correlation/)
 
-I realized today that orthogonality and non-correlation (in the linear sense) of two random variables $X$ and $Y$ are strongly linked in our minds – and they shouldn’t. The fact is that whether orthogonality, i.e. $E(XY)=0$, implies correlation, or non-correlation, depends on whether the expected values of the variables are non-zero or not. I believe in the power of tables - so here it is, and easily verifiable from the definition $\text{Cov}(X,Y) = E(XY) – E(X)E(Y)$:
+>I realized today that orthogonality and non-correlation (in the linear sense) of two random variables $X$ and $Y$ are strongly linked in our minds – and they shouldn’t. The fact is that whether orthogonality, i.e. $\mathbb E(XY)=0$, implies correlation, or non-correlation, depends on whether the expected values of the variables are non-zero or not. I believe in the power of tables - so here it is, and easily verifiable from the definition $$\text{Cov}(X,Y) =\mathbb E(XY) – \mathbb E(X) \mathbb E(Y)$$
 
 <br>
 
 <img width=900 src="https://cloud.githubusercontent.com/assets/9312897/23197481/a7b6e93e-f88e-11e6-85de-f7193799562e.png">
+
+To illustrate with an example the first scenario, consider two Gaussian normal variables with expectations $\mathbb E[X] \neq 0 =-1$ and $\mathbb E[X] \neq 0=1$ and covariance of $1.$ This implies that $\mathbb E[XY]=\sigma_{X,Y}+\mathbb E[X] \mathbb E[Y]=0.$
+
+```{r}
+library(mvtnorm)
+library(squash)
+library(plot3D)
+knitr::opts_chunk$set(fig.width=12, fig.height=8) 
+set.seed(0)
+
+n <- 10000
+
+sigma <- matrix(c(1,1,1,1),nrow=2,byrow=T)
+mean <- c(-1,1)
+
+bivar <- rmvnorm(n,mean,sigma)
+X <- bivar[,1]
+Y <- bivar[,2]
+print(paste('The mean of X is: ', round(mean(X)), ' and the mean of Y is: ', round(mean(Y)),'.'))
+print(paste('The covariance of X and Y is: ', round(cov(X,Y)),'.'))
+print(paste('The expectation of XY is: ', round((X %*% Y) / n),'.'))
+```
+Here is the bivariate histogram:
+
+```{r}
+##  Create cuts:
+x_c <- cut(X, 50)
+y_c <- cut(Y, 50)
+##  Calculate joint counts at cut levels:
+z <- table(x_c, y_c)
+##  Plot as a 3D histogram:
+hist3D(z=z, col = jet.col(100, alpha = 0.8), 
+       colkey = F, scale = T, border='gray90',
+       ticktype = 'detailed', zlab='', xlab='X', ylab='Y',
+       axes3D='gray', frequency=T)
+```
+
+
+As for the second scenario, and keeping the same non-zero expectations we can produce non-orthogonal random variables with zero correlation: $\mathbb E[XY]=\sigma_{X,Y}+\mathbb E[X] \mathbb E[Y]=-1.$
+
+```{r}
+Sig <- matrix(c(1,0,0,1),nrow=2,byrow=T)
+bivar <- rmvnorm(n,mean,Sig)
+
+X <- bivar[,1]
+Y <- bivar[,2]
+print(paste('The mean of X is: ', round(mean(X)), ' and the mean of Y is: ', round(mean(Y)),'.'))
+print(paste('The covariance of X and Y is: ', round(cov(X,Y)),'.'))
+print(paste('The expectation of XY is: ', round((X %*% Y) / n),'.'))
+
+##  Create cuts:
+x_c <- cut(X, 50)
+y_c <- cut(Y, 50)
+##  Calculate joint counts at cut levels:
+z <- table(x_c, y_c)
+##  Plot as a 3D histogram:
+hist3D(z=z, col = jet.col(100, alpha = 0.8), 
+       colkey = F, scale = T, border='gray90',
+       ticktype = 'detailed', zlab='', xlab='X', ylab='Y',
+       axes3D='gray', frequency=T)
+```
+
+
+The third scenario of either one of the random variables with zero expectation, and with both orthogonality and no correlation can be exemplified as before with $X \sim N(0,1)$ and $Y=X^2$: $\mathbb E[XY]=\sigma_{X,Y}+\mathbb E[X] \mathbb E[Y]=0.$ The covariance is zero as exposed [here](https://stats.stackexchange.com/a/452543/67822):
+
+> The general form of the covariance depends on the first three moments of the distribution.  To facilitate our analysis, we suppose that $X$ has mean $\mu$, variance $\sigma^2$ and skewness $\gamma$.  The covariance of interest exists if $\gamma < \infty$ and does not exist otherwise.  Using the [relationship between the raw moments and the cumulants](https://en.wikipedia.org/wiki/Cumulant#Cumulants_and_moments), you have the general expression:
+
+$$\begin{equation} \begin{aligned}
+\mathbb{C}(X,X^2)
+&= \mathbb{E}(X^3) - \mathbb{E}(X) \mathbb{E}(X^2) \\[6pt]
+&= ( \mu^3 + 3 \mu \sigma^2 + \gamma \sigma^3 ) - \mu ( \mu^2 + \sigma^2 ) \\[6pt]
+&= 2 \mu \sigma^2 + \gamma \sigma^3. \\[6pt]
+\end{aligned} \end{equation}$$
+
+> The special case for an unskewed distribution with zero mean (e.g., the centred normal distribution) occurs when $\mu = 0$ and $\gamma = 0$, which gives zero covariance.
+
+```{r}
+n <- 1e6
+X <- rnorm(n)
+Y <- X^2
+print(paste('The mean of X is: ', round(mean(X)), ' and the mean of Y is: ', round(mean(Y)),'.'))
+print(paste('The covariance of X and Y is: ', round(cov(X,Y)),'.'))
+print(paste('The expectation of XY is: ', round((X %*% Y) / n),'.'))
+```
+
+A similar example could be $X \sim \text{Unif}(-1,1)$ and $Y=\vert X \vert.$ I am not sure if they are mathematically uncorrelated and orthogonal - definitely not independent:
+
+```{r}
+X <- runif(1e6,min=-1,max=1)
+Y <- ifelse(X>0,X,-X)
+plot(X[1:100],Y[1:100],pch=16)
+rug(X[1:100],side=1,col="grey")
+rug(Y[1:100],side=2,col="grey")
+```
+
+
+---
 
 These concepts are nicely explained in [this post](http://stats.stackexchange.com/a/171347/67822):
 
