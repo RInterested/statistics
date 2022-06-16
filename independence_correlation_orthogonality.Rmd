@@ -135,7 +135,7 @@ print(paste('The covariance of X and Y is: ', round(cov(X,Y)),'.'))
 print(paste('The expectation of XY is: ', round((X %*% Y) / n),'.'))
 ```
 
-A similar example could be $X \sim \text{Unif}(-1,1)$ and $Y=\vert X \vert.$ I am not sure if they are mathematically uncorrelated and orthogonal - definitely not independent:
+A [similar example](https://www.stat.cmu.edu/~cshalizi/uADA/13/reminders/uncorrelated-vs-independent.pdf) could be $X \sim \text{Unif}(-1,1)$ and $Y=\vert X \vert.$ I am not sure if they are mathematically uncorrelated and orthogonal - definitely not independent:
 
 ```{r}
 X <- runif(1e6,min=-1,max=1)
