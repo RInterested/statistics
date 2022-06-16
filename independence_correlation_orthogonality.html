@@ -524,8 +524,8 @@ print(paste(&#39;The mean of X is: &#39;, round(mean(X)), &#39; and the mean of 
 <p>A <a href="https://www.stat.cmu.edu/~cshalizi/uADA/13/reminders/uncorrelated-vs-independent.pdf">similar
 example</a> could be <span class="math inline">\(X \sim
 \text{Unif}(-1,1)\)</span> and <span class="math inline">\(Y=\vert X
-\vert.\)</span> I am not sure if they are mathematically uncorrelated
-and orthogonal - definitely not independent:</p>
+\vert.\)</span> The correlation is <span class="math inline">\(1\)</span> on the positive support half, and <span class="math inline">\(-1\)</span> on the negative. Therefore the
+covariance is <span class="math inline">\(0.\)</span> The mean of <span class="math inline">\(X=0.\)</span> Therefore <span class="math inline">\(\mathbb E[XY]=\sigma_{X,Y}=0\)</span>:</p>
 <pre class="r"><code>X &lt;- runif(1e6,min=-1,max=1)
 Y &lt;- ifelse(X&gt;0,X,-X)
 plot(X[1:100],Y[1:100],pch=16)
