@@ -392,6 +392,168 @@ MATHEMATICS</strong></h3>
 <div id="wedge-or-exterior-product" class="section level3">
 <h3>Wedge or Exterior Product:</h3>
 <hr />
+<p>An <span class="math inline">\(m\)</span> differential form in <span class="math inline">\(\mathbb R^n\)</span> can be expressed in
+multi-index notation as</p>
+<p><span class="math display">\[\begin{align}
+\omega &amp;= \sum_I f_I \; dx_I \\
+&amp;= \sum_{1 \leq i_1 &lt; i_2 \ \dots &lt;i_m} a_{i_1, \dots, i_m} \;
+dx_1 \wedge dx_2 \wedge \dots \wedge dx_m  \\\\
+&amp;I=(i_1, i_2, \dots,i_m) \; \mid\; 1 \leq i_1 &lt; i_2 \ \dots
+&lt;i_m \leq n
+\end{align}\]</span></p>
+<hr />
+<p>In <span class="math inline">\(\mathbb R^5\)</span>, we can construct
+<span class="math inline">\(1\)</span>-forms using the <span class="math inline">\(dx\)</span> elements of the dual basis <span class="math inline">\((1,3),(1,2,3,4,5)\)</span> or <span class="math inline">\((2,4,5):\)</span></p>
+<p><span class="math display">\[\begin{align}
+\color{blue}{dx_1} &amp;&amp; dx_2 &amp;&amp;\color{blue}{dx_3}
+&amp;&amp; dx_4 &amp;&amp; dx_5   \\
+\color{orange}{dx_1} &amp;&amp; \color{orange}{dx_2} &amp;&amp;
+\color{orange}{dx_3} &amp;&amp; \color{orange}{dx_4} &amp;&amp;
+\color{orange}{dx_5}  \\
+dx_1 &amp;&amp; \color{red}{dx_2} &amp;&amp; {dx_3} &amp;&amp;
+\color{red}{dx_4} &amp;&amp; \color{red}{dx_5}  &amp;&amp; \\
+\end{align}\]</span></p>
+<p>These are not the multi-indices above, which correspond to wedged
+dual basis elements.</p>
+<p>An example of a <span class="math inline">\(1\)</span>-forms with
+these dual basis elements can look like</p>
+<p><span class="math display">\[\begin{align}\omega_1 &amp;=
+-7\,\color{blue}{dx_1} + 3 \,\color{blue}{dx_3}\\
+\omega_2 &amp;=-1 \,\color{orange}{dx_1} + \color{orange}{dx_2} +
+\color{orange}{dx_3}-4\,\color{orange}{d_4} + 5\,\color{orange}{dx_5}\\
+\omega_3 &amp;=-2 \,\color{red}{dx_2} + \color{red}{dx_4} -
+\color{red}{dx_5}
+\end{align}
+\]</span></p>
+<p>A <span class="math inline">\(3\)</span>-form can be the result of
+wedging <span class="math inline">\(\omega_1 \wedge \omega_2\wedge
+\omega_3.\)</span></p>
+<p>It acts on three vectors in <span class="math inline">\(\mathbb
+R^5,\)</span> such as</p>
+<p><span class="math display">\[\begin{align}\small v_1
+&amp;=\begin{bmatrix}1&amp;&amp;2 &amp;&amp;-1&amp;&amp; 0
+&amp;&amp;5\end{bmatrix}\\ v_2 &amp;=\begin{bmatrix}0&amp;&amp;0
+&amp;&amp;1&amp;&amp; 10 &amp;&amp;1\end{bmatrix}\\ v_3
+&amp;=\begin{bmatrix}7&amp;&amp;1 &amp;&amp;0&amp;&amp; 3
+&amp;&amp;2\end{bmatrix}
+\end{align}\]</span></p>
+<p>as</p>
+<p><span class="math display">\[\omega_1 \wedge \omega_2\wedge
+\omega_3\;(v_1,v_2,v_3)=\begin{vmatrix}\color{blue}{-10}&amp;&amp;\color{orange}{25}
+&amp;&amp; \color{red}{-9}\\\color{blue}{3}&amp;&amp;\color{orange}{-34}
+&amp;&amp; \color{red}{9}\\\color{blue}{-49}&amp;&amp;\color{orange}{-8}
+&amp;&amp; \color{red}{-1}\end{vmatrix}=3200\]</span></p>
+<p>Trying to express it as in the multi-index notation above invoves
+distributing the wedged <span class="math inline">\(1\)</span>-forms:</p>
+<p><span class="math display">\[\begin{align}
+\omega_1 \wedge \omega_2\wedge \omega_3
+&amp;=\Tiny\left( -7\, dx_1+ 3\,dx_3\right)\wedge
+\left(-1\,dx_1 + dx_2 + dx_3-4\,dx_4 + 5\,dx_5 \right) \wedge
+\left(-2\,dx_2 + dx_4 - dx_5 \right)\\
+&amp;\Tiny=(
+-7 \, dx_1\wedge dx_2
+- 7\, dx_1\wedge dx_3
++28\, dx_1 \wedge dx_4
+-35\,dx_1\wedge dx_5
++3 dx_1\wedge dx_3\\
+&amp;\Tiny -3\,dx_2\wedge dx_3
+- 12\,dx_3\wedge dx_4) + 15 \, dx_3 \wedge dx_5\\
+&amp;\Tiny\wedge \Tiny \left(-2\,dx_2 + dx_4 - dx_5 \right)=\\
+&amp; \small  -8\,dx_1\wedge dx_2 \wedge dx_3\\  
+&amp; \small + 49\,dx_1\wedge dx_2 \wedge dx_4 \\
+&amp; \small - 63\, dx_1\wedge dx_2 \wedge dx_5  \\
+&amp;\small -4\, dx_1\wedge dx_3 \wedge dx_4 \\
+&amp; \small + 4 \, dx_1\wedge dx_3 \wedge dx_5\\  
+&amp; \small +7 \, dx_1\wedge dx_4 \wedge dx_5\\
+&amp;\small + 21\, dx_2\wedge dx_3 \wedge dx_4\\
+&amp;\small - 27\, dx_2\wedge dx_3 \wedge dx_5\\
+&amp;\small - 3\, dx_3\wedge dx_4 \wedge dx_5
+\end{align}\]</span></p>
+<p>which applied to the vectors above:</p>
+<p><span class="math display">\[\Tiny
+-8 \begin{vmatrix} 1&amp; 2 &amp; -1 \\ 0&amp;0&amp;1\\7&amp;1&amp;0
+\end{vmatrix}
++49\begin{vmatrix} 1&amp;2&amp;0 \\ 0&amp;0&amp;10\\7&amp;1&amp;3
+\end{vmatrix}
+-63\begin{vmatrix} 1&amp;2&amp;5 \\ 0&amp;0&amp;1\\7&amp;1&amp;2
+\end{vmatrix}
+-4 \begin{vmatrix} 1&amp;-1&amp;0 \\ 0&amp;1&amp;10\\7&amp;0&amp;3
+\end{vmatrix}
++ 4 \begin{vmatrix} 1&amp;-1&amp;5 \\ 0&amp;1&amp;1\\7&amp;0&amp;2
+\end{vmatrix}
++7 \begin{vmatrix} 1&amp;0&amp;5 \\ 0&amp;10&amp;1\\7&amp;3&amp;2
+\end{vmatrix}
++21 \begin{vmatrix} 2&amp;-1&amp;0 \\ 0&amp;1&amp;10\\1&amp;0&amp;3
+\end{vmatrix}
+-27 \begin{vmatrix} 2&amp;-1&amp;5 \\ 0&amp;1&amp;1\\1&amp;0&amp;2
+\end{vmatrix}
+-3 \begin{vmatrix} -1&amp;0&amp;5 \\ 1&amp;10&amp;1\\0&amp;3&amp;2
+\end{vmatrix}=3200\]</span></p>
+<pre class="r"><code>m = matrix(c(-10,25,-9,3,-34,9,-49,-8,-1),3,byrow=T)
+m</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]  -10   25   -9
+## [2,]    3  -34    9
+## [3,]  -49   -8   -1</code></pre>
+<pre class="r"><code>det(m)</code></pre>
+<pre><code>## [1] 3200</code></pre>
+<pre class="r"><code>one = matrix(c(1,2,-1,0,0,1,7,1,0),3,byrow=T)
+two = matrix(c(1,2,0,0,0,10,7,1,3),3,byrow=T)
+three = matrix(c(1,2,5,0,0,1,7,1,2),3,byrow=T)
+four = matrix(c(1,-1,0,0,1,10,7,0,3),3,byrow=T)
+five = matrix(c(1,-1,5,0,1,1,7,0,2),3,byrow=T)
+six = matrix(c(1,0,5,0,10,1,7,3,2),3,byrow=T)
+seven = matrix(c(2,-1,0,0,1,10,1,0,3),3,byrow=T)
+eight = matrix(c(2,-1,5,0,1,1,1,0,2),3,byrow=T)
+nine = matrix(c(-1,0,5,1,10,1,0,3,2),3,byrow=T)
+
+-8*det(one)  +49*det(two)  -63*det(three) -4*det(four) +4*det(five) +7*det(six) +21*det(seven) -27*det(eight) -3*det(nine)</code></pre>
+<pre><code>## [1] 3200</code></pre>
+<p>Here is another example:</p>
+<p><span class="math display">\[\begin{align}\omega_1 &amp;= dx + dy +
+dz\\
+\omega_2 &amp;=2\, dx - 3 \,  dy\\
+\omega_3 &amp;=dx + 2\, dz
+\end{align}
+\]</span></p>
+<p>A <span class="math inline">\(3\)</span>-form can be the result of
+wedging <span class="math inline">\(\omega_1 \wedge \omega_2\wedge
+\omega_3.\)</span></p>
+<p>It acts on three vectors in <span class="math inline">\(\mathbb
+R^3,\)</span> such as</p>
+<p><span class="math display">\[\begin{align}\small v_1
+&amp;=\begin{bmatrix}2&amp;1 &amp;0\end{bmatrix}\\ v_2
+&amp;=\begin{bmatrix}-1&amp;3&amp;-2\end{bmatrix}\\ v_3
+&amp;=\begin{bmatrix}1&amp;0&amp;1\end{bmatrix}
+\end{align}\]</span></p>
+<p><span class="math display">\[\omega_1 \wedge \omega_2\wedge
+\omega_3\;(v_1,v_2,v_3)=\begin{vmatrix}3&amp;&amp;1 &amp;&amp;
+2\\0&amp;&amp;-11&amp;&amp; -5\\2&amp;&amp;2 &amp;&amp;
+3\end{vmatrix}=-35\]</span></p>
+<pre class="r"><code>det(M &lt;- matrix(c(3,1,2,0,-11,-5,2,2,3),3,byrow=T))</code></pre>
+<pre><code>## [1] -35</code></pre>
+<pre class="r"><code>M</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    3    1    2
+## [2,]    0  -11   -5
+## [3,]    2    2    3</code></pre>
+<p>If instead we distribute as</p>
+<p><span class="math display">\[\begin{align}
+(dx + dy + dz) \wedge (2dx - 3dy) \wedge (dx+2dz) &amp;= (-3\,dx\wedge
+dy - 2\,dx\wedge dy -2\,dx\wedge dz+3\,dy\wedge dz )\wedge (dx+2dz)\\
+&amp;=  (-5\,dx\wedge dy -2\,dx\wedge dz+3\,dy\wedge dz)\wedge
+(dx+2dz)\\
+&amp;=  -10\, dx\wedge dy \wedge dz + 3 dx \wedge dy \wedge dz  \\
+&amp;= - 7\, dx\wedge dy \wedge dz
+\end{align}\]</span></p>
+<pre class="r"><code>-7 * det(Q &lt;- matrix(c(2,1,0,-1,3,-2,1,0,1),3,byrow=T))</code></pre>
+<pre><code>## [1] -35</code></pre>
+<pre class="r"><code>Q</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    2    1    0
+## [2,]   -1    3   -2
+## [3,]    1    0    1</code></pre>
+<hr />
 <p>In reference to the explanation of the <a href="https://en.wikipedia.org/wiki/Exterior_algebra">exterior or wedge
 product</a> by Prof. Shifrin’s series (Chapter 8 - <a href="https://youtu.be/Nh5XFX0iKgE">here</a>, <a href="https://youtu.be/ZFPWK2gHGrY">here</a> and <a href="https://youtu.be/Rci22jC_pS8">here</a>), and connecting it with
 the more general <a href="https://math.stackexchange.com/a/2436543/152225">tensor

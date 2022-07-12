@@ -20,6 +20,145 @@ output:
 
 ---
 
+An $m$ differential form in $\mathbb R^n$ can be expressed in multi-index notation as 
+
+$$\begin{align}
+\omega &= \sum_I f_I \; dx_I \\ 
+&= \sum_{1 \leq i_1 < i_2 \ \dots <i_m} a_{i_1, \dots, i_m} \; dx_1 \wedge dx_2 \wedge \dots \wedge dx_m  \\\\
+&I=(i_1, i_2, \dots,i_m) \; \mid\; 1 \leq i_1 < i_2 \ \dots <i_m \leq n
+\end{align}$$
+
+---
+
+In $\mathbb R^5$, we can construct $1$-forms using the $dx$ elements of the dual basis $(1,3),(1,2,3,4,5)$ or $(2,4,5):$
+
+\begin{align}
+\color{blue}{dx_1} && dx_2 &&\color{blue}{dx_3} && dx_4 && dx_5   \\
+\color{orange}{dx_1} && \color{orange}{dx_2} && \color{orange}{dx_3} && \color{orange}{dx_4} && \color{orange}{dx_5}  \\
+dx_1 && \color{red}{dx_2} && {dx_3} && \color{red}{dx_4} && \color{red}{dx_5}  && \\
+\end{align}
+
+These are not the multi-indices above, which correspond to wedged dual basis elements.
+
+An example of a $1$-forms with these dual basis elements can look like 
+
+$$\begin{align}\omega_1 &= -7\,\color{blue}{dx_1} + 3 \,\color{blue}{dx_3}\\
+\omega_2 &=-1 \,\color{orange}{dx_1} + \color{orange}{dx_2} + \color{orange}{dx_3}-4\,\color{orange}{d_4} + 5\,\color{orange}{dx_5}\\
+\omega_3 &=-2 \,\color{red}{dx_2} + \color{red}{dx_4} - \color{red}{dx_5}
+\end{align}
+$$
+
+A $3$-form can be the result of wedging $\omega_1 \wedge \omega_2\wedge \omega_3.$ 
+
+It acts on three vectors in $\mathbb R^5,$ such as 
+
+$$\begin{align}\small v_1 &=\begin{bmatrix}1&&2 &&-1&& 0 &&5\end{bmatrix}\\ v_2 &=\begin{bmatrix}0&&0 &&1&& 10 &&1\end{bmatrix}\\ v_3 &=\begin{bmatrix}7&&1 &&0&& 3 &&2\end{bmatrix}
+\end{align}$$ 
+
+as
+
+$$\omega_1 \wedge \omega_2\wedge \omega_3\;(v_1,v_2,v_3)=\begin{vmatrix}\color{blue}{-10}&&\color{orange}{25} && \color{red}{-9}\\\color{blue}{3}&&\color{orange}{-34} && \color{red}{9}\\\color{blue}{-49}&&\color{orange}{-8} && \color{red}{-1}\end{vmatrix}=3200$$
+
+
+
+Trying to express it as in the multi-index notation above invoves distributing the wedged $1$-forms:
+
+$$\begin{align}
+\omega_1 \wedge \omega_2\wedge \omega_3
+&=\Tiny\left( -7\, dx_1+ 3\,dx_3\right)\wedge 
+\left(-1\,dx_1 + dx_2 + dx_3-4\,dx_4 + 5\,dx_5 \right) \wedge 
+\left(-2\,dx_2 + dx_4 - dx_5 \right)\\
+&\Tiny=(
+-7 \, dx_1\wedge dx_2 
+- 7\, dx_1\wedge dx_3 
++28\, dx_1 \wedge dx_4
+-35\,dx_1\wedge dx_5
++3 dx_1\wedge dx_3\\
+&\Tiny -3\,dx_2\wedge dx_3 
+- 12\,dx_3\wedge dx_4) + 15 \, dx_3 \wedge dx_5\\
+&\Tiny\wedge \Tiny \left(-2\,dx_2 + dx_4 - dx_5 \right)=\\
+& \small  -8\,dx_1\wedge dx_2 \wedge dx_3\\  
+& \small + 49\,dx_1\wedge dx_2 \wedge dx_4 \\
+& \small - 63\, dx_1\wedge dx_2 \wedge dx_5  \\
+&\small -4\, dx_1\wedge dx_3 \wedge dx_4 \\ 
+& \small + 4 \, dx_1\wedge dx_3 \wedge dx_5\\  
+& \small +7 \, dx_1\wedge dx_4 \wedge dx_5\\
+&\small + 21\, dx_2\wedge dx_3 \wedge dx_4\\
+&\small - 27\, dx_2\wedge dx_3 \wedge dx_5\\
+&\small - 3\, dx_3\wedge dx_4 \wedge dx_5
+\end{align}$$
+
+which applied to the vectors above:
+
+$$\Tiny 
+-8 \begin{vmatrix} 1& 2 & -1 \\ 0&0&1\\7&1&0 \end{vmatrix} 
++49\begin{vmatrix} 1&2&0 \\ 0&0&10\\7&1&3 \end{vmatrix}
+-63\begin{vmatrix} 1&2&5 \\ 0&0&1\\7&1&2 \end{vmatrix} 
+-4 \begin{vmatrix} 1&-1&0 \\ 0&1&10\\7&0&3 \end{vmatrix} 
++ 4 \begin{vmatrix} 1&-1&5 \\ 0&1&1\\7&0&2 \end{vmatrix} 
++7 \begin{vmatrix} 1&0&5 \\ 0&10&1\\7&3&2 \end{vmatrix}
++21 \begin{vmatrix} 2&-1&0 \\ 0&1&10\\1&0&3 \end{vmatrix}
+-27 \begin{vmatrix} 2&-1&5 \\ 0&1&1\\1&0&2 \end{vmatrix} 
+-3 \begin{vmatrix} -1&0&5 \\ 1&10&1\\0&3&2 \end{vmatrix}=3200$$
+
+```{r}
+m = matrix(c(-10,25,-9,3,-34,9,-49,-8,-1),3,byrow=T)
+m
+det(m)
+
+one = matrix(c(1,2,-1,0,0,1,7,1,0),3,byrow=T)
+two = matrix(c(1,2,0,0,0,10,7,1,3),3,byrow=T)
+three = matrix(c(1,2,5,0,0,1,7,1,2),3,byrow=T)
+four = matrix(c(1,-1,0,0,1,10,7,0,3),3,byrow=T)
+five = matrix(c(1,-1,5,0,1,1,7,0,2),3,byrow=T)
+six = matrix(c(1,0,5,0,10,1,7,3,2),3,byrow=T)
+seven = matrix(c(2,-1,0,0,1,10,1,0,3),3,byrow=T)
+eight = matrix(c(2,-1,5,0,1,1,1,0,2),3,byrow=T)
+nine = matrix(c(-1,0,5,1,10,1,0,3,2),3,byrow=T)
+
+-8*det(one)  +49*det(two)  -63*det(three) -4*det(four) +4*det(five) +7*det(six) +21*det(seven) -27*det(eight) -3*det(nine)
+```
+
+Here is another example:
+
+$$\begin{align}\omega_1 &= dx + dy + dz\\
+\omega_2 &=2\, dx - 3 \,  dy\\
+\omega_3 &=dx + 2\, dz
+\end{align}
+$$
+
+A $3$-form can be the result of wedging $\omega_1 \wedge \omega_2\wedge \omega_3.$ 
+
+It acts on three vectors in $\mathbb R^3,$ such as 
+
+$$\begin{align}\small v_1 &=\begin{bmatrix}2&1 &0\end{bmatrix}\\ v_2 &=\begin{bmatrix}-1&3&-2\end{bmatrix}\\ v_3 &=\begin{bmatrix}1&0&1\end{bmatrix}
+\end{align}$$ 
+
+$$\omega_1 \wedge \omega_2\wedge \omega_3\;(v_1,v_2,v_3)=\begin{vmatrix}3&&1 && 2\\0&&-11&& -5\\2&&2 && 3\end{vmatrix}=-35$$
+
+```{R}
+det(M <- matrix(c(3,1,2,0,-11,-5,2,2,3),3,byrow=T))
+M
+```
+
+If instead we distribute as
+
+$$\begin{align}
+(dx + dy + dz) \wedge (2dx - 3dy) \wedge (dx+2dz) &= (-3\,dx\wedge dy - 2\,dx\wedge dy -2\,dx\wedge dz+3\,dy\wedge dz )\wedge (dx+2dz)\\
+&=  (-5\,dx\wedge dy -2\,dx\wedge dz+3\,dy\wedge dz)\wedge (dx+2dz)\\
+&=  -10\, dx\wedge dy \wedge dz + 3 dx \wedge dy \wedge dz  \\
+&= - 7\, dx\wedge dy \wedge dz
+\end{align}$$
+
+```{R}
+-7 * det(Q <- matrix(c(2,1,0,-1,3,-2,1,0,1),3,byrow=T))
+Q
+```
+
+
+
+---
+
 In reference to the explanation of the [exterior or wedge product][1] by Prof. Shifrin's series (Chapter 8 - [here][2], [here][3] and [here][4]), and connecting it with the more general [tensor algebra][5] operations, here is a summary:
 
 The dual vector space $V^*=(\mathbb R^n)^*$ is a vector space of linear maps $\mathbb R^n \to \mathbb R$ that can be represented by a $1\times n$ matrix (i.e. row vector). It is isomorphic to $\mathbb R^n,$ and forms a vector space, which basis can be expressed as $\mathrm e^1,\mathrm e^2,\dots,\mathrm e^n,$ or as $\mathrm dx_1, \mathrm dx_2, \dots ,\mathrm dx_n,$ such that $\mathrm dx_i(\vec v)=\vec {\mathrm e}_i\cdot \vec v.$
