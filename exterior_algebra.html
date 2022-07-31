@@ -464,8 +464,8 @@ dz\wedge dx \wedge dy + \frac{\partial F}{\partial y}\; dy\wedge dx
 \frac{\partial F}{\partial x} - \frac{\partial F}{\partial
 y}+\frac{\partial F}{\partial z} \right) dx\wedge dy \wedge
 dz\]</span></p>
-<p>Hmmm… That minus sign is annoying, but it is still true that the
-exterior derivative of the Hodge star of a <span class="math inline">\(1\)</span>-form <span class="math inline">\(\omega
+<p>That minus sign is annoying, but it is still true that the exterior
+derivative of the Hodge star (see <a href="https://youtu.be/tyaWHQO-wSc?t=134">here</a>) of a <span class="math inline">\(1\)</span>-form <span class="math inline">\(\omega
 = F_x \,dx + F_y \,dy + Fz \,dz\)</span> is</p>
 <p><span class="math display">\[\begin{align}
 d(\star w)&amp;=d(\star( F_x \,dx + F_y \,dy + F_z \,dz))\\[2ex]
@@ -480,8 +480,14 @@ F_z}{\partial z}dz\wedge dx \wedge dy \\[2ex]
 F_y}{\partial y}+ \frac{\partial F_z}{\partial z}\right) dx\wedge
 dy\wedge dz
 \end{align}\]</span></p>
-<p>Therefore <span class="math inline">\(\star d \star \omega= \nabla
-\cdot X,\)</span> where <span class="math inline">\(\nabla \cdot
+<p>NOTE on the Hodge star operator: <span class="math inline">\(dy\wedge
+dz\)</span> is the Hodge star of <span class="math inline">\(dx\)</span>
+because <span class="math inline">\(dx \wedge dy \wedge dz\)</span>,
+i.e. <span class="math inline">\(dx \wedge \star dx = dx\wedge dy\wedge
+dz\)</span> returns the elementary <span class="math inline">\(n\)</span> form. Likewise for <span class="math inline">\(dy\)</span> the Hodge star is <span class="math inline">\(dz\wedge dx\)</span> because <span class="math inline">\(dy \wedge dz \wedge dx= dx \wedge dy \wedge
+dz\)</span> since commuting two elements doesn’t change the sign.</p>
+<p>We have then that <span class="math inline">\(\star d \star \omega=
+\nabla \cdot X,\)</span> where <span class="math inline">\(\nabla \cdot
 X\)</span> is the <strong>divergence</strong> of a vector field. Notice
 that <span class="math inline">\(\omega = X^\flat.\)</span> Therefore
 the divergence is <span class="math inline">\(\star d \star

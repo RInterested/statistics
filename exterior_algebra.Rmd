@@ -63,7 +63,7 @@ Finally, the exterior derivative of a $2$-differential form $\beta=F\, dx\wedge 
 
 $$d\beta = \frac{\partial F}{\partial z}\; dz\wedge dx \wedge dy + \frac{\partial F}{\partial y}\; dy\wedge dx \wedge dz + \frac{\partial F}{\partial x}\; dx\wedge dy \wedge dz=\left( \frac{\partial F}{\partial x} - \frac{\partial F}{\partial y}+\frac{\partial F}{\partial z} \right) dx\wedge dy \wedge dz$$
 
-Hmmm... That minus sign is annoying, but it is still true that the exterior derivative of the Hodge star of a $1$-form $\omega = F_x \,dx + F_y \,dy + Fz \,dz$ is
+That minus sign is annoying, but it is still true that the exterior derivative of the Hodge star (see [here](https://youtu.be/tyaWHQO-wSc?t=134)) of a $1$-form $\omega = F_x \,dx + F_y \,dy + Fz \,dz$ is
 
 $$\begin{align}
 d(\star w)&=d(\star( F_x \,dx + F_y \,dy + F_z \,dz))\\[2ex]
@@ -73,7 +73,9 @@ d(\star w)&=d(\star( F_x \,dx + F_y \,dy + F_z \,dz))\\[2ex]
 &=\left(\frac{\partial F_x}{\partial x}+ \frac{\partial F_y}{\partial y}+ \frac{\partial F_z}{\partial z}\right) dx\wedge dy\wedge dz
 \end{align}$$
 
-Therefore $\star d \star \omega= \nabla \cdot X,$ where $\nabla \cdot X$ is the **divergence** of a vector field. Notice that $\omega = X^\flat.$ Therefore the divergence is $\star d \star X^\flat$.
+NOTE on the Hodge star operator: $dy\wedge dz$ is the Hodge star of $dx$ because $dx \wedge dy \wedge dz$, i.e. $dx \wedge \star dx = dx\wedge dy\wedge dz$ returns the elementary $n$ form. Likewise for $dy$ the Hodge star is $dz\wedge dx$ because $dy \wedge dz \wedge dx= dx \wedge dy \wedge dz$ since commuting two elements doesn't change the sign.
+
+We have then that $\star d \star \omega= \nabla \cdot X,$ where $\nabla \cdot X$ is the **divergence** of a vector field. Notice that $\omega = X^\flat.$ Therefore the divergence is $\star d \star X^\flat$.
 
 
 ---
