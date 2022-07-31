@@ -401,17 +401,19 @@ a <span class="math inline">\(0\)</span>-form or function <span class="math inli
 z}dz\]</span></p>
 <p>This takes a vector field <span class="math inline">\(d\phi(X)=D_X\phi\)</span> and gives the
 directional derivative along that vector field.</p>
-<p>How does it relate to the gradient? <span class="math inline">\((d\phi)^\sharp = \nabla \phi\)</span> (sharp), and
+<p>How does it relate to the <strong>gradient</strong>? <span class="math inline">\((d\phi)^\sharp = \nabla \phi\)</span> (sharp), and
 <span class="math inline">\((\nabla \phi)^\flat = d\phi\)</span>
 (flat).</p>
 <hr />
-<p>The exterior derivative of a <span class="math inline">\(1\)</span>-differential form (a <span class="math inline">\(1\)</span>-form is just a fixed value in front of
-the elementary forms <span class="math inline">\(dx_i\)</span>, whereas
-a “differential form” implies a function in front of the elementary
-forms - i.e. a field of forms) <span class="math inline">\(\omega = F_x
-\,dx + F_y \,dy + Fz \,dz,\)</span> where <span class="math inline">\(F_x, F_y, F_z\)</span> are the corresponding
-functions (the sub-index here is not meant to indicate a partial
-derivative) in <span class="math inline">\(3\)</span> dimensions is</p>
+<p>The exterior derivative of a <span class="math inline">\(1\)</span>-<strong>differential form</strong> (a
+<span class="math inline">\(1\)</span>-form is just a fixed value in
+front of the elementary forms <span class="math inline">\(dx_i\)</span>,
+whereas a “differential form” implies a function in front of the
+elementary forms - i.e. a field of forms) <span class="math inline">\(\omega = F_x \,dx + F_y \,dy + Fz \,dz,\)</span>
+where <span class="math inline">\(F_x, F_y, F_z\)</span> are the
+corresponding functions (the sub-index here is not meant to indicate a
+partial derivative) in <span class="math inline">\(3\)</span> dimensions
+is</p>
 <p><span class="math display">\[\begin{align}
 \frac{\partial F_x}{\partial x} \; dx \wedge dx + \frac{\partial
 F_y}{\partial x} \; dx \wedge dy + \frac{\partial F_z}{\partial x} \; dx
@@ -428,7 +430,7 @@ F_y}{\partial z} \; dz \wedge dy + \frac{\partial F_z}{\partial z} \; dz
 F_z}{\partial x}\; dz \wedge dx \quad + \quad\frac{\partial
 F_y}{\partial x} - \frac{\partial F_x}{\partial y}\; dx \wedge
 dy  \]</span></p>
-<p>which looks a lot like the curl (from <a href="https://en.wikipedia.org/wiki/Curl_(mathematics)#Usage">here</a>):</p>
+<p>which looks a lot like the <strong>curl</strong> (from <a href="https://en.wikipedia.org/wiki/Curl_(mathematics)#Usage">here</a>):</p>
 <p><span class="math display">\[\nabla \times {\bf F}=\begin{bmatrix}
 \frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\\
 \frac{\partial F_x}{\partial z} - \frac{\partial F_z}{\partial x}\\
@@ -436,7 +438,7 @@ dy  \]</span></p>
 \end{bmatrix}\]</span></p>
 <p>We can see that they are related because <span class="math inline">\(\star d\omega = \nabla \times {\bf F}\)</span> and
 $ = (dF<sup>)</sup>. $ We can see the first relationship to the Hodge
-product in noticing that the complementary of <span class="math inline">\(dx\wedge dy\)</span> is <span class="math inline">\(dz\)</span>, and the rows of the expression for
+star in noticing that the complementary of <span class="math inline">\(dx\wedge dy\)</span> is <span class="math inline">\(dz\)</span>, and the rows of the expression for
 the curl right above correspond to the vector components <span class="math inline">\(\partial / \partial x, \partial/\partial
 y,\partial/\partial z\)</span> respectively.</p>
 <p>What is the relation to Green’s theorem? The circulation form of
@@ -450,10 +452,41 @@ F_x}{\partial y}}}\, dA\]</span> The integrand in the RHS is also the
 \frac{\partial F_x}{\partial y}\; dx \wedge dy\)</span> component of the
 exterior derivative. Green’s theorem is just in the plane but the
 analogy with Stokes’ theorem is clear:</p>
-<p><span class="math display">\[\int_{\partial D} \omega = \int_D
-d\omega\]</span></p>
-<hr />
 </div>
+<div id="int_partial-d-omega-int_d-domega" class="section level2">
+<h2><span class="math display">\[\int_{\partial D} \omega = \int_D
+d\omega\]</span></h2>
+<p>Finally, the exterior derivative of a <span class="math inline">\(2\)</span>-differential form <span class="math inline">\(\beta=F\, dx\wedge dy + G\, dx\wedge dz + H\,
+dy\wedge dz\)</span> is</p>
+<p><span class="math display">\[d\beta = \frac{\partial F}{\partial z}\;
+dz\wedge dx \wedge dy + \frac{\partial F}{\partial y}\; dy\wedge dx
+\wedge dz + \frac{\partial F}{\partial x}\; dx\wedge dy \wedge dz=\left(
+\frac{\partial F}{\partial x} - \frac{\partial F}{\partial
+y}+\frac{\partial F}{\partial z} \right) dx\wedge dy \wedge
+dz\]</span></p>
+<p>Hmmm… That minus sign is annoying, but it is still true that the
+exterior derivative of the Hodge star of a <span class="math inline">\(1\)</span>-form <span class="math inline">\(\omega
+= F_x \,dx + F_y \,dy + Fz \,dz\)</span> is</p>
+<p><span class="math display">\[\begin{align}
+d(\star w)&amp;=d(\star( F_x \,dx + F_y \,dy + F_z \,dz))\\[2ex]
+&amp;=d(F_x\, dy \wedge dz + F_y\, dz\wedge dx + F_z \, dx\wedge
+dy)\\[2ex]
+&amp;=dF_x\wedge dy \wedge dz + dF_y\wedge dz\wedge dx + dF_z\wedge dx
+\wedge dy\\[2ex]
+&amp;=\frac{\partial F_x}{\partial x}dx\wedge dy \wedge dz +
+\frac{\partial F_y}{\partial y}dy\wedge dz \wedge dx + \frac{\partial
+F_z}{\partial z}dz\wedge dx \wedge dy \\[2ex]
+&amp;=\left(\frac{\partial F_x}{\partial x}+ \frac{\partial
+F_y}{\partial y}+ \frac{\partial F_z}{\partial z}\right) dx\wedge
+dy\wedge dz
+\end{align}\]</span></p>
+<p>Therefore <span class="math inline">\(\star d \star \omega= \nabla
+\cdot X,\)</span> where <span class="math inline">\(\nabla \cdot
+X\)</span> is the <strong>divergence</strong> of a vector field. Notice
+that <span class="math inline">\(\omega = X^\flat.\)</span> Therefore
+the divergence is <span class="math inline">\(\star d \star
+X^\flat\)</span>.</p>
+<hr />
 <div id="wedge-or-exterior-product" class="section level3">
 <h3>Wedge or Exterior Product:</h3>
 <hr />
@@ -724,6 +757,7 @@ dx_1(q)\\[2ex]
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 

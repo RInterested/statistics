@@ -28,11 +28,11 @@ $$d\phi=\frac{\partial \phi}{\partial x}dx + \frac{\partial \phi}{\partial y}dy+
 
 This takes a vector field $d\phi(X)=D_X\phi$ and gives the directional derivative along that vector field.
 
-How does it relate to the gradient? $(d\phi)^\sharp = \nabla \phi$ (sharp), and $(\nabla \phi)^\flat = d\phi$ (flat).
+How does it relate to the **gradient**? $(d\phi)^\sharp = \nabla \phi$ (sharp), and $(\nabla \phi)^\flat = d\phi$ (flat).
 
 ---
 
-The exterior derivative of a $1$-differential form (a $1$-form is just a fixed value in front of the elementary forms $dx_i$, whereas a "differential form" implies a function in front of the elementary forms - i.e. a field of forms) $\omega = F_x \,dx + F_y \,dy + Fz \,dz,$ where $F_x, F_y, F_z$ are the corresponding functions (the sub-index here is not meant to indicate a partial derivative) in $3$ dimensions is
+The exterior derivative of a $1$-**differential form** (a $1$-form is just a fixed value in front of the elementary forms $dx_i$, whereas a "differential form" implies a function in front of the elementary forms - i.e. a field of forms) $\omega = F_x \,dx + F_y \,dy + Fz \,dz,$ where $F_x, F_y, F_z$ are the corresponding functions (the sub-index here is not meant to indicate a partial derivative) in $3$ dimensions is
 
 $$\begin{align}
 \frac{\partial F_x}{\partial x} \; dx \wedge dx + \frac{\partial F_y}{\partial x} \; dx \wedge dy + \frac{\partial F_z}{\partial x} \; dx \wedge dz \\[2ex]
@@ -41,14 +41,14 @@ $$\begin{align}
 \end{align} \\[2ex]
 = \frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\; dy \wedge dz  \quad+\quad \frac{\partial F_x}{\partial z} - \frac{\partial F_z}{\partial x}\; dz \wedge dx \quad + \quad\frac{\partial F_y}{\partial x} - \frac{\partial F_x}{\partial y}\; dx \wedge dy  $$
 
-which looks a lot like the curl (from [here](https://en.wikipedia.org/wiki/Curl_(mathematics)#Usage)):
+which looks a lot like the **curl** (from [here](https://en.wikipedia.org/wiki/Curl_(mathematics)#Usage)):
 
 $$\nabla \times {\bf F}=\begin{bmatrix} \frac{\partial F_z}{\partial y} - \frac{\partial F_y}{\partial z}\\
 \frac{\partial F_x}{\partial z} - \frac{\partial F_z}{\partial x}\\
 \frac{\partial F_y}{\partial x} - \frac{\partial F_x}{\partial y}
 \end{bmatrix}$$
 
-We can see that they are related because $\star d\omega = \nabla \times {\bf F}$ and $\nabla \times {\bf F} = (\star dF^\flat)^\sharp. $ We can see the first relationship to the Hodge product in noticing that the complementary of $dx\wedge dy$ is $dz$, and the rows of the expression for the curl right above correspond to the vector components $\partial / \partial x, \partial/\partial y,\partial/\partial z$ respectively.
+We can see that they are related because $\star d\omega = \nabla \times {\bf F}$ and $\nabla \times {\bf F} = (\star dF^\flat)^\sharp. $ We can see the first relationship to the Hodge star in noticing that the complementary of $dx\wedge dy$ is $dz$, and the rows of the expression for the curl right above correspond to the vector components $\partial / \partial x, \partial/\partial y,\partial/\partial z$ respectively.
 
 What is the relation to Green's theorem? The circulation form of Green's theorem states
 
@@ -56,7 +56,23 @@ $$\int_{\partial D} \underset{1-\text{form}}{\underbrace{F_x \,dx + Fy\,dy}}=\in
 The integrand in the RHS is also the $\frac{\partial F_y}{\partial x} - \frac{\partial F_x}{\partial y}\; dx \wedge dy$ component of the exterior derivative. Green's theorem is just in the plane but the analogy with Stokes' theorem is clear:
 
 $$\int_{\partial D} \omega = \int_D d\omega$$
+---
 
+Finally, the exterior derivative of a $2$-differential form $\beta=F\, dx\wedge dy + G\, dx\wedge dz + H\, dy\wedge dz$ is
+
+$$d\beta = \frac{\partial F}{\partial z}\; dz\wedge dx \wedge dy + \frac{\partial F}{\partial y}\; dy\wedge dx \wedge dz + \frac{\partial F}{\partial x}\; dx\wedge dy \wedge dz=\left( \frac{\partial F}{\partial x} - \frac{\partial F}{\partial y}+\frac{\partial F}{\partial z} \right) dx\wedge dy \wedge dz$$
+
+Hmmm... That minus sign is annoying, but it is still true that the exterior derivative of the Hodge star of a $1$-form $\omega = F_x \,dx + F_y \,dy + Fz \,dz$ is
+
+$$\begin{align}
+d(\star w)&=d(\star( F_x \,dx + F_y \,dy + F_z \,dz))\\[2ex]
+&=d(F_x\, dy \wedge dz + F_y\, dz\wedge dx + F_z \, dx\wedge dy)\\[2ex]
+&=dF_x\wedge dy \wedge dz + dF_y\wedge dz\wedge dx + dF_z\wedge dx \wedge dy\\[2ex]
+&=\frac{\partial F_x}{\partial x}dx\wedge dy \wedge dz + \frac{\partial F_y}{\partial y}dy\wedge dz \wedge dx + \frac{\partial F_z}{\partial z}dz\wedge dx \wedge dy \\[2ex]
+&=\left(\frac{\partial F_x}{\partial x}+ \frac{\partial F_y}{\partial y}+ \frac{\partial F_z}{\partial z}\right) dx\wedge dy\wedge dz
+\end{align}$$
+
+Therefore $\star d \star \omega= \nabla \cdot X,$ where $\nabla \cdot X$ is the **divergence** of a vector field. Notice that $\omega = X^\flat.$ Therefore the divergence is $\star d \star X^\flat$.
 
 
 ---
