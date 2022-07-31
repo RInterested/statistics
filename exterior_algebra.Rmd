@@ -20,7 +20,36 @@ output:
 
 ---
 
+
+
+An $m$ differential form in $\mathbb R^n$ can be expressed in multi-index notation as 
+
+$$\begin{align}
+\omega &= \sum_I f_I \; dx_I \\ 
+&= \sum_{1 \leq i_1 < i_2 \ \dots <i_m} a_{i_1, \dots, i_m} \; dx_1 \wedge dx_2 \wedge \dots \wedge dx_m  \\\\
+&I=(i_1, i_2, \dots,i_m) \; \mid\; 1 \leq i_1 < i_2 \ \dots <i_m \leq n
+\end{align}$$
+
+---
+
 From [here](https://www.youtube.com/watch?v=4--S4N8YDmE&t=54s&ab_channel=MichaelPenn) and from [here](https://www.youtube.com/watch?v=jeiDXhCiF44&list=PL9_jI1bdZmz0hIrNCMQW1YmZysAiIYSSS&index=8&ab_channel=KeenanCrane):
+
+For an $\omega$ $m$-form on $\mathbb R^n$:
+
+$$\omega = \sum_I f_I \, dx_I $$
+
+the exterior derivative is
+
+$$d\omega= \sum_I \sum_{j=1}^n \frac{\partial f_I}{\partial x_j}\,dx_j \wedge dx_I $$
+
+Therefore, the output is an $m+1$ form in $\mathbb R^n$
+
+So for just $f \, dx_I,$
+
+$$d(f\; dx_I)= \frac{\partial f}{\partial x_1}\,dx_1 \wedge dx_I + \frac{\partial f}{\partial x_2}\,dx_2 \wedge dx_I+\cdots + \frac{\partial f}{\partial x_n}\,dx_n \wedge dx_I$$
+
+with $dx_I = dx_{i_1}\wedge \dots \wedge dx_{i_m}$ and the multi-index $I =(i_{1},\dots, i_m)$
+
 
 The exterior derivative $\rm d$ of a $0$-form or function $\phi$ is (in $3$-dimensions for ease of notation):
 
