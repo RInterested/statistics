@@ -493,6 +493,28 @@ in:</p>
 \int\int_{D} \underset{\text{divergence}}{\underbrace{\frac{\partial
 F_x}{\partial x} + \frac{\partial F_y}{\partial y}}} \;dA\]</span></p>
 <hr />
+<p>Note (from <a href="https://sites.und.edu/timothy.prescott/apex/web/apex.Ch15.S4.html">here</a>):
+As for the LHS of the equation above, with <span class="math inline">\(\partial D\)</span> traversed counterclockwise by
+<span class="math inline">\(\vec r=\langle f(t), g(t) \rangle\)</span>
+the tangent is</p>
+<p><span class="math display">\[T&#39;=\frac{\langle f&#39;(t),
+g&#39;(t) \rangle}{\Vert \vec r&#39;(t)\Vert}\]</span></p>
+<p>and the normal</p>
+<p><span class="math display">\[n&#39;=\frac{\langle g&#39;(t), -
+f&#39;(t) \rangle}{\Vert \vec r&#39;(t)\Vert}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\begin{align}
+\int_{\partial D} \vec F \cdot \vec n\, ds &amp;= \int_{\partial D} \vec
+F \cdot \frac{\langle g&#39;(t), - f&#39;(t) \rangle}{\Vert \vec
+r&#39;(t)\Vert}\Vert \vec r&#39;(t)\Vert \, dt \\[2ex]
+&amp;=\int_{\partial D}\langle F_x,F_y \rangle \cdot \langle g&#39;(t),
+- f&#39;(t) \rangle dt \\[2ex]
+&amp;= \int_{\partial D}  F_x \, g&#39;(t) dt- \int_{\partial D}F_y \,
+f&#39;(t)  dt \\[2ex]
+&amp;=\int_{\partial D}  F_x \, dy - \int_{\partial D} F_y \, dx\\[2ex]
+&amp;=\int_{\partial D}  F_x \, dy -  F_y \, dx
+\end{align}\]</span></p>
+<hr />
 <p>Finally, the exterior derivative of a <span class="math inline">\(2\)</span>-differential form <span class="math inline">\(\beta=F\, dx\wedge dy + G\, dx\wedge dz + H\,
 dy\wedge dz\)</span> is</p>
 <p><span class="math display">\[d\beta = \frac{\partial F}{\partial z}\;

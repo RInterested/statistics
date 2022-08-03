@@ -92,6 +92,26 @@ $$\int_{\partial D} F_x \, dy - F_y \,dx= \int\int_{D} \underset{\text{divergenc
 
 ---
 
+Note (from [here](https://sites.und.edu/timothy.prescott/apex/web/apex.Ch15.S4.html)): As for the LHS of the equation above, with $\partial D$ traversed counterclockwise by $\vec r=\langle f(t), g(t) \rangle$ the tangent is
+
+$$T'=\frac{\langle f'(t), g'(t) \rangle}{\Vert \vec r'(t)\Vert}$$
+
+and the normal
+
+$$n'=\frac{\langle g'(t), - f'(t) \rangle}{\Vert \vec r'(t)\Vert}$$
+
+and
+
+$$\begin{align}
+\int_{\partial D} \vec F \cdot \vec n\, ds &= \int_{\partial D} \vec F \cdot \frac{\langle g'(t), - f'(t) \rangle}{\Vert \vec r'(t)\Vert}\Vert \vec r'(t)\Vert \, dt \\[2ex]
+&=\int_{\partial D}\langle F_x,F_y \rangle \cdot \langle g'(t), - f'(t) \rangle dt \\[2ex]
+&= \int_{\partial D}  F_x \, g'(t) dt- \int_{\partial D}F_y \, f'(t)  dt \\[2ex]
+&=\int_{\partial D}  F_x \, dy - \int_{\partial D} F_y \, dx\\[2ex]
+&=\int_{\partial D}  F_x \, dy -  F_y \, dx
+\end{align}$$
+
+---
+
 Finally, the exterior derivative of a $2$-differential form $\beta=F\, dx\wedge dy + G\, dx\wedge dz + H\, dy\wedge dz$ is
 
 $$d\beta = \frac{\partial F}{\partial z}\; dz\wedge dx \wedge dy + \frac{\partial F}{\partial y}\; dy\wedge dx \wedge dz + \frac{\partial F}{\partial x}\; dx\wedge dy \wedge dz=\left( \frac{\partial F}{\partial x} - \frac{\partial F}{\partial y}+\frac{\partial F}{\partial z} \right) dx\wedge dy \wedge dz$$
