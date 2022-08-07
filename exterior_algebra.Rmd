@@ -16,6 +16,30 @@ output:
 
 ---
 
+### The big idea:
+
+There is a [(musical) isomorphism](https://en.wikipedia.org/wiki/Musical_isomorphism) between the tangent bundle and the cotangent bundle induced by the metric tensor. See [here](https://math.stackexchange.com/a/127377/152225).
+
+A given vector field can be automatically "converted" into a "work" 1-form field (or differential 1-form field) as in [here](https://youtu.be/Ps4mXhfxiRI):
+
+<img width=650 src="https://user-images.githubusercontent.com/9312897/183302462-84f3727b-4588-4d3f-b669-3d187be91d60.png">
+
+or a "flux" 1-form (orthogonal) to the work one form:
+
+<img width=650 src="https://user-images.githubusercontent.com/9312897/183302757-455e3b87-7f9d-45f3-acee-f7fc974f8dff.png">
+
+Both forms can be integrated over a path.
+
+Now, differentiating forms will yield the gradient (exterior derivative of 0-forms), curl (exterior derivative of 1-forms) and divergence (exterior derivative of 2-forms).
+
+And the integration of these derivatives will come full-circle in Stokes' theorem:
+
+$$\int_{\partial M} \omega= \int_{M} d\omega$$
+
+
+
+---
+
 ### Exterior Derivative:
 
 ---
@@ -51,7 +75,7 @@ $$d(f\; dx_I)= \frac{\partial f}{\partial x_1}\,dx_1 \wedge dx_I + \frac{\partia
 with $dx_I = dx_{i_1}\wedge \dots \wedge dx_{i_m}$ and the multi-index $I =(i_{1},\dots, i_m)$
 
 
-The exterior derivative $\rm d$ of a $0$-form or function $\phi$ is (in $3$-dimensions for ease of notation):
+The **exterior derivative $\rm d$ of a $0$-form** or function $\phi$ is (in $3$-dimensions for ease of notation):
 
 $$d\phi=\frac{\partial \phi}{\partial x}dx + \frac{\partial \phi}{\partial y}dy+ \frac{\partial \phi}{\partial z}dz$$
 
@@ -61,7 +85,7 @@ How does it relate to the **gradient**? $(d\phi)^\sharp = \nabla \phi$ (sharp), 
 
 ---
 
-The exterior derivative of a $1$-**differential form** (a $1$-form is just a fixed value in front of the elementary forms $dx_i$, whereas a "differential form" implies a function in front of the elementary forms - i.e. a field of forms) $\omega = F_x \,dx + F_y \,dy + Fz \,dz,$ where $F_x, F_y, F_z$ are the corresponding functions (the sub-index here is not meant to indicate a partial derivative) in $3$ dimensions is
+The **exterior derivative of a $1$-differential form** (a $1$-form is just a fixed value in front of the elementary forms $dx_i$, whereas a "differential form" implies a function in front of the elementary forms - i.e. a field of forms) $\omega = F_x \,dx + F_y \,dy + Fz \,dz,$ where $F_x, F_y, F_z$ are the corresponding functions (the sub-index here is not meant to indicate a partial derivative) in $3$ dimensions is
 
 $$\begin{align}
 \frac{\partial F_x}{\partial x} \; dx \wedge dx + \frac{\partial F_y}{\partial x} \; dx \wedge dy + \frac{\partial F_z}{\partial x} \; dx \wedge dz \\[2ex]
@@ -112,7 +136,7 @@ $$\begin{align}
 
 ---
 
-Finally, the exterior derivative of a $2$-differential form $\beta=F\, dx\wedge dy + G\, dx\wedge dz + H\, dy\wedge dz$ is
+Finally, **the exterior derivative of a $2$-differential form** $\beta=F\, dx\wedge dy + G\, dx\wedge dz + H\, dy\wedge dz$ is
 
 $$d\beta = \frac{\partial F}{\partial z}\; dz\wedge dx \wedge dy + \frac{\partial F}{\partial y}\; dy\wedge dx \wedge dz + \frac{\partial F}{\partial x}\; dx\wedge dy \wedge dz=\left( \frac{\partial F}{\partial x} - \frac{\partial F}{\partial y}+\frac{\partial F}{\partial z} \right) dx\wedge dy \wedge dz$$
 
