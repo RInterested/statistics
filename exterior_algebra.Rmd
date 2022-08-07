@@ -36,7 +36,58 @@ And the integration of these derivatives will come full-circle in Stokes' theore
 
 $$\int_{\partial M} \omega= \int_{M} d\omega$$
 
+---
 
+### The mechanics of integrating forms:
+
+From [here](https://youtu.be/NXUKzKRcfLU):
+
+Integrating the 1-form
+
+$$\alpha = -y\,dx+ x\,dy$$
+
+along a circle at the origin of radius $R.$
+
+Fixing a counterclocwise path
+
+$$\gamma(t)=\begin{bmatrix} R\cos t\\ R\sin t \end{bmatrix}$$
+
+the matrix of derivatives is 
+
+
+$$\gamma'(t)=\begin{bmatrix} -R\sin t\\ R\cos t \end{bmatrix}$$
+$$\begin{align}
+\int_\gamma \alpha &=\int_{t=a}^b \alpha_{\gamma(t)}\left(\gamma'(t) \right)\,dt \\[2ex]
+&=\int_{t=0}^{2\pi}\left(-R\sin t \,dx + R\cos t \,dy \right)\; \begin{bmatrix} -R\sin t\\ R\cos t \end{bmatrix}\, dt \\[2ex]
+&=\int_{t=0}^{2\pi} R^2 \sin^2t + R^2\cos^2t\,dt
+\end{align}=$$
+
+
+
+From [here](https://youtu.be/dTxAERk0E0s):
+
+Integrating the 2-form
+
+$$\beta = (x + y)^2\, dx\wedge dy - z\,dy\wedge dz$$
+
+over the upper hemisphere 
+
+$$z = \sqrt{c^2 - x^2 - y^2} \geq 0$$
+
+Parameterizing as
+
+$$G\begin{bmatrix} x \\ y \\ \sqrt{c^2 - x^2 - y^2} \end{bmatrix}$$
+
+and the matrix of derivatives is
+
+$$G\begin{bmatrix} 1 & 0 \\ 0 &  1 \\ \frac{-x}{\sqrt{c^2 - x^2 - y^2}} & \frac{-y}{\sqrt{c^2 - x^2 - y^2}} \end{bmatrix}$$
+
+Therefore,
+
+$$\begin{align}
+\int \beta &= \int\int (x+y)^2 \begin{vmatrix} 1&0\\0&1\end{vmatrix}- \sqrt{c^2 - x^2 - y^2}\begin{vmatrix}  0 &  1 \\ \frac{-x}{\sqrt{c^2 - x^2 - y^2}} & \frac{-y}{\sqrt{c^2 - x^2 - y^2}} \end{vmatrix}\;dxdy\\[2ex]
+&=\int\int_{x^2+y^2+c^2} (x+y)^2 +x \; dxdy
+\end{align}$$
 
 ---
 

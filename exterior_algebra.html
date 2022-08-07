@@ -409,6 +409,48 @@ Stokes’ theorem:</p>
 d\omega\]</span></p>
 <hr />
 </div>
+<div id="the-mechanics-of-integrating-forms" class="section level3">
+<h3>The mechanics of integrating forms:</h3>
+<p>From <a href="https://youtu.be/NXUKzKRcfLU">here</a>:</p>
+<p>Integrating the 1-form</p>
+<p><span class="math display">\[\alpha = -y\,dx+ x\,dy\]</span></p>
+<p>along a circle at the origin of radius <span class="math inline">\(R.\)</span></p>
+<p>Fixing a counterclocwise path</p>
+<p><span class="math display">\[\gamma(t)=\begin{bmatrix} R\cos t\\
+R\sin t \end{bmatrix}\]</span></p>
+<p>the matrix of derivatives is</p>
+<p><span class="math display">\[\gamma&#39;(t)=\begin{bmatrix} -R\sin
+t\\ R\cos t \end{bmatrix}\]</span> <span class="math display">\[\begin{align}
+\int_\gamma \alpha &amp;=\int_{t=a}^b
+\alpha_{\gamma(t)}\left(\gamma&#39;(t) \right)\,dt \\[2ex]
+&amp;=\int_{t=0}^{2\pi}\left(-R\sin t \,dx + R\cos t \,dy \right)\;
+\begin{bmatrix} -R\sin t\\ R\cos t \end{bmatrix}\, dt \\[2ex]
+&amp;=\int_{t=0}^{2\pi} R^2 \sin^2t + R^2\cos^2t\,dt
+\end{align}=\]</span></p>
+<p>From <a href="https://youtu.be/dTxAERk0E0s">here</a>:</p>
+<p>Integrating the 2-form</p>
+<p><span class="math display">\[\beta = (x + y)^2\, dx\wedge dy -
+z\,dy\wedge dz\]</span></p>
+<p>over the upper hemisphere</p>
+<p><span class="math display">\[z = \sqrt{c^2 - x^2 - y^2} \geq
+0\]</span></p>
+<p>Parameterizing as</p>
+<p><span class="math display">\[G\begin{bmatrix} x \\ y \\ \sqrt{c^2 -
+x^2 - y^2} \end{bmatrix}\]</span></p>
+<p>and the matrix of derivatives is</p>
+<p><span class="math display">\[G\begin{bmatrix} 1 &amp; 0 \\ 0 &amp;  1
+\\ \frac{-x}{\sqrt{c^2 - x^2 - y^2}} &amp; \frac{-y}{\sqrt{c^2 - x^2 -
+y^2}} \end{bmatrix}\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[\begin{align}
+\int \beta &amp;= \int\int (x+y)^2 \begin{vmatrix}
+1&amp;0\\0&amp;1\end{vmatrix}- \sqrt{c^2 - x^2 - y^2}\begin{vmatrix}  0
+&amp;  1 \\ \frac{-x}{\sqrt{c^2 - x^2 - y^2}} &amp; \frac{-y}{\sqrt{c^2
+- x^2 - y^2}} \end{vmatrix}\;dxdy\\[2ex]
+&amp;=\int\int_{x^2+y^2+c^2} (x+y)^2 +x \; dxdy
+\end{align}\]</span></p>
+<hr />
+</div>
 <div id="exterior-derivative" class="section level3">
 <h3>Exterior Derivative:</h3>
 <hr />
