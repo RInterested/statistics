@@ -54,11 +54,11 @@ The plotting is rather random, but it can be controlled as follows:
 ```{r}
 plot(g, 
      vertex.size=20, 
-     vertex.color ='black',
+     vertex.color ='blue',
      vertex.label.cex=1.2,
      vertex.label.color='white',
      edge.width=2,
-     edge.color=rgb(.6,.2,.8,.4),
+     edge.color=rgb(.2,.9,.3,.2),
      layout=layout_in_circle(g))
 ```
 
@@ -68,6 +68,34 @@ It is possible to take a random walk through the graph as follows:
 # Graph name, starting point, number of steps, what to do if stuck:
 random_walk(g, 9, 10, stuck='return')
 ```
+
+The graph can be saved with the command `write.graph(g, file='Graph.txt', format="edgelist")`.
+
+---
+
+#### CREATE A GRAPH FROM EXISTING DATA:
+
+From [this presentation](https://www.youtube.com/watch?v=gRkCgIejXCI&t=260s&ab_channel=Pierre-AlexandreBalland) the scenes in which two given characters in [Les Mis](https://en.wikipedia.org/wiki/Les_Mis%C3%A9rables) appear together is in a file called `EL`, whereas the number of edges coming off each character is in `NL`:
+
+```{r,fig.height = 18, fig.width = 18}
+EL = read.csv('https://raw.githubusercontent.com/PABalland/ON/master/lesmis-el.csv')
+head(EL)
+NL = read.csv('https://raw.githubusercontent.com/PABalland/ON/master/lesmis-nl.csv')
+head(NL)
+gr = graph_from_data_frame(d = EL, vertices = NL, directed=F)
+plot(gr, vertex.label.cex=2, vertex.size=5, vertex.color="orange",
+     edge.color="orange", vertex.frame.color="#ffffff",
+     vertex.label.color="black",
+     layout=layout_in_circle(gr))
+
+# Or
+
+plot(gr, vertex.label.cex=1.5, vertex.size=5, vertex.color="orange",
+     edge.color="orange", vertex.frame.color="#ffffff",
+     vertex.label.color="black")
+
+```
+
 
 
 ---
