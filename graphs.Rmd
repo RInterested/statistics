@@ -1,0 +1,76 @@
+---
+title: 'OLS without linear algebra'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Graphs:
+
+---
+
+For parameter changes and options of the `igraph()` package, [this](https://kateto.net/wp-content/uploads/2016/06/Polnet%202016%20R%20Network%20Visualization%20Workshop.pdf) is a reference.
+
+To generate a random graph with the package `igraph()` the call is as follows:
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+
+---
+
+#### GENERATING RANDOM UNDIRECTED GRAPHS:
+
+
+```{r}
+library(igraph)
+set.seed(5)
+g = sample_gnp(30, 0.1, directed=F)
+plot(g, 
+     vertex.size=20, 
+     vertex.color ='black',
+     vertex.label.cex=1.2,
+     vertex.label.color='white',
+     edge.width=2,
+     edge.color='red')
+```
+
+There number of nodes or vertices is the first entry ($30$), and the probability of having an edge or connection between any two vertices is $0.1.$ The graph is un-directed.
+
+The plotting is rather random, but it can be controlled as follows:
+
+
+```{r}
+plot(g, 
+     vertex.size=20, 
+     vertex.color ='black',
+     vertex.label.cex=1.2,
+     vertex.label.color='white',
+     edge.width=2,
+     edge.color=rgb(.6,.2,.8,.4),
+     layout=layout_in_circle(g))
+```
+
+It is possible to take a random walk through the graph as follows:
+
+```{r}
+# Graph name, starting point, number of steps, what to do if stuck:
+random_walk(g, 9, 10, stuck='return')
+```
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
