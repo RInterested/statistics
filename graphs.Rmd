@@ -33,7 +33,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 #### GENERATING RANDOM UNDIRECTED GRAPHS:
 
 
-```{r, fig.height = 12, fig.width = 12}
+```{r, fig.height = 8, fig.width = 8}
 library(igraph)
 set.seed(5)
 g = sample_gnp(30, 0.1, directed=F)
@@ -51,7 +51,7 @@ There number of nodes or vertices is the first entry ($30$), and the probability
 The plotting is rather random, but it can be controlled as follows:
 
 
-```{r, fig.height = 12, fig.width = 12}
+```{r, fig.height = 8, fig.width = 8}
 plot(g, 
      vertex.size=20, 
      vertex.color ='blue',
@@ -92,6 +92,15 @@ plot(gr, vertex.label.cex=2, vertex.size=5, vertex.color="orange",
 
 plot(gr, vertex.label.cex=1.5, vertex.size=5, vertex.color="orange",
      edge.color="orange", vertex.frame.color="#ffffff",
+     vertex.label.color="black")
+
+plot(minimum.spanning.tree(gr), 
+     vertex.label.cex = ifelse(vertex.attributes(gr)$name%in%c('JeanValjean','Cosette','Marius','Javert', 'Fantine', 'Gavroche'), 4, 2),
+          vertex.label.color = ifelse(vertex.attributes(gr)$name%in%c('JeanValjean','Cosette','Marius','Javert', 'Fantine', 'Gavroche'), 'red', NA),
+     vertex.size=5, 
+     vertex.color="yellow",
+     vertex.frame.color='yellow',
+     edge.color="firebrick", 
      vertex.label.color="black")
 
 ```
