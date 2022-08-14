@@ -1,5 +1,5 @@
 ---
-title: 'Graphs'
+title: 'Graphs & Networks'
 output: 
   html_document:
     theme: readable
@@ -73,11 +73,11 @@ The graph can be saved with the command `write.graph(g, file='Graph.txt', format
 
 ---
 
-#### CREATE A GRAPH FROM EXISTING DATA:
+#### ANALYZE A NETWORK FROM EXISTING DATA:
 
 From [this presentation](https://www.youtube.com/watch?v=gRkCgIejXCI&t=260s&ab_channel=Pierre-AlexandreBalland) the scenes in which two given characters in [Les Mis](https://en.wikipedia.org/wiki/Les_Mis%C3%A9rables) appear together is in a file called `EL`, whereas the number of edges coming off each character is in `NL`:
 
-```{r,fig.height = 18, fig.width = 18}
+```{r, fig.height = 18, fig.width = 18}
 EL = read.csv('https://raw.githubusercontent.com/PABalland/ON/master/lesmis-el.csv')
 head(EL)
 NL = read.csv('https://raw.githubusercontent.com/PABalland/ON/master/lesmis-nl.csv')
@@ -96,7 +96,117 @@ plot(gr, vertex.label.cex=1.5, vertex.size=5, vertex.color="orange",
 
 ```
 
+Taking a look at the network:
 
+```{r}
+gr
+```
+
+we see there are $77$ nodes, $508$ edges, and the types of links.
+
+Also we can analyze the network to see who is more of an influencer:
+
+```{r}
+sort(degree(gr), decreasing=T)[1:10]
+```
+
+We can look at `edge.attributes(gr)` or `vertex.attributes(gr)` or visualize the data as a matrix `gr[]`.
+
+---
+
+#### GRAPH CLIQUES AND RAMSEY NUMBERS:
+
+Here is a naive attempt at getting extremely lucky and being able to tighten the bounds for the Ramsey number $R(5,5)$, which is currently bounded between $[43, 49]$ first by randomly generating red edges using a biased coin flip:
+
+```{r, fig.height = 18, fig.width = 18}
+set.seed(0)
+colors = c("red","navy")
+vcol = 'black'
+vlab = 'white'
+
+# 5	5	[43, 49]	Exoo 1989b, McKay and Radziszowski 1995
+n = 43
+# R(5,5)
+cl = 5
+m = matrix(rbinom(n^2,1,.7),nrow=n)
+m[lower.tri(m)] = 0  # It is an undirected graft
+diag(m) = 0 # Avoiding self edges
+g = graph_from_adjacency_matrix(m, mode='undirected')
+
+
+plot(g, layout = layout_in_circle(g),
+     edge.curved=0, 
+     edge.color=colors[1],
+     vertex.size=10, 
+     vertex.color=vcol,
+     vertex.label.color='white',
+     vertex.label.cex=2)
+
+```
+
+The blue edges are similarly created as:
+
+```{r, fig.height = 18, fig.width = 18}
+m.bar = matrix(rep(0, nrow(m)^2), nrow=nrow(m))
+for(i in 1:nrow(m)){for(j in 1:ncol(m)){m.bar[i,j] <- ifelse(m[i,j]==0,1,0)}}
+m.bar[lower.tri(m.bar)] = 0  
+diag(m.bar) = 0
+g.bar = graph_from_adjacency_matrix(m.bar, mode='undirected')
+ 
+plot(g.bar, 
+     layout=layout_in_circle(g.bar), 
+     edge.curved=0, 
+     edge.color=colors[2],
+     vertex.color=vcol,
+     vertex.size=10,
+     vertex.label.cex=2,
+     vertex.label.color="white")
+```
+These two colorations can now be merged into one complete graph:
+
+```{r,fig.height = 18, fig.width = 18}
+plot(g, layout = layout_in_circle(g),
+     edge.curved=0, 
+     edge.color=colors[1],
+     vertex.size=10, 
+     vertex.color=vcol,
+     vertex.label.color='white',
+     vertex.label.cex=2)
+plot(g.bar, 
+     layout=layout_in_circle(g.bar), 
+     edge.curved=0, 
+     edge.width=2,
+     edge.color=colors[2],
+     vertex.color=vcol,
+     vertex.size=10,
+     vertex.label.cex=2,
+     vertex.label.color="white",
+     add=T)
+```
+
+We can check it is complete remembering that the edges of a complete graph with $n$ vertices are $n (n-1)/2:$
+
+```{r}
+u = union(g,g.bar)
+
+print(paste("Is the graph complete? ", length(E(u))==n*(n-1)/2))
+```
+
+How many red and blue cliques of size $5$ are there:
+
+```{r}
+red.clust = cliques(g, min=cl, max=cl)
+print(paste("How many red clicks of size", cl, "are there?", length(red.clust)))
+blue.clust = cliques(g.bar, min=cl, max=cl)
+print(paste("How many blue clicks of size", cl, "are there?", length(blue.clust)))
+```
+
+And we can look for the largest cliques:
+
+```{r}
+print(paste("The maximum red clique size is", clique_num(g)))
+print(paste("The maximum blue clique size is", clique_num(g.bar)))
+```
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
