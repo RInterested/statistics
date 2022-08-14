@@ -83,25 +83,21 @@ head(EL)
 NL = read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/lesmis-nl.csv')
 head(NL)
 gr = graph_from_data_frame(d = EL, vertices = NL, directed=F)
-plot(gr, vertex.label.cex=2, vertex.size=5, vertex.color="orange",
-     edge.color="orange", vertex.frame.color="#ffffff",
-     vertex.label.color="black",
-     layout=layout_in_circle(gr))
 
-# Or
 
 plot(gr, vertex.label.cex=1.5, vertex.size=5, vertex.color="orange",
      edge.color="orange", vertex.frame.color="#ffffff",
      vertex.label.color="black")
 
-plot(minimum.spanning.tree(gr), 
-     vertex.label.cex = ifelse(vertex.attributes(gr)$name%in%c('JeanValjean','Cosette','Marius','Javert', 'Fantine', 'Gavroche'), 4, 2),
+
+plot(gr, 
+     vertex.label.cex = ifelse(vertex.attributes(gr)$name%in%c('JeanValjean','Cosette','Marius','Javert', 'Fantine', 'Gavroche'), 4, 1),
           vertex.label.color = ifelse(vertex.attributes(gr)$name%in%c('JeanValjean','Cosette','Marius','Javert', 'Fantine', 'Gavroche'), 'red', NA),
-     vertex.size=5, 
-     vertex.color="yellow",
+          vertex.color = ifelse(vertex.attributes(gr)$name%in%c('JeanValjean','Cosette','Marius','Javert', 'Fantine', 'Gavroche'), 'navy', 'yellow'),
      vertex.frame.color='yellow',
      edge.color="firebrick", 
-     vertex.label.color="black")
+     vertex.label.color="black",
+     layout = layout_with_kk(gr))
 
 ```
 
@@ -111,12 +107,12 @@ Taking a look at the network:
 gr
 ```
 
-we see there are $77$ nodes, $508$ edges, and the types of links.
+We see it is an `UN` undirected (`N`) graph with names (`N`). There are $77$ nodes, $508$ edges, and the types of links.
 
-Also we can analyze the network to see who is more of an influencer:
+Also we can analyze the network to see who is more of an influencer by looking at how many edges arrive at each vertex. If it were a directed graph `mode='all'` would be different from arriving edges, i.e. `mode='in'`.
 
 ```{r}
-sort(degree(gr), decreasing=T)[1:10]
+sort(degree(gr, mode='all'), decreasing=T)[1:10]
 ```
 
 We can look at `edge.attributes(gr)` or `vertex.attributes(gr)` or visualize the data as a matrix `gr[]`.
@@ -199,6 +195,10 @@ We can check it is complete remembering that the edges of a complete graph with 
 u = union(g,g.bar)
 
 print(paste("Is the graph complete? ", length(E(u))==n*(n-1)/2))
+
+# Also checkable by finding a ratio # edges / possible # edges of 1:
+
+edge_density(u, loops=F)
 ```
 
 How many red and blue cliques of size $5$ are there:
