@@ -84,12 +84,6 @@ NL = read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/l
 head(NL)
 gr = graph_from_data_frame(d = EL, vertices = NL, directed=F)
 
-
-plot(gr, vertex.label.cex=1.5, vertex.size=5, vertex.color="orange",
-     edge.color="orange", vertex.frame.color="#ffffff",
-     vertex.label.color="black")
-
-
 plot(gr, 
      vertex.label.cex = ifelse(vertex.attributes(gr)$name%in%c('JeanValjean','Cosette','Marius','Javert', 'Fantine', 'Gavroche'), 4, 1),
           vertex.label.color = ifelse(vertex.attributes(gr)$name%in%c('JeanValjean','Cosette','Marius','Javert', 'Fantine', 'Gavroche'), 'red', NA),
