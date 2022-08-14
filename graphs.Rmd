@@ -78,9 +78,9 @@ The graph can be saved with the command `write.graph(g, file='Graph.txt', format
 From [this presentation](https://www.youtube.com/watch?v=gRkCgIejXCI&t=260s&ab_channel=Pierre-AlexandreBalland) the scenes in which two given characters in [Les Mis](https://en.wikipedia.org/wiki/Les_Mis%C3%A9rables) appear together is in a file called `EL`, whereas the number of edges coming off each character is in `NL`:
 
 ```{r, fig.height = 18, fig.width = 18}
-EL = read.csv('https://raw.githubusercontent.com/PABalland/ON/master/lesmis-el.csv')
+EL = read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/lesmis-el.csv')
 head(EL)
-NL = read.csv('https://raw.githubusercontent.com/PABalland/ON/master/lesmis-nl.csv')
+NL = read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/lesmis-nl.csv')
 head(NL)
 gr = graph_from_data_frame(d = EL, vertices = NL, directed=F)
 plot(gr, vertex.label.cex=2, vertex.size=5, vertex.color="orange",
@@ -196,9 +196,9 @@ How many red and blue cliques of size $5$ are there:
 
 ```{r}
 red.clust = cliques(g, min=cl, max=cl)
-print(paste("How many red clicks of size", cl, "are there?", length(red.clust)))
+print(paste("How many red clicks of size", cl, "are there?", length(red.clust),"."))
 blue.clust = cliques(g.bar, min=cl, max=cl)
-print(paste("How many blue clicks of size", cl, "are there?", length(blue.clust)))
+print(paste("How many blue clicks of size", cl, "are there?", length(blue.clust),'.'))
 ```
 
 And we can look for the largest cliques:
