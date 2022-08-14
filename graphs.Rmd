@@ -33,7 +33,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 #### GENERATING RANDOM UNDIRECTED GRAPHS:
 
 
-```{r}
+```{r, fig.height = 12, fig.width = 12}
 library(igraph)
 set.seed(5)
 g = sample_gnp(30, 0.1, directed=F)
@@ -51,14 +51,14 @@ There number of nodes or vertices is the first entry ($30$), and the probability
 The plotting is rather random, but it can be controlled as follows:
 
 
-```{r}
+```{r, fig.height = 12, fig.width = 12}
 plot(g, 
      vertex.size=20, 
      vertex.color ='blue',
      vertex.label.cex=1.2,
      vertex.label.color='white',
      edge.width=2,
-     edge.color=rgb(.2,.9,.3,.2),
+     edge.color=rgb(.2,.9,.3,.8),
      layout=layout_in_circle(g))
 ```
 
@@ -73,7 +73,7 @@ The graph can be saved with the command `write.graph(g, file='Graph.txt', format
 
 ---
 
-#### ANALYZE A NETWORK FROM EXISTING DATA:
+#### Analyze a Network from Existing Data:
 
 From [this presentation](https://www.youtube.com/watch?v=gRkCgIejXCI&t=260s&ab_channel=Pierre-AlexandreBalland) the scenes in which two given characters in [Les Mis](https://en.wikipedia.org/wiki/Les_Mis%C3%A9rables) appear together is in a file called `EL`, whereas the number of edges coming off each character is in `NL`:
 
@@ -114,14 +114,14 @@ We can look at `edge.attributes(gr)` or `vertex.attributes(gr)` or visualize the
 
 ---
 
-#### GRAPH CLIQUES AND RAMSEY NUMBERS:
+#### Graph Cliques and Ramsey Numbers:
 
 Here is a naive attempt at getting extremely lucky and being able to tighten the bounds for the Ramsey number $R(5,5)$, which is currently bounded between $[43, 49]$ first by randomly generating red edges using a biased coin flip:
 
 ```{r, fig.height = 18, fig.width = 18}
 set.seed(0)
-colors = c("red","navy")
-vcol = 'black'
+colors = c("darkred","blue4")
+vcol = 'gold'
 vlab = 'white'
 
 # 5	5	[43, 49]	Exoo 1989b, McKay and Radziszowski 1995
@@ -139,7 +139,7 @@ plot(g, layout = layout_in_circle(g),
      edge.color=colors[1],
      vertex.size=10, 
      vertex.color=vcol,
-     vertex.label.color='white',
+     vertex.label.color='red',
      vertex.label.cex=2)
 
 ```
@@ -160,17 +160,17 @@ plot(g.bar,
      vertex.color=vcol,
      vertex.size=10,
      vertex.label.cex=2,
-     vertex.label.color="white")
+     vertex.label.color="red")
 ```
 These two colorations can now be merged into one complete graph:
 
-```{r,fig.height = 18, fig.width = 18}
+```{r, fig.height = 18, fig.width = 18}
 plot(g, layout = layout_in_circle(g),
      edge.curved=0, 
      edge.color=colors[1],
      vertex.size=10, 
      vertex.color=vcol,
-     vertex.label.color='white',
+     vertex.label.color='red',
      vertex.label.cex=2)
 plot(g.bar, 
      layout=layout_in_circle(g.bar), 
@@ -180,7 +180,7 @@ plot(g.bar,
      vertex.color=vcol,
      vertex.size=10,
      vertex.label.cex=2,
-     vertex.label.color="white",
+     vertex.label.color="red",
      add=T)
 ```
 
