@@ -111,6 +111,7 @@ sort(degree(gr, mode='all'), decreasing=T)[1:10]
 
 We can look at `edge.attributes(gr)` or `vertex.attributes(gr)` or visualize the data as a matrix `gr[]`.
 
+
 ---
 
 #### Graph Cliques and Ramsey Numbers:
@@ -210,6 +211,48 @@ And we can look for the largest cliques:
 print(paste("The maximum red clique size is", clique_num(g)))
 print(paste("The maximum blue clique size is", clique_num(g.bar)))
 ```
+
+
+---
+
+
+#### Arcgraph
+
+
+A cool alternative is the [arcgraph](https://www.r-bloggers.com/2013/02/arc-diagrams-in-r-les-miserables/):
+
+```{r, fig.width = 25, fig.width = 25}
+library(igraph)
+library(devtools)
+library(arcdiagram)
+
+mis_file = "https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/lesmiserables.gml"
+mis_graph = read.graph(mis_file, format="gml")
+
+edgelist = get.edgelist(mis_graph)
+vlabels = get.vertex.attribute(mis_graph, "label")
+vgroups = get.vertex.attribute(mis_graph, "group")
+vfill = get.vertex.attribute(mis_graph, "fill")
+vborders = get.vertex.attribute(mis_graph, "border")
+degrees = degree(mis_graph)
+values = get.edge.attribute(mis_graph, "value")
+
+library(reshape)
+library(dplyr)
+
+x = data.frame(vgroups, degrees, vlabels, ind=1:vcount(mis_graph))
+y = arrange(x, desc(vgroups), desc(degrees))
+
+new_ord = y$ind
+
+arcplot(edgelist, ordering=new_ord, labels=vlabels, cex.labels=0.8,
+        show.nodes=TRUE, col.nodes=vborders, bg.nodes=vfill,
+        cex.nodes = log(degrees)+0.5, pch.nodes=21,
+        lwd.nodes = 2, line=-0.5,
+        col.arcs = hsv(0, 0, 0.2, 0.25), lwd.arcs = 1.5 * values)
+
+```
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
