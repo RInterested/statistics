@@ -460,88 +460,43 @@ head(bdendo11)</code></pre>
 ##              Exact P-value: 0.0000 
 ##         Asymptotic P-value: 0.0000 
 ## ------------------------------------------------------</code></pre>
-<pre class="r"><code>with(bdendo11, twoby2(d,gall))</code></pre>
-<pre><code>## 2 by 2 table analysis: 
-## ------------------------------------------------------ 
-## Outcome   : No 
-## Comparing : 0 vs. 1 
-## 
-##   No Yes    P(No) 95% conf. interval
-## 0 54   9   0.8571    0.7476   0.9240
-## 1 46  17   0.7302    0.6080   0.8252
-## 
-##                                    95% conf. interval
-##              Relative Risk: 1.1739    0.9797   1.4066
-##          Sample Odds Ratio: 2.2174    0.9028   5.4462
-## Conditional MLE Odds Ratio: 2.2035    0.8346   6.1824
-##     Probability difference: 0.1270   -0.0154   0.2643
-## 
-##              Exact P-value: 0.1223 
-##         Asymptotic P-value: 0.0824 
-## ------------------------------------------------------</code></pre>
 <p>From the package <code>survival</code> the function
 <code>clogit()</code>:</p>
-<pre class="r"><code>fit &lt;- clogit(d ~ gall + hyp + cest + dur + strata(set), data = bdendo11)
+<pre class="r"><code>fit &lt;- clogit(d ~ est + strata(set), data = bdendo11)
 summary(fit)</code></pre>
 <pre><code>## Call:
-## coxph(formula = Surv(rep(1, 126L), d) ~ gall + hyp + cest + dur + 
-##     strata(set), data = bdendo11, method = &quot;exact&quot;)
+## coxph(formula = Surv(rep(1, 126L), d) ~ est + strata(set), data = bdendo11, 
+##     method = &quot;exact&quot;)
 ## 
-##   n= 116, number of events= 54 
-##    (10 observations deleted due to missingness)
+##   n= 126, number of events= 63 
 ## 
-##            coef exp(coef) se(coef)      z Pr(&gt;|z|)  
-## gallYes  0.6107    1.8417   0.7013  0.871   0.3839  
-## hypYes   0.1975    1.2184   0.4866  0.406   0.6848  
-## cest1    1.4813    4.3987   0.8346  1.775   0.0759 .
-## cest2    0.6771    1.9682   0.8535  0.793   0.4275  
-## cest3    1.9595    7.0960   0.9082  2.158   0.0310 *
-## dur1    -0.4830    0.6169   0.7791 -0.620   0.5353  
-## dur2     1.0902    2.9748   0.9260  1.177   0.2391  
-## dur3     0.1222    1.1300   0.8394  0.146   0.8842  
-## dur4         NA        NA   0.0000     NA       NA  
+##          coef exp(coef) se(coef)     z Pr(&gt;|z|)    
+## estYes 2.2687    9.6667   0.6065 3.741 0.000183 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-##         exp(coef) exp(-coef) lower .95 upper .95
-## gallYes    1.8417     0.5430    0.4658     7.281
-## hypYes     1.2184     0.8208    0.4694     3.162
-## cest1      4.3987     0.2273    0.8569    22.581
-## cest2      1.9682     0.5081    0.3695    10.484
-## cest3      7.0960     0.1409    1.1967    42.078
-## dur1       0.6169     1.6209    0.1340     2.840
-## dur2       2.9748     0.3362    0.4844    18.268
-## dur3       1.1300     0.8850    0.2180     5.856
-## dur4           NA         NA        NA        NA
+##        exp(coef) exp(-coef) lower .95 upper .95
+## estYes     9.667     0.1034     2.945     31.73
 ## 
-## Concordance= 0.783  (se = 0.077 )
-## Likelihood ratio test= 21.21  on 8 df,   p=0.007
-## Wald test            = 13.03  on 8 df,   p=0.1
-## Score (logrank) test = 18.3  on 8 df,   p=0.02</code></pre>
+## Concordance= 0.706  (se = 0.052 )
+## Likelihood ratio test= 24.45  on 1 df,   p=8e-07
+## Wald test            = 13.99  on 1 df,   p=2e-04
+## Score (logrank) test = 21.12  on 1 df,   p=4e-06</code></pre>
 <p>From the package <code>Epi</code> the function
 <code>clogistic()</code>:</p>
-<pre class="r"><code>res.clogistic &lt;- clogistic(d ~ gall + hyp + cest + dur, strata = set, data = bdendo11)
+<pre class="r"><code>res.clogistic &lt;- clogistic(d ~ est, strata = set, data = bdendo11)
 res.clogistic</code></pre>
 <pre><code>## 
 ## Call: 
-## clogistic(formula = d ~ gall + hyp + cest + dur, strata = set, 
-##     data = bdendo11)
+## clogistic(formula = d ~ est, strata = set, data = bdendo11)
 ## 
 ## 
 ## 
 ## 
-##           coef exp(coef) se(coef)      z     p
-## gallYes  0.611     1.842    0.701  0.871 0.380
-## hypYes   0.198     1.218    0.487  0.406 0.680
-## cest1    1.481     4.399    0.835  1.775 0.076
-## cest2    0.677     1.968    0.853  0.793 0.430
-## cest3    1.960     7.096    0.908  2.158 0.031
-## dur1    -0.483     0.617    0.779 -0.620 0.540
-## dur2     1.090     2.975    0.926  1.177 0.240
-## dur3     0.122     1.130    0.839  0.146 0.880
-## dur4        NA        NA    0.000     NA    NA
+##        coef exp(coef) se(coef)    z       p
+## estYes 2.27      9.67    0.606 3.74 0.00018
 ## 
-## Likelihood ratio test=21.2  on 8 df, p=0.0066, n=100</code></pre>
+## Likelihood ratio test=24.4  on 1 df, p=7.63e-07, n=64</code></pre>
 <p>Another example from <a href="https://people.stat.sc.edu/hoyen/STAT705/Notes/Lecture12.pdf">here</a>:</p>
 <pre class="r"><code>data(VC1to6)
 fitclogit&lt;-clogit(case ~ smoking + rubber + alcohol + strata(matset), data=VC1to6)
