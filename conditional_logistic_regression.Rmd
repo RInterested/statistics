@@ -53,16 +53,28 @@ cest        Conjugated oestrogen dose a factor with levels 0, 1, 2, 3
 ---
 
 ```{r}
-library("epiDisplay")
+library('epiDisplay')
 library('Epi')
+library('survival')
 data(bdendo11)
 head(bdendo11)
 
 with(bdendo11, twoby2(d,est))
 with(bdendo11, twoby2(d,gall))
+```
 
+From the package `survival` the function `clogit()`:
+
+```{r}
 fit <- clogit(d ~ gall + hyp + cest + dur + strata(set), data = bdendo11)
 summary(fit)
+```
+
+From the package `Epi` the function `clogistic()`:
+
+```{r}
+res.clogistic <- clogistic(d ~ gall + hyp + cest + dur, strata = set, data = bdendo11)
+res.clogistic
 ```
 
 

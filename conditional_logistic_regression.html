@@ -429,8 +429,9 @@ non         Use of non estrogen drugs: a factor with levels No Yes.
 duration    Months of oestrogen therapy: a numeric vector.
 cest        Conjugated oestrogen dose a factor with levels 0, 1, 2, 3</code></pre>
 <hr />
-<pre class="r"><code>library(&quot;epiDisplay&quot;)
+<pre class="r"><code>library(&#39;epiDisplay&#39;)
 library(&#39;Epi&#39;)
+library(&#39;survival&#39;)
 data(bdendo11)
 head(bdendo11)</code></pre>
 <pre><code>##   set d gall hyp   ob est dur non duration age cest agegrp  age3
@@ -478,6 +479,8 @@ head(bdendo11)</code></pre>
 ##              Exact P-value: 0.1223 
 ##         Asymptotic P-value: 0.0824 
 ## ------------------------------------------------------</code></pre>
+<p>From the package <code>survival</code> the function
+<code>clogit()</code>:</p>
 <pre class="r"><code>fit &lt;- clogit(d ~ gall + hyp + cest + dur + strata(set), data = bdendo11)
 summary(fit)</code></pre>
 <pre><code>## Call:
@@ -515,6 +518,30 @@ summary(fit)</code></pre>
 ## Likelihood ratio test= 21.21  on 8 df,   p=0.007
 ## Wald test            = 13.03  on 8 df,   p=0.1
 ## Score (logrank) test = 18.3  on 8 df,   p=0.02</code></pre>
+<p>From the package <code>Epi</code> the function
+<code>clogistic()</code>:</p>
+<pre class="r"><code>res.clogistic &lt;- clogistic(d ~ gall + hyp + cest + dur, strata = set, data = bdendo11)
+res.clogistic</code></pre>
+<pre><code>## 
+## Call: 
+## clogistic(formula = d ~ gall + hyp + cest + dur, strata = set, 
+##     data = bdendo11)
+## 
+## 
+## 
+## 
+##           coef exp(coef) se(coef)      z     p
+## gallYes  0.611     1.842    0.701  0.871 0.380
+## hypYes   0.198     1.218    0.487  0.406 0.680
+## cest1    1.481     4.399    0.835  1.775 0.076
+## cest2    0.677     1.968    0.853  0.793 0.430
+## cest3    1.960     7.096    0.908  2.158 0.031
+## dur1    -0.483     0.617    0.779 -0.620 0.540
+## dur2     1.090     2.975    0.926  1.177 0.240
+## dur3     0.122     1.130    0.839  0.146 0.880
+## dur4        NA        NA    0.000     NA    NA
+## 
+## Likelihood ratio test=21.2  on 8 df, p=0.0066, n=100</code></pre>
 <p>Another example from <a href="https://people.stat.sc.edu/hoyen/STAT705/Notes/Lecture12.pdf">here</a>:</p>
 <pre class="r"><code>data(VC1to6)
 fitclogit&lt;-clogit(case ~ smoking + rubber + alcohol + strata(matset), data=VC1to6)
