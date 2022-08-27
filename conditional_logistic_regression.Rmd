@@ -1,0 +1,82 @@
+---
+title: 'OLS without linear algebra'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Conditional Logistic Regression:
+
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+
+From [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5840200/):
+
+Matching on demographic variables is commonly used in case–control studies to adjust for confounding at the design stage. There is a presumption that matched data need to be analyzed by matched methods. Conditional logistic regression has become a standard for matched case–control data to tackle the sparse data problem. 
+
+From [here](https://www.usu.edu/math/jrstevens/biostat/projects2013/rep_CondlLogReg.pdf):
+
+In matched case control studies each case is matched with a control subject based on variables that could affect the response but is not necessarily of interest to the research. Factors such as age, gender, race etc. are taken into consideration when matching. Because matching is subject specific each case-control pair potentially has a different probability of
+risk. Performing a logistic regression analysis on this would result in needing dummy variables for each pair! Doing so results in too many fixed effects to estimate with respect to the sample size and leads to biased estimates. 
+
+From [here](https://www2.karlin.mff.cuni.cz/~otava/ClinExpSolution/assignment3_solution.html). The matching algorithm in R is [here](https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html).
+
+The Los Angeles Study of Endometrial Cancer was a matched case-control study conducted in California in the 1970’s. There are 63 cases of endometrial cancer, all women age 55 or over, each matched to four controls living in the same retirement community. The primary exposure of interest was estrogen use. The secondary exposure was gallbladder disease. The Epi library in R includes two versions of the data: the full dataset `bdendo` and a subset containing a single control matched to each case `bdendo11`.
+
+```
+set         Case-control set: a numeric vector
+d           Case or control: a numeric vector (1=case, 0=control)
+gall        Gall bladder disease
+hyp         Hypertension
+ob          Obesity
+est         Estrogen therapy
+dur         Duration of conjugated estrogen therapy: levels 0, 1, 2, 3, 4.
+non         Use of non estrogen drugs: a factor with levels No Yes.
+duration    Months of oestrogen therapy: a numeric vector.
+cest        Conjugated oestrogen dose a factor with levels 0, 1, 2, 3
+```
+
+---
+
+```{r}
+library("epiDisplay")
+library('Epi')
+data(bdendo11)
+head(bdendo11)
+
+with(bdendo11, twoby2(d,est))
+with(bdendo11, twoby2(d,gall))
+
+fit <- clogit(d ~ gall + hyp + cest + dur + strata(set), data = bdendo11)
+summary(fit)
+```
+
+
+Another example from [here](https://people.stat.sc.edu/hoyen/STAT705/Notes/Lecture12.pdf):
+
+```{r}
+data(VC1to6)
+fitclogit<-clogit(case ~ smoking + rubber + alcohol + strata(matset), data=VC1to6)
+summary(fitclogit)
+```
+
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
