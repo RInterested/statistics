@@ -17,6 +17,32 @@ output:
 
 ### Conditional Logistic Regression:
 
+From [here](https://www.youtube.com/watch?v=JbMIrO3HsFA&ab_channel=JuliaWrobel):
+
+Matching is a way of controlling for confounding and bias, as well as increasing precision. Subjects are paired or grouped based on pre-specified characteristics. In matched case-control studies, each patient is matched by one or more subjects without the disease, matched of covariates of interest (age, gender, ethnicity).
+
+Matching variables are not included in the model as covariates. Including them, leads to extreme bias in the odds-ratio estimates. It will be approximately the squared value of the true odds-ratio.
+
+The notation is (from [here](https://www.youtube.com/watch?v=5t5MkpIKHtg&t=26s&ab_channel=JuliaWrobel))
+
+$$p_{ik}({\bf X}_{ik})$$
+
+where $k$ is the strata (matched group), and $i$ is the individual $i\in \{0,1,\dots,M+1\}$ with $i=0$ being the case, and $i=1,\dots, M$ the matched controls in a $1:M$ case-control study. ${\bf X}_{ik}$ is the vector of covariates of interest for the $i$-th person in the $k$-th matched set.
+
+The model is
+
+$$\text{logit}\left(p_k(X_{ik})\right)=\alpha_k + \beta_1 \,X_{ik_1}+\dots+\beta_p \,X_{ik_p}$$
+
+Each matched set has a different intercept, summarizing the effect of the matching variables on the probability of disease.
+
+And $\beta_p$ is the $\log\text{OR}$ of disease of those exposed to covariate $p$ to those not exposed to it.
+
+The joint probability that the vector of covariates ${\bf X}_{0k}$ corresponds to the case, and ${\bf X}_{ik}$ with $i\in \{1,\dots, M\}$ to the controls is
+
+$$P({\bf X}_{0k} \mid Y=1) \prod_{i=1}^M\,P({\bf X}_{ik} \mid Y=0)$$
+
+After the derivation of the log likelihood, the intercepts will cancel: Since the intercepts can't be estimated the probability of disease per strata cannot be estimated either. However, the $\log{\text{ODDS}}$ is independent of the intercepts and can be estimated.
+
 ---
 
 ```{r setup, include=FALSE} 
@@ -67,15 +93,54 @@ From the package `survival` the function `clogit()`:
 ```{r}
 fit <- clogit(d ~ est + strata(set), data = bdendo11)
 summary(fit)
+extractAIC(fit)[2]
 ```
 
 From the package `Epi` the function `clogistic()`:
 
 ```{r}
-res.clogistic <- clogistic(d ~ est, strata = set, data = bdendo11)
-res.clogistic
+fit2 <- clogistic(d ~ est, strata = set, data = bdendo11)
+fit2
 ```
 
+---
+
+From [here](https://www.youtube.com/watch?v=GUYY5dfA-xc&ab_channel=JuliaWrobel):
+
+Cases (`case`) are women with secondary infertility (`1`). `spontaneous` and `induced` are abortions. The cases are matched to controls based on `education`, `age` and `parity`. There are two controls per case:
+
+```{r}
+data("infert")
+infert[infert$pooled.stratum==2,]
+```
+
+We could ignore the matching factors altogether:
+
+
+```{r}
+regLG <- glm(case ~ induced + spontaneous, data=infert, family='binomial')
+summary(regLG)$coef
+```
+
+Or treat matching factors as covariates:
+
+```{r}
+adjregLG <- glm(case ~ induced + spontaneous + age + education + parity, data=infert, family='binomial')
+summary(adjregLG)$coef
+```
+
+However, this can lead to bias in the coefficients, as can bee seen in the different outputs above. Without adjustment, for instance, only `spontaneous` abortion is significant.
+
+Using conditional logistic regression:
+
+```{r}
+condLG <- clogit(case ~ induced + spontaneous + strata(pooled.stratum), data=infert)
+summary(condLG)$coef
+```
+
+The values are closer to the adjusted coefficients.
+
+---
 
 Another example from [here](https://people.stat.sc.edu/hoyen/STAT705/Notes/Lecture12.pdf):
 

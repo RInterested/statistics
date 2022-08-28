@@ -391,6 +391,40 @@ MATHEMATICS</strong></h3>
 </div>
 <div id="conditional-logistic-regression" class="section level3">
 <h3>Conditional Logistic Regression:</h3>
+<p>From <a href="https://www.youtube.com/watch?v=JbMIrO3HsFA&amp;ab_channel=JuliaWrobel">here</a>:</p>
+<p>Matching is a way of controlling for confounding and bias, as well as
+increasing precision. Subjects are paired or grouped based on
+pre-specified characteristics. In matched case-control studies, each
+patient is matched by one or more subjects without the disease, matched
+of covariates of interest (age, gender, ethnicity).</p>
+<p>Matching variables are not included in the model as covariates.
+Including them, leads to extreme bias in the odds-ratio estimates. It
+will be approximately the squared value of the true odds-ratio.</p>
+<p>The notation is (from <a href="https://www.youtube.com/watch?v=5t5MkpIKHtg&amp;t=26s&amp;ab_channel=JuliaWrobel">here</a>)</p>
+<p><span class="math display">\[p_{ik}({\bf X}_{ik})\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the strata (matched
+group), and <span class="math inline">\(i\)</span> is the individual
+<span class="math inline">\(i\in \{0,1,\dots,M+1\}\)</span> with <span class="math inline">\(i=0\)</span> being the case, and <span class="math inline">\(i=1,\dots, M\)</span> the matched controls in a
+<span class="math inline">\(1:M\)</span> case-control study. <span class="math inline">\({\bf X}_{ik}\)</span> is the vector of covariates
+of interest for the <span class="math inline">\(i\)</span>-th person in
+the <span class="math inline">\(k\)</span>-th matched set.</p>
+<p>The model is</p>
+<p><span class="math display">\[\text{logit}\left(p_k(X_{ik})\right)=\alpha_k +
+\beta_1 \,X_{ik_1}+\dots+\beta_p \,X_{ik_p}\]</span></p>
+<p>Each matched set has a different intercept, summarizing the effect of
+the matching variables on the probability of disease.</p>
+<p>And <span class="math inline">\(\beta_p\)</span> is the <span class="math inline">\(\log\text{OR}\)</span> of disease of those exposed
+to covariate <span class="math inline">\(p\)</span> to those not exposed
+to it.</p>
+<p>The joint probability that the vector of covariates <span class="math inline">\({\bf X}_{0k}\)</span> corresponds to the case, and
+<span class="math inline">\({\bf X}_{ik}\)</span> with <span class="math inline">\(i\in \{1,\dots, M\}\)</span> to the controls
+is</p>
+<p><span class="math display">\[P({\bf X}_{0k} \mid Y=1)
+\prod_{i=1}^M\,P({\bf X}_{ik} \mid Y=0)\]</span></p>
+<p>After the derivation of the log likelihood, the intercepts will
+cancel: Since the intercepts can’t be estimated the probability of
+disease per strata cannot be estimated either. However, the <span class="math inline">\(\log{\text{ODDS}}\)</span> is independent of the
+intercepts and can be estimated.</p>
 <hr />
 <p>From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5840200/">here</a>:</p>
 <p>Matching on demographic variables is commonly used in case–control
@@ -482,10 +516,12 @@ summary(fit)</code></pre>
 ## Likelihood ratio test= 24.45  on 1 df,   p=8e-07
 ## Wald test            = 13.99  on 1 df,   p=2e-04
 ## Score (logrank) test = 21.12  on 1 df,   p=4e-06</code></pre>
+<pre class="r"><code>extractAIC(fit)[2]</code></pre>
+<pre><code>## [1] 64.88739</code></pre>
 <p>From the package <code>Epi</code> the function
 <code>clogistic()</code>:</p>
-<pre class="r"><code>res.clogistic &lt;- clogistic(d ~ est, strata = set, data = bdendo11)
-res.clogistic</code></pre>
+<pre class="r"><code>fit2 &lt;- clogistic(d ~ est, strata = set, data = bdendo11)
+fit2</code></pre>
 <pre><code>## 
 ## Call: 
 ## clogistic(formula = d ~ est, strata = set, data = bdendo11)
@@ -497,6 +533,48 @@ res.clogistic</code></pre>
 ## estYes 2.27      9.67    0.606 3.74 0.00018
 ## 
 ## Likelihood ratio test=24.4  on 1 df, p=7.63e-07, n=64</code></pre>
+<hr />
+<p>From <a href="https://www.youtube.com/watch?v=GUYY5dfA-xc&amp;ab_channel=JuliaWrobel">here</a>:</p>
+<p>Cases (<code>case</code>) are women with secondary infertility
+(<code>1</code>). <code>spontaneous</code> and <code>induced</code> are
+abortions. The cases are matched to controls based on
+<code>education</code>, <code>age</code> and <code>parity</code>. There
+are two controls per case:</p>
+<pre class="r"><code>data(&quot;infert&quot;)
+infert[infert$pooled.stratum==2,]</code></pre>
+<pre><code>##     education age parity induced case spontaneous stratum pooled.stratum
+## 4      0-5yrs  34      4       2    1           0       4              2
+## 87     0-5yrs  34      4       0    0           1       4              2
+## 169    0-5yrs  34      4       0    0           2       4              2</code></pre>
+<p>We could ignore the matching factors altogether:</p>
+<pre class="r"><code>regLG &lt;- glm(case ~ induced + spontaneous, data=infert, family=&#39;binomial&#39;)
+summary(regLG)$coef</code></pre>
+<pre><code>##               Estimate Std. Error   z value     Pr(&gt;|z|)
+## (Intercept) -1.7078601  0.2677095 -6.379528 1.776344e-10
+## induced      0.4181294  0.2056274  2.033432 4.200891e-02
+## spontaneous  1.1972050  0.2116433  5.656712 1.543004e-08</code></pre>
+<p>Or treat matching factors as covariates:</p>
+<pre class="r"><code>adjregLG &lt;- glm(case ~ induced + spontaneous + age + education + parity, data=infert, family=&#39;binomial&#39;)
+summary(adjregLG)$coef</code></pre>
+<pre><code>##                    Estimate Std. Error    z value     Pr(&gt;|z|)
+## (Intercept)      -1.1492365 1.41219537 -0.8137943 4.157628e-01
+## induced           1.2887574 0.30146019  4.2750499 1.910945e-05
+## spontaneous       2.0459050 0.31015652  6.5963631 4.213663e-11
+## age               0.0395820 0.03120253  1.2685509 2.046013e-01
+## education6-11yrs -1.0442436 0.79254976 -1.3175748 1.876460e-01
+## education12+ yrs -1.4032051 0.83415618 -1.6821851 9.253295e-02
+## parity           -0.8282774 0.19648949 -4.2153775 2.493607e-05</code></pre>
+<p>However, this can lead to bias in the coefficients, as can bee seen
+in the different outputs above. Without adjustment, for instance, only
+<code>spontaneous</code> abortion is significant.</p>
+<p>Using conditional logistic regression:</p>
+<pre class="r"><code>condLG &lt;- clogit(case ~ induced + spontaneous + strata(pooled.stratum), data=infert)
+summary(condLG)$coef</code></pre>
+<pre><code>##                 coef exp(coef)  se(coef)        z     Pr(&gt;|z|)
+## induced     1.426510  4.164142 0.3502751 4.072543 4.650262e-05
+## spontaneous 2.027885  7.598001 0.3460100 5.860770 4.607247e-09</code></pre>
+<p>The values are closer to the adjusted coefficients.</p>
+<hr />
 <p>Another example from <a href="https://people.stat.sc.edu/hoyen/STAT705/Notes/Lecture12.pdf">here</a>:</p>
 <pre class="r"><code>data(VC1to6)
 fitclogit&lt;-clogit(case ~ smoking + rubber + alcohol + strata(matset), data=VC1to6)
