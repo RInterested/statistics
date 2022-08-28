@@ -401,16 +401,20 @@ of covariates of interest (age, gender, ethnicity).</p>
 Including them, leads to extreme bias in the odds-ratio estimates. It
 will be approximately the squared value of the true odds-ratio.</p>
 <p>The notation is (from <a href="https://www.youtube.com/watch?v=5t5MkpIKHtg&amp;t=26s&amp;ab_channel=JuliaWrobel">here</a>)</p>
-<p><span class="math display">\[p_{ik}({\bf X}_{ik})\]</span></p>
+<p>The probability that the <span class="math inline">\(i\)</span>-th
+person in the <span class="math inline">\(k\)</span>-th matched set has
+disease is:</p>
+<p><span class="math display">\[P_{k}({\bf X}_{ik})\]</span></p>
 <p>where <span class="math inline">\(k\)</span> is the strata (matched
-group), and <span class="math inline">\(i\)</span> is the individual
-<span class="math inline">\(i\in \{0,1,\dots,M+1\}\)</span> with <span class="math inline">\(i=0\)</span> being the case, and <span class="math inline">\(i=1,\dots, M\)</span> the matched controls in a
-<span class="math inline">\(1:M\)</span> case-control study. <span class="math inline">\({\bf X}_{ik}\)</span> is the vector of covariates
-of interest for the <span class="math inline">\(i\)</span>-th person in
-the <span class="math inline">\(k\)</span>-th matched set.</p>
+groups <span class="math inline">\(k \in \{1,2,\dots, K\}\)</span>), and
+<span class="math inline">\(i\)</span> is the individual <span class="math inline">\(i\in \{0,1,\dots,M+1\}\)</span> with <span class="math inline">\(i=0\)</span> being the case, and <span class="math inline">\(i=1,\dots, M\)</span> the matched controls in a
+<span class="math inline">\(1:M\)</span> case-control study. <span class="math inline">\({\bf X}_{ik}= X_{ik_1},
+X_{ik_2},\dots,X_{ik_p}\)</span> is the vector of covariates of interest
+for the <span class="math inline">\(i\)</span>-th person in the <span class="math inline">\(k\)</span>-th matched set.</p>
 <p>The model is</p>
-<p><span class="math display">\[\text{logit}\left(p_k(X_{ik})\right)=\alpha_k +
-\beta_1 \,X_{ik_1}+\dots+\beta_p \,X_{ik_p}\]</span></p>
+<p><span class="math display">\[\text{logit}\left(P_k(X_{ik})\right)=\log\frac{P_k(X_{ik})}{1
+- P_k(X_{ik})}=\alpha_k + \beta_1 \,X_{ik_1}+\dots+\beta_p
+\,X_{ik_p}\]</span></p>
 <p>Each matched set has a different intercept, summarizing the effect of
 the matching variables on the probability of disease.</p>
 <p>And <span class="math inline">\(\beta_p\)</span> is the <span class="math inline">\(\log\text{OR}\)</span> of disease of those exposed
@@ -419,12 +423,12 @@ to it.</p>
 <p>The joint probability that the vector of covariates <span class="math inline">\({\bf X}_{0k}\)</span> corresponds to the case, and
 <span class="math inline">\({\bf X}_{ik}\)</span> with <span class="math inline">\(i\in \{1,\dots, M\}\)</span> to the controls
 is</p>
-<p><span class="math display">\[P({\bf X}_{0k} \mid Y=1)
+<p><span class="math display">\[P(X_{0k}\mid Y=1 \;\cap\;
+X_{1,2,\dots,M} \mid Y=0) = P({\bf X}_{0k} \mid Y=1)\;\;
 \prod_{i=1}^M\,P({\bf X}_{ik} \mid Y=0)\]</span></p>
 <p>because we assume that the covariate vectors are independent of each
 other.</p>
-<p>To construct the conditional likelihood is the probability that one
-of the <span class="math inline">\(M+1\)</span> subjects in the <span class="math inline">\(k\)</span>-th matched set is the case and the
+<p>To construct the conditional likelihood that one of the <span class="math inline">\(M+1\)</span> subjects in the <span class="math inline">\(k\)</span>-th matched set is the case and the
 remainder are the controls:</p>
 <p><span class="math display">\[\begin{align}
 &amp;P({\bf X}_{0k}\mid Y=1) \prod_{i=1}^M P({\bf X}_{ik}\mid Y=0) +

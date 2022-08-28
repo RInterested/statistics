@@ -25,13 +25,15 @@ Matching variables are not included in the model as covariates. Including them, 
 
 The notation is (from [here](https://www.youtube.com/watch?v=5t5MkpIKHtg&t=26s&ab_channel=JuliaWrobel))
 
-$$p_{ik}({\bf X}_{ik})$$
+The probability that the $i$-th person in the $k$-th matched set has disease is:
 
-where $k$ is the strata (matched group), and $i$ is the individual $i\in \{0,1,\dots,M+1\}$ with $i=0$ being the case, and $i=1,\dots, M$ the matched controls in a $1:M$ case-control study. ${\bf X}_{ik}$ is the vector of covariates of interest for the $i$-th person in the $k$-th matched set.
+$$P_{k}({\bf X}_{ik})$$
+
+where $k$ is the strata (matched groups $k \in \{1,2,\dots, K\}$), and $i$ is the individual $i\in \{0,1,\dots,M+1\}$ with $i=0$ being the case, and $i=1,\dots, M$ the matched controls in a $1:M$ case-control study. ${\bf X}_{ik}= X_{ik_1}, X_{ik_2},\dots,X_{ik_p}$ is the vector of covariates of interest for the $i$-th person in the $k$-th matched set.
 
 The model is
 
-$$\text{logit}\left(p_k(X_{ik})\right)=\alpha_k + \beta_1 \,X_{ik_1}+\dots+\beta_p \,X_{ik_p}$$
+$$\text{logit}\left(P_k(X_{ik})\right)=\log\frac{P_k(X_{ik})}{1 - P_k(X_{ik})}=\alpha_k + \beta_1 \,X_{ik_1}+\dots+\beta_p \,X_{ik_p}$$
 
 Each matched set has a different intercept, summarizing the effect of the matching variables on the probability of disease.
 
@@ -39,11 +41,11 @@ And $\beta_p$ is the $\log\text{OR}$ of disease of those exposed to covariate $p
 
 The joint probability that the vector of covariates ${\bf X}_{0k}$ corresponds to the case, and ${\bf X}_{ik}$ with $i\in \{1,\dots, M\}$ to the controls is
 
-$$P({\bf X}_{0k} \mid Y=1) \prod_{i=1}^M\,P({\bf X}_{ik} \mid Y=0)$$
+$$P(X_{0k}\mid Y=1 \;\cap\; X_{1,2,\dots,M} \mid Y=0) = P({\bf X}_{0k} \mid Y=1)\;\; \prod_{i=1}^M\,P({\bf X}_{ik} \mid Y=0)$$
 
 because we assume that the covariate vectors are independent of each other.
 
-To construct the conditional likelihood is the probability that one of the $M+1$ subjects in the $k$-th matched set is the case and the remainder are the controls:
+To construct the conditional likelihood that one of the $M+1$ subjects in the $k$-th matched set is the case and the remainder are the controls:
 
 $$\begin{align}
 &P({\bf X}_{0k}\mid Y=1) \prod_{i=1}^M P({\bf X}_{ik}\mid Y=0) + 
