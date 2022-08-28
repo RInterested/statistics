@@ -57,14 +57,14 @@ $$
 
 The conditional likelihood of interest is
 
-$$L_k = \frac{P({\bf X}_{0k}\mid Y=1) \prod_{i=1}^M P({\bf X}_{ik}\mid Y=0)}{\sum_{l=0}^MP({\bf X}_{lk}\mid Y=1) \prod_{r \neq l}^M P({\bf X}_{rk}\mid Y=0)}$$
+$$L_k = \frac{P({\bf X}_{0k}\mid Y=1) \quad\displaystyle\prod_{i=1}^M P({\bf X}_{ik}\mid Y=0)}{\sum_{l=0}^MP({\bf X}_{lk}\mid Y=1)\quad \displaystyle \prod_{r \neq l}^M P({\bf X}_{rk}\mid Y=0)}$$
 Utilizing Bayes' theorem, $P({\bf X}_{ik}\mid Y=1)=\frac{P(Y=1\mid {\bf X}_{ik})\,P({\bf X}_{ik})}{P(Y=1)},$
 
-$$L_k =\frac{\frac{P(Y=1\mid {\bf X}_{0k})\,P({\bf X}_{0k})}{P(Y=1)} \prod_{i=1}^M \frac{P(Y=0\mid {\bf X}_{ik})\,P({\bf X}_{ik})}{P(Y=0)}}{\sum_{l=0}^M\frac{P(Y=1\mid {\bf X}_{lk})\,P({\bf X}_{lk})}{P(Y=1)} \prod_{r \neq l}^M \frac{P(Y=0\mid {\bf X}_{rk})\,P({\bf X}_{rk})}{P(Y=0)}}$$
+$$L_k =\displaystyle \frac{\frac{P(Y=1\mid {\bf X}_{0k})\,P({\bf X}_{0k})}{P(Y=1)} \quad\displaystyle\prod_{i=1}^M \frac{P(Y=0\mid {\bf X}_{ik})\,P({\bf X}_{ik})}{P(Y=0)}}{\displaystyle\sum_{l=0}^M\frac{P(Y=1\mid {\bf X}_{lk})\,P({\bf X}_{lk})}{P(Y=1)} \quad\displaystyle\prod_{r \neq l}^M \frac{P(Y=0\mid {\bf X}_{rk})\,P({\bf X}_{rk})}{P(Y=0)}}$$
 
 The factor $\frac{\prod_i^M P({\bf X}_{ik})}{P(Y=1)P(Y=0)^M}$ appears both in the numerator and denominator and will cancel out, yielding
 
-$$L_k =\frac{P(Y=1\mid {\bf X}_{0k})\,P({\bf X}_{0k}) \prod_{i=1}^M P(Y=0\mid {\bf X}_{ik})}{\sum_{l=0}^M P(Y=1\mid {\bf X}_{lk})\,P({\bf X}_{lk}) \prod_{r \neq l}^M P(Y=0\mid {\bf X}_{rk})}\tag 1$$
+$$L_k =\frac{P(Y=1\mid {\bf X}_{0k})\,P({\bf X}_{0k})\quad \displaystyle \prod_{i=1}^M P(Y=0\mid {\bf X}_{ik})}{\displaystyle \sum_{l=0}^M P(Y=1\mid {\bf X}_{lk})\,P({\bf X}_{lk}) \quad \displaystyle\prod_{r \neq l}^M P(Y=0\mid {\bf X}_{rk})}\tag 1$$
 
 Now, for the $i$-th person in the $k$-th stratum,
 
@@ -76,7 +76,7 @@ $$P(Y_i=1\mid {\bf X}_{ik}) = \frac{e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}}{1 + 
 
 and
 
-$$P(Y_i=0\mid {\bf X}_{ik}) = \frac{1}{1 + e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}} $$
+$$P(Y_i=0\mid {\bf X}_{ik}) =1 - P(Y_1 =1\mid {\bf X}_{ik})= \frac{1}{1 + e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}} $$
 Substituting into Eq $(1),$
 
 $$L_k(\beta) = \frac{e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}}{\sum_{l=0}^M e^{\alpha_k + {\bf X}_{ikl}{\bf \beta}}}$$
