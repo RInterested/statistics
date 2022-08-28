@@ -41,7 +41,55 @@ The joint probability that the vector of covariates ${\bf X}_{0k}$ corresponds t
 
 $$P({\bf X}_{0k} \mid Y=1) \prod_{i=1}^M\,P({\bf X}_{ik} \mid Y=0)$$
 
+because we assume that the covariate vectors are independent of each other.
+
+To construct the conditional likelihood is the probability that one of the $M+1$ subjects in the $k$-th matched set is the case and the remainder are the controls:
+
+$$\begin{align}
+&P({\bf X}_{0k}\mid Y=1) \prod_{i=1}^M P({\bf X}_{ik}\mid Y=0) + 
+P({\bf X}_{1k}\mid Y=1) \prod_{i\neq 1} P({\bf X}_{ik}\mid Y=0)+
+P({\bf X}_{Mk}\mid Y=1) \prod_{i\neq M} P({\bf X}_{ik}\mid Y=0)\\[2ex]
+&=\sum_{l=0}^MP({\bf X}_{lk}\mid Y=1) \prod_{r \neq l}^M P({\bf X}_{rk}\mid Y=0)
+\end{align}
+$$
+
+The conditional likelihood of interest is
+
+$$L_k = \frac{P({\bf X}_{0k}\mid Y=1) \prod_{i=1}^M P({\bf X}_{ik}\mid Y=0)}{\sum_{l=0}^MP({\bf X}_{lk}\mid Y=1) \prod_{r \neq l}^M P({\bf X}_{rk}\mid Y=0)}$$
+Utilizing Bayes' theorem, $P({\bf X}_{ik}\mid Y=1)=\frac{P(Y=1\mid {\bf X}_{ik})\,P({\bf X}_{ik})}{P(Y=1)},$
+
+$$L_k =\frac{\frac{P(Y=1\mid {\bf X}_{0k})\,P({\bf X}_{0k})}{P(Y=1)} \prod_{i=1}^M \frac{P(Y=0\mid {\bf X}_{ik})\,P({\bf X}_{ik})}{P(Y=0)}}{\sum_{l=0}^M\frac{P(Y=1\mid {\bf X}_{lk})\,P({\bf X}_{lk})}{P(Y=1)} \prod_{r \neq l}^M \frac{P(Y=0\mid {\bf X}_{rk})\,P({\bf X}_{rk})}{P(Y=0)}}$$
+
+The factor $\frac{\prod_i^M P({\bf X}_{ik})}{P(Y=1)P(Y=0)^M}$ appears both in the numerator and denominator and will cancel out, yielding
+
+$$L_k =\frac{P(Y=1\mid {\bf X}_{0k})\,P({\bf X}_{0k}) \prod_{i=1}^M P(Y=0\mid {\bf X}_{ik})}{\sum_{l=0}^M P(Y=1\mid {\bf X}_{lk})\,P({\bf X}_{lk}) \prod_{r \neq l}^M P(Y=0\mid {\bf X}_{rk})}\tag 1$$
+
+Now, for the $i$-th person in the $k$-th stratum,
+
+$$\text{logit}\,P(Y_i = 1 \mid {\bf X}_{ik}) =\alpha_k + \beta_1 X_{ik_1}+\dots + \beta_p X_{ik_p}$$
+
+or 
+
+$$P(Y_i=1\mid {\bf X}_{ik}) = \frac{e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}}{1 + e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}} $$
+
+and
+
+$$P(Y_i=0\mid {\bf X}_{ik}) = \frac{1}{1 + e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}} $$
+Substituting into Eq $(1),$
+
+$$L_k(\beta) = \frac{e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}}{\sum_{l=0}^M e^{\alpha_k + {\bf X}_{ikl}{\bf \beta}}}$$
+
+Now $e^{\alpha_k}$ can be pulled out from both numerator and denominator:
+
+$$L_k(\beta) = \frac{e^{ {\bf X}_{ik}{\bf \beta}}}{\sum_{l=0}^M e^{ {\bf X}_{ikl}{\bf \beta}}}$$
+
 After the derivation of the log likelihood, the intercepts will cancel: Since the intercepts can't be estimated the probability of disease per strata cannot be estimated either. However, the $\log{\text{ODDS}}$ is independent of the intercepts and can be estimated.
+
+
+The overall likelihood is the product of likelihood for each stratum:
+
+$$L(\beta)= \prod_{k=1}^K L_k(\beta)$$
+
 
 ---
 

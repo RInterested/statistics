@@ -421,10 +421,66 @@ to it.</p>
 is</p>
 <p><span class="math display">\[P({\bf X}_{0k} \mid Y=1)
 \prod_{i=1}^M\,P({\bf X}_{ik} \mid Y=0)\]</span></p>
+<p>because we assume that the covariate vectors are independent of each
+other.</p>
+<p>To construct the conditional likelihood is the probability that one
+of the <span class="math inline">\(M+1\)</span> subjects in the <span class="math inline">\(k\)</span>-th matched set is the case and the
+remainder are the controls:</p>
+<p><span class="math display">\[\begin{align}
+&amp;P({\bf X}_{0k}\mid Y=1) \prod_{i=1}^M P({\bf X}_{ik}\mid Y=0) +
+P({\bf X}_{1k}\mid Y=1) \prod_{i\neq 1} P({\bf X}_{ik}\mid Y=0)+
+P({\bf X}_{Mk}\mid Y=1) \prod_{i\neq M} P({\bf X}_{ik}\mid Y=0)\\[2ex]
+&amp;=\sum_{l=0}^MP({\bf X}_{lk}\mid Y=1) \prod_{r \neq l}^M P({\bf
+X}_{rk}\mid Y=0)
+\end{align}
+\]</span></p>
+<p>The conditional likelihood of interest is</p>
+<p><span class="math display">\[L_k = \frac{P({\bf X}_{0k}\mid Y=1)
+\prod_{i=1}^M P({\bf X}_{ik}\mid Y=0)}{\sum_{l=0}^MP({\bf X}_{lk}\mid
+Y=1) \prod_{r \neq l}^M P({\bf X}_{rk}\mid Y=0)}\]</span> Utilizing
+Bayes’ theorem, <span class="math inline">\(P({\bf X}_{ik}\mid
+Y=1)=\frac{P(Y=1\mid {\bf X}_{ik})\,P({\bf
+X}_{ik})}{P(Y=1)},\)</span></p>
+<p><span class="math display">\[L_k =\frac{\frac{P(Y=1\mid {\bf
+X}_{0k})\,P({\bf X}_{0k})}{P(Y=1)} \prod_{i=1}^M \frac{P(Y=0\mid {\bf
+X}_{ik})\,P({\bf X}_{ik})}{P(Y=0)}}{\sum_{l=0}^M\frac{P(Y=1\mid {\bf
+X}_{lk})\,P({\bf X}_{lk})}{P(Y=1)} \prod_{r \neq l}^M \frac{P(Y=0\mid
+{\bf X}_{rk})\,P({\bf X}_{rk})}{P(Y=0)}}\]</span></p>
+<p>The factor <span class="math inline">\(\frac{\prod_i^M P({\bf
+X}_{ik})}{P(Y=1)P(Y=0)^M}\)</span> appears both in the numerator and
+denominator and will cancel out, yielding</p>
+<p><span class="math display">\[L_k =\frac{P(Y=1\mid {\bf
+X}_{0k})\,P({\bf X}_{0k}) \prod_{i=1}^M P(Y=0\mid {\bf
+X}_{ik})}{\sum_{l=0}^M P(Y=1\mid {\bf X}_{lk})\,P({\bf X}_{lk}) \prod_{r
+\neq l}^M P(Y=0\mid {\bf X}_{rk})}\tag 1\]</span></p>
+<p>Now, for the <span class="math inline">\(i\)</span>-th person in the
+<span class="math inline">\(k\)</span>-th stratum,</p>
+<p><span class="math display">\[\text{logit}\,P(Y_i = 1 \mid {\bf
+X}_{ik}) =\alpha_k + \beta_1 X_{ik_1}+\dots + \beta_p
+X_{ik_p}\]</span></p>
+<p>or</p>
+<p><span class="math display">\[P(Y_i=1\mid {\bf X}_{ik}) =
+\frac{e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}}{1 + e^{\alpha_k + {\bf
+X}_{ik}{\bf \beta}}} \]</span></p>
+<p>and</p>
+<p><span class="math display">\[P(Y_i=0\mid {\bf X}_{ik}) = \frac{1}{1 +
+e^{\alpha_k + {\bf X}_{ik}{\bf \beta}}} \]</span> Substituting into Eq
+<span class="math inline">\((1),\)</span></p>
+<p><span class="math display">\[L_k(\beta) = \frac{e^{\alpha_k + {\bf
+X}_{ik}{\bf \beta}}}{\sum_{l=0}^M e^{\alpha_k + {\bf X}_{ikl}{\bf
+\beta}}}\]</span></p>
+<p>Now <span class="math inline">\(e^{\alpha_k}\)</span> can be pulled
+out from both numerator and denominator:</p>
+<p><span class="math display">\[L_k(\beta) = \frac{e^{ {\bf X}_{ik}{\bf
+\beta}}}{\sum_{l=0}^M e^{ {\bf X}_{ikl}{\bf \beta}}}\]</span></p>
 <p>After the derivation of the log likelihood, the intercepts will
 cancel: Since the intercepts can’t be estimated the probability of
 disease per strata cannot be estimated either. However, the <span class="math inline">\(\log{\text{ODDS}}\)</span> is independent of the
 intercepts and can be estimated.</p>
+<p>The overall likelihood is the product of likelihood for each
+stratum:</p>
+<p><span class="math display">\[L(\beta)= \prod_{k=1}^K
+L_k(\beta)\]</span></p>
 <hr />
 <p>From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5840200/">here</a>:</p>
 <p>Matching on demographic variables is commonly used in case–control
