@@ -415,11 +415,25 @@ for the <span class="math inline">\(i\)</span>-th person in the <span class="mat
 <p><span class="math display">\[\text{logit}\left(P_k(X_{ik})\right)=\log\frac{P_k(X_{ik})}{1
 - P_k(X_{ik})}=\alpha_k + \beta_1 \,X_{ik_1}+\dots+\beta_p
 \,X_{ik_p}\]</span></p>
+<p>The odds that a subject with <span class="math inline">\(x =
+1\)</span> is a case equals <span class="math inline">\(\exp(\beta)\)</span> times the odds that a subject
+with <span class="math inline">\(x = 0\)</span> is a case in the simple
+case <span class="math inline">\(\text{logit}(P(\text{case}))=\alpha +
+\beta\,x.\)</span></p>
 <p>Each matched set has a different intercept, summarizing the effect of
 the matching variables on the probability of disease.</p>
 <p>And <span class="math inline">\(\beta_p\)</span> is the <span class="math inline">\(\log\text{OR}\)</span> of disease of those exposed
 to covariate <span class="math inline">\(p\)</span> to those not exposed
 to it.</p>
+<p>The problem with the model above is that the number of parameters
+increases at the same rate as the sample size with the consequence that
+maximum likelihood estimation is no longer viable. We can overcome this
+problem if we regard the parameters <span class="math inline">\(\alpha_i\)</span> as of little interest and so are
+willing to forgo their estimation. If we do, we can then create a
+conditional likelihood function that will yield maximum likelihood
+estimators of the coefficients, <span class="math inline">\(β_1, \dots ,
+β_q,\)</span> that are consistent and asymptotically normally
+distributed.</p>
 <p>The joint probability that the vector of covariates <span class="math inline">\({\bf X}_{0k}\)</span> corresponds to the case, and
 <span class="math inline">\({\bf X}_{ik}\)</span> with <span class="math inline">\(i\in \{1,\dots, M\}\)</span> to the controls
 is</p>
@@ -491,6 +505,36 @@ stratum:</p>
 <p><span class="math display">\[L(\beta)= \prod_{k=1}^K
 L_k(\beta)\]</span></p>
 <hr />
+<p>From <a href="https://cran.r-project.org/web/packages/HSAUR2/vignettes/Ch_logistic_regression_glm.pdf">here</a>:</p>
+<pre class="r"><code>data(backpain)
+head(backpain)</code></pre>
+<pre><code>##   ID  status driver suburban
+## 1  1    case    yes      yes
+## 2  1 control    yes       no
+## 3  2    case    yes      yes
+## 4  2 control    yes      yes
+## 5  3    case    yes       no
+## 6  3 control    yes      yes</code></pre>
+<pre class="r"><code>backpain_glm &lt;- clogit(I(status == &quot;case&quot;) ~ driver + suburban + strata(ID), data = backpain)
+backpain_glm</code></pre>
+<pre><code>## Call:
+## clogit(I(status == &quot;case&quot;) ~ driver + suburban + strata(ID), 
+##     data = backpain)
+## 
+##               coef exp(coef) se(coef)     z      p
+## driveryes   0.6579    1.9307   0.2940 2.238 0.0252
+## suburbanyes 0.2555    1.2911   0.2258 1.131 0.2580
+## 
+## Likelihood ratio test=9.55  on 2 df, p=0.008457
+## n= 434, number of events= 217</code></pre>
+<blockquote>
+<p>The estimate of the odds ratio of a herniated disc occurring in a
+driver relative to a nondriver is <span class="math inline">\(1.93\)</span> with a <span class="math inline">\(95\%\)</span> confidence interval of <span class="math inline">\((1.09, 3.44).\)</span> Conditional on residence we
+can say that the risk of a herniated disc occurring in a driver is about
+twice that of a nondriver. There is no evidence that where a person
+lives affects the risk of lower back pain.</p>
+</blockquote>
+<hr />
 <p>From <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5840200/">here</a>:</p>
 <p>Matching on demographic variables is commonly used in case–control
 studies to adjust for confounding at the design stage. There is a
@@ -528,10 +572,7 @@ non         Use of non estrogen drugs: a factor with levels No Yes.
 duration    Months of oestrogen therapy: a numeric vector.
 cest        Conjugated oestrogen dose a factor with levels 0, 1, 2, 3</code></pre>
 <hr />
-<pre class="r"><code>library(&#39;epiDisplay&#39;)
-library(&#39;Epi&#39;)
-library(&#39;survival&#39;)
-data(bdendo11)
+<pre class="r"><code>data(bdendo11)
 head(bdendo11)</code></pre>
 <pre><code>##   set d gall hyp   ob est dur non duration age cest agegrp  age3
 ## 1   1 1   No  No  Yes Yes   4 Yes       96  74    3  70-74 65-74

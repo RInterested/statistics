@@ -35,9 +35,15 @@ The model is
 
 $$\text{logit}\left(P_k(X_{ik})\right)=\log\frac{P_k(X_{ik})}{1 - P_k(X_{ik})}=\alpha_k + \beta_1 \,X_{ik_1}+\dots+\beta_p \,X_{ik_p}$$
 
+The odds that a subject with $x = 1$ is a case equals $\exp(\beta)$ times the odds that a subject with $x = 0$ is a case in the simple case $\text{logit}(P(\text{case}))=\alpha + \beta\,x.$
+
 Each matched set has a different intercept, summarizing the effect of the matching variables on the probability of disease.
 
 And $\beta_p$ is the $\log\text{OR}$ of disease of those exposed to covariate $p$ to those not exposed to it.
+
+The problem with the model above is that the number of parameters increases at the same rate as the sample size with the consequence that maximum likelihood estimation is no longer viable. We can overcome this problem if we regard the parameters $\alpha_i$ as of little interest and so are willing to forgo
+their estimation. If we do, we can then create a conditional likelihood function
+that will yield maximum likelihood estimators of the coefficients, $β_1, \dots , β_q,$ that are consistent and asymptotically normally distributed.
 
 The joint probability that the vector of covariates ${\bf X}_{0k}$ corresponds to the case, and ${\bf X}_{ik}$ with $i\in \{1,\dots, M\}$ to the controls is
 
@@ -97,7 +103,26 @@ $$L(\beta)= \prod_{k=1}^K L_k(\beta)$$
 
 ```{r setup, include=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+library('epiDisplay')
+library('Epi')
+library('survival')
+library('HSAUR2')
 ```
+
+From [here](https://cran.r-project.org/web/packages/HSAUR2/vignettes/Ch_logistic_regression_glm.pdf):
+
+```{r}
+data(backpain)
+head(backpain)
+backpain_glm <- clogit(I(status == "case") ~ driver + suburban + strata(ID), data = backpain)
+backpain_glm
+```
+
+> The estimate of the odds ratio of a herniated disc occurring in a driver
+relative to a nondriver is $1.93$ with a $95\%$ confidence interval of $(1.09, 3.44).$ Conditional on residence we can say that the risk of a herniated disc occurring in a driver is about twice that of a nondriver. There is no evidence that where a person lives affects the risk of lower back pain.
+
+
+---
 
 
 From [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5840200/):
@@ -129,9 +154,6 @@ cest        Conjugated oestrogen dose a factor with levels 0, 1, 2, 3
 ---
 
 ```{r}
-library('epiDisplay')
-library('Epi')
-library('survival')
 data(bdendo11)
 head(bdendo11)
 
