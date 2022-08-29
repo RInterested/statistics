@@ -115,7 +115,7 @@ From [here](https://cran.r-project.org/web/packages/HSAUR2/vignettes/Ch_logistic
 data(backpain)
 head(backpain)
 backpain_glm <- clogit(I(status == "case") ~ driver + suburban + strata(ID), data = backpain)
-backpain_glm
+summary(backpain_glm)
 ```
 
 > The estimate of the odds ratio of a herniated disc occurring in a driver

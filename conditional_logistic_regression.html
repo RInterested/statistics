@@ -516,17 +516,27 @@ head(backpain)</code></pre>
 ## 5  3    case    yes       no
 ## 6  3 control    yes      yes</code></pre>
 <pre class="r"><code>backpain_glm &lt;- clogit(I(status == &quot;case&quot;) ~ driver + suburban + strata(ID), data = backpain)
-backpain_glm</code></pre>
+summary(backpain_glm)</code></pre>
 <pre><code>## Call:
-## clogit(I(status == &quot;case&quot;) ~ driver + suburban + strata(ID), 
-##     data = backpain)
+## coxph(formula = Surv(rep(1, 434L), I(status == &quot;case&quot;)) ~ driver + 
+##     suburban + strata(ID), data = backpain, method = &quot;exact&quot;)
 ## 
-##               coef exp(coef) se(coef)     z      p
-## driveryes   0.6579    1.9307   0.2940 2.238 0.0252
-## suburbanyes 0.2555    1.2911   0.2258 1.131 0.2580
+##   n= 434, number of events= 217 
 ## 
-## Likelihood ratio test=9.55  on 2 df, p=0.008457
-## n= 434, number of events= 217</code></pre>
+##               coef exp(coef) se(coef)     z Pr(&gt;|z|)  
+## driveryes   0.6579    1.9307   0.2940 2.238   0.0252 *
+## suburbanyes 0.2555    1.2911   0.2258 1.131   0.2580  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##             exp(coef) exp(-coef) lower .95 upper .95
+## driveryes       1.931     0.5180    1.0851     3.435
+## suburbanyes     1.291     0.7746    0.8293     2.010
+## 
+## Concordance= 0.562  (se = 0.036 )
+## Likelihood ratio test= 9.55  on 2 df,   p=0.008
+## Wald test            = 8.85  on 2 df,   p=0.01
+## Score (logrank) test = 9.31  on 2 df,   p=0.009</code></pre>
 <blockquote>
 <p>The estimate of the odds ratio of a herniated disc occurring in a
 driver relative to a nondriver is <span class="math inline">\(1.93\)</span> with a <span class="math inline">\(95\%\)</span> confidence interval of <span class="math inline">\((1.09, 3.44).\)</span> Conditional on residence we
