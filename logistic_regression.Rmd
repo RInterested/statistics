@@ -45,7 +45,7 @@ In addition, this also helps turning a sigmoid curve of a typical cummulative pr
 The logistic regression model is therefore:
 
 
-$$\color{red}{\log} \left[\color{blue}{\text{odds(p(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{ p\,(Y=1)}{1- p\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_k x_k$$
+$$\text{log odds of disease}=\color{magenta}{\text{logit}}\left(P(Y=1)\right)=\color{red}{\log} \left[\color{blue}{\text{odds(P(Y=1))}}\right]=\color{red}{\text{log}}\left(\frac{ P\,(Y=1)}{1- P\,(Y=1)}\right) = X\beta = \beta_o + \beta_1 x_1 + \beta_2 x_2 +\cdots+ \beta_k x_k$$
 
 
 Consequently,
@@ -58,9 +58,34 @@ Therefore a unit increase in $x_1$ increases the odds $\large e^{\,\beta_1}$ tim
 
 * On the other hand, $\beta_i$ (the coefficients) are the **LOG ODDS-RATIO**:
 
-<br>
-<img HEIGHT="500" WIDTH="600" src="https://cloud.githubusercontent.com/assets/9312897/13310362/745ac3ac-db53-11e5-8147-5dcd27f73224.png">
-<br>
+##### How to intpret an increase of $1$ in a covariate as the **odds ratio**:
+
+Fixing the covariate $x_2 =k$ (any given value):
+
+$$\begin{align}
+\text{log odds of disease  } &=\alpha + \beta_1 x_1 + \beta_2 k \\[2ex]
+\text{odds of disease  } &= e^{\alpha + \beta_1 x_1 + \beta_2 k}
+\end{align}$$
+
+Now for $x_2=k + 1:$
+
+$$\begin{align}
+\text{log odds of disease  } &=\alpha + \beta_1 x_1 + \beta_2 k+\beta_2) \\[2ex]
+\text{odds of disease  } &= e^{\alpha + \beta_1 x_1 + \beta_2 k + \beta_2}
+\end{align}$$
+
+The **odds ratio** going from $k$ to $k+1$ is
+
+$$\begin{align}\text{Odds Ratio (OR)}&=\frac{\text{odds when }x_2=k+1}{\text{odds when }x_2=k}=\frac{e^{\alpha + \beta_1 x_1 + \beta_2 k + \beta_2}}{e^{\alpha + \beta_1 x_1 + \beta_2 k}}=e^{\beta_2}\\[2ex]
+\log\left(\text{Odds Ratio (OR)}\right)&= \beta_2
+\end{align}$$
+
+Therefore $e^{\beta_2}$ is the relative increase in the odds of disease going from $x_2=k$ to $x_2=k+1$ holding $x_1$ fixed (or adjusting for $x_1$). For every increase of $1$ in $x_2$ the odds of disease increases by a factor of $e^{\beta_2}.$ Generally, if you incfrease $x_2$ from $k$ to $k + \Delta$ then
+
+$$\text{OR}= \frac{\text{odds when }x_2 = k +\Delta}{\text{odds when }x_2=k}=e^{\beta_2\Delta}=\left(e^{\beta_2}\right)^\Delta$$
+
+---
+
 
 #### Translation into probabilities:
 
