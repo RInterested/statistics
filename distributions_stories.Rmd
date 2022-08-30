@@ -75,11 +75,23 @@ The Erlang distribution is the distribution of a sum of $k$ independent exponent
 
 The gamma distribution is frequently used to model waiting times. For instance, in life testing, the waiting time until death is a random variable that is frequently modeled with a gamma distribution.
 
-Let $X_{1},X_{2},\dots ,X_{n}$ be $n$ independent and identically distributed random variables following an exponential distribution with rate parameter $λ,$ then $\sum_{i}X_{i} ~ Gamma(n, λ)$ where $n$ is the shape parameter and $λ$ is the rate, and $\bar {X}={\frac {1}{n}}\sum_{i}X_{i}\sim \operatorname{Gamma} (n,n\lambda )$ where the rate changes $nλ.$
+Let $X_{1},X_{2},\dots ,X_{n}$ be $n$ independent and identically distributed random variables following an exponential distribution with rate parameter $λ,$ then $\sum_{i}X_{i} ~ \operatorname{Gamma}(n, λ)$ where $n$ is the shape parameter and $λ$ is the rate, and $\bar {X}={\frac {1}{n}}\sum_{i}X_{i}\sim \operatorname{Gamma} (n,n\lambda )$ where the rate changes $nλ.$
 
 Probability of having to wait $1$ day to get $5$ e-mails (time to $n$-th Poisson event). We add inter-arrival times (exponential lambda). This fact: that the gamma distribution represents the sum of exponential distributions (convolution) is proved by deriving the mgf of the gamma. 
 
 Parameters: $n$ ($a$ or $K$ or $\alpha$) (shape) and $\lambda$ (or $\beta$ or $1/\theta$) (scale). It’s the continuous analogue of the **negative binomial** (i.e. sum of geometric) = number of Bernoulli trials before reaching n successes (eg. $4$ heads).
+
+---
+
+#### Chi square:
+
+---
+
+The chi square distribution is a special case of the gamma distribution.
+
+A squared (transformed) standard normal distribution will be distributed as a chi square of $1$ degree of freedom. If $Z_1, Z_2, \dots, Z_k$ are standard normal variables, $Z_1^2 + Z_2^2 + \cdots + Z_n^2 \sim \chi^2_k.$
+
+The chi square cames into place in the distribution of squared differences between observed and estimated values. It will only play a role in multiple inferential tests, including testing variance.
 
 ---
 
