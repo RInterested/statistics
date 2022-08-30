@@ -65,6 +65,8 @@ Describes the time between events in a Poisson process, i.e. a process in which 
 
 ---
 
+The difference between Erlang and Gamma is that in a Gamma distribution, $k$ can be a non-integer (positive real number) and in Erlang, $k$ is positive integer only.
+
 The Erlang distribution is the distribution of a sum of $k$ independent exponential variables with mean $1/\lambda$  each. Equivalently, it is the distribution of the time until the $k$-th event of a Poisson process with a rate of $\lambda.$ 
 
 ---
@@ -72,6 +74,10 @@ The Erlang distribution is the distribution of a sum of $k$ independent exponent
 #### Gamma:
 
 ---
+
+From [here](https://towardsdatascience.com/gamma-distribution-intuition-derivation-and-examples-55f407423840#:~:text=The%20difference%20between%20Erlang%20and,k%20is%20positive%20integer%20only.):
+
+The exponential distribution predicts the wait time until the *very first* event. The gamma distribution, on the other hand, predicts the wait time until the *$k$-th* event occurs. If arrivals of events follow a Poisson process with a rate $λ,$ the wait time until $k$ arrivals follows $Γ(k, λ).$ For $(α, β)$ parameterization: Using our notation $k$ (the # of events) & $λ$ (the rate of events), simply substitute $α$ with $k,$ $β$ with $λ.$ 
 
 The gamma distribution is frequently used to model waiting times. For instance, in life testing, the waiting time until death is a random variable that is frequently modeled with a gamma distribution.
 

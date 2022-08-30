@@ -452,6 +452,9 @@ property of being memoryless.</p>
 <div id="erlang" class="section level4">
 <h4>Erlang:</h4>
 <hr />
+<p>The difference between Erlang and Gamma is that in a Gamma
+distribution, <span class="math inline">\(k\)</span> can be a
+non-integer (positive real number) and in Erlang, <span class="math inline">\(k\)</span> is positive integer only.</p>
 <p>The Erlang distribution is the distribution of a sum of <span class="math inline">\(k\)</span> independent exponential variables with
 mean <span class="math inline">\(1/\lambda\)</span> each. Equivalently,
 it is the distribution of the time until the <span class="math inline">\(k\)</span>-th event of a Poisson process with a
@@ -461,6 +464,15 @@ rate of <span class="math inline">\(\lambda.\)</span></p>
 <div id="gamma" class="section level4">
 <h4>Gamma:</h4>
 <hr />
+<p>From <a href="https://towardsdatascience.com/gamma-distribution-intuition-derivation-and-examples-55f407423840#:~:text=The%20difference%20between%20Erlang%20and,k%20is%20positive%20integer%20only.">here</a>:</p>
+<p>The exponential distribution predicts the wait time until the
+<em>very first</em> event. The gamma distribution, on the other hand,
+predicts the wait time until the <em><span class="math inline">\(k\)</span>-th</em> event occurs. If arrivals of
+events follow a Poisson process with a rate <span class="math inline">\(λ,\)</span> the wait time until <span class="math inline">\(k\)</span> arrivals follows <span class="math inline">\(Γ(k, λ).\)</span> For <span class="math inline">\((α, β)\)</span> parameterization: Using our
+notation <span class="math inline">\(k\)</span> (the # of events) &amp;
+<span class="math inline">\(λ\)</span> (the rate of events), simply
+substitute <span class="math inline">\(α\)</span> with <span class="math inline">\(k,\)</span> <span class="math inline">\(β\)</span>
+with <span class="math inline">\(λ.\)</span></p>
 <p>The gamma distribution is frequently used to model waiting times. For
 instance, in life testing, the waiting time until death is a random
 variable that is frequently modeled with a gamma distribution.</p>
