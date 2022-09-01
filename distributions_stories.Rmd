@@ -126,9 +126,15 @@ In Bayesian inference, the beta distribution is the conjugate prior probability 
 
 ---
 
-From [here](https://distribution-explorer.github.io/continuous/weibull.html):
+From [here](https://youtu.be/Ygi_7yai5WQ)) the Weibull becomes an exponential when when the shape parameter is $1.$ Using the [parameterization in Wikipedia](https://en.wikipedia.org/wiki/Weibull_distribution), the CDF of the Weibull is:
 
-The quantity $X$ is Weibull distributed if $X^\alpha$ is exponentially distributed. Like the Exponential distribution, it describes waiting times for arrival of a process. For $\alpha > 1,$ the longer we have waited, the more likely the event is to arrive, and vice versa for $\alpha < 1.$ This is a model for aging. The longer an organism lives, the more likely it is to die. There are two parameters, both strictly positive: the shape parameter $\alpha,$ which dictates the shape of the curve, and the scale parameter $\sigma,$ which dictates the rate of arrivals of the event.
+$$1 - \exp\left(-x/\lambda\right)^k$$ 
+
+with $k$ being the shape parameter. And the CDF for the exponential is 
+
+$$1 - \exp\left(-\lambda x \right)$$
+
+The exponential is also related to the gamma distribution (shape parameter of $1$). The advantage of the Weibull is the simple closed form of the CDF.
 
 From [here](https://qr.ae/pvgITz):
 
@@ -165,6 +171,21 @@ The Weibull distribution is also widely used in reliability as a model for time 
 From [here](https://psychology.fandom.com/wiki/Weibull_distribution):
 
 Weibull distributions are often used to model the time until a given technical device fails. If the failure rate of the device decreases over time, one chooses $k<1$ (resulting in a decreasing density $f$). If the failure rate of the device is constant over time, one chooses $k=1$, again resulting in a decreasing function $f$. If the failure rate of the device increases over time, one chooses $k>1$ and obtains a density $f$ which increases towards a maximum and then decreases forever. Manufacturers will often supply the shape and scale parameters for the lifetime distribution of a particular device. The Weibull distribution can also be used to model the distribution of wind speeds at a given location on Earth. 
+
+
+---
+
+#### Inverse or reversed Weibull (Fréchet distribution):
+
+---
+
+From [here](https://reference.wolfram.com/language/ref/FrechetDistribution.html):
+
+The Fréchet $[α,β,μ]$ represents a continuous statistical distribution defined over the interval $[\mu,\infty]$ and parametrized by a real number $μ$ (called a "location parameter") and two positive real numbers $α$ and $β$ (called a "shape parameter" and a "scale parameter", respectively). 
+
+It is one of four distributions (along with Gumbel Distribution, Extreme Value Distribution, and Weibull Distribution) classified under the general heading "extreme value distributions" and is therefore used as a tool for quantifying "extreme" or "rare" events.
+
+The PDF of Fréchet Distribution $[α,β]$ is precisely the same as the transformed distribution on $X\sim \text{Weibull[\alpha, \beta]}$, such that $Y = \beta^2/X.$ 
 
 
 ---
