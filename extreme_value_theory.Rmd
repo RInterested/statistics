@@ -191,7 +191,7 @@ The **Block Maxima approach** method (Fisher-Tippet theorem) leads to the Genera
 
 The result of the block maxima approach. We model normalized maxima.
 
-$$F(x;\mu.\sigma;\xi)=e^{-(1+\xi \frac{x-\mu}\sigma)^{-1/\xi}}\tag 1$$
+$$F(x;\mu.\sigma;\xi)=e^{-\left(1+\xi \frac{x-\mu}\sigma\right)^{-1/\xi}}\tag 1$$
 
 There are three extreme value distributions that can be represented using the generalized extreme value distribution family. Defining
 
@@ -276,6 +276,46 @@ $$\lim_{x\rightarrow \infty} \frac{f(x)}{g(x)} = 1. $$
 In our case,  we have ($\alpha >0$)
 
 $$\lim_{x\rightarrow \infty} \frac{1-e^{-\color{red}{x^{-\alpha}}}}{x^{-\alpha}} \quad \overset{y \,=\, \color{red}{x^{-\alpha}}}{=}\quad\lim_{y\rightarrow 0} \frac{1-e^{-y}}{y} \quad \stackrel{\text{L'Hospital}}{=}\quad \lim_{y\rightarrow 0} \frac{e^{-y}}{1} = 1 $$
+---
+
+#### Where does the Fréchet arise from compared to the Gumbel distribution:
+
+On [this paper](https://www2.stat.duke.edu/courses/Spring16/sta961/lec/extremes.pdf), the collection random variables $\{X_j\}$ from which the maxima $X_n^*$ will be extracted in the first $n$ observations is distributed as exponential iid $X_j \sim\text{Exp} (\lambda),$ and through a convergence reasoning the Gumble distribution appears at the end.
+
+The premise is to "find non-random sequences $\{a_n\},\{b_n\}$" and a limiting cdf $G(z)$ for which
+
+$$\lim_{n\to \infty} \Pr\left [\frac{X_n^* - b_n}{a_n} \leq z\right]\to G(z)$$
+
+For any sequences $\{a_n\},\{b_n\}$ the exact probabilities are
+
+$$\begin{align}
+\Pr\left [\frac{X_n^* - b_n}{a_n} \leq z\right] &= \Pr\left[X_n^* \leq a_n z + b_n 
+ \right ]\\[2ex]
+&= \left\{1 - \exp\left(-\lambda(a_nz + b_n) \right)
+ \right \}^n\end{align}
+$$
+
+It wraps it up as:
+
+The goal is to find $\{a_n\}, \{b_n\}$ for which this converges as $n → ∞$ to a DF [sic - I presume it was meant to be 'CDF']. This will require that the term in braces be $1 − O(1/n),$ so we need $\log n −
+λ(a_nz + b_n)$ to converge. If we now choose $a_n = 1/λ$ and $b_n = (\log n)/λ,$
+
+
+$$=\left\{1 − \frac 1 n e^{−z}\right\}^n
+→ G(z) := \exp\left(− e^{−z}\right)
+$$
+
+the standard Gumbel.
+
+However if the distribution of the random variables is Pareto, as in $\{U_j\}\sim \text{Unif},$ $X_j = 1/U_j \sim \text{Pareto}$ and
+
+$$\Pr(X_j > x)= 1/x, \quad x\geq 1$$
+
+With $a_n=n$ and $b_n=0,$
+
+$$=\left(1 - \frac{1}{nz} \right)^n\to e^{-1/z}=: F(z), \quad z>0,$$
+
+the unit Fréchet distribution.
 
 ---
 
