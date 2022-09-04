@@ -37,8 +37,8 @@ Note that random samples from this distribution can be drawn using the function:
 
 `rfrechet(6, 1, 0.5, 0.8)`
 
-number of draws, loc, scale, shape: 
-Location, scale and shape parameters (can be given as vectors).
+`number of draws, loc, scale, shape: 
+Location, scale and shape parameters (can be given as vectors).`
 
 from the package `evd`
 
@@ -47,6 +47,8 @@ from the package `evd`
 The VaR is the $\alpha$ quantile of the loss distribution $L$ (be it a normal, lognormal, or just the empirical distribution out of the data) for which
 
 $$\text{VaR}_\alpha(L) =\min\{l\in \mathbb R: \Pr(L\geq l) \leq 1 - \alpha\}$$
+
+or in words, the minimum loss value such that the probability of experiencing a greater loss than that is less than $1-\alpha.$
 
 Losses are treated with a positive sign.
 
@@ -64,7 +66,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{R}
 require('quantmod')
-getSymbols("AAPL", from="2016-01-01", to='2021-02-06', src="yahoo", auto.assign = getOption('loadSymbols.auto.assign',TRUE))
+getSymbols("AAPL", from="2016-01-01", to='2022-08-31', src="yahoo", auto.assign = getOption('loadSymbols.auto.assign',TRUE))
 head(AAPL)
 stock=Ad(`AAPL`) # This is the adjusted value 
 # (as opposed to others, such as the 'opening' or closing')
@@ -73,29 +75,30 @@ chartSeries(stock)
 stock.loss=-diff(log(Ad(`AAPL`))) # Losses are positive for risk managers.
 # Remember that a difference in logs: log A - log B = log A/B
 # So we're really looking at the percentage change from day to day.
-head(stock.loss)
+tail(stock.loss)
 chartSeries(stock.loss)
 ```
 
 To compute the VaR, it is sufficient to specify the α level we are interested in, and then use the quantile function.
 
-Let’s consider α = 95% and α = 99%.
+Let’s consider $α = 95\%$ and $α = 99\%.$
 
 ```{R}
 n = sum(!is.na(stock.loss))
-
+alpha = 0.95
 # These are empirical quantiles.
-VaR95=quantile(stock.loss,0.95,na.rm=T)
-VaR95
+VaR95 = quantile(stock.loss,alpha,na.rm=T)
 
-which(stock.loss >= VaR95)
+paste('There are only', (1 - alpha) * 100, 'percent losses higher than', round(VaR95*100,2), 'percent.')
+
+tail(stock.loss[which(stock.loss >= VaR95)])
 
 VaR99=quantile(stock.loss,0.99,na.rm=T)
-VaR99 # This says that in only 1 percent of the days should we expect losses of 5.5%.
+VaR99 # This says that in only 1 percent of the days should we expect losses greater than this.
 
-which(stock.loss >= VaR99)
+tail(stock.loss[which(stock.loss >= VaR99)])
 
-length(which(stock.loss >= VaR99))/n
+paste('The percentage of days with a drop of more than',round(VaR99*100), 'prcent is', round(length(which(stock.loss >= VaR99))/n * 100,2),'percent.')
 
 chartSeries(stock.loss)
 abline(h = VaR95, col='white')
@@ -104,10 +107,11 @@ abline(h=0)
 
 # EXPECTED SHORTFALL will always be larger than the VaR:
 
-ES95=mean(stock.loss[stock.loss >= VaR95])
+ES95 = mean(stock.loss[stock.loss >= VaR95])
 ES95
-ES99=mean(stock.loss[stock.loss >= VaR99])
-ES99
+ES99 = mean(stock.loss[stock.loss >= VaR99])
+
+paste('The mean loss among the days with losses of more than', round(VaR99*100,2), 'percent is', round(ES99*100,2), 'percent.')
 ```
 
 ---
@@ -118,14 +122,14 @@ getSymbols("DJIA", from="1990-01-02", to="2021-01-06", src="FRED", auto.assign =
 
 stock.rtn=diff(log(`DJIA`))
 losses <- as.vector(-stock.rtn)
-m=mean(losses,na.rm=TRUE) # empirical mean
-s=sd(losses,na.rm=TRUE) # empirical sd
-times=index(losses)
+m = mean(losses,na.rm=TRUE) # empirical mean
+s = sd(losses,na.rm=TRUE) # empirical sd
+times = index(losses)
 n = sum(is.na(losses))+sum(!is.na(losses))
 # we generate normal observations with mean m and standard deviation s
-x=seq(1,n)
-y=rnorm(n, m, s)
-plot(times,losses,pch=19,xaxs="i",cex=0.03,col="blue", ylab="Losses", xlab="Time", main = '')
+x = seq(1,n)
+y = rnorm(n, m, s)
+plot(times,losses,pch=19,xaxs="i",cex=0.03,col="blue", ylab="Losses", xlab="Time", main = 'Actual losses versus Gaussian distribution')
 segments(x0 = times, x1 = times, y0 = 0, y1 = losses,col="blue")
 points(times,y,pch=19,cex=0.3,col="red", ylab="X", xlab="n", main = '')
 ```
@@ -159,7 +163,8 @@ qnorm(0.99,m,s)
 
 round(0.01 * n)
 
-# Under normality, and with the empirical mean and sd calculated from the date, the observed values above VaR would be:
+
+# Under normality, and with the empirical mean and sd calculated from the data, the observed values above VaR would be:
 
 (est.hits.under.normal <- length(which(losses>=qnorm(0.99,m,s))))
 ```
@@ -187,9 +192,8 @@ Within EVT, the role of the Gaussian is played by two distributions:
 
 ---
 
-The **Block Maxima approach** method (Fisher-Tippet theorem) leads to the Generalized Value Distribution:
+The **Block Maxima approach** (models normalized maxima) method (Fisher-Tippet theorem) leads to the Generalized Value Distribution:
 
-The result of the block maxima approach. We model normalized maxima.
 
 $$F(x;\mu.\sigma;\xi)=e^{-\left(1+\xi \frac{x-\mu}\sigma\right)^{-1/\xi}}\tag 1$$
 
@@ -201,7 +205,7 @@ where $1+\xi x>0.$
 
 $$\begin{align}
 \xi =\alpha^{-1} > 0,\quad &\text{Fréchet case (fat tailed) }\Phi_\alpha\\
-\xi =-\alpha^{-1} < 0,\quad &\text{Weilbull case (finite upper bound } \Psi_\alpha\\
+\xi =-\alpha^{-1} < 0,\quad &\text{Weilbull case (finite upper bound) } \Psi_\alpha\\
 \xi =0, \quad &\text{Gumbel case (thin tailed) }\Lambda
 \end{align}$$
 
