@@ -26,7 +26,7 @@ The $S_8$ permutation
 
 $$(1\; 8 \; 7 \; 2)$$
 
-can be expressed in staked up form as position $\color{red} 1$ will end up in postion $\color{magenta} 8,$ while $\color{magenta} 8$ will end up in position $\color{blue}7$ and so on: 
+can be expressed in stack form as position $\color{red} 1$ will end up in position $\color{magenta} 8,$ while $\color{magenta} 8$ will end up in position $\color{blue}7$ and so on: 
 
 $$\begin{matrix} 
 \color{red}1 \quad \color{orange}2 \quad 3 \quad 4 \quad 5 \quad 6 \quad \color{blue} 7 \quad \color{magenta}8 \\
@@ -34,7 +34,9 @@ $$\begin{matrix}
 \color{orange} 2 \quad \color{blue}7 \quad 3 \quad 4 \quad 5 \quad 6 \quad \color{magenta} 8 \quad \color{red} 1
 \end{matrix}$$
 
-But another way of reading it would be: $\color{red}1$ goes to $\color{magenta}8,$ while $\color{magenta} 8$ goes to $\color{blue}7$ and so on:
+This is the way that Matthew Salomone teaches it in [here](https://youtu.be/6sOAYTQnKLM?t=295), which could be thought of as "trading chairs; keeping your number."
+
+However, another (and more intuitive) way of reading it would be: $\color{red}1$ goes to $\color{magenta}8,$ while $\color{magenta} 8$ goes to $\color{blue}7$ and so on:
 
 $$\begin{matrix} 
 \color{red}1 \quad \color{orange}2 \quad 3 \quad 4 \quad 5 \quad 6 \quad  \color{blue}7 \quad \color{magenta}8 \\
@@ -42,17 +44,21 @@ $$\begin{matrix}
 \color{magenta} 8 \quad \color{red}1 \quad 3 \quad 4 \quad 5 \quad 6 \quad \color{orange}2 \quad \color{blue} 7
 \end{matrix}$$
 
+This is how Wolfram Alpha does it: `Permutation(1,8,7,2)` [yields](https://www.wolframalpha.com/input?i2d=true&i=Permutation%5C%2840%291%5C%2844%298%5C%2844%297%5C%2844%292%5C%2841%29):
 
-but both resulting expressions are the same: Vertically $1$ and $8$ are paired; $2$ and $1$ are also paired; $7$ and $2$ and $8$ and $7.$
+<img height = 50  src = "https://user-images.githubusercontent.com/9312897/195999399-f3c0ce66-189e-4a92-a478-174b63507582.png">
+
+It could be thought of as "trading numbers; keeping your chair."
 
 
-Two permutations can be simplified as follows. Take $(1\; 3 \; 2 \; 5) \, (1\; 8 \; 7 \; 2)$
+Both resutl in the same cycle expression.
 
-expressed now (using the first way of reading into a stack):
+
+Two permutations  $(1\; 3 \; 2 \; 5) \, (1\; 8 \; 7 \; 2)$ can be simplified (using the trading chairs stack notation) as in [here](https://youtu.be/6sOAYTQnKLM?t=272):
 
 $$(1\; 8 \; 7 \; 2) = \begin{pmatrix}
 1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
-2 \quad 7 \quad 3 \quad 4 \quad 5 \quad 6 \quad 8 \quad 1 
+\color{red}{2 \quad 7 \quad 3 \quad 4 \quad 5 \quad 6 \quad 8 \quad 1 }
 \end{pmatrix}$$
 
 $$(1\; 3 \; 2 \; 5) = \begin{pmatrix}
@@ -62,11 +68,51 @@ $$(1\; 3 \; 2 \; 5) = \begin{pmatrix}
 
 The idea is to use the result of the first permutation as the input of the second, although this step is omitted, or struck out in the final expression:
 
-$$\require{enclose}(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) = \begin{pmatrix}
+$$(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) = \begin{pmatrix}
 1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
-\enclose{horizontalstrike}{2 \quad 7 \quad 3 \quad 4 \quad 5 \quad 6 \quad 8 \quad 1}  \\
-5 \quad 3 \quad 2 \quad 4 \quad 7 \quad 6 \quad 8 \quad 1 
+\text{trade seats = first permutation on the right:}\\
+\color{red}{2 \quad 7 \quad 3 \quad 4 \quad 5 \quad 6 \quad 8 \quad 1 }  \\
+\text{pass on the result to the input for the second permutation:}\\
+1_{\color{red}{2}} \quad 2_{\color{red}{7}} \quad 3_{\color{red}{3}} \quad 4_{\color{red}{4}} \quad 5_{\color{red}{5}} \quad 6_{\color{red}{6}} \quad 7_{\color{red}{8}} \quad 8_{\color{red}{1}} \\
+\text{trade seat = second permutation:}\\
+5_{\color{red}{5}} \quad 3_{\color{red}{3}} \quad 1_{\color{red}{2}}\quad 4_{\color{red}{4}}\quad 2_{\color{red}{7}}  \quad 6_{\color{red}{6}} \quad 7_{\color{red}{8}} \quad 8_{\color{red}{1}} \\
+\text{replace the numbers in each seat with the input numbers:}\\
+\color{red}{5 \quad 3 \quad 2 \quad 4 \quad 7 \quad 6 \quad 8 \quad 1 }
 \end{pmatrix}$$
+
+or
+
+$$(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) = \begin{pmatrix}
+1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
+\color{red}{5 \quad 3 \quad 2 \quad 4 \quad 7 \quad 6 \quad 8 \quad 1 }
+\end{pmatrix}$$
+
+which in cycle notation is 
+
+$$(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) = (1 \; 8 \; 7 \; 5)\;(2 \; 3)$$
+
+Using the "trading numbers; keeping seats" system:
+
+$$(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) = \begin{pmatrix}
+1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
+\text{trade numbers = first permutation on the right:}\\
+\color{red}{8 \quad 1 \quad 3 \quad 4 \quad 5 \quad 6 \quad 2 \quad 7 }  \\
+\text{pass on the result to the input for the second permutation}\\
+\text{following the number matches - location has no info:}\\
+\text{so realigning vertically the second cycle to coincide with output:}\\
+8 \quad 1 \quad 3 \quad 4 \quad 5 \quad 6 \quad 2 \quad 7 \\
+\color{red}{8 \quad 3 \quad 2 \quad 4 \quad 1 \quad 6 \quad 5 \quad 7 }
+\end{pmatrix}$$
+
+or
+
+$$(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) = \begin{pmatrix}
+1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
+\color{red}{8 \quad 3 \quad 2 \quad 4 \quad 1 \quad 6 \quad 5 \quad 7 }
+\end{pmatrix}$$
+
+which yields the same cycle notation as with the trading places system.
+
 
 
 ---

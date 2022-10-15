@@ -395,7 +395,7 @@ MATHEMATICS</strong></h3>
 <p>From <a href="https://youtu.be/6sOAYTQnKLM">here</a>:</p>
 <p>The <span class="math inline">\(S_8\)</span> permutation</p>
 <p><span class="math display">\[(1\; 8 \; 7 \; 2)\]</span></p>
-<p>can be expressed in staked up form as position <span class="math inline">\(\color{red} 1\)</span> will end up in postion
+<p>can be expressed in stack form as position <span class="math inline">\(\color{red} 1\)</span> will end up in position
 <span class="math inline">\(\color{magenta} 8,\)</span> while <span class="math inline">\(\color{magenta} 8\)</span> will end up in position
 <span class="math inline">\(\color{blue}7\)</span> and so on:</p>
 <p><span class="math display">\[\begin{matrix}
@@ -406,7 +406,10 @@ MATHEMATICS</strong></h3>
 \color{orange} 2 \quad \color{blue}7 \quad 3 \quad 4 \quad 5 \quad 6
 \quad \color{magenta} 8 \quad \color{red} 1
 \end{matrix}\]</span></p>
-<p>But another way of reading it would be: <span class="math inline">\(\color{red}1\)</span> goes to <span class="math inline">\(\color{magenta}8,\)</span> while <span class="math inline">\(\color{magenta} 8\)</span> goes to <span class="math inline">\(\color{blue}7\)</span> and so on:</p>
+<p>This is the way that Matthew Salomone teaches it in <a href="https://youtu.be/6sOAYTQnKLM?t=295">here</a>, which could be
+thought of as “trading chairs; keeping your number.”</p>
+<p>However, another (and more intuitive) way of reading it would be:
+<span class="math inline">\(\color{red}1\)</span> goes to <span class="math inline">\(\color{magenta}8,\)</span> while <span class="math inline">\(\color{magenta} 8\)</span> goes to <span class="math inline">\(\color{blue}7\)</span> and so on:</p>
 <p><span class="math display">\[\begin{matrix}
 \color{red}1 \quad \color{orange}2 \quad 3 \quad 4 \quad 5 \quad 6
 \quad  \color{blue}7 \quad \color{magenta}8 \\
@@ -415,13 +418,17 @@ MATHEMATICS</strong></h3>
 \color{magenta} 8 \quad \color{red}1 \quad 3 \quad 4 \quad 5 \quad 6
 \quad \color{orange}2 \quad \color{blue} 7
 \end{matrix}\]</span></p>
-<p>but both resulting expressions are the same: Vertically <span class="math inline">\(1\)</span> and <span class="math inline">\(8\)</span> are paired; <span class="math inline">\(2\)</span> and <span class="math inline">\(1\)</span> are also paired; <span class="math inline">\(7\)</span> and <span class="math inline">\(2\)</span> and <span class="math inline">\(8\)</span> and <span class="math inline">\(7.\)</span></p>
-<p>Two permutations can be simplified as follows. Take <span class="math inline">\((1\; 3 \; 2 \; 5) \, (1\; 8 \; 7 \;
-2)\)</span></p>
-<p>expressed now (using the first way of reading into a stack):</p>
+<p>This is how Wolfram Alpha does it: <code>Permutation(1,8,7,2)</code>
+<a href="https://www.wolframalpha.com/input?i2d=true&amp;i=Permutation%5C%2840%291%5C%2844%298%5C%2844%297%5C%2844%292%5C%2841%29">yields</a>:</p>
+<p><img height="50" src="data:image/png;base64,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"></p>
+<p>It could be thought of as “trading numbers; keeping your chair.”</p>
+<p>Both resutl in the same cycle expression.</p>
+<p>Two permutations <span class="math inline">\((1\; 3 \; 2 \; 5) \,
+(1\; 8 \; 7 \; 2)\)</span> can be simplified (using the trading chairs
+stack notation) as in <a href="https://youtu.be/6sOAYTQnKLM?t=272">here</a>:</p>
 <p><span class="math display">\[(1\; 8 \; 7 \; 2) = \begin{pmatrix}
 1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
-2 \quad 7 \quad 3 \quad 4 \quad 5 \quad 6 \quad 8 \quad 1
+\color{red}{2 \quad 7 \quad 3 \quad 4 \quad 5 \quad 6 \quad 8 \quad 1 }
 \end{pmatrix}\]</span></p>
 <p><span class="math display">\[(1\; 3 \; 2 \; 5) = \begin{pmatrix}
 1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
@@ -430,13 +437,55 @@ MATHEMATICS</strong></h3>
 <p>The idea is to use the result of the first permutation as the input
 of the second, although this step is omitted, or struck out in the final
 expression:</p>
-<p><span class="math display">\[\require{enclose}(1\; 3 \; 2 \; 5)\,(1\;
-8 \; 7 \; 2) = \begin{pmatrix}
+<p><span class="math display">\[(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) =
+\begin{pmatrix}
 1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
-\enclose{horizontalstrike}{2 \quad 7 \quad 3 \quad 4 \quad 5 \quad 6
-\quad 8 \quad 1}  \\
-5 \quad 3 \quad 2 \quad 4 \quad 7 \quad 6 \quad 8 \quad 1
+\text{trade seats = first permutation on the right:}\\
+\color{red}{2 \quad 7 \quad 3 \quad 4 \quad 5 \quad 6 \quad 8 \quad 1
+}  \\
+\text{pass on the result to the input for the second permutation:}\\
+1_{\color{red}{2}} \quad 2_{\color{red}{7}} \quad 3_{\color{red}{3}}
+\quad 4_{\color{red}{4}} \quad 5_{\color{red}{5}} \quad
+6_{\color{red}{6}} \quad 7_{\color{red}{8}} \quad 8_{\color{red}{1}} \\
+\text{trade seat = second permutation:}\\
+5_{\color{red}{5}} \quad 3_{\color{red}{3}} \quad
+1_{\color{red}{2}}\quad 4_{\color{red}{4}}\quad
+2_{\color{red}{7}}  \quad 6_{\color{red}{6}} \quad 7_{\color{red}{8}}
+\quad 8_{\color{red}{1}} \\
+\text{replace the numbers in each seat with the input numbers:}\\
+\color{red}{5 \quad 3 \quad 2 \quad 4 \quad 7 \quad 6 \quad 8 \quad 1 }
 \end{pmatrix}\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) =
+\begin{pmatrix}
+1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
+\color{red}{5 \quad 3 \quad 2 \quad 4 \quad 7 \quad 6 \quad 8 \quad 1 }
+\end{pmatrix}\]</span></p>
+<p>which in cycle notation is</p>
+<p><span class="math display">\[(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) =
+(1 \; 8 \; 7 \; 5)\;(2 \; 3)\]</span></p>
+<p>Using the “trading numbers; keeping seats” system:</p>
+<p><span class="math display">\[(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) =
+\begin{pmatrix}
+1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
+\text{trade numbers = first permutation on the right:}\\
+\color{red}{8 \quad 1 \quad 3 \quad 4 \quad 5 \quad 6 \quad 2 \quad 7
+}  \\
+\text{pass on the result to the input for the second permutation}\\
+\text{following the number matches - location has no info:}\\
+\text{so realigning vertically the second cycle to coincide with
+output:}\\
+8 \quad 1 \quad 3 \quad 4 \quad 5 \quad 6 \quad 2 \quad 7 \\
+\color{red}{8 \quad 3 \quad 2 \quad 4 \quad 1 \quad 6 \quad 5 \quad 7 }
+\end{pmatrix}\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(1\; 3 \; 2 \; 5)\,(1\; 8 \; 7 \; 2) =
+\begin{pmatrix}
+1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \\
+\color{red}{8 \quad 3 \quad 2 \quad 4 \quad 1 \quad 6 \quad 5 \quad 7 }
+\end{pmatrix}\]</span></p>
+<p>which yields the same cycle notation as with the trading places
+system.</p>
 <hr />
 </div>
 <div id="conjugation-of-permutations" class="section level3">
