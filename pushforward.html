@@ -395,11 +395,71 @@ MATHEMATICS</strong></h3>
 <p>From <a href="https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=1000&amp;context=oer_textbooks">page
 58 of An Introduction to Differential Geometry through Computation by
 Mark E. Fels</a>:</p>
+<p>The pushforward of the tangent vector to a curve <span class="math inline">\(\sigma\)</span> at <span class="math inline">\(p =
+\sigma(t_0)\)</span> is the tangent vector of the image curve <span class="math inline">\(\phi(\sigma)\)</span> at <span class="math inline">\(q = \phi(\sigma(t_0)).\)</span> That is,</p>
+<p><span class="math display">\[\phi_{∗,p}\;\dot\sigma(t_0) =
+\phi_{∗,p}\;X_p =\left. \left ( \frac{d}{dt}\, \phi \; \circ \; \sigma
+\right)  \right|_{t=t_0}\]</span></p>
+<p>For the tangent vector <span class="math inline">\(X_p = \dot \sigma
+(t_0)\)</span> where <span class="math inline">\(p =
+\sigma(t_0).\)</span> In coordinates:</p>
+<p><span class="math display">\[ X_p = \sum_{i=1}^n \left.
+\frac{d\,\sigma^i}{dt} \right|_{t=t_0} \left. \frac{\partial}{\partial
+x^i}\right|_p\]</span></p>
+<p>For the curve <span class="math inline">\(\phi(\sigma(t)),\)</span>
+let <span class="math inline">\(Y_q\)</span> be the tangent vector at
+<span class="math inline">\(q = \phi(\sigma(t_0))\)</span> which is</p>
+<p><span class="math display">\[\begin{align}
+Y_q  &amp;= \sum_{i=1}^n \left.
+\frac{d\,\phi^i\left(\sigma(t)\right)}{dt} \right|_{t=t_0} \left.
+\frac{\partial}{\partial y^i}\right|_q \\[3ex]
+&amp;= \sum_{i=1}^n \; \left( \sum_{j=1}^n \left.
+\frac{\partial\,\phi^i}{\partial x^j} \right|_p \left.
+\frac{d\sigma^j}{dt}\right|_{t=t_0} \right) \left.
+\frac{\partial}{\partial y^i}\right|_q
+\end{align}\]</span></p>
+<p>where <span class="math inline">\((y^i)_{1≤i≤n}\)</span> denotes the
+coordinates on the image space of <span class="math inline">\(\phi.\)</span></p>
+<hr />
+<div id="example" class="section level4">
+<h4>Example</h4>
+<p>Let <span class="math inline">\(\phi: \mathbb R^2 \to \mathbb
+R^3\)</span> is given by</p>
+<p><span class="math display">\[\phi(x,y) = \left(u=x^2 + y^2, v= x^2 -
+y^2, w =xy  \right)\]</span></p>
+<p>and the curve <span class="math inline">\(\sigma: \mathbb R \to
+\mathbb R^2\)</span>:</p>
+<p><span class="math display">\[\sigma(t) = (1 + 3t , 2 -
+2t)\]</span></p>
+<p>which has the tangent vector at $t=0 given by</p>
+<p><span class="math display">\[\left(\dot
+\sigma(0)\right)_{\sigma(0)}=(3, -2)_{(1,2)}\]</span></p>
+<p>The image curve <span class="math inline">\(\phi \circ \sigma:
+\mathbb R \to \mathbb R^3:\)</span></p>
+<p><span class="math display">\[\phi\left( \sigma(t)\right)= \left(
+(1+3t)^2+(2-2t)^2,\quad (1+3t)^2-(2-2t)^2,\quad (1+3t)(2-2t)
+\right)\]</span></p>
+<p>The tangent vector to the image curve <span class="math inline">\(\phi\left( \sigma(t)\right)\)</span> when <span class="math inline">\(t=0\)</span> is</p>
+<p><span class="math display">\[\left(\left. \frac{d}{dt} \phi\left(
+\sigma(t)\right)\right|_{t=0}  \right)_{\phi\left( \sigma(0)\right)} =
+(-2, 14, 4)_{(5,-3,2)}\]</span></p>
+<p>The map <span class="math inline">\(\phi_{∗,p}\)</span> has the
+property that if <span class="math inline">\((\dot
+σ(t_0))_{σ(t_0)}\)</span> is the tangent vector to the curve <span class="math inline">\(σ\)</span> at <span class="math inline">\(p =
+σ(t_0)\)</span> with corresponding derivation <span class="math inline">\(X_p\)</span>, then <span class="math inline">\(Y_q
+= \phi_{∗,p}\,X_p\)</span> is the derivation <span class="math inline">\(Y_q\)</span> corresponding to the tangent vector
+<span class="math inline">\(\phi \circ \sigma\)</span> at the image
+point <span class="math inline">\(\phi(p) = \phi(σ(t0)).\)</span> In the
+example this means <span class="math inline">\(p = (1, 2)\)</span> and
+<span class="math inline">\(X_p = (3\partial x − 2 \partial
+y)_{(1,2)}\)</span>, and <span class="math inline">\(Y_q = (−2 \partial
+u + 14 \partial v + 4 \partial w)_{(5,−3,2)}\)</span> and <span class="math inline">\(Y_q = \theta_{∗,p}X_p\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 

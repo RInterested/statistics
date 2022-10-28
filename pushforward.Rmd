@@ -21,6 +21,61 @@ output:
 
 From [page 58 of An Introduction to Differential Geometry through Computation by Mark E. Fels](https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=1000&context=oer_textbooks):
 
+ 
+The pushforward of the tangent vector to a curve $\sigma$ at $p = \sigma(t_0)$
+is the tangent vector of the image curve $\phi(\sigma)$ at $q = \phi(\sigma(t_0)).$ That is,
+
+$$\phi_{∗,p}\;\dot\sigma(t_0) = \phi_{∗,p}\;X_p =\left. \left ( \frac{d}{dt}\, \phi \; \circ \; \sigma \right)  \right|_{t=t_0}$$ 
+
+For the tangent vector $X_p = \dot \sigma (t_0)$ where $p = \sigma(t_0).$ In coordinates:
+
+$$ X_p = \sum_{i=1}^n \left. \frac{d\,\sigma^i}{dt} \right|_{t=t_0} \left. \frac{\partial}{\partial x^i}\right|_p$$
+
+
+
+For the curve $\phi(\sigma(t)),$ let $Y_q$ be the tangent vector at $q = \phi(\sigma(t_0))$ which is
+
+
+$$\begin{align}
+Y_q  &= \sum_{i=1}^n \left. \frac{d\,\phi^i\left(\sigma(t)\right)}{dt} \right|_{t=t_0} \left. \frac{\partial}{\partial y^i}\right|_q \\[3ex]
+&= \sum_{i=1}^n \; \left( \sum_{j=1}^n \left. \frac{\partial\,\phi^i}{\partial x^j} \right|_p \left. \frac{d\sigma^j}{dt}\right|_{t=t_0} \right) \left. \frac{\partial}{\partial y^i}\right|_q
+\end{align}$$
+
+
+where $(y^i)_{1≤i≤n}$ denotes the coordinates on the image space of $\phi.$
+
+---
+
+#### Example
+
+Let $\phi: \mathbb R^2 \to \mathbb R^3$ is given by
+
+$$\phi(x,y) = \left(u=x^2 + y^2, v= x^2 - y^2, w =xy  \right)$$
+
+and the curve $\sigma: \mathbb R \to \mathbb R^2$:
+
+
+$$\sigma(t) = (1 + 3t , 2 - 2t)$$
+
+which has the tangent vector at $t=0 given by
+
+$$\left(\dot \sigma(0)\right)_{\sigma(0)}=(3, -2)_{(1,2)}$$
+
+The image curve $\phi \circ \sigma: \mathbb R \to \mathbb R^3:$
+
+
+$$\phi\left( \sigma(t)\right)= \left( (1+3t)^2+(2-2t)^2,\quad (1+3t)^2-(2-2t)^2,\quad (1+3t)(2-2t) \right)$$
+
+The tangent vector to the image curve $\phi\left( \sigma(t)\right)$ when $t=0$ is
+
+
+$$\left(\left. \frac{d}{dt} \phi\left( \sigma(t)\right)\right|_{t=0}  \right)_{\phi\left( \sigma(0)\right)} = (-2, 14, 4)_{(5,-3,2)}$$
+
+
+The map $\phi_{∗,p}$ has the property that if $(\dot σ(t_0))_{σ(t_0)}$
+is the tangent vector to the curve $σ$ at $p = σ(t_0)$ with corresponding derivation $X_p$, then $Y_q = \phi_{∗,p}\,X_p$ is the derivation $Y_q$ corresponding to
+the tangent vector $\phi \circ \sigma$ at the image point $\phi(p) = \phi(σ(t0)).$ In the example this means $p = (1, 2)$ and $X_p = (3\partial x − 2 \partial y)_{(1,2)}$, and
+$Y_q = (−2 \partial u + 14 \partial v + 4 \partial w)_{(5,−3,2)}$ and $Y_q = \theta_{∗,p}X_p$.
 
 
 
