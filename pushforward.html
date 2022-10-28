@@ -395,8 +395,20 @@ MATHEMATICS</strong></h3>
 <p>From <a href="https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=1000&amp;context=oer_textbooks">page
 58 of An Introduction to Differential Geometry through Computation by
 Mark E. Fels</a>:</p>
-<p>The pushforward of the tangent vector to a curve <span class="math inline">\(\sigma\)</span> at <span class="math inline">\(p =
-\sigma(t_0)\)</span> is the tangent vector of the image curve <span class="math inline">\(\phi(\sigma)\)</span> at <span class="math inline">\(q = \phi(\sigma(t_0)).\)</span> That is,</p>
+<p>Let <span class="math inline">\(\phi: \mathbb R^n \to \mathbb
+R^m\)</span> be a <span class="math inline">\(C^\infty\)</span> function
+and let <span class="math inline">\(p \in \mathbb R^n\)</span>. The
+function <span class="math inline">\(\phi\)</span> can be used to define
+a function</p>
+<p><span class="math display">\[\phi_{∗,p} : T_p \mathbb R^n \to
+T_{\phi(p)}\mathbb R^m\]</span></p>
+<p>The map is <span class="math inline">\(\phi_{*,p}\)</span> called
+<strong>the pushforward</strong>, the differential, or the Jacobian of
+<span class="math inline">\(\phi\)</span> at the point <span class="math inline">\(p.\)</span></p>
+<p>The <strong>pushforward</strong> of the tangent vector to a curve
+<span class="math inline">\(\sigma\)</span> at <span class="math inline">\(p = \sigma(t_0)\)</span> is the tangent vector of
+the image curve <span class="math inline">\(\phi(\sigma)\)</span> at
+<span class="math inline">\(q = \phi(\sigma(t_0)).\)</span> That is,</p>
 <p><span class="math display">\[\phi_{∗,p}\;\dot\sigma(t_0) =
 \phi_{∗,p}\;X_p =\left. \left ( \frac{d}{dt}\, \phi \; \circ \; \sigma
 \right)  \right|_{t=t_0}\]</span></p>
@@ -431,7 +443,12 @@ y^2, w =xy  \right)\]</span></p>
 \mathbb R^2\)</span>:</p>
 <p><span class="math display">\[\sigma(t) = (1 + 3t , 2 -
 2t)\]</span></p>
-<p>which has the tangent vector at $t=0 given by</p>
+<p>which at <span class="math inline">\(t=0\)</span> corresponds to
+<span class="math inline">\(\sigma(0) = (1,2).\)</span></p>
+<p>The derivative is</p>
+<p><span class="math display">\[\dot \sigma(t)=(3,-2)\]</span></p>
+<p>which doesn’t have any dependency on <span class="math inline">\(t,\)</span> and therefore the tangent vector at
+<span class="math inline">\(t=0\)</span> is given by</p>
 <p><span class="math display">\[\left(\dot
 \sigma(0)\right)_{\sigma(0)}=(3, -2)_{(1,2)}\]</span></p>
 <p>The image curve <span class="math inline">\(\phi \circ \sigma:
@@ -439,7 +456,12 @@ y^2, w =xy  \right)\]</span></p>
 <p><span class="math display">\[\phi\left( \sigma(t)\right)= \left(
 (1+3t)^2+(2-2t)^2,\quad (1+3t)^2-(2-2t)^2,\quad (1+3t)(2-2t)
 \right)\]</span></p>
-<p>The tangent vector to the image curve <span class="math inline">\(\phi\left( \sigma(t)\right)\)</span> when <span class="math inline">\(t=0\)</span> is</p>
+<p>The tangent vector to the image curve <span class="math inline">\(\phi\left( \sigma(t)\right)\)</span> is derived
+as</p>
+<p><span class="math display">\[\small\frac{d}{dt}\phi(\sigma(t)) =
+\left( 2\,(1+3t)3 + 2\,(2-2t)2,\; 2\,(1+3t)3 - 2\,(2-2t)2, 3(2-2t) +
+(1+3t)(-2)     \right)\]</span></p>
+<p>when <span class="math inline">\(t=0\)</span> is</p>
 <p><span class="math display">\[\left(\left. \frac{d}{dt} \phi\left(
 \sigma(t)\right)\right|_{t=0}  \right)_{\phi\left( \sigma(0)\right)} =
 (-2, 14, 4)_{(5,-3,2)}\]</span></p>
@@ -453,7 +475,8 @@ point <span class="math inline">\(\phi(p) = \phi(σ(t0)).\)</span> In the
 example this means <span class="math inline">\(p = (1, 2)\)</span> and
 <span class="math inline">\(X_p = (3\partial x − 2 \partial
 y)_{(1,2)}\)</span>, and <span class="math inline">\(Y_q = (−2 \partial
-u + 14 \partial v + 4 \partial w)_{(5,−3,2)}\)</span> and <span class="math inline">\(Y_q = \theta_{∗,p}X_p\)</span>.</p>
+u + 14 \partial v + 4 \partial w)_{(5,−3,2)} =
+\theta_{∗,p}X_p\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
