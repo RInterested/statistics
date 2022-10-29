@@ -109,6 +109,44 @@ The operation whereby the vector $(3,-2)$ is sent to $\mathbb R^3$ is denoted $\
 
 ![](https://user-images.githubusercontent.com/9312897/198754688-7d862de5-c646-44f9-a82e-1bc02213fa19.png)
 
+This results can also be obtained as in page 62 of the linked document by considering that the pushed forward of the vector above, defined  at $p=\sigma(t=0)=(1,2),$ and labelled $X_p=\dot \sigma(t=0)=(3,-2)$ is $X_p =\left. (3\,\partial_x-2\,\partial_y)\right|_{p},$ and having this vector (remember vector bases in differential geometry are simply differential operators) act on the different coordinates of the map $\phi$ as in:
+
+$$\begin{align}
+\phi_{*,p}(X_p)(u) &= (3\,\partial_x-2\,\partial_y)\,(x^2+y^2)=6-8=-2\\[2ex]
+\phi_{*,p}(X_p)(v) &= (3\,\partial_x-2\,\partial_y)\,(x^2-y^2)=6+8=14\\[2ex]
+\phi_{*,p}(X_p)(w) &= (3\,\partial_x-2\,\partial_y)\,(xy)=6-2=4
+\end{align}
+$$
+
+or 
+
+$$\phi_{*,p}(X_p)=(-2\partial_u+ 14\partial_v+ 4\partial_w).$$
+
+Or calculating the Jacobian matrix at $(1,2)$
+
+$$
+\begin{bmatrix}
+\frac{\partial\phi^a}{\partial x^i}
+\end{bmatrix}_{(1,2)}
+=\begin{bmatrix}
+2x & 2y\\
+2x & -2y\\
+y & x
+\end{bmatrix}_{(1,2)}=
+\begin{bmatrix}
+2&4\\2&-4\\2&1
+\end{bmatrix}
+$$
+
+which multiplied times the $X_p=(3,-2),$
+
+$$\begin{bmatrix}
+2&4\\2&-4\\2&1
+\end{bmatrix}\begin{bmatrix}
+3\\-2
+\end{bmatrix}=\begin{bmatrix}
+-2\\14\\4
+\end{bmatrix}$$
 
 
 ---
