@@ -63,13 +63,15 @@ and the curve $\sigma: \mathbb R \to \mathbb R^2$:
 
 $$\sigma(t) = (1 + 3t , 2 - 2t)$$
 
-which at $t=0$ corresponds to $\sigma(0) = (1,2).$
+which at $t=0$ corresponds to 
+
+$$\sigma(0) = (1,2).$$
 
 The derivative is
 
 $$\dot \sigma(t)=(3,-2)$$
 
-which doesn't have any dependency on $t,$ and therefore the tangent vector at $t=0$ is given by
+which doesn't have any dependency on $t,$ and therefore the tangent vector at $t=0$ is directly given by
 
 $$\left(\dot \sigma(0)\right)_{\sigma(0)}=(3, -2)_{(1,2)}$$
 
@@ -78,9 +80,13 @@ The image curve $\phi \circ \sigma: \mathbb R \to \mathbb R^3:$
 
 $$\phi\left( \sigma(t)\right)= \left( (1+3t)^2+(2-2t)^2,\quad (1+3t)^2-(2-2t)^2,\quad (1+3t)(2-2t) \right)$$
 
-The tangent vector to the image curve $\phi\left( \sigma(t)\right)$ is derived as
+and the point mapped from $\sigma(0)=(1,2)$ to $\mathbb R^3$ by $\phi$ is
 
-$$\small\frac{d}{dt}\phi(\sigma(t)) = \left( 2\,(1+3t)3 + 2\,(2-2t)2,\; 2\,(1+3t)3 - 2\,(2-2t)2, 3(2-2t) + (1+3t)(-2)     \right)$$
+$$\left. \phi\left(\sigma(t) \right) \right|_{t=0}=(5,-3,2)$$
+
+The tangent vector to the image curve $\phi\left( \sigma(t)\right)$ is [derived](https://www.wolframalpha.com/input?i2d=true&i=Divide%5Bd%2Cdt%5D%5C%2840%29Power%5B%5C%2840%291+%2B+3t%5C%2841%29%2C2%5D+%2B+Power%5B%5C%2840%292+%E2%88%92+2t%5C%2841%29%2C2%5D%5C%2844%29Power%5B%5C%2840%291+%2B+3t%5C%2841%29%2C2%5D+%E2%88%92+Power%5B%5C%2840%292+%E2%88%92+2t%5C%2841%29%2C2%5D%5C%2844%29%5C%2840%291+%2B+3t%5C%2841%29%5C%2840%292+%E2%88%92+2t%5C%2841%29%5C%2841%29) as
+
+$$\frac d{dt} \phi\left( \sigma(t)\right)=\left(26t - 2, \quad 10t +14,\quad -12t +4  \right)$$
 
 when $t=0$ is
 
@@ -92,6 +98,8 @@ The map $\phi_{∗,p}$ has the property that if $(\dot σ(t_0))_{σ(t_0)}$
 is the tangent vector to the curve $σ$ at $p = σ(t_0)$ with corresponding derivation $X_p$, then $Y_q = \phi_{∗,p}\,X_p$ is the derivation $Y_q$ corresponding to
 the tangent vector $\phi \circ \sigma$ at the image point $\phi(p) = \phi(σ(t0)).$ In the example this means $p = (1, 2)$ and $X_p = (3\partial x − 2 \partial y)_{(1,2)}$, and
 $Y_q = (−2 \partial u + 14 \partial v + 4 \partial w)_{(5,−3,2)} = \theta_{∗,p}X_p$.
+
+![](https://user-images.githubusercontent.com/9312897/198753830-45452216-7ea5-4c02-9df9-4435237f46f9.png)
 
 
 
