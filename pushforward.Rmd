@@ -1,5 +1,5 @@
 ---
-title: 'The pushforward'
+title: 'The pushforward and the pullback'
 output: 
   html_document:
     theme: readable
@@ -54,7 +54,7 @@ where $(y^i)_{1≤i≤n}$ denotes the coordinates on the image space of $\phi.$
 
 #### Example
 
-Let $\phi: \mathbb R^2 \to \mathbb R^3$ is given by
+Let $\phi: \mathbb R^2 \to \mathbb R^3$ (no manifold is more homeomorphic to Euclidean space than that!) is given by
 
 $$\phi(x,y) = \left(u=x^2 + y^2, v= x^2 - y^2, w =xy  \right)$$
 
@@ -114,9 +114,9 @@ The operation whereby the vector $(3,-2)$ is sent to $\mathbb R^3$ is denoted $\
 This results can also be obtained as in page 62 of the linked document by considering that the pushed forward of the vector above, defined  at $p=\sigma(t=0)=(1,2),$ and labelled $X_p=\dot \sigma(t=0)=(3,-2)$ is $X_p =\left. (3\,\partial_x-2\,\partial_y)\right|_{p},$ and having this vector (remember vector bases in differential geometry are simply differential operators) act on the different coordinates of the map $\phi$ as in:
 
 $$\begin{align}
-\phi_{*,p}(X_p)(u) &= (3\,\partial_x-2\,\partial_y)\,(x^2+y^2)=6-8=-2\\[2ex]
-\phi_{*,p}(X_p)(v) &= (3\,\partial_x-2\,\partial_y)\,(x^2-y^2)=6+8=14\\[2ex]
-\phi_{*,p}(X_p)(w) &= (3\,\partial_x-2\,\partial_y)\,(xy)=6-2=4
+\phi_{*,p}(X_p)(u) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_u}{\underbrace{(x^2+y^2)}}=6-8=-2\\[2ex]
+\phi_{*,p}(X_p)(v) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_v}{\underbrace{(x^2-y^2)}}=6+8=14\\[2ex]
+\phi_{*,p}(X_p)(w) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_w}{\underbrace{(xy)}}=6-2=4\\[2ex]
 \end{align}
 $$
 
@@ -149,6 +149,47 @@ $$\begin{bmatrix}
 \end{bmatrix}=\begin{bmatrix}
 -2\\14\\4
 \end{bmatrix}$$
+
+This last expression is a clear illustration of the linear transformation from one tangent space to another: the tangent vector $(3,-2)$ at the point $(1,2)$ is sent via matrix multiplication to $(-2, 14,4).$
+
+
+---
+
+### The pullback:
+
+---
+
+From page 115 of the reference above, let's again begin with a function between two and three dimensional Euclidean space: $\phi: \mathbb R^2 \to \mathbb R^3,$ this time given by
+
+$$\phi(x,y) = \left(u=x + y, v= x^2 - y^2, w =xy  \right)$$
+Let a one form at a point $q= \phi(1,2)=(3,-3,2)$ in the target manifold (i.e. $\mathbb R^3$) be $\tau_q$:
+
+$$\tau_q = (2\,du - 3\,dv+ dw)_q$$
+
+The pullback is calculated much like for the calculations of the pushforward above as sending the covector given in $\mathbb R^3$ to $\mathbb R^2$ by applying the exterior derivative to the function $\phi$ componentwise first:
+
+$$\begin{align}
+\phi^*_q\; du_q &=  \underset{\small\text{d exterior derivative}}{\underbrace{d(x+y)_{(1,2)}}}=(dx + dy)_{(1,2)}\\[2ex]
+\phi^*_q\; dv_q &=  \underset{\small\text{d exterior derivative}}{\underbrace{d(x^2-y^2)_{(1,2)}}}=(2x\,dx -2y\,dy)_{(1,2)}=(2\,dx - 4\,dy)_{(1,2)}\\[2ex]
+\phi^*_q\; dw_q &=  \underset{\small\text{d exterior derivative}}{\underbrace{d(xy)_{(1,2)}}}=(2\,dx + dy)_{(1,2)}\\[2ex]
+\end{align}
+$$
+
+and then feeding the coefficients of the form $\tau_q$:
+
+$$\begin{align}
+\left. \phi^*_q\; (2\,du -3 \,dv + dw) \right|_q&=  2\,\phi^*_q(\left. du \right|_q) -3 \,\phi^*_q(\left. dv \right|_q) + \phi^*_q(\left. dw \right|_q)\\[2ex]
+&= 2(dx+dy) - 3 (2\,dx - 4\,dy) + (2\,dx + dy)\\[2ex]
+&= (-2\,dx + 15 \,dy)_{(1,2)}
+\end{align}
+$$
+
+So the differential form $\tau_q$ is specified in $\mathbb R^3,$ which is the *image  space of $\phi$*. For every point in the *domain of $phi$*, i.e. $p \in \mathbb R^2$ we can define the **pullback**  as the *differential form* $\alpha_p$ corresponding to the exterior derivative as performed above: componentwise and using the $\phi$ function. This is to say: $\alpha_p = \phi^*_q(\tau_{\phi(p)}).$ The pullback is the map back to $\mathbb R^2$ of the differential form $\tau,$ or $\alpha=\phi^*\tau.$ Corollary: we can always pullback a given one-form on the image to another differential one-form on the domain of $\phi.$ However, we cannot create a vector field in $\mathbb R^2$ by pushing forward a vector field in $\mathbb R^2,$ unless the function $\phi$ is a diffeomorphism.
+
+
+
+
+
 
 
 ---

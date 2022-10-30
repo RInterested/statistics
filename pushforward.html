@@ -11,7 +11,7 @@
 
 
 
-<title>The pushforward</title>
+<title>The pushforward and the pullback</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -377,7 +377,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">The pushforward</h1>
+<h1 class="title toc-ignore">The pushforward and the pullback</h1>
 
 </div>
 
@@ -436,7 +436,8 @@ coordinates on the image space of <span class="math inline">\(\phi.\)</span></p>
 <div id="example" class="section level4">
 <h4>Example</h4>
 <p>Let <span class="math inline">\(\phi: \mathbb R^2 \to \mathbb
-R^3\)</span> is given by</p>
+R^3\)</span> (no manifold is more homeomorphic to Euclidean space than
+that!) is given by</p>
 <p><span class="math display">\[\phi(x,y) = \left(u=x^2 + y^2, v= x^2 -
 y^2, w =xy  \right)\]</span></p>
 <p>and the curve <span class="math inline">\(\sigma: \mathbb R \to
@@ -501,11 +502,15 @@ vector (remember vector bases in differential geometry are simply
 differential operators) act on the different coordinates of the map
 <span class="math inline">\(\phi\)</span> as in:</p>
 <p><span class="math display">\[\begin{align}
-\phi_{*,p}(X_p)(u) &amp;=
-(3\,\partial_x-2\,\partial_y)\,(x^2+y^2)=6-8=-2\\[2ex]
-\phi_{*,p}(X_p)(v) &amp;=
-(3\,\partial_x-2\,\partial_y)\,(x^2-y^2)=6+8=14\\[2ex]
-\phi_{*,p}(X_p)(w) &amp;= (3\,\partial_x-2\,\partial_y)\,(xy)=6-2=4
+\phi_{*,p}(X_p)(u) &amp;= \underset{\small\text{derivative
+operator}\color{orange}{\Huge
+\rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_u}{\underbrace{(x^2+y^2)}}=6-8=-2\\[2ex]
+\phi_{*,p}(X_p)(v) &amp;= \underset{\small\text{derivative
+operator}\color{orange}{\Huge
+\rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_v}{\underbrace{(x^2-y^2)}}=6+8=14\\[2ex]
+\phi_{*,p}(X_p)(w) &amp;= \underset{\small\text{derivative
+operator}\color{orange}{\Huge
+\rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_w}{\underbrace{(xy)}}=6-2=4\\[2ex]
 \end{align}
 \]</span></p>
 <p>or</p>
@@ -533,12 +538,67 @@ y &amp; x
 \end{bmatrix}=\begin{bmatrix}
 -2\\14\\4
 \end{bmatrix}\]</span></p>
+<p>This last expression is a clear illustration of the linear
+transformation from one tangent space to another: the tangent vector
+<span class="math inline">\((3,-2)\)</span> at the point <span class="math inline">\((1,2)\)</span> is sent via matrix multiplication
+to <span class="math inline">\((-2, 14,4).\)</span></p>
+<hr />
+</div>
+</div>
+<div id="the-pullback" class="section level3">
+<h3>The pullback:</h3>
+<hr />
+<p>From page 115 of the reference above, let’s again begin with a
+function between two and three dimensional Euclidean space: <span class="math inline">\(\phi: \mathbb R^2 \to \mathbb R^3,\)</span> this
+time given by</p>
+<p><span class="math display">\[\phi(x,y) = \left(u=x + y, v= x^2 - y^2,
+w =xy  \right)\]</span> Let a one form at a point <span class="math inline">\(q= \phi(1,2)=(3,-3,2)\)</span> in the target
+manifold (i.e. <span class="math inline">\(\mathbb R^3\)</span>) be
+<span class="math inline">\(\tau_q\)</span>:</p>
+<p><span class="math display">\[\tau_q = (2\,du - 3\,dv+
+dw)_q\]</span></p>
+<p>The pullback is calculated much like for the calculations of the
+pushforward above as sending the covector given in <span class="math inline">\(\mathbb R^3\)</span> to <span class="math inline">\(\mathbb R^2\)</span> by applying the exterior
+derivative to the function <span class="math inline">\(\phi\)</span>
+componentwise first:</p>
+<p><span class="math display">\[\begin{align}
+\phi^*_q\; du_q &amp;=  \underset{\small\text{d exterior
+derivative}}{\underbrace{d(x+y)_{(1,2)}}}=(dx + dy)_{(1,2)}\\[2ex]
+\phi^*_q\; dv_q &amp;=  \underset{\small\text{d exterior
+derivative}}{\underbrace{d(x^2-y^2)_{(1,2)}}}=(2x\,dx
+-2y\,dy)_{(1,2)}=(2\,dx - 4\,dy)_{(1,2)}\\[2ex]
+\phi^*_q\; dw_q &amp;=  \underset{\small\text{d exterior
+derivative}}{\underbrace{d(xy)_{(1,2)}}}=(2\,dx + dy)_{(1,2)}\\[2ex]
+\end{align}
+\]</span></p>
+<p>and then feeding the coefficients of the form <span class="math inline">\(\tau_q\)</span>:</p>
+<p><span class="math display">\[\begin{align}
+\left. \phi^*_q\; (2\,du -3 \,dv + dw)
+\right|_q&amp;=  2\,\phi^*_q(\left. du \right|_q) -3 \,\phi^*_q(\left.
+dv \right|_q) + \phi^*_q(\left. dw \right|_q)\\[2ex]
+&amp;= 2(dx+dy) - 3 (2\,dx - 4\,dy) + (2\,dx + dy)\\[2ex]
+&amp;= (-2\,dx + 15 \,dy)_{(1,2)}
+\end{align}
+\]</span></p>
+<p>So the differential form <span class="math inline">\(\tau_q\)</span>
+is specified in <span class="math inline">\(\mathbb R^3,\)</span> which
+is the <em>image space of <span class="math inline">\(\phi\)</span></em>. For every point in the
+<em>domain of <span class="math inline">\(phi\)</span></em>, i.e. <span class="math inline">\(p \in \mathbb R^2\)</span> we can define the
+<strong>pullback</strong> as the <em>differential form</em> <span class="math inline">\(\alpha_p\)</span> corresponding to the exterior
+derivative as performed above: componentwise and using the <span class="math inline">\(\phi\)</span> function. This is to say: <span class="math inline">\(\alpha_p = \phi^*_q(\tau_{\phi(p)}).\)</span> The
+pullback is the map back to <span class="math inline">\(\mathbb
+R^2\)</span> of the differential form <span class="math inline">\(\tau,\)</span> or <span class="math inline">\(\alpha=\phi^*\tau.\)</span> Corollary: we can
+always pullback a given one-form on the image to another differential
+one-form on the domain of <span class="math inline">\(\phi.\)</span>
+However, we cannot create a vector field in <span class="math inline">\(\mathbb R^2\)</span> by pushing forward a vector
+field in <span class="math inline">\(\mathbb R^2,\)</span> unless the
+function <span class="math inline">\(\phi\)</span> is a
+diffeomorphism.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
-</div>
 </div>
 
 
