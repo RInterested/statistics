@@ -19,11 +19,11 @@ output:
 
 ---
 
-The motivation behind this post is to understand the idea of left invariant vector fields (homogeneous) as the pushforward $L_{*g} X$ of vectors on the tangent space at a point $h$ to the point $gh$ resulting from left-sided multiplication in the Lie group by a chosen element $g$. The pushforward would move the vector $\color{red}{\vec v}$ in the left-variant vector field at $h$ to the vector $\color{red}{L_{*g}\vec x}$:
+The motivation behind this post is to understand the idea of left invariant vector fields (homogeneous) as the pushforward $L_{*g} X$ of a vector field $X$ (section of the tangent bundle) - the thick arrows in the diagram - on the tangent space at a point $h$ to the point $gh$ resulting from left-sided multiplication in the Lie group by a chosen element $g$. The pushforward would move the vector $\color{red}{\vec v}$ in the left-variant vector field at $h$ to the vector $\color{red}{L_{*g}\vec v}$ and coincide with the original vector at $gh$:
 
 
 
-<img height = 450  src = "https://user-images.githubusercontent.com/9312897/199155223-ce4cc678-deb7-437a-bb6c-2d04d183ce96.png">
+<img height = 500  src = "https://user-images.githubusercontent.com/9312897/199281578-2a76c22b-96ac-4604-b243-56784bc183b6.png">
 
 
 ---
@@ -123,9 +123,9 @@ The operation whereby the vector $(3,-2)$ is sent to $\mathbb R^3$ is denoted $\
 This results can also be obtained as in page 62 of the linked document by considering that the pushed forward of the vector above, defined  at $p=\sigma(t=0)=(1,2),$ and labelled $X_p=\dot \sigma(t=0)=(3,-2)$ is $X_p =\left. (3\,\partial_x-2\,\partial_y)\right|_{p},$ and having this vector (remember vector bases in differential geometry are simply differential operators) act on the different coordinates of the map $\phi$ as in:
 
 $$\begin{align}
-\phi_{*,p}(X_p)(u) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_u}{\underbrace{(x^2+y^2)}}=6-8=-2\\[2ex]
-\phi_{*,p}(X_p)(v) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_v}{\underbrace{(x^2-y^2)}}=6+8=14\\[2ex]
-\phi_{*,p}(X_p)(w) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_w}{\underbrace{(xy)}}=6-2=4\\[2ex]
+\phi_{*,p}(X_p)(u) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_u}{\underbrace{(x^2+y^2)}}=\left. 3 \partial_x\,(x^2) - 2 \partial_y\,(y^2)=3(2x)-2(2y)\right|_{(1,2)}   =6-8=-2\\[2ex]
+\phi_{*,p}(X_p)(v) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_v}{\underbrace{(x^2-y^2)}}=3\partial_x\,(x^2)-2\partial_y\,(-y^2)=\left. 3(2x) + 2(2y) \right|_{(1,2)} =6+8=14\\[2ex]
+\phi_{*,p}(X_p)(w) &= \underset{\small\text{derivative operator}\color{orange}{\Huge \rightarrow}}{\underbrace{(3\,\partial_x-2\,\partial_y)_{(1,2)}}}\quad\underset{\phi_w}{\underbrace{(xy)}}=3\partial_x\,(xy) -2\partial_y\,(xy)=\left. 3(y)-2(x)\right|_{(1,2)}=6-2=4\\[2ex]
 \end{align}
 $$
 
