@@ -435,6 +435,23 @@ resulting from the group operation of addition on the group <span class="math in
 <p>Contrarily, the <span class="math inline">\(S^1\)</span> manifold
 (the circle) can be realized as the <a href="https://en.wikipedia.org/wiki/Integral_curve#:~:text=Integral%20curves%20are%20known%20by,fluid%20are%20known%20as%20streamlines.">integral
 curve</a> of this vector field.</p>
+<div id="why-is-this-a-left-invariant-vector-field" class="section level5">
+<h5>Why is this a left-invariant vector field?</h5>
+<p>Let’s first just contruct the vector fiel as in the image: At each
+point on the circle there is a vector pointing counter-clockwise,
+tangent to the circle, and of unit length.</p>
+<p>Now we have a function that maps from one point in the manifold to
+another - in <a href="https://math.stackexchange.com/a/1725873/152225">this post</a> it
+is the function <span class="math inline">\(F,\)</span> which in the way
+this example is set up would be <span class="math inline">\(\phi(\theta).\)</span> Now suppose we
+left-multiply a point on the circle given by <span class="math inline">\(\phi(\pi/4) =e^{i\pi/4}\)</span> by the point
+<span class="math inline">\(\phi(\pi/2) =e^{i\pi/2}.\)</span> This will
+land us at <span class="math inline">\(e^{i\pi/4}\,e^{i\pi/2}=e^{i\pi3/4}.\)</span>
+Applying the pushforward would result in:</p>
+<p><span class="math display">\[\left(i\, e^{i\pi/4}\right)
+\,e^{i\pi/2}=i\, e^{i\pi3/4}=
+-\sin\frac{3\pi}{4}+i\,\cos\frac{3\pi}{4}=-0.7-0.7i\]</span> which is
+exactly the vector at <span class="math inline">\(135^\circ\)</span>.</p>
 <hr />
 <p>From <a href="https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=1000&amp;context=oer_textbooks">page
 58 of An Introduction to Differential Geometry through Computation by
@@ -477,6 +494,7 @@ Y_q  &amp;= \sum_{i=1}^n \left.
 <p>where <span class="math inline">\((y^i)_{1≤i≤n}\)</span> denotes the
 coordinates on the image space of <span class="math inline">\(\phi.\)</span></p>
 <hr />
+</div>
 </div>
 <div id="example" class="section level4">
 <h4>Example</h4>

@@ -52,6 +52,17 @@ $$Y_{\phi(p)}=\phi_*(X_p)=\left( 1\, \partial _\theta\right)\, \left( e^{i\theta
 Contrarily, the $S^1$ manifold (the circle) can be realized as the [integral curve](https://en.wikipedia.org/wiki/Integral_curve#:~:text=Integral%20curves%20are%20known%20by,fluid%20are%20known%20as%20streamlines.) of this vector field. 
 
 
+##### Why is this a left-invariant vector field?
+
+Let's first just contruct the vector fiel as in the image: At each point on the circle there is a vector pointing counter-clockwise, tangent to the circle, and of unit length.
+
+Now we have a function that maps from one point in the manifold to another - in [this post](https://math.stackexchange.com/a/1725873/152225) it is the function $F,$ which in the way this example is set up would be $\phi(\theta).$ Now suppose we left-multiply a point on the circle given by $\phi(\pi/4) =e^{i\pi/4}$ by the point $\phi(\pi/2) =e^{i\pi/2}.$ This will land us at $e^{i\pi/4}\,e^{i\pi/2}=e^{i\pi3/4}.$ Applying the pushforward would result in:
+
+$$\left(i\, e^{i\pi/4}\right) \,e^{i\pi/2}=i\, e^{i\pi3/4}= -\sin\frac{3\pi}{4}+i\,\cos\frac{3\pi}{4}=-0.7-0.7i$$
+which is exactly the vector at $135^\circ$. 
+
+
+
 ---
 
 From [page 58 of An Introduction to Differential Geometry through Computation by Mark E. Fels](https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=1000&context=oer_textbooks):
