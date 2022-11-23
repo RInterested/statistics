@@ -141,6 +141,48 @@ with $f$ a smooth function in $\mathcal N$ to the reals.
 
 Therefore, when contemplating a smooth map $\varphi$ from a manifold $\mathcal M$ to a second manifold $\mathcal N,$ the directional derivative at the point on $\mathcal N$ that $p$ is sent (i.e. the pushed forward vector) should be informed by the original tangent vector in $\mathcal M,$ which is again a derivative on an arbitrary function on $\mathcal M,$ as well as the measurement of the changes in the function $\varphi$ itself (in a chart, the changes in the coordintes applied to $\mathcal N$ caused by changes in the coordinates in a chart in $\mathcal M.$ This is nothing other that the chain rule.
 
+---
+
+The notes from [here](https://youtu.be/11f7hiT3iG0) are illustrative.
+
+> Let $F(x^1, x^2) = (x^1 + x^2, x^1 - x^2)$. Consider a parametrized curve $\alpha(t) = (a(t),b(t)).$ The image of $\alpha$ under $F$ is:
+>
+>$$(F \circ \alpha)(t) = F(a(t),b(t)) = (a(t) + b(t), a(t) - b(t))$$
+>
+>The velocity vector for $\alpha$ is $\alpha'(t) = \langle a'(t), b'(t)\rangle$
+>
+>$$(F\circ \alpha)'(t) = \langle a'(t) + b'(t), a'(t) - b'(t) \rangle = \begin{bmatrix}1&1\\1&-1\end{bmatrix} \begin{bmatrix}a'(t) \\ b'(t)\end{bmatrix}$$
+>
+>of course, the matrix above is just the Jacobian matrix of $F$. In particular, we see a tangent vector $\langle 1,0 \rangle$ would be moved to $\langle 1,1 \rangle$ and the tangent vector $\langle 0,1\rangle$ is transported to $\langle 1, -1 \rangle.$ The columns of the Jacobian matrix tell us how the basis tangent vectors are transformed. Here we took for granted the existence of a Cartesian coordinate system in the range. To allow for different dimensions, we ought to make our observation in a more generalizable fashion. I'll use $e_1, e_2$ for the domain and $f_1, f_2$ for the range:
+>
+> $$e_1 \mapsto f_1 + f_2 ,\quad  e_2 \mapsto f_1- f_2$$
+>
+> Now in the derivation notation for tangent vectors, $e_1 =\frac \partial {\partial x^1}$ and $e_2 = \frac \partial {\partial x^2},$ and for Cartesian coordinates $(y^1,y^2)$ for the range $f_1 =\frac \partial{\partial y^1},\; f_2 =\frac \partial {\partial y^2}.$ We have
+>
+> $$\frac\partial{\partial x^1}\mapsto \frac\partial{\partial y^1}+\frac\partial{\partial y^2},\quad \frac\partial{\partial x^2}\mapsto \frac\partial{\partial y^1}-\frac\partial{\partial y^2}$$
+>
+>Another example, $F(x^1,x^2)=(e^{x^1 + x^2}, \sin x^2, \cos x^2).$ Once more, consider the curve $\alpha= (a,b).$ Hence $\alpha'=\langle a',b'\rangle$ and
+>
+> $$(F\circ \alpha)'=\langle e^{a+b}(a'+b'), (\cos b)b', (-\sin b)b' \rangle$$
+>
+>We find the tangent $\langle a', b'\rangle =\langle 1,0 \rangle$ maps to $\langle e^{a+b},0,0\rangle,$ whereas the tangent $\langle a', b'\rangle =\langle 0,1 \rangle$ maps to $\langle e^{a+b},\cos b,-\sin b\rangle$ with respect to the point $\alpha =(a,b)$ of the curve. The Jacobian of $F$ at $(a,b)$ is 
+>
+> $$\begin{bmatrix}e^{a+b}& e^{a+b}\\0 & \cos b \\ 0 & -\sin b\end{bmatrix}$$
+>
+>Following the notation of the last example, but now with $(y^1, y^2,y^3)$ coordinates for the image,
+>
+>$$\frac\partial{\partial x^1}\mapsto e^{a+b}\frac\partial{\partial y^1}\quad \frac\partial{\partial x^2}\mapsto e^{a+b}\frac\partial{\partial y^1}+\cos b \frac\partial{\partial y^2}-\sin b\frac\partial{\partial y^3} $$
+>
+>Notice $y^j\circ F = F^j$ is immediate from the definition of Cartesian coordinates and component functions. What we really have above is
+>
+>$$\frac\partial{\partial x^1}\mapsto \sum_{j=1}^3 \frac{\partial(y^j\circ F)}{\partial x^1}\frac\partial{\partial y^j}$$
+>
+>and
+>
+>$$\frac\partial{\partial x^2}\mapsto \sum_{j=1}^3 \frac{\partial(y^j\circ F)}{\partial x^2}\frac\partial{\partial y^j}$$
+
+---
+
 Observe that this can also be understood of the [**tangent map**](https://mathworld.wolfram.com/TangentMap.html), which is a map between tangent bundles of $\mathcal M$ and $\mathcal N.$ Again there is a curve $\gamma$ passing through the point $p$ at time $0$ with velocity $\gamma'(0),$ and the tangent map is defined as 
 
 $$T\phi(\gamma'(0))=(\varphi \circ \gamma)(0)$$

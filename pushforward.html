@@ -554,6 +554,77 @@ M,\)</span> as well as the measurement of the changes in the function
 changes in the coordintes applied to <span class="math inline">\(\mathcal N\)</span> caused by changes in the
 coordinates in a chart in <span class="math inline">\(\mathcal
 M.\)</span> This is nothing other that the chain rule.</p>
+<hr />
+<p>The notes from <a href="https://youtu.be/11f7hiT3iG0">here</a> are
+illustrative.</p>
+<blockquote>
+<p>Let <span class="math inline">\(F(x^1, x^2) = (x^1 + x^2, x^1 -
+x^2)\)</span>. Consider a parametrized curve <span class="math inline">\(\alpha(t) = (a(t),b(t)).\)</span> The image of
+<span class="math inline">\(\alpha\)</span> under <span class="math inline">\(F\)</span> is:</p>
+<p><span class="math display">\[(F \circ \alpha)(t) = F(a(t),b(t)) =
+(a(t) + b(t), a(t) - b(t))\]</span></p>
+<p>The velocity vector for <span class="math inline">\(\alpha\)</span>
+is <span class="math inline">\(\alpha&#39;(t) = \langle a&#39;(t),
+b&#39;(t)\rangle\)</span></p>
+<p><span class="math display">\[(F\circ \alpha)&#39;(t) = \langle
+a&#39;(t) + b&#39;(t), a&#39;(t) - b&#39;(t) \rangle =
+\begin{bmatrix}1&amp;1\\1&amp;-1\end{bmatrix} \begin{bmatrix}a&#39;(t)
+\\ b&#39;(t)\end{bmatrix}\]</span></p>
+<p>of course, the matrix above is just the Jacobian matrix of <span class="math inline">\(F\)</span>. In particular, we see a tangent vector
+<span class="math inline">\(\langle 1,0 \rangle\)</span> would be moved
+to <span class="math inline">\(\langle 1,1 \rangle\)</span> and the
+tangent vector <span class="math inline">\(\langle 0,1\rangle\)</span>
+is transported to <span class="math inline">\(\langle 1, -1
+\rangle.\)</span> The columns of the Jacobian matrix tell us how the
+basis tangent vectors are transformed. Here we took for granted the
+existence of a Cartesian coordinate system in the range. To allow for
+different dimensions, we ought to make our observation in a more
+generalizable fashion. I’ll use <span class="math inline">\(e_1,
+e_2\)</span> for the domain and <span class="math inline">\(f_1,
+f_2\)</span> for the range:</p>
+<p><span class="math display">\[e_1 \mapsto f_1 + f_2 ,\quad  e_2
+\mapsto f_1- f_2\]</span></p>
+<p>Now in the derivation notation for tangent vectors, <span class="math inline">\(e_1 =\frac \partial {\partial x^1}\)</span> and
+<span class="math inline">\(e_2 = \frac \partial {\partial
+x^2},\)</span> and for Cartesian coordinates <span class="math inline">\((y^1,y^2)\)</span> for the range <span class="math inline">\(f_1 =\frac \partial{\partial y^1},\; f_2 =\frac
+\partial {\partial y^2}.\)</span> We have</p>
+<p><span class="math display">\[\frac\partial{\partial x^1}\mapsto
+\frac\partial{\partial y^1}+\frac\partial{\partial y^2},\quad
+\frac\partial{\partial x^2}\mapsto \frac\partial{\partial
+y^1}-\frac\partial{\partial y^2}\]</span></p>
+<p>Another example, <span class="math inline">\(F(x^1,x^2)=(e^{x^1 +
+x^2}, \sin x^2, \cos x^2).\)</span> Once more, consider the curve <span class="math inline">\(\alpha= (a,b).\)</span> Hence <span class="math inline">\(\alpha&#39;=\langle a&#39;,b&#39;\rangle\)</span>
+and</p>
+<p><span class="math display">\[(F\circ \alpha)&#39;=\langle
+e^{a+b}(a&#39;+b&#39;), (\cos b)b&#39;, (-\sin b)b&#39;
+\rangle\]</span></p>
+<p>We find the tangent <span class="math inline">\(\langle a&#39;,
+b&#39;\rangle =\langle 1,0 \rangle\)</span> maps to <span class="math inline">\(\langle e^{a+b},0,0\rangle,\)</span> whereas the
+tangent <span class="math inline">\(\langle a&#39;, b&#39;\rangle
+=\langle 0,1 \rangle\)</span> maps to <span class="math inline">\(\langle e^{a+b},\cos b,-\sin b\rangle\)</span>
+with respect to the point <span class="math inline">\(\alpha
+=(a,b)\)</span> of the curve. The Jacobian of <span class="math inline">\(F\)</span> at <span class="math inline">\((a,b)\)</span> is</p>
+<p><span class="math display">\[\begin{bmatrix}e^{a+b}&amp; e^{a+b}\\0
+&amp; \cos b \\ 0 &amp; -\sin b\end{bmatrix}\]</span></p>
+<p>Following the notation of the last example, but now with <span class="math inline">\((y^1, y^2,y^3)\)</span> coordinates for the
+image,</p>
+<p><span class="math display">\[\frac\partial{\partial x^1}\mapsto
+e^{a+b}\frac\partial{\partial y^1}\quad \frac\partial{\partial
+x^2}\mapsto e^{a+b}\frac\partial{\partial y^1}+\cos b
+\frac\partial{\partial y^2}-\sin b\frac\partial{\partial y^3}
+\]</span></p>
+<p>Notice <span class="math inline">\(y^j\circ F = F^j\)</span> is
+immediate from the definition of Cartesian coordinates and component
+functions. What we really have above is</p>
+<p><span class="math display">\[\frac\partial{\partial x^1}\mapsto
+\sum_{j=1}^3 \frac{\partial(y^j\circ F)}{\partial
+x^1}\frac\partial{\partial y^j}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\frac\partial{\partial x^2}\mapsto
+\sum_{j=1}^3 \frac{\partial(y^j\circ F)}{\partial
+x^2}\frac\partial{\partial y^j}\]</span></p>
+</blockquote>
+<hr />
 <p>Observe that this can also be understood of the <a href="https://mathworld.wolfram.com/TangentMap.html"><strong>tangent
 map</strong></a>, which is a map between tangent bundles of <span class="math inline">\(\mathcal M\)</span> and <span class="math inline">\(\mathcal N.\)</span> Again there is a curve <span class="math inline">\(\gamma\)</span> passing through the point <span class="math inline">\(p\)</span> at time <span class="math inline">\(0\)</span> with velocity <span class="math inline">\(\gamma&#39;(0),\)</span> and the tangent map is
 defined as</p>
