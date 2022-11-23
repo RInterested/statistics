@@ -395,7 +395,7 @@ MATHEMATICS</strong></h3>
 <div id="introduction-and-motivation" class="section level4">
 <h4>Introduction and Motivation:</h4>
 <p>The motivation behind this post is to understand the idea of left
-invariant vector fields (homogeneous) as the pushforward <span class="math inline">\(L_{*g} X\)</span> of a vector field <span class="math inline">\(X\)</span> (section of the tangent bundle) - the
+invariant vector fields as the pushforward <span class="math inline">\(L_{*g} X\)</span> of a vector field <span class="math inline">\(X\)</span> (section of the tangent bundle) - the
 thick arrows in the diagram - on the tangent space at a point <span class="math inline">\(h\)</span> to the point <span class="math inline">\(gh\)</span> resulting from left-sided
 multiplication in the Lie group by a chosen element <span class="math inline">\(g\)</span>. The pushforward would move the vector
 <span class="math inline">\(\color{red}{\vec v}\)</span> in the
@@ -495,6 +495,138 @@ Y_q  &amp;= \sum_{i=1}^n \left.
 coordinates on the image space of <span class="math inline">\(\phi.\)</span></p>
 <hr />
 </div>
+</div>
+<div id="on-the-derivation-notation-of-a-vector-field" class="section level4">
+<h4>On the derivation notation of a vector field:</h4>
+<p>A vector field can be expressed as a <a href="https://en.wikipedia.org/wiki/Derivation_(differential_algebra)">derivation</a>
+or expressed in coordinates.</p>
+<p>For instance in <a href="https://youtu.be/_n4Dz0UJ0Kw?t=1006">here</a> the vector field
+<span class="math inline">\(X\)</span> on the <span class="math inline">\(1\)</span>-dim manifold <span class="math inline">\(S^1\)</span> (i.e. the sphere) can be expressed
+for a point <span class="math inline">\((x,y)\)</span> as a
+derivation:</p>
+<p><span class="math display">\[X_{(x,y)}=y \, \frac \partial {\partial
+x} - x \, \frac \partial {\partial y}\]</span></p>
+<p>or as an element of <span class="math inline">\(\mathbb R^2\)</span>
+as</p>
+<p><span class="math display">\[X_{(x,y)}=(y, -x)\]</span></p>
+<p>coorresponding to the coefficients.</p>
+<hr />
+</div>
+<div id="on-tangent-vectors-interpreted-as-derivatives---intuition" class="section level4">
+<h4>On tangent vectors interpreted as derivatives - intuition:</h4>
+<p>Tangent vectors on a manifold are (directional) derivative operators
+on arbitrary smooth functions at a point <span class="math inline">\(p\)</span> along a curve <span class="math inline">\(\gamma: \mathbb R \to \mathcal M\)</span> (as
+explained <a href="https://youtu.be/UPGoXBfm6Js?t=266">here</a>). They
+are linear maps <span class="math inline">\(X_{\gamma,p}: \mathcal
+C^\infty(\mathcal M) \to \mathbb R,\)</span> sending an arbitrary
+function <span class="math inline">\(f\)</span> to</p>
+<p><span class="math display">\[f \mapsto (f \circ
+\gamma)&#39;(0)\]</span></p>
+<p>expressed as the tangent vector to the curve <span class="math inline">\(\gamma\)</span> at the point <span class="math inline">\(p\in \mathcal M.\)</span></p>
+<p>The idea of acting on a smooth arbitrary function on the manifold is
+as independent of the function selected as a function like <span class="math inline">\(f(x) = x^2\)</span> is independently well defined
+regardless of what <span class="math inline">\(x\)</span> is
+entered.</p>
+<p>The function <span class="math inline">\(f\)</span> would be the
+analogue of the scalar function and the directional derivative operator
+(the tangent vector in differential geometry) would combine the
+directional vector of mulivariable calculus and the <span class="math inline">\(\nabla\)</span> or gradient into one single
+operator.</p>
+<hr />
+</div>
+<div id="on-the-pushforward" class="section level4">
+<h4>On the pushforward:</h4>
+<p>The push forward <span class="math inline">\(\varphi_*\)</span> of a
+map <span class="math inline">\(\varphi: \mathcal M \to \mathcal
+N\)</span> is defined <a href="https://youtu.be/XZcKSoI17r0?t=1830">here</a> as a linear map
+<span class="math inline">\(\varphi_*: T_p\mathcal M \to
+T_{\varphi(p)}\mathcal N\)</span> defined for <span class="math inline">\(x\in T_p\mathcal M\)</span></p>
+<p><span class="math display">\[\varphi_*(x)f := x(f \circ \varphi)
+\]</span></p>
+<p>with <span class="math inline">\(f\)</span> a smooth function in
+<span class="math inline">\(\mathcal N\)</span> to the reals.</p>
+<p>Therefore, when contemplating a smooth map <span class="math inline">\(\varphi\)</span> from a manifold <span class="math inline">\(\mathcal M\)</span> to a second manifold <span class="math inline">\(\mathcal N,\)</span> the directional derivative at
+the point on <span class="math inline">\(\mathcal N\)</span> that <span class="math inline">\(p\)</span> is sent (i.e. the pushed forward
+vector) should be informed by the original tangent vector in <span class="math inline">\(\mathcal M,\)</span> which is again a derivative
+on an arbitrary function on <span class="math inline">\(\mathcal
+M,\)</span> as well as the measurement of the changes in the function
+<span class="math inline">\(\varphi\)</span> itself (in a chart, the
+changes in the coordintes applied to <span class="math inline">\(\mathcal N\)</span> caused by changes in the
+coordinates in a chart in <span class="math inline">\(\mathcal
+M.\)</span> This is nothing other that the chain rule.</p>
+<p>Observe that this can also be understood of the <a href="https://mathworld.wolfram.com/TangentMap.html"><strong>tangent
+map</strong></a>, which is a map between tangent bundles of <span class="math inline">\(\mathcal M\)</span> and <span class="math inline">\(\mathcal N.\)</span> Again there is a curve <span class="math inline">\(\gamma\)</span> passing through the point <span class="math inline">\(p\)</span> at time <span class="math inline">\(0\)</span> with velocity <span class="math inline">\(\gamma&#39;(0),\)</span> and the tangent map is
+defined as</p>
+<p><span class="math display">\[T\phi(\gamma&#39;(0))=(\varphi \circ
+\gamma)(0)\]</span></p>
+<p>A great numerical example is found in <a href="https://math.stackexchange.com/a/1097316/152225">this question and
+answer</a> (below) with one important caveat: this example is of a
+vector field <span class="math inline">\(X\)</span>:</p>
+<blockquote>
+<p>Let <span class="math inline">\((s,t)\)</span> be coordinates on
+<span class="math inline">\(\mathbb{R}^2\)</span> and <span class="math inline">\((x,y,z)\)</span> be coordinates on <span class="math inline">\(\mathbb{R}^3\)</span>. Let <span class="math inline">\(g:\mathbb{R}^2\to\mathbb{R}^3\)</span> be defined
+by <span class="math inline">\(g(s,t)=(\sin(t),st^2,s^3-1)\)</span>.</p>
+<p>Let <span class="math inline">\(X_p\in T_p\mathbb{R}^2\)</span> be
+given by <span class="math inline">\(X_p=\frac{\partial}{\partial s}|_p
+- \frac{\partial}{\partial t}|_p\)</span>, compute the push-forward
+<span class="math inline">\(g_*X_p\)</span>.</p>
+<p>Let <span class="math inline">\(\omega\)</span> be the smooth <span class="math inline">\(1\)</span>-form <span class="math inline">\(\omega=dx+xdy+y^2dz\)</span>; find the pullback
+<span class="math inline">\(g^*\omega\)</span>.</p>
+</blockquote>
+<p>Answer:</p>
+<blockquote>
+<p>Let’s work out some computations: first, the push-forward of the
+vector field <span class="math inline">\(X = \frac{\partial }{\partial
+s} - \frac{\partial }{\partial t}\)</span>, denoted <span class="math inline">\(g_* X\)</span>. To do so, we need to find the push
+forward of the two vector fields <span class="math inline">\(\frac{\partial}{\partial s}\)</span> and <span class="math inline">\(\frac{\partial}{\partial t}\)</span>. This is
+given by <span class="math display">\[
+g_* \left( \frac{\partial}{\partial s} \right)
+= \frac{\partial x}{\partial s} \frac{\partial}{\partial x} +
+\frac{\partial y}{\partial s} \frac{\partial}{\partial y} +
+\frac{\partial z}{\partial s}\frac{\partial }{\partial z} =  t^2
+\frac{\partial}{\partial y} + 3s^2 \frac{\partial}{\partial z},
+\]</span> and <span class="math display">\[
+g_* \left( \frac{\partial}{\partial t} \right)
+= \frac{\partial x}{\partial t} \frac{\partial}{\partial x} +
+\frac{\partial y}{\partial t}\frac{\partial}{\partial y} +
+\frac{\partial z}{\partial t} \frac{\partial}{\partial z} = \cos(t)
+\frac{\partial}{\partial x} + 2st \frac{\partial}{\partial y}.
+\]</span> Then, <span class="math display">\[
+g_* X = g_* \left( \frac{\partial}{\partial s} \right) - g_* \left(
+\frac{\partial}{\partial t} \right) = -\cos(t) \frac{\partial}{\partial
+x} + (t^2 -2st) \frac{\partial}{\partial y} + 3s^2
+\frac{\partial}{\partial z}.
+\]</span> A remark: in <span class="math inline">\(g_* X\)</span>, I
+should have written this without reference to <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> (that is, solve the equations <span class="math inline">\(x=\sin(t)\)</span> and <span class="math inline">\(y=st^2\)</span> and <span class="math inline">\(z=s^3-1\)</span> for <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> in terms of <span class="math inline">\(x,y,z\)</span>), however it was not clear to me
+how to do that here.</p>
+<p>Next, let’s find the pullback <span class="math inline">\(g^{*}\omega\)</span>: this will be a 1-form on
+<span class="math inline">\(\mathbb{R}^2\)</span> and hence should be of
+the form <span class="math inline">\(a(s,t) ds + b(s,t) dt\)</span>. To
+figure out what these functions <span class="math inline">\(a(s,t)\)</span> and <span class="math inline">\(b(s,t)\)</span> are, let us rewrite each
+`component’ of the form <span class="math inline">\(\omega\)</span> in
+terms of <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>: <span class="math display">\[
+dx = \frac{\partial x}{\partial s} ds + \frac{\partial x}{\partial t} dt
+= \cos(t) dt
+\]</span> <span class="math display">\[
+dy = \frac{\partial y}{\partial s} ds + \frac{\partial y}{\partial t} dt
+= t^2 ds + 2st dt
+\]</span> <span class="math display">\[
+dz = \frac{\partial z}{\partial s} ds + \frac{\partial z}{\partial t} dt
+= 3s^2 ds
+\]</span> Putting all of this together, we find that <span class="math display">\[\begin{align*}
+g^* \omega &amp;= \cos(t) dt + \sin(t) (t^2 ds + 2st dt) + s^2 t^4 (3s^2
+ds) \\
+&amp;= (t^2 \sin(t) + s^4 t^4 ) ds + (\cos(t) + 2st \sin(t) ) dt.
+\end{align*}\]</span></p>
+<p>If you find that you need practice with computations when dealing
+with manifolds and differential geometry (e.g. push forwards, pullbacks,
+Lie derivatives, etc.), I recommend looking at an exercise-heavy book
+such as Gadea &amp; Masque’s <a href="http://www.amazon.com/Analysis-Algebra-Differentiable-Manifolds-Workbook/dp/904813563X">“Analysis
+and Algebra on Differentiable Manifolds, A Workbook for Students and
+Teachers”</a>. I found this one to be very helpful when learning this
+material for the first time.</p>
+</blockquote>
+<hr />
 </div>
 <div id="example" class="section level4">
 <h4>Example</h4>
