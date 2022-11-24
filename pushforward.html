@@ -514,7 +514,31 @@ as</p>
 </div>
 <div id="on-tangent-vectors-interpreted-as-derivatives---intuition" class="section level4">
 <h4>On tangent vectors interpreted as derivatives - intuition:</h4>
-<p>From <a href>here</a></p>
+<p>From <a href="https://github.com/RInterested/statistics/blob/gh-pages/Vector%20fields%20acting%20on%20functions%20Arthur%20J.%20Parzygnat%20page%2050.pdf">here,
+page 53</a>, the differential at a point <span class="math inline">\(x\)</span> of an open set <span class="math inline">\(\mathcal U \subseteq \mathbb R^m\)</span> of a
+function <span class="math inline">\(f: \mathbb R^m \to \mathbb
+R^n\)</span> belongs to a set of linear transformations or linear
+homomorphism <span class="math inline">\(\text{Hom}(\mathbb R^m ,
+\mathbb R^n).\)</span> This is denoted as <span class="math inline">\(D_xf,\)</span> and it is the first order linear
+approximation to the differentiable function <span class="math inline">\(f\)</span> at <span class="math inline">\(x.\)</span></p>
+<div id="examples" class="section level5">
+<h5>Examples:</h5>
+<p>If a vector field <span class="math inline">\(W: \mathbb R^2 \to
+\mathbb R^2\)</span> is defined as</p>
+<p><span class="math display">\[(x,y) \mapsto  W(x,y) := (-x,y)\]</span>
+and the function <span class="math inline">\(f: \mathbb R^2 \to \mathbb
+R\)</span> is</p>
+<p><span class="math display">\[(x,y) \mapsto f(x,y):= x^2 -
+y^2\]</span></p>
+<p>Calculate <span class="math inline">\((Wf)(x,y) =
+(D_{(x,y)}f)(W(x,y))\)</span> for all <span class="math inline">\((x,y)
+\in \mathbb R^2.\)</span></p>
+<p><span class="math display">\[(Wf)(x,y) =
+(D_{(x,y)}f)(W(x,y))=D\left((-x)^2-(y)^2\right)=-2x-2y.\]</span></p>
+<p>If, instead we have the same function, but the vector field <span class="math inline">\(V(x,y):=(y,-x),\)</span> the result will be</p>
+<p><span class="math display">\[(Vf)(x,y)=
+(D_{(x,y)}f)(V(x,y))=4xy\]</span></p>
+<hr />
 <p>Tangent vectors on a manifold are (directional) derivative operators
 on arbitrary smooth functions at a point <span class="math inline">\(p\)</span> along a curve <span class="math inline">\(\gamma: \mathbb R \to \mathcal M\)</span> (as
 explained <a href="https://youtu.be/UPGoXBfm6Js?t=266">here</a>). They
@@ -534,6 +558,7 @@ analogue of the scalar function and the directional derivative operator
 directional vector of mulivariable calculus and the <span class="math inline">\(\nabla\)</span> or gradient into one single
 operator.</p>
 <hr />
+</div>
 </div>
 <div id="on-the-pushforward" class="section level4">
 <h4>On the pushforward:</h4>

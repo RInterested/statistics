@@ -119,7 +119,27 @@ corresponding to the coefficients.
 #### On tangent vectors interpreted as derivatives - intuition:
 
 
-From [here]()
+From [here, page 53](https://github.com/RInterested/statistics/blob/gh-pages/Vector%20fields%20acting%20on%20functions%20Arthur%20J.%20Parzygnat%20page%2050.pdf), the differential at a point $x$ of an open set $\mathcal U \subseteq \mathbb R^m$ of a function $f: \mathbb R^m \to \mathbb R^n$ belongs to a set of linear transformations or linear homomorphism $\text{Hom}(\mathbb R^m , \mathbb R^n).$ This is denoted as $D_xf,$ and it is the first order linear approximation to the differentiable function $f$ at $x.$
+
+##### Examples:
+
+If a vector field $W: \mathbb R^2 \to \mathbb R^2$ is defined as
+
+$$(x,y) \mapsto  W(x,y) := (-x,y)$$
+and the function $f: \mathbb R^2 \to \mathbb R$ is
+
+$$(x,y) \mapsto f(x,y):= x^2 - y^2$$
+
+Calculate $(Wf)(x,y) = (D_{(x,y)}f)(W(x,y))$ for all $(x,y) \in \mathbb R^2.$
+
+$$(Wf)(x,y) = (D_{(x,y)}f)(W(x,y))=D\left((-x)^2-(y)^2\right)=-2x-2y.$$
+
+If, instead we have the same function, but the vector field $V(x,y):=(y,-x),$ the result will be
+
+$$(Vf)(x,y)= (D_{(x,y)}f)(V(x,y))=4xy$$
+
+
+---
 
 Tangent vectors on a manifold are (directional) derivative operators on arbitrary smooth functions at a point $p$ along a curve $\gamma: \mathbb R \to \mathcal M$ (as explained [here](https://youtu.be/UPGoXBfm6Js?t=266)). They are linear maps $X_{\gamma,p}: \mathcal C^\infty(\mathcal M) \to \mathbb R,$ sending an arbitrary function $f$ to 
 
