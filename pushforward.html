@@ -531,6 +531,8 @@ R^m\)</span> as</p>
 \underset{\text{differential of }f\text{ at } x\quad}{(D_xf)}
 \underset{\text{applied to the vector }V \text{ at
 }x}{(V(x))}\]</span></p>
+<p>hence <span class="math inline">\((f\circ v)&#39;(x)\)</span> which
+would imply the chain rule.</p>
 <div id="examples" class="section level5">
 <h5>Examples:</h5>
 <p>If a vector field <span class="math inline">\(W: \mathbb R^2 \to
@@ -543,11 +545,28 @@ y^2\]</span></p>
 <p>Calculate <span class="math inline">\((Wf)(x,y) =
 (D_{(x,y)}f)(W(x,y))\)</span> for all <span class="math inline">\((x,y)
 \in \mathbb R^2.\)</span></p>
-<p><span class="math display">\[(Wf)(x,y) =
-(D_{(x,y)}f)(W(x,y))=D\left((-x)^2-(y)^2\right)=-2x-2y.\]</span></p>
-<p>If, instead we have the same function, but the vector field <span class="math inline">\(V(x,y):=(y,-x),\)</span> the result will be</p>
-<p><span class="math display">\[(Vf)(x,y)=
-(D_{(x,y)}f)(V(x,y))=4xy\]</span></p>
+<p><span class="math display">\[\begin{align}
+(Vf)(x,y) &amp;= (D_{(x,y)}f)(V(x,y))\\[2ex] &amp;=
+\begin{bmatrix}\frac\partial{\partial x}(x^2-y^2)&amp;
+\frac\partial{\partial y}(x^2-y^2)\end{bmatrix}\begin{bmatrix}-x\\
+y\end{bmatrix}\\
+&amp;=\begin{bmatrix}2x&amp;
+-2y\end{bmatrix}\begin{bmatrix}-x\\
+y\end{bmatrix}\\
+&amp;=-2(x^2+y^2)
+\end{align}\]</span></p>
+<p>If, instead we have the same function <span class="math inline">\(x^2
+-y^2\)</span>, but the vector field <span class="math inline">\(V(x,y):=(y,-x),\)</span> the result will be</p>
+<p><span class="math display">\[\begin{align}
+(Vf)(x,y) &amp;= (D_{(x,y)}f)(V(x,y))\\[2ex] &amp;=
+\begin{bmatrix}\frac\partial{\partial x}(x^2-y^2)&amp;
+\frac\partial{\partial y}(x^2-y^2)\end{bmatrix}\begin{bmatrix}y\\
+-x\end{bmatrix}\\
+&amp;=\begin{bmatrix}2x&amp;
+-2y\end{bmatrix}\begin{bmatrix}y\\
+-x\end{bmatrix}\\
+&amp;=4xy
+\end{align}\]</span></p>
 <hr />
 <p>Tangent vectors on a manifold are (directional) derivative operators
 on arbitrary smooth functions at a point <span class="math inline">\(p\)</span> along a curve <span class="math inline">\(\gamma: \mathbb R \to \mathcal M\)</span> (as

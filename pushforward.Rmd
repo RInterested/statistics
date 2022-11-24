@@ -126,7 +126,7 @@ If $f: \mathbb R^m \to \mathbb R$ is a differentiable function and $V: \mathbb R
 $$x \mapsto (Vf)(x):= 
 \underset{\text{differential of }f\text{ at } x\quad}{(D_xf)} \underset{\text{applied to the vector }V \text{ at }x}{(V(x))}$$
 
-
+hence $(f\circ v)'(x)$ which would imply the chain rule.
 
 ##### Examples:
 
@@ -139,11 +139,28 @@ $$(x,y) \mapsto f(x,y):= x^2 - y^2$$
 
 Calculate $(Wf)(x,y) = (D_{(x,y)}f)(W(x,y))$ for all $(x,y) \in \mathbb R^2.$
 
-$$(Wf)(x,y) = (D_{(x,y)}f)(W(x,y))=D\left((-x)^2-(y)^2\right)=-2x-2y.$$
 
-If, instead we have the same function, but the vector field $V(x,y):=(y,-x),$ the result will be
+$$\begin{align}
+(Vf)(x,y) &= (D_{(x,y)}f)(V(x,y))\\[2ex] &= \begin{bmatrix}\frac\partial{\partial x}(x^2-y^2)&
+\frac\partial{\partial y}(x^2-y^2)\end{bmatrix}\begin{bmatrix}-x\\
+y\end{bmatrix}\\
+&=\begin{bmatrix}2x&
+-2y\end{bmatrix}\begin{bmatrix}-x\\
+y\end{bmatrix}\\
+&=-2(x^2+y^2)
+\end{align}$$
 
-$$(Vf)(x,y)= (D_{(x,y)}f)(V(x,y))=4xy$$
+If, instead we have the same function $x^2 -y^2$, but the vector field $V(x,y):=(y,-x),$ the result will be
+
+$$\begin{align}
+(Vf)(x,y) &= (D_{(x,y)}f)(V(x,y))\\[2ex] &= \begin{bmatrix}\frac\partial{\partial x}(x^2-y^2)&
+\frac\partial{\partial y}(x^2-y^2)\end{bmatrix}\begin{bmatrix}y\\
+-x\end{bmatrix}\\
+&=\begin{bmatrix}2x&
+-2y\end{bmatrix}\begin{bmatrix}y\\
+-x\end{bmatrix}\\
+&=4xy 
+\end{align}$$
 
 
 ---
