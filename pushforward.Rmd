@@ -208,7 +208,7 @@ The notes from [here](https://youtu.be/11f7hiT3iG0) are illustrative.
 >
 > $$\frac\partial{\partial x^1}\mapsto \frac\partial{\partial y^1}+\frac\partial{\partial y^2},\quad \frac\partial{\partial x^2}\mapsto \frac\partial{\partial y^1}-\frac\partial{\partial y^2}$$
 >
->Another example, $F(x^1,x^2)=(e^{x^1 + x^2}, \sin x^2, \cos x^2).$ Once more, consider the curve $\alpha= (a,b).$ Hence $\alpha'=\langle a',b'\rangle$ and
+>Another example $(**)$, $F(x^1,x^2)=(e^{x^1 + x^2}, \sin x^2, \cos x^2).$ Once more, consider the curve $\alpha= (a,b).$ Hence $\alpha'=\langle a',b'\rangle$ and
 >
 > $$(F\circ \alpha)'=\langle e^{a+b}(a'+b'), (\cos b)b', (-\sin b)b' \rangle$$
 >
@@ -227,6 +227,31 @@ The notes from [here](https://youtu.be/11f7hiT3iG0) are illustrative.
 >and
 >
 >$$\frac\partial{\partial x^2}\mapsto \sum_{j=1}^3 \frac{\partial(y^j\circ F)}{\partial x^2}\frac\partial{\partial y^j}$$
+
+
+$(**)$ From this example a more structured intuition of the definition of the tangent vector as a linear map $X_{\gamma, p}$ from differentiable $\mathcal C^\infty (\mathcal M)$ function on the manifold to $\mathbb R$ may be possible. Here is a reformulation with a slightly different set up. The key observation is that $X_{\gamma,p}$ does not depend on the function $f$ on the manifold.
+
+The completely whimsical example entails a touristic map of Paris - Paris is the manifold, and, of course, we are working on a [map or chart](https://parismap360.com/paris-tourist-map):
+
+<img height = 400  src = "https://user-images.githubusercontent.com/9312897/203888790-3a3be7e2-9da6-4d89-8009-1a0e04edf5a1.png">
+
+Now suppose that on this manifold there is some function that yields the density of historical buildings at every point. The map is analyzed with Cartesian coordinates, and the function that produces the density of historical buildings is a bivariate bell curve centered at the point $(0,0)$ over the Louvre, which is the point $p.$ The function is:
+
+$$\text{density historical bldgs}=f(x,y) = e^{-(x^2 + y^2)}$$
+
+this is the function, but the curve $\gamma$ is roughly an inverted parabola parameterized by time (t). The coordinates along $x$ match the variable $t,$ and the curve peaks at $(0,0),$ at the Louvre, approximately as if it were travelling along the Seine:
+
+$$\gamma(t) = (t,-t^2)$$
+
+Now the tangent vector $X_{\gamma,p}$ will map the function $f$ to a change in the density of buildings of historical relevance as follows:
+
+$$f \mapsto (f \circ \gamma)'(0)$$
+
+$t=0$ will place the curve over the Louvre.
+
+How to go about it? Just use the chain rule as in [here](https://www.wolframalpha.com/input?key=&i2d=true&i=Divide%5Bd%2Cdt%5D+exp%5C%2840%29-%5C%2840%29Power%5Bt%2C2+%5D%2BPower%5B%5C%2840%29-Power%5Bt%2C2%5D%5C%2841%29%2C2%5D%5C%2841%29%5C%2841%29):
+
+$$(f \circ \gamma)'(0)= \left.\left(e^{-(t^2 + (-t^2)^2)}    \right)'\right|_{t=0} =\left. -2\,e^{-t^2(t^2+1)}t(2t^2+1)\right|_{t=0}=0$$
 
 ---
 
