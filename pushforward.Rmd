@@ -233,13 +233,18 @@ $(**)$ From this example a more structured intuition of the definition of the ta
 
 The completely whimsical example entails a touristic map of Paris - Paris is the manifold, and, of course, we are working on a [map or chart](https://parismap360.com/paris-tourist-map):
 
-<img height = 400  src = "https://user-images.githubusercontent.com/9312897/203888790-3a3be7e2-9da6-4d89-8009-1a0e04edf5a1.png">
+<img width = 400  src = "https://user-images.githubusercontent.com/9312897/203888790-3a3be7e2-9da6-4d89-8009-1a0e04edf5a1.png">
 
-Now suppose that on this manifold there is some function that yields the density of historical buildings at every point. The map is analyzed with Cartesian coordinates, and the function that produces the density of historical buildings is a bivariate bell curve centered at the point $(0,0)$ over the Louvre, which is the point $p.$ The function is:
+Now suppose that on this manifold there is some function that yields the density of historical buildings at every point. The map is analyzed with Cartesian coordinates, and the function that produces the density of historical buildings is a bivariate bell curve centered at the point $p=(0,0)$ over the [Grand Palais des Champs-Élysées](https://en.wikipedia.org/wiki/Grand_Palais). the curve $\gamma$ is roughly an inverted parabola parameterized by time (t).
 
-$$\text{density historical bldgs}=f(x,y) = e^{-(x^2 + y^2)}$$
+<img width = 400  src = "https://user-images.githubusercontent.com/9312897/204056074-7dc78237-9ada-4151-b453-74d82760fa4f.png">
 
-this is the function, but the curve $\gamma$ is roughly an inverted parabola parameterized by time (t). The coordinates along $x$ match the variable $t,$ and the curve peaks at $(0,0),$ at the Louvre, approximately as if it were travelling along the Seine:
+
+The function is:
+
+$$\text{density historical bldgs}=f(x,y) = 10\,e^{-(x^2 + y^2)}$$
+
+The coordinates along $x$ match the variable $t,$ and the curve peaks at $(0,0),$ at the Grand Palais, approximately as if it were travelling along the Seine river:
 
 $$\gamma(t) = (t,-t^2)$$
 
@@ -247,11 +252,21 @@ Now the tangent vector $X_{\gamma,p}$ will map the function $f$ to a change in t
 
 $$f \mapsto (f \circ \gamma)'(0)$$
 
-$t=0$ will place the curve over the Louvre.
+$t=0$ will place the curve over the Grand Palais.
 
-How to go about it? Just use the chain rule as in [here](https://www.wolframalpha.com/input?key=&i2d=true&i=Divide%5Bd%2Cdt%5D+exp%5C%2840%29-%5C%2840%29Power%5Bt%2C2+%5D%2BPower%5B%5C%2840%29-Power%5Bt%2C2%5D%5C%2841%29%2C2%5D%5C%2841%29%5C%2841%29):
+How to go about it? 
 
-$$(f \circ \gamma)'(0)= \left.\left(e^{-(t^2 + (-t^2)^2)}    \right)'\right|_{t=0} =\left. -2\,e^{-t^2(t^2+1)}t(2t^2+1)\right|_{t=0}=0$$
+As in the notes from James Cook above, we can consider $\gamma(t)=(a(t),b(t)),$ and
+
+$$\begin{align}
+(F\circ \gamma)'(t=0)&=\left. \frac\partial{\partial a(t)}f\left(a(t),b(t)\right) \, \color{red}{a'(t)}+ \frac\partial{\partial b(t)}f(a(t),b(t))\,\color{red}{b'(t)} \right|_{t=0} \\[3ex]
+&= \left. \begin{bmatrix}\frac\partial{\partial a}f & \frac\partial{\partial b}f\end{bmatrix}\color{red}{\underset{\text{tangent vector }}{\begin{bmatrix}a'(t)\\b'(t)\end{bmatrix}}} \right|_{t=0} \\[3ex]
+& = \left. \begin{bmatrix}-20x\,e^{-(x^2 + y^2)} &  -20y\,e^{-(x^2 + y^2)}\end{bmatrix}\color{red}{\begin{bmatrix}1 \\ -2t\end{bmatrix}} \right|_{t=0} \\[3ex]
+&= \left. -20t\,e^{-(t^2 + (-t^2)^2)} -40t^3\, e^{-(t^2 + (-t^2)^2)}  \right|_{t=0} =0
+\end{align}$$
+
+Since $(0,0)$ is now at Grand Palais, and Louvre is at $(1.56,-0.81),$ it is hit at $t=1.56$ which would have a density of $-0.043.$
+
 
 ---
 
