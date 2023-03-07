@@ -46,10 +46,16 @@ m = M * (((row(M) - col(M))%%2==1) * -1) +
 M * (((row(M) - col(M))%%2==0) * 1) 
 m
 Faulhaber = fractions(solve(m))
-rownames(Faulhaber) <- c(paste('S',1:nrow(Faulhaber)))
-Faulhaber
+flipF = Faulhaber[, ncol(Faulhaber):1]
+rownames(flipF) <- c(paste('S',1:nrow(flipF)))
+colnames(flipF) <- c(paste('n',ncol(flipF):1))
+flipF
 ```
 
+
+Compare to the slide on Mathologer:
+
+<img width = 700  src ="https://user-images.githubusercontent.com/9312897/222972053-424ab2cd-3075-4cc9-85ad-4813644dd06d.png">
 
 ---
 
