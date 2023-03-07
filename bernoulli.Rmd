@@ -32,30 +32,46 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ---
 
+The "second Pascal matrix" is the lower triangular form of the Pascal matrix without the diagonal of $1$'s:
+
 ```{R, fig.width = 5, fig.height = 5}
 library(MASS)
 
 n = 11
-asymmetric.lower.triang.Pascal = matrix(0,n,n)
+second.Pascal = matrix(0,n,n)
 for(i in 1:n){
   for(k in 0:(i-1)) 
-    asymmetric.lower.triang.Pascal[i,k+1] = choose(i,k)
+    second.Pascal[i,k+1] = choose(i,k)
 } 
-M = asymmetric.lower.triang.Pascal
+(M = second.Pascal)
+```
+
+The equation for the sums of powers of natural numbers can extracted from this second Pascal matrix with some sign changes in alternating diagonals: 
+
+```{R}
 m = M * (((row(M) - col(M))%%2==1) * -1) +
 M * (((row(M) - col(M))%%2==0) * 1) 
 m
-Faulhaber = fractions(solve(m))
+```
+
+The Faulhaber matrix is the inverse:
+
+```{R}
+(Faulhaber = fractions(solve(m)))
+```
+
+Compare to the slide on Mathologer:
+
+<img width = 700  src ="https://user-images.githubusercontent.com/9312897/222972053-424ab2cd-3075-4cc9-85ad-4813644dd06d.png">
+
+which is immediately apparent in the Faulhaber matrix, here with minimal rearrangements:
+
+```{R}
 flipF = Faulhaber[, ncol(Faulhaber):1]
 rownames(flipF) <- c(paste('S',1:nrow(flipF)))
 colnames(flipF) <- c(paste('n',ncol(flipF):1))
 flipF
 ```
-
-
-Compare to the slide on Mathologer:
-
-<img width = 700  src ="https://user-images.githubusercontent.com/9312897/222972053-424ab2cd-3075-4cc9-85ad-4813644dd06d.png">
 
 ---
 
