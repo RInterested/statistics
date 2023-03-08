@@ -68,9 +68,15 @@ which is immediately apparent in the Faulhaber matrix, here with minimal rearran
 
 ```{R}
 flipF = Faulhaber[, ncol(Faulhaber):1]
-rownames(flipF) <- c(paste('S',1:nrow(flipF)))
-colnames(flipF) <- c(paste('n',ncol(flipF):1))
-flipF
+
+N = matrix(0,nrow(flipF),ncol(flipF))
+for(j in 1:nrow(flipF)){
+  for(i in 1:j)
+    N[j,j -i+1] <- flipF[j, ncol(flipF) - i + 1] 
+} 
+
+rownames(N) <- c(paste('S',0:(nrow(N)-1)))
+fractions(N)
 ```
 
 ---

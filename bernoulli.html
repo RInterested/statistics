@@ -449,21 +449,27 @@ m</code></pre>
 <p>which is immediately apparent in the Faulhaber matrix, here with
 minimal rearrangements:</p>
 <pre class="r"><code>flipF = Faulhaber[, ncol(Faulhaber):1]
-rownames(flipF) &lt;- c(paste(&#39;S&#39;,1:nrow(flipF)))
-colnames(flipF) &lt;- c(paste(&#39;n&#39;,ncol(flipF):1))
-flipF</code></pre>
-<pre><code>##      n 11  n 10  n 9   n 8   n 7   n 6   n 5   n 4   n 3   n 2   n 1  
-## S 1      0     0     0     0     0     0     0     0     0     0     1
-## S 2      0     0     0     0     0     0     0     0     0   1/2   1/2
-## S 3      0     0     0     0     0     0     0     0   1/3   1/2   1/6
-## S 4      0     0     0     0     0     0     0   1/4   1/2   1/4     0
-## S 5      0     0     0     0     0     0   1/5   1/2   1/3     0 -1/30
-## S 6      0     0     0     0     0   1/6   1/2  5/12     0 -1/12     0
-## S 7      0     0     0     0   1/7   1/2   1/2     0  -1/6     0  1/42
-## S 8      0     0     0   1/8   1/2  7/12     0 -7/24     0  1/12     0
-## S 9      0     0   1/9   1/2   2/3     0 -7/15     0   2/9     0 -1/30
-## S 10     0  1/10   1/2   3/4     0 -7/10     0   1/2     0 -3/20     0
-## S 11  1/11   1/2   5/6     0    -1     0     1     0  -1/2     0  5/66</code></pre>
+
+N = matrix(0,nrow(flipF),ncol(flipF))
+for(j in 1:nrow(flipF)){
+  for(i in 1:j)
+    N[j,j -i+1] &lt;- flipF[j, ncol(flipF) - i + 1] 
+} 
+
+rownames(N) &lt;- c(paste(&#39;S&#39;,0:(nrow(N)-1)))
+fractions(N)</code></pre>
+<pre><code>##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9]  [,10] [,11]
+## S 0      1     0     0     0     0     0     0     0     0     0     0
+## S 1    1/2   1/2     0     0     0     0     0     0     0     0     0
+## S 2    1/3   1/2   1/6     0     0     0     0     0     0     0     0
+## S 3    1/4   1/2   1/4     0     0     0     0     0     0     0     0
+## S 4    1/5   1/2   1/3     0 -1/30     0     0     0     0     0     0
+## S 5    1/6   1/2  5/12     0 -1/12     0     0     0     0     0     0
+## S 6    1/7   1/2   1/2     0  -1/6     0  1/42     0     0     0     0
+## S 7    1/8   1/2  7/12     0 -7/24     0  1/12     0     0     0     0
+## S 8    1/9   1/2   2/3     0 -7/15     0   2/9     0 -1/30     0     0
+## S 9   1/10   1/2   3/4     0 -7/10     0   1/2     0 -3/20     0     0
+## S 10  1/11   1/2   5/6     0    -1     0     1     0  -1/2     0  5/66</code></pre>
 <hr />
 <div id="sum-of-powers" class="section level5">
 <h5>SUM OF POWERS</h5>
