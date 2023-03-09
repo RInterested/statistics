@@ -95,6 +95,9 @@ whereas the sum of the first $n$ powers of $5$ would be given by
 
 $$S_4= -1/30 \;n + 1/3 \; n^3 + 1/2 \; n^4 + 1/5 \; n^5$$
 
+The general closed form for the sum of powers is derived below (*).
+
+
 The Bernoulli numbers are in the first column, and the rest of the numbers in each diagonal depends on that first value:
 
 $$1/2 \quad  1/2 \quad 1/2 \quad 1/2 \quad \dots$$
@@ -159,6 +162,53 @@ $$B_n=\sum_{k=0}^n\frac1{k+1}\sum_{j=0}^k(-1)^j\binom{k}{j}j^n,\quad n\ge0$$
 The exponential generating function is:
 
 $$\frac{x}{e^x-1} = \sum_{k=0}^\infty B_k \frac{x^k}{k!}$$
+
+
+---
+
+##### Closed form derivation:
+
+The first series are (see [here](https://en.wikipedia.org/wiki/Faulhaber%27s_formula)):
+
+<img width = 300  src ="https://user-images.githubusercontent.com/9312897/224096720-21b4344b-18e5-44ff-a73e-4d6c2cb35037.png">
+
+A common factor corresponding to the power can be extracted in front as in $S_p(n) \mapsto 1/(p+1)$:
+
+
+$$\begin{align}
+S_1(n) &= 1/2 \; (n^2 + n)\\
+S_2(n) &= 1/3 \; (n^3 + 3/2 \,n^2 + 1/2 \,n)\\
+S_3(n) &= 1/4 \; (n^4 + 2 \,n^3 + n^2)\\
+S_4(n) &= 1/5 \; (n^5 + 5/2 \,n^4 + 5/3 \,n^3 - 1/6 \, n)\\
+S_5(n) &= 1/6 \; (n^6 + 3 \,n5 + 5/2\, n^4 - 1/2 \,^2)\\
+S_6(n) &= 1/7 \; (n^7 + 7/2 \,n^6 + 7/2 \, n^5 - 7/6 \, n^3 + 1/6 \,n)
+\end{align}$$
+
+Extracting common multiples by column:
+
+$$\begin{align}
+S_1(n) &= 1/2 \; (n^2 +2 (1/2) \,n)\\
+S_2(n) &= 1/3 \; (n^3 +3 (1/2) \,n^2 + 3 \,(1/6) \,n)\\
+S_3(n) &= 1/4 \; (n^4 +4 (1/2) \,n^3 + 6 \,(1/6) \,n^2)\\
+S_4(n) &= 1/5 \; (n^5 +5 (1/2) \,n^4 + 10 (1/6) \,n^3 - 5 (1/30) n)\\
+S_5(n) &= 1/6 \; (n^6 +6 (1/2) \,n^5 + 15 (1/6) \,n^4 - 15 (1/30) n^2)\\
+S_6(n) &= 1/7 \; (n^7 +7 (1/2) \,n^6 + 21 (1/6) \,n^5 - 35 (1/30) n^3 + 7(1/42)n)
+\end{align}$$
+
+Now the integers are all binomial coefficients corresponding to the row:
+
+$$\small\begin{align}
+S_1(n) &= 1/2 \; \left({2 \choose 0}n^2 +{2 \choose 1} (1/2) \,n \right)\\
+S_2(n) &= 1/3 \; \left({3 \choose 0}n^3 +{3 \choose 1} (1/2) \,n^2 + {3 \choose 2} \,(1/6) \,n \right)\\
+S_3(n) &= 1/4 \; \left({4 \choose 0}n^4 +{4 \choose 1} (1/2) \,n^3 + {4 \choose 2} \,(1/6) \,n^2 + {4 \choose 3} \,0 \,n \right)\\
+S_4(n) &= 1/5 \; \left({5 \choose 0}n^5 +{5 \choose 1} (1/2) \,n^4 + {5 \choose 2} (1/6) \,n^3 - {5 \choose 3} 0 \,n^2+{5 \choose 4} (1/30) n\right)\\
+S_5(n) &= 1/6 \; \left({6 \choose 0} n^6 +{6 \choose 1} (1/2) \,n^5 + {6 \choose 2} (1/6) \,n^4 + {6 \choose 3} 0\,n^3 - {6 \choose 4} (1/30) n^2 + {6 \choose 5} 0\, n\right)\\
+S_6(n) &= 1/7 \; \left({7 \choose 0}n^7 +{7 \choose 1} (1/2) \,n^6 + {7 \choose 2} (1/6) \,n^5 + {7 \choose 3}0\,n^4- {7 \choose 4} (1/30) n^3 + {7 \choose 5}0\,n^2 + {7 \choose 6}(1/42)n\right)
+\end{align}$$
+
+leading to the final formula:
+
+$$S_p(n) = \frac 1{p+1} \sum_{k=1}^{p+1}\left(-1\right)^{\delta^k_p}{{p+1} \choose k} B_{p+1-k}n^k$$
 
 
 ---
