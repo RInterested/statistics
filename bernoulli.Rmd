@@ -170,23 +170,35 @@ $$\frac{x}{e^x-1} = \sum_{k=0}^\infty B_k \frac{x^k}{k!}$$
 
 The first series are (see [here](https://en.wikipedia.org/wiki/Faulhaber%27s_formula)):
 
-<img width = 350  src ="https://user-images.githubusercontent.com/9312897/224096720-21b4344b-18e5-44ff-a73e-4d6c2cb35037.png">
+
+
+$$\begin{align}
+S_0(n) &= n\\
+S_1(n) &= 1/2  \, n^2 + 1/2 \, n\\
+S_2(n) &= 1/3  \, n^3 + 1/2 \,n^2 + 1/6 \,n\\
+S_3(n) &= 1/4  \, n^4 + 1/2 \,n^3 + 1/4 \, n^2\\
+S_4(n) &= 1/5  \, n^5 + 1/2 \,n^4 + 1/3 \, n^3 - 1/30 \, n\\
+S_5(n) &= 1/6  \, n^6 + 1/2 \,n^5 + 5/12\, n^4 - 1/12 \, n^2\\
+S_6(n) &= 1/7  \, n^7 + 1/2 \,n^6 + 1/2 \, n^5 - 1/6 \, n^3 + 1/42 \,n)
+\end{align}$$
 
 A common factor corresponding to the power can be extracted in front for each sum $S_p(n) \mapsto 1/(p+1)$:
 
 
 $$\begin{align}
+S_0(n) &= 1\,n\\
 S_1(n) &= 1/2 \; (n^2 + n)\\
 S_2(n) &= 1/3 \; (n^3 + 3/2 \,n^2 + 1/2 \,n)\\
 S_3(n) &= 1/4 \; (n^4 + 2 \,n^3 + n^2)\\
 S_4(n) &= 1/5 \; (n^5 + 5/2 \,n^4 + 5/3 \,n^3 - 1/6 \, n)\\
-S_5(n) &= 1/6 \; (n^6 + 3 \,n5 + 5/2\, n^4 - 1/2 \,^2)\\
+S_5(n) &= 1/6 \; (n^6 + 3 \,n^55 + 5/2\, n^4 - 1/2 \,^2)\\
 S_6(n) &= 1/7 \; (n^7 + 7/2 \,n^6 + 7/2 \, n^5 - 7/6 \, n^3 + 1/6 \,n)
 \end{align}$$
 
 Extracting common multiples by column:
 
 $$\begin{align}
+S_0(n) &= 1\,n\\
 S_1(n) &= 1/2 \; (n^2 +2 (1/2) \,n)\\
 S_2(n) &= 1/3 \; (n^3 +3 (1/2) \,n^2 + 3 \,(1/6) \,n)\\
 S_3(n) &= 1/4 \; (n^4 +4 (1/2) \,n^3 + 6 \,(1/6) \,n^2)\\
@@ -197,12 +209,22 @@ S_6(n) &= 1/7 \; (n^7 +7 (1/2) \,n^6 + 21 (1/6) \,n^5 - 35 (1/30) n^3 + 7(1/42)n
 
 Now the integers are all binomial coefficients corresponding to the row:
 
+$$\small\begin{align}
+S_0(n) &= 1\; \; \left(\binom 1 0  \,n\right)\\
+S_1(n) &= \frac 1 2 \; \left(\binom 2 0 n^2 +\binom 2 1 \left(\frac 1 2 \right) \,n \right)\\
+S_2(n) &=\frac 1 3 \; \left(\binom 3 0 n^3 +\binom 3 1 \left(\frac 1 2 \right) \,n^2 + \binom 3 2 \,\left(\frac 1 6 \right) \,n \right)\\
+S_3(n) &= \frac 1 4 \; \left(\binom 4 0 n^4 + \binom 4 1 \left(\frac 1 2 \right) \,n^3 + \binom 4 2 \,\left(\frac 1 6 \right) \,n^2 + \binom 4 3 \,0 \,n \right)\\
+S_4(n) &= \frac 1 5 \; \left(\binom 5 0 n^5 + \binom 5 1 \left(\frac 1 2 \right) \,n^4 + \binom 5 2 \left(\frac 1 6\right) \,n^3 - \binom 5 3 0 \,n^2+ \binom 5 4 \left(\frac 1 30 \right) n\right)\\
+S_5(n) &= \frac 1 6 \; \left(\binom 6 0 n^6 +\binom 6 1 \left(\frac 1 2 \right) \,n^5 + \binom 6 2 \left(\frac 1 6 \right) \,n^4 + \binom 6 3 0\,n^3 - \binom 6 4 \left(\frac 1{30} \right) n^2 + \binom 6 5 0\, n\right)\\
+S_6(n) &= \frac 1 7 \; \left(\binom 7 0 n^7 + \binom 7 1 \left(\frac 1 2 \right) \,n^6 + \binom 7 2 \left(\frac 1 6 \right) \,n^5 + \binom 7 3 0\,n^4- \binom 7 4 \left(\frac 1 {30} \right) n^3 + \binom 7 5 0\,n^2 + \binom 7 6 \left(\frac 1{42} \right)n\right)
+\end{align}$$
 
-<img width = 850  src ="https://user-images.githubusercontent.com/9312897/224115309-e8d0e130-d05f-4ba1-866b-548c3b7a4118.png">
+
 
 leading to the final formula:
 
-$$S_p(n) = \frac 1{p+1} \sum_{k=1}^{p+1}\;\left(-1\right)^{\delta^k_p}\;\binom{p+1}k B_{p+1-k}n^k$$
+$$S_p(n) = \frac 1{p+1} \left( \sum_{k=1}^{p+1}\;\left(-1\right)^{\delta^k_p}\;\binom{p+1}k B^-_{p+1-k}n^k
+\right)$$
 
 
 ---
