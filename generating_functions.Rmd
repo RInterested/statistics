@@ -159,6 +159,65 @@ What is the generating functions for all the ways to make $n$ cents, using penni
 \end{align}
 
 ---
+
+#### Generating function for the Fibonacci series:
+
+For the generating function we want the following:
+
+$$F = \sum_{n=0}^\infty a_n\, x^n$$
+
+but since the initial recurrence is
+
+$$f_n = f_{n-1} + f_{n-2}$$
+
+the power series resulting from multiplying by $x^n$ will have to start summing at $n = 2$ as in:
+
+$$\sum_{n \geq 2}^\infty f_n\,x^n = \sum_{n \geq 2}^\infty f_{n - 1}\,x^n + \sum_{n \geq 2}^\infty f_{n - 2}\,x^n\tag 1$$
+
+The term on the LHS is almost $F$ except that it is missing the two initial values $a_0 = 0$ and $a_1 = 1$ in the Fibonacci sequence $0,1.1,2,3,5,\dots$. Therefore,
+
+
+$$\sum_{n \geq 2}^\infty f_n\,x^n = F -a_0\,x^0 - a_1\,x^1$$
+
+Now, for the first term in the RHS the index of the coefficient does not match the exponent, and to make them match we have to extract an $x$ out of the sum:
+
+$$\sum_{n \geq 2}^\infty f_{n - 1}\,x^n= x \sum_{n \geq 2}^\infty f_{n - 1}\,x^{n-1}$$
+Further, the expression right above will be equivalent to $x\,F$ except that it will start adding at $2 - 1 = 1,$ which implies that it misses out on the $a_0$ coefficient. Accounting for this:
+
+$$\sum_{n \geq 2}^\infty f_{n - 1}\,x^n= x \left( F - a_0 \right)$$
+
+As for the second term of the RHS of $(1)$:
+
+$$\sum_{n \geq 2}^\infty f_{n - 2}\,x^n=x^2 \sum_{n \geq 2}^\infty f_{n - 2}\,x^{n-2}$$
+
+but this starts at $2 - 2 = 0,$ so there is no need to subtract any coefficients to state that:
+
+$$\sum_{n \geq 2}^\infty f_{n - 2}\,x^n=x^2 \sum_{n \geq 2}^\infty f_{n - 2}\,x^{n-2}=x^2 \, F$$
+
+Therefore $(1)$ is equal to
+
+$$x\,F -a_0 - a_1\,x= x\, \left(F - a_0 \right) + x^2 \,F$$
+
+since $a_0 = 0$ and $a_1 =1,$ the above expression turns into:
+
+$$x\,F - x= x\, F  + x^2 \,F$$
+
+or
+
+$$x = F(1 - x - x^2)$$
+
+yielding the GF
+
+$$F = \frac{x}{1-x-x^2}$$
+
+Let's take it for a spin on Wolfram Alpha:
+
+`SeriesCoefficient[x/(1-x-x^2),{x,0,15}]`
+
+yields the correct term $610.$
+
+
+---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
 
 **NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**

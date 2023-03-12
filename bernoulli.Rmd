@@ -162,6 +162,31 @@ $$B_n=\sum_{k=0}^n\frac1{k+1}\sum_{j=0}^k(-1)^j\binom{k}{j}j^n,\quad n\ge0$$
 The exponential generating function is:
 
 $$\frac{x}{e^x-1} = \sum_{k=0}^\infty B_k \frac{x^k}{k!}$$
+This is frightening, but using Wofram Alpha:
+
+`series expansion of f(x) = x/(exp(x) -1)`
+
+yieds the following monster:
+
+
+$$1 - \frac 1 2 x + \frac 1{12} x^2 - \frac 1{720}x^4 + \frac 1 {30240}x^6 - \frac 1{1209600} x^8+ \frac 1 {47900160}x^{10}-\frac {691}{1307674368000}x^{12}+\cdots$$
+
+Not the Bernoulli numbers! So how to get them? Multiply each term $a_n$ by $n!$:
+
+$$\begin{align}
+1 \times 0! &= 1\\
+-1/2 \times 1! &= -1/2 \\
+1/12 \times 2! &= 1/6 \\
+-1/720 \times 4! &= - 1/30 \\
+1/30240 \times 6! & = 1/42 \\
+-1/1209600 \times 8! &= -1/30 \\
+1/47900160 \times 10! &= 5/66 \\
+-691/1307674368000 \times 12! &= -691/2730
+\end{align}$$
+
+which are Bernoulli numbers:
+
+<img width = 900  src ="https://user-images.githubusercontent.com/9312897/224198460-89fa3785-9757-4367-97b6-3bc49a1668a2.png">
 
 
 ---

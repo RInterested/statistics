@@ -536,6 +536,55 @@ x^4+3 x^3+2 x^2+x+1\]</span></p>
 =\frac{1}{1-x}\frac{1}{1-x^5}\frac{1}{1-x^{10}}
 \end{align}\]</span></p>
 <hr />
+</div>
+<div id="generating-function-for-the-fibonacci-series" class="section level4">
+<h4>Generating function for the Fibonacci series:</h4>
+<p>For the generating function we want the following:</p>
+<p><span class="math display">\[F = \sum_{n=0}^\infty a_n\,
+x^n\]</span></p>
+<p>but since the initial recurrence is</p>
+<p><span class="math display">\[f_n = f_{n-1} + f_{n-2}\]</span></p>
+<p>the power series resulting from multiplying by <span class="math inline">\(x^n\)</span> will have to start summing at <span class="math inline">\(n = 2\)</span> as in:</p>
+<p><span class="math display">\[\sum_{n \geq 2}^\infty f_n\,x^n =
+\sum_{n \geq 2}^\infty f_{n - 1}\,x^n + \sum_{n \geq 2}^\infty f_{n -
+2}\,x^n\tag 1\]</span></p>
+<p>The term on the LHS is almost <span class="math inline">\(F\)</span>
+except that it is missing the two initial values <span class="math inline">\(a_0 = 0\)</span> and <span class="math inline">\(a_1 = 1\)</span> in the Fibonacci sequence <span class="math inline">\(0,1.1,2,3,5,\dots\)</span>. Therefore,</p>
+<p><span class="math display">\[\sum_{n \geq 2}^\infty f_n\,x^n = F
+-a_0\,x^0 - a_1\,x^1\]</span></p>
+<p>Now, for the first term in the RHS the index of the coefficient does
+not match the exponent, and to make them match we have to extract an
+<span class="math inline">\(x\)</span> out of the sum:</p>
+<p><span class="math display">\[\sum_{n \geq 2}^\infty f_{n - 1}\,x^n= x
+\sum_{n \geq 2}^\infty f_{n - 1}\,x^{n-1}\]</span> Further, the
+expression right above will be equivalent to <span class="math inline">\(x\,F\)</span> except that it will start adding at
+<span class="math inline">\(2 - 1 = 1,\)</span> which implies that it
+misses out on the <span class="math inline">\(a_0\)</span> coefficient.
+Accounting for this:</p>
+<p><span class="math display">\[\sum_{n \geq 2}^\infty f_{n - 1}\,x^n= x
+\left( F - a_0 \right)\]</span></p>
+<p>As for the second term of the RHS of <span class="math inline">\((1)\)</span>:</p>
+<p><span class="math display">\[\sum_{n \geq 2}^\infty f_{n -
+2}\,x^n=x^2 \sum_{n \geq 2}^\infty f_{n - 2}\,x^{n-2}\]</span></p>
+<p>but this starts at <span class="math inline">\(2 - 2 = 0,\)</span> so
+there is no need to subtract any coefficients to state that:</p>
+<p><span class="math display">\[\sum_{n \geq 2}^\infty f_{n -
+2}\,x^n=x^2 \sum_{n \geq 2}^\infty f_{n - 2}\,x^{n-2}=x^2 \,
+F\]</span></p>
+<p>Therefore <span class="math inline">\((1)\)</span> is equal to</p>
+<p><span class="math display">\[x\,F -a_0 - a_1\,x= x\, \left(F - a_0
+\right) + x^2 \,F\]</span></p>
+<p>since <span class="math inline">\(a_0 = 0\)</span> and <span class="math inline">\(a_1 =1,\)</span> the above expression turns
+into:</p>
+<p><span class="math display">\[x\,F - x= x\, F  + x^2 \,F\]</span></p>
+<p>or</p>
+<p><span class="math display">\[x = F(1 - x - x^2)\]</span></p>
+<p>yielding the GF</p>
+<p><span class="math display">\[F = \frac{x}{1-x-x^2}\]</span></p>
+<p>Let’s take it for a spin on Wolfram Alpha:</p>
+<p><code>SeriesCoefficient[x/(1-x-x^2),{x,0,15}]</code></p>
+<p>yields the correct term <span class="math inline">\(610.\)</span></p>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
