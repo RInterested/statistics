@@ -389,14 +389,13 @@ each copy is going to be offset by one entry from the prior copy,
 because the initial data contains <span class="math inline">\(t\)</span>
 data points, while the previous time series length (which excludes the
 last data point) is only <span class="math inline">\(t-1\)</span>. We
-can make virtually as many copies as there are rows. Each copy is
-correlated to the original, keeping in mind that we need identical
-length, and to this end, we’ll have to keep on clipping the tail end of
-the initial data series to make them comparable. For instance, to
-correlate the initial data to <span class="math inline">\(ts_{t-3}\)</span> we’ll need to get rid of the
-last <span class="math inline">\(3\)</span> data points of the original
-time series (the first <span class="math inline">\(3\)</span>
-chronologically).</p>
+can make as many copies as there are rows. Each copy is correlated to
+the original, keeping in mind that we need identical length, and to this
+end, we’ll have to keep on clipping the tail end of the initial data
+series to make them comparable. For instance, to correlate the initial
+data to <span class="math inline">\(ts_{t-3}\)</span> we’ll need to get
+rid of the last <span class="math inline">\(3\)</span> data points of
+the original time series (the first <span class="math inline">\(3\)</span> chronologically).</p>
 <p>Example:</p>
 <p>We’ll concoct a times series with a cyclical sine pattern
 superimposed on a trend line, and noise, and plot the R generated ACF. I
