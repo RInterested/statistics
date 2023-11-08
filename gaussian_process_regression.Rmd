@@ -1,0 +1,270 @@
+---
+title: 'Gaussian Process Regression'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### GAUSSIAN PROCESS REGRESSION:
+
+---
+
+Write here
+
+From [r-bloggers](https://www.r-bloggers.com/2012/04/gaussian-process-regression-with-r/)
+
+Based on the book by C. E. Rasmussen & C. K. I. Williams, [Gaussian Processes for Machine Learning](https://gaussianprocess.org/gpml/chapters/RW.pdf).
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+---
+
+```{r}
+options(warn=-1)
+
+require(MASS)
+require(plyr)
+require(reshape2)
+require(ggplot2)
+
+set.seed(12345)
+```
+
+
+---
+
+### MULTIVARIATE GAUSSIAN DISTRIBUTION:
+
+---
+
+```{R, fig.width = 5, fig.height = 5}
+bi = mvrnorm(n=2e4, mu = c(0,0), Sigma = matrix(c(1,-.6,-.6,1), nrow=2))
+options(repr.plot.width=8, repr.plot.height=8)
+plot(bi, pch=19, col=rgb(0,0,0,0.04))
+```
+
+##### EACH FUNCTION IS A SINGLE SAMPLE FROM AN INFINITE DIMENSIONAL GAUSSIAN:
+
+The specification of the covariance function implies a distribution over functions. To see this, we can draw samples from the distribution of functions evaluated at any number of points; in detail, we choose a number of input points $X_∗$
+and write out the corresponding covariance matrix using eq. (2.16) elementwise:
+
+\begin{align}
+\text{cov}\left(f(\bf x_p), f(\bf x_q)\right) = k(\bf x_p, \bf x_q) = \exp\left(−\frac 1 2 \vert \bf x_p - \bf x_q \vert^2\right)
+\end{align}
+
+Then we generate a random Gaussian vector with this covariance matrix $f_∗ ∼ {\cal N}(0, K(X_∗, X_∗))$.
+
+```{R, fig.width = 5, fig.height = 5}
+calcSigma <- function(X1, X2, l=1) {
+  Sigma <- matrix(rep(0, length(X1) * length(X2)), nrow=length(X1))
+  for (i in 1:nrow(Sigma)) {
+    for (j in 1:ncol(Sigma)) {
+      Sigma[i,j] <- exp(-0.5 * (abs(X1[i] - X2[j]) / l)^2) # Squarred exponential
+    }
+  }
+  return(Sigma)
+}
+  
+# 1. Plot some sample functions from the Gaussian process
+
+# Define the points at which we want to define the functions
+x.star <- seq(-5, 5, len = 100)
+
+# Calculate the covariance matrix
+sigma <- calcSigma(x.star, x.star)
+
+# Generate a number of functions from the process
+n.samples <- 3
+
+# Initiate a matrix with ncols = length x.star and 3 cols (no. samples):
+fstar <- matrix(rep(0, length(x.star) * n.samples), ncol = n.samples)
+
+for (i in 1:n.samples) {
+  # Each column represents a sample from a multivariate normal distribution with zero mean and covariance sigma
+  fstar[,i] <- mvrnorm(1, rep(0, length(x.star)), sigma)
+}
+values <- cbind(x = x.star, as.data.frame(fstar))
+values <- melt(values, id="x")
+
+
+plot(values$x, values$value, pch=19, col=as.numeric(values$variable))
+```
+
+---
+
+### FITTING DATASET:
+
+Now let's assume that we have some known data points. In the book, the notation 'f' is used for f$y below.  
+
+```{r}
+f <- data.frame(x = c(-4,-3,-1,0,2), y = c(-2,0,1,2,-1))
+```
+
+The following matrix calculations correspond to equation (2.19) in the book:
+\begin{align}\large
+f_* \mid X_∗ , X, f ∼ {\cal{N}} \left(K(X_∗, X)K(X, X)^{−1} f, \quad K(X_∗, X_∗) − K(X_∗, X) K(X, X)^{−1} K(X, X_∗) \right)
+\end{align} 
+
+where $X$ are the independent variable of the sample and $X_*$ are values intially employed to build the curves, i.e. not the sample, but just the $x$ axis.
+
+---
+
+This derivation is heavy according to [mathematicalmonk](https://www.youtube.com/watch?v=G6_OdMXpiVY&t=566&ab_channel=mathematicalmonk).
+
+In linear algegra, as explained in [here](https://www.youtube.com/live/GWHE5vnpxks?si=vFF_3CzZbAn7iPaB&t=3909):
+
+The sample or known points in a GP are $X = f(x_1), f(x_2), \dots, f(x_n)$ the unknown points are $X_* =f(x)$ and $X, X_* \sim N(0, \Sigma).$
+
+\begin{align}\Sigma =
+\large \left[\begin{array}{ccc|c} 
+k(x_1,x_1) & \dots & k(x_1, x_n) &  k(x_1,x) \\
+\vdots & \ddots & \vdots &  \vdots \\
+k(x_n,x_1) & \dots & k(x_n, x_n) &  k(x_n,x) \\
+\hline
+k(x,x_1) & \dots & k(x, x_n) &  k(x,x) \\
+\end{array} \right] 
+= \left[\begin{array}{c|c} 
+K_{XX} &  K_X(x) \\
+\hline
+K_X(x)^\top & K(x,x)
+\end{array} \right] 
+\end{align}
+
+where $X =\{x_1, \dots, x_n\}$, $[K_{XX}]_{ij}=k(x_i,x_j)$ is the Gram kernel matrix, and $[K_X(x)]_j=k(x_j, x).$
+
+The conditional distribution
+
+$f(x) \mid f(x_1), \dots, f(x_n) \sim {\cal N}(\bar m(x), \bar k(x))$
+
+with
+
+$\bar m(x) = K_X(x)^\top K_{XX}^{-1} \bf f$
+
+with $\bf f = [f(x_1), \dots, f(x_n)]^\top$
+
+and 
+
+$K_X(x)^\top= [k(x,x_1), \dots, k(x,x_n)]$
+
+The variance is
+
+$\bar k(x) = k(x,x) - K_X(x)^\top K_{XX}^{-1} K_x(x)$
+
+```{R}
+options(warn=-1)
+# Calculate the covariance matrices using the same x.star values as above
+x      <- f$x
+k.xx   <- calcSigma(x,x) # K_{XX}
+k.xxs  <- calcSigma(x, x.star) # K_X(x)
+k.xsx  <- calcSigma(x.star, x) # K_X(x)^\top
+k.xsxs <- calcSigma(x.star, x.star) #K(x,x)
+
+
+f.star.bar <- k.xsx %*% solve(k.xx) %*% f$y # The mean of the conditional distribution.
+cov.f.star <- k.xsxs - k.xsx %*% solve(k.xx) %*% k.xxs
+
+# This time we'll plot more samples.  We could of course simply plot a +/- 2 standard deviation confidence interval
+# as in the book but I want to show the samples explicitly here.
+
+n.samples <- 50
+values <- matrix(rep(0,length(x.star) * n.samples), ncol=n.samples)
+
+for (i in 1:n.samples) {
+  values[,i] <- mvrnorm(1, f.star.bar, cov.f.star)
+}
+values <- cbind(x=x.star, as.data.frame(values))
+
+values2 <- melt(values, id="x")
+
+# Plot the results including the mean function
+# and constraining data points
+fig2b <- ggplot(values2, aes(x=x, y=value)) +
+  geom_line(aes(group=variable), colour="grey80", linewidth=1) +
+  geom_line(data=values, aes(x=x.star, y=f.star.bar), colour="red", linewidth=2) + # Plots the mean, which depends on x
+  geom_point(data=f,aes(x=x,y=y)) +
+  theme_bw() +
+  scale_y_continuous(lim=c(-3,3), name="output, f(x)") +
+  xlab("input, x")
+
+options(repr.plot.width=18, repr.plot.height=10)
+fig2b
+```
+
+In practice the observations are not right on top of the curve - there is noise:
+
+$y_i = f(x_i) + N(0, \sigma^2) $
+
+and 
+
+\begin{align}\Sigma =
+\large \left[\begin{array}{ccc|c} 
+ &&&  k(x_1,x) \\
+&K_{XX} + \sigma^2 I &&  \vdots \\
+ &&&  k(x_n,x) \\
+\hline
+k(x,x_1) & \dots & k(x, x_n) &  k(x,x) \\
+\end{array} \right] 
+= \left[\begin{array}{c|c} 
+K_{XX} &  K_X(x) \\
+\hline
+K_X(x)^\top & K(x,x)
+\end{array} \right] 
+\end{align}
+
+and 
+
+$\bar m(x) = K_X(x)^\top \left( K_{XX} + \sigma^2 I \right)^{-1} \bf y$
+
+The variance is
+
+$\bar k(x) = k(x,x) - K_X(x)^\top \left( K_{XX} + \sigma^2 I \right)^{-1} K_x(x)$
+
+```{R}
+options(warn=-1)
+# 3. Now assume that each of the observed data points have some
+# normally-distributed noise.
+
+# The standard deviation of the noise
+sigma.n <- 0.1
+
+# Recalculate the mean and covariance functions
+f.bar.star <- k.xsx%*%solve(k.xx + sigma.n^2*diag(1, ncol(k.xx)))%*%f$y
+cov.f.star <- k.xsxs - k.xsx%*%solve(k.xx + sigma.n^2*diag(1, ncol(k.xx)))%*%k.xxs
+
+# Recalulate the sample functions
+values <- matrix(rep(0, length(x.star)*n.samples), ncol=n.samples)
+for (i in 1:n.samples) {
+  values[,i] <- mvrnorm(1, f.bar.star, cov.f.star)
+}
+values <- cbind(x=x.star,as.data.frame(values))
+values2 <- melt(values, id="x")
+
+# Plot the result, including error bars on the observed points
+gg <- ggplot(values2, aes(x=x, y=value)) + 
+  geom_line(aes(group=variable), colour="grey70") +
+  geom_line(data=values, aes(x=x.star,y=f.bar.star),colour="red", linewidth=3) + 
+  geom_errorbar(data=f,aes(x=x,y=NULL,ymin=y-2*sigma.n, ymax=y+2*sigma.n), width=0.2) +
+  geom_point(data=f,aes(x=x,y=y)) +
+  theme_bw() +
+  scale_y_continuous(lim=c(-3,3), name="output, f(x)") +
+  xlab("input, x")
+gg
+
+```
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
