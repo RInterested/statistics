@@ -19,7 +19,9 @@ output:
 
 ---
 
-Write here
+From Wikipedia:
+
+> In probability theory and statistics, a Gaussian process is a stochastic process (a collection of random variables indexed by time or space), such that every finite collection of those random variables has a multivariate normal distribution
 
 From [r-bloggers](https://www.r-bloggers.com/2012/04/gaussian-process-regression-with-r/)
 
@@ -162,9 +164,9 @@ The variance is
 
 $\bar k(x) = k(x,x) - K_X(x)^\top K_{XX}^{-1} K_x(x)$
 
-Note that each curve is a single sample of the (theoretically) infinite-dimensional multivariate Gaussian. Now, we are talking about just a handful of these components or elements in the vector - so a part of a single sample. Why Can we condition of these elements of the vector? This goes back to the initial definition of GP from Wikipedia:
+Note that each curve is a single sample of the (theoretically) infinite-dimensional multivariate Gaussian. Now, we are talking about just a handful of these components or elements in the vector - so a part of a single sample. It is the same as conditioning on a bivariate:
 
-> In probability theory and statistics, a Gaussian process is a stochastic process (a collection of random variables indexed by time or space), such that every finite collection of those random variables has a multivariate normal distribution
+![](https://user-images.githubusercontent.com/9312897/281563027-ef5ee8d3-a7db-4b41-9edc-ba7164710f43.png)
 
 ```{R, fig.width = 12}
 options(warn=-1)
