@@ -41,7 +41,7 @@ require(plyr)
 require(reshape2)
 require(ggplot2)
 
-set.seed(12345)
+set.seed(2023)
 ```
 
 
@@ -104,6 +104,26 @@ options(repr.plot.width=20, repr.plot.height=3)
 p <- ggplot(values, aes(x=x, y=value)) +
   geom_line(aes(group=variable), colour=as.numeric(values$variable), linewidth=1) 
 p
+
+# If the l value increases the correlation decreases faster:
+
+l = 0.3
+fst <- matrix(rep(0, length(x.star) * n.samples), ncol = n.samples)
+sig <- calcSigma(x.star, x.star, l)
+
+for (i in 1:n.samples) {
+  # Each column represents a sample from a multivariate normal distribution with zero mean and covariance sigma
+  fst[,i] <- mvrnorm(1, rep(0, length(x.star)), sig)
+}
+va <- cbind(x = x.star, as.data.frame(fst))
+va <- melt(va, id="x")
+
+options(repr.plot.width=20, repr.plot.height=3)
+
+pp <- ggplot(va, aes(x=x, y=value)) +
+  geom_line(aes(group=variable), colour=as.numeric(va$variable), linewidth=1) 
+pp
+
 ```
 
 ---
