@@ -40,6 +40,7 @@ require(MASS)
 require(plyr)
 require(reshape2)
 require(ggplot2)
+require(RColorBrewer)
 
 set.seed(2023)
 ```
@@ -100,9 +101,10 @@ values <- cbind(x = x.star, as.data.frame(fstar))
 values <- melt(values, id="x")
 
 options(repr.plot.width=20, repr.plot.height=3)
-
+co <- brewer.pal(n = length(n.samples), name = 'Spectral')
+par(bg='gray15')
 p <- ggplot(values, aes(x=x, y=value)) +
-  geom_line(aes(group=variable), colour=as.numeric(values$variable), linewidth=1) 
+  geom_line(aes(group=variable), colour=co[as.numeric(values$variable)], linewidth=1) 
 p
 
 # If the l value increases the correlation decreases faster:
@@ -119,9 +121,10 @@ va <- cbind(x = x.star, as.data.frame(fst))
 va <- melt(va, id="x")
 
 options(repr.plot.width=20, repr.plot.height=3)
-
+co <- brewer.pal(n = length(n.samples), name = 'Spectral')
+par(bg='gray15')
 pp <- ggplot(va, aes(x=x, y=value)) +
-  geom_line(aes(group=variable), colour=as.numeric(va$variable), linewidth=1) 
+  geom_line(aes(group=variable), colour=co[as.numeric(va$variable)], linewidth=1) 
 pp
 
 ```
@@ -143,7 +146,7 @@ f_* \mid X_∗ , X, f ∼ {\cal{N}} \left(K(X_∗, X)K(X, X)^{−1} f, \quad K(X
 
 where $X$ are the independent variable of the sample and $X_*$ are values initially employed to build the curves, i.e. not the sample, but just the $x$ axis (both $x$ and $x'$ are considered index variables or the equivalent of independent variables).
 
-This derivation is heavy according to [mathematicalmonk](https://www.youtube.com/watch?v=G6_OdMXpiVY&t=566&ab_channel=mathematicalmonk).
+This derivation is heavy according to [mathematicalmonk](https://www.youtube.com/watch?v=G6_OdMXpiVY&t=566&ab_channel=mathematicalmonk). However, this is simply the multivariate Gaussian conditional distribution.
 
 In linear algebra, as explained in [here](https://www.youtube.com/live/GWHE5vnpxks?si=vFF_3CzZbAn7iPaB&t=3909):
 
@@ -168,21 +171,25 @@ where $X =\{x_1, \dots, x_n\}$, $[K_{XX}]_{ij}=k(x_i,x_j)$ is the Gram kernel ma
 
 The conditional distribution
 
-$f(x) \mid f(x_1), \dots, f(x_n) \sim {\cal N}(\bar m(x), \bar k(x))$
+$f(x) \mid f(x_1), \dots, f(x_n) \sim {\cal N}(\mu(x), \mathbb V(x))$
 
 with
 
-$\bar m(x) = K_X(x)^\top K_{XX}^{-1} \bf f$
+$\mu(x) = K_X(x)^\top K_{XX}^{-1} \bf \quad f$
 
-with $\bf f = [f(x_1), \dots, f(x_n)]^\top$
-
-and 
+where ${\bf f} = [f(x_1), \dots, f(x_n)]^\top$ are the $y$ (dependent variable) sample points, and 
 
 $K_X(x)^\top= [k(x,x_1), \dots, k(x,x_n)]$
 
+Notice that this is a matrix multiplication with
+
+$$\mu(x)=\small \begin{bmatrix}\text{points on }x\text{ axis}\\\times\\ \text{sample points}\end{bmatrix}\;\begin{bmatrix}\text{sample points}\\\times\\ \text{sample points}\end{bmatrix}\;\begin{bmatrix}\text{sample points}\\\times\\ 1\end{bmatrix} = \begin{bmatrix}\text{points on }x\text{ axis}\\\times\\ 1\end{bmatrix}$$
+
+therefore yielding a different mean for each marginal in the conditional distribution.
+
 The variance is
 
-$\bar k(x) = k(x,x) - K_X(x)^\top K_{XX}^{-1} K_x(x)$
+$\mathbb V(x) = K(x,x) - K_X(x)^\top K_{XX}^{-1} K_x(x)$
 
 Note that each curve is a single sample of the (theoretically) infinite-dimensional multivariate Gaussian. Now, we are talking about just a handful of these components or elements in the vector - so a part of a single sample. It is the same as conditioning on a bivariate:
 
