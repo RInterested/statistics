@@ -52,9 +52,9 @@ set.seed(2023)
 
 ---
 
-```{R, fig.width = 510}
+```{R, fig.width = 5}
 bi = mvrnorm(n=2e4, mu = c(0,0), Sigma = matrix(c(1,-.6,-.6,1), nrow=2))
-plot(bi, pch=19, col=rgb(0,0,0,0.04))
+plot(bi, pch=19, col=rgb(0,0,0.2,0.02))
 ```
 
 ##### EACH FUNCTION IS A SINGLE SAMPLE FROM AN INFINITE DIMENSIONAL GAUSSIAN:
@@ -88,7 +88,7 @@ x.star <- seq(-5, 5, len = 100)
 sigma <- calcSigma(x.star, x.star)
 
 # Generate a number of functions from the process
-n.samples <- 3
+n.samples <- 8
 
 # Initiate a matrix with ncols = length x.star and 3 cols (no. samples):
 fstar <- matrix(rep(0, length(x.star) * n.samples), ncol = n.samples)
@@ -100,9 +100,9 @@ for (i in 1:n.samples) {
 values <- cbind(x = x.star, as.data.frame(fstar))
 values <- melt(values, id="x")
 
-options(repr.plot.width=20, repr.plot.height=3)
-co <- brewer.pal(n = length(n.samples), name = 'Spectral')
-par(bg='gray15')
+
+co <- brewer.pal(n = n.samples, name = 'Spectral')
+par(bg='gray5')
 p <- ggplot(values, aes(x=x, y=value)) +
   geom_line(aes(group=variable), colour=co[as.numeric(values$variable)], linewidth=1) 
 p
@@ -120,9 +120,7 @@ for (i in 1:n.samples) {
 va <- cbind(x = x.star, as.data.frame(fst))
 va <- melt(va, id="x")
 
-options(repr.plot.width=20, repr.plot.height=3)
-co <- brewer.pal(n = length(n.samples), name = 'Spectral')
-par(bg='gray15')
+
 pp <- ggplot(va, aes(x=x, y=value)) +
   geom_line(aes(group=variable), colour=co[as.numeric(va$variable)], linewidth=1) 
 pp
