@@ -506,7 +506,15 @@ However, this is simply the multivariate Gaussian conditional
 distribution.</p>
 <p>In linear algebra, as explained in <a href="https://www.youtube.com/live/GWHE5vnpxks?si=vFF_3CzZbAn7iPaB&amp;t=3909">here</a>:</p>
 <p>The sample or known points in a GP are <span class="math inline">\(X
-= f(x_1), f(x_2), \dots, f(x_n)\)</span> the unknown points are <span class="math inline">\(X_* =f(x)\)</span> and <span class="math inline">\(X, X_* \sim N(0, \Sigma).\)</span></p>
+= f(x_1), f(x_2), \dots, f(x_n)\)</span> the unknown points are <span class="math inline">\(X_* =f(x)\)</span> and <span class="math inline">\(X, X_* \sim N(0, \Sigma).\)</span> The sampled
+points are not necessarily in the points generating the prior curves
+(i.e. the <span class="math inline">\(x\)</span> axis of the plot), and
+it can be considered that together with the sampled points we get a
+vector of data such as</p>
+<p><span class="math display">\[\begin{bmatrix}f(x)\\
+f(x_*)\end{bmatrix}\sim \mathcal N\left ( 0, \begin{bmatrix} K(X,X)
+&amp; K(X,X_*)\\ K(X_*,X) &amp; K(X_*,X_*)\end{bmatrix}\right )\]</span>
+The covariance matrix is a block matrix:</p>
 <p><span class="math display">\[\begin{align}\Sigma =
 \large \left[\begin{array}{ccc|c}
 k(x_1,x_1) &amp; \dots &amp; k(x_1, x_n) &amp;  k(x_1,x) \\
