@@ -413,8 +413,8 @@ GAUSSIAN:</h5>
 over functions. To see this, we can draw samples from the distribution
 of functions evaluated at any number of points; in detail, we choose a
 number of input points <span class="math inline">\(X_∗\)</span> and
-write out the corresponding covariance matrix using eq. (2.16)
-elementwise:</p>
+write out the corresponding covariance matrix using eq. (2.16) element
+wise:</p>
 <p><span class="math display">\[\begin{align}
 \text{cov}\left(f(\bf x_p), f(\bf x_q)\right) = k(\bf x_p, \bf x_q) =
 \exp\left(−\frac 1 2 \vert \bf x_p - \bf x_q \vert^2\right)
@@ -425,7 +425,7 @@ elementwise:</p>
   Sigma &lt;- matrix(rep(0, length(X1) * length(X2)), nrow=length(X1))
   for (i in 1:nrow(Sigma)) {
     for (j in 1:ncol(Sigma)) {
-      Sigma[i,j] &lt;- exp(-0.5 * (abs(X1[i] - X2[j]) / l)^2) # Squarred exponential
+      Sigma[i,j] &lt;- exp(-0.5 * (abs(X1[i] - X2[j]) / l)^2) # Squared exponential
     }
   }
   return(Sigma)
@@ -496,7 +496,7 @@ values initially employed to build the curves, i.e. not the sample, but
 just the <span class="math inline">\(x\)</span> axis (both <span class="math inline">\(x\)</span> and <span class="math inline">\(x&#39;\)</span> are considered index variables or
 the equivalent of independent variables).</p>
 <p>This derivation is heavy according to <a href="https://www.youtube.com/watch?v=G6_OdMXpiVY&amp;t=566&amp;ab_channel=mathematicalmonk">mathematicalmonk</a>.</p>
-<p>In linear algegra, as explained in <a href="https://www.youtube.com/live/GWHE5vnpxks?si=vFF_3CzZbAn7iPaB&amp;t=3909">here</a>:</p>
+<p>In linear algebra, as explained in <a href="https://www.youtube.com/live/GWHE5vnpxks?si=vFF_3CzZbAn7iPaB&amp;t=3909">here</a>:</p>
 <p>The sample or known points in a GP are <span class="math inline">\(X
 = f(x_1), f(x_2), \dots, f(x_n)\)</span> the unknown points are <span class="math inline">\(X_* =f(x)\)</span> and <span class="math inline">\(X, X_* \sim N(0, \Sigma).\)</span></p>
 <p><span class="math display">\[\begin{align}\Sigma =

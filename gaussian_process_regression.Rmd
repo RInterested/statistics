@@ -59,7 +59,7 @@ plot(bi, pch=19, col=rgb(0,0,0,0.04))
 ##### EACH FUNCTION IS A SINGLE SAMPLE FROM AN INFINITE DIMENSIONAL GAUSSIAN:
 
 The specification of the covariance function implies a distribution over functions. To see this, we can draw samples from the distribution of functions evaluated at any number of points; in detail, we choose a number of input points $X_∗$
-and write out the corresponding covariance matrix using eq. (2.16) elementwise:
+and write out the corresponding covariance matrix using eq. (2.16) element wise:
 
 \begin{align}
 \text{cov}\left(f(\bf x_p), f(\bf x_q)\right) = k(\bf x_p, \bf x_q) = \exp\left(−\frac 1 2 \vert \bf x_p - \bf x_q \vert^2\right)
@@ -72,7 +72,7 @@ calcSigma <- function(X1, X2, l=1) {
   Sigma <- matrix(rep(0, length(X1) * length(X2)), nrow=length(X1))
   for (i in 1:nrow(Sigma)) {
     for (j in 1:ncol(Sigma)) {
-      Sigma[i,j] <- exp(-0.5 * (abs(X1[i] - X2[j]) / l)^2) # Squarred exponential
+      Sigma[i,j] <- exp(-0.5 * (abs(X1[i] - X2[j]) / l)^2) # Squared exponential
     }
   }
   return(Sigma)
@@ -145,7 +145,7 @@ where $X$ are the independent variable of the sample and $X_*$ are values initia
 
 This derivation is heavy according to [mathematicalmonk](https://www.youtube.com/watch?v=G6_OdMXpiVY&t=566&ab_channel=mathematicalmonk).
 
-In linear algegra, as explained in [here](https://www.youtube.com/live/GWHE5vnpxks?si=vFF_3CzZbAn7iPaB&t=3909):
+In linear algebra, as explained in [here](https://www.youtube.com/live/GWHE5vnpxks?si=vFF_3CzZbAn7iPaB&t=3909):
 
 The sample or known points in a GP are $X = f(x_1), f(x_2), \dots, f(x_n)$ the unknown points are $X_* =f(x)$ and $X, X_* \sim N(0, \Sigma).$
 
