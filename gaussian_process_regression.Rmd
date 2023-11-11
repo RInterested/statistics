@@ -41,7 +41,7 @@ require(plyr)
 require(reshape2)
 require(ggplot2)
 require(RColorBrewer)
-
+require(GPBayes)
 set.seed(2023)
 ```
 
@@ -133,7 +133,7 @@ These functions are the prior distribution before observing any data points. Eac
 
 ### FITTING DATASET:
 
-Now let's assume that we have some known data points. In the book, the notation 'f' is used for f$y below.  
+Now let us assume that we have some known data points. In the book, the notation 'f' is used for f$y below.  
 
 ```{r}
 f <- data.frame(x = c(-4,-3,-1,0,2), y = c(-2,0,1,2,-1))
