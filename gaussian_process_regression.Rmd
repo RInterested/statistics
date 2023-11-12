@@ -131,6 +131,66 @@ These functions are the prior distribution before observing any data points. Eac
 
 What is a kernel? The dot product between features (in machine learning, a feature is an independent variable that acts as input for a system). The feature space (the n-dimensions where your variables live (not including a target variable, if it is present)) is a Hilbert space, i.e. a vector space endowed with an inner product, which induces a norm.
 
+#### Different kernels:
+
+
+From [Robert Gramacy Surrogates: Gaussian Process Modeling, Design and Optimization for the Applied Sciences 5.3.3. Stationary kernels](https://bookdown.org/rbg/surrogates/chap5.html):
+
+If a Gaussian kernel isn’t working well, or if you want finer control on mean-square differentiability, then consider a Matérn family member, with
+
+$$k_\nu(x,x')=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\Vert x - x' \Vert \sqrt{\frac{2\nu}{l}} \right)^\nu K_\nu \left(\Vert x - x' \Vert \sqrt{\frac{2\nu}{l}}\right)$$
+
+Above $K_\nu$ is a modified Bessel function of the second kind, $\nu$ controls smoothness, and $l$ is a length scale as before. As $\nu →∞$ , i.e., a very smooth parameterization, we get
+
+$$K_\nu (x,x') \to k_\infty(x,x')=\exp\left( -\frac{(\Vert x - x'\Vert)^2}{2l}\right)$$
+ 
+
+which can be recognized as (a re-parameterized) Gaussian family, where $\Vert x - x'\Vert$ is measured on the scale of ordinary (not squared) Euclidean distances.
+
+The code below sets up this “full” Matérn in R so we can play with it a little.
+
+```{R, fig.width = 12}
+
+matern <- function(X1, X2, l=1, nu=1/2) {
+  Sigma <- matrix(rep(0, length(X1) * length(X2)), nrow=length(X1))
+  for (i in 1:nrow(Sigma)) {
+    for (j in 1:ncol(Sigma)) {
+      Sigma[i,j] <- (2^(1 - nu))/gamma(nu) * (sqrt(X1[i]^2 + X2[j]^2) * sqrt(2*nu/l))^nu * besselK(sqrt(X1[i]^2 + X2[j]^2) * sqrt(2*nu/l), nu)
+    }
+  }
+  Sigma[is.nan(Sigma)] <- 1
+  return(Sigma)
+}
+  
+# 1. Plot some sample functions from the Gaussian process
+
+# Define the points at which we want to define the functions
+x.st <- seq(0, 5, len = 100)
+
+# Calculate the covariance matrix
+sig <- matern(x.st, x.st, 1, 1/2)
+
+# Generate a number of functions from the process
+n.samples <- 8
+
+# Initiate a matrix with ncols = length x.star and 3 cols (no. samples):
+fsta <- matrix(rep(0, length(x.st) * n.samples), ncol = n.samples)
+
+for (i in 1:n.samples) {
+  # Each column represents a sample from a multivariate normal distribution with zero mean and covariance sigma
+  fsta[,i] <- mvrnorm(1, rep(0, length(x.st)), sig)
+}
+val <- cbind(x = x.st, as.data.frame(fsta))
+val <- melt(val, id="x")
+
+
+co <- brewer.pal(n = n.samples, name = 'Spectral')
+par(bg='gray5')
+ppp <- ggplot(val, aes(x=x, y=value)) +
+  geom_line(aes(group=variable), colour=co[as.numeric(val$variable)], linewidth=1) 
+ppp
+```
+
 ---
 
 ### FITTING DATASET:
