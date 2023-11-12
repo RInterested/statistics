@@ -69,11 +69,11 @@ and write out the corresponding covariance matrix using eq. (2.16) element wise:
 Then we generate a random Gaussian vector with this covariance matrix $f_∗ ∼ {\cal N}(0, K(X_∗, X_∗))$.
 
 ```{R, fig.width = 12}
-calcSigma <- function(X1, X2, l=1) {
+calcSigma <- function(X1, X2, theta=1) {
   Sigma <- matrix(rep(0, length(X1) * length(X2)), nrow=length(X1))
   for (i in 1:nrow(Sigma)) {
     for (j in 1:ncol(Sigma)) {
-      Sigma[i,j] <- exp(-0.5 * (abs(X1[i] - X2[j]) / l)^2) # Squared exponential
+      Sigma[i,j] <- exp(-0.5 * (abs(X1[i] - X2[j]) / theta)^2) # Squared exponential
     }
   }
   return(Sigma)
@@ -111,7 +111,7 @@ p
 
 l = 0.3
 fst <- matrix(rep(0, length(x.star) * n.samples), ncol = n.samples)
-sig <- calcSigma(x.star, x.star, l)
+sig <- calcSigma(x.star, x.star, theta=l)
 
 for (i in 1:n.samples) {
   # Each column represents a sample from a multivariate normal distribution with zero mean and covariance sigma
@@ -140,9 +140,9 @@ If a Gaussian kernel isn’t working well, or if you want finer control on mean-
 
 $$k_\nu(x,x')=\frac{2^{1-\nu}}{\Gamma(\nu)}\left(\Vert x - x' \Vert \sqrt{\frac{2\nu}{l}} \right)^\nu K_\nu \left(\Vert x - x' \Vert \sqrt{\frac{2\nu}{l}}\right)$$
 
-Above $K_\nu$ is a modified Bessel function of the second kind, $\nu$ controls smoothness, and $l$ is a length scale as before. As $\nu →∞$ , i.e., a very smooth parameterization, we get
+Above $K_\nu$ is a modified Bessel function of the second kind, $\nu$ controls smoothness, and $l$ is a length scale (changed to $\theta$ in the code for conspicuity) as before. As $\nu →∞$ , i.e., a very smooth parameterization, we get
 
-$$K_\nu (x,x') \to k_\infty(x,x')=\exp\left( -\frac{(\Vert x - x'\Vert)^2}{2l}\right)$$
+$$K_\nu (x,x') \to k_\infty(x,x')=\exp\left( -\frac{(\Vert x - x'\Vert)}{2l}\right)$$
  
 
 which can be recognized as (a re-parameterized) Gaussian family, where $\Vert x - x'\Vert$ is measured on the scale of ordinary (not squared) Euclidean distances.
@@ -151,11 +151,12 @@ The code below sets up this “full” Matérn in R so we can play with it a lit
 
 ```{R, fig.width = 12}
 
-matern <- function(X1, X2, l=1, nu=1/2) {
+matern <- function(X1, X2, theta=1, nu=1/2) {
   Sigma <- matrix(rep(0, length(X1) * length(X2)), nrow=length(X1))
   for (i in 1:nrow(Sigma)) {
     for (j in 1:ncol(Sigma)) {
-      Sigma[i,j] <- (2^(1 - nu))/gamma(nu) * (sqrt(X1[i]^2 + X2[j]^2) * sqrt(2*nu/l))^nu * besselK(sqrt(X1[i]^2 + X2[j]^2) * sqrt(2*nu/l), nu)
+      r <- abs(X1[i] - X2[j])
+      Sigma[i,j] <- 2^(1 - nu)/gamma(nu) * (r * sqrt(2*nu/theta))^nu * besselK(r * sqrt(2*nu/theta), nu)
     }
   }
   Sigma[is.nan(Sigma)] <- 1
@@ -165,30 +166,31 @@ matern <- function(X1, X2, l=1, nu=1/2) {
 # 1. Plot some sample functions from the Gaussian process
 
 # Define the points at which we want to define the functions
-x.st <- seq(0, 5, len = 100)
-
-# Calculate the covariance matrix
-sig <- matern(x.st, x.st, 1, 1/2)
+x.st <- seq(0, 10, len = 100)
 
 # Generate a number of functions from the process
 n.samples <- 8
-
+set.seed(0)
+par(mfrow=c(1,3))
+par(bg='gray90')
+nu <- c(1/2,2,10)
+for (j in 1:3){
 # Initiate a matrix with ncols = length x.star and 3 cols (no. samples):
 fsta <- matrix(rep(0, length(x.st) * n.samples), ncol = n.samples)
-
 for (i in 1:n.samples) {
   # Each column represents a sample from a multivariate normal distribution with zero mean and covariance sigma
-  fsta[,i] <- mvrnorm(1, rep(0, length(x.st)), sig)
+  fsta[,i] <- mvrnorm(1, rep(0, length(x.st)), matern(x.st, x.st, theta=1, nu=nu[j]))
 }
-val <- cbind(x = x.st, as.data.frame(fsta))
-val <- melt(val, id="x")
-
+vl <- cbind(x = x.st, as.data.frame(fsta))
+val <- melt(vl, id="x")
 
 co <- brewer.pal(n = n.samples, name = 'Spectral')
-par(bg='gray5')
-ppp <- ggplot(val, aes(x=x, y=value)) +
-  geom_line(aes(group=variable), colour=co[as.numeric(val$variable)], linewidth=1) 
-ppp
+
+plot(val$x, val$value, col=co[val$variable], pch=19, cex=0.5, xlab='x', ylab='lines')
+
+for(l in 2:n.samples) lines(vl$x, vl[,l], col=co[l])
+}
+
 ```
 
 ---
