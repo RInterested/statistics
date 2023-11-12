@@ -63,7 +63,7 @@ The specification of the covariance function implies a distribution over functio
 and write out the corresponding covariance matrix using eq. (2.16) element wise:
 
 \begin{align}
-\text{cov}\left(f(\bf x_p), f(\bf x_q)\right) = k(\bf x_p, \bf x_q) = \exp\left(−\frac 1 2 \vert \bf x_p - \bf x_q \vert^2\right)
+\text{cov}\left(f({\bf x}_p), f({\bf x_q})\right) = k(\bf x_p, \bf x_q) = \exp\left(−\frac 1 2 \vert \bf x_p - \bf x_q \vert^2\right)
 \end{align}
 
 Then we generate a random Gaussian vector with this covariance matrix $f_∗ ∼ {\cal N}(0, K(X_∗, X_∗))$.
@@ -128,6 +128,8 @@ pp
 ```
 
 These functions are the prior distribution before observing any data points. Each line is a draw from, in this case of a $100$ dimensional Gaussian distribution (`x.star <- seq(-5, 5, len = 100)`). The reason why they form functions or curves is the covariance kernel between the points.
+
+What is a kernel? The dot product between features (in machine learning, a feature is an independent variable that acts as input for a system). The feature space (the n-dimensions where your variables live (not including a target variable, if it is present)) is a Hilbert space, i.e. a vector space endowed with an inner product, which induces a norm.
 
 ---
 
@@ -297,6 +299,22 @@ gg <- ggplot(values2, aes(x=x, y=value)) +
 gg
 
 ```
+
+---
+
+Interesting links:
+
+[Math of Gaussian regression](https://bookdown.org/rbg/surrogates/chap5.html)
+
+[On the Matérn kernel](https://andrewcharlesjones.github.io/journal/matern-kernels.html)
+
+[Some chunks of code](https://gist.github.com/sashagusev/c9287f488cd65c3ede9e)
+
+[Medium article on kernels](https://towardsdatascience.com/gaussian-process-kernels-96bafb4dd63e)
+
+[Exploring kernels](https://peterroelants.github.io/posts/gaussian-process-kernels/)
+
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
