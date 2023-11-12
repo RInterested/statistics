@@ -186,7 +186,8 @@ val <- melt(vl, id="x")
 
 co <- brewer.pal(n = n.samples, name = 'Spectral')
 
-plot(val$x, val$value, col=co[val$variable], pch=19, cex=0.5, xlab='x', ylab='lines')
+plot(val$x, val$value, col=co[val$variable], pch=19, cex=0.5, xlab=call(':', quote(nu), nu[j])
+, ylab='lines')
 
 for(l in 2:n.samples) lines(vl$x, vl[,l], col=co[l])
 }
