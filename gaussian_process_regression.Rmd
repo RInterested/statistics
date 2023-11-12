@@ -131,6 +131,15 @@ These functions are the prior distribution before observing any data points. Eac
 
 What is a kernel? The dot product between features (in machine learning, a feature is an independent variable that acts as input for a system). The feature space (the n-dimensions where your variables live (not including a target variable, if it is present)) is a Hilbert space, i.e. a vector space endowed with an inner product, which induces a norm.
 
+A kernel has to be positive semidefinite as explained [here](https://stats.stackexchange.com/a/335512/67822).
+
+From [Wikipedia](https://en.wikipedia.org/wiki/Kernel_method#Mathematics:_the_kernel_trick): 
+
+$$(\mathbf {x} ,\mathbf {x'} )=\langle \varphi (\mathbf {x} ),\varphi (\mathbf {x'} )\rangle _{\mathcal {V}}$$
+The key restriction is that $\langle \cdot ,\cdot \rangle _{\mathcal {V}}$ must be a proper inner product. On the other hand, an explicit representation for $\varphi$  is not necessary, as long as $\mathcal {V}$ is an inner product space. The alternative follows from Mercer's theorem: an implicitly defined function $\varphi$  exists whenever the space $\mathcal {X}$ can be equipped with a suitable measure ensuring the function 
+$k$ satisfies Mercer's condition. Mercer's theorem is similar to a generalization of the result from linear algebra that associates an inner product to any positive-definite matrix. 
+
+
 #### Different kernels:
 
 

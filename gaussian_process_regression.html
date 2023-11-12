@@ -489,6 +489,19 @@ system). The feature space (the n-dimensions where your variables live
 (not including a target variable, if it is present)) is a Hilbert space,
 i.e. a vector space endowed with an inner product, which induces a
 norm.</p>
+<p>A kernel has to be positive semidefinite as explained <a href="https://stats.stackexchange.com/a/335512/67822">here</a>.</p>
+<p>From <a href="https://en.wikipedia.org/wiki/Kernel_method#Mathematics:_the_kernel_trick">Wikipedia</a>:</p>
+<p><span class="math display">\[(\mathbf {x} ,\mathbf {x&#39;} )=\langle
+\varphi (\mathbf {x} ),\varphi (\mathbf {x&#39;} )\rangle _{\mathcal
+{V}}\]</span> The key restriction is that <span class="math inline">\(\langle \cdot ,\cdot \rangle _{\mathcal
+{V}}\)</span> must be a proper inner product. On the other hand, an
+explicit representation for <span class="math inline">\(\varphi\)</span>
+is not necessary, as long as <span class="math inline">\(\mathcal
+{V}\)</span> is an inner product space. The alternative follows from
+Mercer’s theorem: an implicitly defined function <span class="math inline">\(\varphi\)</span> exists whenever the space <span class="math inline">\(\mathcal {X}\)</span> can be equipped with a
+suitable measure ensuring the function <span class="math inline">\(k\)</span> satisfies Mercer’s condition. Mercer’s
+theorem is similar to a generalization of the result from linear algebra
+that associates an inner product to any positive-definite matrix.</p>
 </div>
 <div id="different-kernels" class="section level4">
 <h4>Different kernels:</h4>
