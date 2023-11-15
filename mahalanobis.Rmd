@@ -1,0 +1,117 @@
+---
+title: 'Mahalanobis Distance'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Mahalanobis Distance:
+
+---
+
+From Wikipedia:
+
+> The Mahalanobis distance is a measure of the distance between a point $P$ and a distribution $D,$ introduced by P. C. Mahalanobis in 1936. Mahalanobis's definition was prompted by the problem of identifying the similarities of skulls based on measurements in 1927.[2]
+>
+> It is a multi-dimensional generalization of the idea of measuring how many standard deviations away $P$ is from the mean of $D.$ This distance is zero for $P$ at the mean of $D$ and grows as $P$ moves away from the mean along each principal component axis. If each of these axes is re-scaled to have unit variance, then the Mahalanobis distance corresponds to standard Euclidean distance in the transformed space. The Mahalanobis distance is thus unitless, scale-invariant, and takes into account the correlations of the data set.
+>
+> Given a probability distribution $Q$ on $\mathbb{R} ^{N},$ with mean $\vec \mu = (\mu_1, \mu_2,\mu_3,…,\mu_N)^\top$ and positive-definite covariance matrix $S,$ the Mahalanobis distance of a point ${\displaystyle {\vec {x}}=(x_{1},x_{2},x_{3},\dots ,x_{N})^{\mathsf {T}}}$ from $Q$ is
+
+$${\displaystyle d_{M}({\vec {x}},Q)={\sqrt {({\vec {x}}-{\vec {\mu }})^{\mathsf {T}}S^{-1}({\vec {x}}-{\vec {\mu }})}}.}$$
+
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+---
+
+#### PLOTTING ELLIPSES:
+
+---
+
+```{R, fig.width = 8, fig.height = 8}
+# From library(chemometrics) just type drawMahal in the console
+library(robustbase)
+x <- mtcars[,c(1,6)]
+head(x)
+cent <- covMcd(x)$center #  Minimum Covariance Determinant (MCD) estimator
+s <- covMcd(x)$cov
+s.svd <- svd(s)
+r <- s.svd[["u"]] %*% diag(sqrt(s.svd[["d"]])) # s.svd[["u"]] eigenvectors of s x eigenvals
+quantile <- c(1 - 0.5/2, 1 - 0.25/2, 1 - 0.05/2)  
+# 0.975 is 1 - 0.05/2 = 95%
+alphamd <- sqrt(qchisq(quantile, df = 2))
+nquant <- length(quantile)
+m <- 1000 # No. points in the ellipse
+
+mat <- matrix(0, m + 1, 0)
+for (j in 1:nquant) {
+    e1md <- cos(c(0:m)/m * 2 * pi) * alphamd[j]
+    e2md <- sin(c(0:m)/m * 2 * pi) * alphamd[j]
+    emd <- cbind(e1md, e2md)
+    ttmd <- t(r %*% t(emd)) + rep(1, m + 1) %o% cent
+    mat <- cbind(mat, ttmd)
+}
+minx <- min(mat[,c(T,F)])
+maxx <- max(mat[,c(T,F)])
+miny <- min(mat[,c(F,T)])
+maxy <- max(mat[,c(F,T)])
+plot(x,
+     xlim=c(min(minx,x[,1]), max(maxx,x[,1])), 
+     ylim=c(min(miny,x[,2]), max(maxy, x[,2])), 
+     xlab = "Miles per Gallon",
+     ylab = "Weight of car (in metric tonnes)",
+     col = "blue" , pch = 19)    
+text(x, labels = rownames(mtcars) , cex = 0.7)
+
+for(i in 1:nquant){
+  mx <- mat[,c(T,F)][,i]
+  my <- mat[,c(F,T)][,i]
+  lines(mx, my, type = "l", col = 1, lwd = 1)
+}
+```
+
+
+#### CALCULATING DISTANCE:
+
+
+```{R}
+library(assertr)
+maha_dist(mtcars, robust=TRUE)
+
+# From https://builtin.com/data-science/mahalanobis-distance
+
+cars.center <- colMeans(mtcars)
+cars.cov <- cov(mtcars)
+
+distances <- mahalanobis(x = mtcars , center = cars.center, 
+                         cov = cars.cov)
+
+
+# Cutoff value for distances from Chi-Square Dist. 
+# with p = 0.95 df = 2 which in ncol(air)
+cutoff <- qchisq(p = 0.95 , df = ncol(mtcars))
+
+## Display observation whose distance greater than cutoff value
+mtcars[distances > cutoff ,]
+## Returns : 30. 62. 99. 117. observations
+
+```
+
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
