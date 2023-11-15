@@ -73,7 +73,8 @@ plot(x,
      xlab = "Miles per Gallon",
      ylab = "Weight of car (in metric tonnes)",
      col = "blue" , pch = 19)    
-text(x, labels = rownames(mtcars) , cex = 0.9)
+text(x, labels = rownames(mtcars), 
+     col=rgb(0,0,1, 0.3), cex = 0.9)
 
 for(i in 1:nquant){
   mx <- mat[,c(T,F)][,i]
@@ -96,6 +97,7 @@ maha_dist(mtcars, robust=FALSE)
 cars.center <- colMeans(mtcars)
 cars.cov <- cov(mtcars)
 
+# The squared distances are:
 distances <- mahalanobis(x = mtcars , center = cars.center, 
                          cov = cars.cov)
 
