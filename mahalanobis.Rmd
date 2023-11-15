@@ -73,12 +73,12 @@ plot(x,
      xlab = "Miles per Gallon",
      ylab = "Weight of car (in metric tonnes)",
      col = "blue" , pch = 19)    
-text(x, labels = rownames(mtcars) , cex = 0.7)
+text(x, labels = rownames(mtcars) , cex = 0.9)
 
 for(i in 1:nquant){
   mx <- mat[,c(T,F)][,i]
   my <- mat[,c(F,T)][,i]
-  lines(mx, my, type = "l", col = 1, lwd = 1)
+  lines(mx, my, type = "l", col = rgb(1/nquant*i,0,0.5,0.2), lwd = 20)
 }
 ```
 
@@ -107,17 +107,19 @@ m[i,] <- as.matrix(t(scl[i,])) %*% solve(cars.cov) %*% as.matrix(scl[i,])
 t(m)
 # Compare to
 distances
+```
 
+---
 
+#### TESTING FOR OUTLIERS:
 
+```{R}
 # Cutoff value for distances from Chi-Square Dist. 
 # with p = 0.95 df = 2 which in ncol(air)
 cutoff <- qchisq(p = 0.95 , df = ncol(mtcars))
 
 ## Display observation whose distance greater than cutoff value
 mtcars[distances > cutoff ,]
-## Returns : 30. 62. 99. 117. observations
-
 ```
 
 
