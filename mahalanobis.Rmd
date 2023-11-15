@@ -98,6 +98,16 @@ cars.cov <- cov(mtcars)
 distances <- mahalanobis(x = mtcars , center = cars.center, 
                          cov = cars.cov)
 
+scl <- scale(mtcars,center = T, scale = F)
+
+m <- matrix(0, nrow(mtcars),1)
+for(i in 1:nrow(mtcars))
+m[i,] <- as.matrix(t(scl[i,])) %*% solve(cars.cov) %*% as.matrix(scl[i,])
+t(m)
+# Compare to
+distances
+
+
 
 # Cutoff value for distances from Chi-Square Dist. 
 # with p = 0.95 df = 2 which in ncol(air)

@@ -460,12 +460,12 @@ for(i in 1:nquant){
 <h4>CALCULATING DISTANCE:</h4>
 <pre class="r"><code>library(assertr)
 maha_dist(mtcars, robust=TRUE)</code></pre>
-<pre><code>##  [1]  23.174016  23.304272   9.993884  39.070797  12.558122  26.761110
-##  [7] 136.862237 217.750132 318.192612  20.377735  17.699783  27.860313
-## [13]  13.774977  16.871168  18.608088  20.618891  25.680095  23.960524
-## [19] 209.918356  20.718384  31.364193  16.265362  45.316770 141.566905
-## [25]  13.862340  21.102683 490.700349 314.715266 231.746577 319.592312
-## [31] 917.265976  26.818736</code></pre>
+<pre><code>##  [1]   16.900411   20.459267    9.146248   29.297695    8.876131   24.790601
+##  [7]  121.478738  175.039432   28.076750   16.643037   17.484597   22.965004
+## [13]    9.686254   15.237039   17.990925   19.112670   20.021190   22.820337
+## [19]  187.893154   20.012898  420.103326   14.197465   41.340860  118.295449
+## [25]   11.657889   16.756740  164.366741  335.749683  869.157574  341.368373
+## [31] 1450.779293   19.964501</code></pre>
 <pre class="r"><code># From https://builtin.com/data-science/mahalanobis-distance
 
 cars.center &lt;- colMeans(mtcars)
@@ -474,8 +474,39 @@ cars.cov &lt;- cov(mtcars)
 distances &lt;- mahalanobis(x = mtcars , center = cars.center, 
                          cov = cars.cov)
 
+scl &lt;- scale(mtcars,center = T, scale = F)
 
-# Cutoff value for distances from Chi-Square Dist. 
+m &lt;- matrix(0, nrow(mtcars),1)
+for(i in 1:nrow(mtcars))
+m[i,] &lt;- as.matrix(t(scl[i,])) %*% solve(cars.cov) %*% as.matrix(scl[i,])
+t(m)</code></pre>
+<pre><code>##          [,1]     [,2]    [,3]     [,4]     [,5]     [,6]     [,7]     [,8]
+## [1,] 8.946673 8.287933 8.93715 6.096726 5.429061 8.877558 9.136276 10.03034
+##          [,9]    [,10]    [,11]    [,12]    [,13]    [,14]    [,15]    [,16]
+## [1,] 22.59312 12.39311 11.05888 9.476126 5.594527 6.026462 11.20131 8.672093
+##         [,17]   [,18]    [,19]    [,20]    [,21]    [,22]    [,23]    [,24]
+## [1,] 12.25762 9.07863 14.95438 10.29646 13.43239 6.227235 5.786691 11.68153
+##         [,25]    [,26]    [,27]    [,28]  [,29]    [,30]    [,31]    [,32]
+## [1,] 6.718085 3.645789 18.35616 14.00067 21.573 11.15285 19.19238 9.888781</code></pre>
+<pre class="r"><code># Compare to
+distances</code></pre>
+<pre><code>##           Mazda RX4       Mazda RX4 Wag          Datsun 710      Hornet 4 Drive 
+##            8.946673            8.287933            8.937150            6.096726 
+##   Hornet Sportabout             Valiant          Duster 360           Merc 240D 
+##            5.429061            8.877558            9.136276           10.030345 
+##            Merc 230            Merc 280           Merc 280C          Merc 450SE 
+##           22.593116           12.393107           11.058878            9.476126 
+##          Merc 450SL         Merc 450SLC  Cadillac Fleetwood Lincoln Continental 
+##            5.594527            6.026462           11.201310            8.672093 
+##   Chrysler Imperial            Fiat 128         Honda Civic      Toyota Corolla 
+##           12.257618            9.078630           14.954377           10.296463 
+##       Toyota Corona    Dodge Challenger         AMC Javelin          Camaro Z28 
+##           13.432391            6.227235            5.786691           11.681526 
+##    Pontiac Firebird           Fiat X1-9       Porsche 914-2        Lotus Europa 
+##            6.718085            3.645789           18.356164           14.000669 
+##      Ford Pantera L        Ferrari Dino       Maserati Bora          Volvo 142E 
+##           21.573003           11.152850           19.192384            9.888781</code></pre>
+<pre class="r"><code># Cutoff value for distances from Chi-Square Dist. 
 # with p = 0.95 df = 2 which in ncol(air)
 cutoff &lt;- qchisq(p = 0.95 , df = ncol(mtcars))
 
