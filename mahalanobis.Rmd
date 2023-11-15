@@ -28,6 +28,7 @@ From Wikipedia:
 > Given a probability distribution $Q$ on $\mathbb{R} ^{N},$ with mean $\vec \mu = (\mu_1, \mu_2,\mu_3,…,\mu_N)^\top$ and positive-definite covariance matrix $S,$ the Mahalanobis distance of a point ${\displaystyle {\vec {x}}=(x_{1},x_{2},x_{3},\dots ,x_{N})^{\mathsf {T}}}$ from $Q$ is
 
 $${\displaystyle d_{M}({\vec {x}},Q)={\sqrt {({\vec {x}}-{\vec {\mu }})^{\mathsf {T}}S^{-1}({\vec {x}}-{\vec {\mu }})}}.}$$
+The inverse of the covariance matrix makes sense because we want to revert the effect of the covariance, and then calculate the Euclidean distances.
 
 
 ```{r setup, include=FALSE} 
@@ -72,7 +73,7 @@ plot(x,
      ylim=c(min(miny,x[,2]), max(maxy, x[,2])), 
      xlab = "Miles per Gallon",
      ylab = "Weight of car (in metric tonnes)",
-     col = "blue" , pch = 19)    
+     col = "blue" , pch = 19, cex=0.5)    
 text(x, labels = rownames(mtcars), 
      col=rgb(0,0,1, 0.3), cex = 0.9)
 
