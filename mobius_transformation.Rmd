@@ -27,6 +27,26 @@ In geometry and complex analysis, a Möbius transformation of the complex plane 
 
 $$f(z) = \frac{az + b}{cz + d}$$
 
+of one complex variable $z$; here the coefficients $a, b, c, d$ are complex numbers satisfying $ad − bc ≠ 0.$
+
+In order to plot this transformation using Cartesian coordinates on a computer platform the real and imaginary components will need to be separated.
+
+Using [this post](https://math.stackexchange.com/q/1583277/152225):
+
+$$\begin{align}
+&\frac {(a_r x - a_i y ) + (a_i x + a_r y) i + b_r + b_i i}
+{(c_r x - c_i y) + (c_i x + c_r y) i + d_r + d_i i} \\[3ex]
+=
+&\frac {(a_r x - a_i y ) + (a_i x + a_r y) i + b_r + b_i i}
+{(c_r x - c_i y) + (c_i x + c_r y) i + d_r + d_i i} \\[3ex]
+=&\frac {(a_r x - a_i y+ b_r ) + (a_i x + a_r y + b_i) i }
+{(c_r x - c_i y+ d_r) + (c_i x + c_r y+ d_i) i} \\[3ex]
+= & \left( \frac {(a_r x - a_i y+ b_r ) (c_r x - c_i y+ d_r) + (a_i x + a_r y + b_i) (c_i x + c_r y+ d_i) }
+{(c_r x - c_i y+ d_r)^2 + (c_i x + c_r y+ d_i) ^2} \right) \\[3ex]
++ & \left( \frac {(a_i x + a_r y + b_i)(c_r x + c_i y+ d_r) -(a_r x - a_i y+ b_r )(c_i x + c_r y+ d_i ) }
+{(c_r x - c_i y+ d_r)^2 + (c_i x + c_r y+ d_i)^2 } \right) i 
+\end{align}$$
+
 
 
 ---
