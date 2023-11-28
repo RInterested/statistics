@@ -381,6 +381,62 @@ MATHEMATICS</strong></h3>
 <hr />
 <div id="mathematics" class="section level4">
 <h4>Mathematics:</h4>
+<p>A modular form assignes a complex number to each point in a lattice
+based on a Möbius transformation:</p>
+<p><span class="math display">\[g(\small\text{lattice})\to \mathbb
+C\]</span></p>
+<p>which can be thought of as the function on the basis:</p>
+<p><span class="math display">\[g(\omega_1, \omega_2)\to \mathbb
+C\]</span></p>
+<p>It is useful to make the lattice homogenous, such that re-scaling</p>
+<p><span class="math display">\[g(\lambda \omega_1,
+\lambda\omega_2)=\lambda^{-k}g(\omega_1,\omega_2)\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the weight of the
+modular form.</p>
+<p>Choosing a different basis shouldn’t change the output of <span class="math inline">\(g\)</span>. Therefore a change of basis
+effectuated by a matrix</p>
+<p><span class="math display">\[\begin{bmatrix}a &amp; b\\ c &amp; d
+\end{bmatrix} \in \text{GL}_2 (\mathbb Z) \]</span> such that</p>
+<p><span class="math display">\[\begin{bmatrix}a &amp; b\\ c &amp; d
+\end{bmatrix} \begin{bmatrix}\omega_1\\\omega_2 \end{bmatrix}=
+\begin{bmatrix}a\omega_1+ b\omega_2\\c\omega_1+d\omega_2
+\end{bmatrix}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[g(a\omega_1+ b\omega_2,
+c\omega_1+d\omega_2 ) = g(\omega_1, \omega_2)\]</span></p>
+<p>To work with just one variable, we define</p>
+<p><span class="math display">\[f(\tau) =
+g(\tau,1)=\lambda^{k}g(\lambda\tau,\lambda)\]</span></p>
+<p>We define <span class="math display">\[\tau
+=\frac{\omega_2}{\omega_1}\in \mathcal H\]</span> - i.e the upper-half
+plane of the complex numbers. So that, given homogeneity,</p>
+<p>A lattice <span class="math display">\[\Lambda \subseteq \mathbb
+C\]</span></p>
+<p>such that <span class="math display">\[\Lambda= \mathbb Z \omega_1 +
+\mathbb Z \omega_2 = \omega_1\left(  \mathbb Z  + \mathbb Z \tau
+\right)\]</span></p>
+<p>See<a href="https://youtu.be/A8fsU97g3tg?si=H_Zc-DctjHQPhSsq&amp;t=1460">here</a>,
+<a href="https://youtu.be/arFrynK7qyU?si=sXkZ4rNRledAGO3u&amp;t=788">here</a>
+and <a href="https://youtu.be/z7A_bSl8kIw?si=KB5wYr2oxtnQg5Hf&amp;t=348">here</a>.</p>
+<p>This corresponds to rotating and scaling the lattice as in:</p>
+<p><img src="data:application/octet-stream;base64," /></p>
+<hr />
+<p>Limiting the <span class="math inline">\(\text{GL}_2(\mathbb
+Z)\)</span> to the special linear group <span class="math inline">\(\text{SL}_2(\mathbb Z)\)</span> acting on points
+on the complex plane:</p>
+<p><span class="math display">\[\text{SL}_2(\mathbb Z)\require{HTML}
+\style{display: inline-block; transform:
+rotate(-270deg)}{\circlearrowright} h\in \mathcal H\]</span></p>
+<p>the above operation</p>
+<p><span class="math display">\[\begin{bmatrix}a &amp; b\\ c &amp; d
+\end{bmatrix} \begin{bmatrix}\omega_1\\\omega_2 \end{bmatrix}=
+\begin{bmatrix}a\omega_1+ b\omega_2\\c\omega_1+d\omega_2
+\end{bmatrix}\]</span></p>
+<p>can be written as</p>
+<p><span class="math display">\[f(\tau) =g(\tau,1)=g(a\tau + b,
+c\tau+d)=(c\tau+d)^{-k}g\left(\frac{a\tau+b}{c\tau + d},
+1\right)=(c\tau+d)^{-k}f\left(\frac{a\tau+b}{c\tau +
+d}\right)\]</span></p>
 <p>A Möbius transformation is (<a href="https://en.wikipedia.org/wiki/M%C3%B6bius_transformation">Wikipedia</a>):</p>
 <p>In geometry and complex analysis, a Möbius transformation of the
 complex plane is a rational function of the form</p>
@@ -410,6 +466,7 @@ x + a_r y + b_i) (c_i x + c_r y+ d_i) }
 - a_i y+ b_r )(c_i x + c_r y+ d_i ) }
 {(c_r x - c_i y+ d_r)^2 + (c_i x + c_r y+ d_i)^2 } \right) i
 \end{align}\]</span></p>
+<p>This is implemented <a href="https://www.geogebra.org/m/DRF0L1X2">here</a>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>

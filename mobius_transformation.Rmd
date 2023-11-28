@@ -21,6 +21,65 @@ output:
 
 #### Mathematics:
 
+A modular form assignes a complex number to each point in a lattice based on a Möbius transformation:
+
+$$g(\small\text{lattice})\to \mathbb C$$
+
+which can be thought of as the function on the basis:
+
+$$g(\omega_1, \omega_2)\to \mathbb C$$
+
+It is useful to make the lattice homogenous, such that re-scaling
+
+$$g(\lambda \omega_1, \lambda\omega_2)=\lambda^{-k}g(\omega_1,\omega_2)$$
+
+where $k$ is the weight of the modular form.
+
+Choosing a different basis shouldn't change the output of $g$. Therefore a change of basis effectuated by a matrix
+
+$$\begin{bmatrix}a & b\\ c & d \end{bmatrix} \in \text{GL}_2 (\mathbb Z) $$
+such that
+
+$$\begin{bmatrix}a & b\\ c & d \end{bmatrix} \begin{bmatrix}\omega_1\\\omega_2 \end{bmatrix}= \begin{bmatrix}a\omega_1+ b\omega_2\\c\omega_1+d\omega_2 \end{bmatrix}$$
+
+and 
+
+$$g(a\omega_1+ b\omega_2, c\omega_1+d\omega_2 ) = g(\omega_1, \omega_2)$$
+
+To work with just one variable, we define
+
+$$f(\tau) = g(\tau,1)=\lambda^{k}g(\lambda\tau,\lambda)$$
+
+We define $$\tau =\frac{\omega_2}{\omega_1}\in \mathcal H$$ - i.e the upper-half plane of the complex numbers. So that, given homogeneity,
+
+A lattice $$\Lambda \subseteq \mathbb C$$
+
+such that $$\Lambda= \mathbb Z \omega_1 + \mathbb Z \omega_2 = \omega_1\left(  \mathbb Z  + \mathbb Z \tau \right)$$
+
+See[here](https://youtu.be/A8fsU97g3tg?si=H_Zc-DctjHQPhSsq&t=1460), [here](https://youtu.be/arFrynK7qyU?si=sXkZ4rNRledAGO3u&t=788) and [here](https://youtu.be/z7A_bSl8kIw?si=KB5wYr2oxtnQg5Hf&t=348).
+
+This corresponds to rotating and scaling the lattice as in:
+
+![](https://private-user-images.githubusercontent.com/9312897/286061349-7cc30240-a459-4f9e-9e83-c6a7618e831e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDExMzA0MzUsIm5iZiI6MTcwMTEzMDEzNSwicGF0aCI6Ii85MzEyODk3LzI4NjA2MTM0OS03Y2MzMDI0MC1hNDU5LTRmOWUtOWU4My1jNmE3NjE4ZTgzMWUucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQUlXTkpZQVg0Q1NWRUg1M0ElMkYyMDIzMTEyOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyMzExMjhUMDAwODU1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9Yzk4MTQ4MDQ3YWE2ZTFlZWE3M2IzMjQ5YTYzYzBlZDg5MTIwZmYzZjhjNWJkMDBjNzBjMmM3MGViYTE4ZWQ0NiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.VxFfUMI87g6ySOJ8lbo8V5eEK8vv-1R01A7tSI-kAno)
+
+
+---
+
+Limiting the $\text{GL}_2(\mathbb Z)$ to the special linear group $\text{SL}_2(\mathbb Z)$ acting on points on the complex plane:
+
+$$\text{SL}_2(\mathbb Z)\require{HTML} \style{display: inline-block; transform: rotate(-270deg)}{\circlearrowright} h\in \mathcal H$$
+
+the above operation 
+
+$$\begin{bmatrix}a & b\\ c & d
+\end{bmatrix} \begin{bmatrix}\omega_1\\\omega_2 \end{bmatrix}=
+\begin{bmatrix}a\omega_1+ b\omega_2\\c\omega_1+d\omega_2
+\end{bmatrix}$$
+
+can be written as
+
+$$f(\tau) =g(\tau,1)=g(a\tau + b, c\tau+d)=(c\tau+d)^{-k}g\left(\frac{a\tau+b}{c\tau + d}, 1\right)=(c\tau+d)^{-k}f\left(\frac{a\tau+b}{c\tau + d}\right)$$
+
 A Möbius transformation is ([Wikipedia](https://en.wikipedia.org/wiki/M%C3%B6bius_transformation)):
 
 In geometry and complex analysis, a Möbius transformation of the complex plane is a rational function of the form
@@ -46,6 +105,8 @@ $$\begin{align}
 + & \left( \frac {(a_i x + a_r y + b_i)(c_r x + c_i y+ d_r) -(a_r x - a_i y+ b_r )(c_i x + c_r y+ d_i ) }
 {(c_r x - c_i y+ d_r)^2 + (c_i x + c_r y+ d_i)^2 } \right) i 
 \end{align}$$
+
+This is implemented [here](https://www.geogebra.org/m/DRF0L1X2).
 
 
 
