@@ -1,0 +1,75 @@
+---
+title: 'Galois theory: minimal notes'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Minimal notes on Galois theory:
+
+---
+
+
+#### Extension Fields:
+
+---
+
+Adjoining one or all the roots of a polynomial creating a new field is a FOIL operation: 
+
+For instance, extending the field of rational numbers $\mathbb Q$ with $\sqrt 2$ to obtain a new field implies adding all the values of the form $a + b\sqrt 2.$ Now, if we add to this new field $\mathbb Q(\sqrt 2)$ the $\sqrt 3,$ the new extended field will have to contain $\alpha + \beta \sqrt 3$ with both $\alpha\in \mathbb Q(\sqrt 2)$ and $\beta \in \mathbb Q(\sqrt 2)$. Therefore,
+
+$$\alpha + \beta \sqrt 3= (a + b\sqrt 2) + (c + d\sqrt 2) \sqrt 3 = a + b \sqrt 2 + c \sqrt 3 + d \sqrt 6$$
+
+Considering this field extension $\mathbb Q(\sqrt 2,\sqrt 3)$ as a vector field a set of basis can be $\{1,\sqrt 2, \sqrt 3, \sqrt 6\}.$ Therefore the extension has **degree** $4$.
+
+Another way of getting the degree of the extension is the polynomial of the degree of the polynomial whose root is adjoined. This is multiplicative, so the polynomials in the case above are $x^2-2$ and $x^2 -3,$ both of degree $2,$ yielding the extension by the roots of both of them of degree $4.$ The mathematical notation for the degree of the extension $\mathbb Q(\sqrt 2)$ over $\mathbb Q,$ is $[\mathbb Q(\sqrt 2):\mathbb Q]=2.$
+
+Given an algebraic root $r \notin F$, the **minimal polynomial** of $r$ over $F$ is the irreducible polynomial in $F[x]$ of which $r$ is a root. This is unique up to scalar multiplication. The **degree** of the extension $\mathbb Q (r)$ is the degree of the minimal polynomial of $r.$
+
+The equivalent term for **degree** on the corresponding groups and subgroups is term **index**: the index of a subgroup $H$ in a group $G$ is the number of left cosets of $H $ in $G$, or equivalently, the number of right cosets of $H$ in $G$. The index is denoted $[G:H]$.
+
+---
+
+
+##### Automorphisms:
+
+---
+
+An automorphism is a bijection within the field that preserves the structure:
+
+
+$$\phi(a + b) = \phi(a) + \phi(b)$$
+
+and
+
+$$\phi(ab) = \phi(a) \phi(b)$$
+Example:
+
+Proving that in the field $\mathbb Q(\sqrt 2)$ the function
+
+$$\begin{align} \mathbb Q(\sqrt 2) & \to \mathbb Q(\sqrt 2)\\
+\phi: a + b \sqrt2 &\mapsto a - b\sqrt2
+\end{align}$$
+
+is an automorphism requires proving:
+
+$$\phi\left((a+b\sqrt2) + (c + d\sqrt 2) \right)\overset{?}=\phi\left((a+b\sqrt2)\right) + \phi\left(c + d\sqrt 2)\right) $$
+
+$$\phi\left((a+b\sqrt2)  (c + d\sqrt 2) \right)\overset{?}=\phi\left((a+b\sqrt2)\right)  \phi\left(c + d\sqrt 2)\right) $$
+
+and that it is a bijection.
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
