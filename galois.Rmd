@@ -36,7 +36,18 @@ Another way of getting the degree of the extension is the polynomial of the degr
 
 Given an algebraic root $r \notin F$, the **minimal polynomial** of $r$ over $F$ is the irreducible polynomial in $F[x]$ of which $r$ is a root. This is unique up to scalar multiplication. The **degree** of the extension $\mathbb Q (r)$ is the degree of the minimal polynomial of $r.$
 
-The equivalent term for **degree** on the corresponding groups and subgroups is term **index**: the index of a subgroup $H$ in a group $G$ is the number of left cosets of $H $ in $G$, or equivalently, the number of right cosets of $H$ in $G$. The index is denoted $[G:H]$.
+The equivalent term for **degree** on the corresponding group lattice is term **index**: the index of a subgroup $H$ in a group $G$ is the number of left cosets of $H $ in $G$, or equivalently, the number of right cosets of $H$ in $G$. The index is denoted $[G:H]$.
+
+---
+
+##### Galois extension:
+
+We say that an algebraic extension of a larger field $L$ over a base field $K$, i.e. $L/K$ **is Galois** if $L$ is a **splitting field** of a separable polynomial with coefficients in $K$.
+
+A **splitting field** of a polynomial with coefficients in a field is the smallest field extension of that field over which the polynomial splits, i.e., decomposes into linear factors.
+
+In other words, to create a Galois extension all the roots of a polynomial should be included.
+
 
 ---
 
@@ -68,6 +79,48 @@ $$\phi\left((a+b\sqrt2) + (c + d\sqrt 2) \right)\overset{?}=\phi\left((a+b\sqrt2
 $$\phi\left((a+b\sqrt2)  (c + d\sqrt 2) \right)\overset{?}=\phi\left((a+b\sqrt2)\right)  \phi\left(c + d\sqrt 2)\right) $$
 
 and that it is a bijection.
+
+---
+
+The set of all automorphisms under composition is the **Galois group.** From Wikipedia:
+
+Suppose that $E$ is an extension of the field $F$ (written as $E/F$ and read "E over F"). An automorphism of $E/F$ is defined to be an automorphism of $
+E$ that fixes $F$ pointwise. In other words, an automorphism of $
+E/F$ is an isomorphism $\alpha:E\to E$ such that $\alpha(x) = x$ for each 
+$x\in F.$ The set of all automorphisms of $E/F$ forms a group with the operation of function composition. This group is sometimes denoted by 
+$\text{Aut} (E/F).$ If $E/F$ is a Galois extension, then it is called the Galois group of $E/F,$ and is usually denoted by $\text{Gal} (E/F)$.
+
+---
+
+##### Fundamental theorem of Galois theory:
+
+---
+
+From Wikipedia:
+
+Given a field extension $L/K$ that is finite and Galois, there is a one-to-one correspondence between its intermediate fields $L_0\supset\cdots \supset L_k$ and subgroups of its Galois group $1=𝐺_0<G_1<\cdots<G_k=G$. 
+
+For any subgroup $H$ of $\text{Gal}(L/K)$, the corresponding fixed field, denoted $L^H,$ is the set of those elements of $L$ which are fixed by every automorphism in $H.$
+
+For any intermediate field $M$ of $L/K$, the corresponding subgroup is $\text{Aut}(L/M)$, that is, the set of those automorphisms in $\text{Gal}(L/K)$ which fix every element of $M.$
+
+The fundamental theorem says that this correspondence is a one-to-one correspondence if (and only if) $L/K$ is a Galois extension. For example, the topmost field $L$ corresponds to the trivial subgroup of $\text{Gal}(L/K)$, and the base field $K$ corresponds to the whole group $\text{Gal}(L/K)$.
+
+---
+
+##### The quintic problem:
+
+---
+
+From Wikipedia:
+
+A group G is called solvable if it has a subnormal series whose factor groups (quotient groups) are all abelian, that is, if there are subgroups $1 = G_0 < G_1 < ⋅⋅⋅ < G_k = G$ such that $G_{j−1}$ is normal in $G_j,$ and $G_j/G_{j−1}$ is an abelian group, for $j = 1, 2,\dots, k.$
+
+Why does it have to be **abelian**? This is the key to understand Galois insolvability of the quintic. In [this post](https://math.stackexchange.com/a/4509844/152225) it seems to imply that we can think of abelian as cyclic in the context of finite groups:
+
+A group G is called solvable if it has a subnormal series whose factor groups (quotient groups) are all abelian, that is, if there are subgroups $1=𝐺_0<G_1<\cdots<G_k=G$ such that $𝐺_{𝑗−1}$ is normal in $𝐺_𝑗$, and $𝐺_𝑗/𝐺_{𝑗−1}$ is a **cyclic** group, for $j = 1,\ldots, k$.
+
+These cyclic quotient groups can be produced by **cyclotomic** (roots of unity) or **Kummer** (all the roots of the polynomial added with the caveat that the roots of unity are already in the field extension immediately below) extensions:
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>

@@ -412,11 +412,22 @@ F\)</span>, the <strong>minimal polynomial</strong> of <span class="math inline"
 multiplication. The <strong>degree</strong> of the extension <span class="math inline">\(\mathbb Q (r)\)</span> is the degree of the
 minimal polynomial of <span class="math inline">\(r.\)</span></p>
 <p>The equivalent term for <strong>degree</strong> on the corresponding
-groups and subgroups is term <strong>index</strong>: the index of a
-subgroup <span class="math inline">\(H\)</span> in a group <span class="math inline">\(G\)</span> is the number of left cosets of $H $ in
+group lattice is term <strong>index</strong>: the index of a subgroup
+<span class="math inline">\(H\)</span> in a group <span class="math inline">\(G\)</span> is the number of left cosets of $H $ in
 <span class="math inline">\(G\)</span>, or equivalently, the number of
 right cosets of <span class="math inline">\(H\)</span> in <span class="math inline">\(G\)</span>. The index is denoted <span class="math inline">\([G:H]\)</span>.</p>
 <hr />
+<div id="galois-extension" class="section level5">
+<h5>Galois extension:</h5>
+<p>We say that an algebraic extension of a larger field <span class="math inline">\(L\)</span> over a base field <span class="math inline">\(K\)</span>, i.e. <span class="math inline">\(L/K\)</span> <strong>is Galois</strong> if <span class="math inline">\(L\)</span> is a <strong>splitting field</strong>
+of a separable polynomial with coefficients in <span class="math inline">\(K\)</span>.</p>
+<p>A <strong>splitting field</strong> of a polynomial with coefficients
+in a field is the smallest field extension of that field over which the
+polynomial splits, i.e., decomposes into linear factors.</p>
+<p>In other words, to create a Galois extension all the roots of a
+polynomial should be included.</p>
+<hr />
+</div>
 <div id="automorphisms" class="section level5">
 <h5>Automorphisms:</h5>
 <hr />
@@ -441,6 +452,72 @@ Example:</p>
 \right)\overset{?}=\phi\left((a+b\sqrt2)\right)  \phi\left(c + d\sqrt
 2)\right) \]</span></p>
 <p>and that it is a bijection.</p>
+<hr />
+<p>The set of all automorphisms under composition is the <strong>Galois
+group.</strong> From Wikipedia:</p>
+<p>Suppose that <span class="math inline">\(E\)</span> is an extension
+of the field <span class="math inline">\(F\)</span> (written as <span class="math inline">\(E/F\)</span> and read “E over F”). An automorphism
+of <span class="math inline">\(E/F\)</span> is defined to be an
+automorphism of $ E$ that fixes <span class="math inline">\(F\)</span>
+pointwise. In other words, an automorphism of $ E/F$ is an isomorphism
+<span class="math inline">\(\alpha:E\to E\)</span> such that <span class="math inline">\(\alpha(x) = x\)</span> for each <span class="math inline">\(x\in F.\)</span> The set of all automorphisms of
+<span class="math inline">\(E/F\)</span> forms a group with the
+operation of function composition. This group is sometimes denoted by
+<span class="math inline">\(\text{Aut} (E/F).\)</span> If <span class="math inline">\(E/F\)</span> is a Galois extension, then it is
+called the Galois group of <span class="math inline">\(E/F,\)</span> and
+is usually denoted by <span class="math inline">\(\text{Gal}
+(E/F)\)</span>.</p>
+<hr />
+</div>
+<div id="fundamental-theorem-of-galois-theory" class="section level5">
+<h5>Fundamental theorem of Galois theory:</h5>
+<hr />
+<p>From Wikipedia:</p>
+<p>Given a field extension <span class="math inline">\(L/K\)</span> that
+is finite and Galois, there is a one-to-one correspondence between its
+intermediate fields <span class="math inline">\(L_0\supset\cdots \supset
+L_k\)</span> and subgroups of its Galois group <span class="math inline">\(1=𝐺_0&lt;G_1&lt;\cdots&lt;G_k=G\)</span>.</p>
+<p>For any subgroup <span class="math inline">\(H\)</span> of <span class="math inline">\(\text{Gal}(L/K)\)</span>, the corresponding fixed
+field, denoted <span class="math inline">\(L^H,\)</span> is the set of
+those elements of <span class="math inline">\(L\)</span> which are fixed
+by every automorphism in <span class="math inline">\(H.\)</span></p>
+<p>For any intermediate field <span class="math inline">\(M\)</span> of
+<span class="math inline">\(L/K\)</span>, the corresponding subgroup is
+<span class="math inline">\(\text{Aut}(L/M)\)</span>, that is, the set
+of those automorphisms in <span class="math inline">\(\text{Gal}(L/K)\)</span> which fix every element
+of <span class="math inline">\(M.\)</span></p>
+<p>The fundamental theorem says that this correspondence is a one-to-one
+correspondence if (and only if) <span class="math inline">\(L/K\)</span>
+is a Galois extension. For example, the topmost field <span class="math inline">\(L\)</span> corresponds to the trivial subgroup of
+<span class="math inline">\(\text{Gal}(L/K)\)</span>, and the base field
+<span class="math inline">\(K\)</span> corresponds to the whole group
+<span class="math inline">\(\text{Gal}(L/K)\)</span>.</p>
+<hr />
+</div>
+<div id="the-quintic-problem" class="section level5">
+<h5>The quintic problem:</h5>
+<hr />
+<p>From Wikipedia:</p>
+<p>A group G is called solvable if it has a subnormal series whose
+factor groups (quotient groups) are all abelian, that is, if there are
+subgroups <span class="math inline">\(1 = G_0 &lt; G_1 &lt; ⋅⋅⋅ &lt; G_k
+= G\)</span> such that <span class="math inline">\(G_{j−1}\)</span> is
+normal in <span class="math inline">\(G_j,\)</span> and <span class="math inline">\(G_j/G_{j−1}\)</span> is an abelian group, for
+<span class="math inline">\(j = 1, 2,\dots, k.\)</span></p>
+<p>Why does it have to be <strong>abelian</strong>? This is the key to
+understand Galois insolvability of the quintic. In <a href="https://math.stackexchange.com/a/4509844/152225">this post</a> it
+seems to imply that we can think of abelian as cyclic in the context of
+finite groups:</p>
+<p>A group G is called solvable if it has a subnormal series whose
+factor groups (quotient groups) are all abelian, that is, if there are
+subgroups <span class="math inline">\(1=𝐺_0&lt;G_1&lt;\cdots&lt;G_k=G\)</span> such that
+<span class="math inline">\(𝐺_{𝑗−1}\)</span> is normal in <span class="math inline">\(𝐺_𝑗\)</span>, and <span class="math inline">\(𝐺_𝑗/𝐺_{𝑗−1}\)</span> is a <strong>cyclic</strong>
+group, for <span class="math inline">\(j = 1,\ldots, k\)</span>.</p>
+<p>These cyclic quotient groups can be produced by
+<strong>cyclotomic</strong> (roots of unity) or <strong>Kummer</strong>
+(all the roots of the polynomial added with the caveat that the roots of
+unity are already in the field extension immediately below)
+extensions:</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
