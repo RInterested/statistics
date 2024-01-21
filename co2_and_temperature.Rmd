@@ -39,22 +39,22 @@ The dataset can be found in [here](http://www.climatedata.info/proxies/data-down
 ```{r}
 library(formatR)
 library(data.table)
-dlvl <- read.csv("Vostok_temp_co2.csv")
-dlvl <- dlvl[complete.cases(dlvl),]
-names(dlvl) <- c('year', 'temp', 'co2', 'solar')
-summary(dlvl)
-head(dlvl)
+dat <- read.csv("Vostok_temp_co2.csv")
+dat <- dat[complete.cases(dat),]
+names(dat) <- c('year', 'temp', 'co2', 'solar')
+summary(dat)
+head(dat)
 ```
 The canonical graph that is being challenged is
 
 ```{r}
-plot(dlvl$year/1000, scale(dlvl$temp), col="blue", xlab="Relative Year, in Thousands", ylab="Z-Score",
+plot(dat$year/1000, scale(dat$temp), col="blue", xlab="Relative Year, in Thousands", ylab="Z-Score",
        type="l", lwd=3, main="Misleading Association Graph of 400,000 Years")
 
-plot(dlvl$year/1000, scale(dlvl$temp), col="blue", xlab="Relative Year, in Thousands", ylab="Z-Score",
+plot(dat$year/1000, scale(dat$temp), col="blue", xlab="Relative Year, in Thousands", ylab="Z-Score",
      type="l", lwd=3, main="Misleading Association Graph of 400,000 Years")
-lines(dlvl$year/1000, scale(dlvl$co2), col="brown", lwd=3)
-lines(dlvl$year/1000, scale(dlvl$solar), col="orange")
+lines(dat$year/1000, scale(dat$co2), col="brown", lwd=3)
+lines(dat$year/1000, scale(dat$solar), col="orange")
 legend("topleft", col=c("brown","blue"), lty=1, box.col="white", lwd=3, legend=c("CO2","Temp"))
 
 ```
@@ -71,19 +71,256 @@ Again from the source:
 > Clearly, CO2 and temperature move together. The associated verbal suggestion — sometimes explicit, sometimes left to the audience’s imagination — is often that CO2 determines temperature.2 The visually implied X-Y association can also be graphed:
 
 ```{r}
-plot(dlvl$co2, dlvl$temp, xlab="CO2", ylab="Temperature", 
+plot(dat$co2, dat$temp, xlab="CO2", ylab="Temperature", 
      main="Misleading Association Graph of 400,000 Years, XY", cex=0.4)
-lines(dlvl$co2,dlvl$temp, col="gray")
-abline(lm(dlvl$temp ~ dlvl$co2), col="blue", lwd=2)
+lines(dat$co2,dat$temp, col="gray")
+abline(lm(dat$temp ~ dat$co2), col="blue", lwd=2)
 
 ```
 
+Once again from the source:
 
-
+> This naive interpretation, that this graph even suggests that CO2 drove global warming, is misleading and therefore wrong.
+>
+> Anyone who understands basic data analysis should understand this plot is misleading as far as establishing a (causal) link from CO2 to temperature is concerned. Indeed, the only point of my analysis is to plead not to use this graph any longer. This plotted relationship is a misleading and classic example of a [spurious relation](https://rpubs.com/iaw4/co2temp-400ky). A classic example is the association between ice cream sales and murders. Both are higher in summer, and the two plots between ice-cream sales and murder would look just like two plots of CO2 and temperature above.
+>
+> There are better ways to analyze the CO2, temperature, and solar data, shown below. These better ways address the facts that the graph misleads with respect to two problems:
+>
+> (1) Could a third variable — such as trends, volcanos, solar radiation, or anything else — have caused (co-)variation in both CO2 and temperature?
+>
+> (2) Is CO2 causing warming or is warming causing CO2, or are both causing one another?
+>
+> The remedy to the first problem is to work in changes of variables, not in levels of variables. The remedy to the second problem is to work with lead-lag associations. I am not the first to have noticed that temperature changes can also anticipate CO2 changes. However, some climate-change critics have jumped to the equally incorrect conclusion that such feedback effects then reject the hypothesis that CO2 drives temperature. Feedbacks are not mutually exclusive with respect to the hypothesis of interest, which is whether CO2 changes anticipate temperature changes.
 
 ---
 
+#### Models:
 
+---
+
+##### Problem $(1)$:
+
+If the model is correct:
+
+$$y_t = a + b\times x_t$$
+it follows that 
+
+$$\Delta y_t=0+b \times \Delta x_t$$
+> where Δ is the change (also called the first difference). A good test uncovering many spurious correlations is to estimate regressions both in levels and differences. If the coefficient $b$ is not the same (or at least similar) in both regression models, it suggests that the level correlation is spurious. In such a case, we would have learned that $y_t = a + b\times x_t$ was not the correct model to begin with.
+
+The original dataset is increased using the defined functions `chg` and `lag` that calculate along columns the differences between one measurement and the preceding (`chg`), and slide the values one step along the time line: 
+
+```{r}
+# chg is a function with three lines separated by semicolons:
+# shift(x) simply moves the x[1] to x[2], x[2] to x[3], etc.
+# the resultant vector is subtracted from the original x
+# the result is stored in a local variable "o" inside the function
+# the second line assigns names to all the vectors in x (x is a df)
+# the names are the original names of x with a "d" in front.
+# the third line says that "o" is returned.
+# lag simply slides all the entries in the df by 1 step and relabels.
+chg <- function(x,...) { o <- x - shift(x,...); names(o) <- paste0("d",names(x)); o }
+lag <- function(x,...) { o <- shift(x,...); names(o) <- paste0("l",names(x)); o }
+   ## the above use data.table's shift function
+
+ds <- cbind(dat, chg(dat)); rownames(ds) <- NULL  ## combine levels and changes into one data set
+
+print(head(ds))  ## show the output to make it easier to understand how this works
+```
+
+Running the original regression:
+
+```{r}
+# The function specified below, using the update() function for the model is explained in here:
+# https://www.r-bloggers.com/2010/05/using-the-update-function-during-variable-selection/
+showcoef <- function(formula, controls= (~.), data=ds){
+  coef(summary(lm(update(formula, controls),  data=data)))[,c(1,3)] 
+} 
+
+showcoef(temp ~ co2)
+```
+
+Comparing to the model specified with first differences:
+
+$$\Delta \text{temp}_t=a+b\times (\Delta \text{CO}_t)$$
+
+```{r}
+showcoef( dtemp ~ dco2 )
+```
+> The coefficient estimate of 0.03 is much smaller than 0.08, suggesting spurious level trend correlation in the prior regression.
+
+The same coefficients should show with second differences:
+
+```{r}
+showcoef(chg(dtemp) ~ chg(dco2))
+```
+but again, the coefficients are different.
+
+---
+
+##### Causality: Problem $(2)$:
+
+> Note that the above regression inputs were still contemporaneous. They only solve the spurious correlation issue with respect to trends. They do not address the question of whether CO2 drives warming or vice-versa.
+>
+> A better test is based on the idea that if CO2 really changes temperature, then (unexpected) changes in CO2 should anticipate (unexpected) changes in temperature. Econometricians call this Granger-Sims causality (GSC).4 GSC is a necessary but not a sufficient condition to read potential causality into data, even if there are no important omitted variables. If there is no GSC, then the data cannot show that CO2 causally influences temperature. GSC tests may be too weak in actual data to find an association that exists. 
+
+This problem is addressed first with simple OLS, and later with Sims' Vector Auto-Regression (VAR)
+
+---
+
+##### Prelimary OLS for CO2 levels:
+
+> First, consider changes in CO2. The strongest association in the data, by far, is that they are highly autocorrelated:
+
+```{r}
+showcoef( dco2 ~ lag(dco2) )
+```
+
+> This is stable and applies even to changes in changes in CO2:
+
+```{r}
+showcoef( lag(dco2) ~ lag(lag(dco2)) )
+```
+
+> The data inform us that once CO2 changes got going into a particular direction, they tended to continue the same direction. CO2 changes had strong internal dynamics, almost random-walk like: whenever CO2 increased over 100 years, it strongly tended to increase over the next 100 years again, and by almost as much. Ergo, when a shock to CO2 occurs, it has long-term effects, far beyond a century. The half-life of shocks to changes in CO2 is about $−\log(2)/\log(0.83)≈3.7$ centuries.
+>
+>Empirically, the autocorrelation of CO2 is what will make it difficult to determine how CO2 changes influenced temperature changes — CO2 changes over the last 100 years tend to look very similar to CO2 changes from, say, 500 to 600 years ago.
+
+---
+
+##### Predicting Changes in Temperature:
+
+> The true variable of interest are changes in temperatures, not changes in CO2. Rather than start with the simplest regression, the following regression already includes a host of controls:
+
+```{r}
+# In what follows, the regression equation dtemp ~ lag(solar) we are looking at 
+# differences in temperature explained by solar radiation 
+# Why? Because the lag solar means that the independent variable
+# is data from the past: in x[2] there is now the previous entry from x[1].
+# The last value of the original solar vector is thrown out.
+
+# The model specified above, using the update() function for the model as
+# https://www.r-bloggers.com/2010/05/using-the-update-function-during-variable-selection/
+# ends up just printing up the full model with coefficients and t values:
+# m = lm(dtemp ~ lag(dco2) + lag(dsolar) + lag(dtemp) +
+# lag(temp) + lag(dtemp)*lag(temp) + lag(co2) + lag(solar) + dsolar, ds)
+# coef(summary(m))[,c(1,3)]
+
+showcoef(dtemp ~ lag(dco2) , ~ . + lag(dsolar) + lag(dtemp) +
+            lag(temp) + lag(dtemp)*lag(temp) + lag(co2) + lag(solar) + dsolar)
+```
+
+And here are the main points:
+
+> This regression suggests the following:
+> 
+> When solar radiation was high `lag(solar)`, temperature tended to increase ($0.00076$). Changes in solar radiation `dsolar` were fairly unimportant ($-0.02708$), suggesting a very slow response of temperature to solar radiation.
+>
+> When lagged CO2 `lag(co2)` was high ($0.0015$) and when lagged CO2 increased recently `lag(dco2)` ($0.03046$), temperature tended to increase. This is good evidence that changes in CO2 influenced future warming, both short-term and long-term. (The relation is robust to inclusion or exclusion of many control variables, such as the state variables included here, too.)
+>
+> Earth has a strong thermostat: (a) when temperature `lag(temp)` was high, it tended to go down ($-0.021$); (b) when temperature recently has gone up `lag(dtemp)`, it tended to go down again ($-0.096$); and (c) temperature really wanted to go down again if both temperature was high and temperature had recently gone up `lag(dtemp):lag(temp)` ($-0.047$).
+>
+> There are two interesting earth-science questions beyond my expertise related to this regression output.
+>
+> The first concerns earth’s thermostat. It seems to work, even controlling for solar forcing and CO2. What is its cause? Will it continue?
+>
+> The second concerns the magnitude of the coefficient estimate on `lag(dco2)`. It’s still way too big. It suggests that on the margin, an increase of $250$ ppm (about doubling) in CO2 predicts global warming of nearly $0.03046×250≈7.6
+°C.$ Standard climate change models would suggest increases of less than half this much, about $3$ °C. The $400,000$ association between lagged CO2 changes and temperature changes was far too strong. (This is even more worrisome because Archer suggests that about $3/4$ of the CO2 disappears in the carbon cycle rapidly before it has much opportunity to drive the greenhouse effect.)
+
+---
+
+##### Vector Autoregressions (VARs)
+
+> The improved statistical estimation method are Sims’ vector autoregressions. They estimate equations on both ΔCO2 dynamics and ΔTemp dynamics together to disentangle better how they influence one another (in innovations, too). The specification explicitly allows for the two variables to influence one another, too.
+
+```{r}
+library(vars)
+# define some variables used later as controls
+ds <- within(ds, {
+  lagsolar <- lag(solar)
+  lagco2 <- lag(co2)
+  lagtemp <- lag(temp)
+})
+dvar <- ds[complete.cases(ds),]
+
+dvar.mainseries <- subset( dvar, T, select=c(dco2,dtemp) )  
+# the two key var variables
+```
+
+>We begin with a one-lag VAR analysis. The format of the coefficient-test output is first the dependent variable, then the independent variables, then an indicator of the lag.
+
+```{r}
+var1 <- VAR( dvar.mainseries, type="none", lag.max=1 )
+print(var1)
+```
+
+> This suggests (as before) that
+>
+> Carbon-dioxide changes, ΔCO2 are highly autocorrelated ($0.837$). When CO2 has increased, it wants to continue to increase. When CO2 has decreased, it wants to continue to decrease. Of all the association in this $400,000$ year data, it is by far the strongest one. It is evidence of strong buffers and/or a strong CO2 feedback effect on earth.
+>
+> When temperature has recently gone up, ΔCO2 wants to go up just a little more ($0.046$).
+>
+> When temperature has recently gone up, then the temperature wants to go up just a little more ($0.1$). This disappears with better control for the level of temperature and recent temperature changes interacted. The reason can be inferred due to the acclerating shape of the $xy$ graph above.
+>
+> The association of most interest to us: When CO2 has recently gone up, then the temperature wants to go up just a little more. This is what we found before, and the magnitude of the coefficient remains troubling. The coefficient is still far too large, suggesting a warming effect of about $2.4\times 250≈6$°C for a doubling of CO2. And this is even more disconcerting, because it is not even for a recent 1-50 year increase but for a 100-year lagged increase in CO2.
+
+---
+
+##### Expected Decay of Autocoefficients With Lag:
+
+
+> The theory further predicts that the coefficient on lag CO2 should decrease with lag. A change in CO2 this century should have more ability to predict the temperature in the next 100 years than, say, in 100 years in five centuries. This is a quasi-placebo test. There should be very little association beyond the first one or two lags.
+>
+>The following includes 10 lags of CO2 changes, i.e., the last ten centuries. The printouts are only for the coefficients on the ΔCO2 predictors in the Δtemp
+prediction, although the analysis itself remains based on the full VAR.
+
+```{r}
+var10 <- VAR( dvar.mainseries, type="none", lag.max=10)
+## with controls: use VAR( dvar.mainseries, lag.max=10, exog= subset( dvar, T, select=c(lagsolar, lagco2, lagtemp) )
+var10
+
+plotvarcoef <- function( ctbl , vnm="CO2", yl=0.05 ) {
+   plot( 1:nrow(ctbl), ctbl[,1], xlab=paste("100-Year Lag of",vnm,"Change"), ylab=paste("Coefficient on",vnm,"Change"), type="b", ylim=c(-yl,yl), main="Explaining 100-Year Ahead Temperature Changes")
+   lines( 1:nrow(ctbl), ctbl[,1] + 1*ctbl[,2], col="gray", lty=2 )
+   lines( 1:nrow(ctbl), ctbl[,1] - 1*ctbl[,2], col="gray", lty=2 )
+   lines( 1:nrow(ctbl), ctbl[,1] + 2*ctbl[,2], col="gray", lty=3 )
+   lines( 1:nrow(ctbl), ctbl[,1] - 2*ctbl[,2], col="gray", lty=3 )
+   lines( c(0,20), c(0,0), lty=2, col="gray")
+   points( 1, ctbl[1,1], col="blue", cex=2)
+}
+
+coef.dtemp <- coef(var10)$dtemp
+coef.dtemp.dco2 <- coef.dtemp[grepl("dco2", rownames(coef.dtemp)),]
+# print(coef.dtemp.dco2[,1])
+plotvarcoef( coef.dtemp.dco2 )
+```
+> Archer explains that the theory says that the coefficients should be decaying. More specifically, theory predicts a long-run coefficient of about $0.01$ (in this sample, a $250$ ppm increase should induce a $3$°C increase). It should be split into about $0.0075$ on lag0, $0.002$ on lag1, and lower coefficients on further lags. The most recent CO2 change should be more powerful than more lagged CO2 changes.
+>
+> If I were to claim that this data suggests that changes in CO2 have driven changes in temperature, then
+>
+> why are CO2 changes from many centuries ago similarly powerful as the most recent CO2 changes?
+> why are the coefficient estimates so large?
+>
+> The statistical reason for the first part of this mess is the high correlation among CO2 changes. When CO2 increased in the last 100 years, it also likely increased before. As far as the regression is concerned, many recently past CO2 changes look somewhat alike in their power and could have been responsible for their influence on predicting temperature changes. 4,000 centuries should have been enough to uncover the relationship, but just weren’t. The reason for the second part of this mess, the terribly high coefficient estimates are a mystery to me.
+>
+> The data absolutely do not reject the hypothesis that changes in CO2 drive changes in global warming. (I would go further and characterize this as “they hint at an association.”) The data just do not reject the hypothesis that the relationship is not strong enough to identify this relationship cleanly. Thus, the use of the visual graph at the outset is not only misleading (for ignoring the reverse association), it is badly misleading.
+
+### Conclusions of the author:
+
+>  Is This Evidence Against A Climate Role for CO2?
+Absolutely not!
+>
+> This is not evidence against the role of CO2 on global temperatures. It is only evidence that the theoretically predicted relation in this data set is difficult to uncover, because we have such strong autocorrelation of changes in CO2. We have absence of evidence in this graph, not evidence of absence in this data.
+>
+> There are good reasons for this. In particular:
+>
+> CO2 or global temperatures could be measured with too much noise. It’s not like we had satellites measuring CO2 and temperature for hundreds of thousands of years. The measurement comes from proxies and only in one place.
+>
+> There are state variables (buffers) in the system that can obscure the relationship to the point where the graph is highly misleading.
+>
+> As in all statistical analysis, theory and empirical identification of more variables can improve the estimated associations. Advances in knowledge could point either way. The inclusion of omitted control variables could bolster the case for a causal association of CO2 on future warming or it could undermine it. The answer to whether CO2 causes warming is beyond the analysis here — indeed shown to be beyond the analysis feasible merely with CO2, temperature, and solar data, even using state information — and not the expertise of the author.
+>
+> The question examined in this writeup was not whether CO2 causes warming, but whether the canonical graph is reasonably representative of the association in the data and the predicted association from the theory. The answer is a clear no. The canonical graph is highly misleading. It is not solid empirical evidence in favor of a role of CO2 in warming. There is evidence of unaccounted trends, omitted variables, and feedback effects. The graph is not even mildly representative of what can be gathered from a better analysis of the data, either. It is best not shown to unsuspecting audiences.
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
