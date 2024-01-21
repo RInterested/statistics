@@ -21,38 +21,65 @@ output:
 
 Trying to follow [this RPubs article](https://rpubs.com/iaw4/co2temp-400ky) by Ivo Welch.
 
+
 ```{r setup, include=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
 
 ---
 
+#### Data Set:
+
+From the quoted paper:
+
+> One of the most prominent graphs in climate activism — the correlation between CO2 and global temperature over the last 400,000 years, based on the Vostok Ice Cores — is misleading when it is shown in order to bolster the case that CO2 increases have caused global warming. The graph intermingles two effects. Temperature can predict CO2. CO2 can predict temperature. Both effects are well known and one does not preclude the other. When presented in a CO2-temperature context, this intermixing renders the graph deceptive. In truth, the prime problem of the analysis is the high auto-correlation of changes in CO2. It makes it difficult to pin down the role of CO2 shocks on temperature innovations. Put into econometric-analysis terms, the x variable is poorly identified. It is itself endogenous most of the time. Perhaps most importantly, this joint 400,000 year history is not relevant today. Although the driving forces of CO2 were not well-known for most of this long period, scientists know that humanity has injected about 130 ppm of CO2 into the atmosphere, unrelated to other factors, during the last 200 years.
+
+The dataset can be found in [here](http://www.climatedata.info/proxies/data-downloads/) and contains 4,117 observations at 100 year intervals.
+
 ```{r}
-library(curl)
-dat <- read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/sicily.csv')
-head(dat)
+library(formatR)
+library(data.table)
+dlvl <- read.csv("Vostok_temp_co2.csv")
+dlvl <- dlvl[complete.cases(dlvl),]
+names(dlvl) <- c('year', 'temp', 'co2', 'solar')
+summary(dlvl)
+head(dlvl)
+```
+The canonical graph that is being challenged is
+
+```{r}
+plot(dlvl$year/1000, scale(dlvl$temp), col="blue", xlab="Relative Year, in Thousands", ylab="Z-Score",
+       type="l", lwd=3, main="Misleading Association Graph of 400,000 Years")
+
+plot(dlvl$year/1000, scale(dlvl$temp), col="blue", xlab="Relative Year, in Thousands", ylab="Z-Score",
+     type="l", lwd=3, main="Misleading Association Graph of 400,000 Years")
+lines(dlvl$year/1000, scale(dlvl$co2), col="brown", lwd=3)
+lines(dlvl$year/1000, scale(dlvl$solar), col="orange")
+legend("topleft", col=c("brown","blue"), lty=1, box.col="white", lwd=3, legend=c("CO2","Temp"))
+
 ```
 
 
 ---
 
-#### SUBHEADER
+#### Regression Analysis:
 
 ---
 
-```{R, fig.width = 5, fig.height = 5}
-n <- 1e4
-M <- matrix(runif(2*n,-1,1),ncol=2)
-M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
-plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
-     xlab='', ylab='', tck=F, axes=F)
+Again from the source:
+
+> Clearly, CO2 and temperature move together. The associated verbal suggestion — sometimes explicit, sometimes left to the audience’s imagination — is often that CO2 determines temperature.2 The visually implied X-Y association can also be graphed:
+
+```{r}
+plot(dlvl$co2, dlvl$temp, xlab="CO2", ylab="Temperature", 
+     main="Misleading Association Graph of 400,000 Years, XY", cex=0.4)
+lines(dlvl$co2,dlvl$temp, col="gray")
+abline(lm(dlvl$temp ~ dlvl$co2), col="blue", lwd=2)
+
 ```
 
-##### SUB-SUBHEADER
 
----
 
-### Portfolio Variance:
 
 ---
 
