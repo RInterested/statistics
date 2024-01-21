@@ -244,6 +244,7 @@ ds <- within(ds, {
 dvar <- ds[complete.cases(ds),]
 
 dvar.mainseries <- subset( dvar, T, select=c(dco2,dtemp) )  
+head(dvar.mainseries)
 # the two key var variables
 ```
 
@@ -253,6 +254,15 @@ dvar.mainseries <- subset( dvar, T, select=c(dco2,dtemp) )
 var1 <- VAR( dvar.mainseries, type="none", lag.max=1 )
 print(var1)
 ```
+
+Trying Granger causality (from [here](https://www.youtube.com/watch?v=aX8IANxjucA&ab_channel=JustinEloriaga)):
+
+
+```{r}
+Granger <- causality(var1, cause='dco2')
+Granger
+```
+
 
 > This suggests (as before) that
 >
@@ -294,6 +304,8 @@ coef.dtemp.dco2 <- coef.dtemp[grepl("dco2", rownames(coef.dtemp)),]
 # print(coef.dtemp.dco2[,1])
 plotvarcoef( coef.dtemp.dco2 )
 ```
+
+
 > Archer explains that the theory says that the coefficients should be decaying. More specifically, theory predicts a long-run coefficient of about $0.01$ (in this sample, a $250$ ppm increase should induce a $3$°C increase). It should be split into about $0.0075$ on lag0, $0.002$ on lag1, and lower coefficients on further lags. The most recent CO2 change should be more powerful than more lagged CO2 changes.
 >
 > If I were to claim that this data suggests that changes in CO2 have driven changes in temperature, then
