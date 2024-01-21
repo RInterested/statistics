@@ -1,0 +1,64 @@
+---
+title: 'CO2 and Global Temperature'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### CO2 and Global Temperature:
+
+---
+
+Trying to follow [this RPubs article](https://rpubs.com/iaw4/co2temp-400ky) by Ivo Welch.
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+---
+
+```{r}
+library(curl)
+dat <- read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/sicily.csv')
+head(dat)
+```
+
+
+---
+
+#### SUBHEADER
+
+---
+
+```{R, fig.width = 5, fig.height = 5}
+n <- 1e4
+M <- matrix(runif(2*n,-1,1),ncol=2)
+M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
+plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
+     xlab='', ylab='', tck=F, axes=F)
+```
+
+##### SUB-SUBHEADER
+
+---
+
+### Portfolio Variance:
+
+---
+
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
