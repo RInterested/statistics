@@ -236,20 +236,41 @@ And here are the main points:
 ```{r}
 library(vars)
 # define some variables used later as controls
+# first some relabeling of variables:
 ds <- within(ds, {
   lagsolar <- lag(solar)
   lagco2 <- lag(co2)
   lagtemp <- lag(temp)
 })
-head(ds)
+
 dvar <- ds[complete.cases(ds),]
 
-dvar.mainseries <- subset( dvar, T, select=c(dco2,dtemp) )  
+dvar.mainseries <- subset(dvar, select=c(dco2,dtemp)) 
+dvar.mainseries2 <- subset(dvar, T, select=c(dco2,dtemp))
+
+# Selecting differences in CO2 and differences in temp only:
 head(dvar.mainseries)
-# the two key var variables
+# Resulting in a data frame (not a time series):
+str(dvar.mainseries)
 ```
 
 >We begin with a one-lag VAR analysis. The format of the coefficient-test output is first the dependent variable, then the independent variables, then an indicator of the lag.
+
+---
+
+Arguments to the `VAR()` function:
+
+>*y* Data item containing the endogenous variables
+*p* Integer for the lag order (default is p=1).
+*type* Type of deterministic regressors to include.
+*season* Inlusion of centered seasonal dummy variables (integer value of frequency).
+*exogen* Inlusion of exogenous variables.
+*lag.max* Integer, determines the highest lag order for lag length selection according to the choosen ic.
+*ic* Character, selects the information criteria, if lag.max is not NULL.
+*x* Object with class attribute ‘varest’.
+*digits* the number of significant digits to use when printing
+
+---
 
 ```{r}
 var1 <- VAR(dvar.mainseries, type="none", lag.max=1)
