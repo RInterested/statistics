@@ -235,6 +235,9 @@ And here are the main points:
 
 ```{r}
 library(vars)
+library(ggplot2)
+library(ggfortify)
+
 # define some variables used later as controls
 # first some relabeling of variables:
 ds <- within(ds, {
@@ -246,15 +249,25 @@ ds <- within(ds, {
 dvar <- ds[complete.cases(ds),]
 
 dvar.mainseries <- subset(dvar, select=c(dco2,dtemp)) 
-dvar.mainseries2 <- subset(dvar, T, select=c(dco2,dtemp))
-
 # Selecting differences in CO2 and differences in temp only:
 head(dvar.mainseries)
 # Resulting in a data frame (not a time series):
 str(dvar.mainseries)
+# This dataframe can be converted into a time series:
+dvarts <- ts(dvar.mainseries, start = -414000, deltat = 100)
+plot.ts(dvarts, col=2)
+autoplot(dvarts)
 ```
 
->We begin with a one-lag VAR analysis. The format of the coefficient-test output is first the dependent variable, then the independent variables, then an indicator of the lag.
+> (author)We begin with a one-lag VAR analysis. The format of the coefficient-test output is first the dependent variable, then the independent variables, then an indicator of the lag.
+
+To determine the optimal lag:
+
+```{r}
+VARselect(dvarts, lag.max = 10)
+```
+
+So let's try $-4$:
 
 ---
 
@@ -273,7 +286,7 @@ Arguments to the `VAR()` function:
 ---
 
 ```{r}
-var1 <- VAR(dvar.mainseries, type="none", lag.max=1)
+var1 <- VAR(dvarts, type="none", lag.max=-4)
 print(var1)
 ```
 
@@ -310,7 +323,7 @@ Variance decomposition:
 
 ```{r}
 var_dec <- fevd(var1, n.ahead=10)
-plot(var_dec)
+plot(var_dec, col=2)
 ```
 
 The shock effects on each variable is mainly due to itself: shocks in CO2 do not change the future values of temperature.
