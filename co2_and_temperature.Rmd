@@ -241,6 +241,7 @@ ds <- within(ds, {
   lagco2 <- lag(co2)
   lagtemp <- lag(temp)
 })
+head(ds)
 dvar <- ds[complete.cases(ds),]
 
 dvar.mainseries <- subset( dvar, T, select=c(dco2,dtemp) )  
@@ -251,7 +252,7 @@ head(dvar.mainseries)
 >We begin with a one-lag VAR analysis. The format of the coefficient-test output is first the dependent variable, then the independent variables, then an indicator of the lag.
 
 ```{r}
-var1 <- VAR( dvar.mainseries, type="none", lag.max=1 )
+var1 <- VAR(dvar.mainseries, type="none", lag.max=1)
 print(var1)
 ```
 
