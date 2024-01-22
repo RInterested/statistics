@@ -318,6 +318,8 @@ The shock effects on each variable is mainly due to itself: shocks in CO2 do not
 Forecasting:
 
 ```{r}
+library(forecast)
+library(tseries)
 fc <- predict(var1, n.ahead=4, ci=0.95)
 fanchart(fc)
 ```
