@@ -264,7 +264,7 @@ autoplot(dvarts)
 To determine the optimal lag:
 
 ```{r}
-VARselect(dvarts, lag.max = 10)
+VARselect(dvarts, lag.max = 10, type='const')
 ```
 
 So let's try $-4$:
@@ -323,7 +323,7 @@ Variance decomposition:
 
 ```{r}
 var_dec <- fevd(var1, n.ahead=10)
-plot(var_dec, col=2)
+plot(var_dec, col=c(2,3))
 ```
 
 The shock effects on each variable is mainly due to itself: shocks in CO2 do not change the future values of temperature.
