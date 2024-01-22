@@ -286,9 +286,15 @@ Arguments to the `VAR()` function:
 ---
 
 ```{r}
-var1 <- VAR(dvarts, type="none", lag.max=-4)
+var1 <- VAR(dvarts, type="const", lag.max=-4, season=NULL, exogen=NULL)
 print(var1)
+# No exogenous variables.
+# No seasonality
+# No trend: type = c("const", "trend", "both", "none")
+summary(var1)
 ```
+
+Notice that all the roots are inside the unit circle: errors withing contour lines of Gaussian distribution in 3D.
 
 Trying Granger causality (from [here](https://www.youtube.com/watch?v=aX8IANxjucA&ab_channel=JustinEloriaga)):
 
