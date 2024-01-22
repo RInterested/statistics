@@ -263,6 +263,42 @@ Granger <- causality(var1, cause='dco2')
 Granger
 ```
 
+Impulse-response function:
+
+```{r}
+tempIRF <- irf(var1, impulse='dco2', response='dtemp', n.ahead=10, boot=T)
+plot(tempIRF, ylab='temp', xlab='CO2', main='Shock from sudden change in Co2')
+```
+
+In the other direction:
+
+```{r}
+Granger2 <- causality(var1, cause='dtemp')
+Granger2
+```
+
+Impulse-response function:
+
+```{r}
+tempIRF <- irf(var1, impulse='dtemp', response='dco2', n.ahead=10, boot=T)
+plot(tempIRF, ylab='CO2', xlab='temp', main='Shock from sudden change in temp')
+```
+
+Variance decomposition:
+
+```{r}
+var_dec <- fevd(var1, n.ahead=10)
+plot(var_dec)
+```
+
+The shock effects on each variable is mainly due to itself: shocks in CO2 do not change the future values of temperature.
+
+Forecasting:
+
+```{r}
+fc <- predict(var1, n.ahead=4, ci=0.95)
+fanchart(fc)
+```
 
 > This suggests (as before) that
 >
