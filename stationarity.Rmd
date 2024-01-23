@@ -1,0 +1,134 @@
+---
+title: 'Stationarity and Characteristic equation'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### LAG OPERATOR, STATIONARITY AND THE CHARACTERISTIC EQUATION:
+
+---
+
+#### LAG OPERATOR:
+
+---
+
+From [here](https://youtu.be/VPNijQ2L3XM?si=n1wwy8oguxM7tWab):
+
+In the case of ARIMA(3,3) the model is
+
+$$y_t = \phi_1 y_{t-1} + \phi_2 y_{t-2} + \phi_3 y_{t-3} +\\
++\theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2} +\theta_3 \varepsilon_{t-3} +\\ + \varepsilon_t$$
+
+This is equivalent to
+
+$$y_t - \phi_1 y_{t-1} - \phi_2 y_{t-2} - \phi_3 y_{t-3}=  \varepsilon_t
++\theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2} +\theta_3 \varepsilon_{t-3}$$
+
+Introducing the **backshift operator**:
+
+$$Ly_t= y_{t - 1}$$
+
+That means that the backshift operator multiplied times $y_t$ is equal to $y_{t-1}$. It follows that 
+
+$$L^2y_t= y_{t - 2}$$
+
+With this operator, the equation above can be rewritten as
+
+$$y_t - \phi_1 Ly_{t} - \phi_2 L^2y_{t} - \phi_3 L^3 y_{t}=  \varepsilon_t
++\theta_1 L\varepsilon_{t} + \theta_2 L^2\varepsilon_{t} +\theta_3 L^3 \varepsilon_{t}$$
+
+This is equivalent to 
+
+$$(1 - \phi_1 L - \phi_2 L^2 - \phi_3 L^3) y_{t}=  (1
++\theta_1 L + \theta_2 L^2 +\theta_3 L^3) \varepsilon_{t}$$
+
+The **lag or characteristic polynomials** are
+
+$$\Phi (L)= 1 - \phi_1 L - \phi_2 L^2 - \phi_3 L^3$$
+
+and 
+
+$$\Theta(L) = 1
++\theta_1 L + \theta_2 L^2 +\theta_3 L^3$$
+
+Therefore,
+
+$$\Phi(L) y_t= \Theta(L) \varepsilon_t$$
+
+It also follows that an AR process can be written with lag operator notation as
+
+$$y_t = \mu + \sum_{i=1}^p \phi_i \, L^i \, y_t + \varepsilon_t$$
+
+or
+
+$$\Phi(L)\, y_t = \mu + \varepsilon_t$$
+
+
+
+---
+
+#### STATIONARITY:
+
+From [here](https://youtu.be/_YYh2vJv7mQ?si=I1JMQFCF99CeqzvY):
+
+A zero mean AR process
+
+$$\Phi(L)\, y_t =  \varepsilon_t$$
+
+The **characteristic equation**
+
+$$1 - \phi_1 z - \phi_2 z^2 -\phi_3 z^3 - \cdots -\phi_p z^p=0$$
+
+is true because $\varepsilon_t$ has mean of zero, and $y_t \neq 0.$ Notice that the $L$ operator has been replaced by $z.$ The characteristic equation is the characteristic polynomial equated to zero.
+
+In an alternative notation, the characteristic equation is
+
+$$\Phi(L) =0$$
+
+If $z_1$ and $z_2$ are the **characteristic roots**, the **inverse characteristic roots**, $\phi_1=z_1^{-1}$ and $\phi_2=z_2^{-1}$ will allow the following factorization of the characteristic equation of an AR(2) process:
+
+$$\Theta(z)=\theta_1 z - \theta_2 z^2 = (1 -\theta_1 z)(1 - \theta_2 z) = 1 + (\theta_1 + \theta_2)z+ \theta_1\theta_2z^2$$
+
+
+
+**Stationarity condition**: if the inverse characteristic roots fall inside the unit circle, the **inverse characteristic polynomial** (an infinite polynomial)
+
+$$\Theta(z)^{-1}=1 + c_1 z + c_2 z^2 + c_3 z^3 + \cdots$$
+is convergent, i.e. for $i \to \infty,$ the coefficients $c_i \to 0.$
+
+$$1 + c_1 + c_2 + c_3 + \cdots = \frac 1 {\Theta(1)}$$
+
+The **MA** representation comes from the equation above:
+
+$$\Theta(L)y_t =\mu + \varepsilon_t$$
+
+which implies that
+
+$$\begin{align}y_t &= \Theta(L)^{-1}(\mu+ \varepsilon_t)\\&= (1 + c_1 L + c_2 L^2 + c_2 L^3 +\cdots)(\mu + \varepsilon_t)\\&=(1 + c_1  + c_2 + c_2  +\cdots)\mu + \varepsilon_t + c_1\varepsilon_{t-1}+ c_2 \varepsilon_{t-2}+\cdots\end{align}$$
+
+From the converge of the coefficients to zero, shocks in the past will just have a transitory effect.
+
+The $$\mathbb E(y_t)=\frac{\mu}{\Theta(1)}$$
+
+
+---
+
+References:
+
+<a href="https://youtu.be/ugOvehrTRRw?si=mw5-OvBZ2TtuojSW">Unit Roots</a>
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**

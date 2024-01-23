@@ -296,6 +296,30 @@ summary(var1)
 
 Notice that all the roots are inside the unit circle: errors withing contour lines of Gaussian distribution in 3D.
 
+##### Test for serial correlation:
+
+```{r}
+serial.test(var1, lags.pt=-4, type="PT.asymptotic")
+```
+
+The low p value is bad news: there is serial correlation.
+
+##### Heteroskadisticity:
+
+```{r}
+arch.test(var1, multivariate.only=T)
+```
+
+Bad news again for heteroskadisticity.
+
+##### Normality test residuals:
+
+```{r}
+normality.test(var1, multivariate.only=T)
+```
+
+The model fails the normality test.
+
 Trying Granger causality (from [here](https://www.youtube.com/watch?v=aX8IANxjucA&ab_channel=JustinEloriaga)):
 
 
