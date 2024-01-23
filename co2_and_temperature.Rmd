@@ -315,7 +315,7 @@ Trying Granger causality (from [here](https://www.youtube.com/watch?v=aX8IANxjuc
 
 ```{r}
 Granger <- causality(var1, cause='dco2')
-Granger
+Granger$Granger
 ```
 
 Impulse-response function:
@@ -329,7 +329,7 @@ In the other direction:
 
 ```{r}
 Granger2 <- causality(var1, cause='dtemp')
-Granger2
+Granger2$Granger
 ```
 
 Granger test from `lmtest` (from [here](https://stats.stackexchange.com/a/518514/67822)):
@@ -338,10 +338,16 @@ Granger test from `lmtest` (from [here](https://stats.stackexchange.com/a/518514
 library(lmtest)
 grangertest(dtemp ~ dco2, order=10, data=tsds)
 
+# H0: Time series x does not cause time series y to grange cause itself
+# H1: Time series x does cause time series y to grange cause itself
+# A low P VALUE: Knowing the values of CO2 is valuable for forecasting future temps.
+
 # Compared to the test from `vars`:
 
-causality(VAR(tsds, p = 3), cause = 'dco2')
+causality(VAR(tsds, p = 3), cause = 'dco2')$Granger
 ```
+
+In both cases we have to conclude that CO2 predicts future temperatures.
 
 Impulse-response function:
 
