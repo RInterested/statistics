@@ -37,13 +37,14 @@ From the quoted paper:
 The dataset can be found in [here](http://www.climatedata.info/proxies/data-downloads/) and contains 4,117 observations at 100 year intervals.
 
 ```{r}
+options(scipen=999)
 library(formatR)
 library(data.table)
 dat <- read.csv("Vostok_temp_co2.csv")
 dat <- dat[complete.cases(dat),]
 names(dat) <- c('year', 'temp', 'co2', 'solar')
 summary(dat)
-head(dat)
+dat[1:2,]
 ```
 The canonical graph that is being challenged is
 
@@ -125,7 +126,7 @@ lag <- function(x,...) { o <- shift(x,...); names(o) <- paste0("l",names(x)); o 
 
 ds <- cbind(dat, chg(dat)); rownames(ds) <- NULL  ## combine levels and changes into one data set
 
-print(head(ds))  ## show the output to make it easier to understand how this works
+ds[1:2,]  ## show the output to make it easier to understand how this works
 ```
 
 Running the original regression:
@@ -134,7 +135,7 @@ Running the original regression:
 # The function specified below, using the update() function for the model is explained in here:
 # https://www.r-bloggers.com/2010/05/using-the-update-function-during-variable-selection/
 showcoef <- function(formula, controls= (~.), data=ds){
-  coef(summary(lm(update(formula, controls),  data=data)))[,c(1,3)] 
+  round(coef(summary(lm(update(formula, controls),  data=data)))[,c(1,3,4)],3)
 } 
 
 showcoef(temp ~ co2)
@@ -173,13 +174,13 @@ This problem is addressed first with simple OLS, and later with Sims' Vector Aut
 > First, consider changes in CO2. The strongest association in the data, by far, is that they are highly autocorrelated:
 
 ```{r}
-showcoef( dco2 ~ lag(dco2) )
+showcoef(dco2 ~ lag(dco2))
 ```
 
 > This is stable and applies even to changes in changes in CO2:
 
 ```{r}
-showcoef( lag(dco2) ~ lag(lag(dco2)) )
+showcoef(lag(dco2) ~ lag(lag(dco2)))
 ```
 
 > The data inform us that once CO2 changes got going into a particular direction, they tended to continue the same direction. CO2 changes had strong internal dynamics, almost random-walk like: whenever CO2 increased over 100 years, it strongly tended to increase over the next 100 years again, and by almost as much. Ergo, when a shock to CO2 occurs, it has long-term effects, far beyond a century. The half-life of shocks to changes in CO2 is about $−\log(2)/\log(0.83)≈3.7$ centuries.
@@ -240,23 +241,13 @@ library(ggfortify)
 
 # define some variables used later as controls
 # first some relabeling of variables:
-ds <- within(ds, {
-  lagsolar <- lag(solar)
-  lagco2 <- lag(co2)
-  lagtemp <- lag(temp)
-})
-
-dvar <- ds[complete.cases(ds),]
-
-dvar.mainseries <- subset(dvar, select=c(dco2,dtemp)) 
-# Selecting differences in CO2 and differences in temp only:
-head(dvar.mainseries)
-# Resulting in a data frame (not a time series):
-str(dvar.mainseries)
+ds <- within(ds, {lagsolar <- lag(solar); lagco2 <- lag(co2); lagtemp <- lag(temp)})
+ds <- ds[complete.cases(ds),]
+ds2 <- subset(ds, select=c(dco2,dtemp)) 
 # This dataframe can be converted into a time series:
-dvarts <- ts(dvar.mainseries, start = -414000, deltat = 100)
-plot.ts(dvarts, col=2)
-autoplot(dvarts)
+tsds <- ts(ds2, start = -414000, deltat = 100)
+plot.ts(tsds, col=2)
+autoplot(tsds)
 ```
 
 > (author)We begin with a one-lag VAR analysis. The format of the coefficient-test output is first the dependent variable, then the independent variables, then an indicator of the lag.
@@ -264,7 +255,7 @@ autoplot(dvarts)
 To determine the optimal lag:
 
 ```{r}
-VARselect(dvarts, lag.max = 10, type='const')
+VARselect(tsds, lag.max = 10, type='const')
 ```
 
 So let's try $-4$:
@@ -286,7 +277,7 @@ Arguments to the `VAR()` function:
 ---
 
 ```{r}
-var1 <- VAR(dvarts, type="const", lag.max=-4, season=NULL, exogen=NULL)
+var1 <- VAR(tsds, type="const", lag.max=-4, season=NULL, exogen=NULL)
 print(var1)
 # No exogenous variables.
 # No seasonality
@@ -388,11 +379,11 @@ fanchart(fc)
 prediction, although the analysis itself remains based on the full VAR.
 
 ```{r}
-var10 <- VAR( dvar.mainseries, type="none", lag.max=10)
-## with controls: use VAR( dvar.mainseries, lag.max=10, exog= subset( dvar, T, select=c(lagsolar, lagco2, lagtemp) )
+var10 <- VAR(tsds, type="none", lag.max=10)
+## with controls: use VAR(ds2, lag.max=10, exog= subset(ds, T, select=c(lagsolar, lagco2, lagtemp)))
 var10
 
-plotvarcoef <- function( ctbl , vnm="CO2", yl=0.05 ) {
+plotvarcoef <- function(ctbl, vnm="CO2", yl=0.05) {
    plot( 1:nrow(ctbl), ctbl[,1], xlab=paste("100-Year Lag of",vnm,"Change"), ylab=paste("Coefficient on",vnm,"Change"), type="b", ylim=c(-yl,yl), main="Explaining 100-Year Ahead Temperature Changes")
    lines( 1:nrow(ctbl), ctbl[,1] + 1*ctbl[,2], col="gray", lty=2 )
    lines( 1:nrow(ctbl), ctbl[,1] - 1*ctbl[,2], col="gray", lty=2 )
@@ -405,7 +396,7 @@ plotvarcoef <- function( ctbl , vnm="CO2", yl=0.05 ) {
 coef.dtemp <- coef(var10)$dtemp
 coef.dtemp.dco2 <- coef.dtemp[grepl("dco2", rownames(coef.dtemp)),]
 # print(coef.dtemp.dco2[,1])
-plotvarcoef( coef.dtemp.dco2 )
+plotvarcoef(coef.dtemp.dco2)
 ```
 
 
