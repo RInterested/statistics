@@ -332,6 +332,17 @@ Granger2 <- causality(var1, cause='dtemp')
 Granger2
 ```
 
+Granger test from `lmtest`:
+
+```{r}
+library(lmtest)
+grangertest(dtemp ~ dco2, order=10, data=tsds)
+
+# Compared to the test from `vars`:
+
+causality(VAR(tsds, p = 3), cause = 'dco2')
+```
+
 Impulse-response function:
 
 ```{r}
