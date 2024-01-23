@@ -247,7 +247,6 @@ ds2 <- subset(ds, select=c(dco2,dtemp))
 # This dataframe can be converted into a time series:
 tsds <- ts(ds2, start = -414000, deltat = 100)
 plot.ts(tsds, col=2)
-autoplot(tsds)
 ```
 
 > (author)We begin with a one-lag VAR analysis. The format of the coefficient-test output is first the dependent variable, then the independent variables, then an indicator of the lag.
@@ -255,10 +254,10 @@ autoplot(tsds)
 To determine the optimal lag:
 
 ```{r}
-VARselect(tsds, lag.max = 10, type='const')
+VARselect(tsds, lag.max = 10, type='const')$selection
 ```
 
-So let's try $-4$:
+So let's try $10$:
 
 ---
 
@@ -277,7 +276,7 @@ Arguments to the `VAR()` function:
 ---
 
 ```{r}
-var1 <- VAR(tsds, type="const", lag.max=-4, season=NULL, exogen=NULL)
+var1 <- VAR(tsds, type="const", lag.max=10, season=NULL, exogen=NULL)
 print(var1)
 # No exogenous variables.
 # No seasonality
@@ -354,7 +353,7 @@ Forecasting:
 ```{r}
 library(forecast)
 library(tseries)
-fc <- predict(var1, n.ahead=4, ci=0.95)
+fc <- predict(var1, n.ahead=100, ci=0.95, col=2)
 fanchart(fc)
 ```
 
