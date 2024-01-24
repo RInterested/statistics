@@ -84,8 +84,12 @@ plot(dat$co2, dat$temp, xlab="CO2", ylab="Temperature",
      main="Misleading Association Graph of 400,000 Years, XY", cex=0.4)
 lines(dat$co2,dat$temp, col="gray")
 abline(lm(dat$temp ~ dat$co2), col="blue", lwd=2)
-
 ```
+
+> The blue line is the best-fit OLS line, $\text{temp}_t=−24+0.084\times\text{CO2}_t$. The suggestion in both plots is that an increase in $100$ ppm of CO2 (about $33\%$ of the mean CO2 in the data) predicts warming of $8.4$°C. This is of course absurd.
+
+The current level of CO2 may be around $410$ ppm. An increase of $100$ ppm would result, according to the regression coefficients, in a temperature increase of $9.6$ °C!
+
 
 Once again from the source:
 
@@ -95,11 +99,19 @@ Once again from the source:
 >
 > There are better ways to analyze the CO2, temperature, and solar data, shown below. These better ways address the facts that the graph misleads with respect to two problems:
 >
-> (1) Could a third variable — such as trends, volcanos, solar radiation, or anything else — have caused (co-)variation in both CO2 and temperature?
+> (1) **Confounding**: Could a third variable — such as trends, volcanos, solar radiation, or anything else — have caused (co-)variation in both CO2 and temperature?
+
+**Confounding: A **third variable**, not the dependent (outcome) or main independent (exposure) variable of interest, that distorts the observed relationship between the exposure and outcome.**
+
 >
-> (2) Is CO2 causing warming or is warming causing CO2, or are both causing one another?
+> (2) **Causality**: Is CO2 causing warming or is warming causing CO2, or are both causing one another?
 >
-> The remedy to the first problem is to work in changes of variables, not in levels of variables. The remedy to the second problem is to work with lead-lag associations. I am not the first to have noticed that temperature changes can also anticipate CO2 changes. However, some climate-change critics have jumped to the equally incorrect conclusion that such feedback effects then reject the hypothesis that CO2 drives temperature. Feedbacks are not mutually exclusive with respect to the hypothesis of interest, which is whether CO2 changes anticipate temperature changes.
+
+From [Wikipedia](https://en.wikipedia.org/wiki/Granger_causality):
+
+**Ordinarily, regressions reflect "mere" correlations, but Clive Granger argued that causality in economics could be tested for by measuring the ability to predict the future values of a time series using prior values of another time series. Since the question of "true causality" is deeply philosophical, and because of the post hoc ergo propter hoc fallacy of assuming that one thing preceding another can be used as a proof of causation, econometricians assert that the Granger test finds only "predictive causality".**
+
+> The remedy to the first problem is to work in *changes of variables*, not in levels of variables. The remedy to the second problem is to work with *lead-lag associations*. I am not the first to have noticed that temperature changes can also anticipate CO2 changes. However, some climate-change critics have jumped to the equally incorrect conclusion that such feedback effects then reject the hypothesis that CO2 drives temperature. Feedbacks are not mutually exclusive with respect to the hypothesis of interest, which is whether CO2 changes anticipate temperature changes.
 
 ---
 
@@ -117,7 +129,7 @@ it follows that
 $$\Delta y_t=0+b \times \Delta x_t$$
 > where Δ is the change (also called the first difference). A good test uncovering many spurious correlations is to estimate regressions both in levels and differences. If the coefficient $b$ is not the same (or at least similar) in both regression models, it suggests that the level correlation is spurious. In such a case, we would have learned that $y_t = a + b\times x_t$ was not the correct model to begin with.
 
-The original dataset is altered using the defined functions `chg` and `lag` that calculate along columns the differences between one measurement and the preceding (`chg`), and slide the values one step along the time line: 
+The original data set is altered using the defined functions `chg` and `lag` that calculate along columns the differences between one measurement and the preceding (`chg`), and slide the values one step along the time line: 
 
 ```{r}
 # chg is a function with three lines separated by semicolons:
@@ -148,7 +160,7 @@ Running the original regression:
 ```{r}
 # The function specified below, using the update() function for the model is explained in here:
 # https://www.r-bloggers.com/2010/05/using-the-update-function-during-variable-selection/
-showcoef <- function(formula, controls= (~.), data=ds){
+showcoef <- function(formula, controls = (~.), data=ds){
   round(coef(summary(lm(update(formula, controls),  data=data)))[,c(1,3,4)],3)
 } 
 
@@ -175,7 +187,7 @@ but again, the coefficients are different.
 
 ---
 
-##### Causality: Problem $(2)$:
+#### Causality: Problem $(2)$:
 
 > Note that the above regression inputs were still contemporaneous. They only solve the spurious correlation issue with respect to trends. They do not address the question of whether CO2 drives warming or vice-versa.
 >
@@ -219,7 +231,7 @@ showcoef(lag(dco2) ~ lag(lag(dco2)))
 
 ---
 
-##### Predicting Changes in Temperature:
+#### Predicting Changes in Temperature:
 
 > The true variable of interest are changes in temperatures, not changes in CO2. Rather than start with the simplest regression, the following regression already includes a host of controls:
 
@@ -260,7 +272,7 @@ And here are the main points:
 
 ---
 
-##### Vector Autoregressions (VARs)
+#### Vector Autoregressions (VARs)
 
 > The improved statistical estimation method are Sims’ vector autoregressions. They estimate equations on both ΔCO2 dynamics and ΔTemp dynamics together to disentangle better how they influence one another (in innovations, too). The specification explicitly allows for the two variables to influence one another, too.
 
