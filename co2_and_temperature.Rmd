@@ -34,12 +34,20 @@ From the quoted paper:
 
 > One of the most prominent graphs in climate activism — the correlation between CO2 and global temperature over the last 400,000 years, based on the Vostok Ice Cores — is misleading when it is shown in order to bolster the case that CO2 increases have caused global warming. The graph intermingles two effects. Temperature can predict CO2. CO2 can predict temperature. Both effects are well known and one does not preclude the other. When presented in a CO2-temperature context, this intermixing renders the graph deceptive. In truth, the prime problem of the analysis is the high auto-correlation of changes in CO2. It makes it difficult to pin down the role of CO2 shocks on temperature innovations. Put into econometric-analysis terms, the x variable is poorly identified. It is itself endogenous most of the time. Perhaps most importantly, this joint 400,000 year history is not relevant today. Although the driving forces of CO2 were not well-known for most of this long period, scientists know that humanity has injected about 130 ppm of CO2 into the atmosphere, unrelated to other factors, during the last 200 years.
 
+---
+
+**Endogenous**: Price and quantity are related by some linear function $P = a + b \times Q$. One depends on the other: an increase in quantity results in a decrease in price. Therefore, price is endogenous.
+
+**Exogenous**: Income is exogenous. An increase in disposable income will shift up the price regardless of the quantity: the line will be translated upwards.
+
+
+---
+
 The dataset can be found in [here](http://www.climatedata.info/proxies/data-downloads/) and contains 4,117 observations at 100 year intervals.
 
 ```{r}
 options(scipen=999)
-library(formatR)
-library(data.table)
+library(data.table) # Provides the function shift
 dat <- read.csv("Vostok_temp_co2.csv")
 dat <- dat[complete.cases(dat),]
 names(dat) <- c('year', 'temp', 'co2', 'solar')
@@ -69,7 +77,7 @@ legend("topleft", col=c("brown","blue"), lty=1, box.col="white", lwd=3, legend=c
 
 Again from the source:
 
-> Clearly, CO2 and temperature move together. The associated verbal suggestion — sometimes explicit, sometimes left to the audience’s imagination — is often that CO2 determines temperature.2 The visually implied X-Y association can also be graphed:
+> Clearly, CO2 and temperature move together. The associated verbal suggestion — sometimes explicit, sometimes left to the audience’s imagination — is often that CO2 determines temperature. The visually implied X-Y association can also be graphed:
 
 ```{r}
 plot(dat$co2, dat$temp, xlab="CO2", ylab="Temperature", 
@@ -109,7 +117,7 @@ it follows that
 $$\Delta y_t=0+b \times \Delta x_t$$
 > where Δ is the change (also called the first difference). A good test uncovering many spurious correlations is to estimate regressions both in levels and differences. If the coefficient $b$ is not the same (or at least similar) in both regression models, it suggests that the level correlation is spurious. In such a case, we would have learned that $y_t = a + b\times x_t$ was not the correct model to begin with.
 
-The original dataset is increased using the defined functions `chg` and `lag` that calculate along columns the differences between one measurement and the preceding (`chg`), and slide the values one step along the time line: 
+The original dataset is altered using the defined functions `chg` and `lag` that calculate along columns the differences between one measurement and the preceding (`chg`), and slide the values one step along the time line: 
 
 ```{r}
 # chg is a function with three lines separated by semicolons:
@@ -123,10 +131,16 @@ The original dataset is increased using the defined functions `chg` and `lag` th
 chg <- function(x,...) { o <- x - shift(x,...); names(o) <- paste0("d",names(x)); o }
 lag <- function(x,...) { o <- shift(x,...); names(o) <- paste0("l",names(x)); o }
    ## the above use data.table's shift function
-
 ds <- cbind(dat, chg(dat)); rownames(ds) <- NULL  ## combine levels and changes into one data set
-
-ds[1:2,]  ## show the output to make it easier to understand how this works
+# define some variables used later as controls
+# first some relabeling of variables:
+ds <- within(ds, {lagsolar <- lag(solar); lagco2 <- lag(co2); lagtemp <- lag(temp)})
+ds <- ds[complete.cases(ds),]
+head(ds)[1:2,]
+ds2 <- subset(ds, select=c(dco2,dtemp)) 
+# This dataframe can be converted into a time series:
+tsds <- ts(ds2, start = -414000, deltat = 100)
+head(tsds)[1:2,]
 ```
 
 Running the original regression:
@@ -146,8 +160,9 @@ Comparing to the model specified with first differences:
 $$\Delta \text{temp}_t=a+b\times (\Delta \text{CO}_t)$$
 
 ```{r}
-showcoef( dtemp ~ dco2 )
+showcoef(dtemp ~ dco2)
 ```
+
 > The coefficient estimate of 0.03 is much smaller than 0.08, suggesting spurious level trend correlation in the prior regression.
 
 The same coefficients should show with second differences:
@@ -155,6 +170,7 @@ The same coefficients should show with second differences:
 ```{r}
 showcoef(chg(dtemp) ~ chg(dco2))
 ```
+
 but again, the coefficients are different.
 
 ---
@@ -163,7 +179,7 @@ but again, the coefficients are different.
 
 > Note that the above regression inputs were still contemporaneous. They only solve the spurious correlation issue with respect to trends. They do not address the question of whether CO2 drives warming or vice-versa.
 >
-> A better test is based on the idea that if CO2 really changes temperature, then (unexpected) changes in CO2 should anticipate (unexpected) changes in temperature. Econometricians call this Granger-Sims causality (GSC).4 GSC is a necessary but not a sufficient condition to read potential causality into data, even if there are no important omitted variables. If there is no GSC, then the data cannot show that CO2 causally influences temperature. GSC tests may be too weak in actual data to find an association that exists. 
+> A better test is based on the idea that if CO2 really changes temperature, then (unexpected) changes in CO2 should anticipate (unexpected) changes in temperature. Econometricians call this Granger-Sims causality (GSC). GSC is a necessary but not a sufficient condition to read potential causality into data, even if there are no important omitted variables. If there is no GSC, then the data cannot show that CO2 causally influences temperature. GSC tests may be too weak in actual data to find an association that exists. 
 
 This problem is addressed first with simple OLS, and later with Sims' Vector Auto-Regression (VAR)
 
@@ -172,6 +188,20 @@ This problem is addressed first with simple OLS, and later with Sims' Vector Aut
 ##### Prelimary OLS for CO2 levels:
 
 > First, consider changes in CO2. The strongest association in the data, by far, is that they are highly autocorrelated:
+
+```{r}
+par(mfrow = c(1,2))
+acf(tsds[,1],
+     main="ACF", 
+     xlab="Lag",     
+     ylab="ACF", 
+     ylim=c(-0.1,1), # this sets the y scale to -0.2 to 0.2
+     las=1,
+     xaxt="n")
+pacf(diff(tsds[,1]), main= 'PACD')
+```
+
+The geometric decay in the ACF suggests and auto-regressive process.
 
 ```{r}
 showcoef(dco2 ~ lag(dco2))
@@ -239,13 +269,7 @@ library(vars)
 library(ggplot2)
 library(ggfortify)
 
-# define some variables used later as controls
-# first some relabeling of variables:
-ds <- within(ds, {lagsolar <- lag(solar); lagco2 <- lag(co2); lagtemp <- lag(temp)})
-ds <- ds[complete.cases(ds),]
-ds2 <- subset(ds, select=c(dco2,dtemp)) 
-# This dataframe can be converted into a time series:
-tsds <- ts(ds2, start = -414000, deltat = 100)
+
 plot.ts(tsds, col=2)
 ```
 
