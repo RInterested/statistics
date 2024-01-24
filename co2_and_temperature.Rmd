@@ -32,7 +32,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 From the quoted paper:
 
-> One of the most prominent graphs in climate activism — the correlation between CO2 and global temperature over the last 400,000 years, based on the Vostok Ice Cores — is misleading when it is shown in order to bolster the case that CO2 increases have caused global warming. The graph intermingles two effects. Temperature can predict CO2. CO2 can predict temperature. Both effects are well known and one does not preclude the other. When presented in a CO2-temperature context, this intermixing renders the graph deceptive. In truth, the prime problem of the analysis is the high auto-correlation of changes in CO2. It makes it difficult to pin down the role of CO2 shocks on temperature innovations. Put into econometric-analysis terms, the x variable is poorly identified. It is itself endogenous most of the time. Perhaps most importantly, this joint 400,000 year history is not relevant today. Although the driving forces of CO2 were not well-known for most of this long period, scientists know that humanity has injected about 130 ppm of CO2 into the atmosphere, unrelated to other factors, during the last 200 years.
+> One of the most prominent graphs in climate activism — the correlation between CO2 and global temperature over the last 400,000 years, based on the Vostok Ice Cores — is misleading when it is shown in order to bolster the case that CO2 increases have caused global warming. The graph intermingles two effects. Temperature can predict CO2. CO2 can predict temperature. Both effects are well known and one does not preclude the other. When presented in a CO2-temperature context, this intermixing renders the graph deceptive. In truth, the prime  of the analysis is the high auto-correlation of changes in CO2. It makes it difficult to pin down the role of CO2 shocks on temperature innovations. Put into econometric-analysis terms, the x variable is poorly identified. It is itself endogenous most of the time. Perhaps most importantly, this joint 400,000 year history is not relevant today. Although the driving forces of CO2 were not well-known for most of this long period, scientists know that humanity has injected about 130 ppm of CO2 into the atmosphere, unrelated to other factors, during the last 200 years.
 
 ---
 
@@ -97,7 +97,7 @@ Once again from the source:
 >
 > Anyone who understands basic data analysis should understand this plot is misleading as far as establishing a (causal) link from CO2 to temperature is concerned. Indeed, the only point of my analysis is to plead not to use this graph any longer. This plotted relationship is a misleading and classic example of a [spurious relation](https://rpubs.com/iaw4/co2temp-400ky). A classic example is the association between ice cream sales and murders. Both are higher in summer, and the two plots between ice-cream sales and murder would look just like two plots of CO2 and temperature above.
 >
-> There are better ways to analyze the CO2, temperature, and solar data, shown below. These better ways address the facts that the graph misleads with respect to two problems:
+> There are better ways to analyze the CO2, temperature, and solar data, shown below. These better ways address the facts that the graph misleads with respect to two s:
 >
 > (1) **Confounding**: Could a third variable — such as trends, volcanos, solar radiation, or anything else — have caused (co-)variation in both CO2 and temperature?
 
@@ -111,7 +111,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Granger_causality):
 
 **Ordinarily, regressions reflect "mere" correlations, but Clive Granger argued that causality in economics could be tested for by measuring the ability to predict the future values of a time series using prior values of another time series. Since the question of "true causality" is deeply philosophical, and because of the post hoc ergo propter hoc fallacy of assuming that one thing preceding another can be used as a proof of causation, econometricians assert that the Granger test finds only "predictive causality".**
 
-> The remedy to the first problem is to work in *changes of variables*, not in levels of variables. The remedy to the second problem is to work with *lead-lag associations*. I am not the first to have noticed that temperature changes can also anticipate CO2 changes. However, some climate-change critics have jumped to the equally incorrect conclusion that such feedback effects then reject the hypothesis that CO2 drives temperature. Feedbacks are not mutually exclusive with respect to the hypothesis of interest, which is whether CO2 changes anticipate temperature changes.
+> The remedy to the first  is to work in *changes of variables*, not in levels of variables. The remedy to the second  is to work with *lead-lag associations*. I am not the first to have noticed that temperature changes can also anticipate CO2 changes. However, some climate-change critics have jumped to the equally incorrect conclusion that such feedback effects then reject the hypothesis that CO2 drives temperature. Feedbacks are not mutually exclusive with respect to the hypothesis of interest, which is whether CO2 changes anticipate temperature changes.
 
 ---
 
@@ -119,7 +119,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Granger_causality):
 
 ---
 
-##### Problem $(1)$:
+#####  Confounders $(1)$:
 
 If the model is correct:
 
@@ -161,7 +161,7 @@ Running the original regression:
 # The function specified below, using the update() function for the model is explained in here:
 # https://www.r-bloggers.com/2010/05/using-the-update-function-during-variable-selection/
 showcoef <- function(formula, controls = (~.), data=ds){
-  round(coef(summary(lm(update(formula, controls),  data=data)))[,c(1,3,4)],3)
+  round(coef(summary(lm(update(formula, controls),  data=data)))[,c(1,3,4)],4)
 } 
 
 showcoef(temp ~ co2)
@@ -187,13 +187,13 @@ but again, the coefficients are different.
 
 ---
 
-#### Causality: Problem $(2)$:
+#### Causality $(2)$:
 
 > Note that the above regression inputs were still contemporaneous. They only solve the spurious correlation issue with respect to trends. They do not address the question of whether CO2 drives warming or vice-versa.
 >
 > A better test is based on the idea that if CO2 really changes temperature, then (unexpected) changes in CO2 should anticipate (unexpected) changes in temperature. Econometricians call this Granger-Sims causality (GSC). GSC is a necessary but not a sufficient condition to read potential causality into data, even if there are no important omitted variables. If there is no GSC, then the data cannot show that CO2 causally influences temperature. GSC tests may be too weak in actual data to find an association that exists. 
 
-This problem is addressed first with simple OLS, and later with Sims' Vector Auto-Regression (VAR)
+This  is addressed first with simple OLS, and later with Sims' Vector Auto-Regression (VAR)
 
 ---
 
@@ -214,6 +214,8 @@ pacf(diff(tsds[,1]), main= 'PACD')
 ```
 
 The geometric decay in the ACF suggests and auto-regressive process.
+
+This can be seen also with a simple OLS between changes in values of CO2 at one time regressed over lagged values:
 
 ```{r}
 showcoef(dco2 ~ lag(dco2))
@@ -279,9 +281,6 @@ And here are the main points:
 ```{r}
 library(vars)
 library(ggplot2)
-library(ggfortify)
-
-
 plot.ts(tsds, col=2)
 ```
 
@@ -354,7 +353,7 @@ Granger <- causality(var1, cause='dco2')
 Granger$Granger
 ```
 
-Impulse-response function:
+##### Impulse-response function:
 
 ```{r}
 tempIRF <- irf(var1, impulse='dco2', response='dtemp', n.ahead=10, boot=T)
@@ -385,18 +384,18 @@ causality(VAR(tsds, p = 3), cause = 'dco2')$Granger
 
 In both cases we have to conclude that CO2 predicts future temperatures.
 
-Impulse-response function:
+##### Impulse-response function:
 
 ```{r}
 tempIRF <- irf(var1, impulse='dtemp', response='dco2', n.ahead=10, boot=T)
 plot(tempIRF, ylab='CO2', xlab='temp', main='Shock from sudden change in temp')
 ```
 
-Variance decomposition:
+##### Variance decomposition:
 
 ```{r}
 var_dec <- fevd(var1, n.ahead=10)
-plot(var_dec, col=c(2,3))
+plot(var_dec, col=c('orange','darkblue'), border=F)
 ```
 
 The shock effects on each variable is mainly due to itself: shocks in CO2 do not change the future values of temperature.
@@ -407,8 +406,27 @@ Forecasting:
 library(forecast)
 library(tseries)
 fc <- predict(var1, n.ahead=100, ci=0.95, col=2)
-fanchart(fc)
+fanchart(fc, colors=heat.colors(9))
 ```
+
+---
+
+What about temperatures over CO2 levels (as opposed to changes in these values):
+
+```{r}
+ds3 <- subset(ds, select=c(co2, temp)) 
+# This dataframe can be converted into a time series:
+tsds2 <- ts(ds3, start = -414000, deltat = 100)
+head(tsds2)[1:2,]
+vartempco2 <- VAR(tsds2, type='both', lag.max=10, season=NULL, exogen=NULL)
+Granger2 <- causality(vartempco2, cause='co2')
+Granger2$Granger
+Granger3 <- causality(vartempco2, cause='temp')
+Granger3$Granger
+fc2 <- predict(vartempco2, n.ahead=100, ci=0.95, col=2)
+fanchart(fc2, colors=heat.colors(9))
+```
+
 
 > This suggests (as before) that
 >
