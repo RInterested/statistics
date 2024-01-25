@@ -129,25 +129,40 @@ From [here](https://en.wikipedia.org/wiki/Autoregressive_model) and [here](https
 
 For AR(1) processes the equation is:
 
-$$CC = \rho  Y_{t-1}+\epsilon_t$$
+$$Y_t = \rho  Y_{t-1}+\epsilon_t$$
 
 In general, for AR(p):
 
 $$\large Y_t = \sum_{i=1}^p \rho_i\, Y_{t - i} + \epsilon_t$$
+
 
 From [here](https://rinterested.github.io/statistics/time_series.html) for AR(1):
 
 ```{r, fig.width=10, fig.height=4}
 set.seed(2024)
 n = 1000
-c = arima.sim(n=n,list(ar=c(0.6)), innov=rnorm(n))
+a = arima.sim(n=n,list(ar=c(0.15)), innov=rnorm(n))
 
 r1 <- ggAcf(a, lag.max = 100) + labs(title = "ACF AR(1)")
 r2 <- ggPacf(a, lag.max = 100) + labs(title = "PACF AR(1)")
 plot_grid(r1, r2, ncol = 2)
 ```
 
+An example with positive rho values with `arima` from [here](https://edoras.sdsu.edu/~babailey/stat673/lab1.html)
 
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 1000
+a <- arima.sim(n=n, model=list(ar=c(0.1,0.8)))
+
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
+plot_grid(r1, r2, ncol = 2)
+```
+
+
+1. The ACF shows geometric decay.
+2. The PACF shows significant autocorrelations for a number of lags equal to the order.
 
 From [here](https://stackoverflow.com/a/67371090/4089351).
 
@@ -163,34 +178,63 @@ AR2.sim <- function(n, ar1, ar2, sd)
   }
   Xt
 }
-a = AR2.sim(n, 0.15, 0.73, 2)
+a = AR2.sim(n, -0.5, 0.3, 1)
 
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
 ```
 
+and a second example:
 
 ```{r, fig.width=10, fig.height=4}
 set.seed(2024)
 n = 1000
-AR4.sim <- function(n, ar1, ar2, ar3, ar4, sd)
-{
-  Xt = c(0,0,0,0)
-  for (i in 4:n)
-  {
-    Xt[i+1] = ar1*Xt[i] + ar2*Xt[i-1] + ar3*Xt[i-2] + ar4*Xt[i-3] + rnorm(1,mean=0,sd=sd)
-  }
-  Xt
-}
-a = AR4.sim(n, 0.15, 0.3, 0.5, 0.8, 2)
+a <- arima.sim(n=n, model=list(ar=c(-0.5,0.3)))
 
-r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(4)")
-r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(4)")
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
 ```
 
+---
 
+##### MOVING AVERAGE (MA):
+
+From [here](https://en.wikipedia.org/wiki/Moving-average_model):
+
+
+For MR(p):
+
+$$\large Y_t = \sum_{i=1}^p \theta_i\, \epsilon_{t - 1} + \varepsilon_t$$
+
+
+From [here](https://rinterested.github.io/statistics/time_series.html) for MA(1):
+
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 1000
+a <- arima.sim(model=list(ma=0.9), n=n)
+
+r1 <- ggAcf(a, lag.max = 100) + labs(title = "ACF MA(1)")
+r2 <- ggPacf(a, lag.max = 100) + labs(title = "PACF MA(1)")
+plot_grid(r1, r2, ncol = 2)
+```
+
+For an MA(2) process (from [here](https://medium.com/towards-data-science/interpreting-acf-and-pacf-plots-for-time-series-forecasting-af0d6db4061c)):
+
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 1000
+a <- arima.sim(model=list(ma=0.5,0.5), n=n)
+
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF MA(2)")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF MA(2)")
+plot_grid(r1, r2, ncol = 2)
+```
+
+1. Significant lags equal to the order on ACF.
+2. Geometric decay of PACF.
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
