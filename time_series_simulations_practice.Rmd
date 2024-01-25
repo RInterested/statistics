@@ -164,7 +164,17 @@ Notice that, differently from MA models (see below) the mean is not specified, a
 
 $$\large Y_t - \mu= \sum_{i=1}^p \rho_i\, \left(Y_{t - i}-\mu\right) + \epsilon_t$$
 
-See also [this answer](https://stats.stackexchange.com/a/386349/67822).
+See also [this answer](https://stats.stackexchange.com/a/386349/67822). For instance in AR(2), substracting the mean from both sides:
+
+$$Y_t - \mu = \rho_1(Y_{t-1} - \mu) + \rho_2(Y_{t-2} - \mu) +\epsilon_t$$
+
+Now moving $\mu$ to the RHS:
+
+$$Y_t = \mu -\rho_1\,\mu - \rho_2 \,\mu +\rho_1Y_{t-1}+ \rho_2 Y_{t-2}+ \epsilon_t$$
+and grouping $c = \mu(1 - \rho_1 - \rho_2)$
+
+$$Y_t = c + \rho_1Y_{t-1}+ \rho_2 Y_{t-2}+ \epsilon_t$$
+
 
 
 From [here](https://youtu.be/L2b2dCO_-PA?si=N1G6gOlkYd3RjCiI) for AR(1),

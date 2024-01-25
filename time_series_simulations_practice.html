@@ -527,8 +527,15 @@ the assumption of stationarity of the time series, the mean has to be
 subtracted on both sides of the equation and from each term:</p>
 <p><span class="math display">\[\large Y_t - \mu= \sum_{i=1}^p \rho_i\,
 \left(Y_{t - i}-\mu\right) + \epsilon_t\]</span></p>
-<p>See also <a href="https://stats.stackexchange.com/a/386349/67822">this
-answer</a>.</p>
+<p>See also <a href="https://stats.stackexchange.com/a/386349/67822">this answer</a>.
+For instance in AR(2), substracting the mean from both sides:</p>
+<p><span class="math display">\[Y_t - \mu = \rho_1(Y_{t-1} - \mu) +
+\rho_2(Y_{t-2} - \mu) +\epsilon_t\]</span></p>
+<p>Now moving <span class="math inline">\(\mu\)</span> to the RHS:</p>
+<p><span class="math display">\[Y_t = \mu -\rho_1\,\mu - \rho_2 \,\mu
++\rho_1Y_{t-1}+ \rho_2 Y_{t-2}+ \epsilon_t\]</span> and grouping <span class="math inline">\(c = \mu(1 - \rho_1 - \rho_2)\)</span></p>
+<p><span class="math display">\[Y_t = c + \rho_1Y_{t-1}+ \rho_2 Y_{t-2}+
+\epsilon_t\]</span></p>
 <p>From <a href="https://youtu.be/L2b2dCO_-PA?si=N1G6gOlkYd3RjCiI">here</a> for
 AR(1),</p>
 <p><span class="math display">\[\mathbb E[Y_t]=0\]</span></p>
