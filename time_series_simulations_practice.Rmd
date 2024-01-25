@@ -164,7 +164,7 @@ Notice that, differently from MA models (see below) the mean is not specified, a
 
 $$\large Y_t - \mu= \sum_{i=1}^p \rho_i\, \left(Y_{t - i}-\mu\right) + \epsilon_t$$
 
-See also [this answer](https://stats.stackexchange.com/a/386349/67822). For instance in AR(2), substracting the mean from both sides:
+See also [this answer](https://stats.stackexchange.com/a/386349/67822). For instance in AR(2), subtracting the mean from both sides:
 
 $$Y_t - \mu = \rho_1(Y_{t-1} - \mu) + \rho_2(Y_{t-2} - \mu) +\epsilon_t$$
 
@@ -258,6 +258,31 @@ r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
 ```
 
+##### Simulating an AR(1) process with $\mu \neq 0:$
+
+Based on [this answer](https://stats.stackexchange.com/a/305239/67822), if instead of a mean we want an intercept as in the model:
+
+$$X_{t} = 5 + 0.5X_{t-1}+\epsilon_t$$
+
+the mean $\mu$ will have to actually be $\mu = 10,$ because, according to the derivation above upon subtracting the mean on both sides from $X_t$ and $X_{t-1},$ we are going to need $\rho=0.5$ times $mu$ to equal the intercept $5$. Therefore, $\text{interc} = \rho\times \mu \implies \mu=\text{interc}/\rho$ so that the expression above is the same as
+
+$$X_t - 10 = 0.5(X_{t-1} - 10) + \epsilon_t .$$
+Now, defining $Y_t = X_t - 10,$
+
+$$Y_t = .5 Y_{t-1} + \epsilon_t$$
+
+and we just add $10$ at the end:
+
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 1000
+yt <- arima.sim(list(order=c(1,0,0), ar=.5), n=500)
+a <- yt + 10 
+
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
+plot_grid(r1, r2, ncol = 2)
+```
 
 ---
 
