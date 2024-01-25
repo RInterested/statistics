@@ -236,6 +236,20 @@ plot_grid(r1, r2, ncol = 2)
 1. Significant lags equal to the order on ACF.
 2. Geometric decay of PACF.
 
+Another MA(2) example from [here](https://youtu.be/uBYOJfwQeME?si=8NKnzkl7chmVepMM):
+
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 1000
+a <- arima.sim(model=list(ma=0.4,0.3), n=n)
+
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF MA(2)")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF MA(2)")
+plot_grid(r1, r2, ncol = 2)
+```
+
+The characteristic MA pattern on the PACF is alternating and diminishing over time.
+
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
 
