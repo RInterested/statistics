@@ -1,0 +1,198 @@
+---
+title: 'OLS without linear algebra'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Time Series Simulations and practice:
+
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+### WHITE NOISE:
+
+White noise is stationary. From [here](https://rinterested.github.io/statistics/time_series.html):
+
+$$Y_t = \varepsilon_t$$ with $\epsilon_i \sim N(0,\sigma^2)$. This is a stationary process.
+
+
+```{r, fig.width=10, fig.height=4}
+library(cowplot) 
+library(fpp2)  
+
+set.seed(1)
+n = 500
+a = rnorm(100)
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF WHITE NOISE")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF WHITE NOISE")
+```
+
+---
+
+### RANDOM WALK:
+
+##### RANDOM WALK WITH NO DRIFT:
+
+From [here](https://youtu.be/ouahL4HbwBE?si=Qin9EGQjfubpA5z2).
+
+This is the same as an AR(1) process with $\rho = 1.$ The $\rho = 1$ turns the equation for the AR process $Y_t = \rho \, Y_{t-1} + \epsilon_t$ into the equation below.
+
+$$\large Y_t = Y_{t-1}+\epsilon_t=\epsilon_t+\epsilon_{t-1}+\cdots+\epsilon_1$$
+
+A random walk is not stationary because the variance is time-dependent: $$\text{var}[y_t] = \text{var}[y_o]+\sum_1^t \text{var}[\epsilon_i]= t\, \text{var}[\epsilon].$$
+
+However, the expectation is zero: $\mathbb E[Y_t]=0.$
+
+To make the process stationary, the time series has to undergo differencing. The resultant times series after differencing will be white noise.
+
+
+```{r, fig.width=10, fig.height=4}
+library(cowplot) 
+library(fpp2)  
+
+set.seed(1)
+n = 500
+a = ts(cumsum(rnorm(n)))
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF RANDOM WALK NO DRIFT")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF RANDOM WALK NO DRIFT")
+
+da <- diff(a, differences = 1)
+r1d <- ggAcf(da, lag.max = 50) + labs(title = "ACF RANDOM WALK - DIFFERENCING")
+r2d <- ggPacf(da, lag.max = 50) + labs(title = "PACF RANDOM WALK - DIFFERENCING")
+plot_grid(r1, r2, r1d, r2d, ncol = 2)
+```
+
+1. The first $50$ lags yield statistically significant correlations. See [here](https://towardsdatascience.com/how-to-detect-random-walk-and-white-noise-in-time-series-forecasting-bdb5bbd4ef81).
+
+2. From [here](https://www.reddit.com/r/AskStatistics/comments/7i1vuq/comment/dqwie9l/?utm_source=share&utm_medium=web2x&context=3). After differencing, the ACF and PACF are very similar. They are white noise.
+
+> The ACF at lag $k$ is equivalent to the correlation between values $k$-lag apart (i.e. $x_{t+k} and $x_t$); the PACF is the same, except you first subtract out the projection of each of those onto the space spanned by $x_{t - 1}, \dots,  x_{t-(k+1)}$. This projection has an expected value of zero with white noise data, so the theoretical relationship between ACF and PACF in that case is equivalence. However, real (or simulated) data is a bit messy, and the estimated ACF/PACF values are not actually zero. But with larger sample size, the magnitude of the projection drops to zero faster than the ACF does, so even though the estimated ACF and PACF go toward zero, the PACF more quickly approximates the ACF. 
+>
+> What approximately equal ACF and PACF can tell you is that the data appear to be white noise. You can also infer this from the largely non-significant values; the few that are out of bounds are the product of randomness.
+
+
+---
+
+##### RANDOM WALK WITH DRIFT:
+
+From [here](https://youtu.be/Nxcqi7UZenc?si=YcHJsT2NrzCRxLOB):
+
+$$\large Y_t = \alpha + Y_{t-1}+\epsilon_t$$
+
+where $\epsilon_t \sim N(0, \sigma^2).$
+
+The $\mathbb E[Y_t] = \alpha \, t$ and the $\text{var}(Y_t) = t \, \sigma^2$
+
+$\large y_t = y_{t-1}+\epsilon_t=\epsilon_t+\epsilon_{t-1}+\cdots+\epsilon_1$
+
+From [here](https://stackoverflow.com/a/24274349/4089351): The resulting simulation will:
+
+> a realization of a random walk with variance `t*variance` and mean `t*drift`, where `t` is the index
+
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 500
+drift = 2
+variance = 1
+a = cumsum(rnorm(n, mean=drift, sd=sqrt(variance)))
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF RANDOM WALK WITH DRIFT")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF RANDOM WALK NO DRIFT")
+
+da <- diff(a, differences = 1)
+r1d <- ggAcf(da, lag.max = 50) + labs(title = "ACF RANDOM WALK DRIFT - DIFFERENCING")
+r2d <- ggPacf(da, lag.max = 50) + labs(title = "PACF RANDOM WALK DRIFT - DIFFERENCING")
+plot_grid(r1, r2, r1d, r2d, ncol = 2)
+```
+
+After differencing it also returns white noise. See [here](https://towardsdatascience.com/how-to-detect-random-walk-and-white-noise-in-time-series-forecasting-bdb5bbd4ef81).
+
+---
+
+##### AUTOREGRESSIVE PROCESS (AR):
+
+From [here](https://en.wikipedia.org/wiki/Autoregressive_model) and [here](https://youtu.be/AN0a58F6cxA?si=n0HMEy1OWdlZxoLu):
+
+
+For AR(1) processes the equation is:
+
+$$CC = \rho  Y_{t-1}+\epsilon_t$$
+
+In general, for AR(p):
+
+$$\large Y_t = \sum_{i=1}^p \rho_i\, Y_{t - i} + \epsilon_t$$
+
+From [here](https://rinterested.github.io/statistics/time_series.html) for AR(1):
+
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 1000
+c = arima.sim(n=n,list(ar=c(0.6)), innov=rnorm(n))
+
+r1 <- ggAcf(a, lag.max = 100) + labs(title = "ACF AR(1)")
+r2 <- ggPacf(a, lag.max = 100) + labs(title = "PACF AR(1)")
+plot_grid(r1, r2, ncol = 2)
+```
+
+
+
+From [here](https://stackoverflow.com/a/67371090/4089351).
+
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 1000
+AR2.sim <- function(n, ar1, ar2, sd)
+{
+  Xt = c(0,0)
+  for (i in 2:n)
+  {
+    Xt[i+1] = ar1*Xt[i] + ar2*Xt[i-1] + rnorm(1,mean=0,sd=sd)
+  }
+  Xt
+}
+a = AR2.sim(n, 0.15, 0.73, 2)
+
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
+plot_grid(r1, r2, ncol = 2)
+```
+
+
+```{r, fig.width=10, fig.height=4}
+set.seed(2024)
+n = 1000
+AR4.sim <- function(n, ar1, ar2, ar3, ar4, sd)
+{
+  Xt = c(0,0,0,0)
+  for (i in 4:n)
+  {
+    Xt[i+1] = ar1*Xt[i] + ar2*Xt[i-1] + ar3*Xt[i-2] + ar4*Xt[i-3] + rnorm(1,mean=0,sd=sd)
+  }
+  Xt
+}
+a = AR4.sim(n, 0.15, 0.3, 0.5, 0.8, 2)
+
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(4)")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(4)")
+plot_grid(r1, r2, ncol = 2)
+```
+
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
