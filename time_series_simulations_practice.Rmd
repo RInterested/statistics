@@ -248,6 +248,7 @@ r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
 ```
 
+
 ---
 
 ##### MOVING AVERAGE (MA):
@@ -257,9 +258,13 @@ From [here](https://en.wikipedia.org/wiki/Moving-average_model):
 
 For MR(q):
 
-$$\mu + \large Y_t = \sum_{i=1}^q \theta_i\, \epsilon_{t - 1} + \varepsilon_t$$
+$$\large Y_t =\mu+ \sum_{i=1}^q \theta_i\, \epsilon_{t - 1} + \varepsilon_t$$
 
 where $\mu$ is the mean of the series.
+
+For MA(1) models, the $$\mathbb E[Y_t]=0$$
+
+and $$\text{Var}(Y_t)=\sigma^2\left( 1 + \theta^2\right)$$
 
 From [here](https://rinterested.github.io/statistics/time_series.html) for MA(1):
 

@@ -601,10 +601,14 @@ plot_grid(r1, r2, ncol = 2)</code></pre>
 <h5>MOVING AVERAGE (MA):</h5>
 <p>From <a href="https://en.wikipedia.org/wiki/Moving-average_model">here</a>:</p>
 <p>For MR(q):</p>
-<p><span class="math display">\[\mu + \large Y_t = \sum_{i=1}^q
-\theta_i\, \epsilon_{t - 1} + \varepsilon_t\]</span></p>
+<p><span class="math display">\[\large Y_t =\mu+ \sum_{i=1}^q \theta_i\,
+\epsilon_{t - 1} + \varepsilon_t\]</span></p>
 <p>where <span class="math inline">\(\mu\)</span> is the mean of the
 series.</p>
+<p>For MA(1) models, the <span class="math display">\[\mathbb
+E[Y_t]=0\]</span></p>
+<p>and <span class="math display">\[\text{Var}(Y_t)=\sigma^2\left( 1 +
+\theta^2\right)\]</span></p>
 <p>From <a href="https://rinterested.github.io/statistics/time_series.html">here</a>
 for MA(1):</p>
 <pre class="r"><code>set.seed(2024)
