@@ -411,7 +411,46 @@ r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF MA(2)")
 plot_grid(r1, r2, ncol = 2)
 ```
 
+### ARMA:
 
+From [here](https://rpubs.com/odenipinedo/ARIMA-Models-in-R#:~:text=Simulating%20ARMA%20models,data%20from%20an%20ARMA%20model.):
+
+```{R}
+n <- 10^4
+a <- arima.sim(model = list(order = c(2, 0, 1), ar = c(1, -.9), ma = .8), n = n)
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF ARMA(2,1)")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF ARMA(2,1)")
+plot_grid(r1, r2, ncol = 2)
+Arima(a, order = c(2,0,1), include.mean = T)
+```
+
+#### ARMA with SEASONALITY:
+
+Find the explanation in [here](https://online.stat.psu.edu/stat510/lesson/4/4.1). The code is extracted from [here](https://robjhyndman.com/hyndsight/simulating-from-a-specified-seasonal-arima-model/index.html)
+
+> The seasonal ARIMA model incorporates both non-seasonal and seasonal factors in a multiplicative model. One shorthand notation for the model is
+>
+$$(p, d, q) \times (P, D, Q)S$$
+>
+> with p = non-seasonal AR order, d = non-seasonal differencing, q = non-seasonal MA order, P = seasonal AR order, D = seasonal differencing, Q = seasonal MA order, and S = time span of repeating seasonal pattern. Without differencing operations, the model could be written more formally as
+>
+> $$\Phi(B^S)\phi(B)(x_t-\mu)=\Theta(B^S)\theta(B)w_t$$
+
+
+
+```{R}
+library(forecast)
+model <- Arima(ts(rnorm(100),freq=12), 
+           order=c(1,1,1), 
+           seasonal=c(1,1,1),
+           fixed=c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
+model
+a <- simulate(model, nsim=1000)
+autoplot(a)
+r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF ARMA(2,0,1) x (1, 1, 1) 12")
+r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF ARMA(2,0,1) x (1, 1, 1) 12")
+plot_grid(r1, r2, ncol = 2)
+```
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
