@@ -875,12 +875,12 @@ Without differencing operations, the model could be written more
 formally as</p>
 <p><span class="math display">\[\Phi(B^S)\phi(B)(x_t-\mu)=\Theta(B^S)\theta(B)w_t\]</span></p>
 <p>The non-seasonal components are:</p>
-<p><span class="math inline">\(\phi(B)=1-\phi_1B-\ldots-\phi_pB^p\)</span> <span class="math inline">\(\theta(B) = 1+ \theta_1B+ \ldots +
-\theta_qB^q\)</span></p>
+<p><span class="math display">\[\phi(B)=1-\phi_1B-\ldots-\phi_pB^p\]</span> <span class="math display">\[\theta(B) = 1+ \theta_1B+ \ldots +
+\theta_qB^q\]</span></p>
 <p>The seasonal components are:</p>
-<p><span class="math inline">\(\Phi(B^S) = 1- \Phi_1 B^S - \ldots -
-\Phi_PB^{PS}\)</span> <span class="math inline">\(\Theta(B^S) = 1 +
-\Theta_1 B^S + \ldots + \Theta_Q B^{QS}\)</span></p>
+<p><span class="math display">\[\Phi(B^S) = 1- \Phi_1 B^S - \ldots -
+\Phi_PB^{PS}\]</span> <span class="math display">\[\Theta(B^S) = 1 +
+\Theta_1 B^S + \ldots + \Theta_Q B^{QS}\]</span></p>
 </blockquote>
 <pre class="r"><code>library(forecast)
 model &lt;- Arima(ts(rnorm(100),freq=12), 
