@@ -114,6 +114,10 @@ plot_grid(r1, r2, r1d, r2d, ncol = 2)
 
 ##### RANDOM WALK WITH DRIFT:
 
+From [here](https://www.reddit.com/r/AskStatistics/comments/7i1vuq/comment/dqw8khg/?utm_source=share&utm_medium=web2x&context=3):
+
+> A random walk (with drift) in the logs (geometric Brownian motion) is not a perfect description of stock prices, for a variety of reasons -- but it's not a terrible first approximation, and it's the basis of the Black Scholes formula
+
 From [here](https://youtu.be/Nxcqi7UZenc?si=YcHJsT2NrzCRxLOB):
 
 $$\large Y_t = \alpha + Y_{t-1}+\epsilon_t$$
@@ -278,6 +282,10 @@ set.seed(2024)
 n = 1000
 yt <- arima.sim(list(order=c(1,0,0), ar=.5), n=500)
 a <- yt + 10 
+
+r1 <- ggAcf(yt, lag.max = 50) + labs(title = "ACF AR(2)")
+r2 <- ggPacf(yt, lag.max = 50) + labs(title = "PACF AR(2)")
+plot_grid(r1, r2, ncol = 2)
 
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
