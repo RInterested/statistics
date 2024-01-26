@@ -296,17 +296,27 @@ plot_grid(r1, r2, ncol = 2)
 
 However, using the code in [here](https://people.stat.sc.edu/wang528/Stat%20720/STAT720%20Notes.pdf) and [here](https://stackoverflow.com/a/41089875/4089351) it is much easier to avoid altogether the convolution filter, and code as a recurrent filter the generation of the time series as in:
 
-```{r}
+```
 # Toy example:
-x = rnorm(10)
-theta1 = 0.4
-theta2 = 0.7
-fil = c(theta1, theta2)
-filter(x, "recursive", filter=fil)
-(t1 = x[1])
-(t2 = t1 * theta1 + x[2])
-(t3 = t1 * theta2 + t2 * theta1 + x[3])
-(t4 = t2 * theta2 + t3 * theta1 + x[4])
+> x = rnorm(10)
+> theta1 = 0.4
+> theta2 = 0.7
+> fil = c(theta1, theta2)
+> filter(x, "recursive", filter=fil)
+Time Series:
+Start = 1 
+End = 10 
+Frequency = 1 
+ [1] -0.5719836  0.7566848 -0.2348018  1.6904645  0.1553653  2.0795214  2.6251119  2.9932320
+ [9]  3.5073989  3.9858098
+> (t1 = x[1])
+[1] -0.5719836
+> (t2 = t1 * theta1 + x[2])
+[1] 0.7566848
+> (t3 = t1 * theta2 + t2 * theta1 + x[3])
+[1] -0.2348018
+> (t4 = t2 * theta2 + t3 * theta1 + x[4])
+[1] 1.690465
 ```
 
 ```{r, fig.width=10, fig.height=4}
@@ -368,15 +378,23 @@ As with AR() processes, applying `filter()` can generate the time series without
 
 Here is how it works:
 
-```{r}
+```
 # Toy example:
-x = rnorm(10)
-phi1 = 0.4
-phi2 = 0.7
-fil = c(phi1, phi2)
-filter(x, method='convolution', side=1, filter=fil)
-phi2 * x[1] + phi1 * x[2]
-phi2 * x[2] + phi1 * x[3]
+> x = rnorm(10)
+> phi1 = 0.4
+> phi2 = 0.7
+> fil = c(phi1, phi2)
+> filter(x, method='convolution', side=1, filter=fil)
+Time Series:
+Start = 1 
+End = 10 
+Frequency = 1 
+ [1]         NA  0.4732177  1.1772258 -0.2822853  0.3438599  0.4165922  0.7885656  1.1353353
+ [9]  0.4015954 -1.0864283
+> phi2 * x[1] + phi1 * x[2]
+[1] 0.4732177
+> phi2 * x[2] + phi1 * x[3]
+[1] 1.177226
 ```
 
 ```{r, fig.width=10, fig.height=4}
