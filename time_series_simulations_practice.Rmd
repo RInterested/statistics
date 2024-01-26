@@ -296,6 +296,19 @@ plot_grid(r1, r2, ncol = 2)
 
 However, using the code in [here](https://people.stat.sc.edu/wang528/Stat%20720/STAT720%20Notes.pdf) and [here](https://stackoverflow.com/a/41089875/4089351) it is much easier to avoid altogether the convolution filter, and code as a recurrent filter the generation of the time series as in:
 
+```{r}
+# Toy example:
+x = rnorm(10)
+theta1 = 0.4
+theta2 = 0.7
+fil = c(theta1, theta2)
+filter(x, "recursive", filter=fil)
+(t1 = x[1])
+(t2 = t1 * theta1 + x[2])
+(t3 = t1 * theta2 + t2 * theta1 + x[3])
+(t4 = t2 * theta2 + t3 * theta1 + x[4])
+```
+
 ```{r, fig.width=10, fig.height=4}
 set.seed(2024)
 library(forecast)
@@ -351,7 +364,20 @@ plot_grid(r1, r2, ncol = 2)
 
 The characteristic MA pattern on the PACF is alternating and diminishing over time.
 
-As with AR() processes, applying `filter()` can generate the time series without need for `arima.sim()` and with the advantage of being able to plug in a mean. The code is from page 23 of [this document](https://people.stat.sc.edu/wang528/Stat%20720/STAT720%20Notes.pdf):
+As with AR() processes, applying `filter()` can generate the time series without need for `arima.sim()` and with the advantage of being able to plug in a mean. The code is from page 23 of [this document](https://people.stat.sc.edu/wang528/Stat%20720/STAT720%20Notes.pdf).
+
+Here is how it works:
+
+```{r}
+# Toy example:
+x = rnorm(10)
+phi1 = 0.4
+phi2 = 0.7
+fil = c(phi1, phi2)
+filter(x, method='convolution', side=1, filter=fil)
+phi2 * x[1] + phi1 * x[2]
+phi2 * x[2] + phi1 * x[3]
+```
 
 ```{r, fig.width=10, fig.height=4}
 # Moving Average Model MA(2)
