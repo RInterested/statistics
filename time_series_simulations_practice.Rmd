@@ -435,6 +435,16 @@ $$(p, d, q) \times (P, D, Q)S$$
 > with p = non-seasonal AR order, d = non-seasonal differencing, q = non-seasonal MA order, P = seasonal AR order, D = seasonal differencing, Q = seasonal MA order, and S = time span of repeating seasonal pattern. Without differencing operations, the model could be written more formally as
 >
 > $$\Phi(B^S)\phi(B)(x_t-\mu)=\Theta(B^S)\theta(B)w_t$$
+>
+>The non-seasonal components are:
+>
+>$\phi(B)=1-\phi_1B-\ldots-\phi_pB^p$
+>$\theta(B) = 1+ \theta_1B+ \ldots + \theta_qB^q$
+>
+>The seasonal components are:
+>
+>$\Phi(B^S) = 1- \Phi_1 B^S - \ldots - \Phi_PB^{PS}$
+>$\Theta(B^S) = 1 + \Theta_1 B^S + \ldots + \Theta_Q B^{QS}$
 
 
 
