@@ -354,16 +354,14 @@ The characteristic MA pattern on the PACF is alternating and diminishing over ti
 As with AR() processes, applying `filter()` can generate the time series without need for `arima.sim()` and with the advantage of being able to plug in a mean. The code is from page 23 of [this document](https://people.stat.sc.edu/wang528/Stat%20720/STAT720%20Notes.pdf):
 
 ```{r, fig.width=10, fig.height=4}
-set.seed(2024)
-n = 1000
+# Moving Average Model MA(2)
 n <- 10^4
 phi1 <- 0.78
 phi2 <- 0.1
 mu <- 70
 sd <- 1
-y <- mu + filter( rnorm(n, 0, 1), sides=1, c(1,phi1, phi2))[-(1:50)]
-
-Arima(y, order = c(0,0,2), include.mean = T)
+a <- mu + filter(rnorm(n, 0, 1), method="convolution", sides=1, c(1,phi1, phi2))[-(1:50)]
+Arima(a, order = c(0,0,2), include.mean = T)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF MA(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF MA(2)")
 plot_grid(r1, r2, ncol = 2)
