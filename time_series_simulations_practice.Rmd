@@ -446,7 +446,14 @@ $$(p, d, q) \times (P, D, Q)S$$
 >$$\Phi(B^S) = 1- \Phi_1 B^S - \ldots - \Phi_PB^{PS}$$
 >$$\Theta(B^S) = 1 + \Theta_1 B^S + \ldots + \Theta_Q B^{QS}$$
 
-
+```{r}
+set.seed(0)
+model <- Arima(ts(rnorm(100),freq=4), order=c(1,0,1), seasonal=c(1,1,1),
+             fixed=c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
+foo <- simulate(model, nsim=100)
+autoplot(forecast(foo, h=20))
+fit <- Arima(foo, order=c(1,0,1), seasonal=c(1,0,1))
+```
 
 
 
