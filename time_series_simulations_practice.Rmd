@@ -448,19 +448,7 @@ $$(p, d, q) \times (P, D, Q)S$$
 
 
 
-```{R}
-library(forecast)
-model <- Arima(ts(rnorm(100),freq=12), 
-           order=c(1,1,1), 
-           seasonal=c(1,1,1),
-           fixed=c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
-model
-a <- simulate(model, nsim=1000)
-autoplot(a)
-r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF ARMA(2,0,1) x (1, 1, 1) 12")
-r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF ARMA(2,0,1) x (1, 1, 1) 12")
-plot_grid(r1, r2, ncol = 2)
-```
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
