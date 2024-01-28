@@ -411,7 +411,39 @@ r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF MA(2)")
 plot_grid(r1, r2, ncol = 2)
 ```
 
-### ARMA:
+### ARIMA:
+
+From [here](https://robjhyndman.com/hyndsight/arimaconstants/#:~:text=arima()%20function%20automates%20the,d%3D0%20d%3D0.):
+
+>$$c(1−ϕ_1B−⋯−ϕ_pB_p)(1−B)^dy_t=c+(1+θ_1B+⋯+θ_qB_q)e_t$$
+>
+>where $c=μ(1−ϕ_1−⋯−ϕ_p)$ and $\mu$ is the mean of $(1-B)^d y_t.$
+>
+> Thus, the inclusion of a constant in a non-stationary ARIMA model is equivalent to inducing a polynomial trend of order $d$ in the forecast function. (If the constant is omitted, the forecast function includes a polynomial trend of order $d−1$.) When $d=0,$ we have the special case that $μ$ is the mean of $y_t.$
+>
+> Including constants in ARIMA models using R 
+>
+>`arima()`
+>
+> By default, the `arima()` command in R sets $c=μ=0$ when $d>0$ and provides an estimate of $\mu$ when $d=0.$ The parameter $μ$ is called the 'intercept' in the R output. It will be close to the sample mean of the time series, but usually not identical to it as the sample mean is not the maximum likelihood estimate when $p+q>0.$
+>
+>The `arima()` command has an argument `include.mean` which only has an effect when $d=0$ and is `TRUE` by default. Setting `include.mean=FALSE` will force $μ=0.$
+>
+> `Arima()`
+>
+>The `Arima()` command from the forecast package provides more flexibility on the inclusion of a constant. It has an argument `include.mean` which has identical functionality to the corresponding argument for `arima()`. It also has an argument `include.drift` which allows $μ\neq 0$ when $d=1.$ For $d>1,$ no constant is allowed as a quadratic or higher order trend is particularly dangerous when forecasting. The parameter $\mu$ is called the 'drift' in the R output when $d=1.$
+>
+>There is also an argument `include.constant` which, if `TRUE`, will set `include.mean=TRUE` if 
+$d=0$ and `include.drift=TRUE` when $d=1.$ If `include.constant=FALSE`, both `include.mean` and `include.drift` will be set to `FALSE`. If `include.constant` is used, the values of `include.mean=TRUE` and `include.drift=TRUE` are ignored.
+>
+>When $d=0$ and `include.drift=TRUE`, the fitted model from `Arima()` is
+>
+>$$(1−ϕ_1B−⋯−ϕ_pB^p)(y_t−a−bt)=(1+θ_1B+⋯+θ_qB^q)e_t$$
+>
+>In this case, the R output will label $a$ as the 'intercept' and $b$ as the 'drift' coefficient.
+
+
+---
 
 From [here](https://rpubs.com/odenipinedo/ARIMA-Models-in-R#:~:text=Simulating%20ARMA%20models,data%20from%20an%20ARMA%20model.):
 
@@ -424,7 +456,7 @@ plot_grid(r1, r2, ncol = 2)
 Arima(a, order = c(2,0,1), include.mean = T)
 ```
 
-#### ARMA with SEASONALITY:
+#### ARIMA with SEASONALITY:
 
 Find the explanation in [here](https://online.stat.psu.edu/stat510/lesson/4/4.1). The code is extracted from [here](https://robjhyndman.com/hyndsight/simulating-from-a-specified-seasonal-arima-model/index.html)
 
@@ -447,7 +479,6 @@ $$(p, d, q) \times (P, D, Q)S$$
 >$$\Theta(B^S) = 1 + \Theta_1 B^S + \ldots + \Theta_Q B^{QS}$$
 
 ```{r}
-set.seed(0)
 m <- arima(ts(rnorm(100), freq=4), order=c(1,0,1), seasonal=c(1,1,1),
              fixed = c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
 nsim <- 100
@@ -457,7 +488,7 @@ autoplot(forecast(foo, h=20))
 # Increasing the number of samples for a more accurate fitting:
 nsim <- 10000
 foo <- simulate(m, nsim=nsim)
-fit <- Arima(foo, order=c(1,0,1), seasonal=c(1,1,1), include.mean=T)
+fit <- Arima(foo, order=c(1,0,1), seasonal=c(1,1,1))
 fit
 ```
 
