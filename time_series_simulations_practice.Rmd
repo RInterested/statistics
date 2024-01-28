@@ -411,7 +411,31 @@ r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF MA(2)")
 plot_grid(r1, r2, ncol = 2)
 ```
 
+---
+
+### ARMA:
+
+The model is
+
+$$y_t = c + \phi_1y_{t-1} + \cdots + \phi_py_{t-p} + \theta_1\epsilon_{t-1} + \cdots + \epsilon_t  $$
+
+or in backshift notation,
+
+$$y_t = c + \phi_1By_{t} + \cdots + \phi_pB^py_{t} + \theta_1B\epsilon_{t} + \cdots +\theta_qB^q \epsilon_t  $$
+
+moving $y_t$ to the LHS:
+
+$$(1 - \phi_1B - \cdots - \phi_pB^p)y_{t}=c+(\theta_1B + \cdots +\theta_qB^q) \epsilon_t$$
+
+---
+
 ### ARIMA:
+
+An ARIMA(1,1,1) model is
+
+$$(1 - \phi_1B)\color{red}{(1-B)}y_t=c+(1+\theta_1B)\epsilon_t$$
+
+where the part in red is the first difference.
 
 From [here](https://robjhyndman.com/hyndsight/arimaconstants/#:~:text=arima()%20function%20automates%20the,d%3D0%20d%3D0.):
 
