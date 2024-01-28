@@ -448,11 +448,17 @@ $$(p, d, q) \times (P, D, Q)S$$
 
 ```{r}
 set.seed(0)
-model <- Arima(ts(rnorm(100),freq=4), order=c(1,0,1), seasonal=c(1,1,1),
-             fixed=c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
-foo <- simulate(model, nsim=100)
-autoplot(forecast(foo, h=20))
-fit <- Arima(foo, order=c(1,0,1), seasonal=c(1,0,1))
+m <- arima(ts(rnorm(100), freq=4), order=c(1,0,1), seasonal=c(1,1,1),
+             fixed = c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
+nsim <- 100
+foo <- simulate(m, nsim=nsim)
+autoplot(forecast(foo, h=20)) 
+
+# Increasing the number of samples for a more accurate fitting:
+nsim <- 10000
+foo <- simulate(m, nsim=nsim)
+fit <- Arima(foo, order=c(1,0,1), seasonal=c(1,1,1), include.mean=T)
+fit
 ```
 
 
