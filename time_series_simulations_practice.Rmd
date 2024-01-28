@@ -437,6 +437,21 @@ $$(1 - \phi_1B)\color{red}{(1-B)}y_t=c+(1+\theta_1B)\epsilon_t$$
 
 where the part in red is the first difference.
 
+There are two ways of writing the ARIMA model in general (from [here](https://youtu.be/A_pQ3gfVTaI?si=069xJ2p2DnZKV_5j&t=462)):
+
+##### Intercept form:
+
+$$(1 - \phi_1 B-\cdots  -\phi_p B^p)y_t' =c +(1 + \theta_1B+ \cdots + \theta_qB^q)\epsilon_t$$
+where $$y_t' = (1-B)^dy_t$$
+
+##### Mean form:
+
+$$(1 - \phi_1 B-\cdots  -\phi_p B^p)(y_t'-\mu) =(1 + \theta_1B+ \cdots + \theta_qB^q)\epsilon_t$$
+
+where $\mu$ is the mean of $y_t'.$ Therefore,
+
+$$c= \mu(1-\phi_1-\cdots-\phi_p)$$
+
 From [here](https://robjhyndman.com/hyndsight/arimaconstants/#:~:text=arima()%20function%20automates%20the,d%3D0%20d%3D0.):
 
 >$$c(1−ϕ_1B−⋯−ϕ_pB_p)(1−B)^dy_t=c+(1+θ_1B+⋯+θ_qB_q)e_t$$

@@ -862,6 +862,21 @@ plot_grid(r1, r2, ncol = 2)</code></pre>
 <p><span class="math display">\[(1 -
 \phi_1B)\color{red}{(1-B)}y_t=c+(1+\theta_1B)\epsilon_t\]</span></p>
 <p>where the part in red is the first difference.</p>
+<p>There are two ways of writing the ARIMA model in general (from <a href="https://youtu.be/A_pQ3gfVTaI?si=069xJ2p2DnZKV_5j&amp;t=462">here</a>):</p>
+<div id="intercept-form" class="section level5">
+<h5>Intercept form:</h5>
+<p><span class="math display">\[(1 - \phi_1 B-\cdots  -\phi_p
+B^p)y_t&#39; =c +(1 + \theta_1B+ \cdots +
+\theta_qB^q)\epsilon_t\]</span> where <span class="math display">\[y_t&#39; = (1-B)^dy_t\]</span></p>
+</div>
+<div id="mean-form" class="section level5">
+<h5>Mean form:</h5>
+<p><span class="math display">\[(1 - \phi_1 B-\cdots  -\phi_p
+B^p)(y_t&#39;-\mu) =(1 + \theta_1B+ \cdots +
+\theta_qB^q)\epsilon_t\]</span></p>
+<p>where <span class="math inline">\(\mu\)</span> is the mean of <span class="math inline">\(y_t&#39;.\)</span> Therefore,</p>
+<p><span class="math display">\[c=
+\mu(1-\phi_1-\cdots-\phi_p)\]</span></p>
 <p>From <a href="https://robjhyndman.com/hyndsight/arimaconstants/#:~:text=arima()%20function%20automates%20the,d%3D0%20d%3D0.">here</a>:</p>
 <blockquote>
 <p><span class="math display">\[c(1−ϕ_1B−⋯−ϕ_pB_p)(1−B)^dy_t=c+(1+θ_1B+⋯+θ_qB_q)e_t\]</span></p>
@@ -921,6 +936,7 @@ plot_grid(r1, r2, ncol = 2)</code></pre>
 ## 
 ## sigma^2 = 1.008:  log likelihood = -14228.22
 ## AIC=28466.45   AICc=28466.45   BIC=28502.5</code></pre>
+</div>
 <div id="arima-with-seasonality" class="section level4">
 <h4>ARIMA with SEASONALITY:</h4>
 <p>Find the explanation in <a href="https://online.stat.psu.edu/stat510/lesson/4/4.1">here</a>. The
