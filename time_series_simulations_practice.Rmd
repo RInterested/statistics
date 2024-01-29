@@ -94,11 +94,12 @@ n = 500
 a = ts(cumsum(rnorm(n)))
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF RANDOM WALK NO DRIFT")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF RANDOM WALK NO DRIFT")
-
+# ggtsdisplay(a)
 da <- diff(a, differences = 1)
 r1d <- ggAcf(da, lag.max = 50) + labs(title = "ACF RANDOM WALK - DIFFERENCING")
 r2d <- ggPacf(da, lag.max = 50) + labs(title = "PACF RANDOM WALK - DIFFERENCING")
 plot_grid(r1, r2, r1d, r2d, ncol = 2)
+# ggtsdisplay(da)
 ```
 
 1. The first $50$ lags yield statistically significant correlations. See [here](https://towardsdatascience.com/how-to-detect-random-walk-and-white-noise-in-time-series-forecasting-bdb5bbd4ef81).
@@ -145,13 +146,16 @@ da <- diff(a, differences = 1)
 r1d <- ggAcf(da, lag.max = 50) + labs(title = "ACF RANDOM WALK DRIFT - DIFFERENCING")
 r2d <- ggPacf(da, lag.max = 50) + labs(title = "PACF RANDOM WALK DRIFT - DIFFERENCING")
 plot_grid(r1, r2, r1d, r2d, ncol = 2)
+
+# ggtsdisplay(a)
+# ggtsdisplay(da)
 ```
 
 After differencing it also returns white noise. See [here](https://towardsdatascience.com/how-to-detect-random-walk-and-white-noise-in-time-series-forecasting-bdb5bbd4ef81).
 
 ---
 
-##### AUTOREGRESSIVE PROCESS (AR):
+#### AUTOREGRESSIVE PROCESS (AR):
 
 From [here](https://en.wikipedia.org/wiki/Autoregressive_model) and [here](https://youtu.be/AN0a58F6cxA?si=n0HMEy1OWdlZxoLu):
 
@@ -199,6 +203,7 @@ Arima(a, order = c(1,0,0), include.mean = T)
 r1 <- ggAcf(a, lag.max = 100) + labs(title = "ACF AR(1)")
 r2 <- ggPacf(a, lag.max = 100) + labs(title = "PACF AR(1)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a, plot.type='partial')
 ```
 
 An example with positive rho values with `arima` from [here](https://edoras.sdsu.edu/~babailey/stat673/lab1.html)
@@ -211,6 +216,7 @@ Arima(a, order = c(2,0,0), include.mean = T)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 ```
 
 another example:
@@ -223,6 +229,7 @@ Arima(a, order = c(1,0,0), include.mean = T)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 ```
 
 
@@ -248,6 +255,7 @@ Arima(a, order = c(2,0,0), include.mean = T)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 ```
 
 and a second example:
@@ -260,6 +268,7 @@ Arima(a, order = c(2,0,0), include.mean = T)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 ```
 
 ##### Simulating an AR(1) process with $\mu \neq 0:$
@@ -287,10 +296,11 @@ Arima(a, order = c(1,0,0), include.mean = T)
 r1 <- ggAcf(yt, lag.max = 50) + labs(title = "ACF AR(1)")
 r2 <- ggPacf(yt, lag.max = 50) + labs(title = "PACF AR(1)")
 plot_grid(r1, r2, ncol = 2)
-
+# ggtsdisplay(yt)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(1)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(1)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 ```
 
 
@@ -334,6 +344,7 @@ Arima(a, order = c(2,0,0), include.mean = T)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF AR(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF AR(2)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 ```
 
 
@@ -366,6 +377,7 @@ Arima(a, order = c(0,0,1), include.mean = T)
 r1 <- ggAcf(a, lag.max = 100) + labs(title = "ACF MA(1)")
 r2 <- ggPacf(a, lag.max = 100) + labs(title = "PACF MA(1)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 ```
 
 
@@ -409,6 +421,7 @@ Arima(a, order = c(0,0,2), include.mean = T)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF MA(2)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF MA(2)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 ```
 
 ---
@@ -492,6 +505,7 @@ a <- arima.sim(model = list(order = c(2, 0, 1), ar = c(1, -.9), ma = .8), n = n)
 r1 <- ggAcf(a, lag.max = 50) + labs(title = "ACF ARMA(2,1)")
 r2 <- ggPacf(a, lag.max = 50) + labs(title = "PACF ARMA(2,1)")
 plot_grid(r1, r2, ncol = 2)
+# ggtsdisplay(a)
 Arima(a, order = c(2,0,1), include.mean = T)
 ```
 
