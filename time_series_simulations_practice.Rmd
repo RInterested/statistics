@@ -58,7 +58,7 @@ White noise is stationary. From [here](https://rinterested.github.io/statistics/
 $$Y_t = \varepsilon_t$$ with $\epsilon_i \sim N(0,\sigma^2)$. This is a stationary process.
 
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 library(cowplot) 
 library(fpp2)  
 library(forecast)
@@ -70,8 +70,8 @@ n = 500
 y =ts(rnorm(100))
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF WHITE NOISE")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF WHITE NOISE")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF WHITE NOISE")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF WHITE NOISE")
 p1 / ( p2 | p3)
 ```
 
@@ -94,23 +94,23 @@ However, the expectation is zero: $\mathbb E[Y_t]=0.$
 To make the process stationary, the time series has to undergo differencing. The resultant times series after differencing will be white noise.
 
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(1)
 n = 500
 y = ts(cumsum(rnorm(n)))
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF RANDOM WALK NO DRIFT")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF RANDOM WALK NO DRIFT")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF RANDOM WALK NO DRIFT")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF RANDOM WALK NO DRIFT")
 p1 / ( p2 | p3)
 
 dy <- diff(y, differences = 1)
 
 p1 = autoplot(dy) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(dy, lag.max=50) + ggtitle("ACF RANDOM WALK - DIFFERENCING")
-p3 = ggPacf(dy, lag.max=50) + ggtitle("PACF RANDOM WALK - DIFFERENCING")
+p2 = ggAcf(dy, lag.max=15) + ggtitle("ACF RANDOM WALK - DIFFERENCING")
+p3 = ggPacf(dy, lag.max=15) + ggtitle("PACF RANDOM WALK - DIFFERENCING")
 p1 / ( p2 | p3)
 ```
 
@@ -145,7 +145,7 @@ From [here](https://stackoverflow.com/a/24274349/4089351): The resulting simulat
 
 > a realization of a random walk with variance `t*variance` and mean `t*drift`, where `t` is the index
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 n = 500
 drift = 2
@@ -154,16 +154,16 @@ y = ts(cumsum(rnorm(n, mean=drift, sd=sqrt(variance))))
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF RANDOM WALK WITH DRIFT")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF RANDOM WALK WITH DRIFT")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF RANDOM WALK WITH DRIFT")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF RANDOM WALK WITH DRIFT")
 p1 / ( p2 | p3)
 
 dy <- diff(y, differences = 1)
 
 p1 = autoplot(dy) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(dy, lag.max=50) + ggtitle("ACF RANDOM WALK WITH DRIFT - differencing")
-p3 = ggPacf(dy, lag.max=50) + ggtitle("PACF RANDOM WALK WITH DRIFT - differencing")
+p2 = ggAcf(dy, lag.max=15) + ggtitle("ACF RANDOM WALK WITH DRIFT - differencing")
+p3 = ggPacf(dy, lag.max=15) + ggtitle("PACF RANDOM WALK WITH DRIFT - differencing")
 p1 / ( p2 | p3)
 ```
 
@@ -211,7 +211,7 @@ $$\text{Var}(Y_t)= \frac{\sigma^2}{1-\rho^2}$$
 
 From [here](https://rinterested.github.io/statistics/time_series.html) for AR(1):
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 n = 10^4
 y = arima.sim(n=n,list(ar=c(0.15)), innov=rnorm(n))
@@ -219,14 +219,14 @@ Arima(y, order = c(1,0,0), include.mean = T)
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(1)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(1)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(1)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(1)")
 p1 / ( p2 | p3)
 ```
 
 An example with positive rho values with `arima` from [here](https://edoras.sdsu.edu/~babailey/stat673/lab1.html)
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 n = 10^4
 y <- arima.sim(n=n, model=list(ar=c(0.1,0.8)))
@@ -234,14 +234,14 @@ Arima(y, order = c(2,0,0), include.mean = T)
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
 another example:
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 n = 10^4
 y <- arima.sim(model = list(order = c(1,0,0), ar=0.9), n = n)
@@ -249,18 +249,19 @@ Arima(y, order = c(1,0,0), include.mean = T)
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
 
-1. The ACF shows geometric decay.
-2. The PACF shows significant autocorrelations for a number of lags equal to the order.
+1. **The ACF shows geometric decay.**
+2. **The last significant lag in the PACF indicates the order of the AR model.**
+3. **A sinusoidal decay indicates either a seasonal or cyclic component.**
 
 From [here](https://stackoverflow.com/a/67371090/4089351).
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 n = 10^4
 AR2.sim <- function(n, ar1, ar2, sd)
@@ -276,22 +277,22 @@ y = ts(AR2.sim(n, -0.5, 0.3, 1))
 Arima(y, order = c(2,0,0), include.mean = T)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
 and a second example:
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 n = 10^4
 y <- arima.sim(n=n, model=list(ar=c(-0.5,0.3)))
 Arima(y, order = c(2,0,0), include.mean = T)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
@@ -310,7 +311,7 @@ $$Y_t = .5 Y_{t-1} + \epsilon_t$$
 
 and we just add $10$ at the end:
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 n = 10^4
 yt <- arima.sim(list(order=c(1,0,0), ar=.5), n=n)
@@ -319,13 +320,13 @@ Arima(y, order = c(1,0,0), include.mean = T)
 
 p1 = autoplot(yt) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(yt, lag.max=50) + ggtitle("ACF AR(1)")
-p3 = ggPacf(yt, lag.max=50) + ggtitle("PACF AR(1)")
+p2 = ggAcf(yt, lag.max=15) + ggtitle("ACF AR(1)")
+p3 = ggPacf(yt, lag.max=15) + ggtitle("PACF AR(1)")
 p1 / ( p2 | p3)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(1)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(1)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(1)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(1)")
 p1 / ( p2 | p3)
 ```
 
@@ -355,7 +356,7 @@ Frequency = 1
 [1] 1.690465
 ```
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 library(forecast)
 n <- 10^4
@@ -370,8 +371,8 @@ Arima(y, order = c(2,0,0), include.mean = T)
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
@@ -395,15 +396,15 @@ and $$\text{Var}(Y_t)=\sigma^2\left( 1 + \theta^2\right)$$
 
 From [here](https://rinterested.github.io/statistics/time_series.html) for MA(1):
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 set.seed(2024)
 n = 1000
 y <- arima.sim(model=list(ma=0.9), n=n)
 Arima(y, order = c(0,0,1), include.mean = T)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF MA(1)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF MA(1)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF MA(1)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF MA(1)")
 p1 / ( p2 | p3)
 ```
 
@@ -436,7 +437,7 @@ Frequency = 1
 [1] 1.177226
 ```
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=15, fig.height=8}
 # Moving Average Model MA(2)
 n <- 10^4
 phi1 <- 0.78
@@ -447,8 +448,8 @@ y <- ts(mu + filter(rnorm(n, 0, 1), method="convolution", sides=1, c(1,phi1, phi
 Arima(y, order = c(0,0,2), include.mean = T)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF MA(2)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF MA(2)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF MA(2)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF MA(2)")
 p1 / ( p2 | p3)
 ```
 
@@ -527,13 +528,13 @@ $d=0$ and `include.drift=TRUE` when $d=1.$ If `include.constant=FALSE`, both `in
 
 From [here](https://rpubs.com/odenipinedo/ARIMA-Models-in-R#:~:text=Simulating%20ARMA%20models,data%20from%20an%20ARMA%20model.):
 
-```{R}
+```{r, fig.width=15, fig.height=8}
 n <- 10^4
 y <- arima.sim(model = list(order = c(2, 0, 1), ar = c(1, -.9), ma = .8), n = n)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=50) + ggtitle("ACF ARMA(2,1)")
-p3 = ggPacf(y, lag.max=50) + ggtitle("PACF ARMA(2,1)")
+p2 = ggAcf(y, lag.max=15) + ggtitle("ACF ARMA(2,1)")
+p3 = ggPacf(y, lag.max=15) + ggtitle("PACF ARMA(2,1)")
 p1 / ( p2 | p3)
 Arima(y, order = c(2,0,1), include.mean = T)
 ```
@@ -560,7 +561,7 @@ $$(p, d, q) \times (P, D, Q)S$$
 >$$\Phi(B^S) = 1- \Phi_1 B^S - \ldots - \Phi_PB^{PS}$$
 >$$\Theta(B^S) = 1 + \Theta_1 B^S + \ldots + \Theta_Q B^{QS}$$
 
-```{r}
+```{r, fig.width=15, fig.height=8}
 m <- arima(ts(rnorm(100), freq=4), order=c(1,0,1), seasonal=c(1,1,1),
              fixed = c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
 nsim <- 100
