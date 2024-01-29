@@ -61,14 +61,18 @@ $$Y_t = \varepsilon_t$$ with $\epsilon_i \sim N(0,\sigma^2)$. This is a stationa
 ```{r, fig.width=10, fig.height=4}
 library(cowplot) 
 library(fpp2)  
+library(forecast)
+library(patchwork)
+library(ggplot2)
 
 set.seed(1)
 n = 500
-y = rnorm(100)
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF WHITE NOISE")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF WHITE NOISE")
-plot_grid(r1, r2, ncol = 1)
-# ggtsdisplay(y)
+y =ts(rnorm(100))
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF WHITE NOISE")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF WHITE NOISE")
+p1 / ( p2 | p3)
 ```
 
 ---
@@ -94,14 +98,20 @@ To make the process stationary, the time series has to undergo differencing. The
 set.seed(1)
 n = 500
 y = ts(cumsum(rnorm(n)))
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF RANDOM WALK NO DRIFT")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF RANDOM WALK NO DRIFT")
-# ggtsdisplay(y)
+
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF RANDOM WALK NO DRIFT")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF RANDOM WALK NO DRIFT")
+p1 / ( p2 | p3)
+
 dy <- diff(y, differences = 1)
-r1d <- ggAcf(dy, lag.max = 50) + labs(title = "ACF RANDOM WALK - DIFFERENCING")
-r2d <- ggPacf(dy, lag.max = 50) + labs(title = "PACF RANDOM WALK - DIFFERENCING")
-plot_grid(r1, r2, r1d, r2d, ncol = 2)
-# ggtsdisplay(dy)
+
+p1 = autoplot(dy) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(dy, lag.max=50) + ggtitle("ACF RANDOM WALK - DIFFERENCING")
+p3 = ggPacf(dy, lag.max=50) + ggtitle("PACF RANDOM WALK - DIFFERENCING")
+p1 / ( p2 | p3)
 ```
 
 1. The first $50$ lags yield statistically significant correlations. See [here](https://towardsdatascience.com/how-to-detect-random-walk-and-white-noise-in-time-series-forecasting-bdb5bbd4ef81).
@@ -140,17 +150,21 @@ set.seed(2024)
 n = 500
 drift = 2
 variance = 1
-y = cumsum(rnorm(n, mean=drift, sd=sqrt(variance)))
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF RANDOM WALK WITH DRIFT")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF RANDOM WALK NO DRIFT")
+y = ts(cumsum(rnorm(n, mean=drift, sd=sqrt(variance))))
+
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF RANDOM WALK WITH DRIFT")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF RANDOM WALK WITH DRIFT")
+p1 / ( p2 | p3)
 
 dy <- diff(y, differences = 1)
-r1d <- ggAcf(dy, lag.max = 50) + labs(title = "ACF RANDOM WALK DRIFT - DIFFERENCING")
-r2d <- ggPacf(dy, lag.max = 50) + labs(title = "PACF RANDOM WALK DRIFT - DIFFERENCING")
-plot_grid(r1, r2, r1d, r2d, ncol = 2)
 
-# ggtsdisplay(y)
-# ggtsdisplay(dy)
+p1 = autoplot(dy) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(dy, lag.max=50) + ggtitle("ACF RANDOM WALK WITH DRIFT - differencing")
+p3 = ggPacf(dy, lag.max=50) + ggtitle("PACF RANDOM WALK WITH DRIFT - differencing")
+p1 / ( p2 | p3)
 ```
 
 After differencing it also returns white noise. See [here](https://towardsdatascience.com/how-to-detect-random-walk-and-white-noise-in-time-series-forecasting-bdb5bbd4ef81).
@@ -202,10 +216,12 @@ set.seed(2024)
 n = 10^4
 y = arima.sim(n=n,list(ar=c(0.15)), innov=rnorm(n))
 Arima(y, order = c(1,0,0), include.mean = T)
-r1 <- ggAcf(y, lag.max = 100) + labs(title = "ACF AR(1)")
-r2 <- ggPacf(y, lag.max = 100) + labs(title = "PACF AR(1)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(1)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(1)")
+p1 / ( p2 | p3)
 ```
 
 An example with positive rho values with `arima` from [here](https://edoras.sdsu.edu/~babailey/stat673/lab1.html)
@@ -215,10 +231,12 @@ set.seed(2024)
 n = 10^4
 y <- arima.sim(n=n, model=list(ar=c(0.1,0.8)))
 Arima(y, order = c(2,0,0), include.mean = T)
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF AR(2)")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF AR(2)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p1 / ( p2 | p3)
 ```
 
 another example:
@@ -228,10 +246,12 @@ set.seed(2024)
 n = 10^4
 y <- arima.sim(model = list(order = c(1,0,0), ar=0.9), n = n)
 Arima(y, order = c(1,0,0), include.mean = T)
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF AR(2)")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF AR(2)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p1 / ( p2 | p3)
 ```
 
 
@@ -252,12 +272,13 @@ AR2.sim <- function(n, ar1, ar2, sd)
   }
   Xt
 }
-y = AR2.sim(n, -0.5, 0.3, 1)
+y = ts(AR2.sim(n, -0.5, 0.3, 1))
 Arima(y, order = c(2,0,0), include.mean = T)
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF AR(2)")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF AR(2)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p1 / ( p2 | p3)
 ```
 
 and a second example:
@@ -267,10 +288,11 @@ set.seed(2024)
 n = 10^4
 y <- arima.sim(n=n, model=list(ar=c(-0.5,0.3)))
 Arima(y, order = c(2,0,0), include.mean = T)
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF AR(2)")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF AR(2)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p1 / ( p2 | p3)
 ```
 
 ##### Simulating an AR(1) process with $\mu \neq 0:$
@@ -295,14 +317,16 @@ yt <- arima.sim(list(order=c(1,0,0), ar=.5), n=n)
 y <- yt + 10 
 Arima(y, order = c(1,0,0), include.mean = T)
 
-r1 <- ggAcf(yt, lag.max = 50) + labs(title = "ACF AR(1)")
-r2 <- ggPacf(yt, lag.max = 50) + labs(title = "PACF AR(1)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(yt)
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF AR(1)")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF AR(1)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+p1 = autoplot(yt) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(yt, lag.max=50) + ggtitle("ACF AR(1)")
+p3 = ggPacf(yt, lag.max=50) + ggtitle("PACF AR(1)")
+p1 / ( p2 | p3)
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(1)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(1)")
+p1 / ( p2 | p3)
 ```
 
 
@@ -339,14 +363,16 @@ theta1 <- 0.78
 theta2 <- 0.1
 mu <- 70 # Desired mean
 sd <- 1 # Desired SD
-y<- mu + filter(x = c(0, rnorm(n, 0, 1)), filter = c(theta1,theta2), method = "recursive")[-1]
+y <- ts(mu + filter(x = c(0, rnorm(n, 0, 1)), filter = c(theta1,theta2), 
+                    method = "recursive")[-1])
 # Recovering the initial parameters:
 Arima(y, order = c(2,0,0), include.mean = T)
 
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF AR(2)")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF AR(2)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF AR(2)")
+p1 / ( p2 | p3)
 ```
 
 
@@ -374,10 +400,11 @@ set.seed(2024)
 n = 1000
 y <- arima.sim(model=list(ma=0.9), n=n)
 Arima(y, order = c(0,0,1), include.mean = T)
-r1 <- ggAcf(y, lag.max = 100) + labs(title = "ACF MA(1)")
-r2 <- ggPacf(y, lag.max = 100) + labs(title = "PACF MA(1)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF MA(1)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF MA(1)")
+p1 / ( p2 | p3)
 ```
 
 
@@ -416,12 +443,13 @@ phi1 <- 0.78
 phi2 <- 0.1
 mu <- 70
 sd <- 1
-y <- mu + filter(rnorm(n, 0, 1), method="convolution", sides=1, c(1,phi1, phi2))[-(1:50)]
+y <- ts(mu + filter(rnorm(n, 0, 1), method="convolution", sides=1, c(1,phi1, phi2))[-(1:50)])
 Arima(y, order = c(0,0,2), include.mean = T)
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF MA(2)")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF MA(2)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF MA(2)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF MA(2)")
+p1 / ( p2 | p3)
 ```
 
 ---
@@ -502,10 +530,11 @@ From [here](https://rpubs.com/odenipinedo/ARIMA-Models-in-R#:~:text=Simulating%2
 ```{R}
 n <- 10^4
 y <- arima.sim(model = list(order = c(2, 0, 1), ar = c(1, -.9), ma = .8), n = n)
-r1 <- ggAcf(y, lag.max = 50) + labs(title = "ACF ARMA(2,1)")
-r2 <- ggPacf(y, lag.max = 50) + labs(title = "PACF ARMA(2,1)")
-plot_grid(r1, r2, ncol = 2)
-# ggtsdisplay(y)
+p1 = autoplot(y) + 
+  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
+p2 = ggAcf(y, lag.max=50) + ggtitle("ACF ARMA(2,1)")
+p3 = ggPacf(y, lag.max=50) + ggtitle("PACF ARMA(2,1)")
+p1 / ( p2 | p3)
 Arima(y, order = c(2,0,1), include.mean = T)
 ```
 
