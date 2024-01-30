@@ -70,7 +70,7 @@ n = 500
 y =ts(rnorm(100))
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF WHITE NOISE")
+p2 = ggAcf(y, lag.max=15, ci.type="ma") + ggtitle("ACF WHITE NOISE")
 p3 = ggPacf(y, lag.max=15) + ggtitle("PACF WHITE NOISE")
 p1 / ( p2 | p3)
 ```
@@ -267,10 +267,15 @@ library(tsibbledata)
 y = as.ts(global_economy[global_economy$Code=="EGY",'Exports'])
 par(mfrow=c(3,1))
 p1 = autoplot(y) + 
-  geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y)
-p3 = ggPacf(y, main='')
-p1 / ( p2 | p3)
+  geom_point() + labs(x = "", y = "") + xlim(c(0, length(y)))
+p2 = ggAcf(y, main='ACF')
+p0 = ggAcf(y, main='Dampened Sinusoidal ACF') +  
+        geom_path(linejoin = "round", linewidth=2, col='red') + 
+        aes(y=ggAcf(y)$data$Freq, x=ggAcf(y)$data$lag) + 
+        theme(axis.title.x=element_blank(), axis.title.y=element_blank()) +
+        geom_point(y=ggAcf(y)$data$Freq, x=ggAcf(y)$data$lag, size=4)
+p3 = ggPacf(y, main='PCAF')
+(p1 | p2) / ( p3 | p0)
 ```
 
 From [here](https://stackoverflow.com/a/67371090/4089351).
@@ -575,7 +580,7 @@ $$(p, d, q) \times (P, D, Q)S$$
 >$$\Phi(B^S) = 1- \Phi_1 B^S - \ldots - \Phi_PB^{PS}$$
 >$$\Theta(B^S) = 1 + \Theta_1 B^S + \ldots + \Theta_Q B^{QS}$$
 
-```{r, fig.width=15, fig.height=8}
+```{r, fig.width=10, fig.height=5}
 m <- arima(ts(rnorm(100), freq=4), order=c(1,0,1), seasonal=c(1,1,1),
              fixed = c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
 nsim <- 100
