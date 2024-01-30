@@ -70,8 +70,8 @@ n = 500
 y =ts(rnorm(100))
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15, ci.type="ma") + ggtitle("ACF WHITE NOISE")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF WHITE NOISE")
+p2 = ggAcf(y, lag.max=15, ci.type="ma", linewidth=5) + ggtitle("ACF WHITE NOISE")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF WHITE NOISE")
 p1 / ( p2 | p3)
 ```
 
@@ -101,16 +101,16 @@ y = ts(cumsum(rnorm(n)))
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF RANDOM WALK NO DRIFT")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF RANDOM WALK NO DRIFT")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF RANDOM WALK NO DRIFT")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF RANDOM WALK NO DRIFT")
 p1 / ( p2 | p3)
 
 dy <- diff(y, differences = 1)
 
 p1 = autoplot(dy) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(dy, lag.max=15) + ggtitle("ACF RANDOM WALK - DIFFERENCING")
-p3 = ggPacf(dy, lag.max=15) + ggtitle("PACF RANDOM WALK - DIFFERENCING")
+p2 = ggAcf(dy, lag.max=15, linewidth=5) + ggtitle("ACF RANDOM WALK - DIFFERENCING")
+p3 = ggPacf(dy, lag.max=15, linewidth=5) + ggtitle("PACF RANDOM WALK - DIFFERENCING")
 p1 / ( p2 | p3)
 ```
 
@@ -154,16 +154,16 @@ y = ts(cumsum(rnorm(n, mean=drift, sd=sqrt(variance))))
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF RANDOM WALK WITH DRIFT")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF RANDOM WALK WITH DRIFT")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF RANDOM WALK WITH DRIFT")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF RANDOM WALK WITH DRIFT")
 p1 / ( p2 | p3)
 
 dy <- diff(y, differences = 1)
 
 p1 = autoplot(dy) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(dy, lag.max=15) + ggtitle("ACF RANDOM WALK WITH DRIFT - differencing")
-p3 = ggPacf(dy, lag.max=15) + ggtitle("PACF RANDOM WALK WITH DRIFT - differencing")
+p2 = ggAcf(dy, lag.max=15, linewidth=5) + ggtitle("ACF RANDOM WALK WITH DRIFT - differencing")
+p3 = ggPacf(dy, lag.max=15, linewidth=5) + ggtitle("PACF RANDOM WALK WITH DRIFT - differencing")
 p1 / ( p2 | p3)
 ```
 
@@ -219,8 +219,8 @@ Arima(y, order = c(1,0,0), include.mean = T)
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(1)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(1)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF AR(1)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF AR(1)")
 p1 / ( p2 | p3)
 ```
 
@@ -234,8 +234,8 @@ Arima(y, order = c(2,0,0), include.mean = T)
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
@@ -249,8 +249,8 @@ Arima(y, order = c(1,0,0), include.mean = T)
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF AR(1)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF AR(1)")
 p1 / ( p2 | p3)
 ```
 
@@ -269,14 +269,25 @@ par(mfrow=c(3,1))
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, length(y)))
 p2 = ggAcf(y, main='ACF')
-p0 = ggAcf(y, main='Dampened Sinusoidal ACF') +  
+p0 = ggAcf(y, linewidth=5, main='Dampened Sinusoidal ACF') +  
         geom_path(linejoin = "round", linewidth=2, col='red') + 
         aes(y=ggAcf(y)$data$Freq, x=ggAcf(y)$data$lag) + 
         theme(axis.title.x=element_blank(), axis.title.y=element_blank()) +
         geom_point(y=ggAcf(y)$data$Freq, x=ggAcf(y)$data$lag, size=4)
-p3 = ggPacf(y, main='PCAF')
+p3 = ggPacf(y, linewidth=5, main='PCAF')
 (p1 | p2) / ( p3 | p0)
 ```
+
+On the PACF, the last significant spike is $4,$ so a plausible model would be AR(4). However, the best model is
+
+```{r}
+ar <- auto.arima(y) # Autofit model
+summary(ar)
+guess <- Arima(y, order = c(4,0,0), include.mean = T)
+summary(guess)
+```
+
+The AICc criteria favors an ARIMA(2,0,1) with a mean by less than one point.
 
 From [here](https://stackoverflow.com/a/67371090/4089351).
 
@@ -296,8 +307,8 @@ y = ts(AR2.sim(n, -0.5, 0.3, 1))
 Arima(y, order = c(2,0,0), include.mean = T)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, linewidth=5, lag.max=15) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, linewidth=5, lag.max=15) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
@@ -310,8 +321,8 @@ y <- arima.sim(n=n, model=list(ar=c(-0.5,0.3)))
 Arima(y, order = c(2,0,0), include.mean = T)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
@@ -339,13 +350,13 @@ Arima(y, order = c(1,0,0), include.mean = T)
 
 p1 = autoplot(yt) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(yt, lag.max=15) + ggtitle("ACF AR(1)")
-p3 = ggPacf(yt, lag.max=15) + ggtitle("PACF AR(1)")
+p2 = ggAcf(yt, lag.max=15, linewidth=5) + ggtitle("ACF AR(1)")
+p3 = ggPacf(yt, lag.max=15, linewidth=5) + ggtitle("PACF AR(1)")
 p1 / ( p2 | p3)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(1)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(1)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF AR(1)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF AR(1)")
 p1 / ( p2 | p3)
 ```
 
@@ -390,8 +401,8 @@ Arima(y, order = c(2,0,0), include.mean = T)
 
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF AR(2)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF AR(2)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF AR(2)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF AR(2)")
 p1 / ( p2 | p3)
 ```
 
@@ -422,14 +433,14 @@ y <- arima.sim(model=list(ma=0.9), n=n)
 Arima(y, order = c(0,0,1), include.mean = T)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF MA(1)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF MA(1)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF MA(1)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF MA(1)")
 p1 / ( p2 | p3)
 ```
 
 
-1. Significant lags equal to the order on ACF.
-2. Geometric decay of PACF.
+1. **Significant lags equal to the order on ACF.**
+2. **Geometric decay of PACF.**
 
 The characteristic MA pattern on the PACF is alternating and diminishing over time.
 
@@ -467,8 +478,8 @@ y <- ts(mu + filter(rnorm(n, 0, 1), method="convolution", sides=1, c(1,phi1, phi
 Arima(y, order = c(0,0,2), include.mean = T)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF MA(2)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF MA(2)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF MA(2)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF MA(2)")
 p1 / ( p2 | p3)
 ```
 
@@ -552,8 +563,8 @@ n <- 10^4
 y <- arima.sim(model = list(order = c(2, 0, 1), ar = c(1, -.9), ma = .8), n = n)
 p1 = autoplot(y) + 
   geom_point() + labs(x = "", y = "") + xlim(c(0, 100))
-p2 = ggAcf(y, lag.max=15) + ggtitle("ACF ARMA(2,1)")
-p3 = ggPacf(y, lag.max=15) + ggtitle("PACF ARMA(2,1)")
+p2 = ggAcf(y, lag.max=15, linewidth=5) + ggtitle("ACF ARMA(2,1)")
+p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF ARMA(2,1)")
 p1 / ( p2 | p3)
 Arima(y, order = c(2,0,1), include.mean = T)
 ```
@@ -580,17 +591,17 @@ $$(p, d, q) \times (P, D, Q)S$$
 >$$\Phi(B^S) = 1- \Phi_1 B^S - \ldots - \Phi_PB^{PS}$$
 >$$\Theta(B^S) = 1 + \Theta_1 B^S + \ldots + \Theta_Q B^{QS}$$
 
-```{r, fig.width=10, fig.height=5}
+```{r, fig.width=7, fig.height=3}
 m <- arima(ts(rnorm(100), freq=4), order=c(1,0,1), seasonal=c(1,1,1),
              fixed = c(phi=0.5, theta=-0.4, Phi=0.3, Theta=-0.2))
 nsim <- 100
-foo <- simulate(m, nsim=nsim)
-autoplot(forecast(foo, h=20)) 
+y <- simulate(m, nsim=nsim)
+autoplot(forecast(y, h=20)) 
 
 # Increasing the number of samples for a more accurate fitting:
 nsim <- 10000
-foo <- simulate(m, nsim=nsim)
-fit <- Arima(foo, order=c(1,0,1), seasonal=c(1,1,1))
+y <- simulate(m, nsim=nsim)
+fit <- Arima(y, order=c(1,0,1), seasonal=c(1,1,1))
 fit
 ```
 
