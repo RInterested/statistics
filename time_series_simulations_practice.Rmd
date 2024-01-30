@@ -254,6 +254,8 @@ p3 = ggPacf(y, lag.max=15, linewidth=5) + ggtitle("PACF AR(1)")
 p1 / ( p2 | p3)
 ```
 
+This is the typical pure AR(1) with exponential decay of the ACF, and one single significant spike at lag 1 (positive or negative).
+
 In AR(1) there is one single significant spike on the PACF, and exponential decay in the ACF plot.
 
 1. **The ACF shows geometric decay or damped sine-wave.**
@@ -277,6 +279,8 @@ p0 = ggAcf(y, linewidth=5, main='Dampened Sinusoidal ACF') +
 p3 = ggPacf(y, linewidth=5, main='PCAF')
 (p1 | p2) / ( p3 | p0)
 ```
+
+The sinusoidal ACF is typical of cyclical or seasonal data. In this case is cyclic of duration 4 to 8 years.
 
 On the PACF, the last significant spike is $4,$ so a plausible model would be AR(4). However, the best model is
 
@@ -484,6 +488,19 @@ p1 / ( p2 | p3)
 ```
 
 ---
+
+### MIXED MODELS:
+
+Here are a few advantages of using mixed AR and MA processes:
+
+    Flexibility in capturing complex dynamics: AR models capture the linear relationship between the current observation and a linear combination of past observations. MA models, on the other hand, capture the linear relationship between the current observation and the error terms of previous observations. By combining both AR and MA components, an ARMA or ARIMA model can capture a wider range of temporal patterns and potentially model complex dynamics more accurately.
+
+    Accommodation of different patterns: AR components are suitable for capturing trends and persistence in a time series, while MA components are effective in capturing short-term shocks and irregularities. By incorporating both components, ARMA or ARIMA models can accommodate different patterns, both short-term and long-term, in the data.
+
+    Improved model fitting: In some cases, using a mixed ARMA or ARIMA model with both AR and MA components can provide a better fit to the data compared to using only AR or MA models separately. By allowing for both autoregressive and moving average effects, the model can capture both the long-term dependencies and the short-term fluctuations in the data, leading to improved accuracy in fitting the observed values.
+
+    Efficient estimation: When both the AR and MA components are invertible, the parameters of the ARMA or ARIMA model can be estimated efficiently using various estimation techniques, such as maximum likelihood estimation. The invertibility condition ensures that the model is well-defined and ensures stability in the model estimation process.
+
 
 ### ARMA:
 
