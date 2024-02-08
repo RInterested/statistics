@@ -380,7 +380,79 @@ MATHEMATICS</strong></h3>
 <div id="derivation-of-the-functional-equation-of-the-zeta-function" class="section level3">
 <h3>Derivation of the Functional Equation of the Zeta Function:</h3>
 <hr />
-<p>From <a href="https://youtu.be/epmnnJSrDCY?si=3T0KsqTBoueZQl0N">here</a> and <a href="https://en.wikipedia.org/wiki/Riemann_zeta_function#:~:text=The%20functional%20equation%20was%20established%20by%20Riemann,Magnitude%22%20and%20used%20to%20construct%20the%20analytic">here</a></p>
+<p>From <a href="https://youtu.be/epmnnJSrDCY?si=3T0KsqTBoueZQl0N">here</a> and <a href="https://en.wikipedia.org/wiki/Riemann_zeta_function#:~:text=The%20functional%20equation%20was%20established%20by%20Riemann,Magnitude%22%20and%20used%20to%20construct%20the%20analytic">here</a>:</p>
+<p>Start witht the gamma function:</p>
+<p><span class="math display">\[\Gamma(s) = \int_{0}^\infty  e^{-t}  \,
+t^{s-1} \, dt\]</span></p>
+<p>Consider instead <span class="math inline">\(s/2\)</span>:</p>
+<p><span class="math display">\[\Gamma(s/2) =
+\int_{0}^\infty  e^{-t}  \, t^{s/2-1} \, dt\]</span></p>
+<p>Let <span class="math inline">\(t = \pi n^2 x,\)</span></p>
+<p><span class="math display">\[\Gamma(s/2) = \int_{0}^\infty  e^{-\pi
+n^2 x}  \, (\pi n^2 x)^{s/2-1} \, \pi n^2 dx\]</span> Taking out
+terms:</p>
+<p><span class="math display">\[\Gamma(s/2) = \pi^{s/2}\, n^s
+\int_{0}^\infty  e^{-\pi n^2 x}  \, x^{s/2-1} \, dx\]</span></p>
+<p>Rearranging,</p>
+<p><span class="math display">\[\frac{\Gamma(s/2)\,\pi^{-s/2}}{n^s} =
+\int_{0}^\infty  e^{-\pi n^2 x}  \, x^{s/2-1} \, dx\]</span></p>
+<p>Summing on both sides:</p>
+<p><span class="math display">\[\sum_{n=1}^\infty
+\frac{\Gamma(s/2)\,\pi^{-s/2}}{n^s} = \sum_{n=1}^\infty
+\int_{0}^\infty  e^{-\pi n^2 x}  \, x^{s/2-1} \, dx\]</span> and
+rearranging:</p>
+<p><span class="math display">\[ \Gamma(s/2)\,\pi^{-s/2}
+\sum_{n=1}^\infty \frac 1{n^s} =  \int_{0}^\infty \sum_{n=1}^\infty
+e^{-\pi n^2 x}  \, x^{s/2-1} \, dx\]</span> Or</p>
+<p><span class="math display">\[ \Gamma(s/2)\,\pi^{-s/2} \, \zeta(s)
+=  \int_{0}^\infty  \, x^{s/2-1} \, \color{red}{\sum_{n=1}^\infty
+e^{-\pi n^2 x} } \, dx\]</span></p>
+<p>Observe the similarity between the expression in red and the Iacobi
+theta function:</p>
+<p><span class="math display">\[\Theta(x)=\sum_{n=-\infty}^\infty
+e^{-\pi n^2 x}\]</span></p>
+<p>By symmetry of an even function,</p>
+<p><span class="math display">\[\Theta(x)=\sum_{n=-\infty}^{-1} e^{-\pi
+n^2 x} + 1 + \sum_{n=1}^{\infty} e^{-\pi n^2 x}= 1 + 2 \,
+\sum_{n=1}^{\infty} e^{-\pi n^2 x}=1 + 2 \,\color{red}{\psi(x)}\]</span>
+We can split the initial equation as</p>
+<p><span class="math display">\[ \Gamma(s/2)\,\pi^{-s/2} \, \zeta(s)
+=  \int_{0}^\infty  \, x^{s/2-1} \, \psi(x) \, dx= \int_{0}^1  \,
+x^{s/2-1} \, \psi(x) \, dx + \int_{1}^\infty  \, x^{s/2-1} \, \psi(x) \,
+dx= I_1 + I_2\]</span></p>
+<p>Evaluating <span class="math inline">\(I_1,\)</span> and letting
+<span class="math inline">\(s = 1/t,\)</span></p>
+<p><span class="math display">\[I_1 =\int_{0}^1  \, x^{s/2-1} \, \psi(x)
+\, dx=\int_{0}^1-  \, (1/t)^{s/2-1} \, \psi(1/t) \, \frac{dx}{t^2} =
+\int_{0}^1  \, (1/t)^{-s/2-1} \, \psi(1/t) \, dx\]</span></p>
+<p>Because of the property of the Jacobi <span class="math inline">\(\Theta\)</span> that says that <span class="math inline">\(\theta(x)=1/\sqrt x \, \Theta(1/x),\)</span></p>
+<p><span class="math display">\[\psi(1/x)=\frac{\sqrt x}{2} + \sqrt x \,
+\psi(x) - 1/2\]</span></p>
+<p>so</p>
+<p><span class="math display">\[I_1 = 1/2 \int_{1}^{\infty}t^{1/2 -
+s/2-1} dt + \int_{1}^{\infty}t^{1/2 - s/2-1}\psi(t) dt - 1/2
+\int_{1}^{\infty}t^{ - s/2-1} dt\]</span></p>
+<p>Evaluating the first and third integrals,</p>
+<p><span class="math display">\[I_1 = -\frac{1}{1 - s}- \frac 1 s  +
+\int_1^\infty t^{-s/2-1/2}\,\phi(t)\,dt = \int_1^\infty
+x^{-s/2-1/2}\,\phi(x)\,dx-\frac 1 {s(1-s)}\]</span></p>
+<p>Going back to the original expression,</p>
+<p><span class="math display">\[ \Gamma(s/2)\,\pi^{-s/2} \, \zeta(s) =
+\int_{0}^1  \, x^{s/2-1} \, \psi(x) \, dx + \int_{1}^\infty  \,
+x^{s/2-1} \, \psi(x) \, dx\\=\int_1^\infty
+x^{-s/2-1/2}\,\phi(x)\,dx-\frac 1 {s(1-s)} + \int_{1}^\infty  \,
+x^{s/2-1} \, \psi(x) \, dx\\
+= \color{magenta}{\int_{1}^\infty  \,( x^{-s/2-1/2}+x^{s/2-1}) \,
+\psi(x) \, dx -\frac 1 {s(1-s)}}\]</span></p>
+<p>Using symmetry, let <span class="math inline">\(s \to 1
+-s,\)</span></p>
+<p><span class="math display">\[\Gamma\left(\frac{1-s}2\right)\,\pi^{-(1-s)/2} \,
+\zeta(1-s)= \int_{1}^\infty  \,( x^{-(1-s)/2-1/2}+x^{(1-s)/2-1}) \,
+\psi(x) \, dx -\frac 1 {s(1-s)}\\=
+\int_{1}^\infty  \,( x^{s/2-1}+x^{-s/2-1/2}) \, \psi(x) \, dx -\frac 1
+{s(1-s)}\]</span></p>
+<p>which is the same as the expression in magenta. Therefore there is no
+change even if <span class="math inline">\(s \to 1 - s.\)</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>

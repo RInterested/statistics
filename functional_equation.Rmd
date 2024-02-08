@@ -19,7 +19,76 @@ output:
 
 ---
 
-From [here](https://youtu.be/epmnnJSrDCY?si=3T0KsqTBoueZQl0N) and [here](https://en.wikipedia.org/wiki/Riemann_zeta_function#:~:text=The%20functional%20equation%20was%20established%20by%20Riemann,Magnitude%22%20and%20used%20to%20construct%20the%20analytic)
+From [here](https://youtu.be/epmnnJSrDCY?si=3T0KsqTBoueZQl0N) and [here](https://en.wikipedia.org/wiki/Riemann_zeta_function#:~:text=The%20functional%20equation%20was%20established%20by%20Riemann,Magnitude%22%20and%20used%20to%20construct%20the%20analytic):
+
+Start witht the gamma function:
+
+$$\Gamma(s) = \int_{0}^\infty  e^{-t}  \, t^{s-1} \, dt$$
+
+Consider instead $s/2$:
+
+$$\Gamma(s/2) = \int_{0}^\infty  e^{-t}  \, t^{s/2-1} \, dt$$
+
+Let $t = \pi n^2 x,$
+
+$$\Gamma(s/2) = \int_{0}^\infty  e^{-\pi n^2 x}  \, (\pi n^2 x)^{s/2-1} \, \pi n^2 dx$$
+Taking out terms:
+
+$$\Gamma(s/2) = \pi^{s/2}\, n^s \int_{0}^\infty  e^{-\pi n^2 x}  \, x^{s/2-1} \, dx$$
+
+Rearranging,
+
+$$\frac{\Gamma(s/2)\,\pi^{-s/2}}{n^s} = \int_{0}^\infty  e^{-\pi n^2 x}  \, x^{s/2-1} \, dx$$
+
+Summing on both sides:
+
+$$\sum_{n=1}^\infty \frac{\Gamma(s/2)\,\pi^{-s/2}}{n^s} = \sum_{n=1}^\infty \int_{0}^\infty  e^{-\pi n^2 x}  \, x^{s/2-1} \, dx$$
+and rearranging:
+
+$$ \Gamma(s/2)\,\pi^{-s/2} \sum_{n=1}^\infty \frac 1{n^s} =  \int_{0}^\infty \sum_{n=1}^\infty e^{-\pi n^2 x}  \, x^{s/2-1} \, dx$$
+Or
+
+$$ \Gamma(s/2)\,\pi^{-s/2} \, \zeta(s) =  \int_{0}^\infty  \, x^{s/2-1} \, \color{red}{\sum_{n=1}^\infty e^{-\pi n^2 x} } \, dx$$
+
+Observe the similarity between the expression in red and the Iacobi theta function:
+
+$$\Theta(x)=\sum_{n=-\infty}^\infty e^{-\pi n^2 x}$$
+
+By symmetry of an even function,
+
+$$\Theta(x)=\sum_{n=-\infty}^{-1} e^{-\pi n^2 x} + 1 + \sum_{n=1}^{\infty} e^{-\pi n^2 x}= 1 + 2 \, \sum_{n=1}^{\infty} e^{-\pi n^2 x}=1 + 2 \,\color{red}{\psi(x)}$$
+We can split the initial equation as
+
+$$ \Gamma(s/2)\,\pi^{-s/2} \, \zeta(s) =  \int_{0}^\infty  \, x^{s/2-1} \, \psi(x) \, dx= \int_{0}^1  \, x^{s/2-1} \, \psi(x) \, dx + \int_{1}^\infty  \, x^{s/2-1} \, \psi(x) \, dx= I_1 + I_2$$
+
+Evaluating $I_1,$ and letting $s = 1/t,$
+
+$$I_1 =\int_{0}^1  \, x^{s/2-1} \, \psi(x) \, dx=\int_{0}^1-  \, (1/t)^{s/2-1} \, \psi(1/t) \, \frac{dx}{t^2} = \int_{0}^1  \, (1/t)^{-s/2-1} \, \psi(1/t) \, dx$$
+
+Because of the property of the Jacobi $\Theta$ that says that $\theta(x)=1/\sqrt x \, \Theta(1/x),$
+
+$$\psi(1/x)=\frac{\sqrt x}{2} + \sqrt x \, \psi(x) - 1/2$$
+
+so
+
+$$I_1 = 1/2 \int_{1}^{\infty}t^{1/2 - s/2-1} dt + \int_{1}^{\infty}t^{1/2 - s/2-1}\psi(t) dt - 1/2 \int_{1}^{\infty}t^{ - s/2-1} dt$$
+
+Evaluating the first and third integrals,
+
+$$I_1 = -\frac{1}{1 - s}- \frac 1 s  + \int_1^\infty t^{-s/2-1/2}\,\phi(t)\,dt = \int_1^\infty x^{-s/2-1/2}\,\phi(x)\,dx-\frac 1 {s(1-s)}$$
+
+Going back to the original expression,
+
+$$ \Gamma(s/2)\,\pi^{-s/2} \, \zeta(s) = \int_{0}^1  \, x^{s/2-1} \, \psi(x) \, dx + \int_{1}^\infty  \, x^{s/2-1} \, \psi(x) \, dx\\=\int_1^\infty x^{-s/2-1/2}\,\phi(x)\,dx-\frac 1 {s(1-s)} + \int_{1}^\infty  \, x^{s/2-1} \, \psi(x) \, dx\\
+= \color{magenta}{\int_{1}^\infty  \,( x^{-s/2-1/2}+x^{s/2-1}) \, \psi(x) \, dx -\frac 1 {s(1-s)}}$$
+
+Using symmetry, let $s \to 1 -s,$
+
+$$\Gamma\left(\frac{1-s}2\right)\,\pi^{-(1-s)/2} \, \zeta(1-s)= \int_{1}^\infty  \,( x^{-(1-s)/2-1/2}+x^{(1-s)/2-1}) \, \psi(x) \, dx -\frac 1 {s(1-s)}\\=
+\int_{1}^\infty  \,( x^{s/2-1}+x^{-s/2-1/2}) \, \psi(x) \, dx -\frac 1 {s(1-s)}$$
+
+which is the same as the expression in magenta. Therefore there is no change even if $s \to 1 - s.$
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
