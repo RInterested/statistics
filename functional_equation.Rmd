@@ -63,13 +63,17 @@ $$ \Gamma(s/2)\,\pi^{-s/2} \, \zeta(s) =  \int_{0}^\infty  \, x^{s/2-1} \, \psi(
 
 Evaluating $I_1,$ and letting $x = 1/t,$
 
-$$I_1 =\int_{0}^1  \, x^{s/2-1} \, \psi(x) \, dx=\int_{\infty}^1-  \, (1/t)^{s/2-1} \, \psi(1/t) \, \frac{dt}{t^2} = \int_{1}^\infty  \, (1/t)^{-s/2-1} \, \psi(1/t) \, dt$$
+$$I_1 =\int_{0}^1  \, x^{s/2-1} \, \psi(x) \, dx=\int_{\infty}^1-  \, (1/t)^{s/2-1} \, \psi(1/t) \, \frac{dt}{t^2} = \int_{1}^\infty  \, (1/t)^{-s/2-1} \, \color{green}{\psi(1/t)} \, dt$$
 
 Because of the property of the Jacobi $\Theta$ that says that $\theta(x)=1/\sqrt x \, \Theta(1/x),$
 
-$$\psi(1/x)=\frac{\sqrt x}{2} + \sqrt x \, \psi(x) - 1/2$$
+$$(1+ 2 \psi(x))= \frac 1 {\sqrt x}(1 + 2 \psi(1/x))$$
 
-so
+and therefore,
+
+$$\color{green}{\psi(1/x)=\frac{\sqrt x}{2} + \sqrt x \, \psi(x) - 1/2}$$
+
+so plugging this back into the green expression in $I_1:$
 
 $$I_1 = 1/2 \int_{1}^{\infty}t^{1/2 - s/2-1} dt + \int_{1}^{\infty}t^{1/2 - s/2-1}\psi(t) dt - 1/2 \int_{1}^{\infty}t^{ - s/2-1} dt$$
 
