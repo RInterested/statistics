@@ -230,6 +230,53 @@ $$\xi(z)= 1/2 + 1/2 z(z-1) \left( \int_1^\infty \omega(u)\, u^{1/2 z-1} du + \in
 
 by symmetry of the dummy variables $u$ and $v$ in the integrals.
 
+---
+
+### Analytical Continuation of the Riemann Zeta:
+
+Remembering the Xi function:
+
+$$\xi(z)=\frac 1 2 z(z-1)\, \pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)$$
+
+the zeta function can be expressed as
+
+$$\zeta(z) = \frac{\xi(z)}{\frac 1 2 z(z-1)\, \pi^{-z/2}\,\Gamma(1/2 z)}$$
+
+And $\zeta(1 - z)$ as
+
+$$\zeta(1-z) = \frac{\xi(1-z)}{\frac 1 2 z(z-1)\, \pi^{-(1-z)/2}\,\Gamma(1/2 (1-z))}$$
+But in the previous section it became clear that $\xi(z) = \xi(1-z).$ Therefore
+
+$$\zeta(1-z) = \frac{\frac 1 2 z(z-1)\, \pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)}{\frac 1 2 z(z-1)\, \pi^{-(1-z)/2}\,\Gamma(1/2 (1-z))}= \color{red}{\pi^{1/2-z}\, \frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}}\zeta(z)$$
+
+---
+
+Two identities:
+
+$$\Gamma(z) \, \Gamma(1-z) = \frac{\pi}{\sin(\pi\,z)}$$
+
+and
+
+$$\Gamma(z) \, \Gamma(z+ 1/2) = 2^{1-2z}\, \sqrt \pi \,\Gamma(2z)$$
+
+---
+
+So going back to the expression above in red,
+
+$$\pi^{1/2-z}\, \frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}=\pi^{1/2-z}\, \frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}\frac{\Gamma(1/2 z + 1/2)}{\Gamma(1/2 z + 1/2)}$$
+
+The numerator $\Gamma(1/2z)\, \Gamma(1/2 z + 1/2)$ matches the second equality above, whereas the denominator, i.e. $\Gamma(1/2(1-z))\,\Gamma(1/2 z + 1/2)$ matches the first equality because $1 - 1/2(1-z) = 1/2z + 1/2)$. Therefore,
+
+$$\pi^{1/2-z}\, \frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}=\pi^{1/2-z}\,\frac{2^{1-z\,\sqrt\pi}\, \Gamma(z)}{\frac{\pi}{\sin(\pi(1/2- 1/2z))}}= \pi^{-z}\, 2^{1-z}\,\sin(\pi/2 - \pi z/2)\, \Gamma(z)$$
+
+Therefore,
+
+$$\zeta(1-z)= \pi^{-z}\, 2^{1-z}\,\sin(\pi/2 - \pi z/2)\, \Gamma(z)\, \zeta(z)$$
+
+Since $\sin(\pi/2 -z) = \cos(z), $
+
+$$\bbox[7px,border:2px solid red]{\zeta(1-z)= \pi^{-z}\, 2^{1-z}\,\cos(1/2  \pi z)\, \Gamma(z)\, \zeta(z)}$$
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>

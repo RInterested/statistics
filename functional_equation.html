@@ -594,11 +594,59 @@ z(z-1).\)</span> This will yield</p>
 -1/2}\,\omega(v)\,dv\right)=\xi(z-1)\]</span></p>
 <p>by symmetry of the dummy variables <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> in the integrals.</p>
 <hr />
+</div>
+</div>
+<div id="analytical-continuation-of-the-riemann-zeta" class="section level3">
+<h3>Analytical Continuation of the Riemann Zeta:</h3>
+<p>Remembering the Xi function:</p>
+<p><span class="math display">\[\xi(z)=\frac 1 2 z(z-1)\,
+\pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)\]</span></p>
+<p>the zeta function can be expressed as</p>
+<p><span class="math display">\[\zeta(z) = \frac{\xi(z)}{\frac 1 2
+z(z-1)\, \pi^{-z/2}\,\Gamma(1/2 z)}\]</span></p>
+<p>And <span class="math inline">\(\zeta(1 - z)\)</span> as</p>
+<p><span class="math display">\[\zeta(1-z) = \frac{\xi(1-z)}{\frac 1 2
+z(z-1)\, \pi^{-(1-z)/2}\,\Gamma(1/2 (1-z))}\]</span> But in the previous
+section it became clear that <span class="math inline">\(\xi(z) =
+\xi(1-z).\)</span> Therefore</p>
+<p><span class="math display">\[\zeta(1-z) = \frac{\frac 1 2 z(z-1)\,
+\pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)}{\frac 1 2 z(z-1)\,
+\pi^{-(1-z)/2}\,\Gamma(1/2 (1-z))}= \color{red}{\pi^{1/2-z}\,
+\frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}}\zeta(z)\]</span></p>
+<hr />
+<p>Two identities:</p>
+<p><span class="math display">\[\Gamma(z) \, \Gamma(1-z) =
+\frac{\pi}{\sin(\pi\,z)}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\Gamma(z) \, \Gamma(z+ 1/2) = 2^{1-2z}\,
+\sqrt \pi \,\Gamma(2z)\]</span></p>
+<hr />
+<p>So going back to the expression above in red,</p>
+<p><span class="math display">\[\pi^{1/2-z}\,
+\frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}=\pi^{1/2-z}\,
+\frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}\frac{\Gamma(1/2 z +
+1/2)}{\Gamma(1/2 z + 1/2)}\]</span></p>
+<p>The numerator <span class="math inline">\(\Gamma(1/2z)\, \Gamma(1/2 z
++ 1/2)\)</span> matches the second equality above, whereas the
+denominator, i.e. <span class="math inline">\(\Gamma(1/2(1-z))\,\Gamma(1/2 z + 1/2)\)</span>
+matches the first equality because <span class="math inline">\(1 -
+1/2(1-z) = 1/2z + 1/2)\)</span>. Therefore,</p>
+<p><span class="math display">\[\pi^{1/2-z}\,
+\frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}=\pi^{1/2-z}\,\frac{2^{1-z\,\sqrt\pi}\,
+\Gamma(z)}{\frac{\pi}{\sin(\pi(1/2- 1/2z))}}= \pi^{-z}\,
+2^{1-z}\,\sin(\pi/2 - \pi z/2)\, \Gamma(z)\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[\zeta(1-z)= \pi^{-z}\,
+2^{1-z}\,\sin(\pi/2 - \pi z/2)\, \Gamma(z)\, \zeta(z)\]</span></p>
+<p>Since $(/2 -z) = (z), $</p>
+<p><span class="math display">\[\bbox[7px,border:2px solid
+red]{\zeta(1-z)= \pi^{-z}\, 2^{1-z}\,\cos(1/2  \pi z)\, \Gamma(z)\,
+\zeta(z)}\]</span></p>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
-</div>
 </div>
 
 
