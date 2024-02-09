@@ -471,10 +471,134 @@ red]{\Gamma(s/2)\,\pi^{-s/2} \, \zeta(s)
 \zeta(1-s)}\]</span></p>
 <p>is the functional equation.</p>
 <hr />
+<div id="riemann-xi-function" class="section level4">
+<h4>Riemann Xi function:</h4>
+<p>From <a href="https://youtu.be/epnPu9mx738?si=Uj9i-ReC3Go8jNXx">here</a> and <a href="https://en.wikipedia.org/wiki/Riemann_Xi_function">here</a>:</p>
+<p><span class="math display">\[\xi(z)=\frac 1 2 z(z-1)\,
+\pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)\]</span> for <span class="math inline">\(\Re(z) &gt;1.\)</span></p>
+<p>This function can be extended to all complex numbers, and</p>
+<p><span class="math display">\[\xi(z) = \xi(1 -z)\]</span></p>
+<p>It is used to analytically continue the zeta function.</p>
+<p>The proof starts off with the gamma function:</p>
+<p><span class="math display">\[\Gamma(1/2 z) = \int_0^\infty t^{1/2
+z-1}\, e^{-t}\,dt\]</span></p>
+<p>We’ll proceed with the substitution</p>
+<p><span class="math display">\[t= \pi n^2 \, u\]</span> and <span class="math display">\[dt= \pi n^2 \, du\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[\Gamma(1/2 z) = \int_0^\infty (\pi n^2
+\, u)^{1/2 z-1}\, e^{-\pi n^2 \, u}\,\pi n^2 \, du\\
+= \int_0^\infty (\pi n^2)^{1/2 z} \, u^{1/2 z-1}\, e^{-\pi n^2 \, u} \,
+du\]</span></p>
+<p>Rearranging,</p>
+<p><span class="math display">\[\pi^{-1/2z}\,
+\Gamma(1/2z)\,n^{-z}=\int_0^\infty  u^{1/2 z-1}\, e^{-\pi n^2 \, u} \,
+du\]</span></p>
+<p>Summing on both sides</p>
+<p><span class="math display">\[\sum_{n=1}^\infty \pi^{-1/2z}\,
+\Gamma(1/2z)\,n^{-z}= \sum_{n=1}^\infty\int_0^\infty  u^{1/2 z-1}\,
+e^{-\pi n^2 \, u} \, du\]</span> or</p>
+<p><span class="math display">\[ \pi^{-1/2z}\, \Gamma(1/2z)\,\zeta(z)=
+\sum_{n=1}^\infty\int_0^\infty  u^{1/2 z-1}\, e^{-\pi n^2 \, u} \,
+du\]</span></p>
+<p>Invoking the Fubini theorem</p>
+<p><span class="math display">\[ \pi^{-1/2z}\, \Gamma(1/2z)\,\zeta(z)=
+\int_0^\infty \color{red}{\sum_{n=1}^\infty  e^{-\pi n^2u}} \,u^{1/2
+z-1}  \, du\]</span></p>
+<p>Defining <span class="math display">\[\omega(u) =
+\sum_{n=1}^\infty  e^{-\pi n^2u}\]</span> the connection can be
+established to the Jacobi Theta function:</p>
+<p><span class="math display">\[\Theta(z)=\sum_{n=-\infty}^\infty
+e^{-\pi n^2 z}\]</span></p>
+<p>which has the property that</p>
+<p><span class="math display">\[\Theta(z^{-1})=\sqrt z
+\Theta(z)\]</span> for <span class="math inline">\(\Re(z) &gt;
+1.\)</span></p>
+<hr />
+<p>Proof:</p>
+<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
+e^{-\pi n^2 z^{-1}}\]</span></p>
+<p>Doing a Fourier expansion,</p>
+<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
+\int_{-\infty}^\infty e^{-\pi t^2 z^{-1}}\, e^{-2\pi\, i\,
+n\,t}\,dt\]</span></p>
+<p>Doing a <span class="math inline">\(u\)</span>-substitution with
+<span class="math inline">\(t = \sqrt z\, u \implies dt = \sqrt z
+\,du,\)</span></p>
+<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
+\sqrt z\int_{-\infty}^\infty e^{-\pi \, u^2 -2\pi\, i\, n\,\sqrt z \,
+u}\,du\]</span></p>
+<p>Simplifying</p>
+<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
+\sqrt z\int_{-\infty}^\infty e^{-\pi \, (u + i\,n\, \sqrt z)^2-n^2\,z
+\,\pi}\,du\]</span> Extracting out of the integral</p>
+<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
+\sqrt z e^{-n^2 \,z\,\pi}\,\int_{-\infty}^\infty e^{-\pi \, (u + i\,n\,
+\sqrt z)^2}\,du\]</span></p>
+<p>Defining <span class="math inline">\(v= u + i\, n \, \sqrt
+z,\)</span></p>
+<p><span class="math display">\[\int_{-\infty}^\infty e^{-\pi \,
+v^2}\,dv=\int_{-\infty}^\infty e^{-(\sqrt\pi \, v)^2}\,dv\]</span></p>
+<p>Substituting <span class="math inline">\(t=\sqrt \pi v\implies dt =
+\sqrt \pi dv\)</span> and we get the Gaussian integral:</p>
+<p><span class="math display">\[\frac 1 {\sqrt \pi}\int_{-\infty}^\infty
+e^{-t^2}\,dt = \frac {\sqrt \pi} {\sqrt \pi}=1\]</span></p>
+<p>Therefore</p>
+<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
+\sqrt z e^{-n^2 \,z\,\pi}=\sqrt z\, \sum_{n=-\infty}^\infty e^{-n^2
+\,z\,\pi}  =\sqrt z\, \Theta (z)\quad \square\]</span></p>
+<p>Now we need to reconcile the limits of summation of <span class="math inline">\(\omega(u)\)</span> and <span class="math inline">\(\Theta(z)\)</span>. We can split the limits of
+theta:</p>
+<p><span class="math display">\[\Theta(z) = \sum_{n=1}^\infty\ e^{-\pi\,
+n^2 \, z}+ \sum_{n=-\infty}^{-1}\ e^{-\pi\, n^2 \, z} + 1 \\
+= \sum_{n=1}^\infty\ e^{-\pi\, n^2 \, z}+ \sum_{n=1}^{\infty}\ e^{-\pi\,
+n^2 \, z} + 1\]</span></p>
+<p>by symmetry given by the <span class="math inline">\(n^2.\)</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[\Theta(z)=2 \omega(z) + 1\]</span></p>
+<p>Now,</p>
+<p><span class="math display">\[\color{lime}{\omega(z^{-1})}=1/2\,\left(\Theta(z^{-1})
+- 1\right)\\
+=1/2\,\left(\sqrt z\, \Theta(z)- 1\right)\\
+=1/2\,\sqrt z\, \Theta(z)- 1/2\\
+= 1/2 \, \sqrt z \, (2 \, \omega(z) + 1) - 1/2\\
+= \color{lime}{\sqrt z \, \omega(z) + 1/2 \, \sqrt z - 1/2}\]</span></p>
+<p>Going back to the equation above,</p>
+<p><span class="math display">\[ \pi^{-1/2z}\, \Gamma(1/2z)\,\zeta(z)=
+\int_0^\infty \color{red}{\sum_{n=1}^\infty  e^{-\pi n^2u}} \,u^{1/2
+z-1}  \, du\\
+= \int_1^\infty \omega(u)\, u^{1/2 z-1}du + \int_0^1 \omega(u)\, u^{1/2
+z-1}du\]</span></p>
+<p>Using the substitution, <span class="math inline">\(v = u^{-1}
+\implies dv = -u^{-2}du\)</span>, and <span class="math inline">\(-\frac
+1{v^2} dv = du,\)</span></p>
+<p><span class="math display">\[\pi^{-1/2 z}\, \Gamma(1/2z)\,\zeta(z) =
+\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty
+v^{-1}\,\color{lime}{\omega(v^{-1})}\, v^{-1/2 z+1}dv\]</span></p>
+<p>For the part in lime, we can use the identity derived above:</p>
+<p><span class="math display">\[\pi^{-1/2 z}\, \Gamma(1/2z)\,\zeta(z) =
+\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
+-1}\,\color{lime}{(\sqrt z \, \omega(z) + 1/2 \, \sqrt z - 1/2)}\, dv\\
+=\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
+-1/2}\,\omega(v)\,+1/2\, v^{-1/2 z -1/2}-1/2v^{-1/2 z -1}\,dv\\
+=\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
+-1/2}\,\omega(v)\,dv+\int_1^\infty 1/2\, v^{-1/2 z -1/2}-1/2v^{-1/2 z
+-1}\,dv\\
+=\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
+-1/2}\,\omega(v)\,dv+\frac 1 {z(z - 1)}\]</span></p>
+<p>To make the RHS equal to <span class="math inline">\(\xi(z)=\frac 1 2
+z(z-1)\, \pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)\)</span> we need to
+multiply both sides by <span class="math inline">\(\frac 1 2
+z(z-1).\)</span> This will yield</p>
+<p><span class="math display">\[\xi(z)= 1/2 + 1/2 z(z-1) \left(
+\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
+-1/2}\,\omega(v)\,dv\right)=\xi(z-1)\]</span></p>
+<p>by symmetry of the dummy variables <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> in the integrals.</p>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 
