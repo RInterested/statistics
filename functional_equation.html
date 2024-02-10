@@ -645,8 +645,25 @@ red]{\zeta(1-z)= \pi^{-z}\, 2^{1-z}\,\cos\left(\frac{\pi z}{2} \right)\,
 \Gamma(z)\, \zeta(z)}\]</span></p>
 <p>In the opposite direction <a href="https://math.stackexchange.com/a/437886/152225">(see
 here)</a>:</p>
-<p><span class="math display">\[\zeta(z)=2^{z}\pi^{z-1}\sin\left(\frac{\pi
-z}{2}\right)\Gamma(1-z)\zeta(1-z)\]</span></p>
+<p><span class="math display">\[\bbox[7px,border:2px solid
+blue]{\zeta(z)=2^{z}\pi^{z-1}\sin\left(\frac{\pi
+z}{2}\right)\Gamma(1-z)\zeta(1-z)}\]</span></p>
+<p>How to go from red to blue?</p>
+<p><span class="math display">\[\zeta(z) = \frac{\zeta(1 -
+z)}{\pi^{-z}\, 2^{1-z}\,\color{green}{\cos\left(\frac{\pi z}{2}
+\right)}\, \Gamma(z)}=\frac{\zeta(1-z)\,2^z\,
+\pi^z\,\color{green}{2\sin\left(\frac{\pi
+z}2\right)}}{2\,\color{green}{\sin(\pi
+z)}\,\Gamma(z)}=\frac{\zeta(1-z)\,2^z\, \pi^z\,\sin\left(\frac{\pi
+z}2\right)}{\sin(\pi z)\,\Gamma(z)}\]</span></p>
+<p>The trigonometric changes is because <span class="math inline">\(2 \,
+\sin(\alpha/2)\,\cos(\alpha/2)=\sin(\alpha)\)</span>. Since <span class="math inline">\(\Gamma(z) \, \Gamma(1-z) =
+\frac{\pi}{\sin(\pi\,z)}\)</span>, it follows that <span class="math display">\[\Gamma(1-z) = \frac{\pi}{\sin(\pi\,z)\, \Gamma(z)
+}\]</span></p>
+<p>Therefore the previous expression can be simplified as:</p>
+<p><span class="math display">\[\zeta(z) = \zeta(1-z) \, 2^z
+\,\pi^{z-1}\,\sin\left(\frac{\pi z}2\right)\, \Gamma(1-z) \quad
+\square\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
