@@ -387,7 +387,7 @@ t^{s-1} \, dt\]</span></p>
 <p>Consider instead <span class="math inline">\(s/2\)</span>:</p>
 <p><span class="math display">\[\Gamma\left(\frac s 2\right) =
 \int_{0}^\infty  e^{-t}  \, t^{\frac s 2-1} \, dt\]</span></p>
-<p>Why? So that the denominator in <span class="math inline">\((\cdot)^{s/2}\)</span> cancels out the <span class="math inline">\(2\)</span> in <span class="math inline">\(n^2\)</span> in the substitution that follows in
+<p>Why? So that the denominator in <span class="math inline">\((\cdot)^{\frac s 2}\)</span> cancels out the <span class="math inline">\(2\)</span> in <span class="math inline">\(n^2\)</span> in the substitution that follows in
 the next line:</p>
 <p>Let <span class="math inline">\(t = \pi n^2 x,\)</span></p>
 <p><span class="math display">\[\Gamma\left(\frac s 2\right)=
@@ -397,23 +397,24 @@ n^2 dx\]</span></p>
 theta function</a>.</p>
 <p>Taking out terms:</p>
 <p><span class="math display">\[\Gamma\left(\frac s 2\right) =
-\pi^{s/2}\, n^s \int_{0}^\infty  e^{-\pi n^2 x}  \, x^{s/2-1} \,
-dx\]</span></p>
+\pi^{\frac s2}\, n^s \int_{0}^\infty  e^{-\pi n^2 x}  \, x^{\frac s 2-1}
+\, dx\]</span></p>
 <p>Rearranging,</p>
 <p><span class="math display">\[\frac{\Gamma\left(\frac s
-2\right)\,\pi^{-s/2}}{n^s} = \int_{0}^\infty  e^{-\pi n^2 x}  \,
-x^{s/2-1} \, dx\]</span></p>
+2\right)\,\pi^{-\frac s 2}}{n^s} = \int_{0}^\infty  e^{-\pi n^2 x}  \,
+x^{\frac s 2-1} \, dx\]</span></p>
 <p>Summing on both sides:</p>
 <p><span class="math display">\[\sum_{n=1}^\infty
-\frac{\Gamma\left(\frac s 2\right)\,\pi^{-s/2}}{n^s} = \sum_{n=1}^\infty
-\int_{0}^\infty  e^{-\pi n^2 x}  \, x^{s/2-1} \, dx\]</span> and
-rearranging:</p>
+\frac{\Gamma\left(\frac s 2\right)\,\pi^{-\frac s 2}}{n^s} =
+\sum_{n=1}^\infty \int_{0}^\infty  e^{-\pi n^2 x}  \, x^{\frac s 2-1} \,
+dx\]</span> and rearranging:</p>
 <p><span class="math display">\[ \Gamma\left(\frac s
 2\right)\,\pi^{-s/2} \sum_{n=1}^\infty \frac 1{n^s} =  \int_{0}^\infty
 \sum_{n=1}^\infty e^{-\pi n^2 x}  \, x^{s/2-1} \, dx\]</span> Or</p>
 <p><span class="math display">\[ \Gamma\left(\frac s
-2\right)\,\pi^{-s/2} \, \zeta(s) =  \int_{0}^\infty  \, x^{s/2-1} \,
-\color{red}{\sum_{n=1}^\infty e^{-\pi n^2 x} } \, dx\]</span></p>
+2\right)\,\pi^{-\frac s 2} \, \zeta(s) =  \int_{0}^\infty  \, x^{\frac s
+2-1} \, \color{red}{\sum_{n=1}^\infty e^{-\pi n^2 x} } \,
+dx\]</span></p>
 <p>Observe the similarity between the expression in red and the Jacobi
 theta function:</p>
 <p><span class="math display">\[\Theta(x)=\sum_{n=-\infty}^\infty
@@ -424,99 +425,103 @@ n^2 x} + 1 + \sum_{n=1}^{\infty} e^{-\pi n^2 x}= 1 + 2 \,
 \sum_{n=1}^{\infty} e^{-\pi n^2 x}=1 + 2 \,\color{red}{\psi(x)}\]</span>
 We can split the initial equation as</p>
 <p><span class="math display">\[ \Gamma\left(\frac s
-2\right)\,\pi^{-s/2} \, \zeta(s) =  \int_{0}^\infty  \, x^{s/2-1} \,
-\psi(x) \, dx= \int_{0}^1  \, x^{s/2-1} \, \psi(x) \, dx +
-\int_{1}^\infty  \, x^{s/2-1} \, \psi(x) \, dx= I_1 + I_2\]</span></p>
+2\right)\,\pi^{-\frac s 2} \, \zeta(s) =  \int_{0}^\infty  \, x^{\frac s
+2-1} \, \psi(x) \, dx= \int_{0}^1  \, x^{\frac s 2-1} \, \psi(x) \, dx +
+\int_{1}^\infty  \, x^{\frac s 2-1} \, \psi(x) \, dx= I_1 +
+I_2\]</span></p>
 <p>Evaluating <span class="math inline">\(I_1,\)</span> and letting
 <span class="math inline">\(x = 1/t,\)</span> which means that <span class="math inline">\(dx = - \frac{dt}{t^2}\)</span>:</p>
-<p><span class="math display">\[I_1 =\int_{0}^1  \, x^{s/2-1} \, \psi(x)
-\, dx=\int_{\infty}^1-  \, (1/t)^{s/2-1} \, \psi(1/t) \, \frac{dt}{t^2}
-= \int_{1}^\infty  \, (1/t)^{-s/2-1} \, \color{orange}{\psi(1/t)} \,
-dt\]</span></p>
+<p><span class="math display">\[I_1 =\int_{0}^1  \, x^{\frac s 2-1} \,
+\psi(x) \, dx=\int_{\infty}^1-  \, \left(\frac 1 t \right)^{\frac s 2-1}
+\, \psi\left(\frac 1 t\right) \, \frac{dt}{t^2} = \int_{1}^\infty  \,
+\left(\frac 1 t \right)^{-\frac s 2-1} \, \color{orange}{\psi\left(\frac
+1 t\right)} \, dt\]</span></p>
 <p>Because of the property of the Jacobi <span class="math inline">\(\Theta\)</span> that says that <span class="math inline">\(\theta(x)=1/\sqrt x \, \Theta(1/x),\)</span></p>
-<p><span class="math display">\[(1+ 2 \psi(x))= \frac 1 {\sqrt x}(1 + 2
-\psi(1/x))\]</span></p>
+<p><span class="math display">\[(1+ 2 \psi(x))= \frac 1 {\sqrt x}\left(1
++ 2 \psi\left(\frac 1 x\right)\right)\]</span></p>
 <p>and therefore,</p>
-<p><span class="math display">\[\color{orange}{\psi(1/x)=\frac{\sqrt
-x}{2} + \sqrt x \, \psi(x) - 1/2}\]</span></p>
+<p><span class="math display">\[\color{orange}{\psi\left(\frac 1
+x\right)=\frac{\sqrt x}{2} + \sqrt x \, \psi(x) - 1/2}\]</span></p>
 <p>so plugging this back into the orange expression in <span class="math inline">\(I_1:\)</span></p>
-<p><span class="math display">\[I_1 = 1/2 \int_{1}^{\infty}t^{1/2 -
-s/2-1} dt + \int_{1}^{\infty}t^{1/2 - s/2-1}\psi(t) dt - 1/2
-\int_{1}^{\infty}t^{ - s/2-1} dt\]</span></p>
+<p><span class="math display">\[I_1 = \frac 1 2 \int_{1}^{\infty}
+t^{\frac 1 2 - \frac s 2-1} dt + \int_{1}^{\infty}t^{\frac 1 2 - \frac s
+2-1}\,\psi(t) \, dt - \frac 1 2 \int_{1}^{\infty}t^{ - \frac s 2-1}
+dt\]</span></p>
 <p>Evaluating the first and third integrals,</p>
 <p><span class="math display">\[I_1 = -\frac{1}{1 - s}- \frac 1 s  +
-\int_1^\infty t^{-s/2-1/2}\,\psi(t)\,dt = \int_1^\infty
-x^{-s/2-1/2}\,\psi(x)\,dx-\frac 1 {s(1-s)}\]</span></p>
+\int_1^\infty t^{-\frac s 2-\frac 1 2}\,\psi(t)\,dt = \int_1^\infty
+x^{-\frac s 2-\frac 1 2}\,\psi(x)\,dx-\frac 1 {s(1-s)}\]</span></p>
 <p>Going back to the original expression,</p>
-<p><span class="math display">\[ \Gamma(s/2)\,\pi^{-s/2} \, \zeta(s) =
-\int_{0}^1  \, x^{s/2-1} \, \psi(x) \, dx + \int_{1}^\infty  \,
-x^{s/2-1} \, \psi(x) \, dx\\=\int_1^\infty
-x^{-s/2-1/2}\,\psi(x)\,dx-\frac 1 {s(1-s)} + \int_{1}^\infty  \,
-x^{s/2-1} \, \psi(x) \, dx\\
-= \color{magenta}{\int_{1}^\infty  \,( x^{-s/2-1/2}+x^{s/2-1}) \,
-\psi(x) \, dx -\frac 1 {s(1-s)}}\]</span></p>
+<p><span class="math display">\[ \Gamma\left(\frac s 2
+\right)\,\pi^{-\frac s 2} \, \zeta(s) = \int_{0}^1  \, x^{\frac s 2 - 1}
+\, \psi(x) \, dx + \int_{1}^\infty  \, x^{\frac s 2-1} \, \psi(x) \, dx
+\\ =\int_1^\infty x^{-\frac s 2 - \frac 1 2}\,\psi(x)\,dx - \frac 1
+{s(1-s)} + \int_{1}^\infty  \, x^{\frac s 2 - 1} \, \psi(x) \, dx\\
+= \color{magenta}{\int_{1}^\infty  \,( x^{-\frac s 2 - \frac 1
+2}+x^{\frac s 2 - 1}) \, \psi(x) \, dx -\frac 1 {s(1 - s)}}\]</span></p>
 <p>Using symmetry, let <span class="math inline">\(s \to 1 -
 s,\)</span></p>
 <p><span class="math display">\[\Gamma\left(\frac{1-s}2\right)\,\pi^{-(1-s)/2} \,
-\zeta(1-s)= \int_{1}^\infty  \,( x^{-(1-s)/2-1/2}+x^{(1-s)/2-1}) \,
-\psi(x) \, dx -\frac 1 {s(1-s)}\\=
-\int_{1}^\infty  \,( x^{s/2-1}+x^{-s/2-1/2}) \, \psi(x) \, dx -\frac 1
-{s(1-s)}\]</span></p>
+\zeta(1-s)= \int_{1}^\infty  \,\left( x^{-\frac{1 - s}{2} - \frac 1
+2}+x^{\frac{1 - s} 2 - 1}\right) \, \psi(x) \, dx -\frac 1 {s(1-s)}\\=
+\int_{1}^\infty  \,\left( x^{\frac s 2 - 1} + x^{-\frac s 2 - \frac 1 2}
+\right) \, \psi(x) \, dx -\frac 1 {s(1-s)}\]</span></p>
 <p>which is the same as the expression in magenta. Therefore there is no
-change even if <span class="math inline">\(s \to 1 - s.\)</span>
-Therefore</p>
-<p><span class="math display">\[\bbox[5px,border:2px solid
-red]{\Gamma(s/2)\,\pi^{-s/2} \, \zeta(s)
-=\Gamma\left(\frac{1-s}2\right)\,\pi^{-(1-s)/2} \,
+change even if <span class="math inline">\(s \to 1 - s.\)</span></p>
+<p>And finally, the <strong>FUNCTIONAL EQUATION</strong> is:</p>
+<p><span class="math display">\[\bbox[5px,border:2px solid red]{\Gamma
+\left(\frac s 2\right)\,\pi^{-\frac s 2} \, \zeta(s)
+=\Gamma\left(\frac{1-s}2\right)\,\pi^{-\frac{1 - s} 2} \,
 \zeta(1-s)}\]</span></p>
-<p>is the functional equation.</p>
 <hr />
 <div id="riemann-xi-function" class="section level4">
 <h4>Riemann Xi function:</h4>
 <p>From <a href="https://youtu.be/epnPu9mx738?si=Uj9i-ReC3Go8jNXx">here</a> and <a href="https://en.wikipedia.org/wiki/Riemann_Xi_function">here</a>:</p>
-<p><span class="math display">\[\xi(z)=\frac 1 2 z(z-1)\,
-\pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)\]</span> for <span class="math inline">\(\Re(z) &gt;1.\)</span></p>
+<p><span class="math display">\[\xi(z)=\frac 1 2 z(z - 1)\, \pi^{-\frac
+z 2}\,\Gamma\left(\frac 1 2 z\right)\, \zeta(z)\]</span> for <span class="math inline">\(\Re(z) &gt;1.\)</span></p>
 <p>This function can be extended to all complex numbers, and</p>
 <p><span class="math display">\[\xi(z) = \xi(1 -z)\]</span></p>
 <p>It is used to analytically continue the zeta function.</p>
 <p>The proof starts off with the gamma function:</p>
-<p><span class="math display">\[\Gamma(1/2 z) = \int_0^\infty t^{1/2
-z-1}\, e^{-t}\,dt\]</span></p>
+<p><span class="math display">\[\Gamma(1/2 z) = \int_0^\infty t^{\frac 1
+2 z - 1}\, e^{-t}\,dt\]</span></p>
 <p>We’ll proceed with the substitution</p>
 <p><span class="math display">\[t= \pi n^2 \, u\]</span> and <span class="math display">\[dt= \pi n^2 \, du\]</span></p>
 <p>Therefore,</p>
 <p><span class="math display">\[\Gamma(1/2 z) = \int_0^\infty (\pi n^2
-\, u)^{1/2 z-1}\, e^{-\pi n^2 \, u}\,\pi n^2 \, du\\
-= \int_0^\infty (\pi n^2)^{1/2 z} \, u^{1/2 z-1}\, e^{-\pi n^2 \, u} \,
-du\]</span></p>
+\, u)^{\frac 1 2 z - 1}\, e^{-\pi n^2 \, u}\,\pi n^2 \, du\\
+= \int_0^\infty (\pi n^2)^{\frac 1 2 z} \, u^{\frac 1 2 z - 1}\, e^{-\pi
+n^2 \, u} \, du\]</span></p>
 <p>Rearranging,</p>
-<p><span class="math display">\[\pi^{-1/2z}\,
-\Gamma(1/2z)\,n^{-z}=\int_0^\infty  u^{1/2 z-1}\, e^{-\pi n^2 \, u} \,
-du\]</span></p>
+<p><span class="math display">\[\pi^{-\frac 1 2 z}\, \Gamma\left(\frac 1
+2 z\right)\,n^{-z}=\int_0^\infty  u^{\frac 1 2 z - 1}\, e^{-\pi n^2 \,
+u} \, du\]</span></p>
 <p>Summing on both sides</p>
-<p><span class="math display">\[\sum_{n=1}^\infty \pi^{-1/2z}\,
-\Gamma(1/2z)\,n^{-z}= \sum_{n=1}^\infty\int_0^\infty  u^{1/2 z-1}\,
-e^{-\pi n^2 \, u} \, du\]</span> or</p>
-<p><span class="math display">\[ \pi^{-1/2z}\, \Gamma(1/2z)\,\zeta(z)=
-\sum_{n=1}^\infty\int_0^\infty  u^{1/2 z-1}\, e^{-\pi n^2 \, u} \,
-du\]</span></p>
+<p><span class="math display">\[\sum_{n=1}^\infty \pi^{-\frac 1 2 z}\,
+\Gamma\left(\frac 12 z\right)\,n^{-z} =
+\sum_{n=1}^\infty\int_0^\infty  u^{\frac 1 2 z - 1}\, e^{-\pi n^2 \, u}
+\, du\]</span> or</p>
+<p><span class="math display">\[ \pi^{-\frac 1 2z}\, \Gamma\left(\frac 1
+2 z \right)\,\zeta(z) = \sum_{n=1}^\infty \int_0^\infty  u^{\frac 1 2 z
+- 1}\, e^{-\pi n^2 \, u} \, du\]</span></p>
 <p>Invoking the Fubini theorem</p>
-<p><span class="math display">\[ \pi^{-1/2z}\, \Gamma(1/2z)\,\zeta(z)=
-\int_0^\infty \color{red}{\sum_{n=1}^\infty  e^{-\pi n^2u}} \,u^{1/2
-z-1}  \, du\]</span></p>
+<p><span class="math display">\[ \pi^{-\frac 1 2 z}\, \Gamma\left(\frac
+1 2 z\right)\,\zeta(z)= \int_0^\infty
+\color{red}{\sum_{n=1}^\infty  e^{-\pi n^2u}} \,u^{\frac 1 2 z - 1}  \,
+du\]</span></p>
 <p>Defining <span class="math display">\[\omega(u) =
 \sum_{n=1}^\infty  e^{-\pi n^2u}\]</span> the connection can be
 established to the Jacobi Theta function:</p>
 <p><span class="math display">\[\Theta(z)=\sum_{n=-\infty}^\infty
 e^{-\pi n^2 z}\]</span></p>
 <p>which has the property that</p>
-<p><span class="math display">\[\Theta(z^{-1})=\sqrt z
+<p><span class="math display">\[\Theta(z^{-1})=\sqrt z\;
 \Theta(z)\]</span> for <span class="math inline">\(\Re(z) &gt;
 1.\)</span></p>
 <hr />
 <p>Proof:</p>
-<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
-e^{-\pi n^2 z^{-1}}\]</span></p>
+<p><span class="math display">\[\Theta\left(z^{-1}\right) =
+\sum_{n=-\infty}^\infty e^{-\pi n^2 z^{-1}}\]</span></p>
 <p>Doing a Fourier expansion (Poisson summation),</p>
 <p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
 \int_{-\infty}^\infty e^{-\pi t^2 z^{-1}}\, e^{-2\pi\, i\,
@@ -524,16 +529,17 @@ n\,t}\,dt\]</span></p>
 <p>Doing a <span class="math inline">\(u\)</span>-substitution with
 <span class="math inline">\(t = \sqrt z\, u \implies dt = \sqrt z
 \,du,\)</span></p>
-<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
-\sqrt z\int_{-\infty}^\infty e^{-\pi \, u^2 -2\pi\, i\, n\,\sqrt z \,
-u}\,du\]</span></p>
+<p><span class="math display">\[\Theta\left(z^{-1}\right) =
+\sum_{n=-\infty}^\infty \sqrt z\int_{-\infty}^\infty e^{-\pi \, u^2
+-2\pi\, i\, n\,\sqrt z \, u}\,du\]</span></p>
 <p>Simplifying</p>
-<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
-\sqrt z\int_{-\infty}^\infty e^{-\pi \, (u + i\,n\, \sqrt z)^2-n^2\,z
-\,\pi}\,du\]</span> Extracting out of the integral</p>
-<p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
-\sqrt z e^{-n^2 \,z\,\pi}\,\int_{-\infty}^\infty e^{-\pi \, (u + i\,n\,
-\sqrt z)^2}\,du\]</span></p>
+<p><span class="math display">\[\Theta\left(z^{-1}\right) =
+\sum_{n=-\infty}^\infty \sqrt z\int_{-\infty}^\infty e^{-\pi \, (u +
+i\,n\, \sqrt z)^2-n^2\,z \,\pi}\,du\]</span> Extracting out of the
+integral</p>
+<p><span class="math display">\[\Theta\left(z^{-1}\right) =
+\sum_{n=-\infty}^\infty \sqrt z e^{-n^2 \,z\,\pi}\,\int_{-\infty}^\infty
+e^{-\pi \, (u + i\,n\, \sqrt z)^2}\,du\]</span></p>
 <p>Defining <span class="math inline">\(v= u + i\, n \, \sqrt
 z,\)</span></p>
 <p><span class="math display">\[\int_{-\infty}^\infty e^{-\pi \,
@@ -544,7 +550,7 @@ v^2}\,dv=\int_{-\infty}^\infty e^{-(\sqrt\pi \, v)^2}\,dv\]</span></p>
 e^{-t^2}\,dt = \frac {\sqrt \pi} {\sqrt \pi}=1\]</span></p>
 <p>Therefore</p>
 <p><span class="math display">\[\Theta(z^{-1}) = \sum_{n=-\infty}^\infty
-\sqrt z e^{-n^2 \,z\,\pi}=\sqrt z\, \sum_{n=-\infty}^\infty e^{-n^2
+\sqrt z \, e^{-n^2 \,z\,\pi}=\sqrt z\, \sum_{n=-\infty}^\infty e^{-n^2
 \,z\,\pi}  =\sqrt z\, \Theta (z)\quad \square\]</span></p>
 <p>Now we need to reconcile the limits of summation of <span class="math inline">\(\omega(u)\)</span> and <span class="math inline">\(\Theta(z)\)</span>. We can split the limits of
 theta:</p>
@@ -556,42 +562,48 @@ n^2 \, z} + 1\]</span></p>
 <p>Therefore,</p>
 <p><span class="math display">\[\Theta(z)=2 \omega(z) + 1\]</span></p>
 <p>Now,</p>
-<p><span class="math display">\[\color{lime}{\omega(z^{-1})}=1/2\,\left(\Theta(z^{-1})
-- 1\right)\\
-=1/2\,\left(\sqrt z\, \Theta(z)- 1\right)\\
-=1/2\,\sqrt z\, \Theta(z)- 1/2\\
-= 1/2 \, \sqrt z \, (2 \, \omega(z) + 1) - 1/2\\
-= \color{lime}{\sqrt z \, \omega(z) + 1/2 \, \sqrt z - 1/2}\]</span></p>
+<p><span class="math display">\[\color{lime}{\omega\left(z^{-1}\right)}=\frac 1
+2\,\left(\Theta(z^{-1}) - 1\right)\\
+=\frac 1 2\,\left(\sqrt z\, \Theta(z) - 1\right)\\
+=\frac 1 2\,\sqrt z\, \Theta(z)- \frac 1 2\\
+= \frac 1 2 \, \sqrt z \, \left(2 \, \omega(z) + 1\right) - \frac 1 2\\
+= \color{lime}{\sqrt z \, \omega(z) + \frac 1 2 \, \sqrt z - \frac 1
+2}\]</span></p>
 <p>Going back to the equation above,</p>
-<p><span class="math display">\[ \pi^{-1/2z}\, \Gamma(1/2z)\,\zeta(z)=
-\int_0^\infty \color{red}{\sum_{n=1}^\infty  e^{-\pi n^2u}} \,u^{1/2
-z-1}  \, du\\
-= \int_1^\infty \omega(u)\, u^{1/2 z-1}du + \int_0^1 \omega(u)\, u^{1/2
-z-1}du\]</span></p>
+<p><span class="math display">\[ \pi^{-\frac 1 2 z}\, \Gamma\left(\frac
+1 2 z \right)\,\zeta(z)= \int_0^\infty
+\color{red}{\sum_{n=1}^\infty  e^{-\pi n^2u}} \,u^{\frac 1 2 z-1}  \,
+du\\
+= \int_1^\infty \omega(u)\, u^{\frac 1 2 z - 1}du + \int_0^1 \omega(u)\,
+u^{\frac 1 2 z - 1} du\]</span></p>
 <p>Using the substitution, <span class="math inline">\(v = u^{-1}
 \implies dv = -u^{-2}du\)</span>, and <span class="math inline">\(-\frac
 1{v^2} dv = du,\)</span></p>
-<p><span class="math display">\[\pi^{-1/2 z}\, \Gamma(1/2z)\,\zeta(z) =
-\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty
-v^{-1}\,\color{lime}{\omega(v^{-1})}\, v^{-1/2 z+1}dv\]</span></p>
+<p><span class="math display">\[\pi^{-\frac 1 2 z}\, \Gamma\left(\frac 1
+2 z\right)\,\zeta(z) = \int_1^\infty \omega(u)\, u^{\frac 1 2 z - 1} du
++ \int_1^\infty v^{-1}\,\color{lime}{\omega(v^{-1})}\, v^{-\frac 1 2
+z+1}dv\]</span></p>
 <p>For the part in lime, we can use the identity derived above:</p>
-<p><span class="math display">\[\pi^{-1/2 z}\, \Gamma(1/2z)\,\zeta(z) =
-\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
--1}\,\color{lime}{(\sqrt z \, \omega(z) + 1/2 \, \sqrt z - 1/2)}\, dv\\
-=\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
--1/2}\,\omega(v)\,+1/2\, v^{-1/2 z -1/2}-1/2v^{-1/2 z -1}\,dv\\
-=\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
--1/2}\,\omega(v)\,dv+\int_1^\infty 1/2\, v^{-1/2 z -1/2}-1/2v^{-1/2 z
--1}\,dv\\
-=\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
--1/2}\,\omega(v)\,dv+\frac 1 {z(z - 1)}\]</span></p>
+<p><span class="math display">\[\pi^{-\frac 1 2 z}\, \Gamma\left(\frac 1
+2 z\right)\,\zeta(z) = \int_1^\infty \omega(u)\, u^{\frac 1 2 z - 1} du
++ \int_1^\infty v^{-\frac 1 2 z - 1}\,\color{lime}{\left(\sqrt z \,
+\omega(z) + \frac 1 2 \, \sqrt z - \frac 1 2\right)}\, dv\\
+=\int_1^\infty \omega(u)\, u^{\frac 1 2 z - 1} du + \int_1^\infty
+v^{-\frac 1 2 z -\frac 1 2}\,\omega(v)\,+ \frac 1 2\, v^{-\frac 1 2 z -
+\frac 1 2}- \frac 1 2v^{-\frac 1 2 z - 1}\,dv\\
+=\int_1^\infty \omega(u)\, u^{\frac 1 2 z - 1} du + \int_1^\infty
+v^{-\frac 1 2 z - \frac 1 2}\,\omega(v)\,dv+\int_1^\infty \frac 1 2\,
+v^{-\frac 1 2 z - \frac 1 2} - \frac 1 2 v^{-\frac 1 2 z - 1}\,dv\\
+=\int_1^\infty \omega(u)\, u^{\frac 1 2 z - 1} du + \int_1^\infty
+v^{-\frac 1 2 z - \frac 1 2}\,\omega(v)\,dv+\frac 1 {z(z -
+1)}\]</span></p>
 <p>To make the RHS equal to <span class="math inline">\(\xi(z)=\frac 1 2
-z(z-1)\, \pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)\)</span> we need to
-multiply both sides by <span class="math inline">\(\frac 1 2
+z(z-1)\, \pi^{-z/2}\,\Gamma\left(\frac 1 2 z\right)\, \zeta(z)\)</span>
+we need to multiply both sides by <span class="math inline">\(\frac 1 2
 z(z-1).\)</span> This will yield</p>
-<p><span class="math display">\[\xi(z)= 1/2 + 1/2 z(z-1) \left(
-\int_1^\infty \omega(u)\, u^{1/2 z-1} du + \int_1^\infty v^{-1/2 z
--1/2}\,\omega(v)\,dv\right)=\xi(z-1)\]</span></p>
+<p><span class="math display">\[\xi(z)= \frac 1 2 + \frac 1 2 z(z-1)
+\left( \int_1^\infty \omega(u)\, u^{\frac 1 2 z-1} \, du + \int_1^\infty
+v^{-\frac 1 2 z - \frac 1 2}\,\omega(v)\,dv\right)=\xi(z-1)\]</span></p>
 <p>by symmetry of the dummy variables <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> in the integrals.</p>
 <hr />
 </div>
@@ -599,47 +611,53 @@ z(z-1).\)</span> This will yield</p>
 <div id="analytical-continuation-of-the-riemann-zeta" class="section level3">
 <h3>Analytical Continuation of the Riemann Zeta:</h3>
 <p>Remembering the Xi function:</p>
-<p><span class="math display">\[\xi(z)=\frac 1 2 z(z-1)\,
-\pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)\]</span></p>
+<p><span class="math display">\[\xi(z)=\frac 1 2 z(z-1)\, \pi^{-\frac z
+2}\,\Gamma\left(\frac 1 2 z\right)\, \zeta(z)\]</span></p>
 <p>the zeta function can be expressed as</p>
 <p><span class="math display">\[\zeta(z) = \frac{\xi(z)}{\frac 1 2
-z(z-1)\, \pi^{-z/2}\,\Gamma(1/2 z)}\]</span></p>
+z(z-1)\, \pi^{-z/2}\,\Gamma\left(\frac 1 2 z\right)}\]</span></p>
 <p>And <span class="math inline">\(\zeta(1 - z)\)</span> as</p>
 <p><span class="math display">\[\zeta(1-z) = \frac{\xi(1-z)}{\frac 1 2
-z(z-1)\, \pi^{-(1-z)/2}\,\Gamma(1/2 (1-z))}\]</span> But in the previous
-section it became clear that <span class="math inline">\(\xi(z) =
-\xi(1-z).\)</span> Therefore</p>
+z(z-1)\, \pi^{-(1-z)/2}\,\Gamma\left(\frac 1 2 (1-z)\right)}\]</span>
+But in the previous section it became clear that <span class="math inline">\(\xi(z) = \xi(1-z).\)</span> Therefore</p>
 <p><span class="math display">\[\zeta(1-z) = \frac{\frac 1 2 z(z-1)\,
-\pi^{-z/2}\,\Gamma(1/2 z)\, \zeta(z)}{\frac 1 2 z(z-1)\,
-\pi^{-(1-z)/2}\,\Gamma(1/2 (1-z))}= \color{red}{\pi^{1/2-z}\,
-\frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}}\zeta(z)\]</span></p>
+\pi^{-z/2}\,\Gamma\left(\frac 1 2 z\right)\, \zeta(z)}{\frac 1 2
+z(z-1)\, \pi^{-\frac{1-z}2}\,\Gamma\left(\frac 1 2 (1-z)\right)}=
+\color{red}{\pi^{\frac 1 2 - z}\, \frac{\Gamma\left(\frac 1 2
+z\right)}{\Gamma\left(\frac 1 2(1-z)\right)}}\zeta(z)\]</span></p>
 <hr />
 <p>Two identities:</p>
 <p><span class="math display">\[\Gamma(z) \, \Gamma(1-z) =
 \frac{\pi}{\sin(\pi\,z)}\]</span></p>
 <p>and</p>
-<p><span class="math display">\[\Gamma(z) \, \Gamma(z+ 1/2) = 2^{1-2z}\,
-\sqrt \pi \,\Gamma(2z)\]</span></p>
+<p><span class="math display">\[\Gamma(z) \, \Gamma\left(z+ \frac 1
+2\right) = 2^{1-2z}\, \sqrt \pi \,\Gamma(2z)\]</span></p>
 <hr />
 <p>So going back to the expression above in red,</p>
-<p><span class="math display">\[\pi^{1/2-z}\,
-\frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}=\pi^{1/2-z}\,
-\frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}\frac{\Gamma(1/2 z +
-1/2)}{\Gamma(1/2 z + 1/2)}\]</span></p>
+<p><span class="math display">\[\pi^{\frac 1 2-z}\,
+\frac{\Gamma\left(\frac 1 2 z\right)}{\Gamma\left(\frac 1
+2(1-z)\right)}=\pi^{\frac 1 2 - z}\, \frac{\Gamma\left(\frac 1 2
+z\right)}{\Gamma\left(\frac 1 2(1-z)\right)}\frac{\Gamma\left(\frac 1 2
+z + \frac 1 2\right)}{\Gamma\left(\frac 1 2 z + \frac 1
+2\right)}\]</span></p>
 <p>The numerator <span class="math inline">\(\Gamma(1/2z)\, \Gamma(1/2 z
 + 1/2)\)</span> matches the second equality above, whereas the
 denominator, i.e. <span class="math inline">\(\Gamma(1/2(1-z))\,\Gamma(1/2 z + 1/2)\)</span>
 matches the first equality because <span class="math inline">\(1 -
 1/2(1-z) = 1/2z + 1/2)\)</span>. Therefore,</p>
-<p><span class="math display">\[\pi^{1/2-z}\,
-\frac{\Gamma(1/2z)}{\Gamma(1/2(1-z))}=\pi^{1/2-z}\,\frac{2^{1-z\,\sqrt\pi}\,
-\Gamma(z)}{\frac{\pi}{\sin(\pi(1/2- 1/2z))}}= \pi^{-z}\,
-2^{1-z}\,\sin(\pi/2 - \pi z/2)\, \Gamma(z)\]</span></p>
+<p><span class="math display">\[\pi^{\frac 1 2 - z}\,
+\frac{\Gamma\left(\frac 1 2 z\right)}{\Gamma\left(\frac 1
+2(1-z)\right)}=\pi^{\frac 1 2 - z}\,\frac{2^{1 - z\,\sqrt\pi}\,
+\Gamma(z)}{\frac{\pi}{\sin\left(\pi\left(\frac 1 2 - \frac 1 2
+z\right)\right)}}= \pi^{-z}\, 2^{1-z}\,\sin\left(\frac{\pi}2 - \pi \frac
+z 2\right)\, \Gamma(z)\]</span></p>
 <p>Therefore,</p>
-<p><span class="math display">\[\zeta(1-z)= \pi^{-z}\,
-2^{1-z}\,\sin(\pi/2 - \pi z/2)\, \Gamma(z)\, \zeta(z)\]</span></p>
+<p><span class="math display">\[\zeta(1-z)= \pi^{-z}\, 2^{1 -
+z}\,\sin\left(\frac{\pi}2 - \pi \frac z 2 \right)\, \Gamma(z)\,
+\zeta(z)\]</span></p>
 <p>Since <span class="math inline">\(\sin(\pi/2 -z) =
 \cos(z)\)</span></p>
+<p>we finally arrive at the <strong>ANALYTIC CONTINUATION:</strong></p>
 <p><span class="math display">\[\bbox[7px,border:2px solid
 red]{\zeta(1-z)= \pi^{-z}\, 2^{1-z}\,\cos\left(\frac{\pi z}{2} \right)\,
 \Gamma(z)\, \zeta(z)}\]</span></p>
