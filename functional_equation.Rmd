@@ -105,10 +105,11 @@ $$ \Gamma\left(\frac s 2 \right)\,\pi^{-\frac s 2} \, \zeta(s) = \int_{0}^1  \, 
 
 Using symmetry, let $s \to 1 - s,$
 
-$$\Gamma\left(\frac{1-s}2\right)\,\pi^{-(1-s)/2} \, \zeta(1-s)= \int_{1}^\infty  \,\left( x^{-\frac{1 - s}{2} - \frac 1 2}+x^{\frac{1 - s} 2 - 1}\right) \, \psi(x) \, dx -\frac 1 {s(1-s)}\\=
-\int_{1}^\infty  \,\left( x^{\frac s 2 - 1} + x^{-\frac s 2 - \frac 1 2} \right) \, \psi(x) \, dx -\frac 1 {s(1-s)}$$
+$$\Gamma\left(\frac{1-s}2\right)\,\pi^{-(1-s)/2} \, \zeta(1-s)= \int_{1}^\infty  \,\left( x^{-\frac{1 - s}{2} - \frac 1 2}+x^{\frac{1 - s} 2 - 1}\right) \, \psi(x) \, dx -\frac 1 {s(1-s)}\\=\color{magenta}{
+\int_{1}^\infty  \,\left( x^{\frac s 2 - 1} + x^{-\frac s 2 - \frac 1 2} \right) \, \psi(x) \, dx -\frac 1 {s(1-s)}}\\=
+\int_{1}^\infty  \,\left( x^{\frac s 2} + x^{\frac{1-s}  2} \right) \, \frac{\psi(x)}{x} \, dx -\frac 1 {s(1-s)}$$
 
-which is the same as the expression in magenta. Therefore there is no change even if $s \to 1 - s.$ 
+where is the expressions in magenta match. Therefore there is no change even if $s \to 1 - s.$ 
 
 And finally, the **FUNCTIONAL EQUATION** is:
 
@@ -160,7 +161,7 @@ $$ \pi^{-\frac 1 2 z}\, \Gamma\left(\frac 1 2 z\right)\,\zeta(z)= \int_0^\infty 
 
 Defining $$\omega(u) = \sum_{n=1}^\infty  e^{-\pi n^2u}$$ the connection can be established to the Jacobi Theta function:
 
-$$\Theta(z)=\sum_{n=-\infty}^\infty e^{-\pi n^2 z}$$
+$$\Theta(z)=\color{brown}{\sum_{n=-\infty}^\infty e^{-\pi n^2 z}}$$
 
 which has the property that
 
@@ -203,7 +204,7 @@ $$\Theta(z^{-1}) = \sum_{n=-\infty}^\infty \sqrt z \, e^{-n^2 \,z\,\pi}=\sqrt z\
 
 Now we need to reconcile the limits of summation of $\omega(u)$ and $\Theta(z)$. We can split the limits of theta:
 
-$$\Theta(z) = \sum_{n=1}^\infty\ e^{-\pi\, n^2 \, z}+ \sum_{n=-\infty}^{-1}\ e^{-\pi\, n^2 \, z} + 1 \\
+$$\Theta(z)=\color{brown}{\sum_{n=-\infty}^\infty e^{-\pi n^2 z}} = \sum_{n=1}^\infty\ e^{-\pi\, n^2 \, z}+ \sum_{n=-\infty}^{-1}\ e^{-\pi\, n^2 \, z} + 1 \\
 = \sum_{n=1}^\infty\ e^{-\pi\, n^2 \, z}+ \sum_{n=1}^{\infty}\ e^{-\pi\, n^2 \, z} + 1$$
 
 by symmetry given by the $n^2.$
@@ -227,7 +228,7 @@ $$ \pi^{-\frac 1 2 z}\, \Gamma\left(\frac 1 2 z \right)\,\zeta(z)= \int_0^\infty
 
 Using the substitution, $v = u^{-1} \implies dv = -u^{-2}du$, and $-\frac 1{v^2} dv = du,$
 
-$$\pi^{-\frac 1 2 z}\, \Gamma\left(\frac 1 2 z\right)\,\zeta(z) = \int_1^\infty \omega(u)\, u^{\frac 1 2 z - 1} du + \int_1^\infty v^{-1}\,\color{lime}{\omega(v^{-1})}\, v^{-\frac 1 2 z+1}dv$$
+$$\pi^{-\frac 1 2 z}\, \Gamma\left(\frac 1 2 z\right)\,\zeta(z) = \int_1^\infty \omega(u)\, u^{\frac 1 2 z - 1} du + \int_1^\infty v^{-2}\,\color{lime}{\omega(v^{-1})}\, v^{-\frac 1 2 z+1}dv$$
 
 For the part in lime, we can use the identity derived above:
 
@@ -238,7 +239,14 @@ $$\pi^{-\frac 1 2 z}\, \Gamma\left(\frac 1 2 z\right)\,\zeta(z) = \int_1^\infty 
 
 To make the RHS equal to $\xi(z)=\frac 1 2 z(z-1)\, \pi^{-z/2}\,\Gamma\left(\frac 1 2 z\right)\, \zeta(z)$ we need to multiply both sides by $\frac 1 2 z(z-1).$ This will yield
 
-$$\xi(z)= \frac 1 2 + \frac 1 2 z(z-1) \left( \int_1^\infty \omega(u)\, u^{\frac 1 2 z-1} \, du + \int_1^\infty v^{-\frac 1 2 z - \frac 1 2}\,\omega(v)\,dv\right)=\xi(z-1)$$
+$$\xi(z)= \frac 1 2 + \frac 1 2 z(z-1) \left( \int_1^\infty \omega(u)\, u^{\frac 1 2 z-1} \, du + \int_1^\infty v^{-\frac 1 2 z - \frac 1 2}\,\omega(v)\,dv\right)=\xi(1 - z)$$
+
+Try just plugging in
+
+$$\xi(\color{gold}{1 - z})= \frac 1 2 + \frac 1 2 (\color{gold}{1 - z})((\color{gold}{1 - z})-1) \left( \int_1^\infty \omega(u)\, u^{\frac 1 2 (\color{gold}{1 - z})-1} \, du + \int_1^\infty v^{-\frac 1 2 (\color{gold}{1 - z}) - \frac 1 2}\,\omega(v)\,dv\right)\\
+=\frac 1 2 + \frac 1 2 (\color{gold}{1 - z})(\color{gold}{- z}) \left( \int_1^\infty \omega(u)\, u^{\frac 1 2 (\color{gold}{1 - z})-1} \, du + \int_1^\infty v^{-\frac 1 2 (\color{gold}{1 - z}) - \frac 1 2}\,\omega(v)\,dv\right)\\
+=\frac 1 2 + \frac 1 2 (\color{gold}{z-1})(\color{gold}{ z}) \left( \int_1^\infty \omega(u)\, u^{ \color{gold}{-\frac 1 2 - \frac z 2}} \, du + \int_1^\infty v^{ \color{gold}{-1 +\frac z 2}}\,\omega(v)\,dv\right)\\
+=\frac 1 2 + \frac 1 2 (\color{gold}{z-1})(\color{gold}{ z}) \left( \int_1^\infty \omega(u)\, u^{ \color{gold}{-\frac 1 2 z - \frac 1 2}} \, du + \int_1^\infty v^{ \color{gold}{\frac 1 2 z - 1}}\,\omega(v)\,dv\right)= \xi(z)$$
 
 by symmetry of the dummy variables $u$ and $v$ in the integrals.
 
