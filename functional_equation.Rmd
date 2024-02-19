@@ -119,6 +119,22 @@ $$\bbox[5px,border:2px solid red]{\Gamma \left(\frac s 2\right)\,\pi^{-\frac s 2
 
 #### Riemann Xi function:
 
+The [Riemann Xi or completed zeta function](https://proofwiki.org/wiki/Definition:Completed_Riemann_Zeta_Function) makes the function symmetric. Notice the plot for real input values:
+
+```{r, warning=FALSE, message=FALSE}
+library(VGAM)
+
+x <- seq(-3,4,0.001)
+xi <- 1/2 * x * (x - 1) * pi^(-x/2) * gamma(x/2) * zeta(x)
+
+plot(x,xi, type='l', ylab='Xi function', xlab='',
+     yaxt='n', col='navy',
+     main='completed zeta function')
+abline(v=1/2)
+```
+
+
+
 From [here](https://youtu.be/epnPu9mx738?si=Uj9i-ReC3Go8jNXx) and [here](https://en.wikipedia.org/wiki/Riemann_Xi_function):
 
 $$\xi(z)=\frac 1 2 z(z - 1)\, \pi^{-\frac z 2}\,\Gamma\left(\frac 1 2 z\right)\, \zeta(z)$$
