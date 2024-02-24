@@ -188,6 +188,20 @@ which are Bernoulli numbers:
 
 <img width = 900  src ="https://user-images.githubusercontent.com/9312897/224198460-89fa3785-9757-4367-97b6-3bc49a1668a2.png">
 
+This can also be seen as follows:
+
+1. Adding and subtracting in the numerator $t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...$ the $t$ is eliminated:
+
+$$\frac{t}{e^t-1}=\frac{t}{t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...}=1+\frac{(1-1)t-\frac{t^2}{2!}-\frac{t^3}{3!}-\frac{t^4}{4!}-...}{t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...}=1-\frac{+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...}{t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...}$$
+2. To now get the second Bernoulli coefficient, from the numerator we subtract from the numerator $\frac {t} {2} \small \left(t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+... \right)$:
+
+
+$$\frac{t}{e^t-1}=1-\frac{t}{2}+\frac{+(\frac{1}{2}-\frac{1}{2!})t^2+(\frac{1}{2.2!}-\frac{1}{3!})t^3+(\frac{1}{2.3!}-\frac{1}{4!})t^4+...}{t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...}=1-\frac{t}{2}+\frac{(\frac{1}{2.2!}-\frac{1}{3!})t^3+(\frac{1}{2.3!}-\frac{t^4}{4!})t^4+...}{t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...}$$
+3. And so forth
+
+$$\frac{t}{e^t-1}=1-\frac{1}{2}t+\frac{\frac{1}{12}t^3+\frac{1}{24}t^4+...}{t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...}=1-\frac{1}{2}t+\frac{1}{12}t^2+\frac{(\frac{1}{24}-\frac{1}{2.12})t^4+...}{t+\frac{t^2}{2!}+\frac{t^3}{3!}+\frac{t^4}{4!}+...}$$
+
+
 
 ---
 
