@@ -269,6 +269,50 @@ $$S_p(n) = \frac 1{p+1} \left( \sum_{k=1}^{p+1}\;\left(-1\right)^{\delta^k_p}\;\
 
 The actual proof is in this [Michael Penn presentation](https://youtu.be/pACLBI6ZQgw).
 
+---
+
+### Connections and Appearances of the Bernoulli Numbers:
+
+
+#### Calculation of the zeta function for even multiples (Euler):
+
+The Euler formula for even multiples of the the zeta function is:
+
+$$\zeta(2 k)=\frac{(-1)^{k-1}(2 \pi)^{2 k} B_{2 k}}{2(2 k) !}$$
+
+#### Riemann zeta functional equation with Bernoulli numbers:
+
+Riemann formulated the following equation linking the zeta function and Bernoulli numbers:
+
+$$\zeta(1-k)=-\frac{B_{k}}{k}$$
+
+#### Generalized Bernoulli numbers:
+
+For a Dirichlet character $\chi,$ the functional Riemann equation right above can be extended to L-functions as:
+
+$$L(1-k, \chi)=:-\frac{B_{k, \chi}}{k}$$
+
+
+#### Dirichlet L-functions:
+
+L-functions are infinite sums of the form of a [Dirichlet series](https://en.wikipedia.org/wiki/Dirichlet_character#Applications):
+
+$$L(s, \chi)=\sum_{n=1}^\infty\frac{\chi_n}{n^s}$$
+whereas Bernoulli numbers appear in the sums of $n$ powers, for $k$ a positive whole number:
+
+$$1^k + 2^k + 3^k + \cdots + n^k$$
+
+Thinking of $k$ above as a negative number, there has to be a connection to the Dirichlet series or the Dirichlet characters $\chi_n,$ even though the L-functions sum to infinity, and the Bernoulli numbers appear in finite sums.
+
+There is a relationship as in 
+
+$$\sum_{n \geq 0} B_{n, \chi} \frac{T^{n}}{n !}=\sum_{a=1}^{f} \frac{\chi(a) T e^{a T}}{e^{f T}-1}$$
+
+in which $f$ is the *conductor* of the Dirichlet character $\chi,$ defined as:
+
+*The conductor of a Dirichlet character $\chi$ modulo $q$ is the least positive integer $q_1$ dividing $q$ for which $\chi(n+kq_1)=\chi(n)$ for all $n$ and $n+kq_1$ coprime to $q$.* (From [here](https://www.lmfdb.org/knowledge/show/character.dirichlet.conductor)).
+
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
