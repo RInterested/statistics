@@ -1,0 +1,104 @@
+---
+title: 'Householder transformation'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Householder Transformation:
+
+---
+
+From [here](https://www.r-bloggers.com/2017/04/qr-decomposition-with-householder-reflections/):
+
+> The more common approach to QR decomposition is employing Householder reflections rather than utilizing Gram-Schmidt. In practice, the Gram-Schmidt procedure is not recommended as it can lead to cancellation that causes inaccuracy of the computation of $q_j,$ which may result in a non-orthogonal $Q$ matrix. 
+
+---
+
+#### Mathematical Concepts:
+
+---
+
+<img width = 400  src = "https://private-user-images.githubusercontent.com/9312897/308738280-474c2864-759e-4a50-b06a-d12f80773ee5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDkxNjEyNjQsIm5iZiI6MTcwOTE2MDk2NCwicGF0aCI6Ii85MzEyODk3LzMwODczODI4MC00NzRjMjg2NC03NTllLTRhNTAtYjA2YS1kMTJmODA3NzNlZTUucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjhUMjI1NjA0WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZmIzOGE1MWZlY2I1NzJlYTdmMDJhNGYzODNlOWZmOGFkYWRmYjMzNGY0M2U4MGVmY2IyYjg4MjA2ZjQ5OTY2YyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.bwr0PBR-u8Lk4dWmpjQlbtBkyubKxEHAtv5HkYy0tHo">
+
+The projection of $\bf x$ on $\bf u$ (unit vector perpendicular to the plane) is a scalar multiple of $\bf u$, we find that $\bf {w = u} \, \alpha$. It follows that $0 = \bf u^T\,(\bf x - \bf w) = u^T\,(\bf x - \bf u\,\alpha)$. Therefore,
+
+$$\alpha = \frac{\bf u^T \bf x}{\bf u^T \bf u}$$
+
+And substituting,
+
+$$\bf w = \bf u \, \alpha = \frac{\bf u\,\bf u^T}{\bf u^T \bf u} \bf x$$
+
+Since $\bf u$ is of unit length, 
+
+$$\bf w = \bf u\,\bf u^T  \, \bf x = \bf u^T \bf x \bf u$$
+
+as on the diagram above. And the reflection of $\bf x$ is:
+
+$$\bf y = x -  2\,w\\ = x  -2\, u^T x u \\= x  -2\,  uu^T x \\= (I - 2\,  uu^T)\,x$$
+
+with the matrix $\bf H = I - 2\,uu^T$ being the mirror or reflection matrix (aka a Householder transformation).
+
+A YT presentation on this topic can be found [here](https://youtu.be/6TIVIw4B5VA?si=9v5Yclrm05TmIsPc).
+
+
+
+To silence R messages and warnings copy this before the first chunk of R code:
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+---
+
+```{r}
+library(curl)
+dat <- read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/sicily.csv')
+head(dat)
+```
+
+
+---
+
+#### SUBHEADER
+
+---
+
+```{R, fig.width = 5, fig.height = 5}
+n <- 1e4
+M <- matrix(runif(2*n,-1,1),ncol=2)
+M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
+plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
+     xlab='', ylab='', tck=F, axes=F)
+```
+
+##### SUB-SUBHEADER
+
+---
+
+### Portfolio Variance:
+
+---
+
+Example of an image:
+
+
+
+References:
+
+<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
