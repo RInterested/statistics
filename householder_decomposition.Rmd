@@ -52,8 +52,11 @@ with the matrix $\bf H = I - 2\,uu^T$ being the mirror or reflection matrix (aka
 A YT presentation on this topic can be found [here](https://youtu.be/6TIVIw4B5VA?si=9v5Yclrm05TmIsPc).
 
 
+---
 
-To silence R messages and warnings copy this before the first chunk of R code:
+#### Computation:
+
+---
 
 ```{r setup, include=FALSE} 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
@@ -62,41 +65,56 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ---
 
 ```{r}
-library(curl)
-dat <- read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/sicily.csv')
-head(dat)
+House <- function(A) {
+  require(Matrix)
+  
+  R <- as.matrix(A) # Set R to the input matrix A
+  
+  n <- ncol(A)
+  m <- nrow(A)
+  H <- list() # Initialize a list to store the computed H matrices to calculate Q later
+  
+  if (m > n) {
+    c <- n
+  } else {
+    c <- m
+  }
+  
+  for (k in 1:c) {
+    x <- R[k:m,k] # Equivalent to a_1
+    print(c(x[1], sign(x[1])))
+    e <- as.matrix(c(1, rep(0, length(x)-1)))
+    vk <- sign(x[1]) * sqrt(sum(x^2)) * e + x
+    print(vk)
+    # Compute the H matrix
+    hk <- diag(length(x)) - 2 * as.vector(vk %*% t(vk)) / (t(vk) %*% vk)
+    print(c("k equals",k))
+    print(hk)
+    if (k > 1) {
+      hk <- bdiag(diag(k-1), hk)
+      print(hk)
+    }
+    
+    # Store the H matrix to find Q at the end of iteration
+    H[[k]] <- hk
+    
+    R <- hk %*% R
+  }
+
+  Q <- Reduce("%*%", H) # Calculate Q matrix by multiplying all H matrices
+  res <- list('Q'=Q,'R'=R)
+  return(res)
+}
 ```
 
 
----
 
-#### SUBHEADER
-
----
-
-```{R, fig.width = 5, fig.height = 5}
-n <- 1e4
-M <- matrix(runif(2*n,-1,1),ncol=2)
-M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
-plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
-     xlab='', ylab='', tck=F, axes=F)
+```{R}
+A <- rbind(c(2,-2,18),c(2,1,0),c(1,2,0))
+House(A)
 ```
 
-##### SUB-SUBHEADER
 
----
-
-### Portfolio Variance:
-
----
-
-Example of an image:
-
-
-
-References:
-
-<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
