@@ -29,27 +29,29 @@ From [here](https://www.r-bloggers.com/2017/04/qr-decomposition-with-householder
 
 ---
 
-<img width = 400  src = "https://private-user-images.githubusercontent.com/9312897/308738280-474c2864-759e-4a50-b06a-d12f80773ee5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDkxNjEyNjQsIm5iZiI6MTcwOTE2MDk2NCwicGF0aCI6Ii85MzEyODk3LzMwODczODI4MC00NzRjMjg2NC03NTllLTRhNTAtYjA2YS1kMTJmODA3NzNlZTUucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjhUMjI1NjA0WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZmIzOGE1MWZlY2I1NzJlYTdmMDJhNGYzODNlOWZmOGFkYWRmYjMzNGY0M2U4MGVmY2IyYjg4MjA2ZjQ5OTY2YyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.bwr0PBR-u8Lk4dWmpjQlbtBkyubKxEHAtv5HkYy0tHo">
+<img width = 400  src = "https://raw.githubusercontent.com/RInterested/statistics/gh-pages/Householder.png">
 
-The projection of $\bf x$ on $\bf u$ (unit vector perpendicular to the plane) is a scalar multiple of $\bf u$, we find that $\bf {w = u} \, \alpha$. It follows that $0 = \bf u^T\,(\bf x - \bf w) = u^T\,(\bf x - \bf u\,\alpha)$. Therefore,
+The projection of $\vec x$ on $\vec u$ (unit vector perpendicular to the plane) is a scalar multiple of $\vec u$, we find that $\vec w = \vec u \, \alpha$. It follows that $0 = \vec u^T\,(\vec x - \vec w) = \vec u^T\,(\vec x - \vec u\,\alpha)$. Therefore,
 
-$$\alpha = \frac{\bf u^T \bf x}{\bf u^T \bf u}$$
+$$\alpha = \frac{\vec u^T \vec x}{\vec u^T \vec u}$$
 
 And substituting,
 
-$$\bf w = \bf u \, \alpha = \frac{\bf u\,\bf u^T}{\bf u^T \bf u} \bf x$$
+$$\vec w = \vec u \, \alpha = \frac{\vec u\,\vec u^T}{\vec u^T \vec u} \vec x$$
 
-Since $\bf u$ is of unit length, 
+Since $\vec u$ is of unit length, 
 
-$$\bf w = \bf u\,\bf u^T  \, \bf x = \bf u^T \bf x \bf u$$
+$$\vec w = \vec u\,\vec u^T  \, \vec x = \vec u^T \vec x \vec u$$
 
-as on the diagram above. And the reflection of $\bf x$ is:
+as on the diagram above. And the reflection of $\vec x$ is:
 
-$$\bf y = x -  2\,w\\ = x  -2\, u^T x u \\= x  -2\,  uu^T x \\= (I - 2\,  uu^T)\,x$$
+$$\vec y = \vec x -  2\,\vec w\\ = \vec x  -2\,\vec u^T \vec x \, \vec u \\= \vec x  -2\,  \vec u \vec u^T \vec x \\= (I - 2\,  \vec u \vec u^T)\,\vec x$$
 
-with the matrix $\bf H = I - 2\,uu^T$ being the mirror or reflection matrix (aka a Householder transformation).
+with the matrix $H = I - 2\,\vec u \vec u^T$ being the mirror or reflection matrix (aka a Householder transformation).
 
 A YT presentation on this topic can be found [here](https://youtu.be/6TIVIw4B5VA?si=9v5Yclrm05TmIsPc).
+
+Since we want to get an upper-triangular matrix $R$ in the intended $QR$ decomposition, the computation is carried out by successive sub-matrices such as in each one, the first column is of the form $\begin{bmatrix}a_1,0,0,\cdots\end{bmatrix}^\top$. Since the $H$ matrix is orthonormal, the transformation exerted by $H\vec x$ leaves the norm of $\vec x$ unchanged.
 
 
 ---
