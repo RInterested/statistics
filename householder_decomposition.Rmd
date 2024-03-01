@@ -179,6 +179,18 @@ Now comparing to built-in functions:
 round(qr.Q(qr(A)), 2); round(qr.R(qr(A)), 2)
 ```
 
+Analyzing the result of `qr()`, note that `qr` is a matrix with the same dimensions as the input `x`. The upper triangle contains the 
+$R$ of the decomposition and the lower triangle contains information on the $Q$ of the decomposition.
+
+```{r}
+(QR <- round(as.matrix(qr(A)$qr), 2))
+# Excluding the lower triangular entries returns R:
+QR[row(QR) > col(QR)] = 0; QR
+# To get Q:
+round(Q <- qr.Q(qr(A)), 2)
+round(t(Q)%*%Q, 2)
+```
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>

@@ -674,6 +674,33 @@ House(A)</code></pre>
 ## [1,]   -3    0  -12
 ## [2,]    0   -3   12
 ## [3,]    0    0    6</code></pre>
+<p>Analyzing the result of <code>qr()</code>, note that <code>qr</code>
+is a matrix with the same dimensions as the input <code>x</code>. The
+upper triangle contains the <span class="math inline">\(R\)</span> of
+the decomposition and the lower triangle contains information on the
+<span class="math inline">\(Q\)</span> of the decomposition.</p>
+<pre class="r"><code>(QR &lt;- round(as.matrix(qr(A)$qr), 2))</code></pre>
+<pre><code>##       [,1] [,2] [,3]
+## [1,] -3.00  0.0  -12
+## [2,]  0.67 -3.0   12
+## [3,]  0.33  0.8    6</code></pre>
+<pre class="r"><code># Excluding the lower triangular entries returns R:
+QR[row(QR) &gt; col(QR)] = 0; QR</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   -3    0  -12
+## [2,]    0   -3   12
+## [3,]    0    0    6</code></pre>
+<pre class="r"><code># To get Q:
+round(Q &lt;- qr.Q(qr(A)), 2)</code></pre>
+<pre><code>##       [,1]  [,2]  [,3]
+## [1,] -0.67  0.67  0.33
+## [2,] -0.67 -0.33 -0.67
+## [3,] -0.33 -0.67  0.67</code></pre>
+<pre class="r"><code>round(t(Q)%*%Q, 2)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
