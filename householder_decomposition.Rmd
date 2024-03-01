@@ -51,7 +51,16 @@ with the matrix $H = I - 2\,\vec u \vec u^T$ being the mirror or reflection matr
 
 A YT presentation on this topic can be found [here](https://youtu.be/6TIVIw4B5VA?si=9v5Yclrm05TmIsPc).
 
-Since we want to get an upper-triangular matrix $R$ in the intended $QR$ decomposition, the computation is carried out by successive sub-matrices such as in each one, the first column is of the form $\begin{bmatrix}a_1,0,0,\cdots\end{bmatrix}^\top$. Since the $H$ matrix is orthonormal, the transformation exerted by $H\vec x$ leaves the norm of $\vec x$ unchanged.
+Since we want to get an upper-triangular matrix $R$ in the intended $QR$ decomposition, the computation is carried out by successive sub-matrices such as in each one, the first column is of the form $\begin{bmatrix}a_1,0,0,\cdots\end{bmatrix}^\top$. Since the $H$ matrix is orthonormal, the transformation exerted by $H\vec x$ leaves the norm of $\vec x$ unchanged. We want a "mirror" such that the projection is along $e_1$ and of length $||\vec x||$. Given the equal norm of both $\vec x$ and $\vec y$, and with only one non-zero entry in $\vec y$, $\vec y= H\vec x = \beta \vec e_1 =\begin{bmatrix} \pm \lVert x\rVert&0&0&\cdots&0\end{bmatrix}$, imagining the reflection along the $x$ axis results in a simple expression for the difference vector $\vec v$:
+
+$$\vec v = \vec x - \vec y= \begin{bmatrix}x_1\\x_2\\x_3\\\vdots\\x_m\end{bmatrix} \pm \lVert x \rVert \begin{bmatrix}1\\0\\0\\\vdots\\0\end{bmatrix}$$
+Interestingly, this norm of $\vec x$ can be multiplied by $\pm 1$ or any complex number of norm $1,$ because it will only change the plane of symmetry of the reflection.
+
+In the actual calculation of $R$, the procedure involves progressively nested sub-matrices, explaining why there is only one non-zero element in the first column matrix. This can be seen in the code below.
+
+Having figured out $\vec v$ thus, the unit vector perpendicular to the plane of symmetry will be $\vec u= \frac{v}{\lVert v \rVert}$.
+
+In the diagram below, the reflected vector is aligned with the $x$-axis, and we are trying to figure out the plane of reflection $\vec u.$
 
 ---
 
@@ -70,49 +79,93 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ---
 
+The function `House()` below has embedded some `print()` lines to reproduce the example elaborated in [here](https://www.r-bloggers.com/2017/04/qr-decomposition-with-householder-reflections/).
+
 ```{r}
 House <- function(A) {
   require(Matrix)
-  
   R <- as.matrix(A) # Set R to the input matrix A
-  
   n <- ncol(A)
   m <- nrow(A)
   H <- list() # Initialize a list to store the computed H matrices to calculate Q later
-  
-  if (m > n) {
-    c <- n
-  } else {
-    c <- m
-  }
-  
+  if (m > n) {c <- n} else {c <- m}
   for (k in 1:c) {
-    x <- R[k:m,k] # Equivalent to a_1
-    print(c(x[1], sign(x[1])))
-    e <- as.matrix(c(1, rep(0, length(x)-1)))
-    vk <- sign(x[1]) * sqrt(sum(x^2)) * e + x
-    print(vk)
+    x <- R[k:m, k] # Equivalent to a_1
+    print(paste0("The HR for iteration ", k)); print(round(R, 2))
+    print(paste0("The x for iteration ", k)); print(x)
+    print(paste0("The x1 of the column matrix is ", x[1], " sign ", sign(x[1])))
+    e1 <- as.matrix(c(1, rep(0, length(x) - 1))) # e_1
+    vk <- x + sign(x[1]) * sqrt(sum(x^2)) * e1 # v as x + y
+    print("The x + norm x e_1 is: "); print(x); print(" + "); print(as.vector(sign(x[1]) * sqrt(sum(x^2)) * e1)); print(" = "); print(as.vector(vk)) 
     # Compute the H matrix
-    hk <- diag(length(x)) - 2 * as.vector(vk %*% t(vk)) / (t(vk) %*% vk)
-    print(c("k equals",k))
-    print(hk)
-    if (k > 1) {
-      hk <- bdiag(diag(k-1), hk)
+    hk <- diag(length(x)) - 2 * as.vector(vk %*% t(vk)) / (t(vk) %*% vk) # I - 2 vv^T / vTv
+    print("vv^T: "); print(round(vk %*% t(vk), 2))
+    print("The hk is:"); print(round(hk, 2))
+    if (k > 1) {# After the first matrix H a diagonal of 1's is added
+      hk <- bdiag(diag(k - 1), hk)
+      print("The hk matrix with 1's is:")
       print(hk)
     }
-    
     # Store the H matrix to find Q at the end of iteration
     H[[k]] <- hk
-    
-    R <- hk %*% R
+    R <- hk %*% R # The first R is the actual A and it is updated as
+                  # H H H H A
   }
-
   Q <- Reduce("%*%", H) # Calculate Q matrix by multiplying all H matrices
-  res <- list('Q'=Q,'R'=R)
+  res <- list('Q'= round(Q, 2),'R'= round(R, 2))
   return(res)
 }
 ```
 
+Now with the input from [here](https://www.r-bloggers.com/2017/04/qr-decomposition-with-householder-reflections/):
+
+$$A = \begin{bmatrix} 2 & – 2 & 18 \\\ 2 & 1 & 0 \\\ 1 & 2 & 0 \end{bmatrix}$$
+
+The first column vector, i.e. $a_1 = \begin{bmatrix}2 & 2 & 1 \end{bmatrix}^T$ will be reflected to $\vec x - \vec y$. But we can instead of using $-||x||$ we can use that value times $-1$ and calculate $\vec x + ||x||\,\vec e_1$:
+
+$$\vec v_1 = \begin{bmatrix}2\\2\\1\end{bmatrix} + \left( \sum_{k=1}^m a_1^2 \right)^{1/2} \, \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix}5 \\ 2 \\ 1\end{bmatrix}$$
+
+The next step is calculating $I - 2 \frac{vv^\top}{v^\top v}$:
+
+$$H_1= \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix} - 2 \frac{\begin{bmatrix}5&2&1\end{bmatrix}\begin{bmatrix}5\\2\\1\end{bmatrix}}{\begin{bmatrix}5\\2\\1\end{bmatrix}\begin{bmatrix}5&2&1\end{bmatrix}}=\begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix}$$
+
+This is then multiplied $H_1A$:
+
+$$H_1 A = \begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix} \begin{bmatrix} 2 & – 2 & 18 \\\ 2 & 1 & 0 \\\ 1 & 2 & 0 \end{bmatrix} = \begin{bmatrix} -3 & 0 & -12 \\\ 0 & 1.8 & 12 \\\ 0 & 2.4 & -6 \end{bmatrix}$$
+
+$H_1A$ replaces $A$ in the next iteration. Now comes to $a_2$ and $H_2$ with the submatrix of $A$
+
+$$A^{(1)} = \begin{bmatrix} 1.8 & 12 \\\ 2.4 & -6 \end{bmatrix}$$
+$v_2$ is
+
+$$\begin{bmatrix} 1.8 \\\ 2.4 \end{bmatrix} + \sqrt{\sum^m_{j=1} a_2^2} \begin{bmatrix} 1 \\\ 0 \end{bmatrix} = \begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix}$$
+
+The $H_2$ Householder matrix is
+
+$$H_2 = \begin{bmatrix} 1 & 0 \\\ 0 & 1 \end{bmatrix} – 2 \frac{\begin{bmatrix} 4.8 & 2.4 \end{bmatrix} \begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix}}{\begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix} \begin{bmatrix} 4.8 & 2.4 \end{bmatrix}}=\begin{bmatrix} 1 & 0 & 0 \\\ 0 & -0.6 & -0.8 \\\ 0 & -0.8 & 0.6 \end{bmatrix}$$
+
+The first column $\begin{bmatrix}1 \\\ 0 \\\ 0 \end{bmatrix}$ and first row $\begin{bmatrix}1 & 0 & 0 \end{bmatrix}$ are added to the resulting $H_2$ matrix to keep it $n \times n$.
+
+Now
+
+$$H_2 = \begin{bmatrix} 1 & 0 & 0 \\\ 0 & -0.6 & -0.8 \\\ 0 & -0.8 & 0.6 \end{bmatrix} \begin{bmatrix} -3 & 0 & -12 \\\ 0 & 1.8 & 12 \\\ 0 & 2.4 & -6 \end{bmatrix}=\begin{bmatrix} -3 & 0 & -12 \\\ 0 & -3 & 12 \\\ 0 & 0 & 6 \end{bmatrix}$$
+
+Moving to $a_3$ and $H_3$, the submatrix of $H_2A$
+is simply $[6]$. Therefore, $v_3$ is equal to:
+
+$$\begin{bmatrix} 6 \end{bmatrix} –  \sqrt{\sum^m_{j=1} a_3^2} \begin{bmatrix} 1 \end{bmatrix} = 12$$
+
+The $H_3$
+
+$$H_3 = \begin{bmatrix} 1 \end{bmatrix} – 2 \frac{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12 \end{bmatrix}}{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12 \end{bmatrix}} = \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix}$$
+
+and
+
+$$H_3 A = \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix} \begin{bmatrix} -3 & 0 & -12 \\\ 0 & -3 & 12 \\\ 0 & 0 & 6 \end{bmatrix} = \begin{bmatrix} -3 & 0 & -12 \\\ 0 & -3 & 12 \\\ 0 & 0 & -6 \end{bmatrix}$$
+
+Which is the $R$ factorization in the $QR$ decomposition method. The $Q$ factorization of $QR$ decomposition is found by multiplying all the $H$ matrices together
+
+$$Q = \begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\\ 0 & -0.6 & -0.8 \\\ 0 & -0.8 & 0.6 \end{bmatrix} \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix}= \begin{bmatrix} -\frac{2}{3} & \frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & -\frac{1}{3} & \frac{2}{3} \\\ -\frac{1}{3} & -\frac{2}{3} & -\frac{2}{3} \end{bmatrix}$$
 
 
 ```{R}
@@ -120,6 +173,11 @@ A <- rbind(c(2,-2,18),c(2,1,0),c(1,2,0))
 House(A)
 ```
 
+Now comparing to built-in functions:
+
+```{R}
+round(qr.Q(qr(A)), 2); round(qr.R(qr(A)), 2)
+```
 
 
 ---
