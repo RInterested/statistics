@@ -97,7 +97,7 @@ House <- function(A) {
     print(paste0("The x1 of the column matrix is ", x[1], " sign ", sign(x[1])))
     e1 <- as.matrix(c(1, rep(0, length(x) - 1))) # e_1
     vk <- x + sign(x[1]) * sqrt(sum(x^2)) * e1 # v as x + y
-    print("The reflecion vec (v) = x + norm x e_1 is: "); print(x); print(" + "); print(as.vector(sign(x[1]) * sqrt(sum(x^2)) * e1)); print(" = "); print(as.vector(vk)) 
+    print("The reflecion vec v = x + norm x e_1 is: "); print(x); print(" + "); print(as.vector(sign(x[1]) * sqrt(sum(x^2)) * e1)); print(" = "); print(as.vector(vk)) 
     # Compute the H matrix
     hk <- diag(length(x)) - 2 * as.vector(vk %*% t(vk)) / (t(vk) %*% vk) # I - 2 vv^T / vTv
     print("vv^T: "); print(round(vk %*% t(vk), 2))
