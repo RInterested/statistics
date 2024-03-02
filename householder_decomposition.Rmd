@@ -88,6 +88,7 @@ House <- function(A) {
   n <- ncol(A)
   m <- nrow(A)
   H <- list() # Initialize a list to store the computed H matrices to calculate Q later
+  V <- list() # List of reflection vectors v
   if (m > n) {c <- n} else {c <- m}
   for (k in 1:c) {
     x <- R[k:m, k] # Equivalent to a_1
@@ -96,7 +97,7 @@ House <- function(A) {
     print(paste0("The x1 of the column matrix is ", x[1], " sign ", sign(x[1])))
     e1 <- as.matrix(c(1, rep(0, length(x) - 1))) # e_1
     vk <- x + sign(x[1]) * sqrt(sum(x^2)) * e1 # v as x + y
-    print("The x + norm x e_1 is: "); print(x); print(" + "); print(as.vector(sign(x[1]) * sqrt(sum(x^2)) * e1)); print(" = "); print(as.vector(vk)) 
+    print("The reflecion vec (v) = x + norm x e_1 is: "); print(x); print(" + "); print(as.vector(sign(x[1]) * sqrt(sum(x^2)) * e1)); print(" = "); print(as.vector(vk)) 
     # Compute the H matrix
     hk <- diag(length(x)) - 2 * as.vector(vk %*% t(vk)) / (t(vk) %*% vk) # I - 2 vv^T / vTv
     print("vv^T: "); print(round(vk %*% t(vk), 2))
@@ -127,22 +128,22 @@ $$\vec v_1 = \begin{bmatrix}2\\2\\1\end{bmatrix} + \left( \sum_{k=1}^m a_1^2 \ri
 
 The next step is calculating $I - 2 \frac{vv^\top}{v^\top v}$:
 
-$$H_1= \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix} - 2 \frac{\begin{bmatrix}5&2&1\end{bmatrix}\begin{bmatrix}5\\2\\1\end{bmatrix}}{\begin{bmatrix}5\\2\\1\end{bmatrix}\begin{bmatrix}5&2&1\end{bmatrix}}=\begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix}$$
+$$H_1= \small \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix} - 2 \frac{\begin{bmatrix}5&2&1\end{bmatrix}\begin{bmatrix}5\\2\\1\end{bmatrix}}{\begin{bmatrix}5\\2\\1\end{bmatrix}\begin{bmatrix}5&2&1\end{bmatrix}}=\begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix}$$
 
 This is then multiplied $H_1A$:
 
-$$H_1 A = \begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix} \begin{bmatrix} 2 & – 2 & 18 \\\ 2 & 1 & 0 \\\ 1 & 2 & 0 \end{bmatrix} = \begin{bmatrix} -3 & 0 & -12 \\\ 0 & 1.8 & 12 \\\ 0 & 2.4 & -6 \end{bmatrix}$$
+$$H_1 A = \small \begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix} \begin{bmatrix} 2 & – 2 & 18 \\\ 2 & 1 & 0 \\\ 1 & 2 & 0 \end{bmatrix} = \begin{bmatrix} -3 & 0 & -12 \\\ 0 & 1.8 & 12 \\\ 0 & 2.4 & -6 \end{bmatrix}$$
 
 $H_1A$ replaces $A$ in the next iteration. Now comes to $a_2$ and $H_2$ with the submatrix of $A$
 
 $$A^{(1)} = \begin{bmatrix} 1.8 & 12 \\\ 2.4 & -6 \end{bmatrix}$$
 $v_2$ is
 
-$$\begin{bmatrix} 1.8 \\\ 2.4 \end{bmatrix} + \sqrt{\sum^m_{j=1} a_2^2} \begin{bmatrix} 1 \\\ 0 \end{bmatrix} = \begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix}$$
+$$\small \begin{bmatrix} 1.8 \\\ 2.4 \end{bmatrix} + \sqrt{\sum^m_{j=1} a_2^2} \begin{bmatrix} 1 \\\ 0 \end{bmatrix} = \begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix}$$
 
 The $H_2$ Householder matrix is
 
-$$H_2 = \begin{bmatrix} 1 & 0 \\\ 0 & 1 \end{bmatrix} – 2 \frac{\begin{bmatrix} 4.8 & 2.4 \end{bmatrix} \begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix}}{\begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix} \begin{bmatrix} 4.8 & 2.4 \end{bmatrix}}=\begin{bmatrix} 1 & 0 & 0 \\\ 0 & -0.6 & -0.8 \\\ 0 & -0.8 & 0.6 \end{bmatrix}$$
+$$H_2 = \small \begin{bmatrix} 1 & 0 \\\ 0 & 1 \end{bmatrix} – 2 \frac{\begin{bmatrix} 4.8 & 2.4 \end{bmatrix} \begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix}}{\begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix} \begin{bmatrix} 4.8 & 2.4 \end{bmatrix}}=\begin{bmatrix} 1 & 0 & 0 \\\ 0 & -0.6 & -0.8 \\\ 0 & -0.8 & 0.6 \end{bmatrix}$$
 
 The first column $\begin{bmatrix}1 \\\ 0 \\\ 0 \end{bmatrix}$ and first row $\begin{bmatrix}1 & 0 & 0 \end{bmatrix}$ are added to the resulting $H_2$ matrix to keep it $n \times n$.
 
@@ -153,19 +154,19 @@ $$H_2 = \begin{bmatrix} 1 & 0 & 0 \\\ 0 & -0.6 & -0.8 \\\ 0 & -0.8 & 0.6 \end{bm
 Moving to $a_3$ and $H_3$, the submatrix of $H_2A$
 is simply $[6]$. Therefore, $v_3$ is equal to:
 
-$$\begin{bmatrix} 6 \end{bmatrix} –  \sqrt{\sum^m_{j=1} a_3^2} \begin{bmatrix} 1 \end{bmatrix} = 12$$
+$$\begin{bmatrix} 6 \end{bmatrix} – \small \sqrt{\sum^m_{j=1} a_3^2} \begin{bmatrix} 1 \end{bmatrix} = 12$$
 
 The $H_3$
 
-$$H_3 = \begin{bmatrix} 1 \end{bmatrix} – 2 \frac{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12 \end{bmatrix}}{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12 \end{bmatrix}} = \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix}$$
+$$H_3 = \small \begin{bmatrix} 1 \end{bmatrix} – 2 \frac{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12 \end{bmatrix}}{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12 \end{bmatrix}} = \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix}$$
 
 and
 
-$$H_3 A = \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix} \begin{bmatrix} -3 & 0 & -12 \\\ 0 & -3 & 12 \\\ 0 & 0 & 6 \end{bmatrix} = \begin{bmatrix} -3 & 0 & -12 \\\ 0 & -3 & 12 \\\ 0 & 0 & -6 \end{bmatrix}$$
+$$H_3 A = \small \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix} \begin{bmatrix} -3 & 0 & -12 \\\ 0 & -3 & 12 \\\ 0 & 0 & 6 \end{bmatrix} = \begin{bmatrix} -3 & 0 & -12 \\\ 0 & -3 & 12 \\\ 0 & 0 & -6 \end{bmatrix}$$
 
 Which is the $R$ factorization in the $QR$ decomposition method. The $Q$ factorization of $QR$ decomposition is found by multiplying all the $H$ matrices together
 
-$$Q = \begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\\ 0 & -0.6 & -0.8 \\\ 0 & -0.8 & 0.6 \end{bmatrix} \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix}= \begin{bmatrix} -\frac{2}{3} & \frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & -\frac{1}{3} & \frac{2}{3} \\\ -\frac{1}{3} & -\frac{2}{3} & -\frac{2}{3} \end{bmatrix}$$
+$$Q = \small \begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & 0.7333 & -0.1333 \\\ -\frac{1}{3} & -0.1333 & 0.9333 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\\ 0 & -0.6 & -0.8 \\\ 0 & -0.8 & 0.6 \end{bmatrix} \begin{bmatrix}1 & 0 & 0 \\\ 0 & 1 & 0 \\\ 0 & 0 & -1 \end{bmatrix}= \begin{bmatrix} -\frac{2}{3} & \frac{2}{3} & -\frac{1}{3} \\\ -\frac{2}{3} & -\frac{1}{3} & \frac{2}{3} \\\ -\frac{1}{3} & -\frac{2}{3} & -\frac{2}{3} \end{bmatrix}$$
 
 
 ```{R}
@@ -188,6 +189,8 @@ $R$ of the decomposition and the lower triangle contains information on the $Q$ 
 QR[row(QR) > col(QR)] = 0; QR
 # To get Q:
 round(Q <- qr.Q(qr(A)), 2)
+
+# Notice that Q is orthonormal:
 round(t(Q)%*%Q, 2)
 ```
 

@@ -460,6 +460,7 @@ the plane of reflection <span class="math inline">\(\vec u.\)</span></p>
   n &lt;- ncol(A)
   m &lt;- nrow(A)
   H &lt;- list() # Initialize a list to store the computed H matrices to calculate Q later
+  V &lt;- list() # List of reflection vectors v
   if (m &gt; n) {c &lt;- n} else {c &lt;- m}
   for (k in 1:c) {
     x &lt;- R[k:m, k] # Equivalent to a_1
@@ -468,7 +469,7 @@ the plane of reflection <span class="math inline">\(\vec u.\)</span></p>
     print(paste0(&quot;The x1 of the column matrix is &quot;, x[1], &quot; sign &quot;, sign(x[1])))
     e1 &lt;- as.matrix(c(1, rep(0, length(x) - 1))) # e_1
     vk &lt;- x + sign(x[1]) * sqrt(sum(x^2)) * e1 # v as x + y
-    print(&quot;The x + norm x e_1 is: &quot;); print(x); print(&quot; + &quot;); print(as.vector(sign(x[1]) * sqrt(sum(x^2)) * e1)); print(&quot; = &quot;); print(as.vector(vk)) 
+    print(&quot;The reflecion vec (v) = x + norm x e_1 is: &quot;); print(x); print(&quot; + &quot;); print(as.vector(sign(x[1]) * sqrt(sum(x^2)) * e1)); print(&quot; = &quot;); print(as.vector(vk)) 
     # Compute the H matrix
     hk &lt;- diag(length(x)) - 2 * as.vector(vk %*% t(vk)) / (t(vk) %*% vk) # I - 2 vv^T / vTv
     print(&quot;vv^T: &quot;); print(round(vk %*% t(vk), 2))
@@ -503,7 +504,7 @@ e_1\)</span>:</p>
 \begin{bmatrix}5 \\ 2 \\ 1\end{bmatrix}\]</span></p>
 <p>The next step is calculating <span class="math inline">\(I - 2
 \frac{vv^\top}{v^\top v}\)</span>:</p>
-<p><span class="math display">\[H_1=
+<p><span class="math display">\[H_1= \small
 \begin{bmatrix}1&amp;0&amp;0\\0&amp;1&amp;0\\0&amp;0&amp;1\end{bmatrix}
 - 2
 \frac{\begin{bmatrix}5&amp;2&amp;1\end{bmatrix}\begin{bmatrix}5\\2\\1\end{bmatrix}}{\begin{bmatrix}5\\2\\1\end{bmatrix}\begin{bmatrix}5&amp;2&amp;1\end{bmatrix}}=\begin{bmatrix}
@@ -511,23 +512,24 @@ e_1\)</span>:</p>
 &amp; 0.7333 &amp; -0.1333 \\\ -\frac{1}{3} &amp; -0.1333 &amp; 0.9333
 \end{bmatrix}\]</span></p>
 <p>This is then multiplied <span class="math inline">\(H_1A\)</span>:</p>
-<p><span class="math display">\[H_1 A = \begin{bmatrix} -\frac{2}{3}
-&amp; -\frac{2}{3} &amp; -\frac{1}{3} \\\ -\frac{2}{3} &amp; 0.7333
-&amp; -0.1333 \\\ -\frac{1}{3} &amp; -0.1333 &amp; 0.9333 \end{bmatrix}
-\begin{bmatrix} 2 &amp; – 2 &amp; 18 \\\ 2 &amp; 1 &amp; 0 \\\ 1 &amp; 2
-&amp; 0 \end{bmatrix} = \begin{bmatrix} -3 &amp; 0 &amp; -12 \\\ 0 &amp;
-1.8 &amp; 12 \\\ 0 &amp; 2.4 &amp; -6 \end{bmatrix}\]</span></p>
+<p><span class="math display">\[H_1 A = \small \begin{bmatrix}
+-\frac{2}{3} &amp; -\frac{2}{3} &amp; -\frac{1}{3} \\\ -\frac{2}{3}
+&amp; 0.7333 &amp; -0.1333 \\\ -\frac{1}{3} &amp; -0.1333 &amp; 0.9333
+\end{bmatrix} \begin{bmatrix} 2 &amp; – 2 &amp; 18 \\\ 2 &amp; 1 &amp; 0
+\\\ 1 &amp; 2 &amp; 0 \end{bmatrix} = \begin{bmatrix} -3 &amp; 0 &amp;
+-12 \\\ 0 &amp; 1.8 &amp; 12 \\\ 0 &amp; 2.4 &amp; -6
+\end{bmatrix}\]</span></p>
 <p><span class="math inline">\(H_1A\)</span> replaces <span class="math inline">\(A\)</span> in the next iteration. Now comes to
 <span class="math inline">\(a_2\)</span> and <span class="math inline">\(H_2\)</span> with the submatrix of <span class="math inline">\(A\)</span></p>
 <p><span class="math display">\[A^{(1)} = \begin{bmatrix} 1.8 &amp; 12
 \\\ 2.4 &amp; -6 \end{bmatrix}\]</span> <span class="math inline">\(v_2\)</span> is</p>
-<p><span class="math display">\[\begin{bmatrix} 1.8 \\\ 2.4
+<p><span class="math display">\[\small \begin{bmatrix} 1.8 \\\ 2.4
 \end{bmatrix} + \sqrt{\sum^m_{j=1} a_2^2} \begin{bmatrix} 1 \\\ 0
 \end{bmatrix} = \begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix}\]</span></p>
 <p>The <span class="math inline">\(H_2\)</span> Householder matrix
 is</p>
-<p><span class="math display">\[H_2 = \begin{bmatrix} 1 &amp; 0 \\\ 0
-&amp; 1 \end{bmatrix} – 2 \frac{\begin{bmatrix} 4.8 &amp; 2.4
+<p><span class="math display">\[H_2 = \small \begin{bmatrix} 1 &amp; 0
+\\\ 0 &amp; 1 \end{bmatrix} – 2 \frac{\begin{bmatrix} 4.8 &amp; 2.4
 \end{bmatrix} \begin{bmatrix} 4.8 \\\ 2.4 \end{bmatrix}}{\begin{bmatrix}
 4.8 \\\ 2.4 \end{bmatrix} \begin{bmatrix} 4.8 &amp; 2.4
 \end{bmatrix}}=\begin{bmatrix} 1 &amp; 0 &amp; 0 \\\ 0 &amp; -0.6 &amp;
@@ -542,18 +544,18 @@ is</p>
 &amp; 2.4 &amp; -6 \end{bmatrix}=\begin{bmatrix} -3 &amp; 0 &amp; -12
 \\\ 0 &amp; -3 &amp; 12 \\\ 0 &amp; 0 &amp; 6 \end{bmatrix}\]</span></p>
 <p>Moving to <span class="math inline">\(a_3\)</span> and <span class="math inline">\(H_3\)</span>, the submatrix of <span class="math inline">\(H_2A\)</span> is simply <span class="math inline">\([6]\)</span>. Therefore, <span class="math inline">\(v_3\)</span> is equal to:</p>
-<p><span class="math display">\[\begin{bmatrix} 6 \end{bmatrix}
-–  \sqrt{\sum^m_{j=1} a_3^2} \begin{bmatrix} 1 \end{bmatrix} =
+<p><span class="math display">\[\begin{bmatrix} 6 \end{bmatrix} – \small
+\sqrt{\sum^m_{j=1} a_3^2} \begin{bmatrix} 1 \end{bmatrix} =
 12\]</span></p>
 <p>The <span class="math inline">\(H_3\)</span></p>
-<p><span class="math display">\[H_3 = \begin{bmatrix} 1 \end{bmatrix} –
-2 \frac{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12
-\end{bmatrix}}{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12
+<p><span class="math display">\[H_3 = \small \begin{bmatrix} 1
+\end{bmatrix} – 2 \frac{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix}
+12 \end{bmatrix}}{\begin{bmatrix} 12 \end{bmatrix}\begin{bmatrix} 12
 \end{bmatrix}} = \begin{bmatrix}1 &amp; 0 &amp; 0 \\\ 0 &amp; 1 &amp; 0
 \\\ 0 &amp; 0 &amp; -1 \end{bmatrix}\]</span></p>
 <p>and</p>
-<p><span class="math display">\[H_3 A = \begin{bmatrix}1 &amp; 0 &amp; 0
-\\\ 0 &amp; 1 &amp; 0 \\\ 0 &amp; 0 &amp; -1 \end{bmatrix}
+<p><span class="math display">\[H_3 A = \small \begin{bmatrix}1 &amp; 0
+&amp; 0 \\\ 0 &amp; 1 &amp; 0 \\\ 0 &amp; 0 &amp; -1 \end{bmatrix}
 \begin{bmatrix} -3 &amp; 0 &amp; -12 \\\ 0 &amp; -3 &amp; 12 \\\ 0 &amp;
 0 &amp; 6 \end{bmatrix} = \begin{bmatrix} -3 &amp; 0 &amp; -12 \\\ 0
 &amp; -3 &amp; 12 \\\ 0 &amp; 0 &amp; -6 \end{bmatrix}\]</span></p>
@@ -561,9 +563,9 @@ is</p>
 the <span class="math inline">\(QR\)</span> decomposition method. The
 <span class="math inline">\(Q\)</span> factorization of <span class="math inline">\(QR\)</span> decomposition is found by multiplying
 all the <span class="math inline">\(H\)</span> matrices together</p>
-<p><span class="math display">\[Q = \begin{bmatrix} -\frac{2}{3} &amp;
--\frac{2}{3} &amp; -\frac{1}{3} \\\ -\frac{2}{3} &amp; 0.7333 &amp;
--0.1333 \\\ -\frac{1}{3} &amp; -0.1333 &amp; 0.9333 \end{bmatrix}
+<p><span class="math display">\[Q = \small \begin{bmatrix} -\frac{2}{3}
+&amp; -\frac{2}{3} &amp; -\frac{1}{3} \\\ -\frac{2}{3} &amp; 0.7333
+&amp; -0.1333 \\\ -\frac{1}{3} &amp; -0.1333 &amp; 0.9333 \end{bmatrix}
 \begin{bmatrix} 1 &amp; 0 &amp; 0 \\\ 0 &amp; -0.6 &amp; -0.8 \\\ 0
 &amp; -0.8 &amp; 0.6 \end{bmatrix} \begin{bmatrix}1 &amp; 0 &amp; 0 \\\
 0 &amp; 1 &amp; 0 \\\ 0 &amp; 0 &amp; -1 \end{bmatrix}= \begin{bmatrix}
@@ -580,7 +582,7 @@ House(A)</code></pre>
 ## [1] &quot;The x for iteration 1&quot;
 ## [1] 2 2 1
 ## [1] &quot;The x1 of the column matrix is 2 sign 1&quot;
-## [1] &quot;The x + norm x e_1 is: &quot;
+## [1] &quot;The reflecion vec (v) = x + norm x e_1 is: &quot;
 ## [1] 2 2 1
 ## [1] &quot; + &quot;
 ## [1] 3 0 0
@@ -604,7 +606,7 @@ House(A)</code></pre>
 ## [1] &quot;The x for iteration 2&quot;
 ## [1] 1.8 2.4
 ## [1] &quot;The x1 of the column matrix is 1.8 sign 1&quot;
-## [1] &quot;The x + norm x e_1 is: &quot;
+## [1] &quot;The reflecion vec (v) = x + norm x e_1 is: &quot;
 ## [1] 1.8 2.4
 ## [1] &quot; + &quot;
 ## [1] 3 0
@@ -633,7 +635,7 @@ House(A)</code></pre>
 ## [1] &quot;The x for iteration 3&quot;
 ## [1] 6
 ## [1] &quot;The x1 of the column matrix is 6 sign 1&quot;
-## [1] &quot;The x + norm x e_1 is: &quot;
+## [1] &quot;The reflecion vec (v) = x + norm x e_1 is: &quot;
 ## [1] 6
 ## [1] &quot; + &quot;
 ## [1] 6
@@ -696,7 +698,8 @@ round(Q &lt;- qr.Q(qr(A)), 2)</code></pre>
 ## [1,] -0.67  0.67  0.33
 ## [2,] -0.67 -0.33 -0.67
 ## [3,] -0.33 -0.67  0.67</code></pre>
-<pre class="r"><code>round(t(Q)%*%Q, 2)</code></pre>
+<pre class="r"><code># Notice that Q is orthonormal:
+round(t(Q)%*%Q, 2)</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    0    0
 ## [2,]    0    1    0
