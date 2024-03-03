@@ -88,7 +88,7 @@ House <- function(A) {
   n <- ncol(A)
   m <- nrow(A)
   H <- list() # Initialize a list to store the computed H matrices to calculate Q later
-  V <- list() # List of reflection vectors v
+
   if (m > n) {c <- n} else {c <- m}
   for (k in 1:c) {
     x <- R[k:m, k] # Equivalent to a_1
@@ -98,6 +98,7 @@ House <- function(A) {
     e1 <- as.matrix(c(1, rep(0, length(x) - 1))) # e_1
     vk <- x + sign(x[1]) * sqrt(sum(x^2)) * e1 # v as x + y
     print("The reflecion vec v = x + norm x e_1 is: "); print(x); print(" + "); print(as.vector(sign(x[1]) * sqrt(sum(x^2)) * e1)); print(" = "); print(as.vector(vk)) 
+
     # Compute the H matrix
     hk <- diag(length(x)) - 2 * as.vector(vk %*% t(vk)) / (t(vk) %*% vk) # I - 2 vv^T / vTv
     print("vv^T: "); print(round(vk %*% t(vk), 2))
@@ -171,7 +172,7 @@ $$Q = \small \begin{bmatrix} -\frac{2}{3} & -\frac{2}{3} & -\frac{1}{3} \\\ -\fr
 
 ```{R}
 A <- rbind(c(2,-2,18),c(2,1,0),c(1,2,0))
-House(A)
+(hse <- House(A))
 ```
 
 Now comparing to built-in functions:
@@ -193,6 +194,7 @@ round(Q <- qr.Q(qr(A)), 2)
 # Notice that Q is orthonormal:
 round(t(Q)%*%Q, 2)
 ```
+
 
 
 ---
