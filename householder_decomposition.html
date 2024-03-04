@@ -817,87 +817,105 @@ round(t(Q)%*%Q, 2)</code></pre>
 <p>To replicate the lower triangular matrix in the output of R for
 <code>qr()</code> as well as <code>qraux</code>:</p>
 <p>Source in <a href="https://www.cs.utexas.edu/users/flame/laff/alaff/ALAFF.pdf">here</a></p>
-<pre class="r"><code>    set.seed(2024)
-    options(digits=10)
-    
-    # Since it&#39;s about understanding the convention of the qr()
-    # I&#39;m sticking to square matrices. s is the number of rows and cols:
-    s = 4
-    m = matrix(rnorm(s^2), nrow = s)
-    
-    # chi1 is the leading entry of each col vector in the matrix m (aka as A)
-    # keeping in mind that the matrix will be updated in a loop
-    # by multiplying it on the left by the Householder matrices:
-    chi1 = m[1,1] # This is the initial entry out of the original matrix.
-    # The initial col vector is precisely the first col in the orig. mat.
-    # And its 2-norm is:
-    norm = sqrt(sum(m[,1]^2))
-    # The Householder vector will be constructed by taking the entries of
-    # the column matrix at each iteration of the products H H H A
-    # below the leading entry in the decreasing sub-matrices (chi1):
-    x2 = m[2:nrow(m), 1] # This is the initial one.
-    # nu1 is the difference between the original vector and the mirror image
-    # avoiding catastrophic cancellation, ie chi1 + norm(x) * e_1:
-    nu1 = chi1 + sign(chi1) * norm
-    # nu1 will standardize u2:
-    u2 = x2 / nu1
-    # Let&#39;s see this applied to this first column vector in the matrix A
-    (tau = 2 / (1 + t(u2)%*%u2))</code></pre>
+<p>Formulas:</p>
+<p><code>qraux</code> entries contain the <code>tau</code> values
+obtained for each H sub-matrix:</p>
+<p><span class="math display">\[\tau = \frac{2}{1 + \vec u^\top\,\vec
+u}\]</span></p>
+<p>such that it is the scalar factor in the Householder matrix:</p>
+<p><span class="math display">\[I - \tau \,\vec u\, \vec
+u^\top\]</span></p>
+<p>and the vector <span class="math inline">\(\vec u\)</span> is the
+Householder vector from the leading column:</p>
+<p><span class="math display">\[\vec u = x /\nu\]</span></p>
+<p>with</p>
+<p><span class="math display">\[\nu = \chi_1 +
+\text{sign}(\chi_1)\,\Vert x\Vert_2 = \chi_1 + \text{sign}(\chi_1)\,
+\sqrt{\sum_i x_i^2}\]</span></p>
+<p>where <span class="math inline">\(\chi_1\)</span> is the leading
+entry in the column vector, and <span class="math inline">\(\Vert x
+\Vert_2\)</span> the square root of the 2-norm of the leading column
+vector in the sub-matrices.</p>
+<pre class="r"><code>set.seed(2024)
+options(digits=10)
+
+# Since it&#39;s about understanding the convention of the qr()
+# I&#39;m sticking to square matrices. s is the number of rows and cols:
+s = 4
+m = matrix(rnorm(s^2), nrow = s)
+# chi1 is the leading entry of each col vector in the matrix m (aka as A)
+# keeping in mind that the matrix will be updated in a loop
+# by multiplying it on the left by the Householder matrices:
+chi1 = m[1,1] # This is the initial entry out of the original matrix.
+# The initial col vector is precisely the first col in the orig. mat.
+# And its 2-norm is:
+norm = sqrt(sum(m[,1]^2))
+# The Householder vector will be constructed by taking the entries of
+# the column matrix at each iteration of the products H H H A
+# below the leading entry in the decreasing sub-matrices (chi1):
+x2 = m[2:nrow(m), 1] # This is the initial one.
+# nu1 is the difference between the original vector and the mirror image
+# avoiding catastrophic cancellation, ie chi1 + norm(x) * e_1:
+nu1 = chi1 + sign(chi1) * norm
+# nu1 will standardize u2:
+u2 = x2 / nu1
+# Let&#39;s see this applied to this first column vector in the matrix A
+(tau = 2 / (1 + t(u2)%*%u2))</code></pre>
 <pre><code>##             [,1]
 ## [1,] 1.881503125</code></pre>
-<pre class="r"><code>    # Now let&#39;s get all the values of the output in qraux and in the lower
-    # triangular matrix of the output:
-    # Initializing a vector to collect values below the diag
-    # They will be output with a sign difference wrt to the R base function.
-    lwrT = matrix(0, s, s)
-    # Initializing an empty vector to collect the values of qraux:
-    qraux &lt;- numeric()
-    A = m
-    r = nrow(m)
-    for (i in 1:r){
-      chi1 = A[i,i]
-      norm = sqrt(sum(A[i:r, i]^2))
-      if(i &lt; r){x2 = as.matrix(A[(i + 1):r, i])}else{x2 = 0}
-      nu1 = chi1 + sign(chi1) * norm
-      u2 = x2 / nu1
-      if(i &lt; r){tau = 2 / (1 + t(u2) %*% u2)}else{tau = sign(chi1) * nu1 / 2}
-      qraux[i] = tau
-      if(i &lt; r) {augm = c(rep(0, i - 1), 1, u2)}
-              else
-                {augm = c(rep(0, i - 1), 0)}
-      H &lt;- diag(r) - as.numeric(tau) * 
-        outer(as.vector(t(augm)), as.vector(augm),&#39;*&#39;)
-      if(i &lt; r){lwrT[(i + 1):r, i] &lt;- - H[(i + 1):r, i]}else{}
-      A &lt;- H %*% A
-    }
-    # After all iterations multiplying H A we end up producing
-    # R or the upper triangular (including the diagonal in qr()):
-    round(A,9)</code></pre>
+<pre class="r"><code># Now let&#39;s get all the values of the output in qraux and in the lower
+# triangular matrix of the output:
+# Initializing a vector to collect values below the diag
+# They will be output with a sign difference wrt to the R base function.
+lwrT = matrix(0, s, s)
+# Initializing an empty vector to collect the values of qraux:
+qraux &lt;- numeric()
+A = m
+r = nrow(m)
+for (i in 1:r){
+  chi1 = A[i,i]
+  norm = sqrt(sum(A[i:r, i]^2))
+  if(i &lt; r){x2 = as.matrix(A[(i + 1):r, i])}else{x2 = 0}
+  nu1 = chi1 + sign(chi1) * norm
+  u2 = x2 / nu1
+  if(i &lt; r){tau = 2 / (1 + t(u2) %*% u2)}else{tau = sign(chi1) * nu1 / 2}
+  qraux[i] = tau
+  if(i &lt; r) {augm = c(rep(0, i - 1), 1, u2)}
+          else
+            {augm = c(rep(0, i - 1), 0)}
+  H &lt;- diag(r) - as.numeric(tau) * 
+    outer(as.vector(augm), as.vector(t(augm)),&#39;*&#39;)
+  if(i &lt; r){lwrT[(i + 1):r, i] &lt;- - H[(i + 1):r, i]}else{}
+  A &lt;- H %*% A
+}
+# After all iterations multiplying H A we end up producing
+# R or the upper triangular (including the diagonal in qr()):
+round(A,9)</code></pre>
 <pre><code>##             [,1]         [,2]        [,3]         [,4]
 ## [1,] -1.11397156 -1.537094686 1.479110318 -1.202532687
 ## [2,]  0.00000000 -0.975037638 1.587258014  2.295022409
 ## [3,]  0.00000000  0.000000000 1.032380986  2.124104691
 ## [4,]  0.00000000  0.000000000 0.000000000 -0.544290993</code></pre>
-<pre class="r"><code>    # The lower triangular containing essentially tau * uTu:
-    lwrT</code></pre>
+<pre class="r"><code># The lower triangular containing essentially tau * uTu:
+lwrT</code></pre>
 <pre><code>##               [,1]         [,2]          [,3] [,4]
 ## [1,]  0.0000000000 0.0000000000  0.0000000000    0
 ## [2,]  0.4207603289 0.0000000000  0.0000000000    0
 ## [3,] -0.0969246757 0.6907309238  0.0000000000    0
 ## [4,] -0.1910983876 0.1504635437 -0.3677919994    0</code></pre>
-<pre class="r"><code>    # They fit perfectly to replicate the output of qr():
-    qr(m)$qr</code></pre>
+<pre class="r"><code># They fit perfectly to replicate the output of qr():
+qr(m)$qr</code></pre>
 <pre><code>##               [,1]          [,2]          [,3]          [,4]
 ## [1,] -1.1139715602 -1.5370946856  1.4791103176 -1.2025326872
 ## [2,]  0.4207603289 -0.9750376385  1.5872580139  2.2950224086
 ## [3,] -0.0969246757  0.6907309238  1.0323809861  2.1241046912
 ## [4,] -0.1910983876  0.1504635437 -0.3677919994 -0.5442909928</code></pre>
-<pre class="r"><code>    # Likewise the output of the vector in the calculations above
-    # for tau:
-    qraux</code></pre>
+<pre class="r"><code># Likewise the output of the vector in the calculations above
+# for tau:
+qraux</code></pre>
 <pre><code>## [1] 1.8815031249 1.7072846053 1.9299080843 0.5442909928</code></pre>
-<pre class="r"><code>    # replicate the built-in function qraux:
-    qr(m)$qraux</code></pre>
+<pre class="r"><code># replicate the built-in function qraux:
+qr(m)$qraux</code></pre>
 <pre><code>## [1] 1.8815031249 1.7072846053 1.9299080843 0.5442909928</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home

@@ -300,73 +300,92 @@ To replicate the lower triangular matrix in the output of R for `qr()` as well a
 
 Source in [here](https://www.cs.utexas.edu/users/flame/laff/alaff/ALAFF.pdf)
 
+Formulas:
+
+`qraux` entries contain the `tau`  values obtained for each H sub-matrix:
+
+$$\tau = \frac{2}{1 + \vec u^\top\,\vec u}$$
+
+such that it is the scalar factor in the Householder matrix: 
+
+$$I - \tau \,\vec u\, \vec u^\top$$
+
+and the vector $\vec u$ is the Householder vector from the leading column:
+
+$$\vec u = x /\nu$$
+
+with 
+
+$$\nu = \chi_1 + \text{sign}(\chi_1)\,\Vert x\Vert_2 = \chi_1 + \text{sign}(\chi_1)\, \sqrt{\sum_i x_i^2}$$
+
+where $\chi_1$ is the leading entry in the column vector, and $\Vert x \Vert_2$ the square root of the 2-norm of the leading column vector in the sub-matrices.
+
+
 
 ```{r}
-    set.seed(2024)
-    options(digits=10)
-    
-    # Since it's about understanding the convention of the qr()
-    # I'm sticking to square matrices. s is the number of rows and cols:
-    s = 4
-    m = matrix(rnorm(s^2), nrow = s)
-    
-    # chi1 is the leading entry of each col vector in the matrix m (aka as A)
-    # keeping in mind that the matrix will be updated in a loop
-    # by multiplying it on the left by the Householder matrices:
-    chi1 = m[1,1] # This is the initial entry out of the original matrix.
-    # The initial col vector is precisely the first col in the orig. mat.
-    # And its 2-norm is:
-    norm = sqrt(sum(m[,1]^2))
-    # The Householder vector will be constructed by taking the entries of
-    # the column matrix at each iteration of the products H H H A
-    # below the leading entry in the decreasing sub-matrices (chi1):
-    x2 = m[2:nrow(m), 1] # This is the initial one.
-    # nu1 is the difference between the original vector and the mirror image
-    # avoiding catastrophic cancellation, ie chi1 + norm(x) * e_1:
-    nu1 = chi1 + sign(chi1) * norm
-    # nu1 will standardize u2:
-    u2 = x2 / nu1
-    # Let's see this applied to this first column vector in the matrix A
-    (tau = 2 / (1 + t(u2)%*%u2))
-    
-    # Now let's get all the values of the output in qraux and in the lower
-    # triangular matrix of the output:
-    # Initializing a vector to collect values below the diag
-    # They will be output with a sign difference wrt to the R base function.
-    lwrT = matrix(0, s, s)
-    # Initializing an empty vector to collect the values of qraux:
-    qraux <- numeric()
-    A = m
-    r = nrow(m)
-    for (i in 1:r){
-      chi1 = A[i,i]
-      norm = sqrt(sum(A[i:r, i]^2))
-      if(i < r){x2 = as.matrix(A[(i + 1):r, i])}else{x2 = 0}
-      nu1 = chi1 + sign(chi1) * norm
-      u2 = x2 / nu1
-      if(i < r){tau = 2 / (1 + t(u2) %*% u2)}else{tau = sign(chi1) * nu1 / 2}
-      qraux[i] = tau
-      if(i < r) {augm = c(rep(0, i - 1), 1, u2)}
-              else
-                {augm = c(rep(0, i - 1), 0)}
-      H <- diag(r) - as.numeric(tau) * 
-        outer(as.vector(t(augm)), as.vector(augm),'*')
-      if(i < r){lwrT[(i + 1):r, i] <- - H[(i + 1):r, i]}else{}
-      A <- H %*% A
-    }
-    # After all iterations multiplying H A we end up producing
-    # R or the upper triangular (including the diagonal in qr()):
-    round(A,9)
-    # The lower triangular containing essentially tau * uTu:
-    lwrT
-    # They fit perfectly to replicate the output of qr():
-    qr(m)$qr
-    # Likewise the output of the vector in the calculations above
-    # for tau:
-    qraux
-    # replicate the built-in function qraux:
-    qr(m)$qraux
+set.seed(2024)
+options(digits=10)
 
+# Since it's about understanding the convention of the qr()
+# I'm sticking to square matrices. s is the number of rows and cols:
+s = 4
+m = matrix(rnorm(s^2), nrow = s)
+# chi1 is the leading entry of each col vector in the matrix m (aka as A)
+# keeping in mind that the matrix will be updated in a loop
+# by multiplying it on the left by the Householder matrices:
+chi1 = m[1,1] # This is the initial entry out of the original matrix.
+# The initial col vector is precisely the first col in the orig. mat.
+# And its 2-norm is:
+norm = sqrt(sum(m[,1]^2))
+# The Householder vector will be constructed by taking the entries of
+# the column matrix at each iteration of the products H H H A
+# below the leading entry in the decreasing sub-matrices (chi1):
+x2 = m[2:nrow(m), 1] # This is the initial one.
+# nu1 is the difference between the original vector and the mirror image
+# avoiding catastrophic cancellation, ie chi1 + norm(x) * e_1:
+nu1 = chi1 + sign(chi1) * norm
+# nu1 will standardize u2:
+u2 = x2 / nu1
+# Let's see this applied to this first column vector in the matrix A
+(tau = 2 / (1 + t(u2)%*%u2))
+
+# Now let's get all the values of the output in qraux and in the lower
+# triangular matrix of the output:
+# Initializing a vector to collect values below the diag
+# They will be output with a sign difference wrt to the R base function.
+lwrT = matrix(0, s, s)
+# Initializing an empty vector to collect the values of qraux:
+qraux <- numeric()
+A = m
+r = nrow(m)
+for (i in 1:r){
+  chi1 = A[i,i]
+  norm = sqrt(sum(A[i:r, i]^2))
+  if(i < r){x2 = as.matrix(A[(i + 1):r, i])}else{x2 = 0}
+  nu1 = chi1 + sign(chi1) * norm
+  u2 = x2 / nu1
+  if(i < r){tau = 2 / (1 + t(u2) %*% u2)}else{tau = sign(chi1) * nu1 / 2}
+  qraux[i] = tau
+  if(i < r) {augm = c(rep(0, i - 1), 1, u2)}
+          else
+            {augm = c(rep(0, i - 1), 0)}
+  H <- diag(r) - as.numeric(tau) * 
+    outer(as.vector(augm), as.vector(t(augm)),'*')
+  if(i < r){lwrT[(i + 1):r, i] <- - H[(i + 1):r, i]}else{}
+  A <- H %*% A
+}
+# After all iterations multiplying H A we end up producing
+# R or the upper triangular (including the diagonal in qr()):
+round(A,9)
+# The lower triangular containing essentially tau * uTu:
+lwrT
+# They fit perfectly to replicate the output of qr():
+qr(m)$qr
+# Likewise the output of the vector in the calculations above
+# for tau:
+qraux
+# replicate the built-in function qraux:
+qr(m)$qraux
 ```
 
 
