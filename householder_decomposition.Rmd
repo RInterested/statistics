@@ -301,6 +301,7 @@ To replicate the lower triangular matrix in the output of R for `qr()` as well a
 Source in [here](https://www.cs.utexas.edu/users/flame/laff/alaff/ALAFF.pdf)
 
 
+```{r}
     set.seed(2024)
     options(digits=10)
     
@@ -340,7 +341,6 @@ Source in [here](https://www.cs.utexas.edu/users/flame/laff/alaff/ALAFF.pdf)
     for (i in 1:r){
       chi1 = A[i,i]
       norm = sqrt(sum(A[i:r, i]^2))
-      rho = - sign(chi1) * norm
       if(i < r){x2 = as.matrix(A[(i + 1):r, i])}else{x2 = 0}
       nu1 = chi1 + sign(chi1) * norm
       u2 = x2 / nu1
@@ -351,27 +351,23 @@ Source in [here](https://www.cs.utexas.edu/users/flame/laff/alaff/ALAFF.pdf)
                 {augm = c(rep(0, i - 1), 0)}
       H <- diag(r) - as.numeric(tau) * 
         outer(as.vector(t(augm)), as.vector(augm),'*')
-      if(i < r){lwrT[(i + 1):r, i] <- H[(i + 1):r, i]}else{lwrT[i,i] <- tau}
+      if(i < r){lwrT[(i + 1):r, i] <- - H[(i + 1):r, i]}else{}
       A <- H %*% A
     }
-    
-    qraux # As calculated above:
-    # [1] 1.8815031249 1.7072846053 1.9299080843 0.5442909928
-    qr(m)$qraux # Built-in function:
-    # [1] 1.8815031249 1.7072846053 1.9299080843 0.5442909928
-    qr(m)$qr # Built-in function:
-                  [,1]          [,2]          [,3]          [,4]
-     #[1,] -1.1139715602 -1.5370946856  1.4791103176 -1.2025326872
-     #[2,]  0.4207603289 -0.9750376385  1.5872580139  2.2950224086
-     #[3,] -0.0969246757  0.6907309238  1.0323809861  2.1241046912
-     #[4,] -0.1910983876  0.1504635437 -0.3677919994 -0.5442909928
-    lwrT # As calculated above:
-                   [,1]          [,2]         [,3]         [,4]
-     #[1,]  0.0000000000  0.0000000000 0.0000000000 0.0000000000
-     #[2,] -0.4207603289  0.0000000000 0.0000000000 0.0000000000
-     #[3,]  0.0969246757 -0.6907309238 0.0000000000 0.0000000000
-     #[4,]  0.1910983876 -0.1504635437 0.3677919994 0.5442909928
+    # After all iterations multiplying H A we end up producing
+    # R or the upper triangular (including the diagonal in qr()):
+    round(A,9)
+    # The lower triangular containing essentially tau * uTu:
+    lwrT
+    # They fit perfectly to replicate the output of qr():
+    qr(m)$qr
+    # Likewise the output of the vector in the calculations above
+    # for tau:
+    qraux
+    # replicate the built-in function qraux:
+    qr(m)$qraux
 
+```
 
 
 
