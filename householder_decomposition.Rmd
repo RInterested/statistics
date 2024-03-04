@@ -66,6 +66,105 @@ In the diagram below, the reflected vector is aligned with the $x$-axis, and we 
 
 <img width = 600  src = "https://github.com/RInterested/statistics/blob/gh-pages/Householder%20transformation.png?raw=true">
 
+---
+
+Source in [here](https://www.cs.utexas.edu/users/flame/laff/alaff/ALAFF.pdf)
+
+
+From the diagrams above,
+
+$$\vec x - 2 \vec w^\top \, \vec x \, \vec w = \vec x - 2 \, \vec w \, \vec w \, \vec x = (\color{red}{1 - 2 \, \vec w \, \vec w^\top})\, \vec x$$
+
+In matrix form 
+
+$$(\color{red}{I - 2 \, \vec w\, \vec w^\top})\, \vec x$$
+
+In red is the matrix that captures the reflection like on a mirror, the so-called **Household transformation or reflector**.
+
+What if we are interested in the mirror or dividing hyperplane given two vectors of equal magnitude?
+
+$$\vec x = \vec v + \vec y$$
+
+We want a sequence of unitary matrices such that
+
+$$H_{n-1}\,\dots,H_0\, A = R$$
+
+with $R$ being an upper triangular matrix:
+
+$$H_0\,\begin{bmatrix}\circ& \cdots & \circ \\ \vdots & \ddots & \circ \\
+\circ & \cdots & \circ\end{bmatrix} = \begin{bmatrix}X& \cdots & \circ \\ 0 & \ddots & \circ \\
+0 & \cdots & \circ\end{bmatrix}$$
+
+The matrix $H_0$ transforms the first column vector into a multiple of the first standard basis $\vec e_1 = \begin{bmatrix}X & 0 & 0 & \cdots \end{bmatrix}^\top$. 
+
+Calling the fist vector $x,$
+
+$$H\,x = \beta \, e_0$$
+
+$H$ preserves length, and therefore, $\vert \beta \vert = \Vert x\Vert_2.$
+
+As stated above and apparent on the diagrams:
+
+$$\vec v= \vec x - \vec y = \begin{bmatrix}\chi_0\\\chi_1\\\vdots\\\chi_{n-1}\end{bmatrix}- \begin{bmatrix}  \Vert x \Vert \\0\\\vdots\\0\end{bmatrix}$$
+
+Yet, $\beta$ can be the 2-norm of $x$, its negative or multiplied by any complex number of norm $1$.
+
+So we have
+
+$$\vec y =(I - 2 \vec w \vec w^\top)\, \vec x = \beta \,\vec e_0$$
+
+or 
+
+$$H\vec x = \pm \Vert x\Vert_2 \, \vec e_0$$
+Since as above
+
+$$\vec v =  x \pm \Vert x\Vert_2 \, \vec e_0 = \begin{bmatrix}\chi_0 \pm \Vert x \Vert_2\\ \chi_1\\ \vdots \\ \chi_{m-1} \end{bmatrix}$$
+
+it's important to avoid catastrophic cancellation if the weight of the vector $x$ is concentrated on $\chi_0$ and we choose $-$. Therefore, we should make sure that we multiply $\Vert x\Vert_2$ by the $\text{sgn} (\chi_0)$.
+
+Instead of the normalizing the vector $\vec v$ to get $\vec u = \frac{\vec v}{\Vert v\Vert},$ we can let $\vec v$ scale, and later normalize $\vec u$ as in 
+
+$$I - \tau\, u\,u^\top$$ 
+
+with $$\tau = \frac 2{1 + u^\top\, u}$$
+
+We want to scale $\vec v$ in a way that $\chi_0 \pm \Vert x\Vert_2 =1.$ Now $\vec u$ doesn't have to be unitary. The vector $\vec u$ is the **Householder vector**. Modified (see code below) it is stored in the lower triangular matrix in the compact output of `qr()`.
+
+Tau will also be stored in the output `qraux` as in the code below.
+
+From the first column of the matrix $A,$ the Householder vector $\vec u$ is computed so that
+
+$$(I - \tau_0\, u_0u_0^\top)\, A = \begin{bmatrix}X& \cdots & \circ \\ 0 & \ddots & \circ \\
+0 & \cdots & \circ\end{bmatrix}$$
+
+Next we leave the first row alone, and do the same procedure on the second column of the matrix resulting from multiplying $H_0A$:
+
+$$\begin{bmatrix}X& \triangle &\cdots & \circ \\ 0 & \square & \cdots & \circ\\0 &\color{red}\triangle  & \ddots & \circ \\
+0 & \color{red}\triangle & \cdots & \circ\end{bmatrix} =\begin{bmatrix}X& \triangle &\cdots & \circ \\ 0 & \color{blue}\square & \cdots & 0\\ 0 &\color{red}0  & \ddots & \circ \\
+0 & \color{red}0 & \cdots & \circ\end{bmatrix}$$
+
+The function 
+
+$$\text{Houser} \begin{pmatrix}\chi_1 \\ x_2\end{pmatrix} = \begin{bmatrix}\begin{pmatrix} e\\ u_2 \end{pmatrix}, \tau \end{bmatrix}$$
+
+with $\vec x = \begin{pmatrix}\chi_1 \\ x_2\end{pmatrix}$, $\begin{pmatrix} e\\ u_2 \end{pmatrix}$ the Householder vector with a $1$ as the first element. The computation of $e, u_2, \tau$ is so that
+
+$$I - \tau \, \begin{pmatrix}1 \\ u_2 \end{pmatrix}\begin{pmatrix}1 \\ u_2 \end{pmatrix}^\top \begin{pmatrix}\chi_1 \\ x_2\end{pmatrix} = \begin{pmatrix} e \\ 0\end{pmatrix}$$
+
+Expressed as block matrices:
+
+$$\begin{pmatrix}
+\bf I & \Bigg \vert &  \bf 0 \\
+\hline
+\bf 0 & \Bigg \vert & I - \tau_1 \, \begin{pmatrix}1\\u_{21}\end{pmatrix}\begin{pmatrix}1\\u_{21}\end{pmatrix}^\top
+\end{pmatrix} \, \begin{pmatrix}
+\bf R_{00} & \Bigg \vert & r_{01} & R_{02} \\
+\hline
+  \\ &   \Bigg \vert & \alpha_{11} & a_{12}^\top\\
+\bf 0 & \Bigg \vert \\
+      & \Bigg \vert & a_{21} & A_{22}
+\end{pmatrix}$$
+
 
 ---
 
@@ -194,6 +293,85 @@ round(Q <- qr.Q(qr(A)), 2)
 # Notice that Q is orthonormal:
 round(t(Q)%*%Q, 2)
 ```
+
+---
+
+To replicate the lower triangular matrix in the output of R for `qr()` as well as `qraux`:
+
+Source in [here](https://www.cs.utexas.edu/users/flame/laff/alaff/ALAFF.pdf)
+
+
+    set.seed(2024)
+    options(digits=10)
+    
+    # Since it's about understanding the convention of the qr()
+    # I'm sticking to square matrices. s is the number of rows and cols:
+    s = 4
+    m = matrix(rnorm(s^2), nrow = s)
+    
+    # chi1 is the leading entry of each col vector in the matrix m (aka as A)
+    # keeping in mind that the matrix will be updated in a loop
+    # by multiplying it on the left by the Householder matrices:
+    chi1 = m[1,1] # This is the initial entry out of the original matrix.
+    # The initial col vector is precisely the first col in the orig. mat.
+    # And its 2-norm is:
+    norm = sqrt(sum(m[,1]^2))
+    # The Householder vector will be constructed by taking the entries of
+    # the column matrix at each iteration of the products H H H A
+    # below the leading entry in the decreasing sub-matrices (chi1):
+    x2 = m[2:nrow(m), 1] # This is the initial one.
+    # nu1 is the difference between the original vector and the mirror image
+    # avoiding catastrophic cancellation, ie chi1 + norm(x) * e_1:
+    nu1 = chi1 + sign(chi1) * norm
+    # nu1 will standardize u2:
+    u2 = x2 / nu1
+    # Let's see this applied to this first column vector in the matrix A
+    (tau = 2 / (1 + t(u2)%*%u2))
+    
+    # Now let's get all the values of the output in qraux and in the lower
+    # triangular matrix of the output:
+    # Initializing a vector to collect values below the diag
+    # They will be output with a sign difference wrt to the R base function.
+    lwrT = matrix(0, s, s)
+    # Initializing an empty vector to collect the values of qraux:
+    qraux <- numeric()
+    A = m
+    r = nrow(m)
+    for (i in 1:r){
+      chi1 = A[i,i]
+      norm = sqrt(sum(A[i:r, i]^2))
+      rho = - sign(chi1) * norm
+      if(i < r){x2 = as.matrix(A[(i + 1):r, i])}else{x2 = 0}
+      nu1 = chi1 + sign(chi1) * norm
+      u2 = x2 / nu1
+      if(i < r){tau = 2 / (1 + t(u2) %*% u2)}else{tau = sign(chi1) * nu1 / 2}
+      qraux[i] = tau
+      if(i < r) {augm = c(rep(0, i - 1), 1, u2)}
+              else
+                {augm = c(rep(0, i - 1), 0)}
+      H <- diag(r) - as.numeric(tau) * 
+        outer(as.vector(t(augm)), as.vector(augm),'*')
+      if(i < r){lwrT[(i + 1):r, i] <- H[(i + 1):r, i]}else{lwrT[i,i] <- tau}
+      A <- H %*% A
+    }
+    
+    qraux # As calculated above:
+    # [1] 1.8815031249 1.7072846053 1.9299080843 0.5442909928
+    qr(m)$qraux # Built-in function:
+    # [1] 1.8815031249 1.7072846053 1.9299080843 0.5442909928
+    qr(m)$qr # Built-in function:
+                  [,1]          [,2]          [,3]          [,4]
+     #[1,] -1.1139715602 -1.5370946856  1.4791103176 -1.2025326872
+     #[2,]  0.4207603289 -0.9750376385  1.5872580139  2.2950224086
+     #[3,] -0.0969246757  0.6907309238  1.0323809861  2.1241046912
+     #[4,] -0.1910983876  0.1504635437 -0.3677919994 -0.5442909928
+    lwrT # As calculated above:
+                   [,1]          [,2]         [,3]         [,4]
+     #[1,]  0.0000000000  0.0000000000 0.0000000000 0.0000000000
+     #[2,] -0.4207603289  0.0000000000 0.0000000000 0.0000000000
+     #[3,]  0.0969246757 -0.6907309238 0.0000000000 0.0000000000
+     #[4,]  0.1910983876 -0.1504635437 0.3677919994 0.5442909928
+
 
 
 
