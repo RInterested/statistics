@@ -22,6 +22,57 @@ output:
 
 For a quick introduction, watch the following YT presentations: [Accept-Reject Sampling](https://youtu.be/OXDqjdVVePY?si=-qMHKtM6Y7muYH9v), [MCMC](https://youtu.be/yApmR-c_hKU?si=0b_zt595155lY-39) and [Metropolis-Hastings](https://youtu.be/yCv2N7wGDCw?si=fkoEZI38v8KkejZ6).
 
+An as a very simple example of how the target function (un-normalized distribution) and the proposed distribution (in this case the simplest, less efficient uniform) play their roles in sampling and accepting or rejecting [this youtube](https://youtu.be/si76S7QqxTU?si=jA7Al2UDFhtVHsLY) presentation is easy to follow. Here is the code and resulted sampled instances in a histogram under the initial function:
+
+```{r}
+set.seed(0)
+x <- seq(-4,4,0.001)
+propos <- function(x) {
+  exp(-x^2 / 2) * (sin(6 + x)^2 + 3 * cos(x)^2 * sin(4 * x)^2 + 1)}
+y <- propos(x)
+
+C <- max(y)
+
+n <- 1e6
+sam <- runif(n, -3, 3)
+targ <- propos(sam)
+
+accept <- numeric()
+
+plot(x, y, type='l', xlim = c(-3.2, 3.2), xlab='', ylab='', lwd=4)
+lines(x, dunif(x, -3 , 3) / dunif(0, -3, 3) * C, col='red', lwd=3) 
+hist(sam[targ > runif(n, 0, C)], breaks=100, 
+     border=F, add=T, freq = F, col=rgb(0.2,0,0.9,0.3))
+
+```
+
+The discrepancy in the height of the plots is the result of the function being un-normalized. If we normalize it:
+
+```{r}
+set.seed(0)
+x <- seq(-4,4,0.001)
+propos <- function(x) {
+  exp(-x^2 / 2) * (sin(6 + x)^2 + 3 * cos(x)^2 * sin(4 * x)^2 + 1)/5.73}
+y <- propos(x)
+
+C <- max(y)
+
+n <- 1e6
+sam <- runif(n, -3, 3)
+targ <- propos(sam)
+
+accept <- numeric()
+
+plot(x, y, type='l', xlim = c(-3.2, 3.2), xlab='', ylab='', lwd=4)
+lines(x, dunif(x, -3 , 3) / dunif(0, -3, 3) * C, col='red', lwd=3) 
+hist(sam[targ > runif(n, 0, C)], breaks=100, 
+     border=F, add=T, freq = F, col=rgb(0.2,0,0.9,0.3))
+
+```
+
+
+---
+
 
 OBJECTIVE: Find the expected value and value range (CI) of a high-dimensional pdf. We perform a random walk throught the pdf, favoring values with high "probability" (high density values). From a starting point, we pick a nearby point and its probability is higher, we move there; otherwise, we stay put. If we carry this long enough we hit every point in the manifold with a frequency proportional to its probability ([ergodicity](https://en.wikipedia.org/wiki/Ergodicity)).
 
