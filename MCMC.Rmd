@@ -27,21 +27,23 @@ An as a very simple example of how the target function (un-normalized distributi
 ```{r}
 set.seed(0)
 x <- seq(-4,4,0.001)
-propos <- function(x) {
+target <- function(x) {
   exp(-x^2 / 2) * (sin(6 + x)^2 + 3 * cos(x)^2 * sin(4 * x)^2 + 1)}
-y <- propos(x)
+y <- target(x)
 
 C <- max(y)
 
 n <- 1e6
 sam <- runif(n, -3, 3)
-targ <- propos(sam)
+tar <- target(sam)
 
 accept <- numeric()
 
+# With a uniform scaled by C as the proposed distribution:
+
 plot(x, y, type='l', xlim = c(-3.2, 3.2), xlab='', ylab='', lwd=4)
 lines(x, dunif(x, -3 , 3) / dunif(0, -3, 3) * C, col='red', lwd=3) 
-hist(sam[targ > runif(n, 0, C)], breaks=100, 
+hist(sam[tar > runif(n, 0, C)], breaks=100, 
      border=F, add=T, freq = F, col=rgb(0.2,0,0.9,0.3))
 
 ```
@@ -51,25 +53,38 @@ The discrepancy in the height of the plots is the result of the function being u
 ```{r}
 set.seed(0)
 x <- seq(-4,4,0.001)
-propos <- function(x) {
+target <- function(x) {
   exp(-x^2 / 2) * (sin(6 + x)^2 + 3 * cos(x)^2 * sin(4 * x)^2 + 1)/5.73}
-y <- propos(x)
+y <- target(x)
 
 C <- max(y)
 
 n <- 1e6
 sam <- runif(n, -3, 3)
-targ <- propos(sam)
+tar <- target(sam)
 
 accept <- numeric()
 
+# With a uniform scaled by C as the proposed distribution:
+
 plot(x, y, type='l', xlim = c(-3.2, 3.2), xlab='', ylab='', lwd=4)
 lines(x, dunif(x, -3 , 3) / dunif(0, -3, 3) * C, col='red', lwd=3) 
-hist(sam[targ > runif(n, 0, C)], breaks=100, 
+hist(sam[tar > runif(n, 0, C)], breaks=100, 
      border=F, add=T, freq = F, col=rgb(0.2,0,0.9,0.3))
 
 ```
 
+Interestingly, the tails are not sampled accurately with a naive implementation using a scaled Gaussian in this case:
+
+```{r}
+# With a Normal proposed distribution the tails fail:
+
+plot(x, y, type='l', xlim = c(-3.2, 3.2), xlab='', ylab='', lwd=4)
+lines(x, dnorm(x)/max(dnorm(x)) * C, col='red', lwd=3) 
+hist(sam[tar > runif(n, 0, dnorm(sam)/max(dnorm(x)) * C)], 
+     breaks=100, 
+     border=F, add=T, freq = F, col=rgb(0.2,0,0.9,0.3))
+```
 
 ---
 
