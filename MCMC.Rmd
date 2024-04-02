@@ -20,6 +20,8 @@ output:
 
 ---
 
+For a quick introduction, watch the following YT presentations: [Accept-Reject Sampling](https://youtu.be/OXDqjdVVePY?si=-qMHKtM6Y7muYH9v), [MCMC](https://youtu.be/yApmR-c_hKU?si=0b_zt595155lY-39) and [Metropolis-Hastings](https://youtu.be/yCv2N7wGDCw?si=fkoEZI38v8KkejZ6).
+
 
 OBJECTIVE: Find the expected value and value range (CI) of a high-dimensional pdf. We perform a random walk throught the pdf, favoring values with high "probability" (high density values). From a starting point, we pick a nearby point and its probability is higher, we move there; otherwise, we stay put. If we carry this long enough we hit every point in the manifold with a frequency proportional to its probability ([ergodicity](https://en.wikipedia.org/wiki/Ergodicity)).
 
@@ -32,7 +34,7 @@ The context for this problem is a Bayesian function of the form
 $$f_\Theta(\Theta=\vec \theta\vert D)=\frac{f_X\left(X=D\vert \Theta\right)\,f_\Theta\left(\Theta=\vec \theta\right)}{\int\int\int f_X\left(D\vert \Theta\right)\;f_\Theta\left(\Theta=\vec \theta\right)\;d\theta_1\cdots d\theta_n}$$
 with an [unsolvable denominator](https://youtu.be/uyG5DVigEyM). In this case, [if we can't use direct simulation, the inverse of the inverse cdf method, or the accept-reject method](https://youtu.be/VGRVRjr0vyw), we can sample from an un-normalized function, i.e. leaving aside the denominator, which is meant to normalize the pdf on the LHS of the equation. At every step, a proposal distribution will result in a new $\Pr(\text{likelihood})\times\Pr\text{(prior)}$ calculation, which will be accepted provided that it is higher than the prior calculated value (or proportional its value).
 
-An example of sampling the parameters of [truncated normal distribution](https://en.wikipedia.org/wiki/Truncated_normal_distribution), $\mathcal N(5,3)\,\mathbb 1[1<x<6]$ between 1 and 6 (in this case without data - no Bayes' equation) is presented.
+An example of sampling the parameters of [truncated normal distribution](https://en.wikipedia.org/wiki/Truncated_normal_distribution), $\mathcal N(5,3)\,\mathbb I[1<x<6]$ between 1 and 6 (in this case without data - no Bayes' equation) is presented.
 
 The idea is to use an **un-normalized target density**, $f(\theta) = \exp{-\frac{(x-\mu)^2}{2\sigma^2}}.$ Each value sampled along the simulation, $\theta^{(i)}$ is contraposed to a value extracted from the **proposal distribution**, $q(\theta^*\vert \theta^{(i)}),$ that depends on $\theta^{(i)}$ (autoregressive series).
 
