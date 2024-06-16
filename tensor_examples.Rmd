@@ -16,6 +16,308 @@ output:
 
 ### PRACTICAL EXAMPLES AND REVIEW OF TENSORS:
 
+From this question in [Math.SE](https://math.stackexchange.com/q/4932883/994433):
+
+#### Tensor Contraction:
+
+##### Original Question:
+
+According to [Wikipedia](https://en.wikipedia.org/wiki/Tensor_product#Tensor_product_of_vector_spaces#Tensor_product_of_linear_maps) is the bases vectors are fixed the two tensors $A$ and $B$ result in the tensor product given by the Kronecker multiplication: 
+
+$$A = \begin{bmatrix} 
+a_{1,1} & a_{1,2} \\
+a_{2,1} & a_{2,2}
+\end{bmatrix}$$
+
+$$B = \begin{bmatrix} 
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix}$$
+
+$$\small T = A \otimes B =\small
+\begin{bmatrix} 
+a_{1,1} & a_{1,2} \\
+a_{2,1} & a_{2,2}
+\end{bmatrix} \otimes
+\begin{bmatrix} 
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix} \\=\begin{bmatrix}
+a_{1,1}\begin{bmatrix} 
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix} & 
+a_{1,2}\begin{bmatrix} 
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix} \\
+a_{2,1}\begin{bmatrix} 
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix} &
+a_{2,2}\begin{bmatrix} 
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix}
+\end{bmatrix}
+=
+\begin{bmatrix} 
+a_{1,1}b_{1,1} & a_{1,1}b_{1,2} & a_{1,2}b_{1,1} & a_{1,2}b_{1,2} \\
+a_{1,1}b_{2,1} & a_{1,1}b_{2,2} & a_{1,2}b_{2,1} & a_{1,2}b_{2,2} \\
+a_{2,1}b_{1,1} & a_{2,1}b_{1,2} & a_{2,2}b_{1,1} & a_{2,2}b_{1,2} \\
+a_{2,1}b_{2,1} & a_{2,1}b_{2,2} & a_{2,2}b_{2,1} & a_{2,2}b_{2,2}
+\end{bmatrix}
+$$
+I presume that $T$ would have two upper and two lower indices, as in $T^{ij}_{\phantom{ij}kl}$. 
+
+Now I should be able to contract $i$ and $k,$ equivalently of taking the trace of the $A$ matrix and multiplying it by $B$, i.e. $\mathop{Tr}(A)B$. This would correspond to $T^{ij}_{\phantom{ij}il}$. 
+
+Given that each matrix $A$ and $B $ is $2 \times 2$, this would have to reduce the last matrix above from its $4 \times 4$ dimensions.
+
+How would this be implemented in a given numerical calculation if there is no possibility to recover the initial coefficients of $A$ and $B$?
+
+The entries involved appear in the final matrix already multiplied with entries of $B$:
+
+$$
+\begin{bmatrix} 
+\color{red}{a_{1,1}}b_{1,1} & \color{red}{a_{1,1}}b_{1,2} & a_{1,2}b_{1,1} & a_{1,2}b_{1,2} \\
+\color{red}{a_{1,1}}b_{2,1} & \color{red}{a_{1,1}}b_{2,2} & a_{1,2}b_{2,1} & a_{1,2}b_{2,2} \\
+a_{2,1}b_{1,1} & a_{2,1}b_{1,2} & \color{red}{a_{2,2}}b_{1,1} & \color{red}{a_{2,2}}b_{1,2} \\
+a_{2,1}b_{2,1} & a_{2,1}b_{2,2} & \color{red}{a_{2,2}}b_{2,1} & \color{red}{a_{2,2}}b_{2,2}
+\end{bmatrix}
+$$
+
+I am not asking for an answer along the lines of "that is why using matrices is not a good idea", but I want to understand why there is no contradiction, and how this would work in higher order tensors by extension.
+
+---
+
+##### Answer:
+
+> The Wikipedia article is slightly confusing by omitting some brackets from the final tensor. It looks like a $4\times4$ matrix, i.e., a rank $2$ tensor with $4^2=16$ entries, but actually it is a $2\times2\times2\times2$ tensor of rank $4$ having $2^4=16$ entries. Contraction happens by taking the trace of four $2\times2$ "submatrices" separately:
+
+$$\begin{bmatrix} 
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{1,1} & a_{1,2}b_{1,1}\\
+a_{2,1}b_{1,1} & a_{2,2}b_{1,1}\end{bmatrix}
+&
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{1,2} & a_{1,2}b_{1,2} \\
+a_{2,1}b_{1,2} & a_{2,2}b_{1,2}
+\end{bmatrix}
+\\
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{2,1} & a_{1,2}b_{2,1}\\
+a_{2,1}b_{2,1} & a_{2,2}b_{2,1}\end{bmatrix}
+&
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{2,2} & a_{1,2}b_{2,2}\\
+a_{2,1}b_{2,2} & a_{2,2}b_{2,2}\end{bmatrix}
+\end{bmatrix}$$
+
+---
+
+##### Comments:
+
+This makes perfect sense. Thank you! As a quick follow-up question, what would be the mechanics if instead I wanted to contract $j$ and $l$, or $i$ and $l$ in $T^{ij}_{\phantom{ij}kl}$? (Unless it is worth a different question, or can't be answered in a quick couple of lines).
+
+---
+
+> You would still take traces of 4 submatrices at a time, only different ones. 
+
+---
+
+Interesting how all the info from the entries not involved in the contraction is literally thrown out... Tempting to say "no trace of it". So all that matters is the correct arrangements of the indices involved, which outside the constraints of a matrix, it would not be relevant... 
+
+---
+
+> Any contraction throws out information from all components where the two indices involved in the contraction have different values. The ordinary trace of a square matrix is just the simplest example of that.
+
+---
+
+What about [this answer](https://math.stackexchange.com/a/2811377/152225)?
+
+##### Question:
+
+
+So I'm having trouble to compute tensor contractions with "actual" numbers from the matrix representations of the tensors. I have only seen abstract theoretical examples on the internet so I'm asking for a bit of help on how to find the contractions given the expressions of the tensors and the pair of indices where we will carry out the contraction. I'll show a simple example and I hope you can help me.
+
+Let's suppose we have two tensors of the type (1,1) (that means 1 contravariant, 1 covariant). They will be called Y and Z and knowing their coordinate forms, we can represent them through matrices in this way:
+
+Y = \begin{pmatrix}1&-1\\2&3\end{pmatrix}
+
+Z = \begin{pmatrix}-1&0\\1&2\end{pmatrix}
+
+Now, we could compute the Kronecker product Y  x  Z in order to get a type (2,2) tensor (2 contravariant, 2 covariant). The result would be:
+
+\begin{pmatrix}-1&0&1&0\\1&2&-1&-2\\-2&0&-3&0\\2&4&3&6\end{pmatrix}
+
+So, how could we get the contractions of this (2,2) tensor (with actual numbers instead of the parameters that you see in other examples) ?.
+Note that here we have 2 contravariant indices and 2 covariant indices so there are 4 possible contractions depending on the pair of indices that you choose, I guess.
+As far as I know, all possible contractions with the selection of pairs of indices are the following:<br/>
+<br/>- 1st covariant index and 1st contravariant index.<br/>
+- 1st covariant index and 2nd contravariant index.<br/>
+- 2nd covariant index and 1st contravariant index.<br/>
+- 2nd covariant index and 2nd contravariant index.<br/>
+<br/>
+So what matrices would be the result of those contractions. Just in case I didn't state it clearly before, these matrices are the representation of tensor of which we know the coefficients of their coordinate forms (explicit forms in a specific basis, and that info is known). So we want to perform contractions in the last 4x4 matrix that I showed (which represents a (2,2) tensor) and there a 4 different possibilities. My question has to do with the fact that I can't find a way to do this with actual numbers and I can't figure out the result for each possible contraction (I also don't know what the differences would be in the calculation of a contraction with a certain pair of indices or another).
+<br/>
+I would really appreciate that someone could find a specific result for the contractions that I proposed (I guess the calculation is easy but I just don't know how it could be done). Thank you really much for reading.
+
+
+##### Answer:
+
+Representing tensors using matrix notation is often confusing, but let's assume that
+
+$Y = \begin{pmatrix}y^1_1&y^1_2\\v^2_1&y^2_2\end{pmatrix}$
+
+and similarly for Z. If $W = Y \times Z$ then the components of $W$ are
+
+$w^{ik}_{jl} = y^i_j z^k_l$
+
+You have represented W as a 4x4 matrix, but it would be more accurate to represent it as a 2x2 matrix, each of whose entries is another 2x2 matrix.
+
+Anyway, the four possible contractions of W are:
+
+(1):  $w^{ik}_{il} = y^i_i z^k_l$
+
+(2):  $w^{ik}_{jk} = y^i_j z^k_k$
+
+(3):  $w^{ik}_{ji} = y^i_j z^k_i$
+
+(4):  $w^{ij}_{jl} = y^i_j z^j_l$
+
+In terms of matrix operations:
+
+(1) is the component representation of $Tr(Y)Z$
+
+(2) is the component representation of $Tr(Z)Y$
+
+(3) is the component representation of $YZ$
+
+(4) is the component representation of $ZY$
+
+---
+
+> The answer that you refer to, remains correct. We only appear to take 4 different traces; if you apply the distributive law then we are only taking the trace of $A$, multiplied by the four components of $B$ separately. But I wrote it this way because you asked for a computation that did not rely on separate knowledge of $A$ or $B$.
+
+---
+
+Sounds correct:
+
+The matrix of traces in the answer is
+
+$$\begin{bmatrix}
+a11b11 + a22b11 & a11b12 + a22b12 \\
+a11b21 + a22b21 & a11b22 + a22b22
+\end{bmatrix} =
+(a11 + a22) 
+\begin{bmatrix}
+b11 & b12 \\
+b21 &   b22
+\end{bmatrix}
+= \mathop(Tr) B$$
+
+
+$\begin{align}a_{11}b_{11} + a_{22}b_{11} &=-1 + (-3) = -4\\
+a_{11}b_{12} + a_{22}b_{2} &= 0 + 0 = 0 \\
+a_{11}b_{21} + a_{22}b_{21} &=1 + 3 = 4\\
+a_{11}b_{22} + a_{22}b_{22} &= 2+ 6 = 8
+\end{align}$ 
+
+are the traces in your answer, and correspond to $\text{Tr}(Y)Z=4 \begin{pmatrix}-1&0\\1&2\end{pmatrix}$
+
+---
+
+> I have to qualify my above comment that it is always traces of submatrices. That holds if you contract over the two indices of $A$ or over the two indices of $B$, but if you contract over, say, $\color{red}i$ and $\color{yellow}l$ - in $T^{{\color{red}i}j}_{\phantom{ij}k{\color{yellow}l}}$ - then you would have a matrix product.
+
+---
+
+##### Question:
+
+If I want to contract (as in one of the comments to the prior post) $i$ and $l$, what would be the mechanics (algorithm) it if all I have is the final Kronecker block matrix above? (no $A$ or $B$ explicitly given).
+
+I am not sure that I understand what contraction would mean in this set up, but since I know it is matrix multiplication, and that contraction means equating two indices, I think it could be calculated in matrix form as follows (not sure it's correct, please correct as needed):
+
+$$\begin{matrix}
+j = 1, k = 1: & T^{i1}_{\phantom{i1.}1i} = a_{1,1}b_{1,1} + a_{2,1}b_{1,2}\\
+j = 1, k = 2: & T^{i1}_{\phantom{i1.}2i} = a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\
+j = 2, k = 1: & T^{i2}_{\phantom{i2.}1i} = a_{1,2}b_{1,1} + a_{2,2}b_{1,2} \\
+j = 2, k = 2: & T^{i2}_{\phantom{i2.}2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
+\end{matrix}
+$$
+or
+$$
+\begin{matrix}
+i = l = 1 & i = l = 2\\
+a_{{\color{red}1}j} b_{k{\color{red}1}} & a_{{\color{red}2}j} b_{k{\color{red}2}}\\
+--- & ---\\
+a_{11} b_{11} & a_{21} b_{12}\\
+a_{11} b_{21} & a_{21} b_{22}\\
+a_{12} b_{11} & a_{22} b_{12}\\
+a_{12} b_{21} & a_{22} b_{22}
+\end{matrix}
+$$
+
+which could be arranged in a matrix multiplication as:
+
+$$Y^j_{\phantom{-}k}=\begin{bmatrix}
+a_{11} & a_{21}\\
+a_{12} & a_{22}
+\end{bmatrix}
+\begin{bmatrix}
+b_{11} & b_{21}\\
+b_{12} & b_{22}
+\end{bmatrix}
+=\begin{bmatrix} a_{1,1}b_{1,1} + a_{2,1}b_{1,2} & a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\ a_{1,2}b_{1,1} + a_{2,2}b_{1,2} & a_{1,2}b_{2,1} + a_{2,2}b_{2,2} \end{bmatrix}$$
+
+---
+
+##### Answer:
+
+First a remark on the side: the distinction between upper and lower indices does not mean much in this context where we are not dealing with a metric; only the order of the indices matters.
+
+The result of contracting over the first and fourth indices can be written as a square $2\times2$ matrix composed of four traces of $2\times2$ submatrices like in the previous question; for example, the $(j=1,k=1)$ component of the contraction is the trace of the submatrix consisting of elements in rows $1$ and $3$ and in columns $1$ and $2:$
+$$a_{1,1}b_{1,1}+a_{2,1}b_{1,2}=\hbox{Tr}
+\begin{bmatrix}
+a_{1,1}b_{1,1} & a_{1,1}b_{1,2} \\
+a_{2,1}b_{1,1} & a_{2,1}b_{1,2} \\
+\end{bmatrix}$$
+
+For these two indices in particular, you correctly note that it can be interpreted as a matrix product but it may appear awkward that you have to write the transposes of the original matrices, and the result is transposed as well. These transpositions can be avoided if you switch the order of the matrices:
+
+$$Y^{jk}=
+\begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2} \\
+\end{bmatrix}
+\begin{bmatrix}
+a_{1,1} & a_{1,2} \\
+a_{2,1} & a_{2,2} \\
+\end{bmatrix}=
+\begin{bmatrix}
+a_{1,1}b_{1,1}+a_{2,1}b_{1,2} & a_{1,2}b_{1,1}+a_{2,2}b_{1,2} \\
+a_{1,1}b_{2,1}+a_{2,1}b_{2,2} & a_{1,2}b_{2,1}+a_{2,2}b_{2,2}
+\end{bmatrix}
+$$
+
+If you would contract over the middle indices $j$ and $k$ instead of $i$ and $l$ then the result corresponds to the usual definition of a matrix product without changing the order.
+
+
+---
+
+> There is always some arbitrariness in representing a rank 4 tensor as a two-dimensional row/column arrangement. Two of the indices will indicate rows and columns within 2×2 submatrices, and the two other indices will index the submatrices themselves in the larger arrangement. If we know in advance that we are going to contract over 2 of the 4 indices than it helps to choose those indices to represent the dimensions of the inner 2×2 matrices.
+
+
+Right! The tidy packaging is also constraining - its order in rows and cols functions as a proxy for the basis vectors, but typically, this would be part of the tensor in a less constraining notation, such as $Y^{jk}e_j⊗e_k$. 
+
+At the end of these couple of questions / answers, it seems that there is no difference in the mechanics between contracting a tensor or tensor multiplying (for instance a tensor ⊗ (eating) a vector).
+
+Another final reflection (slash prompt for you to comment upon) is that the reason why both this and the contraction in the prior question were boiled down to a sum (trace) is because the pair-wise multiplication had already occurred in the Kronecker ⊗.
+
+> Only that I agree with your last remarks. Matrix multiplication can be viewed very naturally as a contraction of a tensor product.
+
+
+
+---
+
+---
+
 
 From [this question](https://math.stackexchange.com/q/2437459/152225):
 
