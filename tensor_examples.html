@@ -430,8 +430,8 @@ a_{2,2}b_{2,2}
 <p>I presume that <span class="math inline">\(T\)</span> would have two
 upper and two lower indices, as in <span class="math inline">\(T^{ij}{}_{kl}\)</span>.</p>
 <p>Now I should be able to contract <span class="math inline">\(i\)</span> and <span class="math inline">\(k,\)</span> equivalently of taking the trace of
-the <span class="math inline">\(A\)</span> matrix and multiplying it by
-<span class="math inline">\(B\)</span>, i.e. <span class="math inline">\(\mathop{Tr}(A)B\)</span>. This would correspond to
+the <span class="math inline">\(A^i{}_{k}\)</span> matrix and
+multiplying it by <span class="math inline">\(B\)</span>, i.e. <span class="math inline">\(\mathop{Tr}(A)B\)</span>. This would correspond to
 <span class="math inline">\(T^{ij}{}_{il}\)</span>.</p>
 <p>Given that each matrix <span class="math inline">\(A\)</span> and
 <span class="math inline">\(B\)</span> is <span class="math inline">\(2
@@ -453,10 +453,6 @@ a_{2,1}b_{2,1} &amp; a_{2,1}b_{2,2} &amp; \color{red}{a_{2,2}}b_{2,1}
 &amp; \color{red}{a_{2,2}}b_{2,2}
 \end{bmatrix}
 \]</span></p>
-<p>I am not asking for an answer along the lines of “that is why using
-matrices is not a good idea”, but I want to understand why there is no
-contradiction, and how this would work in higher order tensors by
-extension.</p>
 <hr />
 </div>
 <div id="answer" class="section level5">
@@ -470,18 +466,22 @@ taking the trace of four <span class="math inline">\(2\times2\)</span>
 “submatrices” separately:</p>
 </blockquote>
 <p><span class="math display">\[\begin{bmatrix}
-\hbox{Tr}\begin{bmatrix}a_{1,1}b_{1,1} &amp; a_{1,2}b_{1,1}\\
-a_{2,1}b_{1,1} &amp; a_{2,2}b_{1,1}\end{bmatrix}
+\hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{1,1} &amp;
+a_{1,2}b_{1,1}\\
+a_{2,1}b_{1,1} &amp; a_{\color{red}{2,2}}b_{1,1}\end{bmatrix}
 &amp;
-\hbox{Tr}\begin{bmatrix}a_{1,1}b_{1,2} &amp; a_{1,2}b_{1,2} \\
-a_{2,1}b_{1,2} &amp; a_{2,2}b_{1,2}
+\hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{1,2} &amp; a_{1,2}b_{1,2}
+\\
+a_{2,1}b_{1,2} &amp; a_{\color{red}{2,2}}b_{1,2}
 \end{bmatrix}
 \\
-\hbox{Tr}\begin{bmatrix}a_{1,1}b_{2,1} &amp; a_{1,2}b_{2,1}\\
-a_{2,1}b_{2,1} &amp; a_{2,2}b_{2,1}\end{bmatrix}
+\hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{2,1} &amp;
+a_{1,2}b_{2,1}\\
+a_{2,1}b_{2,1} &amp; a_{\color{red}{2,2}}b_{2,1}\end{bmatrix}
 &amp;
-\hbox{Tr}\begin{bmatrix}a_{1,1}b_{2,2} &amp; a_{1,2}b_{2,2}\\
-a_{2,1}b_{2,2} &amp; a_{2,2}b_{2,2}\end{bmatrix}
+\hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{2,2} &amp;
+a_{1,2}b_{2,2}\\
+a_{2,1}b_{2,2} &amp; a_{\color{red}{2,2}}b_{2,2}\end{bmatrix}
 \end{bmatrix}\]</span></p>
 <hr />
 </div>
