@@ -213,12 +213,11 @@ b21 &   b22
 \end{bmatrix}
 = \mathop(Tr) B$$
 
+$$a_{11}b_{11} + a_{22}b_{11} = -1 + (-3) = -4$$
 
-$\begin{align}a_{11}b_{11} + a_{22}b_{11} &=-1 + (-3) = -4\\
-a_{11}b_{12} + a_{22}b_{2} &= 0 + 0 = 0 \\
-a_{11}b_{21} + a_{22}b_{21} &=1 + 3 = 4\\
-a_{11}b_{22} + a_{22}b_{22} &= 2+ 6 = 8
-\end{align}$ 
+$$a_{11}b_{12} + a_{22}b_{2} = 0 + 0 = 0$$
+$$a_{11}b_{21} + a_{22}b_{21} =1 + 3 = 4$$
+$$a_{11}b_{22} + a_{22}b_{22} = 2+ 6 = 8$$
 
 are the traces in your answer, and correspond to $\text{Tr}(Y)Z=4 \begin{pmatrix}-1&0\\1&2\end{pmatrix}$
 
@@ -242,17 +241,19 @@ j = 2, k = 2: & T^{i2}_{\phantom{i2.}2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
 \end{matrix}
 $$
 or
-$$
-\begin{matrix}
+
+$$\begin{array}{l|r}
 i = l = 1 & i = l = 2\\
+\hline
 a_{{\color{red}1}j} b_{k{\color{red}1}} & a_{{\color{red}2}j} b_{k{\color{red}2}}\\
---- & ---\\
+\hline
 a_{11} b_{11} & a_{21} b_{12}\\
 a_{11} b_{21} & a_{21} b_{22}\\
 a_{12} b_{11} & a_{22} b_{12}\\
 a_{12} b_{21} & a_{22} b_{22}
-\end{matrix}
+\end{array}
 $$
+
 
 which could be arranged in a matrix multiplication as:
 
@@ -265,6 +266,39 @@ b_{11} & b_{21}\\
 b_{12} & b_{22}
 \end{bmatrix}
 =\begin{bmatrix} a_{1,1}b_{1,1} + a_{2,1}b_{1,2} & a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\ a_{1,2}b_{1,1} + a_{2,2}b_{1,2} & a_{1,2}b_{2,1} + a_{2,2}b_{2,2} \end{bmatrix}$$
+
+Compare this to the permutations in the indices when contracting $i$ and $j$ in $T^{ij}_{\phantom{ij}kl}$:
+
+
+$$\begin{array}{l|r}
+i = j = 1 & i = j = 2\\
+\hline
+a_{\color{red}{11}} b_{kl} & a_{\color{red}{22}} b_{kl}\\
+\hline
+a_{11} b_{11} & a_{22} b_{11}\\
+a_{11} b_{12} & a_{22} b_{12}\\
+a_{11} b_{21} & a_{22} b_{21}\\
+a_{11} b_{22} & a_{22} b_{22}
+\end{array}
+$$
+arranged in matrices as
+
+$$\begin{bmatrix} 
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{1,1} & a_{1,2}b_{1,1}\\
+a_{2,1}b_{1,1} & a_{2,2}b_{1,1}\end{bmatrix}
+&
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{1,2} & a_{1,2}b_{1,2} \\
+a_{2,1}b_{1,2} & a_{2,2}b_{1,2}
+\end{bmatrix}
+\\
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{2,1} & a_{1,2}b_{2,1}\\
+a_{2,1}b_{2,1} & a_{2,2}b_{2,1}\end{bmatrix}
+&
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{2,2} & a_{1,2}b_{2,2}\\
+a_{2,1}b_{2,2} & a_{2,2}b_{2,2}\end{bmatrix}
+\end{bmatrix}$$
+
+
 
 ---
 
