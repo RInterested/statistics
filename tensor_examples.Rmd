@@ -22,7 +22,7 @@ From this question in [Math.SE](https://math.stackexchange.com/q/4932883/994433)
 
 ##### Original Question:
 
-According to [Wikipedia](https://en.wikipedia.org/wiki/Tensor_product#Tensor_product_of_vector_spaces#Tensor_product_of_linear_maps) is the bases vectors are fixed the two tensors $A$ and $B$ result in the tensor product given by the Kronecker multiplication: 
+According to [Wikipedia](https://en.wikipedia.org/wiki/Tensor_product#Tensor_product_of_vector_spaces#Tensor_product_of_linear_maps) if the bases vectors are fixed the two tensors $A$ and $B$ result in the tensor product given by the Kronecker multiplication: 
 
 $$A = \begin{bmatrix} 
 a_{1,1} & a_{1,2} \\
@@ -68,9 +68,9 @@ a_{2,1}b_{1,1} & a_{2,1}b_{1,2} & a_{2,2}b_{1,1} & a_{2,2}b_{1,2} \\
 a_{2,1}b_{2,1} & a_{2,1}b_{2,2} & a_{2,2}b_{2,1} & a_{2,2}b_{2,2}
 \end{bmatrix}
 $$
-I presume that $T$ would have two upper and two lower indices, as in $T^{ij}_{\phantom{ij}kl}$. 
+I presume that $T$ would have two upper and two lower indices, as in $T^{ij}{}_{kl}$. 
 
-Now I should be able to contract $i$ and $k,$ equivalently of taking the trace of the $A$ matrix and multiplying it by $B$, i.e. $\mathop{Tr}(A)B$. This would correspond to $T^{ij}_{\phantom{ij}il}$. 
+Now I should be able to contract $i$ and $k,$ equivalently of taking the trace of the $A$ matrix and multiplying it by $B$, i.e. $\mathop{Tr}(A)B$. This would correspond to $T^{ij}{}_{il}$. 
 
 Given that each matrix $A$ and $B $ is $2 \times 2$, this would have to reduce the last matrix above from its $4 \times 4$ dimensions.
 
@@ -114,7 +114,7 @@ a_{2,1}b_{2,2} & a_{2,2}b_{2,2}\end{bmatrix}
 
 ##### Comments:
 
-This makes perfect sense. Thank you! As a quick follow-up question, what would be the mechanics if instead I wanted to contract $j$ and $l$, or $i$ and $l$ in $T^{ij}_{\phantom{ij}kl}$? (Unless it is worth a different question, or can't be answered in a quick couple of lines).
+This makes perfect sense. Thank you! As a quick follow-up question, what would be the mechanics if instead I wanted to contract $j$ and $l$, or $i$ and $l$ in $T^{ij}{}_{kl}$? (Unless it is worth a different question, or can't be answered in a quick couple of lines).
 
 ---
 
@@ -223,7 +223,7 @@ are the traces in your answer, and correspond to $\text{Tr}(Y)Z=4 \begin{pmatrix
 
 ---
 
-> I have to qualify my above comment that it is always traces of submatrices. That holds if you contract over the two indices of $A$ or over the two indices of $B$, but if you contract over, say, $\color{red}i$ and $\color{yellow}l$ - in $T^{{\color{red}i}j}_{\phantom{ij}k{\color{yellow}l}}$ - then you would have a matrix product.
+> I have to qualify my above comment that it is always traces of submatrices. That holds if you contract over the two indices of $A$ or over the two indices of $B$, but if you contract over, say, $\color{red}i$ and $\color{orange}l$ -  $T^{{\color{red}i}j}{}_{k{\color{orange}l}}$ - then you would have a matrix product.
 
 ---
 
@@ -234,10 +234,10 @@ If I want to contract (as in one of the comments to the prior post) $i$ and $l$,
 I am not sure that I understand what contraction would mean in this set up, but since I know it is matrix multiplication, and that contraction means equating two indices, I think it could be calculated in matrix form as follows (not sure it's correct, please correct as needed):
 
 $$\begin{matrix}
-j = 1, k = 1: & T^{i1}_{\phantom{i1.}1i} = a_{1,1}b_{1,1} + a_{2,1}b_{1,2}\\
-j = 1, k = 2: & T^{i1}_{\phantom{i1.}2i} = a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\
-j = 2, k = 1: & T^{i2}_{\phantom{i2.}1i} = a_{1,2}b_{1,1} + a_{2,2}b_{1,2} \\
-j = 2, k = 2: & T^{i2}_{\phantom{i2.}2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
+j = 1, k = 1: & T^{i1}{}_{1i} = a_{1,1}b_{1,1} + a_{2,1}b_{1,2}\\
+j = 1, k = 2: & T^{i1}{}_{2i} = a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\
+j = 2, k = 1: & T^{i2}{}_{1i} = a_{1,2}b_{1,1} + a_{2,2}b_{1,2} \\
+j = 2, k = 2: & T^{i2}{}_{2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
 \end{matrix}
 $$
 or
@@ -257,7 +257,7 @@ $$
 
 which could be arranged in a matrix multiplication as:
 
-$$Y^j_{\phantom{-}k}=\begin{bmatrix}
+$$Y^{j}{}_{k}=\begin{bmatrix}
 a_{11} & a_{21}\\
 a_{12} & a_{22}
 \end{bmatrix}
@@ -267,7 +267,7 @@ b_{12} & b_{22}
 \end{bmatrix}
 =\begin{bmatrix} a_{1,1}b_{1,1} + a_{2,1}b_{1,2} & a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\ a_{1,2}b_{1,1} + a_{2,2}b_{1,2} & a_{1,2}b_{2,1} + a_{2,2}b_{2,2} \end{bmatrix}$$
 
-Compare this to the permutations in the indices when contracting $i$ and $j$ in $T^{ij}_{\phantom{ij}kl}$:
+Compare this to the permutations in the indices when contracting $i$ and $j$ in $T^{ij}{}_{kl}$:
 
 
 $$\begin{array}{l|r}

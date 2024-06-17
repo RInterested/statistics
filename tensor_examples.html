@@ -379,7 +379,7 @@ display: none;
 <div id="original-question" class="section level5">
 <h5>Original Question:</h5>
 <p>According to <a href="https://en.wikipedia.org/wiki/Tensor_product#Tensor_product_of_vector_spaces#Tensor_product_of_linear_maps">Wikipedia</a>
-is the bases vectors are fixed the two tensors <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> result in the tensor product given by
+if the bases vectors are fixed the two tensors <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> result in the tensor product given by
 the Kronecker multiplication:</p>
 <p><span class="math display">\[A = \begin{bmatrix}
 a_{1,1} &amp; a_{1,2} \\
@@ -427,11 +427,11 @@ a_{2,1}b_{2,1} &amp; a_{2,1}b_{2,2} &amp; a_{2,2}b_{2,1} &amp;
 a_{2,2}b_{2,2}
 \end{bmatrix}
 \]</span> I presume that <span class="math inline">\(T\)</span> would
-have two upper and two lower indices, as in <span class="math inline">\(T^{ij}_{\phantom{ij}kl}\)</span>.</p>
+have two upper and two lower indices, as in <span class="math inline">\(T^{ij}{}_{kl}\)</span>.</p>
 <p>Now I should be able to contract <span class="math inline">\(i\)</span> and <span class="math inline">\(k,\)</span> equivalently of taking the trace of
 the <span class="math inline">\(A\)</span> matrix and multiplying it by
 <span class="math inline">\(B\)</span>, i.e. <span class="math inline">\(\mathop{Tr}(A)B\)</span>. This would correspond to
-<span class="math inline">\(T^{ij}_{\phantom{ij}il}\)</span>.</p>
+<span class="math inline">\(T^{ij}{}_{il}\)</span>.</p>
 <p>Given that each matrix <span class="math inline">\(A\)</span> and $B
 $ is <span class="math inline">\(2 \times 2\)</span>, this would have to
 reduce the last matrix above from its <span class="math inline">\(4
@@ -487,8 +487,8 @@ a_{2,1}b_{2,2} &amp; a_{2,2}b_{2,2}\end{bmatrix}
 <div id="comments" class="section level5">
 <h5>Comments:</h5>
 <p>This makes perfect sense. Thank you! As a quick follow-up question,
-what would be the mechanics if instead I wanted to contract <span class="math inline">\(j\)</span> and <span class="math inline">\(l\)</span>, or <span class="math inline">\(i\)</span> and <span class="math inline">\(l\)</span> in <span class="math inline">\(T^{ij}_{\phantom{ij}kl}\)</span>? (Unless it is
-worth a different question, or can’t be answered in a quick couple of
+what would be the mechanics if instead I wanted to contract <span class="math inline">\(j\)</span> and <span class="math inline">\(l\)</span>, or <span class="math inline">\(i\)</span> and <span class="math inline">\(l\)</span> in <span class="math inline">\(T^{ij}{}_{kl}\)</span>? (Unless it is worth a
+different question, or can’t be answered in a quick couple of
 lines).</p>
 <hr />
 <blockquote>
@@ -617,7 +617,7 @@ b21 &amp;   b22
 <hr />
 <blockquote>
 <p>I have to qualify my above comment that it is always traces of
-submatrices. That holds if you contract over the two indices of <span class="math inline">\(A\)</span> or over the two indices of <span class="math inline">\(B\)</span>, but if you contract over, say, <span class="math inline">\(\color{red}i\)</span> and <span class="math inline">\(\color{yellow}l\)</span> - in <span class="math inline">\(T^{{\color{red}i}j}_{\phantom{ij}k{\color{yellow}l}}\)</span>
+submatrices. That holds if you contract over the two indices of <span class="math inline">\(A\)</span> or over the two indices of <span class="math inline">\(B\)</span>, but if you contract over, say, <span class="math inline">\(\color{red}i\)</span> and <span class="math inline">\(\color{orange}l\)</span> - <span class="math inline">\(T^{{\color{red}i}j}{}_{k{\color{orange}l}}\)</span>
 - then you would have a matrix product.</p>
 </blockquote>
 <hr />
@@ -634,14 +634,10 @@ contraction means equating two indices, I think it could be calculated
 in matrix form as follows (not sure it’s correct, please correct as
 needed):</p>
 <p><span class="math display">\[\begin{matrix}
-j = 1, k = 1: &amp; T^{i1}_{\phantom{i1.}1i} = a_{1,1}b_{1,1} +
-a_{2,1}b_{1,2}\\
-j = 1, k = 2: &amp; T^{i1}_{\phantom{i1.}2i} = a_{1,1}b_{2,1} +
-a_{2,1}b_{2,2} \\
-j = 2, k = 1: &amp; T^{i2}_{\phantom{i2.}1i} = a_{1,2}b_{1,1} +
-a_{2,2}b_{1,2} \\
-j = 2, k = 2: &amp; T^{i2}_{\phantom{i2.}2i} = a_{1,2}b_{2,1} +
-a_{2,2}b_{2,2}
+j = 1, k = 1: &amp; T^{i1}{}_{1i} = a_{1,1}b_{1,1} + a_{2,1}b_{1,2}\\
+j = 1, k = 2: &amp; T^{i1}{}_{2i} = a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\
+j = 2, k = 1: &amp; T^{i2}{}_{1i} = a_{1,2}b_{1,1} + a_{2,2}b_{1,2} \\
+j = 2, k = 2: &amp; T^{i2}{}_{2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
 \end{matrix}
 \]</span> or</p>
 <p><span class="math display">\[\begin{array}{l|r}
@@ -657,7 +653,7 @@ a_{12} b_{21} &amp; a_{22} b_{22}
 \end{array}
 \]</span></p>
 <p>which could be arranged in a matrix multiplication as:</p>
-<p><span class="math display">\[Y^j_{\phantom{-}k}=\begin{bmatrix}
+<p><span class="math display">\[Y^{j}{}_{k}=\begin{bmatrix}
 a_{11} &amp; a_{21}\\
 a_{12} &amp; a_{22}
 \end{bmatrix}
@@ -669,7 +665,7 @@ b_{12} &amp; b_{22}
 a_{2,1}b_{2,2} \\ a_{1,2}b_{1,1} + a_{2,2}b_{1,2} &amp; a_{1,2}b_{2,1} +
 a_{2,2}b_{2,2} \end{bmatrix}\]</span></p>
 <p>Compare this to the permutations in the indices when contracting
-<span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> in <span class="math inline">\(T^{ij}_{\phantom{ij}kl}\)</span>:</p>
+<span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> in <span class="math inline">\(T^{ij}{}_{kl}\)</span>:</p>
 <p><span class="math display">\[\begin{array}{l|r}
 i = j = 1 &amp; i = j = 2\\
 \hline
