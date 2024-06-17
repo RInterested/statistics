@@ -229,11 +229,129 @@ are the traces in your answer, and correspond to $\text{Tr}(Y)Z=4 \begin{pmatrix
 
 > I have to qualify my above comment that it is always traces of submatrices. That holds if you contract over the two indices of $A$ or over the two indices of $B$, but if you contract over, say, $\color{red}i$ and $\color{orange}l$ -  $T^{\color{red}{i}j}{}_{k\color{orange}{l}}$ - then you would have a matrix product.
 
+---
 
+##### Question:
 
+If I want to contract (as in one of the comments to the prior post) $i$ and $l$, what would be the mechanics (algorithm) it if all I have is the final Kronecker block matrix above? (no $A$ or $B$ explicitly given).
 
+I am not sure that I understand what contraction would mean in this set up, but since I know it is matrix multiplication, and that contraction means equating two indices, I think it could be calculated in matrix form as follows (not sure it's correct, please correct as needed):
+
+$$\begin{matrix}
+j = 1, k = 1: & T^{i1}{}_{1i} = a_{1,1}b_{1,1} + a_{2,1}b_{1,2}\\
+j = 1, k = 2: & T^{i1}{}_{2i} = a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\
+j = 2, k = 1: & T^{i2}{}_{1i} = a_{1,2}b_{1,1} + a_{2,2}b_{1,2} \\
+j = 2, k = 2: & T^{i2}{}_{2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
+\end{matrix}
+$$
 
 or
+
+$$\begin{array}{l|r}
+i = l = 1 & i = l = 2\\
+\hline
+a_{\color{red}{1}j} b_{k\color{red}{1}} & a_{\color{red}{2}j} b_{k\color{red}{2}}\\
+\hline
+a_{11} b_{11} & a_{21} b_{12}\\
+a_{11} b_{21} & a_{21} b_{22}\\
+a_{12} b_{11} & a_{22} b_{12}\\
+a_{12} b_{21} & a_{22} b_{22}
+\end{array}
+$$
+
+
+which could be arranged in a matrix multiplication as:
+
+$$Y^{j}{}_{k}=\begin{bmatrix}
+a_{11} & a_{21}\\
+a_{12} & a_{22}
+\end{bmatrix}
+\begin{bmatrix}
+b_{11} & b_{21}\\
+b_{12} & b_{22}
+\end{bmatrix}
+=\begin{bmatrix} a_{1,1}b_{1,1} + a_{2,1}b_{1,2} & a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\ a_{1,2}b_{1,1} + a_{2,2}b_{1,2} & a_{1,2}b_{2,1} + a_{2,2}b_{2,2} \end{bmatrix}$$
+
+Compare this to the permutations in the indices when contracting $i$ and $j$ in $T^{ij}{}_{kl}$:
+
+
+$$\begin{array}{l|r}
+i = j = 1 & i = j = 2\\
+\hline
+a_{\color{red}{11}} b_{kl} & a_{\color{red}{22}} b_{kl}\\
+\hline
+a_{11} b_{11} & a_{22} b_{11}\\
+a_{11} b_{12} & a_{22} b_{12}\\
+a_{11} b_{21} & a_{22} b_{21}\\
+a_{11} b_{22} & a_{22} b_{22}
+\end{array}
+$$
+arranged in matrices as
+
+$$\begin{bmatrix} 
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{1,1} & a_{1,2}b_{1,1}\\
+a_{2,1}b_{1,1} & a_{2,2}b_{1,1}\end{bmatrix}
+&
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{1,2} & a_{1,2}b_{1,2} \\
+a_{2,1}b_{1,2} & a_{2,2}b_{1,2}
+\end{bmatrix}
+\\
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{2,1} & a_{1,2}b_{2,1}\\
+a_{2,1}b_{2,1} & a_{2,2}b_{2,1}\end{bmatrix}
+&
+\hbox{Tr}\begin{bmatrix}a_{1,1}b_{2,2} & a_{1,2}b_{2,2}\\
+a_{2,1}b_{2,2} & a_{2,2}b_{2,2}\end{bmatrix}
+\end{bmatrix}$$
+
+
+
+---
+
+##### Answer:
+
+First a remark on the side: the distinction between upper and lower indices does not mean much in this context where we are not dealing with a metric; only the order of the indices matters.
+
+The result of contracting over the first and fourth indices can be written as a square $2\times2$ matrix composed of four traces of $2\times2$ submatrices like in the previous question; for example, the $(j=1,k=1)$ component of the contraction is the trace of the submatrix consisting of elements in rows $1$ and $3$ and in columns $1$ and $2:$
+
+$$a_{1,1}b_{1,1}+a_{2,1}b_{1,2}=\hbox{Tr}
+\begin{bmatrix}
+a_{1,1}b_{1,1} & a_{1,1}b_{1,2} \\
+a_{2,1}b_{1,1} & a_{2,1}b_{1,2} \\
+\end{bmatrix}$$
+
+For these two indices in particular, you correctly note that it can be interpreted as a matrix product but it may appear awkward that you have to write the transposes of the original matrices, and the result is transposed as well. These transpositions can be avoided if you switch the order of the matrices:
+
+$$Y^{jk}=
+\begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2} \\
+\end{bmatrix}
+\begin{bmatrix}
+a_{1,1} & a_{1,2} \\
+a_{2,1} & a_{2,2} \\
+\end{bmatrix}=
+\begin{bmatrix}
+a_{1,1}b_{1,1}+a_{2,1}b_{1,2} & a_{1,2}b_{1,1}+a_{2,2}b_{1,2} \\
+a_{1,1}b_{2,1}+a_{2,1}b_{2,2} & a_{1,2}b_{2,1}+a_{2,2}b_{2,2}
+\end{bmatrix}
+$$
+
+If you would contract over the middle indices $j$ and $k$ instead of $i$ and $l$ then the result corresponds to the usual definition of a matrix product without changing the order.
+
+
+---
+
+> There is always some arbitrariness in representing a rank 4 tensor as a two-dimensional row/column arrangement. Two of the indices will indicate rows and columns within 2×2 submatrices, and the two other indices will index the submatrices themselves in the larger arrangement. If we know in advance that we are going to contract over 2 of the 4 indices than it helps to choose those indices to represent the dimensions of the inner 2×2 matrices.
+
+
+Right! The tidy packaging is also constraining - its order in rows and cols functions as a proxy for the basis vectors, but typically, this would be part of the tensor in a less constraining notation, such as $Y^{jk}e_j\otimes e_k$. 
+
+At the end of these couple of questions / answers, it seems that there is no difference in the mechanics between contracting a tensor or tensor multiplying (for instance a tensor $\otimes$ (eating) a vector).
+
+Another final reflection (slash prompt for you to comment upon) is that the reason why both this and the contraction in the prior question were boiled down to a sum (trace) is because the pair-wise multiplication had already occurred in the Kronecker ⊗.
+
+> Only that I agree with your last remarks. Matrix multiplication can be viewed very naturally as a contraction of a tensor product.
+
 
 
 
