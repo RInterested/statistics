@@ -429,9 +429,9 @@ a_{2,2}b_{2,2}
 \]</span></p>
 <p>I presume that <span class="math inline">\(T\)</span> would have two
 upper and two lower indices, as in <span class="math inline">\(T^{ij}{}_{kl}\)</span>.</p>
-<p>Now I should be able to contract <span class="math inline">\(i\)</span> and <span class="math inline">\(k,\)</span> equivalently of taking the trace of
-the <span class="math inline">\(A^i{}_{k}\)</span> matrix and
-multiplying it by <span class="math inline">\(B\)</span>, i.e. <span class="math inline">\(\mathop{Tr}(A)B\)</span>. This would correspond to
+<p>Now I should be able to contract <span class="math inline">\(\color{red} i\)</span> and <span class="math inline">\(\color{red} k\)</span>, equivalently of taking the
+trace of the <span class="math inline">\(A^i{}_{k}\)</span> matrix and
+multiplying it by <span class="math inline">\(B\)</span>, i.e. <span class="math inline">\(\hbox{Tr}(A)B\)</span>. This would correspond to
 <span class="math inline">\(T^{ij}{}_{il}\)</span>.</p>
 <p>Given that each matrix <span class="math inline">\(A\)</span> and
 <span class="math inline">\(B\)</span> is <span class="math inline">\(2
@@ -465,7 +465,8 @@ rank <span class="math inline">\(4\)</span> having <span class="math inline">\(2
 taking the trace of four <span class="math inline">\(2\times2\)</span>
 “submatrices” separately:</p>
 </blockquote>
-<p><span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[T^{\color{red}{i}j}{}_{\color{red}{k}l}
+= \begin{bmatrix}
 \hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{1,1} &amp;
 a_{1,2}b_{1,1}\\
 a_{2,1}b_{1,1} &amp; a_{\color{red}{2,2}}b_{1,1}\end{bmatrix}
@@ -487,6 +488,67 @@ a_{2,1}b_{2,2} &amp; a_{\color{red}{2,2}}b_{2,2}\end{bmatrix}
 </div>
 <div id="comments" class="section level5">
 <h5>Comments:</h5>
+<p>This is a different block matrix from the starting one:</p>
+<p><span class="math display">\[\begin{bmatrix}
+b_{1,1} \begin{bmatrix}a_{\color{red}{1,1}} &amp; a_{1,2}\\
+a_{2,1} &amp; a_{\color{red}{2,2}}\end{bmatrix}
+&amp;
+b_{1,2}\begin{bmatrix}a_{\color{red}{1,1}} &amp; a_{1,2} \\
+a_{2,1} &amp; a_{\color{red}{2,2}}
+\end{bmatrix}
+\\
+b_{2,1}\begin{bmatrix}a_{\color{red}{1,1}} &amp; a_{1,2}\\
+a_{2,1} &amp; a_{\color{red}{2,2}}\end{bmatrix}
+&amp;
+b_{2,2}\begin{bmatrix}a_{\color{red}{1,1}} &amp; a_{1,2}\\
+a_{2,1} &amp; a_{\color{red}{2,2}}\end{bmatrix}
+\end{bmatrix} = \begin{bmatrix}
+b_{1,1} &amp; b_{1,2} \\
+b_{2,1} &amp; b_{2,2}
+\end{bmatrix}
+\otimes \small
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} \\
+a_{2,1} &amp; a_{2,2}
+\end{bmatrix}
+\]</span> It actually reverts the order. What would happen if we used
+the original matrix? We’d be contracting <span class="math inline">\(\color{red}j\)</span> and <span class="math inline">\(\color{red}l\)</span>:</p>
+<p><span class="math display">\[T^{i\color{red}j}{}_{k\color{red}l} =
+\begin{bmatrix}
+\hbox{Tr}\begin{bmatrix}b_{\color{red}{1,1}}a_{1,1}  &amp;
+b_{1,2}a_{1,1} \\
+b_{2,1}a_{1,1}  &amp; b_{\color{red}{2,2}}a_{1,1} \end{bmatrix}
+&amp; \hbox{Tr}
+\begin{bmatrix}b_{\color{red}{1,1}}a_{1,2} &amp; b_{1,2}a_{1,2} \\
+b_{2,1}a_{1,2} &amp; b_{\color{red}{2,2}}a_{1,2}
+\end{bmatrix}
+\\
+\hbox{Tr}\begin{bmatrix}b_{\color{red}{1,1}}a_{2,1} &amp;
+b_{1,2}a_{2,1}\\
+b_{2,1}a_{2,1} &amp; b_{\color{red}{2,2}}a_{2,1}\end{bmatrix}
+&amp;
+\hbox{Tr}\begin{bmatrix}b_{\color{red}{1,1}}a_{2,2} &amp;
+b_{1,2}a_{2,2}\\
+b_{2,1}a_{2,2} &amp; b_{\color{red}{2,2}}a_{2,2}\end{bmatrix}
+\end{bmatrix} \leftarrow \begin{bmatrix}
+a_{1,1}\begin{bmatrix}
+b_{1,1} &amp; b_{1,2} \\
+b_{2,1} &amp; b_{2,2}
+\end{bmatrix} &amp;
+a_{1,2}\begin{bmatrix}
+b_{1,1} &amp; b_{1,2} \\
+b_{2,1} &amp; b_{2,2}
+\end{bmatrix} \\
+a_{2,1}\begin{bmatrix}
+b_{1,1} &amp; b_{1,2} \\
+b_{2,1} &amp; b_{2,2}
+\end{bmatrix} &amp;
+a_{2,2}\begin{bmatrix}
+b_{1,1} &amp; b_{1,2} \\
+b_{2,1} &amp; b_{2,2}
+\end{bmatrix}
+\end{bmatrix}\]</span></p>
+<hr />
 <p>What would be the mechanics if instead I wanted to contract <span class="math inline">\(j\)</span> and <span class="math inline">\(l\)</span>, or <span class="math inline">\(i\)</span> and <span class="math inline">\(l\)</span> in <span class="math inline">\(T^{ij}{}_{kl}\)</span>?</p>
 <hr />
 <blockquote>
@@ -609,7 +671,7 @@ a_{11}b_{21} + a_{22}b_{21} &amp; a_{11}b_{22} + a_{22}b_{22}
 b_{11} &amp; b_{12} \\
 b_{21} &amp;   b_{22}
 \end{bmatrix}
-= \mathop{Tr}(A) B\]</span></p>
+= \hbox{Tr}(A) B\]</span></p>
 <p><span class="math display">\[\begin{align}
 a_{11}b_{11} + a_{22}b_{11} &amp;= -1 + (-3) = -4\\
 a_{11}b_{12} + a_{22}b_{2} &amp;= 0 + 0 = 0\\
@@ -628,10 +690,10 @@ submatrices. That holds if you contract over the two indices of <span class="mat
 </div>
 <div id="question-1" class="section level5">
 <h5>Question:</h5>
-<p>If I want to contract <span class="math inline">\(i\)</span> and
-<span class="math inline">\(l\)</span>, what would be the mechanics
-(algorithm) it if all I have is the final Kronecker block matrix above?
-(no <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> explicitly given).</p>
+<p>If I want to contract <span class="math inline">\(\color{red}i\)</span> and <span class="math inline">\(\color{red} l\)</span>, as in <span class="math inline">\(T^{\color{red}{i}j}{}_{k\color{red}l}\)</span>,
+what would be the mechanics (algorithm) it if all I have is the final
+Kronecker block matrix above? (no <span class="math inline">\(A\)</span>
+or <span class="math inline">\(B\)</span> explicitly given).</p>
 <p>I am not sure that I understand what contraction would mean in this
 set up, but since I know it is matrix multiplication, and that
 contraction means equating two indices, I think it could be calculated
@@ -648,8 +710,8 @@ j = 2, k = 2: &amp; T^{i2}{}_{2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
 <p><span class="math display">\[\begin{array}{l|r}
 i = l = 1 &amp; i = l = 2\\
 \hline
-a_{\color{red}{1}j} b_{k\color{red}{1}} &amp; a_{\color{red}{2}j}
-b_{k\color{red}{2}}\\
+a^{\color{red}{1}}{}_k b^{j}{}_{\color{red}1} &amp; a^{\color{red}2}{}_k
+b^{l}_{\color{red}{2}}\\
 \hline
 a_{11} b_{11} &amp; a_{21} b_{12}\\
 a_{11} b_{21} &amp; a_{21} b_{22}\\
@@ -670,11 +732,12 @@ b_{12} &amp; b_{22}
 a_{2,1}b_{2,2} \\ a_{1,2}b_{1,1} + a_{2,2}b_{1,2} &amp; a_{1,2}b_{2,1} +
 a_{2,2}b_{2,2} \end{bmatrix}\]</span></p>
 <p>Compare this to the permutations in the indices when contracting
-<span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> in <span class="math inline">\(T^{ij}{}_{kl}\)</span>:</p>
+<span class="math inline">\(i\)</span> and <span class="math inline">\(k\)</span> in <span class="math inline">\(T^{\color{red}{i}j}{}_{\color{red}{k}l}\)</span>:</p>
 <p><span class="math display">\[\begin{array}{l|r}
-i = j = 1 &amp; i = j = 2\\
+i = k = 1 &amp; i = k = 2\\
 \hline
-a_{\color{red}{11}} b_{kl} &amp; a_{\color{red}{22}} b_{kl}\\
+a^{\color{red}{1}}{}_{\color{red}1} b^{j}{}_{l} &amp;
+a^{\color{red}{2}}{}_{\color{red}2} b^{j}{}_{l}\\
 \hline
 a_{11} b_{11} &amp; a_{22} b_{11}\\
 a_{11} b_{12} &amp; a_{22} b_{12}\\

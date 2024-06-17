@@ -71,7 +71,7 @@ $$
 
 I presume that $T$ would have two upper and two lower indices, as in $T^{ij}{}_{kl}$. 
 
-Now I should be able to contract $i$ and $k,$ equivalently of taking the trace of the $A^i{}_{k}$ matrix and multiplying it by $B$, i.e. $\mathop{Tr}(A)B$. This would correspond to $T^{ij}{}_{il}$. 
+Now I should be able to contract $\color{red} i$ and $\color{red} k$, equivalently of taking the trace of the $A^i{}_{k}$ matrix and multiplying it by $B$, i.e. $\hbox{Tr}(A)B$. This would correspond to $T^{ij}{}_{il}$. 
 
 Given that each matrix $A$ and $B$ is $2 \times 2$, this would have to reduce the last matrix above from its $4 \times 4$ dimensions.
 
@@ -94,8 +94,8 @@ $$
 
 > The Wikipedia article is slightly confusing by omitting some brackets from the final tensor. It looks like a $4\times4$ matrix, i.e., a rank $2$ tensor with $4^2=16$ entries, but actually it is a $2\times2\times2\times2$ tensor of rank $4$ having $2^4=16$ entries. Contraction happens by taking the trace of four $2\times2$ "submatrices" separately:
 
-$$\begin{bmatrix} 
-\hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{1,1} & a_{1,2}b_{1,1}\\
+$$T^{\color{red}{i}j}{}_{\color{red}{k}l} = \begin{bmatrix} 
+ \hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{1,1} & a_{1,2}b_{1,1}\\
 a_{2,1}b_{1,1} & a_{\color{red}{2,2}}b_{1,1}\end{bmatrix}
 &
 \hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{1,2} & a_{1,2}b_{1,2} \\
@@ -112,6 +112,67 @@ a_{2,1}b_{2,2} & a_{\color{red}{2,2}}b_{2,2}\end{bmatrix}
 ---
 
 ##### Comments:
+
+This is a different block matrix from the starting one:
+
+$$\begin{bmatrix} 
+b_{1,1} \begin{bmatrix}a_{\color{red}{1,1}} & a_{1,2}\\
+a_{2,1} & a_{\color{red}{2,2}}\end{bmatrix}
+&
+b_{1,2}\begin{bmatrix}a_{\color{red}{1,1}} & a_{1,2} \\
+a_{2,1} & a_{\color{red}{2,2}}
+\end{bmatrix}
+\\
+b_{2,1}\begin{bmatrix}a_{\color{red}{1,1}} & a_{1,2}\\
+a_{2,1} & a_{\color{red}{2,2}}\end{bmatrix}
+&
+b_{2,2}\begin{bmatrix}a_{\color{red}{1,1}} & a_{1,2}\\
+a_{2,1} & a_{\color{red}{2,2}}\end{bmatrix}
+\end{bmatrix} = \begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix}
+\otimes \small
+\begin{bmatrix}
+a_{1,1} & a_{1,2} \\
+a_{2,1} & a_{2,2}
+\end{bmatrix} 
+ $$
+It actually reverts the order. What would happen if we used the original matrix? We'd be contracting $\color{red}j$ and $\color{red}l$: 
+
+$$T^{i\color{red}j}{}_{k\color{red}l} = \begin{bmatrix} 
+\hbox{Tr}\begin{bmatrix}b_{\color{red}{1,1}}a_{1,1}  & b_{1,2}a_{1,1} \\
+b_{2,1}a_{1,1}  & b_{\color{red}{2,2}}a_{1,1} \end{bmatrix}
+& \hbox{Tr}
+\begin{bmatrix}b_{\color{red}{1,1}}a_{1,2} & b_{1,2}a_{1,2} \\
+b_{2,1}a_{1,2} & b_{\color{red}{2,2}}a_{1,2}
+\end{bmatrix}
+\\
+\hbox{Tr}\begin{bmatrix}b_{\color{red}{1,1}}a_{2,1} & b_{1,2}a_{2,1}\\
+b_{2,1}a_{2,1} & b_{\color{red}{2,2}}a_{2,1}\end{bmatrix}
+&
+\hbox{Tr}\begin{bmatrix}b_{\color{red}{1,1}}a_{2,2} & b_{1,2}a_{2,2}\\
+b_{2,1}a_{2,2} & b_{\color{red}{2,2}}a_{2,2}\end{bmatrix}
+\end{bmatrix} \leftarrow \begin{bmatrix}
+a_{1,1}\begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix} &
+a_{1,2}\begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix} \\
+a_{2,1}\begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix} &
+a_{2,2}\begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2}
+\end{bmatrix}
+\end{bmatrix}$$
+
+---
 
 What would be the mechanics if instead I wanted to contract $j$ and $l$, or $i$ and $l$ in $T^{ij}{}_{kl}$? 
 
@@ -212,7 +273,7 @@ a_{11}b_{21} + a_{22}b_{21} & a_{11}b_{22} + a_{22}b_{22}
 b_{11} & b_{12} \\
 b_{21} &   b_{22}
 \end{bmatrix}
-= \mathop{Tr}(A) B$$
+= \hbox{Tr}(A) B$$
 
 $$\begin{align}
 a_{11}b_{11} + a_{22}b_{11} &= -1 + (-3) = -4\\
@@ -232,7 +293,7 @@ are the traces in your answer when applied to $Y$ and $Z$, and correspond to $\t
 
 ##### Question:
 
-If I want to contract $i$ and $l$, what would be the mechanics (algorithm) it if all I have is the final Kronecker block matrix above? (no $A$ or $B$ explicitly given).
+If I want to contract $\color{red}i$ and $\color{red} l$, as in $T^{\color{red}{i}j}{}_{k\color{red}l}$, what would be the mechanics (algorithm) it if all I have is the final Kronecker block matrix above? (no $A$ or $B$ explicitly given).
 
 I am not sure that I understand what contraction would mean in this set up, but since I know it is matrix multiplication, and that contraction means equating two indices, I think it could be calculated in matrix form as follows (not sure it's correct, please correct as needed):
 
@@ -249,7 +310,7 @@ or
 $$\begin{array}{l|r}
 i = l = 1 & i = l = 2\\
 \hline
-a_{\color{red}{1}j} b_{k\color{red}{1}} & a_{\color{red}{2}j} b_{k\color{red}{2}}\\
+a^{\color{red}{1}}{}_k b^{j}{}_{\color{red}1} & a^{\color{red}2}{}_k b^{l}_{\color{red}{2}}\\
 \hline
 a_{11} b_{11} & a_{21} b_{12}\\
 a_{11} b_{21} & a_{21} b_{22}\\
@@ -271,13 +332,13 @@ b_{12} & b_{22}
 \end{bmatrix}
 =\begin{bmatrix} a_{1,1}b_{1,1} + a_{2,1}b_{1,2} & a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\ a_{1,2}b_{1,1} + a_{2,2}b_{1,2} & a_{1,2}b_{2,1} + a_{2,2}b_{2,2} \end{bmatrix}$$
 
-Compare this to the permutations in the indices when contracting $i$ and $j$ in $T^{ij}{}_{kl}$:
+Compare this to the permutations in the indices when contracting $i$ and $k$ in $T^{\color{red}{i}j}{}_{\color{red}{k}l}$:
 
 
 $$\begin{array}{l|r}
-i = j = 1 & i = j = 2\\
+i = k = 1 & i = k = 2\\
 \hline
-a_{\color{red}{11}} b_{kl} & a_{\color{red}{22}} b_{kl}\\
+a^{\color{red}{1}}{}_{\color{red}1} b^{j}{}_{l} & a^{\color{red}{2}}{}_{\color{red}2} b^{j}{}_{l}\\
 \hline
 a_{11} b_{11} & a_{22} b_{11}\\
 a_{11} b_{12} & a_{22} b_{12}\\
