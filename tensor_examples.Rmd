@@ -113,6 +113,54 @@ a_{2,1}b_{2,2} & a_{2,2}b_{2,2}\end{bmatrix}
 
 ---
 
+##### Comments:
+
+This makes perfect sense. Thank you! As a quick follow-up question, what would be the mechanics if instead I wanted to contract $j$ and $l$, or $i$ and $l$ in $T^{ij}{}_{kl}$? (Unless it is worth a different question, or can't be answered in a quick couple of lines).
+
+---
+
+> You would still take traces of 4 submatrices at a time, only different ones. 
+
+---
+
+Interesting how all the info from the entries not involved in the contraction is literally thrown out... Tempting to say "no trace of it". So all that matters is the correct arrangements of the indices involved, which outside the constraints of a matrix, it would not be relevant... 
+
+---
+
+> Any contraction throws out information from all components where the two indices involved in the contraction have different values. The ordinary trace of a square matrix is just the simplest example of that.
+
+---
+
+What about [this answer](https://math.stackexchange.com/a/2811377/152225)?
+
+##### Question:
+
+
+So I'm having trouble to compute tensor contractions with "actual" numbers from the matrix representations of the tensors. I have only seen abstract theoretical examples on the internet so I'm asking for a bit of help on how to find the contractions given the expressions of the tensors and the pair of indices where we will carry out the contraction. I'll show a simple example and I hope you can help me.
+
+Let's suppose we have two tensors of the type (1,1) (that means 1 contravariant, 1 covariant). They will be called Y and Z and knowing their coordinate forms, we can represent them through matrices in this way:
+
+Y = \begin{pmatrix}1&-1\\2&3\end{pmatrix}
+
+Z = \begin{pmatrix}-1&0\\1&2\end{pmatrix}
+
+Now, we could compute the Kronecker product Y  x  Z in order to get a type (2,2) tensor (2 contravariant, 2 covariant). The result would be:
+
+\begin{pmatrix}-1&0&1&0\\1&2&-1&-2\\-2&0&-3&0\\2&4&3&6\end{pmatrix}
+
+So, how could we get the contractions of this (2,2) tensor (with actual numbers instead of the parameters that you see in other examples) ?
+
+Note that here we have 2 contravariant indices and 2 covariant indices so there are 4 possible contractions depending on the pair of indices that you choose, I guess.
+As far as I know, all possible contractions with the selection of pairs of indices are the following:
+
+- 1st covariant index and 1st contravariant index.<br/>
+- 1st covariant index and 2nd contravariant index.<br/>
+- 2nd covariant index and 1st contravariant index.<br/>
+- 2nd covariant index and 2nd contravariant index.<br/>
+
+So what matrices would be the result of those contractions. Just in case I didn't state it clearly before, these matrices are the representation of tensor of which we know the coefficients of their coordinate forms (explicit forms in a specific basis, and that info is known). So we want to perform contractions in the last 4x4 matrix that I showed (which represents a (2,2) tensor) and there a 4 different possibilities. My question has to do with the fact that I can't find a way to do this with actual numbers and I can't figure out the result for each possible contraction (I also don't know what the differences would be in the calculation of a contraction with a certain pair of indices or another).
+
+I would really appreciate that someone could find a specific result for the contractions that I proposed (I guess the calculation is easy but I just don't know how it could be done). Thank you really much for reading.
 
 
 
