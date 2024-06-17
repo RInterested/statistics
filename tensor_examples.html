@@ -622,6 +622,45 @@ b21 &amp;   b22
 <p>are the traces in your answer, and correspond to <span class="math inline">\(\text{Tr}(Y)Z=4
 \begin{pmatrix}-1&amp;0\\1&amp;2\end{pmatrix}\)</span></p>
 <hr />
+<blockquote>
+<p>I have to qualify my above comment that it is always traces of
+submatrices. That holds if you contract over the two indices of <span class="math inline">\(A\)</span> or over the two indices of <span class="math inline">\(B\)</span>, but if you contract over, say, <span class="math inline">\(\color{red}i\)</span> and <span class="math inline">\(\color{orange}l\)</span> - <span class="math inline">\(T^{{\color{red}i}j}{}_{k{\color{orange}l}}\)</span>
+- then you would have a matrix product.</p>
+</blockquote>
+<hr />
+</div>
+<div id="question-1" class="section level5">
+<h5>Question:</h5>
+<p>If I want to contract (as in one of the comments to the prior post)
+<span class="math inline">\(i\)</span> and <span class="math inline">\(l\)</span>, what would be the mechanics
+(algorithm) it if all I have is the final Kronecker block matrix above?
+(no <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> explicitly given).</p>
+<p>I am not sure that I understand what contraction would mean in this
+set up, but since I know it is matrix multiplication, and that
+contraction means equating two indices, I think it could be calculated
+in matrix form as follows (not sure it’s correct, please correct as
+needed):</p>
+<p><span class="math display">\[\begin{matrix}
+j = 1, k = 1: &amp; T^{i1}{}_{1i} = a_{1,1}b_{1,1} + a_{2,1}b_{1,2}\\
+j = 1, k = 2: &amp; T^{i1}{}_{2i} = a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\
+j = 2, k = 1: &amp; T^{i2}{}_{1i} = a_{1,2}b_{1,1} + a_{2,2}b_{1,2} \\
+j = 2, k = 2: &amp; T^{i2}{}_{2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
+\end{matrix}
+\]</span></p>
+<p>or</p>
+<p><span class="math display">\[\begin{array}{l|r}
+i = l = 1 &amp; i = l = 2\\
+\hline
+a_{{\color{red}1}j} b_{k{\color{red}1}} &amp; a_{{\color{red}2}j}
+b_{k{\color{red}2}}\\
+\hline
+a_{11} b_{11} &amp; a_{21} b_{12}\\
+a_{11} b_{21} &amp; a_{21} b_{22}\\
+a_{12} b_{11} &amp; a_{22} b_{12}\\
+a_{12} b_{21} &amp; a_{22} b_{22}
+\end{array}
+\]</span></p>
+<hr />
 <p>From <a href="https://math.stackexchange.com/q/2437459/152225">this
 question</a>:</p>
 <p>If we have to (co)-vectors in <span class="math inline">\(V^*:\)</span></p>

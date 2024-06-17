@@ -225,6 +225,40 @@ $$a_{11}b_{22} + a_{22}b_{22} = 2+ 6 = 8$$
 are the traces in your answer, and correspond to $\text{Tr}(Y)Z=4 \begin{pmatrix}-1&0\\1&2\end{pmatrix}$
 
 
+---
+
+> I have to qualify my above comment that it is always traces of submatrices. That holds if you contract over the two indices of $A$ or over the two indices of $B$, but if you contract over, say, $\color{red}i$ and $\color{orange}l$ -  $T^{{\color{red}i}j}{}_{k{\color{orange}l}}$ - then you would have a matrix product.
+
+---
+
+##### Question:
+
+If I want to contract (as in one of the comments to the prior post) $i$ and $l$, what would be the mechanics (algorithm) it if all I have is the final Kronecker block matrix above? (no $A$ or $B$ explicitly given).
+
+I am not sure that I understand what contraction would mean in this set up, but since I know it is matrix multiplication, and that contraction means equating two indices, I think it could be calculated in matrix form as follows (not sure it's correct, please correct as needed):
+
+$$\begin{matrix}
+j = 1, k = 1: & T^{i1}{}_{1i} = a_{1,1}b_{1,1} + a_{2,1}b_{1,2}\\
+j = 1, k = 2: & T^{i1}{}_{2i} = a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\
+j = 2, k = 1: & T^{i2}{}_{1i} = a_{1,2}b_{1,1} + a_{2,2}b_{1,2} \\
+j = 2, k = 2: & T^{i2}{}_{2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
+\end{matrix}
+$$
+
+or
+
+$$\begin{array}{l|r}
+i = l = 1 & i = l = 2\\
+\hline
+a_{{\color{red}1}j} b_{k{\color{red}1}} & a_{{\color{red}2}j} b_{k{\color{red}2}}\\
+\hline
+a_{11} b_{11} & a_{21} b_{12}\\
+a_{11} b_{21} & a_{21} b_{22}\\
+a_{12} b_{11} & a_{22} b_{12}\\
+a_{12} b_{21} & a_{22} b_{22}
+\end{array}
+$$
+
 
 ---
 
