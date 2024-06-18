@@ -493,8 +493,23 @@ a_{\color{red}{1,1}}b_{2,2} + a_{\color{red}{2,2}}b_{2,2}
 </div>
 <div id="comments" class="section level5">
 <h5>Comments:</h5>
-<p>This is a different block matrix from the starting one:</p>
+<p>The matrix in the answer is a different block matrix from the
+starting one, i.e. <span class="math inline">\(A \otimes B\)</span>:</p>
 <p><span class="math display">\[\begin{bmatrix}
+\begin{bmatrix}a_{\color{red}{1,1}}b_{1,1} &amp; a_{1,2}b_{1,1}\\
+a_{2,1}b_{1,1} &amp; a_{\color{red}{2,2}}b_{1,1}\end{bmatrix}
+&amp;
+\begin{bmatrix}a_{\color{red}{1,1}}b_{1,2} &amp; a_{1,2}b_{1,2} \\
+a_{2,1}b_{1,2} &amp; a_{\color{red}{2,2}}b_{1,2}
+\end{bmatrix}
+\\
+\begin{bmatrix}a_{\color{red}{1,1}}b_{2,1} &amp; a_{1,2}b_{2,1}\\
+a_{2,1}b_{2,1} &amp; a_{\color{red}{2,2}}b_{2,1}\end{bmatrix}
+&amp;
+\begin{bmatrix}a_{\color{red}{1,1}}b_{2,2} &amp; a_{1,2}b_{2,2}\\
+a_{2,1}b_{2,2} &amp; a_{\color{red}{2,2}}b_{2,2}\end{bmatrix}
+\end{bmatrix}
+=\begin{bmatrix}
 b_{1,1} \begin{bmatrix}a_{\color{red}{1,1}} &amp; a_{1,2}\\
 a_{2,1} &amp; a_{\color{red}{2,2}}\end{bmatrix}
 &amp;
@@ -516,7 +531,7 @@ b_{2,1} &amp; b_{2,2}
 a_{1,1} &amp; a_{1,2} \\
 a_{2,1} &amp; a_{2,2}
 \end{bmatrix}
-\]</span> It actually reverts the order. What would happen if we used
+\]</span> It actually reverts the order, corresponding to <span class="math inline">\(B \otimes A\)</span>. What would happen if we used
 the original matrix? We’d be contracting <span class="math inline">\(\color{red}j\)</span> and <span class="math inline">\(\color{red}l\)</span>:</p>
 <p><span class="math display">\[T^{i\color{red}j}{}_{k\color{red}l} =
 \begin{bmatrix}
