@@ -483,6 +483,11 @@ a_{2,1}b_{2,1} &amp; a_{\color{red}{2,2}}b_{2,1}\end{bmatrix}
 \hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{2,2} &amp;
 a_{1,2}b_{2,2}\\
 a_{2,1}b_{2,2} &amp; a_{\color{red}{2,2}}b_{2,2}\end{bmatrix}
+\end{bmatrix} = \begin{bmatrix}
+a_{\color{red}{1,1}}b_{1,1}  + a_{\color{red}{2,2}}b_{1,1} &amp;
+a_{\color{red}{1,1}}b_{1,2} + a_{\color{red}{2,2}}b_{1,2} \\
+a_{\color{red}{1,1}}b_{2,1} + a_{\color{red}{2,2}}b_{2,1} &amp;
+a_{\color{red}{1,1}}b_{2,2} + a_{\color{red}{2,2}}b_{2,2}
 \end{bmatrix}\]</span></p>
 <hr />
 </div>
@@ -663,22 +668,28 @@ that did not rely on separate knowledge of <span class="math inline">\(A\)</span
 <p>Sounds correct:</p>
 <p>The matrix of traces in the answer is</p>
 <p><span class="math display">\[\begin{bmatrix}
-a_{11}b_{11} + a_{22}b_{11} &amp; a_{11}b_{12} + a_{22}b_{12} \\
-a_{11}b_{21} + a_{22}b_{21} &amp; a_{11}b_{22} + a_{22}b_{22}
-\end{bmatrix} =
-(a_{11} + a_{22})
+a_{\color{red}{1,1}}b_{1,1}  + a_{\color{red}{2,2}}b_{1,1} &amp;
+a_{\color{red}{1,1}}b_{1,2} + a_{\color{red}{2,2}}b_{1,2} \\
+a_{\color{red}{1,1}}b_{2,1} + a_{\color{red}{2,2}}b_{2,1} &amp;
+a_{\color{red}{1,1}}b_{2,2} + a_{\color{red}{2,2}}b_{2,2}
+\end{bmatrix}
+=
+(a_{\color{red}{1,1}} + a_{\color{red}{2,2}})
 \begin{bmatrix}
 b_{11} &amp; b_{12} \\
 b_{21} &amp;   b_{22}
 \end{bmatrix}
 = \hbox{Tr}(A) B\]</span></p>
+<p>For <span class="math inline">\(\small Y =
+\begin{pmatrix}1&amp;-1\\2&amp;3\end{pmatrix}\)</span> and <span class="math inline">\(Z = \small
+\begin{pmatrix}-1&amp;0\\1&amp;2\end{pmatrix}\)</span>,</p>
 <p><span class="math display">\[\begin{align}
 a_{11}b_{11} + a_{22}b_{11} &amp;= -1 + (-3) = -4\\
 a_{11}b_{12} + a_{22}b_{2} &amp;= 0 + 0 = 0\\
 a_{11}b_{21} + a_{22}b_{21} &amp;=1 + 3 = 4\\
 a_{11}b_{22} + a_{22}b_{22} &amp;= 2+ 6 = 8
 \end{align}\]</span></p>
-<p>are the traces in your answer when applied to <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span>, and correspond to <span class="math inline">\(\text{Tr}(Y)Z=4
+<p>are the traces in the answer when applied to <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span>, and correspond to <span class="math inline">\(\text{Tr}(Y)Z=4
 \begin{pmatrix}-1&amp;0\\1&amp;2\end{pmatrix}\)</span></p>
 <hr />
 <blockquote>
