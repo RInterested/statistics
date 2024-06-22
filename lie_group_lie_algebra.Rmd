@@ -1,0 +1,231 @@
+---
+title: 'Lie algebra computation from a Lie group'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Lie Group and Lie Algebra for $SL(2, \mathbb C)$
+
+From [here](https://youtu.be/H1D09cuFWlM?si=do5kF8BrkmH-r3By).
+
+The group is a set
+
+$$SL(2,\mathbb C) =\left\{\begin{bmatrix}a & b \\ c & d\end{bmatrix} \in \mathbb C^4 \mid ad - bc = 1 \right\}$$
+
+with the group operation of matrix multiplication.
+
+This set has a topological space related to $\mathbb C.$
+
+To check that it is also a topological manifold we need to build charts:
+
+$$\mathcal U =\left\{\begin{bmatrix}a & b \\ c & d\end{bmatrix} \in SL(2, \mathbb C) \mid a \neq 0 \right\}$$
+
+so that the chart map $x$
+
+$$x: \mathcal U \to \mathbb C^3$$
+
+because there are only $3$ degrees of freedom, since the determinant has to be $1.$
+
+This is defined as
+
+$$x\left( \begin{bmatrix}a & b \\ c & d\end{bmatrix}\right)=(a,b,c)$$
+
+with the inverse being
+
+$$x^{-1}(a, b, c) = \begin{bmatrix}a & b \\ c & \frac{1 + bc}{a}\end{bmatrix}$$
+
+both are continuous, forming a homeomorphism.
+
+Another chart can be
+
+$$\mathcal V =\left\{\begin{bmatrix}a & b \\ c & d\end{bmatrix} \in SL(2, \mathbb C) \mid d \neq 0 \right\}$$
+
+with
+
+$$y\left( \begin{bmatrix}a & b \\ c & d\end{bmatrix}\right)=(b,c,d)$$
+
+and 
+
+$$y^{-1}(b, c, d) = \begin{bmatrix}\frac{1 + bc}{d} & b \\ c & d\end{bmatrix}$$
+
+The next step is to check the chart compatibility.
+
+The charts constitute an atlas $\mathcal A,$ which together forms a differentiable manifold.
+
+So $SL(2,\mathbb C)$, equipped with a topology and atlas $\left( \mathcal O, \mathcal A \right)$ is a Lie group since both the map afforded by the matrix operation and the inverse are smooth.
+
+
+### The Lie Algebra $\frak{sl}(2, \mathbb C)$
+
+A Lie algebra is the set of left-invariant vector fields (section of the tangent bundle) on the group $G$
+
+
+$$\frak{L}(G)=\left\{X \in \Gamma(TG) \mid \left( l_{g *} X_h \right)_{[l_g h = gh]} = X_{gh} \right\}$$
+
+where the left translation $l_g$ is defined as 
+
+$$l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}: SL(2, \mathbb C) \to Sl(2, \mathbb C)$$
+
+defined as
+
+$$l_{\tiny \begin{bmatrix}a & b \\ c & d\end{bmatrix}}\begin{bmatrix}e & f \\ g & h\end{bmatrix}=\begin{bmatrix}a & b \\ c & d\end{bmatrix}\begin{bmatrix}e & f \\ g & h\end{bmatrix}$$
+
+and $l_{g *}$ is the push-forward of the map $l_{g}$, in this case on the vector field $X$ at some point $h \in G$, the result of which will be at $l_g h = gh$.
+
+An important result, derived in another video by Prof Schuller (in [here](https://youtu.be/mJ8ZDdA10GY?si=2w6gKL4Awrl4Ya13&t=4545)), is that there is an isomorphism between the tangent space at the identity to the group 
+
+
+$$T_{\tiny \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}} \, SL(2, \mathbb C) \equiv L(2, \mathbb C)$$
+
+with $L$ being the set of left-invariant vector fields (the defining set in the Lie algebra).
+
+So rather than looking at vector fields over the manifold, it is enough to look at the corresponding one vector at the identity.
+
+In vector fields the bracket (commutator) is defined: one vector field, acting on another vector field, acting on a function. Now we need a Lie bracket at the tangent plane at the identity as:
+
+$$[\cdot, \cdot]: T_{id}SL(2, \mathbb C) \times T_{id}SL(2, \mathbb C) \to T_{id}SL(2, \mathbb C)$$
+
+$$[A, B] = l_{g^{-1}*}[l_{g*}A,l_{g*}A]$$
+
+using the push-forward of the left translation where $A \in T_{\tiny \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}SL(2, \mathbb C).$
+
+
+The calculation proceeds as follows:
+
+$g \in SL(2, \mathbb C)$ so the push-forward of the left-translation by this $g$ will act on an element at the identity:
+
+
+$$\left [l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^i} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right ]_{\tiny \begin{bmatrix}a & b \\ c & d\end{bmatrix}\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\; f = \left [l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^i} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right ]_{\tiny \begin{bmatrix}a & b \\ c & d\end{bmatrix}}\; f $$
+
+To do so we need a chart, and the $\mathcal U$ is the chart that contains the identity. The coordinates afforded by the chart at the identity are $x^i$ with $i = 1,2,3.$ So pushing forward the tangent vector at the identity to the point $\begin{bmatrix}a & b \\ c & d\end{bmatrix}\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}$ to get a tangent vector at this point (which happens to just be $\begin{bmatrix}a & b \\ c & d\end{bmatrix}$ in this case). This is acting on a function $f.$ So we take the $i$-th tangent vector at the identity in the $\mathcal U$ chart (coordinate system) getting a tangent vector at the point $\begin{bmatrix}a & b \\ c & d\end{bmatrix}$. And since this point is any point in the chart, we can generate the entire left-invariant vector field from one single vector at the identity.
+
+
+The push-forward generates a vector field by the $i$-th tangent vector at the identity $\left(\frac{ \partial }{\partial x^i} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}$ after the map underlying the push-forward, $l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}$, acting on $f$. 
+
+
+$$\left [l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^i} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right ]_{\tiny \begin{bmatrix}a & b \\ c & d\end{bmatrix}\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\; f = \left(\frac{ \partial }{\partial x^i} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}} \left(f \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \right) = \left.{\partial_i 
+\left( f \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  \circ x^{-1}\right)}\right|_{x\left(\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\right)}$$
+
+Notice that in the intermediate expression Prof Schuller is invoking the definition of the push-forward of a vector field $\frac{\partial}{\partial x^i}$. His explanation of the pushforward can be found [here](https://youtu.be/XZcKSoI17r0?si=_nuUB_eUxN5-HCMt&t=1828), where he defines as $\phi^*(X)f := X(f \circ \phi),$ where $\phi$ is a smooth map between manifolds $M$ and $N.$ The function $f$ is in the target $N,$ while $X \in T_pM,$ and $\phi^*(X) \in T_{\phi(p)}N.$ The RHS of the definition says, that you take the vector $X$ and act on $f$ after $\phi.$ Given that $\phi$ takes you to $N$ from $M$, i.e. $M \to N $ and $f$ takes you to the real numbers, we are providing $X$ with a differentiable function $M \to N \to \mathbb R.$ This makes sense.
+
+Yes, he considers this expression,  $\frac{\partial}{\partial x^i}$, to be the vector field, but it doesn't sound correct. Then he says that the pushforward of a vector field $\frac{\partial}{\partial x^i}$ at $\begin{bmatrix}1 & 0 \\ 0 & 1 \end{bmatrix}$ acting on $f$ after the smooth map underlying the pushforward, $lg_{\tiny \begin{bmatrix}a & b \\ c & d \end{bmatrix}}$. However, $\frac{\partial}{\partial x^i}$ at $\begin{bmatrix}1 & 0 \\ 0 & 1 \end{bmatrix}$ doesn't sound like a vector field. He does mention that $\frac{\partial}{\partial x^i}$ is not a partial derivative: it uses the coordinates $x^i$ and only becomes a partial derivative after applying $x^{-1}$. This is also explained [here](https://youtu.be/UPGoXBfm6Js?si=eTbOn__RgMKkfSKe&t=5602). 
+
+The last expression meant to make the partial derivative work. In the expression $ \partial_i 
+\left( f \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  \circ x^{-1}\right)$ the $x$ is in the chart $\mathcal U,$, i.e. $(\mathbb C^*, \mathbb C, \mathbb C)$, where the asterisk here means that it's the complex plane minus $0$. This inverse is going to a point in the manifold, where it gets left translated, i.e. $l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}},$ at which point the function $f$ takes you to the complex numbers $\mathbb C.$ So the derivative with respect to the first, second and third entry of $(\mathbb C^*, \mathbb C, \mathbb C)$.
+
+With the usual trick
+
+
+$$=\partial_i 
+\left( f \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  \circ x^{-1}\right) = \partial_i \left.{
+\left(\left( f \circ x^{-1}\right)  \circ \left(x \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  \circ x^{-1}\right)\right)}\right|_{x\left(\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\right)}$$
+
+the last bit $x \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  \circ x^{-1}$ goes from $\mathbb C^3 \to \mathbb C^3$ and the $f \circ x^{-1}$ part from $\mathbb C^3 \to \mathbb C$. So it is consistent, and allows us to use the multidimensional chain rule:
+
+$$=\left.{\partial_m\left( f \circ x^{-1}\right)}\right|_{\left(x \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  \circ x^{-1})(x\left(\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\right)\right)} \; \cdot \; \partial_i \left.{\left( x^m  \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \circ x^{-1}\right)}\right|_{x\left(\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\right)}$$
+
+where $\partial_i \left( x^m  \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \circ x^{-1}\right)$ is the inner derivative, and $\partial_m\left( f \circ x^{-1}\right)$ the outer derivative, which is evaluated at $\left( x \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  \circ x^{-1}\right)(x\left(\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\right)) = (a,b,c).$
+
+Now going one step further, and considering that the expression takes a point in the chart $(e,f,g),$
+
+$$\left( x^m  \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \circ x^{-1}\right)\, (e,f,g) = x^m  \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \begin{bmatrix}e & f \\ g & \frac{1 + fg}{e}\end{bmatrix} = x^m \circ \begin{bmatrix}a & b \\ c & d\end{bmatrix}\begin{bmatrix}e & f \\ g & \frac{1 + fg}{e}\end{bmatrix} = x^m \circ \begin{bmatrix}ae + bg & af + \frac{b + (1 + fg)}{e}\\ ce + dg & cf + \frac{d(1 + fg)}{e}\end{bmatrix}$$
+
+and the $m$-th coordinate is
+
+$$=\left(  ae + bg , af + \frac{b(1 + fg)}{e} , ce + dg  \right)^m$$
+
+and therefore at $m = 1,$ we are at $ae + bg ,$ and deriving first to $e,$ then to $f$ and finally to $g$ we get $(a, 0 , b).$ Next we do the same for $m = 2$, which means $af + \frac{b(1 + fg)}{e}$, etc.
+
+We see that the expression
+
+$$\partial_i \left.{\left( x^m  \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \circ x^{-1}\right)}\right|_{x\left(\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\right)}= \partial_i \left.{\left( x^m  \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \circ x^{-1}\right)}\right|_{(1,0,0)}= \left.{\begin{bmatrix} a & 0 & b \\ \frac{-b(1 + fg)}{e^2} & a + \frac{bg}{e} & \frac{bf}{e} \\ c & 0 & d\end{bmatrix}}\right|^m_{i\phantom{m}(1,0,0)}=\left.{\begin{bmatrix} a & 0 & b \\ -b & a & 0 \\ c & 0 & d\end{bmatrix}}\right|^m_{\phantom{m}i}$$
+
+we get
+
+$$\small \left [l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^i} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right ]_{\tiny \begin{bmatrix}a & b \\ c & d\end{bmatrix}}\; f = \left.{\partial_m\left( f \circ x^{-1}\right)}\right|_{\left(x \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  \circ x^{-1})(x\left(\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\right)\right)} \; \cdot \; \partial_i \left.{\left( x^m  \circ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \circ x^{-1}\right)}\right|_{x\left(\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}\right)}= \left(\frac{\partial}{\partial x^m}\right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}f  \; \cdot \; \left.{\begin{bmatrix} a & 0 & b \\ -b & a & 0 \\ c & 0 & \frac{1 + bc}{a}\end{bmatrix}}\right|^m_{\phantom{m}i}$$
+
+with $m$ being rows, and $i$ columns.
+
+Therefore for the first coordinate-induced basis tangent vector at the identity:
+
+$$l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^1} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}} = a \left(\frac{\partial}{\partial x^1} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} - b \left(\frac{\partial}{\partial x^2} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  + c \left(\frac{\partial}{\partial x^3} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}$$
+
+For the second coordinate:
+
+$$l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^2} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}} = a \left(\frac{\partial}{\partial x^2} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} $$
+
+and the third:
+
+$$l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^3} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}} = b \left(\frac{\partial}{\partial x^1} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} + d \left(\frac{\partial}{\partial x^3} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}$$
+
+Therefore we constructed a vector field from a single vector at the identity.
+
+Now we can calculate the bracket
+
+
+$$\left [ \left(\frac{\partial}{\partial x^1}\right)_{\tiny \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}, \left(\frac{\partial}{\partial x^2}\right)_{\tiny \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right ] f:= l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}^{-1}*} \left [ l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^1} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}} , l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}*} \left(\frac{ \partial }{\partial x^2} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right ] f$$
+
+and because the expressions on the LHS are vector fields,
+
+$$\small=l_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}^{-1}*} \left[ a \left(\frac{\partial}{\partial x^1} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} - b \left(\frac{\partial}{\partial x^2} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  + c \left(\frac{\partial}{\partial x^3} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \; , \; a \left(\frac{\partial}{\partial x^2} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \right]f \\\\= \left.{\left[ a \left(\frac{\partial}{\partial x^1} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} - b \left(\frac{\partial}{\partial x^2} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}}  + c \left(\frac{\partial}{\partial x^3} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \; , \; a \left(\frac{\partial}{\partial x^2} \right)_{\tiny\begin{bmatrix}a & b \\ c & d\end{bmatrix}} \right]}\right|_{id}f$$
+
+which can be worked out, keeping in mind that
+
+$$\left(\frac{\partial}{\partial x^1}\right)_{\tiny \begin{bmatrix}a & b \\ c & d \end{bmatrix}}f=\partial_i(f \circ x^{-1})_{(a,b,c)}$$
+
+The final calculations involve,
+
+$$\left[ \left(\frac{\partial}{\partial a} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}, \left(\frac{\partial}{\partial b} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right]f = \left.{\left[ a \frac{\partial}{\partial a} - b \frac{\partial}{\partial b} + c \frac{\partial}{\partial c}, a \frac{\partial}{\partial b}\right]}\right|_{id} f$$
+
+$$\left[ \left(\frac{\partial}{\partial a} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}, \left(\frac{\partial}{\partial c} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right]f = \left.{\left[ a \frac{\partial}{\partial a} - b \frac{\partial}{\partial b} + c \frac{\partial}{\partial c}, b \frac{\partial}{\partial a} +  \frac{1 + bc}{a} \frac{\partial}{\partial c}\right]}\right|_{id}  f$$
+
+$$\left[ \left(\frac{\partial}{\partial b} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}, \left(\frac{\partial}{\partial c} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right]f = \left.{\left[ a \frac{\partial}{\partial b} , b \frac{\partial}{\partial a} +  \frac{1 + bc}{a} \frac{\partial}{\partial c}\right]}\right|_{id}  f$$
+
+Evaluating the last expression,
+
+
+$$=a \frac{\partial}{\partial b} \left(b \frac{\partial}{\partial a} f + \frac{1 + bc}{a} \frac{\partial}{\partial c} f\right) - \left(b \frac{\partial}{\partial a} + \frac{1 + bc}{a} \frac{\partial}{\partial c}\right)\left(a \frac{\partial}{\partial b}f \right)$$
+
+further
+
+$$=a \frac{\partial}{\partial a}f+ ab \frac{\partial^2}{\partial b \partial a}f + c \frac{\partial}{\partial c} f + a \frac{1 + bc}{a}\frac{\partial^2}{\partial b \partial c}f - b \frac{\partial}{\partial b}f - ba \frac{\partial^2}{\partial a \partial b}f - (1 + bc) \frac{\partial^2}{\partial c \partial b}f$$
+
+which simplifies to 
+
+$$\left[ \left(\frac{\partial}{\partial b} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}, \left(\frac{\partial}{\partial c} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right]f =\left.{\left( a \frac{\partial}{ \partial a} - b \frac{\partial}{\partial b} + c \frac{\partial}{\partial c} \right)}\right|_{id} f=\left.{\left( a \frac{\partial}{ \partial a}  \right)}\right|_{id} f$$
+
+Similarly,
+
+$$\left[ \left(\frac{\partial}{\partial a} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}, \left(\frac{\partial}{\partial b} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right]f = 2 \left( \frac{\partial}{\partial b}\right)_{id} f$$
+
+and
+
+$$\left[ \left(\frac{\partial}{\partial a} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}, \left(\frac{\partial}{\partial c} \right)_{\tiny\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}}\right]f =\left( -b \frac{\partial}{\partial a} - \frac{1 + bc}{a} \frac{\partial}{\partial c} \right)_{id} f = - 2 \left( \frac{\partial}{\partial c} \right)_{id} f$$
+
+In summary,
+
+$$[X_1, X_2] = 2 X_2$$
+$$[X_1, X_3] = -2 X_3$$
+$$[X_2, X_3] = X_1$$
+
+where $X_i = \left( \frac{\partial}{\partial x^i} \right)_{id}$ is the $i$-th abstract differential coordinates tangent vector at the identity.
+
+
+
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
