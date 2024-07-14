@@ -41,13 +41,13 @@ Example:
 
 If the basis vectors are $\mathbf e_1 = [1,0.8]^\top$ and $\mathbf e_2 = [-0.25,1]^\top$, the matrix of dot products is
 
-$$A = \begin{bmatrix}\mathbf e^1 \cdot \mathbf e^1 & \mathbf e^1 \cdot \mathbf e^2 \\
-\mathbf e^2 \cdot \mathbf e^1 & \mathbf e^2 \cdot \mathbf e^2\end{bmatrix} =\begin{bmatrix} 1.64 & 0.55 \\ 0.55 & 1.06 \end{bmatrix}$$
+$$A = \begin{bmatrix}\mathbf e_1 \cdot \mathbf e_1 & \mathbf e_1 \cdot \mathbf e_2 \\
+\mathbf e_2 \cdot \mathbf e_1 & \mathbf e_2 \cdot \mathbf e_2\end{bmatrix} =\begin{bmatrix} 1.64 & 0.55 \\ 0.55 & 1.06 \end{bmatrix}$$
 
 with 
 
-$$A^{-1} = \begin{bmatrix}\mathbf e_1 \cdot \mathbf e_1 & \mathbf e_1 \cdot \mathbf e_2 \\
-\mathbf e_2 \cdot \mathbf e_1 & \mathbf e_2 \cdot \mathbf e_2\end{bmatrix} =\begin{bmatrix} 0.74 & -0.38 \\ -0.38 & 1.14 \end{bmatrix}$$
+$$A^{-1} = \begin{bmatrix}\mathbf e^1 \cdot \mathbf e^1 & \mathbf e^1 \cdot \mathbf e^2 \\
+\mathbf e^2 \cdot \mathbf e^1 & \mathbf e^2 \cdot \mathbf e^2\end{bmatrix} =\begin{bmatrix} 0.74 & -0.38 \\ -0.38 & 1.14 \end{bmatrix}$$
 
 and
 
@@ -61,11 +61,13 @@ This is reflected on the image below (to the left), in which the cobasis vectors
 
 <img src="flashlight.png" width=800>
 
-Notice how the cobasis vector change opposite to the basis vectors under a change of coordinates (right image), and the density of the stacks decreases when the cobasis vectors decrease in size (more spaced out):
+Notice how the cobasis vector change opposite to the basis vectors under a change of coordinates, and the density of the stacks decreases when the cobasis vectors decrease in size (more spaced out). On the right image below, the vector $[3,2]^\top = 3 \mathbf e_1 + 2 \mathbf e_2$ is not an invariant, increasing in size with the basis vectors. The point of the image is to depict the decrease in the cobasis vectors and natural spacing out of the stack of covectors, each line in them corresponding to a set line of the linear functional
+
+$$[e^1 , e^2]\begin{bmatrix} x \\ y\end{bmatrix} = \text{constant}$$
 
 ---
 
-<img src="cobasis.png" width=800>
+<img src="cobasis.png" width=1000>
 
 ---
 
