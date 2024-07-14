@@ -20,6 +20,55 @@ output:
 
 ---
 
+#### Biorthogonal system in $\mathbb R^n$:
+
+Given the matrix of dot products between basis vectors
+
+$$A = \begin{bmatrix}\mathbf e_1 \cdot \mathbf e_1 & \mathbf e_1 \cdot \mathbf e_2 \\
+\mathbf e_2 \cdot \mathbf e_1 & \mathbf e_2 \cdot \mathbf e_2\end{bmatrix}$$
+
+the [biorthoganility system](https://en.wikipedia.org/wiki/Dual_basis) in $\mathbb R^n$:
+
+$$\mathbf e^k \cdot \mathbf e_s = \delta^k_s = \sum_{q=1}^n e^{kq}e_{qs}= \begin{bmatrix}\mathbf e^1 \cdot \mathbf e^1 & \mathbf e^1 \cdot \mathbf e^2 \\
+\mathbf e^2 \cdot \mathbf e^1 & \mathbf e^2 \cdot \mathbf e^2\end{bmatrix}\begin{bmatrix}\mathbf e_1 \cdot \mathbf e_1 & \mathbf e_1 \cdot \mathbf e_2 \\
+\mathbf e_2 \cdot \mathbf e_1 & \mathbf e_2 \cdot \mathbf e_2\end{bmatrix}$$
+
+the values of $e^{kq}$ correspond to the entries of the inverse matrix of $A.$ So that
+
+$$\mathbf e^k = \sum_{q=1}^n e^{kq} \mathbf e_q$$
+
+Example:
+
+If the basis vectors are $\mathbf e_1 = [1,0.8]^\top$ and $\mathbf e_2 = [-0.25,1]^\top$, the matrix of dot products is
+
+$$A = \begin{bmatrix}\mathbf e^1 \cdot \mathbf e^1 & \mathbf e^1 \cdot \mathbf e^2 \\
+\mathbf e^2 \cdot \mathbf e^1 & \mathbf e^2 \cdot \mathbf e^2\end{bmatrix} =\begin{bmatrix} 1.64 & 0.55 \\ 0.55 & 1.06 \end{bmatrix}$$
+
+with 
+
+$$A^{-1} = \begin{bmatrix}\mathbf e_1 \cdot \mathbf e_1 & \mathbf e_1 \cdot \mathbf e_2 \\
+\mathbf e_2 \cdot \mathbf e_1 & \mathbf e_2 \cdot \mathbf e_2\end{bmatrix} =\begin{bmatrix} 0.74 & -0.38 \\ -0.38 & 1.14 \end{bmatrix}$$
+
+and
+
+$$\mathbf e^1 = 0.74 \mathbf e_1 -0.38 \mathbf e_2$$
+
+while
+
+$$\mathbf e^2 = -0.38 \mathbf e_1 + 1.14 \mathbf e_2$$
+
+This is reflected on the image below (to the left), in which the cobasis vectors are portrayed as arrow vectors, as well as a stack. Notice how a vector $[3,2]^\top = 3 \mathbf e_1 + 2 \mathbf e_2$ can be decomposed into its components in the basis vectors by projecting the actual vector onto the cobasis vectors as it would a flash light perpendicular to the cobasis vectors ("A Student's Guide to Vectors and Tensors" by Daniel A. Fleisch):
+
+<img src="flashlight.png" width=800>
+
+Notice how the cobasis vector change opposite to the basis vectors under a change of coordinates (right image), and the density of the stacks decreases when the cobasis vectors decrease in size (more spaced out):
+
+---
+
+<img src="cobasis.png" width=800>
+
+---
+
 
 #### Change to oblique coordinates:
 
