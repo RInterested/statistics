@@ -83,6 +83,69 @@ The changing coordinates of the vector can be retrieved by checking the number o
 
 ---
 
+See also [this post](https://physics.stackexchange.com/a/821513/150551) around the animated graphic above:
+
+Given the [metric tensor for the basis vectors][1]
+
+$$A = \begin{bmatrix}\mathbf e_1 \cdot \mathbf e_1 & \mathbf e_1 \cdot \mathbf e_2 \\
+\mathbf e_2 \cdot \mathbf e_1 & \mathbf e_2 \cdot \mathbf e_2\end{bmatrix}$$
+
+the [biorthoganility system](https://en.wikipedia.org/wiki/Dual_basis) in $\mathbb R^n$:
+
+$$\mathbf e^k \cdot \mathbf e_s = \delta^k_s = \sum_{q=1}^n e^{kq}e_{qs}= \begin{bmatrix}\mathbf e^1 \cdot \mathbf e^1 & \mathbf e^1 \cdot \mathbf e^2 \\
+\mathbf e^2 \cdot \mathbf e^1 & \mathbf e^2 \cdot \mathbf e^2\end{bmatrix}\begin{bmatrix}\mathbf e_1 \cdot \mathbf e_1 & \mathbf e_1 \cdot \mathbf e_2 \\
+\mathbf e_2 \cdot \mathbf e_1 & \mathbf e_2 \cdot \mathbf e_2\end{bmatrix}$$
+
+the values of $e^{kq}$ correspond to the entries of the inverse matrix of $A.$ So that
+
+$$\mathbf e^k = \sum_{q=1}^n e^{kq} \mathbf e_q$$
+
+
+In animated graphical representation below the vector $\vec v = \left [2.7, 3.3 \right]^\top$ is kept invariant. These components are in the initial basis vectors $e_1 = \left [0.3, 0.5 \right ]^\top$ and $e_1 = \left [-0.24, 0.3 \right ]^\top$. The basis vectors $(e_1, e_2)$ are transformed simply by progressively stretching them, leading to decreasing coordinate components (contravariant transformation).
+
+The dual basis vectors are calculated from the inverse of the metric tensor matrix:
+
+$$A = \begin{bmatrix}
+0.34 & 0.08 \\ 0.08 & 0.15
+\end{bmatrix} \implies
+A^{-1} = \begin{bmatrix}
+3.35 & -1.77 \\ -1.77 & 7.71
+\end{bmatrix}
+$$
+
+resulting in 
+
+$$\begin{align}
+\varepsilon^1 &= 3.35 \mathbf e_1 -1.77  \mathbf e_2=[1.43,1.14]^\top\\
+\varepsilon^2 &= -1.77 \mathbf e_1 +7.71  \mathbf e_2= [-2.38, 1.43]^\top
+\end{align}$$
+
+To maintain the biorthogonality condition, the dual basis vectors $(\mathbf{\varepsilon}^1, \mathbf{\varepsilon}^2)$ are initially long (drawn as arrow vectors}, corresponding to a steep gradient or tightly packed stacks or level sets:
+
+$$[e^1 , e^2]\begin{bmatrix} x \\
+y\end{bmatrix}=e^1x + e^2y = \text{constant }n \in \mathbb Z \implies \begin{cases}
+y = \frac{n - 1.43x}{1.14}\color{magenta}{\bf\text{ \\\\}} \\
+y = \frac{n + 2.38x}{1.43} \color{purple}{\bf\text{ //}}
+\end{cases}$$
+
+The covariant components can be calculated from counter-variant components using the metric $A \vec v.$
+
+Notice how the idea of a light lamp perpendicular to the dual basis vectors in Daniel A. Fleisch's book on *A Student's Guide to Vectors and Tensors* explained above is illustrated in the video below as rectangular-shaped yellow areas perpendicular to the dual basis. 
+
+The changing components of the vector under the initial basis can be retrieved by checking the number of stacks are comprised under the shadow of the vector, which is the idea behind forms as oriented projections. 
+
+The steeper the gradient (the larger the covector basis, or equivalently, the more tightly packed the stacks are) the larger the values of the components. This makes perfect sense because we are reading out the values of the components in the original basis, which start off small, and hence, they will have larger components. The larger the vector basis of the dual space, the more packed the level sets or stacks, consistent with the covariant nature of the dual space. 
+
+Notice how the initial components can be directly read by counting the number of magenta and purple lines projecting inside the dashed green lines (shadow of the original vector), crossing the cyan lines.
+
+The dashed red and blue arrows demonstrate the mutual orthogonality of the components in the contravariant and covariant bases: in the contravariant (parallel to axes) original basis, the construction (in red) is orthogonal to the cobasis vectors; in the covariant basis (perpendicular to axes) construct, the lines (in blue) are orthogonal to the lines spanned by the original basis vectors.
+
+
+  [1]: https://www.seas.upenn.edu/~amyers/DualBasis.pdf
+
+
+---
+
 
 #### Change to oblique coordinates:
 
