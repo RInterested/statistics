@@ -461,10 +461,23 @@ a_{2,1}b_{2,1} &amp; a_{2,1}b_{2,2} &amp; \color{red}{a_{2,2}}b_{2,1}
 <p>The Wikipedia article is slightly confusing by omitting some brackets
 from the final tensor. It looks like a <span class="math inline">\(4\times4\)</span> matrix, i.e., a rank <span class="math inline">\(2\)</span> tensor with <span class="math inline">\(4^2=16\)</span> entries, but actually it is a
 <span class="math inline">\(2\times2\times2\times2\)</span> tensor of
-rank <span class="math inline">\(4\)</span> having <span class="math inline">\(2^4=16\)</span> entries. Contraction happens by
-taking the trace of four <span class="math inline">\(2\times2\)</span>
-“submatrices” separately:</p>
+rank <span class="math inline">\(4\)</span> having <span class="math inline">\(2^4=16\)</span> entries.</p>
 </blockquote>
+<p><span class="math display">\[\small T = A \otimes B = \begin{bmatrix}
+\begin{bmatrix}a_{{1,1}}b_{1,1} &amp; a_{1,1}b_{1,2}\\
+a_{1,1}b_{2,1} &amp; a_{{1,1}}b_{2,2}\end{bmatrix}
+&amp;
+\begin{bmatrix}a_{{1,2}}b_{1,1} &amp; a_{1,2}b_{1,2} \\
+a_{1,2}b_{2,1} &amp; a_{{1,2}}b_{2,2}
+\end{bmatrix}
+\\
+\begin{bmatrix}a_{{2,1}}b_{1,1} &amp; a_{2,1}b_{1,2}\\
+a_{2,1}b_{2,1} &amp; a_{{2,1}}b_{2,2}\end{bmatrix}
+&amp;
+\begin{bmatrix}a_{{2,2}}b_{1,1} &amp; a_{2,2}b_{1,2}\\
+a_{2,2}b_{2,1} &amp; a_{{2,2}}b_{2,2}\end{bmatrix}
+\end{bmatrix} \]</span></p>
+<p>Contraction happens by taking the trace of four <span class="math inline">\(2\times2\)</span> “submatrices” separately:</p>
 <p><span class="math display">\[T^{\color{red}{i}j}{}_{\color{red}{k}l}
 = \begin{bmatrix}
 \hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{1,1} &amp;

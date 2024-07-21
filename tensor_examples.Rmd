@@ -92,7 +92,24 @@ $$
 
 ##### Answer:
 
-> The Wikipedia article is slightly confusing by omitting some brackets from the final tensor. It looks like a $4\times4$ matrix, i.e., a rank $2$ tensor with $4^2=16$ entries, but actually it is a $2\times2\times2\times2$ tensor of rank $4$ having $2^4=16$ entries. Contraction happens by taking the trace of four $2\times2$ "submatrices" separately:
+> The Wikipedia article is slightly confusing by omitting some brackets from the final tensor. It looks like a $4\times4$ matrix, i.e., a rank $2$ tensor with $4^2=16$ entries, but actually it is a $2\times2\times2\times2$ tensor of rank $4$ having $2^4=16$ entries. 
+
+$$\small T = A \otimes B = \begin{bmatrix} 
+\begin{bmatrix}a_{{1,1}}b_{1,1} & a_{1,1}b_{1,2}\\
+a_{1,1}b_{2,1} & a_{{1,1}}b_{2,2}\end{bmatrix}
+&
+\begin{bmatrix}a_{{1,2}}b_{1,1} & a_{1,2}b_{1,2} \\
+a_{1,2}b_{2,1} & a_{{1,2}}b_{2,2}
+\end{bmatrix}
+\\
+\begin{bmatrix}a_{{2,1}}b_{1,1} & a_{2,1}b_{1,2}\\
+a_{2,1}b_{2,1} & a_{{2,1}}b_{2,2}\end{bmatrix}
+&
+\begin{bmatrix}a_{{2,2}}b_{1,1} & a_{2,2}b_{1,2}\\
+a_{2,2}b_{2,1} & a_{{2,2}}b_{2,2}\end{bmatrix}
+\end{bmatrix} $$
+
+Contraction happens by taking the trace of four $2\times2$ "submatrices" separately:
 
 $$T^{\color{red}{i}j}{}_{\color{red}{k}l} = \begin{bmatrix} 
  \hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{1,1} & a_{1,2}b_{1,1}\\
