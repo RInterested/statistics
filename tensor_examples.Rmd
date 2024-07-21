@@ -213,70 +213,73 @@ b_{2,1} & b_{2,2}
 
 *What about [this answer](https://math.stackexchange.com/a/2811377/152225)?*
 
-##### Question:
+
+##### <span style="color:blue">Question:</span>
 
 
-> So I'm having trouble to compute tensor contractions with "actual" numbers from the matrix representations of the tensors. I have only seen abstract theoretical examples on the internet so I'm asking for a bit of help on how to find the contractions given the expressions of the tensors and the pair of indices where we will carry out the contraction. I'll show a simple example and I hope you can help me.
+><span style="color:blue"> So I'm having trouble to compute tensor contractions with "actual" numbers from the matrix representations of the tensors. I have only seen abstract theoretical examples on the internet so I'm asking for a bit of help on how to find the contractions given the expressions of the tensors and the pair of indices where we will carry out the contraction. I'll show a simple example and I hope you can help me.</span>
 >
-> Let's suppose we have two tensors of the type (1,1) (that means 1 contravariant, 1 covariant). They will be called Y and Z and knowing their coordinate forms, we can represent them through matrices in this way:
+><span style="color:blue"> Let's suppose we have two tensors of the type (1,1) (that means 1 contravariant, 1 covariant). They will be called Y and Z and knowing their coordinate forms, we can represent them through matrices in this way:</span>
 >
-> Y = \begin{pmatrix}1&-1\\2&3\end{pmatrix}
+><span style="color:blue"> Y = \begin{pmatrix}1&-1\\2&3\end{pmatrix}</span>
 >
-> Z = \begin{pmatrix}-1&0\\1&2\end{pmatrix}
+><span style="color:blue"> Z = \begin{pmatrix}-1&0\\1&2\end{pmatrix}</span>
 >
-> Now, we could compute the Kronecker product Y  x  Z in order to get a type (2,2) tensor (2 contravariant, 2 covariant). The result would be:
+><span style="color:blue"> Now, we could compute the Kronecker product Y  x  Z in order to get a type (2,2) tensor (2 contravariant, 2 covariant). The result would be:</span>
 >
-> \begin{pmatrix}-1&0&1&0\\1&2&-1&-2\\-2&0&-3&0\\2&4&3&6\end{pmatrix}
+><span style="color:blue"> \begin{pmatrix}-1&0&1&0\\1&2&-1&-2\\-2&0&-3&0\\2&4&3&6\end{pmatrix}</span>
 >
-> So, how could we get the contractions of this (2,2) tensor (with actual numbers instead of the parameters that you see in other examples) ?
+><span style="color:blue"> So, how could we get the contractions of this (2,2) tensor (with actual numbers instead of the parameters that you see in other examples)?</span>
 >
-> Note that here we have 2 contravariant indices and 2 covariant indices so there are 4 possible contractions depending on the pair of indices that you choose, I guess.
-As far as I know, all possible contractions with the selection of pairs of indices are the following:
+><span style="color:blue"> Note that here we have 2 contravariant indices and 2 covariant indices so there are 4 possible contractions depending on the pair of indices that you choose, I guess.
+As far as I know, all possible contractions with the selection of pairs of indices are the following:</span>
 >
->  1st covariant index and 1st contravariant index.
+><span style="color:blue">  1. 1st covariant index and 1st contravariant index.</span>
 >
->  1st covariant index and 2nd contravariant index.
+><span style="color:blue">  2. 1st covariant index and 2nd contravariant index.</span>
 >
->  2nd covariant index and 1st contravariant index.
+><span style="color:blue">  3. 2nd covariant index and 1st contravariant index.</span>
 >
->  2nd covariant index and 2nd contravariant index.
+><span style="color:blue">  4. 2nd covariant index and 2nd contravariant index.</span>
 >
-> So what matrices would be the result of those contractions. Just in case I didn't state it clearly before, these matrices are the representation of tensor of which we know the coefficients of their coordinate forms (explicit forms in a specific basis, and that info is known). So we want to perform contractions in the last 4x4 matrix that I showed (which represents a (2,2) tensor) and there a 4 different possibilities. My question has to do with the fact that I can't find a way to do this with actual numbers and I can't figure out the result for each possible contraction (I also don't know what the differences would be in the calculation of a contraction with a certain pair of indices or another).
+><span style="color:blue"> So what matrices would be the result of those contractions. Just in case I didn't state it clearly before, these matrices are the representation of tensor of which we know the coefficients of their coordinate forms (explicit forms in a specific basis, and that info is known). So we want to perform contractions in the last 4x4 matrix that I showed (which represents a (2,2) tensor) and there a 4 different possibilities. My question has to do with the fact that I can't find a way to do this with actual numbers and I can't figure out the result for each possible contraction (I also don't know what the differences would be in the calculation of a contraction with a certain pair of indices or another).</span>
 >
-> I would really appreciate that someone could find a specific result for the contractions that I proposed (I guess the calculation is easy but I just don't know how it could be done). Thank you really much for reading.
+><span style="color:blue"> I would really appreciate that someone could find a specific result for the contractions that I proposed (I guess the calculation is easy but I just don't know how it could be done). Thank you really much for reading.</span>
 
 
-##### Answer:
+##### <span style="color:blue">Answer:</span>
 
-> Representing tensors using matrix notation is often confusing, but let's assume that
+><span style="color:blue"> Representing tensors using matrix notation is often confusing, but let's assume that</span>
 >
-> $Y = \begin{pmatrix}y^1_1&y^1_2\\v^2_1&y^2_2\end{pmatrix}$
+><span style="color:blue"> $Y = \begin{pmatrix}y^1_1&y^1_2\\v^2_1&y^2_2\end{pmatrix}$</span>
 >
-> and similarly for Z. If $W = Y \times Z$ then the components of $W$ are
+><span style="color:blue"> and similarly for Z. If $W = Y \times Z$ then the components of $W$ are</span>
 >
-> $w^{ik}_{jl} = y^i_j z^k_l$
+><span style="color:blue"> $w^{ik}_{jl} = y^i_j z^k_l$</span>
 >
-> You have represented W as a 4x4 matrix, but it would be more accurate to represent it as a 2x2 matrix, each of whose entries is another 2x2 matrix.
+><span style="color:blue"> You have represented W as a 4x4 matrix, but it would be more accurate to represent it as a 2x2 matrix, each of whose entries is another 2x2 matrix.</span>
 >
-> Anyway, the four possible contractions of W are:
+><span style="color:blue"> Anyway, the four possible contractions of W are:</span>
 >
-> (1):  $w^{ik}_{il} = y^i_i z^k_l$
+><span style="color:blue"> (1):  $w^{ik}_{il} = y^i_i z^k_l$</span>
 >
-> (2):  $w^{ik}_{jk} = y^i_j z^k_k$
+><span style="color:blue"> (2):  $w^{ik}_{jk} = y^i_j z^k_k$</span>
 >
-> (3):  $w^{ik}_{ji} = y^i_j z^k_i$
+><span style="color:blue"> (3):  $w^{ik}_{ji} = y^i_j z^k_i$</span>
 >
-> (4):  $w^{ij}_{jl} = y^i_j z^j_l$
+><span style="color:blue"> (4):  $w^{ij}_{jl} = y^i_j z^j_l$</span>
 >
-> In terms of matrix operations:
+><span style="color:blue"> In terms of matrix operations:</span>
 >
-> (1) is the component representation of $Tr(Y)Z$
+><span style="color:blue"> (1) is the component representation of $Tr(Y)Z$</span>
 >
-> (2) is the component representation of $Tr(Z)Y$
+><span style="color:blue"> (2) is the component representation of $Tr(Z)Y$</span>
 >
-> (3) is the component representation of $YZ$
+><span style="color:blue"> (3) is the component representation of $YZ$</span>
 >
-> (4) is the component representation of $ZY$
+><span style="color:blue"> (4) is the component representation of $ZY$</span>
+
+
 
 
 > **The answer that you refer to, remains correct. We only appear to take 4 different traces; if you apply the distributive law then we are only taking the trace of $A$, multiplied by the four components of $B$ separately. But I wrote it this way because you asked for a computation that did not rely on separate knowledge of $A$ or $B$.**
@@ -349,7 +352,7 @@ a_{12} & a_{22}
 b_{11} & b_{21}\\
 b_{12} & b_{22}
 \end{bmatrix}
-=\begin{bmatrix} a_{1,1}b_{1,1} + a_{2,1}b_{1,2} & a_{1,1}b_{2,1} + a_{2,1}b_{2,2} \\ a_{1,2}b_{1,1} + a_{2,2}b_{1,2} & a_{1,2}b_{2,1} + a_{2,2}b_{2,2} \end{bmatrix}$$
+=\begin{bmatrix} a_{\color{red}1,1}b_{1,\color{red}1} + a_{\color{red}2,1}b_{1,\color{red}2} & a_{\color{red}1,1}b_{2,\color{red}1} + a_{\color{red}2,1}b_{2,\color{red}2} \\ a_{\color{red}1,2}b_{1,\color{red}1} + a_{\color{red}2,2}b_{1,\color{red}2} & a_{\color{red}1,2}b_{2,\color{red}1} + a_{\color{red}2,2}b_{2,\color{red}2} \end{bmatrix}$$
 
 *Compare this to the permutations in the indices when contracting $i$ and $k$ in*
 
@@ -384,6 +387,9 @@ a_{2,1}b_{2,1} & a_{\color{red}{2,2}}b_{2,1}\end{bmatrix}
 &
 \hbox{Tr}\begin{bmatrix}a_{\color{red}{1,1}}b_{2,2} & a_{1,2}b_{2,2}\\
 a_{2,1}b_{2,2} & a_{\color{red}{2,2}}b_{2,2}\end{bmatrix}
+\end{bmatrix}=\begin{bmatrix}
+a_{\color{red}{1,1}}b_{1,1}  + a_{\color{red}{2,2}}b_{1,1} & a_{\color{red}{1,1}}b_{1,2} + a_{\color{red}{2,2}}b_{1,2} \\
+a_{\color{red}{1,1}}b_{2,1} + a_{\color{red}{2,2}}b_{2,1} & a_{\color{red}{1,1}}b_{2,2} + a_{\color{red}{2,2}}b_{2,2}
 \end{bmatrix}$$
 
 ---
