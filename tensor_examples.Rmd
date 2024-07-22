@@ -417,7 +417,22 @@ a_{\color{red}{1,1}}b_{2,1} + a_{\color{red}{2,2}}b_{2,1} & a_{\color{red}{1,1}}
 
 > First a remark on the side: the distinction between upper and lower indices does not mean much in this context where we are not dealing with a metric; only the order of the indices matters.
 >
-> The result of contracting over the first and fourth indices can be written as a square $2\times2$ matrix composed of four traces of $2\times2$ submatrices like in the previous question; for example, the $(j=1,k=1)$ component of the contraction is the trace of the submatrix consisting of elements in rows $1$ and $3$ and in columns $1$ and $2:$
+> The result of contracting over the first and fourth indices can be written as a square $2\times2$ matrix composed of four traces of $2\times2$ submatrices like in the previous question; for example, the $(j=1,k=1)$ component of the contraction is the trace of the submatrix consisting of elements in rows $1$ and $3$ and in columns $1$ and $2$ of the block matrix:
+>
+>$$\small T = A \otimes B = \begin{bmatrix} 
+\begin{bmatrix}\color{red}{a_{{1,1}}b_{1,1}} & \color{red}{a_{1,1}b_{1,2}}\\
+a_{1,1}b_{2,1} & a_{{1,1}}b_{2,2}\end{bmatrix}
+&
+\begin{bmatrix}a_{{1,2}}b_{1,1} & a_{1,2}b_{1,2} \\
+a_{1,2}b_{2,1} & a_{{1,2}}b_{2,2}
+\end{bmatrix}
+\\
+\begin{bmatrix}\color{red}{a_{{2,1}}b_{1,1}} & \color{red}{a_{2,1}b_{1,2}}\\
+a_{2,1}b_{2,1} & a_{{2,1}}b_{2,2}\end{bmatrix}
+&
+\begin{bmatrix}a_{{2,2}}b_{1,1} & a_{2,2}b_{1,2}\\
+a_{2,2}b_{2,1} & a_{{2,2}}b_{2,2}\end{bmatrix}
+\end{bmatrix} $$
 >
 > $$a_{1,1}b_{1,1}+a_{2,1}b_{1,2}=\hbox{Tr}
 \begin{bmatrix}
