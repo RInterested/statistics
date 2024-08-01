@@ -1,0 +1,86 @@
+---
+title: 'Tensors Linearize Multi-linear functions'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Tensors linearize multi-linear functions:
+
+---
+
+Tensors are not multi-dimensional arrays. Further, the representation of a tensor as a matrix in the most simple examples is also misleading. Why? Because the idea of a tensor is to linearlize a multi-linear function.
+
+For instance, a bilinear function (like any other multi-linear functions) is not linear. Take for example the area of a rectangle $A = s \times l$: Doubling the side of a rectangle, doubles the area, and the same happens with the length; however, the function is bilinear, such that doubling the side and the lenght result in an area of the rectangle $4$ times larger. The dot product is such another example: the total cost of some purchases is the dot product of the number of units of each item purchased by the cost of each unit. A dubling of the price of each item, and a concomitant doubling of the number of units purchased of each item will increase four-fold the overall 
+
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+The dot product fulfills the criteria for a [bi-variate function](https://proofwiki.org/wiki/Dot_Product_Operator_is_Bilinear), which amount to being linear on the left:
+
+$$\langle au + bv, w \rangle = a \langle u, w \rangle + b \langle v, w \rangle$$
+
+and on the right:
+
+$$\langle u, av + bw \rangle = a \langle u, v \rangle + b \langle u, w \rangle.$$
+
+```{r}
+u = 1:3
+v = 4:6
+w = 7:9
+a = 5
+b = 8
+
+(a * u + b * v) %*% w
+a * (u %*% w) + b * (v %*% w)
+
+u %*% (a * v + b * w)
+a * (u %*% v) + b * (u %*% w)
+
+# https://math.stackexchange.com/a/1650713/152225
+# https://math.stackexchange.com/a/85661/152225
+# https://math.stackexchange.com/a/85662/152225
+# https://math.stackexchange.com/a/2064240/152225
+
+(a * v) %*% (a * w)
+a^2 * (v %*% w)
+
+```
+
+---
+
+```{r}
+m = matrix(c(rnorm(30)), 6, byrow=T)
+m
+M = rbind(m[c(1:3),], 5 * m[4,] + m[5,], m[6,])
+M
+det(M)
+5 * det(m[c(1:4,6),]) + det(m[c(1:3,5:6),])
+
+```
+
+
+---
+
+#### SUBHEADER
+
+---
+
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
