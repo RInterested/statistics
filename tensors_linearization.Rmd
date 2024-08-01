@@ -21,7 +21,7 @@ output:
 
 Tensors are not multi-dimensional arrays. Further, the representation of a tensor as a matrix in the most simple examples is also misleading. Why? Because the idea of a tensor is to linearlize a multi-linear function.
 
-For instance, a bilinear function (like any other multi-linear functions) is not linear. Take for example the area of a rectangle $A = s \times l$: Doubling the side of a rectangle, doubles the area, and the same happens with the length; however, the function is bilinear, such that doubling the side and the lenght result in an area of the rectangle $4$ times larger. The dot product is such another example: the total cost of some purchases is the dot product of the number of units of each item purchased by the cost of each unit. A dubling of the price of each item, and a concomitant doubling of the number of units purchased of each item will increase four-fold the overall 
+For instance, a bilinear function (like any other multi-linear functions) is [not linear](https://math.stackexchange.com/a/1650713/152225). Take for example the area of a rectangle $A = s \times l$: Doubling the side of a rectangle, doubles the area, and the same happens with the length; however, the function is bilinear, such that doubling the side and the length result in an area of the rectangle $4$ times larger ([here](https://math.stackexchange.com/a/2064240/152225)). The dot product is such another example: the total cost of some purchases is the dot product of the number of units of each item purchased by the cost of each unit. A dubling of the price of each item, and a concomitant doubling of the number of units purchased of each item will increase four-fold the overall
 
 
 ```{r setup, include=FALSE} 
@@ -42,24 +42,34 @@ v = 4:6
 w = 7:9
 a = 5
 b = 8
-
+# Linear on the left:
 (a * u + b * v) %*% w
 a * (u %*% w) + b * (v %*% w)
-
+# Linear on the right
 u %*% (a * v + b * w)
 a * (u %*% v) + b * (u %*% w)
+```
 
-# https://math.stackexchange.com/a/1650713/152225
-# https://math.stackexchange.com/a/85661/152225
-# https://math.stackexchange.com/a/85662/152225
-# https://math.stackexchange.com/a/2064240/152225
+Linearity preserves scalar multiplication in both variables of a function $f: X \times Y \to \mathbb R$:
 
+
+$$ f(\alpha x , \alpha y) = \alpha f (x,y) $$
+
+along with the property of preserving vector addition.
+
+However, if $f$ were bilinear, then:
+
+$$ f(\alpha x , \alpha y) = \alpha^2 f(x,y) $$
+
+
+
+```{r}
 (a * v) %*% (a * w)
 a^2 * (v %*% w)
 
 ```
 
-A bilinear form can be expressed as a matrix $A$, and the function be interpreded as multiplying on the left by a row vector $\vec v^\top$ and on the right by a column vector $\vec w$ as in 
+A bi-linear form can be expressed as a matrix $A$, and the function be interpreted as multiplying on the left by a row vector $\vec v^\top$ and on the right by a column vector $\vec w$ as in 
 
 $$\vec v^\top A \vec w$$
 
