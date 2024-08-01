@@ -55,9 +55,7 @@ Linearity preserves scalar multiplication in both variables of a function $f: X 
 
 $$ f(\alpha x , \alpha y) = \alpha f (x,y) $$
 
-along with the property of preserving vector addition.
-
-However, if $f$ were bilinear, then:
+However, if $f$ is bilinear
 
 $$ f(\alpha x , \alpha y) = \alpha^2 f(x,y) $$
 
@@ -75,25 +73,25 @@ $$\vec v^\top A \vec w$$
 
 as such any operations on a row in $A$ will necessarily alter all the columns: the bi-linearity of the function is manifest in this way. Naturally, it can still be claimed that the matrix represents a $(1,1)$ tensor, but this misses out the idea behind the tensor product: the linearization of the multi-linear function. 
 
+The property of a multilinear function is
+
+$$T(v_1, . . . , av_i + bv'_i , . . . , v_r)
+= aT(v_1, . . . , v_i, . . . , v_r) + bT(v_1, . . . , v'_i, . . . , v_r$$
+
+The determinant is a prime example of multilinearity:
+
 
 ---
 
 ```{r}
 m = matrix(c(rnorm(30)), 6, byrow=T)
-m
-M = rbind(m[c(1:3),], 5 * m[4,] + m[5,], m[6,])
-M
+# Multiplying the fourth row by 5
+M =  rbind(m[c(1:3),], 5 * m[4,] + m[5,], m[6,])
 det(M)
+# Extracting the scalar 5 and splitting the matrix to add two det:
 5 * det(m[c(1:4,6),]) + det(m[c(1:3,5:6),])
-
 ```
 
-
----
-
-#### SUBHEADER
-
----
 
 
 
