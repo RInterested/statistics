@@ -447,10 +447,10 @@ v_r\]</span></p>
 # Multiplying the fourth row by 5
 M =  rbind(m[c(1:3),], 5 * m[4,] + m[5,], m[6,])
 det(M)</code></pre>
-<pre><code>## [1] -19.071</code></pre>
+<pre><code>## [1] -66.00417</code></pre>
 <pre class="r"><code># Extracting the scalar 5 and splitting the matrix to add two det:
 5 * det(m[c(1:4,6),]) + det(m[c(1:3,5:6),])</code></pre>
-<pre><code>## [1] -19.071</code></pre>
+<pre><code>## [1] -66.00417</code></pre>
 <p>The wedge product is a determinant. For instance, the area subtended
 by the vectors <span class="math inline">\(v=[2,2], w=[1,3]\)</span> can
 be calculated as the determinant or, equivalently, the 2-form <span class="math inline">\(\omega=1 dx \wedge dy\)</span> acting on the
@@ -479,13 +479,23 @@ one independent of the others by basic linear algebra operations -
 hence, it becomes linearlized.</p>
 <p>The process of linearization includes getting the “free product”
 between vector spaces, and then obtaining the quotient by the
-bilinearity operations we want to preserve (see <a href="https://youtu.be/K7f2pCQ3p3U?si=eh9H6thBrk9X4J3H">here</a>):</p>
+bilinearity operations we want to preserve (see <a href="https://youtu.be/K7f2pCQ3p3U?si=eh9H6thBrk9X4J3H">here</a>).</p>
+<p>From <a href="https://en.wikipedia.org/wiki/Tensor_product#As_a_quotient_space">Wikipedia</a>,</p>
+<blockquote>
+<p>Let <span class="math inline">\(V\)</span> and <span class="math inline">\(W\)</span> be two vector spaces over a field <span class="math inline">\(F\)</span>. Let <span class="math inline">\(R\)</span> be the linear subspace of <span class="math inline">\(L\)</span> that is spanned by the relations that
+the tensor product must satisfy. More precisely, <span class="math inline">\(R\)</span> is spanned by the elements of one of
+the forms:</p>
 <p><span class="math display">\[\begin{align}
 (v_1 + v_2, w) - (v_1,w) - (v_2,w)\\
 (v,w_1+w_2) - (v,w_1) - (v,w_2)\\
 (sv,w) - s(v,w)\\
 (v,sw) - s(v,w)
 \end{align}\]</span></p>
+<p>where <span class="math inline">\(v_1,v_2,v_3 \in V\)</span> and
+<span class="math inline">\(w_1,w_2,w_3 \in W\)</span> and <span class="math inline">\(s \in F\)</span>.</p>
+<p>Then the tensor product is defined as the quotient space:</p>
+<p><span class="math inline">\(V \otimes W = L/R\)</span>.</p>
+</blockquote>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>

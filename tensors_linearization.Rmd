@@ -103,14 +103,24 @@ as such any linear operations on a row in $A$ will necessarily alter all the col
 
 The linearization breaks down a bi-linear form (matrix) into individual $e_i⊗e_j$ basis. In matrix form, it is impossible to change a row (dual) by linear algebra operations without affecting all the columns (hence bi-linear), but when each entry has its own tensored basis, we can dial (linear change) each one independent of the others by basic linear algebra operations - hence, it becomes linearlized.
 
-The process of linearization includes getting the "free product" between vector spaces, and then obtaining the quotient by the bilinearity operations we want to preserve (see [here](https://youtu.be/K7f2pCQ3p3U?si=eh9H6thBrk9X4J3H)):
+The process of linearization includes getting the "free product" between vector spaces, and then obtaining the quotient by the bilinearity operations we want to preserve (see [here](https://youtu.be/K7f2pCQ3p3U?si=eh9H6thBrk9X4J3H)).
 
-$$\begin{align}
+From [Wikipedia](https://en.wikipedia.org/wiki/Tensor_product#As_a_quotient_space),
+
+> Let $V$ and $W$ be two vector spaces over a field $F$. Let $R$ be the linear subspace of $L$ that is spanned by the relations that the tensor product must satisfy. More precisely, $R$ is spanned by the elements of one of the forms:
+>
+> $$\begin{align}
 (v_1 + v_2, w) - (v_1,w) - (v_2,w)\\
 (v,w_1+w_2) - (v,w_1) - (v,w_2)\\
 (sv,w) - s(v,w)\\
 (v,sw) - s(v,w)
 \end{align}$$
+>
+> where $v_1,v_2,v_3 \in V$ and $w_1,w_2,w_3 \in W$ and $s \in F$.
+>
+> Then the tensor product is defined as the quotient space:
+>
+> $V \otimes W = L/R$.
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
