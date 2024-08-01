@@ -67,11 +67,7 @@ a^2 * (v %*% w)
 
 ```
 
-A bi-linear form can be expressed as a matrix $A$, and the function be interpreted as multiplying on the left by a row vector $\vec v^\top$ and on the right by a column vector $\vec w$ as in 
 
-$$\vec v^\top A \vec w$$
-
-as such any operations on a row in $A$ will necessarily alter all the columns: the bi-linearity of the function is manifest in this way. Naturally, it can still be claimed that the matrix represents a $(1,1)$ tensor, but this misses out the idea behind the tensor product: the linearization of the multi-linear function. 
 
 The property of a multilinear function is
 
@@ -93,7 +89,28 @@ det(M)
 ```
 
 
+The wedge product is a determinant. For instance, the area subtended by the vectors $v=[2,2], w=[1,3]$ can be calculated as the determinant or, equivalently, the 2-form $\omega=1 dx \wedge dy$ acting on the vectors $v,w$, 
 
+$$\omega(v,w)= \det\begin{bmatrix}2&2\\1&3\end{bmatrix}=4$$
+
+which in tensor notation corresponds to $\small 1 e^1\otimes e^2 - 1e^2 \otimes e^1 + 0 e^1 \otimes e^1 + 0 e^2 \otimes e^2$, a tensor in $V^{\ast} \otimes V^{\ast}$. This is the linearization of the determinant, a multi-linear map. The [Leibniz formula](https://en.wikipedia.org/wiki/Leibniz_formula_for_determinants) for the determinant linearizes the determinant.
+
+A bi-linear form can be expressed as a matrix $A$, and the function be interpreted as multiplying on the left by a row vector $\vec v^\top$ and on the right by a column vector $\vec w$ as in 
+
+$$\vec v^\top A \vec w$$
+
+as such any linear operations on a row in $A$ will necessarily alter all the columns: the bi-linearity of the function is manifest in this way. Naturally, it can still be claimed that the matrix represents a $(1,1)$ tensor, but this avoids the idea behind the tensor product: the linearization of the multi-linear function. 
+
+The linearization breaks down a bi-linear form (matrix) into individual $e_i⊗e_j$ basis. In matrix form, it is impossible to change a row (dual) by linear algebra operations without affecting all the columns (hence bi-linear), but when each entry has its own tensored basis, we can dial (linear change) each one independent of the others by basic linear algebra operations - hence, it becomes linearlized.
+
+The process of linearization includes getting the "free product" between vector spaces, and then obtaining the quotient by the bilinearity operations we want to preserve (see [here](https://youtu.be/K7f2pCQ3p3U?si=eh9H6thBrk9X4J3H)):
+
+$$\begin{align}
+(v_1 + v_2, w) - (v_1,w) - (v_2,w)\\
+(v,w_1+w_2) - (v,w_1) - (v,w_2)\\
+(sv,w) - s(v,w)\\
+(v,sw) - s(v,w)
+\end{align}$$
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>

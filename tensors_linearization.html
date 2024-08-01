@@ -436,15 +436,6 @@ f(x,y) \]</span></p>
 <pre class="r"><code>a^2 * (v %*% w)</code></pre>
 <pre><code>##      [,1]
 ## [1,] 3050</code></pre>
-<p>A bi-linear form can be expressed as a matrix <span class="math inline">\(A\)</span>, and the function be interpreted as
-multiplying on the left by a row vector <span class="math inline">\(\vec
-v^\top\)</span> and on the right by a column vector <span class="math inline">\(\vec w\)</span> as in</p>
-<p><span class="math display">\[\vec v^\top A \vec w\]</span></p>
-<p>as such any operations on a row in <span class="math inline">\(A\)</span> will necessarily alter all the columns:
-the bi-linearity of the function is manifest in this way. Naturally, it
-can still be claimed that the matrix represents a <span class="math inline">\((1,1)\)</span> tensor, but this misses out the
-idea behind the tensor product: the linearization of the multi-linear
-function.</p>
 <p>The property of a multilinear function is</p>
 <p><span class="math display">\[T(v_1, . . . , av_i + bv&#39;_i , . . .
 , v_r)
@@ -456,10 +447,45 @@ v_r\]</span></p>
 # Multiplying the fourth row by 5
 M =  rbind(m[c(1:3),], 5 * m[4,] + m[5,], m[6,])
 det(M)</code></pre>
-<pre><code>## [1] 12.07573</code></pre>
+<pre><code>## [1] -19.071</code></pre>
 <pre class="r"><code># Extracting the scalar 5 and splitting the matrix to add two det:
 5 * det(m[c(1:4,6),]) + det(m[c(1:3,5:6),])</code></pre>
-<pre><code>## [1] 12.07573</code></pre>
+<pre><code>## [1] -19.071</code></pre>
+<p>The wedge product is a determinant. For instance, the area subtended
+by the vectors <span class="math inline">\(v=[2,2], w=[1,3]\)</span> can
+be calculated as the determinant or, equivalently, the 2-form <span class="math inline">\(\omega=1 dx \wedge dy\)</span> acting on the
+vectors <span class="math inline">\(v,w\)</span>,</p>
+<p><span class="math display">\[\omega(v,w)=
+\det\begin{bmatrix}2&amp;2\\1&amp;3\end{bmatrix}=4\]</span></p>
+<p>which in tensor notation corresponds to <span class="math inline">\(\small 1 e^1\otimes e^2 - 1e^2 \otimes e^1 + 0 e^1
+\otimes e^1 + 0 e^2 \otimes e^2\)</span>, a tensor in <span class="math inline">\(V^{\ast} \otimes V^{\ast}\)</span>. This is the
+linearization of the determinant, a multi-linear map. The <a href="https://en.wikipedia.org/wiki/Leibniz_formula_for_determinants">Leibniz
+formula</a> for the determinant linearizes the determinant.</p>
+<p>A bi-linear form can be expressed as a matrix <span class="math inline">\(A\)</span>, and the function be interpreted as
+multiplying on the left by a row vector <span class="math inline">\(\vec
+v^\top\)</span> and on the right by a column vector <span class="math inline">\(\vec w\)</span> as in</p>
+<p><span class="math display">\[\vec v^\top A \vec w\]</span></p>
+<p>as such any linear operations on a row in <span class="math inline">\(A\)</span> will necessarily alter all the columns:
+the bi-linearity of the function is manifest in this way. Naturally, it
+can still be claimed that the matrix represents a <span class="math inline">\((1,1)\)</span> tensor, but this avoids the idea
+behind the tensor product: the linearization of the multi-linear
+function.</p>
+<p>The linearization breaks down a bi-linear form (matrix) into
+individual <span class="math inline">\(e_i⊗e_j\)</span> basis. In matrix
+form, it is impossible to change a row (dual) by linear algebra
+operations without affecting all the columns (hence bi-linear), but when
+each entry has its own tensored basis, we can dial (linear change) each
+one independent of the others by basic linear algebra operations -
+hence, it becomes linearlized.</p>
+<p>The process of linearization includes getting the “free product”
+between vector spaces, and then obtaining the quotient by the
+bilinearity operations we want to preserve (see <a href="https://youtu.be/K7f2pCQ3p3U?si=eh9H6thBrk9X4J3H">here</a>):</p>
+<p><span class="math display">\[\begin{align}
+(v_1 + v_2, w) - (v_1,w) - (v_2,w)\\
+(v,w_1+w_2) - (v,w_1) - (v,w_2)\\
+(sv,w) - s(v,w)\\
+(v,sw) - s(v,w)
+\end{align}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
