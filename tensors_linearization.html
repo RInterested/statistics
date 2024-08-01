@@ -430,28 +430,37 @@ b = 8
 <pre class="r"><code>a^2 * (v %*% w)</code></pre>
 <pre><code>##      [,1]
 ## [1,] 3050</code></pre>
+<p>A bilinear form can be expressed as a matrix <span class="math inline">\(A\)</span>, and the function be interpreded as
+multiplying on the left by a row vector <span class="math inline">\(\vec
+v^\top\)</span> and on the right by a column vector <span class="math inline">\(\vec w\)</span> as in</p>
+<p><span class="math display">\[\vec v^\top A \vec w\]</span></p>
+<p>as such any operations on a row in <span class="math inline">\(A\)</span> will necessarily alter all the columns:
+the bi-linearity of the function is manifest in this way. Naturally, it
+can still be claimed that the matrix represents a <span class="math inline">\((1,1)\)</span> tensor, but this misses out the
+idea behind the tensor product: the linearization of the multi-linear
+function.</p>
 <hr />
 <pre class="r"><code>m = matrix(c(rnorm(30)), 6, byrow=T)
 m</code></pre>
-<pre><code>##            [,1]        [,2]        [,3]       [,4]       [,5]
-## [1,]  0.4976304  0.28017329 -0.25992297  2.1052790 -2.0297095
-## [2,]  0.1754210  0.65595749 -0.08326526  0.6634182 -1.1756850
-## [3,]  0.9925059 -0.33879019  1.78290542 -0.6523629 -2.1775043
-## [4,]  0.2390337  0.26665053 -0.52401107  1.3026220 -0.8680191
-## [5,] -0.9671640 -0.85957070 -2.19804165 -1.9902472  1.0660964
-## [6,] -1.4585374 -0.04802809 -1.65309972 -1.2788797 -1.4467794</code></pre>
+<pre><code>##            [,1]        [,2]       [,3]       [,4]       [,5]
+## [1,]  0.7202568  1.00011879  0.3425841 -0.6158384  0.4123873
+## [2,]  0.1186531 -0.13282887  1.2565440 -0.2666753  0.8503193
+## [3,] -0.9052646  1.00634595  0.6521793  0.4054411 -0.3347916
+## [4,] -0.9133286  1.42035292  0.0812251  1.0956282 -0.8685339
+## [5,]  0.1407670 -0.24450098 -0.6224610 -2.1306171 -0.9502976
+## [6,]  1.1015371  0.03875032  1.1654923 -0.4973558  0.2198175</code></pre>
 <pre class="r"><code>M = rbind(m[c(1:3),], 5 * m[4,] + m[5,], m[6,])
 M</code></pre>
-<pre><code>##            [,1]        [,2]        [,3]       [,4]      [,5]
-## [1,]  0.4976304  0.28017329 -0.25992297  2.1052790 -2.029709
-## [2,]  0.1754210  0.65595749 -0.08326526  0.6634182 -1.175685
-## [3,]  0.9925059 -0.33879019  1.78290542 -0.6523629 -2.177504
-## [4,]  0.2280047  0.47368194 -4.81809697  4.5228630 -3.273999
-## [5,] -1.4585374 -0.04802809 -1.65309972 -1.2788797 -1.446779</code></pre>
+<pre><code>##            [,1]        [,2]       [,3]       [,4]       [,5]
+## [1,]  0.7202568  1.00011879  0.3425841 -0.6158384  0.4123873
+## [2,]  0.1186531 -0.13282887  1.2565440 -0.2666753  0.8503193
+## [3,] -0.9052646  1.00634595  0.6521793  0.4054411 -0.3347916
+## [4,] -4.4258761  6.85726364 -0.2163356  3.3475241 -5.2929673
+## [5,]  1.1015371  0.03875032  1.1654923 -0.4973558  0.2198175</code></pre>
 <pre class="r"><code>det(M)</code></pre>
-<pre><code>## [1] 23.31889</code></pre>
+<pre><code>## [1] 1.288767</code></pre>
 <pre class="r"><code>5 * det(m[c(1:4,6),]) + det(m[c(1:3,5:6),])</code></pre>
-<pre><code>## [1] 23.31889</code></pre>
+<pre><code>## [1] 1.288767</code></pre>
 <hr />
 <div id="subheader" class="section level4">
 <h4>SUBHEADER</h4>
