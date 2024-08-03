@@ -436,30 +436,79 @@ f(x,y) \]</span></p>
 <pre class="r"><code>a^2 * (v %*% w)</code></pre>
 <pre><code>##      [,1]
 ## [1,] 3050</code></pre>
+<p>The dot product can be linearized with tensors as in <a href="https://math.stackexchange.com/a/4951370/994433">here</a>:</p>
+<blockquote>
+<p>Take <span class="math inline">\(V = \mathbb{R}^2\)</span> and let’s
+consider the dot product as a bilinear map <span class="math inline">\(\cdot : V \times V \to \mathbb{R}\)</span>, as you
+suggested. If we write <span class="math inline">\(e_1 = \begin{bmatrix}
+1 \\ 0 \end{bmatrix}, e_2 = \begin{bmatrix} 0 \\ 1
+\end{bmatrix}\)</span> for the standard basis of <span class="math inline">\(V\)</span> then the dot product is given
+explicitly on this basis by</p>
+<p><span class="math display">\[e_1 \cdot e_1 = e_2 \cdot e_2 = 1, e_1
+\cdot e_2 = e_2 \cdot e_1 = 0.\]</span></p>
+<p>or in short <span class="math inline">\(e_i \cdot e_j =
+\delta_{ij}\)</span> where <span class="math inline">\(\delta_{ij}\)</span> is the
+<a href="https://en.wikipedia.org/wiki/Kronecker_delta">Kronecker
+delta</a>. The idea of the tensor product is that this specification of
+what a bilinear map is doing on pairs of basis vectors is really “the
+same as” specifying what a corresponding <em>linear</em> map is doing on
+a vector space with basis given by the tensors <span class="math inline">\(e_1 \otimes e_1, e_1 \otimes e_2, e_2 \otimes e_1,
+e_2 \otimes e_2\)</span>. That is, the dot product corresponds to a
+linear map</p>
+<p><span class="math display">\[D : V \otimes V \to
+\mathbb{R}\]</span></p>
+<p>and this linear map does the following: <span class="math inline">\(V
+\otimes V\)</span> has a basis of tensor products as mentioned above,
+and</p>
+<p><span class="math display">\[D(e_1 \otimes e_1) = D(e_2 \otimes e_2)
+= 1, D(e_1 \otimes e_2) = D(e_2 \otimes e_1) = 0\]</span></p>
+</blockquote>
 <p>The property of a multilinear function is</p>
-<p><span class="math display">\[T(v_1, . . . , av_i + bv&#39;_i , . . .
-, v_r)
-= aT(v_1, . . . , v_i, . . . , v_r) + bT(v_1, . . . , v&#39;_i, . . . ,
-v_r\]</span></p>
+<p><span class="math display">\[T(v_1, . . . ,\color{red}{ av_i +
+bv&#39;_i }, . . . , v_r)
+=\color{red} a\, T(v_1, . . . , v_i, . . . , v_r) +\color{red} b \,
+T(v_1, . . . , v&#39;_i, . . . , v_r\]</span></p>
 <p>The determinant is a prime example of multilinearity:</p>
+<p><span class="math display">\[\det\begin{bmatrix}&amp;5&amp;6&amp;8&amp;3&amp;7\\
+                           &amp;8&amp;7&amp;8&amp;8&amp;2\\
+                           &amp;6&amp;5&amp;3&amp;3&amp;6\\
+                           (5\times&amp;\color{magenta}1&amp;\color{magenta}9&amp;\color{magenta}2&amp;\color{magenta}3&amp;\color{magenta}1\\
+                           &amp;&amp;&amp;\Large \color{red}+\\
+                           3\times&amp;\color{orange}5&amp;\color{orange}7&amp;\color{orange}2&amp;\color{orange}2&amp;\color{orange}5)\\
+                           &amp;2&amp;6&amp;5&amp;9&amp;3
+\end{bmatrix}=5\times\det\begin{bmatrix}5&amp;6&amp;8&amp;3&amp;7\\
+                           8&amp;7&amp;8&amp;8&amp;2\\
+                           6&amp;5&amp;3&amp;3&amp;6\\
+                           \color{magenta}1&amp;\color{magenta}9&amp;\color{magenta}2&amp;\color{magenta}3&amp;\color{magenta}1\\
+                           2&amp;6&amp;5&amp;9&amp;3\end{bmatrix}+
+                           3\times\det\begin{bmatrix}5&amp;6&amp;8&amp;3&amp;7\\
+                           8&amp;7&amp;8&amp;8&amp;2\\
+                           6&amp;5&amp;3&amp;3&amp;6\\
+                           \color{orange}5&amp;\color{orange}7&amp;\color{orange}2&amp;\color{orange}2&amp;\color{orange}5\\
+                           2&amp;6&amp;5&amp;9&amp;3
+                           \end{bmatrix}\]</span></p>
 <hr />
-<pre class="r"><code>m = matrix(c(rnorm(30)), 6, byrow=T)
-# Multiplying the fourth row by 5
-M =  rbind(m[c(1:3),], 5 * m[4,] + m[5,], m[6,])
+<pre class="r"><code>v = c(5L, 6L, 8L, 3L, 7L, 8L, 7L, 8L, 8L, 2L, 6L, 5L, 3L, 3L, 6L, 
++       1L, 9L, 2L, 3L, 1L, 5L, 7L, 2L, 2L, 5L, 2L, 6L, 5L, 9L, 3L)
+m = matrix(v, 6, byrow=T)
+# Multiplying the fourth row by 5 and the fifth row by 3 and adding them:
+M =  rbind(m[c(1:3),], 5 * m[4,] + 3 *  m[5,], m[6,])
 det(M)</code></pre>
-<pre><code>## [1] -66.00417</code></pre>
-<pre class="r"><code># Extracting the scalar 5 and splitting the matrix to add two det:
-5 * det(m[c(1:4,6),]) + det(m[c(1:3,5:6),])</code></pre>
-<pre><code>## [1] -66.00417</code></pre>
+<pre><code>## [1] 79799</code></pre>
+<pre class="r"><code># Extracting the scalars 5 ad 3 and splitting the matrix to add two det:
+5 * det(m[c(1:4,6),]) + 3 * det(m[c(1:3,5:6),])</code></pre>
+<pre><code>## [1] 79799</code></pre>
 <p>The wedge product is a determinant. For instance, the area subtended
 by the vectors <span class="math inline">\(v=[2,2], w=[1,3]\)</span> can
 be calculated as the determinant or, equivalently, the 2-form <span class="math inline">\(\omega=1 dx \wedge dy\)</span> acting on the
 vectors <span class="math inline">\(v,w\)</span>,</p>
 <p><span class="math display">\[\omega(v,w)=
 \det\begin{bmatrix}2&amp;2\\1&amp;3\end{bmatrix}=4\]</span></p>
-<p>which in tensor notation corresponds to <span class="math inline">\(\small 1 e^1\otimes e^2 - 1e^2 \otimes e^1 + 0 e^1
-\otimes e^1 + 0 e^2 \otimes e^2\)</span>, a tensor in <span class="math inline">\(V^{\ast} \otimes V^{\ast}\)</span>. This is the
-linearization of the determinant, a multi-linear map. The <a href="https://en.wikipedia.org/wiki/Leibniz_formula_for_determinants">Leibniz
+<p>which in tensor notation corresponds to <span class="math inline">\(\small  e^1\otimes e^2 - e^2 \otimes e^1\)</span>,
+since the other two basis have a coefficient of zero <span class="math inline">\(\dots + 0 \, e^1 \otimes e^1 + 0\, e^2 \otimes
+e^2\)</span> a tensor in <span class="math inline">\(V^{\ast} \otimes
+V^{\ast}\)</span>. This is the linearization of the determinant, a
+multi-linear map. The <a href="https://en.wikipedia.org/wiki/Leibniz_formula_for_determinants">Leibniz
 formula</a> for the determinant linearizes the determinant.</p>
 <p>A bi-linear form can be expressed as a matrix <span class="math inline">\(A\)</span>, and the function be interpreted as
 multiplying on the left by a row vector <span class="math inline">\(\vec
