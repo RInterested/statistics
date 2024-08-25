@@ -760,16 +760,27 @@ j = 2, k = 2: &amp; T^{i2}{}_{2i} = a_{1,2}b_{2,1} + a_{2,2}b_{2,2}
 \end{matrix}
 \]</span></p>
 <p><em>or</em></p>
-<p><span class="math display">\[\begin{array}{l|r}
-i = l = 1 &amp; i = l = 2\\
+<p><span class="math display">\[\begin{array}{l||r}
+&amp;i = l = 1 &amp; i = l = 2\\
 \hline
-a^{\color{red}{1}}{}_k b^{j}{}_{\color{red}1} &amp; a^{\color{red}2}{}_k
-b^{l}_{\color{red}{2}}\\
+&amp;a^{\color{red}{1}}{}_k b^{j}{}_{\color{red}1} &amp;
+a^{\color{red}2}{}_k b^{l}_{\color{red}{2}}\\
 \hline
-a_{11} b_{11} &amp; a_{21} b_{12}\\
-a_{11} b_{21} &amp; a_{21} b_{22}\\
-a_{12} b_{11} &amp; a_{22} b_{12}\\
-a_{12} b_{21} &amp; a_{22} b_{22}
+a_{\color{orange}1}b^{\color{orange}1}&amp;a_{\color{red}1{\color{orange}1}}
+b_{{\color{orange}1}\color{red}1} &amp;
+a_{\color{red}2{\color{orange}1}} b_{{\color{orange}1}\color{red}2}\\
+a_{\color{orange}1}b^{\color{orange}2}&amp;
+a_{\color{red}1{\color{orange}1}} b_{{\color{orange}2}\color{red}1}
+&amp; a_{\color{red}2{\color{orange}1}}
+b_{{\color{orange}2}\color{red}2}\\
+a_{\color{orange}2}b^{\color{orange}1}&amp;
+a_{\color{red}1{\color{orange}2}} b_{{\color{orange}1}\color{red}1}
+&amp; a_{\color{red}2{\color{orange}2}}
+b_{{\color{orange}1}\color{red}2}\\
+a_{\color{orange}2}b^{\color{orange}2} &amp;
+a_{\color{red}1{\color{orange}2}} b_{{\color{orange}2}\color{red}1}
+&amp; a_{\color{red}2{\color{orange}2}}
+b_{{\color{orange}2}\color{red}2}
 \end{array}
 \]</span></p>
 <p><em>which could be arranged in a matrix multiplication as:</em></p>
@@ -794,16 +805,23 @@ to <span class="math inline">\(2\)</span>.</p>
 <p><em>Compare this to the permutations in the indices when contracting
 <span class="math inline">\(i\)</span> and <span class="math inline">\(k\)</span> in</em></p>
 <p><span class="math inline">\(T^{\color{red}{i}j}{}_{\color{red}{k}l}\)</span>:</p>
-<p><span class="math display">\[\begin{array}{l|r}
-i = k = 1 &amp; i = k = 2\\
+<p><span class="math display">\[\begin{array}{l||r}
+&amp;i = k = 1 &amp; i = k = 2\\
 \hline
-a^{\color{red}{1}}{}_{\color{red}1} b^{j}{}_{l} &amp;
+&amp;a^{\color{red}{1}}{}_{\color{red}1} b^{j}{}_{l} &amp;
 a^{\color{red}{2}}{}_{\color{red}2} b^{j}{}_{l}\\
 \hline
-a_{11} b_{11} &amp; a_{22} b_{11}\\
-a_{11} b_{12} &amp; a_{22} b_{12}\\
-a_{11} b_{21} &amp; a_{22} b_{21}\\
-a_{11} b_{22} &amp; a_{22} b_{22}
+b^\color{orange}{1}{}_{\color{orange}{1}} &amp; a_{\color{red}{11}}
+b_{\color{orange}{11}} &amp; a_{\color{red}{22}}
+b_{\color{orange}{11}}\\
+b^\color{orange}{1}{}_{\color{orange}{2}}&amp;a_{\color{red}{11}}
+b_{\color{orange}{12}} &amp; a_{\color{red}{22}}
+b_{\color{orange}{12}}\\
+b^\color{orange}{2}{}_{\color{orange}{1}}&amp;a_{\color{red}{11}}
+b_{\color{orange}{21}} &amp; a_{\color{red}{22}}
+b_{\color{orange}{21}}\\
+b^\color{orange}{2}{}_{\color{orange}{2}}&amp;a_{\color{red}{11}}
+b_{\color{orange}{22}} &amp; a_{\color{red}{22}} b_{\color{orange}{22}}
 \end{array}
 \]</span></p>
 <p><em>arranged in matrix form as</em></p>
@@ -923,6 +941,21 @@ multiplication had already occurred in the Kronecker ⊗.</em></p>
 multiplication can be viewed very naturally as a contraction of a tensor
 product.</strong></p>
 </blockquote>
+<hr />
+<p>Toy example calculating the Ricci tensor as a contraction of the
+Riemann curvature tensor:</p>
+<p>Riemann Curvature Tensor: 2-dimensional space with the following
+non-zero components of the Riemann curvature tensor <span class="math inline">\(R^\rho_{\sigma\mu\nu}\)</span>: <span class="math inline">\(R^1_{212} = 1\)</span>, <span class="math inline">\(R^2_{121} = -1\)</span></p>
+<p>Contraction to Ricci Tensor: The Ricci tensor <span class="math inline">\(R_{\sigma\nu}\)</span> is obtained by contracting
+the first and third indices of the Riemann tensor: <span class="math inline">\(R_{\rho\mu} = R^\rho_{\mu\rho\nu}\)</span> For
+this example, we need to sum over the repeated index <span class="math inline">\(\rho\)</span>.</p>
+<p>Calculate Ricci Tensor Components:</p>
+<p><span class="math display">\[ R_{11} = R^1_{111} +
+R^2_{121}=0-1=-1\]</span> <span class="math display">\[ R_{12} =
+R^1_{112} + R^2_{122}=0\]</span> <span class="math display">\[R_{21} =
+R^1_{211} + R^2_{221}=0\]</span> <span class="math display">\[R_{22} =
+R^1_{212} + R^2_{222} =1\]</span> The Ricci tensor <span class="math display">\[R_{\mu\nu}\]</span> is: <span class="math display">\[R_{\sigma\nu} = \begin{bmatrix} -1 &amp; 0 \\ 0
+&amp; 1 \end{bmatrix}\]</span></p>
 <hr />
 <p>From <a href="https://math.stackexchange.com/q/2437459/152225">this
 question</a>:</p>

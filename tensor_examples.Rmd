@@ -346,15 +346,15 @@ $$
 
 *or*
 
-$$\begin{array}{l|r}
-i = l = 1 & i = l = 2\\
+$$\begin{array}{l||r}
+&i = l = 1 & i = l = 2\\
 \hline
-a^{\color{red}{1}}{}_k b^{j}{}_{\color{red}1} & a^{\color{red}2}{}_k b^{l}_{\color{red}{2}}\\
+&a^{\color{red}{1}}{}_k b^{j}{}_{\color{red}1} & a^{\color{red}2}{}_k b^{l}_{\color{red}{2}}\\
 \hline
-a_{11} b_{11} & a_{21} b_{12}\\
-a_{11} b_{21} & a_{21} b_{22}\\
-a_{12} b_{11} & a_{22} b_{12}\\
-a_{12} b_{21} & a_{22} b_{22}
+a_{\color{orange}1}b^{\color{orange}1}&a_{\color{red}1{\color{orange}1}} b_{{\color{orange}1}\color{red}1} & a_{\color{red}2{\color{orange}1}} b_{{\color{orange}1}\color{red}2}\\
+a_{\color{orange}1}b^{\color{orange}2}& a_{\color{red}1{\color{orange}1}} b_{{\color{orange}2}\color{red}1} & a_{\color{red}2{\color{orange}1}} b_{{\color{orange}2}\color{red}2}\\
+a_{\color{orange}2}b^{\color{orange}1}& a_{\color{red}1{\color{orange}2}} b_{{\color{orange}1}\color{red}1} & a_{\color{red}2{\color{orange}2}} b_{{\color{orange}1}\color{red}2}\\
+a_{\color{orange}2}b^{\color{orange}2} & a_{\color{red}1{\color{orange}2}} b_{{\color{orange}2}\color{red}1} & a_{\color{red}2{\color{orange}2}} b_{{\color{orange}2}\color{red}2}
 \end{array}
 $$
 
@@ -378,15 +378,15 @@ again reducing the rank from $4$ to $2$.
 $T^{\color{red}{i}j}{}_{\color{red}{k}l}$:
 
 
-$$\begin{array}{l|r}
-i = k = 1 & i = k = 2\\
+$$\begin{array}{l||r}
+&i = k = 1 & i = k = 2\\
 \hline
-a^{\color{red}{1}}{}_{\color{red}1} b^{j}{}_{l} & a^{\color{red}{2}}{}_{\color{red}2} b^{j}{}_{l}\\
+&a^{\color{red}{1}}{}_{\color{red}1} b^{j}{}_{l} & a^{\color{red}{2}}{}_{\color{red}2} b^{j}{}_{l}\\
 \hline
-a_{11} b_{11} & a_{22} b_{11}\\
-a_{11} b_{12} & a_{22} b_{12}\\
-a_{11} b_{21} & a_{22} b_{21}\\
-a_{11} b_{22} & a_{22} b_{22}
+b^\color{orange}{1}{}_{\color{orange}{1}} & a_{\color{red}{11}} b_{\color{orange}{11}} & a_{\color{red}{22}} b_{\color{orange}{11}}\\
+b^\color{orange}{1}{}_{\color{orange}{2}}&a_{\color{red}{11}} b_{\color{orange}{12}} & a_{\color{red}{22}} b_{\color{orange}{12}}\\
+b^\color{orange}{2}{}_{\color{orange}{1}}&a_{\color{red}{11}} b_{\color{orange}{21}} & a_{\color{red}{22}} b_{\color{orange}{21}}\\
+b^\color{orange}{2}{}_{\color{orange}{2}}&a_{\color{red}{11}} b_{\color{orange}{22}} & a_{\color{red}{22}} b_{\color{orange}{22}}
 \end{array}
 $$
 
@@ -477,6 +477,21 @@ $$
 
 > **Only that I agree with your last remarks. Matrix multiplication can be viewed very naturally as a contraction of a tensor product.**
 
+---
+
+Toy example calculating the Ricci tensor as a contraction of the Riemann curvature tensor:
+
+Riemann Curvature Tensor:  2-dimensional space with the following non-zero components of the Riemann curvature tensor $R^\rho_{\sigma\mu\nu}$: $R^1_{212} = 1$, $R^2_{121} = -1$
+
+Contraction to Ricci Tensor: The Ricci tensor $R_{\sigma\nu}$ is obtained by contracting the first and third indices of the Riemann tensor: $R_{\rho\mu} = R^\rho_{\mu\rho\nu}$ For this example, we need to sum over the repeated index $\rho$.
+
+Calculate Ricci Tensor Components:
+
+$$ R_{11} = R^1_{111} + R^2_{121}=0-1=-1$$ 
+$$ R_{12} = R^1_{112} + R^2_{122}=0$$
+$$R_{21} = R^1_{211} + R^2_{221}=0$$ 
+$$R_{22} = R^1_{212} + R^2_{222} =1$$ 
+The Ricci tensor $$R_{\mu\nu}$$ is: $$R_{\sigma\nu} = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$$
 
 
 
