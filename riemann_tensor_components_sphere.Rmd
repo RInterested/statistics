@@ -121,7 +121,92 @@ $$R = \left(
 \end{array}
 \right)$$
 
+which corresponds to
 
+$$R =\left(
+\begin{array}{cc}
+ \left(
+\begin{array}{cc}
+R^\theta{}_{\theta\theta\theta}  & R^\theta{}_{\theta\theta\phi} \\
+R^\theta{}_{\theta\phi\theta} & R^\theta{}_{\theta\phi\phi} \\
+\end{array}
+\right) & \left(
+\begin{array}{cc}
+R^\theta{}_{\phi\theta\theta} & \  R^\theta{}_{\phi\theta\phi} \\
+R^\theta{}_{\phi\phi\theta} & R^\theta{}_{\phi\phi\phi} \\
+\end{array}
+\right) \\
+ \left(
+\begin{array}{cc}
+ R^\phi{}_{\theta\theta\theta} & R^\phi{}_{\theta\theta\phi}\\
+ R^\phi{}_{\theta\phi\theta}  & R^\phi{}_{\theta\phi\phi} \\
+\end{array}
+\right) & \left(
+\begin{array}{cc}
+ R^\phi{}_{\phi\theta\theta} & R^\phi{}_{\phi\theta\phi}\\
+ R^\phi{}_{\phi\phi\theta}&  R^\phi{}_{\phi\phi\phi} \\
+\end{array}
+\right) \\
+\end{array}
+\right)$$
+
+
+---
+
+The code with some modifications is as follows:
+
+```
+gmn = {{r^2, 0}, {0, r^2 Sin[\[Theta]]^2}};
+InverseMetric[g_] := Simplify@Inverse@g
+
+ChristoffelSymbol[g_, xx_] :=
+ Block[{n, ig, res},
+  n = 2;
+  ig = InverseMetric[g];
+  res = Table[
+    (1/2) Sum[ig[[\[Lambda], \[Sigma]]]*
+       (-D[g[[\[Mu], \[Nu]]], xx[[\[Sigma]]]] +
+         D[g[[\[Sigma], \[Nu]]], xx[[\[Mu]]]] +
+         D[g[[\[Sigma], \[Mu]]], xx[[\[Nu]]]]),
+      {\[Sigma], 1, n}],
+    {\[Lambda], 1, n}, {\[Mu], 1, n}, {\[Nu], 1, n}];
+  Simplify[res]](*\[Lambda],\[Mu],\[Nu]*)
+
+christoffelSymbols = ChristoffelSymbol[gmn, {\[Theta], \[CurlyPhi]}];
+n = 2;
+Do[
+  Print["ChristoffelSymbol[", \[Lambda], \[Mu], \[Nu], "] = ", christoffelSymbols[[\[Lambda], \[Mu], \[Nu]]]];
+  Print["Indices: \[Theta] / \[CurlyPhi] = ", \[Lambda], ", \[Mu] = ", \[Mu], ", \[Nu] = ", \[Nu]];
+  Print["---"];
+  , {\[Lambda], 1, n}, {\[Mu], 1, n}, {\[Nu], 1, n}
+]
+christoffelSymbols
+
+
+RiemannEntries[g_, xx_] := Block[{n, Chr, res},
+  n = 2;
+  Chr = ChristoffelSymbol[g, xx];
+  res = Table[
+    D[Chr[[\[Rho], \[Nu], \[Sigma]]], xx[[\[Mu]]]] - 
+     D[Chr[[\[Rho], \[Mu], \[Sigma]]], xx[[\[Nu]]]] + 
+     Sum[Chr[[\[Rho], \[Mu], \[Lambda]]]*
+       Chr[[\[Lambda], \[Nu], \[Sigma]]], {\[Lambda], 1, n}] - 
+     Sum[Chr[[\[Rho], \[Nu], \[Lambda]]]*
+       Chr[[\[Lambda], \[Mu], \[Sigma]]], {\[Lambda], 1, n}],
+    {\[Rho], 1, n}, {\[Sigma], 1, n}, {\[Mu], 1, n}, {\[Nu], 1, n}];
+  Simplify[res]
+]
+
+result = RiemannEntries[gmn, {\[Theta], \[CurlyPhi]}];
+
+n = 2;
+Do[
+  Print["RiemannEntries[", \[Rho], \[Sigma], \[Mu], \[Nu], "] = ", result[[\[Rho], \[Sigma], \[Mu], \[Nu]]]];
+  Print["Indices: \[Rho] = ", \[Rho], ", \[Sigma] = ", \[Sigma], ", \[Mu] = ", \[Mu], ", \[Nu] = ", \[Nu]];
+  Print["---"];
+  , {\[Rho], 1, n}, {\[Sigma], 1, n}, {\[Mu], 1, n}, {\[Nu], 1, n}
+]
+```
 
 
 ---
