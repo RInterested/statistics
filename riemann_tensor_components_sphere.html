@@ -462,7 +462,7 @@ u)=\partial_i(\vec v \cdot \vec u)=0.\)</span></p>
 <p>Looking at the basis vectors,</p>
 <p><span class="math display">\[\begin{align}
 \nabla_{\vec e_k}(\vec e_i \cdot \vec e_j) &amp;= (\nabla_{\vec e_k}
-\vec ei ) \cdot \vec e_j + \vec e_i \cdot (\nabla_{\vec e_k} \vec e_j)
+\vec e_i ) \cdot \vec e_j + \vec e_i \cdot (\nabla_{\vec e_k} \vec e_j)
 \\
 \partial_k(\vec e_i \cdot \vec e_j) &amp;=(\Gamma^l_{~ik} \vec e_l)
 \cdot \vec e_j + \vec e_i\cdot(\Gamma^l_{~jk}\vec e_l)\\
@@ -487,8 +487,19 @@ g^{im}(\partial_k g_{ij}+ \partial_j g_{ki }- \partial_i
 g_{jk})\]</span></p>
 <p>So for instance, in the sphere and for <span class="math inline">\(\lambda=1=\theta,
 \mu=2=\phi,\nu=2=\phi\)</span></p>
-<p><span class="math display">\[\Gamma^{\theta}_{\mu\nu}=\Gamma^{\theta}_{\phi\phi}=\Gamma^1{}_{22}=\sum_{σ=1}^n
-g^{λσ} (∂_μ g_{σν} + ∂_ν g_{σμ} - ∂_σ g_{μν})\]</span></p>
+<p><span class="math display">\[\begin{align}\Gamma^{\theta}_{\mu\nu}=\Gamma^{\theta}_{\phi\phi}=\Gamma^1{}_{22}&amp;=\frac
+1 2\sum_{σ=1}^n g^{λσ} (∂_μ g_{σν} + ∂_ν g_{σμ} - ∂_σ g_{μν})\\
+&amp;=\frac 1 2 \left(g^{λ\theta} \left( ∂_μ g_{\theta ν} + ∂_ν
+g_{\theta μ} - ∂_\theta g_{μν}\right) + g^{λ\phi} \left( ∂_μ g_{\phi ν}
++ ∂_ν g_{\phi μ} - ∂_\phi g_{μν}\right)\right)\\
+&amp;=\frac 1 2 \left(g^{\theta\theta} \left( ∂_\phi g_{\theta \phi} +
+∂_\phi g_{\theta \phi} - ∂_\theta g_{\phi\phi}\right) + g^{\theta\phi}
+\left( ∂_\phi g_{\phi \phi} + ∂_\phi g_{\phi \phi} - ∂_\phi
+g_{\phi\phi}\right)\right)\\
+&amp;=\frac 1 2 \left(\frac{1}{r^2}(0+0-2r^2\sin\theta\cos\theta) +
+0(0+0-0) \right)\\
+&amp;=-\sin\theta\cos\theta
+\end{align}\]</span></p>
 <pre><code>ChristoffelSymbol[111]=0
 Indices:θ/φ=1,μ=1,ν=1
 
