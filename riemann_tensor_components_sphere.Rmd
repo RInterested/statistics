@@ -21,6 +21,8 @@ output:
 
 This page is essentially an annotated transcription of [this post](https://ekamperi.github.io/mathematics/2019/10/29/riemann-curvature-tensor.html) by Stathis Kamperis, including Mathematica code, also reflected in [here](https://www.wolframcloud.com/obj/antoniparellada/Published/Riemann curvature tensor sphere.nb).
 
+
+
 Given the metric tensor of the sphere
 
 $$\begin{pmatrix}
@@ -119,9 +121,24 @@ and see a lot of cancellations, resulting in
 $$\partial_k g_{ij}+ \partial_j g_{ki}- \partial_i g_{jk} = 2\Gamma^l_{jk}g_{il}$$
 or
 
-$$\Gamma^m_{jk}=\frac 1 2 g^{im}(\partial_k g_{ij}+ \partial_j g_{ki }- \partial_i g_{jk})$$
+$$\Gamma^m{}_{jk}=\frac 1 2 g^{\color{red}im}(\partial_k g_{\color{red}ij}+ \partial_j g_{k\color{red}i }- \partial_\color{red}i g_{jk})$$
 
-So for instance, in the sphere and for $\lambda=1=\theta, \mu=2=\phi,\nu=2=\phi$
+Notice the implied summation for each Christoffel symbol in the dummy index $i$ (sometimes labelled $\sigma$):
+
+$$\Gamma^\lambda{}_{\mu\nu}= \frac 1 2 g^{\color{red}\sigma\lambda}(\partial_\nu \, g_{\color{red}\sigma \mu} + \partial_\mu \, g_{\nu\color{red}\sigma } - \partial_\color{red}\sigma\,g_{\mu\nu})$$
+
+$\mu$ is the basis vector being parallel transported
+
+$\nu$ is the direction in which the basis vector is being transported. 
+
+$\lambda$ indicates the component of the transported vector in the new basis. 
+
+$\sigma$ is summed over and it is there to capture the contributions from different directions in the coordinate space.
+
+<img width = 700  src = "Christoffel_symbols.png">
+
+
+So for instance, in the sphere, and for $\lambda=1=\theta, \mu=2=\phi,\nu=2=\phi$
 
 $$\begin{align}\Gamma^{\theta}_{\mu\nu}=\Gamma^{\theta}_{\phi\phi}=\Gamma^1{}_{22}&=\frac 1 2\sum_{σ=1}^n g^{λσ} (∂_μ g_{σν} + ∂_ν g_{σμ} - ∂_σ g_{μν})\\
 &=\frac 1 2 \left(g^{λ\theta} \left( ∂_μ g_{\theta ν} + ∂_ν g_{\theta μ} - ∂_\theta g_{μν}\right) + g^{λ\phi} \left( ∂_μ g_{\phi ν} + ∂_ν g_{\phi μ} - ∂_\phi g_{μν}\right)\right)\\
@@ -129,6 +146,16 @@ $$\begin{align}\Gamma^{\theta}_{\mu\nu}=\Gamma^{\theta}_{\phi\phi}=\Gamma^1{}_{2
 &=\frac 1 2 \left(\frac{1}{r^2}(0+0-2r^2\sin\theta\cos\theta) + 0(0+0-0) \right)\\
 &=-\sin\theta\cos\theta
 \end{align}$$
+
+For $\lambda=2=\phi, \mu=1=\theta,\nu=2=\phi$
+
+$$\begin{align}\Gamma^{\phi}_{\mu\nu}=\Gamma^{\phi}_{\theta\phi}=\Gamma^2{}_{12}&=\frac 1 2\sum_{σ=1}^n g^{λσ} (∂_μ g_{σν} + ∂_ν g_{σμ} - ∂_σ g_{μν})\\
+&=\frac 1 2 \left(g^{λ\theta} \left( ∂_μ g_{\theta ν} + ∂_ν g_{\theta μ} - ∂_\theta g_{μν}\right) + g^{λ\phi} \left( ∂_μ g_{\phi ν} + ∂_ν g_{\phi μ} - ∂_\phi g_{μν}\right)\right)\\
+&=\frac 1 2 \left(g^{\phi\theta} \left( ∂_\theta g_{\theta \phi} + ∂_\phi g_{\theta \theta} - ∂_\theta g_{\theta\phi}\right) + g^{\phi\phi} \left( ∂_\theta g_{\phi \phi} + ∂_\phi g_{\phi \theta} - ∂_\phi g_{\theta\phi}\right)\right)\\
+&=\frac 1 2 \left(  \frac{\csc^2\theta}{R^2}\left(2R^2\sin\theta\cos\theta+0-0\right) \right)\\
+&=\cot\theta
+\end{align}$$
+
 
 ```
 ChristoffelSymbol[111]=0
