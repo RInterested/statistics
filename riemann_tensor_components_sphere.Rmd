@@ -32,6 +32,17 @@ R^2 & 0 \\
 0 & R^2\sin^2\theta
 \end{pmatrix}$$
 
+with the inverse
+
+$$\begin{pmatrix}
+g^{\theta \theta} & g^{\theta \phi} \\
+g^{\phi \theta} & g^{\phi \phi}
+\end{pmatrix}=
+\begin{pmatrix}
+\frac 1{R^2} & 0 \\
+0 & \frac{\csc^2\theta}{R^2}
+\end{pmatrix}$$
+
 
 and the Christoffel symbols
 
@@ -57,6 +68,62 @@ $$\Gamma_{\mu\nu}^\lambda = \frac{1}{2}g^{\lambda\sigma} \left(
 \frac{\partial g_{\sigma\mu}}{\partial x^\nu} -
 \frac{\partial g_{\mu\nu}}{\partial x^\sigma}\right)=
 \frac{1}{2}g^{\lambda\sigma} \left( \partial_\mu g_{\sigma\nu} + \partial_\nu g_{\sigma\mu} - \partial_\sigma g_{\mu\nu}\right)$$
+
+This teddy bear of an equation is directly derived from the fact that we are using the [Levy-Civita connection](https://en.wikipedia.org/wiki/Levi-Civita_connection), which is torsion-free, and metric compatible:
+
+Torsion-free implies that the Lie bracket of the basis vectors is zero because the vectors are partial derivative operators, which are the same in both directions. Hence,
+
+$$[\partial_i, \partial_j]= \partial_i \partial_j - \partial_j\partial_i = \frac{\partial^2}{\partial u^i \partial u^j} - \frac{\partial^2}{\partial u^j \partial u^i} = 0$$
+But then the difference in covariant derivatives
+
+$$\nabla_{\vec w} \vec v - \nabla_{\vec v} \vec w=[\vec v, \vec w]=0 $$
+
+And hence,
+
+$$\nabla_{\vec e_i} \vec e_j =\nabla_{\vec e_j} \vec e_i $$
+
+and since $\nabla_{\vec e_i} \vec e_j= \Gamma^k_{~ij} \vec e_k$ and $\nabla_{\vec e_j} \vec e_i= \Gamma^k_{~ji} \vec e_k$,
+
+$$\Gamma^k_{~ij} \vec e_k = \Gamma^k_{~ji} \vec e_k$$
+
+In other words we can swap the lower indices of the Christoffel symbols.
+
+On the other hand, the metric compatibility property implies that
+
+$$\nabla_{\vec w}(\vec v \cdot\vec u)= \nabla_{\vec w} \cdot \vec u + \vec v \cdot (\nabla_{\vec w}\cdot \vec u)$$
+
+which means that the dot product stays the same when vectors are transported, and, therefore, also angles and lengths (just consider a vector with itself). This is true since in parallel transport the covariant derivative is zero $\nabla_{\vec w} \vec v = \nabla_{\vec w}\vec u=\vec 0,$ the equation above is simplified to $\nabla_{\vec w}(\vec v \cdot\vec u)=\vec 0\implies $ constant dot product. Also, since the dot product is a scalar, $\nabla_{\partial_i}(\vec v \cdot \vec u)=\partial_i(\vec v \cdot \vec u)=0.$
+
+Looking at the basis vectors,
+
+$$\begin{align}
+\nabla_{\vec e_k}(\vec e_i \cdot \vec e_j) &= (\nabla_{\vec e_k} \vec ei ) \cdot \vec e_j + \vec e_i \cdot (\nabla_{\vec e_k} \vec e_j)
+\\
+\partial_k(\vec e_i \cdot \vec e_j) &=(\Gamma^l_{~ik} \vec e_l) \cdot \vec e_j + \vec e_i\cdot(\Gamma^l_{~jk}\vec e_l)\\
+\partial_k(g_{ij}) &= \Gamma^l_{~ik}g_{jl} + \Gamma^l_{~jk}g_{il}
+\end{align}$$
+
+Following this equality we can permute the indices as in:
+
+$$\begin{align}
+\partial_k(g_{ij}) &= \Gamma^l_{~ik}g_{jl} + \Gamma^l_{~jk}g_{il}\\
+\partial_j(g_{ki}) &= \Gamma^l_{~kj}g_{il} + \Gamma^l_{~ij}g_{kl}\\
+\partial_i(g_{jk}) &= \Gamma^l_{~ji}g_{kl} + \Gamma^l_{~ki}g_{jl}
+\end{align}$$
+
+Taking into account the fact that swapping the lower indices of the Christoffel symbols does not alter them, we can perform the following operation
+
+$$\partial_k g_{ij}+ \partial_j g_{ki}- \partial_i g_{jk}$$
+and see a lot of cancellations, resulting in
+
+$$\partial_k g_{ij}+ \partial_j g_{ki}- \partial_i g_{jk} = 2\Gamma^l_{jk}g_{il}$$
+or
+
+$$\Gamma^m_{jk}=\frac 1 2 g^{im}(\partial_k g_{ij}+ \partial_j g_{ki }- \partial_i g_{jk})$$
+
+So for instance, in the sphere and for $\lambda=1=\theta, \mu=2=\phi,\nu=2=\phi$
+
+$$\Gamma^{\theta}_{\mu\nu}=\Gamma^{\theta}_{\phi\phi}=\Gamma^1{}_{22}=\sum_{σ=1}^n g^{λσ} (∂_μ g_{σν} + ∂_ν g_{σμ} - ∂_σ g_{μν})$$
 
 ```
 ChristoffelSymbol[111]=0
