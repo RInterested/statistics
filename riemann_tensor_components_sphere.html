@@ -11,7 +11,7 @@
 
 
 
-<title>Components of the Riemann Curvature Tensor for a Sphere</title>
+<title>Riemann Tensor for a Sphere and Schwarzschild Christoffel Symbols</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -364,8 +364,8 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Components of the Riemann Curvature Tensor
-for a Sphere</h1>
+<h1 class="title toc-ignore">Riemann Tensor for a Sphere and
+Schwarzschild Christoffel Symbols</h1>
 
 </div>
 
@@ -634,6 +634,7 @@ R^\phi{}_{\phi\phi\theta}&amp;  R^\phi{}_{\phi\phi\phi} \\
 \right)\]</span></p>
 <div id="christoffel-symbols-for-schwarzschild-metric" class="section level4">
 <h4>Christoffel symbols for Schwarzschild metric</h4>
+<p>Reference online <a href="https://physics.stackexchange.com/a/733752/150551">here</a>.</p>
 <p>The metric tensor is</p>
 <p><span class="math display">\[g_{mn} =
 \begin{pmatrix}
@@ -657,7 +658,142 @@ R^\phi{}_{\phi\phi\theta}&amp;  R^\phi{}_{\phi\phi\phi} \\
          D[g[[\[Sigma], \[Mu]]], xx[[\[Nu]]]]),
       {\[Sigma], 1, n}],
     {\[Lambda], 1, n}, {\[Mu], 1, n}, {\[Nu], 1, n}];
-  Simplify[res]]</code></pre>
+  Simplify[res]]
+(* Compute Christoffel symbols *)
+christoffelSymbols = ChristoffelSymbol[gmn, {t, r,\[Theta],\[Phi]}];
+MatrixForm[christoffelSymbols]</code></pre>
+<p>yielding</p>
+<p><span class="math display">\[\begin{pmatrix}
+\begin{pmatrix}
+\Gamma^t{}_{tt}=0\\
+\Gamma^t{}_{tr}=-\frac M{2Mr-r^2}\\
+\Gamma^t{}_{t\theta}=0\\
+\Gamma^t{}_{t\phi}=0
+\end{pmatrix}
+&amp;
+\begin{pmatrix}
+\Gamma^t{}_{rt}=-\frac M{2Mr-r^2}\\
+\Gamma^t{}_{rr}=0\\
+\Gamma^t{}_{r\theta}\\
+\Gamma^t{}_{r\phi}=0
+\end{pmatrix}
+&amp;
+\begin{pmatrix}
+\Gamma^t{}_{\theta t}=0\\
+\Gamma^t{}_{\theta r}=0\\
+\Gamma^t{}_{\theta \theta}\\
+\Gamma^t{}_{\theta\phi}=0
+\end{pmatrix}  
+&amp;
+\begin{pmatrix}
+\Gamma^t{}_{\phi t}=0\\
+\Gamma^t{}_{\phi r}=0\\
+\Gamma^t{}_{\phi\theta}\\
+\Gamma^t{}_{\phi\phi}=0
+\end{pmatrix}
+\\
+\begin{pmatrix}
+\Gamma^r{}_{tt}=\frac{M(-2M+r)}{r^3}\\
+\Gamma^r{}_{tr}=0\\
+\Gamma^r{}_{t\theta}\\
+\Gamma^r{}_{t\phi}=0
+\end{pmatrix}
+&amp;
+\begin{pmatrix}
+\Gamma^r{}_{rt}=0\\
+\Gamma^r{}_{rr}=\frac{M}{2Mr-r^2}\\
+\Gamma^r{}_{r\theta}=0\\
+\Gamma^r{}_{r\phi}=0
+\end{pmatrix}
+&amp;
+\begin{pmatrix}
+\Gamma^r{}_{\theta t}=0\\
+\Gamma^r{}_{\theta r}=0\\
+\Gamma^r{}_{\theta \theta}=2M - r\\
+\Gamma^r{}_{\theta\phi}=0
+\end{pmatrix}  
+&amp;
+\begin{pmatrix}
+\Gamma^r{}_{\phi t}=0\\
+\Gamma^r{}_{\phi r}=0\\
+\Gamma^r{}_{\phi\theta}=0\\
+\Gamma^r{}_{\phi\phi} = (2M - r)\sin^2\theta
+\end{pmatrix}
+\\
+\begin{pmatrix}
+\Gamma^\theta{}_{tt}=0\\
+\Gamma^\theta{}_{tr}=0\\
+\Gamma^\theta{}_{t\theta}=0\\
+\Gamma^\theta{}_{t\phi}=0
+\end{pmatrix}
+&amp;
+\begin{pmatrix}
+\Gamma^\theta{}_{rt}=0\\
+\Gamma^\theta{}_{rr}=0\\
+\Gamma^\theta{}_{r\theta}=1/r\\
+\Gamma^\theta{}_{r\phi}=0
+\end{pmatrix}
+&amp;
+\begin{pmatrix}
+\Gamma^\theta{}_{\theta t}=0\\
+\Gamma^\theta{}_{\theta r}=1/r\\
+\Gamma^\theta{}_{\theta \theta}=0\\
+\Gamma^\theta{}_{\theta\phi}=0
+\end{pmatrix}  
+&amp;
+\begin{pmatrix}
+\Gamma^\theta{}_{\phi t}=0\\
+\Gamma^\theta{}_{\phi r}=0\\
+\Gamma^\theta{}_{\phi\theta}=0\\
+\Gamma^\theta{}_{\phi\phi}=-\cos\theta\sin\theta
+\end{pmatrix}
+\\
+\begin{pmatrix}
+\Gamma^\phi{}_{tt}=0\\
+\Gamma^\phi{}_{tr}=0\\
+\Gamma^\phi{}_{t\theta}=0\\
+\Gamma^\phi{}_{t\phi}=0
+\end{pmatrix}
+&amp;
+\begin{pmatrix}
+\Gamma^\phi{}_{rt}=0\\
+\Gamma^\phi{}_{rr}=0\\
+\Gamma^\phi{}_{r\theta}=0\\
+\Gamma^\phi{}_{r\phi}=1/r
+\end{pmatrix}
+&amp;
+\begin{pmatrix}
+\Gamma^\phi{}_{\theta t}=0\\
+\Gamma^\phi{}_{\theta r}=0\\
+\Gamma^\phi{}_{\theta \theta}=\cot\theta\\
+\Gamma^\phi{}_{\theta\phi}=0
+\end{pmatrix}  
+&amp;
+\begin{pmatrix}
+\Gamma^\phi{}_{\phi t}=0\\
+\Gamma^\phi{}_{\phi r}=1/r\\
+\Gamma^\phi{}_{\phi\theta}=\cot\theta\\
+\Gamma^\phi{}_{\phi\phi}=0
+\end{pmatrix}
+\end{pmatrix}\]</span></p>
+<p>The following are the unique values:</p>
+<p><span class="math display">\[\begin{equation}
+    \begin{matrix}
+    \Gamma^r_{tt}=\dfrac{M(r-2M)}{r^3}\,\text{,} &amp; ~ &amp;
+\Gamma^r_{rr}=-\dfrac{M}{r(r-2M)}\,\text{,} &amp; ~ &amp;
+\Gamma^r_{\theta \theta}=-(r-2M)\,\text{,}\\
+     ~ &amp; ~ &amp; ~ &amp; ~ &amp; ~\\
+    \Gamma^r_{\phi \phi}=-(r-2M)\sin^2{\theta}\,\text{,} &amp; ~ &amp;
+\Gamma^t_{rt} = \dfrac{M}{r(r-2M)}\,\text{,} &amp; ~ &amp;
+\Gamma^\theta_{r\theta}=\dfrac{1}{r}\,\text{,}\\
+     ~ &amp; ~ &amp; ~ &amp; ~ &amp; ~\\
+    \Gamma^\theta_{\phi\phi}=-\sin{\theta}\cos{\theta}\,\text{,} &amp; ~
+&amp; \Gamma^\phi_{r\phi}=\dfrac{1}{r}\,\text{,} &amp; ~ &amp;
+\Gamma^\phi_{\theta\phi} =
+\dfrac{\cos{\theta}}{\sin{\theta}}\,\text{.}\\
+~ &amp; ~ &amp;
+    \end{matrix}
+\end{equation}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
