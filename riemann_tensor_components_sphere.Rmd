@@ -266,6 +266,37 @@ R^\theta{}_{\phi\phi\theta} & R^\theta{}_{\phi\phi\phi} \\
 \end{array}
 \right)$$
 
+#### Christoffel symbols for Schwarzschild metric
+
+The metric tensor is
+
+$$g_{mn} = 
+\begin{pmatrix}
+-(1-2M/r) & 0 & 0 & 0 \\
+0 & (1-2M/r)^{-1} & 0 & 0 \\
+0 & 0 & r^2 & 0 \\
+0 & 0 & 0 & r^2\sin^2{\theta}
+\end{pmatrix}$$
+
+The Christoffel symbols are calculated as
+
+```
+ChristoffelSymbol[g_, xx_] :=
+ Block[{n, ig, res},
+  n = 4;
+  ig = InverseMetric[g];
+  res = Table[
+    (1/2) Sum[ig[[\[Lambda], \[Sigma]]]*
+    (*\[Sigma] is the summation dummy variable.
+      \[Lambda] indicates the component of the transported vector 
+      in the new basis.*)
+       (-D[g[[\[Mu], \[Nu]]], xx[[\[Sigma]]]] +
+         D[g[[\[Sigma], \[Nu]]], xx[[\[Mu]]]] +
+         D[g[[\[Sigma], \[Mu]]], xx[[\[Nu]]]]),
+      {\[Sigma], 1, n}],
+    {\[Lambda], 1, n}, {\[Mu], 1, n}, {\[Nu], 1, n}];
+  Simplify[res]]
+```
 
 
 ---

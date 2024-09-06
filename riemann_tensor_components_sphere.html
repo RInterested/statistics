@@ -632,11 +632,38 @@ R^\phi{}_{\phi\phi\theta}&amp;  R^\phi{}_{\phi\phi\phi} \\
 \right) \\
 \end{array}
 \right)\]</span></p>
+<div id="christoffel-symbols-for-schwarzschild-metric" class="section level4">
+<h4>Christoffel symbols for Schwarzschild metric</h4>
+<p>The metric tensor is</p>
+<p><span class="math display">\[g_{mn} =
+\begin{pmatrix}
+-(1-2M/r) &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; (1-2M/r)^{-1} &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; r^2 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; r^2\sin^2{\theta}
+\end{pmatrix}\]</span></p>
+<p>The Christoffel symbols are calculated as</p>
+<pre><code>ChristoffelSymbol[g_, xx_] :=
+ Block[{n, ig, res},
+  n = 4;
+  ig = InverseMetric[g];
+  res = Table[
+    (1/2) Sum[ig[[\[Lambda], \[Sigma]]]*
+    (*\[Sigma] is the summation dummy variable.
+      \[Lambda] indicates the component of the transported vector 
+      in the new basis.*)
+       (-D[g[[\[Mu], \[Nu]]], xx[[\[Sigma]]]] +
+         D[g[[\[Sigma], \[Nu]]], xx[[\[Mu]]]] +
+         D[g[[\[Sigma], \[Mu]]], xx[[\[Nu]]]]),
+      {\[Sigma], 1, n}],
+    {\[Lambda], 1, n}, {\[Mu], 1, n}, {\[Nu], 1, n}];
+  Simplify[res]]</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 
