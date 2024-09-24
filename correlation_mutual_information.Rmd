@@ -1,0 +1,79 @@
+---
+title: 'Correlation versus Mutual Information'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Correlation versus Mutual Information:
+
+---
+
+Mutual information (MI) of two random variables is a measure of the mutual dependence between the two variables, or the "amount of information" (in units such as shannons (bits), nats or hartleys) obtained about one random variable by observing the other random variable ([Wikipedia](https://en.wikipedia.org/wiki/Mutual_information)). 
+
+It is considered more general than correlation and handles nonlinear dependencies.
+
+Mathematically, it is defined as
+
+$$I(X;Y)=D_{KL}\left(P_{(X,Y)}||P_X \otimes P_Y\right)$$
+
+in which $D_{(KL)}$ is the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) or relative entropy, which measures how different two probability distributions are, and is calculated as
+
+$$D_{KL}(P||Q)=\sum_{x\in \mathcal X} P(x) \log\left(\frac{P(x)}{Q(x)} \right)$$
+
+which can be interpreted as the expected excess surprise from using $Q$ as a model instead of $P.$
+
+In the context of probability distributions, the tensor product of two distributions $P_X$ and $P_Y,$ denoted as $P_X \otimes P_Y)$ creates a joint distribution that assumes $X$ and $Y$ are independent. Therefore it is just the product of of the marginal distributions of the random variables in question.
+
+The symbol $\parallel$ just means "parallel" and it is used for the entries of the distribution that are the input for $D_{KL}$.
+
+Equivalently, mutual information can be expressed as 
+
+$$I(X;Y)=H(X,Y) - H(X\vert Y) - H(Y\vert X)$$
+
+For Gaussian r.v.'s if $\mathbf{x} = [X_{1}, X_{2}]$ follows a bivariate Gaussian distribution, with mean vector $\mathbf{0},$ unit variance for both variables and a correlation coefficient $\rho$, we write the pdf as: 
+
+$$f_X(\bf x)= \frac{1}{2\pi\vert \Sigma \vert^{1/2}}\exp\left[-1/2 \left( \bf x^\top\Sigma^{-1}\bf x\right)\right]$$
+
+with $\Sigma =\begin{bmatrix}1&\rho\\\rho& 1\end{bmatrix}$
+
+The entropy of the Gaussian is
+
+$$H(x)=1/2 \log(2\pi e)$$
+
+with $$H(X,Y)= 1/2 \log\left((2\pi e)^2(1-\rho^2)\right)$$
+
+And hence the MI is
+
+$$I(X;Y) = -1/2\log(1-\rho^2)$$
+
+This is explained [here](http://www.mathemafrica.org/?p=16127).
+
+### Relationship to correlation:
+
+Since $\rho$ is in the equation we can plot MI as a function of correlation
+
+```{r}
+rho <- seq(-1,1,0.001)
+mi <- -1/2 * log(1- rho^2)
+plot(rho, mi, type='l')
+```
+
+> As can be clearly seen, the amount of information that we get about one random variable when we observe the other increases slowly at first and then much, much faster around $\rho = \pm 0.8$ and then even more significantly around $\rho = \pm 0.9.$ When $\rho =\pm 1$ the amount of information tends to infinity – if random variables are perfectly correlated then we know everything about one of them by observing the other one.
+
+This is consistent with Taleb's [presentation on YouTube](https://youtu.be/fb921ZrM6h0?si=MFDx2iNlksYiUYUk) and in *Fooled by Correlation: Common Misinterpretations in Social "Science"*. He says that a correlation of $0.5$ is closer to $0$ than $1.$
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
