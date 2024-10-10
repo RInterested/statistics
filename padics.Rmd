@@ -1,0 +1,96 @@
+---
+title: 'Calculations with p-adics'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Calculations with p-adics:
+
+---
+
+This page is not meant to be a formal presentation on p-adics, but rather some basic calculations and snippets of code to clarify some points.
+
+The typical presentation of p-adics focuses on the integers as power sums expanding to infinity on to the left as in $\mathbb Z_3,$ corresponding to the 3-adics. For example, in this system the number $3$ is
+
+$$...00000000000000000011 =  2 \cdot 2^1 + 1 \cdot 2^0 $$
+
+The negative reals are simply the additive inverses of their positive counterparts, so
+
+$$-1 = ...11111111$$
+
+Because
+
+$$...11111111 + ...00000001 = ...000000$$
+
+since in base $2$ and summing from right to left, $1 + 1 = 0$ and we carry $1$ to the left to add it to the $1$ in the second position in the expression of $-1.$
+
+Now, how are the finite digits to the right of the period on the right calculated, and where do they come from?
+
+The issue comes up in the introduction of $\mathbb Q_p$ numbers. For instance, in the case of the 2-adic expression of $\frac 1{24}$. P-adic numbers can be factored as
+
+$$n = p^k \, \text{unit}$$
+where $k$ is an exponent measuring the valuation of the p-adic as $\frac 1{p^k}$, and the $\text{unit}$ is... well quick review:
+
+> A **unit** in a ring is an element that has a multiplicative inverse. In other words, if $a$ is a unit, there exists an element $b$ in the ring such that $a \cdot b = 1$.
+> A **zero divisor** is a non-zero element $a$ in a ring such that there exists a non-zero element $b$ where $a \cdot b = 0.$
+
+Therefore, in the case of a fraction:
+
+$$\frac m n = \frac m{p^k} \frac 1{\text{unit}}= \frac 1{\text{unit}}p^{-k}$$
+
+Applying it to the example of $1/24,$ the denominator can be factorized as $2^3 \cdot 3:$
+
+$$\frac 1{24}=\frac 1 3 \cdot 2^{-3}$$
+
+$1/3$ is just the multiplicative inverse of $3,$ which can be obtained in sagemath as:
+
+```
+from sage.all import *
+from sage.rings.padics.padic_printing import pAdicPrinter
+padic_printing.mode('digits')
+print(Qp(2)(1/3))
+# ...10101010101010101011
+```
+
+and easily confirmed to be accurate:
+
+```
+third = Qp(2)(1/3)
+three = Qp(2)(3)
+print(third * three)
+# ...00000000000000000001
+```
+Therefore,
+
+$$1/24 = ...10101010101010101011 \cdot 2^{-3}$$
+
+but since we are operating in base $2,$ the factor $2^{-3}$ just moves the period to the right, like $10^{-3}$ would in base $10.$ In this way, we get the final result:
+
+$$1/24...10101010101010101.011$$
+
+or in sagemath
+
+```
+padic_printing.mode('digits')
+print(Qp(2)(1/24))
+...10101010101010101.011
+padic_printing.mode('series')
+print(Qp(2)(1/24))
+2^-3 + 2^-2 + 1 + 2^2 + 2^4 + 2^6 + 2^8 + 2^10 + 2^12 + 2^14 + 2^16 + O(2^17)
+```
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
