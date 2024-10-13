@@ -450,10 +450,71 @@ padic_printing.mode(&#39;series&#39;)
 print(Qp(2)(1/24))
 2^-3 + 2^-2 + 1 + 2^2 + 2^4 + 2^6 + 2^8 + 2^10 + 2^12 + 2^14 + 2^16 + O(2^17)</code></pre>
 <hr />
+<div id="hensels-lemma" class="section level4">
+<h4>Hensel’s lemma:</h4>
+<p>A <strong>simple root</strong> of a polynomial is a root where the
+polynomial crosses the x-axis and does not touch or bounce off it. A
+root <span class="math inline">\(r\)</span> of a polynomial <span class="math inline">\(f(x)\)</span> is considered simple if <span class="math inline">\(f(r) = 0\)</span> and the derivative <span class="math inline">\(f&#39;(r)\neq 0\)</span>. This means that at <span class="math inline">\(r\)</span>, the polynomial has a non-zero slope,
+indicating that it crosses the x-axis at that point. In contrast, a
+multiple root (or repeated root) would satisfy <span class="math inline">\(f(r) = 0\)</span> and <span class="math inline">\(f’(r) = 0\)</span>, meaning the polynomial touches
+or bounces off the x-axis at <span class="math inline">\(r\)</span> but
+does not cross it.</p>
+<p>If a polynomial has a simple root modulo a prime <span class="math inline">\(p\)</span>, Hensel’s theorem allows us to lift
+this root to a root modulo <span class="math inline">\(p^k\)</span> for
+any <span class="math inline">\(k\)</span>. This process can be extended
+to find roots in the p-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
+<p><span class="math display">\[a_{n+1}\equiv a_n
+\mod{p^{n+1}}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[f(a_n)\equiv 0 \mod
+{p^{n+1}}\]</span></p>
+<p>will allow the construction of a sequence of entries in the p-adic
+expression.</p>
+<p>For instance (see <a href="https://youtu.be/gsg1x6mxVIA?si=EPeR-rniYi6wkq6D">here</a>), <span class="math inline">\(f(x) = x^2 + 1\)</span> has two solutions <span class="math inline">\(\mod{5}\)</span>: <span class="math inline">\(3\)</span> with multiplicity <span class="math inline">\(1\)</span>, and <span class="math inline">\(2\)</span> with multiplicity <span class="math inline">\(1.\)</span></p>
+<pre><code>R.&lt;x&gt; = GF(5)[]
+p = x^2 + 1
+p.roots()
+# [(3, 1), (2, 1)]</code></pre>
+<p>These will start the sequence in the p-adic (of <span class="math inline">\(5\)</span>-adic) expansion. So for <span class="math inline">\(r = 2,\)</span> this will be <span class="math inline">\(a_0=2.\)</span> For <span class="math inline">\(a_1,\)</span> the equation above is</p>
+<p><span class="math display">\[\begin{align} a_1 &amp;\equiv a_0
+\mod{5^1}\\
+a_1 &amp;\equiv 2 \mod{5} \\
+a_1 &amp;= 2 + 5t
+\end{align}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\begin{align}
+f(a_1) &amp;\equiv 0 \mod{5^2}\\
+(2 + 5t)^2 + 1 &amp;\equiv 0 \mod{5^2} \\
+t &amp;\equiv 1 \mod {5^2}
+\end{align}\]</span></p>
+<p>yielding</p>
+<p><span class="math display">\[\begin{align}
+a_1 = 2 + 5 \cdot 1 =7
+\end{align}\]</span></p>
+<p>And at this point we are ready for</p>
+<p><span class="math display">\[\begin{align}
+a_2 &amp;\equiv a_1 \mod{5^2}\\
+a_2 &amp;\equiv 7 \mod{25}\\
+a_2 &amp;= 7 +25t
+\end{align}\]</span></p>
+<p>and <span class="math display">\[(7 +25t)^2+1 \equiv 0
+\mod{5^3}\]</span></p>
+<p>which results in <span class="math inline">\(a_2 =57.\)</span></p>
+<p>In sagemath,</p>
+<pre><code>padic_printing.mode(&#39;series&#39;)
+R.&lt;x&gt;  = Qp(5,8)[]
+p = x^2 + 1
+p.roots()
+#[(2 + 5 + 2*5^2 + 5^3 + 3*5^4 + 4*5^5 + 2*5^6 + 3*5^7 + O(5^8), 1),
+ (3 + 3*5 + 2*5^2 + 3*5^3 + 5^4 + 2*5^6 + 5^7 + O(5^8), 1)]</code></pre>
+<p>Notice how this makes sense:</p>
+<pre><code>2 + 5 + 2*5^2 = 57</code></pre>
+<hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 
