@@ -500,13 +500,47 @@ a_2 &amp;= 7 +25t
 <p>and <span class="math display">\[(7 +25t)^2+1 \equiv 0
 \mod{5^3}\]</span></p>
 <p>which results in <span class="math inline">\(a_2 =57.\)</span></p>
+<p>Progressing to</p>
+<p><span class="math display">\[\begin{align}
+a_3 &amp;\equiv a_2 \mod{5^3}\\
+a_3 &amp;\equiv 57 \mod{125}\\
+a_3 &amp;= 57 +125t
+\end{align}\]</span></p>
+<p>which can be plugged into the function:</p>
+<p><span class="math display">\[(57+125t)^2 + 1\equiv 0
+\mod{5^4}\]</span></p>
+<p>resulting in <span class="math inline">\(t=1\)</span> and <span class="math inline">\(a_3 =57 + 125 = 182\)</span></p>
 <p>In sagemath,</p>
-<pre><code>padic_printing.mode(&#39;series&#39;)
+<pre><code>import numpy as np
+
+def hensel(roots, p):
+    first_root = roots[0][0]
+    scnd_root = roots[1][0]
+    first_root_str = str(first_root).replace(&#39;...&#39;, &#39;&#39;)
+    first_root_list = [int(digit) for digit in first_root_str]
+    first_root_list_reversed = first_root_list[::-1]
+    first_result = [digit * (p ** i) for i, digit in enumerate(first_root_list_reversed)]
+    scnd_root_str = str(scnd_root).replace(&#39;...&#39;, &#39;&#39;)
+    scnd_root_list = [int(digit) for digit in scnd_root_str]
+    scnd_root_list_reversed = scnd_root_list[::-1]
+    scnd_result = [digit * (p ** i) for i, digit in enumerate(scnd_root_list_reversed)]
+
+    return [np.cumsum(first_result), np.cumsum(scnd_result)]
+padic_printing.mode(&#39;series&#39;)
 R.&lt;x&gt;  = Qp(5,8)[]
 p = x^2 + 1
 p.roots()
 #[(2 + 5 + 2*5^2 + 5^3 + 3*5^4 + 4*5^5 + 2*5^6 + 3*5^7 + O(5^8), 1),
- (3 + 3*5 + 2*5^2 + 3*5^3 + 5^4 + 2*5^6 + 5^7 + O(5^8), 1)]</code></pre>
+ (3 + 3*5 + 2*5^2 + 3*5^3 + 5^4 + 2*5^6 + 5^7 + O(5^8), 1)]
+padic_printing.mode(&#39;digits&#39;)
+R.&lt;x&gt; = Qp(5,8)[]
+p = x^2 + 1
+p.roots()
+#[(...32431212, 1), (...12013233, 1)]
+roots = p.roots()
+hensel(roots, 5)
+#[array([     2,      7,     57,    182,   2057,  14557,  45807, 280182]),
+ array([     3,     18,     68,    443,   1068,   1068,  32318, 110443])]</code></pre>
 <p>Notice how this makes sense:</p>
 <pre><code>2 + 5 + 2*5^2 = 57</code></pre>
 <hr />

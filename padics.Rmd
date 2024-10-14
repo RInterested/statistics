@@ -148,15 +148,53 @@ and $$(7 +25t)^2+1 \equiv 0 \mod{5^3}$$
 
 which results in $a_2 =57.$
 
+Progressing to
+
+$$\begin{align} 
+a_3 &\equiv a_2 \mod{5^3}\\
+a_3 &\equiv 57 \mod{125}\\
+a_3 &= 57 +125t
+\end{align}$$
+
+which can be plugged into the function:
+
+$$(57+125t)^2 + 1\equiv 0 \mod{5^4}$$
+
+resulting in $t=1$ and $a_3 =57 + 125 = 182$
+
 In sagemath,
 
 ```
+import numpy as np
+
+def hensel(roots, p):
+    first_root = roots[0][0]
+    scnd_root = roots[1][0]
+    first_root_str = str(first_root).replace('...', '')
+    first_root_list = [int(digit) for digit in first_root_str]
+    first_root_list_reversed = first_root_list[::-1]
+    first_result = [digit * (p ** i) for i, digit in enumerate(first_root_list_reversed)]
+    scnd_root_str = str(scnd_root).replace('...', '')
+    scnd_root_list = [int(digit) for digit in scnd_root_str]
+    scnd_root_list_reversed = scnd_root_list[::-1]
+    scnd_result = [digit * (p ** i) for i, digit in enumerate(scnd_root_list_reversed)]
+
+    return [np.cumsum(first_result), np.cumsum(scnd_result)]
 padic_printing.mode('series')
 R.<x>  = Qp(5,8)[]
 p = x^2 + 1
 p.roots()
 #[(2 + 5 + 2*5^2 + 5^3 + 3*5^4 + 4*5^5 + 2*5^6 + 3*5^7 + O(5^8), 1),
  (3 + 3*5 + 2*5^2 + 3*5^3 + 5^4 + 2*5^6 + 5^7 + O(5^8), 1)]
+padic_printing.mode('digits')
+R.<x> = Qp(5,8)[]
+p = x^2 + 1
+p.roots()
+#[(...32431212, 1), (...12013233, 1)]
+roots = p.roots()
+hensel(roots, 5)
+#[array([     2,      7,     57,    182,   2057,  14557,  45807, 280182]),
+ array([     3,     18,     68,    443,   1068,   1068,  32318, 110443])]
 ```
 
 Notice how this makes sense: 
