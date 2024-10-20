@@ -25,14 +25,14 @@ From [Wolfram alpha](http://mathworld.wolfram.com/RandomNumber.html),
 The pdf of the power law is
 
 $$f_X(x) =C x^\alpha, x \in [x_0, x_1]$$
-and the normaliztion constant can be determined by considering that $f_X(x)$ has to integrate to 1:
+and the normalization constant can be determined by considering that $f_X(x)$ has to integrate to 1:
 
 $$\int_{x_0}^{x_1} f_X(x)dx= C \frac{[x^{\alpha+1}]_{x_0}^{x_1}}{\alpha+1}=1$$
 and hence,
 
 $$C=\frac{\alpha+1}{x_1^{\alpha+1}- x_0^{\alpha+1}}.$$
 
-However, notice that in [other sources](https://en.wikipedia.org/wiki/Power_law#Power-law_probability_distributions), the negative value of alpha is explicit in the equations. For instance:
+However, notice that in [other sources](https://en.wikipedia.org/wiki/Power_law#Power-law_probability_distributions), the **negative value of alpha** is explicit in the equations. For instance:
 
 
 $$p(x)=\frac{\alpha - 1}{x_{\mathrm{min}}}\left(\frac{x}{x_{\mathrm{min}}} \right)^{-\alpha}$$
@@ -95,6 +95,49 @@ If we hadn't generated these data synthetically, and were looking at $x$ as empi
 
 ---
 
+**INTUITION**: Power-law distributions are the **inverse function** $f(x) = 1/x$ turned into a distribution. This provides a lot of insight into what they are trying to express: The frequency or probability is inversely proportional to the magnitude of the effect. 
+
+In terms of the magnitude of the effects it is good to remember that the integral of the inverse function is the logarithmic function $\int \frac 1 x = \log x \; + \;c$:
+
+<img width = 400  src = "log_versus_1_over_x.png">
+
+which immediately explains why if we draw samples from a Pareto distribution, and we sort them in decreasing order, the cumulative sum of the overall effect will be explained by the most massive events, following the $80/20$ Pareto principle. As it is the case in the $\log(x)$ function, there is a rapid ascent, and a plateau afterwards, such that, although the function goes to infinity, it does so at a very slow rate:
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{R, fig.width = 5, fig.height = 4}
+library(EnvStats)
+library(ggplot2)
+library(ggthemes)
+# Generate a Pareto distribution with location 1 and shape 1
+set.seed(123); n <- 1000; data <- rpareto(n, location = 1, shape = 1)
+# Calculate cumulative sum and proportion
+cum_effect <- cumsum(sort(data, decreasing = TRUE))
+cum_prop <- cum_effect / sum(data)
+# Create a data frame for plotting
+df <- data.frame(
+  index = 1:length(data),
+  percentage = 1:length(data)/ length(data) * 100,
+  cum_prop = cum_prop
+)
+# Plot the cumulative proportion
+ggplot(df, aes(x = percentage, y = cum_prop)) +
+  geom_line() +
+  geom_hline(yintercept = 0.8, linetype = "dashed") +
+  geom_vline(xintercept = 20, linetype = "dashed") +
+  theme_fivethirtyeight() +
+    theme(plot.title = element_text(size = 14),
+        axis.title.x = element_text(size = 10),
+        axis.title.y = element_text(size = 10)) +
+  labs(
+    x = "Percentage of samples (decreasing order magnitude)",
+    y = "Overall effect (%)",
+    title = "Pareto Principle - Extreme events dominate"
+  )
+```
+
 
 ##### **Power-law distributions:**
 
@@ -107,7 +150,7 @@ If we hadn't generated these data synthetically, and were looking at $x$ as empi
 
 ---
 
-###### Pareto distribution:
+#### Pareto distribution:
 
 $$f_X(x) = \frac{\alpha \, x^\alpha_m}{x^{\alpha+1}}$$
 
@@ -115,6 +158,117 @@ with support $x\in [x_m, +\infty),$ and $x_m>0$ and $\alpha>0$ corresponding to 
 
 When plotted on linear axes, the distribution assumes the familiar J-shaped curve which approaches each of the orthogonal axes asymptotically. All segments of the curve are self-similar (subject to appropriate scaling factors). When plotted in a log-log plot, the distribution is represented by a straight line.
 
+Here is a plot of the *Pareto distribution* with minimum value parameter $k = 3$ and shape parameter $\alpha =\{0.5,0.75, 1.5\}$ in Mathematica:
+
+```
+Plot[Table[ PDF[ParetoDistribution[3, \[Alpha]], x], {\[Alpha], {.5, .75, 1.5}}] // Evaluate, 
+{x, 3, 3 + 4}, 
+Filling -> Axis, 
+PlotLegends -> {"\[Alpha] = 0.5", "\[Alpha] = 0.75", "\[Alpha] = 1.5"}, 
+PlotRange -> All, AxesLabel -> {"x", "Probability Density"}, 
+AxesStyle -> Arrowheads[0.02], PlotStyle -> {Directive[Dashed, Red], 
+Directive[Dotted, Blue], 
+Directive[Solid, Green]}, 
+LabelStyle -> Directive[FontSize -> 14],
+ImageSize -> 600]
+```
+
+<img width = 800  src = "pareto.png">
+
+#### Lévy distribution
+
+Compare it to the **Lévy distribution**, and notice how as the dispersion parameter $\sigma$ decreases, the pdf adopts the shape of $1/x$
+
+```
+(* Define the location and scale parameters *)
+mu = 0;
+sigma = 1;
+
+(* Create a table of Lévy distributions with different scale parameters *)
+levyDistTable = Table[LevyDistribution[mu, sigma*\[Alpha]], {\[Alpha], {0.1, 0.3, 0.5}}];
+
+(* Plot the probability density functions (PDFs) *)
+Plot[Table[PDF[levyDist, x], {levyDist, levyDistTable}] // Evaluate,
+     {x, 0.1, 3},
+     Filling -> Axis,
+     PlotLegends -> {"\[Sigma] = 0.1", "\[Sigma] = 0.3", "\[Sigma] = 0.5"},
+     PlotRange -> All,
+     AxesLabel -> {"x", "Probability Density"},
+     AxesStyle -> Arrowheads[0.02],
+     PlotStyle -> ColorFunction -> "BrightBands",
+     LabelStyle -> Directive[FontSize -> 14],
+     ImageSize -> 600]
+```
+
+<img width = 800  src = "levy.png">
+
+As stated in Wikipedia the tail of the Lévy distribution exhibits power-law characteristics, and hence, "the Lévy distribution is not just heavy-tailed but also fat-tailed".
+
+> **Heavy-tailed distributions**: These distributions have tails that decay slower than an exponential function. This means that there's a higher probability of observing extreme values compared to a normal distribution. 
+
+> **Fat-tailed distributions**: This is a more specific subset of heavy-tailed distributions. They exhibit a power-law decay in their tails, meaning the probability of extreme events decreases at a slower rate than a simple exponential decay.
+
+#### Zipf Distribution:
+
+From [here](https://iopscience.iop.org/article/10.1088/1742-6596/1113/1/012007/pdf):
+
+> Zipf theorised that the distribution of word use was due
+to tendency to communicate efficiently with least effort. Hence, the principle of least effort is
+also known as Zipf’s Law. Based on the principle of least effort, it is human nature to want
+the greatest outcome at the least amount of work. And Zipf showed that useful behaviors were
+performed frequently. Frequent behaviors became quicker and easier to perform over time.
+
+The Zipf distribution is a discrete distribution also known as Estoup distribution. From [here](https://scholarwolf.unr.edu/server/api/core/bitstreams/4e9d63b9-b185-49c4-9064-d072b296e433/content): 
+
+> According to Mitzenmacher (2004), “the first known attribution of the power law distribution of word frequencies appears to be due to Estoup in 1916”. This is noted by Rousseau (2002), where he indicated that Zipf made reference to Estoup in his very first publication on the relative frequency of words. The Estoup distribution,
+unlike the other discrete power law distributions seen thus far, exists only in truncated form since the harmonic series is not convergent (Z¨ornig and Altmann, 1995).
+
+The Zipf distribution has support is the set of positive integers $\{1, 2, 3, \dots, n\}$. This **finite support** is the main difference with the **zeta distribution**. The pdf of the Zipf PMF has two parameters, $s$, a positive real number, which determines the decay of the tail, and $n$, a positive integer. [Here is the PMF](https://en.wikipedia.org/wiki/Zipf%27s_law#Formal_definition):
+
+
+$$P(k; s, n) = \frac{1}{k^{s}H_{n,s}}$$
+
+Notice that we have $1/x$ normalized with the $n,s$-th **generalized harmonic number**:
+
+$$H_{n,s}=\sum_{k=1}^n \frac 1{k^s}$$
+Here is the plot of the Zipf distribution with support ranging to $n=10$ and varying shape parameter:
+
+```
+DiscretePlot[
+ Table[PDF[ZipfDistribution[10,\[Rho]], k], {\[Rho], {.1, 1, 2}}] // 
+  Evaluate, {k, 0, 10}, PlotRange -> All, PlotMarkers -> Automatic]
+```
+
+<img width = 400  src = "zipf.png">
+
+#### Zeta distribution:
+
+As anticipated, the zeta distribution has support $k \in \{1,2,\dots\}$, and it is also a discrete probability distribution, in fact referred to as the discrete Pareto distribution.
+
+The PMF is only dependent on the parameter $s$, and the [PMF is](https://en.wikipedia.org/wiki/Zeta_distribution):
+
+$$P(X = k; s) = \frac{1}{k^{s}\zeta(s)}$$
+
+where we encounter the **Riemann zeta function**:
+
+$$\zeta(s)=\sum_{k =1}^\infty \frac 1{k^s}$$
+The plot looks pretty much like the Zipf distribution:
+
+```
+DiscretePlot[
+ Table[PDF[ZipfDistribution[\[Rho]], k], {\[Rho], {1, 2, 3}}] // 
+  Evaluate, {k, 0, 20}, PlotRange -> All, PlotMarkers -> Automatic]
+```
+
+and it can be seen presented as the $-\log(\cdot)$ of the PMF as in:
+
+```
+DiscretePlot[
+ Table[-Log@PDF[ZipfDistribution[\[Rho]], k], {\[Rho], {1, 2, 3}}] // 
+  Evaluate, {k, 0, 20}, PlotRange -> All, PlotMarkers -> Automatic]
+```
+
+<img width = 400  src = "zeta.png">
 
 ---
 
