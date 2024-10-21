@@ -208,6 +208,16 @@ As stated in Wikipedia the tail of the Lévy distribution exhibits power-law cha
 
 > **Fat-tailed distributions**: This is a more specific subset of heavy-tailed distributions. They exhibit a power-law decay in their tails, meaning the probability of extreme events decreases at a slower rate than a simple exponential decay.
 
+The Levy distribution has a heavier tail than the Pareto distribution, meaning it assigns more probability to extreme values. In general, both the Lévy and Pareto distributions are known for their heavy tails, but the Lévy distribution is famed for its exceptionally heavy tails. The Levy distribution is more skewed to the right than the Pareto distribution. If your data is highly skewed, the Levy distribution may be a better fit.
+
+Applications:
+
+1. Spectroscopy: van der Waals profile 
+2. Geomagnetic Reversals: frequency of geomagnetic reversals
+3. Photon Path Length: The length of the path followed by a photon in a turbid medium 
+4. Finance: describe stock price movements and other market behaviors.
+5. Physics: Ibehavior of particles in turbulent flows.
+
 #### Zipf Distribution:
 
 From [here](https://iopscience.iop.org/article/10.1088/1742-6596/1113/1/012007/pdf):
@@ -281,7 +291,13 @@ There are three important subclasses of heavy-tailed distributions: the fat-tail
  
 ##### **Heavy-tailed distributions:**
 
-All commonly used heavy-tailed distributions are subexponential.
+All commonly used heavy-tailed distributions are subexponential. From [Wikipedia](https://en.wikipedia.org/wiki/Heavy-tailed_distribution#:~:text=In%20probability%20theory%2C%20heavy%2Dtailed,they%20have%20heavier%20tails%20than):
+
+> In probability theory, **heavy-tailed distributions** are probability distributions whose tails are not exponentially bounded: that is, they have heavier tails than the exponential distribution. In many applications it is the right tail of the distribution that is of interest, but a distribution may have a heavy left tail, or both tails may be heavy.
+>
+> There are three important subclasses of heavy-tailed distributions: the **fat-tailed distributions**, the **long-tailed distributions**, and the **subexponential distributions**. In practice, all commonly used heavy-tailed distributions belong to the subexponential class, introduced by Jozef Teugels.
+
+**One-tailed:**
 
 1. Pareto
 2. Log-normal
@@ -289,11 +305,53 @@ All commonly used heavy-tailed distributions are subexponential.
 4. Weibull distribution
 5. Burr distribution
 6. Log-gamma distribution
-7. Log-Cauchy distribution ("super heavy tail")
-8. Cauchy
-9. Stable distributions (except for the Gaussian) - Cauchy, Lévy and Lommel
-10. Student t distribution
-11. Skew lognormal cascade
+7. Fréchet distribution (notice that the Gumbel is not in the list)
+8. q-Gaussian distribution
+9. Log-Cauchy distribution ("super heavy tail" - heavier than Pareto)
+
+**Two-tailed:**
+
+10. Cauchy
+11. Stable distributions (except for the Gaussian) - Cauchy, Lévy and Lommel
+12. Student t distribution
+13. Skew lognormal cascade distribution
+
+> In probability theory, a distribution is said to be stable if a linear combination of two independent random variables with this distribution has the same distribution, up to location and scale parameters. A random variable is said to be stable if its distribution is stable. The stable distribution family is also sometimes referred to as the Lévy alpha-stable distribution.
+
+#### Weibull distribution:
+
+Like the exponential, it models time between events. However, the Weibull is more flexible:
+
+The exponential distribution models situations where events occur continuously and independently at a **constant average rate.** It's memoryless, whereas the Weibull is not memoryless.
+
+The Weibull distribution generalizes the exponential by introducing a shape parameter. If the shape parameter is $1$, it behaves exactly like the exponential. If it's less than $1$, it models decreasing failure rates over time, as in the Lindy effect, significant "infant mortality", or defective items failing early and the failure rate decreasing over time, negative word of mouth. A shape parameter than $1$ captures increasing failure rates, such as "aging process" and positive word of mouth.
+
+<img width = 600  src = "weibull.png">
+
+#### Cauchy distribution:
+
+The standard Cauchy distribution is the same as the Student's t-distribution with one degree of freedom.
+
+It can be thought of as kicking a ball from a point on the $x,y$-plane towards the $x$-axis at a random angle, and determining the point in the $x$-axis the ball hits:
+
+<img width = 600  src = "cauchy.png">
+
+Mathematically this can be simulated choosing randomly from a uniform $[0,1]$ and transforming the value, such that
+
+$$x = \tan\left(\pi (u -\frac 12) \right)$$
+with $x_o$ and $\gamma$ being the location and scale parameters. So if we fix the $x_0$ value to $x_0=0$ and we change the scale parameter, the tails will be heavier, the farther away the $\gamma$ parameter positions $(x_0,\gamma)$:
+
+<img width = 600  src = "cauchy_plot.png">
+
+The ratio of two normal random variables follows a Cauchy.
+
+It is the canonical example of a "pathological" distribution with undefined moments.
+
+#### Log-Cauchy distribution:
+
+A log-Cauchy distribution is a probability distribution of a random variable whose logarithm is distributed in accordance with a Cauchy distribution. If $X$ is a random variable with a Cauchy distribution, then $Y = \exp(X)$ has a log-Cauchy distribution.
+
+
 
 ---
 
