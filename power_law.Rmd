@@ -328,9 +328,36 @@ The Weibull distribution generalizes the exponential by introducing a shape para
 
 <img width = 600  src = "weibull.png">
 
+#### Fréchet distribution:
+
+Fisher-Tippet theorem:
+
+> Let $X_1,X_2,\dots, X_n$ be iid rvs. If there exist constants $a_n > 0$ and $b_n\in \mathbb R,$ and some distribution $G,$ such that
+
+$$\frac{M_n - b_n}{a_n}\to G,$$
+
+Then $G$ belongs to one of the three extreme value distribution types:
+
+1. Fréchet: $$\Phi_\alpha(x)=\begin{cases}0,&& x\leq 0\\e^{-x^{-\alpha}},&& x>0\end{cases}$$
+
+2. Weilbull $$\Psi_\alpha(x)=\begin{cases}e^{-x^\alpha}&& x\leq 0\\1,&& x>0\end{cases}$$
+3. Gumbel $$\Lambda(x)=e^{-e^{-x}}$$
+
+The Fréchet is a heavy-tailed distribution:
+
+```
+Plot[Table[
+   PDF[FrechetDistribution[\[Alpha], 1.2], 
+    x], {\[Alpha], {1/2, 1, 2}}] // Evaluate, {x, .1, 3}, 
+ Filling -> Axis]
+```
+<img width = 600  src = "frechet.png">
+
+However, the Gumbel it is not heavy-tailed, and it's use in EVT has to to with the "block maxima" approach, which involves dividing the data into blocks and modeling the maximum or minimum value within each block. The Gumbel distribution is often used for this purpose, even if the underlying data distribution is not heavy-tailed.
+
 #### Cauchy distribution:
 
-The standard Cauchy distribution is the same as the Student's t-distribution with one degree of freedom.
+The standard Cauchy distribution is the same as the **Student's t-distribution with one degree of freedom**.
 
 It can be thought of as kicking a ball from a point on the $x,y$-plane towards the $x$-axis at a random angle, and determining the point in the $x$-axis the ball hits:
 
@@ -363,11 +390,41 @@ $$f_X(x)=\frac{1}{\pi\gamma \left(1 + (\frac{x-x_0}{\gamma})^2\right)}=\frac{\ga
 
 The witch of Agnesi is a scale and shifted version of the Cauchy pdf.
 
+The applications of the Cauchy include:
+
+1. Statistical Modeling:
+
+Outlier Detection: The Cauchy distribution is often used to model outliers or extreme values in data sets, as it has a longer tail than the normal distribution.
+
+Robust Regression: Due to its robustness to outliers, the Cauchy distribution can be used in robust regression models to minimize the impact of extreme data points.
+
+2. Physics and Engineering
+
+Lorentzian Line Shape: In spectroscopy, the Lorentzian line shape, which is directly related to the Cauchy distribution, is used to model the spectral lines of atoms and molecules.
+
+Photon Scattering: The Cauchy distribution can be used to model the scattering of photons in certain materials.
+
+3. Finance and Economics
+
+Risk Modeling: The Cauchy distribution can be used to model extreme financial events, such as market crashes or financial crises, due to its heavy-tailed nature.  
+
+Value at Risk (VaR): The Cauchy distribution can be used to calculate VaR, a measure of financial risk, as it can capture the potential for extreme losses. 
+
+4. Signal Processing
+
+Noise Modeling: The Cauchy distribution can be used to model certain types of noise in signal processing applications, such as impulsive noise.
+
+5. Other Applications
+
+Reliability Engineering: The Cauchy distribution can be used to model the lifetime of components or systems that are prone to failures caused by extreme events.
+
+Environmental Science: The Cauchy distribution can be used to model extreme weather events or environmental phenomena.  
+
+
 
 #### Log-Cauchy distribution:
 
 A log-Cauchy distribution is a probability distribution of a random variable whose logarithm is distributed in accordance with a Cauchy distribution. If $X$ is a random variable with a Cauchy distribution, then $Y = \exp(X)$ has a log-Cauchy distribution.
-
 
 
 ---
