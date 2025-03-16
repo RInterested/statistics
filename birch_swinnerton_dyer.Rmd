@@ -25,7 +25,8 @@ output:
 
 * The L-function of an elliptic curve $E$ is defined as an Euler product:
 
-     $$L(s, E) = \prod_{p} L_p(s, E)^{-1}$$
+     $$L(s, E) = \prod_{p} L_p(s, E)^{-1}=\prod_{p} \frac1{L_p(s, E)}$$
+     
      This denotes the L-function of the elliptic curve $E$, evaluated at the complex variable $s$, where $p$ runs over all prime numbers, and $L_p(s, E)$ are local factors.
      
 * The local factors $L_p(s, E)$ are related to the number of points on the elliptic curve $E$ over the finite field $\mathbb{F}_p$, denoted as $|E(\mathbb{F}_p)|$.
@@ -46,7 +47,7 @@ $$|E(\mathbb{F}_p)| = p + 1 - a_p$$
 
 Now, consider the fraction $\frac{|E(\mathbb{F}_p)|}{p}$:
 
-$$\frac{|E(\mathbb{F}_p)|}{p} = \frac{p + 1 - a_p}{p} = 1 + \frac{1}{p} - \frac{a_p}{p}$$
+$$\frac{|E(\mathbb{F}_p)|}{p} = \frac{p + 1 - a_p}{p} = 1 - \frac{a_p}{p}+ \frac{1}{p} $$
 
 
 **2. The Connection to Cardinalities:**
@@ -63,12 +64,12 @@ $$\frac{|E(\mathbb{F}_p)|}{p} = \frac{p + 1 - a_p}{p} = 1 + \frac{1}{p} - \frac{
 
 * If the rank of $E$ is $r$, the BSD conjecture suggests that the product $\prod_{p \le x} |E(\mathbb{F}_p)|/p$ should grow roughly like $C (\log x)^r$ for some constant $C$:
 
-$$\prod_{p \le x} |E(\mathbb{F}_p)|/p \approx C (\log x)^r$$
+$$\prod_{p \le x} \frac{|E(\mathbb{F}_p)|}{p} \approx C \, (\log x)^r$$
 
 * Therefore, by computing this product for increasing values of $x$ and observing its growth rate, we can get an estimate of the rank $r$.
 
 
-$$\log\left(\Pi_{p \leq X}\; \frac {N_p}p \right)=\log C + r\; \log\left (\log X\right)$$
+$$\log\left(\prod_{p \leq X}\; \frac {N_p}p \right)=\log C + r\; \log\left (\log X\right)$$
 
 <img width = 800  src = "birch_swinnerton_dyer_conjecture_rank.png">
 
@@ -76,13 +77,13 @@ $$\log\left(\Pi_{p \leq X}\; \frac {N_p}p \right)=\log C + r\; \log\left (\log X
 
 **4. Approximating $L_p(1, E)$:**
 
-We are interested in the behavior of $L(s, E)$ at $s=1$. Let's evaluate $L_p(s, E)$ at $s=1$:
+Why are we are interested in the behavior of $L(s, E)$ at $s=1$. Let's evaluate $L_p(s, E)$ at $s=1$:
 
-$$L_p(1, E) = 1 - \frac{a_p}{p^{s}} + p^{1-2} = 1 - \frac{a_p}{p} + \frac{1}{p}$$
+$$L_p(1, E) = 1 - \frac{a_p}{p^{s}} + p^{1-2s} = 1 - \frac{a_p}{p} + \frac{1}{p}$$
 
 Notice that:
 
-$L_p(1, E) = \frac{|E(\mathbb{F}_p)|}{p}$
+$$L_p(1, E) = \frac{|E(\mathbb{F}_p)|}{p}$$
 
 Therefore:
 
@@ -90,17 +91,19 @@ $$L(1, E) = \prod_{p} \frac{1}{\frac{|E(\mathbb{F}_p)|}{p}} = \prod_{p} \frac{p}
 
 Then, the inverse of that would be:
 
-$1/L(1,E) = \prod_{p} \frac{|E(\mathbb{F}_p)|}{p}$
+$$1/L(1,E) = \prod_{p} \frac{|E(\mathbb{F}_p)|}{p}$$
 
 **5. The Partial Product:**
 
 When we consider the product $\prod_{p \le x} \frac{|E(\mathbb{F}_p)|}{p}$, we are essentially taking a partial product of the Euler product representation of $1/L(1,E)$.
 
 * As $x$ increases, this partial product gets closer to the actual value of $1/L(1, E)$.
+
 * The BSD conjecture then relates the behavior of $L(1, E)$ (and hence its reciprocal) to the rank of the elliptic curve.
+
 * Thus, the growth rate of this partial product gives us information about the behavior of $L(1, E)$ and consequently the rank.
 
-**In summary:**
+**Summary:**
 
 * The local factors $L_p(1, E)$ are directly related to the fraction $\frac{|E(\mathbb{F}_p)|}{p}$.
 * The product $\prod_{p \le x} \frac{|E(\mathbb{F}_p)|}{p}$ is a partial product of the Euler product representation of $1/L(1, E)$.
@@ -110,9 +113,35 @@ When we consider the product $\prod_{p \le x} \frac{|E(\mathbb{F}_p)|}{p}$, we a
 
 * Consider the zeta function of the elliptic curve $E$ over $\mathbb{F}_p$:
 
-$$Z(T, E/\mathbb{F}_p) = \exp\left(\sum_{n=1}^\infty \frac{|E(\mathbb{F}_{p^n})|}{n}T^n\right)$$
+The exponential in the zeta function of an elliptic curve over a finite field arises from the way we want to encode the number of points on the curve over all finite extensions of the base field. It's a clever way to package this information into a generating function with desirable properties.
 
-where $T$ is an auxiliary variable - a formal variable used to encode information about the number of points on the elliptic curve $E$ over finite field extensions of $E(\mathbb{F}_{p}$.
+Here's a breakdown of why the exponential is used:
+
+**1. Encoding Point Counts over Extensions:**
+
+We want to encode the number of points on the elliptic curve $E$ over all finite extensions $\mathbb{F}_{q^n}$ of the base field $\mathbb{F}_q$. These point counts $|E(\mathbb{F}_{q^n})|$ for $n=1, 2, 3, \dots$ form a sequence of numbers.
+
+**2. Generating Function Approach:**
+
+A natural way to package this sequence is to create a generating function, which is a power series where the coefficients are the terms of the sequence.
+However, we don't directly use $|E(\mathbb{F}_{q^n})|$ as the coefficients. Instead, we use $|E(\mathbb{F}_{q^n})|/n$.
+
+**3. The Logarithmic Derivative:**
+
+Consider the logarithmic derivative of the zeta function:
+    $$\frac{d}{dT} \log Z(T, E/\mathbb{F}_q) = \frac{Z'(T, E/\mathbb{F}_q)}{Z(T, E/\mathbb{F}_q)}$$
+    
+We want this logarithmic derivative to be a simple power series that directly encodes the point counts.
+
+**4. The Exponential Relation:**
+
+It turns out that if we define the zeta function as:
+    
+    $$Z(T, E/\mathbb{F}_q) = \exp\left(\sum_{n=1}^\infty \frac{|E(\mathbb{F}_{q^n})|}{n}T^n\right)$$
+Then its logarithmic derivative is:
+    $$\frac{Z'(T, E/\mathbb{F}_q)}{Z(T, E/\mathbb{F}_q)} = \sum_{n=1}^\infty |E(\mathbb{F}_{q^n})|T^{n-1}$$
+In essence, the exponential is not an arbitrary choice. It's used to create a generating function whose logarithmic derivative directly encodes the number of points on the elliptic curve over all finite extensions of the base field, simplifying the analysis of the zeta function and revealing its key properties.
+
 
 This zeta function encodes information about the number of points on $E$ over all finite extensions of $\mathbb{F}_p$.
 
