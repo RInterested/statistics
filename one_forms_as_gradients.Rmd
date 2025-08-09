@@ -75,6 +75,29 @@ It doesn't matter how the axes are chosen.
 
 In Cartesian space, under rigid rotations, the basis covectors are naturally isomorphic with the basis vectors, and each vector has a natural covector corresponding to it, which has the same components as the vector.  In this case, we have just exhibited a simple visual proof that dot product is unaffected by rigid rotations.
 
+---
+
+#### Simple example with a contour or isobar plot:
+
+A cartographic map shows the lines of equal vertical height in meters $\text{V}_{\text{m}}$, so that the density of these lines is a representation of the gradient, or change along any possible direction.
+
+If one travels from right to left for a certain distance, e.g. $2$ miles represented by the red arrow in the direction towards the mountains, and strictly along the $x$ axis, and the spacing of the first two lines in the top plot is such that every line corresponds to a vertical climb of $10$ meters, starting at sea level, the calculation of the total vertical climb is a dot product:
+
+$$\small
+\begin{bmatrix}\text{V}_{\text{m}}\text{ along x}& \text{V}_{\text{m}}\text{ along y}\end{bmatrix}\begin{bmatrix}\text{dist travelled along x}\\ \text{dist travelled along y}\end{bmatrix}=\begin{bmatrix}10 \,\frac{\text{vert meters}}{\text{mile}}& \text{V}_{\text{m}}\text{ along y}\end{bmatrix}\begin{bmatrix}2 \text{ miles}\\ 0\end{bmatrix}=20 \text{ vert meters}
+$$
+
+This isoplot representing the gradient is a covector, and transforms covariantly under a change of basis, for example, from vertical meters to vertical centimeters, as shown in the second plot, which depicts a denser set of lines. Now,
+
+$$\small
+\begin{bmatrix}\text{V}_{\text{m}}\text{ along x}& \text{V}_{\text{m}}\text{ along y}\end{bmatrix}\begin{bmatrix}\text{dist travelled along x}\\ \text{dist travelled along y}\end{bmatrix}=\begin{bmatrix}100 \,\frac{\text{vert cm}}{\text{mile}}& \text{V}_{\text{m}}\text{ along y}\end{bmatrix}\begin{bmatrix}2 \text{ miles}\\ 0\end{bmatrix}=200 \text{ vert cm}
+$$
+
+As the basis vectors have decreased in magnitude (from m to cm), so has the spacing of the isolines. Contrast this to what the representation of the red arrow would have been if the measurement of horizontal distance had been transformed to kilometers from miles: the arrow would have become longer (contravariant).
+
+
+<img width = 400 src = "isobars.png">
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
