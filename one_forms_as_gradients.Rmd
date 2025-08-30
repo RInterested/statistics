@@ -93,10 +93,26 @@ $$\small
 \begin{bmatrix}\text{V}_{\text{m}}\text{ along x}& \text{V}_{\text{m}}\text{ along y}\end{bmatrix}\begin{bmatrix}\text{dist travelled along x}\\ \text{dist travelled along y}\end{bmatrix}=\begin{bmatrix}100 \,\frac{\text{vert cm}}{\text{mile}}& \text{V}_{\text{m}}\text{ along y}\end{bmatrix}\begin{bmatrix}2 \text{ miles}\\ 0\end{bmatrix}=200 \text{ vert cm}
 $$
 
-As the basis vectors have decreased in magnitude (from m to cm), so has the spacing of the isolines. Contrast this to what the representation of the red arrow would have been if the measurement of horizontal distance had been transformed to kilometers from miles: the arrow would have become longer (contravariant).
+As the basis vectors have decreased in magnitude (from m to cm), so has the spacing of the isolines. 
 
 
 <img width = 400 src = "isobars.png">
+
+---
+
+Imagine the drop in temperature per horizontal displacement when climbing down a step mountain:
+
+<img width = 500 src = "covectors.png">
+
+At point A a horizontal displacement vector of $100 \text{m}$ could be dotted with a covector respresenting the local drop in temperature per $100$ meters traveled horizontally, $- 10\; ^{ \circ}\text C/100\text{ m}$, symbolized as a stack of parallel lines of $10$ lines. The actual temperature drop is the number of parallel lines traversed by the vector, $- 10\; ^{ \circ}\text C$. This is equivalent to 
+
+$$\small
+\begin{bmatrix}- 10\; ^{ \circ}\text C/100\text{ m} \text{ along x}& 0^{ \circ}\text C/100\text{ m}\text{ along y}\end{bmatrix}\begin{bmatrix}100 \text{ meters along x}\\ \text{dist traveled along y}\end{bmatrix}=-10^{ \circ}\text C
+$$
+
+The same applies to points B and C.
+
+The key observation now is to see that if instead of meters we used centimeters (changing basis vectors), the distance traveled would still be the same (the actual magnitude and orientation of the horizontal displacement vectors, $v, w, u,$ would be the same), but the components would transform contravariantly: the smaller basis vectors of $1$ cm in length would require the $x$ component of the vector to increase $10^2$ times, going from $\begin{bmatrix}100\\0\end{bmatrix}$ to $\begin{bmatrix}100\times\color{red}{10^2}\\0\end{bmatrix}$, while the stack of parallel lines would have to become $10^2$ times less dense, i.e. vary covariantly: the basis vector has decreased in magnitude, and so has the stack decreased in density, so that the dot product stays unchanged at $-10^{ \circ}\text C$. Now the covector is $\begin{bmatrix}- 10\; ^{ \circ}\text C \text{ / } 100\times\color{red}{10^2}\text{ m} \text{ along x}&& 0^{ \circ}\text C\end{bmatrix}$.
 
 
 ---
