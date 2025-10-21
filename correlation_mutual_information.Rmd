@@ -74,6 +74,124 @@ plot(rho, mi, type='l')
 This is consistent with Taleb's [presentation on YouTube](https://youtu.be/fb921ZrM6h0?si=MFDx2iNlksYiUYUk) and in *Fooled by Correlation: Common Misinterpretations in Social "Science"*. He says that a correlation of $0.5$ is closer to $0$ than $1.$
 
 ---
+
+### Relationship to the Fisher-Rao Information metric:
+
+
+Distinguishing two distributions parameterized by $\Theta$ and with a differentially small separation in the parameters can be accomplished by calculation the $\mathbb D[\Delta^2]$, with $\Delta$ being the pointwise difference between the two distributions:
+
+$$\Delta = \frac{1}{p(x \mid \Theta)}\left(p(x \mid \Theta + \Delta \Theta) - p(x \mid \Theta)\right)$$
+
+The Taylor expansion of the expression $p(x \mid \Theta + \Delta \Theta)$ in the numerator above is
+
+$$p(x \mid \Theta + \Delta \Theta) \approx p(x \mid \Theta) + \sum_{a} \frac{\partial p(x\mid \Theta)}{\partial \theta^a} \;\Delta \theta^a + \mathcal{O}(|\delta \Theta|^2)$$
+Plugging this back results in
+
+$$p(x \mid \Theta + \delta \Theta) - p(x \mid \Theta) \approx \left(p(x \mid \Theta) + \frac{\partial p(x\mid \Theta)}{\partial \theta^a} \delta \theta^a\right) - p(x \mid \Theta)$$
+
+$$p(x \mid \Theta + \Delta \Theta) - p(x \mid \Theta) \approx \frac{\partial p(x\mid \Theta)}{\partial \theta^a} \Delta \theta^a$$
+
+Now substitute this result into the expression for $\Delta$:
+
+$$\Delta \approx \frac{1}{p(x \mid \Theta)} \left(\frac{\partial p(x\mid \Theta)}{\partial \theta^a} \Delta \theta^a \right)$$
+
+Using the chain rule we see the log-likelihood inside the expression above:
+
+$$\frac{1}{p(x \mid \Theta)} \cdot \frac{\partial p(x\mid \Theta)}{\partial \theta^a}=\frac{\partial}{\partial \theta^a} \log\left(p(x \mid \Theta)\right)$$
+
+Therefore, 
+
+$$\Delta \approx \left(\frac{\partial}{\partial \theta^a}\log\left(p(x \mid \Theta) \right)\right) \Delta\theta^a + \mathcal{O}(|\Delta \Theta|^2)$$
+
+The score function, denoted $\mathbf{s}(x; \boldsymbol{\theta})$ (or simply $\mathbf{s}$), is the gradient of the log-likelihood with respect to the parameters $\boldsymbol{\theta}$.
+
+$$s_a(x; \boldsymbol{\theta}) = \frac{\partial \log p(x \mid \boldsymbol{\theta})}{\partial \theta^a}$$
+
+The Fisher Information Matrix (FIM), $\mathbf{I}(\boldsymbol{\theta})$, is defined as the covariance (variance) of the score function:
+
+$$I_{ab} = \text{Cov}[s_a, s_b] = \mathbb{E}[s_a s_b] - \mathbb{E}[s_a]\mathbb{E}[s_b]$$
+
+$\mathbb{E}[s_a] = 0$ and $\mathbb{E}[s_b] = 0$, the covariance simplifies directly to the expected outer product:
+
+$$\mathbf{I}_{ab} = \mathbb{E}\left[\frac{\partial \log p(x \mid \boldsymbol{\theta})}{\partial \theta^a} \frac{\partial \log p(x \mid \boldsymbol{\theta})}{\partial \theta^b}\right]= \int p(x\mid \boldsymbol{\theta}) \frac{\partial \log p(x \mid \boldsymbol{\theta})}{\partial \theta^a} \frac{\partial \log p(x \mid \boldsymbol{\theta})}{\partial \theta^b} \Delta^a \Delta^b  \;dx$$
+
+This is explained [here](https://youtu.be/X_6zShk0LkM?si=YNo7ZyLlhzwXcXfp).
+
+The FIM is seen again as the Hessian or second derivative of the KL divergence:
+
+Let $p(x; \boldsymbol{\theta})$ be the PDF/PMF and $L(\boldsymbol{\theta}; x) = \log p(x; \boldsymbol{\theta})$ be the log-likelihood.
+
+Step 1: Prove the Zero Expectation of the score function. The score function is $\mathbf{s}(\boldsymbol{\theta}) = \nabla_{\boldsymbol{\theta}} L(\boldsymbol{\theta}; X)$. 
+
+We start with the fundamental probability axiom that the total probability must be one for all $\boldsymbol{\theta}$:
+
+$$\int p(x; \boldsymbol{\theta}) \, dx = 1$$
+
+Take the derivative with respect to $\boldsymbol{\theta}$ on both sides. Assuming regularity conditions allow interchanging differentiation and integration:
+
+$$\nabla_{\boldsymbol{\theta}} \left( \int p(x; \boldsymbol{\theta}) \, dx \right) = \nabla_{\boldsymbol{\theta}} (1)$$
+$$\int \nabla_{\boldsymbol{\theta}} p(x; \boldsymbol{\theta}) \, dx = \mathbf{0}$$
+
+Now, use the identity $\nabla_{\boldsymbol{\theta}} p = p \cdot \nabla_{\boldsymbol{\theta}} \log p$ (*) to rewrite the integrand:
+
+$$\int \left( \nabla_{\boldsymbol{\theta}} \log p(x; \boldsymbol{\theta}) \right) p(x; \boldsymbol{\theta}) \, dx = \mathbf{0}$$
+By the definition of expectation $\mathbb{E}[\cdot] = \int (\cdot) p(x; \boldsymbol{\theta}) dx$, this proves the identity:$$\mathbb{E}_{p(\cdot; \boldsymbol{\theta})}[\mathbf{s}(\boldsymbol{\theta})] = \mathbb{E}\left[\nabla_{\boldsymbol{\theta}} \log p(X; \boldsymbol{\theta})\right] = \mathbf{0}$$
+
+Step 2: Relate Variance to Negative Expected HessianThe two standard forms of the Fisher Information Matrix (FIM), $\mathbf{I}(\boldsymbol{\theta})$, are:
+
+Variance of the Score (Form 1):
+
+$$\mathbf{I}(\boldsymbol{\theta}) = \text{Var}[\mathbf{s}(\boldsymbol{\theta})] = \mathbb{E}[\mathbf{s}(\boldsymbol{\theta}) \mathbf{s}(\boldsymbol{\theta})^T]$$ 
+(since $\mathbb{E}[\mathbf{s}] = \mathbf{0}$)
+
+Negative Expected Hessian (Form 2):
+
+We start from the zero expectation derived in Step 1:
+
+$$\mathbb{E}[\mathbf{s}(\boldsymbol{\theta})] = \int \mathbf{s}(\boldsymbol{\theta}) p(x; \boldsymbol{\theta}) \, dx = \mathbf{0}$$
+
+Take the derivative $\nabla_{\boldsymbol{\theta}}$ of the entire zero expression again:
+
+$$\nabla_{\boldsymbol{\theta}} \mathbb{E}[\mathbf{s}(\boldsymbol{\theta})] = \nabla_{\boldsymbol{\theta}} \left( \int \mathbf{s}(\boldsymbol{\theta}) p(x; \boldsymbol{\theta}) \, dx \right) = \mathbf{0}$$
+
+Interchange differentiation and integration, and apply the product rule to the integrand:
+
+$$\int \left[ (\nabla_{\boldsymbol{\theta}} \mathbf{s}(\boldsymbol{\theta})) p(x; \boldsymbol{\theta}) + \mathbf{s}(\boldsymbol{\theta}) (\nabla_{\boldsymbol{\theta}} p(x; \boldsymbol{\theta}))^T \right] \, dx = \mathbf{0}$$
+
+Recognize that $\nabla_{\boldsymbol{\theta}} \mathbf{s}(\boldsymbol{\theta})$ is the Hessian of the log-likelihood $\mathbf{H}(\boldsymbol{\theta}) = \nabla_{\boldsymbol{\theta}}^2 L(\boldsymbol{\theta}; x)$, and substitute $\nabla_{\boldsymbol{\theta}} p = p \cdot \mathbf{s}$:
+
+
+$$\int \left[ \mathbf{H}(\boldsymbol{\theta}) p(x; \boldsymbol{\theta}) + \mathbf{s}(\boldsymbol{\theta}) (\mathbf{s}(\boldsymbol{\theta}) p(x; \boldsymbol{\theta}))^T \right] \, dx = \mathbf{0}$$
+
+Separate the integrals:
+
+$$\int \mathbf{H}(\boldsymbol{\theta}) p(x; \boldsymbol{\theta}) \, dx + \int \mathbf{s}(\boldsymbol{\theta}) \mathbf{s}(\boldsymbol{\theta})^T p(x; \boldsymbol{\theta}) \, dx = \mathbf{0}$$
+
+Rewrite in terms of expectation:
+
+$$\mathbb{E}[\mathbf{H}(\boldsymbol{\theta})] + \mathbb{E}[\mathbf{s}(\boldsymbol{\theta}) \mathbf{s}(\boldsymbol{\theta})^T] = \mathbf{0}$$
+
+Rearranging gives the desired equivalence:
+
+$$\mathbb{E}[\mathbf{s}(\boldsymbol{\theta}) \mathbf{s}(\boldsymbol{\theta})^T] = - \mathbb{E}[\mathbf{H}(\boldsymbol{\theta})]$$
+
+Therefore, Form 1 (the variance of the score) is proven to be equivalent to Form 2 (the negative expected Hessian).
+
+---
+
+(*) Start with the Logarithm Identity: We can always write a positive function as $p = e^{\log p}$.
+
+Apply the Gradient (Chain Rule): Take the gradient of both sides with respect to $\boldsymbol{\theta}$:
+
+$$\nabla_{\boldsymbol{\theta}} p = \nabla_{\boldsymbol{\theta}} \left( e^{\log p} \right)$$
+Differentiate the Exponential Function:Using the chain rule, the derivative of $e^u$ is $e^u$ times the derivative of the inner function $u$:
+
+$$\nabla_{\boldsymbol{\theta}} p = e^{\log p} \cdot \left( \nabla_{\boldsymbol{\theta}} \log p \right)$$
+Substitute Back $p$: Since $e^{\log p}$ is simply $p$ itself:
+
+$$\nabla_{\boldsymbol{\theta}} p = p \cdot \nabla_{\boldsymbol{\theta}} \log p$$
+
+---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
 
 **NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
