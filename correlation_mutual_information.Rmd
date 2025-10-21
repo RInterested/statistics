@@ -137,12 +137,13 @@ Now, use the identity $\nabla_{\boldsymbol{\theta}} p = p \cdot \nabla_{\boldsym
 $$\int \left( \nabla_{\boldsymbol{\theta}} \log p(x; \boldsymbol{\theta}) \right) p(x; \boldsymbol{\theta}) \, dx = \mathbf{0}$$
 By the definition of expectation $\mathbb{E}[\cdot] = \int (\cdot) p(x; \boldsymbol{\theta}) dx$, this proves the identity:$$\mathbb{E}_{p(\cdot; \boldsymbol{\theta})}[\mathbf{s}(\boldsymbol{\theta})] = \mathbb{E}\left[\nabla_{\boldsymbol{\theta}} \log p(X; \boldsymbol{\theta})\right] = \mathbf{0}$$
 
-Step 2: Relate Variance to Negative Expected HessianThe two standard forms of the Fisher Information Matrix (FIM), $\mathbf{I}(\boldsymbol{\theta})$, are:
+Step 2: Relate Variance to Negative Expected Hessian
+
+The two standard forms of the Fisher Information Matrix (FIM), $\mathbf{I}(\boldsymbol{\theta})$, are:
 
 Variance of the Score (Form 1):
 
-$$\mathbf{I}(\boldsymbol{\theta}) = \text{Var}[\mathbf{s}(\boldsymbol{\theta})] = \mathbb{E}[\mathbf{s}(\boldsymbol{\theta}) \mathbf{s}(\boldsymbol{\theta})^T]$$ 
-(since $\mathbb{E}[\mathbf{s}] = \mathbf{0}$)
+The Fisher Information Matrix (FIM), $\mathbf{I}(\boldsymbol{\theta})$, is defined as the covariance (variance) of the score function:$$I_{ab} = \text{Cov}[s_a, s_b] = \mathbb{E}[s_a s_b] - \mathbb{E}[s_a]\mathbb{E}[s_b]$$ since $\mathbb{E}[s_a] = 0$ and $\mathbb{E}[s_b] = 0$
 
 Negative Expected Hessian (Form 2):
 
