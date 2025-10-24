@@ -117,6 +117,35 @@ $$\mathbf{I}_{ab} = \mathbb{E}\left[\frac{\partial \log p(x \mid \boldsymbol{\th
 
 This is explained [here](https://youtu.be/X_6zShk0LkM?si=YNo7ZyLlhzwXcXfp).
 
+This is a Riemannian metric, i.e. a positive-definite symmetric bilinear form (i.e. an inner product), which allows describing geodesics in the parameter manifold of probability distributions. In the case of the normal distribution, these geodesics are in the Poincaré disc. If the means are constant, the geodesics are vertical lines across varying variance, but if the mean of the distribution changes, the variance will have an effect, which is maximal at small changes in the mean.
+
+<img width = 800  src = "poincare_fisher_metric.png">
+
+The Fisher Information Metric for the family of univariate Gaussian (Normal) distributions is known to induce the geometry of the Poincaré half-plane.
+
+The parameter space for a Gaussian distribution $\mathcal{N}(\mu, \sigma^2)$ is $\mathbf{\theta} = (\mu, \sigma)$, where $\mu \in \mathbb{R}$ is the mean and $\sigma > 0$ is the standard deviation. 
+
+This space is the upper half-plane $\mathbb{H} = \{(\mu, \sigma) \mid \sigma > 0\}$. The geodesics in this space are:
+
+- Vertical lines: For distributions with the same mean $\mu$, the geodesic is the line $\mu = \text{constant}$.
+
+- Semicircles centered on the $\mu$-axis ($\sigma=0$): For distributions with different means, the geodesic is a half-ellipse in the $(\mu, \sigma)$ plane, which corresponds to a semicircle in the rescaled Poincaré half-plane.
+
+The Fisher Information Metric for the parameters $(\mu, \sigma)$ is:
+
+$$G_F(\mu, \sigma) = \begin{pmatrix} \frac{1}{\sigma^2} & 0 \\ 0 & \frac{2}{\sigma^2} \end{pmatrix}$$
+This metric is proportional but not identical to the Poincaré metric $\frac{1}{\sigma^2} \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$.
+
+The geodesics in the Gaussian parameter space with the Fisher metric (sometimes called the Fisher half-plane) are vertical lines and half-ellipses centered on the $\mu$-axis. 
+
+A half-ellipse is defined by the equation:
+$$\frac{(\mu - \mu_0)^2}{a^2} + \frac{\sigma^2}{b^2} = 1 \quad \text{with } \sigma > 0$$
+where $b = \frac{a}{\sqrt{2}}$. Substituting $b$ gives:
+$$\frac{(\mu - \mu_0)^2}{a^2} + \frac{2\sigma^2}{a^2} = 1 \quad \text{or} \quad (\mu - \mu_0)^2 + 2\sigma^2 = a^2$$
+
+
+---
+
 The FIM is seen again as the Hessian or second derivative of the KL divergence:
 
 Let $p(x; \boldsymbol{\theta})$ be the PDF/PMF and $L(\boldsymbol{\theta}; x) = \log p(x; \boldsymbol{\theta})$ be the log-likelihood.
