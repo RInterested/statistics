@@ -117,6 +117,8 @@ $$\mathbf{I}_{ab} = \mathbb{E}\left[\frac{\partial \log p(x \mid \boldsymbol{\th
 
 This is explained [here](https://youtu.be/X_6zShk0LkM?si=YNo7ZyLlhzwXcXfp).
 
+The derivation is at the bottom (**).
+
 This is a Riemannian metric, i.e. a positive-definite symmetric bilinear form (i.e. an inner product), which allows describing geodesics in the parameter manifold of probability distributions. In the case of the normal distribution, these geodesics are in the Poincaré disc. If the means are constant, the geodesics are vertical lines across varying variance, but if the mean of the distribution changes, the variance will have an effect, which is maximal at small changes in the mean.
 
 <img width = 800  src = "poincare_fisher_metric.png">
@@ -220,6 +222,77 @@ $$\nabla_{\boldsymbol{\theta}} p = e^{\log p} \cdot \left( \nabla_{\boldsymbol{\
 Substitute Back $p$: Since $e^{\log p}$ is simply $p$ itself:
 
 $$\nabla_{\boldsymbol{\theta}} p = p \cdot \nabla_{\boldsymbol{\theta}} \log p$$
+
+---
+
+(**) The Fisher information metric 1$g_{ij}(\theta)$ is a fundamental concept in Information Geometry, representing the Riemannian metric on the manifold of probability distributions parameterized by 2$\boldsymbol{\theta}$.3 It is derived from the Fisher Information Matrix (FIM), 4$I(\boldsymbol{\theta})$.5
+
+The derivation involves two main steps:
+
+Find the log-likelihood function $\ln p(x|\boldsymbol{\theta})$ for the Gaussian distribution.
+Calculate the Fisher Information Matrix, which is the expected value of the negative second partial derivatives (Hessian) of the log-likelihood function.
+
+The general formula for the elements of the FIM is:
+
+$$I_{ij}(\boldsymbol{\theta}) = E\left[ \frac{\partial \ln p(x|\boldsymbol{\theta})}{\partial \theta_i} \frac{\partial \ln p(x|\boldsymbol{\theta})}{\partial \theta_j} \right] = -E\left[ \frac{\partial^2 \ln p(x|\boldsymbol{\theta})}{\partial \theta_i \partial \theta_j} \right]$$
+
+The Fisher metric is then defined as $g_{ij}(\boldsymbol{\theta}) = I_{ij}(\boldsymbol{\theta})$.
+
+Here is the derivation for the univariate Gaussian distribution with parameters $\boldsymbol{\theta} = (\mu, \sigma^2)$, where $\mu$ is the mean and $\sigma^2$ is the variance.
+
+The probability density function (PDF) for the univariate Gaussian is:
+
+$$p(x|\boldsymbol{\theta}) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
+
+We set the parameter vector as $\boldsymbol{\theta} = (\theta_1, \theta_2) = (\mu, \sigma^2)$.
+
+Step 1: Log-Likelihood Function
+
+The natural logarithm of the PDF is:
+
+$$\ln p(x|\boldsymbol{\theta}) = -\frac{1}{2} \ln(2\pi) - \frac{1}{2} \ln(\sigma^2) - \frac{(x-\mu)^2}{2\sigma^2}$$
+
+Step 2: First Partial Derivatives (The Score)
+
+Calculate the first partial derivatives with respect to $\theta_1 = \mu$ and $\theta_2 = \sigma^2$:
+
+$$\frac{\partial \ln p}{\partial \mu} = 0 - 0 - \frac{1}{2\sigma^2} \cdot 2(x-\mu)(-1) = \frac{x-\mu}{\sigma^2}$$
+$$\frac{\partial \ln p}{\partial \sigma^2} = 0 - \frac{1}{2\sigma^2} - \frac{(x-\mu)^2}{2} \cdot \frac{\partial}{\partial \sigma^2} \left(\frac{1}{\sigma^2}\right) = -\frac{1}{2\sigma^2} + \frac{(x-\mu)^2}{2(\sigma^2)^2} = \frac{(x-\mu)^2 - \sigma^2}{2(\sigma^2)^2}$$
+
+Step 3: Second Partial Derivatives
+
+Calculate the second partial derivatives with respect to the mean $\mu$:
+
+$$\frac{\partial^2 \ln p}{\partial \mu^2} = \frac{\partial}{\partial \mu} \left(\frac{x-\mu}{\sigma^2}\right) = -\frac{1}{\sigma^2}$$
+
+and wrt the variance $\sigma^2$
+
+$$\small\frac{\partial^2 \ln p}{\partial (\sigma^2)^2} = \frac{\partial}{\partial \sigma^2} \left( \frac{(x-\mu)^2 - \sigma^2}{2(\sigma^2)^2} \right) = \frac{\partial}{\partial \sigma^2} \left( \frac{(x-\mu)^2}{2(\sigma^2)^2} - \frac{1}{2\sigma^2} \right) = \frac{(x-\mu)^2}{2} (-2(\sigma^2)^{-3}) - \frac{1}{2} (-1(\sigma^2)^{-2}) = \frac{1}{2(\sigma^2)^2} - \frac{(x-\mu)^2}{(\sigma^2)^3}$$
+
+$$\frac{\partial^2 \ln p}{\partial \mu \partial \sigma^2} = \frac{\partial}{\partial \sigma^2} \left(\frac{x-\mu}{\sigma^2}\right) = (x-\mu) (-1(\sigma^2)^{-2}) = -\frac{x-\mu}{(\sigma^2)^2}$$
+
+Step 4: Expected Value (The Fisher Metric)
+
+The Fisher metric $g$ is the negative expected value of the Hessian matrix $H$: $g = -E[H]$. Recall that for a Gaussian distribution $X \sim \mathcal{N}(\mu, \sigma^2)$, we have $E[X] = \mu$, $E[X-\mu] = 0$, and $E[(X-\mu)^2] = \sigma^2$.
+Component $g_{11}$ (for $\mu, \mu$):
+
+$$g_{11} = -E\left[ -\frac{1}{\sigma^2} \right] = \frac{1}{\sigma^2}$$
+Component $g_{22}$ (for $\sigma^2, \sigma^2$):
+
+$$g_{22} = -E\left[ \frac{1}{2(\sigma^2)^2} - \frac{(x-\mu)^2}{(\sigma^2)^3} \right] = -\left( \frac{1}{2(\sigma^2)^2} - \frac{E[(x-\mu)^2]}{(\sigma^2)^3} \right)$$
+$$g_{22} = -\left( \frac{1}{2(\sigma^2)^2} - \frac{\sigma^2}{(\sigma^2)^3} \right) = -\left( \frac{1}{2\sigma^4} - \frac{1}{\sigma^4} \right) = \frac{1}{2\sigma^4}$$
+Component $g_{12} = g_{21}$ (for $\mu, \sigma^2$):
+
+$$g_{12} = -E\left[ -\frac{x-\mu}{(\sigma^2)^2} \right] = \frac{E[x-\mu]}{(\sigma^2)^2} = \frac{0}{(\sigma^2)^2} = 0$$
+
+Result: The Fisher Metric for Univariate Gaussian
+
+The Fisher metric for the univariate Gaussian parameterized by $(\mu, \sigma^2)$ is:
+
+$$\mathbf{g}(\mu, \sigma^2) = \begin{pmatrix} g_{11} & g_{12} \\ g_{21} & g_{22} \end{pmatrix} = \begin{pmatrix} \frac{1}{\sigma^2} & 0 \\ 0 & \frac{1}{2\sigma^4} \end{pmatrix}$$
+
+This diagonal form shows that the parameters $\mu$ and $\sigma^2$ are orthogonal in the sense of the Fisher metric.
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
