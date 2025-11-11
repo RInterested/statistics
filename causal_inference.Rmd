@@ -1,0 +1,214 @@
+---
+title: 'Causal Inference'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Causal Inference:
+
+---
+
+#### The theoretical $\text{do}(\cdot)$ operator (Judea Pearl) 
+
+
+The $do()$ operator is written mathematically as $P(Y | do(X=x))$, which is the probability distribution of the outcome $Y$ when the treatment $X$ is forced to the value $x$.
+
+In standard conditional probability, $P(Y | X=x)$ means "What is the probability of $Y$ given that we observed $X$ taking the value $x$?" This includes the effects of confounding. In Do-Calculus the $do()$ operator represents intervention. It means: "What is the probability of $Y$ if we surgically set $X$ to the value $x$, breaking all other confounding influences?"
+
+In a Directed Acyclic Graph (DAG), applying the $do()$ operator is mathematically equivalent to deleting all incoming arrows to the variable being intervened upon. This manipulation allows deriving formulas (like the backdoor criterion) that tell researchers how to adjust for confounding using only observational data.
+
+The Backdoor Criterion provides a principled way to identify the confounders you must control for in your statistical analysis (e.g., regression, IPTW, matching). A Backdoor Path is any non-causal path between the treatment variable ($X$) and the outcome variable ($Y$) that begins with an arrow pointing into the treatment variable ($X$). These paths represent the spurious correlation or confounding created by common causes of $X$ and $Y$. Example Path: $X \leftarrow \text{Confounder} \rightarrow Y$. Any correlation flowing through this path is biased. 
+
+The Backdoor Criterion: A set of variables $\mathbf{Z}$ satisfies the Backdoor Criterion relative to the treatment $X$ and outcome $Y$ if it meets two conditions in the Directed Acyclic Graph (DAG): Condition 1 (Blockage): $\mathbf{Z}$ blocks every backdoor path between $X$ and $Y$. Blocking means ensuring that no spurious correlation flows along these paths. This is achieved by conditioning on (adjusting for) the variables in $\mathbf{Z}$. Condition 2 (No Descendants): No variable in $\mathbf{Z}$ is a descendant of $X$. This prevents introducing collider bias or removing a part of the true causal effect, which can happen if you control for a variable that is caused by the treatment.
+
+If a set of variables $\mathbf{Z}$ satisfies the Backdoor Criterion, the causal effect of $X$ on $Y$ can be formally identified and estimated using the Backdoor Adjustment Formula:
+
+$$P(Y|do(X=x)) = \sum_{z} P(Y|X=x, \mathbf{Z}=z)P(\mathbf{Z}=z)$$
+
+This formula states that the probability of the outcome $Y$ under a theoretical intervention ($do(X)$) can be calculated by adjusting for $\mathbf{Z}$ across the entire population. The formula works in two steps: 
+
+- Step 1: Conditioning and Estimation: The term $P(Y|X=x, \mathbf{Z}=z)$ means we estimate the effect of $X$ on $Y$ separately within each subgroup defined by the specific value of the confounder(s) $\mathbf{Z}=z$. Because $\mathbf{Z}$ blocks the backdoor paths, within these subgroups, the relationship between $X$ and $Y$ is assumed to be unconfounded (like an RCT).
+
+- Step 2: Marginalization (Averaging): The term $\sum_{z} \dots P(\mathbf{Z}=z)$ is the marginalization step. After estimating the unconfounded effect in every subgroup, we must average these effects across all possible values of $\mathbf{Z}$ to get the overall effect for the entire population. The term $P(\mathbf{Z}=z)$ acts as the weight for the average, ensuring that each subgroup contribution is proportional to its prevalence in the population. This final averaging step is necessary to arrive at the population-level causal effect $P(Y|do(X=x))$, which is the goal of the $do()$ operator.
+
+The theoretical $do()$ operator represents the ability to perfectly intervene and set a variable value while breaking all causal paths leading into it. A Randomized Controlled Trial (RCT) is the real-world gold standard because the act of random assignment guarantees, on average, that: The treatment and control groups are perfectly exchangeable (identical in all respects, measured or unmeasured, except for the treatment). Any observed difference in the outcome must be due to the treatment. All confounding paths are naturally blocked.
+
+---
+
+#### Implementation of the $\text{do}(\cdot)$ Operator:
+
+---
+
+The implementation for empirical observational data is carried out with methods that rely on a powerful, untestable assumption called Conditional Exchangeability (or No Unmeasured Confounding): The treatment assignment is independent of the outcome, conditional on the set of measured confounders ($X$). This assumption means that once you adjust for all the variables you did measure (those included in your propensity model), there are no remaining unmeasured variables that affect both the treatment and the outcome.
+
+$$\text{Outcome} \perp \text{Treatment} \mid X$$
+
+We can never be certain that the "No Unmeasured Confounding" assumption holds because of unmeasured Variables: there might be critical confounders that are simply not in the dataset that influence both the treatment and the outcome. Further, there is possible measurement Error: even if a confounder is measured, poor or noisy measurement can still lead to residual confounding. The adjustment is only as good as the quality of the measured variables.
+
+Here are some of the methods:
+
+1. **IPTW** (Inverse Probability of Treatment Weighting) is a statistical method used to emulate the effects of the theoretical $do()$ operator from Causal Inference.
+
+2. **Matching** (e.g., Propensity Score Matching). This involves pairing each treated unit with one or more untreated units that have a very similar propensity score (or similar covariate values). It creates a subset of the data where, within each matched pair, the treatment assignment is nearly random. It physically discards observations that have no good match. Analogy to $do()$: It constructs a highly balanced, smaller "pseudo-population" by ensuring that for every individual who received the treatment, there was a virtually identical individual who did not.
+
+3. **G-Computation** is a direct method for estimating the expected outcome under a specific intervention. It involves two steps: 1. Fit a statistical model (e.g., linear regression) to predict the outcome based on the treatment and confounders. 2. Predict: Use that model to predict the outcome for every person in the dataset, first assuming everyone received the treatment ($do(A=1)$), and then predicting the outcome assuming no one received the treatment ($do(A=0)$). Analogy to $do()$: It uses the fitted model to mathematically simulate the outcomes under the hypothetical forced interventions ($A=1$ and $A=0$). The difference in the average predicted outcomes is the estimated causal effect.
+
+4. **Double Robust Methods** (e.g., Targeted Maximum Likelihood Estimation - TMLE) These methods combine elements of both modeling the treatment (like IPTW) and modeling the outcome (like G-Computation). Mechanism: They rely on fitting both the propensity score model and the outcome model. They are called "double robust" because the resulting causal estimate will be unbiased if either the propensity score model or the outcome model is correctly specified, providing a safety net against model misspecification. Analogy to $do()$: By cross-checking the assumptions of two different models, these methods provide a highly reliable estimate of the counterfactual outcome under the $do()$ intervention.
+
+---
+
+####  **IPTW** (Inverse Probability of Treatment Weighting) 
+
+
+The example that follows is from [this YouTube presentation](https://youtu.be/RyIyqV2LRvY?si=jXsUch8ETxKneakP) with the code found in [here](https://github.com/r-causal/causal_inference_r_workshop/blob/094c4174954487db3b491ebc24788fbb69e62f68/exercises/01-whole-game-exercises.qmd#L45)
+
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{R}
+library(tidyverse)
+library(broom)
+library(rsample)
+library(ggdag)
+library(causaldata)
+library(halfmoon)
+library(propensity)
+library(ggokabeito)
+
+set.seed(1234)
+```
+
+In this guided exercise, we'll attempt to answer a causal question: does quitting smoking make you gain weight? Causal modeling has a special place in the history of smoking research: the studies that demonstrated that smoking causes lung cancer were observational. Thanks to other studies, we also know that, if you're already a smoker, quitting smoking reduces your risk of lung cancer. However, some have observed that former smokers tend to gain weight. 
+
+To answer this question, we'll use causal inference methods to examine the relationship between quitting smoking and gaining weight. First, we'll draw our assumptions with a causal diagram (a directed acyclic graph, or DAG), which will guide our model. Then, we'll use a modeling approach called inverse probability weighting--one of many causal modeling techniques--to estimate the causal effect we're interested in.
+
+We'll use data from [NHEFS](https://wwwn.cdc.gov/Nchs/Nhanes/Nhefs/Default.aspx) to try to estimate the causal effect of quitting smoking on weight game. NHEFS is a longitudinal, observational study that has many of the variables we'll need.
+
+Getting rid of entries lost to follow up:
+
+```{r}
+nhefs_complete_uc <- nhefs_complete |>
+  filter(censored == 0)
+head(nhefs_complete_uc)
+```
+
+Here is the distribution in the difference in weight between years 71 and 82 for people who did and did not quit smoking:
+
+```{r}
+nhefs_complete_uc |>
+  ggplot(aes(wt82_71, fill = factor(qsmk))) + 
+  geom_vline(xintercept = 0, color = "grey60", linewidth = 1) +
+  geom_density(color = "white", alpha = .75, linewidth = .5) +
+  scale_color_okabe_ito(order = c(1, 5)) + 
+  theme_minimal() +
+  theme(legend.position = "bottom") + 
+  labs(
+    x = "change in weight (kg)",
+    fill = "quit smoking (1 = yes)"
+  )
+```
+
+Numerically,
+
+```{r}
+# ~2.5 kg gained for quit vs. not quit
+nhefs_complete_uc |>
+  group_by(qsmk) |>
+  summarize(
+    mean_weight_change = mean(wt82_71), 
+    sd = sd(wt82_71),
+    .groups = "drop"
+  )
+```
+
+Here, it looks like those who quit smoking gained, on average, 2.5 kg. But is there something else that could explain these results? There are many factors associated with both quitting smoking and gaining weight; could one of those factors explain away the results we're seeing here?
+
+To truly answer this question, we need to specify a causal diagram based on domain knowledge. Sadly, for most circumstances, there is no data-driven approach that consistently identify confounders. Only our causal assumptions can help us identify them. Causal diagrams are a visual expression of those assumptions linked to rigorous mathematics that allow us to understand what we need to account for in our model.
+
+In R, we can visualize and analyze our DAGs with the `{ggdag}` package. `{ggdag}` uses `{ggplot2}` and `{ggraph}` to visualize diagrams and `{dagitty}` to analyze them. Let's set up our assumptions. The `dagify()` function takes formulas, much like `lm()` and friends, to express assumptions. We have two basic causal structures: the causes of quitting smoking and the causes of gaining weight. Here, we're assuming that the set of variables here affect both. Additionally, we're adding `qsmk` as a cause of `wt82_71`, which is our causal question; we also identify these as our outcome and exposure. Finally, we'll add some labels so the diagram is easier to understand. The result is a `dagitty` object, and we can transform it to a `tidy_dagitty` data set with `tidy_dagitty()`.
+
+```{r}
+smk_wt_dag <- dagify(
+  # specify causes of quitting smoking and weight gain:
+  qsmk ~ sex + race + age + education + 
+    smokeintensity + smokeyrs + exercise + active + wt71,
+  wt82_71 ~ qsmk + sex + race + age + education + 
+    smokeintensity + smokeyrs + exercise + active + wt71,
+  # specify causal question:
+  exposure = "qsmk", 
+  outcome = "wt82_71",
+  coords = time_ordered_coords(),
+  # set up labels:
+  # here, I'll use the same variable names as the data set, but I'll label them
+  # with clearer names
+  labels = c(
+    # causal question
+    "qsmk" = "quit\nsmoking",
+    "wt82_71" = "change in\nweight",
+    
+    # demographics
+    "age" = "age",
+    "sex" = "sex",
+    "race" = "race",
+    "education" = "education",
+    
+    # health
+    "wt71" = "baseline\nweight",
+    "active" = "daily\nactivity\nlevel",
+    "exercise" = "exercise",
+    
+    # smoking history
+    "smokeintensity" = "smoking\nintensity",
+    "smokeyrs" = "yrs of\nsmoking"
+  )
+) |>
+  tidy_dagitty()
+
+smk_wt_dag |>
+  ggdag(text = FALSE, use_labels = "label")
+
+```
+
+The function `ggdag_adjustment_set()` visually identifies the variables that satisfy the Backdoor Criterion (the adjustment set). It highlights these crucial variables without showing the full graphical structure. The function prioritizes showing the variables (nodes) in the graph, specifically coloring or highlighting those that must be controlled for to estimate the causal effect. By default, it plots the nodes and their suggested role (Exposure, Outcome, Adjust), but omits the edges (arrows) to keep the visualization clean and focused solely on the required adjustment set.
+
+```{r}
+smk_wt_dag |>
+  ggdag_adjustment_set(text = FALSE, use_labels = "label") +
+  theme_dag() +
+  scale_color_okabe_ito(order = c(1, 5)) + 
+  scale_fill_okabe_ito(order = c(1, 5))
+```
+
+Let's fit a model with these variables. Note that we'll fit all continuous variables with squared terms, as well, to allow them a bit of flexibility.
+
+```{r}
+lm(
+  wt82_71~ qsmk + sex + 
+    race + age + I(age^2) + education + 
+    smokeintensity + I(smokeintensity^2) + 
+    smokeyrs + I(smokeyrs^2) + exercise + active + 
+    wt71 + I(wt71^2), 
+  data = nhefs_complete_uc
+) |>
+  tidy(conf.int = TRUE) |>
+  filter(term == "qsmk")
+```
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
