@@ -1116,6 +1116,73 @@ conditional expectation, and then we take an empirical mean over<span class="mat
 are using a linear model, this is equivalent to just taking the
 coefficient in front of <span class="math inline">\(T\)</span> in the
 linear regression as the ATE estimate.</p>
+</div>
+<div id="matching" class="section level4">
+<h4>Matching:</h4>
+<p>From this <a href="https://youtu.be/dm-BWjyYQpw?si=SAA3EMJf2i02n-DI">YouTube
+presentation</a>:</p>
+<p>Propensity score-based methods include matching, stratification and
+inverse probability of treatment weighting (IPTW).</p>
+<p>Matching creates treated / untreated pairs with similar propensity
+scores.</p>
+<pre class="r"><code># Load necessary libraries
+library(MatchIt)
+library(tidyverse)
+# library(causaldata) # Assuming this is where nhefs_complete is loaded
+# --- Setup Data (Conceptual) ---
+# Assuming nhefs_complete_uc is already loaded and filtered as before
+# The variables are:
+# Outcome: wt82_71 (Weight Change)
+# Treatment: qsmk (Quit Smoking: 1=Yes, 0=No)
+# Confounders (X): age, sex, race, education, smokeintensity, smokeyrs, exercise, active, wt71
+# Define the matching formula (Treatment ~ Confounders)
+
+matching_formula &lt;- qsmk ~ age + I(age^2) + sex + race + education + smokeintensity + I(smokeintensity^2) + smokeyrs +  I(smokeyrs^2) + exercise + active + wt71 + I(wt71^2)
+
+# Run the matching algorithm
+m.out &lt;- matchit(
+  matching_formula, 
+  data = nhefs_complete_uc, 
+  method = &quot;nearest&quot;,         
+  distance = &quot;glm&quot;
+  # estimand is now implicitly &quot;ATT&quot;, which is fine for nearest neighbor matching
+)
+
+# Optional: Examine the matching results (summary of balance)
+# summary(m.out, unlist = FALSE)
+# Summarize balance before and after matching
+# summary(m.out)
+
+# Note: The output will show SMDs. You&#39;d want the &#39;Matched Sample&#39; SMDs 
+# to be close to zero (e.g., &lt; 0.1) for all covariates.
+# Extract the matched data (only includes matched units)
+m.data &lt;- match.data(m.out)
+
+# Run a simple linear model on the matched data
+# Note: No confounders are needed in the final model if balance is achieved,
+# but sometimes they are included for robustness. Here we keep it simple.
+lm.matched &lt;- lm(wt82_71 ~ qsmk, data = m.data)
+
+# Print the result (the coefficient for qsmk is the estimated ATE)
+summary(lm.matched)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = wt82_71 ~ qsmk, data = m.data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -31.549  -4.072   0.087   4.537  42.986 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.0468     0.3975   2.634  0.00861 ** 
+## qsmk          3.4783     0.5621   6.187 9.73e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.98 on 804 degrees of freedom
+## Multiple R-squared:  0.04545,    Adjusted R-squared:  0.04427 
+## F-statistic: 38.28 on 1 and 804 DF,  p-value: 9.732e-10</code></pre>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>

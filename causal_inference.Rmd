@@ -490,6 +490,57 @@ for (name in names(data_list)) {
 All of the above is done using the adjustment formula with model-assisted estimation, where we first fit a model for the conditional expectation, and then we take an empirical mean over$X$, using that model.
 However, because we are using a linear model, this is equivalent to just taking the coefficient in front of $T$ in the linear regression as the ATE estimate. 
 
+#### Matching:
+
+From this [YouTube presentation](https://youtu.be/dm-BWjyYQpw?si=SAA3EMJf2i02n-DI):
+
+Propensity score-based methods include matching, stratification and inverse probability of treatment weighting (IPTW).
+
+Matching creates treated / untreated pairs with similar propensity scores.
+
+```{r}
+# Load necessary libraries
+library(MatchIt)
+library(tidyverse)
+# library(causaldata) # Assuming this is where nhefs_complete is loaded
+# --- Setup Data (Conceptual) ---
+# Assuming nhefs_complete_uc is already loaded and filtered as before
+# The variables are:
+# Outcome: wt82_71 (Weight Change)
+# Treatment: qsmk (Quit Smoking: 1=Yes, 0=No)
+# Confounders (X): age, sex, race, education, smokeintensity, smokeyrs, exercise, active, wt71
+# Define the matching formula (Treatment ~ Confounders)
+
+matching_formula <- qsmk ~ age + I(age^2) + sex + race + education + smokeintensity + I(smokeintensity^2) + smokeyrs +  I(smokeyrs^2) + exercise + active + wt71 + I(wt71^2)
+
+# Run the matching algorithm
+m.out <- matchit(
+  matching_formula, 
+  data = nhefs_complete_uc, 
+  method = "nearest",         
+  distance = "glm"
+  # estimand is now implicitly "ATT", which is fine for nearest neighbor matching
+)
+
+# Optional: Examine the matching results (summary of balance)
+# summary(m.out, unlist = FALSE)
+# Summarize balance before and after matching
+# summary(m.out)
+
+# Note: The output will show SMDs. You'd want the 'Matched Sample' SMDs 
+# to be close to zero (e.g., < 0.1) for all covariates.
+# Extract the matched data (only includes matched units)
+m.data <- match.data(m.out)
+
+# Run a simple linear model on the matched data
+# Note: No confounders are needed in the final model if balance is achieved,
+# but sometimes they are included for robustness. Here we keep it simple.
+lm.matched <- lm(wt82_71 ~ qsmk, data = m.data)
+
+# Print the result (the coefficient for qsmk is the estimated ATE)
+summary(lm.matched)
+```
+
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
 
