@@ -304,9 +304,191 @@ This estimate is pretty similar to what we saw before, if a little smaller. In f
 
 But we have other problem that we need to address. While we're just using `lm()` to estimate our IPW model, it doesn't properly account for the weights. That means our standard error is too small, which will artificially narrow confidence intervals and artificially shrink p-values. There are many ways to address this, including robust estimators.
 
+#### G Computation:
+
+From [here](https://www.bradyneal.com/Introduction_to_Causal_Inference-Sep18_2020-Neal.pdf)
+
+We use Luque-Fernandez et al. [example](https://academic.oup.com/ije/article/48/2/640/5248195) from Epidemiology. The
+outcome 푌 of interest is (systolic) blood pressure. The “treatment” of interest is sodium intake. Sodium intake is a continuous variable; in order to easily apply 
+
+$$\begin{align}\text{ATE} =\mathbb E[Y(1) − Y(0)] &= \mathbb E_X[\mathbb E[Y | T = 1, X] − \mathbb E[Y | T = 0, X]]\\[2px]&=\frac 1 n \sum_i \left[\mathbb E[Y | T = 1, X=x_i] − \mathbb E[Y | T = 0, X=x_i] \right] \end{align}$$
+
+which is specified for binary treatment, we will binarize T by letting T = 1 denote
+daily sodium intake above 3.5 grams and letting T = 0 denote daily
+sodium intake below 3.5 grams. The expression $\mathbb E_X$ the marginalization step: It means you must average the conditional effect across the entire distribution of the confounders $X$. The overall causal effect (ATE) is found by:Calculating the difference in outcomes between the treated and control groups within every subgroup defined by the confounders $X$.
+
+In our data, we also have the age of the individuals and amount of protein in their urine as covariates $X$. Because we are using data from a simulation, we know that the true ATE of sodium on blood pressure is 1.05.
+
+Minimizing the mean-squared error (MSE) of predicting $Y$ from ($T$, $X$) pairs is equivalent to modeling
+this conditional expectation. Therefore, we can
+plug in any machine learning model for $\mathbb E[Y | t, x],$ which gives us a model-assisted estimator. We’ll use linear regression here, which works out nicely since blood pressure is generated as a linear combination of other variables, in this simulation.
+
+```{r}
+library(dplyr)
+library(stats) 
+
+# --- Data Generation Function ---
+generate_data <- function(n=1000, seed=0, beta1=1.05, alpha1=0.4, alpha2=0.3, binary_treatment=TRUE, binary_cutoff=3.5) {
+  set.seed(seed)
+  age <- rnorm(n, mean=65, sd=5)
+  sodium_raw <- age / 18 + rnorm(n)
+  
+  sodium <- sodium_raw
+  if (binary_treatment) {
+    if (is.null(binary_cutoff)) {
+      binary_cutoff <- mean(sodium_raw)
+    }
+    # Convert to binary (0 or 1)
+    sodium <- as.integer(sodium_raw > binary_cutoff)
+  }
+  
+  # Blood pressure is the outcome, determined by sodium (treatment) and age (confounder)
+  blood_pressure <- beta1 * sodium + 2 * age + rnorm(n)
+  # Proteinuria is a collider, determined by both sodium and blood pressure
+  proteinuria <- alpha1 * sodium + alpha2 * blood_pressure + rnorm(n)
+  
+  df <- data.frame(
+    blood_pressure = blood_pressure, 
+    sodium = sodium,
+    age = age, 
+    proteinuria = proteinuria
+  )
+  return(df)
+}
 
 
+# --- Causal Effect Estimation Function (Modified to Return Predictions) ---
+estimate_causal_effect <- function(df, outcome_var, treatment_vars, 
+                                   covariate_vars, regression_coef=FALSE, 
+                                   return_predictions=FALSE) {
+  
+  # 1. Define the model formula
+  all_vars <- c(treatment_vars, covariate_vars)
+  formula_str <- paste(outcome_var, "~", paste(all_vars, collapse=" + "))
+  
+  # 2. Fit the Linear Regression Model
+  model <- lm(as.formula(formula_str), data=df)
+  
+  if (regression_coef) {
+    # Return the regression coefficient for the treatment variable
+    return(coef(model)[treatment_vars[1]])
+  } else {
+    # Estimate ATE using the Adjustment Formula (G-Computation)
+    
+    # 3. Create Counterfactual Data (T=1)
+    Xt1 <- df
+    Xt1[[treatment_vars[1]]] <- 1 # Set treatment to 1 for all
+    
+    # 4. Create Counterfactual Data (T=0)
+    Xt0 <- df
+    Xt0[[treatment_vars[1]]] <- 0 # Set treatment to 0 for all
+    
+    # 5. Predict outcomes for counterfactuals
+    y_hat1 <- predict(model, newdata = Xt1)
+    y_hat0 <- predict(model, newdata = Xt0)
+    
+    # 6. Calculate ATE (Mean Difference)
+    ate <- mean(y_hat1 - y_hat0)
+    
+    if (return_predictions) {
+      # Return a list containing ATE and predictions
+      return(list(ate = ate, y_hat1 = y_hat1, y_hat0 = y_hat0))
+    } else {
+      # Return only the ATE
+      return(ate)
+    }
+  }
+}
 
+
+# --- Main Execution Block ---
+
+# Generate large datasets (N reduced for practical execution speed)
+n_obs <- 1000000 
+binary_t_df <- generate_data(beta1=1.05, alpha1=.4, alpha2=.3, binary_treatment=TRUE, n=n_obs)
+continuous_t_df <- generate_data(beta1=1.05, alpha1=.4, alpha2=.3, binary_treatment=FALSE, n=n_obs)
+
+data_list <- list("Binary Treatment Data" = binary_t_df, 
+                  "Continuous Treatment Data" = continuous_t_df)
+
+for (name in names(data_list)) {
+  df <- data_list[[name]]
+  
+  cat("\n###", name, "###\n\n")
+  
+  # --- Adjustment Formula Estimates (regression_coef=FALSE) ---
+  
+  # Adjust All: BP ~ sodium + age + proteinuria
+  # This call saves the full prediction vectors in the 'results_all' list.
+  results_all <- estimate_causal_effect(df, 
+                                        outcome_var='blood_pressure', 
+                                        treatment_vars='sodium', 
+                                        covariate_vars=c('age', 'proteinuria'),
+                                        regression_coef=FALSE,
+                                        return_predictions=TRUE) 
+  
+  ate_est_adjust_all <- results_all$ate # Extract ATE for printing
+  
+  # Naive and Adjust Age estimates (using the simpler return=ATE)
+  ate_est_naive <- estimate_causal_effect(df, 
+                                          outcome_var='blood_pressure', 
+                                          treatment_vars='sodium', 
+                                          covariate_vars=NULL,
+                                          regression_coef=FALSE)
+  
+  ate_est_adjust_age <- estimate_causal_effect(df, 
+                                               outcome_var='blood_pressure', 
+                                               treatment_vars='sodium', 
+                                               covariate_vars='age',
+                                               regression_coef=FALSE)
+  
+  
+  cat("# Adjustment Formula Estimates #\n")
+  cat("Naive ATE estimate:\t\t\t\t\t\t\t", format(ate_est_naive, digits=4), "\n")
+  cat("ATE estimate adjusting for all covariates:\t", format(ate_est_adjust_all, digits=4), "\n")
+  cat("ATE estimate adjusting for age:\t\t\t\t", format(ate_est_adjust_age, digits=4), "\n")
+  cat("\n")
+  
+  # --- Example of saved predictions (The full vectors are available via results_all$y_hat1/0) ---
+  cat("--- Saved Counterfactual Predictions ---\n")
+  cat("Full y_hat1 vector length:", length(results_all$y_hat1), "\n")
+  cat("First 5 T=1 Predictions (y_hat1):\n")
+  print(head(results_all$y_hat1, 5))
+  cat("First 5 T=0 Predictions (y_hat0):\n")
+  print(head(results_all$y_hat0, 5))
+  cat("\n")
+  
+  # --- Linear Regression Coefficient Estimates (regression_coef=TRUE) ---
+  
+  ate_est_naive_coef <- estimate_causal_effect(df, 
+                                               outcome_var='blood_pressure', 
+                                               treatment_vars='sodium', 
+                                               covariate_vars=NULL,
+                                               regression_coef=TRUE)
+  
+  ate_est_adjust_all_coef <- estimate_causal_effect(df, 
+                                                    outcome_var='blood_pressure', 
+                                                    treatment_vars='sodium', 
+                                                    covariate_vars=c('age', 'proteinuria'),
+                                                    regression_coef=TRUE)
+  
+  ate_est_adjust_age_coef <- estimate_causal_effect(df, 
+                                                    outcome_var='blood_pressure', 
+                                                    treatment_vars='sodium', 
+                                                    covariate_vars='age',
+                                                    regression_coef=TRUE)
+  
+  cat("# Regression Coefficient Estimates #\n")
+  cat("Naive ATE estimate:\t\t\t\t\t\t\t", format(ate_est_naive_coef, digits=4), "\n")
+  cat("ATE estimate adjusting for all covariates:\t", format(ate_est_adjust_all_coef, digits=4), "\n")
+  cat("ATE estimate adjusting for age:\t\t\t\t", format(ate_est_adjust_age_coef, digits=4), "\n")
+  cat("\n")
+}
+
+```
+
+All of the above is done using the adjustment formula with model-assisted estimation, where we first fit a model for the conditional expectation, and then we take an empirical mean over$X$, using that model.
+However, because we are using a linear model, this is equivalent to just taking the coefficient in front of $T$ in the linear regression as the ATE estimate. 
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
