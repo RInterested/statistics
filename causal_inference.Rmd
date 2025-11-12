@@ -326,6 +326,13 @@ This estimate is pretty similar to what we saw before, if a little smaller. In f
 
 But we have other problem that we need to address. While we're just using `lm()` to estimate our IPW model, it doesn't properly account for the weights. That means our standard error is too small, which will artificially narrow confidence intervals and artificially shrink p-values. There are many ways to address this, including robust estimators.
 
+We want to give low weight both to those cases in which the covariates show a high propensity to quit (or not to quit) because the same motivation can explain the loss of weight. We want to break the causal path
+
+$$\text{Covariates (e.g., motivation)} \rightarrow \text{Quit Smoking (X)}$$
+$$\text{Covariates (e.g., motivation)} \rightarrow \text{Exercise/Diet} \rightarrow \text{Weight Change (Y)}$$
+
+
+
 #### G Computation:
 
 From [here](https://www.bradyneal.com/Introduction_to_Causal_Inference-Sep18_2020-Neal.pdf)

@@ -926,6 +926,13 @@ account for the weights. That means our standard error is too small,
 which will artificially narrow confidence intervals and artificially
 shrink p-values. There are many ways to address this, including robust
 estimators.</p>
+<p>We want to give low weight both to those cases in which the
+covariates show a high propensity to quit (or not to quit) because the
+same motivation can explain the loss of weight. We want to break the
+causal path</p>
+<p><span class="math display">\[\text{Covariates (e.g., motivation)}
+\rightarrow \text{Quit Smoking (X)}\]</span> <span class="math display">\[\text{Covariates (e.g., motivation)} \rightarrow
+\text{Exercise/Diet} \rightarrow \text{Weight Change (Y)}\]</span></p>
 </div>
 <div id="g-computation" class="section level4">
 <h4>G Computation:</h4>
