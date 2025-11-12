@@ -60,11 +60,13 @@ Here are some of the methods:
 
 1. **IPTW** (Inverse Probability of Treatment Weighting) is a statistical method used to emulate the effects of the theoretical $do()$ operator from Causal Inference.
 
-2. **Matching** (e.g., Propensity Score Matching). This involves pairing each treated unit with one or more untreated units that have a very similar propensity score (or similar covariate values). It creates a subset of the data where, within each matched pair, the treatment assignment is nearly random. It physically discards observations that have no good match. Analogy to $do()$: It constructs a highly balanced, smaller "pseudo-population" by ensuring that for every individual who received the treatment, there was a virtually identical individual who did not.
+2. **Matching** (e.g., Propensity Score Matching). This involves pairing each treated unit with one or more untreated units that have a very similar propensity score (*) (or similar covariate values). It creates a subset of the data where, within each matched pair, the treatment assignment is nearly random. It physically discards observations that have no good match. Analogy to $do()$: It constructs a highly balanced, smaller "pseudo-population" by ensuring that for every individual who received the treatment, there was a virtually identical individual who did not.
 
 3. **G-Computation** is a direct method for estimating the expected outcome under a specific intervention. It involves two steps: 1. Fit a statistical model (e.g., linear regression) to predict the outcome based on the treatment and confounders. 2. Predict: Use that model to predict the outcome for every person in the dataset, first assuming everyone received the treatment ($do(A=1)$), and then predicting the outcome assuming no one received the treatment ($do(A=0)$). Analogy to $do()$: It uses the fitted model to mathematically simulate the outcomes under the hypothetical forced interventions ($A=1$ and $A=0$). The difference in the average predicted outcomes is the estimated causal effect.
 
 4. **Double Robust Methods** (e.g., Targeted Maximum Likelihood Estimation - TMLE) These methods combine elements of both modeling the treatment (like IPTW) and modeling the outcome (like G-Computation). Mechanism: They rely on fitting both the propensity score model and the outcome model. They are called "double robust" because the resulting causal estimate will be unbiased if either the propensity score model or the outcome model is correctly specified, providing a safety net against model misspecification. Analogy to $do()$: By cross-checking the assumptions of two different models, these methods provide a highly reliable estimate of the counterfactual outcome under the $do()$ intervention.
+
+(*) Propensity score: To predict a propensity score using logistic regression, you build a model where the dependent variable is the treatment or exposure status, and the independent variables are the confounding covariates. The predicted probability from this model for each individual is their propensity score, which represents the probability of receiving the treatment given their covariates. This score is then used to balance the treated and untreated groups for causal inference. 
 
 ---
 
@@ -209,7 +211,7 @@ lm(
 
 When we adjust for the variables in our DAG, we get an estimate of about 3.5 kg--people who quit smoking gained about this amount of weight. However, we are trying to answer a specific causal question: how much weight would a person gain if the quit smoking vs. if the same person did not quit smoking? Let's use an inverse probability weighting model to try to estimate that effect at the population level (what if *everyone* quit smoking vs what if *no one* quit smoking).
 
-For a simple IPW model, we have two modeling steps. First, we fit a propensity score model, which predicts the probability that you received a treatment or exposure (here, that a participant quit smoking). We use this model to calculate inverse probability weights--1 / your probability of treatment. Then, in the second step, we use this weights in the outcome model, which estimates the effect of exposure on the outcome (here, the effect of quitting smoking on gaining weight).
+For a simple IPW model, we have two modeling steps. First, we fit a propensity score model, which predicts the probability that you received a treatment or exposure (here, that a participant quit smoking). We use this model to calculate inverse probability weights -- 1 / your probability of treatment. Then, in the second step, we use this weights in the outcome model, which estimates the effect of exposure on the outcome (here, the effect of quitting smoking on gaining weight).
 
 For the propensity score model, we'll use logistic regression (since quitting smoking is a binary variable). The outcome is quitting smoking, and the variables in the model are all those included in our adjustment set. Then, we'll use `augment()` from {broom} (which calls `predict()` on the inside) to calculate our weights using `propensity::wt_ate()` and save it back into our data set. 
 
@@ -228,10 +230,12 @@ nhefs_complete_uc <- propensity_model |>
   # predict whether quit smoking
   augment(type.predict = "response", data = nhefs_complete_uc) |>
   # calculate inverse probability
-  mutate(wts = wt_ate(.fitted, qsmk))
+  mutate(wts = wt_ate(.fitted, qsmk),
+  manual = ifelse(qsmk == 1, 1 / .fitted, 1 / (1 - .fitted))
+)
 
 nhefs_complete_uc |>
-  select(qsmk, .fitted, wts)
+  select(qsmk, .fitted, wts, manual)
 ```
 
 What are we doing here? `.fitted` is the Propensity Score. The `.fitted` column is generated by the `augment()` function and contains the propensity score for each individual. What it is: The probability of an individual receiving the treatment (`qsmk = 1`, quitting smoking) given their observed set of confounder variables (age, sex, baseline weight, etc.). Source: It is the predicted value from the propensity_model (a logistic regression model) applied to the individual's covariate values. Value: A number between 0 and 1. A value close to 1 means the person was very likely to quit smoking based on their characteristics. A value close to 0 means the person was very unlikely to quit smoking based on their characteristics. In other words, we use the `glm` model to predict whether each on of the subjects will quit smoking based on the values of the covariates. From `.fitted` and `qsmk` we get the `wts` (The IPTW Weight). The wts column is created by the `mutate()` function using the `propensity::wt_ate()` function, which converts the propensity scores into Inverse Probability of Treatment Weights (IPTW) for the Average Treatment Effect (ATE). A calculated weight used to rebalance the data such that the distribution of confounders in the treatment group equals the distribution in the control group. Calculation: The weight assigned to an individual depends on their actual treatment status (`qsmk`) and their predicted probability of receiving that status (`.fitted`): For the Treated group ($\text{qsmk}=1$):$$W = \frac{1}{\text{Propensity Score}} = \frac{1}{\text{.fitted}}$$ For the Control group ($\text{qsmk}=0$):$$W = \frac{1}{1 - \text{Propensity Score}} = \frac{1}{1 - \text{.fitted}}$$ Impact: These weights inflate the influence of individuals who are "mismatched" (e.g., someone who quit smoking despite having low health motivation) and deflate the influence of individuals who are "matched" (e.g., someone who quit and was highly motivated). The weighted dataset effectively simulates a randomized experiment.
@@ -290,8 +294,10 @@ We could do more here to analyze our assumptions, but let's move on to our secon
 ipw_model <- lm(
   wt82_71 ~ qsmk, 
   data = nhefs_complete_uc, 
-  weights = wts # inverse probability weights
+  weights = wts# inverse probability weights
 ) 
+
+  head(model.matrix(ipw_model))
 
 ipw_estimate <- ipw_model |>
   tidy(conf.int = TRUE) |>
@@ -299,6 +305,22 @@ ipw_estimate <- ipw_model |>
 
 ipw_estimate
 ```
+
+So we are doing a **weighted regression**: Weighted Least Squares (WLS) minimizes the Weighted Sum of Squared Residuals (WSSR). A unique weight 8$w_i$ is assigned to each residual before it is squared:
+
+$$\text{Minimize: } \text{WSSR} = \sum_{i=1}^{n} w_i(y_i - \hat{y}_i)^2$$
+
+Effect of Weights: High Weight ($w_i > 1$): If an observation has a large weight (like your Inverse Probability Weights, or IPTW, for hard-to-find people), the $\text{WSSR}$ penalizes a large residual for that point much more heavily. The model must adjust the line to fit this point closely, giving it more influence on the coefficient estimates. Low Weight ($w_i < 1$): If an observation has a small weight, the $\text{WSSR}$ barely registers its residual. The model can safely ignore this point to improve the fit for others, giving it less influence. 
+
+The most direct way to see how the weights enter the equation is through the matrix formula for the coefficient estimates, $\hat{\beta}$. OLS Estimator ($\hat{\beta}_{\text{OLS}}$)The formula for the OLS coefficient vector $\hat{\beta}$ (which includes the intercept and slope(s)) is:
+
+$$\hat{\beta}_{\text{OLS}} = (\mathbf{X}^{\text{T}}\mathbf{X})^{-1}\mathbf{X}^{\text{T}}\mathbf{y}$$
+The WLS estimator introduces the Weight Matrix ($\mathbf{W}$) into the OLS formula. $\mathbf{W}$ is a diagonal matrix where the individual weights ($w_i$) are placed along the main diagonal, and all other entries are zero: 
+
+$$\mathbf{W} = \begin{pmatrix} w_1 & 0 & \cdots & 0 \\ 0 & w_2 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & w_n \end{pmatrix}$$
+The modified formula for the WLS coefficients $\hat{\beta}$ is:
+
+$$\hat{\beta}_{\text{WLS}} = (\mathbf{X}^{\text{T}}\mathbf{W}\mathbf{X})^{-1}\mathbf{X}^{\text{T}}\mathbf{W}\mathbf{y}$$
 
 This estimate is pretty similar to what we saw before, if a little smaller. In fact, for simple causal questions, this is often the case: adjusting for confounders directly in your regression model sometimes estimates the same effect as IPWs and other causal techniques. Causal techniques are special, though, in that the use counterfactual modeling, which allows you to deal with many circumstances, such as when you have selection bias or time-dependendent confounding. They also often have variance properties.
 
