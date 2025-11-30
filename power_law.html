@@ -392,7 +392,7 @@ takes on discrete values: <span class="math inline">\(\$2, \$4, \$8,
 \$16, ...,\)</span> but for large <span class="math inline">\(x\)</span>
 and to see the power-law behavior, we can treat it as approximately
 continuous.)</p>
-<p>The probability of receiving exactly payout <span class="math inline">\(x\)</span> (i.e., <span class="math inline">\(\Pr(X = x))\)</span> is a <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric
+<p>The probability of receiving exactly payout <span class="math inline">\(X=x\)</span> (i.e., <span class="math inline">\(\Pr(X = x))\)</span> is a <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric
 distibution</a>:</p>
 <p><span class="math display">\[\Pr(X = x) = \frac 1{2^{n+1}} = \frac 1
 {2^{\log_2(x)+1}} = \frac 1 2  \times \left(\frac 1
@@ -401,6 +401,8 @@ distibution</a>:</p>
 c^{\log_b(a)}\)</span>, here, <span class="math inline">\(\left(\frac 1
 2\right)^{\log_2(x)} = x^{\log_2(1/2)} = x^{-1} = 1/x,\)</span> since
 <span class="math inline">\(\log_2(1/2) = -1.\)</span></p>
+<p>Or more simply, since $X=2^n, $ then <span class="math inline">\(P(X=x) =\frac 1{2^{n+1}}= \frac1{2x}\)</span> by
+simple substitution.</p>
 <p>Thus, <span class="math inline">\(\Pr(X = x) = \frac 1 2 \times \frac
 1 x.\)</span> For large <span class="math inline">\(x\)</span> (large
 <span class="math inline">\(n\)</span>), the constant factor of <span class="math inline">\(1/2\)</span> becomes negligible.</p>
@@ -413,6 +415,25 @@ get <span class="math inline">\(\Pr(X =x) \approx 1/x
 \log_2(3),\)</span> a power law with a different exponent. This
 multiplicative structure is why such processes generate power laws in
 real-world phenomena like wealth distributions or city sizes.</p>
+<p>Even though the expected value is infinite, almost every player who
+plays the game many times receives a payoff whose logarithm is governed
+by the Euler–Mascheroni constant. A striking result is the following
+(discovered by Emery, 1968, and later popularized by Feller and others):
+If you play the St. Petersburg game an enormous number of times (say
+<span class="math inline">\(M\)</span> rounds) and take the maximum
+payoff you ever saw, then</p>
+<p><span class="math display">\[\log_2(\text{maximum observed payoff})
+\approx \log_2 M + \gamma / \ln 2 + o(1)\]</span></p>
+<p>where <span class="math inline">\(γ ≈ 0.57721\)</span> is the
+Euler–Mascheroni constant. In other words, the record-breaking jackpot
+grows like <span class="math display">\[\text{Maximum jackpot} \approx
+\left(2^{\gamma / \ln 2}\right) \times (\text{total number of games
+played})\]</span></p>
+<p>or, approximately:</p>
+<p><span class="math display">\[\text{Maximum jackpot} \approx 1.7828
+\times M\]</span> This is exactly the same extreme-value phenomenon that
+makes γ appear in the harmonic series, prime gaps, coupon collector
+extremes, etc.</p>
 </div>
 <div id="distribution-tails" class="section level3">
 <h3>Distribution Tails:</h3>

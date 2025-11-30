@@ -20,15 +20,29 @@ In this [Veritassium presentation](https://youtu.be/HBluLfX2F_k?si=9_0TcXw9N1Ei4
 
 Let $x = 2^n$ be the **payout amount**. Then, solving for $n$, we get $n = \log_2(x).$ (Note that $x$ takes on discrete values: $\$2, \$4, \$8, \$16, ...,$ but for large $x$ and to see the power-law behavior, we can treat it as approximately continuous.) 
 
-The probability of receiving exactly payout $x$ (i.e., $\Pr(X = x))$ is a [geometric distibution](https://en.wikipedia.org/wiki/Geometric_distribution):
+The probability of receiving exactly payout $X=x$ (i.e., $\Pr(X = x))$ is a [geometric distibution](https://en.wikipedia.org/wiki/Geometric_distribution):
 
 $$\Pr(X = x) = \frac 1{2^{n+1}} = \frac 1 {2^{\log_2(x)+1}} = \frac 1 2  \times \left(\frac 1 2\right)^{\log_2(x)}= \frac 1 2 \frac 1 x$$
 
 Since $a^{\log_b(c)} = c^{\log_b(a)}$, here, $\left(\frac 1 2\right)^{\log_2(x)} = x^{\log_2(1/2)} = x^{-1} = 1/x,$ since $\log_2(1/2) = -1.$
 
+Or more simply, since $X=2^n, $ then $P(X=x) =\frac 1{2^{n+1}}= \frac1{2x}$ by simple substitution.
+
 Thus, $\Pr(X = x) = \frac 1 2 \times \frac 1 x.$ For large $x$ (large $n$), the constant factor of $1/2$ becomes negligible.
 
 In the YT video Steven Stogatz talks about the "interplay of two exponents" referring to the exponential growth in the payoff perfectly counterbalancing the exponential decay in probability, yielding a polynomial (power-law) relationship in between. If the bases differed (e.g., $\text{payout} = 3^n$), you'd get $\Pr(X =x) \approx 1/x \log_2(3),$ a power law with a different exponent. This multiplicative structure is why such processes generate power laws in real-world phenomena like wealth distributions or city sizes.
+
+Even though the expected value is infinite, almost every player who plays the game many times receives a payoff whose logarithm is governed by the Euler–Mascheroni constant. A striking result is the following (discovered by Emery, 1968, and later popularized by Feller and others): If you play the St. Petersburg game an enormous number of times (say $M$ rounds) and take the maximum payoff you ever saw, then
+
+$$\log_2(\text{maximum observed payoff}) \approx \log_2 M + \gamma / \ln 2 + o(1)$$
+
+where $γ ≈ 0.57721$ is the Euler–Mascheroni constant. In other words, the record-breaking jackpot grows like 
+$$\text{Maximum jackpot} \approx \left(2^{\gamma / \ln 2}\right) \times (\text{total number of games played})$$
+
+or, approximately:
+
+$$\text{Maximum jackpot} \approx 1.7828 \times M$$
+This is exactly the same extreme-value phenomenon that makes γ appear in the harmonic series, prime gaps, coupon collector extremes, etc.
 
 
 ### Distribution Tails:
