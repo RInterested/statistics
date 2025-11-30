@@ -16,6 +16,19 @@ output:
 
 ---
 
+In this [Veritassium presentation](https://youtu.be/HBluLfX2F_k?si=9_0TcXw9N1Ei4J9R) they set up a game in which you keep on winning $\$2$ every time a coin it tossed provided heads keeps showing, and until the first time tails comes up. The game starts at $\$2$. So the player wins $\$2^{k+1}$ with $k$ being the number of consecutive heads. The expected payout of this game is $\sum_1^\infty \frac 1 2 \$2 + \frac 1{2^{2}} \$2^2+\cdots= 1 + 1 + 1 +\cdots =\infty$. They illustrate with it the [St. Petersburg paradox](https://en.wikipedia.org/wiki/St._Petersburg_paradox). 
+
+Let $x = 2^n$ be the payout amount. Then, solving for $n$, we get $n = \log₂(x).$ (Note that $x$ takes on discrete values: $\$2, \$4, \$8, \$16, ...,$ but for large $x$ and to see the power-law behavior, we can treat it as approximately continuous.) The probability of receiving exactly payout $x$ (i.e., $\Pr(X = x))$ is then:
+
+$$\Pr(X = x) = \frac 1{2^{n+1}} = \frac 1 {2^{\log_2(x)+1}} = \frac 1 2  \times \left(\frac 1 2\right)^{\log_2(x)}= \frac 1 2 \frac 1 x$$
+
+Since $a^{\log_b(c)} = c^{\log_b(a)}$, here, $\left(\frac 1 2\right)^{\log_2(x)} = x^{\log_2(1/2)} = x^{-1} = 1/x,$ since $\log_2(1/2) = -1.$
+
+Thus, $\Pr(X = x) = \frac 1 2 \times \frac 1 x.$ For large $x$ (large $n$), the constant factor of $1/2$ becomes negligible.
+
+In the YT video Steven Stogatz talks about the "interplay of two exponents" referring to the exponential growth in the payoff perfectly counterbalancing the exponential decay in probability, yielding a polynomial (power-law) relationship in between. If the bases differed (e.g., $\text{payout} = 3^n$), you'd get $\Pr(X =x) \approx 1/x \log_2(3),$ a power law with a different exponent. This multiplicative structure is why such processes generate power laws in real-world phenomena like wealth distributions or city sizes.
+
+
 ### Distribution Tails:
 
 Criteria for **thick tails** (or **heavy tails**):
