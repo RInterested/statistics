@@ -381,17 +381,19 @@ presentation</a> they set up a game in which you keep on winning <span class="ma
 heads keeps showing, and until the first time tails comes up. The game
 starts at <span class="math inline">\(\$2\)</span>. So the player wins
 <span class="math inline">\(\$2^{k+1}\)</span> with <span class="math inline">\(k\)</span> being the number of consecutive heads.
-The expected payout of this game is <span class="math inline">\(\sum_1^\infty \frac 1 2 \$2 + \frac 1{2^{2}}
-\$2^2+\cdots= 1 + 1 + 1 +\cdots =\infty\)</span>. They illustrate with
-it the <a href="https://en.wikipedia.org/wiki/St._Petersburg_paradox">St. Petersburg
+The expected payout of this game is <span class="math inline">\(\displaystyle \sum_{k=1}^\infty \frac
+1{2^k}\,\$2^k= \frac 1 2 \$2 + \frac 1{2^{2}} \$2^2+\cdots= 1 + 1 + 1
++\cdots =\infty\)</span>. They illustrate with it the <a href="https://en.wikipedia.org/wiki/St._Petersburg_paradox">St. Petersburg
 paradox</a>.</p>
-<p>Let <span class="math inline">\(x = 2^n\)</span> be the payout
-amount. Then, solving for <span class="math inline">\(n\)</span>, we get
-<span class="math inline">\(n = \log₂(x).\)</span> (Note that <span class="math inline">\(x\)</span> takes on discrete values: <span class="math inline">\(\$2, \$4, \$8, \$16, ...,\)</span> but for large
-<span class="math inline">\(x\)</span> and to see the power-law
-behavior, we can treat it as approximately continuous.) The probability
-of receiving exactly payout <span class="math inline">\(x\)</span>
-(i.e., <span class="math inline">\(\Pr(X = x))\)</span> is then:</p>
+<p>Let <span class="math inline">\(x = 2^n\)</span> be the
+<strong>payout amount</strong>. Then, solving for <span class="math inline">\(n\)</span>, we get <span class="math inline">\(n =
+\log_2(x).\)</span> (Note that <span class="math inline">\(x\)</span>
+takes on discrete values: <span class="math inline">\(\$2, \$4, \$8,
+\$16, ...,\)</span> but for large <span class="math inline">\(x\)</span>
+and to see the power-law behavior, we can treat it as approximately
+continuous.)</p>
+<p>The probability of receiving exactly payout <span class="math inline">\(x\)</span> (i.e., <span class="math inline">\(\Pr(X = x))\)</span> is a <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric
+distibution</a>:</p>
 <p><span class="math display">\[\Pr(X = x) = \frac 1{2^{n+1}} = \frac 1
 {2^{\log_2(x)+1}} = \frac 1 2  \times \left(\frac 1
 2\right)^{\log_2(x)}= \frac 1 2 \frac 1 x\]</span></p>

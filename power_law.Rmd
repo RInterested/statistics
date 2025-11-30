@@ -16,9 +16,11 @@ output:
 
 ---
 
-In this [Veritassium presentation](https://youtu.be/HBluLfX2F_k?si=9_0TcXw9N1Ei4J9R) they set up a game in which you keep on winning $\$2$ every time a coin it tossed provided heads keeps showing, and until the first time tails comes up. The game starts at $\$2$. So the player wins $\$2^{k+1}$ with $k$ being the number of consecutive heads. The expected payout of this game is $\sum_1^\infty \frac 1 2 \$2 + \frac 1{2^{2}} \$2^2+\cdots= 1 + 1 + 1 +\cdots =\infty$. They illustrate with it the [St. Petersburg paradox](https://en.wikipedia.org/wiki/St._Petersburg_paradox). 
+In this [Veritassium presentation](https://youtu.be/HBluLfX2F_k?si=9_0TcXw9N1Ei4J9R) they set up a game in which you keep on winning $\$2$ every time a coin it tossed provided heads keeps showing, and until the first time tails comes up. The game starts at $\$2$. So the player wins $\$2^{k+1}$ with $k$ being the number of consecutive heads. The expected payout of this game is $\displaystyle \sum_{k=1}^\infty \frac 1{2^k}\,\$2^k= \frac 1 2 \$2 + \frac 1{2^{2}} \$2^2+\cdots= 1 + 1 + 1 +\cdots =\infty$. They illustrate with it the [St. Petersburg paradox](https://en.wikipedia.org/wiki/St._Petersburg_paradox). 
 
-Let $x = 2^n$ be the payout amount. Then, solving for $n$, we get $n = \log₂(x).$ (Note that $x$ takes on discrete values: $\$2, \$4, \$8, \$16, ...,$ but for large $x$ and to see the power-law behavior, we can treat it as approximately continuous.) The probability of receiving exactly payout $x$ (i.e., $\Pr(X = x))$ is then:
+Let $x = 2^n$ be the **payout amount**. Then, solving for $n$, we get $n = \log_2(x).$ (Note that $x$ takes on discrete values: $\$2, \$4, \$8, \$16, ...,$ but for large $x$ and to see the power-law behavior, we can treat it as approximately continuous.) 
+
+The probability of receiving exactly payout $x$ (i.e., $\Pr(X = x))$ is a [geometric distibution](https://en.wikipedia.org/wiki/Geometric_distribution):
 
 $$\Pr(X = x) = \frac 1{2^{n+1}} = \frac 1 {2^{\log_2(x)+1}} = \frac 1 2  \times \left(\frac 1 2\right)^{\log_2(x)}= \frac 1 2 \frac 1 x$$
 
