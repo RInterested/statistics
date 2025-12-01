@@ -16,6 +16,8 @@ output:
 
 ---
 
+### Introduction:
+
 In this [Veritassium presentation](https://youtu.be/HBluLfX2F_k?si=9_0TcXw9N1Ei4J9R) they set up a game in which you keep on winning $\$2$ every time a coin it tossed provided heads keeps showing, and until the first time tails comes up. The game starts at $\$2$. So the player wins $\$2^{k+1}$ with $k$ being the number of consecutive heads. The expected payout of this game is $\displaystyle \sum_{k=1}^\infty \frac 1{2^k}\,\$2^k= \frac 1 2 \$2 + \frac 1{2^{2}} \$2^2+\cdots= 1 + 1 + 1 +\cdots =\infty$. They illustrate with it the [St. Petersburg paradox](https://en.wikipedia.org/wiki/St._Petersburg_paradox). 
 
 Let $x = 2^n$ be the **payout amount**. Then, solving for $n$, we get $n = \log_2(x).$ (Note that $x$ takes on discrete values: $\$2, \$4, \$8, \$16, ...,$ but for large $x$ and to see the power-law behavior, we can treat it as approximately continuous.) 
@@ -43,6 +45,22 @@ or, approximately:
 
 $$\text{Maximum jackpot} \approx 1.7828 \times M$$
 This is exactly the same extreme-value phenomenon that makes γ appear in the harmonic series, prime gaps, coupon collector extremes, etc.
+
+
+### Power law as a PDF:
+
+A general power law relationship between two variables, $x$ and $y$, is written as:
+$$y = kx^{\alpha}$$
+Where:$y$ and $x$ are the variables, $k$ is a constant of proportionality, and $\alpha$ is the scaling exponent (a constant).
+
+As a Probability Density Function (PDF): When a power law describes a probability distribution, it is typically applied to a random variable $X$ for values greater than some minimum, $x_{min}$. In this context, the exponent $\alpha$ is usually negative, and we often define a parameter $\alpha_{PL}$ (or just $\alpha$) which is positive, leading to a decreasing probability.
+
+The probability density function $p(x)$ for a continuous power law distribution is often given by:
+
+$$p(x) = Cx^{-\alpha_{PL}}$$
+for $x \ge x_{min}$ and $\alpha_{PL} > 1$.$x$ is the magnitude of the event (e.g., city size, wealth, earthquake magnitude).$p(x)$ is the probability density of observing an event of size $x$. $C$ is a normalization constant chosen so the total probability is 1. $\alpha_{PL}$ (the scaling exponent) dictates how quickly the probability drops as $x$ increases. A key characteristic of this distribution is its "heavy tail," meaning that extreme events (large values of $x$) occur with a much higher probability than they would under a normal (Gaussian) distribution.
+
+
 
 
 ### Distribution Tails:
