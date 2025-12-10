@@ -1,0 +1,360 @@
+---
+title: 'Elliptic curves and the projective plane'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Elliptic Curves:
+
+---
+
+   
+In Sage, an elliptic curve is always specified by (the coefficient of) a long Weierstrass equation
+
+   $$y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6.$$
+   
+So
+   
+    EllipticCurve([a,b,c,d,e])
+    
+will yield
+
+   $$y^2 + a xy + c y = x^3 + b x^2 + d x + e.$$
+
+```{sage}
+E = EllipticCurve([1,2,3,4,5])
+E
+```
+
+```{sage}
+E = EllipticCurve([-2,2])
+E
+```
+
+```{sage}
+F = EllipticCurve([-2,1.1])
+F
+```
+
+```{sage}
+plot(E, xmax=5, ymin=-5, ymax=5, figsize=6, thickness=4) + plot(F, color='aqua', thickness=4)
+```
+
+For this curve, the number of rational solutions over $\mathbb Z/ {p \mathbb Z}$ where the prime is $5$ is $9.$
+
+```{sage}
+# The number of integer solutions modulus 5 is:
+E.Np(5)
+```
+
+```{sage}
+Emod5 = EllipticCurve(Zmod(5), [1,2,3,4,5])
+Emod5.points()
+```
+
+From the [Cremona index](https://johncremona.github.io/ecdata/):
+
+```{sage}
+plot(EllipticCurve('37b2'))
+```
+
+```{sage}
+E = EllipticCurve([2,5])
+print(E)
+```
+
+```{sage}
+Emod5 = EllipticCurve(Zmod(5), [2,5])
+Emod5.points()
+```
+
+So we have the point $(0,0)$ as a solution because $0^2\equiv_{(\text{mod} 5)} 0^3 + 2\times 0 +5.$ There are no other integer solutions.
+
+The second point $(0:1:0)$ is just infinite.
+
+Algebraically, this can be understood as **homogeneous coordinates**, in which initially there is a change of variables as to translate the $x-y$ Cartesian plane where the curve is plotted to a plane translated $1$ unit up along a newly introduced $z$ axis so that the range of points on the plane are connected to the origin as a projection of a cone of lines emanating from the origin or "pencil of lines." This is **projective geometry**.
+
+This is explained [in this lecture by Bill Shillito](https://youtu.be/XXzhqStLG-4) and [in this video by NJ Wildberger](https://youtu.be/oybzcvv-ZVo?t=569). 
+
+After this transformation, if we imagine the points on any of these lines to be $[X, Y ,Z],$ the points of the curve on the translated plane would be $[\frac X Z, \frac Y Z, 1]$, which corresponds to scaling any of the lines connecting the origin to the points ($[X,Y,Z]$) by $Z$. This is called the **projective plane** $\left(\mathbb P^2\right)$ and forms and equivalence relation where $(1,1,1)\equiv (2,2,2)$.
+
+
+<img src="https://user-images.githubusercontent.com/9312897/236579392-91b1bf09-84bc-4add-b91c-41f094cb6ffb.png" width="600">
+
+Notice the upper case of the new variables $X, Y.$ 
+
+Plugging these back into the initial equation of an elliptic curve $y^2 =x^3 - 2x +2$ would result in $\left(\frac Y Z \right)^2  = \left(\frac X Z \right)^3 - 2 \left(\frac X Z \right) + 2.$
+
+To convert into the homogeneous expression, all the terms should be of the same degree, which is achieved by getting rid of the denominators as in $( Y^2 Z)  = (X)^3 - 2(X Z^2) + 2X^3$.
+
+**What is the advantage of homogeneous coordinates?** The allow interpreting the points at infinity more readily:The points at infinity are not in the new plane at $Z=1$, rather, $Z=0.$ 
+
+Therefore we end up with $Y^2 \, 0 = X^3.$ This means that $X$ has to be zero, and $Y$ can take any value. Hence $(0:1:0),$ as above. This is explained in [here](https://youtu.be/oybzcvv-ZVo?t=564).
+
+---
+
+There are explanations about mapping the infinity plane to a sphere to visualize the point at infinity as in [here](https://trustica.cz/2018/04/05/elliptic-curves-point-at-infinity-revisited/), or [here](https://crypto.stackexchange.com/a/70526/32826) or [here](https://medium.com/@_ericprice/intro-to-the-elliptic-curve-group-2c77369dd3e1).
+
+Imaging the curve on a unit sphere allows imagining the point at infinity as the North Pole, and the original plot as in here: 
+
+<img src="https://user-images.githubusercontent.com/9312897/236360473-fa77a5e3-84fb-4e30-846b-ad300464697a.png" width='800'>
+
+The equations for a unit sphere centered at $(0,0)$ are:
+
+$$
+\begin{align}
+\left(\frac{2x}{x^2 + y^2 + 1},  \frac{2y}{x^2 + y^2 + 1}, \frac{-1 + x^2 + y^2}{x^2 + y^2 + 1}  \right)
+\end{align}$$
+
+as in [here](https://en.wikipedia.org/wiki/Stereographic_projection#:~:text=In%20mathematics%2C%20a%20stereographic%20projection,the%20diameter%20through%20the%20point.).
+
+It turns out that elliptic curves have a group structure with the addition operation defined as:
+
+> If P and Q are two points on the curve, then we can uniquely describe a third point P + Q in the following way. First, draw the line that intersects P and Q. This will generally intersect the cubic at a third point, R. We then take P + Q to be −R, the point opposite R.
+
+Why reflect across the $x$-axis? So that the point at infinity $\mathcal O$ is the identity element. Without reflection, $\mathcal O + P = –P$ instead of $\mathcal O + P = P.$
+
+The following visualization makes operations on points across the $x$ axis understandable:
+
+<img src="https://user-images.githubusercontent.com/9312897/236637743-05b49711-66bf-4b62-a56e-04135ef29736.png" width='800'>
+
+It is clear therefore, why $P + Q + P = \mathcal O.$
+
+For modulo $7$ it may be necessary to use an ad hoc function as in [here](https://stackoverflow.com/a/76148708/17842729) because the curve is singular.
+
+```{sage}
+def points_mod(modulus):
+    i = 1
+    for x in range(modulus):
+        for y in range(modulus):
+            if (y^2 - (x^3 + 2*x + 5)) % modulus == 0:
+                print(f"{i}: (x, y) = ({x}, {y})")
+                i += 1
+print(E.Np(7)) # 7 points
+points_mod(7) # 6 points plus infinity
+```
+
+The difference between the number of solutions of an elliptic curve over a finite field $\mathbb F_p$ and $p-1$ is $\epsilon_p,$ which is calculated as `E.ap().`
+
+**What is a finite field?**
+
+A field $\mathbb F_p$ is finite if it has $p$ elements, such that $p = q^r$, where $q$ is prime. From [Wikipedia](https://en.wikipedia.org/wiki/Finite_field):
+
+> If $p = q^r$, all fields of order $p$ are isomorphic. Moreover, a field cannot contain two different finite subfields with the same order. One may therefore identify all finite fields with the same order, and they are unambiguously denoted $\mathbb{F}_{p}$ or $\text{GF}(p)$, where the letters GF stand for "Galois field".
+
+The number of solutions to an elliptical curve on a finite field is related to the Legendre symbol by:
+
+$$\vert E(\mathbb F_p) \vert= \sum_{x \in \mathbb F_p} 1 + \left (\frac{f(x)}{p}   \right) + 1 = p + 1 + \left (\frac{f(x)}{p}   \right)= p + 1 - a_p$$
+
+The first $1$ is because when the Legendre symbol is $1,$ we have a square, and the negative of it, will also be a solution. If it is not a square it will cancel the $-1$ from the Legendre symbol. The last $1$ is the $\mathcal O.$ The symbol $a_p = - \left (\frac{f(x)}{p}   \right).$
+
+The upper-bound of $a_p$ (the cone the plots below) is given by $2 \sqrt p$ and the lower bound by $2 \sqrt p$ (Hasse-Weil bound).
+
+```{sage}
+ap_list = []
+for i in primes_first_n(5000):
+    ap_list += [E.ap(i)]
+```
+
+```{sage}
+import numpy
+```
+
+```{sage}
+list_plot(numpy.array(ap_list), size=1, figsize=8)
+```
+
+What follows is a simple example illustrating Elliptic Curve Cryptography from a [YT presentation by Robert Pierce](https://youtu.be/F3zzNa42-tQ).
+
+From [here](https://crypto.stackexchange.com/a/56345/32826):
+
+> In cryptography, an elliptic curve is a group which has a given size $n$. We normally work in a subgroup of prime order $r$, where $r$ divides $n$. The "cofactor" is $h = n/r$.
+
+The curve used below is $$y^2 = x^3 + 2x +2$$
+
+over the field $\mathbb Z/{p\mathbb Z}= \text{mod }(17).$ 
+
+And the cyclic subgroup used has the generating point $G=(5,1).$
+
+```{sage}
+F = Zmod(17)
+E = EllipticCurve(F,[2,2])
+print(E)
+plot(E, figsize=8)
+```
+
+This group is of order
+
+$$\vert E(\mathbb Z/ {p \mathbb Z}\vert=18$$
+
+The cyclic group generated by the point $G = (5,1)$ hits all the points in the curve and therefore it has order:
+
+$$\text{ord}(G)= 18$$
+
+with cofactor
+
+$$h=\frac{\vert E(\mathbb Z/ {p \mathbb Z}\vert}{\text{ord {(G)}}}=1$$
+
+
+```{sage}
+plot(E, color='red', figsize=3) + points(((5,1), (6,3), (10,6), (3,1), (9,16), (16,13), 
+                  (0,6), (13,7), (7,6), (7,11), (13,10), (0,11), 
+                  (16,4), (9,1), (3,16), (10,11), (6,14), (5,16)), color='red', figsize=8)
+```
+
+```{sage}
+Em = EllipticCurve(Zmod(2503), [3,7])
+Em
+```
+
+```{sage}
+plot(Em, figsize=8, size=1)
+```
+
+```{sage}
+E = EllipticCurve(GF(11),[2,7])
+print(E)
+E.plot()
+```
+
+From [this presentation](https://youtu.be/iN8DSpziWl8?t=559), here is an exampe of the curve $$E: y^2 = x^3 + x + 1$$ over $\mathbb Q$ with two points we are going to add: $P=(1,1)$ and $Q=(2,3).$
+
+The line between $P$ and $Q$ is $y = \frac{3 - 1}{2 - 1}x - 1 = 2x - 1.$
+
+Substituting this into the $E$
+
+$$(2x-1)^2 = x^3 + x + 1$$
+
+which can be foiled into 
+
+$$0 = (x-1)^2 (x-2)^2$$
+
+which implies that the point $P=(1,1)$ has multiplicity $2$ because of $(x-1)^{\color{red}2}$. Therefore the third point of intersection between $E$ and this line is thought of hitting $(1,1)$ twice.
+
+Reflecting it over the $x$-axis, we get $(1,-1).$
+
+```{sage}
+E = EllipticCurve([1,-1])
+print(E)
+Eplot = E.plot()
+points = [(1,1),(2,3)] 
+Eplot += plot(2*x-1, (x,0,2.5), color='green')
+Eplot += list_plot(points, color='red', pointsize=45)
+P=E([1,1]); Q=E([2,3])
+P+Q
+Eplot + list_plot([(1,-1)],color='gold', pointsize=45)
+```
+
+```{sage}
+E = EllipticCurve([-5,4])
+print(E)
+P = E([1,0]); Q = E(0,2) # Two points on the curve.
+P + Q
+```
+
+```{sage}
+P + P # This is the point to infinity
+```
+
+Mordell–Weil's theorem shows $E(\mathbb Q )$ is a finitely generated abelian group, thus $\displaystyle E(\mathbb {Q} )\cong E(\mathbb {Q} )_{tors}\times \mathbb {Z} ^{r}$ where $E(\mathbb {Q} )_{tors}$ is the finite torsion subgroup and $r$ is the rank of the elliptic curve.
+
+$$y^2 = x^3 -x$$
+
+```{sage}
+E = EllipticCurve([-1,0])
+E
+```
+
+It's group is isomorphic to $\mathbb Z/2\mathbb Z \oplus \mathbb Z/2\mathbb Z$
+
+```{sage}
+E.torsion_subgroup()
+```
+
+```{sage}
+E.rank() # Rank 0: There are no points of infinite order, only finite order points
+```
+
+```{sage}
+E.torsion_points()
+```
+
+```{sage}
+2*E((-1 , 0 , 1))
+```
+
+```{sage}
+4*E((0 , 0 , 1))
+```
+
+```{sage}
+E((1 , 0 , 1)) + E((1 , 0 , 1)) 
+```
+
+---
+$$y^2 + y = x^3 - x$$
+
+```{sage}
+E = EllipticCurve([0,0,1,-1,0])
+E
+```
+
+```{sage}
+E.torsion_subgroup()
+```
+
+```{sage}
+E.rank()
+```
+
+---
+
+$y^2 = x^3 − 5x + 4$
+
+```{sage}
+E = EllipticCurve([-5,4])
+E
+```
+
+```{sage}
+E.torsion_subgroup()
+```
+
+```{sage}
+E.torsion_points()
+```
+
+```{sage}
+E.rank()
+```
+
+```{sage}
+E.gens()
+```
+
+You can construct infinitely many points on E, by adding a torsion point and some multiple of the generator
+
+```{sage}
+P = E(1,0) + 9 * E(0,2)
+P # P is on the curve. To check just run E(P)
+```
+
+```{sage}
+E(P)
+```
+
+```{sage}
+E.modular_form()
+```
+
