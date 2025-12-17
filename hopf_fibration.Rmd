@@ -80,7 +80,7 @@ The key is that a complex line in $\mathbb{C}^2$ is geometrically a 2-dimensiona
 
 Here is the analytical breakdown of the $2D$ plane in $\mathbb{R}^4$ that defines the $S^1$ fiber.
 
-1. Identify $\mathbb{R}^4$ with $\mathbb{C}^2$: We define the coordinates of $\mathbb{R}^4$ as $(x_1, x_2, x_3, x_4)$. We define the coordinates of $\mathbb{C}^2$ as a pair of complex numbers $(z_0, z_1)$. We connect the two spaces by defining:$z_0 = x_1 + i x_2$ and $z_1 = x_3 + i x_4$. So, a point $(z_0, z_1)$ in $\mathbb{C}^2$ corresponds to the point $(x_1, x_2, x_3, x_4)$ in $\mathbb{R}^4$.The $3$-sphere, $S^3$, is the set of points in $\mathbb{R}^4$ where $x_1^2 + x_2^2 + x_3^2 + x_4^2 = 1$.In $\mathbb{C}^2$, this is simply the set of points where:$$|z_0|^2 + |z_1|^2 = 1$$
+1. Identify $\mathbb{R}^4$ with $\mathbb{C}^2$: We define the coordinates of $\mathbb{R}^4$ as $(x_1, x_2, x_3, x_4)$. We define the coordinates of $\mathbb{C}^2$ as a pair of complex numbers $(z_0, z_1)$. We connect the two spaces by defining: $z_0 = x_1 + i x_2$ and $z_1 = x_3 + i x_4$. So, a point $(z_0, z_1)$ in $\mathbb{C}^2$ corresponds to the point $(x_1, x_2, x_3, x_4)$ in $\mathbb{R}^4$.The $3$-sphere, $S^3$, is the set of points in $\mathbb{R}^4$ where $x_1^2 + x_2^2 + x_3^2 + x_4^2 = 1$.In $\mathbb{C}^2$, this is simply the set of points where:$$|z_0|^2 + |z_1|^2 = 1$$
 
 2. Define the $2D$ Plane (The Complex Line): The $S^1$ fibers of the Hopf fibration are defined as the intersection of $S^3$ with a Complex Line passing through the origin in $\mathbb{C}^2$. A complex line $L$ through the origin in $\mathbb{C}^2$ is a set of all multiples of a fixed, non-zero vector $W = (w_0, w_1) \in \mathbb{C}^2$.
 
@@ -88,9 +88,13 @@ $$L = \{ \lambda W \mid \lambda \in \mathbb{C} \}$$
 
 $L$ is a $1$-dimensional complex vector space, which means it is a $2$-dimensional real vector space (a plane) in $\mathbb{R}^4$.
 
-3. The $S^1$ Fiber Analytically: The fiber $F$ over a specific point on the base sphere $S^2$ is the set of points that fall on the unit circle within this complex line $L$.$$F = L \cap S^3 = \{ (z_0, z_1) \in \mathbb{C}^2 \mid (z_0, z_1) = \lambda (w_0, w_1) \text{ and } |z_0|^2 + |z_1|^2 = 1 \}$$
+3. The $S^1$ Fiber Analytically: The fiber $F$ over a specific point on the base sphere $S^2$ is the set of points that fall on the unit circle within this complex line $L$.
 
-Substituting $(z_0, z_1) = \lambda (w_0, w_1)$ into the unit sphere equation:$$|\lambda w_0|^2 + |\lambda w_1|^2 = 1$$ 
+$$F = L \cap S^3 = \{ (z_0, z_1) \in \mathbb{C}^2 \mid (z_0, z_1) = \lambda (w_0, w_1) \text{ and } |z_0|^2 + |z_1|^2 = 1 \}$$
+
+Substituting $(z_0, z_1) = \lambda (w_0, w_1)$ into the unit sphere equation:
+
+$$|\lambda w_0|^2 + |\lambda w_1|^2 = 1$$ 
 
 $$|\lambda|^2 |w_0|^2 + |\lambda|^2 |w_1|^2 = 1$$
 $$|\lambda|^2 (|w_0|^2 + |w_1|^2) = 1$$
@@ -112,9 +116,15 @@ $$(z_0, z_1) = e^{i\theta} \cdot \frac{1}{\sqrt{1+|q|^2}}(q, 1)$$
  
 As $\theta$ ranges from $0$ to $2\pi$, you trace out the $S^1$ circle in $4D$.
 
-We defined $q$ as the ratio of the two complex coordinates in $S^3$: $q = \frac{z_0}{z_1}$. If we want to work backward to find $(z_0, z_1)$ using only $q$, we can factor out $z_1$ from the vector:$(z_0, z_1) = z_1 \cdot \left( \frac{z_0}{z_1}, \frac{z_1}{z_1} \right) = z_1 \cdot (q, 1)$. The "1" is simply the result of dividing $z_1$ by itself. It acts as the reference unit for the ratio. The vector $(q, 1)$ points in the correct "direction" in complex space, but it isn't on the 3-sphere yet. To be on $S^3$, the total magnitude squared must be exactly 1: $|z_0|^2 + |z_1|^2 = 1$. If we check the magnitude of our raw vector $(q, 1)$, we get:$\sqrt{|q|^2 + |1|^2} = \sqrt{|q|^2 + 1}$. To force this vector to land exactly on the surface of the sphere, we must divide by that magnitude. That is where the normalization factor comes from:$\text{Unit Vector} = \frac{1}{\sqrt{|q|^2 + 1}}(q, 1)$.
+We defined $q$ as the ratio of the two complex coordinates in $S^3$: $q = \frac{z_0}{z_1}$. If we want to work backward to find $(z_0, z_1)$ using only $q$, we can factor out $z_1$ from the vector: $(z_0, z_1) = z_1 \cdot \left( \frac{z_0}{z_1}, \frac{z_1}{z_1} \right) = z_1 \cdot (q, 1)$. The "1" is simply the result of dividing $z_1$ by itself. It acts as the reference unit for the ratio. The vector $(q, 1)$ points in the correct "direction" in complex space, but it isn't on the 3-sphere yet. To be on $S^3$, the total magnitude squared must be exactly 1: $|z_0|^2 + |z_1|^2 = 1$. If we check the magnitude of our raw vector $(q, 1)$, we get: $\sqrt{|q|^2 + |1|^2} = \sqrt{|q|^2 + 1}$. To force this vector to land exactly on the surface of the sphere, we must divide by that magnitude. That is where the normalization factor comes from:$\text{Unit Vector} = \frac{1}{\sqrt{|q|^2 + 1}}(q, 1)$.
 
-Every complex number can be written in polar form as $z = R e^{i\theta}$, where $R$ is the magnitude and $e^{i\theta}$ is the phase. So: $z_1 = |z_1| e^{i\theta}$. When we substitute this into the vector $(q, 1)$, we get $(z_0, z_1) = |z_1| e^{i\theta} (q, 1)$. Solving for the Magnitude $|z_1|$, we know that for any point in $S^3$, the sum of the squares of the magnitudes must be 1:$|z_0|^2 + |z_1|^2 = 1.$ Since $z_0 = q z_1$, we can substitute that in: $|q z_1|^2 + |z_1|^2 = 1$, and $|q|^2 |z_1|^2 + |z_1|^2 = 1$. Now, factor out the $|z_1|^2$: $|z_1|^2 ( |q|^2 + 1 ) = 1$, and $|z_1|^2 = \frac{1}{1 + |q|^2}$. Taking the square root gives us the magnitude of $z_1$: $|z_1| = \frac{1}{\sqrt{1 + |q|^2}}$. Now we substitute that magnitude back into our polar form of $z_1$: $$z_1 = \underbrace{\frac{1}{\sqrt{1 + |q|^2}}}_{\text{Magnitude}} \cdot \underbrace{e^{i\theta}}_{\text{Phase}}$$ So the equation:$(z_0, z_1) = z_1 (q, 1)$ becomes: $$(z_0, z_1) = \left( \frac{1}{\sqrt{1 + |q|^2}} e^{i\theta} \right) (q, 1)$$
+Every complex number can be written in polar form as $z = R e^{i\theta}$, where $R$ is the magnitude and $e^{i\theta}$ is the phase. So: $z_1 = |z_1| e^{i\theta}$. When we substitute this into the vector $(q, 1)$, we get $(z_0, z_1) = |z_1| e^{i\theta} (q, 1)$. Solving for the Magnitude $|z_1|$, we know that for any point in $S^3$, the sum of the squares of the magnitudes must be 1:$|z_0|^2 + |z_1|^2 = 1.$ Since $z_0 = q z_1$, we can substitute that in: $|q z_1|^2 + |z_1|^2 = 1$, and $|q|^2 |z_1|^2 + |z_1|^2 = 1$. Now, factor out the $|z_1|^2$: $|z_1|^2 ( |q|^2 + 1 ) = 1$, and $|z_1|^2 = \frac{1}{1 + |q|^2}$. Taking the square root gives us the magnitude of $z_1$: $|z_1| = \frac{1}{\sqrt{1 + |q|^2}}$. Now we substitute that magnitude back into our polar form of $z_1$: 
+
+$$z_1 = \underbrace{\frac{1}{\sqrt{1 + |q|^2}}}_{\text{Magnitude}} \cdot \underbrace{e^{i\theta}}_{\text{Phase}}$$ 
+
+So the equation:$(z_0, z_1) = z_1 (q, 1)$ becomes: 
+
+$$(z_0, z_1) = \left( \frac{1}{\sqrt{1 + |q|^2}} e^{i\theta} \right) (q, 1)$$
 
 The idea of $q$ being a ratio of two complex numbers comes from the Riemann Sphere and the concept of Complex Projective Space, specifically $\mathbb{C}P^1$.
 
@@ -127,7 +137,7 @@ To understand how we get from a 3-sphere $(S^3)$ to a ratio $q$, we have to look
 
 1. Coordinates in $S^3$:
 
-We represent a point in $S^3$ using two complex numbers $(z_0, z_1)$. Because this point is on a sphere, it must satisfy the normalization condition:$|z_0|^2 + |z_1|^2 = 1$. This gives us a 3-dimensional surface embedded in a 4-dimensional real space ($\mathbb{C}^2 \cong \mathbb{R}^4$).
+We represent a point in $S^3$ using two complex numbers $(z_0, z_1)$. Because this point is on a sphere, it must satisfy the normalization condition: $|z_0|^2 + |z_1|^2 = 1$. This gives us a 3-dimensional surface embedded in a 4-dimensional real space ($\mathbb{C}^2 \cong \mathbb{R}^4$).
 
 2. The Equivalence Relation:
 
@@ -164,7 +174,13 @@ $$X = \frac{x}{1-w},\quad Y = \frac y{1-w},\quad Z=\frac z {1-w}$$
 
 #### Coordinates in $\mathbb R^4$
 
-Regarding the Hopf fibration:$$\begin{align*} (z_0,z_1) &= e^{i\psi}\frac 1{\sqrt{1 + |q|^2}}(q,1) \\ &= e^{i\psi}\frac 1{\sqrt{1 + \tan^2(\theta/2)}}\,(\tan(\theta/2)\,e^{i\phi},1) \\ &= e^{i\psi}\cos(\theta/2)\,(\tan(\theta/2)\,e^{i\phi},1) \end{align*}$$The $\tan(\theta/2)$ comes from the stereographic projection of a point on $S^2$ onto the complex plane, $q = \tan(\theta/2)\,e^{i\phi}$. The angle $\theta$ denotes the colatitude (angle from the North pole towards the South): $\theta \in [0,\pi]$. When $\theta=0$ at the North pole, the norm of the projection in the complex plane is $0,$ assuming a norm of $1$ at $\theta = \pi/2,$ and $\infty$ at $\theta = \pi.$ This angle determines which nested torus you are on in $\mathbb{R}^3$. 
+Regarding the Hopf fibration:
+
+$$\begin{align*} (z_0,z_1) &= e^{i\psi}\frac 1{\sqrt{1 + |q|^2}}(q,1) \\\\ 
+&= e^{i\psi}\frac 1{\sqrt{1 + \tan^2(\theta/2)}}\,(\tan(\theta/2)\,e^{i\phi},1) \\\\ 
+&= e^{i\psi}\cos(\theta/2)\,(\tan(\theta/2)\,e^{i\phi},1) \end{align*}$$
+
+The $\tan(\theta/2)$ comes from the stereographic projection of a point on $S^2$ onto the complex plane, $q = \tan(\theta/2)\,e^{i\phi}$. The angle $\theta$ denotes the colatitude (angle from the North pole towards the South): $\theta \in [0,\pi]$. When $\theta=0$ at the North pole, the norm of the projection in the complex plane is $0,$ assuming a norm of $1$ at $\theta = \pi/2,$ and $\infty$ at $\theta = \pi.$ This angle determines which nested torus you are on in $\mathbb{R}^3$. 
 
 ---
 
@@ -183,7 +199,14 @@ Summary of the "3D" Coordinates of $S^3$:
 >
 >  $\psi$ (The Fiber Angle): Picks the "Point" on that circle.
 
-Distributing the terms:$$\begin{align*} (z_0,z_1) &= e^{i\psi}\cos(\theta/2)\,(\tan(\theta/2)\,e^{i\phi},1) \\ &= \left(\sin(\theta/2)e^{i(\phi+\psi)}, \cos(\theta/2)e^{i\psi} \right) \end{align*}$$ The angle $\psi$ constitutes the gauge symmetry. It is the coordinate along the fiber itself (the longitude within the fiber). 
+Distributing the terms:
+
+$$\begin{align*} (z_0,z_1) &= e^{i\psi}\cos(\theta/2)\,(\tan(\theta/2)\,e^{i\phi},1)\\\\ 
+&= \left(\sin(\theta/2)e^{i(\phi+\psi)}, \cos(\theta/2)e^{i\psi} \right) \end{align*}$$ 
+
+The angle $\psi$ constitutes the gauge symmetry. It is the coordinate along the fiber itself (the longitude within the fiber). 
+
+The angle $\psi$ is a symmetry because changing its value moves you to a different point in $S^3$, but completely disappears when you look at the resulting point on the base sphere $S^2$. The 3-sphere $S^3$ has a natural "action" by the group $U(1)$ (the group of complex numbers with magnitude 1).This action is exactly the rotation $e^{i\psi}$. When you rotate a point by $\psi$, you are spinning around the fiber circle.Because $S^3$ is a Principal Bundle, this rotation is "smooth" and "global" — you can spin the entire sphere along its fibers simultaneously without any tearing or overlapping. In geometry, if a space can be "partitioned" into orbits of a group action where each orbit behaves the same way, we call that group action a symmetry of the bundle.
 
 $S^3 \subset \mathbb R^4$ can be expressed as $(x_1,y_1, x_2,y_2):$
 
@@ -197,11 +220,11 @@ The formula is:$$X = \frac{x_1}{1 - x_2}, \quad Y = \frac{y_1}{1 - x_2}, \quad Z
 
 Parenthetically, the fundamental property of stereographic projection that simplifies the visualization of the Hopf fibration is called the **circline property**: Stereographic projection always maps circles on the $n$-sphere ($S^n$) to either a circle or a straight line in $n$-dimensional Euclidean space ($\mathbb{R}^n$).
 
-For the 2-sphere (1$S^2$) to the plane (2$\mathbb{R}^2$): Circles on the surface of an ordinary sphere project to circles or lines in the plane. 
+For the 2-sphere ($S^2$) to the plane ($\mathbb{R}^2$): Circles on the surface of an ordinary sphere project to circles or lines in the plane. 
 
 For the 3-sphere ($S^3$) to 3D space ($\mathbb{R}^3$): The fibers of the Hopf fibration, which are circles ($S^1$) on the $S^3$, project to circles or lines in $\mathbb{R}^3$.
 
-Great Circles and the Hopf Fibers: Since the 4$S^1$ fibers of the Hopf fibration are defined by the intersection of the 5$S^3$ with a 6$2D$ plane through the origin, they are a specific type of circle on 7$S^3$ called great circles.Therefore, the $S^1$ fibers, which are great circles on $S^3$, are a set of circles in $4D$ space.When stereographically projected to $3D$ space, these circles remain circles (or straight lines).
+Great Circles and the Hopf Fibers: Since the $S^1$ fibers of the Hopf fibration are defined by the intersection of the $S^3$ with a $2D$ plane through the origin, they are a specific type of circle on $S^3$ called great circles.Therefore, the $S^1$ fibers, which are great circles on $S^3$, are a set of circles in $4D$ space.When stereographically projected to $3D$ space, these circles remain circles (or straight lines).
 
 Going back to the actual calculations, we get that for a point on the base sphere represented by spherical coordinates $(\theta, \phi)$, the circle in $\mathbb{R}^3$ is parameterized by $\psi$ as follows:
 
