@@ -45,9 +45,19 @@ The stereographic projection is a map that takes the 3-sphere ($S^3$) (minus a s
 
 The entire $\mathbb{R}^3$ space (except for the central line) is structured by these circles. The preimage of any circle of latitude on the base sphere $S^2$ is a $2$-torus in $S^3$. When this torus is stereographically projected to $\mathbb{R}^3$, it forms a nested torus which is filled by the projected $S^1$ fibers.The projected fibers sitting on one of these tori are known as **Villarceau circles**. 
 
+From [Wikipedia](https://en.wikipedia.org/wiki/Villarceau_circles):
+
+<img width = 600  src = "villarceau_circles.gif">
+
+In $S^3$, the fibers are perfect "Great Circles." When you project these circles into 3D space via stereographic projection, they don't map to the simple "vertical" or "horizontal" circles of the doughnut. They map specifically to the Villarceau circles.This is significant because it proves that the Hopf Fibration isn't just a collection of circles near a torus; the fibers tile the surface of the torus perfectly. Every single point on a torus in the Hopf Fibration belongs to exactly one Villarceau circle.
+
+A fascinating (and significant) property of Villarceau circles is that there are actually two sets of them—one set that twists "left-handed" and one set that twists "right-handed." The standard Hopf Fibration uses one set (e.g., the right-handed ones). If you chose the other set, you would create the Conjugate Hopf Fibration. This is significant in physics (specifically in electromagnetism and liquid crystals) because it shows that the vacuum has a choice of "chirality" or handedness.
+
 The pre-image of a circle on the base sphere $S^2$ in the Hopf fibration is a torus in the total space $S^3$. Since stereographic projection is a continuous map (a homeomorphism from $S^3$ minus a point to $\mathbb{R}^3$), the projected image of that torus in $\mathbb{R}^3$ is also a torus (or a topological torus, which is homeomorphic to $S^1 \times S^1$).
 
 The $\mathbb{R}^3$ space is completely foliated (filled) by these nested tori and the central line. This structure is what makes the Hopf fibration such a profound example of how a higher-dimensional space can be perfectly decomposed into linked, lower-dimensional objects.
+
+<img width = 600  src = "hopf_fibration_nested_tori.png">
 
 The entire space $\mathbb{R}^3$ (minus the central line/axis) can be thought of as being foliated by an infinite family of these nested tori. A circle of latitude on $S^2$ near the South Pole corresponds to a small, skinny torus near the origin in $\mathbb{R}^3$. The equator of $S^2$ corresponds to a special torus called the Clifford torus in $S^3$, which projects to a torus in $\mathbb{R}^3$ that can be visualized as a standard torus centered on the $z$-axis. A circle of latitude on $S^2$ near the North Pole corresponds to a very large, inflated torus in $\mathbb{R}^3$.
 
@@ -89,6 +99,9 @@ Since $W=(w_0, w_1)$ is fixed, $(|w_0|^2 + |w_1|^2)$ is a fixed, positive real n
 4. The Explicit $\mathbb{R}^4$ Plane Equation: To see this $2D$ plane in $\mathbb{R}^4$ more explicitly, you need to find the two linear equations whose intersection defines the $2D$ plane: If the complex line is defined by a vector $W=(w_0, w_1)$, it means $z_0$ and $z_1$ are always proportional: $$\frac{z_0}{w_0} = \frac{z_1}{w_1}$$ or, cross-multiplying: $$z_0 w_1 = z_1 w_0$$ Let $w_0 = a+ib$, $w_1 = c+id$, and use the $\mathbb{R}^4$ coordinates $z_0 = x_1+ix_2$, $z_1 = x_3+ix_4$. Substituting these into $z_0 w_1 = z_1 w_0$ and separating the real and imaginary parts will yield two independent linear equations in $(x_1, x_2, x_3, x_4)$, which analytically define the $2D$ plane in $\mathbb{R}^4$.
 
 
+---
+
+
 #### Mathematical development:
 
 $$S^3 =\{(z_0,z_1) \mid |z_0|^2 + |z_1|^2 =1\}$$
@@ -125,7 +138,7 @@ This set of equivalence classes defines the Complex Projective Line, $\mathbb{C}
 
 3. Turning the Ratio into a Coordinate:
 
-To find a single coordinate that represents an entire "fiber" (all points that are equivalent under that phase rotation), we simply divide one coordinate by the other:
+To find a single coordinate that represents an entire "fiber" (all points that are equivalevint under that phase rotation), we simply divide one coordinate by the other:
 
 $$q = \frac{z_0}{z_1}$$
 Why does this work? Because if you multiply both by $e^{i\psi}$, the phase cancels out:
