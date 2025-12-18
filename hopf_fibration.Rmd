@@ -124,19 +124,36 @@ $$S^3 =\{(z_0,z_1) \mid |z_0|^2 + |z_1|^2 =1\}$$
 
 We represent a point in $S^3$ using two complex numbers $(z_0, z_1)$ such that $|z_0|^2 + |z_1|^2 = 1$. Each point on the base sphere $S^2$ corresponds to a ratio $q = z_0 / z_1$ (this is the Riemann sphere projection).For a fixed point $q$ on the base sphere, the fiber is the set of points:
 
-$$(z_0, z_1) = e^{i\theta} \cdot \frac{1}{\sqrt{1+|q|^2}}(q, 1)$$
+$$(z_0, z_1) = e^{i\color{red}\psi} \cdot \frac{1}{\sqrt{1+|q|^2}}(q, 1)$$
  
-As $\theta$ ranges from $0$ to $2\pi$, you trace out the $S^1$ circle in $4D$.
+As $\psi$ ranges from $0$ to $2\pi$, you trace out the $S^1$ circle in $4D$. And thus is born the $U(1)$ symmetry.
 
-We defined $q$ as the ratio of the two complex coordinates in $S^3$: $q = \frac{z_0}{z_1}$. If we want to work backward to find $(z_0, z_1)$ using only $q$, we can factor out $z_1$ from the vector: $(z_0, z_1) = z_1 \cdot \left( \frac{z_0}{z_1}, \frac{z_1}{z_1} \right) = z_1 \cdot (q, 1)$. The "1" is simply the result of dividing $z_1$ by itself. It acts as the reference unit for the ratio. The vector $(q, 1)$ points in the correct "direction" in complex space, but it isn't on the 3-sphere yet. To be on $S^3$, the total magnitude squared must be exactly 1: $|z_0|^2 + |z_1|^2 = 1$. If we check the magnitude of our raw vector $(q, 1)$, we get: $\sqrt{|q|^2 + |1|^2} = \sqrt{|q|^2 + 1}$. To force this vector to land exactly on the surface of the sphere, we must divide by that magnitude. That is where the normalization factor comes from:$\text{Unit Vector} = \frac{1}{\sqrt{|q|^2 + 1}}(q, 1)$.
+We defined $q$ as the ratio of the two complex coordinates in $S^3$: 
 
-Every complex number can be written in polar form as $z = R e^{i\theta}$, where $R$ is the magnitude and $e^{i\theta}$ is the phase. So: $z_1 = |z_1| e^{i\theta}$. When we substitute this into the vector $(q, 1)$, we get $(z_0, z_1) = |z_1| e^{i\theta} (q, 1)$. Solving for the Magnitude $|z_1|$, we know that for any point in $S^3$, the sum of the squares of the magnitudes must be 1:$|z_0|^2 + |z_1|^2 = 1.$ Since $z_0 = q z_1$, we can substitute that in: $|q z_1|^2 + |z_1|^2 = 1$, and $|q|^2 |z_1|^2 + |z_1|^2 = 1$. Now, factor out the $|z_1|^2$: $|z_1|^2 ( |q|^2 + 1 ) = 1$, and $|z_1|^2 = \frac{1}{1 + |q|^2}$. Taking the square root gives us the magnitude of $z_1$: $|z_1| = \frac{1}{\sqrt{1 + |q|^2}}$. Now we substitute that magnitude back into our polar form of $z_1$: 
+$$q = \frac{z_0}{z_1}$$ 
 
-$$z_1 = \underbrace{\frac{1}{\sqrt{1 + |q|^2}}}_{\text{Magnitude}} \cdot \underbrace{e^{i\theta}}_{\text{Phase}}$$ 
+If we want to work backward to find $(z_0, z_1)$ using only $q$, we can factor out $z_1$ from the vector: 
+
+$$(z_0, z_1) = z_1 \cdot \left( \frac{z_0}{z_1}, \frac{z_1}{z_1} \right) = z_1 \cdot (q, 1)$$ 
+
+The "1" is simply the result of dividing $z_1$ by itself. It acts as the reference unit for the ratio. The vector $(q, 1)$ points in the correct "direction" in complex space, but it isn't on the 3-sphere yet. To be on $S^3$, the total magnitude squared must be exactly 1: $|z_0|^2 + |z_1|^2 = 1$. If we check the magnitude of our raw vector $(q, 1)$, we get: 
+
+$$\sqrt{|q|^2 + |1|^2} = \sqrt{|q|^2 + 1}$$ 
+To force this vector to land exactly on the surface of the sphere, we must divide by that magnitude. That is where the normalization factor comes from:$$\text{Unit Vector} = \frac{1}{\sqrt{|q|^2 + 1}}(q, 1)$$
+
+Every complex number can be written in polar form as $z = R e^{i\psi}$, where $R$ is the magnitude and $e^{i\psi}$ is the phase. So: 
+
+$$z_1 = |z_1| e^{i\psi}$$ 
+When we substitute this into the vector $(q, 1)$, we get 
+
+$$(z_0, z_1) = |z_1| e^{i\psi} (q, 1)$$ 
+Solving for the Magnitude $|z_1|$, we know that for any point in $S^3$, the sum of the squares of the magnitudes must be 1: $|z_0|^2 + |z_1|^2 = 1.$ Since $z_0 = q z_1$, we can substitute that in: $|q z_1|^2 + |z_1|^2 = 1$, and $|q|^2 |z_1|^2 + |z_1|^2 = 1$. Now, factor out the $|z_1|^2$: $|z_1|^2 ( |q|^2 + 1 ) = 1$, and $|z_1|^2 = \frac{1}{1 + |q|^2}$. Taking the square root gives us the magnitude of $z_1$: $|z_1| = \frac{1}{\sqrt{1 + |q|^2}}$. Now we substitute that magnitude back into our polar form of $z_1$: 
+
+$$z_1 = \underbrace{\frac{1}{\sqrt{1 + |q|^2}}}_{\text{Magnitude}} \cdot \underbrace{e^{i\psi}}_{\text{Phase}}$$ 
 
 So the equation:$(z_0, z_1) = z_1 (q, 1)$ becomes: 
 
-$$(z_0, z_1) = \left( \frac{1}{\sqrt{1 + |q|^2}} e^{i\theta} \right) (q, 1)$$
+$$(z_0, z_1) = \left( \frac{1}{\sqrt{1 + |q|^2}} e^{i\psi} \right) (q, 1)$$
 
 The idea of $q$ being a ratio of two complex numbers comes from the Riemann Sphere and the concept of Complex Projective Space, specifically $\mathbb{C}P^1$.
 
@@ -153,9 +170,9 @@ We represent a point in $S^3$ using two complex numbers $(z_0, z_1)$. Because th
 
 2. The Equivalence Relation:
 
-The core of the Hopf Fibration is the idea that we can "ignore" the global phase. We say that two points $(z_0, z_1)$ and $(w_0, w_1)$ are "equivalent" if one is just the other multiplied by a complex number of magnitude 1 ($e^{i\theta}$).
+The core of the Hopf Fibration is the idea that we can "ignore" the global phase. We say that two points $(z_0, z_1)$ and $(w_0, w_1)$ are "equivalent" if one is just the other multiplied by a complex number of magnitude 1 ($e^{i\psi}$).
 
-$$(z_0, z_1) \sim (e^{i\theta}z_0, e^{i\theta}z_1)$$
+$$(z_0, z_1) \sim (e^{i\psi}z_0, e^{i\psi}z_1)$$
 This set of equivalence classes defines the Complex Projective Line, $\mathbb{C}P^1$.
 
 3. Turning the Ratio into a Coordinate:
