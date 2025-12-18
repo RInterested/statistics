@@ -1,5 +1,5 @@
 ---
-title: 'Hopf Fibration'
+title: 'Hopf Fibration and gauge theory intuition'
 output: 
   html_document:
     theme: readable
@@ -51,7 +51,11 @@ The entire $\mathbb{R}^3$ space (except for the central line) is structured by t
 
 From [Wikipedia](https://en.wikipedia.org/wiki/Villarceau_circles):
 
-<img width = 600  src = "villarceau_circles.gif">
+---
+
+<img width = 400  src = "villarceau_circles.gif">
+
+---
 
 In $S^3$, the fibers are perfect "Great Circles." When you project these circles into 3D space via stereographic projection, they don't map to the simple "vertical" or "horizontal" circles of the doughnut. They map specifically to the Villarceau circles.This is significant because it proves that the Hopf Fibration isn't just a collection of circles near a torus; the fibers tile the surface of the torus perfectly. Every single point on a torus in the Hopf Fibration belongs to exactly one Villarceau circle.
 
@@ -61,11 +65,19 @@ The pre-image of a circle on the base sphere $S^2$ in the Hopf fibration is a to
 
 The $\mathbb{R}^3$ space is completely foliated (filled) by these nested tori and the central line. This structure is what makes the Hopf fibration such a profound example of how a higher-dimensional space can be perfectly decomposed into linked, lower-dimensional objects.
 
+---
+
 <img width = 600  src = "hopf_fibration_nested_tori.png">
+
+
+---
+
 
 The entire space $\mathbb{R}^3$ (minus the central line/axis) can be thought of as being foliated by an infinite family of these nested tori. A circle of latitude on $S^2$ near the South Pole corresponds to a small, skinny torus near the origin in $\mathbb{R}^3$. The equator of $S^2$ corresponds to a special torus called the Clifford torus in $S^3$, which projects to a torus in $\mathbb{R}^3$ that can be visualized as a standard torus centered on the $z$-axis. A circle of latitude on $S^2$ near the North Pole corresponds to a very large, inflated torus in $\mathbb{R}^3$.
 
 If you try to map the great circles of $S^2$ onto a plane using stereographic projection, the geometry behaves very differently than the Hopf Fibration. There are two main reasons—one topological and one dimensional—why this doesn't work. In the Hopf Fibration of 1$S^3$, the fibers are "Great Circles," and the magic is that they never touch each other. This is what allows them to form smooth, nested tori. However, on a 2-sphere ($S^2$), any two great circles must intersect at exactly two points (antipodal points).Think of lines of longitude on a globe: they are all great circles, and they all crash into each other at the North and South Poles. Because they intersect, they cannot "foliate" the space. A foliation requires that the curves are disjoint (non-touching).
+
+---
 
 <img width = 300  src = "stereographic_projection_S2.png">
 
@@ -74,6 +86,8 @@ If you try to map the great circles of $S^2$ onto a plane using stereographic pr
 ---
 
 Notice the linked fibers in a torus:
+
+---
 
 <img width = 600  src = "hopf_fibration_and base_manifold_linking.gif">
 
@@ -92,15 +106,15 @@ The key is that a complex line in $\mathbb{C}^2$ is geometrically a 2-dimensiona
 
 Here is the analytical breakdown of the $2D$ plane in $\mathbb{R}^4$ that defines the $S^1$ fiber.
 
-1. Identify $\mathbb{R}^4$ with $\mathbb{C}^2$: We define the coordinates of $\mathbb{R}^4$ as $(x_1, x_2, x_3, x_4)$. We define the coordinates of $\mathbb{C}^2$ as a pair of complex numbers $(z_0, z_1)$. We connect the two spaces by defining: $z_0 = x_1 + i x_2$ and $z_1 = x_3 + i x_4$. So, a point $(z_0, z_1)$ in $\mathbb{C}^2$ corresponds to the point $(x_1, x_2, x_3, x_4)$ in $\mathbb{R}^4$.The $3$-sphere, $S^3$, is the set of points in $\mathbb{R}^4$ where $x_1^2 + x_2^2 + x_3^2 + x_4^2 = 1$.In $\mathbb{C}^2$, this is simply the set of points where:$$|z_0|^2 + |z_1|^2 = 1$$
+$1.$ Identify $\mathbb{R}^4$ with $\mathbb{C}^2$: We define the coordinates of $\mathbb{R}^4$ as $(x_1, x_2, x_3, x_4)$. We define the coordinates of $\mathbb{C}^2$ as a pair of complex numbers $(z_0, z_1)$. We connect the two spaces by defining: $z_0 = x_1 + i x_2$ and $z_1 = x_3 + i x_4$. So, a point $(z_0, z_1)$ in $\mathbb{C}^2$ corresponds to the point $(x_1, x_2, x_3, x_4)$ in $\mathbb{R}^4$.The $3$-sphere, $S^3$, is the set of points in $\mathbb{R}^4$ where $x_1^2 + x_2^2 + x_3^2 + x_4^2 = 1$.In $\mathbb{C}^2$, this is simply the set of points where:$$|z_0|^2 + |z_1|^2 = 1$$
 
-2. Define the $2D$ Plane (The Complex Line): The $S^1$ fibers of the Hopf fibration are defined as the intersection of $S^3$ with a Complex Line passing through the origin in $\mathbb{C}^2$. A complex line $L$ through the origin in $\mathbb{C}^2$ is a set of all multiples of a fixed, non-zero vector $W = (w_0, w_1) \in \mathbb{C}^2$.
+$2.$ Define the $2D$ Plane (The Complex Line): The $S^1$ fibers of the Hopf fibration are defined as the intersection of $S^3$ with a Complex Line passing through the origin in $\mathbb{C}^2$. A complex line $L$ through the origin in $\mathbb{C}^2$ is a set of all multiples of a fixed, non-zero vector $W = (w_0, w_1) \in \mathbb{C}^2$.
 
 $$L = \{ \lambda W \mid \lambda \in \mathbb{C} \}$$
 
 $L$ is a $1$-dimensional complex vector space, which means it is a $2$-dimensional real vector space (a plane) in $\mathbb{R}^4$.
 
-3. The $S^1$ Fiber Analytically: The fiber $F$ over a specific point on the base sphere $S^2$ is the set of points that fall on the unit circle within this complex line $L$.
+$3.$ The $S^1$ Fiber Analytically: The fiber $F$ over a specific point on the base sphere $S^2$ is the set of points that fall on the unit circle within this complex line $L$.
 
 $$F = L \cap S^3 = \{ (z_0, z_1) \in \mathbb{C}^2 \mid (z_0, z_1) = \lambda (w_0, w_1) \text{ and } |z_0|^2 + |z_1|^2 = 1 \}$$
 
@@ -112,7 +126,7 @@ $$|\lambda|^2 |w_0|^2 + |\lambda|^2 |w_1|^2 = 1$$
 $$|\lambda|^2 (|w_0|^2 + |w_1|^2) = 1$$
 Since $W=(w_0, w_1)$ is fixed, $(|w_0|^2 + |w_1|^2)$ is a fixed, positive real number. Let $K = \sqrt{|w_0|^2 + |w_1|^2}$.The equation for $\lambda$ becomes: $|\lambda|^2 K^2 = 1$, or $|\lambda| = 1/K$. The set of all complex numbers $\lambda$ that satisfy $|\lambda| = 1/K$ is a circle in the complex plane. As $\lambda$ traces this circle, the point $(\lambda w_0, \lambda w_1)$ traces a circle (the fiber $S^1$) on the $S^3$.
 
-4. The Explicit $\mathbb{R}^4$ Plane Equation: To see this $2D$ plane in $\mathbb{R}^4$ more explicitly, you need to find the two linear equations whose intersection defines the $2D$ plane: If the complex line is defined by a vector $W=(w_0, w_1)$, it means $z_0$ and $z_1$ are always proportional: $$\frac{z_0}{w_0} = \frac{z_1}{w_1}$$ or, cross-multiplying: $$z_0 w_1 = z_1 w_0$$ Let $w_0 = a+ib$, $w_1 = c+id$, and use the $\mathbb{R}^4$ coordinates $z_0 = x_1+ix_2$, $z_1 = x_3+ix_4$. Substituting these into $z_0 w_1 = z_1 w_0$ and separating the real and imaginary parts will yield two independent linear equations in $(x_1, x_2, x_3, x_4)$, which analytically define the $2D$ plane in $\mathbb{R}^4$.
+$4.$ The explicit $\mathbb{R}^4$ Plane Equation: To see this $2D$ plane in $\mathbb{R}^4$ more explicitly, you need to find the two linear equations whose intersection defines the $2D$ plane: If the complex line is defined by a vector $W=(w_0, w_1)$, it means $z_0$ and $z_1$ are always proportional: $$\frac{z_0}{w_0} = \frac{z_1}{w_1}$$ or, cross-multiplying: $$z_0 w_1 = z_1 w_0$$ Let $w_0 = a+ib$, $w_1 = c+id$, and use the $\mathbb{R}^4$ coordinates $z_0 = x_1+ix_2$, $z_1 = x_3+ix_4$. Substituting these into $z_0 w_1 = z_1 w_0$ and separating the real and imaginary parts will yield two independent linear equations in $(x_1, x_2, x_3, x_4)$, which analytically define the $2D$ plane in $\mathbb{R}^4$.
 
 
 ---
@@ -122,11 +136,17 @@ Since $W=(w_0, w_1)$ is fixed, $(|w_0|^2 + |w_1|^2)$ is a fixed, positive real n
 
 $$S^3 =\{(z_0,z_1) \mid |z_0|^2 + |z_1|^2 =1\}$$
 
-We represent a point in $S^3$ using two complex numbers $(z_0, z_1)$ such that $|z_0|^2 + |z_1|^2 = 1$. Each point on the base sphere $S^2$ corresponds to a ratio $q = z_0 / z_1$ (this is the Riemann sphere projection).For a fixed point $q$ on the base sphere, the fiber is the set of points:
+We represent a point in $S^3$ using two complex numbers $(z_0, z_1)$ such that $|z_0|^2 + |z_1|^2 = 1$. Each point on the base sphere $S^2$ corresponds to a ratio $q = z_0 / z_1$ (this is the Riemann sphere projection). For a fixed point $q$ on the base sphere, the fiber is the set of points:
 
 $$(z_0, z_1) = e^{i\color{red}\psi} \cdot \frac{1}{\sqrt{1+|q|^2}}(q, 1)$$
  
-As $\psi$ ranges from $0$ to $2\pi$, you trace out the $S^1$ circle in $4D$. And thus is born the $U(1)$ symmetry.
+As $\psi$ ranges from $0$ to $2\pi$, you trace out the $S^1$ circle in $4D$. And thus is born the $U(1)$ symmetry. Global Symmetry: If you shift $\psi$ by the same amount everywhere in the universe, the Lagrangian remains unchanged. This leads (via Noether's Theorem) to the conservation of charge. If you want to change $\psi$ differently at every point in space—meaning you move along different fibers in the Hopf bundle independently—the Lagrangian would normally break. To "fix" it, you must introduce a gauge field (like the Photon). The **gauge field** and the **connection (covariant derivative)** are essentially two sides of the same coin. In physics, we call it a gauge field; in differential geometry, we call it a connection on a fiber bundle. 
+
+In the Hopf Fibration as a "Field" the Base Sphere ($S^2$) represents the "Physical Field Strengths" (the observables, like the Magnetic Field $\mathbf{B}$).The Total Space ($S^3$) represents the "Vector Potential" (the gauge field $\mathbf{A}$).The reason the Hopf Map exists is that the vector potential $\mathbf{A}$ has more information than the magnetic field $\mathbf{B}$. That "extra" information is precisely the phase $\psi$.
+
+Imagine the Hopf bundle over the sphere. At every point $p$ on the base sphere $S_2$, you have a circle fiber in 4 dimensions. If you move from point $A$ to point $B$, you want to compare the phase $\psi_A$ to $\psi_B$. But if $\psi$ is allowed to change "randomly" at every point (Local Gauge Symmetry), you have no way to know if a change in the field is a "real" physical change or just a change in your local choice of $\psi$.The standard derivative $\partial_\mu$ fails here because it compares values at two points as if the space were flat, ignoring the "twist" of the fibers. To compare phases at different points, you need a "rule" for how to stay "level" as you move from one fiber to the next. This rule is the connection. In physics, this connection is the Vector Potential $A_\mu$. It defines what "horizontal" movement looks like across the fibers. When you introduce $A_\mu$, you are essentially saying: "I know the phase is changing locally, so I will introduce this field to keep track of that change and subtract it out." The Covariant Derivative is the tool that uses the connection to perform "fair" calculus. It replaces the standard derivative $$D_\mu = \partial_\mu - iqA_\mu$$ 
+
+$\partial_\mu$ measures how the field changes.$-iqA_\mu$ corrects for how the "gauge" (the fiber orientation) is changing. By using $D_\mu$, the **Lagrangian** becomes "blind" to the local choice of $\psi$. The "breaking" is fixed because the gauge field $A_\mu$ absorbs the "mess" created by the local phase changes.
 
 We defined $q$ as the ratio of the two complex coordinates in $S^3$: 
 
