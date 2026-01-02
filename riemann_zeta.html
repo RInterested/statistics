@@ -408,6 +408,12 @@ that gets progressively worse in absolute terms.</p>
 <div id="riemann-explicit-formula" class="section level3">
 <h3>Riemann Explicit Formula:</h3>
 <hr />
+<p>In the most common current formulation it is:</p>
+<p><span class="math display">\[\psi(x) = x - \sum_{\rho}
+\frac{x^\rho}{\rho} - \ln(2\pi) - \frac{1}{2}\ln(1-x^{-2})\]</span></p>
+<hr />
+<div id="motivation-and-development" class="section level5">
+<h5>Motivation and development:</h5>
 <p>Before Riemann, mathematicians like Gauss could only estimate the
 number of primes using the Prime Number Theorem: <span class="math inline">\(\pi(x) \approx \text{Li}(x)\)</span>. Riemann’s
 formula changed this estimate into an equality by adding a “correction”
@@ -436,9 +442,9 @@ mathematical reason for this involving the Derivative. The “velocity” of
 the prime counting function <span class="math inline">\(\pi(x)\)</span>
 is a step function. Its derivative (the “Prime Density”) is a series of
 Dirac Delta functions—infinite spikes at every prime and zero everywhere
-else. When you add up the harmonics <span class="math inline">\(Li(x^\rho)\)</span>, you are trying to reconstruct
-those sharp steps. A “Peak” in a wave is where the slope is zero
-(flat).An “Upstroke” is where the slope is maximum. If you want to
+else. When you add up the harmonics <span class="math inline">\(\text{Li}(x^\rho)\)</span>, you are trying to
+reconstruct those sharp steps. A “Peak” in a wave is where the slope is
+zero (flat). An “Upstroke” is where the slope is maximum. If you want to
 create a vertical jump at <span class="math inline">\(x=2\)</span>, you
 don’t need the wave to be “high” there; you need the wave to be rising
 as fast as possible at that exact moment. Further, ecause you are using
@@ -454,11 +460,60 @@ creates the positive jump in the counting function. In the 3D spiral,
 this alignment of phases causes the “braid” to swing through the center
 of its rotation with maximum velocity. That “swing through the center”
 is exactly the upstroke from negative to positive.4. There is also a
-subtle shift because of the <span class="math inline">\(Li\)</span>
-function itself. <span class="math inline">\(Li(x)\)</span> is defined
-as an integral. The “peaks” of the integrand always correspond to the
-“steepest slopes” of the result. The Zero-Crossing of the harmonic <span class="math inline">\(Li(x^\rho)\)</span> is effectively where the
-“energy” of that harmonic is at its maximum “push” upward.</p>
+subtle shift because of the <span class="math inline">\(\text{Li}\)</span> function itself. <span class="math inline">\(\text{Li}(x)\)</span> is defined as an integral.
+The “peaks” of the integrand always correspond to the “steepest slopes”
+of the result. The Zero-Crossing of the harmonic <span class="math inline">\(\text{Li}(x^\rho)\)</span> is effectively where
+the “energy” of that harmonic is at its maximum “push” upward.</p>
+<p>In standard Fourier analysis, the waves are of the form <span class="math inline">\(\sin(nx)\)</span>. The frequency <span class="math inline">\(n\)</span> is constant. But in Riemann’s Explicit
+Formula, the terms look like <span class="math inline">\(x^\rho\)</span>, where <span class="math inline">\(\rho = \frac{1}{2} + i\gamma\)</span>. If we write
+this out using Euler’s formula, we get:</p>
+<p><span class="math display">\[x^{\frac{1}{2} + i\gamma} = x^{1/2}
+\cdot e^{i\gamma \ln x} = \sqrt{x} \left( \cos(\gamma \ln x) +
+i\sin(\gamma \ln x) \right)\]</span></p>
+<p><span class="math display">\[x^{\rho} =
+\underbrace{\sqrt{x}}_{\text{Amplitude}} \cdot \underbrace{(\cos(\gamma
+\ln x) + i\sin(\gamma \ln x))}_{\text{Phase/Oscillation}}\]</span> The
+<span class="math inline">\(\sqrt{x}\)</span> (amplitude) tells us how
+“loud” the harmonic is. As <span class="math inline">\(x\)</span>
+increases, the fluctuations in the prime distribution actually grow in
+size at a rate of <span class="math inline">\(\sqrt{x}\)</span>. The
+<span class="math inline">\(\gamma \ln x\)</span> is the “angle” of the
+wave. Because <span class="math inline">\(\gamma\)</span> is a large
+constant (the first is <span class="math inline">\(\approx
+14.13\)</span>), the wave spins around the origin. Because it depends on
+<span class="math inline">\(\ln x\)</span>, the spinning slows down as
+<span class="math inline">\(x\)</span> gets larger. The simplified
+version of Riemann’s Explicit Formula for the prime-counting
+function</p>
+<p><span class="math display">\[\psi(x) = x - \sum_{\rho}
+\frac{x^\rho}{\rho} - \text{constant terms}\]</span></p>
+<p>We look specifically at the real part (since we are counting real
+primes):</p>
+<p><span class="math display">\[\text{Term contribution} \approx
+\frac{\sqrt{x} \cos(\gamma \ln x)}{\gamma}\]</span> Each zero <span class="math inline">\(\gamma\)</span> contributes a “wave” to the total
+count. If you add up thousands of these waves, a miracle occurs:
+Destructive Interference. In places where there are no primes, the waves
+from different zeros (<span class="math inline">\(\gamma_1, \gamma_2,
+\gamma_3...\)</span>) all have different phases and cancel each other
+out, leaving a flat line. At the exact location of a prime number, the
+phases of all these logarithmic spirals align perfectly. They
+constructively interfere to create a sharp “jump” in the graph.</p>
+<p>The Hilbert-Pólya conjecture proposed that the zeros of the Zeta
+function are actually eigenvalues of some physical system (likely a
+chaotic one). The Fourier harmonics integer-spaced. The Riemann
+“Harmonics”, <span class="math inline">\(\cos(\gamma_n \ln x)\)</span>
+are chaotic but deterministic, where <span class="math inline">\(\gamma_n\)</span> is the imaginary part of the
+<span class="math inline">\(n\)</span>-th zero.</p>
+<p>Just as a violin’s sound is the sum of its harmonics, the “signal” of
+the prime numbers is the sum of the frequencies provided by these zeros.
+The reason the Riemann Hypothesis is so important is directly related to
+the quality of this “sound”: If the zeros all lie on the critical line
+(<span class="math inline">\(Re(s) = 1/2\)</span>), all these harmonics
+have the same “volume” relative to each other as they propagate. They
+are in perfect balance.If a zero were off the line, that specific
+harmonic would eventually “drown out” the others or disappear, meaning
+the distribution of primes would be significantly more lopsided than it
+actually is.</p>
 <hr />
 <p>The explicit formula is a specific equation that expresses the
 distribution of prime numbers in terms of the non-trivial zeros (<span class="math inline">\(\rho\)</span>) of the Riemann zeta function <span class="math inline">\(\zeta(s)\)</span>.</p>
@@ -495,9 +550,9 @@ symbol for a product, modern mathematicians often prefer <span class="math inlin
 <p>When Riemann wrote his 1859 paper, he was looking for a formula for
 <span class="math inline">\(\pi(x)\)</span> as the prime power counting
 function <span class="math inline">\(\Pi(x) = J(x)\)</span>. In this
-version, <span class="math inline">\(Li(x)\)</span> is the dominant
-term. Riemann’s full explicit formula for the prime power counting
-function <span class="math inline">\(\Pi(x)\)</span> is:</p>
+version, <span class="math inline">\(\text{Li}(x)\)</span> is the
+dominant term. Riemann’s full explicit formula for the prime power
+counting function <span class="math inline">\(\Pi(x)\)</span> is:</p>
 <p><span class="math display">\[\Pi(x) = \text{Li}(x) - \sum_{\rho}
 \text{Li}(x^\rho) - \ln(2) + \int_{x}^{\infty}
 \frac{dt}{t(t^2-1)\ln(t)}\]</span></p>
@@ -531,10 +586,19 @@ Euler Product:</p>
 a sum), you get:</p>
 <p><span class="math display">\[\ln \zeta(s) = \sum_{p}
 \sum_{n=1}^{\infty} \frac{1}{n} p^{-ns}\]</span></p>
-<p>This sum is exactly what leads to <span class="math inline">\(\Pi(x)\)</span>. If you try to force the formula
-to work directly for <span class="math inline">\(\pi(x)\)</span>, the
-math becomes incredibly messy. However, <span class="math inline">\(\Pi(x)\)</span> mirrors the structure of the zeta
-function perfectly. What exactly is <span class="math inline">\(\Pi(x)\)</span>?Instead of jumping by <span class="math inline">\(1\)</span> at every prime, <span class="math inline">\(\Pi(x)\)</span> jumps by:<span class="math inline">\(1\)</span> at every prime <span class="math inline">\(p\)</span><span class="math inline">\(1/2\)</span>
+<p>This sum is exactly what leads to <span class="math inline">\(\Pi(x)\)</span>. If we only wanted to count the
+pure primes (<span class="math inline">\(2, 3, 5, 7...\)</span>) and
+ignore the powers, the math actually becomes messier. The “harmonics” of
+the zeros naturally want to build the <span class="math inline">\(J(x)\)</span> staircase. To get the pure <span class="math inline">\(\pi(x)\)</span> staircase, you have to use Möbius
+Inversion to manually “subtract” out the harmonics of the primes (the
+squares, cubes, etc.).</p>
+<p><span class="math display">\[\pi(x) = J(x) - \frac{1}{2}J(x^{1/2}) -
+\frac{1}{3}J(x^{1/3}) \dots\]</span> This formula literally says: “Take
+the total harmonic signal (<span class="math inline">\(J\)</span>) and
+strip away the overtones (<span class="math inline">\(1/2, 1/3\)</span>)
+to find the fundamental notes (the primes).”</p>
+<p>However, <span class="math inline">\(J(x)=\Pi(x)\)</span> mirrors the
+structure of the zeta function perfectly. What exactly is <span class="math inline">\(\Pi(x)\)</span>?Instead of jumping by <span class="math inline">\(1\)</span> at every prime, <span class="math inline">\(\Pi(x)\)</span> jumps by:<span class="math inline">\(1\)</span> at every prime <span class="math inline">\(p\)</span><span class="math inline">\(1/2\)</span>
 at every square of a prime 2<span class="math inline">\(p^2\)</span><span class="math inline">\(1/3\)</span> at every cube of a prime 3<span class="math inline">\(p^3\)</span>And so on.</p>
 <p>The sum above can be rearranged to group terms by their value:</p>
 <p><span class="math display">\[\ln \zeta(s) = \sum_{p} \left( p^{-s} +
@@ -562,7 +626,8 @@ used a technique called Perron’s Formula (an inverse Mellin transform).
 This allowed him to “un-integrate” the zeta function to get back to the
 step function. Because the logarithm of the zeta function has poles and
 zeros, those poles and zeros become the terms in the explicit formula
-(like <span class="math inline">\(Li(x)\)</span> and the sum over <span class="math inline">\(\rho\)</span>).</p>
+(like <span class="math inline">\(\text{Li}(x)\)</span> and the sum over
+<span class="math inline">\(\rho\)</span>).</p>
 <p>While <span class="math inline">\(J(x)\)</span> (or <span class="math inline">\(\Pi(x)\)</span>) is easier to use when working
 with the Zeta function, we usually want to know the actual number of
 primes, <span class="math inline">\(\pi(x)\)</span>. You can invert that
@@ -588,12 +653,13 @@ prime factors. The Möbius function <span class="math inline">\(\mu(n)\)</span> 
 (meaning they are divisible by <span class="math inline">\(p^2\)</span>
 for some prime <span class="math inline">\(p\)</span>).</p>
 <hr />
+</div>
 <div id="the-chebyshev-function" class="section level4">
 <h4>The Chebyshev function:</h4>
 <hr />
 <p>While Riemann’s original formula for <span class="math inline">\(\Pi(x)\)</span> is beautiful, it involves complex
-integrals <span class="math inline">\((Li)\)</span> and prime powers in
-a way that is difficult to manipulate for certain proofs.</p>
+integrals <span class="math inline">\((\text{Li})\)</span> and prime
+powers in a way that is difficult to manipulate for certain proofs.</p>
 <p>The standard prime-counting function <span class="math inline">\(\pi(x)\)</span> is a “staircase” where every step
 has a height of <span class="math inline">\(1\)</span>. Riemann’s <span class="math inline">\(\Pi(x)\)</span> is a staircase where the step at
 <span class="math inline">\(p^n\)</span> has a height of <span class="math inline">\(1/n\)</span>.The Chebyshev function <span class="math inline">\(\psi(x)\)</span> is a staircase where the step at
@@ -602,8 +668,10 @@ derivative. In calculus, <span class="math inline">\(\frac{d}{ds} \ln
 \zeta(s) = \frac{\zeta&#39;(s)}{\zeta(s)}\)</span>. When you expand this
 as a series, you get:</p>
 <p><span class="math display">\[-\frac{\zeta&#39;(s)}{\zeta(s)} =
-\sum_{n=1}^{\infty} \Lambda(n) n^{-s}\]</span> Here, <span class="math inline">\(\Lambda(n)\)</span> is the von Mangoldt function,
-which is <span class="math inline">\(\ln p\)</span> if <span class="math inline">\(n\)</span> is a prime power and <span class="math inline">\(0\)</span> otherwise. The <span class="math inline">\(\psi(x)\)</span> function is simply the sum of
+\sum_{n=1}^{\infty} \Lambda(n) n^{-s}\]</span></p>
+<p>Here, <span class="math inline">\(\Lambda(n)\)</span> is the von
+Mangoldt function, which is <span class="math inline">\(\ln p\)</span>
+if <span class="math inline">\(n\)</span> is a prime power and <span class="math inline">\(0\)</span> otherwise. The <span class="math inline">\(\psi(x)\)</span> function is simply the sum of
 these weights.</p>
 <p>The <strong>Chebyshev function</strong> <span class="math inline">\(\psi(x)\)</span> is:</p>
 <p><span class="math display">\[\psi(x) = x - \sum_{\rho}

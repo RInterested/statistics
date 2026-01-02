@@ -46,6 +46,14 @@ though both are asymptotically equivalent (meaning their ratio approaches 1 as x
 
 ---
 
+In the most common current formulation it is:
+
+$$\psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \ln(2\pi) - \frac{1}{2}\ln(1-x^{-2})$$
+
+---
+
+##### Motivation and development:
+
 Before Riemann, mathematicians like Gauss could only estimate the number of primes using the Prime Number Theorem: $\pi(x) \approx \text{Li}(x)$. Riemann's formula changed this estimate into an equality by adding a "correction" term.
 
 This link was inspired by Fourier series. Riemann himself was a master of Fourier analysis; his Habilitationsschrift (the thesis required to become a professor) was titled "On the representability of a function by a trigonometric series." He used this expertise to bridge the gap between discrete prime numbers and continuous analytic functions.
@@ -60,7 +68,25 @@ Similarly, the following plot shows the first primes and the corresponding first
 
 <img width = 600  src = "sum_harmonics_riemann_zeta_25.png">
 
-Notice that the primes don't sit at the peaks of the wave; they sit on the steepest part of the upstroke. There is a very specific mathematical reason for this involving the Derivative. The "velocity" of the prime counting function $\pi(x)$ is a step function. Its derivative (the "Prime Density") is a series of Dirac Delta functions—infinite spikes at every prime and zero everywhere else. When you add up the harmonics $Li(x^\rho)$, you are trying to reconstruct those sharp steps. A "Peak" in a wave is where the slope is zero (flat).An "Upstroke" is where the slope is maximum. If you want to create a vertical jump at $x=2$, you don't need the wave to be "high" there; you need the wave to be rising as fast as possible at that exact moment. Further, ecause you are using a finite number of zeros (even 200), you are seeing a "Fourier-like" approximation of a step. In a Fourier series for a square wave the middle of the jump is where the approximation crosses the "average" value (often near zero in the oscillation).The peak actually occurs after the jump has already happened (this is called the Gibbs Phenomenon). The formula for the "Density of Primes" is roughly:$$\text{Density}(x) = 1 - \sum_{\rho} x^{\rho-1}$$ At a prime number, the phases of all those $x^\rho$ terms align such that they create a massive negative spike in the density formula, which, when subtracted, creates the positive jump in the counting function. In the 3D spiral, this alignment of phases causes the "braid" to swing through the center of its rotation with maximum velocity. That "swing through the center" is exactly the upstroke from negative to positive.4. There is also a subtle shift because of the $Li$ function itself. $Li(x)$ is defined as an integral. The "peaks" of the integrand always correspond to the "steepest slopes" of the result. The Zero-Crossing of the harmonic $Li(x^\rho)$ is effectively where the "energy" of that harmonic is at its maximum "push" upward.
+Notice that the primes don't sit at the peaks of the wave; they sit on the steepest part of the upstroke. There is a very specific mathematical reason for this involving the Derivative. The "velocity" of the prime counting function $\pi(x)$ is a step function. Its derivative (the "Prime Density") is a series of Dirac Delta functions—infinite spikes at every prime and zero everywhere else. When you add up the harmonics $\text{Li}(x^\rho)$, you are trying to reconstruct those sharp steps. A "Peak" in a wave is where the slope is zero (flat). An "Upstroke" is where the slope is maximum. If you want to create a vertical jump at $x=2$, you don't need the wave to be "high" there; you need the wave to be rising as fast as possible at that exact moment. Further, ecause you are using a finite number of zeros (even 200), you are seeing a "Fourier-like" approximation of a step. In a Fourier series for a square wave the middle of the jump is where the approximation crosses the "average" value (often near zero in the oscillation).The peak actually occurs after the jump has already happened (this is called the Gibbs Phenomenon). The formula for the "Density of Primes" is roughly:$$\text{Density}(x) = 1 - \sum_{\rho} x^{\rho-1}$$ At a prime number, the phases of all those $x^\rho$ terms align such that they create a massive negative spike in the density formula, which, when subtracted, creates the positive jump in the counting function. In the 3D spiral, this alignment of phases causes the "braid" to swing through the center of its rotation with maximum velocity. That "swing through the center" is exactly the upstroke from negative to positive.4. There is also a subtle shift because of the $\text{Li}$ function itself. $\text{Li}(x)$ is defined as an integral. The "peaks" of the integrand always correspond to the "steepest slopes" of the result. The Zero-Crossing of the harmonic $\text{Li}(x^\rho)$ is effectively where the "energy" of that harmonic is at its maximum "push" upward.
+
+In standard Fourier analysis, the waves are of the form $\sin(nx)$. The frequency $n$ is constant. But in Riemann's Explicit Formula, the terms look like $x^\rho$, where $\rho = \frac{1}{2} + i\gamma$. If we write this out using Euler's formula, we get:
+
+$$x^{\frac{1}{2} + i\gamma} = x^{1/2} \cdot e^{i\gamma \ln x} = \sqrt{x} \left( \cos(\gamma \ln x) + i\sin(\gamma \ln x) \right)$$
+
+$$x^{\rho} = \underbrace{\sqrt{x}}_{\text{Amplitude}} \cdot \underbrace{(\cos(\gamma \ln x) + i\sin(\gamma \ln x))}_{\text{Phase/Oscillation}}$$
+The $\sqrt{x}$ (amplitude) tells us how "loud" the harmonic is. As $x$ increases, the fluctuations in the prime distribution actually grow in size at a rate of $\sqrt{x}$. The $\gamma \ln x$ is the "angle" of the wave. Because $\gamma$ is a large constant (the first is $\approx 14.13$), the wave spins around the origin. Because it depends on $\ln x$, the spinning slows down as $x$ gets larger. The simplified version of Riemann’s Explicit Formula for the prime-counting function 
+
+$$\psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \text{constant terms}$$
+
+We look specifically at the real part (since we are counting real primes):
+
+$$\text{Term contribution} \approx \frac{\sqrt{x} \cos(\gamma \ln x)}{\gamma}$$
+Each zero $\gamma$ contributes a "wave" to the total count. If you add up thousands of these waves, a miracle occurs: Destructive Interference. In places where there are no primes, the waves from different zeros ($\gamma_1, \gamma_2, \gamma_3...$) all have different phases and cancel each other out, leaving a flat line. At the exact location of a prime number, the phases of all these logarithmic spirals align perfectly. They constructively interfere to create a sharp "jump" in the graph.
+
+The Hilbert-Pólya conjecture proposed that the zeros of the Zeta function are actually eigenvalues of some physical system (likely a chaotic one). The Fourier harmonics integer-spaced. The Riemann "Harmonics", $\cos(\gamma_n \ln x)$ are chaotic but deterministic, where $\gamma_n$ is the imaginary part of the $n$-th zero. 
+
+Just as a violin's sound is the sum of its harmonics, the "signal" of the prime numbers is the sum of the frequencies provided by these zeros. The reason the Riemann Hypothesis is so important is directly related to the quality of this "sound": If the zeros all lie on the critical line ($Re(s) = 1/2$), all these harmonics have the same "volume" relative to each other as they propagate. They are in perfect balance.If a zero were off the line, that specific harmonic would eventually "drown out" the others or disappear, meaning the distribution of primes would be significantly more lopsided than it actually is.
 
 ---
 
@@ -76,7 +102,7 @@ Riemann first derived the **auxiliary formula**, $J(x)$, and then used that to b
 
 This function is also known as **Riemann prime-power counting function**: a "weighted" version of the standard prime-counting function $\pi(x)$. While $\pi(x)$ counts only primes with a weight of $1,$ this function counts primes with a weight of $1,$ prime squares with a weight of $1/2$, prime cubes with $1/3$, and so on. Another notation for the same function is $J(x)$. This is the notation most commonly used in modern textbooks (such as H.M. Edwards' book Riemann's Zeta Function). Because $\Pi$ is also the symbol for a product, modern mathematicians often prefer $J(x)$.
 
-When Riemann wrote his 1859 paper, he was looking for a formula for $\pi(x)$ as the prime power counting function $\Pi(x) = J(x)$. In this version, $Li(x)$ is the dominant term. Riemann's full explicit formula for the prime power counting function $\Pi(x)$ is:
+When Riemann wrote his 1859 paper, he was looking for a formula for $\pi(x)$ as the prime power counting function $\Pi(x) = J(x)$. In this version, $\text{Li}(x)$ is the dominant term. Riemann's full explicit formula for the prime power counting function $\Pi(x)$ is:
 
 $$\Pi(x) = \text{Li}(x) - \sum_{\rho} \text{Li}(x^\rho) - \ln(2) + \int_{x}^{\infty} \frac{dt}{t(t^2-1)\ln(t)}$$
 
@@ -99,7 +125,12 @@ When you take the logarithm of both sides (to turn that product into a sum), you
 
 $$\ln \zeta(s) = \sum_{p} \sum_{n=1}^{\infty} \frac{1}{n} p^{-ns}$$
 
-This sum is exactly what leads to $\Pi(x)$. If you try to force the formula to work directly for $\pi(x)$, the math becomes incredibly messy. However, $\Pi(x)$ mirrors the structure of the zeta function perfectly. What exactly is $\Pi(x)$?Instead of jumping by $1$ at every prime, $\Pi(x)$ jumps by:$1$ at every prime $p$$1/2$ at every square of a prime 2$p^2$$1/3$ at every cube of a prime 3$p^3$And so on.
+This sum is exactly what leads to $\Pi(x)$. If we only wanted to count the pure primes ($2, 3, 5, 7...$) and ignore the powers, the math actually becomes messier. The "harmonics" of the zeros naturally want to build the $J(x)$ staircase. To get the pure $\pi(x)$ staircase, you have to use Möbius Inversion to manually "subtract" out the harmonics of the primes (the squares, cubes, etc.).
+
+$$\pi(x) = J(x) - \frac{1}{2}J(x^{1/2}) - \frac{1}{3}J(x^{1/3}) \dots$$
+This formula literally says: "Take the total harmonic signal ($J$) and strip away the overtones ($1/2, 1/3$) to find the fundamental notes (the primes)."
+
+However, $J(x)=\Pi(x)$ mirrors the structure of the zeta function perfectly. What exactly is $\Pi(x)$?Instead of jumping by $1$ at every prime, $\Pi(x)$ jumps by:$1$ at every prime $p$$1/2$ at every square of a prime 2$p^2$$1/3$ at every cube of a prime 3$p^3$And so on.
 
 The sum above can be rearranged to group terms by their value:
 
@@ -117,7 +148,7 @@ The link between the sum and the function is the integral:
 
 $$\ln \zeta(s) = s \int_{1}^{\infty} \Pi(x) x^{-s-1} dx$$
 
-This is a Mellin Transform. It tells us that $\ln \zeta(s)$ is essentially the "frequency domain" version of the prime-counting function $\Pi(x)$. When Riemann wanted to find an explicit formula for $\Pi(x)$, he used a technique called Perron’s Formula (an inverse Mellin transform). This allowed him to "un-integrate" the zeta function to get back to the step function. Because the logarithm of the zeta function has poles and zeros, those poles and zeros become the terms in the explicit formula (like $Li(x)$ and the sum over $\rho$).
+This is a Mellin Transform. It tells us that $\ln \zeta(s)$ is essentially the "frequency domain" version of the prime-counting function $\Pi(x)$. When Riemann wanted to find an explicit formula for $\Pi(x)$, he used a technique called Perron’s Formula (an inverse Mellin transform). This allowed him to "un-integrate" the zeta function to get back to the step function. Because the logarithm of the zeta function has poles and zeros, those poles and zeros become the terms in the explicit formula (like $\text{Li}(x)$ and the sum over $\rho$).
 
 While $J(x)$ (or $\Pi(x)$) is easier to use when working with the Zeta function, we usually want to know the actual number of primes, $\pi(x)$. You can invert that series using the Möbius function $\mu(n)$:
 
@@ -139,11 +170,12 @@ For any positive integer $n$, the value of $\mu(n)$ is determined as follows: It
 
 ---
 
-While Riemann's original formula for $\Pi(x)$ is beautiful, it involves complex integrals $(Li)$ and prime powers in a way that is difficult to manipulate for certain proofs. 
+While Riemann's original formula for $\Pi(x)$ is beautiful, it involves complex integrals $(\text{Li})$ and prime powers in a way that is difficult to manipulate for certain proofs. 
 
 The standard prime-counting function $\pi(x)$ is a "staircase" where every step has a height of $1$. Riemann's $\Pi(x)$ is a staircase where the step at $p^n$ has a height of $1/n$.The Chebyshev function $\psi(x)$ is a staircase where the step at $p^n$ has a height of $\ln p$. Why $\ln p$? Because of the logarithmic derivative. In calculus, $\frac{d}{ds} \ln \zeta(s) = \frac{\zeta'(s)}{\zeta(s)}$. When you expand this as a series, you get:
 
 $$-\frac{\zeta'(s)}{\zeta(s)} = \sum_{n=1}^{\infty} \Lambda(n) n^{-s}$$
+
 Here, $\Lambda(n)$ is the von Mangoldt function, which is $\ln p$ if $n$ is a prime power and $0$ otherwise. The $\psi(x)$ function is simply the sum of these weights.
 
 The **Chebyshev function** $\psi(x)$ is:
