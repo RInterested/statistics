@@ -50,7 +50,21 @@ Before Riemann, mathematicians like Gauss could only estimate the number of prim
 
 This link was inspired by Fourier series. Riemann himself was a master of Fourier analysis; his Habilitationsschrift (the thesis required to become a professor) was titled "On the representability of a function by a trigonometric series." He used this expertise to bridge the gap between discrete prime numbers and continuous analytic functions.
 
-The explicit formula creates a bridge between two worlds, much like a Fourier Transform: 1. The Prime Numbers: These are the "events" or "spikes" in the data. 2. The zeros of the Zeta Function: These act like the "frequencies" or "harmonics." The explicit formula is a specific equation that expresses the distribution of prime numbers in terms of the non-trivial zeros ($\rho$) of the Riemann zeta function $\zeta(s)$.
+The explicit formula creates a bridge between two worlds, much like a Fourier Transform: 1. The Prime Numbers: These are the "events" or "spikes" in the data. 2. The zeros of the Zeta Function: These act like the "frequencies" or "harmonics." 
+
+The big idea is to sum the harmonics, with the real part of the sum refining the $\pi(x)$ function. Here is the 3D representation of two harmonics:
+
+<img width = 600  src = "harmonics_zeta_sum.png">
+
+Similarly, the following plot shows the first primes and the corresponding first $25$ harmonics:
+
+<img width = 600  src = "sum_harmonics_riemann_zeta_25.png">
+
+Notice that the primes don't sit at the peaks of the wave; they sit on the steepest part of the upstroke. There is a very specific mathematical reason for this involving the Derivative. The "velocity" of the prime counting function $\pi(x)$ is a step function. Its derivative (the "Prime Density") is a series of Dirac Delta functions—infinite spikes at every prime and zero everywhere else. When you add up the harmonics $Li(x^\rho)$, you are trying to reconstruct those sharp steps. A "Peak" in a wave is where the slope is zero (flat).An "Upstroke" is where the slope is maximum. If you want to create a vertical jump at $x=2$, you don't need the wave to be "high" there; you need the wave to be rising as fast as possible at that exact moment. Further, ecause you are using a finite number of zeros (even 200), you are seeing a "Fourier-like" approximation of a step. In a Fourier series for a square wave the middle of the jump is where the approximation crosses the "average" value (often near zero in the oscillation).The peak actually occurs after the jump has already happened (this is called the Gibbs Phenomenon). The formula for the "Density of Primes" is roughly:$$\text{Density}(x) = 1 - \sum_{\rho} x^{\rho-1}$$ At a prime number, the phases of all those $x^\rho$ terms align such that they create a massive negative spike in the density formula, which, when subtracted, creates the positive jump in the counting function. In the 3D spiral, this alignment of phases causes the "braid" to swing through the center of its rotation with maximum velocity. That "swing through the center" is exactly the upstroke from negative to positive.4. There is also a subtle shift because of the $Li$ function itself. $Li(x)$ is defined as an integral. The "peaks" of the integrand always correspond to the "steepest slopes" of the result. The Zero-Crossing of the harmonic $Li(x^\rho)$ is effectively where the "energy" of that harmonic is at its maximum "push" upward.
+
+---
+
+The explicit formula is a specific equation that expresses the distribution of prime numbers in terms of the non-trivial zeros ($\rho$) of the Riemann zeta function $\zeta(s)$.
 
 Just as a Fourier series decomposes a complex signal into simple sine waves, Riemann’s formula decomposes the distribution of primes into a sum of "oscillations" determined by the zeros of the Zeta function. If you add up more and more terms (zeros), the approximation of the prime-counting function becomes increasingly sharp:
 
@@ -118,9 +132,6 @@ $$\pi(x) = \sum_{n=1}^\infty \frac{\mu(n)}{n} \left( \text{Li}(x^{1/n}) - \sum_{
 where $\mu(n)$ is the Möbius function:
 
 For any positive integer $n$, the value of $\mu(n)$ is determined as follows: It has a value of $+1$ if $n$ is square-free and has an even number of prime factors. The value is $-1$ if $n$ is square-free and has an odd number of prime factors. The Möbius function $\mu(n)$ is defined to be $0$ for numbers that are not square-free (meaning they are divisible by $p^2$ for some prime $p$).
-
-
-
 
 ---
 
