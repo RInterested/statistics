@@ -125,7 +125,32 @@ When you take the logarithm of both sides (to turn that product into a sum), you
 
 $$\ln \zeta(s) = \sum_{p} \sum_{n=1}^{\infty} \frac{1}{n} p^{-ns}$$
 
-This sum is exactly what leads to $\Pi(x)$. If we only wanted to count the pure primes ($2, 3, 5, 7...$) and ignore the powers, the math actually becomes messier. The "harmonics" of the zeros naturally want to build the $J(x)$ staircase. To get the pure $\pi(x)$ staircase, you have to use Möbius Inversion to manually "subtract" out the harmonics of the primes (the squares, cubes, etc.).
+This sum is exactly what leads to $\Pi(x)$. Differentiating with respect to $s$, on the left, we use the chain rule: $\frac{d}{ds} \ln(f(s)) = \frac{f'(s)}{f(s)}$. On the right, we differentiate $p^{-ns}$ with respect to $s$, which is $-n \ln(p) p^{-ns}$.
+
+$$\frac{\zeta'(s)}{\zeta(s)} = \sum_{p} \sum_{n=1}^{\infty} \frac{-n \ln p}{n p^{ns}}$$
+
+The $n$ in the numerator and denominator cancel out, leaving us with:
+
+$$\frac{\zeta'(s)}{\zeta(s)} = -\sum_{p, n} \frac{\ln p}{p^{ns}}$$
+The sum on the right involves the **von Mangoldt function**, denoted as $\Lambda(n)$. This function is equal to $\ln p$ if $n$ is a power of a prime ($p^k$), and $0$ otherwise. 
+
+The von Mangoldt function, $\Lambda(n)$, is defined as:$$\Lambda(n) = \begin{cases} \ln p & \text{if } n = p^k \text{ for some prime } p \text{ and integer } k \ge 1, \\ 0 & \text{otherwise.} \end{cases}$$The values for the first nine positive integers are:$$0, \ln 2, \ln 3, \ln 2, \ln 5, 0, \ln 7, \ln 2, \ln 3, \dots$$
+
+
+So, the formula can be rewritten as:
+
+$$\frac{\zeta'(s)}{\zeta(s)} = -\sum_{n=1}^{\infty} \frac{\Lambda(n)}{n^s}$$ 
+By studying the poles of $\frac{\zeta'(s)}{\zeta(s)}$ (which occur at the zeros of the Zeta function), Riemann was able to extract precise information about how primes are distributed across the number line.
+
+The RHS is the logarithmic derivatives.In complex analysis, there is a fundamental rule: if a function $f(s)$ has a zero of multiplicity $m$ at a point $\rho$, then its logarithmic derivative $\frac{f'(s)}{f(s)}$ will automatically have a simple pole at $\rho$ with a residue exactly equal to $m$.
+
+To understand why the zeros of the Zeta function ($\zeta(s)$) turn into poles for its logarithmic derivative ($\frac{\zeta'(s)}{\zeta(s)}$), we need to look at how complex functions behave near their roots. In complex analysis, a pole is essentially a point where a function "blows up" to infinity. A zero is where the function hits zero. When you take the derivative of a function and divide by the original function, you are creating a "detector" for those zeros. Imagine $\zeta(s)$ has a zero at a point $\rho$ with multiplicity $m$. This means near $s = \rho$, the function looks like: $$\zeta(s) \approx (s - \rho)^m \cdot g(s)$$ (where $g(s)$ is just some other non-zero function). If we take the derivative $\zeta'(s)$ using the product rule: $$\zeta'(s) \approx m(s - \rho)^{m-1} g(s) + (s - \rho)^m g'(s)$$ Now, if we look at the ratio $\frac{\zeta'(s)}{\zeta(s)}$: $$\frac{\zeta'(s)}{\zeta(s)} \approx \frac{m(s - \rho)^{m-1} g(s) + (s - \rho)^m g'(s)}{(s - \rho)^m g(s)}$$ $$\frac{\zeta'(s)}{\zeta(s)} \approx \frac{m}{s - \rho} + \frac{g'(s)}{g(s)}$$ The result: At the exact spot where $\zeta(s)$ was zero ($s = \rho$), the function $\frac{\zeta'(s)}{\zeta(s)}$ now has a simple pole with a "strength" (residue) equal to $m$.
+
+Because $\frac{\zeta'(s)}{\zeta(s)}$ has poles at the zeros of $\zeta(s)$, Riemann could use the Residue Theorem.If you integrate this function along a vertical line, the integral "picks up" a contribution from every pole (zero) it passes. The pole at $s=1$ (where $\zeta$ blows up) gives the main trend of the primes. The poles at the zeros $\rho$ give the "fluctuations": $-\sum \frac{x^\rho}{\rho}$. This is why we say the zeros "control" the primes. Each zero acts like a frequency in a giant Fourier series that builds the prime-staircase. If the Riemann Hypothesis is true, all these frequencies are "tuned" perfectly (all have $Re(s) = 1/2$), meaning the primes are distributed as regularly as possible.
+
+Riemann used a technique called a **Perron integral** (complex inversion). He integrated the logarithmic derivative along a vertical line in the complex plane. This resulted in his famous Explicit Formula:$$J(x) = \text{li}(x) - \sum_{\rho} \text{li}(x^\rho) - \ln 2 + \int_x^{\infty} \frac{dt}{t(t^2-1)\ln t}$$
+
+If we only wanted to count the pure primes ($2, 3, 5, 7...$) and ignore the powers, the math actually becomes messier. The "harmonics" of the zeros naturally want to build the $J(x)$ staircase. To get the pure $\pi(x)$ staircase, you have to use Möbius Inversion to manually "subtract" out the harmonics of the primes (the squares, cubes, etc.).
 
 $$\pi(x) = J(x) - \frac{1}{2}J(x^{1/2}) - \frac{1}{3}J(x^{1/3}) \dots$$
 This formula literally says: "Take the total harmonic signal ($J$) and strip away the overtones ($1/2, 1/3$) to find the fundamental notes (the primes)."
@@ -144,11 +169,12 @@ $$\Pi(x) = \sum_{p^n \le x} \frac{1}{n}$$
 This is equivalent to saying:
 
 $$\Pi(x) = \pi(x) + \frac{1}{2}\pi(x^{1/2}) + \frac{1}{3}\pi(x^{1/3}) + \dots$$ 
+
 The link between the sum and the function is the integral:
 
 $$\ln \zeta(s) = s \int_{1}^{\infty} \Pi(x) x^{-s-1} dx$$
 
-This is a Mellin Transform. It tells us that $\ln \zeta(s)$ is essentially the "frequency domain" version of the prime-counting function $\Pi(x)$. When Riemann wanted to find an explicit formula for $\Pi(x)$, he used a technique called Perron’s Formula (an inverse Mellin transform). This allowed him to "un-integrate" the zeta function to get back to the step function. Because the logarithm of the zeta function has poles and zeros, those poles and zeros become the terms in the explicit formula (like $\text{Li}(x)$ and the sum over $\rho$).
+This is a **Mellin Transform**. It tells us that $\ln \zeta(s)$ is essentially the "frequency domain" version of the prime-counting function $\Pi(x)$. When Riemann wanted to find an explicit formula for $\Pi(x)$, he used a technique called **Perron’s Formula (an inverse Mellin transform)**. This allowed him to "un-integrate" the zeta function to get back to the step function. Because the logarithm of the zeta function has poles and zeros, those poles and zeros become the terms in the explicit formula (like $\text{Li}(x)$ and the sum over $\rho$).
 
 While $J(x)$ (or $\Pi(x)$) is easier to use when working with the Zeta function, we usually want to know the actual number of primes, $\pi(x)$. You can invert that series using the Möbius function $\mu(n)$:
 
