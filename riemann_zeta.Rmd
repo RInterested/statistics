@@ -6,6 +6,8 @@ output:
     includes:
       in_header: "favicon.html" 
     css: custom.css
+    
+
 ---
 
 ### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
@@ -14,6 +16,42 @@ output:
 <img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
 
 ---
+
+### Complex Integration review:
+
+---
+
+The term Residue ($Res$) refers specifically to the coefficient $a_{-1}$ in the Laurent series:
+
+$$f(z) = \dots + \frac{a_{-2}}{(z-a)^2} + \frac{a_{-1}}{(z-a)} + a_0 + a_1(z-a) + \dots$$
+
+The integral of the entire function is $2\pi i \times a_{-1}$. The reason the total result isn't always $2\pi i$ is that the "strength" of the singularity ($a_{-1}$) can vary.
+
+- Case A: $f(z) = \frac{1}{z}$ The coefficient $a_{-1}$ is 1. Integral = $1 \times 2\pi i = 2\pi i$.
+- Case B: $f(z) = \frac{5}{z}$ The coefficient $a_{-1}$ is 5. Integral = $5 \times 2\pi i = 10\pi i$.
+- Case C: $f(z) = \frac{1}{z^2}$ The coefficient $a_{-1}$ is 0 (there is no $1/z$ term). Integral = $0 \times 2\pi i = 0$.
+
+You can think of the $2\pi i$ as the fundamental unit of "winding" around a point. The Residue is simply a scaling factor that tells you how much of that fundamental "winding" behavior the specific function possesses at that point. 
+
+In the example plotted, the function $$f(z) = \frac{R}{z}$$ has a single pole at the origin. We calculate the Polya field: the conjugate of your function, $\overline{f(z)}$. In complex analysis, we use the Polya Field because it allows us to visualize complex integration as a physical flow. The Flux (lines coming out of the center) is controlled by the Real part of $R$. The Circulation (spinning around the center) is controlled by the Imaginary part of $R$.
+
+If the residue is purely real, $\theta = 0$, you have a source or sink in the 2d Polya field and a symmetric Hill in 3D. The potential $= \text{Re}(1 \cdot (\ln|z| + i\arg(z))) = \ln|z|$. There is no $\arg(z)$. This is why the 3D surface is a symmetric "volcano." It doesn't spiral because the "imaginary height" is ignored.
+
+<img width = 600  src = "residue_real.gif">
+
+If the residue is purely imaginary, the Potential $= \text{Re}(i \cdot (\ln|z| + i\arg(z))) = -\arg(z)$. Now the height depends entirely on the angle. This is the Helicoid.
+
+<img width = 600  src = "residue_imaginary.gif">
+
+In 3D, a "logarithmic spiral" would be a surface that is both a volcano AND a staircase at the same time ($R = 1 + i$). This is called a conic helicoid.
+
+
+This is different from the number of rainbows around a pole (**Winding Number or Index**), which depend on the order of the Laurent series. The "number of rainbows" you see in the phase portrait is determined by the highest negative power in the Laurent series (the order $m$). If the series starts at $1/z^5$, you will see 5 rainbows. However, the integral doesn't care about those 5 rainbows. It only cares about the "strength" of the specific $1/z$ component. You can have a "6-rainbow" pole (Order 6) that has a Residue of 0. Geometrically, this looks like a massive, sharp explosion of color and magnitude, but if you walk around it, you land back on the "ground floor."You can have a "1-rainbow" pole (Order 1) that has a Residue of 10. This looks much "blunter" visually, but it moves you up 10 floors of the staircase in a single lap. The **steepness of a pole** is determined by two distinct factors working in tandem: the Order ($m$) and the Magnitude of the Coefficient ($|a_{-m}|$). To visualize this, think of the order as the "shape" of the mountain and the coefficient as the "zoom" or "scaling factor. The order of the pole (the highest negative power in the Laurent series) is the most powerful driver of steepness. It determines how fast the function approaches infinity as you get closer to the center ($r \to 0$). Order 1 ($1/r$): The slope is relatively gentle. If you halve your distance to the center, the height doubles. Order 2 ($1/r^2$): The slope is much steeper. Halving the distance quadruples the height. Order 10 ($1/r^{10}$): This is a "needle" pole. Halving the distance increases the height by a factor of $1,024$. As the order $m$ increases, the base of the pole stays "flat" on the floor for much longer, and then it explodes upward with violent speed at the very last moment. This creates the "Dirac-like" needle.
+
+---
+
+<img width = 700  src = "poles singularities complex analysis 2.png">
+
 
 ### The Logarithmic Integral funtion:
 
@@ -145,22 +183,6 @@ By studying the poles of $\frac{\zeta'(s)}{\zeta(s)}$ (which occur at the zeros 
 The RHS is the logarithmic derivatives.In complex analysis, there is a fundamental rule: if a function $f(s)$ has a zero of multiplicity $m$ at a point $\rho$, then its logarithmic derivative $\frac{f'(s)}{f(s)}$ will automatically have a simple pole at $\rho$ with a residue exactly equal to $m$.
 
 To understand why the zeros of the Zeta function ($\zeta(s)$) turn into poles for its logarithmic derivative ($\frac{\zeta'(s)}{\zeta(s)}$), we need to look at how complex functions behave near their roots. In complex analysis, a pole is essentially a point where a function "blows up" to infinity. A zero is where the function hits zero. When you take the derivative of a function and divide by the original function, you are creating a "detector" for those zeros. Imagine $\zeta(s)$ has a zero at a point $\rho$ with multiplicity $m$. This means near $s = \rho$, the function looks like: $$\zeta(s) \approx (s - \rho)^m \cdot g(s)$$ (where $g(s)$ is just some other non-zero function). If we take the derivative $\zeta'(s)$ using the product rule: $$\zeta'(s) \approx m(s - \rho)^{m-1} g(s) + (s - \rho)^m g'(s)$$ Now, if we look at the ratio $\frac{\zeta'(s)}{\zeta(s)}$: $$\frac{\zeta'(s)}{\zeta(s)} \approx \frac{m(s - \rho)^{m-1} g(s) + (s - \rho)^m g'(s)}{(s - \rho)^m g(s)}$$ $$\frac{\zeta'(s)}{\zeta(s)} \approx \frac{m}{s - \rho} + \frac{g'(s)}{g(s)}$$ The result: At the exact spot where $\zeta(s)$ was zero ($s = \rho$), the function $\frac{\zeta'(s)}{\zeta(s)}$ now has a simple pole with a "strength" (residue) equal to $m$.
-
-Remember that the term Residue ($Res$) refers specifically to the coefficient $a_{-1}$ in the Laurent series:
-
-$$f(z) = \dots + \frac{a_{-2}}{(z-a)^2} + \frac{a_{-1}}{(z-a)} + a_0 + a_1(z-a) + \dots$$
-
-The integral of the entire function is $2\pi i \times a_{-1}$. The reason the total result isn't always $2\pi i$ is that the "strength" of the singularity ($a_{-1}$) can vary.
-
-- Case A: $f(z) = \frac{1}{z}$ The coefficient $a_{-1}$ is 1. Integral = $1 \times 2\pi i = 2\pi i$.
-- Case B: $f(z) = \frac{5}{z}$ The coefficient $a_{-1}$ is 5. Integral = $5 \times 2\pi i = 10\pi i$.
-- Case C: $f(z) = \frac{1}{z^2}$ The coefficient $a_{-1}$ is 0 (there is no $1/z$ term). Integral = $0 \times 2\pi i = 0$.
-
-You can think of the $2\pi i$ as the fundamental unit of "winding" around a point. The Residue is simply a scaling factor that tells you how much of that fundamental "winding" behavior the specific function possesses at that point. This is different from the number of rainbows around a pole (**Winding Number or Index**), which depend on the order of the Laurent series. The "number of rainbows" you see in the phase portrait is determined by the highest negative power in the Laurent series (the order $m$). If the series starts at $1/z^5$, you will see 5 rainbows.However, the integral doesn't care about those 5 rainbows. It only cares about the "strength" of the specific $1/z$ component. You can have a "6-rainbow" pole (Order 6) that has a Residue of 0. Geometrically, this looks like a massive, sharp explosion of color and magnitude, but if you walk around it, you land back on the "ground floor."You can have a "1-rainbow" pole (Order 1) that has a Residue of 10. This looks much "blunter" visually, but it moves you up 10 floors of the staircase in a single lap. The **steepness of a pole** is determined by two distinct factors working in tandem: the Order ($m$) and the Magnitude of the Coefficient ($|a_{-m}|$). To visualize this, think of the order as the "shape" of the mountain and the coefficient as the "zoom" or "scaling factor. The order of the pole (the highest negative power in the Laurent series) is the most powerful driver of steepness. It determines how fast the function approaches infinity as you get closer to the center ($r \to 0$). Order 1 ($1/r$): The slope is relatively gentle. If you halve your distance to the center, the height doubles. Order 2 ($1/r^2$): The slope is much steeper. Halving the distance quadruples the height. Order 10 ($1/r^{10}$): This is a "needle" pole. Halving the distance increases the height by a factor of $1,024$. As the order $m$ increases, the base of the pole stays "flat" on the floor for much longer, and then it explodes upward with violent speed at the very last moment. This creates the "Dirac-like" needle.
-
----
-
-<img width = 700  src = "poles singularities complex analysis 2.png">
 
 Because $\frac{\zeta'(s)}{\zeta(s)}$ has poles at the zeros of $\zeta(s)$, Riemann could use the Residue Theorem. If you integrate this function along a vertical line, the integral "picks up" a contribution from every pole (zero) it passes. The pole at $s=1$ (where $\zeta$ blows up) gives the main trend of the primes. The poles at the zeros $\rho$ give the "fluctuations": $-\sum \frac{x^\rho}{\rho}$. This is why we say the zeros "control" the primes. Each zero acts like a frequency in a giant Fourier series that builds the prime-staircase. If the Riemann Hypothesis is true, all these frequencies are "tuned" perfectly (all have $Re(s) = 1/2$), meaning the primes are distributed as regularly as possible.
 
