@@ -164,9 +164,18 @@ $$f(z) = \frac{1}{z} = \frac{x}{x^2+y^2} + i\left( \frac{-y}{x^2+y^2} \right)$$
 
 Now, let's look at what happens when we multiply this by a residue $R = a + bi$. This residue acts as a "tuner" for the machinery:
 
-- Case A: The pure sink ($R = 1$): The field is $f(z) = \frac{1}{z}$. Applying the Pólya conjugate $\vec{V} = (u, -v)$:
+- Case A: The pure sink ($R = 1$): The field is $f(z) = \frac{1}{z}$. When we write $f(z) = u + iv$, we are saying:$u = \frac{x}{x^2+y^2}$ and $v = \frac{-y}{x^2+y^2}$. The Pólya conjugate rule simply says: "To get the physical velocity vector $\vec{V}$, take the real part as your $x$-component and negative of the imaginary part as your $y$-component."
 
-$$\vec{V} = \left( \frac{x}{x^2+y^2}, -\left[ \frac{-y}{x^2+y^2} \right] \right) = \left( \frac{x}{x^2+y^2}, \frac{y}{x^2+y^2} \right)$$
+$$\vec{V} = (u, -v)$$
+So, for $f(z) = \frac{1}{z}$:
+
+$$\vec{V} = \left( \text{Re}\left(\frac{1}{z}\right), -\text{Im}\left(\frac{1}{z}\right) \right) = \left( \frac{x}{x^2+y^2}, -\left[ \frac{-y}{x^2+y^2} \right] \right) = \left( \frac{x}{x^2+y^2}, \frac{y}{x^2+y^2} \right)$$
+
+Why the "$-v$" sign? You might wonder why we have to flip the sign of the $y$-component. It’s because of how complex multiplication works compared to the dot product. If you integrate a field $f(z)$ along a path $dz = dx + i dy$:
+
+$$f(z)dz = (u + iv)(dx + idy) = \underbrace{(u\,dx - v\,dy)}_{\text{Real Part}} + i\underbrace{(v\,dx + u\,dy)}_{\text{Imaginary Part}}$$
+
+Now look at the Real Part: $(u\,dx - v\,dy)$. If we want this to represent the physical work $\vec{V} \cdot d\vec{r} = V_x dx + V_y dy$, we have to force the components to match:$V_x = u$ and $V_y = -v$. By using $\vec{V} = (u, -v)$, the real part of the complex integral automatically becomes the line integral of the velocity field.
 
 We get the pure radial field. The real part of the complex function handled the $x$-velocity, and the imaginary part (after conjugation) handled the $y$-velocity.
 
@@ -178,7 +187,7 @@ Applying the Pólya conjugate $\vec{V} = (u, -v)$:
 
 $$\vec{V} = \left( \frac{y}{x^2+y^2}, -\frac{x}{x^2+y^2} \right)$$
 
-We get the pure circulation field.3. 
+We get the pure circulation field.
 
 When you have a general residue $R = a + bi$, you aren't just doing two separate math problems. You are describing a spiral sink.
 

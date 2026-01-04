@@ -585,12 +585,32 @@ i\left( \frac{-y}{x^2+y^2} \right)\]</span></p>
 <ul>
 <li>Case A: The pure sink (<span class="math inline">\(R = 1\)</span>):
 The field is <span class="math inline">\(f(z) = \frac{1}{z}\)</span>.
-Applying the Pólya conjugate <span class="math inline">\(\vec{V} = (u,
--v)\)</span>:</li>
+When we write <span class="math inline">\(f(z) = u + iv\)</span>, we are
+saying:<span class="math inline">\(u = \frac{x}{x^2+y^2}\)</span> and
+<span class="math inline">\(v = \frac{-y}{x^2+y^2}\)</span>. The Pólya
+conjugate rule simply says: “To get the physical velocity vector <span class="math inline">\(\vec{V}\)</span>, take the real part as your <span class="math inline">\(x\)</span>-component and negative of the imaginary
+part as your <span class="math inline">\(y\)</span>-component.”</li>
 </ul>
-<p><span class="math display">\[\vec{V} = \left( \frac{x}{x^2+y^2},
--\left[ \frac{-y}{x^2+y^2} \right] \right) = \left( \frac{x}{x^2+y^2},
-\frac{y}{x^2+y^2} \right)\]</span></p>
+<p><span class="math display">\[\vec{V} = (u, -v)\]</span> So, for <span class="math inline">\(f(z) = \frac{1}{z}\)</span>:</p>
+<p><span class="math display">\[\vec{V} = \left(
+\text{Re}\left(\frac{1}{z}\right), -\text{Im}\left(\frac{1}{z}\right)
+\right) = \left( \frac{x}{x^2+y^2}, -\left[ \frac{-y}{x^2+y^2} \right]
+\right) = \left( \frac{x}{x^2+y^2}, \frac{y}{x^2+y^2}
+\right)\]</span></p>
+<p>Why the “<span class="math inline">\(-v\)</span>” sign? You might
+wonder why we have to flip the sign of the <span class="math inline">\(y\)</span>-component. It’s because of how complex
+multiplication works compared to the dot product. If you integrate a
+field <span class="math inline">\(f(z)\)</span> along a path <span class="math inline">\(dz = dx + i dy\)</span>:</p>
+<p><span class="math display">\[f(z)dz = (u + iv)(dx + idy) =
+\underbrace{(u\,dx - v\,dy)}_{\text{Real Part}} + i\underbrace{(v\,dx +
+u\,dy)}_{\text{Imaginary Part}}\]</span></p>
+<p>Now look at the Real Part: <span class="math inline">\((u\,dx -
+v\,dy)\)</span>. If we want this to represent the physical work <span class="math inline">\(\vec{V} \cdot d\vec{r} = V_x dx + V_y dy\)</span>,
+we have to force the components to match:<span class="math inline">\(V_x
+= u\)</span> and <span class="math inline">\(V_y = -v\)</span>. By using
+<span class="math inline">\(\vec{V} = (u, -v)\)</span>, the real part of
+the complex integral automatically becomes the line integral of the
+velocity field.</p>
 <p>We get the pure radial field. The real part of the complex function
 handled the <span class="math inline">\(x\)</span>-velocity, and the
 imaginary part (after conjugation) handled the <span class="math inline">\(y\)</span>-velocity.</p>
@@ -605,7 +625,7 @@ i\)</span>): The field is</li>
 (u, -v)\)</span>:</p>
 <p><span class="math display">\[\vec{V} = \left( \frac{y}{x^2+y^2},
 -\frac{x}{x^2+y^2} \right)\]</span></p>
-<p>We get the pure circulation field.3.</p>
+<p>We get the pure circulation field.</p>
 <p>When you have a general residue <span class="math inline">\(R = a +
 bi\)</span>, you aren’t just doing two separate math problems. You are
 describing a spiral sink.</p>
