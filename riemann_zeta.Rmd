@@ -33,15 +33,34 @@ The integral of the entire function is $2\pi i \times a_{-1}$. The reason the to
 
 You can think of the $2\pi i$ as the fundamental unit of "winding" around a point. The Residue is simply a scaling factor that tells you how much of that fundamental "winding" behavior the specific function possesses at that point. 
 
-In the example plotted, the function $$f(z) = \frac{R}{z}$$ has a single pole at the origin. We calculate the Polya field: the conjugate of your function, $\overline{f(z)}$. In complex analysis, we use the Polya Field because it allows us to visualize complex integration as a physical flow. The Flux (lines coming out of the center) is controlled by the Real part of $R$. The Circulation (spinning around the center) is controlled by the Imaginary part of $R$.
+In the example plotted, the function $$f(z) = \frac{R}{z}$$ has a single pole at the origin. 
+
+We calculate the Polya field: the conjugate of your function, $\overline{f(z)}$. In complex analysis, we use the Polya Field because it allows us to visualize complex integration as a physical flow. The Flux (lines coming out of the center) is controlled by the Real part of $R$. The Circulation (spinning around the center) is controlled by the Imaginary part of $R$.
+
+To the right of the plot, the potential is reproduced as a 3D plot. If you have a velocity field $\vec{V} = (U, V)$, a velocity potential $\Phi$ is a function such that:
+
+$$U = \frac{\partial \Phi}{\partial x} \quad \text{and} \quad V = \frac{\partial \Phi}{\partial y}$$
+
+The equation being integrated is $f(z) = \frac{R}{z}$. To find the potential, we integrate the function: 
+$$\Omega(z) = \int f(z) dz = R \ln(z)$$$\Omega(z)$ 
+
+to obtain the complex potential. Since it’s complex, it has two parts: 
+
+$$\Omega(z) = \Phi + i\Psi$$
+
+The Potential is the real part, $\Phi$ . Its contours are lines of constant "effort."$\Psi$ (The Stream Function): The imaginary part. Its contours are the actual paths the fluid follows. The potential effectively "stores" the history of the residue. When you have a pure vortex ($R=i$), the potential is $\Phi = -\arg(z)$. If you start at an angle of $0^\circ$ and walk in a full circle to $360^\circ$ in the 2D Field, you are back where you started - you see no change.But in the 3D Potential Surface, you have climbed from height $0$ to height $-2\pi$. The "Potential" is what reveals that the origin isn't just a point on a flat map—it is a Singularity that has "twisted" the geometry of the space around it.
 
 If the residue is purely real, $\theta = 0$, you have a source or sink in the 2d Polya field and a symmetric Hill in 3D. The potential $= \text{Re}(1 \cdot (\ln|z| + i\arg(z))) = \ln|z|$. There is no $\arg(z)$. This is why the 3D surface is a symmetric "volcano." It doesn't spiral because the "imaginary height" is ignored.
 
 <img width = 600  src = "residue_real.gif">
 
+---
+
 If the residue is purely imaginary, the Potential $= \text{Re}(i \cdot (\ln|z| + i\arg(z))) = -\arg(z)$. Now the height depends entirely on the angle. This is the Helicoid.
 
 <img width = 600  src = "residue_imaginary.gif">
+
+---
 
 In 3D, a "logarithmic spiral" would be a surface that is both a volcano AND a staircase at the same time ($R = 1 + i$). This is called a conic helicoid.
 
