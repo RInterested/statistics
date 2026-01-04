@@ -125,7 +125,15 @@ Before Riemann, mathematicians like Gauss could only estimate the number of prim
 
 This link was inspired by Fourier series. Riemann himself was a master of Fourier analysis; his Habilitationsschrift (the thesis required to become a professor) was titled "On the representability of a function by a trigonometric series." He used this expertise to bridge the gap between discrete prime numbers and continuous analytic functions.
 
-The explicit formula creates a bridge between two worlds, much like a Fourier Transform: 1. The Prime Numbers: These are the "events" or "spikes" in the data. 2. The zeros of the Zeta Function: These act like the "frequencies" or "harmonics." 
+The explicit formula creates a bridge between two worlds, much like a Fourier Transform: On the one hand, the prime numbers: these are the "events" or "spikes" in the data. On the other hand, the zeros of the zeta function: These act like the "frequencies" or "harmonics." 
+
+Let's take a look at the approximation already visible using the first non-trivial zero and the explicit function:
+
+<img width = 600  src = "first_note.png">
+
+the peaks seem to approximately align with the first primes. The function, $-\cos(\gamma \ln(x))$, carries a negative sign because it is just the first summand in the term $-\sum_{\rho} \frac{x^\rho}{\rho}$ over the zeros of the zeta function $\rho$ in the expression above. The first non-trivial zero is $\rho_1 = \frac{1}{2} + i\gamma$, where $\gamma \approx 14.1347$. Therefore, $x^\rho = x^{1/2} \cdot x^{i\gamma}$. Using the identity $x^{i\gamma} = e^{i\gamma \ln(x)}$, we can apply Euler's Formula:
+
+$$e^{i\gamma \ln(x)} = \color{blue}{\cos(\gamma \ln(x))} + i \sin(\gamma \ln(x))$$
 
 The big idea is to sum the harmonics, with the real part of the sum refining the $\pi(x)$ function. Here is the 3D representation of two harmonics:
 
