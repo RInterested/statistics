@@ -633,10 +633,28 @@ describing a spiral sink.</p>
 + b(\text{Circular Field})\]</span></p>
 <p>By integrating <span class="math inline">\(f(z) =
 \frac{a+bi}{z}\)</span>, the residue theorem uses the imaginary unit
-<span class="math inline">\(i\)</span> as a sorting mechanism.It
-multiplies the radial component by <span class="math inline">\(i\)</span> (turning it into Flux). It multiplies
+<span class="math inline">\(i\)</span> as a sorting mechanism. It
+multiplies the radial component by <span class="math inline">\(i\)</span> (turning it into flux). It multiplies
 the circular component by <span class="math inline">\(i^2 = -1\)</span>
 (turning it into real work / circulation).</p>
+<p>We use the Pólya Conjugate rule <span class="math inline">\(\vec{V} =
+(u, -v)\)</span> on the combined function:</p>
+<p><span class="math display">\[f(z) = \frac{a+bi}{z} = (a+bi)\left[
+\frac{x-iy}{x^2+y^2} \right]\]</span></p>
+<p>Multiplying this out:</p>
+<p><span class="math display">\[f(z) = \frac{(ax + by) + i(bx -
+ay)}{x^2+y^2}\]</span></p>
+<p>Now, apply the conjugate <span class="math inline">\(\vec{V} = (u,
+-v)\)</span>:</p>
+<p><span class="math display">\[\vec{V}_{total} = \left( \frac{ax +
+by}{x^2+y^2}, \frac{ay - bx}{x^2+y^2} \right)\]</span></p>
+<p>If you rearrange this, you see exactly the two fields we derived
+earlier acting in unison:</p>
+<p><span class="math display">\[\vec{V}_{total} = a \underbrace{\left(
+\frac{x}{r^2}, \frac{y}{r^2} \right)}_{\text{Radial Sink}} + b
+\underbrace{\left( \frac{y}{r^2}, -\frac{x}{r^2}
+\right)}_{\text{Circular Vortex}}\]</span></p>
+<hr />
 </div>
 <div id="measuring-flux-and-circulation" class="section level5">
 <h5>Measuring Flux and Circulation:</h5>
