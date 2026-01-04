@@ -119,7 +119,7 @@ $$\psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \ln(2\pi) - \frac{1}{2}\ln(1-x
 
 ---
 
-##### Motivation and development:
+#### Motivation and development:
 
 Before Riemann, mathematicians like Gauss could only estimate the number of primes using the Prime Number Theorem: $\pi(x) \approx \text{Li}(x)$. Riemann's formula changed this estimate into an equality by adding a "correction" term.
 
@@ -157,6 +157,10 @@ After $100$ zeros the correspondence primes-peaks is uncanny, and, in addition, 
 
 ---
 
+The reason prime powers $p^k$ appear as "harmonics" alongside the base primes $p$ is baked directly into Euler’s Product Formula. When Euler proved that the sum over all integers equals the product over all primes:$$\zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s} = \prod_{p \text{ prime}} \left( 1 - \frac{1}{p^s} \right)^{-1}$$He used the formula for a geometric series to expand each factor in the product:$$\left( 1 - \frac{1}{p^s} \right)^{-1} = 1 + \frac{1}{p^s} + \frac{1}{p^{2s}} + \frac{1}{p^{3s}} + \dots$$The Origin of the PowersWhen you take the logarithm of the Zeta function (which is necessary to bridge the product to a sum that we can then differentiate to find the zeros), the powers emerge naturally:Logarithm of the Product: $\ln(\zeta(s)) = \sum_{p} -\ln(1 - p^{-s})$Taylor Expansion: Using the expansion $-\ln(1-x) = x + \frac{x^2}{2} + \frac{x^3}{3} + \dots$, we get:$$\ln(\zeta(s)) = \sum_{p} \left( \frac{1}{p^s} + \frac{1}{2p^{2s}} + \frac{1}{3p^{3s}} + \dots \right)$$Every term in that expansion represents a prime power. When we differentiate this to find the "spikes" (which leads to the von Mangoldt function $\Lambda(n)$), we find that the Zeta function essentially "sees" a prime power $p^k$ as a smaller echo of the original prime $p$.
+
+---
+
 The big idea is to sum the harmonics, with the real part of the sum refining the $\pi(x)$ function. Here is the 3D representation of two harmonics:
 
 <img width = 400  src = "harmonics_zeta_sum.png">
@@ -165,7 +169,9 @@ Similarly, the following plot shows the first primes and the corresponding first
 
 <img width = 600  src = "sum_harmonics_riemann_zeta_25.png">
 
-Notice that the primes don't sit at the peaks of the wave; they sit on the steepest part of the upstroke. There is a very specific mathematical reason for this involving the Derivative. The "velocity" of the prime counting function $\pi(x)$ is a step function. Its derivative (the "Prime Density") is a series of Dirac Delta functions—infinite spikes at every prime and zero everywhere else. When you add up the harmonics $\text{Li}(x^\rho)$, you are trying to reconstruct those sharp steps. A "Peak" in a wave is where the slope is zero (flat). An "Upstroke" is where the slope is maximum. If you want to create a vertical jump at $x=2$, you don't need the wave to be "high" there; you need the wave to be rising as fast as possible at that exact moment. Further, ecause you are using a finite number of zeros (even 200), you are seeing a "Fourier-like" approximation of a step. In a Fourier series for a square wave the middle of the jump is where the approximation crosses the "average" value (often near zero in the oscillation).The peak actually occurs after the jump has already happened (this is called the Gibbs Phenomenon). The formula for the "Density of Primes" is roughly:$$\text{Density}(x) = 1 - \sum_{\rho} x^{\rho-1}$$ At a prime number, the phases of all those $x^\rho$ terms align such that they create a massive negative spike in the density formula, which, when subtracted, creates the positive jump in the counting function. In the 3D spiral, this alignment of phases causes the "braid" to swing through the center of its rotation with maximum velocity. That "swing through the center" is exactly the upstroke from negative to positive.4. There is also a subtle shift because of the $\text{Li}$ function itself. $\text{Li}(x)$ is defined as an integral. The "peaks" of the integrand always correspond to the "steepest slopes" of the result. The Zero-Crossing of the harmonic $\text{Li}(x^\rho)$ is effectively where the "energy" of that harmonic is at its maximum "push" upward.
+Notice that the primes don't sit at the peaks of the wave; they sit on the steepest part of the upstroke. There is a very specific mathematical reason for this involving the Derivative. The "velocity" of the prime counting function $\pi(x)$ is a step function. Its derivative (the "Prime Density") is a series of Dirac Delta functions—infinite spikes at every prime and zero everywhere else. When you add up the harmonics $\text{Li}(x^\rho)$, you are trying to reconstruct those sharp steps. A "Peak" in a wave is where the slope is zero (flat). An "upstroke" is where the slope is maximum. If you want to create a vertical jump at $x=2$, you don't need the wave to be "high" there; you need the wave to be rising as fast as possible at that exact moment. Further, ecause you are using a finite number of zeros (even 200), you are seeing a "Fourier-like" approximation of a step. In a Fourier series for a square wave the middle of the jump is where the approximation crosses the "average" value (often near zero in the oscillation).The peak actually occurs after the jump has already happened (this is called the Gibbs Phenomenon). 
+
+The formula for the "density of Primes" is roughly:$$\text{Density}(x) = 1 - \sum_{\rho} x^{\rho-1}$$ At a prime number, the phases of all those $x^\rho$ terms align such that they create a massive negative spike in the density formula, which, when subtracted, creates the positive jump in the counting function. In the 3D spiral, this alignment of phases causes the "braid" to swing through the center of its rotation with maximum velocity. That "swing through the center" is exactly the upstroke from negative to positive.4. There is also a subtle shift because of the $\text{Li}$ function itself. $\text{Li}(x)$ is defined as an integral. The "peaks" of the integrand always correspond to the "steepest slopes" of the result. The zero-Crossing of the harmonic $\text{Li}(x^\rho)$ is effectively where the "energy" of that harmonic is at its maximum "push" upward.
 
 In standard Fourier analysis, the waves are of the form $\sin(nx)$. The frequency $n$ is constant. But in Riemann's Explicit Formula, the terms look like $x^\rho$, where $\rho = \frac{1}{2} + i\gamma$. If we write this out using Euler's formula, we get:
 
@@ -179,7 +185,12 @@ $$\psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \text{constant terms}$$
 We look specifically at the real part (since we are counting real primes):
 
 $$\text{Term contribution} \approx \frac{\sqrt{x} \cos(\gamma \ln x)}{\gamma}$$
+
 Each zero $\gamma$ contributes a "wave" to the total count. If you add up thousands of these waves, a miracle occurs: Destructive Interference. In places where there are no primes, the waves from different zeros ($\gamma_1, \gamma_2, \gamma_3...$) all have different phases and cancel each other out, leaving a flat line. At the exact location of a prime number, the phases of all these logarithmic spirals align perfectly. They constructively interfere to create a sharp "jump" in the graph.
+
+Mathematicians often describe the relationship between prime numbers and the zeros of the Zeta function as a duality, specifically a Fourier-like duality.
+
+If the primes are the "atoms" of the number system, the zeros of the Zeta function are the "harmonics" or the "spectrum" of those atoms.
 
 The Hilbert-Pólya conjecture proposed that the zeros of the Zeta function are actually eigenvalues of some physical system (likely a chaotic one). The Fourier harmonics integer-spaced. The Riemann "Harmonics", $\cos(\gamma_n \ln x)$ are chaotic but deterministic, where $\gamma_n$ is the imaginary part of the $n$-th zero. 
 
