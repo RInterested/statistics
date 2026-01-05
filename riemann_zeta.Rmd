@@ -250,7 +250,32 @@ A Real Residue ($a$): Creates the symmetric dip and causes Flux. In the complex 
 
 An Imaginary Residue ($bi$): Creates the spiral staircase and causes circulation. In the complex integral, the $i$ from the residue hits the $i$ from the formula ($2\pi i \cdot bi$), resulting in a purely real value ($-2\pi b$).
 
-While Green's Theorem in real analysis relates loop integrals to the divergence/curl inside, the "residue" remains a complex-realm superstar for three reasons: Topology: In complex analysis, you can deform a loop however you want; as long as you don't cross a pole, the integral is constant. In real analysis, this requires the field to be strictly "conservative." Selection: In complex analysis, $1/z$ is the only power that yields a non-zero loop integral. It perfectly "picks out" the singularity. The complex "package": Complex analysis treats the source and the vortex as a single analytic unit. It calculates the "pump" (flux) and the "fan" (circulation) at once.
+##### Green's and theorems:
+
+
+While Green's Theorem in real analysis relates loop integrals to the divergence/curl inside, the "residue" remains a complex-realm superstar: Topology: In complex analysis, you can deform a loop however you want; as long as you don't cross a pole, the integral is constant. In real analysis, this requires the field to be strictly "conservative." Selection: In complex analysis, $1/z$ is the only power that yields a non-zero loop integral. It perfectly "picks out" the singularity. The complex "package": Complex analysis treats the source and the vortex as a single analytic unit. It calculates the "pump" (flux) and the "fan" (circulation) at once.
+
+The Pólya fields can be seen as a specialized tool that collapses the multi-step vector calculus of Green’s and Stokes' into a single operation of complex algebra. In standard vector calculus, you have two different types of integrals for a vector field $\vec{V} = (P, Q)$: 
+
+In real vector calculus, for a field $\vec{V} = (u, -v)$, the two forms are: 
+
+- The tangential form (circulation/work). This measures how much the field "pushes" along the path. It relates the line integral to the curl (rotation) inside.
+
+$$\oint_C (u \, dx - v \, dy) = \iint_D \left( \frac{\partial (-v)}{\partial x} - \frac{\partial u}{\partial y} \right) dA$$
+
+In complex analysis, this becomes the real part of the integral. 
+
+- The normal form (flux/divergence). This measures how much the field "crosses" the boundary. It relates the line integral to the divergence (expansion) inside.
+
+$$\oint_C (u \, dy + v \, dx) = \iint_D \left( \frac{\partial u}{\partial x} + \frac{\partial (-v)}{\partial y} \right) dA$$
+
+In complex analysis, this becomes the imaginary part of the integral.
+
+By using the Pólya vector field $\vec{V} = \overline{f(z)}$, we "complexify" the field into a single analytic function $f(z) = u + iv$. When you perform a complex contour integral, something remarkable happens:
+
+$$\oint f(z) \, dz = \oint (u + iv)(dx + i \, dy) = \underbrace{\oint (u \, dx - v \, dy)}_{\text{Work/Circulation}} + i \underbrace{\oint (v \, dx + u \, dy)}_{\text{Flux}}$$
+
+The complex integral simultaneously calculates the Work and the Flux. It essentially runs Stokes' Theorem and Green's Theorem at the same time and stores the results in the real and imaginary parts.
 
 
 ---

@@ -737,16 +737,55 @@ Creates the spiral staircase and causes circulation. In the complex
 integral, the <span class="math inline">\(i\)</span> from the residue
 hits the <span class="math inline">\(i\)</span> from the formula (<span class="math inline">\(2\pi i \cdot bi\)</span>), resulting in a purely
 real value (<span class="math inline">\(-2\pi b\)</span>).</p>
+</div>
+<div id="greens-and-theorems" class="section level5">
+<h5>Green’s and theorems:</h5>
 <p>While Green’s Theorem in real analysis relates loop integrals to the
-divergence/curl inside, the “residue” remains a complex-realm superstar
-for three reasons: Topology: In complex analysis, you can deform a loop
-however you want; as long as you don’t cross a pole, the integral is
-constant. In real analysis, this requires the field to be strictly
-“conservative.” Selection: In complex analysis, <span class="math inline">\(1/z\)</span> is the only power that yields a
-non-zero loop integral. It perfectly “picks out” the singularity. The
-complex “package”: Complex analysis treats the source and the vortex as
-a single analytic unit. It calculates the “pump” (flux) and the “fan”
-(circulation) at once.</p>
+divergence/curl inside, the “residue” remains a complex-realm superstar:
+Topology: In complex analysis, you can deform a loop however you want;
+as long as you don’t cross a pole, the integral is constant. In real
+analysis, this requires the field to be strictly “conservative.”
+Selection: In complex analysis, <span class="math inline">\(1/z\)</span>
+is the only power that yields a non-zero loop integral. It perfectly
+“picks out” the singularity. The complex “package”: Complex analysis
+treats the source and the vortex as a single analytic unit. It
+calculates the “pump” (flux) and the “fan” (circulation) at once.</p>
+<p>The Pólya fields can be seen as a specialized tool that collapses the
+multi-step vector calculus of Green’s and Stokes’ into a single
+operation of complex algebra. In standard vector calculus, you have two
+different types of integrals for a vector field <span class="math inline">\(\vec{V} = (P, Q)\)</span>:</p>
+<p>In real vector calculus, for a field <span class="math inline">\(\vec{V} = (u, -v)\)</span>, the two forms are:</p>
+<ul>
+<li>The tangential form (circulation/work). This measures how much the
+field “pushes” along the path. It relates the line integral to the curl
+(rotation) inside.</li>
+</ul>
+<p><span class="math display">\[\oint_C (u \, dx - v \, dy) = \iint_D
+\left( \frac{\partial (-v)}{\partial x} - \frac{\partial u}{\partial y}
+\right) dA\]</span></p>
+<p>In complex analysis, this becomes the real part of the integral.</p>
+<ul>
+<li>The normal form (flux/divergence). This measures how much the field
+“crosses” the boundary. It relates the line integral to the divergence
+(expansion) inside.</li>
+</ul>
+<p><span class="math display">\[\oint_C (u \, dy + v \, dx) = \iint_D
+\left( \frac{\partial u}{\partial x} + \frac{\partial (-v)}{\partial y}
+\right) dA\]</span></p>
+<p>In complex analysis, this becomes the imaginary part of the
+integral.</p>
+<p>By using the Pólya vector field <span class="math inline">\(\vec{V} =
+\overline{f(z)}\)</span>, we “complexify” the field into a single
+analytic function <span class="math inline">\(f(z) = u + iv\)</span>.
+When you perform a complex contour integral, something remarkable
+happens:</p>
+<p><span class="math display">\[\oint f(z) \, dz = \oint (u + iv)(dx + i
+\, dy) = \underbrace{\oint (u \, dx - v \,
+dy)}_{\text{Work/Circulation}} + i \underbrace{\oint (v \, dx + u \,
+dy)}_{\text{Flux}}\]</span></p>
+<p>The complex integral simultaneously calculates the Work and the Flux.
+It essentially runs Stokes’ Theorem and Green’s Theorem at the same time
+and stores the results in the real and imaginary parts.</p>
 <hr />
 <p>The residue is different from the number of rainbows around a pole
 (<strong>Winding Number or Index</strong>), which depend on the order of
