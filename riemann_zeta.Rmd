@@ -296,6 +296,39 @@ The **steepness of a pole** is determined by two distinct factors working in tan
 
 ---
 
+###### Order versus residue:
+
+- Imaginary residue:
+
+The following code generates a side-by-side comparison of $f(z) = 1/z$ (Residue = 1) and $g(z) = i/z$ (Residue = $i$). You can see how the colors "twist" while the geometry remains the same.
+
+---
+
+<img width = 700  src = "residue_im.png">
+
+---
+
+- Real residue:
+
+Residue magnitude and the Order affect how the pole looks, but they change the "geometry of the slope" in different ways:
+
+1. Order ($n$) controls the "curvature" (Sharpness): As the order increases (from $1/z$ to $1/z^2$ to $1/z^3$), the spike becomes "sharper" near the center. It stays flat for longer as you approach the pole, then shoots up much more violently. A high-order pole looks like a needle; a low-order pole looks like a gentle volcano.
+2. Residue ($|a_{-1}|$) controls the "scale" (volume): For a fixed order (let's say order 1), the residue is simply a multiplier. If you double the residue, you double the height of the surface at every single point. This makes the "tent" look fatter because the points that were previously at height 1 are now at height 2.
+
+---
+
+<img width = 700  src = "residue_re.png">
+
+---
+
+Look at the footprint of the mountain on the $Re(z)/Im(z)$ plane. For $Res=3$, the mountain occupies much more area because the function $|3/z|$ stays "higher" for a longer distance from the center than $|1/z|$.Steepness: While both poles go to infinity, the larger residue reaches any given "height" (like the $z=8$ cap) much further out from the center. This creates the visual effect of a "fatter" or more substantial spike.Color Consistency: Because both residues are real and positive, the color cycles (rainbows) start and end at the exact same angular positions on both mountains. Only the "size" of the mountain has changed, not its orientation.
+
+Positive Real Residue ($Res > 0$): The colors are in their "standard" orientation. For example, the color representing the positive real direction (often red) points along the positive x-axis.Negative 
+
+Real Residue ($Res < 0$): The colors are rotated by exactly $180^{\circ}$ ($\pi$ radians). This is because $-1 = e^{i\pi}$.
+
+Magnitude: The absolute value of the real residue scales the vertical "tent" of the pole. A larger real residue makes the spike taller and wider at the base
+
 
 ### The Logarithmic Integral funtion:
 
