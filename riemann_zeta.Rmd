@@ -228,6 +228,12 @@ The complex residue $R = a + bi$ is the controller. In physics (like fluid flow 
 
 In complex integration, the residue is the "DNA" of the singularity, and the integral is the "measurement" of its influence.When we calculate $\oint \frac{R}{z} dz$, we are effectively asking the field: "How much do you push me along the path (Work), and how much do you push through the boundary (Flux)?
 
+If you have a complex residue $a_{-1}$, the real and imaginary parts represent the two fundamental types of "flow" around the singularity in a 2D vector field. Let's say your residue is $a_{-1} = R + iC$. When you multiply by $2\pi i$ for the integral, you get:
+
+$$\oint f(z) dz = 2\pi i(R + iC) = \underbrace{-2\pi C}_{\text{Real Part}} + \underbrace{i(2\pi R)}_{\text{Imaginary Part}}$$
+
+In the context of fluid dynamics or electrostatics, where $f(z)$ represents the complex velocity of a field, the real part of the Residue ($R$) encodes circulation: It represents the "swirl." If the residue is purely real, there is a net rotation around the point (like a vortex or a whirlpool).The imaginary Part of the Residue ($C$) encodes flux: It represents the "source/sink" behavior. If the residue is purely imaginary, there is a net flow of "stuff" moving directly away from or toward the point (like a fountain or a drain). Think of the singularity as a "special point" in a field. The residue is the comprehensive report of what that point is doing to the surrounding area.
+
 The distributive property of $i$ performs a beautiful physical sorting. When you solve a complex integral $\oint f(z) dz$, the residue theorem tells you that the answer is always:
 
 $$\text{Integral} = 2\pi i \times (\text{Sum of Residues})$$
