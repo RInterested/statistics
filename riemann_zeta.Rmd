@@ -252,8 +252,94 @@ The **Chebyshev function** $\psi(x)$ is:
 
 $$\psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \ln(2\pi) - \frac{1}{2}\ln(1-x^{-2})$$
 
+### Random matrices:
+
+```{r, echo=FALSE}
+# ---------------------------------------------------------
+# Random Matrix Theory: GUE Spacings (Gaudin Distribution)
+# ---------------------------------------------------------
+
+# 1. Parameters
+n <- 2000 # Increased size for better statistics
+
+# 2. Generate a Random Complex Hermitian Matrix (GUE)
+# We create a random complex matrix and add it to its conjugate transpose
+M <- matrix(complex(real = rnorm(n^2), imaginary = rnorm(n^2)), nrow = n)
+#all(Mod(M - t(Conj(M))) < 1e-10)
+H <- (M + t(Conj(M))) / 2
+#all(Mod(H - t(Conj(H))) < 1e-10)
+
+# 3. Extract and Sort Eigenvalues
+ev <- sort(Re(eigen(H, only.values = TRUE)$values))
+differ <- diff(ev)
+hist(ev, breaks=40, border=F, col='navyblue', main='Eigenvalues distribution - semicircle law')
+#hist(differ, breaks=100)
+
+# 4. Smooth Unfolding 
+# We use a smooth spline to capture the 'trend' (Wigner Semicircle) 
+# without erasing the local random fluctuations.
+# This maps the eigenvalues to a range where the average spacing is 1.
+smooth_map <- smooth.spline(ev, 1:n, df = 50) # df=50 keeps the curve smooth
+unfolded_ev <- predict(smooth_map, ev)$y
+
+# 5. Calculate Spacings
+spacings <- diff(unfolded_ev)
+
+# Ensure the mean spacing is exactly 1 (Crucial for the Gaudin formula)
+spacings <- spacings / mean(spacings)
+
+# 6. Define the Gaudin Distribution (Wigner Surmise for GUE, beta=2)
+gaudin_pdf <- function(s) {
+  (32 / pi^2) * (s^2) * exp(-(4 / pi) * s^2)
+}
+
+# 7. Visualization
+# We use 'freq = FALSE' to ensure the y-axis is 'Density' not 'Count'
+hist(spacings, breaks = 70, freq = FALSE, 
+     xlim = c(0, 3.5), ylim = c(0, 1.2),
+     main = "Empirical GUE Spacings vs. Gaudin PDF",
+     xlab = "Normalized Spacing (s)", 
+     col = "tan", border = "white")
+
+# Plot the Empirical Density (the blue dashed line)
+# This should now be asymmetrical and follow the red curve
+lines(density(spacings), col = "blue", lwd = 2, lty = 2)
+
+# Plot the Theoretical Gaudin Curve (the red line)
+s_vals <- seq(0, 4, length.out = 200)
+lines(s_vals, gaudin_pdf(s_vals), col = "red", lwd = 3)
+
+legend("topright", 
+       legend = c("Matrix Spacings (Hist)", "Empirical Density", "Gaudin PDF (Theory)"),
+       col = c("tan", "blue", "red"), 
+       lwd = c(8, 2, 3), lty = c(1, 2, 1),
+       bg = "white")
+```
 
 
+The [Gaudin](https://en.wikipedia.org/wiki/Michel_Gaudin_(physicist)) distribution 
+is an example of the Wigner-Dyson distribution family. The Wigner-Dyson distribution familyt refers to the general class of distributions arising from Random Matrix Theory (RMT). It is defined by the Dyson Index ($\beta$), which dictates the symmetry of the system ((GOE): Real Symmetric matrices. (Weak repulsion) - $\beta=1$; (GUE): Complex Hermitian matrices - $\beta=2$; or (GSE): Quaternionic matrices. (Strongest repulsion) - $\beta=4$). The Gaudin distribution is a specific member of that family. Specifically, it refers to the limiting spacing distribution for the Gaussian Unitary Ensemble (GUE) where $\beta=2$.
+
+The general formula (the Wigner Surmise) pdf appears in [Wikipedia](https://en.wikipedia.org/wiki/Wigner_surmise) 
+
+$$f(s) = \frac{\pi s}{2}\,e^{s^2/4}$$
+
+However, the article goes on to state that the corresponding result for complex hermitian matrices
+
+$$f(s) = \frac{32\,s^2}{\pi^2}\,e^{-4s^2/\pi}$$
+
+
+The Gaudin distribution is a name often given specifically to the $\beta=2$ case (complex matrices), but GOE (Real Matrices): $f(s) = \frac{\pi s}{2} e^{-\frac{\pi s^2}{4}}$ it has $s^1$. 
+
+The power of $s$ (whether it is $s^1, s^2, \dots$) tells you how hard the buses push each other away. In the GOE (Real numbers), the repulsion is "linear." In the GUE (Complex numbers/Zeta Zeros), the repulsion is "quadratic."
+
+$s^2$ is the power law: As the distance $s$ goes to 0, the probability $\Pr(s)$ drops to zero rapidly. It's the "force" keeping zeros apart. It is the equivalent of buses spacing each other in the paper [*The statistical properties of the city transport in Cuernavaca (Mexico) and Random matrix ensembles* by Milan Krbálek  and Petr Seba](https://arxiv.org/pdf/nlin/0001015).
+
+$\exp(-s^2)$ The Gaussian tail: Prevents the gaps from getting too large. It "pulls" the system back together so the buses don't drift miles apart.
+
+$\pi^2$ is part of the normalization constant (and connect to $\zeta(2)$)
+
+Technically, this is an incredibly good approximation (accurate to within about 1%). However, the true Gaudin distribution for an infinite matrix ($N \to \infty$) is actually defined using a **Fredholm Determinant** of the **sine Kernel**. It doesn't have a simple elementary formula, which is why the authors of the Mexico bus paper use this version.
 
 
 ---
