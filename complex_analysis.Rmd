@@ -1,0 +1,340 @@
+---
+title: 'OLS without linear algebra'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Complex Integration review:
+
+---
+
+The term Residue ($Res$) refers specifically to the coefficient $a_{-1}$ in the Laurent series:
+
+$$f(z) = \dots + \frac{a_{-2}}{(z-a)^2} + \frac{a_{-1}}{(z-a)} + a_0 + a_1(z-a) + \dots$$
+
+The integral of the entire function is $2\pi i \times a_{-1}$. The reason the total result isn't always $2\pi i$ is that the "strength" of the singularity ($a_{-1}$) can vary.
+
+- Case A: $f(z) = \frac{1}{z}$. The coefficient $a_{-1}$ is 1. Integral = $1 \times 2\pi i = 2\pi i$.
+
+- Case B: $f(z) = \frac{5}{z}$. The coefficient $a_{-1}$ is 5. Integral = $5 \times 2\pi i = 10\pi i$.
+
+You can think of the $2\pi i$ as the fundamental unit of "winding" around a point. The Residue is simply a scaling factor that tells you how much of that fundamental "winding" behavior the specific function possesses at that point. 
+
+In the example plotted, the function $$f(z) = \frac{R}{z}$$ has a single pole at the origin. 
+
+The integration along a curve in the complex plane can be visualized via **Pólya vector fields**. Take the function $\overline{f(z)}$ with a single pole at the origin. Pólya fields allow visualization of complex integration as physical flow: The *flux* (lines coming out of the center) is controlled by the real part of $R$ - the residue of the function. The *circulation* (spinning around the center) is controlled by the Imaginary part of $R$.
+
+If you have a velocity field $\vec{V} = (U, V)$, a velocity potential $\Phi$ is a function such that:
+
+$$U = \frac{\partial \Phi}{\partial x} \quad \text{and} \quad V = \frac{\partial \Phi}{\partial y}$$
+
+To find the potential of $f(z) = \frac{R}{z}$, we integrate the function
+
+$$\Omega(z) = \int f(z) dz = R \ln(z)$$
+
+to obtain the complex potential. Since it’s complex, it has two parts: $\Omega(z) = \Phi + i\Psi$
+
+The *potential* is the real part, $\Phi$. Its contours are lines of constant "effort. "$\Psi$, the imaginary part is the stream function. Its contours are the actual paths the fluid follows. The potential effectively "stores" the history of the residue. When you have a pure vortex ($R=i$), the potential is $\Phi = -\arg(z)$. If you start at an angle of $0^\circ$ and walk in a full circle to $360^\circ$ in the 2D Field, you are back where you started - you see no change. But in the 3D potential surface, you have climbed from height $0$ to height $-2\pi$. The potential is what reveals that the origin isn't just a point on a flat map — it is a singularity that has "twisted" the geometry of the space around it. To the right of the plot below, the potential is reproduced as a 3D plot. 
+
+If the residue is purely real, $\theta = 0$, you have a source or sink in the 2d Pólya field and a symmetric hill in 3D. The potential is $= \text{Re}(1 \cdot (\ln|z| + i\arg(z))) = \ln|z|$, and there is no $\arg(z)$. This is why the 3D surface is a symmetric "volcano." It doesn't spiral because the "imaginary height" is ignored.
+
+---
+
+<img width = 600  src = "residue_real.gif">
+
+---
+
+If the residue is purely imaginary, the potential $= \text{Re}(i \cdot (\ln|z| + i\arg(z))) = -\arg(z)$. Now the height depends entirely on the angle. This is the helicoid.
+
+<img width = 600  src = "residue_imaginary.gif">
+
+---
+
+In 3D, a "logarithmic spiral" would be a surface that is both a volcano *and* a staircase at the same time ($R = 1 + i$). This is called a conic helicoid.
+
+---
+
+#### The Residue: Equivalence between real and complex analysis
+
+##### Potential function:
+
+To compare the complex and real computations, we begin with the potential, which describes the "energy." A potential must satisfy Laplace’s Equation $(\nabla^2 \Phi = 0)$, meaning the system is in equilibrium, or in other words, the function is harmonic. In 2D, complex analysis is the "natural language" for these potentials because any analytic function $\Omega(z) = \Phi + i\Psi$ automatically provides two "harmonic conjugates" that satisfy Laplace's equation. We require analytic functions because their smoothness guarantees the existence of a complex derivative, which represents the physical flow field.
+
+The classical example is the logarithmic potential, the most important function in complex analysis. Its importance stems from the fact that in a Laurent expansion of any complex function, the $1/z$ term is the "lone survivor" of integration. While all other powers ($z^n$) have standard power-rule antiderivatives that vanish around a closed loop, the $1/z$ term integrates to $\ln(z)$, leaving behind the residue.: 
+
+$$\Omega(z) = \ln(z)$$ 
+To see why this works, we write $z$ in polar form ($r e^{i\theta}$), which gives us 
+
+$$\Omega(z)=\ln(r e^{i\theta}) = \ln r + i\theta$$ 
+
+This splits into two distinct physical maps:
+
+- The real sink potential: 
+
+$$\Phi(x,y) = \ln\sqrt{x^2+y^2}$$
+
+This represents a pit shape.
+
+- The imaginary vortex potential: 
+
+$$\Psi(x,y) = \theta = \arctan(y/x)$$ 
+
+This represents the "spiral staircase" shape.
+
+The complex pair: 
+
+$$\Omega(z) = \ln(z) = \ln|z| + i\theta$$ 
+
+The math demands these two partners. If you try to use the potential $\ln|z|$ without its partner $i\theta$, the function ceases to be analytic.In this context, analyticity is the first-principles requirement: it ensures that the complex derivative $\Omega'(z)$ exists and is unique at every point. Geometrically, this is tantamount to saying the mapping is conformal (angle-preserving). While we may not always care about the preservation of angles for their own sake, we care deeply about the derivative — the field — and that derivative only exists if the potential $(\Phi)$ and the stream function $(\Psi)$ are in perfect sync. Without this 'analytical' partnership, the 'slope' of the potential would vary depending on your direction of approach, making it impossible to define a single, consistent physical flow field.
+
+##### Vector field: 
+
+In physics, we don't just look at the energy (scalar field); we also look at the vector field (the flow). 
+
+
+The field is the derivative of the potential.
+
+The real field (gradient): 
+
+Taking the gradient 
+
+$$\nabla \Phi = \left( \frac{\partial \Phi}{\partial x}, \frac{\partial \Phi}{\partial y} \right)$$ 
+
+gives us the physical velocity vectors $\vec{V}$.
+
+- Deriving the sink field (the pit): Starting with 
+
+$$\Phi = \ln\sqrt{x^2+y^2} = \frac{1}{2}\ln(x^2+y^2)$$ 
+
+we apply the chain rule:
+
+$$\frac{\partial \Phi}{\partial x} = \frac{1}{2} \cdot \frac{1}{x^2+y^2} \cdot 2x = \frac{x}{x^2+y^2}$$
+
+$$\frac{\partial \Phi}{\partial y} = \frac{1}{2} \cdot \frac{1}{x^2+y^2} \cdot 2y = \frac{y}{x^2+y^2}$$
+
+This resulting field, 
+
+$$\vec{V}_{\text{sink}} = \left( \frac{x}{x^2+y^2}, \frac{y}{x^2+y^2} \right)$$ 
+
+is a radial field. Because the components are proportional to $x$ and $y$, the vectors point directly toward (or away from) the origin, like spokes on a wheel.
+
+- Deriving the vortex field (the staircase): Starting with 
+
+$$\Psi = \theta = \arctan(y/x)$$ 
+
+we use the derivative rule 
+
+$$\frac{d}{du}\arctan(u) = \frac{1}{1+u^2}$$
+
+$$\frac{\partial \Psi}{\partial x} = \frac{1}{1+(y/x)^2} \cdot \left(-\frac{y}{x^2}\right) = \frac{x^2}{x^2+y^2} \cdot \left(-\frac{y}{x^2}\right) = \frac{-y}{x^2+y^2}$$
+$$\frac{\partial \Psi}{\partial y} = \frac{1}{1+(y/x)^2} \cdot \left(\frac{1}{x}\right) = \frac{x^2}{x^2+y^2} \cdot \left(\frac{1}{x}\right) = \frac{x}{x^2+y^2}$$
+
+This resulting field, 
+
+$$\vec{V}_{\text{vortex}} = \left( \frac{-y}{x^2+y^2}, \frac{x}{x^2+y^2} \right)$$ 
+
+is a circulation field. Note that the dot product with the position vector $(x,y)$ is zero: $x(-y) + y(x) = 0$. This mathematically proves that the flow is always perpendicular to the radius: it travels in perfect circles.
+
+Complex Field: The "magic" of complex analysis is that the derivative of the complex potential $\Omega(z) = \ln(z)$ captures both of these derivations simultaneously:
+
+$$f(z) = \Omega'(z) = \frac{1}{z}$$
+
+Expanding this gives
+
+$$\frac{1}{z} = \frac{1}{x+iy} \cdot \frac{x-iy}{x-iy} = \frac{x}{x^2+y^2} - i\frac{y}{x^2+y^2}$$
+
+In complex calculus, we define $f(z) = u + iv$. However, if you want to perform a line integral that represents work or flux, the standard complex multiplication $f(z)\,dz$ doesn't naturally match the dot product $\vec{V} \cdot d\vec{r}$ unless you flip the sign of the imaginary part. By defining the physical velocity as the Pólya vector, $\vec{V} = \bar{f}(z)$, we create a bridge: The real part of the integral becomes the circulation (work). The imaginary part of the integral becomes the flux (Flow across the boundary).
+
+Let's see how the complex function $1/z$ "packages" the two physical fields we derived earlier (the sink and the vortex). Starting with the algebraic expansion:
+
+$$f(z) = \frac{1}{z} = \frac{x}{x^2+y^2} + i\left( \frac{-y}{x^2+y^2} \right)$$
+
+Now, let's look at what happens when we multiply this by a residue $R = a + bi$. This residue acts as a "tuner" for the machinery:
+
+- Case A: The pure sink ($R = 1$): The field is $f(z) = \frac{1}{z}$. When we write $f(z) = u + iv$, we are saying:$u = \frac{x}{x^2+y^2}$ and $v = \frac{-y}{x^2+y^2}$. The Pólya conjugate rule simply says: "To get the physical velocity vector $\vec{V}$, take the real part as your $x$-component and negative of the imaginary part as your $y$-component."
+
+$$\vec{V} = (u, -v)$$
+So, for $f(z) = \frac{1}{z}$:
+
+$$\vec{V} = \left( \text{Re}\left(\frac{1}{z}\right), -\text{Im}\left(\frac{1}{z}\right) \right) = \left( \frac{x}{x^2+y^2}, -\left[ \frac{-y}{x^2+y^2} \right] \right) = \left( \frac{x}{x^2+y^2}, \frac{y}{x^2+y^2} \right)$$
+
+Why the "$-v$" sign? You might wonder why we have to flip the sign of the $y$-component. It’s because of how complex multiplication works compared to the dot product. If you integrate a field $f(z)$ along a path $dz = dx + i dy$:
+
+$$f(z)dz = (u + iv)(dx + idy) = \underbrace{(u\,dx - v\,dy)}_{\text{Real Part}} + i\underbrace{(v\,dx + u\,dy)}_{\text{Imaginary Part}}$$
+
+Now look at the Real Part: $(u\,dx - v\,dy)$. If we want this to represent the physical work $\vec{V} \cdot d\vec{r} = V_x dx + V_y dy$, we have to force the components to match:$V_x = u$ and $V_y = -v$. By using $\vec{V} = (u, -v)$, the real part of the complex integral automatically becomes the line integral of the velocity field.
+
+We get the pure radial field. The real part of the complex function handled the $x$-velocity, and the imaginary part (after conjugation) handled the $y$-velocity.
+
+- Case B: The pure vortex ($R = i$): The field is 
+
+$$f(z) = \frac{i}{z} = i \left( \frac{x-iy}{x^2+y^2} \right) = \frac{y}{x^2+y^2} + i \frac{x}{x^2+y^2}$$
+
+Applying the Pólya conjugate $\vec{V} = (u, -v)$:
+
+$$\vec{V} = \left( \frac{y}{x^2+y^2}, -\frac{x}{x^2+y^2} \right)$$
+
+We get the pure circulation field.
+
+When you have a general residue $R = a + bi$, you aren't just doing two separate math problems. You are describing a spiral sink.
+
+$$\vec{V}_{total} = a(\text{Radial Field}) + b(\text{Circular Field})$$
+
+By integrating $f(z) = \frac{a+bi}{z}$, the residue theorem uses the imaginary unit $i$ as a sorting mechanism. It multiplies the radial component by $i$ (turning it into flux). It multiplies the circular component by $i^2 = -1$ (turning it into real work / circulation).
+
+We use the Pólya Conjugate rule $\vec{V} = (u, -v)$ on the combined function:
+
+$$f(z) = \frac{a+bi}{z} = (a+bi)\left[ \frac{x-iy}{x^2+y^2} \right]$$
+
+Multiplying this out:
+
+$$f(z) = \frac{(ax + by) + i(bx - ay)}{x^2+y^2}$$
+
+Now, apply the conjugate $\vec{V} = (u, -v)$:
+
+$$\vec{V}_{total} = \left( \frac{ax + by}{x^2+y^2}, \frac{ay - bx}{x^2+y^2} \right)$$
+
+If you rearrange this, you see exactly the two fields we derived earlier acting in unison:
+
+$$\vec{V}_{total} = a \underbrace{\left( \frac{x}{r^2}, \frac{y}{r^2} \right)}_{\text{Radial Sink}} + b \underbrace{\left( \frac{y}{r^2}, -\frac{x}{r^2} \right)}_{\text{Circular Vortex}}$$
+
+---
+
+
+##### Measuring Flux and Circulation:
+
+When we integrate around a closed loop (like the unit circle), we measure the "strength" of the machinery hidden at the origin. 
+
+Flux (Real Analysis): We integrate the gradient across the line. $\oint \vec{V} \cdot \vec{n} \, ds = 2\pi$. This tells us how much "water" is crossing the circle from the "Volcano" source.
+
+Circulation (Real Analysis): We integrate the "Work" along the line. $\oint \vec{V} \cdot d\vec{r} = 2\pi$. This measures the "strength of the spin" from the "Staircase" vortex.
+
+##### The Residue:
+
+The complex residue $R = a + bi$ is the controller. In physics (like fluid flow or electromagnetism), the residue is often seen as the strength of a source or sink. If the residue is zero, there’s no net "stuff" being generated inside your loop. If the residue is a specific value, it tells you exactly how much "flow" is radiating out from that singularity. The residue acts as a data compression tool. It ignores all the infinite complexity of the higher-order terms ($1/z^2, 1/z^3$, etc.) because they don't contribute to the global loop, and it distills the essence of that singularity into a single number.In a single sentence: The residue is the scaling factor that tells you how much the $1/z$ "winding" behavior is present in your specific function at that specific point.
+
+In complex integration, the residue is the "DNA" of the singularity, and the integral is the "measurement" of its influence.When we calculate $\oint \frac{R}{z} dz$, we are effectively asking the field: "How much do you push me along the path (Work), and how much do you push through the boundary (Flux)?
+
+If you have a complex residue $a_{-1}$, the real and imaginary parts represent the two fundamental types of "flow" around the singularity in a 2D vector field. Let's say your residue is $a_{-1} = R + iC$. When you multiply by $2\pi i$ for the integral, you get:
+
+$$\oint f(z) dz = 2\pi i(R + iC) = \underbrace{-2\pi C}_{\text{Real Part}} + \underbrace{i(2\pi R)}_{\text{Imaginary Part}}$$
+
+In the context of fluid dynamics or electrostatics, where $f(z)$ represents the complex velocity of a field, the real part of the Residue ($R$) encodes circulation: It represents the "swirl." If the residue is purely real, there is a net rotation around the point (like a vortex or a whirlpool).The imaginary Part of the Residue ($C$) encodes flux: It represents the "source/sink" behavior. If the residue is purely imaginary, there is a net flow of "stuff" moving directly away from or toward the point (like a fountain or a drain). Think of the singularity as a "special point" in a field. The residue is the comprehensive report of what that point is doing to the surrounding area.
+
+The distributive property of $i$ performs a beautiful physical sorting. When you solve a complex integral $\oint f(z) dz$, the residue theorem tells you that the answer is always:
+
+$$\text{Integral} = 2\pi i \times (\text{Sum of Residues})$$
+
+If your residue $R$ is a complex number $a + bi$, the multiplication $2\pi i(a + bi)$ is the step where you distribute the imaginary unit. Before the multiplication: You have $a$ and $b$ sitting side-by-side as coefficients of a Laurent expansion. They are "static" descriptions of the singularity strength. During the multiplication, the $i$ from the formula "hits" the $a$ and the $bi$. After the multiplication, the result is a single complex number where the real part is now the circulation and the imaginary part is the flux. If you were performing this calculation "by hand" in vector calculus, you would have to do two separate, difficult integrals: For Flux: $\int (u n_x + v n_y) ds$ For Circulation: $\int (u dx + v dy).$ In complex analysis, you skip those. You find $R$ (the residue), and the moment you multiply it by $2\pi i$, you have effectively solved both of those real-world integrals simultaneously.
+
+When you perform the multiplication $2\pi i (a + bi)$, the algebra forces a physical separation:
+
+$$2\pi i(a + bi) = 2\pi (ai + bi^2) = 2\pi (ai - b) = -2\pi b + i(2\pi a)$$
+
+Let's look at why these two results represent completely different physical realities:
+
+- The real result $-2\pi b$ (circulation): The real part of a complex contour integral measures the work done by the field along the path. This is the circulation. It comes from the Imaginary Residue ($bi$). Because an imaginary residue creates a vortex (a "staircase"), and the path around a vortex is always pushing you in the direction of your travel, the result is "real Work. The negative sign is a convention of the direction of the spin relative to the counter-clockwise path. 
+
+- The imaginary result $i(2\pi a)$ (Flux): The imaginary part of a complex contour integral measures the flow crossing through the path. This is the Flux. It comes from the Real Residue ($a$). A real residue creates a source/sink (a "pit"). As you walk around the circle, the "water" is moving perpendicular to you (crossing the line). In the language of complex integration, this "lateral" movement is captured by the imaginary component.
+
+$$\oint \frac{a+bi}{z} dz = \underbrace{-2\pi b}_{\text{Circulation}} + i \underbrace{(2\pi a)}_{\text{Flux}}$$
+
+A Real Residue ($a$): Creates the symmetric dip and causes Flux. In the complex integral, this results in a purely imaginary value ($2\pi a i$).
+
+An Imaginary Residue ($bi$): Creates the spiral staircase and causes circulation. In the complex integral, the $i$ from the residue hits the $i$ from the formula ($2\pi i \cdot bi$), resulting in a purely real value ($-2\pi b$).
+
+##### Green's and theorems:
+
+
+While Green's Theorem in real analysis relates loop integrals to the divergence/curl inside, the "residue" remains a complex-realm superstar: Topology: In complex analysis, you can deform a loop however you want; as long as you don't cross a pole, the integral is constant. In real analysis, this requires the field to be strictly "conservative." Selection: In complex analysis, $1/z$ is the only power that yields a non-zero loop integral. It perfectly "picks out" the singularity. The complex "package": Complex analysis treats the source and the vortex as a single analytic unit. It calculates the "pump" (flux) and the "fan" (circulation) at once.
+
+The Pólya fields can be seen as a specialized tool that collapses the multi-step vector calculus of Green’s and Stokes' into a single operation of complex algebra. In standard vector calculus, you have two different types of integrals for a vector field $\vec{V} = (P, Q)$: 
+
+In real vector calculus, for a field $\vec{V} = (u, -v)$, the two forms are: 
+
+- The tangential form (circulation/work). This measures how much the field "pushes" along the path. It relates the line integral to the curl (rotation) inside.
+
+$$\oint_C (u \, dx - v \, dy) = \iint_D \left( \frac{\partial (-v)}{\partial x} - \frac{\partial u}{\partial y} \right) dA$$
+
+In complex analysis, this becomes the real part of the integral. 
+
+- The normal form (flux/divergence). This measures how much the field "crosses" the boundary. It relates the line integral to the divergence (expansion) inside.
+
+$$\oint_C (u \, dy + v \, dx) = \iint_D \left( \frac{\partial u}{\partial x} + \frac{\partial (-v)}{\partial y} \right) dA$$
+
+In complex analysis, this becomes the imaginary part of the integral.
+
+By using the Pólya vector field $\vec{V} = \overline{f(z)}$, we "complexify" the field into a single analytic function $f(z) = u + iv$. When you perform a complex contour integral, something remarkable happens:
+
+$$\oint f(z) \, dz = \oint (u + iv)(dx + i \, dy) = \underbrace{\oint (u \, dx - v \, dy)}_{\text{Work/Circulation}} + i \underbrace{\oint (v \, dx + u \, dy)}_{\text{Flux}}$$
+
+The complex integral simultaneously calculates the Work and the Flux. It essentially runs Stokes' Theorem and Green's Theorem at the same time and stores the results in the real and imaginary parts.
+
+
+---
+
+
+The residue is different from the number of rainbows around a pole (**Winding Number or Index**), which depend on the order of the Laurent series. The "number of rainbows" depicted in the phase portrait is determined by the highest negative power in the Laurent series (the order $m$). If the series starts at $1/z^5$, there will be 5 rainbows. However, the integral doesn't care about those 5 rainbows: it only cares about the "strength" of the specific $1/z$ component. You can have a "6-rainbow" pole (Order 6) that has a Residue of 0. Geometrically, this looks like a massive, sharp explosion of color and magnitude, but if you walk around it, you land back on the "ground floor. Contrarily, one can have a "1-rainbow" pole (Order 1) with a Residue of 10. This looks much "blunter" visually, but it moves you up 10 floors of the staircase in a single lap. 
+
+The **steepness of a pole** is determined by two distinct factors working in tandem: the order ($m$) and the magnitude of the Coefficient ($|a_{-m}|$). To visualize this, think of the order as the "shape" of the mountain and the coefficient as the "zoom" or "scaling factor. The order of the pole (the highest negative power in the Laurent series) is the most powerful driver of steepness. It determines how fast the function approaches infinity as you get closer to the center ($r \to 0$). 
+
+- Order 1 ($1/r$): The slope is relatively gentle. If you halve your distance to the center, the height doubles. 
+- Order 2 ($1/r^2$): The slope is much steeper. Halving the distance quadruples the height. 
+- Order 10 ($1/r^{10}$): This is a "needle" pole. Halving the distance increases the height by a factor of $1,024$. As the order $m$ increases, the base of the pole stays "flat" on the floor for much longer, and then it explodes upward with violent speed at the very last moment. This creates the "Dirac-like" needle.
+
+---
+
+<img width = 700  src = "poles singularities complex analysis 2.png">
+
+
+---
+
+###### Order versus residue:
+
+- Imaginary residue:
+
+Side-by-side comparison of $f(z) = 1/z$ (Residue = 1) and $g(z) = i/z$ (Residue = $i$). The colors "twist" while the geometry remains the same.
+
+---
+
+<img width = 700  src = "residue_im.png">
+
+---
+
+- Real residue:
+
+Residue magnitude and the Order affect how the pole looks, but they change the "geometry of the slope" in different ways:
+
+1. Order ($n$) controls the "curvature" (Sharpness): As the order increases (from $1/z$ to $1/z^2$ to $1/z^3$), the spike becomes "sharper" near the center. It stays flat for longer as you approach the pole, then shoots up much more violently. A high-order pole looks like a needle; a low-order pole looks like a gentle volcano.
+2. Residue ($|a_{-1}|$) controls the "scale" (volume): For a fixed order (let's say order 1), the residue is simply a multiplier. If you double the residue, you double the height of the surface at every single point. This makes the "tent" look fatter because the points that were previously at height 1 are now at height 2.
+
+---
+
+<img width = 700  src = "residue_re.png">
+
+---
+
+Look at the footprint of the mountain on the $Re(z)/Im(z)$ plane. For $Res=3$, the mountain occupies much more area because the function $|3/z|$ stays "higher" for a longer distance from the center than $|1/z|$.Steepness: While both poles go to infinity, the larger residue reaches any given "height" (like the $z=8$ cap) much further out from the center. This creates the visual effect of a "fatter" or more substantial spike.Color Consistency: Because both residues are real and positive, the color cycles (rainbows) start and end at the exact same angular positions on both mountains. Only the "size" of the mountain has changed, not its orientation.
+
+Positive Real Residue ($Res > 0$): The colors are in their "standard" orientation. For example, the color representing the positive real direction (often red) points along the positive x-axis.Negative 
+
+Real Residue ($Res < 0$): The colors are rotated by exactly $180^{\circ}$ ($\pi$ radians). This is because $-1 = e^{i\pi}$.
+
+Magnitude: The absolute value of the real residue scales the vertical "tent" of the pole. A larger real residue makes the spike taller and wider at the base
+
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
