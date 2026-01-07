@@ -374,7 +374,61 @@ where $K_s$ is an operator with the kernel
 
 $$K(x, y) = \frac{\sin \pi(x-y)}{\pi(x-y)}$$ 
 
-acting on the interval $[0, s]$.
+In the $N \to \infty$ limit, the probability of finding a gap of size $s$ is the second derivative of the probability that an interval $(0, s)$ contains zero eigenvalues. This "gap probability" $E(0; s)$ is defined as:
+
+$$E(0; s) = \det(I - K_s)$$
+
+where $K_s$ is an operator acting on the interval $(0, s)$ with the Sine Kernel: 
+
+$$K(x,y) = \frac{\sin(\pi(x-y))}{\pi(x-y)}$$
+
+```{r, echo=F}
+# 1. Define the Sine Kernel function
+sine_kernel <- function(x, y) {
+  if (abs(x - y) < 1e-10) return(1) # Limit as x -> y
+  return(sin(pi * (x - y)) / (pi * (x - y)))
+}
+
+# 2. Function to calculate E(0; s) - The probability of a hole of size s
+# This uses the Nyström method with n_grid points
+E0 <- function(s, n_grid = 100) {
+  if (s == 0) return(1)
+  
+  # Create a grid of points from 0 to s
+  nodes <- seq(0, s, length.out = n_grid)
+  step <- nodes[2] - nodes[1]
+  
+  # Create the discretized Kernel matrix K
+  # We use the mid-point rule or simple quadrature
+  K <- matrix(0, nrow = n_grid, ncol = n_grid)
+  for (i in 1:n_grid) {
+    for (j in 1:n_grid) {
+      K[i, j] <- sine_kernel(nodes[i], nodes[j]) * step
+    }
+  }
+  
+  # E(0; s) = det(I - K)
+  return(det(diag(n_grid) - K))
+}
+
+# 3. Calculate the True Gaudin PDF p(s)
+# p(s) is the second derivative of E0(s). 
+# We calculate this numerically using finite differences.
+s_vals <- seq(0, 3, by = 0.05)
+e0_vals <- sapply(s_vals, E0)
+
+# Numerical second derivative: p(s) = d^2/ds^2 E0(s)
+ds <- 0.05
+p_s_true <- diff(diff(e0_vals)) / (ds^2)
+s_plot <- s_vals[2:(length(s_vals)-1)]
+
+# 4. Plotting against your previous matrix data
+# (Assuming 'spacings' from the previous GUE code is in memory)
+hist(spacings, breaks=50, freq=FALSE, col="gray90", border="white", main="Exact Gaudin vs Matrix Spacings")
+lines(s_plot, p_s_true, col="darkblue", lwd=3) # The True Determinant result
+```
+
+
 
 
 ---
