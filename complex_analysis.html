@@ -905,14 +905,47 @@ points along the positive x-axis.Negative</p>
 colors are rotated by exactly <span class="math inline">\(180^{\circ}\)</span> (<span class="math inline">\(\pi\)</span> radians). This is because <span class="math inline">\(-1 = e^{i\pi}\)</span>.</p>
 <p>Magnitude: The absolute value of the real residue scales the vertical
 “tent” of the pole. A larger real residue makes the spike taller and
-wider at the base</p>
+wider at the base.</p>
+</div>
+</div>
+</div>
+<div id="search-for-zeros-in-complex-analysis" class="section level4">
+<h4>Search for zeros in complex analysis:</h4>
+<p>In complex analysis, the <strong>argument principle</strong> is the
+“gold standard” method for counting the number of zeros (and their
+multiplicities) within a specific area without ever having to solve the
+equation itself.</p>
+<p>You don’t analyze your function <span class="math inline">\(L(s)\)</span> directly. Instead, you create the
+<strong>logarithmic derivative</strong>:</p>
+<p><span class="math display">\[f(s) = \frac{L&#39;(s)}{L(s)}\]</span>
+This transformation turns every zero of <span class="math inline">\(L(s)\)</span> into a simple pole of <span class="math inline">\(f(s)\)</span>. It takes the multiplicity (<span class="math inline">\(r\)</span>) of the zero and turns it into the
+residue (<span class="math inline">\(r\)</span>) of that pole. You pick
+a region of the complex plane where you suspect a zero exists. You
+define a path (a contour) that goes around this point once in a
+counter-clockwise direction. You integrate the concocted function <span class="math inline">\(f(s)\)</span> along that path. According to
+Cauchy’s Residue Theorem, the integral of a function around a path is
+equal to <span class="math inline">\(2\pi i\)</span> times the sum of
+the residues inside.</p>
+<p><span class="math display">\[\frac{1}{2\pi i} \oint_C
+\frac{L&#39;(s)}{L(s)} ds = \text{Sum of Residues}\]</span></p>
+<p>Because each residue in <span class="math inline">\(L&#39;/L\)</span>
+is a whole number (the multiplicity of the original zero), the final
+answer must be an Integer. If the result is 1, you have a simple zero
+(Rank 1). If the result is 2, you have a double zero (Rank 2). If the
+result is 0, there is no zero inside that circle (Rank 0). This method
+is effectively a winding Number detector. As your input <span class="math inline">\(s\)</span> travels around the circle, the output
+<span class="math inline">\(L(s)\)</span> travels around the origin. The
+integral is simply counting how many times the output “laps” the origin.
+1 lap = 1 zero; 2 laps = 2 zeros (or a zero of multiplicity 2). It is
+the most robust tool in a mathematician’s kit because it is topological.
+Small errors in the data don’t change the number of laps, meaning the
+“rank” stays stable even if the <span class="math inline">\(L\)</span>-function calculation is slightly
+fuzzy.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
-</div>
-</div>
 </div>
 </div>
 
