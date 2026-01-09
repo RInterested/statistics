@@ -424,12 +424,14 @@ s_plot <- s_vals[2:(length(s_vals)-1)]
 
 # 4. Plotting against your previous matrix data
 # (Assuming 'spacings' from the previous GUE code is in memory)
-hist(spacings, breaks=50, freq=FALSE, col="gray90", border="white", main="Exact Gaudin vs Matrix Spacings")
+hist(spacings, breaks=50, freq=FALSE, col="gray70", border="white", main="Exact Gaudin vs Matrix Spacings")
 lines(s_plot, p_s_true, col="darkblue", lwd=3) # The True Determinant result
 ```
 
 
 #### The RH and the BSD (Birch and Swinnerton-Dyer conjecture):
+
+See also [this](https://rinterested.github.io/statistics/birch_swinnerton_dyer.html).
 
 In the early 1960s, Bryan Birch and Peter Swinnerton-Dyer used a primitive computer (the EDSAC 2) to calculate data for thousands of curves. They weren't looking at complex $L$-functions yet; they were just counting points modulo $p$.1. They calculated a product $\prod \frac{N_p}{p}$ for all primes $p$ up to a limit $X$:
 
@@ -441,7 +443,7 @@ When they plotted $\log(P(X))$ against $\log(\log X)$, they noticed a startling 
 
 ---
 
-<img width = 600  src = "BSD_conjecture.png">
+<img width = 800  src = "BSD_conjecture.png">
 
 ---
 
