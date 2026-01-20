@@ -104,6 +104,8 @@ because adding $...4444$ to $1$, which is $...000001$ will result in $0$ (additi
 
 #### Fractions:
 
+---
+
 Simple algorithm compared to long division based on a couple of examples:
 
 Based on [this YT presentation](https://youtu.be/cP0-69P2lJw?si=MzQmGH3S_VS1pEa-), let's look first at the decimal expansion of $1/3$:
@@ -131,8 +133,11 @@ and we see that $C_2=3.$ Et cetera.
 
 This is mirrored in the p-adics as follows.
 
+---
+
 #### Calculating p-adic expansions for fractions ($1/3$ in $5$-adic):
 
+---
 
 Example: calculate what $1/3$ is in $\mathbb Q_5:$
 
@@ -353,8 +358,11 @@ This is the difference between the p-adic expression of an integer and a fractio
 
 ___
 
+---
 
 #### p-adic expansion of integers:
+
+---
 
 
 P-adics expand to infinity on to the left as in $\mathbb Z_3,$ corresponding to the $3$-adics. For example, in this system the number $3$ is
@@ -408,7 +416,11 @@ $$...11111111 + ...00000001 = ...000000$$
 
 since in base $2$ and summing from right to left, $1 + 1 = 0$ and we carry $1$ to the left to add it to the $1$ in the second position in the expression of $-1.$
 
+---
+
 #### Negative integers:
+
+---
 
 A negative integer can be expressed as the difference between $0$ and a positive integer.
 The coefficients will not be all zeros beyond a certain point as in positive integers, because they represent the "borrowing" that occurs during the subtraction.  However, the representation will still be finite.
@@ -426,8 +438,11 @@ print(Qp(2)(-33))
 ...11111111111111011111
 ```
 
+---
 
 #### Negative exponents in p-adics:
+
+---
 
 Negative exponents typically come into play when dealing with fractions or representing very small numbers in the p-adic number system.
 
@@ -452,8 +467,11 @@ padic_printing.mode('series')
 print(Qp(2)(1/(2^5*33)))
 2^-5 + 1 + 2 + 2^2 + 2^3 + 2^4 + 2^10 + 2^11 + 2^12 + 2^13 + 2^14 + O(2^15)
 ```
+---
 
 #### Digits to the right of the period in $p$-adic expressions (e.g. $.011$):
+
+---
 
 How are the finite digits ($.011$) to the right of the period calculated in an expression such as $...10101010101010101.011$, and where do they come from?
 
@@ -509,8 +527,11 @@ padic_printing.mode('series')
 print(Qp(2)(1/24))
 2^-3 + 2^-2 + 1 + 2^2 + 2^4 + 2^6 + 2^8 + 2^10 + 2^12 + 2^14 + 2^16 + O(2^17)
 ```
+---
 
 #### p-adic use in computers:
+
+---
 
 Suppose our computer stores the following 5-adic number:  $...4321$ (where the digits extend infinitely to the left).  However, the computer can only store the last four digits: $4321$.
 
@@ -530,6 +551,8 @@ Computers typically use floating-point representation for real numbers. This all
 ---
 
 #### Hensel's lemma:
+
+---
 
 A **simple root** of a polynomial is a root where the polynomial crosses the x-axis and does not touch or bounce off it. A root $r$ of a polynomial $f(x)$ is considered simple if $f(r) = 0$ and the derivative  $f'(r)\neq 0$. This means that at $r$, the polynomial has a non-zero slope, indicating that it crosses the x-axis at that point. In contrast, a multiple root (or repeated root) would satisfy $f(r) = 0$ and $f’(r) = 0$, meaning the polynomial touches or bounces off the x-axis at $r$ but does not cross it.
 
@@ -639,7 +662,79 @@ Notice how this makes sense:
 ```
 2 + 5 + 2*5^2 = 57
 ```
+---
 
+#### p-adics and base p:
+
+There is a "mirror-image" relationship between standard base-$3$ expansions, for example and $3$-adic numbers. The most fundamental difference is the "direction" of the infinite digits. Base-$3$ are real Numbers, expanding to the right into increasingly smaller fractions ($3^{-1}, 3^{-2}, \dots$). On the other hand, $3$-adics expand to the left into increasingly higher powers of $3$ ($3^1, 3^2, \dots$).
+
+The mechanical steps for calculating a fraction like $5/29$ are inverted:
+
+**Base-3 Algorithm:** 
+
+In base 3, we only use the digits $0$, $1$, and $2$. We are looking for 
+
+$$5/29 = d_{-1}3^{-1} + d_{-2}3^{-2} + \dots$Since $5 < 29$$ 
+
+the expansion starts with $0$. To find the digits, we multiply the remainder by $3$ and see how many times $29$ fits into it.
+
+- $5 \times 3 = 15$. ($15$ is less than $29$). Digit: $0$
+
+- $15 \times 3 = 45$. ($29$ goes into $45$ $1$ time, remainder $16$). Digit: $1$
+
+- $16 \times 3 = 48$. ($29$ goes into $48$ $1$ time, remainder $19$). Digit: $1$
+
+- $19 \times 3 = 57$. ($29$ goes into $57$ $1$ time, remainder $28$). Digit: $1$
+
+- $28 \times 3 = 84$. ($29$ goes into $84$ $2$, remainder $26$). Digit: 2
+
+Hence the base-3 result is $5/29 \approx 0.01112\dots_3$
+
+You multiply the remainder by $3$ at each step and **keep the quotient** (how many times $29$ "fits"). This zooms into the number line.
+
+**$3$-adic algorithm:** 
+
+You subtract the residue and divide the error by $3$ at each step to find the next remainder. 
+
+For the 3-adic version, we want to find digits $d_0, d_1, d_2 \dots$ such that: 
+
+$$5/29 = d_0 + d_1(3) + d_2(9) + d_3(27) + \dots$$
+
+This is equivalent to solving the congruence $29x \equiv 5 \pmod{3^k}$ for increasing values of $k$.
+
+- Step 1: Find $d_0$: Solve $29d_0 \equiv 5 \pmod 3$. Simplify 29 and 5 modulo 3: $29 \equiv 2 \pmod 3$ and $5 \equiv 2 \pmod 3$. The equation becomes: $2d_0 \equiv 2 \pmod 3$. $d_0 = 1$.
+
+- Step 2: Find $d_1$: We know the expansion looks like $1 + 3d_1 + \dots$. Substitute this into the original fraction: $$\frac{5 - 29(1)}{3} = \frac{-24}{3} = -8$$ Now solve for $d_1$: $29d_1 \equiv -8 \pmod 3$. Simplify: $2d_1 \equiv 1 \pmod 3$ (since $-8 \equiv 1 \pmod 3$). $d_1 = 2$ (because $2 \times 2 = 4 \equiv 1 \pmod 3$).
+
+- Step 3: Find $d_2$: Take the previous "leftover" ($-8$) and subtract the new term ($29 \times 2$): $$\frac{-8 - 29(2)}{3} = \frac{-8 - 58}{3} = \frac{-66}{3} = -22$$
+
+Now solve for $d_2$: $29d_2 \equiv -22 \pmod 3$. Simplify: $2d_2 \equiv 2 \pmod 3$.$d_2 = 1$.
+
+Therefore the $3$-adic result is $5/29 = \dots 121_3$
+
+Explained slightly differently:
+
+The goal is to find $...d_2d_1d_0$. To pick the digit $d_i$ we have to answer what $d_i \in \{0, 1, 2\}$ makes the numerator of $(\text{Value} - d_i)$ divisible by $3$? For $5/29$, $d_0 = 1$ because $5-29(1) = -24$, which is divisible by $3.$ Subtract that digit: $5/29 - 1 = -24/29$. Divide by $3$:  $(-24/29) \div 3 = -8/29$. Repeat: What $d_1$ makes $-8/29 - d_1$ divisible by 3? $-8 - 29(2) = -66$, which is divisible by $3$. So $d_1 = 2$. 
+
+In general terms the algorithm works as follows:
+
+1. Set the initial "residual value" to your fraction:
+
+$$x_0 = x$$
+
+2. Extract the **residue**: Find the digit $d_i \in \{0, 1, \dots, p-1\}$ such that:
+
+$$x_i \equiv d_i \pmod p$$
+
+Technically, if $x_i = \frac{a}{b}$, you solve the linear congruence $b \cdot d_i \equiv a \pmod p$. Since $p$ does not divide $b$, a unique solution for $d_i$ always exists.
+
+3. Calculate the next residual value $x_{i+1}$ by removing the digit and performing a standard algebraic division by $p$:$$x_{i+1} = \frac{x_i - d_i}{p}$$
+
+This division is not a modular operation. It is a literal division in the field of rational numbers $\mathbb{Q}$. Because we chose $d_i$ such that $x_i - d_i$ is a multiple of $p$, the division "clears" a factor of $p$ from the numerator, effectively shifting the $p^{i+1}$ term into the "units" position for the next iteration. In modular arithmetic, it would always be $0.$
+
+In p-adics we keep the residue $d_i$: the unique digit in $\{0, \dots, p-1\}$ that, when subtracted from the current value, creates a difference divisible by $p$. This ensures that when we subsequently divide by $p$ to find the next digit, we are performing an exact algebraic shift that moves the next power of $p$ into the units position.
+
+Base-$3$ approximations ($0.17$) get closer to a value by reducing the physical distance on a ruler. $3$-adic approximations get closer by making the error more divisible by $3$. This is why we can represent fractions as "infinite integers" in p-adics: we are adding terms that are so highly divisible by $3$ that they eventually become "invisible" or zero in the limit. While regular division feels like chasing an approximation, p-adic steps feel exact. This is because each p-adic digit is a perfect solution to a modular equation ($29x \equiv 5 \pmod{3^n}$). Once a digit is found, it is "locked in" and never changes.
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
