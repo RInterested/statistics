@@ -67,20 +67,40 @@ only the first digit is different. The connection between the first digit of the
 
 Notice the math in the calculation:
 
-In Base 5, the number $1/3$ is written as: $$\frac{1}{3} = (d_1 \times 5^{-1}) + (d_2 \times 5^{-2}) + (d_3 \times 5^{-3}) + \dots$$ We want to find $d_1$ (the first digit). To isolate $d_1$, we multiply the entire equation by $5$: 
+In base 5, the number $1/3$ is written as: 
+
+$$\frac{1}{3} = (d_1 \times 5^{-1}) + (d_2 \times 5^{-2}) + (d_3 \times 5^{-3}) + \dots$$ 
+
+We want to find $d_1$ (the first digit). To isolate $d_1$, we multiply the entire equation by $5$: 
 
 $$\left(\frac{1}{3}\right) \times 5 = \left(d_1 \times 5^{-1} + d_2 \times 5^{-2} + \dots\right) \times 5$$ 
 
-$$\frac{5}{3} = d_1 + (d_2 \times 5^{-1} + d_3 \times 5^{-2} + \dots)$$
+$$\frac{5}{3} = 1 + \frac 2 3 = d_1 + (d_2 \times 5^{-1} + d_3 \times 5^{-2} + \dots)$$
 
-Now, look at the left side: $5/3$ is $1$ plus a remainder ($2/3$).On the right side, everything in the parentheses is now less than $1.$ Therefore, $d_1$ must be $1$. This is the first step: 
+Now, look at the left side: $5/3$ is $1$ plus a remainder ($2/3$). On the right side, everything in the parentheses is now less than $1.$ Therefore, $d_1$ must be $1$. For the next step, we take the remainder, $5/3 - d_1 = 2/3,$ which is equivalent to moving the newly calculated $d_1$ to the LHS:
 
-- Step 1: $1/3 \times 5 = 5/3 = \mathbf{1}$ remainder $2/3$. (Digit: 1)
-- Step 2: $2/3 \times 5 = 10/3 = \mathbf{3}$ remainder $1/3$. (Digit: 3)
-- Step 3: $1/3 \times 5 = 5/3 = \mathbf{1}$ remainder $2/3$. (Digit: 1)
+$$\frac{5}{3} - 1 = \frac 2 3 = d_2 \times 5^{-1} + d_3 \times 5^{-2} + \dots$$
+
+and multiply $\times 5 $ both sides to isolate $d_2$:
+
+$$\frac{10}{3}  =3 +  \frac 1 3 = d_2 + d_3 \times 5^{-1} + \dots\implies d_2 = 3$$
+Etc.: 
+
+- Step 1: $1/3 \times 5 = 5/3 = \mathbf{1}$ remainder $2/3$. $d_1= 1$
+- Step 2: $2/3 \times 5 = 10/3 = \mathbf{3}$ remainder $1/3$. $d_2=3$
+- Step 3: $1/3 \times 5 = 5/3 = \mathbf{1}$ remainder $2/3$. $d_3=1$
 - Result: $0.131313...$
 
-Now let's compare it to the calculation of $1/3$ in $5$-adics: $$\frac{1}{3} = d_0 + d_1(5^1) + d_2(5^2) + d_3(5^3) + \dots$$ In modular arithmetic, any multiple of $5$ becomes zero. $d_1(5)$ is a multiple of $5 \rightarrow 0$; $d_2(25)$ is a multiple of $25 \rightarrow 0$. The entire "tail" is made of multiples of 5, so it all vanishes. So, the equation $\frac{1}{3} = d_0 + d_1(5) + \dots$ simplifies to:v$\frac{1}{3} \equiv d_0 \pmod 5$. Multiplying by $3$ to get rid of the fraction: $1 \equiv 3d_0 \pmod 5$ we get to solve $3x \equiv 1 \pmod 5$, and $3 \times \mathbf{2} = 6 \equiv 1$. So $d_0 = 2$. Next we calculate ($d_1$): Subtract your progress and divide by $5.$ $(1/3 - 2) / 5 = (-5/3) / 5 = -1/3$. Solve $3x \equiv -1 \pmod 5$.$3 \times \mathbf{3} = 9 \equiv -1$. So $d_1 = 3$. Here is the sequence:
+Now let's compare it to the calculation of $1/3$ in $5$-adics: 
+
+$$\frac{1}{3} = d_0 + d_1(5^1) + d_2(5^2) + d_3(5^3) + \dots$$ 
+In modular arithmetic, any multiple of $5$ becomes zero. $d_1(5)$ is a multiple of $5 \rightarrow 0$; $d_2(25)$ is a multiple of $25 \rightarrow 0$. The entire "tail" is made of multiples of 5, so it all vanishes. So, the equation $\frac{1}{3} = d_0 + d_1(5) + \dots$ simplifies to:v$\frac{1}{3} \equiv d_0 \pmod 5$. Multiplying by $3$ to get rid of the fraction: $1 \equiv 3d_0 \pmod 5$ we get to solve $3x \equiv 1 \pmod 5$, and $3 \times \mathbf{2} = 6 \equiv 1$. So $d_0 = 2$. 
+
+Next we calculate ($d_1$): Subtract your progress and divide by $5:$ 
+
+$$\frac{\frac 13 - 2 } 5 =\frac{-1}3 = d_1 + d_2(5^1) + d_3(5^2) + \dots$$ 
+
+Solve $3x \equiv -1 \pmod 5$.$3 \times \mathbf{3} = 9 \equiv -1$. So $d_1 = 3$. Here is the sequence:
 
 - Step 1 ($d_0$): Solve $3x \equiv 1 \pmod 5$.$3 \times \mathbf{2} = 6 \equiv 1$. So $d_0 = 2$.
 - Step 2 ($d_1$): Subtract your progress and divide by 5.$(1/3 - 2) / 5 = (-5/3) / 5 = -1/3$. Solve $3x \equiv -1 \pmod 5$.$3 \times \mathbf{3} = 9 \equiv -1$. So $d_1 = 3$.

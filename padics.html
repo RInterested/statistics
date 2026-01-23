@@ -462,45 +462,56 @@ is an infinite string of <span class="math inline">\(4\)</span>s: <span class="m
 When you calculate a positive fraction like <span class="math inline">\(1/3\)</span> in <span class="math inline">\(p\)</span>-adics, the math often forces the digits
 to be the “complements” (relative to <span class="math inline">\(p-1\)</span>) of the standard base expansion.</p>
 <p>Notice the math in the calculation:</p>
-<p>In Base 5, the number <span class="math inline">\(1/3\)</span> is
-written as: <span class="math display">\[\frac{1}{3} = (d_1 \times
-5^{-1}) + (d_2 \times 5^{-2}) + (d_3 \times 5^{-3}) + \dots\]</span> We
-want to find <span class="math inline">\(d_1\)</span> (the first digit).
-To isolate <span class="math inline">\(d_1\)</span>, we multiply the
-entire equation by <span class="math inline">\(5\)</span>:</p>
+<p>In base 5, the number <span class="math inline">\(1/3\)</span> is
+written as:</p>
+<p><span class="math display">\[\frac{1}{3} = (d_1 \times 5^{-1}) + (d_2
+\times 5^{-2}) + (d_3 \times 5^{-3}) + \dots\]</span></p>
+<p>We want to find <span class="math inline">\(d_1\)</span> (the first
+digit). To isolate <span class="math inline">\(d_1\)</span>, we multiply
+the entire equation by <span class="math inline">\(5\)</span>:</p>
 <p><span class="math display">\[\left(\frac{1}{3}\right) \times 5 =
 \left(d_1 \times 5^{-1} + d_2 \times 5^{-2} + \dots\right) \times
 5\]</span></p>
-<p><span class="math display">\[\frac{5}{3} = d_1 + (d_2 \times 5^{-1} +
-d_3 \times 5^{-2} + \dots)\]</span></p>
+<p><span class="math display">\[\frac{5}{3} = 1 + \frac 2 3 = d_1 + (d_2
+\times 5^{-1} + d_3 \times 5^{-2} + \dots)\]</span></p>
 <p>Now, look at the left side: <span class="math inline">\(5/3\)</span>
-is <span class="math inline">\(1\)</span> plus a remainder (<span class="math inline">\(2/3\)</span>).On the right side, everything in the
-parentheses is now less than <span class="math inline">\(1.\)</span>
-Therefore, <span class="math inline">\(d_1\)</span> must be <span class="math inline">\(1\)</span>. This is the first step:</p>
+is <span class="math inline">\(1\)</span> plus a remainder (<span class="math inline">\(2/3\)</span>). On the right side, everything in
+the parentheses is now less than <span class="math inline">\(1.\)</span>
+Therefore, <span class="math inline">\(d_1\)</span> must be <span class="math inline">\(1\)</span>. For the next step, we take the
+remainder, <span class="math inline">\(5/3 - d_1 = 2/3,\)</span> which
+is equivalent to moving the newly calculated <span class="math inline">\(d_1\)</span> to the LHS:</p>
+<p><span class="math display">\[\frac{5}{3} - 1 = \frac 2 3 = d_2 \times
+5^{-1} + d_3 \times 5^{-2} + \dots\]</span></p>
+<p>and multiply $ $ both sides to isolate <span class="math inline">\(d_2\)</span>:</p>
+<p><span class="math display">\[\frac{10}{3}  =3 +  \frac 1 3 = d_2 +
+d_3 \times 5^{-1} + \dots\implies d_2 = 3\]</span> Etc.:</p>
 <ul>
 <li>Step 1: <span class="math inline">\(1/3 \times 5 = 5/3 =
 \mathbf{1}\)</span> remainder <span class="math inline">\(2/3\)</span>.
-(Digit: 1)</li>
+<span class="math inline">\(d_1= 1\)</span></li>
 <li>Step 2: <span class="math inline">\(2/3 \times 5 = 10/3 =
 \mathbf{3}\)</span> remainder <span class="math inline">\(1/3\)</span>.
-(Digit: 3)</li>
+<span class="math inline">\(d_2=3\)</span></li>
 <li>Step 3: <span class="math inline">\(1/3 \times 5 = 5/3 =
 \mathbf{1}\)</span> remainder <span class="math inline">\(2/3\)</span>.
-(Digit: 1)</li>
+<span class="math inline">\(d_3=1\)</span></li>
 <li>Result: <span class="math inline">\(0.131313...\)</span></li>
 </ul>
-<p>Now let’s compare it to the calculation of <span class="math inline">\(1/3\)</span> in <span class="math inline">\(5\)</span>-adics: <span class="math display">\[\frac{1}{3} = d_0 + d_1(5^1) + d_2(5^2) +
-d_3(5^3) + \dots\]</span> In modular arithmetic, any multiple of <span class="math inline">\(5\)</span> becomes zero. <span class="math inline">\(d_1(5)\)</span> is a multiple of <span class="math inline">\(5 \rightarrow 0\)</span>; <span class="math inline">\(d_2(25)\)</span> is a multiple of <span class="math inline">\(25 \rightarrow 0\)</span>. The entire “tail” is
+<p>Now let’s compare it to the calculation of <span class="math inline">\(1/3\)</span> in <span class="math inline">\(5\)</span>-adics:</p>
+<p><span class="math display">\[\frac{1}{3} = d_0 + d_1(5^1) + d_2(5^2)
++ d_3(5^3) + \dots\]</span> In modular arithmetic, any multiple of <span class="math inline">\(5\)</span> becomes zero. <span class="math inline">\(d_1(5)\)</span> is a multiple of <span class="math inline">\(5 \rightarrow 0\)</span>; <span class="math inline">\(d_2(25)\)</span> is a multiple of <span class="math inline">\(25 \rightarrow 0\)</span>. The entire “tail” is
 made of multiples of 5, so it all vanishes. So, the equation <span class="math inline">\(\frac{1}{3} = d_0 + d_1(5) + \dots\)</span>
 simplifies to:v<span class="math inline">\(\frac{1}{3} \equiv d_0 \pmod
 5\)</span>. Multiplying by <span class="math inline">\(3\)</span> to get
 rid of the fraction: <span class="math inline">\(1 \equiv 3d_0 \pmod
 5\)</span> we get to solve <span class="math inline">\(3x \equiv 1 \pmod
 5\)</span>, and <span class="math inline">\(3 \times \mathbf{2} = 6
-\equiv 1\)</span>. So <span class="math inline">\(d_0 = 2\)</span>. Next
-we calculate (<span class="math inline">\(d_1\)</span>): Subtract your
-progress and divide by <span class="math inline">\(5.\)</span> <span class="math inline">\((1/3 - 2) / 5 = (-5/3) / 5 = -1/3\)</span>. Solve
-<span class="math inline">\(3x \equiv -1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{3} = 9 \equiv -1\)</span>. So
+\equiv 1\)</span>. So <span class="math inline">\(d_0 = 2\)</span>.</p>
+<p>Next we calculate (<span class="math inline">\(d_1\)</span>):
+Subtract your progress and divide by <span class="math inline">\(5:\)</span></p>
+<p><span class="math display">\[\frac{\frac 13 - 2 } 5 =\frac{-1}3 = d_1
++ d_2(5^1) + d_3(5^2) + \dots\]</span></p>
+<p>Solve <span class="math inline">\(3x \equiv -1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{3} = 9 \equiv -1\)</span>. So
 <span class="math inline">\(d_1 = 3\)</span>. Here is the sequence:</p>
 <ul>
 <li>Step 1 (<span class="math inline">\(d_0\)</span>): Solve <span class="math inline">\(3x \equiv 1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{2} = 6 \equiv 1\)</span>. So
