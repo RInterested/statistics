@@ -431,7 +431,91 @@ its relationship to the prime <span class="math inline">\(5.\)</span> To
 truly “know” the number in its entirety—its “global” identity—you have
 to look at it through every single prime prism (<span class="math inline">\(2, 3, 5, 7, 11 \dots\)</span>) plus the “standard”
 prism of the real numbers (<span class="math inline">\(\mathbb{R}\)</span>).</p>
-<p>When you collect all these <span class="math inline">\(p\)</span>-adic “local” views and stitch them
+<p>It is important to point out that the digits in the 5-adic expansion
+of a real number like <span class="math inline">\(450\)</span> is
+identical to the expression in base <span class="math inline">\(5\)</span>:</p>
+<p><span class="math display">\[450_5 = 3300_5\]</span></p>
+<p>In fact, the relationship is also extended to fractions. For
+instance, in the case of <span class="math inline">\(1/3\)</span>:</p>
+<p>Base 5 (Real): <span class="math inline">\(0.\mathbf{131313...}\)</span></p>
+<p>5-adic: <span class="math inline">\(...\mathbf{313132}\)</span></p>
+<p>only the first digit is different. The connection between the first
+digit of the Base <span class="math inline">\(5\)</span> expansion
+(<span class="math inline">\(1\)</span>) and the first digit of the
+<span class="math inline">\(5\)</span>-adic expansion (<span class="math inline">\(2\)</span>) is hidden in a simple piece of
+arithmetic: <span class="math inline">\(1 + 2 = 3\)</span> (the
+denominator). This isn’t a coincidence. In many cases, the <span class="math inline">\(p\)</span>-adic expansion and the standard
+fractional expansion act like “partners” trying to reach the same target
+from different directions. In base 5 (<span class="math inline">\(0.1...\)</span>) this <span class="math inline">\(1\)</span> tells you that <span class="math inline">\(1/3\)</span> is at least <span class="math inline">\(1/5\)</span>. It is a “floor” or an estimate from
+below. In <span class="math inline">\(5\)</span>-adic (<span class="math inline">\(...2\)</span>) this <span class="math inline">\(2\)</span> is the solution to <span class="math inline">\(3x \equiv 1 \pmod 5\)</span>. It is the unique
+integer that, when multiplied by the denominator, gets you as close as
+possible to a “reset” (a multiple of <span class="math inline">\(5\)</span>). The Base 5 version is trying to build
+<span class="math inline">\(0.333...\)</span> (in decimal). The <span class="math inline">\(5\)</span>-adic version is trying to “undo” the
+<span class="math inline">\(3.\)</span> Because <span class="math inline">\(3 \times 2 = 6\)</span>, and <span class="math inline">\(6\)</span> is one more than <span class="math inline">\(5,\)</span> that <span class="math inline">\(2\)</span> is the perfect “starting piece” to
+begin the <span class="math inline">\(p\)</span>-adic cancellation
+process. There is a famous <span class="math inline">\(p\)</span>-adic
+identity that explains why the digits look like reflections. If you look
+at the 5-adic expansion of <span class="math inline">\(-1\)</span>, it
+is an infinite string of <span class="math inline">\(4\)</span>s: <span class="math display">\[-1 = 4 + 4(5) + 4(25) + 4(125) + \dots\]</span>
+When you calculate a positive fraction like <span class="math inline">\(1/3\)</span> in <span class="math inline">\(p\)</span>-adics, the math often forces the digits
+to be the “complements” (relative to <span class="math inline">\(p-1\)</span>) of the standard base expansion.</p>
+<p>Notice the math in the calculation:</p>
+<p>In Base 5, the number <span class="math inline">\(1/3\)</span> is
+written as: <span class="math display">\[\frac{1}{3} = (d_1 \times
+5^{-1}) + (d_2 \times 5^{-2}) + (d_3 \times 5^{-3}) + \dots\]</span> We
+want to find <span class="math inline">\(d_1\)</span> (the first digit).
+To isolate <span class="math inline">\(d_1\)</span>, we multiply the
+entire equation by <span class="math inline">\(5\)</span>:</p>
+<p><span class="math display">\[\left(\frac{1}{3}\right) \times 5 =
+\left(d_1 \times 5^{-1} + d_2 \times 5^{-2} + \dots\right) \times
+5\]</span></p>
+<p><span class="math display">\[\frac{5}{3} = d_1 + (d_2 \times 5^{-1} +
+d_3 \times 5^{-2} + \dots)\]</span></p>
+<p>Now, look at the left side: <span class="math inline">\(5/3\)</span>
+is <span class="math inline">\(1\)</span> plus a remainder (<span class="math inline">\(2/3\)</span>).On the right side, everything in the
+parentheses is now less than <span class="math inline">\(1.\)</span>
+Therefore, <span class="math inline">\(d_1\)</span> must be <span class="math inline">\(1\)</span>. This is the first step:</p>
+<ul>
+<li>Step 1: <span class="math inline">\(1/3 \times 5 = 5/3 =
+\mathbf{1}\)</span> remainder <span class="math inline">\(2/3\)</span>.
+(Digit: 1)</li>
+<li>Step 2: <span class="math inline">\(2/3 \times 5 = 10/3 =
+\mathbf{3}\)</span> remainder <span class="math inline">\(1/3\)</span>.
+(Digit: 3)</li>
+<li>Step 3: <span class="math inline">\(1/3 \times 5 = 5/3 =
+\mathbf{1}\)</span> remainder <span class="math inline">\(2/3\)</span>.
+(Digit: 1)</li>
+<li>Result: <span class="math inline">\(0.131313...\)</span></li>
+</ul>
+<p>Now let’s compare it to the calculation of <span class="math inline">\(1/3\)</span> in <span class="math inline">\(5\)</span>-adics: <span class="math display">\[\frac{1}{3} = d_0 + d_1(5^1) + d_2(5^2) +
+d_3(5^3) + \dots\]</span> In modular arithmetic, any multiple of <span class="math inline">\(5\)</span> becomes zero. <span class="math inline">\(d_1(5)\)</span> is a multiple of <span class="math inline">\(5 \rightarrow 0\)</span>; <span class="math inline">\(d_2(25)\)</span> is a multiple of <span class="math inline">\(25 \rightarrow 0\)</span>. The entire “tail” is
+made of multiples of 5, so it all vanishes. So, the equation <span class="math inline">\(\frac{1}{3} = d_0 + d_1(5) + \dots\)</span>
+simplifies to:v<span class="math inline">\(\frac{1}{3} \equiv d_0 \pmod
+5\)</span>. Multiplying by <span class="math inline">\(3\)</span> to get
+rid of the fraction: <span class="math inline">\(1 \equiv 3d_0 \pmod
+5\)</span> we get to solve <span class="math inline">\(3x \equiv 1 \pmod
+5\)</span>, and <span class="math inline">\(3 \times \mathbf{2} = 6
+\equiv 1\)</span>. So <span class="math inline">\(d_0 = 2\)</span>. Next
+we calculate (<span class="math inline">\(d_1\)</span>): Subtract your
+progress and divide by <span class="math inline">\(5.\)</span> <span class="math inline">\((1/3 - 2) / 5 = (-5/3) / 5 = -1/3\)</span>. Solve
+<span class="math inline">\(3x \equiv -1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{3} = 9 \equiv -1\)</span>. So
+<span class="math inline">\(d_1 = 3\)</span>. Here is the sequence:</p>
+<ul>
+<li>Step 1 (<span class="math inline">\(d_0\)</span>): Solve <span class="math inline">\(3x \equiv 1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{2} = 6 \equiv 1\)</span>. So
+<span class="math inline">\(d_0 = 2\)</span>.</li>
+<li>Step 2 (<span class="math inline">\(d_1\)</span>): Subtract your
+progress and divide by 5.<span class="math inline">\((1/3 - 2) / 5 =
+(-5/3) / 5 = -1/3\)</span>. Solve <span class="math inline">\(3x \equiv
+-1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{3} = 9
+\equiv -1\)</span>. So <span class="math inline">\(d_1 =
+3\)</span>.</li>
+<li>Step 3 (<span class="math inline">\(d_2\)</span>): Repeat.<span class="math inline">\((-1/3 - 3) / 5 = (-10/3) / 5 = -2/3\)</span>.
+Solve <span class="math inline">\(3x \equiv -2 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{1} = 3 \equiv -2\)</span>. So
+<span class="math inline">\(d_2 = 1\)</span>.</li>
+<li>Result: <span class="math inline">\(...132_5\)</span></li>
+</ul>
+<hr />
+<p>The big picture: When you collect all <span class="math inline">\(p\)</span>-adic “local” views and stitch them
 together into one massive mathematical object, you get the Adeles (short
 for “additive ideles”).If each <span class="math inline">\(p\)</span>-adic field is a single prism, the Adele
 Ring (<span class="math inline">\(\mathbb{A}\)</span>) is the entire
