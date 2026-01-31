@@ -109,6 +109,61 @@ Solve $3x \equiv -1 \pmod 5$.$3 \times \mathbf{3} = 9 \equiv -1$. So $d_1 = 3$. 
 
 ---
 
+An alternative motivation would be an archiving system of folders like MS Windows Explorer. Let's consider that each folder can contain $5$ items (other folders or documents). We have a structure such as
+
+---
+
+<img width = 800  src = "padic_windows_explorer.png">
+
+
+---
+
+Hierarchy:
+
+* Level $0$ (root): sys.pdf is here.
+
+* Level $1$: pics (beach, lake) and docs (appl.doc) are here.
+
+* Level $2$: ref (camera) and legal (roof, budget) are here.
+
+Even though *roof.pdf* is technically inside *contracts* (Level $3$) and *budget.xlsx* is inside *fees* (Level $3$), they meet at *legal* (Level $2$). In p-adic math, we only care about that meeting point ("inverted U").
+
+---
+
+| File Pair | Deepest Shared Folder | Depth ($n$) | Calculation ($5^{-n}$) | Distance |
+| :--- | :--- | :--- | :--- | :--- |
+| **roof** $\leftrightarrow$ **budget** | `legal` | 2 | $5^{-2}$ | 0.04 |
+| **beach** $\leftrightarrow$ **lake** | `pics` | 1 | $5^{-1}$ | 0.2 |
+| **camera** $\leftrightarrow$ **roof** | `docs` | 1 | $5^{-1}$ | 0.2 |
+| **appl** $\leftrightarrow$ **camera** | `docs` | 1 | $5^{-1}$ | 0.2 |
+| **appl** $\leftrightarrow$ **roof** | `docs` | 1 | $5^{-1}$ | 0.2 |
+| **beach** $\leftrightarrow$ **roof** | `root` | 0 | $5^{0}$ | 1.0 |
+| **sys** $\leftrightarrow$ **beach** | `root` | 0 | $5^{0}$ | 1.0 |
+| **sys** $\leftrightarrow$ **roof** | `root` | 0 | $5^{0}$ | 1.0 |
+
+Notice the isosceles triangle principle of the p-adic metric in two examples:
+
+| Side | Files | Distance |
+| :--- | :--- | :--- | 
+| Pair $1$: | *roof.pdf* $\leftrightarrow$ *budget.xlsx* | ($0.04$) |
+| Pair $2$: | *roof.pdf* $\leftrightarrow$ *camera.pdf* | ($0.2$) |
+| Pair $3$: | *budget.xlsx* $\leftrightarrow$ *camera.pdf* | ($0.2$) |
+|
+Result: Sides are $\{0.04, 0.2, 0.2\}$. Isosceles.
+
+Likewise,
+
+| Side | Files | Distance |
+| :--- | :--- | :--- | 
+|Pair $1$:| *beach.jpg*  $\leftrightarrow$ *lake.jpg* |($0.2$)|
+|Pair $2$:| *beach.jpg*  $\leftrightarrow$ *roof.pdf*| ($1.0$)|
+|Pair $3$: |*lake.jpg*  $\leftrightarrow$ *roof.pdf* |($1.0$)|
+|
+Result: Sides are $\{0.2, 1.0, 1.0\}$. Isosceles.
+
+
+---
+
 The big picture: When you collect all $p$-adic "local" views and stitch them together into one massive mathematical object, you get the Adeles (short for "additive ideles").If each $p$-adic field is a single prism, the Adele Ring ($\mathbb{A}$) is the entire crystal chandelier.1. What is an Adele, intuitively?Think of an Adele as an infinite string or a "vector" where every slot corresponds to a different way of measuring a number. If you were to represent the number $10$ as an Adele, it would look like this:
 
 $$\text{Adele}(10) = (10_{\mathbb{R}}, 10_2, 10_3, 10_5, 10_7, 10_{11}, \dots)$$
