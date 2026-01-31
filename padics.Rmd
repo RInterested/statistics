@@ -128,6 +128,31 @@ Hierarchy:
 
 Even though *roof.pdf* is technically inside *contracts* (Level $3$) and *budget.xlsx* is inside *fees* (Level $3$), they meet at *legal* (Level $2$). In p-adic math, we only care about that meeting point ("inverted U").
 
+We choose a $5$-adic metric because in this tree system every folder has capacity for exactly $5$ slots (files or sub-folders). Think of $p$ as the scaling constant. It defines how much the world "shrinks" every time you double-click into a folder: At $p=2$, files in the same folder are $1/2$ as far apart as strangers. At $p=5$, files in the same folder are $1/5$ as far apart as strangers. If you choose a larger $p$, you are essentially saying that siblings are much closer to each other than they are to anyone else. Using $p=5$ makes the math very clear:
+
+Shared Root ($n=0$) $\rightarrow$ Distance = $1$
+
+Shared Sub-folder ($n=1$) $\rightarrow$ Distance = $0.2$
+
+Shared Sub-sub-folder ($n=2$) $\rightarrow$ Distance = $0.04$
+
+For instance, the distance between *just.doc* and *budget.xlsx* would be $0.008.$ Both *just.doc* and *budget.xlsx* live inside the **fees** folder. To find their distance, we look at the depth ($n$) of that shared folder from **root**:
+
+Level $0$: **root**
+
+Level $1$: **docs**
+
+Level $2$: **legal**
+
+Level $3$: **fees** (This is where they meet).
+
+The distance formula is $d(A, B) = p^{-n}$.
+
+With $p = 5$ and $n = 3$:
+
+$$d(\text{just}, \text{budget}) = 5^{-3}$$$$d(\text{just}, \text{budget}) = \frac{1}{5 \times 5 \times 5} = \frac{1}{125}$$
+Distance $= 0.008$.
+
 ---
 
 | File Pair | Deepest Shared Folder | Depth ($n$) | Calculation ($5^{-n}$) | Distance |
