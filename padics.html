@@ -391,12 +391,12 @@ with values multiples of <span class="math inline">\(5\)</span>. The
 p-adic twist would dictate that these coins had much larger value than
 the bills - the inverse of the monetary value, almost like the coins
 were actually made of precious metals. Imagine that at a shop an
-attendant is returning <span class="math inline">\(\$\,450\)</span>. The
+attendant is returning <span class="math inline">\(\$450\)</span>. The
 <span class="math inline">\(5\)</span>-adic expression is:</p>
 <p><span class="math display">\[450 = 0\cdot 5^0 + 0\cdot 5^1 + 3\cdot
 5^2 + 3\cdot 5^3\]</span></p>
-<p>Yes, the employee could hand over to the customer <span class="math inline">\(\$\,5\)</span> bills, but this would be bulky. In
-fact, the most efficient way of giving out this quantity is with <span class="math inline">\(3\)</span> bills of <span class="math inline">\(\$\,25\)</span> and <span class="math inline">\(3\)</span> bills of <span class="math inline">\(\$\,125.\)</span> This is exactly what the
+<p>Yes, the employee could hand over to the customer <span class="math inline">\(\$5\)</span> bills, but this would be bulky. In
+fact, the most efficient way of giving out this quantity is with <span class="math inline">\(3\)</span> bills of <span class="math inline">\(\$25\)</span> and <span class="math inline">\(3\)</span> bills of <span class="math inline">\(\$125.\)</span> This is exactly what the
 expression is telling us.</p>
 <p>The valuation is <span class="math inline">\(2\)</span>, because this
 measures the “five-ness” of <span class="math inline">\(450.\)</span> If
@@ -806,6 +806,66 @@ Ultrametric Inequality.cvIn a standard metric, the triangle inequality
 says the third side can’t be longer than the sum of the other two: <span class="math inline">\(d(x, z) \leq d(x, y) + d(y, z)\)</span>. But in an
 ultrametric (your folder system), the rule is much “stricter.” The third
 side cannot be longer than the maximum of the other two:<span class="math display">\[d(x, z) \leq \max(d(x, y), d(y, z))\]</span></p>
+<hr />
+<p>The folder hierarchy isn’t just a metaphor; it’s a direct
+visualization of how modular arithmetic (remainders) works. In standard
+division, we care about the quotient (how many times a number fits). In
+<span class="math inline">\(p\)</span>-adic math, we throw away the
+quotient and keep only the remainder, because the remainder tells us
+which “folder” a number lives in. The remainder is the folder address
+Think of the prime number <span class="math inline">\(p=5\)</span> as a
+filing rule. Every time you divide by 5, the remainder tells you which
+sub-folder to enter:</p>
+<p>Level <span class="math inline">\(1\)</span> (root): You look at
+<span class="math inline">\(x \pmod 5\)</span>. There are <span class="math inline">\(5\)</span> possible folders: <span class="math inline">\(0, 1, 2, 3, 4.\)</span></p>
+<p>Level <span class="math inline">\(2\)</span> (sub-folder): You look
+at <span class="math inline">\(x \pmod{25}\)</span>. This tells you
+which specific drawer inside the folder you belong to.2. In the Windows
+Explorer analogy, distance is determined by how many levels of
+remainders two numbers share. In the case of a large distance (<span class="math inline">\(1\)</span>). the numbers have different remainders
+when divided by <span class="math inline">\(5.\)</span> They don’t even
+share the first-level folder. (e.g., <span class="math inline">\(1\)</span> and <span class="math inline">\(2\)</span>). For small distance (<span class="math inline">\(1/25\)</span>), the numbers have the same
+remainder when divided by <span class="math inline">\(5\)</span> and the
+same remainder when divided by <span class="math inline">\(25.\)</span>
+They share two levels of folders. Two numbers are “close” if their
+difference is divisible by a high power of <span class="math inline">\(p\)</span>: If <span class="math inline">\(x -
+y\)</span> is divisible by <span class="math inline">\(5^3\)</span>
+(<span class="math inline">\(125\)</span>), it means they share the same
+remainder all the way down to the third folder level (Depth <span class="math inline">\(n=3\)</span>).</p>
+<p>Let’s assign numbers to the folders based on their position (<span class="math inline">\(0\)</span> through <span class="math inline">\(4\)</span>):</p>
+<ul>
+<li><p>Level <span class="math inline">\(1\)</span> (under
+<code>root</code>): <code>pics</code> = <span class="math inline">\(0\)</span>, <code>docs</code> = <span class="math inline">\(1\)</span>, <code>tasks</code> = <span class="math inline">\(2\)</span>, <code>video</code> = <span class="math inline">\(3\)</span></p></li>
+<li><p>Level <span class="math inline">\(2\)</span> (under
+<code>docs</code>): <code>letters</code> = <span class="math inline">\(0\)</span>, <code>legal</code> = <span class="math inline">\(1\)</span>, <code>ref</code> = <span class="math inline">\(2\)</span>, <code>drafts</code> = <span class="math inline">\(3\)</span></p></li>
+<li><p>Level <span class="math inline">\(3\)</span> (under
+<code>legal</code>): <code>project</code> = <span class="math inline">\(0\)</span>, <code>contracts</code> = <span class="math inline">\(1\)</span>, <code>other</code> = <span class="math inline">\(2\)</span>, <code>fees</code> = <span class="math inline">\(3\)</span>, <code>account</code> = <span class="math inline">\(4\)</span></p></li>
+</ul>
+<p>Now, let’s look at <strong>just.doc</strong> and
+<strong>budget.xlsx</strong>: Both are in <code>root</code> (1st digit =
+<span class="math inline">\(1\)</span>) <span class="math inline">\(\rightarrow\)</span> <code>docs</code> (2nd digit
+= <span class="math inline">\(1\)</span>) <span class="math inline">\(\rightarrow\)</span> <code>legal</code> (3rd digit
+= <span class="math inline">\(1\)</span>) <span class="math inline">\(\rightarrow\)</span> <code>fees</code> (4th digit
+= <span class="math inline">\(3\)</span>). Their “p-adic addresses” both
+start with the sequence <span class="math inline">\(...311\)</span>.</p>
+<p>In <span class="math inline">\(p\)</span>-adic notation, we write the
+address backwards (from specific to general), but for this analogy,
+we’ll build the value from the top down:</p>
+<p><span class="math display">\[\text{Address} = (\text{Level}_1 \times
+5^0) + (\text{Level}_2 \times 5^1) + (\text{Level}_3 \times 5^2) +
+(\text{File}\_{\text{ID}}  \times 5^3)\]</span></p>
+<p>Both files start with <span class="math inline">\(1(1) + 1(5) + 3(25)
+= \mathbf{81}\)</span>.</p>
+<p>Inside the fees folder, we give each file a unique ID. Let’s say
+<strong>just.doc</strong> = <span class="math inline">\(0\)</span> and
+<strong>budget.xlsx</strong> = <span class="math inline">\(1\)</span>.
+So the final addresses are for <strong>just.doc</strong>: <span class="math inline">\(81 + (0 \times 125) = \mathbf{81}\)</span> and for
+<strong>budget.xlsx</strong>: <span class="math inline">\(81 + (1 \times
+125) = \mathbf{206}\)</span></p>
+<p>What is the difference?<span class="math display">\[206 - 81 =
+\mathbf{125}\]</span></p>
+<p>Because <span class="math inline">\(125\)</span> is exactly <span class="math inline">\(5^3\)</span>, we can prove they share <span class="math inline">\(3\)</span> levels of folders. Is <span class="math inline">\(125\)</span> divisible by <span class="math inline">\(5^1\)</span>? Yes. (Shared Level <span class="math inline">\(1\)</span>: <code>docs</code>). Is <span class="math inline">\(125\)</span> divisible by <span class="math inline">\(5^2\)</span>? Yes. (Shared Level <span class="math inline">\(2\)</span>: <code>legal</code>). Is <span class="math inline">\(125\)</span> divisible by <span class="math inline">\(5^3\)</span>? Yes. (Shared Level <span class="math inline">\(3\)</span>: <code>fees</code>). Is <span class="math inline">\(125\)</span> divisible by <span class="math inline">\(5^4\)</span>? No. (The files themselves are
+different).</p>
 <hr />
 <p>The big picture: When you collect all <span class="math inline">\(p\)</span>-adic “local” views and stitch them
 together into one massive mathematical object, you get the Adeles (short
