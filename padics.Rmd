@@ -153,11 +153,21 @@ With $p = 5$ and $n = 3$:
 $$d(\text{just}, \text{budget}) = 5^{-3}$$$$d(\text{just}, \text{budget}) = \frac{1}{5 \times 5 \times 5} = \frac{1}{125}$$
 Distance $= 0.008$.
 
----
+The more embedded in the tree structure the files are, the closer they lie:
+
+Files shared at `C:\`: Distance = $p^{0} = 1$. (Very far).
+
+Files shared in `C:\Users`: Distance = $p^{-1} = 1/p$. (Closer).
+
+Files shared in `C:\Users\Admin\Photos\2024\Summer\Beach` (Depth 6): Distance = $p^{-6}$. (Extremely close).
+
+In the Windows Explorer toy example in the picture:
 
 | File Pair | Deepest Shared Folder | Depth ($n$) | Calculation ($5^{-n}$) | Distance |
 | :--- | :--- | :--- | :--- | :--- |
+| **budget** $\leftrightarrow$ **just** | `fees` | 3 | $5^{-3}$ | 0.008 |
 | **roof** $\leftrightarrow$ **budget** | `legal` | 2 | $5^{-2}$ | 0.04 |
+| **just** $\leftrightarrow$ **roof** | `legal` | 2 | $5^{-2}$ | 0.044 |
 | **beach** $\leftrightarrow$ **lake** | `pics` | 1 | $5^{-1}$ | 0.2 |
 | **camera** $\leftrightarrow$ **roof** | `docs` | 1 | $5^{-1}$ | 0.2 |
 | **appl** $\leftrightarrow$ **camera** | `docs` | 1 | $5^{-1}$ | 0.2 |
@@ -185,6 +195,8 @@ Likewise,
 |Pair $3$: |*lake.jpg*  $\leftrightarrow$ *roof.pdf* |($1.0$)|
 |
 Result: Sides are $\{0.2, 1.0, 1.0\}$. Isosceles.
+
+The Isosceles Principle is the geometric manifestation of the Ultrametric Inequality.cvIn a standard metric, the triangle inequality says the third side can't be longer than the sum of the other two: $d(x, z) \leq d(x, y) + d(y, z)$. But in an ultrametric (your folder system), the rule is much "stricter." The third side cannot be longer than the maximum of the other two:$$d(x, z) \leq \max(d(x, y), d(y, z))$$
 
 
 ---
