@@ -25,7 +25,7 @@ Consider a monetary system in which there were coins representing fractions of $
 
  $$450 = 0\cdot 5^0 + 0\cdot 5^1 + 3\cdot 5^2 + 3\cdot 5^3$$
  
-Yes, the employee could hand over to the customer $\$5$ bills, but this would be bulky. In fact, the most efficient way of giving out this quantity is with $3$ bills of $\$25$ and $3$ bills of $\$125.$ This is exactly what the expression is telling us.
+Yes, the cashier could hand over to the customer $\$5$ bills, but this would be bulky. In fact, the most efficient way of giving out this quantity is with $3$ bills of $\$25$ and $3$ bills of $\$125.$ This is exactly what the expression is telling us.
 
 The valuation is $2$, because this measures the "five-ness" of $450.$ If the coefficient for $5^2$ had been $0,$ and the expression had started at with a non-zero coefficient at $5^3,$ the number would have had a valuation of $3$ - a higher "five-ness".
 
@@ -37,7 +37,7 @@ where $v(x)=2$ is the valuation of $450$ in this case.
 
 This distance formula $|x|_p = 1/p^v$ reveals that the $5$-adic world is not a continuous line, but a hierarchy. The higher the valuation, the deeper the number is nested within 'folders' of $5$. This creates a tree-like topology where two numbers are close only if they share a long path of common digits. The $p$-adics are a Cantor Set. If you try to plot them on a 2D plane, they look like dust. Every "point" is actually the tip of an infinite branch. The reason you don't see this in real math is that in real math, we carry. If you add $1$ to $0.444_5$, it rolls over and changes everything to the left. In $p$-adics, the "folders" are rigid. Addition happens "deep" in the tree and only affects the branches above it. If you add $1$ to the $5$-adic number $4$ ($...0004$), you get $5$, which is written as $...0010$. So it would be incorrect to say that we only carry in real numbers. The "carry" happens exactly as it does in base 5. The difference isn't that we don't carry; it's where the carry goes and how it affects the "closeness" of the numbers. In $p$-adic math, a carry moves toward higher powers of $p$ ($5, 25, 125$), which are smaller and closer to zero. On the other hand real carry pushes the number away from where you started, as opposed to pushing the number deeper into the tree, actually making it "smaller" in terms of distance to zero.
 
-If the employee had had to return $\$\, 1/5$, the expansion would have been:
+If the employee had had to return $\$\frac15$, the expansion would have been:
 
 $$ 1\cdot 5^{-1}+0\cdot 5^{0}+0\cdot 5^{1}+\dots $$
 
@@ -59,53 +59,75 @@ It is important to point out that the digits in the 5-adic expansion of a real n
 
 In fact, the relationship is also extended to fractions. For instance, in the case of $1/3$:
 
-- Base $5$ (Real): $0.\mathbf{131313...}$
+$$\boxed{\begin{align}&\text{Reals base } 5: &0.\mathbf{131313...}\\
+&5-\text{adics: }&...\mathbf{313132}\end{align}}$$
 
-- $5$-adic: $...\mathbf{313132}$
 
-only the first digit is different. The connection between the first digit of the Base $5$ expansion ($1$) and the first digit of the $5$-adic expansion ($2$) is hidden in a simple piece of arithmetic: $1 + 2 = 3$ (the denominator). This isn't a coincidence. In many cases, the $p$-adic expansion and the standard fractional expansion act like "partners" trying to reach the same target from different directions. In base $5$ ($0.1...$) this $1$ tells you that $1/3$ is at least $1/5$. It is a "floor" or an estimate from below. In $5$-adic ($...2$) this $2$ is the solution to $3x \equiv 1 \pmod 5$. It is the unique integer that, when multiplied by the denominator, gets you as close as possible to a "reset" (a multiple of $5$). The Base 5 version is trying to build $0.333...$ (in decimal). The $5$-adic version is trying to "undo" the $3.$ Because $3 \times 2 = 6$, and $6$ is one more than $5,$ that $2$ is the perfect "starting piece" to begin the $p$-adic cancellation process. There is a famous $p$-adic identity that explains why the digits look like reflections. If you look at the 5-adic expansion of $-1$, it is an infinite string of $4$s: $$-1 = 4 + 4(5) + 4(25) + 4(125) + \dots$$ When you calculate a positive fraction like $1/3$ in $p$-adics, the math often forces the digits to be the "complements" (relative to $p-1$) of the standard base expansion.
+only the first digit is different. The connection between the first digit of the base $5$ expansion ($1$) and the first digit of the $5$-adic expansion ($2$) is hidden in a simple piece of arithmetic: $1 + 2 = 3$ (the denominator). This isn't a coincidence. In many cases, the $p$-adic expansion and the standard fractional expansion act like "partners" trying to reach the same target from different directions. In base $5$ this $1$ tells you that $1/3$ is at least $1/5$. It is a floor or an estimate from below. In $5$-adic this $2$ is the solution to $3x \equiv 1 \pmod 5$. It is the unique integer that, when multiplied by the denominator, gets you as close as possible to a "reset" (a multiple of $5$). The base $5$ version is trying to build $0.333...$ (in decimal). The $5$-adic version is trying to "undo" the $3.$ Because $3 \times 2 = 6$, and $6$ is one more than $5,$ that $2$ is the perfect starting piece to begin the $p$-adic cancellation process. 
 
-Notice the math in the calculation:
+There is a famous $p$-adic identity that explains why the digits look like reflections. If you look at the $5$-adic expansion of $-1$, it is an infinite string of $4$s: $$-1 = 4 + 4(5) + 4(25) + 4(125) + \dots$$ 
 
-In base $5,$ the number $1/3$ is written as: 
+When you calculate a positive fraction like $1/3$ in $p$-adics, the math often forces the digits to be the "complements" (relative to $p-1$) of the standard base expansion.
+
+Notice the math in the **calculation**:
+
+In **base $5,$** the number $1/3$ is written as: 
 
 $$\frac{1}{3} = (d_1 \times 5^{-1}) + (d_2 \times 5^{-2}) + (d_3 \times 5^{-3}) + \dots$$ 
 
-We want to find $d_1$ (the first digit). To isolate $d_1$, we multiply the entire equation by $5$: 
+We want to find $d_1$ (the first digit). 
+
+To isolate $d_1$, we multiply the entire equation by $5$: 
 
 $$\left(\frac{1}{3}\right) \times 5 = \left(d_1 \times 5^{-1} + d_2 \times 5^{-2} + \dots\right) \times 5$$ 
 
 $$\frac{5}{3} = 1 + \frac 2 3 = d_1 + (d_2 \times 5^{-1} + d_3 \times 5^{-2} + \dots)$$
 
-Now, look at the left side: $5/3$ is $1$ plus a remainder ($2/3$). On the right side, everything in the parentheses is now less than $1.$ Therefore, $d_1$ must be $1$. For the next step, we take the remainder, $5/3 - d_1 = 2/3,$ which is equivalent to moving the newly calculated $d_1$ to the LHS:
+Now, look at the left side: $5/3$ is $1$ plus a remainder ($2/3$). On the right side, everything in the parentheses is now less than $1.$ Therefore, $d_1$ must be $1$. 
+
+For the next step, we take the remainder, $\frac 5 3 - d_1 = \frac 2 3,$ which is equivalent to moving the newly calculated $d_1$ to the LHS:
 
 $$\frac{5}{3} - 1 = \frac 2 3 = d_2 \times 5^{-1} + d_3 \times 5^{-2} + \dots$$
 
 and multiply by $5$ both sides to isolate $d_2$:
 
 $$\frac{10}{3}  =3 +  \frac 1 3 = d_2 + d_3 \times 5^{-1} + \dots\implies d_2 = 3$$
-Etc.: 
+and so on. In summary: 
 
-- Step 1: $1/3 \times 5 = 5/3 = \mathbf{1}$ remainder $2/3$. $d_1= 1$
-- Step 2: $2/3 \times 5 = 10/3 = \mathbf{3}$ remainder $1/3$. $d_2=3$
-- Step 3: $1/3 \times 5 = 5/3 = \mathbf{1}$ remainder $2/3$. $d_3=1$
+- Step $1$: $\frac 1 3 \times 5 = \frac 53 = \mathbf{1}$ remainder $\frac 2 3$. $d_1= 1$
+- Step $2$: $\frac 2 3 \times 5 = \frac {10}3 = \mathbf{3}$ remainder $\frac 1 3$. $d_2=3$
+- Step $3$: $\frac 1 3 \times 5 = \frac 5 3 = \mathbf{1}$ remainder $\frac 2 3$. $d_3=1$
 - Result: $0.131313...$
 
-Now let's compare it to the calculation of $1/3$ in $5$-adics: 
+Now let's compare it to the calculation of $1/3$ in **$5$-adics**: 
 
 $$\frac{1}{3} = d_0 + d_1(5^1) + d_2(5^2) + d_3(5^3) + \dots$$ 
-In modular arithmetic, any multiple of $5$ becomes zero. $d_1(5)$ is a multiple of $5 \rightarrow 0$; $d_2(25)$ is a multiple of $25 \rightarrow 0$. The entire "tail" is made of multiples of 5, so it all vanishes. So, the equation $\frac{1}{3} = d_0 + d_1(5) + \dots$ simplifies to:v$\frac{1}{3} \equiv d_0 \pmod 5$. Multiplying by $3$ to get rid of the fraction: $1 \equiv 3d_0 \pmod 5$ we get to solve $3x \equiv 1 \pmod 5$, and $3 \times \mathbf{2} = 6 \equiv 1$. So $d_0 = 2$. 
 
-Next we calculate ($d_1$): Subtract your progress and divide by $5:$ 
+In modular arithmetic, any multiple of $5$ becomes zero:
+
+$d_1(5)$ is a multiple of $5 \rightarrow 0$; $d_2(25)$ is a multiple of $25 \rightarrow 0$. The entire "tail" is made of multiples of $5,$ so it all vanishes. So, the equation $\frac{1}{3} = d_0 + d_1(5) + \dots$ simplifies to:
+
+$$\frac{1}{3} \equiv d_0 \pmod 5$$ 
+
+Multiplying by $3$ to get rid of the fraction: $1 \equiv 3d_0 \pmod 5$ we get to solve $3d_0 \equiv 1 \pmod 5$, and $3 \times \mathbf{2} = 6 \equiv 1$. So $d_0 = 2$. 
+
+Next to calculate ($d_1$), we subtract  progress and divide by $5:$ 
+
+$$\frac{1}{3} = 2 + d_1(5^1) + d_2(5^2) + d_3(5^3) + \dots$$ 
 
 $$\frac{\frac 13 - 2 } 5 =\frac{-1}3 = d_1 + d_2(5^1) + d_3(5^2) + \dots$$ 
 
-Solve $3x \equiv -1 \pmod 5$.$3 \times \mathbf{3} = 9 \equiv -1$. So $d_1 = 3$. Here is the sequence:
+Solve $$3x \equiv -1 \pmod 5$$.
 
-- Step 1 ($d_0$): Solve $3x \equiv 1 \pmod 5$.$3 \times \mathbf{2} = 6 \equiv 1$. So $d_0 = 2$.
-- Step 2 ($d_1$): Subtract your progress and divide by 5.$(1/3 - 2) / 5 = (-5/3) / 5 = -1/3$. Solve $3x \equiv -1 \pmod 5$.$3 \times \mathbf{3} = 9 \equiv -1$. So $d_1 = 3$.
-- Step 3 ($d_2$): Repeat.$(-1/3 - 3) / 5 = (-10/3) / 5 = -2/3$. Solve $3x \equiv -2 \pmod 5$.$3 \times \mathbf{1} = 3 \equiv -2$. So $d_2 = 1$.
-- Result: $...132_5$
+$3 \times \mathbf{3} = 9 \equiv -1$. So $d_1 = 3$. 
+
+Next
+
+$$\frac {-\frac 1 3 - 3}  5 = \frac{-\frac{10}3}  5 = -\frac 2 3= d_2 + d_3(5^1) + \dots$$
+Solve $3x \equiv -2 \pmod 5$.$3 \times \mathbf{1} = 3 \equiv -2$. So $d_2 = 1$.
+
+
+Result: $...132_5$
 
 ---
 
@@ -150,7 +172,7 @@ The distance formula is $d(A, B) = p^{-n}$.
 
 With $p = 5$ and $n = 3$:
 
-$$d(\text{just}, \text{budget}) = 5^{-3}$$$$d(\text{just}, \text{budget}) = \frac{1}{5 \times 5 \times 5} = \frac{1}{125}$$
+$$d(\text{just.doc}, \text{budget.xlsx}) = 5^{-3}$$$$d(\text{just.doc}, \text{budget.xlsx}) = \frac{1}{5 \times 5 \times 5} = \frac{1}{125}$$
 Distance $= 0.008$.
 
 The more embedded in the tree structure the files are, the closer they lie:

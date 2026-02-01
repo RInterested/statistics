@@ -395,7 +395,7 @@ attendant is returning <span class="math inline">\(\$450\)</span>. The
 <span class="math inline">\(5\)</span>-adic expression is:</p>
 <p><span class="math display">\[450 = 0\cdot 5^0 + 0\cdot 5^1 + 3\cdot
 5^2 + 3\cdot 5^3\]</span></p>
-<p>Yes, the employee could hand over to the customer <span class="math inline">\(\$5\)</span> bills, but this would be bulky. In
+<p>Yes, the cashier could hand over to the customer <span class="math inline">\(\$5\)</span> bills, but this would be bulky. In
 fact, the most efficient way of giving out this quantity is with <span class="math inline">\(3\)</span> bills of <span class="math inline">\(\$25\)</span> and <span class="math inline">\(3\)</span> bills of <span class="math inline">\(\$125.\)</span> This is exactly what the
 expression is telling us.</p>
 <p>The valuation is <span class="math inline">\(2\)</span>, because this
@@ -430,8 +430,8 @@ powers of <span class="math inline">\(p\)</span> (<span class="math inline">\(5,
 to zero. On the other hand real carry pushes the number away from where
 you started, as opposed to pushing the number deeper into the tree,
 actually making it “smaller” in terms of distance to zero.</p>
-<p>If the employee had had to return <span class="math inline">\(\$\,
-1/5\)</span>, the expansion would have been:</p>
+<p>If the employee had had to return <span class="math inline">\(\$\frac15\)</span>, the expansion would have
+been:</p>
 <p><span class="math display">\[ 1\cdot 5^{-1}+0\cdot 5^{0}+0\cdot
 5^{1}+\dots \]</span></p>
 <p>with a valuation of <span class="math inline">\(-1\)</span> and a
@@ -459,37 +459,38 @@ of a real number like <span class="math inline">\(450\)</span> is
 identical to the expression in base <span class="math inline">\(5\)</span>.</p>
 <p>In fact, the relationship is also extended to fractions. For
 instance, in the case of <span class="math inline">\(1/3\)</span>:</p>
-<ul>
-<li><p>Base <span class="math inline">\(5\)</span> (Real): <span class="math inline">\(0.\mathbf{131313...}\)</span></p></li>
-<li><p><span class="math inline">\(5\)</span>-adic: <span class="math inline">\(...\mathbf{313132}\)</span></p></li>
-</ul>
+<p><span class="math display">\[\boxed{\begin{align}&amp;\text{Reals
+base } 5: &amp;0.\mathbf{131313...}\\
+&amp;5-\text{adics: }&amp;...\mathbf{313132}\end{align}}\]</span></p>
 <p>only the first digit is different. The connection between the first
-digit of the Base <span class="math inline">\(5\)</span> expansion
+digit of the base <span class="math inline">\(5\)</span> expansion
 (<span class="math inline">\(1\)</span>) and the first digit of the
 <span class="math inline">\(5\)</span>-adic expansion (<span class="math inline">\(2\)</span>) is hidden in a simple piece of
 arithmetic: <span class="math inline">\(1 + 2 = 3\)</span> (the
 denominator). This isn’t a coincidence. In many cases, the <span class="math inline">\(p\)</span>-adic expansion and the standard
 fractional expansion act like “partners” trying to reach the same target
-from different directions. In base <span class="math inline">\(5\)</span> (<span class="math inline">\(0.1...\)</span>) this <span class="math inline">\(1\)</span> tells you that <span class="math inline">\(1/3\)</span> is at least <span class="math inline">\(1/5\)</span>. It is a “floor” or an estimate from
-below. In <span class="math inline">\(5\)</span>-adic (<span class="math inline">\(...2\)</span>) this <span class="math inline">\(2\)</span> is the solution to <span class="math inline">\(3x \equiv 1 \pmod 5\)</span>. It is the unique
+from different directions. In base <span class="math inline">\(5\)</span> this <span class="math inline">\(1\)</span> tells you that <span class="math inline">\(1/3\)</span> is at least <span class="math inline">\(1/5\)</span>. It is a floor or an estimate from
+below. In <span class="math inline">\(5\)</span>-adic this <span class="math inline">\(2\)</span> is the solution to <span class="math inline">\(3x \equiv 1 \pmod 5\)</span>. It is the unique
 integer that, when multiplied by the denominator, gets you as close as
-possible to a “reset” (a multiple of <span class="math inline">\(5\)</span>). The Base 5 version is trying to build
-<span class="math inline">\(0.333...\)</span> (in decimal). The <span class="math inline">\(5\)</span>-adic version is trying to “undo” the
-<span class="math inline">\(3.\)</span> Because <span class="math inline">\(3 \times 2 = 6\)</span>, and <span class="math inline">\(6\)</span> is one more than <span class="math inline">\(5,\)</span> that <span class="math inline">\(2\)</span> is the perfect “starting piece” to
-begin the <span class="math inline">\(p\)</span>-adic cancellation
-process. There is a famous <span class="math inline">\(p\)</span>-adic
+possible to a “reset” (a multiple of <span class="math inline">\(5\)</span>). The base <span class="math inline">\(5\)</span> version is trying to build <span class="math inline">\(0.333...\)</span> (in decimal). The <span class="math inline">\(5\)</span>-adic version is trying to “undo” the
+<span class="math inline">\(3.\)</span> Because <span class="math inline">\(3 \times 2 = 6\)</span>, and <span class="math inline">\(6\)</span> is one more than <span class="math inline">\(5,\)</span> that <span class="math inline">\(2\)</span> is the perfect starting piece to begin
+the <span class="math inline">\(p\)</span>-adic cancellation
+process.</p>
+<p>There is a famous <span class="math inline">\(p\)</span>-adic
 identity that explains why the digits look like reflections. If you look
-at the 5-adic expansion of <span class="math inline">\(-1\)</span>, it
-is an infinite string of <span class="math inline">\(4\)</span>s: <span class="math display">\[-1 = 4 + 4(5) + 4(25) + 4(125) + \dots\]</span>
-When you calculate a positive fraction like <span class="math inline">\(1/3\)</span> in <span class="math inline">\(p\)</span>-adics, the math often forces the digits
+at the <span class="math inline">\(5\)</span>-adic expansion of <span class="math inline">\(-1\)</span>, it is an infinite string of <span class="math inline">\(4\)</span>s: <span class="math display">\[-1 = 4 +
+4(5) + 4(25) + 4(125) + \dots\]</span></p>
+<p>When you calculate a positive fraction like <span class="math inline">\(1/3\)</span> in <span class="math inline">\(p\)</span>-adics, the math often forces the digits
 to be the “complements” (relative to <span class="math inline">\(p-1\)</span>) of the standard base expansion.</p>
-<p>Notice the math in the calculation:</p>
-<p>In base <span class="math inline">\(5,\)</span> the number <span class="math inline">\(1/3\)</span> is written as:</p>
+<p>Notice the math in the <strong>calculation</strong>:</p>
+<p>In <strong>base <span class="math inline">\(5,\)</span></strong> the
+number <span class="math inline">\(1/3\)</span> is written as:</p>
 <p><span class="math display">\[\frac{1}{3} = (d_1 \times 5^{-1}) + (d_2
 \times 5^{-2}) + (d_3 \times 5^{-3}) + \dots\]</span></p>
 <p>We want to find <span class="math inline">\(d_1\)</span> (the first
-digit). To isolate <span class="math inline">\(d_1\)</span>, we multiply
-the entire equation by <span class="math inline">\(5\)</span>:</p>
+digit).</p>
+<p>To isolate <span class="math inline">\(d_1\)</span>, we multiply the
+entire equation by <span class="math inline">\(5\)</span>:</p>
 <p><span class="math display">\[\left(\frac{1}{3}\right) \times 5 =
 \left(d_1 \times 5^{-1} + d_2 \times 5^{-2} + \dots\right) \times
 5\]</span></p>
@@ -498,57 +499,58 @@ the entire equation by <span class="math inline">\(5\)</span>:</p>
 <p>Now, look at the left side: <span class="math inline">\(5/3\)</span>
 is <span class="math inline">\(1\)</span> plus a remainder (<span class="math inline">\(2/3\)</span>). On the right side, everything in
 the parentheses is now less than <span class="math inline">\(1.\)</span>
-Therefore, <span class="math inline">\(d_1\)</span> must be <span class="math inline">\(1\)</span>. For the next step, we take the
-remainder, <span class="math inline">\(5/3 - d_1 = 2/3,\)</span> which
-is equivalent to moving the newly calculated <span class="math inline">\(d_1\)</span> to the LHS:</p>
+Therefore, <span class="math inline">\(d_1\)</span> must be <span class="math inline">\(1\)</span>.</p>
+<p>For the next step, we take the remainder, <span class="math inline">\(\frac 5 3 - d_1 = \frac 2 3,\)</span> which is
+equivalent to moving the newly calculated <span class="math inline">\(d_1\)</span> to the LHS:</p>
 <p><span class="math display">\[\frac{5}{3} - 1 = \frac 2 3 = d_2 \times
 5^{-1} + d_3 \times 5^{-2} + \dots\]</span></p>
 <p>and multiply by <span class="math inline">\(5\)</span> both sides to
 isolate <span class="math inline">\(d_2\)</span>:</p>
 <p><span class="math display">\[\frac{10}{3}  =3 +  \frac 1 3 = d_2 +
-d_3 \times 5^{-1} + \dots\implies d_2 = 3\]</span> Etc.:</p>
+d_3 \times 5^{-1} + \dots\implies d_2 = 3\]</span> and so on. In
+summary:</p>
 <ul>
-<li>Step 1: <span class="math inline">\(1/3 \times 5 = 5/3 =
-\mathbf{1}\)</span> remainder <span class="math inline">\(2/3\)</span>.
-<span class="math inline">\(d_1= 1\)</span></li>
-<li>Step 2: <span class="math inline">\(2/3 \times 5 = 10/3 =
-\mathbf{3}\)</span> remainder <span class="math inline">\(1/3\)</span>.
-<span class="math inline">\(d_2=3\)</span></li>
-<li>Step 3: <span class="math inline">\(1/3 \times 5 = 5/3 =
-\mathbf{1}\)</span> remainder <span class="math inline">\(2/3\)</span>.
-<span class="math inline">\(d_3=1\)</span></li>
+<li>Step <span class="math inline">\(1\)</span>: <span class="math inline">\(\frac 1 3 \times 5 = \frac 53 =
+\mathbf{1}\)</span> remainder <span class="math inline">\(\frac 2
+3\)</span>. <span class="math inline">\(d_1= 1\)</span></li>
+<li>Step <span class="math inline">\(2\)</span>: <span class="math inline">\(\frac 2 3 \times 5 = \frac {10}3 =
+\mathbf{3}\)</span> remainder <span class="math inline">\(\frac 1
+3\)</span>. <span class="math inline">\(d_2=3\)</span></li>
+<li>Step <span class="math inline">\(3\)</span>: <span class="math inline">\(\frac 1 3 \times 5 = \frac 5 3 =
+\mathbf{1}\)</span> remainder <span class="math inline">\(\frac 2
+3\)</span>. <span class="math inline">\(d_3=1\)</span></li>
 <li>Result: <span class="math inline">\(0.131313...\)</span></li>
 </ul>
-<p>Now let’s compare it to the calculation of <span class="math inline">\(1/3\)</span> in <span class="math inline">\(5\)</span>-adics:</p>
+<p>Now let’s compare it to the calculation of <span class="math inline">\(1/3\)</span> in <strong><span class="math inline">\(5\)</span>-adics</strong>:</p>
 <p><span class="math display">\[\frac{1}{3} = d_0 + d_1(5^1) + d_2(5^2)
-+ d_3(5^3) + \dots\]</span> In modular arithmetic, any multiple of <span class="math inline">\(5\)</span> becomes zero. <span class="math inline">\(d_1(5)\)</span> is a multiple of <span class="math inline">\(5 \rightarrow 0\)</span>; <span class="math inline">\(d_2(25)\)</span> is a multiple of <span class="math inline">\(25 \rightarrow 0\)</span>. The entire “tail” is
-made of multiples of 5, so it all vanishes. So, the equation <span class="math inline">\(\frac{1}{3} = d_0 + d_1(5) + \dots\)</span>
-simplifies to:v<span class="math inline">\(\frac{1}{3} \equiv d_0 \pmod
-5\)</span>. Multiplying by <span class="math inline">\(3\)</span> to get
-rid of the fraction: <span class="math inline">\(1 \equiv 3d_0 \pmod
-5\)</span> we get to solve <span class="math inline">\(3x \equiv 1 \pmod
++ d_3(5^3) + \dots\]</span></p>
+<p>In modular arithmetic, any multiple of <span class="math inline">\(5\)</span> becomes zero:</p>
+<p><span class="math inline">\(d_1(5)\)</span> is a multiple of <span class="math inline">\(5 \rightarrow 0\)</span>; <span class="math inline">\(d_2(25)\)</span> is a multiple of <span class="math inline">\(25 \rightarrow 0\)</span>. The entire “tail” is
+made of multiples of <span class="math inline">\(5,\)</span> so it all
+vanishes. So, the equation <span class="math inline">\(\frac{1}{3} = d_0
++ d_1(5) + \dots\)</span> simplifies to:</p>
+<p><span class="math display">\[\frac{1}{3} \equiv d_0 \pmod
+5\]</span></p>
+<p>Multiplying by <span class="math inline">\(3\)</span> to get rid of
+the fraction: <span class="math inline">\(1 \equiv 3d_0 \pmod 5\)</span>
+we get to solve <span class="math inline">\(3d_0 \equiv 1 \pmod
 5\)</span>, and <span class="math inline">\(3 \times \mathbf{2} = 6
 \equiv 1\)</span>. So <span class="math inline">\(d_0 = 2\)</span>.</p>
-<p>Next we calculate (<span class="math inline">\(d_1\)</span>):
-Subtract your progress and divide by <span class="math inline">\(5:\)</span></p>
+<p>Next to calculate (<span class="math inline">\(d_1\)</span>), we
+subtract progress and divide by <span class="math inline">\(5:\)</span></p>
+<p><span class="math display">\[\frac{1}{3} = 2 + d_1(5^1) + d_2(5^2) +
+d_3(5^3) + \dots\]</span></p>
 <p><span class="math display">\[\frac{\frac 13 - 2 } 5 =\frac{-1}3 = d_1
 + d_2(5^1) + d_3(5^2) + \dots\]</span></p>
-<p>Solve <span class="math inline">\(3x \equiv -1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{3} = 9 \equiv -1\)</span>. So
-<span class="math inline">\(d_1 = 3\)</span>. Here is the sequence:</p>
-<ul>
-<li>Step 1 (<span class="math inline">\(d_0\)</span>): Solve <span class="math inline">\(3x \equiv 1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{2} = 6 \equiv 1\)</span>. So
-<span class="math inline">\(d_0 = 2\)</span>.</li>
-<li>Step 2 (<span class="math inline">\(d_1\)</span>): Subtract your
-progress and divide by 5.<span class="math inline">\((1/3 - 2) / 5 =
-(-5/3) / 5 = -1/3\)</span>. Solve <span class="math inline">\(3x \equiv
--1 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{3} = 9
-\equiv -1\)</span>. So <span class="math inline">\(d_1 =
-3\)</span>.</li>
-<li>Step 3 (<span class="math inline">\(d_2\)</span>): Repeat.<span class="math inline">\((-1/3 - 3) / 5 = (-10/3) / 5 = -2/3\)</span>.
+<p>Solve <span class="math display">\[3x \equiv -1 \pmod 5\]</span>.</p>
+<p><span class="math inline">\(3 \times \mathbf{3} = 9 \equiv
+-1\)</span>. So <span class="math inline">\(d_1 = 3\)</span>.</p>
+<p>Next</p>
+<p><span class="math display">\[\frac {-\frac 1 3 - 3}  5 =
+\frac{-\frac{10}3}  5 = -\frac 2 3= d_2 + d_3(5^1) + \dots\]</span>
 Solve <span class="math inline">\(3x \equiv -2 \pmod 5\)</span>.<span class="math inline">\(3 \times \mathbf{1} = 3 \equiv -2\)</span>. So
-<span class="math inline">\(d_2 = 1\)</span>.</li>
-<li>Result: <span class="math inline">\(...132_5\)</span></li>
-</ul>
+<span class="math inline">\(d_2 = 1\)</span>.</p>
+<p>Result: <span class="math inline">\(...132_5\)</span></p>
 <hr />
 <p>An alternative motivation would be an archiving system of folders
 like MS Windows Explorer. Let’s consider that each folder can contain
@@ -603,10 +605,11 @@ find their distance, we look at the depth (<span class="math inline">\(n\)</span
 <p>The distance formula is <span class="math inline">\(d(A, B) =
 p^{-n}\)</span>.</p>
 <p>With <span class="math inline">\(p = 5\)</span> and <span class="math inline">\(n = 3\)</span>:</p>
-<p><span class="math display">\[d(\text{just}, \text{budget}) =
-5^{-3}\]</span><span class="math display">\[d(\text{just},
-\text{budget}) = \frac{1}{5 \times 5 \times 5} = \frac{1}{125}\]</span>
-Distance <span class="math inline">\(= 0.008\)</span>.</p>
+<p><span class="math display">\[d(\text{just.doc}, \text{budget.xlsx}) =
+5^{-3}\]</span><span class="math display">\[d(\text{just.doc},
+\text{budget.xlsx}) = \frac{1}{5 \times 5 \times 5} =
+\frac{1}{125}\]</span> Distance <span class="math inline">\(=
+0.008\)</span>.</p>
 <p>The more embedded in the tree structure the files are, the closer
 they lie:</p>
 <p>Files shared at <code>C:\</code>: Distance = <span class="math inline">\(p^{0} = 1\)</span>. (Very far).</p>
