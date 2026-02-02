@@ -570,7 +570,7 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <td align="left"><span class="math inline">\(5^5\)</span> (3,125)</td>
 <td align="left"><span class="math inline">\(4357 \div
 3125\)</span></td>
-<td align="left"><span class="math inline">\(1 = b_5\)</span></td>
+<td align="left"><span class="math inline">\(1 = b_5\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(4357-1 \cdot
 5^5\)</span></td>
 <td align="left"><span class="math inline">\(1,232\)</span></td>
@@ -578,7 +578,7 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^4\)</span> (625)</td>
 <td align="left"><span class="math inline">\(1232 \div 625\)</span></td>
-<td align="left"><span class="math inline">\(1 = b_4\)</span></td>
+<td align="left"><span class="math inline">\(1 = b_4\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(1232-1\cdot
 5^4\)</span></td>
 <td align="left"><span class="math inline">\(607\)</span></td>
@@ -586,7 +586,7 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^3\)</span> (125)</td>
 <td align="left"><span class="math inline">\(607 \div 125\)</span></td>
-<td align="left"><span class="math inline">\(4= b_3\)</span></td>
+<td align="left"><span class="math inline">\(4= b_3\)</span> <span class="math inline">\(\color{red}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(607 - 4 \cdot
 5^3\)</span></td>
 <td align="left"><span class="math inline">\(107\)</span></td>
@@ -594,7 +594,7 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^2\)</span> (25)</td>
 <td align="left"><span class="math inline">\(107 \div 25\)</span></td>
-<td align="left"><span class="math inline">\(4=b_2\)</span></td>
+<td align="left"><span class="math inline">\(4=b_2\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(107 - 4\cdot
 5^2\)</span></td>
 <td align="left"><span class="math inline">\(7\)</span></td>
@@ -602,14 +602,14 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^1\)</span> (5)</td>
 <td align="left"><span class="math inline">\(7 \div 5\)</span></td>
-<td align="left"><span class="math inline">\(1=b_1\)</span></td>
+<td align="left"><span class="math inline">\(1=b_1\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(7- 1\cdot 5^1\)</span></td>
 <td align="left"><span class="math inline">\(2\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^0\)</span> (1)</td>
 <td align="left"><span class="math inline">\(2 \div 1\)</span></td>
-<td align="left"><span class="math inline">\(2=b_0\)</span></td>
+<td align="left"><span class="math inline">\(2=b_0\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(2 - 2\cdot
 5^0\)</span></td>
 <td align="left"><span class="math inline">\(0\)</span></td>
@@ -618,8 +618,8 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 </table>
 <p>By gathering the quotients from top to bottom, we get the digits: 1,
 1, 4, 4, 1, 2.In standard mathematical notation: <span class="math display">\[4357_{10} = 114412_5\]</span></p>
-<p><strong>The 5-adic Perspective (The “Congruence”
-Approach):</strong></p>
+<p><strong>The <span class="math inline">\(5\)</span>-adic Perspective
+(The “Congruence” Approach):</strong></p>
 <p>The <span class="math inline">\(5\)</span>-adic method starts by
 solving for the smallest <span class="math inline">\(i\)</span> first
 (<span class="math inline">\(b_0\)</span>). It asks: “What is this
@@ -632,68 +632,93 @@ method: extracting the digits from the smallest power of 5 (<span class="math in
 will eventually terminate (resulting in infinite zeros to the left), and
 the coefficients will be the same as the base-<span class="math inline">\(5\)</span> digits, just found in reverse
 order.</p>
-<p>We represent <span class="math inline">\(4,357\)</span> as <span class="math inline">\(a/b\)</span> where <span class="math inline">\(a =
-4357\)</span> and <span class="math inline">\(b = 1\)</span>. We solve
+<p>We represent <span class="math inline">\(4,357\)</span> as <span class="math inline">\(a/c\)</span> where <span class="math inline">\(a =
+4357\)</span> and <span class="math inline">\(c = 1\)</span>. We solve
 <span class="math inline">\(1 \cdot d \equiv a \pmod 5\)</span> at each
 level.</p>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Power</th>
-<th align="left">Current a</th>
-<th align="left">Digit d</th>
-<th align="left">Subtraction (a - d)</th>
+<th align="left">Current <span class="math inline">\(a\)</span></th>
+<th align="left">Digit <span class="math inline">\(b_i\)</span> (or
+<span class="math inline">\(d\)</span>)</th>
+<th align="left"></th>
+<th align="left">Subtraction (<span class="math inline">\(a -
+b_i\)</span>)</th>
 <th align="left">New a (a/5)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^0\)</span></td>
-<td align="left">4,357</td>
-<td align="left"><span class="math inline">\(2=b_0\)</span></td>
+<td align="left"><span class="math inline">\(4,357\)</span></td>
+<td align="left"><span class="math inline">\(\small 4357\mod 5 =
+2=b_0\)</span></td>
+<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(4357 - 2 =
 4355\)</span></td>
-<td align="left">871</td>
+<td align="left"><span class="math inline">\(\frac{4355}5=
+871\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^1\)</span></td>
-<td align="left">871</td>
-<td align="left"><span class="math inline">\(1=b_1\)</span></td>
+<td align="left"><span class="math inline">\(871\)</span></td>
+<td align="left"><span class="math inline">\(\small 871 \mod 5 =
+1=b_1\)</span></td>
+<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(871 - 1 = 870\)</span></td>
-<td align="left">174</td>
+<td align="left"><span class="math inline">\(\frac{870}5=
+174\)</span></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^2\)</span></td>
-<td align="left">174</td>
-<td align="left"><span class="math inline">\(4=b_2\)</span></td>
+<td align="left"><span class="math inline">\(174\)</span></td>
+<td align="left"><span class="math inline">\(\small 174 \mod 5 =
+4=b_2\)</span></td>
+<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(174 - 4 = 170\)</span></td>
-<td align="left">34</td>
+<td align="left"><span class="math inline">\(\frac{170}5=34\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^3\)</span></td>
-<td align="left">34</td>
-<td align="left"><span class="math inline">\(4=b_3\)</span></td>
+<td align="left"><span class="math inline">\(34\)</span></td>
+<td align="left"><span class="math inline">\(\small 34 \mod 5 =4
+=b_3\)</span></td>
+<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(34 - 4 = 30\)</span></td>
-<td align="left">6</td>
+<td align="left"><span class="math inline">\(\frac{30}5= 6\)</span></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^4\)</span></td>
-<td align="left">6</td>
-<td align="left"><span class="math inline">\(1=b_4\)</span></td>
+<td align="left"><span class="math inline">\(6\)</span></td>
+<td align="left"><span class="math inline">\(\small 6 \mod 5 =
+1=b_4\)</span></td>
+<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(6 - 1 = 5\)</span></td>
-<td align="left">1</td>
+<td align="left"><span class="math inline">\(\frac5 5 =1\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^5\)</span></td>
-<td align="left">1</td>
-<td align="left"><span class="math inline">\(1=b_5\)</span></td>
+<td align="left"><span class="math inline">\(1\)</span></td>
+<td align="left"><span class="math inline">\(\small 1 \mod 5
+=1=b_5\)</span></td>
+<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
 <td align="left"><span class="math inline">\(1 - 1 = 0\)</span></td>
-<td align="left">0</td>
+<td align="left"><span class="math inline">\(\frac{0}5 = 0\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>The digits we found <span class="math inline">\((d_0, d_1, d_2, d_3,
-d_4, d_5)\)</span> are the coefficients for the powers of <span class="math inline">\(5\)</span>:</p>
+<p>The digits we found <span class="math inline">\((b_0, b_1, b_2, b_3,
+b_4, b_5)\)</span> are the coefficients for the powers of <span class="math inline">\(5\)</span>:</p>
 <p><span class="math display">\[4357 = (\mathbf{2} \cdot 5^0) +
 (\mathbf{1} \cdot 5^1) + (\mathbf{4} \cdot 5^2) + (\mathbf{4} \cdot 5^3)
 + (\mathbf{1} \cdot 5^4) + (\mathbf{1} \cdot 5^5)\]</span></p>
