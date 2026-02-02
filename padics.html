@@ -454,9 +454,106 @@ relationship to the prime <span class="math inline">\(5.\)</span> To
 truly “know” the number in its entirety—its “global” identity—you have
 to look at it through every single prime prism (<span class="math inline">\(2, 3, 5, 7, 11 \dots\)</span>) plus the “standard”
 prism of the real numbers (<span class="math inline">\(\mathbb{R}\)</span>).</p>
-<p>It is important to point out that the digits in the 5-adic expansion
-of a real number like <span class="math inline">\(450\)</span> is
-identical to the expression in base <span class="math inline">\(5\)</span>.</p>
+<p>It is important to point out that the digits in the <span class="math inline">\(5\)</span>-adic expansion of a real number like
+<span class="math inline">\(450\)</span> is identical to the expression
+in base <span class="math inline">\(5\)</span>:</p>
+<p>Mathematically, both systems are trying to write 450 as a polynomial
+in powers of <span class="math inline">\(5\)</span>:</p>
+<p><span class="math display">\[450 = d_k(5^k) + \dots + d_2(5^2) +
+d_1(5^1) + d_0(5^0)\]</span></p>
+<p>The only difference is the “direction of travel” for the
+algorithm.</p>
+<div id="adic" class="section level5">
+<h5><span class="math inline">\(5\)</span>-adic:</h5>
+<p>The formula for finding the digit <span class="math inline">\(d_0\)</span> for a <span class="math inline">\(\frac a b \in \mathbb Q\)</span> is:</p>
+<p><span class="math display">\[b \cdot d \equiv a \pmod p\]</span></p>
+<p>Why it is <span class="math inline">\(1\)</span> for <span class="math inline">\(450\)</span>. When you are dealing with an integer
+like <span class="math inline">\(450\)</span>, you are implicitly
+treating it as the fraction: <span class="math inline">\(\frac{450}{1}\)</span> with <span class="math inline">\(a = 450\)</span> (the numerator) and <span class="math inline">\(b = 1\)</span> (the denominator)&gt;So, the
+equation <span class="math inline">\(b \cdot d \equiv a \pmod p\)</span>
+becomes:<span class="math display">\[1 \cdot d_0 \equiv 450 \pmod
+5\]</span></p>
+<p>since in <span class="math inline">\(\mod 5\)</span> all the terms
+except <span class="math inline">\(d_0\)</span> get nullified in the
+expression <span class="math inline">\(\frac {450}1 = d_k(5^k) + \dots +
+d_2(5^2) + d_1(5^1) + d_0(5^0)\)</span>. Therefore</p>
+<p><span class="math display">\[\frac {450}1 \equiv  d_0 \pmod
+5\]</span> - Level <span class="math inline">\(5^0\)</span>:</p>
+<ul>
+<li><p>Find <span class="math inline">\(d_0\)</span> such that <span class="math inline">\(1 \cdot d_0 \equiv 450 \pmod 5\)</span>. <span class="math inline">\(450\)</span> is divisible by <span class="math inline">\(5\)</span>, so <span class="math inline">\(d_0 =
+0\)</span>.</p></li>
+<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((450 - 0) / 5 = \mathbf{90}\)</span>.</p></li>
+<li><p>Level <span class="math inline">\(5^1\)</span>:</p>
+<ul>
+<li><p>Find <span class="math inline">\(d_1\)</span> such that <span class="math inline">\(1 \cdot d_1 \equiv 90 \pmod 5\)</span>. <span class="math inline">\(90\)</span> is divisible by <span class="math inline">\(5\)</span>, so <span class="math inline">\(d_1 =
+0\)</span>.</p></li>
+<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((90 - 0) / 5 = \mathbf{18}\)</span>.</p></li>
+</ul></li>
+<li><p>Level <span class="math inline">\(5^2\)</span>:</p>
+<ul>
+<li><p>Find <span class="math inline">\(d_2\)</span> such that <span class="math inline">\(1 \cdot d_2 \equiv 18 \pmod 5\)</span>. <span class="math inline">\(18 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_2 =
+3\)</span>.</p></li>
+<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((18 - 3) / 5 = \mathbf{3}\)</span>.</p></li>
+</ul></li>
+<li><p>Level <span class="math inline">\(5^3\)</span>:</p>
+<ul>
+<li><p>Find <span class="math inline">\(d_3\)</span> such that <span class="math inline">\(1 \cdot d_3 \equiv 3 \pmod 5\)</span>.<span class="math inline">\(3 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_3 =
+3\)</span>.</p></li>
+<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((3 - 3) / 5 = \mathbf{0}\)</span>.</p></li>
+</ul></li>
+</ul>
+<p>Result: (Digits <span class="math inline">\(d_0, d_1, d_2,
+d_3\)</span>) <span class="math inline">\(\rightarrow \boxed{0, 0, 3,
+3}\)</span>.</p>
+<p>Written in the same order as Base <span class="math inline">\(5\)</span> (highest power first), this is <span class="math inline">\(3300\)</span>.</p>
+</div>
+<div id="base-5" class="section level5">
+<h5>Base <span class="math inline">\(5\)</span>:</h5>
+<p>In standard base conversion, you start with the largest possible
+power of <span class="math inline">\(5\)</span> and work your way down
+to the units.</p>
+<ul>
+<li><p>Step 1: What is the largest power of <span class="math inline">\(5\)</span> in <span class="math inline">\(450\)</span>? <span class="math inline">\(5^3 =
+125\)</span>.</p></li>
+<li><p>Step 2: How many <span class="math inline">\(125\)</span>s? <span class="math inline">\(450 \div 125 = \mathbf{3}\)</span> with a
+remainder of <span class="math inline">\(75\)</span>.</p></li>
+<li><p>Step 3: How many <span class="math inline">\(5^2\)</span> (<span class="math inline">\(25\)</span>s) in <span class="math inline">\(75\)</span>? <span class="math inline">\(75 \div
+25 = \mathbf{3}\)</span> with a remainder of <span class="math inline">\(0\)</span>.</p></li>
+<li><p>Step 4: How many <span class="math inline">\(5^1\)</span> (<span class="math inline">\(5\)</span>s) in <span class="math inline">\(0\)</span>? <span class="math inline">\(0\)</span>.</p></li>
+<li><p>Step 5: How many <span class="math inline">\(5^0\)</span> (<span class="math inline">\(1\)</span>s) in <span class="math inline">\(0\)</span>? <span class="math inline">\(0\)</span>.</p></li>
+</ul>
+<p>Result: <span class="math inline">\(\boxed{3300_5}\)</span>.</p>
+<p>The reason they “coincide” for integers is that both methods — the
+quotient-based one and the remainder-based one— are actually doing the
+exact same thing to the number’s structure, just from opposite
+directions. When you convert an integer like <span class="math inline">\(450\)</span> to base <span class="math inline">\(5\)</span>, you are essentially “unpacking” the
+number.</p>
+<ul>
+<li><p>Quotient Method (Base <span class="math inline">\(5\)</span>):</p>
+<ul>
+<li><p>You ask, “How many <span class="math inline">\(5^3\)</span>s
+(<span class="math inline">\(125\)</span>s) fit in here?” There are
+<span class="math inline">\(3\)</span> (totaling <span class="math inline">\(375\)</span>), leaving <span class="math inline">\(75\)</span>.</p></li>
+<li><p>Then, “How many <span class="math inline">\(5^2\)</span>s (<span class="math inline">\(25\)</span>s) fit in <span class="math inline">\(75\)</span>?” There are <span class="math inline">\(3\)</span>, leaving <span class="math inline">\(0\)</span>.</p></li>
+</ul></li>
+<li><p>Remainder Method (<span class="math inline">\(5\)</span>-adic):</p>
+<ul>
+<li><p>You ask, “What is the remainder when I divide <span class="math inline">\(450\)</span> by <span class="math inline">\(5\)</span>?” It is <span class="math inline">\(0\)</span>. That is your <span class="math inline">\(5^0\)</span> digit.</p></li>
+<li><p>You divide the rest by <span class="math inline">\(5\)</span> to
+get <span class="math inline">\(90\)</span>.</p></li>
+<li><p>Then, “What is the remainder of <span class="math inline">\(90\)</span> divided by <span class="math inline">\(5\)</span>?” It is <span class="math inline">\(0\)</span>. That is your <span class="math inline">\(5^1\)</span> digit.</p></li>
+</ul></li>
+</ul>
+<p>Because an integer is finite, you eventually run out of “stuff” to
+divide or subtract. Whether you start from the “big” end (powers of
+<span class="math inline">\(125\)</span>) or the “small” end (powers of
+<span class="math inline">\(1\)</span>), you are identifying the same
+coefficients for the polynomial:</p>
+<p><span class="math display">\[450 = (\mathbf{3} \cdot 5^3) +
+(\mathbf{3} \cdot 5^2) + (\mathbf{0} \cdot 5^1) + (\mathbf{0} \cdot
+5^0)\]</span> The digits are the same because <span class="math inline">\(450\)</span> has a unique representation as a sum
+of powers of <span class="math inline">\(5\)</span>.</p>
+<hr />
 <p>In fact, the relationship is also extended to fractions. For
 instance, in the case of <span class="math inline">\(1/3\)</span>:</p>
 <p><span class="math display">\[\boxed{\begin{align}&amp;\text{Reals
@@ -883,6 +980,7 @@ this:</p>
 <p><span class="math display">\[\text{Adele}(10) = (10_{\mathbb{R}},
 10_2, 10_3, 10_5, 10_7, 10_{11}, \dots)\]</span></p>
 <hr />
+</div>
 </div>
 <div id="calculations-with-p-adics" class="section level3">
 <h3>Calculations with p-adics:</h3>

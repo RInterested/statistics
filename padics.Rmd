@@ -55,7 +55,92 @@ $25$ is smaller, and $1/5$ is a giant.
 
 If you only look at a number through the "$5$-adic prism," you only see its relationship to the prime $5.$ To truly "know" the number in its entirety—its "global" identity—you have to look at it through every single prime prism ($2, 3, 5, 7, 11 \dots$) plus the "standard" prism of the real numbers ($\mathbb{R}$).
 
-It is important to point out that the digits in the 5-adic expansion of a real number like $450$ is identical to the expression in base $5$.
+It is important to point out that the digits in the $5$-adic expansion of a real number like $450$ is identical to the expression in base $5$:
+
+Mathematically, both systems are trying to write 450 as a polynomial in powers of $5$:
+
+$$450 = d_k(5^k) + \dots + d_2(5^2) + d_1(5^1) + d_0(5^0)$$
+
+The only difference is the "direction of travel" for the algorithm.
+
+##### $5$-adic:
+
+The formula for finding the digit $d_0$ for a $\frac a b \in \mathbb Q$ is: 
+
+$$b \cdot d \equiv a \pmod p$$
+
+Why it is $1$ for $450$. When you are dealing with an integer like $450$, you are implicitly treating it as the fraction: $\frac{450}{1}$ with $a = 450$ (the numerator) and $b = 1$ (the denominator)>So, the equation $b \cdot d \equiv a \pmod p$ becomes:$$1 \cdot d_0 \equiv 450 \pmod 5$$
+
+since in $\mod 5$ all the terms except $d_0$ get nullified in the expression $\frac {450}1 = d_k(5^k) + \dots + d_2(5^2) + d_1(5^1) + d_0(5^0)$. Therefore
+
+$$\frac {450}1 \equiv  d_0 \pmod 5$$
+- Level $5^0$: 
+
+  - Find $d_0$ such that $1 \cdot d_0 \equiv 450 \pmod 5$. $450$ is divisible by $5$, so $d_0 = 0$.
+
+  - New $a$: $(450 - 0) / 5 = \mathbf{90}$.
+
+- Level $5^1$: 
+
+  - Find $d_1$ such that $1 \cdot d_1 \equiv 90 \pmod 5$. $90$ is divisible by $5$, so $d_1 = 0$.
+  
+  - New $a$: $(90 - 0) / 5 = \mathbf{18}$.
+  
+- Level $5^2$: 
+
+  - Find $d_2$ such that $1 \cdot d_2 \equiv 18 \pmod 5$. $18 \div 5$ leaves a remainder of $3$. So $d_2 = 3$.
+  
+  - New $a$: $(18 - 3) / 5 = \mathbf{3}$.
+  
+- Level $5^3$: 
+ 
+  - Find $d_3$ such that $1 \cdot d_3 \equiv 3 \pmod 5$.$3 \div 5$ leaves a remainder of $3$. So $d_3 = 3$.
+   
+  - New $a$: $(3 - 3) / 5 = \mathbf{0}$.
+  
+Result: (Digits $d_0, d_1, d_2, d_3$) $\rightarrow \boxed{0, 0, 3, 3}$.
+
+Written in the same order as Base $5$ (highest power first), this is $3300$.
+
+##### Base $5$:
+
+In standard base conversion, you start with the largest possible power of $5$ and work your way down to the units.
+
+- Step 1: What is the largest power of $5$ in $450$? $5^3 = 125$.
+
+- Step 2: How many $125$s? $450 \div 125 = \mathbf{3}$ with a remainder of $75$.
+
+- Step 3: How many $5^2$ ($25$s) in $75$? $75 \div 25 = \mathbf{3}$ with a remainder of $0$.
+
+- Step 4: How many $5^1$ ($5$s) in $0$? $0$.
+
+- Step 5: How many $5^0$ ($1$s) in $0$? $0$.
+
+Result: $\boxed{3300_5}$.
+
+The reason they "coincide" for integers is that both methods — the quotient-based one and the remainder-based one— are actually doing the exact same thing to the number's structure, just from opposite directions. When you convert an integer like $450$ to base $5$, you are essentially "unpacking" the number.
+
+- Quotient Method (Base $5$): 
+
+  - You ask, "How many $5^3$s ($125$s) fit in here?" There are $3$ (totaling $375$), leaving $75$. 
+
+  - Then, "How many $5^2$s ($25$s) fit in $75$?" There are $3$, leaving $0$.
+  
+- Remainder Method ($5$-adic): 
+
+  - You ask, "What is the remainder when I divide $450$ by $5$?" It is $0$. That is your $5^0$ digit. 
+  
+  - You divide the rest by $5$ to get $90$. 
+  
+  - Then, "What is the remainder of $90$ divided by $5$?" It is $0$. That is your $5^1$ digit.
+  
+Because an integer is finite, you eventually run out of "stuff" to divide or subtract. Whether you start from the "big" end (powers of $125$) or the "small" end (powers of $1$), you are identifying the same coefficients for the polynomial:
+
+$$450 = (\mathbf{3} \cdot 5^3) + (\mathbf{3} \cdot 5^2) + (\mathbf{0} \cdot 5^1) + (\mathbf{0} \cdot 5^0)$$
+The digits are the same because $450$ has a unique representation as a sum of powers of $5$.
+
+
+---
 
 In fact, the relationship is also extended to fractions. For instance, in the case of $1/3$:
 
