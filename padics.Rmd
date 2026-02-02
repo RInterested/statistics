@@ -133,14 +133,15 @@ Step-by-Step "Quotient" Reasoning:
 
 First, let's identify the powers of 5:$5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 = 625$, $5^5 = 3,125$, $5^6 = 15,625$ (Too big!). Since $5^5$ is the largest power that fits in 4,357, we start there.
 
-| Power (Pw)| Operation | Quotient (Quo)|  $\small \text{prior Re}-\text{Quo}\times\text{Pw}$|Remainder (Re) |
-| :--- | :--- | :--- | :--- | :---|
-| $5^5$ (3,125) | $4357 \div 3125$ | $1 = b_5$|$4357-1 \cdot 5^5$  | $1,232$ |
-| $5^4$ (625) | $1232 \div 625$ | $1 = b_4$|$1232-1\cdot 5^4$ |$607$ |
-| $5^3$ (125) | $607 \div 125$ | $4= b_3$ |$607 - 4 \cdot 5^3$| $107$ |
-| $5^2$ (25) | $107 \div 25$ | $4=b_2$|$107 - 4\cdot 5^2$ | $7$ |
-| $5^1$ (5) | $7 \div 5$ | $1=b_1$|$7- 1\cdot 5^1$ | $2$ |
-| $5^0$ (1) | $2 \div 1$ | $2=b_0$| $2 - 2\cdot 5^0$ | $0$ |
+
+|Power (Pw)| Operation | Quotient (Quo)|  $\small \text{prior Re}-\text{Quo}\times\text{Pw}$|Remainder (Re) |
+|:--- | :--- | :--- | :--- | :---|
+|$5^5$ (3,125) | $4357 \div 3125$ | $1 = b_5$|$4357-1 \cdot 5^5$  | $1,232$ |
+|$5^4$ (625) | $1232 \div 625$ | $1 = b_4$|$1232-1\cdot 5^4$ |$607$ |
+|$5^3$ (125) | $607 \div 125$ | $4= b_3$ |$607 - 4 \cdot 5^3$| $107$ |
+|$5^2$ (25) | $107 \div 25$ | $4=b_2$|$107 - 4\cdot 5^2$ | $7$ |
+|$5^1$ (5) | $7 \div 5$ | $1=b_1$|$7- 1\cdot 5^1$ | $2$ |
+|$5^0$ (1) | $2 \div 1$ | $2=b_0$| $2 - 2\cdot 5^0$ | $0$ |
 
 By gathering the quotients from top to bottom, we get the digits: 1, 1, 4, 4, 1, 2.In standard mathematical notation: $$4357_{10} = 114412_5$$
 
@@ -153,14 +154,14 @@ To find the $5$-adic expansion of $4,357$, we’ll use that "microscope" method:
 
 We represent $4,357$ as $a/b$ where $a = 4357$ and $b = 1$. We solve $1 \cdot d \equiv a \pmod 5$ at each level.
 
-| Power | Current a | Digit d | Subtraction (a - d) | New a (a/5) |
-| :--- | :--- | :--- | :--- | :--- |
-| $5^0$ | 4,357 | $2=b_0$ | $4357 - 2 = 4355$ | 871 |
-| $5^1$ | 871 | $1=b_1$ | $871 - 1 = 870$ | 174 |
-| $5^2$ | 174 | $4=b_2$ | $174 - 4 = 170$ | 34 |
-| $5^3$ | 34 | $4=b_3$ | $34 - 4 = 30$ | 6 |
-| $5^4$ | 6 | $1=b_4$ | $6 - 1 = 5$ | 1 |
-| $5^5$ | 1 | $1=b_5$ | $1 - 1 = 0$ | 0 |
+|Power | Current a | Digit d | Subtraction (a - d) | New a (a/5) |
+|:--- | :--- | :--- | :--- | :--- |
+|$5^0$ | 4,357 | $2=b_0$ | $4357 - 2 = 4355$ | 871 |
+|$5^1$ | 871 | $1=b_1$ | $871 - 1 = 870$ | 174 |
+|$5^2$ | 174 | $4=b_2$ | $174 - 4 = 170$ | 34 |
+|$5^3$ | 34 | $4=b_3$ | $34 - 4 = 30$ | 6 |
+|$5^4$ | 6 | $1=b_4$ | $6 - 1 = 5$ | 1 |
+|$5^5$ | 1 | $1=b_5$ | $1 - 1 = 0$ | 0 |
 
 The digits we found $(d_0, d_1, d_2, d_3, d_4, d_5)$ are the coefficients for the powers of $5$:
 
