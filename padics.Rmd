@@ -125,6 +125,9 @@ They are equivalent because they both seek to satisfy the same fundamental polyn
 
 $$4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)$$
 
+---
+
+
 **The Base $5$ Perspective (The "Greedy" Approach):**
 
 Base $5$ starts by solving for the largest $i$ first ($b_5$). It asks: "What is the most significant part of this number?" It effectively "strips away" the biggest chunks ($1 \cdot 5^5$, then $1 \cdot 5^4$, etc.) until nothing is left.
@@ -145,6 +148,8 @@ First, let's identify the powers of 5: $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 
 
 By gathering the quotients from top to bottom, we get the digits: 1, 1, 4, 4, 1, 2.In standard mathematical notation: $$4357_{10} = 114412_5$$
 
+---
+
   
 **The $5$-adic perspective (the "congruence" approach):**
 
@@ -157,7 +162,15 @@ We represent $4,357$ as $a/c$ where $a = 4357$ and $c = 1$. We solve for $b_i$
 $$\boxed{b_i \equiv a_i \pmod 5}$$ 
 
 
-at each level.
+at each level. 
+
+How to think of these $a_i$ and $b_i$? Well, $a_0$ is the actual number we start with, in this case $4,357$. But at each step we chisel away the remainder, which is the $b_i$ in the modular congruency that we are solving. But here is the key point: this modular operation starts off at $\mod 5$, which neutralizes the whole tail of the RHS of the expression:
+
+$$4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)$$
+
+leaving only $b_0$. In the next step we subtract $4357 - b_0$ to produce the $\text{new } a$: so the new $a$ is just the number we started with modified in such manner that it is now congrouous to $5.$ We save the remnant the $b_0$. This new $a$ is divisible by $5,$ but now we want to test the modularity at base $5^2$. We divide again by $5$ for the second time, but only after having subtracted the modular result base $5,$ i.e. $\frac{a - b_0}5$ Again we will find the remnant at that base in $b_1,$ save this remnant as the modular expression of the number at base $25,$ and again subtract. So it is as though we are withering away at the initial integer, always dividing by higher powers of $5,$ and never keeping record of the quotients at all.
+
+
 
 ---
 

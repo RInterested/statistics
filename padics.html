@@ -535,6 +535,7 @@ fundamental polynomial representation of the number. Take the number
 are solving for the unique set of coefficients <span class="math inline">\(\{b_i\}\)</span> in this identity:</p>
 <p><span class="math display">\[4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2)
 + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)\]</span></p>
+<hr />
 <p><strong>The Base <span class="math inline">\(5\)</span> Perspective
 (The “Greedy” Approach):</strong></p>
 <p>Base <span class="math inline">\(5\)</span> starts by solving for the
@@ -626,6 +627,7 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 </table>
 <p>By gathering the quotients from top to bottom, we get the digits: 1,
 1, 4, 4, 1, 2.In standard mathematical notation: <span class="math display">\[4357_{10} = 114412_5\]</span></p>
+<hr />
 <p><strong>The <span class="math inline">\(5\)</span>-adic perspective
 (the “congruence” approach):</strong></p>
 <p>The <span class="math inline">\(5\)</span>-adic method starts by
@@ -646,6 +648,28 @@ for <span class="math inline">\(b_i\)</span></p>
 <p><span class="math display">\[\boxed{b_i \equiv a_i \pmod
 5}\]</span></p>
 <p>at each level.</p>
+<p>How to think of these <span class="math inline">\(a_i\)</span> and
+<span class="math inline">\(b_i\)</span>? Well, <span class="math inline">\(a_0\)</span> is the actual number we start with,
+in this case <span class="math inline">\(4,357\)</span>. But at each
+step we chisel away the remainder, which is the <span class="math inline">\(b_i\)</span> in the modular congruency that we are
+solving. But here is the key point: this modular operation starts off at
+<span class="math inline">\(\mod 5\)</span>, which neutralizes the whole
+tail of the RHS of the expression:</p>
+<p><span class="math display">\[4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2)
++ b_3 (5^3) + b_4 (5^4) + b_5 (5^5)\]</span></p>
+<p>leaving only <span class="math inline">\(b_0\)</span>. In the next
+step we subtract <span class="math inline">\(4357 - b_0\)</span> to
+produce the <span class="math inline">\(\text{new } a\)</span>: so the
+new <span class="math inline">\(a\)</span> is just the number we started
+with modified in such manner that it is now congrouous to <span class="math inline">\(5.\)</span> We save the remnant the <span class="math inline">\(b_0\)</span>. This new <span class="math inline">\(a\)</span> is divisible by <span class="math inline">\(5,\)</span> but now we want to test the modularity
+at base <span class="math inline">\(5^2\)</span>. We divide again by
+<span class="math inline">\(5\)</span> for the second time, but only
+after having subtracted the modular result base <span class="math inline">\(5,\)</span> i.e. <span class="math inline">\(\frac{a - b_0}5\)</span> Again we will find the
+remnant at that base in <span class="math inline">\(b_1,\)</span> save
+this remnant as the modular expression of the number at base <span class="math inline">\(25,\)</span> and again subtract. So it is as
+though we are withering away at the initial integer, always dividing by
+higher powers of <span class="math inline">\(5,\)</span> and never
+keeping record of the quotients at all.</p>
 <hr />
 <table style="width:100%;">
 <colgroup>
