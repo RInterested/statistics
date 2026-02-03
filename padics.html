@@ -644,6 +644,7 @@ order.</p>
 4357\)</span> and <span class="math inline">\(c = 1\)</span>. We solve
 <span class="math inline">\(1 \cdot d \equiv a \pmod 5\)</span> at each
 level.</p>
+<hr />
 <table style="width:100%;">
 <colgroup>
 <col width="14%" />
@@ -748,24 +749,35 @@ x_{n-1} \pmod{5^{n-1}}\)</span></th>
 </tr>
 </tbody>
 </table>
+<hr />
 <p>The digits we found <span class="math inline">\((b_0, b_1, b_2, b_3,
 b_4, b_5)\)</span> are the coefficients for the powers of <span class="math inline">\(5\)</span>:</p>
 <p><span class="math display">\[4357 = (\mathbf{2} \cdot 5^0) +
 (\mathbf{1} \cdot 5^1) + (\mathbf{4} \cdot 5^2) + (\mathbf{4} \cdot 5^3)
 + (\mathbf{1} \cdot 5^4) + (\mathbf{1} \cdot 5^5)\]</span></p>
 <p>Checking the math:</p>
-<p><span class="math inline">\(2 \times 1 = 2\)</span></p>
-<p><span class="math inline">\(1 \times 5 = 5\)</span></p>
-<p><span class="math inline">\(4 \times 25 = 100\)</span></p>
-<p><span class="math inline">\(4 \times 125 = 500\)</span></p>
-<p><span class="math inline">\(1 \times 625 = 625\)</span></p>
-<p><span class="math inline">\(1 \times 3125 = 3125\)</span></p>
-<p>Sum: <span class="math inline">\(4,357\)</span></p>
+<p><span class="math inline">\(2 \times 1 + 1 \times 5 + 4 \times 25 +4
+\times 125 + 1 \times 625 + 1 \times 3125 = 4,357\)</span></p>
 <p>In <span class="math inline">\(5\)</span>-adic notation, written from
-the lowest power to the highest, the expansion is 2, 1, 4, 4, 1, 1. In
-standard <span class="math inline">\(p\)</span>-adic form (infinite
-zeros to the left), it is written as: <span class="math inline">\(...000114412\)</span>. In base <span class="math inline">\(5\)</span> notation: Written from the highest
-power to the lowest, it is <span class="math inline">\(114412_5\)</span>.</p>
+the lowest power to the highest, the expansion is <span class="math inline">\(2, 1, 4, 4, 1, 1.\)</span> In standard <span class="math inline">\(p\)</span>-adic form (infinite zeros to the left),
+it is written as: <span class="math inline">\(...000114412\)</span>. In
+base <span class="math inline">\(5\)</span> notation: Written from the
+highest power to the lowest, it is <span class="math inline">\(114412_5\)</span>.</p>
+<p>In the study of <span class="math inline">\(p\)</span>-adic numbers,
+the values <span class="math inline">\(x_n\)</span> are called
+<strong>partial sums</strong> (or sometimes <strong>congruential
+approximations</strong>). They represent the <span class="math inline">\(p\)</span>-adic integer as a sequence of integers
+that “nest” inside one another. Mathematically, a <span class="math inline">\(p\)</span>-adic integer is often defined exactly
+as this sequence <span class="math inline">\(\{x_1, x_2, x_3,
+\dots\}\)</span>. The relationship between <span class="math inline">\(x_n\)</span> and the digits <span class="math inline">\(b_i\)</span> is additive. While the digits <span class="math inline">\(b_i\)</span> are the individual coefficients of
+the power series, the <span class="math inline">\(x_n\)</span> values
+are the cumulative totals of that series up to a certain point.</p>
+<p>If the 5-adic representation of <span class="math inline">\(4357\)</span> is written as:</p>
+<p><span class="math display">\[\dots + b_n 5^n + \dots + b_2 5^2 + b_1
+5^1 + b_0 5^0\]</span> Then <span class="math inline">\(x_n\)</span> is
+the sum of the first <span class="math inline">\(n\)</span> terms:</p>
+<p><span class="math display">\[x_n = \sum_{i=0}^{n-1} b_i
+5^i\]</span></p>
 <p>The condition <span class="math inline">\(x_{n+1} \equiv x_n
 \pmod{p^n}\)</span> is just the mathematical way of saying: “To be on a
 branch at level <span class="math inline">\(n+1\)</span>, you must have
@@ -913,20 +925,57 @@ and docs (appl.doc) are here.</p></li>
 <li><p>Level <span class="math inline">\(2\)</span>: ref (camera) and
 legal (roof, budget) are here.</p></li>
 </ul>
-<p>Even though <em>roof.pdf</em> is technically inside
-<em>contracts</em> (Level <span class="math inline">\(3\)</span>) and
-<em>budget.xlsx</em> is inside <em>fees</em> (Level <span class="math inline">\(3\)</span>), they meet at <em>legal</em> (Level
-<span class="math inline">\(2\)</span>). In p-adic math, we only care
-about that meeting point (“inverted U”).</p>
-<p>We choose a <span class="math inline">\(5\)</span>-adic metric
-because in this tree system every folder has capacity for exactly <span class="math inline">\(5\)</span> slots (files or sub-folders). Think of
-<span class="math inline">\(p\)</span> as the scaling constant. It
-defines how much the world “shrinks” every time you double-click into a
-folder: At <span class="math inline">\(p=2\)</span>, files in the same
-folder are <span class="math inline">\(1/2\)</span> as far apart as
-strangers. At <span class="math inline">\(p=5\)</span>, files in the
-same folder are <span class="math inline">\(1/5\)</span> as far apart as
-strangers. If you choose a larger <span class="math inline">\(p\)</span>, you are essentially saying that
+<p>Even though <code>roof.pdf</code> is technically inside
+<code>contracts</code> (Level <span class="math inline">\(3\)</span>)
+and <code>budget.xlsx</code> is inside <code>fees</code> (Level <span class="math inline">\(3\)</span>), they meet at <code>legal</code>
+(Level <span class="math inline">\(2\)</span>). In p-adic math, we only
+care about that meeting point (“inverted U”).</p>
+<p>In <span class="math inline">\(p\)</span>-adic notation, we write the
+address “backwards” (from specific to general), but for this analogy,
+we’ll build the value from the top down:</p>
+<p><span class="math display">\[\text{Address} = (\text{Level}_1 \times
+5^0) + (\text{Level}_2 \times 5^1) + (\text{Level}_3 \times 5^2) +
+(\text{File}\_{\text{ID}} \times 5^3)\]</span></p>
+<p>Imagine you have a big integer representing a file’s ID. To find its
+“Windows Explorer” path, you divide it by <span class="math inline">\(5\)</span> over and over: Step <span class="math inline">\(1\)</span>: <span class="math inline">\(\text{ID}
+\div 5\)</span> The remainder is <span class="math inline">\(\text{Level}_1\)</span> (Which folder under
+<code>root</code>). Step 2: Take the quotient from Step <span class="math inline">\(1,\)</span> divide by <span class="math inline">\(5\)</span> again. The remainder is <span class="math inline">\(\text{Level}_2\)</span> (Which sub-folder under
+<code>docs</code>). Step <span class="math inline">\(3\)</span>: Take
+the quotient from Step <span class="math inline">\(2,\)</span> divide by
+<span class="math inline">\(5\)</span> again. The remainder is <span class="math inline">\(\text{Level}_3\)</span> (Which sub-sub-folder
+under <code>legal</code>)… In the address equation above <span class="math inline">\(\text{Level}_1\)</span> is the first remainder. It
+tells you the “broadest” location. <span class="math inline">\(\text{Level}_2 \times 5\)</span> is the second
+remainder. It shifts you into a deeper sub-folder. <span class="math inline">\(\text{Level}_3 \times 25\)</span> is the third
+remainder. It shifts you even deeper. The further “right” you go in the
+expansion (higher powers of <span class="math inline">\(5\)</span>), the
+deeper you are in the Windows Explorer tree.3.</p>
+<p>If two files have the same first three remainders (<span class="math inline">\(L_1, L_2, L_3\)</span>), their addresses will look
+like this:</p>
+<ul>
+<li><p>File A: <span class="math inline">\(\small (L_1 \cdot 5^0 + L_2
+\cdot 5^1 + L_3 \cdot 5^2) + (\mathbf{\text{ID}_A} \cdot
+5^3)\)</span></p></li>
+<li><p>File B: <span class="math inline">\(\small (L_1 \cdot 5^0 + L_2
+\cdot 5^1 + L_3 \cdot 5^2) + (\mathbf{\text{ID}_B} \cdot
+5^3)\)</span></p></li>
+</ul>
+<p>When you subtract them, the shared remainders (the shared folder
+path) cancel out completely:</p>
+<p><span class="math display">\[\text{Difference} = (\text{ID}_A -
+\text{ID}_B) \times 5^3\]</span></p>
+<p>Because the difference is a multiple of <span class="math inline">\(5^3\)</span> (125), the p-adic metric says: “These
+files share <span class="math inline">\(3\)</span> levels of
+history.”</p>
+<p>We choose a <span class="math inline">\(5\)</span>-adic metric in
+this example because in this tree system every folder has capacity for
+exactly <span class="math inline">\(5\)</span> slots (files or
+sub-folders). Think of <span class="math inline">\(p\)</span> as the
+scaling constant. It defines how much the world “shrinks” every time you
+double-click into a folder: At <span class="math inline">\(p=2\)</span>,
+files in the same folder are <span class="math inline">\(1/2\)</span> as
+far apart as strangers. At <span class="math inline">\(p=5\)</span>,
+files in the same folder are <span class="math inline">\(1/5\)</span> as
+far apart as strangers. If you choose a larger <span class="math inline">\(p\)</span>, you are essentially saying that
 siblings are much closer to each other than they are to anyone else.
 Using <span class="math inline">\(p=5\)</span> makes the math very
 clear:</p>
@@ -934,19 +983,16 @@ clear:</p>
 <p>Shared Sub-folder (<span class="math inline">\(n=1\)</span>) <span class="math inline">\(\rightarrow\)</span> Distance = <span class="math inline">\(0.2\)</span></p>
 <p>Shared Sub-sub-folder (<span class="math inline">\(n=2\)</span>)
 <span class="math inline">\(\rightarrow\)</span> Distance = <span class="math inline">\(0.04\)</span></p>
-<p>For instance, the distance between <em>just.doc</em> and
-<em>budget.xlsx</em> would be <span class="math inline">\(0.008.\)</span> Both <em>just.doc</em> and
-<em>budget.xlsx</em> live inside the <strong>fees</strong> folder. To
+<p>For instance, the distance between <code>just.doc</code> and
+<code>budget.xlsx</code> would be <span class="math inline">\(0.008.\)</span> Both <code>just.doc</code> and
+<code>budget.xlsx</code> live inside the <code>fees</code> folder. To
 find their distance, we look at the depth (<span class="math inline">\(n\)</span>) of that shared folder from
-<strong>root</strong>:</p>
-<p>Level <span class="math inline">\(0\)</span>:
-<strong>root</strong></p>
-<p>Level <span class="math inline">\(1\)</span>:
-<strong>docs</strong></p>
-<p>Level <span class="math inline">\(2\)</span>:
-<strong>legal</strong></p>
-<p>Level <span class="math inline">\(3\)</span>: <strong>fees</strong>
-(This is where they meet).</p>
+<code>root</code>:</p>
+<p>Level <span class="math inline">\(0\)</span>: <code>root</code></p>
+<p>Level <span class="math inline">\(1\)</span>: <code>docs</code></p>
+<p>Level <span class="math inline">\(2\)</span>: <code>legal</code></p>
+<p>Level <span class="math inline">\(3\)</span>: <code>fees</code> (This
+is where they meet).</p>
 <p>The distance formula is <span class="math inline">\(d(A, B) =
 p^{-n}\)</span>.</p>
 <p>With <span class="math inline">\(p = 5\)</span> and <span class="math inline">\(n = 3\)</span>:</p>

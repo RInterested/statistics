@@ -154,6 +154,8 @@ To find the $5$-adic expansion of $4,357$, we’ll use that "microscope" method:
 
 We represent $4,357$ as $a/c$ where $a = 4357$ and $c = 1$. We solve $1 \cdot d \equiv a \pmod 5$ at each level.
 
+---
+
 | Power | Current $a$ | Digit $b_i$ | Subtraction $(a - b_i)$ | New $a$ ($a/5$) | $x_n = 4357 \pmod{5^n}$ | Consistency $x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | $5^0=1$ | $4357$ | $\color{red}2$ ($b_0$) | $4357 - 2 = 4355$ | $871$ | $x_0 = 0$ | — |
@@ -164,6 +166,8 @@ We represent $4,357$ as $a/c$ where $a = 4357$ and $c = 1$. We solve $1 \cdot d 
 | $5^5=3125$ | $1$ | $\color{red}1$ ($b_5$) | $1 - 1 = 0$ | $0$ | $x_5 = 1232$ | $1232 \equiv 607 \pmod{625}$ |
 | $5^6=15625$ | $0$ | $\color{red}0$ ($b_6$) | $0 - 0 = 0$ | $0$ | $x_6 = 4357$ | $4357 \equiv 1232 \pmod{3125}$ |
 
+---
+
 
 The digits we found $(b_0, b_1, b_2, b_3, b_4, b_5)$ are the coefficients for the powers of $5$:
 
@@ -171,21 +175,18 @@ $$4357 = (\mathbf{2} \cdot 5^0) + (\mathbf{1} \cdot 5^1) + (\mathbf{4} \cdot 5^2
 
 Checking the math:
 
-$2 \times 1 = 2$
+$2 \times 1 + 1 \times 5 + 4 \times 25 +4 \times 125 + 1 \times 625 + 1 \times 3125 = 4,357$ 
 
-$1 \times 5 = 5$
+In $5$-adic notation, written from the lowest power to the highest, the expansion is $2, 1, 4, 4, 1, 1.$ In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
 
-$4 \times 25 = 100$
+In the study of $p$-adic numbers, the values $x_n$ are called **partial sums** (or sometimes **congruential approximations**). They represent the $p$-adic integer as a sequence of integers that "nest" inside one another. Mathematically, a $p$-adic integer is often defined exactly as this sequence $\{x_1, x_2, x_3, \dots\}$. The relationship between $x_n$ and the digits $b_i$ is additive. While the digits $b_i$ are the individual coefficients of the power series, the $x_n$ values are the cumulative totals of that series up to a certain point.
 
-$4 \times 125 = 500$
+If the 5-adic representation of $4357$ is written as:
 
-$1 \times 625 = 625$
+$$\dots + b_n 5^n + \dots + b_2 5^2 + b_1 5^1 + b_0 5^0$$
+Then $x_n$ is the sum of the first $n$ terms:
 
-$1 \times 3125 = 3125$
-
-Sum: $4,357$ 
-
-In $5$-adic notation, written from the lowest power to the highest, the expansion is 2, 1, 4, 4, 1, 1. In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
+$$x_n = \sum_{i=0}^{n-1} b_i 5^i$$
 
 The condition $x_{n+1} \equiv x_n \pmod{p^n}$ is just the mathematical way of saying: "To be on a branch at level $n+1$, you must have come from the branch directly below it at level $n$. "You can't teleport from the "remainder $2$" branch at level $1$ to the "remainder $18$" branch at level $2$ if $18 \not\equiv 2 \pmod 5$.
 
@@ -299,9 +300,27 @@ Hierarchy:
 
 * Level $2$: ref (camera) and legal (roof, budget) are here.
 
-Even though *roof.pdf* is technically inside *contracts* (Level $3$) and *budget.xlsx* is inside *fees* (Level $3$), they meet at *legal* (Level $2$). In p-adic math, we only care about that meeting point ("inverted U").
+Even though `roof.pdf` is technically inside `contracts` (Level $3$) and `budget.xlsx` is inside `fees` (Level $3$), they meet at `legal` (Level $2$). In p-adic math, we only care about that meeting point ("inverted U").
 
-We choose a $5$-adic metric because in this tree system every folder has capacity for exactly $5$ slots (files or sub-folders). Think of $p$ as the scaling constant. It defines how much the world "shrinks" every time you double-click into a folder: At $p=2$, files in the same folder are $1/2$ as far apart as strangers. At $p=5$, files in the same folder are $1/5$ as far apart as strangers. If you choose a larger $p$, you are essentially saying that siblings are much closer to each other than they are to anyone else. Using $p=5$ makes the math very clear:
+In $p$-adic notation, we write the address "backwards" (from specific to general), but for this analogy, we'll build the value from the top down:
+
+$$\text{Address} = (\text{Level}_1 \times 5^0) + (\text{Level}_2 \times 5^1) + (\text{Level}_3 \times 5^2) + (\text{File}\_{\text{ID}} \times 5^3)$$
+
+Imagine you have a big integer representing a file's ID. To find its "Windows Explorer" path, you divide it by $5$ over and over: Step $1$: $\text{ID} \div 5$ The remainder is $\text{Level}_1$ (Which folder under `root`). Step 2: Take the quotient from Step $1,$ divide by $5$ again. The remainder is $\text{Level}_2$ (Which sub-folder under `docs`). Step $3$: Take the quotient from Step $2,$ divide by $5$ again. The remainder is $\text{Level}_3$ (Which sub-sub-folder under `legal`)... In the address equation above $\text{Level}_1$ is the first remainder. It tells you the "broadest" location. $\text{Level}_2 \times 5$ is the second remainder. It shifts you into a deeper sub-folder. $\text{Level}_3 \times 25$ is the third remainder. It shifts you even deeper. The further "right" you go in the expansion (higher powers of $5$), the deeper you are in the Windows Explorer tree.3. 
+
+If two files have the same first three remainders ($L_1, L_2, L_3$), their addresses will look like this:
+
+- File A: $\small (L_1 \cdot 5^0 + L_2 \cdot 5^1 + L_3 \cdot 5^2) + (\mathbf{\text{ID}_A} \cdot 5^3)$
+
+- File B: $\small (L_1 \cdot 5^0 + L_2 \cdot 5^1 + L_3 \cdot 5^2) + (\mathbf{\text{ID}_B} \cdot 5^3)$
+
+When you subtract them, the shared remainders (the shared folder path) cancel out completely:
+
+$$\text{Difference} = (\text{ID}_A - \text{ID}_B) \times 5^3$$
+
+Because the difference is a multiple of $5^3$ (125), the p-adic metric says: "These files share $3$ levels of history."
+
+We choose a $5$-adic metric in this example because in this tree system every folder has capacity for exactly $5$ slots (files or sub-folders). Think of $p$ as the scaling constant. It defines how much the world "shrinks" every time you double-click into a folder: At $p=2$, files in the same folder are $1/2$ as far apart as strangers. At $p=5$, files in the same folder are $1/5$ as far apart as strangers. If you choose a larger $p$, you are essentially saying that siblings are much closer to each other than they are to anyone else. Using $p=5$ makes the math very clear:
 
 Shared Root ($n=0$) $\rightarrow$ Distance = $1$
 
@@ -309,15 +328,15 @@ Shared Sub-folder ($n=1$) $\rightarrow$ Distance = $0.2$
 
 Shared Sub-sub-folder ($n=2$) $\rightarrow$ Distance = $0.04$
 
-For instance, the distance between *just.doc* and *budget.xlsx* would be $0.008.$ Both *just.doc* and *budget.xlsx* live inside the **fees** folder. To find their distance, we look at the depth ($n$) of that shared folder from **root**:
+For instance, the distance between `just.doc` and `budget.xlsx` would be $0.008.$ Both `just.doc` and `budget.xlsx` live inside the `fees` folder. To find their distance, we look at the depth ($n$) of that shared folder from `root`:
 
-Level $0$: **root**
+Level $0$: `root`
 
-Level $1$: **docs**
+Level $1$: `docs`
 
-Level $2$: **legal**
+Level $2$: `legal`
 
-Level $3$: **fees** (This is where they meet).
+Level $3$: `fees` (This is where they meet).
 
 The distance formula is $d(A, B) = p^{-n}$.
 
