@@ -264,6 +264,13 @@ In the true geometric construction of the $5$-adic tree, the cylinders are eccen
 
 ---
 
+In $\mathbb{R}$, the "tail" of a decimal expansion can fundamentally change the "head" because of the Archimedean property. In a decimal expansion, there is no "safe zone." If you have a number like $\pi$ or any irrational: $3.14159265...$ and you change a digit $1,000$ places to the right, in the real numbers, that change is "small." But if you are performing arithmetic, a carry generated at the $1,000^{th}$ place can propagate all the way back to the $3$. This is the instability. The "far away" digits are not truly isolated from the "important" digits. The $p$-adic metric is Non-Archimedean (or an Ultrametric).
+
+The real numbers and the "$p$-adic" numbers are essentially two different philosophies of precision. The problem isn't that carries exist — it's that in the real numbers, the direction of importance and the direction of arithmetic flow are in direct conflict. In decimal (real) numbers the importance is on the left (the $3$ in $\pi$ is more "important" than the $4$ in the hundredths place). However, the arithmetic flow (the carries) moves from right to left. This means that to be absolutely sure about the most important part of your number (the $3$), you technically need to know every single digit to the infinite right, just in case a "$999...$" chain is sitting there waiting to be triggered by a carry. In $p$-adics, the directions are aligned the importance is on the right (the units/remainder $b_0$) - remember that p-adics are written right to left. Likewise, the arithmetic flow (carries) moves from right to left (toward higher powers of $p$). Because higher powers are "smaller" in $p$-adic space, a carry rippling "to the left" is a carry rippling into oblivion. It moves toward the part of the number that matters less.
+
+
+---
+
 The relationship is also extended to fractions. For instance, in the case of $1/3$:
 
 $$\boxed{\begin{align}&\text{Reals base } 5: &0.\mathbf{131313...}\\

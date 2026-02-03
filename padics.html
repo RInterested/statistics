@@ -951,6 +951,35 @@ it perfectly illustrates the inverse limit: you are narrowing down your
 location in the <span class="math inline">\(p\)</span>-adic “map” by
 choosing smaller and smaller offset neighborhoods.</p>
 <hr />
+<p>In <span class="math inline">\(\mathbb{R}\)</span>, the “tail” of a
+decimal expansion can fundamentally change the “head” because of the
+Archimedean property. In a decimal expansion, there is no “safe zone.”
+If you have a number like <span class="math inline">\(\pi\)</span> or
+any irrational: <span class="math inline">\(3.14159265...\)</span> and
+you change a digit <span class="math inline">\(1,000\)</span> places to
+the right, in the real numbers, that change is “small.” But if you are
+performing arithmetic, a carry generated at the <span class="math inline">\(1,000^{th}\)</span> place can propagate all the
+way back to the <span class="math inline">\(3\)</span>. This is the
+instability. The “far away” digits are not truly isolated from the
+“important” digits. The <span class="math inline">\(p\)</span>-adic
+metric is Non-Archimedean (or an Ultrametric).</p>
+<p>The real numbers and the “<span class="math inline">\(p\)</span>-adic” numbers are essentially two
+different philosophies of precision. The problem isn’t that carries
+exist — it’s that in the real numbers, the direction of importance and
+the direction of arithmetic flow are in direct conflict. In decimal
+(real) numbers the importance is on the left (the <span class="math inline">\(3\)</span> in <span class="math inline">\(\pi\)</span> is more “important” than the <span class="math inline">\(4\)</span> in the hundredths place). However, the
+arithmetic flow (the carries) moves from right to left. This means that
+to be absolutely sure about the most important part of your number (the
+<span class="math inline">\(3\)</span>), you technically need to know
+every single digit to the infinite right, just in case a “<span class="math inline">\(999...\)</span>” chain is sitting there waiting to
+be triggered by a carry. In <span class="math inline">\(p\)</span>-adics, the directions are aligned the
+importance is on the right (the units/remainder <span class="math inline">\(b_0\)</span>) - remember that p-adics are written
+right to left. Likewise, the arithmetic flow (carries) moves from right
+to left (toward higher powers of <span class="math inline">\(p\)</span>). Because higher powers are “smaller”
+in <span class="math inline">\(p\)</span>-adic space, a carry rippling
+“to the left” is a carry rippling into oblivion. It moves toward the
+part of the number that matters less.</p>
+<hr />
 <p>The relationship is also extended to fractions. For instance, in the
 case of <span class="math inline">\(1/3\)</span>:</p>
 <p><span class="math display">\[\boxed{\begin{align}&amp;\text{Reals
