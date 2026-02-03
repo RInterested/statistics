@@ -660,8 +660,9 @@ tail of the RHS of the expression:</p>
 <p>leaving only <span class="math inline">\(b_0\)</span>. In the next
 step we subtract <span class="math inline">\(4357 - b_0\)</span> to
 produce the <span class="math inline">\(\text{new } a\)</span>: so the
-new <span class="math inline">\(a\)</span> is just the number we started
-with modified in such manner that it is now congrouous to <span class="math inline">\(5.\)</span> We save the remnant the <span class="math inline">\(b_0\)</span>. This new <span class="math inline">\(a\)</span> is divisible by <span class="math inline">\(5,\)</span> but now we want to test the modularity
+<code>new</code> <span class="math inline">\(a\)</span> is just the
+number we started with modified in such manner that it is now congrouous
+to <span class="math inline">\(5.\)</span> We save the remnant the <span class="math inline">\(b_0\)</span>. This new <span class="math inline">\(a\)</span> is divisible by <span class="math inline">\(5,\)</span> but now we want to test the modularity
 at base <span class="math inline">\(5^2\)</span>. We divide again by
 <span class="math inline">\(5\)</span> for the second time, but only
 after having subtracted the modular result base <span class="math inline">\(5,\)</span> i.e. <span class="math inline">\(\frac{a - b_0}5\)</span> Again we will find the
@@ -670,6 +671,15 @@ this remnant as the modular expression of the number at base <span class="math i
 though we are withering away at the initial integer, always dividing by
 higher powers of <span class="math inline">\(5,\)</span> and never
 keeping record of the quotients at all.</p>
+<p>In regular division the <code>quotient</code> is saved at each step,
+while the <code>remainder</code> is augmented by appending the next
+(smaller order) digit (or in decimals, simply adding a zero, or
+<strong>multiplying</strong> <span class="math inline">\(\times
+10\)</span>). In <span class="math inline">\(5\)</span>-adic it is the
+<code>remainders</code> that are saved to reconstitute the number, and
+it is the initial number (the <span class="math inline">\(a\)</span>)
+that keeps getting chipped away by the <code>remainder</code> (<span class="math inline">\(b_i\)</span>) and <strong>divided</strong> by
+<span class="math inline">\(5\)</span> at each step.</p>
 <hr />
 <table style="width:100%;">
 <colgroup>
@@ -781,9 +791,9 @@ b_4, b_5)\)</span> are the coefficients for the powers of <span class="math inli
 <p><span class="math display">\[4357 = (\mathbf{2} \cdot 5^0) +
 (\mathbf{1} \cdot 5^1) + (\mathbf{4} \cdot 5^2) + (\mathbf{4} \cdot 5^3)
 + (\mathbf{1} \cdot 5^4) + (\mathbf{1} \cdot 5^5)\]</span></p>
-<p>Checking the math:</p>
-<p><span class="math inline">\(2 \times 1 + 1 \times 5 + 4 \times 25 +4
-\times 125 + 1 \times 625 + 1 \times 3125 = 4,357\)</span></p>
+<p>Checking the math: <span class="math inline">\(2 \times 1 + 1 \times
+5 + 4 \times 25 +4 \times 125 + 1 \times 625 + 1 \times 3125 =
+4,357\)</span></p>
 <p>In <span class="math inline">\(5\)</span>-adic notation, written from
 the lowest power to the highest, the expansion is <span class="math inline">\(2, 1, 4, 4, 1, 1.\)</span> In standard <span class="math inline">\(p\)</span>-adic form (infinite zeros to the left),
 it is written as: <span class="math inline">\(...000114412\)</span>. In

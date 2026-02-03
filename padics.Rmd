@@ -168,9 +168,9 @@ How to think of these $a_i$ and $b_i$? Well, $a_0$ is the actual number we start
 
 $$4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)$$
 
-leaving only $b_0$. In the next step we subtract $4357 - b_0$ to produce the $\text{new } a$: so the new $a$ is just the number we started with modified in such manner that it is now congrouous to $5.$ We save the remnant the $b_0$. This new $a$ is divisible by $5,$ but now we want to test the modularity at base $5^2$. We divide again by $5$ for the second time, but only after having subtracted the modular result base $5,$ i.e. $\frac{a - b_0}5$ Again we will find the remnant at that base in $b_1,$ save this remnant as the modular expression of the number at base $25,$ and again subtract. So it is as though we are withering away at the initial integer, always dividing by higher powers of $5,$ and never keeping record of the quotients at all.
+leaving only $b_0$. In the next step we subtract $4357 - b_0$ to produce the $\text{new } a$: so the `new` $a$ is just the number we started with modified in such manner that it is now congrouous to $5.$ We save the remnant the $b_0$. This new $a$ is divisible by $5,$ but now we want to test the modularity at base $5^2$. We divide again by $5$ for the second time, but only after having subtracted the modular result base $5,$ i.e. $\frac{a - b_0}5$ Again we will find the remnant at that base in $b_1,$ save this remnant as the modular expression of the number at base $25,$ and again subtract. So it is as though we are withering away at the initial integer, always dividing by higher powers of $5,$ and never keeping record of the quotients at all.
 
-
+In regular division the `quotient` is saved at each step, while the `remainder` is augmented by appending the next (smaller order) digit (or in decimals, simply adding a zero, or **multiplying** $\times 10$). In $5$-adic it is the `remainders` that are saved to reconstitute the number, and it is the initial number (the $a$) that keeps getting chipped away by the `remainder` ($b_i$) and **divided** by $5$ at each step. 
 
 ---
 
@@ -191,9 +191,7 @@ The digits we found $(b_0, b_1, b_2, b_3, b_4, b_5)$ are the coefficients for th
 
 $$4357 = (\mathbf{2} \cdot 5^0) + (\mathbf{1} \cdot 5^1) + (\mathbf{4} \cdot 5^2) + (\mathbf{4} \cdot 5^3) + (\mathbf{1} \cdot 5^4) + (\mathbf{1} \cdot 5^5)$$
 
-Checking the math:
-
-$2 \times 1 + 1 \times 5 + 4 \times 25 +4 \times 125 + 1 \times 625 + 1 \times 3125 = 4,357$ 
+Checking the math: $2 \times 1 + 1 \times 5 + 4 \times 25 +4 \times 125 + 1 \times 625 + 1 \times 3125 = 4,357$ 
 
 In $5$-adic notation, written from the lowest power to the highest, the expansion is $2, 1, 4, 4, 1, 1.$ In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
 
