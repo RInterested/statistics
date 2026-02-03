@@ -547,13 +547,14 @@ left.</p>
 <p>First, let’s identify the powers of 5: <span class="math inline">\(5^1 = 5\)</span>, <span class="math inline">\(5^2
 = 25\)</span>, <span class="math inline">\(5^3 = 125\)</span>, <span class="math inline">\(5^4 = 625\)</span>, <span class="math inline">\(5^5 = 3,125\)</span>, <span class="math inline">\(5^6 = 15,625\)</span>. Since <span class="math inline">\(5^5\)</span> is the largest power that fits in
 4,357, we start there.</p>
-<table>
+<table style="width:100%;">
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -563,6 +564,7 @@ left.</p>
 <th align="left"><span class="math inline">\(\small \text{prior
 Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <th align="left">Remainder (Re)</th>
+<th align="left"></th>
 </tr>
 </thead>
 <tbody>
@@ -570,7 +572,8 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <td align="left"><span class="math inline">\(5^5\)</span> (3,125)</td>
 <td align="left"><span class="math inline">\(4357 \div
 3125\)</span></td>
-<td align="left"><span class="math inline">\(1 = b_5\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\)</span></td>
+<td align="left"><span class="math inline">\(= b_5\)</span></td>
 <td align="left"><span class="math inline">\(4357-1 \cdot
 5^5\)</span></td>
 <td align="left"><span class="math inline">\(1,232\)</span></td>
@@ -578,7 +581,8 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^4\)</span> (625)</td>
 <td align="left"><span class="math inline">\(1232 \div 625\)</span></td>
-<td align="left"><span class="math inline">\(1 = b_4\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\)</span></td>
+<td align="left"><span class="math inline">\(= b_4\)</span></td>
 <td align="left"><span class="math inline">\(1232-1\cdot
 5^4\)</span></td>
 <td align="left"><span class="math inline">\(607\)</span></td>
@@ -586,7 +590,8 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^3\)</span> (125)</td>
 <td align="left"><span class="math inline">\(607 \div 125\)</span></td>
-<td align="left"><span class="math inline">\(4= b_3\)</span> <span class="math inline">\(\color{red}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}4\)</span></td>
+<td align="left"><span class="math inline">\(= b_3\)</span></td>
 <td align="left"><span class="math inline">\(607 - 4 \cdot
 5^3\)</span></td>
 <td align="left"><span class="math inline">\(107\)</span></td>
@@ -594,7 +599,8 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^2\)</span> (25)</td>
 <td align="left"><span class="math inline">\(107 \div 25\)</span></td>
-<td align="left"><span class="math inline">\(4=b_2\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}4\)</span></td>
+<td align="left"><span class="math inline">\(=b_2\)</span></td>
 <td align="left"><span class="math inline">\(107 - 4\cdot
 5^2\)</span></td>
 <td align="left"><span class="math inline">\(7\)</span></td>
@@ -602,14 +608,16 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^1\)</span> (5)</td>
 <td align="left"><span class="math inline">\(7 \div 5\)</span></td>
-<td align="left"><span class="math inline">\(1=b_1\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\)</span></td>
+<td align="left"><span class="math inline">\(=b_1\)</span></td>
 <td align="left"><span class="math inline">\(7- 1\cdot 5^1\)</span></td>
 <td align="left"><span class="math inline">\(2\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^0\)</span> (1)</td>
 <td align="left"><span class="math inline">\(2 \div 1\)</span></td>
-<td align="left"><span class="math inline">\(2=b_0\)</span><span class="math inline">\(\color{red}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}2\)</span></td>
+<td align="left"><span class="math inline">\(=b_0\)</span></td>
 <td align="left"><span class="math inline">\(2 - 2\cdot
 5^0\)</span></td>
 <td align="left"><span class="math inline">\(0\)</span></td>
@@ -638,82 +646,105 @@ order.</p>
 level.</p>
 <table style="width:100%;">
 <colgroup>
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">Power</th>
 <th align="left">Current <span class="math inline">\(a\)</span></th>
-<th align="left">Digit <span class="math inline">\(b_i\)</span> (or
-<span class="math inline">\(d\)</span>)</th>
-<th align="left"></th>
-<th align="left">Subtraction (<span class="math inline">\(a -
-b_i\)</span>)</th>
-<th align="left">New a (a/5)</th>
+<th align="left">Digit <span class="math inline">\(b_i\)</span></th>
+<th align="left">Subtraction <span class="math inline">\((a -
+b_i)\)</span></th>
+<th align="left">New <span class="math inline">\(a\)</span> (<span class="math inline">\(a/5\)</span>)</th>
+<th align="left"><span class="math inline">\(x_n = 4357
+\pmod{5^n}\)</span></th>
+<th align="left">Consistency <span class="math inline">\(x_n \equiv
+x_{n-1} \pmod{5^{n-1}}\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><span class="math inline">\(5^0\)</span></td>
-<td align="left"><span class="math inline">\(4,357\)</span></td>
-<td align="left"><span class="math inline">\(\small 4357\mod 5 =
-2=b_0\)</span></td>
-<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(5^0=1\)</span></td>
+<td align="left"><span class="math inline">\(4357\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}2\)</span>
+(<span class="math inline">\(b_0\)</span>)</td>
 <td align="left"><span class="math inline">\(4357 - 2 =
 4355\)</span></td>
-<td align="left"><span class="math inline">\(\frac{4355}5=
-871\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(5^1\)</span></td>
 <td align="left"><span class="math inline">\(871\)</span></td>
-<td align="left"><span class="math inline">\(\small 871 \mod 5 =
-1=b_1\)</span></td>
-<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(x_0 = 0\)</span></td>
+<td align="left">—</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(5^1=5\)</span></td>
+<td align="left"><span class="math inline">\(871\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\)</span>
+(<span class="math inline">\(b_1\)</span>)</td>
 <td align="left"><span class="math inline">\(871 - 1 = 870\)</span></td>
-<td align="left"><span class="math inline">\(\frac{870}5=
-174\)</span></td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(5^2\)</span></td>
 <td align="left"><span class="math inline">\(174\)</span></td>
-<td align="left"><span class="math inline">\(\small 174 \mod 5 =
-4=b_2\)</span></td>
-<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
-<td align="left"><span class="math inline">\(174 - 4 = 170\)</span></td>
-<td align="left"><span class="math inline">\(\frac{170}5=34\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(5^3\)</span></td>
-<td align="left"><span class="math inline">\(34\)</span></td>
-<td align="left"><span class="math inline">\(\small 34 \mod 5 =4
-=b_3\)</span></td>
-<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
-<td align="left"><span class="math inline">\(34 - 4 = 30\)</span></td>
-<td align="left"><span class="math inline">\(\frac{30}5= 6\)</span></td>
+<td align="left"><span class="math inline">\(x_1 = 2\)</span></td>
+<td align="left"><span class="math inline">\(2 \equiv 2
+\pmod{1}\)</span></td>
 </tr>
 <tr class="odd">
-<td align="left"><span class="math inline">\(5^4\)</span></td>
-<td align="left"><span class="math inline">\(6\)</span></td>
-<td align="left"><span class="math inline">\(\small 6 \mod 5 =
-1=b_4\)</span></td>
-<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
-<td align="left"><span class="math inline">\(6 - 1 = 5\)</span></td>
-<td align="left"><span class="math inline">\(\frac5 5 =1\)</span></td>
+<td align="left"><span class="math inline">\(5^2=25\)</span></td>
+<td align="left"><span class="math inline">\(174\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}4\)</span>
+(<span class="math inline">\(b_2\)</span>)</td>
+<td align="left"><span class="math inline">\(174 - 4 = 170\)</span></td>
+<td align="left"><span class="math inline">\(34\)</span></td>
+<td align="left"><span class="math inline">\(x_2 = 7\)</span></td>
+<td align="left"><span class="math inline">\(7 \equiv 2
+\pmod{5}\)</span></td>
 </tr>
 <tr class="even">
-<td align="left"><span class="math inline">\(5^5\)</span></td>
+<td align="left"><span class="math inline">\(5^3=125\)</span></td>
+<td align="left"><span class="math inline">\(34\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}4\)</span>
+(<span class="math inline">\(b_3\)</span>)</td>
+<td align="left"><span class="math inline">\(34 - 4 = 30\)</span></td>
+<td align="left"><span class="math inline">\(6\)</span></td>
+<td align="left"><span class="math inline">\(x_3 = 107\)</span></td>
+<td align="left"><span class="math inline">\(107 \equiv 7
+\pmod{25}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(5^4=625\)</span></td>
+<td align="left"><span class="math inline">\(6\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\)</span>
+(<span class="math inline">\(b_4\)</span>)</td>
+<td align="left"><span class="math inline">\(6 - 1 = 5\)</span></td>
 <td align="left"><span class="math inline">\(1\)</span></td>
-<td align="left"><span class="math inline">\(\small 1 \mod 5
-=1=b_5\)</span></td>
-<td align="left"><span class="math inline">\(\color{blue}\downarrow\)</span></td>
+<td align="left"><span class="math inline">\(x_4 = 607\)</span></td>
+<td align="left"><span class="math inline">\(607 \equiv 107
+\pmod{125}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(5^5=3125\)</span></td>
+<td align="left"><span class="math inline">\(1\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\)</span>
+(<span class="math inline">\(b_5\)</span>)</td>
 <td align="left"><span class="math inline">\(1 - 1 = 0\)</span></td>
-<td align="left"><span class="math inline">\(\frac{0}5 = 0\)</span></td>
+<td align="left"><span class="math inline">\(0\)</span></td>
+<td align="left"><span class="math inline">\(x_5 = 1232\)</span></td>
+<td align="left"><span class="math inline">\(1232 \equiv 607
+\pmod{625}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(5^6=15625\)</span></td>
+<td align="left"><span class="math inline">\(0\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}0\)</span>
+(<span class="math inline">\(b_6\)</span>)</td>
+<td align="left"><span class="math inline">\(0 - 0 = 0\)</span></td>
+<td align="left"><span class="math inline">\(0\)</span></td>
+<td align="left"><span class="math inline">\(x_6 = 4357\)</span></td>
+<td align="left"><span class="math inline">\(4357 \equiv 1232
+\pmod{3125}\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -729,14 +760,21 @@ b_4, b_5)\)</span> are the coefficients for the powers of <span class="math inli
 <p><span class="math inline">\(4 \times 125 = 500\)</span></p>
 <p><span class="math inline">\(1 \times 625 = 625\)</span></p>
 <p><span class="math inline">\(1 \times 3125 = 3125\)</span></p>
-<p>Sum: <span class="math inline">\(4,357\)</span> In <span class="math inline">\(5\)</span>-adic notation: Written from the lowest
-power to the highest, the expansion is 2, 1, 4, 4, 1, 1. In standard
-<span class="math inline">\(p\)</span>-adic form (infinite zeros to the
-left), it is written as: <span class="math inline">\(...000114412\)</span>. In base <span class="math inline">\(5\)</span> notation: Written from the highest
+<p>Sum: <span class="math inline">\(4,357\)</span></p>
+<p>In <span class="math inline">\(5\)</span>-adic notation, written from
+the lowest power to the highest, the expansion is 2, 1, 4, 4, 1, 1. In
+standard <span class="math inline">\(p\)</span>-adic form (infinite
+zeros to the left), it is written as: <span class="math inline">\(...000114412\)</span>. In base <span class="math inline">\(5\)</span> notation: Written from the highest
 power to the lowest, it is <span class="math inline">\(114412_5\)</span>.</p>
+<p>The condition <span class="math inline">\(x_{n+1} \equiv x_n
+\pmod{p^n}\)</span> is just the mathematical way of saying: “To be on a
+branch at level <span class="math inline">\(n+1\)</span>, you must have
+come from the branch directly below it at level <span class="math inline">\(n\)</span>.”You can’t teleport from the “remainder
+<span class="math inline">\(2\)</span>” branch at level <span class="math inline">\(1\)</span> to the “remainder <span class="math inline">\(18\)</span>” branch at level <span class="math inline">\(2\)</span> if <span class="math inline">\(18
+\not\equiv 2 \pmod 5\)</span>.</p>
 <hr />
-<p>In fact, the relationship is also extended to fractions. For
-instance, in the case of <span class="math inline">\(1/3\)</span>:</p>
+<p>The relationship is also extended to fractions. For instance, in the
+case of <span class="math inline">\(1/3\)</span>:</p>
 <p><span class="math display">\[\boxed{\begin{align}&amp;\text{Reals
 base } 5: &amp;0.\mathbf{131313...}\\
 &amp;5-\text{adics: }&amp;...\mathbf{313132}\end{align}}\]</span></p>

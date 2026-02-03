@@ -135,13 +135,13 @@ First, let's identify the powers of 5: $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 
 
 
 | Power (Pw)| Operation | Quotient (Quo)|  $\small \text{prior Re}-\text{Quo}\times\text{Pw}$|Remainder (Re) |
-| :--- | :--- | :--- | :--- | :---|
-| $5^5$ (3,125) | $4357 \div 3125$ | $1 = b_5$$\color{red}\downarrow$|$4357-1 \cdot 5^5$  | $1,232$ |
-| $5^4$ (625) | $1232 \div 625$ | $1 = b_4$$\color{red}\downarrow$|$1232-1\cdot 5^4$ |$607$ |
-| $5^3$ (125) | $607 \div 125$ | $4= b_3$ $\color{red}\downarrow$|$607 - 4 \cdot 5^3$| $107$ |
-| $5^2$ (25) | $107 \div 25$ | $4=b_2$$\color{red}\downarrow$|$107 - 4\cdot 5^2$ | $7$ |
-| $5^1$ (5) | $7 \div 5$ | $1=b_1$$\color{red}\downarrow$|$7- 1\cdot 5^1$ | $2$ |
-| $5^0$ (1) | $2 \div 1$ | $2=b_0$$\color{red}\downarrow$| $2 - 2\cdot 5^0$ | $0$ |
+| :--- | :--- | :--- | :---|:--- | :---|
+| $5^5$ (3,125) | $4357 \div 3125$ | $\color{red}1$ |$= b_5$|$4357-1 \cdot 5^5$  | $1,232$ |
+| $5^4$ (625) | $1232 \div 625$ | $\color{red}1$ |$= b_4$|$1232-1\cdot 5^4$ |$607$ |
+| $5^3$ (125) | $607 \div 125$ | $\color{red}4$ |$= b_3$ |$607 - 4 \cdot 5^3$| $107$ |
+| $5^2$ (25) | $107 \div 25$ | $\color{red}4$ |$=b_2$|$107 - 4\cdot 5^2$ | $7$ |
+| $5^1$ (5) | $7 \div 5$ | $\color{red}1$ |$=b_1$|$7- 1\cdot 5^1$ | $2$ |
+| $5^0$ (1) | $2 \div 1$ | $\color{red}2$ |$=b_0$| $2 - 2\cdot 5^0$ | $0$ |
 
 By gathering the quotients from top to bottom, we get the digits: 1, 1, 4, 4, 1, 2.In standard mathematical notation: $$4357_{10} = 114412_5$$
 
@@ -154,14 +154,16 @@ To find the $5$-adic expansion of $4,357$, we’ll use that "microscope" method:
 
 We represent $4,357$ as $a/c$ where $a = 4357$ and $c = 1$. We solve $1 \cdot d \equiv a \pmod 5$ at each level.
 
-|Power | Current $a$ | Digit $b_i$ (or $d$) || Subtraction ($a - b_i$) | New a (a/5) |
-|:--- | :--- | :--- | :--- |:---| :--- |
-|$5^0$ | $4,357$ | $\small 4357\mod 5 = 2=b_0$|$\color{blue}\downarrow$ | $4357 - 2 = 4355$ | $\frac{4355}5= 871$|
-|$5^1$ | $871$ | $\small 871 \mod 5 = 1=b_1$ |$\color{blue}\downarrow$| $871 - 1 = 870$ |$\frac{870}5= 174$ |
-|$5^2$ | $174$ | $\small 174 \mod 5 = 4=b_2$ |$\color{blue}\downarrow$| $174 - 4 = 170$ | $\frac{170}5=34$ |
-|$5^3$ | $34$ | $\small 34 \mod 5 =4 =b_3$ |$\color{blue}\downarrow$| $34 - 4 = 30$ |$\frac{30}5= 6$ |
-|$5^4$ | $6$ | $\small 6 \mod 5 = 1=b_4$ |$\color{blue}\downarrow$| $6 - 1 = 5$ | $\frac5 5 =1$ |
-|$5^5$ | $1$ | $\small 1 \mod 5 =1=b_5$ |$\color{blue}\downarrow$| $1 - 1 = 0$ |$\frac{0}5 = 0$ |
+| Power | Current $a$ | Digit $b_i$ | Subtraction $(a - b_i)$ | New $a$ ($a/5$) | $x_n = 4357 \pmod{5^n}$ | Consistency $x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $5^0=1$ | $4357$ | $\color{red}2$ ($b_0$) | $4357 - 2 = 4355$ | $871$ | $x_0 = 0$ | — |
+| $5^1=5$ | $871$ | $\color{red}1$ ($b_1$) | $871 - 1 = 870$ | $174$ | $x_1 = 2$ | $2 \equiv 2 \pmod{1}$ |
+| $5^2=25$ | $174$ | $\color{red}4$ ($b_2$) | $174 - 4 = 170$ | $34$ | $x_2 = 7$ | $7 \equiv 2 \pmod{5}$ |
+| $5^3=125$ | $34$ | $\color{red}4$ ($b_3$) | $34 - 4 = 30$ | $6$ | $x_3 = 107$ | $107 \equiv 7 \pmod{25}$ |
+| $5^4=625$ | $6$ | $\color{red}1$ ($b_4$) | $6 - 1 = 5$ | $1$ | $x_4 = 607$ | $607 \equiv 107 \pmod{125}$ |
+| $5^5=3125$ | $1$ | $\color{red}1$ ($b_5$) | $1 - 1 = 0$ | $0$ | $x_5 = 1232$ | $1232 \equiv 607 \pmod{625}$ |
+| $5^6=15625$ | $0$ | $\color{red}0$ ($b_6$) | $0 - 0 = 0$ | $0$ | $x_6 = 4357$ | $4357 \equiv 1232 \pmod{3125}$ |
+
 
 The digits we found $(b_0, b_1, b_2, b_3, b_4, b_5)$ are the coefficients for the powers of $5$:
 
@@ -181,12 +183,16 @@ $1 \times 625 = 625$
 
 $1 \times 3125 = 3125$
 
-Sum: $4,357$ In $5$-adic notation: Written from the lowest power to the highest, the expansion is 2, 1, 4, 4, 1, 1. In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
+Sum: $4,357$ 
+
+In $5$-adic notation, written from the lowest power to the highest, the expansion is 2, 1, 4, 4, 1, 1. In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
+
+The condition $x_{n+1} \equiv x_n \pmod{p^n}$ is just the mathematical way of saying: "To be on a branch at level $n+1$, you must have come from the branch directly below it at level $n$. "You can't teleport from the "remainder $2$" branch at level $1$ to the "remainder $18$" branch at level $2$ if $18 \not\equiv 2 \pmod 5$.
 
 
 ---
 
-In fact, the relationship is also extended to fractions. For instance, in the case of $1/3$:
+The relationship is also extended to fractions. For instance, in the case of $1/3$:
 
 $$\boxed{\begin{align}&\text{Reals base } 5: &0.\mathbf{131313...}\\
 &5-\text{adics: }&...\mathbf{313132}\end{align}}$$
