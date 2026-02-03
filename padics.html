@@ -791,6 +791,24 @@ the sum of the first <span class="math inline">\(n\)</span> terms:</p>
 + 1(625) = \mathbf{1232}\)</span></p>
 <p><span class="math inline">\(x_6: b_0 + \dots + b_5(3125) \implies
 1232 + 1(3125) = \mathbf{4357}\)</span></p>
+<hr />
+<p>These are the “approximations.” They show the value of the number in
+the ring <span class="math inline">\(\mathbb{Z} / 5^n
+\mathbb{Z}\)</span>.In <span class="math inline">\(p\)</span>-adic
+analysis, we don’t think of “closeness” in terms of distance on a number
+line, but rather in terms of divisibility. The partial sums <span class="math inline">\(x_n\)</span> above are the bridge between standard
+integers and the <span class="math inline">\(p\)</span>-adic world. When
+we say <span class="math inline">\(x_n\)</span> is the value in the ring
+<span class="math inline">\(\mathbb{Z} / 5^n \mathbb{Z}\)</span>, we
+mean that <span class="math inline">\(x_n\)</span> is the unique
+representative (usually chosen from <span class="math inline">\(0\)</span> to <span class="math inline">\(5^n -
+1\)</span>) of the number <span class="math inline">\(4357\)</span> when
+you ignore everything divisible by <span class="math inline">\(5^n\)</span>. As <span class="math inline">\(n\)</span> increases, the modulus <span class="math inline">\(5^n\)</span> gets larger, and <span class="math inline">\(x_n\)</span> carries more “information” about the
+number. In <span class="math inline">\(\mathbb{Z}/5^1\mathbb{Z}\)</span>, you only know
+the last digit: <span class="math inline">\(2.\)</span> In <span class="math inline">\(\mathbb{Z}/5^2\mathbb{Z}\)</span>, you know the
+last two digits (<span class="math inline">\(2 + 1 \cdot 5\)</span>):
+<span class="math inline">\(7.\)</span> By the time you reach <span class="math inline">\(x_6\)</span>, you have captured the entire value
+of <span class="math inline">\(4357.\)</span></p>
 <p>The condition <span class="math inline">\(x_{n+1} \equiv x_n
 \pmod{p^n}\)</span> is just the mathematical way of saying: “To be on a
 branch at level <span class="math inline">\(n+1\)</span>, you must have
@@ -814,9 +832,7 @@ such that applying the “forgetful map” to <span class="math inline">\(x_n\)<
 <p>This is why we call it a “limit.” We aren’t looking at a single
 level; we are looking at the infinite sequence of all levels
 simultaneously.</p>
-<p>When we write the integer 4357 in base-10, we don’t usually write
-<span class="math inline">\(...000004357\)</span>. We assume the
-infinite string of zeros to the left. In the <span class="math inline">\(p\)</span>-adic sequence <span class="math inline">\((x_1, x_2, x_3, \dots)\)</span>, once <span class="math inline">\(p^n\)</span> becomes larger than the integer
+<p>In the <span class="math inline">\(p\)</span>-adic sequence <span class="math inline">\((x_1, x_2, x_3, \dots)\)</span>, once <span class="math inline">\(p^n\)</span> becomes larger than the integer
 itself (for <span class="math inline">\(4357\)</span> and <span class="math inline">\(p=5\)</span>, this happens at <span class="math inline">\(5^6 = 15625\)</span>), the remainder <span class="math inline">\(x_n\)</span> simply becomes the number itself.
 <span class="math inline">\(x_6 = 4357 \pmod{15625} = 4357,\)</span>
 <span class="math inline">\(x_7 = 4357 \pmod{78125} = 4357,\)</span>
@@ -826,6 +842,31 @@ infinite object <span class="math inline">\((2, 7, 107, 607, 1232, 4357,
 natural integers <span class="math inline">\(\mathbb{Z}\)</span> are
 “embedded” inside the <span class="math inline">\(p\)</span>-adic
 integers <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
+<p>The <span class="math inline">\(p\)</span>-adic integers, denoted as
+<span class="math inline">\(\mathbb{Z}_p\)</span>, are formally defined
+as the inverse limit (or projective limit) of these rings. <span class="math display">\[\mathbb{Z}_p = \varprojlim (\mathbb{Z} / p^n
+\mathbb{Z})\]</span></p>
+<p>In <span class="math inline">\(p\)</span>-adics, the “limit” is a
+sequence of partial sums <span class="math inline">\((x_1, x_2, x_3,
+\dots)\)</span> that satisfy a compatibility condition: <span class="math inline">\(x_n \equiv x_{n-1} \pmod{p^{n-1}}\)</span>. The
+inverse limit for a terminating integer is clearly seen in the
+<code>New</code> <span class="math inline">\(a\)</span> (<span class="math inline">\(a/5\)</span>) column. Notice how <span class="math inline">\(a\)</span> decreases: <span class="math inline">\(4357 \to 871 \to 174 \to 34 \to 6 \to 1 \to
+0\)</span>. Once <span class="math inline">\(a\)</span> hits <span class="math inline">\(0\)</span>, it stays <span class="math inline">\(0\)</span> forever. This means for all <span class="math inline">\(n &gt; 6\)</span>, the digit <span class="math inline">\(b_n\)</span> will be <span class="math inline">\(0\)</span>. In the context of the inverse limit,
+the sequence becomes: <span class="math inline">\((x_1, x_2, x_3, x_4,
+x_5, x_6, x_6, x_6, \dots)\)</span> The sequence stabilizes. In the ring
+<span class="math inline">\(\mathbb{Z}_5\)</span>, an integer is simply
+a sequence that eventually becomes constant (all zeros) as you move to
+higher powers.</p>
+<p>The “Consistency” column is the mathematical proof that the sequence
+is an element of the inverse limit. We consider the sequence to
+“converge” because the difference between consecutive terms, <span class="math inline">\(x_n - x_{n-1}\)</span>, is <span class="math inline">\(b_{n-1} 5^{n-1}\)</span>. In the <span class="math inline">\(p\)</span>-adic metric, as the power of <span class="math inline">\(p\)</span> increases, the value actually becomes
+smaller. The distance between <span class="math inline">\(x_1\)</span>
+and <span class="math inline">\(x_2\)</span> is <span class="math inline">\(5^{-1}\)</span>.The distance between <span class="math inline">\(x_5\)</span> and <span class="math inline">\(x_6\)</span> is <span class="math inline">\(5^{-5}\)</span> (very tiny!). So, while the
+integers <span class="math inline">\(x_n\)</span> look like they are
+getting bigger in the “normal” sense <span class="math inline">\((7,
+107, 607...),\)</span> they are actually narrowing down (converging) to
+a specific <span class="math inline">\(p\)</span>-adic point because the
+“corrections” we add at each step are getting <span class="math inline">\(p\)</span>-adically smaller.</p>
 <hr />
 <p>The relationship is also extended to fractions. For instance, in the
 case of <span class="math inline">\(1/3\)</span>:</p>
