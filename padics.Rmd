@@ -188,6 +188,20 @@ Then $x_n$ is the sum of the first $n$ terms:
 
 $$x_n = \sum_{i=0}^{n-1} b_i 5^i$$
 
+Let's see how the $b_i$ build your $x_n$ values:$x_1$: 
+
+$x_1: b_0 = \mathbf{2}$ 
+
+$x_2: b_0 + b_1(5) \implies 2 + 1(5) = \mathbf{7}$
+
+$x_3: b_0 + b_1(5) + b_2(25) \implies 2 + 5 + 4(25) = \mathbf{107}$
+
+$x_4: b_0 + b_1(5) + b_2(25) + b_3(125) \implies 107 + 4(125) = \mathbf{607}$
+
+$x_5: b_0 + \dots + b_4(625) \implies 607 + 1(625) = \mathbf{1232}$
+
+$x_6: b_0 + \dots + b_5(3125) \implies 1232 + 1(3125) = \mathbf{4357}$
+
 The condition $x_{n+1} \equiv x_n \pmod{p^n}$ is just the mathematical way of saying: "To be on a branch at level $n+1$, you must have come from the branch directly below it at level $n$. "You can't teleport from the "remainder $2$" branch at level $1$ to the "remainder $18$" branch at level $2$ if $18 \not\equiv 2 \pmod 5$.
 
 The "Inverse Limit" is a category theory name for this "compatibility" requirement. 
