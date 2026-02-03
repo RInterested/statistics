@@ -146,13 +146,18 @@ First, let's identify the powers of 5: $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 
 By gathering the quotients from top to bottom, we get the digits: 1, 1, 4, 4, 1, 2.In standard mathematical notation: $$4357_{10} = 114412_5$$
 
   
-**The $5$-adic Perspective (The "Congruence" Approach):**
+**The $5$-adic perspective (the "congruence" approach):**
 
 The $5$-adic method starts by solving for the smallest $i$ first ($b_0$). It asks: "What is this number equivalent to, modulo $5$?" It uses the "Subtract and Divide" logic to "clear out" the units, then the fives, then the twenty-fives, moving from the inside out:
 
-To find the $5$-adic expansion of $4,357$, we’ll use that "microscope" method: extracting the digits from the smallest power of 5 ($5^0$) up to the largest. Since $4,357$ is a positive integer, the process will eventually terminate (resulting in infinite zeros to the left), and the coefficients will be the same as the base-$5$ digits, just found in reverse order.
+To find the $5$-adic expansion of $4,357$, we’ll use that "microscope" method: extracting the digits from the smallest power of 5 $(5^0)$ up to the largest. Since $4,357$ is a positive integer, the process will eventually terminate (resulting in infinite zeros to the left), and the coefficients will be the same as the base-$5$ digits, just found in reverse order.
 
-We represent $4,357$ as $a/c$ where $a = 4357$ and $c = 1$. We solve $1 \cdot d \equiv a \pmod 5$ at each level.
+We represent $4,357$ as $a/c$ where $a = 4357$ and $c = 1$. We solve for $b_i$
+
+$$\boxed{b_i \equiv a_i \pmod 5}$$ 
+
+
+at each level.
 
 ---
 
@@ -239,7 +244,7 @@ In algebra, "simpler" usually means smaller or having fewer elements, and the ar
 
 ---
 
-<img width = 600  src = "p_adic_cylinders.png">
+<img width = 450  src = "p_adic_cylinders.png">
 
 ---
 
