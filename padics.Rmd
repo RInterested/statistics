@@ -189,6 +189,22 @@ In $5$-adic notation, written from the lowest power to the highest, the expansio
 
 The condition $x_{n+1} \equiv x_n \pmod{p^n}$ is just the mathematical way of saying: "To be on a branch at level $n+1$, you must have come from the branch directly below it at level $n$. "You can't teleport from the "remainder $2$" branch at level $1$ to the "remainder $18$" branch at level $2$ if $18 \not\equiv 2 \pmod 5$.
 
+The "Inverse Limit" is a category theory name for this "compatibility" requirement. 
+
+The Components:
+
+The Sets: $A_n = \mathbb{Z}/p^n\mathbb{Z}$. These are our "levels" of resolution. 
+
+The Maps: $\phi_n: A_n \to A_{n-1}$. This map takes a remainder modulo $p^n$ and "forgets" the highest power of $p$, reducing it to a remainder modulo $p^{n-1}$.
+
+The Definition: The inverse limit $\varprojlim A_n$ is the set of all sequences $(x_1, x_2, x_3, \dots)$ such that applying the "forgetful map" to $x_n$ always gives you $x_{n-1}$.
+
+$$\phi_n(x_n) = x_{n-1}$$
+
+This is why we call it a "limit." We aren't looking at a single level; we are looking at the infinite sequence of all levels simultaneously.
+
+When we write the integer 4357 in base-10, we don't usually write $...000004357$. We assume the infinite string of zeros to the left. In the $p$-adic sequence $(x_1, x_2, x_3, \dots)$, once $p^n$ becomes larger than the integer itself (for $4357$ and $p=5$, this happens at $5^6 = 15625$), the remainder $x_n$ simply becomes the number itself. $x_6 = 4357 \pmod{15625} = 4357,$ $x_7 = 4357 \pmod{78125} = 4357,$ $x_n = 4357$ for all $n \ge 6$. So, while the sequence is an infinite object $(2, 7, 107, 607, 1232, 4357, 4357, 4357, \dots)$, it stabilizes. This is why we say the natural integers $\mathbb{Z}$ are "embedded" inside the $p$-adic integers $\mathbb{Z}_p$.
+
 
 ---
 
