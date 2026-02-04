@@ -260,7 +260,7 @@ In algebra, "simpler" usually means smaller or having fewer elements, and the ar
 
 <img width = 550  src = "p_adic_cylinders.png">
 
-
+---
 
 | Step | Division | Quotient (Next a) | Remainder (Digit d) | Meaning |
 | :--- | :--- | :--- | :--- | :--- |
@@ -281,6 +281,31 @@ In the true geometric construction of the $5$-adic tree, the cylinders are eccen
 In $\mathbb{R}$, the "tail" of a decimal expansion can fundamentally change the "head" because of the Archimedean property. In a decimal expansion, there is no "safe zone." If you have a number like $\pi$ or any irrational: $3.14159265...$ and you change a digit $1,000$ places to the right, in the real numbers, that change is "small." But if you are performing arithmetic, a carry generated at the $1,000^{th}$ place can propagate all the way back to the $3$. This is the instability. The "far away" digits are not truly isolated from the "important" digits. The $p$-adic metric is Non-Archimedean (or an Ultrametric).
 
 The real numbers and the "$p$-adic" numbers are essentially two different philosophies of precision. The problem isn't that carries exist — it's that in the real numbers, the direction of importance and the direction of arithmetic flow are in direct conflict. In decimal (real) numbers the importance is on the left (the $3$ in $\pi$ is more "important" than the $4$ in the hundredths place). However, the arithmetic flow (the carries) moves from right to left. This means that to be absolutely sure about the most important part of your number (the $3$), you technically need to know every single digit to the infinite right, just in case a "$999...$" chain is sitting there waiting to be triggered by a carry. In $p$-adics, the directions are aligned the importance is on the right (the units/remainder $b_0$) - remember that p-adics are written right to left. Likewise, the arithmetic flow (carries) moves from right to left (toward higher powers of $p$). Because higher powers are "smaller" in $p$-adic space, a carry rippling "to the left" is a carry rippling into oblivion. It moves toward the part of the number that matters less.
+
+
+Mathematically, a $p$-adic open ball is defined by the $p$-adic absolute value (or norm), denoted as $| \cdot |_p$. Because the $p$-adic metric is "non-Archimedean" (it follows the ultrametric inequality), these balls behave very differently from the intervals we see on a real number line. The formal definition of an open ball $B_r(a)$ centered at $a \in \mathbb{Q}_p$ with radius $r > 0$ is the set:
+
+$$B_r(a) = \{ x \in \mathbb{Q}_p : |x - a|_p < r \}$$
+
+In $p$-adic analysis, we typically choose the radius to be a power of $p$, such as $r = p^{-n}$. In that case, the expression becomes:
+
+$$B_{p^{-n}}(a) = \{ x \in \mathbb{Q}_p : |x - a|_p \leq p^{-(n+1)} \}$$
+
+For $p$-adic integers ($\mathbb{Z}_p$), an open ball has a very intuitive algebraic meaning. If we set the radius to $p^{-n}$, the ball consists of all numbers that share the same first $n$ digits as $a$. Mathematically, this is expressed as a coset of the ideal $p^n\mathbb{Z}_p$:
+
+$$B_{p^{-n}}(a) = a + p^n\mathbb{Z}_p = \{ a + k \cdot p^n : k \in \mathbb{Z}_p \}$$
+
+In terms of modular arithmetic, this means:$$x \equiv a \pmod{p^n}$$
+
+The use of $-(n+1)$ in the exponent is a way to bridge the gap between an "open ball" ($<$) and a "closed ball" ($\leq$) in a space where distances only exist in discrete steps. In the $p$-adic world, distances are always powers of $p$ (e.g., $1, 1/5, 1/25, \dots$). There is no distance "in between" $1/5$ and $1/25$. If you define an open ball with radius $r = 5^{-n}$:
+
+$$|x - a|_5 < 5^{-n}$$
+
+the "next smallest" possible distance is $5^{-(n+1)}$. Therefore, saying a distance is strictly less than $5^{-n}$ is mathematically identical to saying it is less than or equal to $5^{-(n+1)}$.
+
+$$B_{5^{-n}}(a) = \{ x \in \mathbb{Q}_5 : |x - a|_5 \leq 5^{-(n+1)} \}$$
+
+This makes more sense if we think about the digits of your number $4357$. If $x$ is in the ball of radius $5^{-n}$, it means $x$ matches $a$ for at least $n$ digits. To be strictly closer than $5^{-n}$, $x$ must match $a$ for at least $n+1$ digits.
 
 
 ---
