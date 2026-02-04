@@ -260,6 +260,17 @@ In algebra, "simpler" usually means smaller or having fewer elements, and the ar
 
 <img width = 550  src = "p_adic_cylinders.png">
 
+
+
+| Step | Division | Quotient (Next a) | Remainder (Digit d) | Meaning |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | $4357 \div 5$ | 871 | 2 | $d_0$: Units leftover |
+| 2 | $871 \div 5$ | 174 | 1 | $d_1$: Fives leftover |
+| 3 | $174 \div 5$ | 34 | 4 | $d_2$: Twenty-fives leftover |
+| 4 | $34 \div 5$ | 6 | 4 | $d_3$: One-hundred-twenty-fives leftover |
+| 5 | $6 \div 5$ | 1 | 1 | $d_4$: Six-hundred-twenty-fives leftover |
+| 6 | $1 \div 5$ | 0 | 1 | $d_5$: Three-thousand-one-hundred-twenty-fives |
+
 ---
 
 In the true geometric construction of the $5$-adic tree, the cylinders are eccentric (offset - not concentric) because each one must fit entirely inside the specific sub-region of its "parent" cylinder. In the $4357$ example, the cylinders "shift" as you go up the levels because you are picking a specific branch that isn't the central one ($b_i=0$). The base cylinder represents all numbers in $\mathbb{Z}_5$. This large cylinder is partitioned into $p$ (in this case, $5$) smaller, non-overlapping cylinders. If you pick $x_1 = 2$, you move into the second "shifted" cylinder. From there, to find $x_2 = 7$ (which is $2 + 1 \cdot 5$), you must move into a further offset sub-cylinder inside the first one. Instead of a straight vertical tower, the path for $4357$ looks like a spiraling or leaning staircase: Level $1$ ($b_0=2$): You step away from the center of the base. Level $2$ ($b_1=1$): You step again in a new direction within that first step. Level $3$ ($b_2=4$): You step toward the edge of that sub-region. The infinite limit point is the unique point at the very top where all these offset cylinders eventually converge to a single vertical line. In the $p$-adic metric, the fact that they are offset doesn't change the "distance," but it perfectly illustrates the inverse limit: you are narrowing down your location in the $p$-adic "map" by choosing smaller and smaller offset neighborhoods.
