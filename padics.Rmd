@@ -502,6 +502,17 @@ Result: Sides are $\{0.2, 1.0, 1.0\}$. Isosceles.
 
 The Isosceles Principle is the geometric manifestation of the Ultrametric Inequality.cvIn a standard metric, the triangle inequality says the third side can't be longer than the sum of the other two: $d(x, z) \leq d(x, y) + d(y, z)$. But in an ultrametric (your folder system), the rule is much "stricter." The third side cannot be longer than the maximum of the other two:$$d(x, z) \leq \max(d(x, y), d(y, z))$$
 
+This can be visualized in the topology of $p$-adics using cylinders:
+
+---
+
+<img width = 700  src = "p_adics_ultrametric_distance.png">
+
+---
+
+The illustration shows three points, $x, y,$ and $z$, in a $5$-adic tree. The distance between any two points is defined by the formula: $d(a, b) = 5^{-n},$ where $n$ is the level of the highest (most specific) cylinder that contains both points. Distance $d(x, y):$ Points $x$ and $y$ both live inside the same blue cylinder ($d_0 = 1$) and the same Level $2$ sub-cylinder ($d_1 = 1$). They only diverge at level $3.$ Because they share a path up to $n=2$, their distance is: $d(x, y) = 5^{-2} = \frac{1}{25} = 0.04.$ On the other hand, the distances $d(x, z)$ and $d(y, z)$ revolve around the fact that point $z$ is in the red branch ($d_0 = 0$), while $x$ and $y$ are in the blue branch ($d_0 = 1$). To find a cylinder that contains both red and blue points, you have to go all the way down to the Silver base ($n=0$). Because they only share the $n=0$ level, their distance is: $d(x, z) = 5^0 = 1$ and $d(y, z) = 5^0 = 1$. This illustrates the "strong triangle inequality." In standard geometry, $y$ looks physically closer to $z$ than $x$ does. But in $p$-adic geometry, $d(x, z) = d(y, z)$. Since both $x$ and $y$ are "trapped" in the same $1/25$-radius ball, they are both exactly $1$ unit away from anything outside that ball. In this world, every triangle is isosceles, and the distance is always determined by the "height of the fork in the road.
+
+
 ---
 
 The folder hierarchy isn't just a metaphor; it's a direct visualization of how modular arithmetic (remainders) works. In standard division, we care about the quotient (how many times a number fits). In $p$-adic math, we throw away the quotient and keep only the remainder, because the remainder tells us which "folder" a number lives in. The remainder is the folder address Think of the prime number $p=5$ as a filing rule. Every time you divide by 5, the remainder tells you which sub-folder to enter:
