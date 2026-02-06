@@ -463,14 +463,25 @@ in powers of <span class="math inline">\(5\)</span>:</p>
 d_1(5^1) + d_0(5^0)\]</span></p>
 <p>The only difference is the “direction of travel” for the
 algorithm.</p>
-<div id="adic" class="section level5">
-<h5><span class="math inline">\(5\)</span>-adic:</h5>
+<div id="expressing-450-in-5-adic" class="section level4">
+<h4>Expressing <span class="math inline">\(450\)</span> in <span class="math inline">\(5\)</span>-adic:</h4>
+<blockquote>
+<p><strong>Nomenclature:</strong></p>
+<p><strong>Coefficients or p-adic digits</strong>: these are the
+<strong>d</strong>’s, which are the result of solving a congruence -
+they are the remainders. They indicate which coset of the ideal <span class="math inline">\(p^n \mathbb{Z}_p\)</span> we are in.</p>
+<p><strong><span class="math inline">\(p\)</span>-adic
+quotients</strong>: these aret he <strong>a</strong>’, Since you are
+performing the operation <span class="math inline">\(a_{i+1} = (a_i -
+d_i) / p\)</span>, you are essentially finding the integer quotient of
+the previous value.</p>
+</blockquote>
 <p>The formula for finding the digit <span class="math inline">\(d_0\)</span> for a <span class="math inline">\(\frac a b \in \mathbb Q\)</span> is:</p>
 <p><span class="math display">\[b \cdot d \equiv a \pmod p\]</span></p>
-<p>Why it is <span class="math inline">\(1\)</span> for <span class="math inline">\(450\)</span>. When you are dealing with an integer
-like <span class="math inline">\(450\)</span>, you are implicitly
-treating it as the fraction: <span class="math inline">\(\frac{450}{1}\)</span> with <span class="math inline">\(a = 450\)</span> (the numerator) and <span class="math inline">\(b = 1\)</span> (the denominator)&gt;So, the
-equation <span class="math inline">\(b \cdot d \equiv a \pmod p\)</span>
+<p>When you are dealing with an integer like <span class="math inline">\(450\)</span>, you are implicitly treating it as
+the fraction: <span class="math inline">\(\frac{450}{1}\)</span> with
+<span class="math inline">\(a = 450\)</span> (the numerator) and <span class="math inline">\(b = 1\)</span> (the denominator). So, the equation
+<span class="math inline">\(b \cdot d \equiv a \pmod p\)</span>
 becomes:<span class="math display">\[1 \cdot d_0 \equiv 450 \pmod
 5\]</span></p>
 <p>since in <span class="math inline">\(\mod 5\)</span> all the terms
@@ -497,7 +508,7 @@ d_2(5^2) + d_1(5^1) + d_0(5^0)\)</span>. Therefore</p>
 </ul></li>
 <li><p>Level <span class="math inline">\(5^3\)</span>:</p>
 <ul>
-<li><p>Find <span class="math inline">\(d_3\)</span> such that <span class="math inline">\(1 \cdot d_3 \equiv 3 \pmod 5\)</span>.<span class="math inline">\(3 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_3 =
+<li><p>Find <span class="math inline">\(d_3\)</span> such that <span class="math inline">\(1 \cdot d_3 \equiv 3 \pmod 5\)</span>. <span class="math inline">\(3 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_3 =
 3\)</span>.</p></li>
 <li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((3 - 3) / 5 = \mathbf{0}\)</span>.</p></li>
 </ul></li>
@@ -505,10 +516,10 @@ d_2(5^2) + d_1(5^1) + d_0(5^0)\)</span>. Therefore</p>
 <p>Result: (Digits <span class="math inline">\(d_0, d_1, d_2,
 d_3\)</span>) <span class="math inline">\(\rightarrow \boxed{0, 0, 3,
 3}\)</span>.</p>
-<p>Written in the same order as Base <span class="math inline">\(5\)</span> (highest power first), this is <span class="math inline">\(3300\)</span>.</p>
+<p>Written in the same order as base <span class="math inline">\(5\)</span> (highest power first), this is <span class="math inline">\(3300\)</span>.</p>
 </div>
-<div id="base-5" class="section level5">
-<h5>Base <span class="math inline">\(5\)</span>:</h5>
+<div id="expressing-450-in-base-5" class="section level4">
+<h4>Expressing <span class="math inline">\(450\)</span> in base <span class="math inline">\(5\)</span>:</h4>
 <p>In standard base conversion, you start with the largest possible
 power of <span class="math inline">\(5\)</span> and work your way down
 to the units.</p>
@@ -528,26 +539,27 @@ quotient-based one and the remainder-based one— are actually doing the
 exact same thing to the number’s structure, just from opposite
 directions.</p>
 <p>They are equivalent because they both seek to satisfy the same
-fundamental polynomial representation of the number. Take the number
-<span class="math inline">\(4357\)</span>. Whether you use the
-“telescope” (Base <span class="math inline">\(5\)</span>) or
-“Microscope” (<span class="math inline">\(5\)</span>-adic) method, you
+fundamental polynomial representation of the number.</p>
+<p>Take the number <span class="math inline">\(4357\)</span>. Whether
+you use the “telescope” (base <span class="math inline">\(5\)</span>) or
+“microscope” (<span class="math inline">\(5\)</span>-adic) method, you
 are solving for the unique set of coefficients <span class="math inline">\(\{b_i\}\)</span> in this identity:</p>
 <p><span class="math display">\[4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2)
 + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)\]</span></p>
 <hr />
-<p><strong>The Base <span class="math inline">\(5\)</span> Perspective
-(The “Greedy” Approach):</strong></p>
+</div>
+<div id="expressing-4357-in-base-5" class="section level4">
+<h4>Expressing <span class="math inline">\(4357\)</span> in base <span class="math inline">\(5\)</span>:</h4>
 <p>Base <span class="math inline">\(5\)</span> starts by solving for the
 largest <span class="math inline">\(i\)</span> first (<span class="math inline">\(b_5\)</span>). It asks: “What is the most
 significant part of this number?” It effectively “strips away” the
 biggest chunks (<span class="math inline">\(1 \cdot 5^5\)</span>, then
 <span class="math inline">\(1 \cdot 5^4\)</span>, etc.) until nothing is
 left.</p>
-<p>Step-by-Step “Quotient” Reasoning:</p>
+<p>Step-by-Step “quotient” reasoning:</p>
 <p>First, let’s identify the powers of 5: <span class="math inline">\(5^1 = 5\)</span>, <span class="math inline">\(5^2
 = 25\)</span>, <span class="math inline">\(5^3 = 125\)</span>, <span class="math inline">\(5^4 = 625\)</span>, <span class="math inline">\(5^5 = 3,125\)</span>, <span class="math inline">\(5^6 = 15,625\)</span>. Since <span class="math inline">\(5^5\)</span> is the largest power that fits in
-4,357, we start there.</p>
+<span class="math inline">\(4,357,\)</span> we start there.</p>
 <table style="width:100%;">
 <colgroup>
 <col width="16%" />
@@ -625,25 +637,28 @@ Re}-\text{Quo}\times\text{Pw}\)</span></th>
 </tr>
 </tbody>
 </table>
-<p>By gathering the quotients from top to bottom, we get the digits: 1,
-1, 4, 4, 1, 2.In standard mathematical notation: <span class="math display">\[4357_{10} = 114412_5\]</span></p>
+<p>By gathering the quotients from top to bottom, we get the digits:
+<span class="math inline">\(1, 1, 4, 4, 1, 2.\)</span> In standard
+mathematical notation: <span class="math display">\[4357_{10} =
+114412_5\]</span></p>
 <p>The process of converting an integer to a base <span class="math inline">\(p\)</span> is essentially a recursive division
 algorithm. Specifically, it is the Euclidean Division algorithm applied
-repeatedly.In regular division, you are “shifting” values across powers
-of 10. In base conversion, you are doing the exact same thing across
-powers of <span class="math inline">\(p\)</span>.</p>
+repeatedly. In regular division, you are “shifting” values across powers
+of <span class="math inline">\(10.\)</span> In base conversion, you are
+doing the exact same thing across powers of <span class="math inline">\(p\)</span>.</p>
 <hr />
-<p><strong>The <span class="math inline">\(5\)</span>-adic perspective
-(the “congruence” approach):</strong></p>
+</div>
+<div id="expressing-4357-in-5-adic-the-congruence-approach" class="section level4">
+<h4>Expressing <span class="math inline">\(4357\)</span> in <span class="math inline">\(5\)</span>-adic (the congruence approach):</h4>
 <p>The <span class="math inline">\(5\)</span>-adic method starts by
 solving for the smallest <span class="math inline">\(i\)</span> first
 (<span class="math inline">\(b_0\)</span>). It asks: “What is this
 number equivalent to, modulo <span class="math inline">\(5\)</span>?” It
-uses the “Subtract and Divide” logic to “clear out” the units, then the
+uses the “subtract and divide” logic to “clear out” the units, then the
 fives, then the twenty-fives, moving from the inside out:</p>
 <p>To find the <span class="math inline">\(5\)</span>-adic expansion of
 <span class="math inline">\(4,357\)</span>, we’ll use that “microscope”
-method: extracting the digits from the smallest power of 5 <span class="math inline">\((5^0)\)</span> up to the largest. Since <span class="math inline">\(4,357\)</span> is a positive integer, the process
+method: extracting the digits from the smallest power of <span class="math inline">\(5\)</span> <span class="math inline">\((5^0)\)</span> up to the largest. Since <span class="math inline">\(4,357\)</span> is a positive integer, the process
 will eventually terminate (resulting in infinite zeros to the left), and
 the coefficients will be the same as the base-<span class="math inline">\(5\)</span> digits, just found in reverse
 order.</p>

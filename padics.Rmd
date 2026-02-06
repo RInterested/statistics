@@ -63,13 +63,20 @@ $$450 = d_k(5^k) + \dots + d_2(5^2) + d_1(5^1) + d_0(5^0)$$
 
 The only difference is the "direction of travel" for the algorithm.
 
-##### $5$-adic:
+#### Expressing $450$ in $5$-adic:
+
+> **Nomenclature:**
+> 
+> **Coefficients or p-adic digits**: these are the **d**'s, which are the result of solving a congruence - they are the remainders. They indicate which coset of the ideal $p^n \mathbb{Z}_p$ we are in.
+>        
+> **$p$-adic quotients**: these aret he **a**', Since you are performing the operation $a_{i+1} = (a_i - d_i) / p$, you are essentially finding the integer quotient of the previous value. 
+
 
 The formula for finding the digit $d_0$ for a $\frac a b \in \mathbb Q$ is: 
 
 $$b \cdot d \equiv a \pmod p$$
 
-Why it is $1$ for $450$. When you are dealing with an integer like $450$, you are implicitly treating it as the fraction: $\frac{450}{1}$ with $a = 450$ (the numerator) and $b = 1$ (the denominator)>So, the equation $b \cdot d \equiv a \pmod p$ becomes:$$1 \cdot d_0 \equiv 450 \pmod 5$$
+When you are dealing with an integer like $450$, you are implicitly treating it as the fraction: $\frac{450}{1}$ with $a = 450$ (the numerator) and $b = 1$ (the denominator). So, the equation $b \cdot d \equiv a \pmod p$ becomes:$$1 \cdot d_0 \equiv 450 \pmod 5$$
 
 since in $\mod 5$ all the terms except $d_0$ get nullified in the expression $\frac {450}1 = d_k(5^k) + \dots + d_2(5^2) + d_1(5^1) + d_0(5^0)$. Therefore
 
@@ -94,15 +101,15 @@ $$\frac {450}1 \equiv  d_0 \pmod 5$$
   
 - Level $5^3$: 
  
-  - Find $d_3$ such that $1 \cdot d_3 \equiv 3 \pmod 5$.$3 \div 5$ leaves a remainder of $3$. So $d_3 = 3$.
+  - Find $d_3$ such that $1 \cdot d_3 \equiv 3 \pmod 5$. $3 \div 5$ leaves a remainder of $3$. So $d_3 = 3$.
    
   - New $a$: $(3 - 3) / 5 = \mathbf{0}$.
   
 Result: (Digits $d_0, d_1, d_2, d_3$) $\rightarrow \boxed{0, 0, 3, 3}$.
 
-Written in the same order as Base $5$ (highest power first), this is $3300$.
+Written in the same order as base $5$ (highest power first), this is $3300$.
 
-##### Base $5$:
+#### Expressing $450$ in base $5$:
 
 In standard base conversion, you start with the largest possible power of $5$ and work your way down to the units.
 
@@ -120,7 +127,9 @@ Result: $\boxed{3300_5}$.
 
 The reason they "coincide" for integers is that both methods — the quotient-based one and the remainder-based one— are actually doing the exact same thing to the number's structure, just from opposite directions. 
 
-They are equivalent because they both seek to satisfy the same fundamental polynomial representation of the number. Take the number $4357$. Whether you use the "telescope" (Base $5$) or "Microscope" ($5$-adic) method, you are solving for the unique set of coefficients $\{b_i\}$ in this identity:
+They are equivalent because they both seek to satisfy the same fundamental polynomial representation of the number. 
+
+Take the number $4357$. Whether you use the "telescope" (base $5$) or "microscope" ($5$-adic) method, you are solving for the unique set of coefficients $\{b_i\}$ in this identity:
 
 
 $$4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)$$
@@ -128,13 +137,13 @@ $$4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)$$
 ---
 
 
-**The Base $5$ Perspective (The "Greedy" Approach):**
+#### Expressing $4357$ in base $5$:
 
 Base $5$ starts by solving for the largest $i$ first ($b_5$). It asks: "What is the most significant part of this number?" It effectively "strips away" the biggest chunks ($1 \cdot 5^5$, then $1 \cdot 5^4$, etc.) until nothing is left.
 
-Step-by-Step "Quotient" Reasoning:
+Step-by-Step "quotient" reasoning:
 
-First, let's identify the powers of 5: $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 = 625$, $5^5 = 3,125$, $5^6 = 15,625$. Since $5^5$ is the largest power that fits in 4,357, we start there.
+First, let's identify the powers of 5: $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 = 625$, $5^5 = 3,125$, $5^6 = 15,625$. Since $5^5$ is the largest power that fits in $4,357,$ we start there.
 
 
 | Power (Pw)| Operation | Quotient (Quo)|  $\small \text{prior Re}-\text{Quo}\times\text{Pw}$|Remainder (Re) |
@@ -146,19 +155,19 @@ First, let's identify the powers of 5: $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 
 | $5^1$ (5) | $7 \div 5$ | $\color{red}1$ |$=b_1$|$7- 1\cdot 5^1$ | $2$ |
 | $5^0$ (1) | $2 \div 1$ | $\color{red}2$ |$=b_0$| $2 - 2\cdot 5^0$ | $0$ |
 
-By gathering the quotients from top to bottom, we get the digits: 1, 1, 4, 4, 1, 2.In standard mathematical notation: $$4357_{10} = 114412_5$$
+By gathering the quotients from top to bottom, we get the digits: $1, 1, 4, 4, 1, 2.$ In standard mathematical notation: $$4357_{10} = 114412_5$$
 
-The process of converting an integer to a base $p$ is essentially a recursive division algorithm. Specifically, it is the Euclidean Division algorithm applied repeatedly.In regular division, you are "shifting" values across powers of 10. In base conversion, you are doing the exact same thing across powers of $p$.
+The process of converting an integer to a base $p$ is essentially a recursive division algorithm. Specifically, it is the Euclidean Division algorithm applied repeatedly. In regular division, you are "shifting" values across powers of $10.$ In base conversion, you are doing the exact same thing across powers of $p$.
 
 
 ---
 
   
-**The $5$-adic perspective (the "congruence" approach):**
+#### Expressing $4357$ in $5$-adic (the congruence approach):
 
-The $5$-adic method starts by solving for the smallest $i$ first ($b_0$). It asks: "What is this number equivalent to, modulo $5$?" It uses the "Subtract and Divide" logic to "clear out" the units, then the fives, then the twenty-fives, moving from the inside out:
+The $5$-adic method starts by solving for the smallest $i$ first ($b_0$). It asks: "What is this number equivalent to, modulo $5$?" It uses the "subtract and divide" logic to "clear out" the units, then the fives, then the twenty-fives, moving from the inside out:
 
-To find the $5$-adic expansion of $4,357$, we’ll use that "microscope" method: extracting the digits from the smallest power of 5 $(5^0)$ up to the largest. Since $4,357$ is a positive integer, the process will eventually terminate (resulting in infinite zeros to the left), and the coefficients will be the same as the base-$5$ digits, just found in reverse order.
+To find the $5$-adic expansion of $4,357$, we’ll use that "microscope" method: extracting the digits from the smallest power of $5$ $(5^0)$ up to the largest. Since $4,357$ is a positive integer, the process will eventually terminate (resulting in infinite zeros to the left), and the coefficients will be the same as the base-$5$ digits, just found in reverse order.
 
 We represent $4,357$ as $a/c$ where $a = 4357$ and $c = 1$. We solve for $b_i$
 
