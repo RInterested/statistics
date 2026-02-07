@@ -2387,6 +2387,56 @@ of precision (<span class="math inline">\(5^0, 5^1, 5^2\)</span> for
 We are using the Newton-Raphson style formula for <span class="math inline">\(p\)</span>-adics:</p>
 <p><span class="math display">\[x_{n+1} = x_n -
 \frac{f(x_n)}{f&#39;(x_n)}\]</span></p>
+<p>The “bridge” that connects the current approximation <span class="math inline">\(x_n\)</span> to the next one <span class="math inline">\(x_{n+1}\)</span> is the “nudge” <span class="math inline">\(h\)</span>. If we rearrange the Newton-Raphson
+formula:</p>
+<p><span class="math display">\[x_{n+1} - x_n = -
+\frac{f(x_n)}{f&#39;(x_n)}\]</span></p>
+<p>we can define <span class="math inline">\(h\)</span> as that
+difference:</p>
+<p><span class="math display">\[h = -
+\frac{f(x_n)}{f&#39;(x_n)}\]</span></p>
+<p>In the <span class="math inline">\(p\)</span>-adic world, for this to
+be a valid “step” up the tree, <span class="math inline">\(h\)</span>
+must be a multiple of the current precision level. If you are at Level
+<span class="math inline">\(n\)</span>, your <span class="math inline">\(h\)</span> will look like: <span class="math inline">\(h = d_n \cdot p^n\)</span>. This <span class="math inline">\(h\)</span> is the exact “nudge” required to make
+the error at the next level (<span class="math inline">\(f(x_{n+1})\)</span>) divisible by <span class="math inline">\(p^{n+1}\)</span>.</p>
+<p>In the calculation for <span class="math inline">\(f(x) = x^2
++1\)</span> above, the candidate after getting the <span class="math inline">\(2\)</span> seed was <span class="math inline">\((2
++ 5d_1)^2,\)</span> which is just a straightforward binomial expansion
+(FOIL). We simply took our “candidate” for the next level, <span class="math inline">\(x_1 = 2 + 5d_1\)</span>, and plugged it into <span class="math inline">\(x^2 + 1\)</span>.</p>
+<p>The “aha!” moment is that Taylor expansions and polynomial expansions
+are the exact same thing. When you FOIL <span class="math inline">\((2 +
+5d_1)^2 + 1\)</span>, you get:</p>
+<p><span class="math display">\[(2)^2 + 2(2)(5d_1) + (5d_1)^2 +
+1\]</span></p>
+<p>Now look at the Taylor Expansion of <span class="math inline">\(f(x)
+= x^2 + 1\)</span> centered at <span class="math inline">\(x=2\)</span>
+with a step <span class="math inline">\(h\)</span>:</p>
+<p><span class="math display">\[f(2+h) = f(2) + f&#39;(2)h +
+\frac{f&#39;&#39;(2)}{2!}h^2\]</span></p>
+<p><span class="math inline">\(f(2) = 2^2 + 1,\)</span> <span class="math inline">\(f&#39;(2) = 2(2)\)</span> and <span class="math inline">\(f&#39;&#39;(2) = 2.\)</span> If you substitute
+<span class="math inline">\(h = 5d_1\)</span>, the Taylor formula gives
+you:</p>
+<p><span class="math display">\[f(2+5d_1) = \underbrace{(2^2 + 1)}_{5} +
+\underbrace{2(2)}_{4}\underbrace{(5d_1)}_{h} +
+\underbrace{\frac{2}{2}}_{1}\underbrace{(5d_1)^2}_{h^2}\]</span></p>
+<p><span class="math display">\[f(2+5d_1) = 5 + 20d_1 +
+25d_1^2\]</span></p>
+<p>You didn’t need the Taylor formula to expand <span class="math inline">\((2 + 5d_1)^2\)</span> because it’s a simple
+square. But imagine if your equation was <span class="math inline">\(x^7
++ 3x^4 - x^2 + 1 = 0\)</span>. You would have to expand <span class="math inline">\((2 + 5d_1)^7 \dots\)</span> which would take an
+hour of algebra. Using the Taylor expansion you just find the derivative
+<span class="math inline">\(f&#39;(2)\)</span> and you instantly know
+the coefficient of the <span class="math inline">\(d_1\)</span> term.
+Hensel’s Lemma is essentially the realization that for any polynomial,
+the expansion <span class="math inline">\(f(x_n + d_n p^n)\)</span> will
+always look like:</p>
+<p><span class="math display">\[f(x_n) + f&#39;(x_n)(d_n p^n) +
+(\text{terms divisible by } p^{2n})\]</span> Because you are working
+modulo <span class="math inline">\(p^{n+1}\)</span>, those “extra” terms
+(like your <span class="math inline">\(25d_1^2\)</span>) are always
+zeroed out. This means the Newton-Raphson formula isn’t just a calculus
+trick; it is the linear part of the binomial expansion.</p>
 <hr />
 <p>Nomenclature:</p>
 <blockquote>
@@ -2588,6 +2638,27 @@ precision we are trying to fix. <span class="math inline">\(h^2 = (d_n
 \cdot p^n)^2 = d_n^2 \cdot p^{2n}\)</span>: This term is “too small” to
 matter for our current level. In <span class="math inline">\(p\)</span>-adic geometry, <span class="math inline">\(p^{2n}\)</span> is much further up the tree than
 <span class="math inline">\(p^n\)</span>.</p>
+<p>In algebraic calculus we ignore things because they are exactly zero
+in our current “mod” bucket. These powers of <span class="math inline">\(h\)</span> are “invisible” to the current level of
+precision. When you are at level <span class="math inline">\(2\)</span>
+<span class="math inline">\((p^2),\)</span> your mathematical “universe”
+only has room for remainders between <span class="math inline">\(0\)</span> and <span class="math inline">\(p^2-1\)</span>. Anything that is a multiple of
+<span class="math inline">\(p^2\)</span> is mathematically zero in that
+universe. In the step <span class="math inline">\(2\)</span> calculation
+avove (<span class="math inline">\(x_1 = 2 + 5d_1\)</span>):</p>
+<p><span class="math display">\[f(2 + 5d_1) = (2 + 5d_1)^2 +
+1\]</span></p>
+<p>If we expand this perfectly:</p>
+<p><span class="math display">\[f(2 + 5d_1) = \underbrace{2^2 +
+1}_{f(x_0)} + \underbrace{2(2)(5d_1)}_{f&#39;(x_0)h} +
+\underbrace{(5d_1)^2}_{h^2}\]</span></p>
+<p><span class="math display">\[f(2 + 5d_1) = 5 + 20d_1 +
+25d_1^2\]</span> Now, look at the <span class="math inline">\(h^2\)</span> term: <span class="math inline">\(25d_1^2\)</span>.In the world of <span class="math inline">\(\mathbb{Z}/25\mathbb{Z}\)</span> (level <span class="math inline">\(2\)</span>), <span class="math inline">\(25\)</span> is the same thing as <span class="math inline">\(0.\)</span> So, <span class="math inline">\(25d_1^2\)</span> simply vanishes. It is an exact
+calculation of the next digit. In real numbers (<span class="math inline">\(\mathbb{R}\)</span>): <span class="math inline">\(h^2\)</span> is <span class="math inline">\(0.0001\)</span>. It’s not zero, so you are
+“approximating” by ignoring it. In <span class="math inline">\(p\)</span>-adics (<span class="math inline">\(\mathbb{Z}_p\)</span>): At Level <span class="math inline">\(n\)</span>, <span class="math inline">\(h^2\)</span> is a multiple of <span class="math inline">\(p^{2n}\)</span>. Since we are working modulo <span class="math inline">\(p^{n+1}\)</span>, and <span class="math inline">\(2n \ge n+1\)</span> (for <span class="math inline">\(n \ge 1\)</span>), that <span class="math inline">\(h^2\)</span> is identically zero. The <span class="math inline">\(p\)</span>-adic Newton-Raphson isn’t “guessing”
+the next digit; it is solving a linear equation where the non-linear
+parts have been perfectly moved into the “future” (higher powers of
+<span class="math inline">\(p\)</span>).</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>

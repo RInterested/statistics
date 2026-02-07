@@ -1310,6 +1310,37 @@ After finding a root of $f(x)$ in the residue field $\mathbb{F}_p = \mathbb{Z}_p
 
 $$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
 
+The "bridge" that connects the current approximation $x_n$ to the next one $x_{n+1}$ is the "nudge" $h$. If we rearrange the Newton-Raphson formula: 
+
+$$x_{n+1} - x_n = - \frac{f(x_n)}{f'(x_n)}$$ 
+
+we can define $h$ as that difference:
+
+$$h = - \frac{f(x_n)}{f'(x_n)}$$
+
+In the $p$-adic world, for this to be a valid "step" up the tree, $h$ must be a multiple of the current precision level. If you are at Level $n$, your $h$ will look like: $h = d_n \cdot p^n$. This $h$ is the exact "nudge" required to make the error at the next level ($f(x_{n+1})$) divisible by $p^{n+1}$.
+
+In the calculation for $f(x) = x^2 +1$ above, the candidate after getting the $2$ seed was $(2 + 5d_1)^2,$ which is just a straightforward binomial expansion (FOIL). We simply took our "candidate" for the next level, $x_1 = 2 + 5d_1$, and plugged it into $x^2 + 1$.
+
+The "aha!" moment is that Taylor expansions and polynomial expansions are the exact same thing. When you FOIL $(2 + 5d_1)^2 + 1$, you get:
+
+$$(2)^2 + 2(2)(5d_1) + (5d_1)^2 + 1$$
+
+Now look at the Taylor Expansion of $f(x) = x^2 + 1$ centered at $x=2$ with a step $h$:
+
+$$f(2+h) = f(2) + f'(2)h + \frac{f''(2)}{2!}h^2$$
+
+$f(2) = 2^2 + 1,$ $f'(2) = 2(2)$ and $f''(2) = 2.$ If you substitute $h = 5d_1$, the Taylor formula gives you:
+
+$$f(2+5d_1) = \underbrace{(2^2 + 1)}_{5} + \underbrace{2(2)}_{4}\underbrace{(5d_1)}_{h} + \underbrace{\frac{2}{2}}_{1}\underbrace{(5d_1)^2}_{h^2}$$
+
+$$f(2+5d_1) = 5 + 20d_1 + 25d_1^2$$
+
+You didn't need the Taylor formula to expand $(2 + 5d_1)^2$ because it's a simple square. But imagine if your equation was $x^7 + 3x^4 - x^2 + 1 = 0$. You would have to expand $(2 + 5d_1)^7 \dots$ which would take an hour of algebra. Using the Taylor expansion you just find the derivative $f'(2)$ and you instantly know the coefficient of the $d_1$ term. Hensel’s Lemma is essentially the realization that for any polynomial, the expansion $f(x_n + d_n p^n)$ will always look like:
+
+$$f(x_n) + f'(x_n)(d_n p^n) + (\text{terms divisible by } p^{2n})$$
+Because you are working modulo $p^{n+1}$, those "extra" terms (like your $25d_1^2$) are always zeroed out. This means the Newton-Raphson formula isn't just a calculus trick; it is the linear part of the binomial expansion.
+
 
 ---
 
@@ -1431,6 +1462,17 @@ Think about the Taylor expansion of a polynomial $f(x)$: $$f(x + h) = f(x) + f'(
 This formula is purely algebraic. It doesn't care about "smoothness"; it only cares about powers of $h$. In the $p$-adics, when we move from Level $n$ to Level $n+1$, our "nudge" is $h = d_n \cdot p^n$. Because $p^n$ is very small in $p$-adic geometry, the higher-order terms like $h^2$ ($p^{2n}$) and $h^3$ ($p^{3n}$) disappear incredibly fast! This makes the linear approximation ($f'(x)$) more accurate in $p$-adic space than it often is in real space.
 
 If we are "lifting" a solution from $x_n$ to $x_{n+1}$, we define our nudge as: $$h = d_n \cdot p^n$$ When we look at the powers of $h$ in the Taylor expansion, we see:$h^1 = (d_n \cdot p^n)^1$: This term is what we use to solve for $d_n$. It lives exactly at the level of precision we are trying to fix. $h^2 = (d_n \cdot p^n)^2 = d_n^2 \cdot p^{2n}$: This term is "too small" to matter for our current level. In $p$-adic geometry, $p^{2n}$ is much further up the tree than $p^n$.
+
+In algebraic calculus we ignore things because they are exactly zero in our current "mod" bucket. These powers of $h$ are "invisible" to the current level of precision. When you are at level $2$ $(p^2),$ your mathematical "universe" only has room for remainders between $0$ and $p^2-1$. Anything that is a multiple of $p^2$ is mathematically zero in that universe. In the step $2$ calculation avove ($x_1 = 2 + 5d_1$):
+
+$$f(2 + 5d_1) = (2 + 5d_1)^2 + 1$$
+
+If we expand this perfectly:
+
+$$f(2 + 5d_1) = \underbrace{2^2 + 1}_{f(x_0)} + \underbrace{2(2)(5d_1)}_{f'(x_0)h} + \underbrace{(5d_1)^2}_{h^2}$$
+
+$$f(2 + 5d_1) = 5 + 20d_1 + 25d_1^2$$
+Now, look at the $h^2$ term: $25d_1^2$.In the world of $\mathbb{Z}/25\mathbb{Z}$ (level $2$), $25$ is the same thing as $0.$ So, $25d_1^2$ simply vanishes. It is an exact calculation of the next digit. In real numbers ($\mathbb{R}$): $h^2$ is $0.0001$. It’s not zero, so you are "approximating" by ignoring it. In $p$-adics ($\mathbb{Z}_p$): At Level $n$, $h^2$ is a multiple of $p^{2n}$. Since we are working modulo $p^{n+1}$, and $2n \ge n+1$ (for $n \ge 1$), that $h^2$ is identically zero. The $p$-adic Newton-Raphson isn't "guessing" the next digit; it is solving a linear equation where the non-linear parts have been perfectly moved into the "future" (higher powers of $p$).
 
 
 ---
