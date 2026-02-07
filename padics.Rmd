@@ -1295,6 +1295,145 @@ In p-adics we keep the residue $d_i$: the unique digit in $\{0, \dots, p-1\}$ th
 Base-$3$ approximations ($0.17$) get closer to a value by reducing the physical distance on a ruler. $3$-adic approximations get closer by making the error more divisible by $3$. This is why we can represent fractions as "infinite integers" in p-adics: we are adding terms that are so highly divisible by $3$ that they eventually become "invisible" or zero in the limit. While regular division feels like chasing an approximation, p-adic steps feel exact. This is because each p-adic digit is a perfect solution to a modular equation ($29x \equiv 5 \pmod{3^n}$). Once a digit is found, it is "locked in" and never changes.
 
 ---
+
+### Hasse Principle and Hensel lift:
+
+The **Hasse principle**, or local-global principle, states that certain polynomial equations (specifically quadratic forms) have a rational solution if and only if they have solutions in the real numbers (\(\mathbb{R}\)) and in all \(p\)-adic fields (\(\mathbb{Q}_{p}\)). It allows checking for solutions locally (modulo primes) to confirm existence globally (in rationals).
+
+If a rational number like $x = 3/4$ solves an equation, that same $x$ will also solve the equation in $\mathbb{R}$ and in every single $\mathbb{Q}_p$ for every prime $p$.
+
+To prove there is no rational solution, you only need to find one world where it fails.If you find a solution in $\mathbb{Q}_5, \mathbb{Q}_{13}, \mathbb{Q}_{17} \dots$ but it fails in $\mathbb{R}$, then there is no solution in $\mathbb{Q}$.If it works in $\mathbb{R}$ and $\mathbb{Q}_5$ but fails in $\mathbb{Q}_2$, then there is no solution in $\mathbb{Q}$. You don't have to check infinite primes one by one because of Finite Obstructions. For most polynomial equations (specifically "Quadratic Forms" like $ax^2 + by^2 + cz^2 = 0$), there are only a handful of "interesting" primes you actually need to check. Usually, these are: 1. The prime $p=2$. 2. The primes that divide the coefficients of your equation (e.g., if you have $7x^2$, you must check $p=7$). 3. The "Infinite" prime ($\mathbb{R}$). If the equation works in those specific "bad" primes and in $\mathbb{R}$, it is mathematically guaranteed to work in all the other infinite "good" primes.
+ 
+**Hensel lifting** is a technique in number theory and computer algebra, analogous to Newton's method, that raises a solution of a polynomial equation from modulo $p$ (or $p^{k}$) to a higher power $p^{k+1},$ or ultimately to $p$-adic integers. It efficiently finds roots of equations or factorizes polynomials over $\mathbb{Z}[x]$ (polynomials with integer coefficients) by lifting solutions iteratively, requiring the initial root to satisfy a non-vanishing derivative condition.
+
+After finding a root of $f(x)$ in the residue field $\mathbb{F}_p = \mathbb{Z}_p / p\mathbb{Z}_p$ (the elements of $\mathbb{F}_p$ are the "residues" (remainders) of the $p$-adic numbers), we increase the "resolution," by calculating the Hensel Lift in $\mathbb{Z}_p$ up to three levels of precision ($5^0, 5^1, 5^2$ for $\mathbb{Z}_5$ in the example below). We are using the Newton-Raphson style formula for $p$-adics:
+
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
+
+
+---
+
+Nomenclature:
+
+> $\mathbb{Z}_p$: The $p$-adic Integers:
+>
+> Every number in $\mathbb{Z}_p$ can be written as a "standard" $p$-adic expansion: 
+>
+> $$d_0 + d_1p + d_2p^2 + \dots$$
+>
+> In $\mathbb{Z}_p$, all numbers have a $p$-adic size (norm) $\le 1$. There are no "huge" values here.
+>
+> $\mathbb{Q}_p$: The $p$-adic Numbers:
+>
+> Think of $\mathbb{Q}_p$ as the Field that contains $\mathbb{Z}_p$, just as the Real numbers ($\mathbb{R}$) contain the Integers ($\mathbb{Z}$). It allows for negative powers of $p$. A number in $\mathbb{Q}_p$ can start with "fractions": 
+>
+>$$d_{-k}p^{-k} + \dots + d_0 + d_1p + \dots$$
+>
+> It is the entire space. It includes numbers that are "huge" in the $p$-adic sense (like $$1/5, 1/25, 1/125$). The Rule: $\mathbb{Q}_p$ is what you get when you allow division.
+
+---
+
+#### Solving $x^2 +1 =0$
+
+When we solve an equation like $x^2 + 1 = 0$, we are looking for a solution that looks like a $p$-adic integer (it has no $1/5$ or $1/25$ parts). Therefore, we look inside the ring $\mathbb{Z}_p$. This is why we use $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$: 
+
+When you take a $p$-adic integer and "mod out" by $p$, you are essentially throwing away every term that has a $p, p^2, p^3,$ etc., attached to it. Mathematically, it looks like this: $$x = a_0 + a_1p + a_2p^2 + \dots$$ $$x \pmod{p} = a_0$$ The only thing left is $a_0$, which is just an element of $\{0, 1, \dots, p-1\}$.
+
+In algebraic geometry, we call $\mathbb{F}_p$ the residue field of $\mathbb{Z}_p$. Think of $\mathbb{Z}_p$ as a microscope. The "highest level" view (the lowest magnification) is $\mathbb{F}_p$. As you look closer (mod $p^2$, mod $p^3$), you see more "digits" of the $p$-adic number. The isomorphism $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$ says that the "coarsest" possible view of a $p$-adic integer is exactly the same thing as an element of a finite field.
+
+We start with the ring of integers $\mathbb{Z}_p$. We "mod out" by $p$ to get the field $\mathbb{F}_p$ (the digits $0-4$). We find a solution in $\mathbb{F}_p$. We "lift" it back up into the full $\mathbb{Z}_p$ tree. You only need $\mathbb{Q}_p$ if you want to divide by $p$. For finding roots of polynomials like $x^2+1$, we stay comfortably inside the "Integer Tree" $\mathbb{Z}_p$.
+
+In number theory, we start with the "blurry" version ($\mathbb{F}_p$) because it is finite and discrete, making it computationally "easy" to check. If you are looking for a rational solution to $x^2 - 2 = 0$, the search space in $\mathbb{Q}$ is infinite and chaotic. But in the "blurry" world of $\mathbb{F}_7$, there are only $7$ possible values to check. If no solution exists in the blurry world (like $\sqrt{2}$ in $\mathbb{F}_5$), then a solution cannot exist in the high-resolution world. It saves you from searching forever. If a solution exists in the blurry world, it gives you a "seed" (the $a_0$ digit). Because $\mathbb{Q}_p$ is a "complete" space, you can use the derivative of the equation to "refocus" the image, one digit at a time.
+
+In the following diagram the Level $1$ is represented:
+
+---
+
+<img width = 400  src = "p_adic solution.png">
+
+---
+
+The base cylinder represents the space of all possible $5$-adic integers before you apply any filters or constraints. It contains every number that can be written as: $$x = d_0 + d_1(5) + d_2(25) + \dots$$ where $d_i \in \{0, 1, 2, 3, 4\}$. Because it is level $0,$ no digits have been decided yet.  It is the unit ball $B_1(0).$ In $p$-adic geometry, this cylinder is the unit ball. It has a $p$-adic radius of $1$. Every point inside this silver cylinder has a $p$-adic norm $|x|_5 \le 1$. By making it transparent, you are visually showing that the "true" action (the solution to your equation) is happening inside it, as you zoom into smaller and smaller sub-cylinders.
+
+Think of a $p$-adic integer $x \in \mathbb{Z}_p$ as a high-resolution image. The full image is an infinite string of digits:$$x = a_0 + a_1p + a_2p^2 + a_3p^3 + \dots$$ When you "blur" the image, you lose the fine details. Initially, you ignore everything that is a multiple of $p$. All you can see is $a_0$. This is $\mathbb{F}_p$. At a second step, you ignore everything that is a multiple of $p^2$. You can now see $a_0 + a_1p$. This is $\mathbb{Z}/p^2\mathbb{Z}$. At level $\infty$ you see every single digit. This is the full $p$-adic integer $\mathbb{Z}_p$. By taking the quotient $\mathbb{Z}_p / p\mathbb{Z}_p$, you are mathematically "masking" the fine details.
+
+This coarsest level is $\mathbb{F}_p$.$\mathbb{F}_5$ is just the set $\{0, 1, 2, 3, 4\}$ where we only care about remainders when dividing by $5$. When we solve $x^2 \equiv -1 \pmod 5$, we are looking for a seed. If you can't find a "seed" (a digit $d_0$) in $\mathbb{F}_5$, the project is over. No solution can ever exist in $\mathbb{Z}_5$. But since $2^2 = 4 \equiv -1 \pmod 5$, we found a seed: $d_0 = 2$.
+
+- Level $1$ ($\mathbb{F}_5$): We find $d_0 = 2$. Now our "solution" is $x = 2 + (\text{something divisible by 5})$.
+
+- Level $2$ ($\mathbb{Z}/25\mathbb{Z}$): We look for $d_1$. We find $d_1 = 1$. Now our solution is $x = 2 + 1(5) = 7$. Check: $7^2 = 49$. In $\mathbb{Z}/25\mathbb{Z}$, $49 \equiv -1$. We are getting closer!
+
+- Level $3$ ($\mathbb{Z}/125\mathbb{Z}$): We find $d_2 = 2$. Now $x = 2 + 1(5) + 2(25) = 57$. Check: $57^2 = 3249$. In $\mathbb{Z}/125\mathbb{Z}$, $3249 \equiv -1$.
+
+---
+
+<img width = 500  src = "p_adic solutions2.png">
+
+---
+
+We are building the $p$-adic number $x = (2, 1, 2, \dots)$ specifically because that number is the solution to $x^2 + 1 = 0$. In the $p$-adic metric, as we add more cylinders (digits), the "error" ($x^2 + 1$) gets smaller and smaller ($5^{-1}, 5^{-2}, 5^{-3} \dots$). In summary: We solve in $\mathbb{F}_5$ to find the "main branch" of the tree. Without that first step, we wouldn't know which of the 5 colors to start painting.
+
+To increase the "resolution," we are going to calculate and plot the Hensel Lift for $x^2 + 1 = 0$ in $\mathbb{Z}_5$ up to three levels of precision ($5^0, 5^1, 5^2$). We are using the Newton-Raphson style formula for $p$-adics:$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$ 
+
+We already have our "seed" from level $1$: $x_0 = 2$. We want to find $x_1$, which is a slightly better version of $x_0$.2. The formula says: $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}.$ The derivative of $x^2+1$ is $2x$. $2(2) = \mathbf{4}$. Now we put them together: $$x_1 = 2 - \frac{5}{4}$$
+
+In the real numbers, $5/4$ is $1.25$. But in the $5$-adics, we need an integer result. We need to find the "multiplicative inverse" of $4$ modulo $5$. What number times $4$ gives a remainder of $1$ when divided by $5$? $4 \times 4 = 16$, and $16 \equiv 1 \pmod 5$. So, in our world, $1/4$ is actually $4$. Now let's finish the math: $$x_1 = 2 - (5 \times 4)$$$$x_1 = 2 - 20 = -18$$
+
+$-18$ the same as $7$? In your cylinder plot, we are currently at Level 2, which means we only care about remainders modulo $25$ ($5^2$). $-18 + 25 = \mathbf{7}.$
+
+Now we use the subtract and divide method to see the digits of $7$:
+
+- $d_0$ (The Root): $7 \pmod 5 = \mathbf{2}$. 
+
+- $a_1$ (Successive Quotient): $(7 - 2) / 5 = \mathbf{1}$.
+
+- $d_1$ (The next Branch): $1 \pmod 5 = \mathbf{1}$.
+
+This is why $x_1 = 7$. It contains our original digit ($2$) plus a new layer of precision ($1 \cdot 5$). 
+
+---
+
+#### Step-by-step calculation:
+
+The use of the derivative makes the calculation faster, but here is what we are doing:
+
+ - Step 1: Solve $\mathbb F_5$:
+ 
+We need $d_0$ such that $d_0^2 \equiv - 1 \pmod 5.$ Since $2^2 = 4\equiv -1 \pmod 5,$ we get that $d_0 = 2,$ and $x_0 = 2 (5^0)=2.$
+
+- Step 2: Lift to $\mathbb Z / 25\mathbb Z:$
+
+We want $x_1= d_0 + d_1(5) = 2 + 5d_1.$ Therefore $$(2 + 5d_1)^2 \equiv -1 \pmod {25}$$
+
+Since the FOIL of the parenthesis yield a third element $5^2d_1^2$ that is naturally divisible by $25,$ this third element goes away:
+
+$$4 + 20 d_1 \equiv -1 \pmod {25}$$
+
+$$20 d_1 \equiv -5 \pmod{25}$$
+
+$$4 d_1 \equiv -1 \equiv 4 \pmod 5$$
+
+And $d_1 = 1$. Therefore, the approximation $x_1 = 2 \cdot 5^0 + 1 \cdot 5^1 =7.$ Checking: $7^2 = 49\equiv -1 \pmod{25}.$
+
+- Step 3: Lift to $\mathbb Z/125 \mathbb Z$
+
+We want $x_2 = 7 + d_2 (25)$.
+
+$(7+25d_2)^2 \equiv -1 \pmod{125}$. This yields $d_2 =2.$ Now the apprimation becomes $x_2=7 + 2(25)=57.$ Checking: $57^2 = 3249\equiv -1 \pmod{125}.$
+
+---
+
+
+#### Why are $p$-adics suitable to apply derivatives (Newton-Raphson):
+
+Think about the Taylor expansion of a polynomial $f(x)$: $$f(x + h) = f(x) + f'(x)h + \frac{f''(x)}{2!}h^2 + \dots$$
+
+This formula is purely algebraic. It doesn't care about "smoothness"; it only cares about powers of $h$. In the $p$-adics, when we move from Level $n$ to Level $n+1$, our "nudge" is $h = d_n \cdot p^n$. Because $p^n$ is very small in $p$-adic geometry, the higher-order terms like $h^2$ ($p^{2n}$) and $h^3$ ($p^{3n}$) disappear incredibly fast! This makes the linear approximation ($f'(x)$) more accurate in $p$-adic space than it often is in real space.
+
+If we are "lifting" a solution from $x_n$ to $x_{n+1}$, we define our nudge as: $$h = d_n \cdot p^n$$ When we look at the powers of $h$ in the Taylor expansion, we see:$h^1 = (d_n \cdot p^n)^1$: This term is what we use to solve for $d_n$. It lives exactly at the level of precision we are trying to fix. $h^2 = (d_n \cdot p^n)^2 = d_n^2 \cdot p^{2n}$: This term is "too small" to matter for our current level. In $p$-adic geometry, $p^{2n}$ is much further up the tree than $p^n$.
+
+
+---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
 
 **NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
