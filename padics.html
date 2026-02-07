@@ -2370,6 +2370,33 @@ primes that divide the coefficients of your equation (e.g., if you have
 <span class="math inline">\(7x^2\)</span>, you must check <span class="math inline">\(p=7\)</span>). 3. The “Infinite” prime (<span class="math inline">\(\mathbb{R}\)</span>). If the equation works in
 those specific “bad” primes and in <span class="math inline">\(\mathbb{R}\)</span>, it is mathematically
 guaranteed to work in all the other infinite “good” primes.</p>
+<p>The Hasse Principle says that for quadratic forms (equations where
+every term is squared, like <span class="math inline">\(ax^2 + by^2 +
+cz^2 = 0\)</span>), the local truths (the <span class="math inline">\(p\)</span>-adic and real solutions) are so
+restrictive that they “trap” the global Truth (the rational solution).
+The reason this principle works specifically for quadratic forms is that
+they represent “conic sections” (circles, ellipses, hyperbolas).
+Geometric objects of degree <span class="math inline">\(2\)</span> have
+a special property: if you find one point on the curve, you can find all
+of them by drawing lines through that point.</p>
+<p>There is a deep law called the <strong>Hilbert Symbol</strong> and
+the <strong>Product Formula</strong>. It states that for a rational
+number to exist, the “local signatures” of the equation in all <span class="math inline">\(p\)</span>-adic worlds must multiply together to
+equal <span class="math inline">\(1.\)</span> If the <span class="math inline">\(p\)</span>-adic worlds “agree” (the product is
+<span class="math inline">\(1\)</span>), the rational solution exists.
+If they “disagree” (the product is <span class="math inline">\(-1\)</span>), you can’t glue them together. The
+Hasse Principle for quadratic forms works because there is no “hidden
+room” for a contradiction. If it looks like a solution everywhere, it is
+a solution.</p>
+<p>For a cubic equation like <span class="math inline">\(3x^3 + 4y^3 +
+5z^3 = 0\)</span>, the geometry is a “Genus <span class="math inline">\(1\)</span>” curve (a torus). These shapes have a
+hidden internal “twist” called the <strong>Shafarevich-Tate
+group</strong> (<span class="math inline">\(\text{Ш}\)</span>). This
+“twist” can allow an equation to have solutions in every <span class="math inline">\(p\)</span>-adic cylinder (the local blueprint
+looks fine) and in the reals (the size looks fine), but the global
+geometry is like an Escher staircase — it’s impossible to build the
+whole thing out of rational blocks.</p>
+<hr />
 <p><strong>Hensel lifting</strong> is a technique in number theory and
 computer algebra, analogous to Newton’s method, that raises a solution
 of a polynomial equation from modulo <span class="math inline">\(p\)</span> (or <span class="math inline">\(p^{k}\)</span>) to a higher power <span class="math inline">\(p^{k+1},\)</span> or ultimately to <span class="math inline">\(p\)</span>-adic integers. It efficiently finds
@@ -2438,7 +2465,8 @@ modulo <span class="math inline">\(p^{n+1}\)</span>, those “extra” terms
 zeroed out. This means the Newton-Raphson formula isn’t just a calculus
 trick; it is the linear part of the binomial expansion.</p>
 <hr />
-<p>Nomenclature:</p>
+<div id="nomenclature" class="section level4">
+<h4>Nomenclature:</h4>
 <p><strong><span class="math inline">\(\mathbb{Z}_p\)</span>: The <span class="math inline">\(p\)</span>-adic Integers:</strong></p>
 <p>Every number in <span class="math inline">\(\mathbb{Z}_p\)</span> can
 be written as a “standard” <span class="math inline">\(p\)</span>-adic
@@ -2448,9 +2476,9 @@ expansion:</p>
 have a <span class="math inline">\(p\)</span>-adic size (norm) <span class="math inline">\(\le 1\)</span>. There are no “huge” values
 here.</p>
 <p>Note the following:</p>
-<p><span class="math display">\[\boxed{\mathbb{Z}_p \supset
-p\mathbb{Z}_p \supset p^2\mathbb{Z}_p \supset p^3\mathbb{Z}_p \supset
-\dots}\]</span></p>
+<p><span class="math display">\[\bbox[20px, border: 5px solid
+red]{\mathbb{Z}_p \supset p\mathbb{Z}_p \supset p^2\mathbb{Z}_p \supset
+p^3\mathbb{Z}_p \supset \dots}\]</span></p>
 <p><span class="math inline">\(\mathbb{Z}_p:\)</span> The whole tree
 (all numbers).</p>
 <p><span class="math inline">\(p\mathbb{Z}_p\)</span>: Every number
@@ -2469,6 +2497,7 @@ powers of <span class="math inline">\(p\)</span>. A number in <span class="math 
 <span class="math inline">\(p\)</span>-adic sense (like <span class="math inline">\(1/5, 1/25, 1/125\)</span>). The Rule: <span class="math inline">\(\mathbb{Q}_p\)</span> is what you get when you
 allow division.</p>
 <hr />
+</div>
 <div id="solving-x2-1-0" class="section level4">
 <h4>Solving <span class="math inline">\(x^2 +1 =0\)</span></h4>
 <p>When we solve an equation like <span class="math inline">\(x^2 + 1 =
