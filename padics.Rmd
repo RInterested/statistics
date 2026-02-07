@@ -1346,31 +1346,45 @@ Because you are working modulo $p^{n+1}$, those "extra" terms (like your $25d_1^
 
 Nomenclature:
 
-> $\mathbb{Z}_p$: The $p$-adic Integers:
->
-> Every number in $\mathbb{Z}_p$ can be written as a "standard" $p$-adic expansion: 
->
-> $$d_0 + d_1p + d_2p^2 + \dots$$
->
-> In $\mathbb{Z}_p$, all numbers have a $p$-adic size (norm) $\le 1$. There are no "huge" values here.
->
-> $\mathbb{Q}_p$: The $p$-adic Numbers:
->
-> Think of $\mathbb{Q}_p$ as the Field that contains $\mathbb{Z}_p$, just as the Real numbers ($\mathbb{R}$) contain the Integers ($\mathbb{Z}$). It allows for negative powers of $p$. A number in $\mathbb{Q}_p$ can start with "fractions": 
->
->$$d_{-k}p^{-k} + \dots + d_0 + d_1p + \dots$$
->
-> It is the entire space. It includes numbers that are "huge" in the $p$-adic sense (like $$1/5, 1/25, 1/125$). The Rule: $\mathbb{Q}_p$ is what you get when you allow division.
+**$\mathbb{Z}_p$: The $p$-adic Integers:**
+
+Every number in $\mathbb{Z}_p$ can be written as a "standard" $p$-adic expansion: 
+
+$$d_0 + d_1p + d_2p^2 + \dots$$
+
+In $\mathbb{Z}_p$, all numbers have a $p$-adic size (norm) $\le 1$. There are no "huge" values here.
+
+Note the following:
+
+$$\boxed{\mathbb{Z}_p \supset p\mathbb{Z}_p \supset p^2\mathbb{Z}_p \supset p^3\mathbb{Z}_p \supset \dots}$$
+
+$\mathbb{Z}_p:$ The whole tree (all numbers).
+
+$p\mathbb{Z}_p$: Every number where the $p^0$ digit is 0.
+
+$p^2\mathbb{Z}_p$: Every number where the $p^0$ and $p^1$ digits are 0...
+
+**$\mathbb{Q}_p$: The $p$-adic Numbers:**
+
+Think of $\mathbb{Q}_p$ as the Field that contains $\mathbb{Z}_p$, just as the real numbers ($\mathbb{R}$) contain the integers ($\mathbb{Z}$). It allows for negative powers of $p$. A number in $\mathbb{Q}_p$ can start with "fractions": 
+
+$$d_{-k}p^{-k} + \dots + d_0 + d_1p + \dots$$
+
+It is the entire space. It includes numbers that are "huge" in the $p$-adic sense (like $1/5, 1/25, 1/125$). The Rule: $\mathbb{Q}_p$ is what you get when you allow division.
 
 ---
 
 #### Solving $x^2 +1 =0$
 
-When we solve an equation like $x^2 + 1 = 0$, we are looking for a solution that looks like a $p$-adic integer (it has no $1/5$ or $1/25$ parts). Therefore, we look inside the ring $\mathbb{Z}_p$. This is why we use $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$: 
+When we solve an equation like $x^2 + 1 = 0$, we are looking for a solution that looks like a $p$-adic integer (it has no $1/5$ or $1/25$ parts). Therefore, we look inside the ring $\mathbb{Z}_p$, i.e. the ring of $p$-adic integers for a given prime $p$ under addition (modular) and multiplication. This is why we use $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$. This is the justification for why the "successive Division" or "cylinder" method is legally allowed to work. $p\mathbb{Z}_p$ represents the Details. These are all the parts of the number divisible by $5.$ In the plot, these are all the cylinders above the base. $\mathbb{Z}_p / p\mathbb{Z}_p$ is is the act of Blurring the Image. You decide to ignore everything in the $p\mathbb{Z}_p$ "detail" category.
 
-When you take a $p$-adic integer and "mod out" by $p$, you are essentially throwing away every term that has a $p, p^2, p^3,$ etc., attached to it. Mathematically, it looks like this: $$x = a_0 + a_1p + a_2p^2 + \dots$$ $$x \pmod{p} = a_0$$ The only thing left is $a_0$, which is just an element of $\{0, 1, \dots, p-1\}$.
+When you take a $p$-adic integer and "mod out" by $p$, you are essentially throwing away every term that has a $p, p^2, p^3,$ etc., attached to it. Mathematically, it looks like this: 
 
-In algebraic geometry, we call $\mathbb{F}_p$ the residue field of $\mathbb{Z}_p$. Think of $\mathbb{Z}_p$ as a microscope. The "highest level" view (the lowest magnification) is $\mathbb{F}_p$. As you look closer (mod $p^2$, mod $p^3$), you see more "digits" of the $p$-adic number. The isomorphism $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$ says that the "coarsest" possible view of a $p$-adic integer is exactly the same thing as an element of a finite field.
+$$\begin{align}x &= a_0 + a_1p + a_2p^2 + \dots\\\\&x \pmod{p} = a_0\end{align}$$ 
+
+The only thing left is $a_0$, which is just an element of $\{0, 1, \dots, p-1\}$.
+
+In algebraic geometry, we call $\mathbb{F}_p$ the **residue field** of $\mathbb{Z}_p$. We can think of $\mathbb{Z}_p$ as a microscope. The highest level view (the lowest magnification) is $\mathbb{F}_p$. As we look closer (mod $p^2$, mod $p^3$), you see more digits of the $p$-adic number. The isomorphism $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$ says that the coarsest possible view of a $p$-adic integer is exactly the same thing as an element of a finite field.
 
 We start with the ring of integers $\mathbb{Z}_p$. We "mod out" by $p$ to get the field $\mathbb{F}_p$ (the digits $0-4$). We find a solution in $\mathbb{F}_p$. We "lift" it back up into the full $\mathbb{Z}_p$ tree. You only need $\mathbb{Q}_p$ if you want to divide by $p$. For finding roots of polynomials like $x^2+1$, we stay comfortably inside the "Integer Tree" $\mathbb{Z}_p$.
 

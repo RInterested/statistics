@@ -2439,8 +2439,7 @@ zeroed out. This means the Newton-Raphson formula isn’t just a calculus
 trick; it is the linear part of the binomial expansion.</p>
 <hr />
 <p>Nomenclature:</p>
-<blockquote>
-<p><span class="math inline">\(\mathbb{Z}_p\)</span>: The <span class="math inline">\(p\)</span>-adic Integers:</p>
+<p><strong><span class="math inline">\(\mathbb{Z}_p\)</span>: The <span class="math inline">\(p\)</span>-adic Integers:</strong></p>
 <p>Every number in <span class="math inline">\(\mathbb{Z}_p\)</span> can
 be written as a “standard” <span class="math inline">\(p\)</span>-adic
 expansion:</p>
@@ -2448,36 +2447,58 @@ expansion:</p>
 <p>In <span class="math inline">\(\mathbb{Z}_p\)</span>, all numbers
 have a <span class="math inline">\(p\)</span>-adic size (norm) <span class="math inline">\(\le 1\)</span>. There are no “huge” values
 here.</p>
-<p><span class="math inline">\(\mathbb{Q}_p\)</span>: The <span class="math inline">\(p\)</span>-adic Numbers:</p>
+<p>Note the following:</p>
+<p><span class="math display">\[\boxed{\mathbb{Z}_p \supset
+p\mathbb{Z}_p \supset p^2\mathbb{Z}_p \supset p^3\mathbb{Z}_p \supset
+\dots}\]</span></p>
+<p><span class="math inline">\(\mathbb{Z}_p:\)</span> The whole tree
+(all numbers).</p>
+<p><span class="math inline">\(p\mathbb{Z}_p\)</span>: Every number
+where the <span class="math inline">\(p^0\)</span> digit is 0.</p>
+<p><span class="math inline">\(p^2\mathbb{Z}_p\)</span>: Every number
+where the <span class="math inline">\(p^0\)</span> and <span class="math inline">\(p^1\)</span> digits are 0…</p>
+<p><strong><span class="math inline">\(\mathbb{Q}_p\)</span>: The <span class="math inline">\(p\)</span>-adic Numbers:</strong></p>
 <p>Think of <span class="math inline">\(\mathbb{Q}_p\)</span> as the
 Field that contains <span class="math inline">\(\mathbb{Z}_p\)</span>,
-just as the Real numbers (<span class="math inline">\(\mathbb{R}\)</span>) contain the Integers (<span class="math inline">\(\mathbb{Z}\)</span>). It allows for negative
+just as the real numbers (<span class="math inline">\(\mathbb{R}\)</span>) contain the integers (<span class="math inline">\(\mathbb{Z}\)</span>). It allows for negative
 powers of <span class="math inline">\(p\)</span>. A number in <span class="math inline">\(\mathbb{Q}_p\)</span> can start with
 “fractions”:</p>
 <p><span class="math display">\[d_{-k}p^{-k} + \dots + d_0 + d_1p +
 \dots\]</span></p>
 <p>It is the entire space. It includes numbers that are “huge” in the
-<span class="math inline">\(p\)</span>-adic sense (like $<span class="math inline">\(1/5, 1/25, 1/125\)</span>). The Rule: <span class="math inline">\(\mathbb{Q}_p\)</span> is what you get when you
+<span class="math inline">\(p\)</span>-adic sense (like <span class="math inline">\(1/5, 1/25, 1/125\)</span>). The Rule: <span class="math inline">\(\mathbb{Q}_p\)</span> is what you get when you
 allow division.</p>
-</blockquote>
 <hr />
 <div id="solving-x2-1-0" class="section level4">
 <h4>Solving <span class="math inline">\(x^2 +1 =0\)</span></h4>
 <p>When we solve an equation like <span class="math inline">\(x^2 + 1 =
 0\)</span>, we are looking for a solution that looks like a <span class="math inline">\(p\)</span>-adic integer (it has no <span class="math inline">\(1/5\)</span> or <span class="math inline">\(1/25\)</span> parts). Therefore, we look inside
-the ring <span class="math inline">\(\mathbb{Z}_p\)</span>. This is why
-we use <span class="math inline">\(\mathbb{F}_p \cong \mathbb{Z}_p /
-p\mathbb{Z}_p\)</span>:</p>
+the ring <span class="math inline">\(\mathbb{Z}_p\)</span>, i.e. the
+ring of <span class="math inline">\(p\)</span>-adic integers for a given
+prime <span class="math inline">\(p\)</span> under addition (modular)
+and multiplication. This is why we use <span class="math inline">\(\mathbb{F}_p \cong \mathbb{Z}_p /
+p\mathbb{Z}_p\)</span>. This is the justification for why the
+“successive Division” or “cylinder” method is legally allowed to work.
+<span class="math inline">\(p\mathbb{Z}_p\)</span> represents the
+Details. These are all the parts of the number divisible by <span class="math inline">\(5.\)</span> In the plot, these are all the
+cylinders above the base. <span class="math inline">\(\mathbb{Z}_p /
+p\mathbb{Z}_p\)</span> is is the act of Blurring the Image. You decide
+to ignore everything in the <span class="math inline">\(p\mathbb{Z}_p\)</span> “detail” category.</p>
 <p>When you take a <span class="math inline">\(p\)</span>-adic integer
 and “mod out” by <span class="math inline">\(p\)</span>, you are
 essentially throwing away every term that has a <span class="math inline">\(p, p^2, p^3,\)</span> etc., attached to it.
-Mathematically, it looks like this: <span class="math display">\[x = a_0
-+ a_1p + a_2p^2 + \dots\]</span> <span class="math display">\[x \pmod{p}
-= a_0\]</span> The only thing left is <span class="math inline">\(a_0\)</span>, which is just an element of <span class="math inline">\(\{0, 1, \dots, p-1\}\)</span>.</p>
-<p>In algebraic geometry, we call <span class="math inline">\(\mathbb{F}_p\)</span> the residue field of <span class="math inline">\(\mathbb{Z}_p\)</span>. Think of <span class="math inline">\(\mathbb{Z}_p\)</span> as a microscope. The
-“highest level” view (the lowest magnification) is <span class="math inline">\(\mathbb{F}_p\)</span>. As you look closer (mod
-<span class="math inline">\(p^2\)</span>, mod <span class="math inline">\(p^3\)</span>), you see more “digits” of the <span class="math inline">\(p\)</span>-adic number. The isomorphism <span class="math inline">\(\mathbb{F}_p \cong \mathbb{Z}_p /
-p\mathbb{Z}_p\)</span> says that the “coarsest” possible view of a <span class="math inline">\(p\)</span>-adic integer is exactly the same thing
+Mathematically, it looks like this:</p>
+<p><span class="math display">\[\begin{align}x &amp;= a_0 + a_1p +
+a_2p^2 + \dots\\\\&amp;x \pmod{p} = a_0\end{align}\]</span></p>
+<p>The only thing left is <span class="math inline">\(a_0\)</span>,
+which is just an element of <span class="math inline">\(\{0, 1, \dots,
+p-1\}\)</span>.</p>
+<p>In algebraic geometry, we call <span class="math inline">\(\mathbb{F}_p\)</span> the <strong>residue
+field</strong> of <span class="math inline">\(\mathbb{Z}_p\)</span>. We
+can think of <span class="math inline">\(\mathbb{Z}_p\)</span> as a
+microscope. The highest level view (the lowest magnification) is <span class="math inline">\(\mathbb{F}_p\)</span>. As we look closer (mod
+<span class="math inline">\(p^2\)</span>, mod <span class="math inline">\(p^3\)</span>), you see more digits of the <span class="math inline">\(p\)</span>-adic number. The isomorphism <span class="math inline">\(\mathbb{F}_p \cong \mathbb{Z}_p /
+p\mathbb{Z}_p\)</span> says that the coarsest possible view of a <span class="math inline">\(p\)</span>-adic integer is exactly the same thing
 as an element of a finite field.</p>
 <p>We start with the ring of integers <span class="math inline">\(\mathbb{Z}_p\)</span>. We “mod out” by <span class="math inline">\(p\)</span> to get the field <span class="math inline">\(\mathbb{F}_p\)</span> (the digits <span class="math inline">\(0-4\)</span>). We find a solution in <span class="math inline">\(\mathbb{F}_p\)</span>. We “lift” it back up into
 the full <span class="math inline">\(\mathbb{Z}_p\)</span> tree. You
