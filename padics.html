@@ -2476,6 +2476,88 @@ modulo <span class="math inline">\(p^{n+1}\)</span>, those “extra” terms
 zeroed out. This means the Newton-Raphson formula isn’t just a calculus
 trick; it is the linear part of the binomial expansion.</p>
 <hr />
+<div id="parallelism-of-p-adic-transformation-of-an-integer-and-hensel-lifting" class="section level4">
+<h4>Parallelism of p-adic transformation of an integer and Hensel
+lifting:</h4>
+<p>To turn the integer <span class="math inline">\(4357\)</span> into a
+<span class="math inline">\(5\)</span>-adic representation (as already
+done above), we use the method of successive division by <span class="math inline">\(5\)</span>. This gives us the digits <span class="math inline">\(a_i\)</span> for the expansion:</p>
+<p><span class="math display">\[x = a_0 + a_1(5)^1 + a_2(5)^2 +
+\dots\]</span></p>
+<ul>
+<li>Step 1: Converting <span class="math inline">\(4357\)</span> to
+<span class="math inline">\(5\)</span>-adic (<span class="math inline">\(\mathbb{Q}_5\)</span>)</li>
+</ul>
+<p>We divide by <span class="math inline">\(5\)</span> and track the
+remainders:</p>
+<p><span class="math inline">\(4357 \div 5 = 871\)</span>, remainder
+<span class="math inline">\(2\)</span> (<span class="math inline">\(a_0
+= 2\)</span>)</p>
+<p><span class="math inline">\(871 \div 5 = 174\)</span>, remainder
+<span class="math inline">\(1\)</span> (<span class="math inline">\(a_1
+= 1\)</span>)</p>
+<p><span class="math inline">\(174 \div 5 = 34\)</span>, remainder <span class="math inline">\(4\)</span> (<span class="math inline">\(a_2 =
+4\)</span>)</p>
+<p><span class="math inline">\(34 \div 5 = 6\)</span>, remainder <span class="math inline">\(4\)</span> (<span class="math inline">\(a_3 =
+4\)</span>)</p>
+<p><span class="math inline">\(6 \div 5 = 1\)</span>, remainder <span class="math inline">\(1\)</span> (<span class="math inline">\(a_4 =
+1\)</span>)</p>
+<p><span class="math inline">\(1 \div 5 = 0\)</span>, remainder <span class="math inline">\(1\)</span> (<span class="math inline">\(a_5 =
+1\)</span>)</p>
+<p>So, in <span class="math inline">\(5\)</span>-adic notation (written
+from right to left as <span class="math inline">\(a_k \dots a_1
+a_0\)</span>):</p>
+<p><span class="math display">\[4357 = \dots 00114412_5\]</span></p>
+<p>Or more formally:</p>
+<p><span class="math display">\[4357 = 2(5^0) + 1(5^1) + 4(5^2) + 4(5^3)
++ 1(5^4) + 1(5^5)\]</span></p>
+<ul>
+<li>Step 2:</li>
+</ul>
+<p>Hensel Lifting: Converting an integer to a <span class="math inline">\(p\)</span>-adic is encoding. Hensel Lifting is
+solving. If you treat <span class="math inline">\(4357\)</span> as a
+constant, “lifting” it just recovers the integer. To see the power of
+the lifting process, we should treat <span class="math inline">\(4357\)</span> as the root of a polynomial,
+like:</p>
+<p><span class="math display">\[f(x) = x - 4357\]</span></p>
+<p>We start with a seed</p>
+<p><span class="math inline">\(x_1 \equiv 4357 \pmod 5\)</span>, which
+is <span class="math inline">\(2.\)</span></p>
+<p>We want to find <span class="math inline">\(x_{k+1} = x_k +
+a_k(5^k)\)</span> such that <span class="math inline">\(f(x_{k+1})
+\equiv 0 \pmod{5^{k+1}}\)</span>.</p>
+<p>Start at <span class="math inline">\(x_1 = 2\)</span>:</p>
+<p><span class="math inline">\(f(2) = 2 - 4357 = -4355\)</span>.</p>
+<p>Since <span class="math inline">\(-4355 \equiv 0 \pmod 5\)</span>,
+our seed is valid.</p>
+<p>Lift to <span class="math inline">\(x_2\)</span>:</p>
+<p>We need <span class="math inline">\(a_1\)</span> such that <span class="math inline">\(f(2 + a_1 \cdot 5) \equiv 0
+\pmod{25}\)</span>.</p>
+<p><span class="math inline">\((2 + 5a_1) - 4357 \equiv 0
+\pmod{25}\)</span></p>
+<p><span class="math inline">\(5a_1 - 4355 \equiv 0
+\pmod{25}\)</span></p>
+<p><span class="math inline">\(5a_1 \equiv 4355 \pmod{25} \implies 5a_1
+\equiv 5 \pmod{25} \implies \mathbf{a_1 = 1}\)</span>.</p>
+<p><span class="math inline">\(x_2 = 2 + 1(5) = 7\)</span>.</p>
+<p>Lift to <span class="math inline">\(x_3\)</span>:</p>
+<p>Find <span class="math inline">\(a_2\)</span> such that <span class="math inline">\(f(7 + a_2 \cdot 25) \equiv 0
+\pmod{125}\)</span>.</p>
+<p><span class="math inline">\((7 + 25a_2) - 4357 \equiv 0
+\pmod{125}\)</span></p>
+<p><span class="math inline">\(25a_2 - 4350 \equiv 0
+\pmod{125}\)</span></p>
+<p><span class="math inline">\(25a_2 \equiv 4350 \pmod{125} \implies
+25a_2 \equiv 100 \pmod{125} \implies \mathbf{a_2 = 4}\)</span>.<span class="math inline">\(x_3 = 7 + 4(25) = 107\)</span>.</p>
+</div>
+</div>
+<div id="as-you-can-see-the-a_i-values-we-find-during-the-lift-2-1-4...-are-exactly-the-digits-we-found-in-step-1.-expansion-breaks-the-number-down-into-its-p-adic-components.-lifting-reconstructs-the-number-the-root-by-adding-those-components-back-together-level-by-level." class="section level2">
+<h2>As you can see, the <span class="math inline">\(a_i\)</span> values
+we find during the lift <span class="math inline">\((2, 1,
+4...)\)</span> are exactly the digits we found in Step <span class="math inline">\(1.\)</span> Expansion breaks the number down into
+its <span class="math inline">\(p\)</span>-adic components. Lifting
+reconstructs the number (the root) by adding those components back
+together, level by level.</h2>
 <div id="nomenclature" class="section level4">
 <h4>Nomenclature:</h4>
 <p><strong><span class="math inline">\(\mathbb{Z}_p\)</span>: The <span class="math inline">\(p\)</span>-adic Integers:</strong></p>

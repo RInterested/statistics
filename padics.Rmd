@@ -1353,7 +1353,80 @@ You didn't need the Taylor formula to expand $(2 + 5d_1)^2$ because it's a simpl
 $$f(x_n) + f'(x_n)(d_n p^n) + (\text{terms divisible by } p^{2n})$$
 Because you are working modulo $p^{n+1}$, those "extra" terms (like your $25d_1^2$) are always zeroed out. This means the Newton-Raphson formula isn't just a calculus trick; it is the linear part of the binomial expansion.
 
+---
 
+#### Parallelism of p-adic transformation of an integer and Hensel lifting:
+
+To turn the integer $4357$ into a $5$-adic representation (as already done above), we use the method of successive division by $5$. This gives us the digits $a_i$ for the expansion:
+
+$$x = a_0 + a_1(5)^1 + a_2(5)^2 + \dots$$
+
+- Step 1: Converting $4357$ to $5$-adic ($\mathbb{Q}_5$)
+
+We divide by $5$ and track the remainders: 
+
+$4357 \div 5 = 871$, remainder $2$ ($a_0 = 2$)
+
+$871 \div 5 = 174$, remainder $1$ ($a_1 = 1$)
+
+$174 \div 5 = 34$, remainder $4$ ($a_2 = 4$)
+
+$34 \div 5 = 6$, remainder $4$ ($a_3 = 4$)
+
+$6 \div 5 = 1$, remainder $1$ ($a_4 = 1$)
+
+$1 \div 5 = 0$, remainder $1$ ($a_5 = 1$)
+
+So, in $5$-adic notation (written from right to left as $a_k \dots a_1 a_0$): 
+
+$$4357 = \dots 00114412_5$$
+
+Or more formally:
+
+$$4357 = 2(5^0) + 1(5^1) + 4(5^2) + 4(5^3) + 1(5^4) + 1(5^5)$$
+
+- Step 2: 
+
+Hensel Lifting: Converting an integer to a $p$-adic is encoding. Hensel Lifting is solving. If you treat $4357$ as a constant, "lifting" it just recovers the integer. To see the power of the lifting process, we should treat $4357$ as the root of a polynomial, like:
+
+$$f(x) = x - 4357$$
+
+We start with a seed 
+
+$x_1 \equiv 4357 \pmod 5$, which is $2.$
+
+We want to find $x_{k+1} = x_k + a_k(5^k)$ such that $f(x_{k+1}) \equiv 0 \pmod{5^{k+1}}$.
+
+Start at $x_1 = 2$:
+
+$f(2) = 2 - 4357 = -4355$. 
+
+Since $-4355 \equiv 0 \pmod 5$, our seed is valid.
+
+Lift to $x_2$:
+
+We need $a_1$ such that $f(2 + a_1 \cdot 5) \equiv 0 \pmod{25}$.
+
+$(2 + 5a_1) - 4357 \equiv 0 \pmod{25}$
+
+$5a_1 - 4355 \equiv 0 \pmod{25}$
+
+$5a_1 \equiv 4355 \pmod{25} \implies 5a_1 \equiv 5 \pmod{25} \implies \mathbf{a_1 = 1}$.
+
+$x_2 = 2 + 1(5) = 7$.
+
+Lift to $x_3$:
+
+Find $a_2$ such that $f(7 + a_2 \cdot 25) \equiv 0 \pmod{125}$.
+
+
+$(7 + 25a_2) - 4357 \equiv 0 \pmod{125}$
+
+$25a_2 - 4350 \equiv 0 \pmod{125}$
+
+$25a_2 \equiv 4350 \pmod{125} \implies 25a_2 \equiv 100 \pmod{125} \implies \mathbf{a_2 = 4}$.$x_3 = 7 + 4(25) = 107$.
+
+As you can see, the $a_i$ values we find during the lift $(2, 1, 4...)$ are exactly the digits we found in Step $1.$ Expansion breaks the number down into its $p$-adic components. Lifting reconstructs the number (the root) by adding those components back together, level by level.
 ---
 
 #### Nomenclature:
