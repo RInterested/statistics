@@ -1314,6 +1314,10 @@ There is a deep law called the **Hilbert Symbol** and the **Product Formula**. I
 
 For a cubic equation like $3x^3 + 4y^3 + 5z^3 = 0$, the geometry is a "Genus $1$" curve (a torus). These shapes have a hidden internal "twist" called the **Shafarevich-Tate group** ($\text{Ш}$). This "twist" can allow an equation to have solutions in every $p$-adic cylinder (the local blueprint looks fine) and in the reals (the size looks fine), but the global geometry is like an Escher staircase — it's impossible to build the whole thing out of rational blocks.
 
+The genus is the number of "holes" in the shape the equation forms over complex numbers. Genus $0:$ These are lines or conics (quadratics). Topologically, they are spheres. Because they are "simple," if you can find a point anywhere (locally), you can easily project that to find all rational points. Genus $1:$ These are curves defined by cubic equations. Topologically, a genus $1$ curve is a torus (a donut).
+
+The Hasse principle (or Local-Global Principle) is the mathematical hope that if an equation has solutions in the real numbers ($\mathbb{R}$) and in all $p$-adic numbers ($\mathbb{Q}_p$), it must have a solution in the rational numbers ($\mathbb{Q}$). For quadratic forms (like $ax^2 + by^2 + cz^2 = 0$), the Hasse Principle always works. This is the Hasse-Minkowski theorem. If the "local blueprints" (the $p$-adics and reals) say a solution is possible, a rational solution is guaranteed to exist. When we move to cubics, the Hasse Principle breaks. The Shafarevich-Tate group ($Ш$) is the mathematical construct that measures exactly how much it breaks. It is surprising because, intuitively, if an object fits together perfectly in every local neighborhood and has a valid global "size" (the real solution), you would expect it to exist globally. However, $Ш$ represents "elements of the Weil-Châtelet group that are locally trivial but globally non-trivial."
+
 ---
  
 **Hensel lifting** is a technique in number theory and computer algebra, analogous to Newton's method, that raises a solution of a polynomial equation from modulo $p$ (or $p^{k}$) to a higher power $p^{k+1},$ or ultimately to $p$-adic integers. It efficiently finds roots of equations or factorizes polynomials over $\mathbb{Z}[x]$ (polynomials with integer coefficients) by lifting solutions iteratively, requiring the initial root to satisfy a non-vanishing derivative condition.
@@ -1592,8 +1596,8 @@ If we expand this perfectly:
 
 $$f(2 + 5d_1) = \underbrace{2^2 + 1}_{f(x_0)} + \underbrace{2(2)(5d_1)}_{f'(x_0)h} + \underbrace{(5d_1)^2}_{h^2}$$
 
-$$f(2 + 5d_1) = 5 + 20d_1 + 25d_1^2$$
-Now, look at the $h^2$ term: $25d_1^2$.In the world of $\mathbb{Z}/25\mathbb{Z}$ (level $2$), $25$ is the same thing as $0.$ So, $25d_1^2$ simply vanishes. It is an exact calculation of the next digit. In real numbers ($\mathbb{R}$): $h^2$ is $0.0001$. It’s not zero, so you are "approximating" by ignoring it. In $p$-adics ($\mathbb{Z}_p$): At Level $n$, $h^2$ is a multiple of $p^{2n}$. Since we are working modulo $p^{n+1}$, and $2n \ge n+1$ (for $n \ge 1$), that $h^2$ is identically zero. The $p$-adic Newton-Raphson isn't "guessing" the next digit; it is solving a linear equation where the non-linear parts have been perfectly moved into the "future" (higher powers of $p$).
+$$f(2 + 5d_1) = 5 + 20d_1 + \require{cancel}\cancel{\color{red}{25}d_1^2}$$
+Now, look at the $h^2$ term: $25d_1^2$. In the world of $\mathbb{Z}/25\mathbb{Z}$ (level $2$), $25$ is the same thing as $0.$ So, $25d_1^2$ simply vanishes. It is an exact calculation of the next digit. In real numbers ($\mathbb{R}$): $h^2$ is $0.0001$. It’s not zero, so you are "approximating" by ignoring it. In $p$-adics ($\mathbb{Z}_p$): At Level $n$, $h^2$ is a multiple of $p^{2n}$. Since we are working modulo $p^{n+1}$, and $2n \ge n+1$ (for $n \ge 1$), that $h^2$ is identically zero. The $p$-adic Newton-Raphson isn't "guessing" the next digit; it is solving a linear equation where the non-linear parts have been perfectly moved into the "future" (higher powers of $p$).
 
 
 ---

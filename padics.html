@@ -2407,6 +2407,27 @@ group</strong> (<span class="math inline">\(\text{Ш}\)</span>). This
 looks fine) and in the reals (the size looks fine), but the global
 geometry is like an Escher staircase — it’s impossible to build the
 whole thing out of rational blocks.</p>
+<p>The genus is the number of “holes” in the shape the equation forms
+over complex numbers. Genus <span class="math inline">\(0:\)</span>
+These are lines or conics (quadratics). Topologically, they are spheres.
+Because they are “simple,” if you can find a point anywhere (locally),
+you can easily project that to find all rational points. Genus <span class="math inline">\(1:\)</span> These are curves defined by cubic
+equations. Topologically, a genus <span class="math inline">\(1\)</span>
+curve is a torus (a donut).</p>
+<p>The Hasse principle (or Local-Global Principle) is the mathematical
+hope that if an equation has solutions in the real numbers (<span class="math inline">\(\mathbb{R}\)</span>) and in all <span class="math inline">\(p\)</span>-adic numbers (<span class="math inline">\(\mathbb{Q}_p\)</span>), it must have a solution in
+the rational numbers (<span class="math inline">\(\mathbb{Q}\)</span>).
+For quadratic forms (like <span class="math inline">\(ax^2 + by^2 + cz^2
+= 0\)</span>), the Hasse Principle always works. This is the
+Hasse-Minkowski theorem. If the “local blueprints” (the <span class="math inline">\(p\)</span>-adics and reals) say a solution is
+possible, a rational solution is guaranteed to exist. When we move to
+cubics, the Hasse Principle breaks. The Shafarevich-Tate group (<span class="math inline">\(Ш\)</span>) is the mathematical construct that
+measures exactly how much it breaks. It is surprising because,
+intuitively, if an object fits together perfectly in every local
+neighborhood and has a valid global “size” (the real solution), you
+would expect it to exist globally. However, <span class="math inline">\(Ш\)</span> represents “elements of the
+Weil-Châtelet group that are locally trivial but globally
+non-trivial.”</p>
 <hr />
 <p><strong>Hensel lifting</strong> is a technique in number theory and
 computer algebra, analogous to Newton’s method, that raises a solution
@@ -2842,7 +2863,8 @@ avove (<span class="math inline">\(x_1 = 2 + 5d_1\)</span>):</p>
 1}_{f(x_0)} + \underbrace{2(2)(5d_1)}_{f&#39;(x_0)h} +
 \underbrace{(5d_1)^2}_{h^2}\]</span></p>
 <p><span class="math display">\[f(2 + 5d_1) = 5 + 20d_1 +
-25d_1^2\]</span> Now, look at the <span class="math inline">\(h^2\)</span> term: <span class="math inline">\(25d_1^2\)</span>.In the world of <span class="math inline">\(\mathbb{Z}/25\mathbb{Z}\)</span> (level <span class="math inline">\(2\)</span>), <span class="math inline">\(25\)</span> is the same thing as <span class="math inline">\(0.\)</span> So, <span class="math inline">\(25d_1^2\)</span> simply vanishes. It is an exact
+\require{cancel}\cancel{\color{red}{25}d_1^2}\]</span> Now, look at the
+<span class="math inline">\(h^2\)</span> term: <span class="math inline">\(25d_1^2\)</span>. In the world of <span class="math inline">\(\mathbb{Z}/25\mathbb{Z}\)</span> (level <span class="math inline">\(2\)</span>), <span class="math inline">\(25\)</span> is the same thing as <span class="math inline">\(0.\)</span> So, <span class="math inline">\(25d_1^2\)</span> simply vanishes. It is an exact
 calculation of the next digit. In real numbers (<span class="math inline">\(\mathbb{R}\)</span>): <span class="math inline">\(h^2\)</span> is <span class="math inline">\(0.0001\)</span>. It’s not zero, so you are
 “approximating” by ignoring it. In <span class="math inline">\(p\)</span>-adics (<span class="math inline">\(\mathbb{Z}_p\)</span>): At Level <span class="math inline">\(n\)</span>, <span class="math inline">\(h^2\)</span> is a multiple of <span class="math inline">\(p^{2n}\)</span>. Since we are working modulo <span class="math inline">\(p^{n+1}\)</span>, and <span class="math inline">\(2n \ge n+1\)</span> (for <span class="math inline">\(n \ge 1\)</span>), that <span class="math inline">\(h^2\)</span> is identically zero. The <span class="math inline">\(p\)</span>-adic Newton-Raphson isn’t “guessing”
 the next digit; it is solving a linear equation where the non-linear
