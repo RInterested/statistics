@@ -2645,7 +2645,7 @@ need to find the “multiplicative inverse” of <span class="math inline">\(4\)
 5\)</span>. So, in our world, <span class="math inline">\(1/4\)</span>
 is actually <span class="math inline">\(4\)</span>. Now let’s finish the
 math: <span class="math display">\[x_1 = 2 - (5 \times 4)\]</span><span class="math display">\[x_1 = 2 - 20 = -18\]</span></p>
-<p><span class="math inline">\(-18\)</span> the same as <span class="math inline">\(7\)</span>? In your cylinder plot, we are
+<p>Is <span class="math inline">\(-18\)</span> the same as <span class="math inline">\(7\)</span>? In your cylinder plot, we are
 currently at Level 2, which means we only care about remainders modulo
 <span class="math inline">\(25\)</span> (<span class="math inline">\(5^2\)</span>). <span class="math inline">\(-18 +
 25 = \mathbf{7}.\)</span></p>
@@ -2659,6 +2659,31 @@ currently at Level 2, which means we only care about remainders modulo
 <p>This is why <span class="math inline">\(x_1 = 7\)</span>. It contains
 our original digit (<span class="math inline">\(2\)</span>) plus a new
 layer of precision (<span class="math inline">\(1 \cdot 5\)</span>).</p>
+<p>If you run the “lifting” algorithm (Hensel’s Lemma), you find these
+two unique “names” for the square root of <span class="math inline">\(-1\)</span> in the 5-prime basis:</p>
+<ul>
+<li><p>Root 1 (<span class="math inline">\(i\)</span>): <span class="math inline">\(\dots 101203212_5\)</span> (The one we started:
+<span class="math inline">\(2, 7, 57, \dots\)</span>)</p></li>
+<li><p>Root 2 (<span class="math inline">\(-i\)</span>): <span class="math inline">\(\dots 343241233_5\)</span> (The “conjugate”: <span class="math inline">\(3, 18, 68, \dots\)</span>)</p></li>
+</ul>
+<p>If you add these two infinite strings together using base-5
+arithmetic, you get <span class="math inline">\(\dots 00000_5\)</span>
+(zero). If you multiply them, you get the expansion for <span class="math inline">\(+1\)</span>. But if you square either of them, the
+resulting “carry” process produces:</p>
+<p><span class="math display">\[\dots 444444444_5\]</span></p>
+<p>This last number is indeed <span class="math inline">\(-1\)</span> in
+5-adics: Adding a <span class="math inline">\(1\)</span> results in
+infinite carry to the left, and the number turns into zero.</p>
+<p>In standard base <span class="math inline">\(5,\)</span> we use
+powers of <span class="math inline">\(5\)</span> to represent a
+value:</p>
+<p><span class="math display">\[... + d_2 \cdot 5^2 + d_1 \cdot 5^1 +
+d_0 \cdot 5^0 + d_{-1} \cdot 5^{-1} + d_{-2} \cdot 5^{-2} +
+...\]</span></p>
+<p>Because <span class="math inline">\(i\)</span> is not a real number,
+there is no sequence of digits <span class="math inline">\(\{0, 1, 2, 3,
+4\}\)</span> that can satisfy this sum to equal <span class="math inline">\(i\)</span>. It simply doesn’t exist on the 1D
+number line.</p>
 <hr />
 </div>
 <div id="step-by-step-calculation" class="section level4">

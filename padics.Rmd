@@ -1439,7 +1439,7 @@ We already have our "seed" from level $1$: $x_0 = 2$. We want to find $x_1$, whi
 
 In the real numbers, $5/4$ is $1.25$. But in the $5$-adics, we need an integer result. We need to find the "multiplicative inverse" of $4$ modulo $5$. What number times $4$ gives a remainder of $1$ when divided by $5$? $4 \times 4 = 16$, and $16 \equiv 1 \pmod 5$. So, in our world, $1/4$ is actually $4$. Now let's finish the math: $$x_1 = 2 - (5 \times 4)$$$$x_1 = 2 - 20 = -18$$
 
-$-18$ the same as $7$? In your cylinder plot, we are currently at Level 2, which means we only care about remainders modulo $25$ ($5^2$). $-18 + 25 = \mathbf{7}.$
+Is $-18$ the same as $7$? In your cylinder plot, we are currently at Level 2, which means we only care about remainders modulo $25$ ($5^2$). $-18 + 25 = \mathbf{7}.$
 
 Now we use the subtract and divide method to see the digits of $7$:
 
@@ -1450,6 +1450,25 @@ Now we use the subtract and divide method to see the digits of $7$:
 - $d_1$ (The next Branch): $1 \pmod 5 = \mathbf{1}$.
 
 This is why $x_1 = 7$. It contains our original digit ($2$) plus a new layer of precision ($1 \cdot 5$). 
+
+If you run the "lifting" algorithm (Hensel's Lemma), you find these two unique "names" for the square root of $-1$ in the 5-prime basis:
+
+- Root 1 ($i$): $\dots 101203212_5$ (The one we started: $2, 7, 57, \dots$)
+
+- Root 2 ($-i$): $\dots 343241233_5$ (The "conjugate": $3, 18, 68, \dots$)
+
+If you add these two infinite strings together using base-5 arithmetic, you get $\dots 00000_5$ (zero). If you multiply them, you get the expansion for $+1$. But if you square either of them, the resulting "carry" process produces:
+
+$$\dots 444444444_5$$
+
+This last number is indeed $-1$ in 5-adics: Adding a $1$ results in infinite carry to the left, and the number turns into zero.
+
+In standard base $5,$ we use powers of $5$ to represent a value:
+
+$$... + d_2 \cdot 5^2 + d_1 \cdot 5^1 + d_0 \cdot 5^0 + d_{-1} \cdot 5^{-1} + d_{-2} \cdot 5^{-2} + ...$$
+
+Because $i$ is not a real number, there is no sequence of digits $\{0, 1, 2, 3, 4\}$ that can satisfy this sum to equal $i$. It simply doesn't exist on the 1D number line.
+
 
 ---
 
