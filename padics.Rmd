@@ -316,7 +316,9 @@ the "next smallest" possible distance is $5^{-(n+1)}$. Therefore, saying a dista
 
 $$B_{5^{-n}}(a) = \{ x \in \mathbb{Q}_5 : |x - a|_5 \leq 5^{-(n+1)} \}$$
 
-This makes more sense if we think about the digits of your number $4357$. If $x$ is in the ball of radius $5^{-n}$, it means $x$ matches $a$ for at least $n$ digits. To be strictly closer than $5^{-n}$, $x$ must match $a$ for at least $n+1$ digits.
+This makes more sense if we think about the digits of the number $4357$. If $x$ is in the ball of radius $5^{-n}$, it means $x$ matches $a$ for at least $n$ digits. To be strictly closer than $5^{-n}$, $x$ must match $a$ for at least $n+1$ digits.
+
+It is worth noting that in $p$-adic topology, every ball is both open and closed (clopen). Because distances are discrete (only powers of $p$), there is no "edge" to a ball. If you are in the ball, you are the center of the ball.
 
 ---
 
@@ -855,7 +857,9 @@ Notice that this would break if we tried $1/24$ in $2$-adics:
 
 $$1=24\, (a_0+ a_1 \,p + a_2 \,p^2+\dots)$$
 
-because there is no number $n$ such that $24 \, n\equiv 1\mod(2).$ Hence we we'll need the factorization trick explained below with $1/24= 1/3\times 2^{-3}.$
+because there is no number $n$ such that $24 \, n\equiv 1\mod(2).$ There is no integer solution to this congruence, since any even number is congruent to $0\quad (\mod 2).$ This is the difference between $\mathbb{Z}_p$ and $\mathbb{Q}_p:$ $1/24$ is not a $2$-adic integer because its $2$-adic norm is $|1/24|_2 = 2^3 = 8$, which is $>1$. $1/3 \cdot 2^{-3}$, it exists in the field. The "period" (radix point) in $...101.011$ is exactly the tool that handles the fact that the denominator was divisible by $p$.
+
+Hence we we'll need the factorization trick explained below with $1/24= 1/3\times 2^{-3}.$
 
 ---
 
@@ -1359,6 +1363,8 @@ Because you are working modulo $p^{n+1}$, those "extra" terms (like your $25d_1^
 Every number in $\mathbb{Z}_p$ can be written as a "standard" $p$-adic expansion: 
 
 $$d_0 + d_1p + d_2p^2 + \dots$$
+
+An element of the $p$-adic integers $\mathbb{Z}_p$ is defined as a thread: a sequence $(x_1, x_2, x_3, \dots)$ where each $x_n$ is the "shadow" of the number in a lower-resolution world. $x_1$ is the element that belongs to $\mathbb{F}_p$ (or is at least the most direct representative of it), and $x_3$ is the one that casts the shadow on $x_1$. To visualize this, think of "resolution" as moving from a blurry image to a sharp one: The field $\mathbb{F}_p$ is the "coarsest" possible level of the $p$-adic world. When we look at a $p$-adic number $x = (x_1, x_2, x_3, \dots)$, the first term $x_1$ is the number viewed modulo $p$. It is exactly the **seed** or the residue. As you move to $x_2$ (mod $p^2$) and $x_3$ (mod $p^3$), you are gaining detail. $\mathbb{F}_p$ only has enough "room" to understand the first digit, so it only "sees" $x_1$. The higher-resolution elements cast shadows on the lower-resolution ones. Mathematically, the "shadow" is the projection map $\phi$. $x_3$ (resolution $1/125$) contains all the information about $x_2$ and $x_1$. When you "shine the light" of modular arithmetic ($\pmod p$) on $x_3,$ the higher powers of $p$ vanish, leaving only the $x_1$ component behind.
 
 In $\mathbb{Z}_p$, all numbers have a $p$-adic size (norm) $\le 1$. There are no "huge" values here.
 
