@@ -818,94 +818,35 @@ P</code></pre>
 <div id="from-weiestrass-wp-functions-to-elliptic-curves-modular-forms-and-l-functios" class="section level3">
 <h3>From Weiestrass <span class="math inline">\(\wp\)</span>-functions
 to elliptic curves, modular forms and L-functios:</h3>
-<p>Weiestrass <span class="math inline">\(\wp\)</span>-functions</p>
-<p><span class="math display">\[\wp(z) = \frac{1}{z^2} + \sum_{\lambda
-\in \Lambda \setminus \{0\}} \left( \frac{1}{(z - \lambda)^2} -
-\frac{1}{\lambda^2} \right)\]</span></p>
-<p>fulfill a first order differential equation that allows
-parameterizing elliptic curves:</p>
-<p><span class="math display">\[(\wp&#39;(z))^2 = 4\wp(z)^3 - g_2\wp(z)
-- g_3\]</span></p>
-<p>The coefficients that define the shape of the elliptic curve are
-directly tied to the geometry of the lattice via:</p>
-<p><span class="math display">\[g_2 = 60 \sum_{\omega \in \Lambda^*}
-\omega^{-4}\]</span></p>
-<p><span class="math display">\[g_3 = 140 \sum_{\omega \in \Lambda^*}
-\omega^{-6}\]</span></p>
-<p>Since these sums depend on the lattice, and lattices can be
-parameterized by the ratio <span class="math inline">\(\tau = \omega_2 /
-\omega_1\)</span> (in the upper half-plane), <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> become modular forms.</p>
-<p>By mapping <span class="math inline">\(z \mapsto (\wp(z),
-\wp&#39;(z)),\)</span> you essentially wrap the complex plane onto a
-cubic curve in projective space.</p>
-<p>Weiestrass <span class="math inline">\(\wp\)</span>-functions are
-doubly-periodic.</p>
-<p>The <span class="math inline">\(\mathbb C\)</span> plane can be
-quotiented out by a lattice <span class="math inline">\(\Lambda,\)</span> determined by two basis vectors
-(each specified by selecting a point <span class="math inline">\(z \in
-\mathbb C\)</span>) named <span class="math inline">\(\omega_1\)</span>
-and <span class="math inline">\(\omega_2.\)</span> These vectors are
-linearly independent over <span class="math inline">\(\mathbb{R}\)</span>. Any linear combination of
-these two vectors <span class="math inline">\(m\omega_1 + n\omega_2 \;
-m,n\in \mathbb Z\)</span> lands you on a node in the lattice.</p>
+<div id="weiestrass-wp-functions" class="section level4">
+<h4>Weiestrass <span class="math inline">\(\wp\)</span>-functions</h4>
 <p>Weierstrass wanted a function that was “inherently” periodic. If you
-want a function to repeat every time you move by a lattice vector <span class="math inline">\(\lambda\)</span>, the most “honest” way to build
-it is to take a simple function <span class="math inline">\(f(z)\)</span> and manually sum it over the whole
-lattice:</p>
+want a function to repeat every time you move by a lattice vector <span class="math inline">\(\lambda\)</span>, it can be built taking a simple
+function <span class="math inline">\(f(z)\)</span> and manually summing
+it over the whole lattice:</p>
 <p><span class="math display">\[\sum_{\lambda \in \Lambda} f(z -
 \lambda)\]</span></p>
 <p>If you shift <span class="math inline">\(z\)</span> by a lattice
 vector, the infinite sum just shifts one position and remains identical.
-This is the “infinite mirror room” logic. He couldn’t use a polynomial
-(they don’t have poles). He couldn’t use <span class="math inline">\(1/(z-\lambda)\)</span> (a single pole) because the
-residues must sum to zero on a torus. The simplest “seed” that could
-work was the double pole: <span class="math inline">\(1/z^2\)</span>.
-This is where the “minus <span class="math inline">\(1/\lambda^2\)</span>” part comes in. When he tried
-to sum <span class="math inline">\(1/(z-\lambda)^2\)</span> over a 2D
-grid, he ran into a massive problem: the sum doesn’t converge. It adds
-up to infinity. In 1D, <span class="math inline">\(\sum 1/n^2\)</span>
-converges. But in 2D, the number of points in the grid grows at the same
-rate the function values drop off. He used a trick from calculus. If a
-series doesn’t converge, you can subtract a “compensation term” to force
-it to behave. By subtracting <span class="math inline">\(1/\lambda^2\)</span>, he ensured that as you move
-further away from the origin, the terms get smaller much faster, making
-the infinite sum finite and stable.</p>
-<p><span class="math display">\[\left( \frac{1}{(z - \lambda)^2} -
-\frac{1}{\lambda^2} \right) \approx \frac{2z}{\lambda^3} \text{ (for
-large } \lambda)\]</span></p>
-<p>Since <span class="math inline">\(\sum 1/\lambda^3\)</span> converges
-in 2D, the function was finally “legal.”</p>
-<p>He would have noticed that <span class="math inline">\(\wp\)</span>
-and its derivative <span class="math inline">\(\wp&#39;\)</span> were so
-tightly linked that they satisfied a cubic equation. He hadn’t just
-built a function; he had discovered a way to turn a “donut” (topology)
-into an “equation” (algebra). Weierstrass realized that any doubly
-periodic (elliptic) function can be written as a combination of his
-<span class="math inline">\(\wp(z)\)</span> and its derivative <span class="math inline">\(\wp&#39;(z)\)</span>. He had found the “atoms” of
-the entire field.</p>
-<p>To see how this equation works, let’s use a simple square lattice
-where our “steps” are <span class="math inline">\(1\)</span>
-(right/left) and <span class="math inline">\(i\)</span> (up/down). So,
-our lattice points <span class="math inline">\(\lambda\)</span> are:
-<span class="math inline">\(0, 1, -1, i, -i, 1+i, 1-i\)</span>, and so
-on. Let’s pick a point, say <span class="math inline">\(z = 0.5 +
-0.5i\)</span> (the dead center of the first tile). We want to find the
-value of the “naive” sum: <span class="math inline">\(S = \sum
-\frac{1}{(z-\lambda)^2}\)</span>. Step <span class="math inline">\(1:\)</span> we look at the pole right next to us
-<span class="math inline">\(\lambda = 0\)</span>. The distance is <span class="math inline">\((z - 0) = 0.5 + 0.5i\)</span>. The contribution is
-<span class="math inline">\(\frac{1}{(0.5 + 0.5i)^2}\)</span>. Running
-Total: <span class="math inline">\(\approx -2i.\)</span> Step <span class="math inline">\(2:\)</span> The Immediate Now we look at the four
-poles surrounding our tile: <span class="math inline">\(1, i, 0,
-1+i\)</span>.</p>
-<p>For <span class="math inline">\(\lambda = 1\)</span>: Calculate <span class="math inline">\(\frac{1}{(z-1)^2}\)</span></p>
-<p>For <span class="math inline">\(\lambda = i\)</span>: Calculate <span class="math inline">\(\frac{1}{(z-i)^2}\)</span></p>
-<p>For <span class="math inline">\(\lambda = 1+i\)</span>: Calculate
-<span class="math inline">\(\frac{1}{(z-(1+i))^2}\)</span></p>
-<p>Update Total: Add these values to our running total.</p>
-<p>Step <span class="math inline">\(3:\)</span> We keep moving outward
-in concentric squares. We go to <span class="math inline">\(\lambda = 2,
-2i, -2, -2i\)</span>, etc.bFor every single dot on that infinite grid,
-you measure the distance from your point <span class="math inline">\(z\)</span> to that dot <span class="math inline">\(\lambda\)</span>. Square that distance. Take the
+This is the “infinite mirror room” logic. If you shift <span class="math inline">\(z\)</span> by a lattice vector, the infinite sum
+just shifts one position and remains identical. But there’s a catch: If
+we use a common seed like <span class="math inline">\(f(z) =
+1/z^2\)</span>, this infinite sum explodes to infinity everywhere.
+Weierstrass realized he needed to tame the sum. He kept the <span class="math inline">\(1/z^2\)</span> for the origin (where the main
+action is), but for every other point in the lattice, he added a
+subtraction term. This “counter-weight” ensures that the contribution of
+far-away tiles gets smaller and smaller, allowing the total sum to
+settle on a finite value.This gives us the official Weierstrass
+P-function:</p>
+<p><span class="math display">\[\wp(z) = \frac{1}{z^2} + \sum_{\lambda
+\in \Lambda \setminus \{0\}} \left( \frac{1}{(z - \lambda)^2} -
+\frac{1}{\lambda^2} \right)\]</span></p>
+<p>The <span class="math inline">\(-1/\lambda^2\)</span> is like a
+stabilizer; it ensures that as you move further away from the center,
+the difference between the “naive” term and the stabilizer approaches
+zero fast enough for the sum to work.</p>
+<p>For every single dot on that infinite grid, you measure the distance
+from your point <span class="math inline">\(z\)</span> to that dot <span class="math inline">\(\lambda\)</span>. Square that distance. Take the
 reciprocal (<span class="math inline">\(1/\text{distance}^2\)</span>).
 Add it to your bucket. As you “walk” further away to gather more terms,
 the distances get bigger, so the numbers you are adding (<span class="math inline">\(1/\text{dist}^2\)</span>) get smaller. In a 1D
@@ -918,11 +859,113 @@ circumference (<span class="math inline">\(2\pi R\)</span>). So the
 total light from the trees at distance <span class="math inline">\(R\)</span> is roughly <span class="math inline">\(R \times (1/R^2) = 1/R\)</span>. Since the sum of
 <span class="math inline">\(1/R\)</span> (the harmonic series) goes to
 infinity, your “bucket” would eventually overflow!</p>
+<p>To see how this equation works, let’s use a simple square lattice
+where our steps are <span class="math inline">\(1\)</span> (right/left)
+and <span class="math inline">\(i\)</span> (up/down). So, our lattice
+points <span class="math inline">\(\lambda\)</span> are: <span class="math inline">\(0, 1, -1, i, -i, 1+i, 1-i\)</span>, and so on.</p>
+<p>Let’s pick a point, say <span class="math inline">\(z = 0.5 +
+0.5i\)</span> (the dead center of the first tile).</p>
+<p>Step 1: The origin (<span class="math inline">\(\lambda =
+0\)</span>).</p>
+<p>We handle the first term, <span class="math inline">\(1/z^2\)</span>.
+The distance is <span class="math inline">\((z - 0) = 0.5 +
+0.5i\)</span>. Contribution: <span class="math inline">\(\frac{1}{(0.5 +
+0.5i)^2} \approx -2i\)</span>.</p>
+<p>Step 2: The inner ring. Now we move to the surrounding points <span class="math inline">\(\lambda \in \{1, i, 1+i\}\)</span>. For each, we
+calculate the “tamed” contribution: <span class="math inline">\(\left(
+\frac{1}{(z - \lambda)^2} - \frac{1}{\lambda^2} \right)\)</span>.</p>
+<p>For <span class="math inline">\(\lambda = 1\)</span>: <span class="math inline">\(\frac{1}{(z-1)^2} - \frac{1}{1^2}\)</span></p>
+<p>For <span class="math inline">\(\lambda = i\)</span>: <span class="math inline">\(\frac{1}{(z-i)^2} - \frac{1}{i^2}\)</span></p>
+<p>For <span class="math inline">\(\lambda = 1+i\)</span>: <span class="math inline">\(\frac{1}{(z-(1+i))^2} -
+\frac{1}{(1+i)^2}\)</span></p>
+<p>Step 3: We keep moving in concentric squares to <span class="math inline">\(\lambda = 2, 2i, -2, -2i\)</span>. Because of that
+subtraction term, these far-away points contribute less and less to the
+total, eventually becoming negligible. Update Total: Add these values to
+our running total.</p>
+<p>For any point <span class="math inline">\(z\)</span> you choose in
+the complex plane, the calculation of <span class="math inline">\(\wp(z)\)</span> always begins with that <span class="math inline">\(\lambda = 0\)</span> term. Think of <span class="math inline">\(\lambda = 0\)</span> as the “home base” pole. Here
+is how that process flows logically: 1. Identifying the “home” pole. No
+matter where your <span class="math inline">\(z\)</span> is located, the
+formula treats the origin (<span class="math inline">\(0\)</span>) as a
+special reference point. The first part of the equation, <span class="math inline">\(\frac{1}{z^2}\)</span>, is simply the “naive”
+contribution from the pole at the origin. Because we use this term
+alone, the summation symbol <span class="math inline">\(\sum\)</span>
+specifically excludes zero (<span class="math inline">\(\lambda \in
+\Lambda \setminus \{0\}\)</span>) to avoid double-counting.</p>
+<p>Whether your <span class="math inline">\(z\)</span> is <span class="math inline">\(0.1 + 0.1i\)</span> (very close to the origin) or
+<span class="math inline">\(100 + 100i\)</span> (deep in the lattice),
+you follow the same sequence:</p>
+<p>Calculate the origin term: <span class="math inline">\(1/z^2\)</span>.</p>
+<p>Calculate the Lattice terms: Start summing <span class="math inline">\(\left( \frac{1}{(z - \lambda)^2} -
+\frac{1}{\lambda^2} \right)\)</span> for every other <span class="math inline">\(\lambda\)</span> in the infinite grid.3.</p>
+<p>While you always start the math with <span class="math inline">\(\lambda = 0\)</span> (although the <span class="math inline">\(z=0\)</span> can’t be expressed inside the sum due
+to the <span class="math inline">\(1/z^2\)</span> term), the impact of
+that element changes based on where <span class="math inline">\(z\)</span> is: If <span class="math inline">\(z\)</span> is near <span class="math inline">\(0\)</span>: The <span class="math inline">\(1/z^2\)</span> term is massive. It dominates the
+value of the function, creating a “spike” (pole) at the origin. If <span class="math inline">\(z\)</span> is near another lattice point (say,
+<span class="math inline">\(\lambda = 1\)</span>): The term <span class="math inline">\(1/(z - 1)^2\)</span> inside the sum becomes the
+giant value, while <span class="math inline">\(1/z^2\)</span> becomes
+just a small, ordinary number.</p>
+<p>Let’s look at what happens when we shift <span class="math inline">\(z\)</span> by a specific lattice vector, say <span class="math inline">\(\gamma=\omega_1 - 3\omega_2\)</span>. If we
+evaluate <span class="math inline">\(\wp(z + \gamma)\)</span>, the
+equation becomes:</p>
+<p><span class="math display">\[\wp(z + \gamma) = \frac{1}{(z +
+\gamma)^2} + \sum_{\lambda \neq 0} \left( \frac{1}{(z + \gamma -
+\lambda)^2} - \frac{1}{\lambda^2} \right)\]</span></p>
+<p>Now, look at that lone term out front: <span class="math inline">\(\frac{1}{(z + \gamma)^2}\)</span>. When we shift,
+the old <span class="math inline">\(1/z^2\)</span> becomes <span class="math inline">\(1/(z+\gamma)^2\)</span> (moving into the territory
+of the sum), and one of the terms from the old sum — the one where <span class="math inline">\(\lambda = \gamma\)</span> — becomes <span class="math inline">\(1/(z+\gamma-\gamma)^2 = 1/z^2\)</span>.</p>
+<p>Because the function is periodic, <span class="math inline">\(\wp(z)\)</span> will have the exact same value
+regardless of which “tile” you are in. If you calculate <span class="math inline">\(\wp(0.5)\)</span> or <span class="math inline">\(\wp(1.5)\)</span> or <span class="math inline">\(\wp(100.5)\)</span>, the infinite sum balances out
+to give you the same result. Starting at <span class="math inline">\(\lambda = 0\)</span> is just the mathematical
+convention to ensure the sum is defined consistently across the whole
+plane.</p>
+<hr />
+</div>
+<div id="from-weierstrass-wp-functions-to-elliptic-curves" class="section level4">
+<h4>From Weierstrass <span class="math inline">\(\wp\)</span>-functions
+to Elliptic Curves</h4>
+<p>We have seen how we can calculate <span class="math inline">\(\wp(z)\)</span> at any point by summing up
+contributions from the “home” pole and all the “stabilized” poles in the
+infinite mirror room. Because the function is periodic, <span class="math inline">\(\wp(z)\)</span> will have the exact same value
+regardless of which “tile” you are in. If you calculate <span class="math inline">\(\wp(0.5)\)</span> or <span class="math inline">\(\wp(1.5)\)</span>, the infinite sum balances out
+to give you the same result. However, while the value of the function
+depends on <span class="math inline">\(z\)</span>, the overall shape of
+this infinite landscape is determined entirely by the lattice <span class="math inline">\(\Lambda\)</span> itself.</p>
+<p>If you take the derivative of our function, <span class="math inline">\(\wp&#39;(z)\)</span>, you’ll find that <span class="math inline">\(\wp\)</span> and <span class="math inline">\(\wp&#39;\)</span> are locked in a tight
+mathematical dance. If you plot them against each other as coordinates
+<span class="math inline">\((x, y) = (\wp(z), \wp&#39;(z))\)</span>,
+they always stay on a specific path. This path is a cubic equation:</p>
+<p><span class="math display">\[(\wp&#39;(z))^2 = 4\wp(z)^3 - g_2\wp(z)
+- g_3\]</span></p>
+<p>This is where the geometry of the “forest” (the lattice) turns into
+the coefficients of an “equation” (the curve). The numbers <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> aren’t just random constants; they
+are “summaries” of the entire lattice. They are calculated by summing up
+the “stiffness” of the lattice points <span class="math inline">\(\omega\)</span> (where <span class="math inline">\(\omega \in \Lambda \setminus \{0\}\)</span>):</p>
+<p><span class="math inline">\(g_2\)</span> (The fourth power sum):
+<span class="math inline">\(60 \sum \omega^{-4}\)</span></p>
+<p><span class="math inline">\(g_3\)</span> (The sixth power sum): <span class="math inline">\(140 \sum \omega^{-6}\)</span></p>
+<p>Think of <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> as the “DNA markers” of your lattice.
+If you stretch the lattice or tilt it, these sums change, which in turn
+changes the coefficients of the cubic equation.</p>
+<p>Because these sums (<span class="math inline">\(g_2\)</span> and
+<span class="math inline">\(g_3\)</span>) depend entirely on the shape
+of the lattice, and lattices can be parameterized by the ratio of their
+two basis vectors <span class="math inline">\(\tau = \omega_2 /
+\omega_1\)</span>, these coefficients are actually modular forms. They
+are functions that “live” on the space of all possible lattices. By
+mapping <span class="math inline">\(z \mapsto (\wp(z),
+\wp&#39;(z)),\)</span> you essentially wrap the complex plane (a flat
+sheet) onto a cubic curve in projective space (a donut-shaped torus).
+You have successfully turned topology (the lattice donut) into algebra
+(the elliptic curve equation). Weierstrass hadn’t just built a function;
+he had found the “atoms” of the entire field. Any doubly periodic
+function can be expressed as a combination of his <span class="math inline">\(\wp(z)\)</span> and its derivative <span class="math inline">\(\wp&#39;(z)\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
 <p><strong>NOTE: These are tentative notes on different topics for
 personal use - expect mistakes and misunderstandings.</strong></p>
+</div>
 </div>
 
 
