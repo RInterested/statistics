@@ -969,13 +969,72 @@ of the lattice, and lattices can be parameterized by the ratio of their
 two basis vectors <span class="math inline">\(\tau = \omega_2 /
 \omega_1\)</span>, these coefficients are actually modular forms. They
 are functions that “live” on the space of all possible lattices. By
-mapping <span class="math inline">\(z \mapsto (\wp(z),
-\wp&#39;(z)),\)</span> you essentially wrap the complex plane (a flat
-sheet) onto a cubic curve in projective space (a donut-shaped torus).
-You have successfully turned topology (the lattice donut) into algebra
-(the elliptic curve equation). Weierstrass hadn’t just built a function;
-he had found the “atoms” of the entire field. Any doubly periodic
-function can be expressed as a combination of his <span class="math inline">\(\wp(z)\)</span> and its derivative <span class="math inline">\(\wp&#39;(z)\)</span>.</p>
+mapping</p>
+<p><span class="math display">\[z \mapsto (\wp(z),
+\wp&#39;(z))\]</span></p>
+<p>you essentially wrap the complex plane (a flat sheet) onto a cubic
+curve in projective space (a donut-shaped torus). You have successfully
+turned topology (the lattice donut) into algebra (the elliptic curve
+equation). Weierstrass hadn’t just built a function; he had found the
+“atoms” of the entire field. Any doubly periodic function can be
+expressed as a combination of his <span class="math inline">\(\wp(z)\)</span> and its derivative <span class="math inline">\(\wp&#39;(z)\)</span>.</p>
+</div>
+<div id="elliptic-curves-lattices-and-tori" class="section level4">
+<h4>Elliptic curves, lattices and tori:</h4>
+<p>When we say an elliptic curve <span class="math inline">\(E(\mathbb{C})\)</span> is defined by <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are complex numbers. Since one complex
+number requires 2 real dimensions (real and imaginary), the pair <span class="math inline">\((x, y)\)</span> technically lives in <span class="math inline">\(\mathbb{C}^2\)</span>, which is 4-dimensional real
+space (<span class="math inline">\(\mathbb{R}^4\)</span>). However, the
+equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span> places
+a “constraint” on those 4 dimensions. In mathematics, one complex
+equation removes one complex dimension (or two real dimensions).You
+start with 4 real dimensions.The equation “carves out” a 2-dimensional
+surface.That surface is exactly the torus (the donut).So, while the
+donut “lives” inside a 4-dimensional space, the donut itself is a
+2-dimensional manifold.</p>
+<p>There is a one-to-one correspondence between the “shape” of the donut
+and the specific elliptic curve. This is where your lattice <span class="math inline">\(\Lambda\)</span> comes back in. Any donut can be
+made by taking a sheet of paper (the complex plane <span class="math inline">\(\mathbb{C}\)</span>) and gluing the edges. The
+“shape” of the donut depends entirely on the shape of that original
+sheet of paper (the fundamental parallelogram of your lattice). A Square
+Lattice produces a “symmetric” donut. This corresponds to curves like
+<span class="math inline">\(y^2 = x^3 - x\)</span>. A hexagonal Lattice
+produces a donut with <span class="math inline">\(120^\circ\)</span>
+symmetry. This corresponds to curves like <span class="math inline">\(y^2 = x^3 - 1\)</span>. A Long, Skinny
+parallelogram produces a “thin, stretched” donut.</p>
+<p>We use a single complex number called the <span class="math inline">\(j\)</span>-invariant to make the correspondence
+lattice - elliptic curve. If you have the equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, you can plug <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> into a formula to get <span class="math inline">\(j\)</span>. If you have a lattice <span class="math inline">\(\Lambda\)</span> with ratio <span class="math inline">\(\tau = \omega_2 / \omega_1\)</span>, you can plug
+<span class="math inline">\(\tau\)</span> into the modular <span class="math inline">\(j\)</span>-function to get the same <span class="math inline">\(j\)</span>. Two elliptic curves are “the same”
+(isomorphic) if and only if they have the same <span class="math inline">\(j\)</span>-invariant. If you change the shape of
+your lattice even a tiny bit, you change the <span class="math inline">\(j\)</span>-invariant, which means you have moved
+to a fundamentally different elliptic curve equation.</p>
+<p>In 3D, a donut has an inner radius and an outer radius. If you try to
+paint a grid of perfect squares on a rubber donut, the squares on the
+outer rim will be stretched large, and the squares near the “hole” will
+be crushed and wrinkled. In 4D, the donut is what we call a Clifford
+Torus. Every point on the surface is geometrically identical to every
+other point. There is no “inner” or “outer” part. If you lived on the
+surface of a 4D torus, you would never feel like you were turning a
+“tight corner” or a “wide curve.” Every direction would feel perfectly
+straight and flat, just like on your sticky note.</p>
+<p>The reason 4D works is that it allows two circular motions to happen
+independently. Imagine two circles, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>. In 3D, if you want to put <span class="math inline">\(C_2\)</span> “around” <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span> has to physically move through the
+space inside and outside of <span class="math inline">\(C_1\)</span>.
+This creates the “hole” and the “stretch.”In 4D, you can have <span class="math inline">\(C_1\)</span> sitting in the <span class="math inline">\(xy\)</span>-plane and <span class="math inline">\(C_2\)</span> sitting in the <span class="math inline">\(zw\)</span>-plane. They share only one point (the
+origin) or none at all. You can “loop” around one without ever getting
+closer to or further from the other.</p>
+<p>There is a perfect, one-to-one mapping between the points on the
+complex torus <span class="math inline">\(\mathbb{C}/\Lambda\)</span>
+and the points on the elliptic curve <span class="math inline">\(E(\mathbb{C})\)</span>. Every single point you can
+identify on that “flat” donut corresponds to exactly one <span class="math inline">\((x, y)\)</span> solution to your equation (plus
+one special “point at infinity”).</p>
+<p>When you work over the complex numbers <span class="math inline">\(\mathbb{C}\)</span>, the points are “dense.”If you
+pick any coordinate <span class="math inline">\(z\)</span> on your
+sticky note (the lattice), the Weierstrass function <span class="math inline">\((\wp(z), \wp&#39;(z))\)</span> will give you a
+valid <span class="math inline">\((x, y)\)</span> pair.Conversely, any
+<span class="math inline">\((x, y)\)</span> that satisfies <span class="math inline">\(y^2 = x^3 - x\)</span> can be traced back to
+exactly one <span class="math inline">\(z\)</span> on your sticky
+note.In this case, the “curve” and the “torus” are identical. You have
+the entire donut.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
