@@ -331,7 +331,55 @@ P.axes(show=False)
 P
 ```
 
+---
 
+### From Weiestrass $\wp$-functions to elliptic curves, modular forms and L-functios:
+
+Weiestrass $\wp$-functions 
+
+$$\wp(z) = \frac{1}{z^2} + \sum_{\lambda \in \Lambda \setminus \{0\}} \left( \frac{1}{(z - \lambda)^2} - \frac{1}{\lambda^2} \right)$$
+
+fulfill a first order differential equation that allows parameterizing elliptic curves:
+
+$$(\wp'(z))^2 = 4\wp(z)^3 - g_2\wp(z) - g_3$$
+
+The coefficients that define the shape of the elliptic curve are directly tied to the geometry of the lattice via:
+
+$$g_2 = 60 \sum_{\omega \in \Lambda^*} \omega^{-4}$$
+
+$$g_3 = 140 \sum_{\omega \in \Lambda^*} \omega^{-6}$$
+
+Since these sums depend on the lattice, and lattices can be parameterized by the ratio $\tau = \omega_2 / \omega_1$ (in the upper half-plane), $g_2$ and $g_3$ become modular forms.
+
+By mapping $z \mapsto (\wp(z), \wp'(z)),$ you essentially wrap the complex plane onto a cubic curve in projective space.
+
+Weiestrass $\wp$-functions are doubly-periodic. 
+
+The $\mathbb C$ plane can be quotiented out by a lattice $\Lambda,$ determined by two basis vectors (each specified by selecting a point $z \in \mathbb C$) named $\omega_1$ and $\omega_2.$ These vectors are linearly independent over $\mathbb{R}$. Any linear combination of these two vectors $m\omega_1 + n\omega_2 \; m,n\in \mathbb Z$ lands you on a node in the lattice.  
+
+Weierstrass wanted a function that was "inherently" periodic. If you want a function to repeat every time you move by a lattice vector $\lambda$, the most "honest" way to build it is to take a simple function $f(z)$ and manually sum it over the whole lattice:
+
+$$\sum_{\lambda \in \Lambda} f(z - \lambda)$$
+
+If you shift $z$ by a lattice vector, the infinite sum just shifts one position and remains identical. This is the "infinite mirror room" logic. He couldn't use a polynomial (they don't have poles). He couldn't use $1/(z-\lambda)$ (a single pole) because the residues must sum to zero on a torus. The simplest "seed" that could work was the double pole: $1/z^2$. This is where the "minus $1/\lambda^2$" part comes in. When he tried to sum $1/(z-\lambda)^2$ over a 2D grid, he ran into a massive problem: the sum doesn't converge. It adds up to infinity. In 1D, $\sum 1/n^2$ converges. But in 2D, the number of points in the grid grows at the same rate the function values drop off. He used a trick from calculus. If a series doesn't converge, you can subtract a "compensation term" to force it to behave. By subtracting $1/\lambda^2$, he ensured that as you move further away from the origin, the terms get smaller much faster, making the infinite sum finite and stable.
+
+$$\left( \frac{1}{(z - \lambda)^2} - \frac{1}{\lambda^2} \right) \approx \frac{2z}{\lambda^3} \text{ (for large } \lambda)$$
+
+Since $\sum 1/\lambda^3$ converges in 2D, the function was finally "legal."
+
+He would have noticed that $\wp$ and its derivative $\wp'$ were so tightly linked that they satisfied a cubic equation. He hadn't just built a function; he had discovered a way to turn a "donut" (topology) into an "equation" (algebra). Weierstrass realized that any doubly periodic (elliptic) function can be written as a combination of his $\wp(z)$ and its derivative $\wp'(z)$. He had found the "atoms" of the entire field.
+
+To see how this equation works, let’s use a simple square lattice where our "steps" are $1$ (right/left) and $i$ (up/down). So, our lattice points $\lambda$ are: $0, 1, -1, i, -i, 1+i, 1-i$, and so on. Let's pick a point, say $z = 0.5 + 0.5i$ (the dead center of the first tile). We want to find the value of the "naive" sum: $S = \sum \frac{1}{(z-\lambda)^2}$. Step $1:$ we look at the pole right next to us $\lambda = 0$. The distance is $(z - 0) = 0.5 + 0.5i$. The contribution is $\frac{1}{(0.5 + 0.5i)^2}$. Running Total: $\approx -2i.$ Step $2:$ The Immediate Now we look at the four poles surrounding our tile: $1, i, 0, 1+i$. 
+
+For $\lambda = 1$: Calculate $\frac{1}{(z-1)^2}$
+
+For $\lambda = i$: Calculate $\frac{1}{(z-i)^2}$
+
+For $\lambda = 1+i$: Calculate $\frac{1}{(z-(1+i))^2}$
+
+Update Total: Add these values to our running total.
+
+Step $3:$ We keep moving outward in concentric squares. We go to $\lambda = 2, 2i, -2, -2i$, etc.bFor every single dot on that infinite grid, you measure the distance from your point $z$ to that dot $\lambda$. Square that distance. Take the reciprocal ($1/\text{distance}^2$). Add it to your bucket. As you "walk" further away to gather more terms, the distances get bigger, so the numbers you are adding ($1/\text{dist}^2$) get smaller. In a 1D line, these numbers get small fast enough that the total sum stays finite. But in 2D, the number of "dots" you encounter as you move outward grows at the same rate the distances grow. Imagine you are at the center of a circular forest. The trees at distance $R$ have a brightness of $1/R^2$. But the number of trees at distance $R$ is proportional to the circumference ($2\pi R$). So the total light from the trees at distance $R$ is roughly $R \times (1/R^2) = 1/R$. Since the sum of $1/R$ (the harmonic series) goes to infinity, your "bucket" would eventually overflow!
 
 
 ---
