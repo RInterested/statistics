@@ -1035,6 +1035,272 @@ valid <span class="math inline">\((x, y)\)</span> pair.Conversely, any
 exactly one <span class="math inline">\(z\)</span> on your sticky
 note.In this case, the “curve” and the “torus” are identical. You have
 the entire donut.</p>
+<p>If you only look for real solutions <span class="math inline">\((x, y
+\in \mathbb{R})\)</span> or rational solutions <span class="math inline">\((x, y \in \mathbb{Q})\)</span>, you only see a
+tiny fraction of the donut. Real points <span class="math inline">\(E(\mathbb{R})\)</span> look like one or two
+disconnected loops in 2D space. Geometrically, these are just “slices”
+of the 4D donut where the imaginary parts happen to be zero. Rational
+points <span class="math inline">\(E(\mathbb{Q})\)</span> are isolated
+“dots” on the donut. Imagine taking a physical donut and dipping it into
+a bucket of colorful sprinkles. The donut is the complex curve, but the
+sprinkles are the rational points. They sit on the donut, but they don’t
+cover it.</p>
+<p>If you are a topologist, every elliptic curve over <span class="math inline">\(\mathbb{C}\)</span> is just a 1-holed torus. From
+a “rubber sheet” perspective, they are all the same. You can stretch a
+square donut into a rectangular one or a skinny one without tearing it.
+Analytically, they are fundamentally different.In complex analysis, we
+aren’t allowed to “stretch” the rubber. We have to preserve angles
+(conformal mapping). If you have a “square” donut (a square sticky
+note), there is no way to map it to a “skinny rectangle” donut using a
+smooth, complex function without distorting the math. These donuts have
+different “flavors” defined by a single number called the <span class="math inline">\(j\)</span>-invariant. If two curves have different
+<span class="math inline">\(j\)</span>-invariants, they are not the
+same. They are different “species” of donuts that cannot be transformed
+into one another algebraically.</p>
+</div>
+<div id="elliptic-functions-and-modular-forms" class="section level4">
+<h4>Elliptic functions and modular forms:</h4>
+<p>In the context of the Modularity Theorem, every elliptic curve over
+<span class="math inline">\(\mathbb{Q}\)</span> is associated with a
+specific kind of modular form called a cusp form of weight 2.That
+modular form, <span class="math inline">\(f(z)\)</span>, is indeed
+expressed as a Fourier series (often called a <span class="math inline">\(q\)</span>-expansion), where the “harmonics” are
+powers of <span class="math inline">\(q = e^{2\pi i z}\)</span>.</p>
+<p>A modular form <span class="math inline">\(f(z)\)</span> is periodic
+with respect to the transformation <span class="math inline">\(z \to z +
+1\)</span>, which allows us to write it as:</p>
+<p><span class="math display">\[f(z) = \sum_{n=1}^{\infty} a_n e^{2\pi i
+n z} = \sum_{n=1}^{\infty} a_n q^n\]</span></p>
+<p>The index <span class="math inline">\(n\)</span> ranges over all
+natural numbers <span class="math inline">\(n = 1, 2, 3, \dots\)</span>.
+Because we are specifically talking about cusp forms (the type
+associated with elliptic curves), the series starts at <span class="math inline">\(n=1\)</span>. If it were a more general modular
+form (like an Eisenstein series), it would include the <span class="math inline">\(n=0\)</span> term, which acts as a constant
+offset.</p>
+<p>The magic isn’t just that it’s a series, but what the coefficients
+(<span class="math inline">\(a_n\)</span>) represent. For an elliptic
+curve <span class="math inline">\(E\)</span>, these coefficients are
+directly tied to the number of points on the curve when viewed over
+finite fields. For a prime <span class="math inline">\(p\)</span> the
+coefficient <span class="math inline">\(a_p\)</span> is defined by <span class="math inline">\(a_p = p + 1 - N_p\)</span>, where <span class="math inline">\(N_p\)</span> is the number of points on the curve
+modulo <span class="math inline">\(p\)</span>. For composite <span class="math inline">\(n\)</span> the coefficients <span class="math inline">\(a_n\)</span> are determined by the <span class="math inline">\(a_p\)</span> values through specific recurrence
+relations.</p>
+<p>Key Properties</p>
+<p>Holomorphic: The function is complex-analytic on the upper
+half-plane.</p>
+<p>Cusp Form: For elliptic curves, the series starts at <span class="math inline">\(n=1\)</span> (so <span class="math inline">\(a_0 =
+0\)</span>), meaning the form “vanishes at the cusps.</p>
+<p>“Weight 2: It transforms under the modular group <span class="math inline">\(\Gamma_0(N)\)</span> such that <span class="math inline">\(f(\frac{az+b}{cz+d}) = (cz+d)^2 f(z)\)</span>.</p>
+<p>Essentially, the Modularity Theorem says that the “counting data”
+(<span class="math inline">\(N_p\)</span>) of an algebraic object (the
+elliptic curve) is perfectly captured by the “harmonic data” (<span class="math inline">\(a_n\)</span>) of an analytic object (the modular
+form).</p>
+<p><span class="math inline">\(q \to 0\)</span> as the “height” (along
+the imaginary axis) increases, we just need to break <span class="math inline">\(z\)</span> into its real and imaginary parts:
+<span class="math inline">\(z = x + iy\)</span>.</p>
+<p>Start with the definition: <span class="math inline">\(q = e^{2\pi i
+z}\)</span></p>
+<p>Substitute <span class="math inline">\(z = x + iy\)</span>: <span class="math inline">\(q = e^{2\pi i (x + iy)}\)</span></p>
+<p>Distribute the terms: <span class="math inline">\(q = e^{2\pi i x +
+2\pi i^2 y}\)</span></p>
+<p>Use the fact that <span class="math inline">\(i^2 = -1\)</span>:
+<span class="math inline">\(q = e^{2\pi i x} \cdot e^{-2\pi
+y}\)</span></p>
+<p>Now, look at the two parts of that final equation: The Rotation
+(<span class="math inline">\(e^{2\pi i x}\)</span>): This part has a
+constant magnitude of <span class="math inline">\(1.\)</span> It just
+determines the angle (the phase) of <span class="math inline">\(q\)</span> on the complex plane. The Magnitude
+(<span class="math inline">\(e^{-2\pi y}\)</span>): This part determines
+the distance from the origin (the radius). As the imaginary part <span class="math inline">\(y\)</span> (the height in the upper half-plane)
+gets larger and larger (<span class="math inline">\(y \to
+\infty\)</span>) the exponent <span class="math inline">\(-2\pi
+y\)</span> becomes a very large negative number. From basic calculus, we
+know that <span class="math inline">\(e^{-\infty} = 0\)</span>. In the
+world of modular forms, the “top” of the upper half-plane (where <span class="math inline">\(y\)</span> is infinite) is called a cusp. By using
+the <span class="math inline">\(q\)</span>-expansion, we effectively
+“pinch” that infinite height into a single point: the origin (<span class="math inline">\(q=0\)</span>). This is why we say a cusp form must
+have <span class="math inline">\(a_0 = 0\)</span>. If <span class="math inline">\(a_0\)</span> were not zero, the function would
+have a value at the center of the disk. Since <span class="math inline">\(a_0 = 0\)</span> for elliptic curves, the function
+“vanishes” (equals zero) at the cusp as you go infinitely high.</p>
+<p>If you multiply your basis vectors <span class="math inline">\((\omega_1, \omega_2)\)</span> by a non-zero
+complex number <span class="math inline">\(\lambda\)</span>, you are
+essentially zooming in/out and rotating the entire lattice.1. An
+elliptic curve is defined by a lattice <span class="math inline">\(L =
+\mathbb{Z}\omega_1 + \mathbb{Z}\omega_2\)</span>. The modular form
+doesn’t actually care about the absolute “lengths” of <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span> individually; it cares about
+their ratio. We define <span class="math inline">\(z =
+\frac{\omega_2}{\omega_1}\)</span>. If we scale both vectors by <span class="math inline">\(\lambda\)</span>:</p>
+<p><span class="math display">\[\frac{\lambda\omega_2}{\lambda\omega_1}
+= \frac{\omega_2}{\omega_1} = z\]</span></p>
+<p>The ratio <span class="math inline">\(z\)</span> remains invariant.
+This is why the Fourier series <span class="math inline">\(f(z) = \sum
+a_n e^{2\pi i n z}\)</span> stays the same even if the “physical” size
+of the lattice changes. However, the modular form itself does react to
+scaling, but it does so in a very predictable, “homogenous” way. This is
+where the weight <span class="math inline">\(k\)</span> comes in. For
+the modular forms associated with elliptic curves, the weight is <span class="math inline">\(k=2\)</span>. If you scale the lattice by <span class="math inline">\(\lambda\)</span>, the function transforms like
+this:</p>
+<p><span class="math display">\[f(\lambda L) = \lambda^{-k}
+f(L)\]</span></p>
+<p>This ensures that the “shape” of the periodicity (defined by <span class="math inline">\(z\)</span>) is preserved, while the “amplitude” of
+the function scales by a specific power. This is exactly like saying a
+function <span class="math inline">\(g(x) = x^2\)</span> is homogeneous;
+if you double <span class="math inline">\(x\)</span>, the output changes
+by a factor of <span class="math inline">\(2^2\)</span>, but the “rule”
+of the function remains the same. The setup ensures that even if we pick
+a different basis for the same lattice (like rotating or shearing the
+grid), the periodicity holds. This is the condition:</p>
+<p><span class="math display">\[f\left(\frac{az+b}{cz+d}\right) =
+(cz+d)^k f(z)\]</span></p>
+<p>The <span class="math inline">\((cz+d)^k\)</span> part handles the
+“scaling” of the basis. The <span class="math inline">\(f(z)\)</span>
+part handles the “periodicity.” Because <span class="math inline">\(z\)</span> is always in the upper half-plane, and
+<span class="math inline">\(q = e^{2\pi i z}\)</span> only depends on
+that ratio, the internal “harmonics” of the Fourier series are locked
+into the geometry of the curve regardless of how you orient your basis
+vectors.</p>
+<p>The ratio <span class="math inline">\(z = \omega_2/\omega_1\)</span>
+is scale-invariant. If you scale the lattice, <span class="math inline">\(z\)</span> doesn’t budge. So, if the Fourier
+series <span class="math inline">\(f(z) = \sum a_n e^{2\pi i n
+z}\)</span> only depends on <span class="math inline">\(z\)</span>, why
+does it scale? The answer is that a modular form is not just a function
+of the ratio <span class="math inline">\(z\)</span>; it is technically a
+function of the entire lattice <span class="math inline">\(L\)</span>.</p>
+<p>In rigorous terms, there are two ways to write a modular form:</p>
+<ul>
+<li><p>The Lattice Function <span class="math inline">\(F(L)\)</span>:
+This takes the two basis vectors <span class="math inline">\((\omega_1,
+\omega_2)\)</span> as inputs.</p></li>
+<li><p>The Upper Half-Plane Function <span class="math inline">\(f(z)\)</span>: This is what we usually see in
+textbooks, where we’ve “fixed” one of the vectors to be <span class="math inline">\(1\)</span> (by dividing by <span class="math inline">\(\omega_1\)</span>).</p></li>
+</ul>
+<p>The relationship between them is defined as:</p>
+<p><span class="math display">\[f(z) = F(1, z)\]</span></p>
+<p>When you scale a lattice <span class="math inline">\(L = (\omega_1,
+\omega_2)\)</span> by <span class="math inline">\(\lambda\)</span>, the
+new lattice is <span class="math inline">\(\lambda L = (\lambda
+\omega_1, \lambda \omega_2)\)</span>.The ratio is still <span class="math inline">\(z = \frac{\lambda \omega_2}{\lambda
+\omega_1}\)</span>.However, because a modular form of weight <span class="math inline">\(k\)</span> is homogeneous of degree <span class="math inline">\(-k\)</span>, we have:<span class="math display">\[F(\lambda \omega_1, \lambda \omega_2) =
+\lambda^{-k} F(\omega_1, \omega_2)\]</span>Now, let’s look at what
+happens if we try to pull <span class="math inline">\(\omega_1\)</span>
+out of the function to get to our Fourier series <span class="math inline">\(f(z)\)</span>:<span class="math display">\[F(\omega_1, \omega_2) = F\left(\omega_1 \cdot 1,
+\omega_1 \cdot \frac{\omega_2}{\omega_1}\right) = \omega_1^{-k} F(1, z)
+= \omega_1^{-k} f(z)\]</span>3. The “Aha!” MomentThe Fourier series
+<span class="math inline">\(\sum a_n e^{2\pi i n z}\)</span> is indeed
+scale-invariant in terms of <span class="math inline">\(z\)</span>. But
+the modular form as a geometric object is attached to the “size” of the
+lattice via that <span class="math inline">\(\omega_1^{-k}\)</span>
+factor.</p>
+<p>This is why, when we change the basis of the lattice using a matrix
+<span class="math inline">\(\begin{pmatrix} a &amp; b \\ c &amp; d
+\end{pmatrix}\)</span>, the new basis vectors are:<span class="math inline">\(\omega_2&#39; = a\omega_2 +
+b\omega_1\)</span><span class="math inline">\(\omega_1&#39; = c\omega_2
++ d\omega_1\)</span>The new ratio is <span class="math inline">\(z&#39;
+= \frac{az+b}{cz+d}\)</span>. But because the “first” vector <span class="math inline">\(\omega_1\)</span> changed to <span class="math inline">\((cz+d)\omega_1\)</span>, that change in “scale”
+gets pulled out as the factor <span class="math inline">\((cz+d)^k\)</span>.</p>
+<p>When we say “the modular form of an elliptic curve,” we are usually
+looking at the version where we’ve already normalized the scale (setting
+<span class="math inline">\(\omega_1 = 1\)</span>), but the
+transformation law <span class="math inline">\((cz+d)^k\)</span> exists
+specifically to remind us that the original lattice had a physical scale
+that we’ve “hidden” inside <span class="math inline">\(z\)</span>.</p>
+<p>In the Fourier expansion of a modular form, the index <span class="math inline">\(n\)</span> ranges over all natural numbers <span class="math inline">\(n = 1, 2, 3, \dots\)</span>. Because we are
+specifically talking about cusp forms (the type associated with elliptic
+curves), the series starts at <span class="math inline">\(n=1\)</span>.
+If it were a more general modular form (like an Eisenstein series), it
+would include the <span class="math inline">\(n=0\)</span> term, which
+acts as a constant offset. Think of the modular form as a function <span class="math inline">\(f(z)\)</span> that is periodic with period <span class="math inline">\(1\)</span> (<span class="math inline">\(f(z+1) =
+f(z)\)</span>). This periodicity allows us to represent it as a sum of
+these exponential “harmonics”: 1. The Fundamental (<span class="math inline">\(n=1\)</span>): <span class="math inline">\(e^{2\pi
+i z}\)</span> (often written as <span class="math inline">\(q\)</span>)
+2. The Harmonics (<span class="math inline">\(n &gt; 1\)</span>): <span class="math inline">\(e^{2\pi i n z}\)</span> (or <span class="math inline">\(q^n\)</span>). Each <span class="math inline">\(n\)</span> corresponds to a coefficient <span class="math inline">\(a_n\)</span>. While in a standard Fourier series
+(like a square wave) the coefficients might represent the “strength” of
+a sound frequency, here the <span class="math inline">\(a_n\)</span>
+coefficients are arithmetic fingerprints.</p>
+</div>
+<div id="the-l-function-ls-e" class="section level4">
+<h4>The L-function: <span class="math inline">\(L(s, E)\)</span></h4>
+<p>The L-function is a Dirichlet series. It is constructed by taking the
+Fourier coefficients <span class="math inline">\(a_n\)</span> of the
+modular form and using them as weights for a series. The variable <span class="math inline">\(s\)</span> is the standard complex variable used
+in analytic number theory (think of the Riemann Zeta function, <span class="math inline">\(\zeta(s)\)</span>). It usually represents a
+“frequency” or a scaling factor in a Mellin transform.</p>
+<p>To get from <span class="math inline">\(f(z)\)</span> to <span class="math inline">\(L(s, E)\)</span>, we apply the Mellin
+Transform:</p>
+<p><span class="math display">\[L(s, f) = \int_0^\infty f(iy) y^{s-1} dy
+\approx \sum_{n=1}^\infty \frac{a_n}{n^s}\]</span></p>
+<p>We write modular forms as a power series (a Fourier expansion):</p>
+<p><span class="math display">\[f(z) = \sum_{n=1}^{\infty} a_n
+q^n\]</span></p>
+<p>Here, the coefficients <span class="math inline">\(a_n\)</span> are
+the “magic numbers.” For a prime <span class="math inline">\(p\)</span>,
+the coefficient <span class="math inline">\(a_p\)</span> is precisely
+the difference between the expected and actual number of points on the
+curve over the finite field <span class="math inline">\(\mathbb{F}_p\)</span>.</p>
+<p>The L-function (<span class="math inline">\(L(s)\)</span>) is a
+Dirichlet series, looking much like the Riemann Zeta function. We build
+it using those same coefficients <span class="math inline">\(a_n\)</span>:</p>
+<p><span class="math display">\[L(E, s) = \sum_{n=1}^{\infty}
+\frac{a_n}{n^s}\]</span></p>
+<p>Why Have Both? If they contain the same data, why do mathematicians
+swap between them? Because each “view” makes different problems easier
+to solve:</p>
+<p>Modular Forms give us Symmetry. Because they are “modular,” they
+satisfy incredibly rigid functional equations. This rigidity proved
+Fermat’s Last Theorem. We knew that if a counterexample to Fermat
+existed, its curve would be so “weird” it couldn’t be modular. Andrew
+Wiles proved all such curves must be modular, thus the counterexample
+cannot exist.</p>
+<p>L-functions give us Analytic Continuation. They allow us to use the
+tools of calculus (like limits and derivatives) to study integers. The
+Birch and Swinnerton-Dyer Conjecture is stated entirely in terms of the
+L-function: it says that the behavior of <span class="math inline">\(L(s)\)</span> at the specific point <span class="math inline">\(s=1\)</span> tells you the “rank” (the number of
+infinite directions) of the rational points.</p>
+<p>The fact that these two things are “the same” for every elliptic
+curve over <span class="math inline">\(\mathbb{Q}\)</span> was the
+massive breakthrough of the late 20th century (the Taniyama-Shimura-Weil
+conjecture).It means that every “arithmetic” problem (counting points in
+finite fields) has a “geometric/analytic” twin (a modular form). When
+you find the deviation for <span class="math inline">\(p=2, 3,
+5...\)</span> and plug them into that series, the resulting function
+behaves with a level of symmetry that seems almost “too perfect” to be a
+coincidence.</p>
+<p>While they aren’t exactly a standard Fourier transform of one another
+(modular forms v. L-functions), they are linked by a closely related
+operation called the Mellin Transform. If you think of the Fourier
+transform as shifting between “time” and “frequency,” the Mellin
+transform is the version used for shifting between “space” (the modular
+form) and “number theory” (the L-function). Mathematically, if you have
+a modular form <span class="math inline">\(f(z)\)</span>, you can
+produce the L-function <span class="math inline">\(L(s)\)</span> by
+integrating it against a power of <span class="math inline">\(y\)</span>:</p>
+<p><span class="math display">\[L(s) \approx \int_{0}^{\infty} f(iy) y^s
+\frac{dy}{y}\]</span></p>
+<p>This integral is the Mellin Transform.Why this is essentially a
+“Fourier-style” relationship. The Coefficients are Identical: the
+Fourier coefficients <span class="math inline">\(a_n\)</span> of the
+modular form are the exact same numbers that appear in the Dirichlet
+series of the L-function.</p>
+<p>Modular Form: <span class="math inline">\(f(z) = \sum a_n e^{2\pi
+inz}\)</span> (This is a Fourier series!)</p>
+<p>L-function: <span class="math inline">\(L(s) = \sum a_n
+n^{-s}\)</span></p>
+<p>Symmetry Translation: The most powerful part of this relationship is
+how symmetry moves between them. The “modular” symmetry of <span class="math inline">\(f(z)\)</span> (how it behaves when you swap <span class="math inline">\(z\)</span> for <span class="math inline">\(-1/z\)</span>) translates via the Mellin transform
+into the Functional Equation of the L-function.</p>
+<p>If they share the same DNA (<span class="math inline">\(a_n\)</span>), why do we need two different
+functions? The Modular Form (<span class="math inline">\(f\)</span>)
+lives on the Upper Half Plane. It’s a geometric object. Its Fourier
+series allows us to see how it repeats and curves in complex space. The
+L-function (<span class="math inline">\(L\)</span>) lives on the Complex
+Plane (<span class="math inline">\(s\)</span>). It’s an analytic tool.
+By looking at <span class="math inline">\(L(s)\)</span>, we can do
+things like check where the function equals zero or find its value at
+<span class="math inline">\(s=1\)</span> (which leads to the Birch and
+Swinnerton-Dyer conjecture). In short: The Modular Form organizes the
+data <span class="math inline">\(a_n\)</span> into a “shape” that
+highlights symmetry, while the L-function organizes that same data into
+a “series” that highlights arithmetic properties.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
