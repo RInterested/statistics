@@ -1033,57 +1033,66 @@ produces a donut with <span class="math inline">\(120^\circ\)</span>
 symmetry. This corresponds to curves like <span class="math inline">\(y^2 = x^3 - 1\)</span>. A long, skinny
 parallelogram produces a “thin, stretched” donut.</p>
 <p>We use a single complex number called the <span class="math inline">\(j\)</span>-invariant to make the correspondence
-lattice - elliptic curve. If you have the equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, you can plug <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> into a formula to get <span class="math inline">\(j\)</span>. If you have a lattice <span class="math inline">\(\Lambda\)</span> with ratio <span class="math inline">\(\tau = \omega_2 / \omega_1\)</span>, you can plug
+lattice - elliptic curve. If we have the equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, we can plug <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> into a formula to get <span class="math inline">\(j\)</span>. If we have a lattice <span class="math inline">\(\Lambda\)</span> with ratio <span class="math inline">\(\tau = \omega_2 / \omega_1\)</span>, we can plug
 <span class="math inline">\(\tau\)</span> into the modular <span class="math inline">\(j\)</span>-function to get the same <span class="math inline">\(j\)</span>. Two elliptic curves are “the same”
-(isomorphic) if and only if they have the same <span class="math inline">\(j\)</span>-invariant. If you change the shape of
-your lattice even a tiny bit, you change the <span class="math inline">\(j\)</span>-invariant, which means you have moved
-to a fundamentally different elliptic curve equation.</p>
-<p>In 3D, a donut has an inner radius and an outer radius. If you try to
+(isomorphic) if and only if they have the same <span class="math inline">\(j\)</span>-invariant. If we change the shape of
+our lattice even a tiny bit, we change the <span class="math inline">\(j\)</span>-invariant, which means we have moved to
+a fundamentally different elliptic curve equation.</p>
+<p>In 3D, a donut has an inner radius and an outer radius. If we try to
 paint a grid of perfect squares on a rubber donut, the squares on the
 outer rim will be stretched large, and the squares near the “hole” will
 be crushed and wrinkled. In 4D, the donut is what we call a Clifford
 Torus. Every point on the surface is geometrically identical to every
-other point. There is no “inner” or “outer” part. If you lived on the
-surface of a 4D torus, you would never feel like you were turning a
-“tight corner” or a “wide curve.” Every direction would feel perfectly
-straight and flat, just like on your sticky note.</p>
+other point. There is no “inner” or “outer” part. If we lived on the
+surface of a 4D torus, we would never feel like we were turning a “tight
+corner” or a “wide curve.” Every direction would feel perfectly straight
+and flat, just like on your sticky note.</p>
 <p>The reason 4D works is that it allows two circular motions to happen
-independently. Imagine two circles, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>. In 3D, if you want to put <span class="math inline">\(C_2\)</span> “around” <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span> has to physically move through the
+independently. Imagine two circles, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>. In 3D, if we want to put <span class="math inline">\(C_2\)</span> “around” <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span> has to physically move through the
 space inside and outside of <span class="math inline">\(C_1\)</span>.
-This creates the “hole” and the “stretch.”In 4D, you can have <span class="math inline">\(C_1\)</span> sitting in the <span class="math inline">\(xy\)</span>-plane and <span class="math inline">\(C_2\)</span> sitting in the <span class="math inline">\(zw\)</span>-plane. They share only one point (the
-origin) or none at all. You can “loop” around one without ever getting
+This creates the “hole” and the “stretch.” In 4D, we can have <span class="math inline">\(C_1\)</span> sitting in the <span class="math inline">\(xy\)</span>-plane and <span class="math inline">\(C_2\)</span> sitting in the <span class="math inline">\(zw\)</span>-plane. They share only one point (the
+origin) or none at all. We can “loop” around one without ever getting
 closer to or further from the other.</p>
+<p>In abstract algebra, the Clifford Torus is formulated as the direct
+product of two circle groups: <span class="math display">\[T^2 = S^1
+\times S^1\]</span> Each <span class="math inline">\(S^1\)</span> (the
+unit circle) is a group under complex multiplication (if viewed as <span class="math inline">\(e^{i\theta}\)</span>) or addition modulo <span class="math inline">\(2\pi\)</span>. Because <span class="math inline">\(T^2\)</span> is a product of two identical groups,
+it inherits a homogeneous structure. In the 3D “rubber donut” (the
+embedded torus), the two circles are treated differently: one is the
+“generating” circle and the other is the “revolving” circle. In the
+algebraic formulation <span class="math inline">\(S^1 \times
+S^1\)</span>, the two circles are algebraically indistinguishable. This
+is why every point is identical; the group action of <span class="math inline">\(T^2\)</span> on itself is transitive and an
+isometry.</p>
 <p>There is a perfect, one-to-one mapping between the points on the
 complex torus <span class="math inline">\(\mathbb{C}/\Lambda\)</span>
-and the points on the elliptic curve <span class="math inline">\(E(\mathbb{C})\)</span>. Every single point you can
-identify on that “flat” donut corresponds to exactly one <span class="math inline">\((x, y)\)</span> solution to your equation (plus
-one special “point at infinity”).</p>
-<p>When you work over the complex numbers <span class="math inline">\(\mathbb{C}\)</span>, the points are “dense.”If you
-pick any coordinate <span class="math inline">\(z\)</span> on your
-sticky note (the lattice), the Weierstrass function <span class="math inline">\((\wp(z), \wp&#39;(z))\)</span> will give you a
-valid <span class="math inline">\((x, y)\)</span> pair.Conversely, any
-<span class="math inline">\((x, y)\)</span> that satisfies <span class="math inline">\(y^2 = x^3 - x\)</span> can be traced back to
-exactly one <span class="math inline">\(z\)</span> on your sticky
-note.In this case, the “curve” and the “torus” are identical. You have
-the entire donut.</p>
-<p>If you only look for real solutions <span class="math inline">\((x, y
-\in \mathbb{R})\)</span> or rational solutions <span class="math inline">\((x, y \in \mathbb{Q})\)</span>, you only see a
-tiny fraction of the donut. Real points <span class="math inline">\(E(\mathbb{R})\)</span> look like one or two
-disconnected loops in 2D space. Geometrically, these are just “slices”
-of the 4D donut where the imaginary parts happen to be zero. Rational
-points <span class="math inline">\(E(\mathbb{Q})\)</span> are isolated
-“dots” on the donut. Imagine taking a physical donut and dipping it into
-a bucket of colorful sprinkles. The donut is the complex curve, but the
-sprinkles are the rational points. They sit on the donut, but they don’t
-cover it.</p>
-<p>If you are a topologist, every elliptic curve over <span class="math inline">\(\mathbb{C}\)</span> is just a 1-holed torus. From
-a “rubber sheet” perspective, they are all the same. You can stretch a
+and the points on the elliptic curve <span class="math inline">\(E(\mathbb{C})\)</span>. Every single point we can
+identify on that “flat” donut corresponds to exactly one <span class="math inline">\((x, y)\)</span> solution to the equation (plus one
+special “point at infinity”).</p>
+<p>When we work over the complex numbers <span class="math inline">\(\mathbb{C}\)</span>, the points are “dense.” If we
+pick any coordinate <span class="math inline">\(z\)</span> on the
+lattice, the Weierstrass function <span class="math inline">\((\wp(z),
+\wp&#39;(z))\)</span> will give us a valid <span class="math inline">\((x, y)\)</span> pair. Conversely, any <span class="math inline">\((x, y)\)</span> that satisfies <span class="math inline">\(y^2 = x^3 - x\)</span> can be traced back to
+exactly one <span class="math inline">\(z\)</span> on the lattic. In
+this case, the “curve” and the “torus” are identical.</p>
+<p>If we only look for real solutions <span class="math inline">\((x, y
+\in \mathbb{R})\)</span> or rational solutions <span class="math inline">\((x, y \in \mathbb{Q})\)</span>, we only see a tiny
+fraction of the donut. Real points <span class="math inline">\(E(\mathbb{R})\)</span> look like one or two
+disconnected loops in 2D space; <span class="math inline">\(O(.\)</span>
+Geometrically, these are just “slices” of the 4D donut where the
+imaginary parts happen to be zero. Rational points <span class="math inline">\(E(\mathbb{Q})\)</span> are isolated “dots” on the
+donut. Imagine taking a physical donut and dipping it into a bucket of
+colorful sprinkles. The donut is the complex curve, but the sprinkles
+are the rational points. They sit on the donut, but they don’t cover
+it.</p>
+<p>To a topologist, every elliptic curve over <span class="math inline">\(\mathbb{C}\)</span> is just a 1-holed torus. From
+a “rubber sheet” perspective, they are all the same. We can stretch a
 square donut into a rectangular one or a skinny one without tearing it.
-Analytically, they are fundamentally different.In complex analysis, we
+Analytically, they are fundamentally different. In complex analysis, we
 aren’t allowed to “stretch” the rubber. We have to preserve angles
-(conformal mapping). If you have a “square” donut (a square sticky
-note), there is no way to map it to a “skinny rectangle” donut using a
-smooth, complex function without distorting the math. These donuts have
+(conformal mapping). If we have a “square” donut (a square sticky note),
+there is no way to map it to a “skinny rectangle” donut using a smooth,
+complex function without distorting the math. These donuts have
 different “flavors” defined by a single number called the <span class="math inline">\(j\)</span>-invariant. If two curves have different
 <span class="math inline">\(j\)</span>-invariants, they are not the
 same. They are different “species” of donuts that cannot be transformed
@@ -1093,13 +1102,98 @@ into one another algebraically.</p>
 <h4>Elliptic functions and modular forms:</h4>
 <p>In the context of the Modularity Theorem, every elliptic curve over
 <span class="math inline">\(\mathbb{Q}\)</span> is associated with a
-specific kind of modular form called a cusp form of weight 2.That
-modular form, <span class="math inline">\(f(z)\)</span>, is indeed
+specific kind of modular form called a cusp form of weight <span class="math inline">\(2.\)</span></p>
+<p>While all modular forms are holomorphic at the “cusps” (the points at
+infinity), a cusp form must specifically vanish there. As we move up the
+imaginary axis (<span class="math inline">\(y \to \infty\)</span>), the
+variable</p>
+<p><span class="math display">\[q = e^{2\pi i (x + iy)} = \quad
+\underset{\text{Re decaying exp}}{e^{-2\pi y}} \quad
+\underset{\text{purely Im, abs = 1 }}{e^{2\pi i x}}\]</span></p>
+<p>rapidly approaches <span class="math inline">\(0\)</span>.</p>
+<p>In the final equation the rotation (<span class="math inline">\(e^{2\pi i x}\)</span> part has a constant
+magnitude of <span class="math inline">\(1.\)</span> It just determines
+the angle (the phase) of <span class="math inline">\(q\)</span> on the
+complex plane. The magnitude (<span class="math inline">\(e^{-2\pi
+y}\)</span>) part determines the distance from the origin (the radius).
+As the imaginary part <span class="math inline">\(y\)</span> (the height
+in the upper half-plane) gets larger and larger (<span class="math inline">\(y \to \infty\)</span>) the exponent <span class="math inline">\(-2\pi y\)</span> becomes a very large negative
+number. From basic calculus, we know that <span class="math inline">\(e^{-\infty} = 0\)</span>. In the world of modular
+forms, the “top” of the upper half-plane (where <span class="math inline">\(y\)</span> is infinite) is called a cusp. By using
+the <span class="math inline">\(q\)</span>-expansion, we effectively
+“pinch” that infinite height into a single point: the origin (<span class="math inline">\(q=0\)</span>). This is why we say a cusp form must
+have <span class="math inline">\(a_0 = 0\)</span>. If <span class="math inline">\(a_0\)</span> were not zero, the function would
+have a value at the center of the disk. Since <span class="math inline">\(a_0 = 0\)</span> for elliptic curves, the function
+“vanishes” (equals zero) at the cusp as you go infinitely high. For the
+function to “decay to zero” as <span class="math inline">\(y \to
+\infty\)</span>, the constant term <span class="math inline">\(a_0\)</span> in the Fourier expansion must be
+zero:</p>
+<p><span class="math display">\[f(z) = \sum_{n=1}^{\infty} a_n
+q^n\]</span> The weight (in this case, <span class="math inline">\(k =
+2\)</span>) describes how the function <span class="math inline">\(f(z)\)</span> “scales” when we apply a Möbius
+transformation <span class="math inline">\(z \mapsto \frac{az + b}{cz +
+d}\)</span>. For a modular form of weight <span class="math inline">\(2,\)</span> the rule is:</p>
+<p><span class="math display">\[f\left( \frac{az + b}{cz + d} \right) =
+(cz + d)^2 f(z)\]</span></p>
+<p>Think of the weight as a measure of the function’s “internal
+symmetry.” Because an elliptic curve is essentially a torus (a donut
+shape), it has two independent periods. When moving from the geometry of
+the curve to the geometry of the upper half-plane, that <span class="math inline">\((cz + d)^k\)</span> factor is what ensures the two
+worlds stay mathematically glued together. If the weight weren’t exactly
+<span class="math inline">\(2\)</span>, the differential forms on the
+elliptic curve wouldn’t match the modular form.</p>
+<p>That modular form, <span class="math inline">\(f(z)\)</span> is
 expressed as a Fourier series (often called a <span class="math inline">\(q\)</span>-expansion), where the “harmonics” are
-powers of <span class="math inline">\(q = e^{2\pi i z}\)</span>.</p>
+powers of <span class="math inline">\(q = e^{2\pi i z}\)</span>. The
+coefficients <span class="math inline">\(a_n\)</span> of this decaying
+cusp form are precisely the same values that appear in the <span class="math inline">\(L\)</span>-function of the elliptic curve <span class="math inline">\(E/\mathbb{Q}\)</span>. Because the form decays
+exponentially as <span class="math inline">\(y \to \infty\)</span>, the
+integral used to define the <span class="math inline">\(L\)</span>-function converges (Mellin transform).
+If it didn’t decay (i.e., if it were an Eisenstein series with a
+non-zero <span class="math inline">\(a_0\)</span>), the arithmetic
+relationship to the elliptic curve’s point-counting properties (<span class="math inline">\(a_p = p + 1 - \#E(\mathbb{F}_p)\)</span>) would
+break down.</p>
+<p>In the Fourier series <span class="math inline">\(f(z) = \sum a_n
+q^n\)</span>, the constant term <span class="math inline">\(a_0\)</span>
+represents the value of the function at the cusp (<span class="math inline">\(q = 0\)</span>). For a cusp form, <span class="math inline">\(a_0 = 0\)</span>. This is vital because if <span class="math inline">\(a_0\)</span> were not zero, the <span class="math inline">\(L\)</span>-function associated with the form
+wouldn’t “behave” correctly to match the counting of points on an
+elliptic curve.</p>
 <p>A modular form <span class="math inline">\(f(z)\)</span> is periodic
 with respect to the transformation <span class="math inline">\(z \to z +
-1\)</span>, which allows us to write it as:</p>
+1.\)</span></p>
+<p>A function <span class="math inline">\(f: \mathbb{H} \to
+\mathbb{C}\)</span> (where <span class="math inline">\(\mathbb{H}\)</span> is the upper half-plane) is a
+modular form of weight <span class="math inline">\(k\)</span> if it
+satisfies three conditions:</p>
+<ol style="list-style-type: decimal">
+<li><p>It is holomorphic on <span class="math inline">\(\mathbb{H}\)</span>. It is holomorphic at the cusp
+(<span class="math inline">\(i\infty\)</span>).</p></li>
+<li><p>It satisfies the transformation law for all matrices <span class="math inline">\(\begin{pmatrix} a &amp; b \\ c &amp; d
+\end{pmatrix} \in SL(2, \mathbb{Z})\)</span>:</p></li>
+</ol>
+<p><span class="math display">\[f\left( \frac{az + b}{cz + d} \right) =
+(cz + d)^k f(z)\]</span></p>
+<p>The modular group <span class="math inline">\(SL(2,
+\mathbb{Z})\)</span> is generated by two specific matrices, <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>. The matrix <span class="math inline">\(T\)</span> represents the translation
+transformation:</p>
+<p><span class="math display">\[T = \begin{pmatrix} 1 &amp; 1 \\ 0 &amp;
+1 \end{pmatrix}\]</span></p>
+<p>Applying the transformation law to this specific matrix: <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b =
+1\)</span>, <span class="math inline">\(c = 0\)</span>, <span class="math inline">\(d = 1\)</span>. Substituting these values into the
+transformation law:</p>
+<p><span class="math display">\[f\left( \frac{1z + 1}{0z + 1} \right) =
+(0z + 1)^k f(z)\]</span></p>
+<p>This simplifies directly to:</p>
+<p><span class="math display">\[f(z + 1) = 1^k f(z) = f(z)\]</span></p>
+<p>Because <span class="math inline">\(f(z + 1) = f(z)\)</span>, the
+modular form is periodic with period <span class="math inline">\(1\)</span>.</p>
+<p>Any time a complex function repeats itself every <span class="math inline">\(1\)</span> unit along the real axis, we can “roll
+it up” into a circle. We define a new variable <span class="math inline">\(q = e^{2\pi i z}\)</span>. As <span class="math inline">\(z\)</span> moves across one period (<span class="math inline">\(x\)</span> from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span>), <span class="math inline">\(q\)</span> travels once around a circle. This
+transformation turns a function on the infinite upper half-plane into a
+function on a disk. The Fourier series is simply the Taylor series of
+the function inside that disk. The “harmonics” (<span class="math inline">\(q, q^2, q^3...\)</span>) represent the different
+frequencies of the symmetry inherent in the elliptic curve.</p>
+<p>This periodicity, thus, allows us to write it as:</p>
 <p><span class="math display">\[f(z) = \sum_{n=1}^{\infty} a_n e^{2\pi i
 n z} = \sum_{n=1}^{\infty} a_n q^n\]</span></p>
 <p>The index <span class="math inline">\(n\)</span> ranges over all
@@ -1108,55 +1202,21 @@ Because we are specifically talking about cusp forms (the type
 associated with elliptic curves), the series starts at <span class="math inline">\(n=1\)</span>. If it were a more general modular
 form (like an Eisenstein series), it would include the <span class="math inline">\(n=0\)</span> term, which acts as a constant
 offset.</p>
-<p>The magic isn’t just that it’s a series, but what the coefficients
-(<span class="math inline">\(a_n\)</span>) represent. For an elliptic
-curve <span class="math inline">\(E\)</span>, these coefficients are
-directly tied to the number of points on the curve when viewed over
-finite fields. For a prime <span class="math inline">\(p\)</span> the
+<p>The magic is in what the coefficients (<span class="math inline">\(a_n\)</span>) represent. For an elliptic curve
+<span class="math inline">\(E\)</span>, these coefficients are directly
+tied to the number of points on the curve when viewed over finite
+fields. For a prime <span class="math inline">\(p\)</span> the
 coefficient <span class="math inline">\(a_p\)</span> is defined by <span class="math inline">\(a_p = p + 1 - N_p\)</span>, where <span class="math inline">\(N_p\)</span> is the number of points on the curve
 modulo <span class="math inline">\(p\)</span>. For composite <span class="math inline">\(n\)</span> the coefficients <span class="math inline">\(a_n\)</span> are determined by the <span class="math inline">\(a_p\)</span> values through specific recurrence
 relations.</p>
-<p>Key Properties</p>
-<p>Holomorphic: The function is complex-analytic on the upper
-half-plane.</p>
-<p>Cusp Form: For elliptic curves, the series starts at <span class="math inline">\(n=1\)</span> (so <span class="math inline">\(a_0 =
-0\)</span>), meaning the form “vanishes at the cusps.</p>
-<p>“Weight 2: It transforms under the modular group <span class="math inline">\(\Gamma_0(N)\)</span> such that <span class="math inline">\(f(\frac{az+b}{cz+d}) = (cz+d)^2 f(z)\)</span>.</p>
 <p>Essentially, the Modularity Theorem says that the “counting data”
 (<span class="math inline">\(N_p\)</span>) of an algebraic object (the
 elliptic curve) is perfectly captured by the “harmonic data” (<span class="math inline">\(a_n\)</span>) of an analytic object (the modular
 form).</p>
-<p><span class="math inline">\(q \to 0\)</span> as the “height” (along
-the imaginary axis) increases, we just need to break <span class="math inline">\(z\)</span> into its real and imaginary parts:
-<span class="math inline">\(z = x + iy\)</span>.</p>
-<p>Start with the definition: <span class="math inline">\(q = e^{2\pi i
-z}\)</span></p>
-<p>Substitute <span class="math inline">\(z = x + iy\)</span>: <span class="math inline">\(q = e^{2\pi i (x + iy)}\)</span></p>
-<p>Distribute the terms: <span class="math inline">\(q = e^{2\pi i x +
-2\pi i^2 y}\)</span></p>
-<p>Use the fact that <span class="math inline">\(i^2 = -1\)</span>:
-<span class="math inline">\(q = e^{2\pi i x} \cdot e^{-2\pi
-y}\)</span></p>
-<p>Now, look at the two parts of that final equation: The Rotation
-(<span class="math inline">\(e^{2\pi i x}\)</span>): This part has a
-constant magnitude of <span class="math inline">\(1.\)</span> It just
-determines the angle (the phase) of <span class="math inline">\(q\)</span> on the complex plane. The Magnitude
-(<span class="math inline">\(e^{-2\pi y}\)</span>): This part determines
-the distance from the origin (the radius). As the imaginary part <span class="math inline">\(y\)</span> (the height in the upper half-plane)
-gets larger and larger (<span class="math inline">\(y \to
-\infty\)</span>) the exponent <span class="math inline">\(-2\pi
-y\)</span> becomes a very large negative number. From basic calculus, we
-know that <span class="math inline">\(e^{-\infty} = 0\)</span>. In the
-world of modular forms, the “top” of the upper half-plane (where <span class="math inline">\(y\)</span> is infinite) is called a cusp. By using
-the <span class="math inline">\(q\)</span>-expansion, we effectively
-“pinch” that infinite height into a single point: the origin (<span class="math inline">\(q=0\)</span>). This is why we say a cusp form must
-have <span class="math inline">\(a_0 = 0\)</span>. If <span class="math inline">\(a_0\)</span> were not zero, the function would
-have a value at the center of the disk. Since <span class="math inline">\(a_0 = 0\)</span> for elliptic curves, the function
-“vanishes” (equals zero) at the cusp as you go infinitely high.</p>
-<p>If you multiply your basis vectors <span class="math inline">\((\omega_1, \omega_2)\)</span> by a non-zero
-complex number <span class="math inline">\(\lambda\)</span>, you are
-essentially zooming in/out and rotating the entire lattice.1. An
-elliptic curve is defined by a lattice <span class="math inline">\(L =
+<p>If we multiply your basis vectors <span class="math inline">\((\omega_1, \omega_2)\)</span> by a non-zero
+complex number <span class="math inline">\(\lambda\)</span>, we are
+essentially zooming in/out and rotating the entire lattice. An elliptic
+curve is defined by a lattice <span class="math inline">\(L =
 \mathbb{Z}\omega_1 + \mathbb{Z}\omega_2\)</span>. The modular form
 doesn’t actually care about the absolute “lengths” of <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span> individually; it cares about
 their ratio. We define <span class="math inline">\(z =
@@ -1191,7 +1251,7 @@ that ratio, the internal “harmonics” of the Fourier series are locked
 into the geometry of the curve regardless of how you orient your basis
 vectors.</p>
 <p>The ratio <span class="math inline">\(z = \omega_2/\omega_1\)</span>
-is scale-invariant. If you scale the lattice, <span class="math inline">\(z\)</span> doesn’t budge. So, if the Fourier
+is scale-invariant. If we scale the lattice, <span class="math inline">\(z\)</span> doesn’t budge. So, if the Fourier
 series <span class="math inline">\(f(z) = \sum a_n e^{2\pi i n
 z}\)</span> only depends on <span class="math inline">\(z\)</span>, why
 does it scale? The answer is that a modular form is not just a function
@@ -1202,32 +1262,36 @@ function of the entire lattice <span class="math inline">\(L\)</span>.</p>
 <li><p>The Lattice Function <span class="math inline">\(F(L)\)</span>:
 This takes the two basis vectors <span class="math inline">\((\omega_1,
 \omega_2)\)</span> as inputs.</p></li>
-<li><p>The Upper Half-Plane Function <span class="math inline">\(f(z)\)</span>: This is what we usually see in
-textbooks, where we’ve “fixed” one of the vectors to be <span class="math inline">\(1\)</span> (by dividing by <span class="math inline">\(\omega_1\)</span>).</p></li>
+<li><p>The Upper Half-Plane Function <span class="math inline">\(f(z)\)</span>: This is where we’ve “fixed” one of
+the vectors to be <span class="math inline">\(1\)</span> (by dividing by
+<span class="math inline">\(\omega_1\)</span>).</p></li>
 </ul>
 <p>The relationship between them is defined as:</p>
 <p><span class="math display">\[f(z) = F(1, z)\]</span></p>
-<p>When you scale a lattice <span class="math inline">\(L = (\omega_1,
+<p>When we scale a lattice <span class="math inline">\(L = (\omega_1,
 \omega_2)\)</span> by <span class="math inline">\(\lambda\)</span>, the
 new lattice is <span class="math inline">\(\lambda L = (\lambda
-\omega_1, \lambda \omega_2)\)</span>.The ratio is still <span class="math inline">\(z = \frac{\lambda \omega_2}{\lambda
-\omega_1}\)</span>.However, because a modular form of weight <span class="math inline">\(k\)</span> is homogeneous of degree <span class="math inline">\(-k\)</span>, we have:<span class="math display">\[F(\lambda \omega_1, \lambda \omega_2) =
-\lambda^{-k} F(\omega_1, \omega_2)\]</span>Now, let’s look at what
-happens if we try to pull <span class="math inline">\(\omega_1\)</span>
-out of the function to get to our Fourier series <span class="math inline">\(f(z)\)</span>:<span class="math display">\[F(\omega_1, \omega_2) = F\left(\omega_1 \cdot 1,
-\omega_1 \cdot \frac{\omega_2}{\omega_1}\right) = \omega_1^{-k} F(1, z)
-= \omega_1^{-k} f(z)\]</span>3. The “Aha!” MomentThe Fourier series
-<span class="math inline">\(\sum a_n e^{2\pi i n z}\)</span> is indeed
-scale-invariant in terms of <span class="math inline">\(z\)</span>. But
-the modular form as a geometric object is attached to the “size” of the
-lattice via that <span class="math inline">\(\omega_1^{-k}\)</span>
-factor.</p>
+\omega_1, \lambda \omega_2)\)</span>. The ratio is still <span class="math inline">\(z = \frac{\lambda \omega_2}{\lambda
+\omega_1}\)</span>. However, because a modular form of weight <span class="math inline">\(k\)</span> is homogeneous of degree <span class="math inline">\(-k\)</span>, we have:</p>
+<p><span class="math display">\[F(\lambda \omega_1, \lambda \omega_2) =
+\lambda^{-k} F(\omega_1, \omega_2)\]</span></p>
+<p>Now, let’s look at what happens if we try to pull <span class="math inline">\(\omega_1\)</span> out of the function to get to
+our Fourier series <span class="math inline">\(f(z)\)</span>:</p>
+<p><span class="math display">\[F(\omega_1, \omega_2) = F\left(\omega_1
+\cdot 1, \omega_1 \cdot \frac{\omega_2}{\omega_1}\right) = \omega_1^{-k}
+F(1, z) = \omega_1^{-k} f(z)\]</span>3. The “Aha!” MomentThe Fourier
+series <span class="math inline">\(\sum a_n e^{2\pi i n z}\)</span> is
+indeed scale-invariant in terms of <span class="math inline">\(z\)</span>. But the modular form as a geometric
+object is attached to the “size” of the lattice via that <span class="math inline">\(\omega_1^{-k}\)</span> factor.</p>
 <p>This is why, when we change the basis of the lattice using a matrix
 <span class="math inline">\(\begin{pmatrix} a &amp; b \\ c &amp; d
-\end{pmatrix}\)</span>, the new basis vectors are:<span class="math inline">\(\omega_2&#39; = a\omega_2 +
-b\omega_1\)</span><span class="math inline">\(\omega_1&#39; = c\omega_2
-+ d\omega_1\)</span>The new ratio is <span class="math inline">\(z&#39;
-= \frac{az+b}{cz+d}\)</span>. But because the “first” vector <span class="math inline">\(\omega_1\)</span> changed to <span class="math inline">\((cz+d)\omega_1\)</span>, that change in “scale”
+\end{pmatrix}\)</span>, the new basis vectors are:</p>
+<p><span class="math inline">\(\omega_2&#39; = a\omega_2 +
+b\omega_1\)</span></p>
+<p><span class="math inline">\(\omega_1&#39; = c\omega_2 +
+d\omega_1\)</span></p>
+<p>The new ratio is <span class="math inline">\(z&#39; =
+\frac{az+b}{cz+d}\)</span>. But because the “first” vector <span class="math inline">\(\omega_1\)</span> changed to <span class="math inline">\((cz+d)\omega_1\)</span>, that change in “scale”
 gets pulled out as the factor <span class="math inline">\((cz+d)^k\)</span>.</p>
 <p>When we say “the modular form of an elliptic curve,” we are usually
 looking at the version where we’ve already normalized the scale (setting
@@ -1242,12 +1306,17 @@ If it were a more general modular form (like an Eisenstein series), it
 would include the <span class="math inline">\(n=0\)</span> term, which
 acts as a constant offset. Think of the modular form as a function <span class="math inline">\(f(z)\)</span> that is periodic with period <span class="math inline">\(1\)</span> (<span class="math inline">\(f(z+1) =
 f(z)\)</span>). This periodicity allows us to represent it as a sum of
-these exponential “harmonics”: 1. The Fundamental (<span class="math inline">\(n=1\)</span>): <span class="math inline">\(e^{2\pi
-i z}\)</span> (often written as <span class="math inline">\(q\)</span>)
-2. The Harmonics (<span class="math inline">\(n &gt; 1\)</span>): <span class="math inline">\(e^{2\pi i n z}\)</span> (or <span class="math inline">\(q^n\)</span>). Each <span class="math inline">\(n\)</span> corresponds to a coefficient <span class="math inline">\(a_n\)</span>. While in a standard Fourier series
-(like a square wave) the coefficients might represent the “strength” of
-a sound frequency, here the <span class="math inline">\(a_n\)</span>
-coefficients are arithmetic fingerprints.</p>
+these exponential “harmonics”:</p>
+<ol style="list-style-type: decimal">
+<li><p>The Fundamental (<span class="math inline">\(n=1\)</span>): <span class="math inline">\(e^{2\pi i z}\)</span> (often written as <span class="math inline">\(q\)</span>)</p></li>
+<li><p>The Harmonics (<span class="math inline">\(n &gt; 1\)</span>):
+<span class="math inline">\(e^{2\pi i n z}\)</span> (or <span class="math inline">\(q^n\)</span>).</p></li>
+</ol>
+<p>Each <span class="math inline">\(n\)</span> corresponds to a
+coefficient <span class="math inline">\(a_n\)</span>. While in a
+standard Fourier series (like a square wave) the coefficients might
+represent the “strength” of a sound frequency, here the <span class="math inline">\(a_n\)</span> coefficients are arithmetic
+fingerprints.</p>
 </div>
 <div id="the-l-function-ls-e" class="section level4">
 <h4>The L-function: <span class="math inline">\(L(s, E)\)</span></h4>
