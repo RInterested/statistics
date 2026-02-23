@@ -1,5 +1,5 @@
 ---
-title: 'Modular Forms and Möbius transformation'
+title: 'Modular Forms and Möbius transformation & Weiestrass p-functions, elliptic curves, modular forms and L-functions'
 output: 
   html_document:
     theme: readable
@@ -337,39 +337,43 @@ P
 
 #### Weiestrass $\wp$-functions 
 
-Weierstrass wanted a function that was "inherently" periodic. If you want a function to repeat every time you move by a lattice vector $\lambda$, it can be built taking a simple function $f(z)$ and manually summing it over the whole lattice: 
+Weierstrass wanted a function that was "inherently" periodic. If you want a function to repeat every time you move by a lattice vector $\lambda$, where $\lambda$ represents the entire linear combination $m\omega_1 + n\omega_2$ of the basis vectors of the lattice, it can be built taking a simple function $f(z)$ and manually summing it over the whole lattice: 
 
 $$\sum_{\lambda \in \Lambda} f(z - \lambda)$$
 
-where $\lambda$ represents the entire linear combination $m\omega_1 + n\omega_2$ of the basis vectors of the lattice.
-
-If you shift $z$ by a lattice vector, the infinite sum just shifts one position and remains identical. This is the "infinite mirror room" logic. 
-
-Think of the infinite sum as an endless row of identical buckets, each labeled with a lattice vector $\lambda$. Each bucket contains a "contribution" based on the distance from your point $z$ to that specific lattice point. Imagine a 1D lattice where the points are integers $(\dots, -1, 0, 1, 2, \dots)$. The sum looks like this: 
+If you shift $z$ by a lattice vector, the infinite sum just shifts one position and remains identical. This is the "infinite mirror room" logic. We can think of the infinite sum as an endless row of identical buckets, each labeled with a lattice vector $\lambda$. Each bucket contains a "contribution" based on the distance from the point $z$ to that specific lattice point. In a 1D lattice where the points are integers $(\dots, -1, 0, 1, 2, \dots),$ the sum looks like this: 
 
 $$\dots + f(z - (-1)) + f(z - 0) + f(z - 1) + f(z - 2) + \dots$$
 
-Now, suppose you shift your position $z$ by exactly one lattice vector (let's say you move $z \to z + 1$). The sum becomes:
+Now, suppose we shift the position $z$ by exactly one lattice vector (let's say we move it to  $z \to z + 1$). The sum becomes:
 
 $$\dots + f(z + 1 - (-1)) + f(z + 1 - 0) + f(z + 1 - 1) + f(z + 1 - 2) + \dots$$
 
 If we simplify the math inside the parentheses:
 
 $$\dots + f(z + 2) + f(z + 1) + f(z - 0) + f(z - 1) + \dots$$
-Why it remains identicalLook at the terms before and after the shift. Every single term that was in the first sum is still in the second sum; they have just changed seats.The term that used to be calculated relative to $\lambda = 0$ is now being calculated relative to $\lambda = 1$. The term that used to be relative to $\lambda = 1$ is now relative to $\lambda = 2$.Because the sum is infinite in all directions, there is no "end of the line." It’s like a hotel with infinite rooms: if every guest moves one door to the right, every room is still occupied by exactly one guest. The "view" from the point $z$ remains exactly the same because the entire forest of lattice points looks identical no matter which "tile" you are standing in.In the Weierstrass formula, the "stabilizer" term ($1/\lambda^2$) is what allows this seat-swapping to happen without the whole calculation collapsing into an undefined mess. If we use a common seed like $f(z) = 1/z^2$, this infinite sum explodes to infinity everywhere. Weierstrass realized he needed to tame the sum. He kept the $1/z^2$ for the origin (where the main action is), but for every other point in the lattice, he added a subtraction term. This "counter-weight" ensures that the contribution of far-away tiles gets smaller and smaller, allowing the total sum to settle on a finite value.This gives us the official Weierstrass P-function:
+Every single term that was in the first sum is still in the second sum; they have just changed seats. The term that used to be calculated relative to $\lambda = 0$ is now being calculated relative to $\lambda = 1$. The term that used to be relative to $\lambda = 1$ is now relative to $\lambda = 2$. Because the sum is infinite in all directions, there is no "end of the line." It’s like a hotel with infinite rooms: if every guest moves one door to the right, every room is still occupied by exactly one guest. The view from the point $z$ remains exactly the same because the entire forest of lattice points looks identical no matter which "tile" you are standing in. 
+
+In the Weierstrass formula, the "stabilizer" term ($1/\lambda^2$) is what allows this seat-swapping to happen without the whole calculation collapsing into an undefined mess. If we use a common seed like $f(z) = 1/z^2$, this infinite sum explodes to infinity everywhere. Weierstrass realized he needed to tame the sum. He kept the $1/z^2$ for the origin, but for every other point in the lattice, he added a subtraction term. This "counter-weight" ensures that the contribution of far-away tiles gets smaller and smaller, allowing the total sum to settle on a finite value. This gives us the official Weierstrass P-function:
 
 $$\bbox[20px, border: 5px solid
 red]{\wp(z) = \frac{1}{z^2} + \sum_{\lambda \in \Lambda \setminus \{0\}} \left( \frac{1}{(z - \lambda)^2} - \frac{1}{\lambda^2} \right)}$$
 
-The $-1/\lambda^2$ is like a stabilizer; it ensures that as you move further away from the center, the difference between the "naive" term and the stabilizer approaches zero fast enough for the sum to work.
+The $-1/\lambda^2$ ensures that as you move further away from the center, the difference between the "naive" term and the stabilizer approaches zero fast enough for the sum to work.
 
 For every single dot on that infinite grid, you measure the distance from your point $z$ to that dot $\lambda$. Then you square that distance. Take the reciprocal ($1/\text{distance}^2$). Add it to your bucket. As you "walk" further away to gather more terms, the distances get bigger, so the numbers you are adding ($1/\text{dist}^2$) get smaller. 
 
-In a 1D line, these numbers get small fast enough that the total sum stays finite. But in 2D, the number of "dots" you encounter as you move outward grows at the same rate the distances grow. Imagine you are at the center of a circular forest. The trees at distance $R$ have a brightness of $1/R^2$. But the number of trees at distance $R$ is proportional to the circumference ($2\pi R$). So the total light from the trees at distance $R$ is roughly $R \times (1/R^2) = 1/R$. Since the sum of $1/R$ (the harmonic series) goes to infinity, your "bucket" would eventually overflow!
+In a 1D line, these numbers get small fast enough that the total sum stays finite. But in 2D, the number of "dots" we encounter as you move outward grows at the same rate the distances grow. Imagine being at the center of a circular forest. The trees at distance $R$ have a brightness of $1/R^2$. But the number of trees at distance $R$ is proportional to the circumference $(2\pi R).$ So the total light from the trees at distance $R$ is roughly $R \times (1/R^2) = 1/R$. Since the sum of $1/R$ (the harmonic series) goes to infinity, the function would not converge.
 
-Imagine two points, $A$ and $B$ separate by a linear combination of the basis vectors, and with $A$ in the fundamental domain (containing the origin), and $B$ in some other parallelogram.  Picture the small vectors representing the distance to points on the lattice (corners) adjacent to each one of them as four short arrows going to the edges of the parallelogram framing each one of the points, ready to be squared and inverted as part of the sum. Symmetrical, isn't it? Now imagine the difference vector between point $A$ and one of the corners in the parallelogram around $B$. Can you see that that vector can be transported to $B,$ and the arrowhead will land on a point in the lattice? So summing and squaring the vectorial differences over all lattice points for each $A$ and $B$ will produce the same value.
+Imagine two points, $A$ and $B$ separate by a linear combination of the basis vectors, and with $A$ in the fundamental domain (containing the origin), and $B$ in some other parallelogram. Picture the small vectors representing the distance to points on the lattice (corners) adjacent to each of these points as four short arrows going to the edges of the parallelogram framing each one of the points, ready to be squared and inverted as part of the sum. Symmetrical, isn't it? Now imagine the difference vector between point $A$ and one of the corners in the parallelogram around $B$. Can you see that that vector can be transported to $B,$ and the arrowhead will land on a point in the lattice? So summing and squaring the vectorial differences over all lattice points for each $A$ and $B$ will produce the same value.
 
-To see how this equation works, let’s use a simple square lattice where our steps are $1$ (right/left) and $i$ (up/down). So, our lattice points $\lambda$ are: $0, 1, -1, i, -i, 1+i, 1-i$, and so on. 
+---
+
+<img width = 800  src = "lattice.png">
+
+---
+
+To see how the Weiestrass $\wp$-function works, let’s use a simple square lattice where our steps are $1$ (right/left) and $i$ (up/down). So, our lattice points $\lambda$ are: $0, 1, -1, i, -i, 1+i, 1-i$, and so on. 
 
 Let's pick a point, say $z = 0.5 + 0.5i$ (the dead center of the first tile). 
 
@@ -385,17 +389,19 @@ For $\lambda = i$: $\frac{1}{(z-i)^2} - \frac{1}{i^2}$
 
 For $\lambda = 1+i$: $\frac{1}{(z-(1+i))^2} - \frac{1}{(1+i)^2}$ 
 
-Step 3: We keep moving in concentric squares to $\lambda = 2, 2i, -2, -2i$. Because of that subtraction term, these far-away points contribute less and less to the total, eventually becoming negligible. Update Total: Add these values to our running total.
+Step 3: We keep moving in concentric squares to $\lambda = 2, 2i, -2, -2i$. Because of that subtraction term, these far-away points contribute less and less to the total, eventually becoming negligible. We add these values to our running total every time.
 
-For any point $z$ you choose in the complex plane, the calculation of $\wp(z)$ always begins with that $\lambda = 0$ term. Think of $\lambda = 0$ as the "home base" pole. Here is how that process flows logically: 1. Identifying the "home" pole. No matter where your $z$ is located, the formula treats the origin ($0$) as a special reference point. The first part of the equation, $\frac{1}{z^2}$, is simply the "naive" contribution from the pole at the origin. Because we use this term alone, the summation symbol $\sum$ specifically excludes zero ($\lambda \in \Lambda \setminus \{0\}$) to avoid double-counting.
+For any point $z$ we choose in the complex plane, the calculation of $\wp(z)$ always begins with that $\lambda = 0$ term. We can think of $\lambda = 0$ as the "home base" pole. Here is how that process flows logically: 1. Identifying the "home" pole. No matter where your $z$ is located, the formula treats the origin ($0$) as a special reference point. The first part of the equation, $\frac{1}{z^2}$, is simply the "naive" contribution from the pole at the origin. Because we use this term alone, the summation symbol $\sum$ specifically excludes zero ($\lambda \in \Lambda \setminus \{0\}$) to avoid double-counting.
 
-Whether your $z$ is $0.1 + 0.1i$ (very close to the origin) or $100 + 100i$ (deep in the lattice), you follow the same sequence: 
+Whether our $z$ is $0.1 + 0.1i$ (very close to the origin) or $100 + 100i$ (deep in the lattice), we follow the same sequence: 
 
 Calculate the origin term: $1/z^2$.
 
-Calculate the Lattice terms: Start summing $\left( \frac{1}{(z - \lambda)^2} - \frac{1}{\lambda^2} \right)$ for every other $\lambda$ in the infinite grid.3.
+Calculate the lattice terms: 
 
-While you always start the math with $\lambda = 0$ (although the $z=0$ can't be expressed inside the sum due to the $1/z^2$ term), the impact of that element changes based on where $z$ is: If $z$ is near $0$: The $1/z^2$ term is massive. It dominates the value of the function, creating a "spike" (pole) at the origin. If $z$ is near another lattice point (say, $\lambda = 1$): The term $1/(z - 1)^2$ inside the sum becomes the giant value, while $1/z^2$ becomes just a small, ordinary number.
+Start summing $\left( \frac{1}{(z - \lambda)^2} - \frac{1}{\lambda^2} \right)$ for every other $\lambda$ in the infinite grid.
+
+While we always start the math with $\lambda = 0$ (although the $z=0$ can't be expressed inside the sum due to the $1/z^2$ term), the impact of that element changes based on where $z$ is: If $z$ is near $0$: The $1/z^2$ term is massive. It dominates the value of the function, creating a "spike" (pole) at the origin. If $z$ is near another lattice point (say, $\lambda = 1$): The term $1/(z - 1)^2$ inside the sum becomes the giant value, while $1/z^2$ becomes just a small, ordinary number.
 
 Let’s look at what happens when we shift $z$ by a specific lattice vector, say $\gamma=\omega_1 - 3\omega_2$. If we evaluate $\wp(z + \gamma)$, the equation becomes:
 
