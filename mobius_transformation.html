@@ -1329,7 +1329,209 @@ things like check where the function equals zero or find its value at
 Swinnerton-Dyer conjecture). In short: The Modular Form organizes the
 data <span class="math inline">\(a_n\)</span> into a “shape” that
 highlights symmetry, while the L-function organizes that same data into
-a “series” that highlights arithmetic properties.</p>
+a “series” that highlights arithmetic</p>
+<hr />
+</div>
+<div id="concrete-example" class="section level4">
+<h4>Concrete example:</h4>
+<p>Let’s use a simple Square Lattice <span class="math inline">\(\Lambda
+= \mathbb{Z} + i\mathbb{Z}\)</span> (where <span class="math inline">\(\omega_1 = 1\)</span> and <span class="math inline">\(\omega_2 = i\)</span>).</p>
+<p>We will compare the value of the “naive” sum (just the <span class="math inline">\(1/(z-\lambda)^2\)</span> parts) at two different
+points: Point <span class="math inline">\(A\)</span>: <span class="math inline">\(z = 0.5\)</span> (The midpoint of the first tile).
+Point <span class="math inline">\(B\)</span>: <span class="math inline">\(z = 1.5\)</span> (The midpoint of the next tile
+over). Since <span class="math inline">\(1.5 = 0.5 + 1\)</span>, Point
+<span class="math inline">\(B\)</span> is exactly one lattice vector
+(<span class="math inline">\(\lambda = 1\)</span>) away from Point <span class="math inline">\(A\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>The View from <span class="math inline">\(z = 0.5\)</span></li>
+</ol>
+<p>We look at the contributions from the lattice points closest to
+us:</p>
+<p>From <span class="math inline">\(\lambda = 0\)</span>: <span class="math inline">\(\frac{1}{(0.5 - 0)^2} = \frac{1}{0.25} =
+\mathbf{4}\)</span></p>
+<p>From <span class="math inline">\(\lambda = 1\)</span>: <span class="math inline">\(\frac{1}{(0.5 - 1)^2} = \frac{1}{(-0.5)^2} =
+\mathbf{4}\)</span></p>
+<p>From <span class="math inline">\(\lambda = 2\)</span>: <span class="math inline">\(\frac{1}{(0.5 - 2)^2} = \frac{1}{(-1.5)^2} =
+\mathbf{0.44}\)</span></p>
+<p>From <span class="math inline">\(\lambda = -1\)</span>: <span class="math inline">\(\frac{1}{(0.5 - (-1))^2} = \frac{1}{1.5^2} =
+\mathbf{0.44}\)</span></p>
+<p>Partial Sum at <span class="math inline">\(A \approx 4 + 4 + 0.44 +
+0.44 = 8.88\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>The View from <span class="math inline">\(z = 1.5\)</span></li>
+</ol>
+<p>Now we move to <span class="math inline">\(z = 1.5\)</span>. Notice
+how the exact same numbers appear, but they are “linked” to different
+lattice points:</p>
+<p>From <span class="math inline">\(\lambda = 0\)</span>: <span class="math inline">\(\frac{1}{(1.5 - 0)^2} = \frac{1}{1.5^2} =
+\mathbf{0.44}\)</span></p>
+<p>(This was the <span class="math inline">\(\lambda = -1\)</span> value
+for Point <span class="math inline">\(A\)</span>)</p>
+<p>From <span class="math inline">\(\lambda = 1\)</span>: <span class="math inline">\(\frac{1}{(1.5 - 1)^2} = \frac{1}{0.5^2} =
+\mathbf{4}\)</span></p>
+<p>(This was the <span class="math inline">\(\lambda = 0\)</span> value
+for Point <span class="math inline">\(A\)</span>)</p>
+<p>From <span class="math inline">\(\lambda = 2\)</span>: <span class="math inline">\(\frac{1}{(1.5 - 2)^2} = \frac{1}{(-0.5)^2} =
+\mathbf{4}\)</span></p>
+<p>(This was the <span class="math inline">\(\lambda = 1\)</span> value
+for Point <span class="math inline">\(A\)</span>)</p>
+<p>From <span class="math inline">\(\lambda = 3\)</span>: <span class="math inline">\(\frac{1}{(1.5 - 3)^2} = \frac{1}{(-1.5)^2} =
+\mathbf{0.44}\)</span></p>
+<p>(This was the <span class="math inline">\(\lambda = 2\)</span> value
+for Point <span class="math inline">\(A\)</span>)</p>
+<p>Partial Sum at $B + 4 + 4 + 0.44 = 8.88$3.</p>
+<p>When we moved <span class="math inline">\(z\)</span> from <span class="math inline">\(0.5\)</span> to <span class="math inline">\(1.5\)</span> the “Home Base” pole (<span class="math inline">\(\lambda = 0\)</span>) at <span class="math inline">\(z=0.5\)</span> provided a contribution of 4. When
+we moved to <span class="math inline">\(z=1.5\)</span>, that same
+contribution of 4 didn’t disappear; it was now provided by the <span class="math inline">\(\lambda = 1\)</span> pole. Every term “handed off”
+its value to its neighbor. In this tiny example with <span class="math inline">\(4\)</span> terms, the sum is fine. But if you
+tried to sum all the <span class="math inline">\(1/(z-\lambda)^2\)</span> terms across the entire
+infinite 2D plane, the sum wouldn’t “settle” on a single number — it
+would keep growing as you added more rings. By adding the <span class="math inline">\(-1/\lambda^2\)</span> stabilizer, Weierstrass
+ensured that for a point like <span class="math inline">\(\lambda =
+100\)</span>, the contribution isn’t just a raw number, but the
+difference between the view from <span class="math inline">\(z\)</span>
+and the view from the origin. As <span class="math inline">\(\lambda\)</span> gets huge, <span class="math inline">\(1/(z-\lambda)^2\)</span> and <span class="math inline">\(1/\lambda^2\)</span> become almost identical, so
+their difference is nearly zero. This makes the “hand-off” between
+neighbors mathematically legal and finite.</p>
+<p>Derivation of the elliptic function:</p>
+<p>To derive <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span>, we look at how the Weierstrass <span class="math inline">\(\wp\)</span>-function behaves near the origin
+(<span class="math inline">\(z \approx 0\)</span>). We do this by
+expanding the terms of the function into a power series (specifically a
+Laurent series) and comparing it to the differential equation of the
+elliptic curve.</p>
+<p>Recall the definition of the <span class="math inline">\(\wp\)</span>-function:</p>
+<p><span class="math display">\[\wp(z) = \frac{1}{z^2} + \sum_{\lambda
+\neq 0} \left( \frac{1}{(z - \lambda)^2} - \frac{1}{\lambda^2}
+\right)\]</span></p>
+<p>For small <span class="math inline">\(z\)</span>, we can expand the
+term <span class="math inline">\(1/(z-\lambda)^2\)</span> using the
+geometric series logic (specifically the binomial expansion):</p>
+<p><span class="math display">\[\frac{1}{(z-\lambda)^2} =
+\frac{1}{\lambda^2(1 - z/\lambda)^2} = \frac{1}{\lambda^2} \left( 1 +
+2\frac{z}{\lambda} + 3\frac{z^2}{\lambda^2} + 4\frac{z^3}{\lambda^3} +
+5\frac{z^4}{\lambda^4} + \dots \right)\]</span></p>
+<p>Now, subtract the stabilizer <span class="math inline">\(1/\lambda^2\)</span>:</p>
+<p><span class="math display">\[\left( \frac{1}{(z-\lambda)^2} -
+\frac{1}{\lambda^2} \right) = \frac{2z}{\lambda^3} +
+\frac{3z^2}{\lambda^4} + \frac{4z^3}{\lambda^5} + \frac{5z^4}{\lambda^6}
++ \dots\]</span></p>
+<p>When we sum these terms over the entire lattice <span class="math inline">\(\Lambda \setminus \{0\}\)</span>, something
+helpful happens: the odd powers cancel out. Because the lattice is
+symmetric (for every vector <span class="math inline">\(\lambda\)</span>, there is a <span class="math inline">\(-\lambda\)</span>), the terms like <span class="math inline">\(2z/\lambda^3\)</span> and <span class="math inline">\(2z/(-\lambda)^3\)</span> add up to zero. We are
+left only with the even powers of <span class="math inline">\(z\)</span>:</p>
+<p><span class="math display">\[\wp(z) = \frac{1}{z^2} + \sum_{\lambda
+\neq 0} \left( \frac{3z^2}{\lambda^4} + \frac{5z^4}{\lambda^6} + \dots
+\right)\]</span></p>
+<p>Factoring out the powers of <span class="math inline">\(z\)</span>:</p>
+<p><span class="math display">\[\wp(z) = \frac{1}{z^2} + 3z^2 \left(
+\sum_{\lambda \neq 0} \frac{1}{\lambda^4} \right) + 5z^4 \left(
+\sum_{\lambda \neq 0} \frac{1}{\lambda^6} \right) + \dots\]</span></p>
+<p>In number theory, these lattice sums are called Eisenstein series,
+denoted as <span class="math inline">\(G_{2k}(\Lambda)\)</span>:</p>
+<p><span class="math display">\[G_4 = \sum_{\lambda \neq 0}
+\frac{1}{\lambda^4}, \quad G_6 = \sum_{\lambda \neq 0}
+\frac{1}{\lambda^6}\]</span></p>
+<p>So, the expansion of the <span class="math inline">\(\wp\)</span>-function near the origin is:</p>
+<p><span class="math display">\[\wp(z) = \frac{1}{z^2} + 3G_4 z^2 + 5G_6
+z^4 + O(z^6)\]</span></p>
+<p>To find the exact values of <span class="math inline">\(g_2\)</span>
+and <span class="math inline">\(g_3\)</span>, we plug this expansion
+into the target elliptic curve equation:</p>
+<p><span class="math display">\[(\wp&#39;(z))^2 = 4\wp(z)^3 - g_2\wp(z)
+- g_3\]</span></p>
+<p>First, we differentiate <span class="math inline">\(\wp(z)\)</span>:</p>
+<p><span class="math display">\[\wp&#39;(z) = -\frac{2}{z^3} + 6G_4 z +
+20G_6 z^3 + \dots\]</span></p>
+<p>If you square <span class="math inline">\(\wp&#39;(z)\)</span> and
+cube <span class="math inline">\(\wp(z)\)</span>, and then compare the
+coefficients of the terms <span class="math inline">\(z^0\)</span> and
+<span class="math inline">\(z^2\)</span> on both sides of the equation,
+the math forces the constants to be:</p>
+<p><span class="math inline">\(g_2 = 60G_4\)</span></p>
+<p><span class="math inline">\(g_3 = 140G_6\)</span></p>
+<p>The “magic” numbers <span class="math inline">\(60\)</span> and <span class="math inline">\(140\)</span> aren’t arbitrary; they are the
+specific scaling factors required to make the geometry of the lattice
+(the Eisenstein sums) perfectly satisfy the algebraic equation of the
+curve.</p>
+<p>To get the actual numerical values, we have to look at the specific
+“shape” of the lattice. The values of <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> are not universal constants; they
+change depending on whether your “sticky note” is square, hexagonal, or
+a thin rectangle.</p>
+<p>Let’s look at the two most famous “special” cases: the Square Lattice
+and the Hexagonal Lattice.</p>
+<ol style="list-style-type: decimal">
+<li>The Square Lattice (<span class="math inline">\(\tau = i\)</span>).
+For a square lattice, where the basis vectors are <span class="math inline">\(1\)</span> and <span class="math inline">\(i\)</span>, the symmetry is so high that the sums
+simplify beautifully.</li>
+</ol>
+<p><span class="math inline">\(g_3 = 0\)</span>: Because the lattice is
+invariant under a <span class="math inline">\(90^\circ\)</span> rotation
+(multiplying by <span class="math inline">\(i\)</span>), every term in
+the sum <span class="math inline">\(\sum \lambda^{-6}\)</span> has a
+corresponding term <span class="math inline">\((i\lambda)^{-6} =
+-\lambda^{-6}\)</span> that cancels it out.</p>
+<p><span class="math inline">\(g_2 \approx 18.962\)</span>: This is
+related to the Gamma function. Specifically:</p>
+<p><span class="math display">\[g_2 = 60 \sum_{(m,n) \neq (0,0)}
+\frac{1}{(m+ni)^4} = \frac{\Gamma(1/4)^8}{16\pi^2}\]</span></p>
+<p>The elliptic curve for a square lattice is always:</p>
+<p><span class="math display">\[y^2 = 4x^3 - g_2x\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>The Hexagonal Lattice (<span class="math inline">\(\tau =
+e^{i\pi/3}\)</span>). This is the “equilateral triangle” lattice. It has
+even more symmetry (<span class="math inline">\(60^\circ\)</span>
+rotations). <span class="math inline">\(g_2 = 0\)</span>: In this case,
+the <span class="math inline">\(60^\circ\)</span> rotation causes the
+<span class="math inline">\(\sum \lambda^{-4}\)</span> terms to cancel
+each other out perfectly. <span class="math inline">\(g_3 \approx
+5.991\)</span>: This is the dominant “DNA marker” for the hexagonal
+shape. It is also related to the Gamma function:</li>
+</ol>
+<p><span class="math display">\[g_3 = 140 \sum \lambda^{-6} =
+\frac{\Gamma(1/3)^{18}}{2^8\pi^6}\]</span></p>
+<p>The elliptic curve for a hexagonal lattice is:</p>
+<p><span class="math display">\[y^2 = 4x^3 - g_3\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>General Numerical Calculation. If you have a random lattice (say
+<span class="math inline">\(\omega_1 = 1, \omega_2 = 0.5 +
+1.2i\)</span>), we calculate them using the Eisenstein Series
+formulas.</li>
+</ol>
+<p>Generating the Modular Form (<span class="math inline">\(f\)</span>)</p>
+<p>The modular form associated with an elliptic curve <span class="math inline">\(E\)</span> isn’t just a single sum; it is a
+function <span class="math inline">\(f(z)\)</span> that “counts” how the
+lattice behaves under every possible transformation.</p>
+<p>Step A: The <span class="math inline">\(q\)</span>-expansionWe
+translate the lattice information into a power series using <span class="math inline">\(q = e^{2\pi i z}\)</span>. For an elliptic curve
+defined by the equation we derived (<span class="math inline">\(y^2 =
+4x^3 - g_2x - g_3\)</span>), we can calculate its discriminant:</p>
+<p><span class="math display">\[\Delta = g_2^3 - 27g_3^2\]</span></p>
+<p>The simplest modular form, the Modular Discriminant <span class="math inline">\(\Delta(z)\)</span>, is actually a product of the
+<span class="math inline">\(q\)</span>-terms:</p>
+<p><span class="math display">\[\Delta(z) = (2\pi)^{12} q
+\prod_{n=1}^{\infty} (1 - q^n)^{24}\]</span> Step B: The “Counting”
+Coefficients (<span class="math inline">\(a_n\)</span>). For a specific
+elliptic curve <span class="math inline">\(E\)</span> (like <span class="math inline">\(y^2 = x^3 - x\)</span>), we look at the curve over
+finite fields <span class="math inline">\(\mathbb{F}_p\)</span>. We
+count how many points <span class="math inline">\((x,y)\)</span> satisfy
+the equation modulo <span class="math inline">\(p\)</span>. Let <span class="math inline">\(N_p\)</span> be the number of solutions modulo
+<span class="math inline">\(p\)</span>. The Fourier coefficient is <span class="math inline">\(a_p = p + 1 - N_p\)</span>. The Modular Form is
+then the series built from these counts:</p>
+<p><span class="math display">\[f(z) = a_1q + a_2q^2 + a_3q^3 +
+\dots\]</span></p>
+<p>Generating the L-function (<span class="math inline">\(L\)</span>):</p>
+<p>Once you have the modular form <span class="math inline">\(f(z) =
+\sum a_n q^n\)</span>, you “unroll” it into the L-function using the
+Mellin Transform. The TransformationThink of the modular form as living
+in “exponential space” (<span class="math inline">\(q^n\)</span>). To
+turn it into a “Dirichlet space” (<span class="math inline">\(n^{-s}\)</span>), we integrate it:</p>
+<p><span class="math display">\[L(E, s) = \frac{(2\pi)^s}{\Gamma(s)}
+\int_{0}^{\infty} f(iy) y^{s-1} dy\]</span></p>
+<p>When you compute this integral, the <span class="math inline">\(e^{2\pi i n z}\)</span> terms in the modular form
+transform directly into the <span class="math inline">\(n^{-s}\)</span>
+terms of the L-function. The result is:</p>
+<p><span class="math display">\[L(E, s) = \sum_{n=1}^{\infty}
+\frac{a_n}{n^s}\]</span></p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
