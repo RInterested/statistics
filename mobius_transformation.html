@@ -972,37 +972,36 @@ to Elliptic Curves</h4>
 <p>We have seen how we can calculate <span class="math inline">\(\wp(z)\)</span> at any point by summing up
 contributions from the “home” pole and all the “stabilized” poles in the
 infinite mirror room. Because the function is periodic, <span class="math inline">\(\wp(z)\)</span> will have the exact same value
-regardless of which “tile” you are in. If you calculate <span class="math inline">\(\wp(0.5)\)</span> or <span class="math inline">\(\wp(1.5)\)</span>, the infinite sum balances out
+regardless of which “tile” the point is in. If we calculate <span class="math inline">\(\wp(0.5)\)</span> or <span class="math inline">\(\wp(1.5)\)</span>, the infinite sum balances out
 to give you the same result. However, while the value of the function
 depends on <span class="math inline">\(z\)</span>, the overall shape of
 this infinite landscape is determined entirely by the lattice <span class="math inline">\(\Lambda\)</span> itself.</p>
-<p>If you take the derivative of our function, <span class="math inline">\(\wp&#39;(z)\)</span>, you’ll find that <span class="math inline">\(\wp\)</span> and <span class="math inline">\(\wp&#39;\)</span> are locked in a tight
+<p>If we take the derivative of our function, <span class="math inline">\(\wp&#39;(z)\)</span>, we’ll find that <span class="math inline">\(\wp\)</span> and <span class="math inline">\(\wp&#39;\)</span> are locked in a tight
 mathematical dance. If you plot them against each other as coordinates
 <span class="math inline">\((x, y) = (\wp(z), \wp&#39;(z))\)</span>,
 they always stay on a specific path. This path is a cubic equation:</p>
 <p><span class="math display">\[(\wp&#39;(z))^2 = 4\wp(z)^3 - g_2\wp(z)
 - g_3\]</span></p>
-<p>This is where the geometry of the “forest” (the lattice) turns into
-the coefficients of an “equation” (the curve). The numbers <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> aren’t just random constants; they
+<p>This is where the geometry of the the lattice turns into the
+coefficients of an equation (the curve). The numbers <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> aren’t just random constants; they
 are “summaries” of the entire lattice. They are calculated by summing up
 the “stiffness” of the lattice points <span class="math inline">\(\omega\)</span> (where <span class="math inline">\(\omega \in \Lambda \setminus \{0\}\)</span>):</p>
 <p><span class="math inline">\(g_2\)</span> (The fourth power sum):
 <span class="math inline">\(60 \sum \omega^{-4}\)</span></p>
 <p><span class="math inline">\(g_3\)</span> (The sixth power sum): <span class="math inline">\(140 \sum \omega^{-6}\)</span></p>
-<p>Think of <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> as the “DNA markers” of your lattice.
-If you stretch the lattice or tilt it, these sums change, which in turn
-changes the coefficients of the cubic equation.</p>
-<p>Because these sums (<span class="math inline">\(g_2\)</span> and
-<span class="math inline">\(g_3\)</span>) depend entirely on the shape
-of the lattice, and lattices can be parameterized by the ratio of their
-two basis vectors <span class="math inline">\(\tau = \omega_2 /
+<p>We can think of <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> as the “DNA markers” of our lattice.
+If we stretch the lattice or tilt it, these sums change, which in turn
+change the coefficients of the cubic equation.</p>
+<p>Because <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> depend entirely on the shape of the
+lattice, and lattices can be parameterized by the ratio of their two
+basis vectors <span class="math inline">\(\tau = \omega_2 /
 \omega_1\)</span>, these coefficients are actually modular forms. They
 are functions that “live” on the space of all possible lattices. By
 mapping</p>
 <p><span class="math display">\[z \mapsto (\wp(z),
 \wp&#39;(z))\]</span></p>
-<p>you essentially wrap the complex plane (a flat sheet) onto a cubic
-curve in projective space (a donut-shaped torus). You have successfully
+<p>we essentially wrap the complex plane (a flat sheet) onto a cubic
+curve in projective space (a donut-shaped torus). We have successfully
 turned topology (the lattice donut) into algebra (the elliptic curve
 equation). Weierstrass hadn’t just built a function; he had found the
 “atoms” of the entire field. Any doubly periodic function can be
@@ -1011,24 +1010,27 @@ expressed as a combination of his <span class="math inline">\(\wp(z)\)</span> an
 <div id="elliptic-curves-lattices-and-tori" class="section level4">
 <h4>Elliptic curves, lattices and tori:</h4>
 <p>When we say an elliptic curve <span class="math inline">\(E(\mathbb{C})\)</span> is defined by <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are complex numbers. Since one complex
-number requires 2 real dimensions (real and imaginary), the pair <span class="math inline">\((x, y)\)</span> technically lives in <span class="math inline">\(\mathbb{C}^2\)</span>, which is 4-dimensional real
-space (<span class="math inline">\(\mathbb{R}^4\)</span>). However, the
-equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span> places
-a “constraint” on those 4 dimensions. In mathematics, one complex
-equation removes one complex dimension (or two real dimensions).You
-start with 4 real dimensions.The equation “carves out” a 2-dimensional
-surface.That surface is exactly the torus (the donut).So, while the
-donut “lives” inside a 4-dimensional space, the donut itself is a
-2-dimensional manifold.</p>
+number requires <span class="math inline">\(2\)</span> real dimensions
+(real and imaginary), the pair <span class="math inline">\((x,
+y)\)</span> technically lives in <span class="math inline">\(\mathbb{C}^2\)</span>, which is <span class="math inline">\(4\)</span>-dimensional real space (<span class="math inline">\(\mathbb{R}^4\)</span>). However, the equation
+<span class="math inline">\(y^2 = x^3 + Ax + B\)</span> places a
+“constraint” on those <span class="math inline">\(4\)</span> dimensions.
+In mathematics, one complex equation removes one complex dimension (or
+two real dimensions). We start with 4 real dimensions, but the equation
+“carves out” a <span class="math inline">\(2\)</span>-dimensional
+surface.That surface is exactly the torus. While the donut “lives”
+inside a <span class="math inline">\(4\)</span>-dimensional space, the
+donut itself is a <span class="math inline">\(2\)</span>-dimensional
+manifold.</p>
 <p>There is a one-to-one correspondence between the “shape” of the donut
-and the specific elliptic curve. This is where your lattice <span class="math inline">\(\Lambda\)</span> comes back in. Any donut can be
+and the specific elliptic curve. This is where the lattice <span class="math inline">\(\Lambda\)</span> comes back in. Any donut can be
 made by taking a sheet of paper (the complex plane <span class="math inline">\(\mathbb{C}\)</span>) and gluing the edges. The
 “shape” of the donut depends entirely on the shape of that original
-sheet of paper (the fundamental parallelogram of your lattice). A Square
-Lattice produces a “symmetric” donut. This corresponds to curves like
-<span class="math inline">\(y^2 = x^3 - x\)</span>. A hexagonal Lattice
+sheet of paper (the fundamental parallelogram of the lattice). A square
+lattice produces a “symmetric” donut. This corresponds to curves like
+<span class="math inline">\(y^2 = x^3 - x\)</span>. A hexagonal lattice
 produces a donut with <span class="math inline">\(120^\circ\)</span>
-symmetry. This corresponds to curves like <span class="math inline">\(y^2 = x^3 - 1\)</span>. A Long, Skinny
+symmetry. This corresponds to curves like <span class="math inline">\(y^2 = x^3 - 1\)</span>. A long, skinny
 parallelogram produces a “thin, stretched” donut.</p>
 <p>We use a single complex number called the <span class="math inline">\(j\)</span>-invariant to make the correspondence
 lattice - elliptic curve. If you have the equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, you can plug <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> into a formula to get <span class="math inline">\(j\)</span>. If you have a lattice <span class="math inline">\(\Lambda\)</span> with ratio <span class="math inline">\(\tau = \omega_2 / \omega_1\)</span>, you can plug

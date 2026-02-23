@@ -415,31 +415,31 @@ Because the function is periodic, $\wp(z)$ will have the exact same value regard
 
 #### From Weierstrass $\wp$-functions to Elliptic Curves
 
-We have seen how we can calculate $\wp(z)$ at any point by summing up contributions from the "home" pole and all the "stabilized" poles in the infinite mirror room. Because the function is periodic, $\wp(z)$ will have the exact same value regardless of which "tile" you are in. If you calculate $\wp(0.5)$ or $\wp(1.5)$, the infinite sum balances out to give you the same result. However, while the value of the function depends on $z$, the overall shape of this infinite landscape is determined entirely by the lattice $\Lambda$ itself.
+We have seen how we can calculate $\wp(z)$ at any point by summing up contributions from the "home" pole and all the "stabilized" poles in the infinite mirror room. Because the function is periodic, $\wp(z)$ will have the exact same value regardless of which "tile" the point is in. If we calculate $\wp(0.5)$ or $\wp(1.5)$, the infinite sum balances out to give you the same result. However, while the value of the function depends on $z$, the overall shape of this infinite landscape is determined entirely by the lattice $\Lambda$ itself.
 
-If you take the derivative of our function, $\wp'(z)$, you'll find that $\wp$ and $\wp'$ are locked in a tight mathematical dance. If you plot them against each other as coordinates $(x, y) = (\wp(z), \wp'(z))$, they always stay on a specific path. This path is a cubic equation:
+If we take the derivative of our function, $\wp'(z)$, we'll find that $\wp$ and $\wp'$ are locked in a tight mathematical dance. If you plot them against each other as coordinates $(x, y) = (\wp(z), \wp'(z))$, they always stay on a specific path. This path is a cubic equation:
 
 $$(\wp'(z))^2 = 4\wp(z)^3 - g_2\wp(z) - g_3$$
 
-This is where the geometry of the "forest" (the lattice) turns into the coefficients of an "equation" (the curve). The numbers $g_2$ and $g_3$ aren't just random constants; they are "summaries" of the entire lattice. They are calculated by summing up the "stiffness" of the lattice points $\omega$ (where $\omega \in \Lambda \setminus \{0\}$):
+This is where the geometry of the the lattice turns into the coefficients of an equation (the curve). The numbers $g_2$ and $g_3$ aren't just random constants; they are "summaries" of the entire lattice. They are calculated by summing up the "stiffness" of the lattice points $\omega$ (where $\omega \in \Lambda \setminus \{0\}$):
 
 $g_2$ (The fourth power sum): $60 \sum \omega^{-4}$
 
 $g_3$ (The sixth power sum): $140 \sum \omega^{-6}$
 
-Think of $g_2$ and $g_3$ as the "DNA markers" of your lattice. If you stretch the lattice or tilt it, these sums change, which in turn changes the coefficients of the cubic equation.
+We can think of $g_2$ and $g_3$ as the "DNA markers" of our lattice. If we stretch the lattice or tilt it, these sums change, which in turn change the coefficients of the cubic equation.
 
-Because these sums ($g_2$ and $g_3$) depend entirely on the shape of the lattice, and lattices can be parameterized by the ratio of their two basis vectors $\tau = \omega_2 / \omega_1$, these coefficients are actually modular forms. They are functions that "live" on the space of all possible lattices. By mapping 
+Because $g_2$ and $g_3$ depend entirely on the shape of the lattice, and lattices can be parameterized by the ratio of their two basis vectors $\tau = \omega_2 / \omega_1$, these coefficients are actually modular forms. They are functions that "live" on the space of all possible lattices. By mapping 
 
 $$z \mapsto (\wp(z), \wp'(z))$$
 
-you essentially wrap the complex plane (a flat sheet) onto a cubic curve in projective space (a donut-shaped torus). You have successfully turned topology (the lattice donut) into algebra (the elliptic curve equation). Weierstrass hadn't just built a function; he had found the "atoms" of the entire field. Any doubly periodic function can be expressed as a combination of his $\wp(z)$ and its derivative $\wp'(z)$.
+we essentially wrap the complex plane (a flat sheet) onto a cubic curve in projective space (a donut-shaped torus). We have successfully turned topology (the lattice donut) into algebra (the elliptic curve equation). Weierstrass hadn't just built a function; he had found the "atoms" of the entire field. Any doubly periodic function can be expressed as a combination of his $\wp(z)$ and its derivative $\wp'(z)$.
 
 #### Elliptic curves, lattices and tori:
 
-When we say an elliptic curve $E(\mathbb{C})$ is defined by $y^2 = x^3 + Ax + B$, both $x$ and $y$ are complex numbers. Since one complex number requires 2 real dimensions (real and imaginary), the pair $(x, y)$ technically lives in $\mathbb{C}^2$, which is 4-dimensional real space ($\mathbb{R}^4$). However, the equation $y^2 = x^3 + Ax + B$ places a "constraint" on those 4 dimensions. In mathematics, one complex equation removes one complex dimension (or two real dimensions).You start with 4 real dimensions.The equation "carves out" a 2-dimensional surface.That surface is exactly the torus (the donut).So, while the donut "lives" inside a 4-dimensional space, the donut itself is a 2-dimensional manifold.
+When we say an elliptic curve $E(\mathbb{C})$ is defined by $y^2 = x^3 + Ax + B$, both $x$ and $y$ are complex numbers. Since one complex number requires $2$ real dimensions (real and imaginary), the pair $(x, y)$ technically lives in $\mathbb{C}^2$, which is $4$-dimensional real space ($\mathbb{R}^4$). However, the equation $y^2 = x^3 + Ax + B$ places a "constraint" on those $4$ dimensions. In mathematics, one complex equation removes one complex dimension (or two real dimensions). We start with 4 real dimensions, but the equation "carves out" a $2$-dimensional surface.That surface is exactly the torus. While the donut "lives" inside a $4$-dimensional space, the donut itself is a $2$-dimensional manifold.
 
-There is a one-to-one correspondence between the "shape" of the donut and the specific elliptic curve. This is where your lattice $\Lambda$ comes back in. Any donut can be made by taking a sheet of paper (the complex plane $\mathbb{C}$) and gluing the edges. The "shape" of the donut depends entirely on the shape of that original sheet of paper (the fundamental parallelogram of your lattice). A Square Lattice produces a "symmetric" donut. This corresponds to curves like $y^2 = x^3 - x$. A hexagonal Lattice produces a donut with $120^\circ$ symmetry. This corresponds to curves like $y^2 = x^3 - 1$. A Long, Skinny parallelogram produces a "thin, stretched" donut.
+There is a one-to-one correspondence between the "shape" of the donut and the specific elliptic curve. This is where the lattice $\Lambda$ comes back in. Any donut can be made by taking a sheet of paper (the complex plane $\mathbb{C}$) and gluing the edges. The "shape" of the donut depends entirely on the shape of that original sheet of paper (the fundamental parallelogram of the lattice). A square lattice produces a "symmetric" donut. This corresponds to curves like $y^2 = x^3 - x$. A hexagonal lattice produces a donut with $120^\circ$ symmetry. This corresponds to curves like $y^2 = x^3 - 1$. A long, skinny parallelogram produces a "thin, stretched" donut.
 
 We use a single complex number called the $j$-invariant to make the correspondence lattice - elliptic curve. If you have the equation $y^2 = x^3 + Ax + B$, you can plug $A$ and $B$ into a formula to get $j$. If you have a lattice $\Lambda$ with ratio $\tau = \omega_2 / \omega_1$, you can plug $\tau$ into the modular $j$-function to get the same $j$. Two elliptic curves are "the same" (isomorphic) if and only if they have the same $j$-invariant. If you change the shape of your lattice even a tiny bit, you change the $j$-invariant, which means you have moved to a fundamentally different elliptic curve equation.
 
