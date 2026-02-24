@@ -1168,11 +1168,87 @@ satisfies three conditions:</p>
 <ol style="list-style-type: decimal">
 <li><p>It is holomorphic on <span class="math inline">\(\mathbb{H}\)</span>. It is holomorphic at the cusp
 (<span class="math inline">\(i\infty\)</span>).</p></li>
-<li><p>It satisfies the transformation law for all matrices <span class="math inline">\(\begin{pmatrix} a &amp; b \\ c &amp; d
-\end{pmatrix} \in SL(2, \mathbb{Z})\)</span>:</p></li>
+<li><p>It satisfies the transformation law for all matrices <span class="math display">\[\begin{pmatrix} a &amp; b \\ c &amp; d
+\end{pmatrix} \in SL(2, \mathbb{Z})\]</span>:</p></li>
 </ol>
 <p><span class="math display">\[f\left( \frac{az + b}{cz + d} \right) =
 (cz + d)^k f(z)\]</span></p>
+<p>In the context of elliptic curves, this law ensures that the function
+<span class="math inline">\(f(z)\)</span> - the modular form, which for
+elliptic curves it is denoted <span class="math inline">\(f(\tau)\)</span> - doesn’t just care about a
+specific coordinate <span class="math inline">\(z\)</span>, but rather
+about the underlying “shape” of the elliptic curve itself. In the
+context of the Modularity Theorem and the famous connection to Fermat’s
+Last Theorem, the “function <span class="math inline">\(f(z)\)</span>”
+is a Weight <span class="math inline">\(2\)</span> Cusp Form
+(specifically a Newform). While the Eisenstein series <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> describe the algebraic coefficients
+of a curve, these Newforms describe the curve’s arithmetic DNA. <span class="math inline">\(f(z)\)</span> as an arithmetic counter: for every
+elliptic curve <span class="math inline">\(E\)</span>, there is a
+corresponding Newform <span class="math inline">\(f(z).\)</span> This
+<span class="math inline">\(f(z)\)</span> is an infinite series (a <span class="math inline">\(q\)</span>-expansion):</p>
+<p><span class="math display">\[f(z) = q + a_2q^2 + a_3q^3 + a_4q^4 +
+\dots \quad \text{where } q = e^{2\pi iz}\]</span> The “point” of this
+function is that the coefficients <span class="math inline">\(a_p\)</span> (for prime <span class="math inline">\(p\)</span>) tell you exactly how many points the
+elliptic curve has when you look at it over a finite field <span class="math inline">\(\mathbb{F}_p\)</span>. <span class="math inline">\(f(z)\)</span> acts as a “generating function” that
+bundles all the information about the elliptic curve’s behavior across
+all prime numbers into a single analytic object. The transformation law
+<span class="math inline">\(f(\frac{az+b}{cz+d}) = (cz+d)^2
+f(z)\)</span> is the reason this “counter” is so powerful. If <span class="math inline">\(f(z)\)</span> were just a random list of numbers,
+it would be useless. But because it satisfies this law for a specific
+group <span class="math inline">\(\Gamma_0(N)\)</span>, it is extremely
+rigid. This symmetry means analytic continuity: The behavior of the
+curve at small primes (small <span class="math inline">\(n\)</span> in
+<span class="math inline">\(a_n\)</span>) dictates the behavior at large
+primes. The transformation law allows us to define an <span class="math inline">\(L\)</span>-function for the modular form that
+satisfies a functional equation. Because the modular form and the
+elliptic curve share the same law, their <span class="math inline">\(L\)</span>-functions match.</p>
+<p>In the specific case of weight <span class="math inline">\(k=2\)</span>, the transformation law has a very
+special geometric meaning. If you define a differential form <span class="math inline">\(\omega = f(z)dz\)</span>, the law ensures that
+<span class="math inline">\(\omega\)</span> is invariant under the
+coordinate changes of the modular group.</p>
+<p><span class="math display">\[f\left(\frac{az+b}{cz+d}\right)
+d\left(\frac{az+b}{cz+d}\right) = f(z)dz\]</span> This means <span class="math inline">\(f(z)\)</span> isn’t just a function; it is a
+physical “stencils” that fits perfectly onto a Riemann surface (the
+modular curve <span class="math inline">\(X_0(N)\)</span>). The “shape”
+of the elliptic curve is essentially a projection of the “shape” of the
+modular curve defined by <span class="math inline">\(f(z)\)</span>. The
+term “Newform” refers to the fact that <span class="math inline">\(f(z)\)</span> is the “purest” version of this
+signal. Some modular forms at a high level (like <span class="math inline">\(N=100\)</span>) are just “recycled” forms from
+lower levels (like <span class="math inline">\(N=10\)</span>). A Newform
+is a modular form that appears for the first time at level <span class="math inline">\(N\)</span>. It corresponds uniquely to an “isogeny
+class” of elliptic curves.</p>
+<p>Every elliptic curve over <span class="math inline">\(\mathbb{C}\)</span> can be thought of as a
+quotient <span class="math inline">\(E = \mathbb{C} / \Lambda\)</span>,
+where <span class="math inline">\(\Lambda\)</span> is a 2D lattice
+generated by two basis vectors, <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span>. We can normalize this lattice
+by setting <span class="math inline">\(\tau = \omega_1 /
+\omega_2\)</span> (where <span class="math inline">\(\tau \in
+\mathbb{H}\)</span>). However, many different bases <span class="math inline">\((\omega_1, \omega_2)\)</span> can generate the
+exact same lattice. The matrices in <span class="math inline">\(SL(2,
+\mathbb{Z})\)</span> represent all possible ways to change the basis of
+a lattice without changing the lattice itself. If we want a function to
+describe a property of the curve (like its j-invariant or its
+discriminant), that function must stay “the same” (up to a scaling
+factor) regardless of which basis we picked.2. The term <span class="math inline">\((cz + d)^k\)</span> is a scaling factor. If you
+scale the entire lattice <span class="math inline">\(\Lambda\)</span> by
+a factor <span class="math inline">\(\lambda\)</span>, a modular form of
+weight <span class="math inline">\(k\)</span> scales by <span class="math inline">\(\lambda^{-k}\)</span>. These are “modular
+functions” (like the <span class="math inline">\(j\)</span>-invariant).
+They are truly invariant: <span class="math inline">\(f(\gamma z) =
+f(z)\)</span>. They describe properties that only depend on the
+isomorphism class of the elliptic curve. A modular form of weight <span class="math inline">\(2\)</span> corresponds to a holomorphic
+differential <span class="math inline">\(f(z)dz\)</span> on the curve,
+which is essential for defining group laws and integrals. The most
+direct application is in the Weierstrass equation of an elliptic
+curve:</p>
+<p><span class="math display">\[y^2 = 4x^3 - g_2(\tau)x -
+g_3(\tau)\]</span></p>
+<p>The coefficients <span class="math inline">\(g_2\)</span> and <span class="math inline">\(g_3\)</span> are actually modular forms of weight
+<span class="math inline">\(4\)</span> and <span class="math inline">\(6,\)</span> respectively. Because they satisfy the
+transformation law, the equation defines the same elliptic curve even if
+you perform a change of basis on the underlying lattice. Without this
+law, the “description” of the curve would fall apart every time you
+rotated or skewed your perspective of the lattice.</p>
 <p>The modular group <span class="math inline">\(SL(2,
 \mathbb{Z})\)</span> is generated by two specific matrices, <span class="math inline">\(S\)</span> and <span class="math inline">\(T\)</span>. The matrix <span class="math inline">\(T\)</span> represents the translation
 transformation:</p>
