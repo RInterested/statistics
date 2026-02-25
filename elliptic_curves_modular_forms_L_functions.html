@@ -821,27 +821,31 @@ P</code></pre>
 to elliptic curves, modular forms and L-functios:</h3>
 <div id="weiestrass-wp-functions" class="section level4">
 <h4>Weiestrass <span class="math inline">\(\wp\)</span>-functions</h4>
-<p>Weierstrass wanted a function that was “inherently” periodic. If you
-want a function to repeat every time you move by a lattice vector <span class="math inline">\(\lambda\)</span>, where <span class="math inline">\(\lambda\)</span> represents the entire linear
-combination <span class="math inline">\(m\omega_1 + n\omega_2\)</span>
-of the basis vectors of the lattice, it can be built taking a simple
-function <span class="math inline">\(f(z)\)</span> and manually summing
-it over the whole lattice:</p>
+<p><strong>Weierstrass</strong> wanted a function that was “inherently”
+periodic. If you want a function to repeat every time you move by a
+lattice vector <span class="math inline">\(\lambda\)</span>, where <span class="math inline">\(\lambda\)</span> represents the entire set of
+linear combinations <span class="math inline">\(m\omega_1 +
+n\omega_2\)</span> of the basis vectors of the lattice, it can be built
+by taking a simple function <span class="math inline">\(f(z)\)</span>
+and manually summing it over the whole lattice:</p>
 <p><span class="math display">\[\sum_{\lambda \in \Lambda} f(z -
 \lambda)\]</span></p>
 <p>If you shift <span class="math inline">\(z\)</span> by a lattice
-vector, the infinite sum just shifts one position and remains identical.
-This is the “infinite mirror room” logic. We can think of the infinite
-sum as an endless row of identical buckets, each labeled with a lattice
-vector <span class="math inline">\(\lambda\)</span>. Each bucket
+vector <span class="math inline">\((\omega_1 \text{ or
+}\omega_2),\)</span> the infinite sum just shifts one position and
+remains identical. This is the “infinite mirror room” logic. We can
+think of the infinite sum as an endless row of identical buckets, each
+labeled with a lattice vector <span class="math inline">\(\lambda\)</span> (a complex number). Each bucket
 contains a “contribution” based on the distance from the point <span class="math inline">\(z\)</span> to that specific lattice point. In a 1D
 lattice where the points are integers <span class="math inline">\((\dots, -1, 0, 1, 2, \dots),\)</span> the sum
 looks like this:</p>
 <p><span class="math display">\[\dots + f(z - (-1)) + f(z - 0) + f(z -
 1) + f(z - 2) + \dots\]</span></p>
 <p>Now, suppose we shift the position <span class="math inline">\(z\)</span> by exactly one lattice vector (let’s
-say we move it to <span class="math inline">\(z \to z + 1\)</span>). The
-sum becomes:</p>
+say we move it to <span class="math inline">\(z \to z + 1\)</span> -
+notice that in the formal language of modular forms, we usually
+normalize the lattice so that the basis vectors are <span class="math inline">\(1\)</span> and <span class="math inline">\(\tau\)</span>. When we shift by <span class="math inline">\(1\)</span>, we are moving “horizontally” across
+the fundamental domain). The sum becomes:</p>
 <p><span class="math display">\[\dots + f(z + 1 - (-1)) + f(z + 1 - 0) +
 f(z + 1 - 1) + f(z + 1 - 2) + \dots\]</span></p>
 <p>If we simplify the math inside the parentheses:</p>
@@ -852,11 +856,11 @@ used to be calculated relative to <span class="math inline">\(\lambda =
 0\)</span> is now being calculated relative to <span class="math inline">\(\lambda = 1\)</span>. The term that used to be
 relative to <span class="math inline">\(\lambda = 1\)</span> is now
 relative to <span class="math inline">\(\lambda = 2\)</span>. Because
-the sum is infinite in all directions, there is no “end of the line.”
-It’s like a hotel with infinite rooms: if every guest moves one door to
-the right, every room is still occupied by exactly one guest. The view
-from the point <span class="math inline">\(z\)</span> remains exactly
-the same because the entire forest of lattice points looks identical no
+the sum is infinite in all directions, there is no end of the line. It’s
+like a hotel with infinite rooms: if every guest moves one door to the
+right, every room is still occupied by exactly one guest. The view from
+the point <span class="math inline">\(z\)</span> remains exactly the
+same because the entire forest of lattice points looks identical no
 matter which “tile” you are standing in.</p>
 <p>In the Weierstrass formula, the “stabilizer” term (<span class="math inline">\(1/\lambda^2\)</span>) is what allows this
 seat-swapping to happen without the whole calculation collapsing into an
@@ -866,22 +870,26 @@ He kept the <span class="math inline">\(1/z^2\)</span> for the origin,
 but for every other point in the lattice, he added a subtraction term.
 This “counter-weight” ensures that the contribution of far-away tiles
 gets smaller and smaller, allowing the total sum to settle on a finite
-value. This gives us the official Weierstrass P-function:</p>
-<p><span class="math display">\[\bbox[20px, border: 5px solid
+value. This gives us the official <strong>Weierstrass
+P-function</strong>:</p>
+<p><span class="math display">\[\bbox[20px, border: 3px solid
 red]{\wp(z) = \frac{1}{z^2} + \sum_{\lambda \in \Lambda \setminus \{0\}}
 \left( \frac{1}{(z - \lambda)^2} - \frac{1}{\lambda^2}
 \right)}\]</span></p>
-<p>The <span class="math inline">\(-1/\lambda^2\)</span> ensures that as
-you move further away from the center, the difference between the
-“naive” term and the stabilizer approaches zero fast enough for the sum
-to work.</p>
+<p>The <span class="math inline">\(-1/\lambda^2\)</span> is this
+subtraction term that ensures that as you move further away from the
+center, the difference between the “naive” term and the stabilizer
+approaches zero fast enough for the sum to work. Notice that the term in
+front is effectively <span class="math inline">\(\frac 1{(z -
+0)^2},\)</span> or the term corresponding to <span class="math inline">\(\lambda =0,\)</span> which had to be kept separate
+from the other terms because subtracting from it <span class="math inline">\(\frac 1{0^2}\)</span> is not defined.</p>
 <p>For every single dot on that infinite grid, you measure the distance
-from your point <span class="math inline">\(z\)</span> to that dot <span class="math inline">\(\lambda\)</span>. Then you square that distance.
-Take the reciprocal (<span class="math inline">\(1/\text{distance}^2\)</span>). Add it to your
-bucket. As you “walk” further away to gather more terms, the distances
+from the point <span class="math inline">\(z\)</span> to that dot <span class="math inline">\(\lambda\)</span>. Then we square that distance.
+Take the reciprocal (<span class="math inline">\(1/\text{distance}^2\)</span>). Add it to the
+bucket. As we “walk” further away to gather more terms, the distances
 get bigger, so the numbers you are adding (<span class="math inline">\(1/\text{dist}^2\)</span>) get smaller.</p>
 <p>In a 1D line, these numbers get small fast enough that the total sum
-stays finite. But in 2D, the number of “dots” we encounter as you move
+stays finite. But in 2D, the number of “dots” we encounter as we move
 outward grows at the same rate the distances grow. Imagine being at the
 center of a circular forest. The trees at distance <span class="math inline">\(R\)</span> have a brightness of <span class="math inline">\(1/R^2\)</span>. But the number of trees at
 distance <span class="math inline">\(R\)</span> is proportional to the
@@ -891,7 +899,7 @@ total light from the trees at distance <span class="math inline">\(R\)</span> is
 infinity, the function would not converge.</p>
 <p>Imagine two points, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> separate by a linear combination of the
 basis vectors, and with <span class="math inline">\(A\)</span> in the
-fundamental domain (containing the origin), and <span class="math inline">\(B\)</span> in some other parallelogram. Picture
+<strong>fundamental domain</strong> (containing the origin), and <span class="math inline">\(B\)</span> in some other parallelogram. Picture
 the small vectors representing the distance to points on the lattice
 (corners) adjacent to each of these points as four short arrows going to
 the edges of the parallelogram framing each one of the points, ready to
@@ -928,7 +936,7 @@ total, eventually becoming negligible. We add these values to our
 running total every time.</p>
 <p>For any point <span class="math inline">\(z\)</span> we choose in the
 complex plane, the calculation of <span class="math inline">\(\wp(z)\)</span> always begins with that <span class="math inline">\(\lambda = 0\)</span> term. We can think of <span class="math inline">\(\lambda = 0\)</span> as the “home base” pole. Here
-is how that process flows logically: 1. Identifying the “home” pole. No
+is how that process flows logically: 1. Identifying the “home” pole: No
 matter where your <span class="math inline">\(z\)</span> is located, the
 formula treats the origin (<span class="math inline">\(0\)</span>) as a
 special reference point. The first part of the equation, <span class="math inline">\(\frac{1}{z^2}\)</span>, is simply the “naive”
@@ -938,14 +946,14 @@ specifically excludes zero (<span class="math inline">\(\lambda \in
 \Lambda \setminus \{0\}\)</span>) to avoid double-counting.</p>
 <p>Whether our <span class="math inline">\(z\)</span> is <span class="math inline">\(0.1 + 0.1i\)</span> (very close to the origin) or
 <span class="math inline">\(100 + 100i\)</span> (deep in the lattice),
-we follow the same sequence:</p>
+we follow the same sequence. Again:</p>
 <p>Calculate the origin term: <span class="math inline">\(1/z^2\)</span>.</p>
 <p>Calculate the lattice terms:</p>
 <p>Start summing <span class="math inline">\(\left( \frac{1}{(z -
 \lambda)^2} - \frac{1}{\lambda^2} \right)\)</span> for every other <span class="math inline">\(\lambda\)</span> in the infinite grid.</p>
 <p>While we always start the math with <span class="math inline">\(\lambda = 0\)</span> (although the <span class="math inline">\(z=0\)</span> can’t be expressed inside the sum due
-to the <span class="math inline">\(1/z^2\)</span> term), the impact of
-that element changes based on where <span class="math inline">\(z\)</span> is: If <span class="math inline">\(z\)</span> is near <span class="math inline">\(0\)</span>: The <span class="math inline">\(1/z^2\)</span> term is massive. It dominates the
+to the <span class="math inline">\(1/z^2\)</span> term as discussed
+above), the impact of that element changes based on where <span class="math inline">\(z\)</span> is: If <span class="math inline">\(z\)</span> is near <span class="math inline">\(0\)</span>: The <span class="math inline">\(1/z^2\)</span> term is massive. It dominates the
 value of the function, creating a “spike” (pole) at the origin. If <span class="math inline">\(z\)</span> is near another lattice point (say,
 <span class="math inline">\(\lambda = 1\)</span>): The term <span class="math inline">\(1/(z - 1)^2\)</span> inside the sum becomes the
 giant value, while <span class="math inline">\(1/z^2\)</span> becomes
@@ -973,11 +981,11 @@ to Elliptic Curves</h4>
 contributions from the “home” pole and all the “stabilized” poles in the
 infinite mirror room. Because the function is periodic, <span class="math inline">\(\wp(z)\)</span> will have the exact same value
 regardless of which “tile” the point is in. If we calculate <span class="math inline">\(\wp(0.5)\)</span> or <span class="math inline">\(\wp(1.5)\)</span>, the infinite sum balances out
-to give you the same result. However, while the value of the function
+to give the same result. However, while the value of the function
 depends on <span class="math inline">\(z\)</span>, the overall shape of
 this infinite landscape is determined entirely by the lattice <span class="math inline">\(\Lambda\)</span> itself.</p>
 <p>If we take the derivative of our function, <span class="math inline">\(\wp&#39;(z)\)</span>, we’ll find that <span class="math inline">\(\wp\)</span> and <span class="math inline">\(\wp&#39;\)</span> are locked in a tight
-mathematical dance. If you plot them against each other as coordinates
+mathematical dance. If we plot them against each other as coordinates
 <span class="math inline">\((x, y) = (\wp(z), \wp&#39;(z))\)</span>,
 they always stay on a specific path. This path is a cubic equation:</p>
 <p><span class="math display">\[(\wp&#39;(z))^2 = 4\wp(z)^3 - g_2\wp(z)
@@ -1016,16 +1024,16 @@ y)\)</span> technically lives in <span class="math inline">\(\mathbb{C}^2\)</spa
 <span class="math inline">\(y^2 = x^3 + Ax + B\)</span> places a
 “constraint” on those <span class="math inline">\(4\)</span> dimensions.
 In mathematics, one complex equation removes one complex dimension (or
-two real dimensions). We start with 4 real dimensions, but the equation
+two real dimensions). We start with <span class="math inline">\(4\)</span> real dimensions, but the equation
 “carves out” a <span class="math inline">\(2\)</span>-dimensional
-surface.That surface is exactly the torus. While the donut “lives”
+surface. That surface is exactly the torus. While the donut “lives”
 inside a <span class="math inline">\(4\)</span>-dimensional space, the
 donut itself is a <span class="math inline">\(2\)</span>-dimensional
 manifold.</p>
 <p>There is a one-to-one correspondence between the “shape” of the donut
 and the specific elliptic curve. This is where the lattice <span class="math inline">\(\Lambda\)</span> comes back in. Any donut can be
-made by taking a sheet of paper (the complex plane <span class="math inline">\(\mathbb{C}\)</span>) and gluing the edges. The
-“shape” of the donut depends entirely on the shape of that original
+made by taking a sheet of paper (the complex plane <span class="math inline">\(\mathbb{C}/\Lambda\)</span>) and gluing the edges.
+The “shape” of the donut depends entirely on the shape of that original
 sheet of paper (the fundamental parallelogram of the lattice). A square
 lattice produces a “symmetric” donut. This corresponds to curves like
 <span class="math inline">\(y^2 = x^3 - x\)</span>. A hexagonal lattice
@@ -1033,7 +1041,7 @@ produces a donut with <span class="math inline">\(120^\circ\)</span>
 symmetry. This corresponds to curves like <span class="math inline">\(y^2 = x^3 - 1\)</span>. A long, skinny
 parallelogram produces a “thin, stretched” donut.</p>
 <p>We use a single complex number called the <span class="math inline">\(j\)</span>-invariant to make the correspondence
-lattice - elliptic curve. If we have the equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, we can plug <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> into a formula to get <span class="math inline">\(j\)</span>. If we have a lattice <span class="math inline">\(\Lambda\)</span> with ratio <span class="math inline">\(\tau = \omega_2 / \omega_1\)</span>, we can plug
+lattice to elliptic curve. If we have the equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, we can plug <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> into a formula to get <span class="math inline">\(j\)</span>. If we have a lattice <span class="math inline">\(\Lambda\)</span> with ratio <span class="math inline">\(\tau = \omega_2 / \omega_1\)</span>, we can plug
 <span class="math inline">\(\tau\)</span> into the modular <span class="math inline">\(j\)</span>-function to get the same <span class="math inline">\(j\)</span>. Two elliptic curves are “the same”
 (isomorphic) if and only if they have the same <span class="math inline">\(j\)</span>-invariant. If we change the shape of
 our lattice even a tiny bit, we change the <span class="math inline">\(j\)</span>-invariant, which means we have moved to
@@ -1046,17 +1054,18 @@ Torus. Every point on the surface is geometrically identical to every
 other point. There is no “inner” or “outer” part. If we lived on the
 surface of a 4D torus, we would never feel like we were turning a “tight
 corner” or a “wide curve.” Every direction would feel perfectly straight
-and flat, just like on your sticky note.</p>
+and flat.</p>
 <p>The reason 4D works is that it allows two circular motions to happen
 independently. Imagine two circles, <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span>. In 3D, if we want to put <span class="math inline">\(C_2\)</span> “around” <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span> has to physically move through the
 space inside and outside of <span class="math inline">\(C_1\)</span>.
 This creates the “hole” and the “stretch.” In 4D, we can have <span class="math inline">\(C_1\)</span> sitting in the <span class="math inline">\(xy\)</span>-plane and <span class="math inline">\(C_2\)</span> sitting in the <span class="math inline">\(zw\)</span>-plane. They share only one point (the
-origin) or none at all. We can “loop” around one without ever getting
+origin), or none at all. We can “loop” around one without ever getting
 closer to or further from the other.</p>
 <p>In abstract algebra, the Clifford Torus is formulated as the direct
-product of two circle groups: <span class="math display">\[T^2 = S^1
-\times S^1\]</span> Each <span class="math inline">\(S^1\)</span> (the
-unit circle) is a group under complex multiplication (if viewed as <span class="math inline">\(e^{i\theta}\)</span>) or addition modulo <span class="math inline">\(2\pi\)</span>. Because <span class="math inline">\(T^2\)</span> is a product of two identical groups,
+product of two circle groups:</p>
+<p><span class="math display">\[T^2 = S^1 \times S^1\]</span></p>
+<p>Each <span class="math inline">\(S^1\)</span> (the unit circle) is a
+group under complex multiplication (if viewed as <span class="math inline">\(e^{i\theta}\)</span>) or addition modulo <span class="math inline">\(2\pi\)</span>. Because <span class="math inline">\(T^2\)</span> is a product of two identical groups,
 it inherits a homogeneous structure. In the 3D “rubber donut” (the
 embedded torus), the two circles are treated differently: one is the
 “generating” circle and the other is the “revolving” circle. In the
@@ -1073,7 +1082,7 @@ special “point at infinity”).</p>
 pick any coordinate <span class="math inline">\(z\)</span> on the
 lattice, the Weierstrass function <span class="math inline">\((\wp(z),
 \wp&#39;(z))\)</span> will give us a valid <span class="math inline">\((x, y)\)</span> pair. Conversely, any <span class="math inline">\((x, y)\)</span> that satisfies <span class="math inline">\(y^2 = x^3 - x\)</span> can be traced back to
-exactly one <span class="math inline">\(z\)</span> on the lattic. In
+exactly one <span class="math inline">\(z\)</span> on the lattice. In
 this case, the “curve” and the “torus” are identical.</p>
 <p>If we only look for real solutions <span class="math inline">\((x, y
 \in \mathbb{R})\)</span> or rational solutions <span class="math inline">\((x, y \in \mathbb{Q})\)</span>, we only see a tiny
@@ -1093,7 +1102,7 @@ aren’t allowed to “stretch” the rubber. We have to preserve angles
 (conformal mapping). If we have a “square” donut (a square sticky note),
 there is no way to map it to a “skinny rectangle” donut using a smooth,
 complex function without distorting the math. These donuts have
-different “flavors” defined by a single number called the <span class="math inline">\(j\)</span>-invariant. If two curves have different
+different “flavors” defined by that single number called the <span class="math inline">\(j\)</span>-invariant. If two curves have different
 <span class="math inline">\(j\)</span>-invariants, they are not the
 same. They are different “species” of donuts that cannot be transformed
 into one another algebraically.</p>
@@ -1118,10 +1127,11 @@ complex plane. The magnitude (<span class="math inline">\(e^{-2\pi
 y}\)</span>) part determines the distance from the origin (the radius).
 As the imaginary part <span class="math inline">\(y\)</span> (the height
 in the upper half-plane) gets larger and larger (<span class="math inline">\(y \to \infty\)</span>) the exponent <span class="math inline">\(-2\pi y\)</span> becomes a very large negative
-number. From basic calculus, we know that <span class="math inline">\(e^{-\infty} = 0\)</span>. In the world of modular
-forms, the “top” of the upper half-plane (where <span class="math inline">\(y\)</span> is infinite) is called a cusp. By using
-the <span class="math inline">\(q\)</span>-expansion, we effectively
-“pinch” that infinite height into a single point: the origin (<span class="math inline">\(q=0\)</span>). This is why we say a cusp form must
+number. We know that <span class="math inline">\(e^{-\infty} =
+0\)</span>. In the world of modular forms, the “top” of the upper
+half-plane (where <span class="math inline">\(y\)</span> is infinite) is
+called a cusp. By using the <span class="math inline">\(q\)</span>-expansion, we effectively “pinch” that
+infinite height into a single point: the origin (<span class="math inline">\(q=0\)</span>). This is why we say a cusp form must
 have <span class="math inline">\(a_0 = 0\)</span>. If <span class="math inline">\(a_0\)</span> were not zero, the function would
 have a value at the center of the disk. Since <span class="math inline">\(a_0 = 0\)</span> for elliptic curves, the function
 “vanishes” (equals zero) at the cusp as you go infinitely high. For the
@@ -1180,13 +1190,16 @@ lattice is <span class="math inline">\(n\omega_1 + m\omega_2\)</span>.
 We usually care about the shape of the lattice, so we look at the ratio:
 <span class="math display">\[z = \frac{\omega_1}{\omega_2}\]</span> This
 <span class="math inline">\(z\)</span> (often called <span class="math inline">\(\tau\)</span>) is a single complex number that
-captures the tilt and relative length of the two vectors. If we want to
-pick a “different set of coordinates” for the same lattice, we need to
-pick two new vectors <span class="math inline">\(\omega_1&#39;\)</span>
-and <span class="math inline">\(\omega_2&#39;\)</span> that generate the
-exact same grid. This happens if we multiply the original basis by an
-integer matrix with determinant 1 <span class="math inline">\((SL(2,
-\mathbb{Z}))\)</span>:</p>
+captures the tilt and relative length of the two vectors:</p>
+<p>When we represent your basis vectors as <span class="math inline">\(w_1 = r_1 e^{i\theta_1}\)</span> and <span class="math inline">\(w_2 = r_2 e^{i\theta_2}\)</span>, the division
+becomes a simple subtraction of the exponents:</p>
+<p><span class="math display">\[\tau = \frac{r_1 e^{i\theta_1}}{r_2
+e^{i\theta_2}} = \left( \frac{r_1}{r_2} \right) e^{i(\theta_1 -
+\theta_2)}\]</span></p>
+<p>If we want to pick a “different set of coordinates” for the same
+lattice, we need to pick two new vectors <span class="math inline">\(\omega_1&#39;\)</span> and <span class="math inline">\(\omega_2&#39;\)</span> that generate the exact
+same grid. This happens if we multiply the original basis by an integer
+matrix with determinant <span class="math inline">\(1\)</span> <span class="math inline">\((SL(2, \mathbb{Z}))\)</span>:</p>
 <p><span class="math display">\[\begin{pmatrix} \omega_1&#39; \\
 \omega_2&#39; \end{pmatrix} = \begin{pmatrix} a &amp; b \\ c &amp; d
 \end{pmatrix} \begin{pmatrix} \omega_1 \\ \omega_2
@@ -1223,8 +1236,8 @@ shuffle.</p>
 measuring the area of a square. If we suddenly decide to measure in
 centimeters instead of inches, your “output” number changes, but the
 physical reality doesn’t. The term <span class="math inline">\((cz+d)^k\)</span> is a correction factor. It
-accounts for how much you “stretched” or “rotated” your view of the
-lattice when you switched coordinates. The exponent <span class="math inline">\(k\)</span> tells you what kind of thing you are
+accounts for how much we stretch or rotate our view of the lattice when
+we switch coordinates. The exponent <span class="math inline">\(k\)</span> tells us what kind of thing we are
 measuring.</p>
 <p>Weight <span class="math inline">\(k=0\)</span> (Invariants): <span class="math inline">\(f(\frac{az+b}{cz+d}) = f(z)\)</span>. This is like
 measuring the ratio of two sides. If we zoom in or out, the ratio stays
@@ -1234,61 +1247,17 @@ regardless of its scale.</p>
 is the “Newform” case for elliptic curves. Computationally, this behaves
 like a density. If we stretch the lattice, the value of <span class="math inline">\(f(z)\)</span> must change by exactly <span class="math inline">\((cz+d)^2\)</span> to ensure that the total “mass”
 (the integral) stays the same.</p>
-<p>A lattice <span class="math inline">\(\Lambda\)</span> in the complex
-plane is generated by two complex numbers, <span class="math inline">\(\omega_1\)</span> and <span class="math inline">\(\omega_2\)</span> (the basis). Any point in the
-lattice is <span class="math inline">\(n\omega_1 + m\omega_2\)</span>.
-We usually care about the shape of the lattice, so we look at the ratio:
-<span class="math display">\[z = \frac{\omega_1}{\omega_2}\]</span> This
-<span class="math inline">\(z\)</span> (often called <span class="math inline">\(\tau\)</span>) is a single complex number that
-captures the tilt and relative length of the two vectors.If we want to
-pick a “different set of coordinates” for the same lattice, we need to
-pick two new vectors <span class="math inline">\(\omega_1&#39;\)</span>
-and <span class="math inline">\(\omega_2&#39;\)</span> that generate the
-exact same grid. This happens if we multiply the original basis by an
-integer matrix with determinant <span class="math inline">\(1\)</span>
-<span class="math inline">\((SL(2, \mathbb{Z}))\)</span>:</p>
-<p><span class="math display">\[\begin{pmatrix} \omega_1&#39; \\
-\omega_2&#39; \end{pmatrix} = \begin{pmatrix} a &amp; b \\ c &amp; d
-\end{pmatrix} \begin{pmatrix} \omega_1 \\ \omega_2
-\end{pmatrix}\]</span> Performing the matrix multiplication gives us the
-new basis vectors:</p>
-<p><span class="math inline">\(\omega_1&#39; = a\omega_1 +
-b\omega_2\)</span></p>
-<p><span class="math inline">\(\omega_2&#39; = c\omega_1 +
-d\omega_2\)</span></p>
-<p>Now, what is the “shape” (<span class="math inline">\(z&#39;\)</span>) of our new description? We divide
-the new vectors just like we did the old ones:</p>
-<p><span class="math display">\[z&#39; =
-\frac{\omega_1&#39;}{\omega_2&#39;} = \frac{a\omega_1 +
-b\omega_2}{c\omega_1 + d\omega_2}\]</span> To express this in terms of
-our original <span class="math inline">\(z =
-\frac{\omega_1}{\omega_2}\)</span>, we divide both the numerator and
-denominator by <span class="math inline">\(\omega_2\)</span>:</p>
-<p><span class="math display">\[z&#39; =
-\frac{a(\frac{\omega_1}{\omega_2}) + b}{c(\frac{\omega_1}{\omega_2}) +
-d} = \frac{az + b}{cz + d}\]</span> This is called a Linear Fractional
-Transformation (or Möbius transformation). Matrix Multiplication is what
-happens to the vectors <span class="math inline">\((\omega_1,
-\omega_2)\)</span> in <span class="math inline">\(\mathbb{C}^2\)</span>.
-The Transformation Law is what happens to the ratio <span class="math inline">\(z\)</span> in the upper half-plane <span class="math inline">\(\mathbb{H}\)</span>. <span class="math inline">\(z
-\to \frac{az+b}{cz+d}\)</span> is a re-shuffling of the grid. We haven’t
-moved the physical points of the lattice; we’ve just renamed which
-vectors you call “the generators.”If <span class="math inline">\(f(z)\)</span> is a modular form, it must be
-“smart” enough to realize that <span class="math inline">\(z\)</span>
-and <span class="math inline">\(\frac{az+b}{cz+d}\)</span> are just two
-different names for the same physical torus. The factor <span class="math inline">\((cz+d)^k\)</span> in the transformation law is the
-“compensation” for the fact that the denominator <span class="math inline">\(\omega_2\)</span> changed to <span class="math inline">\(\omega_2&#39; = (cz+d)\omega_2\)</span> during the
-shuffle.</p>
 <p>In the theory of elliptic curves, the period integral, often denoted
 as <span class="math inline">\(\Omega\)</span> is the most fundamental
-“measurement” you can take. If you think of an elliptic curve as a torus
-(a donut), it has two distinct “loops” you can wrap a string around: one
+“measurement” you can take. If you think of an elliptic curve as a
+torus, it has two distinct “loops” you can wrap a string around: one
 through the center hole (the <span class="math inline">\(\alpha\)</span>-cycle) and one around the body
 (the <span class="math inline">\(\beta\)</span>-cycle). The period is
 the value you get when you integrate the differential form over one of
 these loops:</p>
-<p><span class="math display">\[\Omega = \int_{\gamma} \omega\]</span>
-where <span class="math inline">\(\omega\)</span> is the differential
+<p><span class="math display">\[\Omega = \int_{\gamma}
+\omega\]</span></p>
+<p>where <span class="math inline">\(\omega\)</span> is the differential
 form (*) (like <span class="math inline">\(f(z)dz\)</span> or <span class="math inline">\(\frac{dx}{y}\)</span>) and <span class="math inline">\(\gamma\)</span> is the loop.</p>
 <p>To see why the integral stays the same under this change of basis
 vectors, we have to look at how the differential <span class="math inline">\(dz\)</span> transforms. This is the “missing link”
@@ -1312,27 +1281,30 @@ Now, look at what happens when we multiply the modular form <span class="math in
 <p>The terms <span class="math inline">\((cz+d)^2\)</span> and <span class="math inline">\(\frac{1}{(cz+d)^2}\)</span> cancel each other out
 perfectly:</p>
 <p><span class="math display">\[f(z&#39;) dz&#39; = f(z) dz\]</span></p>
-<p>Computationally, this means the object <span class="math inline">\(\omega = f(z)dz\)</span> is invariant. The Law:
-<span class="math inline">\(f(z&#39;) = (cz+d)^2 f(z)\)</span>. When we
+<p>Computationally, this means the object <span class="math inline">\(\omega = f(z)dz\)</span> is invariant. When we
 “stretch” the lattice basis (changing <span class="math inline">\(z\)</span> to <span class="math inline">\(z&#39;\)</span>), the space itself (<span class="math inline">\(dz\)</span>) shrinks or expands by the inverse
-square factor. The function <span class="math inline">\(f(z)\)</span>
+square factor, <span class="math inline">\(f(z&#39;) = (cz+d)^2
+f(z)\)</span>. The function <span class="math inline">\(f(z)\)</span>
 must “counter-stretch” by <span class="math inline">\((cz+d)^2\)</span>
-so that the product—the “mass” or “density” you are measuring—remains an
-absolute truth about the elliptic curve, independent of your coordinate
-choice. In an elliptic curve <span class="math inline">\(E\)</span>,
-there is a unique (up to scaling) holomorphic differential <span class="math inline">\(\omega\)</span>. When we say an elliptic curve is
-a modular form, we are saying that the differential <span class="math inline">\(\omega\)</span> on the elliptic curve is actually
-the same thing as the differential <span class="math inline">\(f(z)dz\)</span> on the modular curve. If <span class="math inline">\(f(z)\)</span> didn’t follow the <span class="math inline">\(k=2\)</span> law, the integral <span class="math inline">\(\int f(z)dz\)</span> would change values depending
-on which lattice basis you used. You wouldn’t be measuring a property of
-the curve; you’d just be measuring a property of your perspective.</p>
+so that the product — the “mass” or “density” we are measuring — remains
+an absolute truth about the elliptic curve, independent of your
+coordinate choice. In an elliptic curve <span class="math inline">\(E\)</span>, there is a unique (up to scaling)
+holomorphic differential <span class="math inline">\(\omega\)</span>.
+When we say an elliptic curve is a modular form, we are saying that the
+differential <span class="math inline">\(\omega\)</span> on the elliptic
+curve is actually the same thing as the differential <span class="math inline">\(f(z)dz\)</span> on the modular curve. If <span class="math inline">\(f(z)\)</span> didn’t follow the <span class="math inline">\(k=2\)</span> law, the integral <span class="math inline">\(\int f(z)dz\)</span> would change values depending
+on which lattice basis was used. We wouldn’t be measuring a property of
+the curve; we’d just be measuring a property of our perspective.</p>
 <p>To see this differential form arise naturally, let’s look at the
 Weierstrass parametrization. This is the bridge that turns a flat
 complex plane (with a lattice) into a curved algebraic equation <span class="math inline">\(y^2 = 4x^3 - g_2x - g_3.\)</span>. Imagine a
 lattice <span class="math inline">\(\Lambda\)</span> generated by <span class="math inline">\(\{1, \tau\}\)</span>. For any point <span class="math inline">\(u\)</span> in the complex plane, we define two
-functions: <span class="math inline">\(x = \wp(u; \tau)\)</span> (The
-Weierstrass P-function) <span class="math inline">\(y = \wp&#39;(u;
-\tau)\)</span> (Its derivative). These functions satisfy the
-differential equation:</p>
+functions:</p>
+<p><span class="math inline">\(x = \wp(u; \tau)\)</span> (The
+Weierstrass P-function)</p>
+<p><span class="math inline">\(y = \wp&#39;(u; \tau)\)</span> (Its
+derivative).</p>
+<p>These functions satisfy the differential equation:</p>
 <p><span class="math display">\[(\wp&#39;)^2 = 4\wp^3 - g_2\wp -
 g_3\]</span></p>
 <p>Which we rewrite as the elliptic curve equation: <span class="math inline">\(y^2 = 4x^3 - g_2x - g_3\)</span>.</p>
