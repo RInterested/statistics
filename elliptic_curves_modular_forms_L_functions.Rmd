@@ -455,6 +455,27 @@ Each $S^1$ (the unit circle) is a group under complex multiplication (if viewed 
 
 There is a perfect, one-to-one mapping between the points on the complex torus $\mathbb{C}/\Lambda$ and the points on the elliptic curve $E(\mathbb{C})$. Every single point we can identify on that "flat" donut corresponds to exactly one $(x, y)$ solution to the equation (plus one special "point at infinity").
 
+In [here](https://crypto.stackexchange.com/a/70526/32826) the sphere is used as a simplification to visualize $\mathcal O$ shown a 2D $x-y$ plane being "closed" into a 3D shape. However, an elliptic curve isn't topologically a sphere; it's a torus. If you could do a "stereographic projection" of a 4D torus onto a 3D space, we would see something similar. The "point at infinity" $[0:1:0]$ would be the point where the "ends" of the curve meet to close the loop.
+
+---
+
+<img width = 500  src = "elliptic curve point infinity.gif">
+
+---
+
+
+We Imagine a sphere resting on that plane at its South Pole, although the illustration above (adding a point $P$ to $\mathcal O$ to land on $Q,$ which reflects back to $P$), shows the sphere centered at $(0,0,0).$
+
+For every point on the flat plane, we draw a line to the North Pole of the sphere. Where that line pierces the sphere is the "image" of the point. Points very far away on the plane map to points very close to the North Pole. The North Pole is $[0:1:0].$ As the $y$-coordinate on the plane goes to $+\infty$ or $-\infty$, the corresponding points on the sphere all converge at the exact same spot: the North Pole. In the context of the projective plane $\mathbb{P}^2$, we use homogeneous coordinates $[X:Y:Z]$. Any point on the flat plane is $[x:y:1]$. To see what happens at "infinity," we look at the points where $Z=0$. $[0:1:0]$ "violates" the $[x:y:1]$ structure. For points in the plane $[X:Y:Z]$ where $Z \neq 0$ we usually set $Z=1$ for convenience. For points at infinity, $[X:Y:Z]$ where $Z = 0,$ looking at the equation for the elliptic curve in projective form:
+
+$$Y^2 Z = X^3 + aXZ^2 + bZ^3$$
+
+If we plug in $Z=0$ to see which "infinite" points sit on the curve:
+
+$$Y^2(0) = X^3 + aX(0)^2 + b(0)^3$$$$0 = X^3$$
+
+This forces $X = 0$. Since we are in projective space, the coordinates $[0:0:0]$ are forbidden (they don't represent a direction), so the only value left for $Y$ is anything non-zero. We pick $1$ as the representative. Thus: $[0:1:0]$.
+
 When we work over the complex numbers $\mathbb{C}$, the points are "dense." If we pick any coordinate $z$ on the lattice, the Weierstrass function $(\wp(z), \wp'(z))$ will give us a valid $(x, y)$ pair. Conversely, any $(x, y)$ that satisfies $y^2 = x^3 - x$ can be traced back to exactly one $z$ on the lattice. In this case, the "curve" and the "torus" are identical.
 
 If we only look for real solutions $(x, y \in \mathbb{R})$ or rational solutions $(x, y \in \mathbb{Q})$, we only see a tiny fraction of the donut. Real points $E(\mathbb{R})$ look like one or two disconnected loops in 2D space; $O(.$ Geometrically, these are just "slices" of the 4D donut where the imaginary parts happen to be zero. Rational points $E(\mathbb{Q})$ are isolated "dots" on the donut. Imagine taking a physical donut and dipping it into a bucket of colorful sprinkles. The donut is the complex curve, but the sprinkles are the rational points. They sit on the donut, but they don't cover it.
