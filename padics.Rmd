@@ -15,6 +15,68 @@ output:
 
 ---
 
+### Summary:
+
+For **positive integers** its digits expressed in in $p$-adics or in base $p$ are identical, but the direction in which you read or sum them is different.
+
+When you write a positive integer $n$ in base $p$, you are expressing it as a finite sum of powers of $p$:
+
+$$n = a_k p^k + a_{k-1} p^{k-1} + \dots + a_1 p^1 + a_0 p^0$$
+
+where each digit $a_i \in \{0, 1, \dots, p-1\}$. We usually write this as $(a_k a_{k-1} \dots a_1 a_0)_p$ . The sequence of digits terminates to the left (it is finite). The powers of $p$ increase as you move to the left. The "size" of the number is determined by the highest power of $p$.
+
+An element of the $p$-adic integers $\mathbb{Z}_p$ is an infinite formal power series:
+
+$$\alpha = \sum_{i=0}^{\infty} a_i p^i = a_0 + a_1 p^1 + a_2 p^2 + \dots$$
+
+For a standard positive integer $n$, the $p$-adic expansion is simply the base-$p$ expansion where all digits beyond the highest power $p^k$ are zero.
+
+$$n = a_0 + a_1 p + \dots + a_k p^k + 0 \cdot p^{k+1} + 0 \cdot p^{k+2} + \dots$$
+For **negative integers**, in $p$-adics, we don't use minus signs; we use the geometric series. For example, in $2$-adics, what is the representation of $-1$? Since $\frac{1}{1-r} = 1 + r + r^2 + \dots$, we set $r=2$:
+
+$$-1 = \frac{1}{1-2} = 1 + 2^1 + 2^2 + 2^3 + \dots$$
+
+In $p$-adic notation, $-1$ is written as an infinite string of the highest possible digit: $(\dots 11111)_2$ or $(\dots (p-1)(p-1)(p-1))_p$. 
+
+**Fractions** in base $p$: To calculate the base-$3$ expansion of $1/2$ (a "ternary" fraction), you use the same method you'd use to find the decimal expansion of $1/2$ in base $10$: long division.
+
+Since we are working in base $3,$ the only digits we can use are $0, 1,$ and $2$.
+
+First Step: How many times does $2$ go into $1$? It goes in $0$ times. We write down $0.$ and add a "ternary" zero to the $1$, making it $10_3$. Note: In base $3,$ the number $10_3$ is equal to $3$ in decimal. 
+
+Second Step: How many times does $2$ go into $10_3$ (decimal $3$)? $2$ goes into $3$ $1$ time with a remainder of $1$. Write down $1.$ Our expansion is now 0.1.
+
+Third Step: Bring down another $0$, making the remainder $10_3$ again. How many times does $2$ go into $10_3$? Again, it goes in $1$ time with a remainder of $1$. Write down $1$. Our expansion is now $0.11.$
+
+Repeat: Since the remainder is always $1$, the process repeats infinitely. Result: $1/2 = 0.1111\dots_3$
+
+You can double-check this using the sum of a geometric series. In base $3,$ the place values to the right of the point are $3^{-1}, 3^{-2}, 3^{-3}$, and so on. The expansion $0.111\dots_3$ represents:
+
+$$\frac{1}{3^1} + \frac{1}{3^2} + \frac{1}{3^3} + \dots$$
+This is a geometric series with first term $a = 1/3$ and common ratio $r = 1/3$. The formula for the sum is:
+
+$$S = \frac{a}{1 - r}$$
+
+Substituting our values:$$S = \frac{1/3}{1 - 1/3} = \frac{1/3}{2/3} = \frac{1}{2}$$
+
+In $3$-adics, we solve $2x = 1$:
+
+We need $2 \cdot (a_0 + a_1 \cdot 3 + a_2 \cdot 9 + \dots) = 1$.
+
+$2a_0 \equiv 1 \pmod 3 \implies a_0 = 2$ (because $2 \cdot 2 = 4 \equiv 1$).
+
+Now we have a carry. Subtracting $2 \cdot 2 = 4$ from $1$ gives $-3$.
+
+Divide by 3: we now need $2a_1 \equiv -1 \pmod 3 \implies 2a_1 \equiv 2 \pmod 3 \implies a_1 = 1$.
+
+Continuing this, you get a unique, infinite string of digits extending to the left: $\dots 11112_3$.
+
+It’s a perfect symmetry: the digits for $1/2$ are all $1$s in both systems, except for that very first digit in the $p$-adic version.
+
+
+
+---
+
 ### Motivation:
 
 ---
@@ -235,7 +297,7 @@ $x_6: b_0 + \dots + b_5(3125) \implies 1232 + 1(3125) = \mathbf{4357}$
 
 ---
 
-These are the "approximations." They show the value of the number in the ring $\mathbb{Z} / 5^n \mathbb{Z}$.In $p$-adic analysis, we don't think of "closeness" in terms of distance on a number line, but rather in terms of divisibility. The partial sums $x_n$ above are the bridge between standard integers and the $p$-adic world. When we say $x_n$ is the value in the ring $\mathbb{Z} / 5^n \mathbb{Z}$, we mean that $x_n$ is the unique representative (usually chosen from $0$ to $5^n - 1$) of the number $4357$ when you ignore everything divisible by $5^n$. As $n$ increases, the modulus $5^n$ gets larger, and $x_n$ carries more "information" about the number. In $\mathbb{Z}/5^1\mathbb{Z}$, you only know the last digit: $2.$ In $\mathbb{Z}/5^2\mathbb{Z}$, you know the last two digits ($2 + 1 \cdot 5$): $7.$ By the time you reach $x_6$, you have captured the entire value of $4357.$
+These are the approximations. They show the value of the number in the ring $\mathbb{Z} / 5^n \mathbb{Z}$. In $p$-adic analysis, we don't think of "closeness" in terms of distance on a number line, but rather in terms of divisibility. The partial sums $x_n$ above are the bridge between standard integers and the $p$-adic world. When we say $x_n$ is the value in the ring $\mathbb{Z} / 5^n \mathbb{Z}$, we mean that $x_n$ is the unique representative (usually chosen from $0$ to $5^n - 1$) of the number $4357$ when you ignore everything divisible by $5^n$. As $n$ increases, the modulus $5^n$ gets larger, and $x_n$ carries more "information" about the number. In $\mathbb{Z}/5^1\mathbb{Z}$, you only know the last digit: $2.$ In $\mathbb{Z}/5^2\mathbb{Z}$, you know the last two digits ($2 + 1 \cdot 5$): $7.$ By the time you reach $x_6$, you have captured the entire value of $4357.$
 
 The condition $x_{n+1} \equiv x_n \pmod{p^n}$ is just the mathematical way of saying: "To be on a branch at level $n+1$, you must have come from the branch directly below it at level $n$. "You can't teleport from the "remainder $2$" branch at level $1$ to the "remainder $18$" branch at level $2$ if $18 \not\equiv 2 \pmod 5$.
 
