@@ -398,11 +398,40 @@ a_0 + a_1 p^1 + a_2 p^2 + \dots\]</span></p>
 <p>For a standard positive integer <span class="math inline">\(n\)</span>, the <span class="math inline">\(p\)</span>-adic expansion is simply the base-<span class="math inline">\(p\)</span> expansion where all digits beyond the
 highest power <span class="math inline">\(p^k\)</span> are zero.</p>
 <p><span class="math display">\[n = a_0 + a_1 p + \dots + a_k p^k + 0
-\cdot p^{k+1} + 0 \cdot p^{k+2} + \dots\]</span> For <strong>negative
-integers</strong>, in <span class="math inline">\(p\)</span>-adics, we
-don’t use minus signs; we use the geometric series. For example, in
-<span class="math inline">\(2\)</span>-adics, what is the representation
-of <span class="math inline">\(-1\)</span>? Since <span class="math inline">\(\frac{1}{1-r} = 1 + r + r^2 + \dots\)</span>, we
+\cdot p^{k+1} + 0 \cdot p^{k+2} + \dots\]</span></p>
+<p>Example: <span class="math inline">\(128\)</span> in <span class="math inline">\(5\)</span>-adics:</p>
+<p>Divide <span class="math inline">\(128\)</span> by <span class="math inline">\(5:\)</span></p>
+<p><span class="math inline">\(128 \div 5 = \text{Quotient }=25\)</span>
+with a remainder of <span class="math inline">\(\text{Re
+}=3.\)</span></p>
+<p>Divide the quotient <span class="math inline">\((25)\)</span> by
+<span class="math inline">\(5:\)</span></p>
+<p><span class="math inline">\(25 \div 5 = \text{Quotient }=5\)</span>
+with a remainder of <span class="math inline">\(\text{Re
+}=0.\)</span></p>
+<p>Divide the quotient <span class="math inline">\((5)\)</span> by <span class="math inline">\(5:\)</span></p>
+<p><span class="math inline">\(5 \div 5 = \text{Quotient }=1\)</span>
+with a remainder of <span class="math inline">\(\text{Re
+}=0.\)</span></p>
+<p>Divide the quotient <span class="math inline">\((1)\)</span> by <span class="math inline">\(5:\)</span></p>
+<p><span class="math inline">\(1 \div 5 = \text{Quotient }=0\)</span>
+with a remainder of =1.$</p>
+<p>The digits we found <span class="math inline">\((3, 0, 0, 1)\)</span>
+are the coefficients for the powers of <span class="math inline">\(5.\)</span> In <span class="math inline">\(5\)</span>-adic notation, <span class="math inline">\(128\)</span> is expressed as:</p>
+<p><span class="math display">\[128 = 3 \cdot 5^0 + 0 \cdot 5^1 + 0
+\cdot 5^2 + 1 \cdot 5^3\]</span></p>
+<p>In standard base-<span class="math inline">\(5\)</span> notation, we
+write this as <span class="math inline">\(1003_5\)</span>.</p>
+<p>In the <span class="math inline">\(p\)</span>-adic system <span class="math inline">\(\mathbb{Q}_p\)</span>, we view numbers as infinite
+series of powers of <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[\dots + a_3 5^3 + a_2 5^2 + a_1 5^1 +
+a_0 5^0\]</span></p>
+<p>For a positive integer like <span class="math inline">\(128,\)</span>
+all the higher digits (<span class="math inline">\(a_4, a_5\)</span>,
+etc.) are simply <span class="math inline">\(0.\)</span> So, the <span class="math inline">\(5\)</span>-adic expansion of <span class="math inline">\(128\)</span> is: <span class="math display">\[\dots 00001003\]</span></p>
+<p>For <strong>negative integers</strong>, in <span class="math inline">\(p\)</span>-adics, we don’t use minus signs; we use
+the geometric series. For example, in <span class="math inline">\(2\)</span>-adics, what is the representation of
+<span class="math inline">\(-1\)</span>? Since <span class="math inline">\(\frac{1}{1-r} = 1 + r + r^2 + \dots\)</span>, we
 set <span class="math inline">\(r=2\)</span>:</p>
 <p><span class="math display">\[-1 = \frac{1}{1-2} = 1 + 2^1 + 2^2 + 2^3
 + \dots\]</span></p>
@@ -410,17 +439,26 @@ set <span class="math inline">\(r=2\)</span>:</p>
 the highest possible digit: <span class="math inline">\((\dots
 11111)_2\)</span> or <span class="math inline">\((\dots
 (p-1)(p-1)(p-1))_p\)</span>.</p>
-<p><strong>Fractions</strong> in base <span class="math inline">\(p\)</span>: To calculate the base-<span class="math inline">\(3\)</span> expansion of <span class="math inline">\(1/2\)</span> (a “ternary” fraction), you use the
-same method you’d use to find the decimal expansion of <span class="math inline">\(1/2\)</span> in base <span class="math inline">\(10\)</span>: long division.</p>
+<p><strong>Fractions</strong> in base <span class="math inline">\(p\)</span>:</p>
+<p>To calculate the base-<span class="math inline">\(3\)</span>
+expansion of <span class="math inline">\(1/2\)</span> (a “ternary”
+fraction), you use the same method you’d use to find the decimal
+expansion of <span class="math inline">\(1/2\)</span> in base <span class="math inline">\(10,\)</span> i.e. long division.</p>
 <p>Since we are working in base <span class="math inline">\(3,\)</span>
 the only digits we can use are <span class="math inline">\(0,
 1,\)</span> and <span class="math inline">\(2\)</span>.</p>
-<p>First Step: How many times does <span class="math inline">\(2\)</span> go into <span class="math inline">\(1\)</span>? It goes in <span class="math inline">\(0\)</span> times. We write down <span class="math inline">\(0.\)</span> and add a “ternary” zero to the <span class="math inline">\(1\)</span>, making it <span class="math inline">\(10_3\)</span>. Note: In base <span class="math inline">\(3,\)</span> the number <span class="math inline">\(10_3\)</span> is equal to <span class="math inline">\(3\)</span> in decimal.</p>
-<p>Second Step: How many times does <span class="math inline">\(2\)</span> go into <span class="math inline">\(10_3\)</span> (decimal <span class="math inline">\(3\)</span>)? <span class="math inline">\(2\)</span> goes into <span class="math inline">\(3\)</span> <span class="math inline">\(1\)</span>
+<p>First Step:</p>
+<p>How many times does <span class="math inline">\(2\)</span> go into
+<span class="math inline">\(1\)</span>? It goes in <span class="math inline">\(0\)</span> times. We write down <span class="math inline">\(0.\)</span> and add a “ternary” zero to the <span class="math inline">\(1\)</span>, making it <span class="math inline">\(10_3\)</span>. Note: In base <span class="math inline">\(3,\)</span> the number <span class="math inline">\(10_3\)</span> is equal to <span class="math inline">\(3\)</span> in decimal.</p>
+<p>Second Step:</p>
+<p>How many times does <span class="math inline">\(2\)</span> go into
+<span class="math inline">\(10_3\)</span> (decimal <span class="math inline">\(3\)</span>)? <span class="math inline">\(2\)</span> goes into <span class="math inline">\(3\)</span> <span class="math inline">\(1\)</span>
 time with a remainder of <span class="math inline">\(1\)</span>. Write
-down <span class="math inline">\(1.\)</span> Our expansion is now
-0.1.</p>
-<p>Third Step: Bring down another <span class="math inline">\(0\)</span>, making the remainder <span class="math inline">\(10_3\)</span> again. How many times does <span class="math inline">\(2\)</span> go into <span class="math inline">\(10_3\)</span>? Again, it goes in <span class="math inline">\(1\)</span> time with a remainder of <span class="math inline">\(1\)</span>. Write down <span class="math inline">\(1\)</span>. Our expansion is now <span class="math inline">\(0.11.\)</span></p>
+down <span class="math inline">\(1.\)</span> Our expansion is now <span class="math inline">\(0.1.\)</span></p>
+<p>Third Step:</p>
+<p>Bring down another <span class="math inline">\(0\)</span>, making the
+remainder <span class="math inline">\(10_3\)</span> again. How many
+times does <span class="math inline">\(2\)</span> go into <span class="math inline">\(10_3\)</span>? Again, it goes in <span class="math inline">\(1\)</span> time with a remainder of <span class="math inline">\(1\)</span>. Write down <span class="math inline">\(1\)</span>. Our expansion is now <span class="math inline">\(0.11.\)</span></p>
 <p>Repeat: Since the remainder is always <span class="math inline">\(1\)</span>, the process repeats infinitely.
 Result: <span class="math inline">\(1/2 = 0.1111\dots_3\)</span></p>
 <p>You can double-check this using the sum of a geometric series. In
@@ -433,7 +471,8 @@ term <span class="math inline">\(a = 1/3\)</span> and common ratio <span class="
 <p><span class="math display">\[S = \frac{a}{1 - r}\]</span></p>
 <p>Substituting our values:<span class="math display">\[S = \frac{1/3}{1
 - 1/3} = \frac{1/3}{2/3} = \frac{1}{2}\]</span></p>
-<p>In <span class="math inline">\(3\)</span>-adics, we solve <span class="math inline">\(2x = 1\)</span>:</p>
+<p>In <strong><span class="math inline">\(3\)</span>-adics</strong>, we
+solve <span class="math inline">\(2x = 1\)</span>:</p>
 <p>We need <span class="math inline">\(2 \cdot (a_0 + a_1 \cdot 3 + a_2
 \cdot 9 + \dots) = 1\)</span>.</p>
 <p><span class="math inline">\(2a_0 \equiv 1 \pmod 3 \implies a_0 =
@@ -990,9 +1029,9 @@ x_5, x_6, x_6, x_6, \dots)\)</span> The sequence stabilizes. In the ring
 <span class="math inline">\(\mathbb{Z}_5\)</span>, an integer is simply
 a sequence that eventually becomes constant (all zeros) as you move to
 higher powers.</p>
-<p>The “Consistency” column is the mathematical proof that the sequence
-is an element of the inverse limit. We consider the sequence to
-“converge” because the difference between consecutive terms, <span class="math inline">\(x_n - x_{n-1}\)</span>, is <span class="math inline">\(b_{n-1} 5^{n-1}\)</span>. In the <span class="math inline">\(p\)</span>-adic metric, as the power of <span class="math inline">\(p\)</span> increases, the value actually becomes
+<p>The consistency column is the mathematical proof that the sequence is
+an element of the inverse limit. We consider the sequence to “converge”
+because the difference between consecutive terms, <span class="math inline">\(x_n - x_{n-1}\)</span>, is <span class="math inline">\(b_{n-1} 5^{n-1}\)</span>. In the <span class="math inline">\(p\)</span>-adic metric, as the power of <span class="math inline">\(p\)</span> increases, the value actually becomes
 smaller. The distance between <span class="math inline">\(x_1\)</span>
 and <span class="math inline">\(x_2\)</span> is <span class="math inline">\(5^{-1}\)</span>.The distance between <span class="math inline">\(x_5\)</span> and <span class="math inline">\(x_6\)</span> is <span class="math inline">\(5^{-5}\)</span> (very tiny!). So, while the
 integers <span class="math inline">\(x_n\)</span> look like they are
@@ -1195,10 +1234,8 @@ case of <span class="math inline">\(1/3\)</span>:</p>
 <p><span class="math display">\[\boxed{\begin{align}&amp;\text{Reals
 base } 5: &amp;0.\mathbf{131313...}\\
 &amp;5-\text{adics: }&amp;...\mathbf{31313132}\end{align}}\]</span></p>
-<p>only the first digit is different. The connection between the first
-digit of the base <span class="math inline">\(5\)</span> expansion
-(<span class="math inline">\(1\)</span>) and the first digit of the
-<span class="math inline">\(5\)</span>-adic expansion (<span class="math inline">\(2\)</span>) is hidden in a simple piece of
+<p>only the first digit is different.</p>
+<p>The connection between the first digit of the base <span class="math inline">\(5\)</span> expansion (<span class="math inline">\(1\)</span>) and the first digit of the <span class="math inline">\(5\)</span>-adic expansion (<span class="math inline">\(2\)</span>) is hidden in a simple piece of
 arithmetic: <span class="math inline">\(1 + 2 = 3\)</span> (the
 denominator). This isn’t a coincidence. In many cases, the <span class="math inline">\(p\)</span>-adic expansion and the standard
 fractional expansion act like “partners” trying to reach the same target
@@ -1270,7 +1307,8 @@ we get to solve <span class="math inline">\(3d_0 \equiv 1 \pmod
 5\)</span>, and <span class="math inline">\(3 \times \mathbf{2} = 6
 \equiv 1\)</span>. So <span class="math inline">\(d_0 = 2\)</span>.</p>
 <p>Next to calculate (<span class="math inline">\(d_1\)</span>), we
-subtract progress and divide by <span class="math inline">\(5:\)</span></p>
+subtract from the LHS <span class="math inline">\(d_0\)</span> and
+divide by <span class="math inline">\(5:\)</span></p>
 <p><span class="math display">\[\frac{1}{3} = 2 + d_1(5^1) + d_2(5^2) +
 d_3(5^3) + \dots\]</span></p>
 <p><span class="math display">\[\frac{\frac 13 - 2 } 5 =\frac{-1}3 = d_1
