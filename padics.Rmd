@@ -146,13 +146,13 @@ It’s a perfect symmetry: the digits for $1/2$ are all $1$s in both systems, ex
 
 The p-adic expression of a number is akin to placing a filter on the number: the filter of the prime $p$. In the case of $5$-adics for example, the valuation and the size of the $5$-adic expression of a number could be seen as an attempt at extracting the "five-ness" out of the number in question.
 
-Consider a monetary system in which there were coins representing fractions of $5,$ as well as bills with values multiples of $5$. The p-adic twist would dictate that these coins had much larger value than the bills - the inverse of the monetary value, almost like the coins were actually made of precious metals. Imagine that at a shop an attendant is returning $\$450$. The $5$-adic expression is:
+Consider a monetary system in which there were coins representing fractions of $5,$ as well as bills with values multiples of $5$. The p-adic twist would dictate that these coins had much larger value than the bills - the inverse of the actual monetary value, as if the coins were made of precious metals. Imagine that at a shop an attendant is returning $\$450$. The $5$-adic expression is:
 
- $$450 = 0\cdot 5^0 + 0\cdot 5^1 + 3\cdot 5^2 + 3\cdot 5^3$$
+ $$450 = 0\cdot 5^0 + 0\cdot 5^1 + 3\cdot 5^{\text{(val) }2} + 3\cdot 5^3$$
  
-Yes, the cashier could hand over to the customer $\$5$ bills, but this would be bulky. In fact, the most efficient way of giving out this quantity is with $3$ bills of $\$25$ and $3$ bills of $\$125.$ This is exactly what the expression is telling us.
+Yes, the cashier could hand over to the customer $90$ $\$5$ bills, but this would be bulky. In fact, the most efficient way of giving out this quantity is with $3$ bills of $\$25$ and $3$ bills of $\$125.$ This is exactly what the expression is telling us.
 
-The valuation is $2$, because this measures the "five-ness" of $450$. If the coefficient for $5^2$ had been $0$, and the expression had started with a non-zero coefficient at $5^3$, the number would have a valuation of $3$—a higher "five-ness." In $p$-adic terms, this higher valuation means the number is actually smaller (closer to zero), as $|x|_p = 1/p^{v(x)}$.
+The valuation is $2$, because this measures the "five-ness" of $450$. If the coefficient for $5^2$ had been $0$, and the expression had started with a non-zero coefficient at $5^3$, the number would have a valuation of $3$ — a higher "five-ness." In $p$-adic terms, this higher valuation means the number is actually smaller (closer to zero), as $|x|_p = 1/p^{v(x)}$.
 
 On the flip side, the distance to zero would be smaller the higher the valuation: 
 
@@ -160,13 +160,13 @@ $$|450|_5=\frac1{5^{v(x)}}=\frac 1{5^2}$$
 
 where $v(x)=2$ is the valuation of $450$ in this case.
 
-This distance formula $|x|_p = 1/p^v$ reveals that the $5$-adic world is not a continuous line, but a hierarchy. The higher the valuation, the deeper the number is nested within 'folders' of $5$. This creates a tree-like topology where two numbers are close only if they share a long path of common digits. The $p$-adics are a Cantor Set. If you try to plot them on a 2D plane, they look like dust. Every "point" is actually the tip of an infinite branch. The reason you don't see this in real math is that in real math, we carry. If you add $1$ to $0.444_5$, it rolls over and changes everything to the left. In $p$-adics, the "folders" are rigid. Addition happens "deep" in the tree and only affects the branches above it. If you add $1$ to the $5$-adic number $4$ ($...0004$), you get $5$, which is written as $...0010$. So it would be incorrect to say that we only carry in real numbers. The "carry" happens exactly as it does in base 5. The difference isn't that we don't carry; it's where the carry goes and how it affects the "closeness" of the numbers. In $p$-adic math, a carry moves toward higher powers of $p$ ($5, 25, 125$), which are smaller and closer to zero. On the other hand real carry pushes the number away from where you started, as opposed to pushing the number deeper into the tree, actually making it "smaller" in terms of distance to zero.
+This distance formula $|x|_p = 1/p^v$ reveals that the $5$-adic world is not a continuous line, but a hierarchy. The higher the valuation, the deeper the number is nested within 'folders' of $5$. This creates a tree-like topology where two numbers are close only if they share a long path of common digits. The $p$-adics are a Cantor set. If you try to plot them on a 2D plane, they look like dust. Every "point" is actually the tip of an infinite branch. The reason we don't see this in real math is that in real math, we carry. If you add $1$ to $0.444_5$, it rolls over and changes everything to the left. In $p$-adics, the "folders" are rigid. Addition happens "deep" in the tree and only affects the branches above it. If you add $1$ to the $5$-adic number $4$ ($...0004$), you get $5$, which is written as $...0010$. So it would be incorrect to say that we only carry in real numbers. The carry happens exactly as it does in base $5.$ The difference isn't that we don't carry; it's where the carry goes and how it affects the closeness of the numbers. In $p$-adic math, a carry moves toward higher powers of $p$ ($5, 25, 125$), which are smaller and closer to zero. On the other hand real carry pushes the number away from where you started, as opposed to pushing the number deeper into the tree.
 
 If the employee had had to return $\$\frac15$, the expansion would have been:
 
 $$ 1\cdot 5^{-1}+0\cdot 5^{0}+0\cdot 5^{1}+\dots $$
 
-with a valuation of $-1$ and a distance to zero of $5.$ This change is return in some "giant coin". In this system, $1/5$ is actually larger (further from zero) than $1$, which has an expansion of 
+with a valuation of $-1$ and a distance to zero of $5.$ This change is return in some giant coin. In this system, $1/5$ is actually larger (further from zero) than $1$, which has an expansion of 
 
 $$1 = \mathbf{1} \cdot 5^0 + 0 \cdot 5^1 + 0 \cdot 5^2 + \dots$$
 
@@ -178,7 +178,7 @@ has a valuation of $1,$ and a distance to $0$ of $1/5.$
 
 $25$ is smaller, and $1/5$ is a giant.
 
-If you only look at a number through the "$5$-adic prism," you only see its relationship to the prime $5.$ To truly "know" the number in its entirety—its "global" identity—you have to look at it through every single prime prism ($2, 3, 5, 7, 11 \dots$) plus the "standard" prism of the real numbers ($\mathbb{R}$).
+If you only look at a number through the "$5$-adic prism," you only see its relationship to the prime $5.$ To truly "know" the number in its entirety — its "global" identity—you have to look at it through every single prime prism ($2, 3, 5, 7, 11 \dots$) plus the "standard" prism of the real numbers ($\mathbb{R}$).
 
 It is important to point out that the digits in the $5$-adic expansion of a real number like $450$ is identical to the expression in base $5$:
 
@@ -186,11 +186,13 @@ Mathematically, both systems are trying to write 450 as a polynomial in powers o
 
 $$450 = d_k(5^k) + \dots + d_2(5^2) + d_1(5^1) + d_0(5^0)$$
 
-The only difference is the "direction of travel" for the algorithm.
+The only difference is the "direction of travel" for the algorithm. 
 
 #### Expressing $450$ in $5$-adic:
 
 **Nomenclature:**
+
+$$a_0 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)$$
 
 > **Coefficients or p-adic digits**: these are the **d**'s, which are the result of solving a congruence - they are the remainders. They indicate which coset of the ideal $p^n \mathbb{Z}_p$ we are in.
 >        
@@ -208,9 +210,13 @@ since in $\mod 5$ all the terms except $d_0$ get nullified in the expression $\f
 $$\frac {450}1 \equiv  d_0 \pmod 5$$
 - Level $5^0$: 
 
-  - Find $d_0$ such that $1 \cdot d_0 \equiv 450 \pmod 5$. $450$ is divisible by $5$, so $d_0 = 0$.
+  - Find $d_0$ such that $1 \cdot d_0 \equiv 450 \pmod 5$. $450$ is divisible by $5$, so $d_0 = 0$ (the remainder).
 
-  - New $a$: $(450 - 0) / 5 = \mathbf{90}$.
+  - New $a$: $\text{new }a =\frac{\text{old }a-\text{remainder}}{\text{mod}}$
+  
+  Notice that $\text{old }a-\text{remainder}$ will always be divisible by the "mod".
+  
+  $(450 - 0) / 5 = \mathbf{90}$.
 
 - Level $5^1$: 
 
@@ -250,7 +256,7 @@ In standard base conversion, you start with the largest possible power of $5$ an
 
 Result: $\boxed{3300_5}$.
 
-The reason they "coincide" for integers is that both methods — the quotient-based one and the remainder-based one— are actually doing the exact same thing to the number's structure, just from opposite directions. 
+The reason they "coincide" for integers is that both methods — the quotient-based one and the remainder-based one — are actually doing the exact same thing to the number's structure, just from opposite directions. 
 
 They are equivalent because they both seek to satisfy the same fundamental polynomial representation of the number. 
 
@@ -268,7 +274,7 @@ $$\bbox[5px, border: 1px solid black]{\color{red}{4357 = b_0 (5^0) + b_1 (5^1) +
 
 Base $5$ starts by solving for the largest $i$ first ($b_5$). It asks: "What is the most significant part of this number?" It effectively "strips away" the biggest chunks ($1 \cdot 5^5$, then $1 \cdot 5^4$, etc.) until nothing is left.
 
-Step-by-Step "quotient" reasoning:
+Step-by-Step quotient reasoning:
 
 First, let's identify the powers of 5: $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 = 625$, $5^5 = 3,125$, $5^6 = 15,625$. Since $5^5$ is the largest power that fits in $4,357,$ we start there.
 
@@ -292,7 +298,7 @@ The process of converting an integer to a base $p$ is essentially a recursive di
   
 #### Expressing $4357$ in $5$-adic (the congruence approach):
 
-The $5$-adic method starts by solving for the smallest $i$ first ($b_0$). It asks: "What is this number equivalent to, modulo $5$?" It uses the "subtract and divide" logic to "clear out" the units, then the fives, then the twenty-fives, moving from the inside out:
+The $5$-adic method starts by solving for the smallest $i$ first ($b_0$). It asks: "What is this number equivalent to, modulo $5$?" It uses the "subtract and divide" logic to clear out the units, then the fives, then the twenty-fives, moving from the inside out:
 
 To find the $5$-adic expansion of $4,357$, we’ll use that "microscope" method: extracting the digits from the smallest power of $5$ $(5^0)$ up to the largest. Since $4,357$ is a positive integer, the process will eventually terminate (resulting in infinite zeros to the left), and the coefficients will be the same as the base-$5$ digits, just found in reverse order.
 
@@ -303,13 +309,13 @@ $$\boxed{b_i \equiv a_i \pmod 5}$$
 
 at each level. 
 
-How to think of these $a_i$ and $b_i$? Well, $a_0$ is the actual number we start with, in this case $4,357$. But at each step we chisel away the remainder, which is the $b_i$ in the modular congruency that we are solving. But here is the key point: this modular operation starts off at $\mod 5$, which neutralizes the whole tail of the RHS of the expression:
+How to think of these $a_i$ and $b_i$? Well, $a_0$ is the actual number we start with, in this case $4,357$. But at each step we chisel away the remainder, which is the $b_i$ in the modular congruence that we are solving. But here is the key point: this modular operation starts off at $\mod 5$, which neutralizes the whole tail of the RHS of the expression:
 
 $$4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)$$
 
 leaving only $b_0$. In the next step we subtract $4357 - b_0$ to produce the $\text{new } a$: so the `new` $a$ is just the number we started with modified in such manner that it is now congrouous to $5.$ We save the remnant the $b_0$. This new $a$ is divisible by $5,$ but now we want to test the modularity at base $5^2$. We divide again by $5$ for the second time, but only after having subtracted the modular result base $5,$ i.e. $\frac{a - b_0}5$ Again we will find the remnant at that base in $b_1,$ save this remnant as the modular expression of the number at base $25,$ and again subtract. So it is as though we are withering away at the initial integer, always dividing by higher powers of $5,$ and never keeping record of the quotients at all.
 
-In regular division the `quotient` is saved at each step, while the `remainder` is augmented by appending the next (smaller order) digit (or in decimals, simply adding a zero, or **multiplying** $\times 10$). In $5$-adic it is the `remainders` that are saved to reconstitute the number, and it is the initial number (the $a$) that keeps getting chipped away by the `remainder` ($b_i$) and **divided** by $5$ at each step. 
+In regular division the quotient is saved at each step, while the remainder is augmented by appending the next (smaller order) digit (or in decimals, simply adding a zero, or **multiplying** $\times 10$). In $5$-adic it is the remainders that are saved to reconstitute the number, and it is the initial number (the $a$) that keeps getting chipped away by the `remainder` ($b_i$) and **divided** by $5$ at each step. 
 
 ---
 
