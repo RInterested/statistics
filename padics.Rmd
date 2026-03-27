@@ -210,7 +210,12 @@ since in $\mod 5$ all the terms except $d_0$ get nullified in the expression $\f
 $$\frac {450}1 \equiv  d_0 \pmod 5$$
 - Level $5^0$: 
 
+**How much does the initial number in base 5?**
+
   - Find $d_0$ such that $1 \cdot d_0 \equiv 450 \pmod 5$. $450$ is divisible by $5$, so $d_0 = 0$ (the remainder).
+  
+  
+**If we chip away this difference (subtract the remainder) to make it fit, will how close will it fit to a multiple of 5?** 
 
   - New $a$: $\text{new }a =\frac{\text{old }a-\text{remainder}}{\text{mod}}$
   
@@ -222,19 +227,23 @@ $$\frac {450}1 \equiv  d_0 \pmod 5$$
 
   - Find $d_1$ such that $1 \cdot d_1 \equiv 90 \pmod 5$. $90$ is divisible by $5$, so $d_1 = 0$.
   
+**If we chip away this difference from the multiple of 5 in the previous step, how close will 25 fit into it?**
+  
   - New $a$: $(90 - 0) / 5 = \mathbf{18}$.
   
 - Level $5^2$: 
 
   - Find $d_2$ such that $1 \cdot d_2 \equiv 18 \pmod 5$. $18 \div 5$ leaves a remainder of $3$. So $d_2 = 3$.
   
+**If we chip away this difference from the multiple of 25 in the previous step, how close will 125 fit into it?**  
+  
   - New $a$: $(18 - 3) / 5 = \mathbf{3}$.
   
 - Level $5^3$: 
  
   - Find $d_3$ such that $1 \cdot d_3 \equiv 3 \pmod 5$. $3 \div 5$ leaves a remainder of $3$. So $d_3 = 3$.
-   
-  - New $a$: $(3 - 3) / 5 = \mathbf{0}$.
+  
+Et cetera.
   
 Result: (Digits $d_0, d_1, d_2, d_3$) $\rightarrow \boxed{0, 0, 3, 3}$.
 

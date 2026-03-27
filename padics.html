@@ -623,11 +623,16 @@ expression <span class="math inline">\(\frac {450}1 = d_k(5^k) + \dots +
 d_2(5^2) + d_1(5^1) + d_0(5^0)\)</span>. Therefore</p>
 <p><span class="math display">\[\frac {450}1 \equiv  d_0 \pmod
 5\]</span> - Level <span class="math inline">\(5^0\)</span>:</p>
+<p><strong>How much does the initial number in base 5?</strong></p>
 <ul>
-<li><p>Find <span class="math inline">\(d_0\)</span> such that <span class="math inline">\(1 \cdot d_0 \equiv 450 \pmod 5\)</span>. <span class="math inline">\(450\)</span> is divisible by <span class="math inline">\(5\)</span>, so <span class="math inline">\(d_0 =
-0\)</span> (the remainder).</p></li>
-<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\(\text{new }a =\frac{\text{old
-}a-\text{remainder}}{\text{mod}}\)</span></p></li>
+<li>Find <span class="math inline">\(d_0\)</span> such that <span class="math inline">\(1 \cdot d_0 \equiv 450 \pmod 5\)</span>. <span class="math inline">\(450\)</span> is divisible by <span class="math inline">\(5\)</span>, so <span class="math inline">\(d_0 =
+0\)</span> (the remainder).</li>
+</ul>
+<p><strong>If we chip away this difference (subtract the remainder) to
+make it fit, will how close will it fit to a multiple of 5?</strong></p>
+<ul>
+<li>New <span class="math inline">\(a\)</span>: <span class="math inline">\(\text{new }a =\frac{\text{old
+}a-\text{remainder}}{\text{mod}}\)</span></li>
 </ul>
 <p>Notice that <span class="math inline">\(\text{old
 }a-\text{remainder}\)</span> will always be divisible by the “mod”.</p>
@@ -635,23 +640,31 @@ d_2(5^2) + d_1(5^1) + d_0(5^0)\)</span>. Therefore</p>
 <ul>
 <li><p>Level <span class="math inline">\(5^1\)</span>:</p>
 <ul>
-<li><p>Find <span class="math inline">\(d_1\)</span> such that <span class="math inline">\(1 \cdot d_1 \equiv 90 \pmod 5\)</span>. <span class="math inline">\(90\)</span> is divisible by <span class="math inline">\(5\)</span>, so <span class="math inline">\(d_1 =
-0\)</span>.</p></li>
-<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((90 - 0) / 5 = \mathbf{18}\)</span>.</p></li>
-</ul></li>
-<li><p>Level <span class="math inline">\(5^2\)</span>:</p>
-<ul>
-<li><p>Find <span class="math inline">\(d_2\)</span> such that <span class="math inline">\(1 \cdot d_2 \equiv 18 \pmod 5\)</span>. <span class="math inline">\(18 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_2 =
-3\)</span>.</p></li>
-<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((18 - 3) / 5 = \mathbf{3}\)</span>.</p></li>
-</ul></li>
-<li><p>Level <span class="math inline">\(5^3\)</span>:</p>
-<ul>
-<li><p>Find <span class="math inline">\(d_3\)</span> such that <span class="math inline">\(1 \cdot d_3 \equiv 3 \pmod 5\)</span>. <span class="math inline">\(3 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_3 =
-3\)</span>.</p></li>
-<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((3 - 3) / 5 = \mathbf{0}\)</span>.</p></li>
+<li>Find <span class="math inline">\(d_1\)</span> such that <span class="math inline">\(1 \cdot d_1 \equiv 90 \pmod 5\)</span>. <span class="math inline">\(90\)</span> is divisible by <span class="math inline">\(5\)</span>, so <span class="math inline">\(d_1 =
+0\)</span>.</li>
 </ul></li>
 </ul>
+<p><strong>If we chip away this difference from the multiple of 5 in the
+previous step, how close will 25 fit into it?</strong></p>
+<ul>
+<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((90 - 0) / 5 = \mathbf{18}\)</span>.</p></li>
+<li><p>Level <span class="math inline">\(5^2\)</span>:</p>
+<ul>
+<li>Find <span class="math inline">\(d_2\)</span> such that <span class="math inline">\(1 \cdot d_2 \equiv 18 \pmod 5\)</span>. <span class="math inline">\(18 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_2 =
+3\)</span>.</li>
+</ul></li>
+</ul>
+<p><strong>If we chip away this difference from the multiple of 25 in
+the previous step, how close will 125 fit into it?</strong></p>
+<ul>
+<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((18 - 3) / 5 = \mathbf{3}\)</span>.</p></li>
+<li><p>Level <span class="math inline">\(5^3\)</span>:</p>
+<ul>
+<li>Find <span class="math inline">\(d_3\)</span> such that <span class="math inline">\(1 \cdot d_3 \equiv 3 \pmod 5\)</span>. <span class="math inline">\(3 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_3 =
+3\)</span>.</li>
+</ul></li>
+</ul>
+<p>Et cetera.</p>
 <p>Result: (Digits <span class="math inline">\(d_0, d_1, d_2,
 d_3\)</span>) <span class="math inline">\(\rightarrow \boxed{0, 0, 3,
 3}\)</span>.</p>
