@@ -214,11 +214,71 @@ $$(\dots 11111_3) + 1 = \dots 11112_3$$
 
 In the real numbers, we reach $1/2$ by adding smaller and smaller pieces to zero ($0.111\dots$). In the $p$-adics, we reach $1/2$ by starting from the negative universe of the geometric series and shifting it by exactly one unit. Because both systems rely on the same ratio dictated by Euler’s generalization of Fermat’s Theorem they produce the same digits. The only difference is the direction of the expansion and that single first-digit adjustment ($1 \to 2$) required to jump the gap from the negative infinite representation back into the positive world.
 
+---
+
+### Two's Complement Representation in Computer science and the Radix:
+
+In the $3$-adic representation of $1/2$ above we run into $-1 = \dots 2222_3$, which can immediately be generalized as $-1 = \dots (p-1)(p-1)(p-1)(p-1)_p.$ This is effectively the mile $999999$ in an odometer: a natural barrier in itself. It is the unique element that maps to the highest possible value in every single finite modular system simultaneously in $\mathbb{Z}_p$ as the inverse limit of the rings $\mathbb{Z}/p^n\mathbb{Z}$.
+
+In computer science, this is exactly what is known as Two's Complement representation. If you look at a signed integer in a 64-bit system, the number $-1$ is represented as a solid string of $1$s:
+
+Binary: `11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111`
+
+Hexadecimal: `0xFFFFFFFFFFFFFFFF`
+
+The $p$-adics are simply the mathematical generalization of this, where the number of bits is infinite.
+
+In the real line $0$ is the Origin, but for $p$-adics $-1$ is the complementary origin. The symmetry we found between $1/2 = 0.111\dots_3$ (fractional real line system) and $1/2 = \dots 1112_p$ ($3$-adics) is the mathematical proof that the distance from the Real Origin $(0)$ and the $p$-adic origin $(-1)$ to the value $1/2$ is governed by the exact same geometric laws.
+
+The standard Two's Complement is designed for integers only. A 64-bit integer register to cannot deal with $1/2$; it doesn't have a built-in way to do it because $1/2$ isn't a whole number.
+
+In the $3$-adic example, we found that $1/2 = \dots 1112_3$. However, if we apply that same odometer logic to base $2$ (binary), the "wall" is $-1 =...111111$ (An infinite string of $1$'s). And $-1/2$) cannot be worked out as in base $3,$ where it was $...1111$ because $1+1=2$ without a carry. In base $2,$ to get to $1/2,$ we need a number that, when added to itself, equals $...1111.$ In binary, adding a number to itself is the same as shifting it one bit to the left (adding a zero at the end), so we can never output a sum that ends in $1.$ The system fails!
+
+To find $1/2$ in $2$-adics, we use the **Radix Point** (the $p$-adic version of a decimal point). Since $1/2 = 2^{-1}$, its representation is actually finite but below the units place: $1/2 = 0.1_2.$ In base $3,$ $2$ does not divide $3$, so $1/2$ becomes an infinite periodic expansion. In base $2,$ $2$ does divide the base, so it becomes a simple terminating fractional digit. 
+
+For the case of $1/3$ in $2$-adic, since $3$ doesn't divide $2$, it must be an infinite string to the left:
+
+We want to represent $1/3$ as a $2$-adic power series. The $p$-adic representation only accepts denominators of the form $(1 - r)$, where $r$ is a power of $p$. To find that power, we use Fermat’s Little Theorem (or Euler's generalization). What power of $2$ is exactly $1$ more than a multiple of $3$?
+
+$2^1 = 2$ (Not $1 \pmod 3$)
+$2^2 = 4$ (This is $1 \pmod 3$, because $4 = 3 \times 1 + 1$)
+
+So, our power is $n=2$. This tells us that $2^2 - 1$ is a multiple of $3$. Now we force $1/3$ into the geometric serie:
+
+$$\frac{1}{3} = \frac{1}{2^2 - 1}$$
+
+To make it a $2$-adic series, the denominator must be $1 - r$. We factor out a $-1$:
+
+$$\frac{1}{3} = \frac{1}{-(1 - 2^2)} = -1 \cdot \left( \frac{1}{1 - 2^2} \right)$$
+
+Now, we apply the standard geometric series identity: $$\frac{1}{1-r} = 1 + r + r^2 + r^3 + \dots$$
+
+Since our $r$ is $2^2$ (which is $4$), the fraction becomes:
+
+$$-1 \cdot (1 + 2^2 + (2^2)^2 + (2^2)^3 + \dots)$$$$-1 \cdot (1 + 2^2 + 2^4 + 2^6 + \dots)$$
+
+If we expand this, we get the repeating pattern:$$\dots 010101011_2$$
+
+In binary $p=2$, $-1$ is an infinite string of $1$s: $\dots 111111_2$. The series $(1 + 2^2 + 2^4 + 2^6 + \dots)$ are powers of $4$ ($1, 100, 10000, 1000000 \dots$) in binary. In binary, $2^2$ is $100_2$, $2^4$ is $10000_2$, and so on. This series looks like a "comb" of $1$s: 
+
+$$(1 + 4 + 16 + 64 + \dots) = \dots 01010101_2$$
+
+The multiplication results in 
+
+$$$\frac{1}{3} = \dots 010101011_2$$
+
+Comparing this $2$-adic odometer to the standard binary expansion of $1/3$ that a computer scientist would use for decimals: 
+
+Real Binary: $1/3 = 0.01010101\dots_2$
+
+$2$-adic Binary: $1/3 = \dots 010101011_2$
+
+The pattern of $01$ is identical in both. The only break in the symmetry is that very last bit (the $1$ on the far right), which is the adjustment needed because the $p$-adic version is approaching $1/3$ from the wall of $-1$, while the real version is approaching from $0$.
 
 
 ---
 
-### Motivation:
+### From the very basics:
 
 ---
 

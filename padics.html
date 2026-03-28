@@ -609,8 +609,102 @@ required to jump the gap from the negative infinite representation back
 into the positive world.</p>
 <hr />
 </div>
-<div id="motivation" class="section level3">
-<h3>Motivation:</h3>
+<div id="twos-complement-representation-in-computer-science-and-the-radix" class="section level3">
+<h3>Two’s Complement Representation in Computer science and the
+Radix:</h3>
+<p>In the <span class="math inline">\(3\)</span>-adic representation of
+<span class="math inline">\(1/2\)</span> above we run into <span class="math inline">\(-1 = \dots 2222_3\)</span>, which can immediately
+be generalized as <span class="math inline">\(-1 = \dots
+(p-1)(p-1)(p-1)(p-1)_p.\)</span> This is effectively the mile <span class="math inline">\(999999\)</span> in an odometer: a natural barrier
+in itself. It is the unique element that maps to the highest possible
+value in every single finite modular system simultaneously in <span class="math inline">\(\mathbb{Z}_p\)</span> as the inverse limit of the
+rings <span class="math inline">\(\mathbb{Z}/p^n\mathbb{Z}\)</span>.</p>
+<p>In computer science, this is exactly what is known as Two’s
+Complement representation. If you look at a signed integer in a 64-bit
+system, the number <span class="math inline">\(-1\)</span> is
+represented as a solid string of <span class="math inline">\(1\)</span>s:</p>
+<p>Binary:
+<code>11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111</code></p>
+<p>Hexadecimal: <code>0xFFFFFFFFFFFFFFFF</code></p>
+<p>The <span class="math inline">\(p\)</span>-adics are simply the
+mathematical generalization of this, where the number of bits is
+infinite.</p>
+<p>In the real line <span class="math inline">\(0\)</span> is the
+Origin, but for <span class="math inline">\(p\)</span>-adics <span class="math inline">\(-1\)</span> is the complementary origin. The
+symmetry we found between <span class="math inline">\(1/2 =
+0.111\dots_3\)</span> (fractional real line system) and <span class="math inline">\(1/2 = \dots 1112_p\)</span> (<span class="math inline">\(3\)</span>-adics) is the mathematical proof that
+the distance from the Real Origin <span class="math inline">\((0)\)</span> and the <span class="math inline">\(p\)</span>-adic origin <span class="math inline">\((-1)\)</span> to the value <span class="math inline">\(1/2\)</span> is governed by the exact same
+geometric laws.</p>
+<p>The standard Two’s Complement is designed for integers only. A 64-bit
+integer register to cannot deal with <span class="math inline">\(1/2\)</span>; it doesn’t have a built-in way to do
+it because <span class="math inline">\(1/2\)</span> isn’t a whole
+number.</p>
+<p>In the <span class="math inline">\(3\)</span>-adic example, we found
+that <span class="math inline">\(1/2 = \dots 1112_3\)</span>. However,
+if we apply that same odometer logic to base <span class="math inline">\(2\)</span> (binary), the “wall” is <span class="math inline">\(-1 =...111111\)</span> (An infinite string of
+<span class="math inline">\(1\)</span>’s). And <span class="math inline">\(-1/2\)</span>) cannot be worked out as in base
+<span class="math inline">\(3,\)</span> where it was <span class="math inline">\(...1111\)</span> because <span class="math inline">\(1+1=2\)</span> without a carry. In base <span class="math inline">\(2,\)</span> to get to <span class="math inline">\(1/2,\)</span> we need a number that, when added to
+itself, equals <span class="math inline">\(...1111.\)</span> In binary,
+adding a number to itself is the same as shifting it one bit to the left
+(adding a zero at the end), so we can never output a sum that ends in
+<span class="math inline">\(1.\)</span> The system fails!</p>
+<p>To find <span class="math inline">\(1/2\)</span> in <span class="math inline">\(2\)</span>-adics, we use the <strong>Radix
+Point</strong> (the <span class="math inline">\(p\)</span>-adic version
+of a decimal point). Since <span class="math inline">\(1/2 =
+2^{-1}\)</span>, its representation is actually finite but below the
+units place: <span class="math inline">\(1/2 = 0.1_2.\)</span> In base
+<span class="math inline">\(3,\)</span> <span class="math inline">\(2\)</span> does not divide <span class="math inline">\(3\)</span>, so <span class="math inline">\(1/2\)</span> becomes an infinite periodic
+expansion. In base <span class="math inline">\(2,\)</span> <span class="math inline">\(2\)</span> does divide the base, so it becomes a
+simple terminating fractional digit.</p>
+<p>For the case of <span class="math inline">\(1/3\)</span> in <span class="math inline">\(2\)</span>-adic, since <span class="math inline">\(3\)</span> doesn’t divide <span class="math inline">\(2\)</span>, it must be an infinite string to the
+left:</p>
+<p>We want to represent <span class="math inline">\(1/3\)</span> as a
+<span class="math inline">\(2\)</span>-adic power series. The <span class="math inline">\(p\)</span>-adic representation only accepts
+denominators of the form <span class="math inline">\((1 - r)\)</span>,
+where <span class="math inline">\(r\)</span> is a power of <span class="math inline">\(p\)</span>. To find that power, we use Fermat’s
+Little Theorem (or Euler’s generalization). What power of <span class="math inline">\(2\)</span> is exactly <span class="math inline">\(1\)</span> more than a multiple of <span class="math inline">\(3\)</span>?</p>
+<p><span class="math inline">\(2^1 = 2\)</span> (Not <span class="math inline">\(1 \pmod 3\)</span>) <span class="math inline">\(2^2 = 4\)</span> (This is <span class="math inline">\(1 \pmod 3\)</span>, because <span class="math inline">\(4 = 3 \times 1 + 1\)</span>)</p>
+<p>So, our power is <span class="math inline">\(n=2\)</span>. This tells
+us that <span class="math inline">\(2^2 - 1\)</span> is a multiple of
+<span class="math inline">\(3\)</span>. Now we force <span class="math inline">\(1/3\)</span> into the geometric serie:</p>
+<p><span class="math display">\[\frac{1}{3} = \frac{1}{2^2 -
+1}\]</span></p>
+<p>To make it a <span class="math inline">\(2\)</span>-adic series, the
+denominator must be <span class="math inline">\(1 - r\)</span>. We
+factor out a <span class="math inline">\(-1\)</span>:</p>
+<p><span class="math display">\[\frac{1}{3} = \frac{1}{-(1 - 2^2)} = -1
+\cdot \left( \frac{1}{1 - 2^2} \right)\]</span></p>
+<p>Now, we apply the standard geometric series identity: <span class="math display">\[\frac{1}{1-r} = 1 + r + r^2 + r^3 +
+\dots\]</span></p>
+<p>Since our <span class="math inline">\(r\)</span> is <span class="math inline">\(2^2\)</span> (which is <span class="math inline">\(4\)</span>), the fraction becomes:</p>
+<p><span class="math display">\[-1 \cdot (1 + 2^2 + (2^2)^2 + (2^2)^3 +
+\dots)\]</span><span class="math display">\[-1 \cdot (1 + 2^2 + 2^4 +
+2^6 + \dots)\]</span></p>
+<p>If we expand this, we get the repeating pattern:<span class="math display">\[\dots 010101011_2\]</span></p>
+<p>In binary <span class="math inline">\(p=2\)</span>, <span class="math inline">\(-1\)</span> is an infinite string of <span class="math inline">\(1\)</span>s: <span class="math inline">\(\dots
+111111_2\)</span>. The series <span class="math inline">\((1 + 2^2 + 2^4
++ 2^6 + \dots)\)</span> are powers of <span class="math inline">\(4\)</span> (<span class="math inline">\(1, 100,
+10000, 1000000 \dots\)</span>) in binary. In binary, <span class="math inline">\(2^2\)</span> is <span class="math inline">\(100_2\)</span>, <span class="math inline">\(2^4\)</span> is <span class="math inline">\(10000_2\)</span>, and so on. This series looks
+like a “comb” of <span class="math inline">\(1\)</span>s:</p>
+<p><span class="math display">\[(1 + 4 + 16 + 64 + \dots) = \dots
+01010101_2\]</span></p>
+<p>The multiplication results in</p>
+<p><span class="math display">\[$\frac{1}{3} = \dots
+010101011_2\]</span></p>
+<p>Comparing this <span class="math inline">\(2\)</span>-adic odometer
+to the standard binary expansion of <span class="math inline">\(1/3\)</span> that a computer scientist would use
+for decimals:</p>
+<p>Real Binary: <span class="math inline">\(1/3 =
+0.01010101\dots_2\)</span></p>
+<p><span class="math inline">\(2\)</span>-adic Binary: <span class="math inline">\(1/3 = \dots 010101011_2\)</span></p>
+<p>The pattern of <span class="math inline">\(01\)</span> is identical
+in both. The only break in the symmetry is that very last bit (the <span class="math inline">\(1\)</span> on the far right), which is the
+adjustment needed because the <span class="math inline">\(p\)</span>-adic version is approaching <span class="math inline">\(1/3\)</span> from the wall of <span class="math inline">\(-1\)</span>, while the real version is approaching
+from <span class="math inline">\(0\)</span>.</p>
+<hr />
+</div>
+<div id="from-the-very-basics" class="section level3">
+<h3>From the very basics:</h3>
 <hr />
 <p>The p-adic expression of a number is akin to placing a filter on the
 number: the filter of the prime <span class="math inline">\(p\)</span>.
