@@ -475,10 +475,11 @@ right of the point are <span class="math inline">\(3^{-1}, 3^{-2},
 \frac{1}{3^3} + \dots\]</span> This is a geometric series with first
 term <span class="math inline">\(a = 1/3\)</span> and common ratio <span class="math inline">\(r = 1/3\)</span>. The formula for the sum is:</p>
 <p><span class="math display">\[S = \frac{a}{1 - r}\]</span></p>
-<p>Substituting our values:<span class="math display">\[S = \frac{1/3}{1
-- 1/3} = \frac{1/3}{2/3} = \frac{1}{2}\]</span></p>
-<p>In <span class="math inline">\(\color{red}{3\text{-adics}}\)</span>
-we solve <span class="math inline">\(2x = 1\)</span>:</p>
+<p>Substituting our values:</p>
+<p><span class="math display">\[S = \frac{1/3}{1 - 1/3} =
+\frac{1/3}{2/3} = \frac{1}{2}\]</span></p>
+<p><strong><span class="math inline">\(\color{red}{3\text{-adics}}\)</span></strong></p>
+<p>We solve <span class="math inline">\(2x = 1\)</span>:</p>
 <p>We need <span class="math inline">\(2 \cdot (a_0 + a_1 \cdot 3 + a_2
 \cdot 9 + \dots) = 1\)</span>. Since we are operating mod <span class="math inline">\(3\)</span> the expression simplifies to:</p>
 <p><span class="math inline">\(a_0 \equiv 1 \pmod 3\)</span></p>
@@ -505,6 +506,107 @@ extending to the left: <span class="math inline">\(\dots
 <p>It’s a perfect symmetry: the digits for <span class="math inline">\(1/2\)</span> are all <span class="math inline">\(1\)</span>s in both systems, except for that very
 first digit in the <span class="math inline">\(p\)</span>-adic
 version.</p>
+<p>As what follows may help clarify, this is not surprising. Looking at
+it from the perspective of a geometric series. It stems from the fact
+that both systems are trying to represent the same algebraic
+relationship — the inverse of <span class="math inline">\(2\)</span> —
+using the same building blocks: the powers of <span class="math inline">\(3.\)</span></p>
+<p>To express a number as a string of digits in the <span class="math inline">\(3\)</span>-adic system, we are essentially looking
+for an initial value (<span class="math inline">\(a\)</span>) and a
+ratio (<span class="math inline">\(r\)</span>) such that the number is
+the sum of a geometric series:</p>
+<p><span class="math display">\[\frac{1}{2} = a(1 + r + r^2 + r^3 +
+\dots)\]</span></p>
+<p>In the <span class="math inline">\(3\)</span>-adic world, this sum
+only converges if the ratio <span class="math inline">\(r\)</span> is
+small. Since <span class="math inline">\(3\)</span> is small (closer to
+zero than <span class="math inline">\(1\)</span> is), we choose <span class="math inline">\(r = 3\)</span> (or a power of <span class="math inline">\(3\)</span>). If this expansion were finite, it
+would simply be a standard integer (a polynomial in <span class="math inline">\(3\)</span>). But <span class="math inline">\(1/2\)</span> is not an integer. Therefore, the
+error or remainder after any finite number of steps will never be zero.
+To neutralize this remainder, the series must be infinite. In <span class="math inline">\(p\)</span>-adics, an infinite sum of increasing
+powers doesn’t explode to infinity; it wraps around the number line to
+hit fractional targets.</p>
+<p>To guarantee that any fraction <span class="math inline">\(a/b\)</span> can be forced into this geometric
+shape Fermat’s Little Theorem acts as the architect: for any denominator
+<span class="math inline">\(b\)</span> (co-prime to <span class="math inline">\(p\)</span>), there is a power <span class="math inline">\(p^n\)</span> that is <span class="math inline">\(1\)</span> more than a multiple of <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[p^n \equiv 1 \pmod{b} \implies p^n - 1 =
+b \cdot k\]</span></p>
+<p>This allows us to rewrite any denominator <span class="math inline">\(b\)</span> into the form <span class="math inline">\(p^n - 1\)</span>.</p>
+<p>Fermat’s Little Theorem (FLT) specifically states <span class="math inline">\(p^{b-1} \equiv 1 \pmod{b}\)</span> when <span class="math inline">\(b\)</span> is prime. However, in the case of any
+denominator <span class="math inline">\(b\)</span> (even composite ones
+like <span class="math inline">\(b=10\)</span>), we use the Euler-Fermat
+Theorem (a generalization of FLT). It says that as long as <span class="math inline">\(p\)</span> and <span class="math inline">\(b\)</span> share no common factors (<span class="math inline">\(gcd(p, b) = 1\)</span>), then:</p>
+<p><span class="math display">\[p^{\phi(b)} \equiv 1 \pmod{b}\]</span>
+Where <span class="math inline">\(\phi(b)\)</span> is the count of
+numbers less than <span class="math inline">\(b\)</span> that are
+coprime to it. Whether <span class="math inline">\(b\)</span> is prime
+or composite, there is always some power <span class="math inline">\(n\)</span> that lands you at <span class="math inline">\(1 \pmod{b}\)</span>. This ensures <span class="math inline">\(b \cdot k = p^n - 1\)</span> always has an integer
+solution for <span class="math inline">\(k\)</span>.</p>
+<p>Because we must use the form <span class="math inline">\(1 -
+r\)</span> for our series to work, and Fermat gives us <span class="math inline">\(p^n - 1\)</span>, we are forced to introduce a
+negative sign to flip the denominator:</p>
+<p><span class="math display">\[\frac{1}{b} = \frac{k}{p^n - 1} =
+\frac{k}{-(1 - p^n)} = -k \left( \frac{1}{1 - p^n} \right)\]</span></p>
+<p>Therefore we really start in the negatives. To represent a positive
+fraction as an infinite string of <span class="math inline">\(p\)</span>-adic integers, we are actually
+expanding a negative integer and shifting it across the origin. This
+creates the symmetry. In Base <span class="math inline">\(p,\)</span> we
+approach the fraction by adding smaller and smaller pieces (<span class="math inline">\(p^{-n}\)</span>) starting from zero. In <span class="math inline">\(p\)</span>-adics, we approach the fraction by
+adding <span class="math inline">\(p\)</span>-adically smaller pieces
+(<span class="math inline">\(p^n\)</span>).</p>
+<p>Because both systems use the same geometric ratio (<span class="math inline">\(p\)</span>) to close the same gap, they generate
+the same digits. The <span class="math inline">\(p\)</span>-adic version
+is simply the arithmetic shadow or complement of the real-world
+expansion. The first digit differs because the <span class="math inline">\(p\)</span>-adic tree has to make one final carry
+to jump from the negative side of the origin to the positive side where
+<span class="math inline">\(1/2\)</span> actually lives.</p>
+<p>If we want to represent <span class="math inline">\(1/2\)</span> in
+<span class="math inline">\(3\)</span>-adics (<span class="math inline">\(p=3, b=2\)</span>), we find the Fermat power
+(<span class="math inline">\(n\)</span>): We need</p>
+<p><span class="math display">\[3^n \equiv 1 \pmod{2}\]</span></p>
+<p><span class="math inline">\(3^1 = 3 \equiv 1 \pmod{2}\)</span>. So,
+<span class="math inline">\(n = 1\)</span>. Next, we find the multiple
+(<span class="math inline">\(k\)</span>)</p>
+<p><span class="math display">\[3^1 - 1 = 2 \cdot k \implies 2 = 2 \cdot
+1\]</span></p>
+<p>So, <span class="math inline">\(k = 1\)</span>. Therefore, the
+geometric series setup is</p>
+<p><span class="math display">\[\frac{1}{2} = \frac{1}{3-1}\]</span></p>
+<p>To get our <span class="math inline">\(p\)</span>-adic series, we
+need the denominator to be <span class="math inline">\((1-3)\)</span>,
+so we factor out a <span class="math inline">\(-1\)</span>:</p>
+<p><span class="math display">\[\frac{1}{2} = \frac{1}{-(1-3)} = -1
+\cdot \left( \frac{1}{1-3} \right)\]</span></p>
+<p>Now we replace the fraction with the geometric series <span class="math inline">\(1 + r + r^2 \dots\)</span>:</p>
+<p><span class="math display">\[\frac{1}{2} = -1 \cdot (1 + 3^1 + 3^2 +
+3^3 + \dots)\]</span></p>
+<p>Since <span class="math inline">\(-1 = \dots 2222_3\)</span>,</p>
+<p><span class="math display">\[(\dots 2222_3) \times (1 + 3 + 9 + 27 +
+\dots)\]</span></p>
+<p>we’ll show a pattern if we find the first few digits of the result,
+we multiply the “infinite” <span class="math inline">\(-1\)</span>:</p>
+<p>Term 1: <span class="math inline">\((\dots 2222) \times 1 = \dots
+2222\)</span></p>
+<p>Term 2: <span class="math inline">\((\dots 2222) \times 3 = \dots
+2220\)</span> (The string shifts left, adding a zero)</p>
+<p>Term 3: <span class="math inline">\((\dots 2222) \times 9 = \dots
+2200\)</span></p>
+<p>Term 4: <span class="math inline">\((\dots 2222) \times 27 = \dots
+2000\)</span></p>
+<p>The digits “collapse” into a repeating pattern of <span class="math inline">\(1\)</span>s. This is the <span class="math inline">\(p\)</span>-adic representation of <span class="math inline">\(-1/2\)</span>:</p>
+<p><span class="math display">\[-1/2 = \dots 11111_3\]</span></p>
+<p>But we are looking for positive <span class="math inline">\(1/2\)</span>. Since <span class="math inline">\(1/2 = 1 + (-1/2)\)</span>, we simply add <span class="math inline">\(1\)</span> to our infinite string of <span class="math inline">\(1\)</span>s:</p>
+<p><span class="math display">\[(\dots 11111_3) + 1 = \dots
+11112_3\]</span></p>
+<p>In the real numbers, we reach <span class="math inline">\(1/2\)</span> by adding smaller and smaller pieces
+to zero (<span class="math inline">\(0.111\dots\)</span>). In the <span class="math inline">\(p\)</span>-adics, we reach <span class="math inline">\(1/2\)</span> by starting from the negative
+universe of the geometric series and shifting it by exactly one unit.
+Because both systems rely on the same ratio dictated by Euler’s
+generalization of Fermat’s Theorem they produce the same digits. The
+only difference is the direction of the expansion and that single
+first-digit adjustment (<span class="math inline">\(1 \to 2\)</span>)
+required to jump the gap from the negative infinite representation back
+into the positive world.</p>
 <hr />
 </div>
 <div id="motivation" class="section level3">

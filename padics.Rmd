@@ -104,9 +104,13 @@ This is a geometric series with first term $a = 1/3$ and common ratio $r = 1/3$.
 
 $$S = \frac{a}{1 - r}$$
 
-Substituting our values:$$S = \frac{1/3}{1 - 1/3} = \frac{1/3}{2/3} = \frac{1}{2}$$
+Substituting our values:
 
-In $\color{red}{3\text{-adics}}$ we solve $2x = 1$:
+$$S = \frac{1/3}{1 - 1/3} = \frac{1/3}{2/3} = \frac{1}{2}$$
+
+**$\color{red}{3\text{-adics}}$**
+
+We solve $2x = 1$:
 
 We need $2 \cdot (a_0 + a_1 \cdot 3 + a_2 \cdot 9 + \dots) = 1$. Since we are operating mod $3$ the expression simplifies to:
 
@@ -136,6 +140,80 @@ $2a_1 \equiv -1 \pmod 3 \implies 2a_1 \equiv 2 \pmod 3 \implies a_1 = 1$.
 Continuing this, you get a unique, infinite string of digits extending to the left: $\dots 11112_3$.
 
 It’s a perfect symmetry: the digits for $1/2$ are all $1$s in both systems, except for that very first digit in the $p$-adic version.
+
+As what follows may help clarify, this is not surprising. Looking at it from the perspective of a geometric series. It stems from the fact that both systems are trying to represent the same algebraic relationship — the inverse of $2$ — using the same building blocks: the powers of $3.$
+
+To express a number as a string of digits in the $3$-adic system, we are essentially looking for an initial value ($a$) and a ratio ($r$) such that the number is the sum of a geometric series:
+
+$$\frac{1}{2} = a(1 + r + r^2 + r^3 + \dots)$$
+
+In the $3$-adic world, this sum only converges if the ratio $r$ is small. Since $3$ is small (closer to zero than $1$ is), we choose $r = 3$ (or a power of $3$). If this expansion were finite, it would simply be a standard integer (a polynomial in $3$). But $1/2$ is not an integer. Therefore, the error or remainder after any finite number of steps will never be zero. To neutralize this remainder, the series must be infinite. In $p$-adics, an infinite sum of increasing powers doesn't explode to infinity; it wraps around the number line to hit fractional targets.
+
+To guarantee that any fraction $a/b$ can be forced into this geometric shape Fermat’s Little Theorem acts as the architect: for any denominator $b$ (co-prime to $p$), there is a power $p^n$ that is $1$ more than a multiple of $b$.
+
+$$p^n \equiv 1 \pmod{b} \implies p^n - 1 = b \cdot k$$
+
+This allows us to rewrite any denominator $b$ into the form $p^n - 1$. 
+
+Fermat's Little Theorem (FLT) specifically states $p^{b-1} \equiv 1 \pmod{b}$ when $b$ is prime. However, in the case of any denominator $b$ (even composite ones like $b=10$), we use the Euler-Fermat Theorem (a generalization of FLT). It says that as long as $p$ and $b$ share no common factors ($gcd(p, b) = 1$), then: 
+
+$$p^{\phi(b)} \equiv 1 \pmod{b}$$
+Where $\phi(b)$ is the count of numbers less than $b$ that are coprime to it. Whether $b$ is prime or composite, there is always some power $n$ that lands you at $1 \pmod{b}$. This ensures $b \cdot k = p^n - 1$ always has an integer solution for $k$.
+
+Because we must use the form $1 - r$ for our series to work, and Fermat gives us $p^n - 1$, we are forced to introduce a negative sign to flip the denominator:
+
+$$\frac{1}{b} = \frac{k}{p^n - 1} = \frac{k}{-(1 - p^n)} = -k \left( \frac{1}{1 - p^n} \right)$$
+
+Therefore we really start in the negatives. To represent a positive fraction as an infinite string of $p$-adic integers, we are actually expanding a negative integer and shifting it across the origin. This creates the symmetry. In Base $p,$ we approach the fraction by adding smaller and smaller pieces ($p^{-n}$) starting from zero. In $p$-adics, we approach the fraction by adding $p$-adically smaller pieces ($p^n$).
+
+Because both systems use the same geometric ratio ($p$) to close the same gap, they generate the same digits. The $p$-adic version is simply the arithmetic shadow or complement of the real-world expansion. The first digit differs because the $p$-adic tree has to make one final carry to jump from the negative side of the origin to the positive side where $1/2$ actually lives.
+
+If we want to represent $1/2$ in $3$-adics ($p=3, b=2$), we find the Fermat power ($n$): We need 
+
+$$3^n \equiv 1 \pmod{2}$$
+
+$3^1 = 3 \equiv 1 \pmod{2}$. So, $n = 1$. Next, we find the multiple ($k$) 
+
+$$3^1 - 1 = 2 \cdot k \implies 2 = 2 \cdot 1$$ 
+
+So, $k = 1$. Therefore, the geometric series setup is
+
+$$\frac{1}{2} = \frac{1}{3-1}$$
+
+To get our $p$-adic series, we need the denominator to be $(1-3)$, so we factor out a $-1$:
+
+$$\frac{1}{2} = \frac{1}{-(1-3)} = -1 \cdot \left( \frac{1}{1-3} \right)$$
+
+Now we replace the fraction with the geometric series $1 + r + r^2 \dots$:
+
+$$\frac{1}{2} = -1 \cdot (1 + 3^1 + 3^2 + 3^3 + \dots)$$
+
+
+Since $-1 = \dots 2222_3$, 
+
+$$(\dots 2222_3) \times (1 + 3 + 9 + 27 + \dots)$$
+
+we'll show a pattern if we find the first few digits of the result, we multiply the "infinite" $-1$:
+
+Term 1: $(\dots 2222) \times 1 = \dots 2222$
+
+Term 2: $(\dots 2222) \times 3 = \dots 2220$ (The string shifts left, adding a zero)
+
+Term 3: $(\dots 2222) \times 9 = \dots 2200$
+
+Term 4: $(\dots 2222) \times 27 = \dots 2000$
+
+
+The digits "collapse" into a repeating pattern of $1$s. This is the $p$-adic representation of $-1/2$:
+
+$$-1/2 = \dots 11111_3$$
+
+But we are looking for positive $1/2$. Since $1/2 = 1 + (-1/2)$, we simply add $1$ to our infinite string of $1$s:
+
+$$(\dots 11111_3) + 1 = \dots 11112_3$$
+
+In the real numbers, we reach $1/2$ by adding smaller and smaller pieces to zero ($0.111\dots$). In the $p$-adics, we reach $1/2$ by starting from the negative universe of the geometric series and shifting it by exactly one unit. Because both systems rely on the same ratio dictated by Euler’s generalization of Fermat’s Theorem they produce the same digits. The only difference is the direction of the expansion and that single first-digit adjustment ($1 \to 2$) required to jump the gap from the negative infinite representation back into the positive world.
+
 
 
 ---
