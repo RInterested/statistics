@@ -218,7 +218,51 @@ In the real numbers, we reach $1/2$ by adding smaller and smaller pieces to zero
 
 ### Two's Complement Representation in Computer science and the Radix:
 
-In the $3$-adic representation of $1/2$ above we run into $-1 = \dots 2222_3$, which can immediately be generalized as $-1 = \dots (p-1)(p-1)(p-1)(p-1)_p.$ This is effectively the mile $999999$ in an odometer: a natural barrier in itself. It is the unique element that maps to the highest possible value in every single finite modular system simultaneously in $\mathbb{Z}_p$ as the inverse limit of the rings $\mathbb{Z}/p^n\mathbb{Z}$.
+In the $3$-adic representation of $1/2$ above we run into $-1 = \dots 2222_3$, which can immediately be generalized as $-1 = \dots (p-1)(p-1)(p-1)(p-1)_p.$ This is effectively the mile $999999$ in an odometer: a natural barrier in itself. 
+
+In this system, one more negative click would land us at
+
+$$-2 = \dots2221_3$$
+followed by 
+
+$$-3 = \dots2220_3$$
+While adding $+1$ lands us at
+
+$$0=\cdots 0000_3$$
+
+and one more
+
+$$1 = \dots 0001_3$$
+This is wrap around between $0$ and $-1$ without using the minus sign is only possible in the setting of an infinite series and a new metric that allows convergence. But given these premises, there is an effective inversion at the end of the odometer. 
+
+So what would be the p-adic equivalent of an odometer at $999991$? In base $10$, it would have to be assigned to $-9:$ counting backward looks like: $-1 = \dots 999999_{10}$, $-2 = \dots 999998_{10}$, $-3 = \dots 999997_{10}$ and so on until $-9 = \dots 999991_{10}$.
+
+In a standard car odometer with only $6$ digits, `999991` is both the positive number $+999,991$ and the negative number $-9$. They are physically the same state of the gears. But in $p$-adics, because the odometer is infinite, they are two completely different settings. 
+
+In a finite $6$-digit odometer (base $10$):
+
+Positive `999,991`: `999991`
+Negative `9`: `999991` (Because $999991 + 9 = 1,000,000$, which rolls over to $000000$).
+
+In the $p$-adic odometer (infinite digits):
+
+Positive `999,991`: `...000000000999991`
+(It has an infinite string of zeros to the left. It never hits the wall)
+Negative `9`: `...999999999999991`
+
+It is a "two-way odometer":
+
+A positive Integer is a finite string of digits that eventually turns into infinite zeros.
+
+A Negative Integer is a finite string of digits that eventually turns into infinite $(p-1)$s.
+
+They occupy different "neighborhoods" of the $p$-adic universe. In the real number line, $+999,991$ is huge and $-9$ is small. It would be tempting to falsely state that the $p$-adic metric, $-9$ is closer to the wall ($\dots 999$), while $+999,991$ is "closer" to zero ($\dots 000$).
+
+To be close to zero, a number must end in many zeros. To be close to $-1$, a number must end in many nines. However, $+999,991$, corresponding to $\dots 0000000999991$ doesn't even share one trailing zero with the zero-wall. It is technically far from zero (Distance = $1$). On the same odometer, the expansion of $-9$ is $\dots 999999999999991$: It matches the "9"s of the wall for almost the entire infinite string, except for the very last digit ($1$ vs $9$). It is also technically far from the wall (Distance = $1$). So perhaps the best term would be 'anchored': Positive integers are anchored to the zero-Wall. Even if $+999,991$ is far from zero, its tail is made of infinite zeros. It belongs to the zero neighborhood. Negative integers are anchored to the negative wall. Even if $-9$ is far from $-1$, its "tail" is made of infinite nines. It belongs to the "wall" neighborhood." To be truly close to an anchor in $p$-adics, you need a high power of the base: The number $1,000,000$ ($\dots 0001000000$) shares six zeros with the anchor, so it's close to $0$. On the other hand, the number $-1,000,001$ ($\dots 9998999999$) shares six nines with the anchor. In the $p$-adic metric, $1,000,000$ is small and $1$ is large.
+
+A number like $1/2$ ($\dots 1112_3$) is the ultimate nomad. It is not anchored to the zero-wall of infinite zeros, nor is it anchored to the negative-wall of infinite twos. Because its tail is periodic and never settles into a single repeating digit of $0$ or $(p-1)$, it belongs to neither neighborhood. It is a 'fractional' state that can only exist because the odometer is infinite, allowing it to stay in a permanent state of 'rolling over' without ever arriving at a final destination."
+
+$\dots (p-1)(p-1)(p-1)_p$ is the unique element that maps to the highest possible value in every single finite modular system simultaneously in $\mathbb{Z}_p$ as the inverse limit of the rings $\mathbb{Z}/p^n\mathbb{Z}$.
 
 In computer science, this is exactly what is known as Two's Complement representation. If you look at a signed integer in a 64-bit system, the number $-1$ is represented as a solid string of $1$s:
 
