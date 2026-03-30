@@ -903,7 +903,18 @@ Because $125$ is exactly $5^3$, we can prove they share $3$ levels of folders. I
 
 ---
 
-The $p$-adic integers ($\mathbb{Z}_p$) are best visualized as a toroidal solenoid — an infinite "snake-in-a-snake" construction. This geometry represents the product of a continuous 1D line (the Wire) and the discrete, self-similar structure of the $p$-adic gears. A cross-section of this solenoid reveals a series of nested circles (tori) corresponding to progressively higher powers of $p^k$. The Fat Torus $T_0$ represents the first digit ($a_0$). It contains $p$ primary "petals." The smaller, nested tori ($T_k$) wind $p$ times inside the one before it. At each level $k$, the number of possible "stops" or addresses is $p^k$. As $k \to \infty$, these petals decrease in size until they become a Cantor Set — a "fuzz" of points indistinguishable to the eye, yet each uniquely defined.
+The $p$-adic integers ($\mathbb{Z}_p$) are best visualized as a toroidal solenoid — an infinite "snake-in-a-snake" construction:
+
+From THE DYADIC SOLENOID by JAMES KEESLING
+
+---
+
+<img width = 600  src = "toroidal_solenoid.png">
+
+---
+
+
+This geometry represents the product of a continuous 1D line (the Wire) and the discrete, self-similar structure of the $p$-adic gears. A cross-section of this solenoid reveals a series of nested circles (tori) corresponding to progressively higher powers of $p^k$. The Fat Torus $T_0$ represents the first digit ($a_0$). It contains $p$ primary "petals." The smaller, nested tori ($T_k$) wind $p$ times inside the one before it. At each level $k$, the number of possible "stops" or addresses is $p^k$. As $k \to \infty$, these petals decrease in size until they become a Cantor Set — a "fuzz" of points indistinguishable to the eye, yet each uniquely defined.
 
 A specific $p$-adic number is tantamount to threading a wire of zero diameter through exactly one petal at every level of nesting. The wire's journey is dictated by the digits relative to the Radix Point: To the left of the point ($p^0, p^1, p^2 \dots$), these digits represent the wire diving deeper into smaller tori. They define the number’s identity or location in the Cantor set. To the Right of the point ($p^{-1}, p^{-2}, p^{-3} \dots$), these digits represent the wire's winding around the center hole of the tori. These are the "remainders" that generate color. The "skin" of the wire is colored by the Pontryagin Character $\chi_x(q)$. For a number $x$ at a specific petal (test point) $q$, the color is determined by the fractional part of their product: 
 
@@ -959,7 +970,114 @@ $q = 1/27$: $\{1/2 \cdot 1/27\}_3 = 14/27 \to \mathbf{186^\circ}$ (Cyan/Green)
 The color for $1/2$ is "vibrating." It doesn't settle into a single color like an integer; it dances around the wheel as we zoom in.
 
 
-<img width = 400  src = "3-adic_integers_with_labels.png">
+To translate the $p$-adic fractional part into degrees, you are essentially mapping a fraction of a circle to a position on the color wheel.Since a full circle is 360°, you simply multiply the $p$-adic fractional part by 360.
+
+The Conversion Formula:
+
+$$\text{Angle} = \{x \cdot q\}_p \times 360^\circ$$
+
+Where $\{x \cdot q\}_p$ is always a number between $0$ and $1$ - this is because the notation $\{ \cdot \}_p$ represents the $p$-adic fractional part:
+
+To calculate $\chi_x(q)$ for a value like $2.3$ in a $p$-adic system (let's stick with $p=3$), we first convert $2.3$ into a fraction: $2.3 = \frac{23}{10}$. We want to find the color of the number $x = \frac{23}{10}$ at the torus level ($q = \frac{1}{3}$). First we multiply $x$ by $q$
+
+$$x \cdot q = \frac{23}{10} \cdot \frac{1}{3} = \frac{23}{30}$$
+
+We find the fractional part $\{\frac{23}{30}\}_3$ by looking for the pieces of the number that have $3$ in the denominator. We use partial fraction decomposition to separate the "3-part" from the "non-3-part":
+
+$$\frac{23}{30} = \frac{A}{3} + \frac{B}{10}$$
+
+Solving for $A$, we find that $\frac{23}{30} = \frac{1}{3} + \frac{13}{30}$.
+
+The part that "vibrates" in the $3$-adic world is the $1/3$. 
+
+Next we identify the Remainder
+
+$$\{2.3 \cdot \frac{1}{3}\}_3 = \frac{1}{3}$$
+
+Finally, we take that fraction and turn it into a position on the torus: 
+
+Fractional Part: $1/3$
+
+Degrees: $1/3 \times 360^\circ = \mathbf{120^\circ}$ Color: Green
+
+
+For $101$ as a standard decimal integer, the math becomes very "clean" because it has no denominator to worry about. To find the $\chi$ (color) of $101,$ we look at how many times it winds around the hole at different levels ($q$):
+
+The outer torus level ($q = 1/3$): We multiply the number by the first gear of the odometer:
+
+$$101 \cdot \frac{1}{3} = \frac{101}{3}$$
+
+To find the fractional part $\{ \dots \}_3$, we divide 101 by $3$ and look at the remainder:
+
+$$101 \div 3 = 33 \text{ with a remainder of } \mathbf{2}$$
+
+So, $\{101/3\}_3 = \mathbf{2/3}$.
+
+Degrees: $2/3 \times 360^\circ = \mathbf{240^\circ}$ Color: Blue
+
+The medium torus level ($q = 1/9$):
+
+Now we look deeper into the next nested tube:
+
+$$101 \cdot \frac{1}{9} = \frac{101}{9}$$
+
+Divide $101$ by $9$:
+
+$$101 \div 9 = 11 \text{ with a remainder of } \mathbf{2}$$
+
+So, $\{101/9\}_3 = \mathbf{2/9}$. 
+
+Degrees: $2/9 \times 360^\circ = \mathbf{80^\circ}$ Color: Yellow/Lime Green (between Red and Green)
+
+For the slender torus level ($q = 1/27$):
+
+$$101 \cdot \frac{1}{27} = \frac{101}{27}$$
+
+Divide $101$ by $27$:
+
+$$101 \div 27 = 3 \text{ with a remainder of } \mathbf{20}$$
+
+So, $\{101/27\}_3 = \mathbf{20/27}$.
+
+Degrees: $20/27 \times 360^\circ \approx \mathbf{266.6^\circ}$ Color: Violet/Indigo (leaning toward Blue)
+
+Let's look at $1/27$ in the $3$-adic system ($p=3$): it is perfectly aligned with the third level of the nested tori. Because $27 = 3^3$, the number $1/27$ is a pure power of the base. This makes its behavior in the solenoid very specific and easy to track:
+
+The "fat torus" level ($q = 1/3$): We multiply by the first gear:
+
+$$\frac{1}{27} \cdot \frac{1}{3} = \frac{1}{81}$$
+
+Fractional part: $\{1/81\}_3$. Since $81$ is a power of $3$, this number has no digits to the left of the $p$-adic decimal point in the way an integer does. In $p$-adic analysis, if the denominator is a higher power than the multiplier, the "winding" hasn't started yet.
+
+Angle: $0^\circ$ Color: Red
+
+The "medium torus" level ($q = 1/9$):
+
+$$\frac{1}{27} \cdot \frac{1}{9} = \frac{1}{243}$$
+
+Fractional Part: $\{1/243\}_3 = 0$. Color: Red
+
+The "infinite" level ($q = 1$) Now, let's look at the "natural" state of $1/27$. In the $3$-adic expansion, $1/27$ is written as:
+
+$$x = 3^{-3} = 0.001_3$$
+
+It has three zeros before the first digit appears.
+
+The "Wire" for $1/27$ stays in the absolute red center of the first few tori. It only starts to "wind" and show color when the "microscope" ($q$) gets powerful enough to see the $3^{-3}$ level. 
+
+At $q = 27$: $\{ \frac{1}{27} \cdot 27 \}_3 = \{1\}_3 = \mathbf{0}$ (Red)
+
+At $q = 81$: $\{ \frac{1}{27} \cdot 81 \}_3 = \{3\}_3 = \mathbf{0}$ (Red)
+
+
+---
+
+From [Wikipedia](https://en.wikipedia.org/wiki/P-adic_number#/media/File:3-adic_integers_with_labels.svg):
+
+<img width = 600  src = "3-adic_integers_with_labels.png">
+
+
+---
 
 
 ---
