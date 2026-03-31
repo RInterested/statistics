@@ -17,13 +17,15 @@ output:
 
 ### Summary:
 
-While the $p$-adic integers $\mathbb{Z}_p$ consist of power series starting at $i=0$, the full field of $p$-adic numbers, denoted by $\mathbb{Q}_p$, allows for a finitary fractional part. This is where the analogy to standard decimals — and more specifically, Laurent series—becomes apparent. 
+While the $p$-adic integers $\mathbb{Z}_p$ consist of power series starting at $i=0$, the full field of $p$-adic numbers, denoted by $\mathbb{Q}_p$, allows for a finitary fractional part: the "fractional" part (the negative powers) must be finite. If we allowed an infinite number of negative powers, the series would not converge under the $p$-adic metric. In $p$-adic analysis, $p^n$ gets smaller as $n$ gets larger. Therefore, $p^{-n}$ gets larger as $n$ gets larger. An infinite sum of increasingly huge terms cannot converge.
 
 A general element $\gamma \in \mathbb{Q}_p$ is expressed as a formal Laurent series in $p$:
 
-$$\gamma = \sum_{i=k}^{\infty} a_i p^i = a_k p^k + a_{k+1} p^{k+1} + \dots$$
+$$\gamma = \underbrace{\frac{a_{-k}}{p^k} + \dots + \frac{a_{-1}}{p^1}}_{\substack{\text{Fractional Part} \\ \text{(Finite Terms)}}} + \underbrace{a_0 + a_1 p^1 + a_2 p^2 + \dots}_{\substack{\text{Integer Part } (\mathbb{Z}_p) \\ \text{(Infinite Series)}}}$$
 
-where $k \in \mathbb{Z}$ is any integer (possibly negative). If $k \ge 0$, the number is a **$p$-adic integer** ($\gamma \in \mathbb{Z}_p$). If $k < 0$, the number has a fractional part, with digits appearing to the right of the radix point. $\mathbb{Q}_p$ can be viewed as the field of fractions of $\mathbb{Z}_p$. In a Laurent series, the variable is $x$ or $(z - z_0)$. In $p$-adics, the prime $p$ plays the role of the variable. In both cases, the coefficients $a_i$ come from a specific set (a field or $\{0, \dots, p-1\}$). Just as a Laurent series converges when the variable is small, $p$-adic series converge because, under the $p$-adic metric, higher powers of $p$ are "smaller" (closer to zero). In standard base-$p$ arithmetic, digits to the right of the point represent $p^{-1}, p^{-2}, \dots$ and get smaller as you move right. In $p$-adics, these negative powers are actually the large components.
+$\mathbb{Q}_p$ can be viewed as the field of fractions of $\mathbb{Z}_p$. There is resemblance to Laurent series, in which the variable is $x$ or $(z - z_0)$, while in $p$-adics, the prime $p$ plays the role of the variable. In both cases, the coefficients $a_i$ come from a specific set (a field or $\{0, \dots, p-1\}$). Just as a Laurent series converges when the variable is small, $p$-adic series converge because, under the $p$-adic metric, higher powers of $p$ are "smaller" (closer to zero). 
+
+In standard base-$p$ arithmetic, digits to the right of the point represent $p^{-1}, p^{-2}, \dots$ and get smaller as you move right. In $p$-adics, these negative powers are actually the large components.
 
 For **positive integers** the digits expressed in in $p$-adics or in base $p$ are identical, but the direction in which you read or sum them is different.
 
