@@ -970,7 +970,7 @@ $q = 1/27$: $\{1/2 \cdot 1/27\}_3 = 14/27 \to \mathbf{186^\circ}$ (Cyan/Green)
 The color for $1/2$ is "vibrating." It doesn't settle into a single color like an integer; it dances around the wheel as we zoom in.
 
 
-To translate the $p$-adic fractional part into degrees, you are essentially mapping a fraction of a circle to a position on the color wheel.Since a full circle is 360°, you simply multiply the $p$-adic fractional part by 360.
+To translate the $p$-adic fractional part into degrees, you are essentially mapping a fraction of a circle to a position on the color wheel. Since a full circle is $360°$, you simply multiply the $p$-adic fractional part by $360.$
 
 The Conversion Formula:
 
@@ -978,27 +978,25 @@ $$\text{Angle} = \{x \cdot q\}_p \times 360^\circ$$
 
 Where $\{x \cdot q\}_p$ is always a number between $0$ and $1$ - this is because the notation $\{ \cdot \}_p$ represents the $p$-adic fractional part:
 
-To calculate $\chi_x(q)$ for a value like $2.3$ in a $p$-adic system (let's stick with $p=3$), we first convert $2.3$ into a fraction: $2.3 = \frac{23}{10}$. We want to find the color of the number $x = \frac{23}{10}$ at the torus level ($q = \frac{1}{3}$). First we multiply $x$ by $q$
+To calculate $\chi_x(q)$ for a value like $2.3$ in a $3$-adic system, we first convert $2.3$ into a fraction: $2.3 = \frac{23}{10}$. We want to find the color of this number at the first torus level ($q = \frac{1}{3}$). First, we multiply $x$ by $q$:
 
 $$x \cdot q = \frac{23}{10} \cdot \frac{1}{3} = \frac{23}{30}$$
 
-We find the fractional part $\{\frac{23}{30}\}_3$ by looking for the pieces of the number that have $3$ in the denominator. We use partial fraction decomposition to separate the "3-part" from the "non-3-part":
+To find the fractional part $\{\frac{23}{30}\}_3$, we perform partial fraction decomposition. We split it into a "Pure 3-part" and a "Non-3 part" to see how each contributes to the winding:
 
 $$\frac{23}{30} = \frac{A}{3} + \frac{B}{10}$$
 
-Solving for $A$, we find that $\frac{23}{30} = \frac{1}{3} + \frac{13}{30}$.
+Solving for $A$ and $B$, we find that $\frac{23}{30} = \frac{2}{3} + \frac{1}{10}$. 
 
-The part that "vibrates" in the $3$-adic world is the $1/3$. 
+Now, we look at the two pieces: The $\frac{2}{3}$: This is a pure $p$-adic fraction (one power of $3$ - to the right of the radix period, which is where negative powers of $3$ are located). In $3$-adic notation, this is $.2_3$. While $\frac{1}{10}$ looks like a fraction in base $10,$ in the $3$-adic system, its denominator $(10)$ is not divisible by $3.$ This means it has zero digits to the right of the radix point. It is technically a $3$-adic integer ($\dots 202021_3$). Identifying the Remainder is the act of filtering out everything that doesn't sit to the right of the radix point. We keep the $\frac{2}{3}$ and discard the $\frac{1}{10}$ because it contributes zero to the winding of the first gear.
 
-Next we identify the Remainder
+$$\{2.3 \cdot \frac{1}{3}\}_3 = \frac{2}{3}$$
 
-$$\{2.3 \cdot \frac{1}{3}\}_3 = \frac{1}{3}$$
+Finally, we take that identified remainder and map it to a physical position on the torus. Because the solenoid is a geometric representation of the number line wrapped into a circle, we convert the $3$-adic fractional part into an angular measurement: 
 
-Finally, we take that fraction and turn it into a position on the torus: 
+Degrees: $2/3 \times 360^\circ = \mathbf{240^\circ}$
 
-Fractional Part: $1/3$
-
-Degrees: $1/3 \times 360^\circ = \mathbf{120^\circ}$ Color: Green
+Color: On the standard RGB color wheel used in these visualizations, $240^\circ$ corresponds to blue. In the context of the "threading the wire" analogy, this means that for the number $2.3,$ the wire doesn't pass through the red circle $(0)$ or the "Green" petal $(1/3)$; it is pulled by the $p$-adic remainder into the blue petal ($2/3$) at the first level of the solenoid.
 
 
 For $101$ as a standard decimal integer, the math becomes very "clean" because it has no denominator to worry about. To find the $\chi$ (color) of $101,$ we look at how many times it winds around the hole at different levels ($q$):

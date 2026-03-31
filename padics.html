@@ -2130,39 +2130,52 @@ rolling over to zero.</p>
 dances around the wheel as we zoom in.</p>
 <p>To translate the <span class="math inline">\(p\)</span>-adic
 fractional part into degrees, you are essentially mapping a fraction of
-a circle to a position on the color wheel.Since a full circle is 360°,
-you simply multiply the <span class="math inline">\(p\)</span>-adic
-fractional part by 360.</p>
+a circle to a position on the color wheel. Since a full circle is <span class="math inline">\(360°\)</span>, you simply multiply the <span class="math inline">\(p\)</span>-adic fractional part by <span class="math inline">\(360.\)</span></p>
 <p>The Conversion Formula:</p>
 <p><span class="math display">\[\text{Angle} = \{x \cdot q\}_p \times
 360^\circ\]</span></p>
 <p>Where <span class="math inline">\(\{x \cdot q\}_p\)</span> is always
 a number between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> - this is because the notation <span class="math inline">\(\{ \cdot \}_p\)</span> represents the <span class="math inline">\(p\)</span>-adic fractional part:</p>
 <p>To calculate <span class="math inline">\(\chi_x(q)\)</span> for a
-value like <span class="math inline">\(2.3\)</span> in a <span class="math inline">\(p\)</span>-adic system (let’s stick with <span class="math inline">\(p=3\)</span>), we first convert <span class="math inline">\(2.3\)</span> into a fraction: <span class="math inline">\(2.3 = \frac{23}{10}\)</span>. We want to find the
-color of the number <span class="math inline">\(x =
-\frac{23}{10}\)</span> at the torus level (<span class="math inline">\(q
-= \frac{1}{3}\)</span>). First we multiply <span class="math inline">\(x\)</span> by <span class="math inline">\(q\)</span></p>
+value like <span class="math inline">\(2.3\)</span> in a <span class="math inline">\(3\)</span>-adic system, we first convert <span class="math inline">\(2.3\)</span> into a fraction: <span class="math inline">\(2.3 = \frac{23}{10}\)</span>. We want to find the
+color of this number at the first torus level (<span class="math inline">\(q = \frac{1}{3}\)</span>). First, we multiply
+<span class="math inline">\(x\)</span> by <span class="math inline">\(q\)</span>:</p>
 <p><span class="math display">\[x \cdot q = \frac{23}{10} \cdot
 \frac{1}{3} = \frac{23}{30}\]</span></p>
-<p>We find the fractional part <span class="math inline">\(\{\frac{23}{30}\}_3\)</span> by looking for the
-pieces of the number that have <span class="math inline">\(3\)</span> in
-the denominator. We use partial fraction decomposition to separate the
-“3-part” from the “non-3-part”:</p>
+<p>To find the fractional part <span class="math inline">\(\{\frac{23}{30}\}_3\)</span>, we perform partial
+fraction decomposition. We split it into a “Pure 3-part” and a “Non-3
+part” to see how each contributes to the winding:</p>
 <p><span class="math display">\[\frac{23}{30} = \frac{A}{3} +
 \frac{B}{10}\]</span></p>
-<p>Solving for <span class="math inline">\(A\)</span>, we find that
-<span class="math inline">\(\frac{23}{30} = \frac{1}{3} +
-\frac{13}{30}\)</span>.</p>
-<p>The part that “vibrates” in the <span class="math inline">\(3\)</span>-adic world is the <span class="math inline">\(1/3\)</span>.</p>
-<p>Next we identify the Remainder</p>
+<p>Solving for <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, we find that <span class="math inline">\(\frac{23}{30} = \frac{2}{3} +
+\frac{1}{10}\)</span>.</p>
+<p>Now, we look at the two pieces: The <span class="math inline">\(\frac{2}{3}\)</span>: This is a pure <span class="math inline">\(p\)</span>-adic fraction (one power of <span class="math inline">\(3\)</span> - to the right of the radix period,
+which is where negative powers of <span class="math inline">\(3\)</span>
+are located). In <span class="math inline">\(3\)</span>-adic notation,
+this is <span class="math inline">\(.2_3\)</span>. While <span class="math inline">\(\frac{1}{10}\)</span> looks like a fraction in
+base <span class="math inline">\(10,\)</span> in the <span class="math inline">\(3\)</span>-adic system, its denominator <span class="math inline">\((10)\)</span> is not divisible by <span class="math inline">\(3.\)</span> This means it has zero digits to the
+right of the radix point. It is technically a <span class="math inline">\(3\)</span>-adic integer (<span class="math inline">\(\dots 202021_3\)</span>). Identifying the
+Remainder is the act of filtering out everything that doesn’t sit to the
+right of the radix point. We keep the <span class="math inline">\(\frac{2}{3}\)</span> and discard the <span class="math inline">\(\frac{1}{10}\)</span> because it contributes zero
+to the winding of the first gear.</p>
 <p><span class="math display">\[\{2.3 \cdot \frac{1}{3}\}_3 =
-\frac{1}{3}\]</span></p>
-<p>Finally, we take that fraction and turn it into a position on the
-torus:</p>
-<p>Fractional Part: <span class="math inline">\(1/3\)</span></p>
-<p>Degrees: <span class="math inline">\(1/3 \times 360^\circ =
-\mathbf{120^\circ}\)</span> Color: Green</p>
+\frac{2}{3}\]</span></p>
+<p>Finally, we take that identified remainder and map it to a physical
+position on the torus. Because the solenoid is a geometric
+representation of the number line wrapped into a circle, we convert the
+<span class="math inline">\(3\)</span>-adic fractional part into an
+angular measurement:</p>
+<p>Degrees: <span class="math inline">\(2/3 \times 360^\circ =
+\mathbf{240^\circ}\)</span></p>
+<p>Color: On the standard RGB color wheel used in these visualizations,
+<span class="math inline">\(240^\circ\)</span> corresponds to blue. In
+the context of the “threading the wire” analogy, this means that for the
+number <span class="math inline">\(2.3,\)</span> the wire doesn’t pass
+through the red circle <span class="math inline">\((0)\)</span> or the
+“Green” petal <span class="math inline">\((1/3)\)</span>; it is pulled
+by the <span class="math inline">\(p\)</span>-adic remainder into the
+blue petal (<span class="math inline">\(2/3\)</span>) at the first level
+of the solenoid.</p>
 <p>For <span class="math inline">\(101\)</span> as a standard decimal
 integer, the math becomes very “clean” because it has no denominator to
 worry about. To find the <span class="math inline">\(\chi\)</span>
