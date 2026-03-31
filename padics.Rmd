@@ -155,7 +155,7 @@ To express a number as a string of digits in the $3$-adic system, we are essenti
 
 $$\frac{1}{2} = a(1 + r + r^2 + r^3 + \dots)$$
 
-In the $3$-adic world, this sum only converges if the ratio $r$ is small. Since $3$ is small (closer to zero than $1$ is), we choose $r = 3$ (or a power of $3$). If this expansion were finite, it would simply be a standard integer (a polynomial in $3$). But $1/2$ is not an integer. Therefore, the error or remainder after any finite number of steps will never be zero. To neutralize this remainder, the series must be infinite. In $p$-adics, an infinite sum of increasing powers doesn't explode to infinity; it wraps around the number line to hit fractional targets.
+In the $3$-adic world, this sum only converges if the ratio $r$ is small. Since $3$ is small (closer to zero than $1$ is in the $3$-adic norm ($\|3\|_3 = 1/3$)), we choose $r = 3$ (or a power of $3$). If this expansion were finite, it would simply be a standard integer (a polynomial in $3$). But $1/2$ is not an integer. Therefore, the error or remainder after any finite number of steps will never be zero. To neutralize this remainder, the series must be infinite. In $p$-adics, an infinite sum of increasing powers doesn't explode to infinity; it wraps around the number line to hit fractional targets.
 
 To guarantee that any fraction $a/b$ can be forced into this geometric shape Fermat’s Little Theorem acts as the architect: for any denominator $b$ (co-prime to $p$), there is a power $p^n$ that is $1$ more than a multiple of $b$.
 
@@ -172,7 +172,9 @@ Because we must use the form $1 - r$ for our series to work, and Fermat gives us
 
 $$\frac{1}{b} = \frac{k}{p^n - 1} = \frac{k}{-(1 - p^n)} = -k \left( \frac{1}{1 - p^n} \right)$$
 
-Therefore we really start in the negatives. To represent a positive fraction as an infinite string of $p$-adic integers, we are actually expanding a negative integer and shifting it across the origin. This creates the symmetry. In Base $p,$ we approach the fraction by adding smaller and smaller pieces ($p^{-n}$) starting from zero. In $p$-adics, we approach the fraction by adding $p$-adically smaller pieces ($p^n$).
+Therefore we really start in the negatives. To represent a positive fraction as an infinite string of $p$-adic integers, we are actually expanding a negative integer and shifting it across the origin. This creates the symmetry. In Base $p,$ we approach the fraction by adding smaller and smaller pieces ($p^{-n}$) starting from zero. In $p$-adics, we approach the fraction by adding $p$-adically smaller pieces ($p^n$). 
+
+The negative first term matches perfectly the idea that $\dots (p-1)(p-1)(p-1)=-1$ for any p-adic system, and this is in fact also the "end of the odometer" given that we are operating with $\{0,1, \dots,p-1\}$. n the real numbers, $0.999\dots$ reaches up to $1$. In $p$-adics, $\dots(p-1)$ reaches up to $-1$. It is effectively the "largest" possible representation (using all available digits) that, through the magic of $p$-adic carries, lands on the additive inverse of the multiplicative identity.
 
 Because both systems use the same geometric ratio ($p$) to close the same gap, they generate the same digits. The $p$-adic version is simply the arithmetic shadow or complement of the real-world expansion. The first digit differs because the $p$-adic tree has to make one final carry to jump from the negative side of the origin to the positive side where $1/2$ actually lives.
 
