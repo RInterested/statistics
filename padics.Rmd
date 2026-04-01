@@ -91,7 +91,7 @@ $$(2+1) \to 0 \text{ carry } 1 \to (2+1) \to 0 \dots$$
 The result is $\dots 00000$, which is $0$. Therefore, $\dots 22222_3$ must be $-1$. 
 
 
-**Fractions** in base $p$: 
+#### **Fractions in base p**: 
 
 To calculate the base-$3$ expansion of $1/2$ (a "ternary" fraction), you use the same method you'd use to find the decimal expansion of $1/2$ in base $10,$ i.e. long division.
 
@@ -122,7 +122,7 @@ Substituting our values:
 
 $$S = \frac{1/3}{1 - 1/3} = \frac{1/3}{2/3} = \frac{1}{2}$$
 
-**$\color{red}{1/2 \text{ in } 3\text{-adics}}$**
+#### Fractions in p-adics $(\color{red}{1/2 \text{ in } 3\text{-adics}})$:
 
 We solve $2x = 1$:
 
@@ -236,7 +236,7 @@ In the real numbers, we reach $1/2$ by adding smaller and smaller pieces to zero
 
 ---
 
-### **Two's Complement** representation in computer science and the Radix:
+#### [Two's Complement representation](https://en.wikipedia.org/wiki/Two%27s_complement) in computer science and the Radix:
 
 In the $3$-adic representation of $1/2$ above we run into $-1 = \dots 2222_3$, which can immediately be generalized as $-1 = \dots (p-1)(p-1)(p-1)(p-1)_p.$ This is effectively the mile $999999$ in an odometer: a natural barrier in itself. 
 
@@ -286,7 +286,7 @@ A number like $1/2$ ($\dots 1112_3$) is the ultimate nomad. It is not anchored t
 
 $\dots (p-1)(p-1)(p-1)_p$ is the unique element that maps to the highest possible value in every single finite modular system simultaneously in $\mathbb{Z}_p$ as the inverse limit of the rings $\mathbb{Z}/p^n\mathbb{Z}$.
 
-In computer science, this is exactly what is known as Two's Complement representation. If you look at a signed integer in a 64-bit system, the number $-1$ is represented as a solid string of $1$s:
+In computer science, this is exactly what is known as [Two's Complement representation](https://en.wikipedia.org/wiki/Two%27s_complement). If you look at a signed integer in a 64-bit system, the number $-1$ is represented as a solid string of $1$s:
 
 Binary: `11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111`
 
@@ -294,11 +294,13 @@ Hexadecimal: `0xFFFFFFFFFFFFFFFF`
 
 The $p$-adics are simply the mathematical generalization of this, where the number of bits is infinite.
 
-In the real line $0$ is the Origin, but for $p$-adics $-1$ is the complementary origin. The symmetry we found between $1/2 = 0.111\dots_3$ (fractional real line system) and $1/2 = \dots 1112_p$ ($3$-adics) is the mathematical proof that the distance from the Real Origin $(0)$ and the $p$-adic origin $(-1)$ to the value $1/2$ is governed by the exact same geometric laws.
+In the real line $0$ is the origin, but for $p$-adics $-1$ is the complementary origin. The symmetry we found between $1/2 = 0.111\dots_3$ (fractional real line system) and $1/2 = \dots 1112_p$ ($3$-adics) is the mathematical proof that the distance from the real Origin $(0)$ and the $p$-adic origin $(-1)$ to the value $1/2$ is governed by the exact same geometric laws.
 
-The standard Two's Complement is designed for integers only. A 64-bit integer register to cannot deal with $1/2$; it doesn't have a built-in way to do it because $1/2$ isn't a whole number.
+The standard Two's Complement is designed for integers only. A 64-bit integer register cannot deal with $1/2.$
 
-In the $3$-adic example, we found that $1/2 = \dots 1112_3$. However, if we apply that same odometer logic to base $2$ (binary), the "wall" is $-1 =...111111$ (An infinite string of $1$'s). And $-1/2$) cannot be worked out as in base $3,$ where it was $...1111$ because $1+1=2$ without a carry. In base $2,$ to get to $1/2,$ we need a number that, when added to itself, equals $...1111.$ In binary, adding a number to itself is the same as shifting it one bit to the left (adding a zero at the end), so we can never output a sum that ends in $1.$ The system fails!
+In the $3$-adic system, we successfully found $1/2 = \dots 11112_3$. However, if we attempt to apply this same "odometer logic" to find $1/2$ in the $2$-adic (binary) system, we hit a structural wall. In $2$-adics, $-1$ is represented by the infinite string $\dots 1111_2$. This is the "odometer limit" we discussed. When we add $1$ to this infinite string the rightmost $1 + 1$ becomes $0$ and carries a $1$ to the left. The next $1 + 1 + \text{carry}$ becomes $0$ and carries a $1$ to the left. This continues forever. Because that carry moves infinitely to the left (into higher and higher powers of $2$), the "leftover" carry eventually vanishes. You are left with $\dots 0000$,
+
+To find $1/2$, we would need a $2$-adic number that, when doubled, equals $1$. But in binary, doubling a number is equivalent to a bit-shift to the left (appending a zero at the end). This means any doubled number must end in $0$, making it impossible to ever sum to $1$ ($1 = 1 \cdot 2^0 = (\dots 0001)_2$). This failure actually defines the difference between a $p$-adic integer ($\mathbb{Z}_p$) and the broader $p$-adic field ($\mathbb{Q}_p$). Because $2$ is the base itself, $1/2$ cannot be expressed as a power series starting at $2^0$; it requires the "fractional" part of the Laurent series, $2^{-1}$. In the $2$-adic system, $1/2$ is not an infinite string of integers, but a single digit shifted to the right of the radix point: $0.1_2$. The system doesn't fail; it simply forces the number out of the "integer" circle and into the "fractional" territory.
 
 To find $1/2$ in $2$-adics, we use the **Radix Point** (the $p$-adic version of a decimal point). Since $1/2 = 2^{-1}$, its representation is actually finite but below the units place: $1/2 = 0.1_2.$ In base $3,$ $2$ does not divide $3$, so $1/2$ becomes an infinite periodic expansion. In base $2,$ $2$ does divide the base, so it becomes a simple terminating fractional digit. 
 

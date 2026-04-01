@@ -483,7 +483,8 @@ the highest possible digit: <span class="math inline">\((\dots
 \to 0 \dots\]</span></p>
 <p>The result is <span class="math inline">\(\dots 00000\)</span>, which
 is <span class="math inline">\(0\)</span>. Therefore, <span class="math inline">\(\dots 22222_3\)</span> must be <span class="math inline">\(-1\)</span>.</p>
-<p><strong>Fractions</strong> in base <span class="math inline">\(p\)</span>:</p>
+<div id="fractions-in-base-p" class="section level4">
+<h4><strong>Fractions in base p</strong>:</h4>
 <p>To calculate the base-<span class="math inline">\(3\)</span>
 expansion of <span class="math inline">\(1/2\)</span> (a “ternary”
 fraction), you use the same method you’d use to find the decimal
@@ -516,8 +517,10 @@ term <span class="math inline">\(a = 1/3\)</span> and common ratio <span class="
 <p>Substituting our values:</p>
 <p><span class="math display">\[S = \frac{1/3}{1 - 1/3} =
 \frac{1/3}{2/3} = \frac{1}{2}\]</span></p>
-<p><strong><span class="math inline">\(\color{red}{1/2 \text{ in }
-3\text{-adics}}\)</span></strong></p>
+</div>
+<div id="fractions-in-p-adics-colorred12-text-in-3text-adics" class="section level4">
+<h4>Fractions in p-adics <span class="math inline">\((\color{red}{1/2
+\text{ in } 3\text{-adics}})\)</span>:</h4>
 <p>We solve <span class="math inline">\(2x = 1\)</span>:</p>
 <p>We need <span class="math inline">\(2 \cdot (a_0 + a_1 \cdot 3 + a_2
 \cdot 9 + \dots) = 1\)</span>. Since we are operating mod <span class="math inline">\(3\)</span> the expression simplifies to:</p>
@@ -693,9 +696,9 @@ required to jump the gap from the negative infinite representation back
 into the positive world.</p>
 <hr />
 </div>
-<div id="twos-complement-representation-in-computer-science-and-the-radix" class="section level3">
-<h3><strong>Two’s Complement</strong> representation in computer science
-and the Radix:</h3>
+<div id="twos-complement-representation-in-computer-science-and-the-radix" class="section level4">
+<h4><a href="https://en.wikipedia.org/wiki/Two%27s_complement">Two’s
+Complement representation</a> in computer science and the Radix:</h4>
 <p>In the <span class="math inline">\(3\)</span>-adic representation of
 <span class="math inline">\(1/2\)</span> above we run into <span class="math inline">\(-1 = \dots 2222_3\)</span>, which can immediately
 be generalized as <span class="math inline">\(-1 = \dots
@@ -773,10 +776,10 @@ odometer is infinite, allowing it to stay in a permanent state of
 unique element that maps to the highest possible value in every single
 finite modular system simultaneously in <span class="math inline">\(\mathbb{Z}_p\)</span> as the inverse limit of the
 rings <span class="math inline">\(\mathbb{Z}/p^n\mathbb{Z}\)</span>.</p>
-<p>In computer science, this is exactly what is known as Two’s
-Complement representation. If you look at a signed integer in a 64-bit
-system, the number <span class="math inline">\(-1\)</span> is
-represented as a solid string of <span class="math inline">\(1\)</span>s:</p>
+<p>In computer science, this is exactly what is known as <a href="https://en.wikipedia.org/wiki/Two%27s_complement">Two’s Complement
+representation</a>. If you look at a signed integer in a 64-bit system,
+the number <span class="math inline">\(-1\)</span> is represented as a
+solid string of <span class="math inline">\(1\)</span>s:</p>
 <p>Binary:
 <code>11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111</code></p>
 <p>Hexadecimal: <code>0xFFFFFFFFFFFFFFFF</code></p>
@@ -784,24 +787,43 @@ represented as a solid string of <span class="math inline">\(1\)</span>s:</p>
 mathematical generalization of this, where the number of bits is
 infinite.</p>
 <p>In the real line <span class="math inline">\(0\)</span> is the
-Origin, but for <span class="math inline">\(p\)</span>-adics <span class="math inline">\(-1\)</span> is the complementary origin. The
+origin, but for <span class="math inline">\(p\)</span>-adics <span class="math inline">\(-1\)</span> is the complementary origin. The
 symmetry we found between <span class="math inline">\(1/2 =
 0.111\dots_3\)</span> (fractional real line system) and <span class="math inline">\(1/2 = \dots 1112_p\)</span> (<span class="math inline">\(3\)</span>-adics) is the mathematical proof that
-the distance from the Real Origin <span class="math inline">\((0)\)</span> and the <span class="math inline">\(p\)</span>-adic origin <span class="math inline">\((-1)\)</span> to the value <span class="math inline">\(1/2\)</span> is governed by the exact same
+the distance from the real Origin <span class="math inline">\((0)\)</span> and the <span class="math inline">\(p\)</span>-adic origin <span class="math inline">\((-1)\)</span> to the value <span class="math inline">\(1/2\)</span> is governed by the exact same
 geometric laws.</p>
 <p>The standard Two’s Complement is designed for integers only. A 64-bit
-integer register to cannot deal with <span class="math inline">\(1/2\)</span>; it doesn’t have a built-in way to do
-it because <span class="math inline">\(1/2\)</span> isn’t a whole
-number.</p>
-<p>In the <span class="math inline">\(3\)</span>-adic example, we found
-that <span class="math inline">\(1/2 = \dots 1112_3\)</span>. However,
-if we apply that same odometer logic to base <span class="math inline">\(2\)</span> (binary), the “wall” is <span class="math inline">\(-1 =...111111\)</span> (An infinite string of
-<span class="math inline">\(1\)</span>’s). And <span class="math inline">\(-1/2\)</span>) cannot be worked out as in base
-<span class="math inline">\(3,\)</span> where it was <span class="math inline">\(...1111\)</span> because <span class="math inline">\(1+1=2\)</span> without a carry. In base <span class="math inline">\(2,\)</span> to get to <span class="math inline">\(1/2,\)</span> we need a number that, when added to
-itself, equals <span class="math inline">\(...1111.\)</span> In binary,
-adding a number to itself is the same as shifting it one bit to the left
-(adding a zero at the end), so we can never output a sum that ends in
-<span class="math inline">\(1.\)</span> The system fails!</p>
+integer register cannot deal with <span class="math inline">\(1/2.\)</span></p>
+<p>In the <span class="math inline">\(3\)</span>-adic system, we
+successfully found <span class="math inline">\(1/2 = \dots
+11112_3\)</span>. However, if we attempt to apply this same “odometer
+logic” to find <span class="math inline">\(1/2\)</span> in the <span class="math inline">\(2\)</span>-adic (binary) system, we hit a
+structural wall. In <span class="math inline">\(2\)</span>-adics, <span class="math inline">\(-1\)</span> is represented by the infinite string
+<span class="math inline">\(\dots 1111_2\)</span>. This is the “odometer
+limit” we discussed. When we add <span class="math inline">\(1\)</span>
+to this infinite string the rightmost <span class="math inline">\(1 +
+1\)</span> becomes <span class="math inline">\(0\)</span> and carries a
+<span class="math inline">\(1\)</span> to the left. The next <span class="math inline">\(1 + 1 + \text{carry}\)</span> becomes <span class="math inline">\(0\)</span> and carries a <span class="math inline">\(1\)</span> to the left. This continues forever.
+Because that carry moves infinitely to the left (into higher and higher
+powers of <span class="math inline">\(2\)</span>), the “leftover” carry
+eventually vanishes. You are left with <span class="math inline">\(\dots
+0000\)</span>,</p>
+<p>To find <span class="math inline">\(1/2\)</span>, we would need a
+<span class="math inline">\(2\)</span>-adic number that, when doubled,
+equals <span class="math inline">\(1\)</span>. But in binary, doubling a
+number is equivalent to a bit-shift to the left (appending a zero at the
+end). This means any doubled number must end in <span class="math inline">\(0\)</span>, making it impossible to ever sum to
+<span class="math inline">\(1\)</span> (<span class="math inline">\(1 =
+1 \cdot 2^0 = (\dots 0001)_2\)</span>). This failure actually defines
+the difference between a <span class="math inline">\(p\)</span>-adic
+integer (<span class="math inline">\(\mathbb{Z}_p\)</span>) and the
+broader <span class="math inline">\(p\)</span>-adic field (<span class="math inline">\(\mathbb{Q}_p\)</span>). Because <span class="math inline">\(2\)</span> is the base itself, <span class="math inline">\(1/2\)</span> cannot be expressed as a power series
+starting at <span class="math inline">\(2^0\)</span>; it requires the
+“fractional” part of the Laurent series, <span class="math inline">\(2^{-1}\)</span>. In the <span class="math inline">\(2\)</span>-adic system, <span class="math inline">\(1/2\)</span> is not an infinite string of
+integers, but a single digit shifted to the right of the radix point:
+<span class="math inline">\(0.1_2\)</span>. The system doesn’t fail; it
+simply forces the number out of the “integer” circle and into the
+“fractional” territory.</p>
 <p>To find <span class="math inline">\(1/2\)</span> in <span class="math inline">\(2\)</span>-adics, we use the <strong>Radix
 Point</strong> (the <span class="math inline">\(p\)</span>-adic version
 of a decimal point). Since <span class="math inline">\(1/2 =
@@ -878,6 +900,7 @@ the odometer, an irrational number looks like “static” or a random
 sequence of numbers that goes on forever to the left without a
 pattern.</p>
 <hr />
+</div>
 </div>
 <div id="from-the-very-basics" class="section level3">
 <h3>From the very basics:</h3>
