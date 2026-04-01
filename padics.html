@@ -668,12 +668,37 @@ so we factor out a <span class="math inline">\(-1\)</span>:</p>
 <p>Since <span class="math inline">\(-1 = \dots 2222_3\)</span>,</p>
 <p><span class="math display">\[(\dots 2222_3) \times (1 + 3 + 9 + 27 +
 \dots)\]</span></p>
+<p><span class="math display">\[ \dots 2222_3 \times (1 + 3^1 + 3^2 +
+3^3 + \dots)= \dots 2222_3 \times 1 +\dots 2222_3 \times 3^1 + \dots
+2222_3 \times 3^2 + \dots 2222_3 \times 3^3 + \dots\]</span></p>
 <p>we’ll show a pattern if we find the first few digits of the result,
 we multiply the “infinite” <span class="math inline">\(-1\)</span>:</p>
 <p>Term 1: <span class="math inline">\((\dots 2222) \times 1 = \dots
 2222\)</span></p>
 <p>Term 2: <span class="math inline">\((\dots 2222) \times 3 = \dots
-2220\)</span> (The string shifts left, adding a zero)</p>
+2220\)</span></p>
+<p>Why? The mechnics are just multiplication base <span class="math inline">\(3\)</span>:</p>
+<p>In the case of <span class="math inline">\(\dots 2222_3 \times
+3\)</span>:</p>
+<p>Rightmost Digit (<span class="math inline">\(3^0\)</span> slot):</p>
+<p><span class="math inline">\(2 \times 3 = 6\)</span>.</p>
+<p><span class="math inline">\(6 \pmod 3 = \mathbf{0}\)</span>.</p>
+<p>Carry = <span class="math inline">\(6 \div 3 =
+\mathbf{2}\)</span>.</p>
+<p>Next Digit (<span class="math inline">\(3^1\)</span> slot):</p>
+<p><span class="math inline">\(2 \times 3 = 6\)</span>.</p>
+<p>Add the carry: <span class="math inline">\(6 + \mathbf{2} =
+8\)</span>.</p>
+<p><span class="math inline">\(8 \pmod 3 = \mathbf{2}\)</span>.</p>
+<p>Carry = <span class="math inline">\(8 \div 3 = \mathbf{2}\)</span>.
+(Integer division, since <span class="math inline">\(8 = 2 \times 3 +
+2\)</span>).</p>
+<p>Next Digit (<span class="math inline">\(3^2\)</span> slot):</p>
+<p><span class="math inline">\(2 \times 3 = 6\)</span>.</p>
+<p>Add the carry: <span class="math inline">\(6 + \mathbf{2} =
+8\)</span>.</p>
+<p><span class="math inline">\(8 \pmod 3 = \mathbf{2}\)</span>.</p>
+<p>Carry = <span class="math inline">\(\mathbf{2}\)</span>.</p>
 <p>Term 3: <span class="math inline">\((\dots 2222) \times 9 = \dots
 2200\)</span></p>
 <p>Term 4: <span class="math inline">\((\dots 2222) \times 27 = \dots
