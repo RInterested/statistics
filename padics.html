@@ -831,15 +831,15 @@ of a decimal point). Since <span class="math inline">\(1/2 =
 units place: <span class="math inline">\(1/2 = 0.1_2.\)</span> In base
 <span class="math inline">\(3,\)</span> <span class="math inline">\(2\)</span> does not divide <span class="math inline">\(3\)</span>, so <span class="math inline">\(1/2\)</span> becomes an infinite periodic
 expansion. In base <span class="math inline">\(2,\)</span> <span class="math inline">\(2\)</span> does divide the base, so it becomes a
-simple terminating fractional digit.</p>
-<p>For the case of <span class="math inline">\(1/3\)</span> in <span class="math inline">\(2\)</span>-adic, since <span class="math inline">\(3\)</span> doesn’t divide <span class="math inline">\(2\)</span>, it must be an infinite string to the
+simple terminating fractional digit. In the case of <span class="math inline">\(1/3\)</span> in <span class="math inline">\(2\)</span>-adic, since <span class="math inline">\(3\)</span> doesn’t divide <span class="math inline">\(2\)</span>, it must be an infinite string to the
 left:</p>
-<p>We want to represent <span class="math inline">\(1/3\)</span> as a
-<span class="math inline">\(2\)</span>-adic power series. The <span class="math inline">\(p\)</span>-adic representation only accepts
+<p>If we want to represent <span class="math inline">\(1/3\)</span> as a
+<span class="math inline">\(2\)</span>-adic power series, the <span class="math inline">\(p\)</span>-adic representation only accepts
 denominators of the form <span class="math inline">\((1 - r)\)</span>,
 where <span class="math inline">\(r\)</span> is a power of <span class="math inline">\(p\)</span>. To find that power, we use Fermat’s
 Little Theorem (or Euler’s generalization). What power of <span class="math inline">\(2\)</span> is exactly <span class="math inline">\(1\)</span> more than a multiple of <span class="math inline">\(3\)</span>?</p>
-<p><span class="math inline">\(2^1 = 2\)</span> (Not <span class="math inline">\(1 \pmod 3\)</span>) <span class="math inline">\(2^2 = 4\)</span> (This is <span class="math inline">\(1 \pmod 3\)</span>, because <span class="math inline">\(4 = 3 \times 1 + 1\)</span>)</p>
+<p><span class="math inline">\(2^1 = 2\)</span> (Not <span class="math inline">\(1 \pmod 3\)</span>)</p>
+<p><span class="math inline">\(2^2 = 4\)</span> (This is <span class="math inline">\(1 \pmod 3\)</span>, because <span class="math inline">\(4 = 3 \times 1 + 1\)</span>)</p>
 <p>So, our power is <span class="math inline">\(n=2\)</span>. This tells
 us that <span class="math inline">\(2^2 - 1\)</span> is a multiple of
 <span class="math inline">\(3\)</span>. Now we force <span class="math inline">\(1/3\)</span> into the geometric serie:</p>
@@ -856,7 +856,8 @@ factor out a <span class="math inline">\(-1\)</span>:</p>
 <p><span class="math display">\[-1 \cdot (1 + 2^2 + (2^2)^2 + (2^2)^3 +
 \dots)\]</span><span class="math display">\[-1 \cdot (1 + 2^2 + 2^4 +
 2^6 + \dots)\]</span></p>
-<p>If we expand this, we get the repeating pattern:<span class="math display">\[\dots 010101011_2\]</span></p>
+<p>If we expand this, we get the repeating pattern:</p>
+<p><span class="math display">\[\dots 010101011_2\]</span></p>
 <p>In binary <span class="math inline">\(p=2\)</span>, <span class="math inline">\(-1\)</span> is an infinite string of <span class="math inline">\(1\)</span>s: <span class="math inline">\(\dots
 111111_2\)</span>. The series <span class="math inline">\((1 + 2^2 + 2^4
 + 2^6 + \dots)\)</span> are powers of <span class="math inline">\(4\)</span> (<span class="math inline">\(1, 100,

@@ -302,13 +302,12 @@ In the $3$-adic system, we successfully found $1/2 = \dots 11112_3$. However, if
 
 To find $1/2$, we would need a $2$-adic number that, when doubled, equals $1$. But in binary, doubling a number is equivalent to a bit-shift to the left (appending a zero at the end). This means any doubled number must end in $0$, making it impossible to ever sum to $1$ ($1 = 1 \cdot 2^0 = (\dots 0001)_2$). This failure actually defines the difference between a $p$-adic integer ($\mathbb{Z}_p$) and the broader $p$-adic field ($\mathbb{Q}_p$). Because $2$ is the base itself, $1/2$ cannot be expressed as a power series starting at $2^0$; it requires the "fractional" part of the Laurent series, $2^{-1}$. In the $2$-adic system, $1/2$ is not an infinite string of integers, but a single digit shifted to the right of the radix point: $0.1_2$. The system doesn't fail; it simply forces the number out of the "integer" circle and into the "fractional" territory.
 
-To find $1/2$ in $2$-adics, we use the **Radix Point** (the $p$-adic version of a decimal point). Since $1/2 = 2^{-1}$, its representation is actually finite but below the units place: $1/2 = 0.1_2.$ In base $3,$ $2$ does not divide $3$, so $1/2$ becomes an infinite periodic expansion. In base $2,$ $2$ does divide the base, so it becomes a simple terminating fractional digit. 
+To find $1/2$ in $2$-adics, we use the **Radix Point** (the $p$-adic version of a decimal point). Since $1/2 = 2^{-1}$, its representation is actually finite but below the units place: $1/2 = 0.1_2.$ In base $3,$ $2$ does not divide $3$, so $1/2$ becomes an infinite periodic expansion. In base $2,$ $2$ does divide the base, so it becomes a simple terminating fractional digit. In the case of $1/3$ in $2$-adic, since $3$ doesn't divide $2$, it must be an infinite string to the left:
 
-For the case of $1/3$ in $2$-adic, since $3$ doesn't divide $2$, it must be an infinite string to the left:
-
-We want to represent $1/3$ as a $2$-adic power series. The $p$-adic representation only accepts denominators of the form $(1 - r)$, where $r$ is a power of $p$. To find that power, we use Fermat’s Little Theorem (or Euler's generalization). What power of $2$ is exactly $1$ more than a multiple of $3$?
+If we want to represent $1/3$ as a $2$-adic power series, the $p$-adic representation only accepts denominators of the form $(1 - r)$, where $r$ is a power of $p$. To find that power, we use Fermat’s Little Theorem (or Euler's generalization). What power of $2$ is exactly $1$ more than a multiple of $3$?
 
 $2^1 = 2$ (Not $1 \pmod 3$)
+
 $2^2 = 4$ (This is $1 \pmod 3$, because $4 = 3 \times 1 + 1$)
 
 So, our power is $n=2$. This tells us that $2^2 - 1$ is a multiple of $3$. Now we force $1/3$ into the geometric serie:
@@ -325,7 +324,9 @@ Since our $r$ is $2^2$ (which is $4$), the fraction becomes:
 
 $$-1 \cdot (1 + 2^2 + (2^2)^2 + (2^2)^3 + \dots)$$$$-1 \cdot (1 + 2^2 + 2^4 + 2^6 + \dots)$$
 
-If we expand this, we get the repeating pattern:$$\dots 010101011_2$$
+If we expand this, we get the repeating pattern: 
+
+$$\dots 010101011_2$$
 
 In binary $p=2$, $-1$ is an infinite string of $1$s: $\dots 111111_2$. The series $(1 + 2^2 + 2^4 + 2^6 + \dots)$ are powers of $4$ ($1, 100, 10000, 1000000 \dots$) in binary. In binary, $2^2$ is $100_2$, $2^4$ is $10000_2$, and so on. This series looks like a "comb" of $1$s: 
 
