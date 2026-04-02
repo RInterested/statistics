@@ -257,7 +257,7 @@ Term 3: $(\dots 2222) \times 9 = \dots 2200$
 Term 4: $(\dots 2222) \times 27 = \dots 2000$
 
 
-The digits "collapse" into a repeating pattern of $1$s, and the final result i
+The digits "collapse" into a repeating pattern of $1$s, and the final result is
 
 $$\dots 11112_3$$
 
@@ -265,7 +265,7 @@ Notice that the $p$-adic representation of $-1/2$ is
 
 $$-1/2 = \dots 11111_3$$
 
-and in effect adding $1/2 + (-1/2) = 0.$
+and adding $1/2 + (-1/2) = 0.$
 
 In the real numbers, we reach $1/2$ by adding smaller and smaller pieces to zero ($0.111\dots$). In the $p$-adics, we reach $1/2$ by starting from the negative universe of the geometric series and shifting it by exactly one unit. Because both systems rely on the same ratio dictated by Euler’s generalization of Fermat’s Theorem they produce the same digits. The only difference is the direction of the expansion and that single first-digit adjustment ($1 \to 2$) required to jump the gap from the negative infinite representation back into the positive world.
 
@@ -277,7 +277,7 @@ In the $3$-adic representation of $1/2$ above we run into $-1 = \dots 2222_3$, w
 
 In this system, one more negative click would land us at
 
-$$-2 = \dots2221_3$$
+$$-2 =\dots 2222_3-1= \dots2221_3$$
 followed by 
 
 $$-3 = \dots2220_3$$
@@ -290,34 +290,41 @@ and one more
 $$1 = \dots 0001_3$$
 This is wrap around between $0$ and $-1$ without using the minus sign is only possible in the setting of an infinite series and a new metric that allows convergence. But given these premises, there is an effective inversion at the end of the odometer. 
 
-So what would be the p-adic equivalent of an odometer at $999991$? In base $10$, it would have to be assigned to $-9:$ counting backward looks like: $-1 = \dots 999999_{10}$, $-2 = \dots 999998_{10}$, $-3 = \dots 999997_{10}$ and so on until $-9 = \dots 999991_{10}$.
+So what would be the p-adic equivalent of an odometer at $999991$? In base $10$, it would have to be assigned to $-9:$ counting backward looks like $-1 = \dots 999999_{10}$, $-2 = \dots 999998_{10}$, $-3 = \dots 999997_{10}$ and so on until $-9 = \dots 999991_{10}$.
 
 In a standard car odometer with only $6$ digits, `999991` is both the positive number $+999,991$ and the negative number $-9$. They are physically the same state of the gears. But in $p$-adics, because the odometer is infinite, they are two completely different settings. 
 
 In a finite $6$-digit odometer (base $10$):
 
-Positive `999,991`: `999991`
+Positive $999,991$: 
 
-Negative `9`: `999991` (Because $999991 + 9 = 1,000,000$, which rolls over to $000000$).
+`999991`
+
+Negative $-9$: 
+
+`999991` 
+
+(Because $999991 + 9 = 1,000,000$, which rolls over to $000000$).
 
 In the $p$-adic odometer (infinite digits):
 
-Positive `999,991`: `...000000000999991`
+Positive $999,991$: 
+
+`...000000000999991`
+
 (It has an infinite string of zeros to the left. It never hits the wall)
 
-Negative `9`: `...999999999999991`
+Negative $-9$: 
 
-It is a "two-way odometer":
+`...999999999999991`
 
-A positive Integer is a finite string of digits that eventually turns into infinite zeros.
+It is a "two-way odometer": A positive integer is a finite string of digits that eventually turns into infinite zeros. A negative integer is a finite string of digits that eventually turns into infinite $(p-1)$s.
 
-A Negative Integer is a finite string of digits that eventually turns into infinite $(p-1)$s.
+They occupy different "neighborhoods" of the $p$-adic universe. In the real number line, $+999,991$ is huge and $-9$ is small. It would be tempting to falsely state that the $p$-adic metric, $-9$ is closer to the "wall" ($\dots 999$), while $+999,991$ is "closer" to zero ($\dots 000$). To be close to zero, a number must end in many zeros. To be close to $-1$, a number must end in many nines. 
 
-They occupy different "neighborhoods" of the $p$-adic universe. In the real number line, $+999,991$ is huge and $-9$ is small. It would be tempting to falsely state that the $p$-adic metric, $-9$ is closer to the "wall" ($\dots 999$), while $+999,991$ is "closer" to zero ($\dots 000$).
+However, $+999,991$, corresponding to $\dots 0000000999991$ doesn't even share one trailing zero with the zero-wall. It is technically far from zero (distance = $1$). On the same odometer, the expansion of $-9$ is $\dots 999999999999991$: It matches the $9$'s of the wall for almost the entire infinite string, except for the very last digit ($1$ vs $9$). It is also technically far from the wall (distance = $1$). So perhaps the best term would be 'anchored': Positive integers are anchored to the zero-wall. Even if $+999,991$ is far from zero, its tail is made of infinite zeros. It belongs to the zero neighborhood. Negative integers are anchored to the negative wall. Even if $-9$ is far from $-1$, its tail is made of infinite nines. It belongs to the "wall neighborhood." To be truly close to an anchor in $p$-adics, you need a high power of the base: The number $1,000,000$ ($\dots 0001000000$) shares six zeros with the anchor, so it's close to $0$. On the other hand, the number $-1,000,001$ ($\dots 9998999999$) shares six nines with the anchor. In the $p$-adic metric, $1,000,000$ is small and $1$ is large.
 
-To be close to zero, a number must end in many zeros. To be close to $-1$, a number must end in many nines. However, $+999,991$, corresponding to $\dots 0000000999991$ doesn't even share one trailing zero with the zero-wall. It is technically far from zero (distance = $1$). On the same odometer, the expansion of $-9$ is $\dots 999999999999991$: It matches the "9"s of the wall for almost the entire infinite string, except for the very last digit ($1$ vs $9$). It is also technically far from the wall (distance = $1$). So perhaps the best term would be 'anchored': Positive integers are anchored to the zero-wall. Even if $+999,991$ is far from zero, its tail is made of infinite zeros. It belongs to the zero neighborhood. Negative integers are anchored to the negative wall. Even if $-9$ is far from $-1$, its "tail" is made of infinite nines. It belongs to the "wall" neighborhood." To be truly close to an anchor in $p$-adics, you need a high power of the base: The number $1,000,000$ ($\dots 0001000000$) shares six zeros with the anchor, so it's close to $0$. On the other hand, the number $-1,000,001$ ($\dots 9998999999$) shares six nines with the anchor. In the $p$-adic metric, $1,000,000$ is small and $1$ is large.
-
-A number like $1/2$ ($\dots 1112_3$) is the ultimate nomad. It is not anchored to the zero-wall of infinite zeros, nor is it anchored to the negative-wall of infinite twos. Because its tail is periodic and never settles into a single repeating digit of $0$ or $(p-1)$, it belongs to neither neighborhood. It is a 'fractional' state that can only exist because the odometer is infinite, allowing it to stay in a permanent state of 'rolling over' without ever arriving at a final destination."
+A number like $1/2$ ($\dots 1112_3$) is the ultimate nomad. It is not anchored to the zero-wall of infinite zeros, nor is it anchored to the negative-wall of infinite twos ($3$-adics). Because its tail is periodic and never settles into a single repeating digit of $0$ or $(p-1)$, it belongs to neither neighborhood. It is a 'fractional' state that can only exist because the odometer is infinite, allowing it to stay in a permanent state of 'rolling over' without ever arriving at a final destination."
 
 $\dots (p-1)(p-1)(p-1)_p$ is the unique element that maps to the highest possible value in every single finite modular system simultaneously in $\mathbb{Z}_p$ as the inverse limit of the rings $\mathbb{Z}/p^n\mathbb{Z}$.
 
@@ -387,7 +394,7 @@ Positive Integers: Tail of `...000`
 Negative Integers: Tail of `...111`
 Fractions: Tail of `...010101` (or some other repeating pattern).
 
-An irrational number in $p$ - adics—like the $5$-adic square root of $-1$ — has an expansion that never repeats.The gears of the odometer are constantly turning, but they never fall into a predictable loop. Each new digit to the left is a "surprise" generated by the algebraic equation you are trying to solve. We find these digits one by one using Hensel's Lemma (the $p$-adic version of Newton's Method). On the odometer, an irrational number looks like "static" or a random sequence of numbers that goes on forever to the left without a pattern.
+An irrational number in $p$-adics — like the $5$-adic square root of $-1$ — has an expansion that never repeats. The gears of the odometer are constantly turning, but they never fall into a predictable loop. Each new digit to the left is a "surprise" generated by the algebraic equation we are trying to solve. We find these digits one by one using Hensel's Lemma (the $p$-adic version of Newton's Method). On the odometer, an irrational number looks like "static" or a random sequence of numbers that goes on forever to the left without a pattern.
 
 
 ---
@@ -1687,7 +1694,7 @@ Computers typically use floating-point representation for real numbers. This all
 
 ---
 
-A **simple root** of a polynomial is a root where the polynomial crosses the x-axis and does not touch or bounce off it. A root $r$ of a polynomial $f(x)$ is considered simple if $f(r) = 0$ and the derivative  $f'(r)\neq 0$. This means that at $r$, the polynomial has a non-zero slope, indicating that it crosses the x-axis at that point. In contrast, a multiple root (or repeated root) would satisfy $f(r) = 0$ and $f’(r) = 0$, meaning the polynomial touches or bounces off the x-axis at $r$ but does not cross it.
+A **simple root** of a polynomial is a root where the polynomial crosses the x-axis and does not touch or bounce off it. A root $r$ of a polynomial $f(x)$ is considered simple if $f(r) = 0$ and the derivative $f'(r)\neq 0$. This means that at $r$, the polynomial has a non-zero slope, indicating that it crosses the $x$-axis at that point. In contrast, a multiple root (or repeated root) would satisfy $f(r) = 0$ and $f’(r) = 0$, meaning the polynomial touches or bounces off the x-axis at $r$ but does not cross it.
 
 If a polynomial has a simple root modulo a prime $p$, Hensel’s theorem allows us to lift this root to a root modulo $p^k$ for any $k$. This process can be extended to find roots in the p-adic integers $\mathbb{Z}_p$.
 
@@ -1901,7 +1908,120 @@ The Hasse principle (or Local-Global Principle) is the mathematical hope that if
  
 **Hensel lifting** is a technique in number theory and computer algebra, analogous to Newton's method, that raises a solution of a polynomial equation from modulo $p$ (or $p^{k}$) to a higher power $p^{k+1},$ or ultimately to $p$-adic integers. It efficiently finds roots of equations or factorizes polynomials over $\mathbb{Z}[x]$ (polynomials with integer coefficients) by lifting solutions iteratively, requiring the initial root to satisfy a non-vanishing derivative condition.
 
-After finding a root of $f(x)$ in the residue field $\mathbb{F}_p = \mathbb{Z}_p / p\mathbb{Z}_p$ (the elements of $\mathbb{F}_p$ are the "residues" (remainders) of the $p$-adic numbers), we increase the "resolution," by calculating the Hensel Lift in $\mathbb{Z}_p$ up to three levels of precision ($5^0, 5^1, 5^2$ for $\mathbb{Z}_5$ in the example below). We are using the Newton-Raphson style formula for $p$-adics:
+Values like $\sqrt{2}$, $\sqrt[3]{5}$, or the roots of $x^5 - x - 1 = 0$ (i.e. algebraic numbers) are "fair game" for Hensel lifting. These are the $p$-adic equivalent of finding precise decimal roots. Numbers like $\pi$ or $e$ are not roots of any polynomial with integer coefficients. In fact, $p$-adic analysis has its own versions of exponential and trigonometric functions, but they behave very differently. You wouldn't use Hensel's Lemma to "find $\pi$" in $\mathbb{Z}_p$. 
+
+In standard real-number arithmetic, if you want to find $\sqrt{2}$ to higher precision, you use Newton’s Method to get more decimal places ($1.4, 1.41, 1.414\dots$).In $p$-adic arithmetic, Hensel lifting does the exact same thing, but instead of adding decimal places to the right, you add $p$-adic digits to the left. You aren't just "solving an equation"; you are constructing a specific $p$-adic number digit by digit.
+
+Let's find a "precise" value for a root of $f(x) = x^2 - 6$:
+
+1. Newton's Method (In the Reals $\mathbb{R}$):
+
+We want $\sqrt{6} \approx 2.449...$
+
+The formula is: $$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} = x_n - \frac{x_n^2 - 6}{2x_n}$$
+
+Seed ($x_0$): Let's start at $2$.
+
+Step 1: $x_1 = 2 - \frac{2^2 - 6}{2(2)} = 2 - \frac{-2}{4} = \mathbf{2.5}$
+
+Step 2: $x_2 = 2.5 - \frac{2.5^2 - 6}{2(2.5)} = 2.5 - \frac{0.25}{5} = \mathbf{2.45}$
+
+Result: Each step adds roughly double the number of decimal places to the right.
+
+
+2. Hensel Lifting (In the $5$-adic Integers $\mathbb{Z}_5$)
+
+We want to find $x \in \mathbb{Z}_5$ such that $x^2 \equiv 6 \pmod{5^k}$.
+
+The formula is identical in structure: 
+
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
+
+
+but the division is handled via modular inverses.
+
+Step 0 (the seed): 
+
+Find $x_0$ such that $x_0^2 \equiv 6 \pmod 5$.
+
+Since $6 \equiv 1 \pmod 5$, we choose $x_0 = 1$.
+
+Step 1 (Lifting to $5^2=25$):
+
+We need $f'(x_0) = 2(1) = 2$.
+
+The formula: $x_1 = 1 - \frac{1^2 - 6}{2} = 1 - \frac{-5}{2}$.
+
+In modular arithmetic, "dividing by 2" means multiplying by the inverse of $2 \pmod 5$. 
+
+The inverse of $2$ is $3$ (because $2 \times 3 = 6 \equiv 1 \pmod 5$).
+
+$x_1 = 1 - (-5 \times 3) = 1 + 15 = \mathbf{16}$.
+
+Check: $16^2 = 256$. $256 \equiv 6 \pmod{25}$. It works!
+
+Step 2 (Lifting to $5^3=125$):
+
+$x_2 = 16 - \frac{16^2 - 6}{f'(16)} = 16 - \frac{250}{32}$.
+
+We find the inverse of $32 \pmod{125}$ and continue.
+
+$x_2 = 16 + 250 \times (\text{inverse}) = \mathbf{66}$.
+
+As an other example, to find $\sqrt{2}$, we are looking for the roots of $f(x) = x^2 - 2 = 0$. 
+
+This is a perfect example because $\sqrt{2}$ is an irrational number in the Reals ($\mathbb{R}$), and in the $p$-adic world, it only exists for certain primes (like $p=7, 17, 23, \dots$). Let’s use $p = 7$ because $x^2 \equiv 2 \pmod 7$ has a solution ($3^2 = 9 \equiv 2$).
+
+1. Newton's Method (In $\mathbb{R}$):
+
+We want to find $\sqrt{2} \approx 1.414213...$
+
+The formula: $x_{n+1} = x_n - \frac{x_n^2 - 2}{2x_n}$
+
+Step 0 ($x_0$): Let's pick $x_0 = 1.5$.
+
+Step 1: $x_1 = 1.5 - \frac{1.5^2 - 2}{2(1.5)} = 1.5 - \frac{0.25}{3} = 1.4166...$
+
+Step 2: $x_2 = 1.4166 - \frac{1.4166^2 - 2}{2(1.4166)} \approx \mathbf{1.414215...}$
+
+Observation: The error ($x_n - \sqrt{2}$) is getting smaller in absolute value. The digits are filling in to the right of the decimal.
+
+2. Hensel Lifting (In $\mathbb{Z}_7$):
+
+We want to find $x$ such that $x^2 \equiv 2 \pmod{7^k}$.
+
+The formula: $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} \pmod{7^{k+1}}$
+
+Step 0 ($x_0$): Solve $x^2 \equiv 2 \pmod 7$. We find $x_0 = 3$ (since $3^2 = 9 \equiv 2 \pmod 7$).
+
+Step 1 (Lifting to $7^2=49$):
+
+We need the derivative $f'(x) = 2x$. At $x_0=3$, $f'(3) = 6$.
+
+We need the modular inverse of $6 \pmod 7$. Since $6 \equiv -1 \pmod 7$, its inverse is also $-1$ (or $6$).
+
+$x_1 = 3 - (3^2 - 2) \cdot 6 = 3 - (7 \cdot 6) = 3 - 42 = -39$.
+
+In $\pmod{49}$, $-39 \equiv \mathbf{10}$.
+
+Check: $10^2 = 100$. $100 = (2 \times 49) + 2$. So $10^2 \equiv 2 \pmod{49}$. Success!
+
+Step 2 (Lifting to $7^3=343$):
+
+$x_1 = 10$. $f(10) = 100 - 2 = 98$.$f'(10) = 2(10) = 20$.
+
+Find the inverse of $20 \pmod{7^2}$. (After some modular arithmetic, it's $32$).
+
+$x_2 = 10 - (98 \cdot 32) = 10 - 3136 = -3126$.
+
+In $\pmod{343}$, $-3126 \equiv \mathbf{108}$. 
+
+Check: $108^2 = 11664$. $11664 = (34 \times 343) + 2$. Success!
+
+
+After finding a root of $f(x)$ in the residue field $\mathbb{F}_p = \mathbb{Z}_p / p\mathbb{Z}_p$ (the elements of $\mathbb{F}_p$ are the "residues" (remainders) of the $p$-adic numbers), we increase the "resolution," by calculating the Hensel Lift in $\mathbb{Z}_p$ up to three levels of precision ($5^0, 5^1, 5^2$ for $\mathbb{Z}_5$ in the example below). 
+
+We are using the Newton-Raphson style formula for $p$-adics:
 
 $$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
 
