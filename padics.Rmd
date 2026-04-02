@@ -2019,13 +2019,13 @@ In $\pmod{343}$, $-3126 \equiv \mathbf{108}$.
 Check: $108^2 = 11664$. $11664 = (34 \times 343) + 2$. Success!
 
 
-After finding a root of $f(x)$ in the residue field $\mathbb{F}_p = \mathbb{Z}_p / p\mathbb{Z}_p$ (the elements of $\mathbb{F}_p$ are the "residues" (remainders) of the $p$-adic numbers), we increase the "resolution," by calculating the Hensel Lift in $\mathbb{Z}_p$ up to three levels of precision ($5^0, 5^1, 5^2$ for $\mathbb{Z}_5$ in the example below). 
+After finding a root of $f(x)$ in the residue field $\mathbb{F}_p = \mathbb{Z}_p / p\mathbb{Z}_p$ (the elements of $\mathbb{F}_p$ are the "residues" (remainders) of the $p$-adic numbers), we increase the "resolution," by calculating the Hensel lift in $\mathbb{Z}_p$ up to three levels of precision ($5^0, 5^1, 5^2$ for $\mathbb{Z}_5$ in the example below). 
 
 We are using the Newton-Raphson style formula for $p$-adics:
 
 $$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
 
-The "bridge" that connects the current approximation $x_n$ to the next one $x_{n+1}$ is the "nudge" $h$. If we rearrange the Newton-Raphson formula: 
+The bridge that connects the current approximation $x_n$ to the next one $x_{n+1}$ is the "nudge" $h$. If we rearrange the Newton-Raphson formula: 
 
 $$x_{n+1} - x_n = - \frac{f(x_n)}{f'(x_n)}$$ 
 
