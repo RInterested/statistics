@@ -557,17 +557,21 @@ Base $5$ starts by solving for the largest $i$ first ($b_5$). It asks: "What is 
 
 Step-by-Step quotient reasoning:
 
-First, let's identify the powers of 5: $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 = 625$, $5^5 = 3,125$, $5^6 = 15,625$. Since $5^5$ is the largest power that fits in $4,357,$ we start there.
+First, let's identify the powers of $5$: 
+
+$5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 = 625$, $5^5 = 3,125$, $5^6 = 15,625$. 
+
+Since $5^5$ is the largest power that fits in $4,357,$ we start there.
 
 
 | Power (Pw)| Operation | Quotient (Quo)|  $\small \text{prior Re}-\text{Quo}\times\text{Pw}$|Remainder (Re) |
 | :--- | :--- | :--- | :---|:--- | :---|
-| $5^5$ (3,125) | $4357 \div 3125$ | $\color{red}1$ |$= b_5$|$4357-1 \cdot 5^5$  | $1,232$ |
-| $5^4$ (625) | $1232 \div 625$ | $\color{red}1$ |$= b_4$|$1232-1\cdot 5^4$ |$607$ |
-| $5^3$ (125) | $607 \div 125$ | $\color{red}4$ |$= b_3$ |$607 - 4 \cdot 5^3$| $107$ |
-| $5^2$ (25) | $107 \div 25$ | $\color{red}4$ |$=b_2$|$107 - 4\cdot 5^2$ | $7$ |
-| $5^1$ (5) | $7 \div 5$ | $\color{red}1$ |$=b_1$|$7- 1\cdot 5^1$ | $2$ |
-| $5^0$ (1) | $2 \div 1$ | $\color{red}2$ |$=b_0$| $2 - 2\cdot 5^0$ | $0$ |
+| $5^5$ (3,125) | $4357 \div 3125$ | $\color{red}1$ $= b_5$|$4357-1 \cdot 5^5$  | $1,232$ |
+| $5^4$ (625) | $1232 \div 625$ | $\color{red}1$ $= b_4$|$1232-1\cdot 5^4$ |$607$ |
+| $5^3$ (125) | $607 \div 125$ | $\color{red}4$ $= b_3$ |$607 - 4 \cdot 5^3$| $107$ |
+| $5^2$ (25) | $107 \div 25$ | $\color{red}4$ $=b_2$|$107 - 4\cdot 5^2$ | $7$ |
+| $5^1$ (5) | $7 \div 5$ | $\color{red}1$ $=b_1$|$7- 1\cdot 5^1$ | $2$ |
+| $5^0$ (1) | $2 \div 1$ | $\color{red}2$ $=b_0$| $2 - 2\cdot 5^0$ | $0$ |
 
 By gathering the quotients from top to bottom, we get the digits: $1, 1, 4, 4, 1, 2.$ In standard mathematical notation: $$4357_{10} = 114412_5$$
 
@@ -590,17 +594,17 @@ $$\boxed{b_i \equiv a_i \pmod 5}$$
 
 at each level. 
 
-How to think of these $a_i$ and $b_i$? Well, $a_0$ is the actual number we start with, in this case $4,357$. But at each step we chisel away the remainder, which is the $b_i$ in the modular congruence that we are solving. But here is the key point: this modular operation starts off at $\mod 5$, which neutralizes the whole tail of the RHS of the expression:
+How to think of these $a_i$ and $b_i$? Well, $a_0$ is the actual number we start with, in this case $4,357$. But at each step we chisel away the remainder, which is the $b_i$ in the modular congruence that we are solving. But here is the key point: this modular operation starts off already at mod $5$, which neutralizes the whole tail of the RHS of the expression:
 
 $$4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)$$
 
 leaving only $b_0$. In the next step we subtract $4357 - b_0$ to produce the $\text{new } a$: so the `new` $a$ is just the number we started with modified in such manner that it is now congrouous to $5.$ We save the remnant the $b_0$. This new $a$ is divisible by $5,$ but now we want to test the modularity at base $5^2$. We divide again by $5$ for the second time, but only after having subtracted the modular result base $5,$ i.e. $\frac{a - b_0}5$ Again we will find the remnant at that base in $b_1,$ save this remnant as the modular expression of the number at base $25,$ and again subtract. So it is as though we are withering away at the initial integer, always dividing by higher powers of $5,$ and never keeping record of the quotients at all.
 
-In regular division the quotient is saved at each step, while the remainder is augmented by appending the next (smaller order) digit (or in decimals, simply adding a zero, or **multiplying** $\times 10$). In $5$-adic it is the remainders that are saved to reconstitute the number, and it is the initial number (the $a$) that keeps getting chipped away by the `remainder` ($b_i$) and **divided** by $5$ at each step. 
+In regular division the quotient is saved at each step, while the remainder is augmented by appending the next (smaller order) digit (or in decimals, simply adding a zero, or **multiplying** $\times 10$). In $5$-adic it is the remainders that are saved to reconstitute the number, and it is the initial number (the $a_0$) that keeps getting chipped away by the `remainder` ($b_i$) and **divided** by $5$ at each step. 
 
 ---
 
-| Power | Current $a$ | Digit $b_i$ | Subtraction $(a - b_i)$ | New $a$ ($a/5$) | $x_n = 4357 \pmod{5^n}$ | Consistency $x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
+| Power | Current<br> $a_i$ | Digit<br> $b_i$ | Subtraction<br> $\small a - b_i$ | New<br>$\small a_{i+1}=\frac{a_i}5$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | $5^0=1$ | $4357$ | $\color{red}2$ ($b_0$) | $4357 - 2 = 4355$ | $871$ | $x_0 = 0$ | — |
 | $5^1=5$ | $871$ | $\color{red}1$ ($b_1$) | $871 - 1 = 870$ | $174$ | $x_1 = 2$ | $2 \equiv 2 \pmod{1}$ |
@@ -619,7 +623,7 @@ $$4357 = (\mathbf{2} \cdot 5^0) + (\mathbf{1} \cdot 5^1) + (\mathbf{4} \cdot 5^2
 
 Checking the math: $2 \times 1 + 1 \times 5 + 4 \times 25 +4 \times 125 + 1 \times 625 + 1 \times 3125 = 4,357$ 
 
-In $5$-adic notation, written from the lowest power to the highest, the expansion is $2, 1, 4, 4, 1, 1.$ In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
+In $5$-adic notation, written from the lowest power to the highest, the expansion is $2, 1, 4, 4, 1, 1.$ In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412_5$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
 
 In the study of $p$-adic numbers, the values $x_n$ are called **partial sums** (or sometimes **congruential approximations**). They represent the $p$-adic integer as a sequence of integers that "nest" inside one another. Mathematically, a $p$-adic integer is often defined exactly as this sequence $\{x_1, x_2, x_3, \dots\}$. The relationship between $x_n$ and the digits $b_i$ is additive. While the digits $b_i$ are the individual coefficients of the power series, the $x_n$ values are the cumulative totals of that series up to a certain point.
 
@@ -630,7 +634,7 @@ Then $x_n$ is the sum of the first $n$ terms:
 
 $$x_n = \sum_{i=0}^{n-1} b_i 5^i$$
 
-Let's see how the $b_i$ build your $x_n$ values:$x_1$: 
+Let's see how the $b_i$ build the $x_n$ values: 
 
 $x_1: b_0 = \mathbf{2}$ 
 
