@@ -661,7 +661,23 @@ The components:
 
 The sets: $A_n = \mathbb{Z}/p^n\mathbb{Z}$. These are our "levels" of resolution. 
 
-The maps: $\phi_n: A_n \to A_{n-1}$. This map takes a remainder modulo $p^n$ and forgets the highest power of $p$, reducing it to a remainder modulo $p^{n-1}$.
+The maps: $\phi_n: A_n \to A_{n-1}$. This map takes a remainder modulo $p^n$ and forgets the highest power of $p$, reducing it to a remainder modulo $p^{n-1}$:
+
+$A_n$ is the set of remainders modulo $5^n$. The map $\phi_n$ takes an element from $A_n$ and maps it to $A_{n-1}$ by applying the operation $\pmod{5^{n-1}}$. Example: Mapping $x_3$ to $x_2$: Let’s look at the transition from level $3$ ($A_3 = \mathbb{Z}/125\mathbb{Z}$) to level $2$ ($A_2 = \mathbb{Z}/25\mathbb{Z}$): 
+
+The input ($x_3$): In the table above, $x_3 = \mathbf{107}$. This is the $5$-adic approximation $b_0 + b_1(5) + b_2(25) = 2 + 5 + 100$. 
+
+The map ($\phi_3$): This map takes $x_3 \pmod{125}$ and reduces it $\pmod{25}$:
+
+The operation: 
+
+$$107 \pmod{25} = 7$$ 
+
+The result ($x_2$): We get $\mathbf{7}$, which is exactly our $x_2$ value:
+
+$$x_3 = \underbrace{2 \cdot 5^0 + 1 \cdot 5^1}_{x_2} + \underbrace{4 \cdot 5^2}_{\text{highest power}}$$
+
+When we apply $\phi_3$, we are literally forgetting the term $4 \cdot 5^2$ (which is $100$). Because $100$ is a multiple of $25$, it becomes $0$ when we move to the world of $\mathbb{Z}/25\mathbb{Z}$.
 
 The definition: The inverse limit $\varprojlim A_n$ is the set of all sequences $(x_1, x_2, x_3, \dots)$ such that applying the forgetful map to $x_n$ always gives you $x_{n-1}$.
 

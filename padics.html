@@ -1461,7 +1461,27 @@ resolution.</p>
 <p>The maps: <span class="math inline">\(\phi_n: A_n \to
 A_{n-1}\)</span>. This map takes a remainder modulo <span class="math inline">\(p^n\)</span> and forgets the highest power of
 <span class="math inline">\(p\)</span>, reducing it to a remainder
-modulo <span class="math inline">\(p^{n-1}\)</span>.</p>
+modulo <span class="math inline">\(p^{n-1}\)</span>:</p>
+<p><span class="math inline">\(A_n\)</span> is the set of remainders
+modulo <span class="math inline">\(5^n\)</span>. The map <span class="math inline">\(\phi_n\)</span> takes an element from <span class="math inline">\(A_n\)</span> and maps it to <span class="math inline">\(A_{n-1}\)</span> by applying the operation <span class="math inline">\(\pmod{5^{n-1}}\)</span>. Example: Mapping <span class="math inline">\(x_3\)</span> to <span class="math inline">\(x_2\)</span>: Let’s look at the transition from
+level <span class="math inline">\(3\)</span> (<span class="math inline">\(A_3 = \mathbb{Z}/125\mathbb{Z}\)</span>) to level
+<span class="math inline">\(2\)</span> (<span class="math inline">\(A_2
+= \mathbb{Z}/25\mathbb{Z}\)</span>):</p>
+<p>The input (<span class="math inline">\(x_3\)</span>): In the table
+above, <span class="math inline">\(x_3 = \mathbf{107}\)</span>. This is
+the <span class="math inline">\(5\)</span>-adic approximation <span class="math inline">\(b_0 + b_1(5) + b_2(25) = 2 + 5 + 100\)</span>.</p>
+<p>The map (<span class="math inline">\(\phi_3\)</span>): This map takes
+<span class="math inline">\(x_3 \pmod{125}\)</span> and reduces it <span class="math inline">\(\pmod{25}\)</span>:</p>
+<p>The operation:</p>
+<p><span class="math display">\[107 \pmod{25} = 7\]</span></p>
+<p>The result (<span class="math inline">\(x_2\)</span>): We get <span class="math inline">\(\mathbf{7}\)</span>, which is exactly our <span class="math inline">\(x_2\)</span> value:</p>
+<p><span class="math display">\[x_3 = \underbrace{2 \cdot 5^0 + 1 \cdot
+5^1}_{x_2} + \underbrace{4 \cdot 5^2}_{\text{highest
+power}}\]</span></p>
+<p>When we apply <span class="math inline">\(\phi_3\)</span>, we are
+literally forgetting the term <span class="math inline">\(4 \cdot
+5^2\)</span> (which is <span class="math inline">\(100\)</span>).
+Because <span class="math inline">\(100\)</span> is a multiple of <span class="math inline">\(25\)</span>, it becomes <span class="math inline">\(0\)</span> when we move to the world of <span class="math inline">\(\mathbb{Z}/25\mathbb{Z}\)</span>.</p>
 <p>The definition: The inverse limit <span class="math inline">\(\varprojlim A_n\)</span> is the set of all
 sequences <span class="math inline">\((x_1, x_2, x_3, \dots)\)</span>
 such that applying the forgetful map to <span class="math inline">\(x_n\)</span> always gives you <span class="math inline">\(x_{n-1}\)</span>.</p>
