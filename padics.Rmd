@@ -689,15 +689,17 @@ In the $p$-adic sequence $(x_1, x_2, x_3, \dots)$, once $p^n$ becomes larger tha
 
 The $p$-adic integers, denoted as $\mathbb{Z}_p$, are formally defined as the inverse limit (or projective limit) of these rings. $$\mathbb{Z}_p = \varprojlim (\mathbb{Z} / p^n \mathbb{Z})$$
 
-In $p$-adics, the "limit" is a sequence of partial sums $(x_1, x_2, x_3, \dots)$ that satisfy a compatibility condition: $x_n \equiv x_{n-1} \pmod{p^{n-1}}$. The inverse limit for a terminating integer is clearly seen in the `New` $a$ ($a/5$) column. Notice how $a$ decreases: $4357 \to 871 \to 174 \to 34 \to 6 \to 1 \to 0$. Once $a$ hits $0$, it stays $0$ forever. This means for all $n > 6$, the digit $b_n$ will be $0$. In the context of the inverse limit, the sequence becomes: $(x_1, x_2, x_3, x_4, x_5, x_6, x_6, x_6, \dots)$ The sequence stabilizes. In the ring $\mathbb{Z}_5$, an integer is simply a sequence that eventually becomes constant (all zeros) as you move to higher powers.
+In $p$-adics, the limit is a sequence of partial sums $(x_1, x_2, x_3, \dots)$ that satisfy a compatibility condition: $x_n \equiv x_{n-1} \pmod{p^{n-1}}$. The inverse limit for a terminating integer is clearly seen in the `New` $a$ ($a/5$) column. Notice how $a$ decreases: $4357 \to 871 \to 174 \to 34 \to 6 \to 1 \to 0$. Once $a$ hits $0$, it stays $0$ forever. This means for all $n > 6$, the digit $b_n$ will be $0$. In the context of the inverse limit, the sequence becomes: $(x_1, x_2, x_3, x_4, x_5, x_6, x_6, x_6, \dots)$: the sequence stabilizes. In the ring $\mathbb{Z}_5$, an integer is simply a sequence that eventually becomes constant (all zeros) as you move to higher powers.
 
 The consistency column is the mathematical proof that the sequence is an element of the inverse limit. We consider the sequence to "converge" because the difference between consecutive terms, $x_n - x_{n-1}$, is $b_{n-1} 5^{n-1}$. In the $p$-adic metric, as the power of $p$ increases, the value actually becomes smaller. The distance between $x_1$ and $x_2$ is $5^{-1}$.The distance between $x_5$ and $x_6$ is $5^{-5}$ (very tiny!). So, while the integers $x_n$ look like they are getting bigger in the "normal" sense $(7, 107, 607...),$ they are actually narrowing down (converging) to a specific $p$-adic point because the "corrections" we add at each step are getting $p$-adically smaller.
 
-The arrow points left because of the direction of the mapping. In the table, we have values in $x_n$ (like $107$) that exist in "larger" rings ($\mathbb{Z}/125\mathbb{Z}$). To ensure consistency, there is a projection map $\phi$ that carries information from the "more complex" ring to the "simpler" ring:$$\mathbb{Z}/5^3\mathbb{Z} \xrightarrow{\phi} \mathbb{Z}/5^2\mathbb{Z} \xrightarrow{\phi} \mathbb{Z}/5^1\mathbb{Z}$$ 
+The arrow points left because of the direction of the mapping. In the table, we have values in $x_n$ (like $107$) that exist in "larger" rings ($\mathbb{Z}/125\mathbb{Z}$). To ensure consistency, there is a projection map $\phi$ that carries information from the "more complex" ring to the "simpler" ring:
+
+$$\mathbb{Z}/5^3\mathbb{Z} \xrightarrow{\phi} \mathbb{Z}/5^2\mathbb{Z} \xrightarrow{\phi} \mathbb{Z}/5^1\mathbb{Z}$$ 
 
 The arrow points to the left because the "limit" is formed by following these maps back to the core. You are essentially saying: "The $p$-adic number is the object that is compatible with all these maps pointing toward the simpler versions of itself."
 
-In algebra, "simpler" usually means smaller or having fewer elements, and the arrow in the inverse limit reflects this: $\mathbb Z/5\mathbb Z$ is "simpler" from the point of view of resolution: the cardinality $\mathbb Z/5\mathbb Z$ is $5$, i.e. $\{0,1,2,3,4\}.$ $\mathbb Z/125\mathbb Z$ has $125$ elements. It is objectively "easier" to understand or navigate a set of $5$ things than a set of $125.$ Arithmetically, in $\mathbb Z/5\mathbb Z$, we lose a lot of detail. For example, in the table, the numbers $7,$ $107,$ and $607$ all "collapse" into the same single value: $2$. $\mathbb Z/5\mathbb Z$ is a coarse view. $\mathbb Z/125\mathbb Z$is a fine view.
+In algebra, simpler usually means smaller or having fewer elements, and the arrow in the inverse limit reflects this: $\mathbb Z/5\mathbb Z$ is simpler from the point of view of resolution: the cardinality $\mathbb Z/5\mathbb Z$ is $5$, i.e. $\{0,1,2,3,4\}.$ $\mathbb Z/125\mathbb Z$ has $125$ elements. It is objectively easier to understand or navigate a set of $5$ things than a set of $125.$ Arithmetically, in $\mathbb Z/5\mathbb Z$, we lose a lot of detail. For example, in the table, the numbers $7,$ $107,$ and $607$ all collapse into the same single value: $2$. $\mathbb Z/5\mathbb Z$ is a coarse view; $\mathbb Z/125\mathbb Z$is a fine view.
 
 ---
 
@@ -705,7 +707,7 @@ In algebra, "simpler" usually means smaller or having fewer elements, and the ar
 
 ---
 
-| Step | Division | Quotient (Next a) | Remainder (Digit d) | Meaning |
+| Step | Division | Quotient<br> (Next a) | Remainder<br>  (Digit d) | Meaning |
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | $4357 \div 5$ | 871 | 2 | $d_0$: Units leftover |
 | 2 | $871 \div 5$ | 174 | 1 | $d_1$: Fives leftover |
@@ -716,12 +718,12 @@ In algebra, "simpler" usually means smaller or having fewer elements, and the ar
 
 ---
 
-In the true geometric construction of the $5$-adic tree, the cylinders are eccentric (offset - not concentric) because each one must fit entirely inside the specific sub-region of its "parent" cylinder. In the $4357$ example, the cylinders "shift" as you go up the levels because you are picking a specific branch that isn't the central one ($b_i=0$). The base cylinder represents all numbers in $\mathbb{Z}_5$. This large cylinder is partitioned into $p$ (in this case, $5$) smaller, non-overlapping cylinders. If you pick $x_1 = 2$, you move into the second "shifted" cylinder. From there, to find $x_2 = 7$ (which is $2 + 1 \cdot 5$), you must move into a further offset sub-cylinder inside the first one. Instead of a straight vertical tower, the path for $4357$ looks like a spiraling or leaning staircase: Level $1$ ($b_0=2$): You step away from the center of the base. Level $2$ ($b_1=1$): You step again in a new direction within that first step. Level $3$ ($b_2=4$): You step toward the edge of that sub-region. The infinite limit point is the unique point at the very top where all these offset cylinders eventually converge to a single vertical line. In the $p$-adic metric, the fact that they are offset doesn't change the "distance," but it perfectly illustrates the inverse limit: you are narrowing down your location in the $p$-adic "map" by choosing smaller and smaller offset neighborhoods.
+In the true geometric construction of the $5$-adic tree, the cylinders are eccentric (offset - not concentric) because each one must fit entirely inside the specific sub-region of its "parent" cylinder. In the $4357$ example, the cylinders shift as you go up the levels because you are picking a specific branch that isn't the central one ($b_i=0$). The base cylinder represents all numbers in $\mathbb{Z}_5$. This large cylinder is partitioned into $p$ (in this case, $5$) smaller, non-overlapping cylinders. If you pick $x_1 = 2$, you move into the second "shifted" cylinder. From there, to find $x_2 = 7$ (which is $2 + 1 \cdot 5$), you must move into a further offset sub-cylinder inside the first one. Instead of a straight vertical tower, the path for $4357$ looks like a spiraling or leaning staircase: Level $1$ ($b_0=2$): You step away from the center of the base. Level $2$ ($b_1=1$): You step again in a new direction within that first step. Level $3$ ($b_2=4$): You step toward the edge of that sub-region. The infinite limit point is the unique point at the very top where all these offset cylinders eventually converge to a single vertical line. In the $p$-adic metric, the fact that they are offset doesn't change the "distance," but it perfectly illustrates the inverse limit: you are narrowing down your location in the $p$-adic "map" by choosing smaller and smaller offset neighborhoods.
 
 
 ---
 
-In $\mathbb{R}$, the "tail" of a decimal expansion can fundamentally change the "head" because of the Archimedean property. In a decimal expansion, there is no "safe zone." If you have a number like $\pi$ or any irrational: $3.14159265...$ and you change a digit $1,000$ places to the right, in the real numbers, that change is "small." But if you are performing arithmetic, a carry generated at the $1,000^{th}$ place can propagate all the way back to the $3$. This is the instability. The "far away" digits are not truly isolated from the "important" digits. The $p$-adic metric is Non-Archimedean (or an Ultrametric).
+In $\mathbb{R}$, the "tail" of a decimal expansion can fundamentally change the "head" because of the Archimedean property. In a decimal expansion, there is no "safe zone." If you have a number like $\pi$ or any irrational: $3.14159265...$ and you change a digit $1,000$ places to the right, in the real numbers, that change is "small." But if you are performing arithmetic, a carry generated at the $1,000^{th}$ place can propagate all the way back to the $3$. This is the instability. The "far away" digits are not truly isolated from the "important" digits. The $p$-adic metric is non-Archimedean (or an ultrametric).
 
 The real numbers and the "$p$-adic" numbers are essentially two different philosophies of precision. The problem isn't that carries exist — it's that in the real numbers, the direction of importance and the direction of arithmetic flow are in direct conflict. In decimal (real) numbers the importance is on the left (the $3$ in $\pi$ is more "important" than the $4$ in the hundredths place). However, the arithmetic flow (the carries) moves from right to left. This means that to be absolutely sure about the most important part of your number (the $3$), you technically need to know every single digit to the infinite right, just in case a "$999...$" chain is sitting there waiting to be triggered by a carry. In $p$-adics, the directions are aligned the importance is on the right (the units/remainder $b_0$) - remember that p-adics are written right to left. Likewise, the arithmetic flow (carries) moves from right to left (toward higher powers of $p$). Because higher powers are "smaller" in $p$-adic space, a carry rippling "to the left" is a carry rippling into oblivion. It moves toward the part of the number that matters less.
 
@@ -738,7 +740,9 @@ For $p$-adic integers ($\mathbb{Z}_p$), an open ball has a very intuitive algebr
 
 $$B_{p^{-n}}(a) = a + p^n\mathbb{Z}_p = \{ a + k \cdot p^n : k \in \mathbb{Z}_p \}$$
 
-In terms of modular arithmetic, this means:$$x \equiv a \pmod{p^n}$$
+In terms of modular arithmetic, this means:
+
+$$x \equiv a \pmod{p^n}$$
 
 The use of $-(n+1)$ in the exponent is a way to bridge the gap between an "open ball" ($<$) and a "closed ball" ($\leq$) in a space where distances only exist in discrete steps. In the $p$-adic world, distances are always powers of $p$ (e.g., $1, 1/5, 1/25, \dots$). There is no distance "in between" $1/5$ and $1/25$. If you define an open ball with radius $r = 5^{-n}$:
 
@@ -758,7 +762,10 @@ It is worth noting that in $p$-adic topology, every ball is both open and closed
 
 ---
 
-The relationship is also extended to fractions. For instance, in the case of $1/3$:
+
+##### Relationship between the digits in the p-adic and decimal expressions:
+
+For instance, in the case of $1/3$:
 
 $$\boxed{\begin{align}&\text{Reals base } 5: &0.\mathbf{131313...}\\
 &5-\text{adics: }&...\mathbf{31313132}\end{align}}$$
@@ -2088,6 +2095,14 @@ You didn't need the Taylor formula to expand $(2 + 5d_1)^2$ because it's a simpl
 
 $$f(x_n) + f'(x_n)(d_n p^n) + (\text{terms divisible by } p^{2n})$$
 Because you are working modulo $p^{n+1}$, those "extra" terms (like your $25d_1^2$) are always zeroed out. This means the Newton-Raphson formula isn't just a calculus trick; it is the linear part of the binomial expansion.
+
+For transcendental numbers, since there is no polynomial $f(x)$ where $f(\pi) = 0$, we use functions that are defined by an infinite sum of terms. For $e$, the Taylor series for the exponential function $e^x$ evaluated at $x=1$:
+
+$$e = \sum_{n=0}^{\infty} \frac{1}{n!} = 1 + \frac{1}{1} + \frac{1}{2} + \frac{1}{6} + \frac{1}{24} + \dots$$
+
+For $\pi$, computers use series like the Chudnovsky algorithm, which is incredibly fast:
+
+$$\frac{1}{\pi} = 12 \sum_{k=0}^{\infty} \frac{(-1)^k (6k)! (545140134k + 13591409)}{(3k)!(k!)^3 (640320)^{3k+3/2}}$$
 
 ---
 
