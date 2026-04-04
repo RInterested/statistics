@@ -17,6 +17,61 @@ output:
 
 ### Summary:
 
+
+##### p-adic integers (in $\mathbb Z_p$) versus p-adic rationals (in $\mathbb Q_p$) with $\mathbb Z_p\subset\mathbb Q_p$:
+
+INTEGERS:
+
+$\mathbb Z_p$ contains numbers whose expansions only go to the left (powers $p^0, p^1, p^2, \dots$):
+
+$\dots d_3 d_2 d_1 d_0$
+
+Example: A $3$-adic integer looks like $\dots0002101_3$, corresponding to $2101_3$ in base $3,$ and $64=2\cdot 3^3 + 1 \cdot 3^2 + 0 \cdot 3^1 + 1 \cdot 3^0$ in base $10.$ 
+
+These p-adic integers also include fractions (provided there is no power of $p$ in their denominators):
+
+Example: 
+
+$\dots 01210122_3$ is $1/5$ in $3$-adics. Here we have a fraction in $\mathbb Q,$ that turns into an integer in $\mathbb Z_p.$
+
+In addition, p-adic integers include negative numbers:
+
+Example:
+
+$\cdots 1100110011001022_3$ is $-1.45 = -\frac{29}{20}.$
+
+Transcendental numbers also turn into p-adic integers... Well, sometimes! Here is a mind-boggling realization: To move a number from $\mathbb{R}$ to $\mathbb{Q}_p$, we need a bridge: usually a sequence of rational numbers. For instance in $\mathbb{R}$, $e = \sum_{0}^\infty 1/n!$. In $\mathbb{Q}_p$, the terms $1/n!$ have $p$ in the denominator more and more often as $n$ grows. This means the terms get larger $p$-adically ($|1/n!|_p \to \infty$). Therefore the series explodes. Similarly $\pi$ is defined by the geometry of Euclidean space. Since $p$-adic space is non-Euclidean and ultra-metric (every triangle is isosceles!), the physical definition of $\pi$ has no meaning there.
+
+Even though Ostrowski's Theorem states that the only ways to fill in the gaps of the rational numbers $\mathbb{Q}$ are through the familiar real numbers $\mathbb{R}$ or the $p$-adic numbers $\mathbb{Q}_p$ for some prime $p$. Yet, we can't express either $\pi$ or $e$ as p-adics. Completion isn't about collecting every possible number that exists; it's about filling in the holes for a specific way of measuring distance. In the reals we use the distance $|x - y|$. We see that the sequence $3, 3.1, 3.14, 3.141...$ is getting closer and closer together. Since the "limit" isn't a rational number, we call that hole $\pi$ and add it to the set. In the p-adics, we use the distance $|x - y|_p$. In this metric, the sequence $3, 3.1, 3.14...$ doesn't get closer together at all. In fact, the terms stay far apart. Therefore, there is no "hole" at $\pi$ in the $p$-adic world because the sequence never tries to go there. The $p$-adics are complete because every sequence that should converge (according to $p$-adic distance) does converge to a $p$-adic number.
+
+
+The "geometry" of a $p$-adic circle is nothing like the one you draw on a piece of paper. In the $p$-adic world, trigonometry exists through power series, but the lack of $\pi$ means the functions behave in ways that would baffle a high school geometry student. Here is how we compute "circular" things in $\mathbb{Q}_p$ without $\pi$:
+
+In the reals, you can define $\sin(x)$ and $\cos(x)$ using the unit circle, or you can use their Taylor series. Since there are no "visual" circles in $\mathbb{Q}_p$, we use the series:
+
+$$\sin(x) = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!} \quad \text{and} \quad \cos(x) = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n}}{(2n)!}$$
+
+These series converge in $\mathbb{Q}_p$ as long as $|x|_p$ is small enough (specifically $|x|_p < p^{-1/(p-1)}$). Inside this "disk of convergence," these functions work perfectly. You can even prove the $p$-adic version of the Pythagorean identity $\sin^2(x) + \cos^2(x) = 1$.
+
+In the real numbers, $\sin(x)$ is periodic because of $\pi$. You go around the circle $2\pi$ radians and end up back where you started. In the $p$-adics, there is no $\pi$ because there is no periodicity. In $\mathbb{R}$, $\sin(x) = 0$ at $0, \pi, 2\pi, \dots.$ In $\mathbb{Q}_p$, the only solution to $\sin(x) = 0$ is $x = 0$. Because the functions aren't periodic, they don't "wrap around." A $p$-adic "line" doesn't form a closed loop in the way a real line wraps into a circle. If you define a circle as the set of points where $|x|_p = r$, the shape is strange: a set of disjoint disks. Because of the ultrametric inequality, if two $p$-adic "circles" overlap at all, one is contained entirely within the other. A $p$-adic circle isn't a smooth continuous line; it's more like a fractal dust (a Cantor set).
+
+Since we don't have $\pi$ to measure angles, we use roots of unity. In the complex numbers, the roots of $x^n - 1 = 0$ are points on the unit circle separated by angles of $2\pi/n$. In $\mathbb{Q}_p$, we can solve $x^n - 1 = 0$ for certain values of $n$ (specifically where $n$ divides $p-1$ using Hensel's Lemma). These roots of unity are the $p$-adic way of "dividing the circle." You aren't moving a distance of $\pi/4$ along an arc; you are jumping between discrete algebraic points that satisfy a circular equation.
+
+However, there are transcendental and complex numbers that can be expressed as p-adic integers. For example, in the $5$-adics, $\sqrt{-1}$ is a "natural" member of the field. 
+
+
+RATIONALS:
+
+$\mathbb Q_z$ contains those same numbers, plus a finite fractional part to the right of the radix point (negative powers like $p^{-1}, p^{-2}, \dots$):
+
+$\dots d_3 d_2 d_1 d_0\; \color{red}.\; d_{-1}d_{-2}\dots d_{-k}$
+
+Example: In $2$-adics the fraction $3/4$ is written $\dots 000110.11$ (equivalent to $2^{-2}+2^{-1}+2^1 + 2^2 +\dots$)
+
+When a p-adic number has digits to the right of the point, it is formally treated as a formal Laurent series in $p$. A p-adic integer is just a power series (no negative powers), while a "non-integer" is a Laurent series because it includes those negative powers of $p.$
+ 
+$\mathbb Q_z$ is the field of fractions of $\mathbb Z_p$, created simply by taking $\mathbb Z_p$ and allowing division by $p.$ 
+
 While the $p$-adic integers $\mathbb{Z}_p$ consist of power series starting at $i=0$, the full field of $p$-adic numbers, denoted by $\mathbb{Q}_p$, allows for a finitary fractional part: the "fractional" part (the negative powers) must be finite. If we allowed an infinite number of negative powers, the series would not converge under the $p$-adic metric. In $p$-adic analysis, $p^n$ gets smaller as $n$ gets larger. Therefore, $p^{-n}$ gets larger as $n$ gets larger. An infinite sum of increasingly huge terms cannot converge.
 
 A general element $\gamma \in \mathbb{Q}_p$ is expressed as a formal Laurent series in $p$:
