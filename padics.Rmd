@@ -247,7 +247,7 @@ $$p^n \equiv 1 \pmod{b} \implies p^n - 1 = b \cdot k$$
 
 This allows us to rewrite any denominator $b$ into the form $p^n - 1$. 
 
-Fermat's Little Theorem (FLT) specifically states $p^{b-1} \equiv 1 \pmod{b}$ when $b$ is prime. However, in the case of any denominator $b$ (even composite ones like $b=10$), we use the Euler-Fermat Theorem (a generalization of FLT). It says that as long as $p$ and $b$ share no common factors ($gcd(p, b) = 1$), then: 
+[Fermat's Little Theorem (FLT)](https://en.wikipedia.org/wiki/Fermat%27s_little_theorem) specifically states $p^{b-1} \equiv 1 \pmod{b}$ when $b$ is prime. However, in the case of any denominator $b$ (even composite ones like $b=10$), we use the Euler-Fermat Theorem (a generalization of FLT). It says that as long as $p$ and $b$ share no common factors ($gcd(p, b) = 1$), then: 
 
 $$p^{\phi(b)} \equiv 1 \pmod{b}$$
 Where $\phi(b)$ is the count of numbers less than $b$ that are coprime to it. Whether $b$ is prime or composite, there is always some power $n$ that lands you at $1 \pmod{b}$. This ensures $b \cdot k = p^n - 1$ always has an integer solution for $k$.
