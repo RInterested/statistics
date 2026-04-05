@@ -939,13 +939,14 @@ solid string of <span class="math inline">\(1\)</span>s:</p>
 mathematical generalization of this, where the number of bits is
 infinite.</p>
 <p>In the real line <span class="math inline">\(0\)</span> is the
-origin, but for <span class="math inline">\(p\)</span>-adics <span class="math inline">\(-1\)</span> is the complementary origin. The
-symmetry we found between <span class="math inline">\(1/2 =
-0.111\dots_3\)</span> (fractional real line system) and <span class="math inline">\(1/2 = \dots 1112_p\)</span> (<span class="math inline">\(3\)</span>-adics) is the mathematical proof that
-the distance from the real Origin <span class="math inline">\((0)\)</span> and the <span class="math inline">\(p\)</span>-adic origin <span class="math inline">\((-1)\)</span> to the value <span class="math inline">\(1/2\)</span> is governed by the exact same
+origin, but for p-adics <span class="math inline">\(-1\)</span> is the
+complementary origin. The symmetry we found between <span class="math inline">\(1/2 = 0.111\dots_3\)</span> (fractional real line
+system) and <span class="math inline">\(1/2 = \dots 1112_p\)</span>
+(<span class="math inline">\(3\)</span>-adics) is the mathematical proof
+that the distance from the real origin <span class="math inline">\((0)\)</span> and the p-adic origin <span class="math inline">\((-1)\)</span> to the value <span class="math inline">\(1/2\)</span> is governed by the exact same
 geometric laws.</p>
-<p>The standard Two’s Complement is designed for integers only. A 64-bit
-integer register cannot deal with <span class="math inline">\(1/2.\)</span></p>
+<p>The standard two’s complement is designed for integers only. A <span class="math inline">\(64\)</span>-bit integer register cannot deal with
+<span class="math inline">\(1/2.\)</span></p>
 <p>In the <span class="math inline">\(3\)</span>-adic system, we
 successfully found <span class="math inline">\(1/2 = \dots
 11112_3\)</span>. However, if we attempt to apply this same “odometer
@@ -969,15 +970,15 @@ end). This means any doubled number must end in <span class="math inline">\(0\)<
 1 \cdot 2^0 = (\dots 0001)_2\)</span>). This failure actually defines
 the difference between a <span class="math inline">\(p\)</span>-adic
 integer (<span class="math inline">\(\mathbb{Z}_p\)</span>) and the
-broader <span class="math inline">\(p\)</span>-adic field (<span class="math inline">\(\mathbb{Q}_p\)</span>). Because <span class="math inline">\(2\)</span> is the base itself, <span class="math inline">\(1/2\)</span> cannot be expressed as a power series
+broader p-adic field (<span class="math inline">\(\mathbb{Q}_p\)</span>). Because <span class="math inline">\(2\)</span> is the base itself, <span class="math inline">\(1/2\)</span> cannot be expressed as a power series
 starting at <span class="math inline">\(2^0\)</span>; it requires the
 “fractional” part of the Laurent series, <span class="math inline">\(2^{-1}\)</span>. In the <span class="math inline">\(2\)</span>-adic system, <span class="math inline">\(1/2\)</span> is not an infinite string of
 integers, but a single digit shifted to the right of the radix point:
 <span class="math inline">\(0.1_2\)</span>. The system doesn’t fail; it
 simply forces the number out of the “integer” circle and into the
 “fractional” territory.</p>
-<p>To find <span class="math inline">\(1/2\)</span> in <span class="math inline">\(2\)</span>-adics, we use the <strong>Radix
-Point</strong> (the <span class="math inline">\(p\)</span>-adic version
+<p>To find <span class="math inline">\(1/2\)</span> in <span class="math inline">\(2\)</span>-adics, we use the <strong>radix
+point</strong> (the <span class="math inline">\(p\)</span>-adic version
 of a decimal point). Since <span class="math inline">\(1/2 =
 2^{-1}\)</span>, its representation is actually finite but below the
 units place: <span class="math inline">\(1/2 = 0.1_2.\)</span> In base
@@ -986,15 +987,14 @@ expansion. In base <span class="math inline">\(2,\)</span> <span class="math inl
 simple terminating fractional digit. In the case of <span class="math inline">\(1/3\)</span> in <span class="math inline">\(2\)</span>-adic, since <span class="math inline">\(3\)</span> doesn’t divide <span class="math inline">\(2\)</span>, it must be an infinite string to the
 left:</p>
 <p>If we want to represent <span class="math inline">\(1/3\)</span> as a
-<span class="math inline">\(2\)</span>-adic power series, the <span class="math inline">\(p\)</span>-adic representation only accepts
-denominators of the form <span class="math inline">\((1 - r)\)</span>,
-where <span class="math inline">\(r\)</span> is a power of <span class="math inline">\(p\)</span>. To find that power, we use Fermat’s
-Little Theorem (or Euler’s generalization). What power of <span class="math inline">\(2\)</span> is exactly <span class="math inline">\(1\)</span> more than a multiple of <span class="math inline">\(3\)</span>?</p>
-<p><span class="math inline">\(2^1 = 2\)</span> (Not <span class="math inline">\(1 \pmod 3\)</span>)</p>
-<p><span class="math inline">\(2^2 = 4\)</span> (This is <span class="math inline">\(1 \pmod 3\)</span>, because <span class="math inline">\(4 = 3 \times 1 + 1\)</span>)</p>
+<span class="math inline">\(2\)</span>-adic power series, the p-adic
+representation only accepts denominators of the form <span class="math inline">\((1 - r)\)</span>, where <span class="math inline">\(r\)</span> is a power of <span class="math inline">\(p\)</span>. To find that power, we use Fermat’s
+little theorem (or Euler’s generalization). What power of <span class="math inline">\(2\)</span> is exactly <span class="math inline">\(1\)</span> more than a multiple of <span class="math inline">\(3\)</span>?</p>
+<p><span class="math inline">\(2^1 = 2\)</span> (it’s not <span class="math inline">\(1 \pmod 3\)</span>)</p>
+<p><span class="math inline">\(2^2 = 4\)</span> (this is <span class="math inline">\(1 \pmod 3\)</span>, because <span class="math inline">\(4 = 3 \times 1 + 1\)</span>)</p>
 <p>So, our power is <span class="math inline">\(n=2\)</span>. This tells
 us that <span class="math inline">\(2^2 - 1\)</span> is a multiple of
-<span class="math inline">\(3\)</span>. Now we force <span class="math inline">\(1/3\)</span> into the geometric serie:</p>
+<span class="math inline">\(3\)</span>. Now we force <span class="math inline">\(1/3\)</span> into the geometric series:</p>
 <p><span class="math display">\[\frac{1}{3} = \frac{1}{2^2 -
 1}\]</span></p>
 <p>To make it a <span class="math inline">\(2\)</span>-adic series, the
@@ -1002,7 +1002,8 @@ denominator must be <span class="math inline">\(1 - r\)</span>. We
 factor out a <span class="math inline">\(-1\)</span>:</p>
 <p><span class="math display">\[\frac{1}{3} = \frac{1}{-(1 - 2^2)} = -1
 \cdot \left( \frac{1}{1 - 2^2} \right)\]</span></p>
-<p>Now, we apply the standard geometric series identity: <span class="math display">\[\frac{1}{1-r} = 1 + r + r^2 + r^3 +
+<p>Now, we apply the standard geometric series identity:</p>
+<p><span class="math display">\[\frac{1}{1-r} = 1 + r + r^2 + r^3 +
 \dots\]</span></p>
 <p>Since our <span class="math inline">\(r\)</span> is <span class="math inline">\(2^2\)</span> (which is <span class="math inline">\(4\)</span>), the fraction becomes:</p>
 <p><span class="math display">\[-1 \cdot (1 + 2^2 + (2^2)^2 + (2^2)^3 +
