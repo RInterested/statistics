@@ -118,7 +118,7 @@ This is explained in [here](https://youtu.be/LolxzYwN1TQ?si=aPsM8zy_NYDbEkPX).
 
 In the LMFDB, [modular forms](https://www.lmfdb.org/ModularForm/GL2/Q/holomorphic/) are classified according to **weight** ($k$) and **level**, which is a positive integer $N$ such that $f$ is a modular form on a subgroup $\Gamma$ of $\operatorname{SL}_2(\mathbb{Z})$ that contains the principal congruence subgroup $\Gamma(N)$.
 
-For instance, take the elliptic curve $y^2+y=x^3-x^2$ that Edward Frenkel presents in Numberphile in [here](https://youtu.be/4dyytPboqvE?si=Uhv4J6zy_Ojsj4vZ). It turns out that you can find the curve by plugging the equation in the field "Label or coefficients", and it returns `11.a3 (Cremona label 11a3)` with the corresponding modular form within the information about the elliptic curve:
+For instance, take the elliptic curve $y^2+y=x^3-x^2$ that Edward Frenkel presents in Numberphile in [here](https://youtu.be/4dyytPboqvE?si=Uhv4J6zy_Ojsj4vZ). It turns out that you can find the curve by plugging the equation in the field of the webpage "Label or coefficients", and it returns `11.a3 (Cremona label 11a3)` with the corresponding modular form within the information about the elliptic curve:
 
 $$q - 2\,q^2 - q^3 + 2\,q^4 + q^5 + 2\,q^6 - 2\,q^7 - 2\,q^9 - 2\,q^{10} + q^{11} - 2\,q^{12} + \cdots)\\[2ex]=q\,((1-q)^2\;(1-q^{11})^2\;(1-q^2)^2\;(1-q^{22})^2)\;(1-q^{3})^2\;(1-q^{33})^2\cdots$$
 
@@ -232,7 +232,11 @@ $$\begin{bmatrix}a&b\\c&d\end{bmatrix}\circlearrowright\tau = \frac{a\tau + b}{c
 and if they are less than $1$ unit from the origin, they will reflect them outside the unit circle with the transformation $-1/z,$ corresponding to the action of the matrix $\small \begin{bmatrix}0&-1\\1&0\end{bmatrix}$:
 
 $$\begin{bmatrix}a&b\\c&d\end{bmatrix}\circlearrowright\tau = \frac{a\tau + b}{c\tau+d}=\frac{ -1}{z}$$
- * Modular forms have a Fourier expansion, often called the $q$-expansion, where $q$ is related to $\tau$ (a complex number in the upper half-plane) by $\mathbf{\color{red}{q = \exp(2πi\tau)}}$. The polynomial (which is an approximation of the modular form) is being evaluated at this $q$ value. This is because the modular form is often expressed and computed in terms of its $q$-expansion.
+ * Modular forms have a Fourier expansion, often called the $q$-expansion, where $q$ is related to $\tau$ (a complex number in the upper half-plane) by 
+ 
+$$\mathbf{\color{red}{q = \exp(2πi\tau)}}$$ 
+ 
+The polynomial (which is an approximation of the modular form) is being evaluated at this $q$ value. This is because the modular form is often expressed and computed in terms of its $q$-expansion.
  
  With the FD is comprised between $-1/2$ and $1/2$ in the real line, and between $0$ and $~ 2$ in the imaginary line (see plot above), the transformation $\exp(2\pi i \tau)$ of $\tau = a + bi$ will be $\exp(2\pi i (a+bi))= \exp(-2\pi b) \exp(2\pi\ i a)$, which can be very small for a value with an imaginary part slightly above $1$, say for example $b = 2$, $\exp(-2 \pi 2) ~ 3.5\times 10^{-6}$, leading to potential numerical instability, and the need for high-precision arithmetic libraries. On the other hand, small values of $q$ can make the infinite series decay fast, leading to more accurate calculations with fewer terms.
  
