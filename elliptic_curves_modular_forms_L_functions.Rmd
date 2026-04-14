@@ -232,7 +232,7 @@ $$\begin{bmatrix}a&b\\c&d\end{bmatrix}\circlearrowright\tau = \frac{a\tau + b}{c
 and if they are less than $1$ unit from the origin, they will reflect them outside the unit circle with the transformation $-1/z,$ corresponding to the action of the matrix $\small \begin{bmatrix}0&-1\\1&0\end{bmatrix}$:
 
 $$\begin{bmatrix}a&b\\c&d\end{bmatrix}\circlearrowright\tau = \frac{a\tau + b}{c\tau+d}=\frac{ -1}{z}$$
- * Modular forms have a Fourier expansion, often called the $q$-expansion, where $q$ is related to $\tau$ (a complex number in the upper half-plane) by $q = \exp(2πi\tau)$. The polynomial (which is an approximation of the modular form) is being evaluated at this $q$ value. This is because the modular form is often expressed and computed in terms of its $q$-expansion.
+ * Modular forms have a Fourier expansion, often called the $q$-expansion, where $q$ is related to $\tau$ (a complex number in the upper half-plane) by $\mathbf{\color{red}{q = \exp(2πi\tau)}}$. The polynomial (which is an approximation of the modular form) is being evaluated at this $q$ value. This is because the modular form is often expressed and computed in terms of its $q$-expansion.
  
  With the FD is comprised between $-1/2$ and $1/2$ in the real line, and between $0$ and $~ 2$ in the imaginary line (see plot above), the transformation $\exp(2\pi i \tau)$ of $\tau = a + bi$ will be $\exp(2\pi i (a+bi))= \exp(-2\pi b) \exp(2\pi\ i a)$, which can be very small for a value with an imaginary part slightly above $1$, say for example $b = 2$, $\exp(-2 \pi 2) ~ 3.5\times 10^{-6}$, leading to potential numerical instability, and the need for high-precision arithmetic libraries. On the other hand, small values of $q$ can make the infinite series decay fast, leading to more accurate calculations with fewer terms.
  
@@ -488,11 +488,11 @@ To a topologist, every elliptic curve over $\mathbb{C}$ is just a 1-holed torus.
 
 #### Elliptic functions and modular forms:
 
-In the context of the Modularity Theorem, every elliptic curve over $\mathbb{Q}$ is associated with a specific kind of modular form called a cusp form of weight $2.$ 
+In the context of the modularity theorem, every elliptic curve over $\mathbb{Q}$ is associated with a specific kind of modular form called a cusp form of weight $2.$ 
 
-While all modular forms are holomorphic at the "cusps" (the points at infinity), a cusp form must specifically vanish there. As we move up the imaginary axis ($y \to \infty$), the variable 
+While all modular forms are holomorphic at the cusps (the points at infinity), a cusp form must specifically vanish there. As we move up the imaginary axis ($y \to \infty$), the variable 
 
-$$q = e^{2\pi i (x + iy)} = \quad \underset{\text{Re decaying exp}}{e^{-2\pi y}} \quad \underset{\text{purely Im, abs = 1 }}{e^{2\pi i x}}$$ 
+$$\color{red}{q = e^{2\pi i (x + iy)}} = \quad \underset{\text{Re decaying exp}}{e^{-2\pi y}} \quad \underset{\text{purely Im, abs = 1 }}{e^{2\pi i x}}$$ 
 
 rapidly approaches $0$. 
 
@@ -505,7 +505,7 @@ $$f\left( \frac{az + b}{cz + d} \right) = (cz + d)^2 f(z)$$
 
 Think of the weight as a measure of the function's "internal symmetry." Because an elliptic curve is essentially a torus (a donut shape), it has two independent periods. When moving from the geometry of the curve to the geometry of the upper half-plane, that $(cz + d)^k$ factor is what ensures the two worlds stay mathematically glued together. If the weight weren't exactly $2$, the differential forms on the elliptic curve wouldn't match the modular form.
 
-That modular form, $f(z)$ is expressed as a Fourier series (often called a $q$-expansion), where the "harmonics" are powers of $q = e^{2\pi i z}$. The coefficients $a_n$ of this decaying cusp form are precisely the same values that appear in the $L$-function of the elliptic curve $E/\mathbb{Q}$. Because the form decays exponentially as $y \to \infty$, the integral used to define the $L$-function converges (Mellin transform). If it didn't decay (i.e., if it were an Eisenstein series with a non-zero $a_0$), the arithmetic relationship to the elliptic curve's point-counting properties ($a_p = p + 1 - \#E(\mathbb{F}_p)$) would break down.
+That modular form, $f(z)$ is expressed as a Fourier series (often called a $q$-expansion), where the harmonics are powers of $\color{red}{q = e^{2\pi i z}}$. The coefficients $a_n$ of this decaying cusp form are precisely the same values that appear in the $L$-function of the elliptic curve $E/\mathbb{Q}$. Because the form decays exponentially as $y \to \infty$, the integral used to define the $L$-function converges (Mellin transform). If it didn't decay (i.e., if it were an Eisenstein series with a non-zero $a_0$), the arithmetic relationship to the elliptic curve's point-counting properties ($a_p = p + 1 - \#E(\mathbb{F}_p)$) would break down.
 
 In the Fourier series $f(z) = \sum a_n q^n$, the constant term $a_0$ represents the value of the function at the cusp ($q = 0$). For a cusp form, $a_0 = 0$. This is vital because if $a_0$ were not zero, the $L$-function associated with the form wouldn't "behave" correctly to match the counting of points on an elliptic curve.
 
