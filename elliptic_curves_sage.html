@@ -840,6 +840,96 @@ for every prime <span class="math inline">\(p\)</span>:</p>
 (Dirichlet series) <span class="math inline">\(\sum a_n n^{-s}\)</span>
 that links the curve’s point-counting to the world of complex analysis
 and modular forms.</p>
+<div id="example" class="section level5">
+<h5>Example:</h5>
+<p>Let’s look at a concrete example using a very small prime so we can
+see every “ingredient” at work. We’ll take the elliptic curve <span class="math inline">\(E\)</span>:</p>
+<p><span class="math display">\[y^2 = x^3 + x\]</span></p>
+<p>And we will look at it through the lens of the prime <span class="math inline">\(p = 3\)</span>.</p>
+<ul>
+<li>Simple view:</li>
+</ul>
+<p>First, we look for points in our field <span class="math inline">\(\mathbb{F}_3 = \{0, 1, 2\}\)</span>. We test every
+<span class="math inline">\(x\)</span>:</p>
+<p>If <span class="math inline">\(x=0\)</span>: <span class="math inline">\(y^2 = 0 \implies y=0\)</span>. Point: <span class="math inline">\((0,0)\)</span></p>
+<p>If <span class="math inline">\(x=1\)</span>: <span class="math inline">\(y^2 = 1+1 = 2\)</span>. In <span class="math inline">\(\mathbb{F}_3\)</span>, there is no number that
+squared equals <span class="math inline">\(2\)</span>. No points.</p>
+<p>If <span class="math inline">\(x=2\)</span>: <span class="math inline">\(y^2 = 8 + 2 = 10 \equiv 1 \pmod 3 \implies
+y=1\)</span> or <span class="math inline">\(y=2\)</span>. Points: <span class="math inline">\((2,1)\)</span> and <span class="math inline">\((2,2)\)</span></p>
+<p>Don’t forget the Point at infinity: <span class="math inline">\(\mathcal{O}\)</span></p>
+<p>Total points <span class="math inline">\(N_3 = 4\)</span>. Our trace
+of Frobenius is <span class="math inline">\(a_3 = (3 + 1) - 4 =
+\mathbf{0}\)</span>.</p>
+<ul>
+<li>“Complex” view (field extensions):</li>
+</ul>
+<p>Now, let’s pick our “measuring stick” <span class="math inline">\(\ell = 2\)</span>. We want to find the <span class="math inline">\(2^2 = 4\)</span> points that satisfy <span class="math inline">\(2P = \mathcal{O}\)</span>.</p>
+<p>These are the points where <span class="math inline">\(y=0\)</span>,
+because adding a point twice resulting in the point at infinity means
+that the tangent is vertical, which means <span class="math inline">\(x^3 + x = 0\)</span>.</p>
+<p>Solving <span class="math inline">\(x(x^2 + 1) = 0\)</span> in <span class="math inline">\(\mathbb{F}_3\)</span>:</p>
+<p><span class="math inline">\(x = 0\)</span> (We already found this:
+<span class="math inline">\((0,0)\)</span>)</p>
+<p><span class="math inline">\(x^2 + 1 = 0 \implies x^2 = -1 \equiv 2
+\pmod 3\)</span></p>
+<p>In <span class="math inline">\(\mathbb{F}_3\)</span>, there is no
+square root of <span class="math inline">\(2\)</span>. To find these
+points, we must go to the “complex” extension field <span class="math inline">\(\mathbb{F}_{3^2}\)</span> (which we can think of
+as <span class="math inline">\(\mathbb{F}_3[i]\)</span> where <span class="math inline">\(i^2 = 2\)</span>). In this larger field, our
+missing <span class="math inline">\(x\)</span>-coordinates are <span class="math inline">\(i\)</span> and <span class="math inline">\(-i\)</span>. In <span class="math inline">\(\mathbb{F}_3\)</span>, notice that: <span class="math inline">\(2 \equiv -1 \pmod 3\)</span>. So <span class="math inline">\(i^2 = 2\)</span> is literally saying <span class="math inline">\(i^2 = -1\)</span>. This makes <span class="math inline">\(i\)</span> the perfect name for this element! It
+behaves almost exactly like the imaginary unit we know from calculus or
+physics, but it lives in a world with only 9 numbers total (<span class="math inline">\(\mathbb{F}_{3^2}\)</span>).</p>
+<p>Our 2-torsion grid is:</p>
+<p><span class="math display">\[\{\mathcal{O}, (0,0), (i, 0), (-i,
+0)\}\]</span></p>
+<ul>
+<li>The Frobenius Action</li>
+</ul>
+<p>Now we apply the “shuffling engine” <span class="math inline">\(\phi_3(x, y) = (x^3, y^3)\)</span> to our
+grid:</p>
+<p><span class="math display">\[\phi_3(\mathcal{O}) =
+\mathcal{O}\quad\text{fixed}\]</span></p>
+<p><span class="math display">\[\phi_3(0, 0) = (0^3, 0^3) =
+(0,0)\quad\text{fixed}\]</span></p>
+<p><span class="math display">\[\phi_3(i, 0) = (i^3, 0^3)\]</span></p>
+<p>What is <span class="math inline">\(i^3\)</span>? Since <span class="math inline">\(i^2 = 2\)</span>, then <span class="math inline">\(i^3 = 2i \equiv -i \pmod 3\)</span>. So, <span class="math inline">\(\phi_3\)</span> swaps the two “complex”
+points:</p>
+<p><span class="math display">\[(i, 0) \to (-i, 0) \quad \text{and}
+\quad (-i, 0) \to (i, 0)\]</span></p>
+<ul>
+<li>The Matrix and the Trace</li>
+</ul>
+<p>To make the matrix, we choose a basis. Let <span class="math inline">\(E_1 = (0,0)\)</span> and <span class="math inline">\(E_2 = (i,0)\)</span>.</p>
+<p><span class="math inline">\(\phi_3(E_1) = 1 \cdot E_1 + 0 \cdot
+E_2\)</span> (It stayed put)</p>
+<p><span class="math inline">\(\phi_3(E_2) = 0 \cdot E_1 + (-1) \cdot
+E_2\)</span> (It became its negative sibling)</p>
+<p>The matrix is:</p>
+<p><span class="math display">\[M = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp;
+-1 \end{pmatrix}\]</span></p>
+<p>Now, calculate the “DNA” of the matrix:</p>
+<p>Determinant: <span class="math inline">\((1)(-1) - (0)(0) =
+-1\)</span>. Wait! We expected <span class="math inline">\(p=3\)</span>.
+But remember, this matrix is working in the world of <span class="math inline">\(\ell=2\)</span>. In the world of “integers modulo
+<span class="math inline">\(2\)</span>,” <span class="math inline">\(-1
+\equiv 1 \pmod 2\)</span>.</p>
+<p>Trace: <span class="math inline">\(1 + (-1) =
+\mathbf{0}\)</span>.</p>
+<ul>
+<li>The Result:</li>
+</ul>
+<p>Our matrix approach gave us a Trace of <span class="math inline">\(0.\)</span> Our “counting points” approach in Step
+1 gave us <span class="math inline">\(a_3 = 0\)</span>. They match
+perfectly. The “complex” shuffling of the hidden points in the extension
+field tells us exactly how many “real” points were in our starting
+field.</p>
+<p>For the L-function, we now know the piece for <span class="math inline">\(p=3\)</span> is:</p>
+<p><span class="math display">\[L_p(E, s) = \frac{1}{1 - a_p p^{-s} + p
+\cdot p^{-2s}}\]</span></p>
+<p>and therefore,</p>
+<p><span class="math display">\[L_3(s) = \frac{1}{1 - 0(3^{-s}) +
+3(3^{-2s})} = \frac{1}{1 + 3^{1-2s}}\]</span></p>
+</div>
 </div>
 
 
