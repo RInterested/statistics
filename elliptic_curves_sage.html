@@ -642,6 +642,205 @@ P # P is on the curve. To check just run E(P)</code></pre>
 <pre class="sage"><code>E(P)</code></pre>
 <pre class="sage"><code>E.modular_form()</code></pre>
 </div>
+<div id="l-function-of-an-elliptic-curve" class="section level3">
+<h3>L-function of an elliptic curve:</h3>
+<p>In the study of arithmetic geometry, the L-function of an elliptic
+curve <span class="math inline">\(E\)</span> over <span class="math inline">\(\mathbb{Q}\)</span> is a powerful complex-analytic
+tool that packages deep arithmetic information about the
+curve—specifically, the number of points it has over finite fields.The
+L-function acts as a bridge between the algebraic world of the curve and
+the analytic world of modular forms, a connection famously solidified by
+the modularity theorem.</p>
+<p>Let <span class="math inline">\(E\)</span> be an elliptic curve
+defined over a finite field <span class="math inline">\(\mathbb{F}_p\)</span>. The Frobenius map <span class="math inline">\(\phi_p\)</span> is a specific geometric
+transformation that takes a point <span class="math inline">\((x,
+y)\)</span> on the curve and raises its coordinates to the <span class="math inline">\(p\)</span>-th power:</p>
+<p><span class="math display">\[\phi_p(x, y) = (x^p, y^p)\]</span></p>
+<p>Because of the way finite fields work, and specifically Fermat’s
+Little Theorem, where</p>
+<p><span class="math display">\[x^p \equiv x \pmod p\]</span></p>
+<p>a point is fixed by this map if and only if its coordinates are in
+the base field <span class="math inline">\(\mathbb{F}_p\)</span>. In
+other words:</p>
+<p><span class="math display">\[P \in E(\mathbb{F}_p) \iff \phi_p(P) =
+P\]</span></p>
+<p>This means that finding the number of points on <span class="math inline">\(E(\mathbb{F}_p)\)</span> is equivalent to finding
+the number of fixed points of the Frobenius map.</p>
+<p>To count these fixed points mathematically, we define a new map:
+<span class="math inline">\((\phi_p - id)\)</span>.</p>
+<p><span class="math inline">\(id\)</span> is the identity map (it does
+nothing: <span class="math inline">\(id(P) = P\)</span>).</p>
+<p><span class="math inline">\((\phi_p - id)\)</span> takes a point
+<span class="math inline">\(P\)</span> and calculates the difference
+between its Frobenius transform and itself.</p>
+<p>If <span class="math inline">\(P\)</span> is a fixed point, then
+<span class="math inline">\(\phi_p(P) - id(P) = \mathcal{O}\)</span>
+(the zero point).</p>
+<p>In the world of algebraic geometry, the number of points that a map
+sends to zero is called the degree of that map. Therefore:</p>
+<p><span class="math display">\[N_p = \deg(\phi_p - id)\]</span></p>
+<p>Degrees are hard to calculate directly. We want to turn this geometry
+into simple matrix algebra. In arithmetic geometry, we often use <span class="math inline">\(p\)</span> to refer to the prime we are “counting
+modulo” (the field <span class="math inline">\(\mathbb{F}_p\)</span>).
+To avoid confusion, we pick a different prime to help us probe the
+curve’s internal structure. We call this second prime <span class="math inline">\(\ell\)</span>. <span class="math inline">\(\ell\)</span> can be any prime number as long as
+it isn’t <span class="math inline">\(p\)</span>. (If <span class="math inline">\(p=5\)</span>, we might pick <span class="math inline">\(\ell=2\)</span> or <span class="math inline">\(\ell=3\)</span>). <span class="math inline">\(\ell\)</span> is like a “measurement tool” we use
+to see how the curve is shaped.</p>
+<p>An elliptic curve is a group. This means you can “add” points
+together. If you add a point <span class="math inline">\(P\)</span> to
+itself <span class="math inline">\(\ell\)</span> times, we write that as
+<span class="math inline">\(\ell \cdot P\)</span>.A point <span class="math inline">\(P\)</span> is called an <span class="math inline">\(\ell\)</span>-torsion point if adding it to itself
+<span class="math inline">\(\ell\)</span> times brings you back to the
+“zero” of the curve (the point at infinity, denoted <span class="math inline">\(\mathcal{O}\)</span>):</p>
+<p><span class="math display">\[\underbrace{P + P + \dots + P}_{\ell
+\text{ times}} = \mathcal{O}\]</span></p>
+<p>We look at the <span class="math inline">\(\ell\)</span>-torsion
+points of the curve. These are points <span class="math inline">\(P\)</span> where <span class="math inline">\(\ell
+\cdot P = \mathcal{O}\)</span>. The size of <span class="math inline">\(\ell\)</span> relative to <span class="math inline">\(p\)</span> does not matter at all. <span class="math inline">\(\ell\)</span> can be much smaller (like <span class="math inline">\(2\)</span>) or much larger (like <span class="math inline">\(1,000,009\)</span>). The math works exactly the
+same in both cases. When we say a point is “<span class="math inline">\(\ell\)</span>-torsional,” we are saying it is a
+solution to a specific algebraic equation. On an elliptic curve, adding
+a point to itself <span class="math inline">\(\ell\)</span> times is a
+process that can be written as a massive polynomial. Finding <span class="math inline">\(\ell\)</span>-torsion points is essentially just
+finding the roots of a polynomial. A polynomial of degree <span class="math inline">\(n\)</span> always has exactly <span class="math inline">\(n\)</span> roots, provided you are willing to use
+complex enough numbers. For an elliptic curve, the “torsion polynomial”
+for <span class="math inline">\(\ell\)</span> always has roots. When you
+solve it, you always find exactly <span class="math inline">\(\ell^2\)</span> points. Even if your starting
+field <span class="math inline">\(\mathbb{F}_p\)</span> is tiny (say
+<span class="math inline">\(p=2\)</span>) and the curve has only one
+point there, the mathematical “ghost” of the <span class="math inline">\(2 \times 2\)</span> grid is still there. If you
+expand your field to <span class="math inline">\(\mathbb{F}_{2^2},
+\mathbb{F}_{2^3}, \dots\)</span> eventually all <span class="math inline">\(\ell^2\)</span> points will show up.</p>
+<p>In the field <span class="math inline">\(\mathbb{F}_p\)</span>, you
+only have the integers <span class="math inline">\(\{0, 1, \dots,
+p-1\}\)</span>. If you have a polynomial—like the one that defines the
+<span class="math inline">\(\ell\)</span>-torsion points—and it has no
+roots in <span class="math inline">\(\mathbb{F}_p\)</span>, we do
+exactly what we do in high school algebra: we invent them: <span class="math inline">\(\mathbb{F}_p \to \mathbb{F}_{p^k}\)</span> (where
+<span class="math inline">\(k\)</span> is the degree of the
+extension).We call <span class="math inline">\(\mathbb{F}_{p^k}\)</span>
+an extension field. It contains <span class="math inline">\(\mathbb{F}_p\)</span>, but it also contains all
+the “complex” coordinates needed to describe the <span class="math inline">\(\ell\)</span>-torsion points that were missing
+from the original field. If you keep adding roots for every possible
+polynomial, you eventually reach the Algebraic Closure, denoted <span class="math inline">\(\overline{\mathbb{F}}_p\)</span>.This is the
+“Ultimate Super-Field.”It is infinite in size. Every polynomial has all
+its roots here. This is the “mathematical ether” I mentioned—the place
+where the full <span class="math inline">\(2 \times 2\)</span> grid of
+<span class="math inline">\(\ell^2\)</span> torsion points is guaranteed
+to exist.</p>
+<p>For a prime <span class="math inline">\(\ell\)</span> (where <span class="math inline">\(\ell \neq p\)</span>), there are exactly <span class="math inline">\(\ell^2\)</span> such points. They form a <span class="math inline">\(2 \times 2\)</span> grid, much like a vector
+space.</p>
+<p>If you look at all the points that satisfy <span class="math inline">\(\ell \cdot P = \mathcal{O}\)</span>, there aren’t
+just <span class="math inline">\(\ell\)</span> of them. There are <span class="math inline">\(\ell^2\)</span> of them. Geometrically, an
+elliptic curve (over complex numbers) is shaped like a torus (a donut).
+To “cycle” around a donut and get back to where you started, you can go
+two ways: around the tube or through the hole. Because there are two
+independent directions to move, the torsion points form a 2-dimensional
+structure. If <span class="math inline">\(\ell = 3\)</span>, you have
+<span class="math inline">\(3^2 = 9\)</span> points. You can think of
+these points as being organized like a grid: <span class="math inline">\(3\)</span> points along the tube direction, and
+<span class="math inline">\(3\)</span> points along the hole
+direction.</p>
+<p>If you take two points from the grid and add them together, you stay
+in the grid. Since it has two directions and behaves like a grid, it
+acts exactly like a 2-dimensional vector space over the field <span class="math inline">\(\mathbb{F}_\ell\)</span> (the integers modulo
+<span class="math inline">\(\ell\)</span>). In a normal 2D vector space,
+any point can be written as <span class="math inline">\((x, y)\)</span>.
+Here, every <span class="math inline">\(\ell\)</span>-torsion point can
+be identified by its “coordinates” on that grid.</p>
+<p>The Frobenius map <span class="math inline">\(\phi_p\)</span> is
+defined by:</p>
+<p><span class="math display">\[\phi_p(x, y) = (x^p, y^p)\]</span></p>
+<p>If a point <span class="math inline">\(P = (x, y)\)</span> is an
+<span class="math inline">\(\ell\)</span>-torsion point, it means that
+adding <span class="math inline">\(P\)</span> to itself <span class="math inline">\(\ell\)</span> times gives the zero point: <span class="math inline">\(\ell \cdot P = \mathcal{O}\)</span>. Now, because
+the Frobenius map is an endomorphism (a map from the curve to itself
+that respects addition), it has a very important property:</p>
+<p><span class="math display">\[\phi_p(P + Q) = \phi_p(P) +
+\phi_p(Q)\]</span></p>
+<p>This implies that</p>
+<p><span class="math display">\[\phi_p(\ell \cdot P) = \ell \cdot
+\phi_p(P)\]</span></p>
+<p>If <span class="math inline">\(P\)</span> is an <span class="math inline">\(\ell\)</span>-torsion point, then <span class="math inline">\(\ell \cdot P = \mathcal{O}\)</span>, and we know
+<span class="math inline">\(\phi_p(\mathcal{O}) = \mathcal{O}\)</span>.
+Therefore:</p>
+<p><span class="math display">\[\ell \cdot \phi_p(P) =
+\mathcal{O}\]</span></p>
+<p>The Frobenius map takes an <span class="math inline">\(\ell\)</span>-torsion point and lands it precisely
+on another <span class="math inline">\(\ell\)</span>-torsion point. It
+shuffles the points within that <span class="math inline">\(2 \times
+2\)</span> grid.</p>
+<p>Since there are <span class="math inline">\(\ell^2\)</span> points in
+this grid, and they form a structure like a 2D vector space <span class="math inline">\((\mathbb{Z}/\ell\mathbb{Z})^2\)</span>, we can
+choose a basis. Pick two “primary” <span class="math inline">\(\ell\)</span>-torsion points, <span class="math inline">\(E_1\)</span> and <span class="math inline">\(E_2\)</span>, that are not multiples of each
+other. Every other torsion point <span class="math inline">\(P\)</span>
+in the grid can be written as:</p>
+<p><span class="math display">\[P = c_1 E_1 + c_2 E_2\]</span></p>
+<p>where <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_2\)</span> are coefficients from <span class="math inline">\(0\)</span> to <span class="math inline">\(\ell-1\)</span>. When we apply <span class="math inline">\(\phi_p\)</span> to our basis points, they must
+land somewhere in the grid, so they can also be written in terms of that
+basis: <span class="math inline">\(\phi_p(E_1) = a E_1 + c
+E_2\)</span><span class="math inline">\(\phi_p(E_2) = b E_1 + d
+E_2\)</span></p>
+<p>This gives us our <span class="math inline">\(2 \times 2\)</span>
+matrix over the field <span class="math inline">\(\mathbb{F}_\ell\)</span>:</p>
+<p><span class="math display">\[M_{\phi_p, \ell} = \begin{pmatrix} a
+&amp; b \\ c &amp; d \end{pmatrix}\]</span></p>
+<p>The Trace of this matrix is simply <span class="math inline">\(a +
+d\)</span>. If you were to pick <span class="math inline">\(\ell =
+2\)</span> (the <span class="math inline">\(2 \times 2\)</span> grid),
+the matrix would tell you how <span class="math inline">\(\phi_p\)</span> swaps the three non-zero torsion
+points. When we say the <span class="math inline">\(\ell\)</span>-torsion points form an <span class="math inline">\(\ell \times \ell\)</span> grid, the total number
+of points is exactly <span class="math inline">\(\ell^2\)</span>.For
+<span class="math inline">\(\ell = 2\)</span>, the grid has <span class="math inline">\(2^2 = \mathbf{4}\)</span> points.However, one of
+those points is always the identity element (the point at infinity,
+<span class="math inline">\(\mathcal{O}\)</span>), which acts like the
+“zero” in a vector space. In any vector space, the zero vector is always
+fixed by any linear transformation. Because the Frobenius map <span class="math inline">\(\phi_p\)</span> is a linear map (it respects the
+addition of points): <span class="math inline">\(\phi_p(\mathcal{O})\)</span> is always <span class="math inline">\(\mathcal{O}\)</span>. The map cannot “move” the
+origin; it can only shuffle the remaining points. If you pick <span class="math inline">\(\ell = 3\)</span> (the <span class="math inline">\(3 \times 3\)</span> grid), the matrix would be
+larger in values, but the “sum of the diagonal” (<span class="math inline">\(a+d\)</span>) would still be equivalent to the
+same <span class="math inline">\(a_p\)</span> (modulo <span class="math inline">\(\ell\)</span>).</p>
+<p>The Tate module <span class="math inline">\(T_\ell(E)\)</span> uses
+<span class="math inline">\(\ell\)</span>-adic integers <span class="math inline">\(\mathbb{Z}_\ell\)</span>. If we only look at the
+<span class="math inline">\(\ell\)</span>-torsion, we only know <span class="math inline">\(a_p \pmod \ell\)</span>. That isn’t enough
+information to know the exact value of <span class="math inline">\(a_p\)</span>. If <span class="math inline">\(\ell=2\)</span> and <span class="math inline">\(a_p \equiv 1 \pmod 2\)</span>, <span class="math inline">\(a_p\)</span> could be <span class="math inline">\(1, 3, 5, \dots\)</span>. To find the exact integer
+<span class="math inline">\(a_p\)</span>, we look at <span class="math inline">\(\ell^2\)</span>-torsion, <span class="math inline">\(\ell^3\)</span>-torsion, and so on. By looking at
+the action on the whole Tate module (the “tower” of all <span class="math inline">\(\ell^n\)</span>-torsion), we are essentially
+looking at a matrix with <span class="math inline">\(\ell\)</span>-adic
+entries. This matrix has a trace that is an <span class="math inline">\(\ell\)</span>-adic integer. Since <span class="math inline">\(a_p\)</span> is a fixed integer and the Tate
+module construction works for any <span class="math inline">\(\ell^n\)</span>, this <span class="math inline">\(\ell\)</span>-adic trace converges to the actual
+integer <span class="math inline">\(a_p\)</span> that we use in the
+L-function.</p>
+<p>To get a complete picture, we don’t just look at <span class="math inline">\(\ell\)</span>-torsion, but <span class="math inline">\(\ell^2, \ell^3, \dots\)</span> and so on. We
+“stack” these layers together to create the Tate Module <span class="math inline">\(T_\ell(E)\)</span>. Because we are stacking powers
+of <span class="math inline">\(\ell\)</span>, the coordinates of these
+points naturally live in the <span class="math inline">\(\ell\)</span>-adic integers <span class="math inline">\(\mathbb{Z}_\ell\)</span>. The Tate Module is a
+2-dimensional space over <span class="math inline">\(\mathbb{Z}_\ell\)</span>.</p>
+<p>Now, the Frobenius map <span class="math inline">\(\phi_p\)</span>
+acts on this 2D space <span class="math inline">\(T_\ell(E)\)</span>
+just like a <span class="math inline">\(2 \times 2\)</span> matrix. From
+linear algebra, every <span class="math inline">\(2 \times 2\)</span>
+matrix <span class="math inline">\(M\)</span> has a characteristic
+polynomial:</p>
+<p><span class="math display">\[P(T) = \det(T \cdot I - M) = T^2 -
+\text{Tr}(M)T + \det(M)\]</span></p>
+<p>When we apply this to the Frobenius matrix:</p>
+<p>The Determinant is always <span class="math inline">\(p\)</span>.</p>
+<p>The Trace (the sum of the diagonal) is exactly our <span class="math inline">\(a_p\)</span>.</p>
+<p>So the polynomial that describes the curve’s “DNA” at prime <span class="math inline">\(p\)</span> is:</p>
+<p><span class="math display">\[P_p(T) = T^2 - a_p T + p\]</span></p>
+<p>Finally, to get the L-function, we take these individual polynomials
+<span class="math inline">\(P_p(T)\)</span> and “package” them. We use
+the reciprocal of the polynomial and evaluate it at <span class="math inline">\(T = p^{-s}\)</span>:</p>
+<p><span class="math display">\[L_p(s) = \frac{1}{1 - a_p p^{-s} + p
+\cdot p^{-2s}}\]</span></p>
+<p>The global L-function is simply the product of all these local pieces
+for every prime <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[L(E, s) = \prod_{p} L_p(s)\]</span></p>
+<p>This product, when multiplied out, creates the infinite sum
+(Dirichlet series) <span class="math inline">\(\sum a_n n^{-s}\)</span>
+that links the curve’s point-counting to the world of complex analysis
+and modular forms.</p>
+</div>
 
 
 
