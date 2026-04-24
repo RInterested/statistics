@@ -833,6 +833,58 @@ polynomial:</p>
 the reciprocal of the polynomial and evaluate it at <span class="math inline">\(T = p^{-s}\)</span>:</p>
 <p><span class="math display">\[L_p(s) = \frac{1}{1 - a_p p^{-s} + p
 \cdot p^{-2s}}\]</span></p>
+<p>The shift from <span class="math inline">\(T^2 - a_p T + p\)</span>
+to <span class="math inline">\(1 - a_p T + p T^2\)</span> happens
+because we aren’t just plugging in a value; we are moving to the
+reciprocal polynomial. The “DNA” polynomial <span class="math inline">\(P_p(T) = T^2 - a_p T + p\)</span> is the standard
+characteristic polynomial of the Frobenius matrix <span class="math inline">\(M\)</span>:</p>
+<p><span class="math display">\[P_p(T) = \det(T \cdot I -
+M)\]</span></p>
+<p>However, when we build an L-function, we aren’t interested in the
+eigenvalues themselves as much as we are interested in how they “scale”
+our series. In complex analysis and number theory, we use a slightly
+different determinant construction for Euler products:</p>
+<p><span class="math display">\[\text{Local Factor} = \frac{1}{\det(I -
+M \cdot T)}\]</span></p>
+<p>where <span class="math inline">\(T = p^{-s}\)</span>.</p>
+<p>Watch what happens when we expand <span class="math inline">\(\det(I
+- M \cdot T)\)</span> for a <span class="math inline">\(2 \times
+2\)</span> matrix <span class="math inline">\(M\)</span>: The identity
+<span class="math inline">\(I\)</span> is <span class="math inline">\(\begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1
+\end{pmatrix}\)</span>. The term <span class="math inline">\(M \cdot
+T\)</span> is</p>
+<p><span class="math display">\[\begin{pmatrix} m_{11}T &amp; m_{12}T \\
+m_{21}T &amp; m_{22}T \end{pmatrix}\]</span></p>
+<p>The subtraction <span class="math inline">\(I - MT\)</span> is</p>
+<p><span class="math display">\[\begin{pmatrix} 1 - m_{11}T &amp;
+-m_{12}T \\ -m_{21}T &amp; 1 - m_{22}T \end{pmatrix}\]</span></p>
+<p>When you calculate the determinant of that result:</p>
+<p><span class="math display">\[\det(I - MT) = (1 - m_{11}T)(1 -
+m_{22}T) - (-m_{12}T)(-m_{21}T)\]</span></p>
+<p><span class="math display">\[= 1 - (m_{11} + m_{22})T + (m_{11}m_{22}
+- m_{12}m_{21})T^2\]</span></p>
+<p>Notice the results: The constant is now <span class="math inline">\(1\)</span>.The coefficient of <span class="math inline">\(T\)</span> is the Trace (<span class="math inline">\(a_p\)</span>). The coefficient of <span class="math inline">\(T^2\)</span> is the Determinant (<span class="math inline">\(p\)</span>).</p>
+<p>The reason we want the “1” at the front is to allow the local factor
+to be expanded into a geometric series. If the denominator started with
+<span class="math inline">\(p\)</span> (like <span class="math inline">\(p - a_p T + T^2\)</span>), we couldn’t easily turn
+it into an infinite sum starting with <span class="math inline">\(1\)</span>. By having the denominator start with
+<span class="math inline">\(1\)</span>:</p>
+<p><span class="math display">\[\frac{1}{1 - (a_p T - p T^2)} = 1 + (a_p
+T - p T^2) + (a_p T - p T^2)^2 + \dots\]</span></p>
+<p>This expansion ensures that the very first term of the L-function is
+<span class="math inline">\(1\)</span>. When you multiply all these
+local factors together (<span class="math inline">\(1 \cdot 1 \cdot 1
+\dots\)</span>), we get the starting term of the global Dirichlet
+series:</p>
+<p><span class="math display">\[L(E, s) = \mathbf{1} + \frac{a_2}{2^s} +
+\frac{a_3}{3^s} + \dots\]</span></p>
+<p>In summary<span class="math inline">\(T^2 - a_p T + p\)</span> is the
+polynomial whose roots are the eigenvalues of Frobenius.</p>
+<p><span class="math inline">\(1 - a_p T + p T^2\)</span> is the
+reciprocal polynomial. Its roots are the inverses of the eigenvalues. We
+use the reciprocal version because it lets us expand the L-function into
+a series that starts with <span class="math inline">\(1\)</span>,
+perfectly matching the structure of the integers in our sum.</p>
 <p>The global L-function is simply the product of all these local pieces
 for every prime <span class="math inline">\(p\)</span>:</p>
 <p><span class="math display">\[L(E, s) = \prod_{p} L_p(s)\]</span></p>
