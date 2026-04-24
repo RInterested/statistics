@@ -863,6 +863,22 @@ shuffles the points within that <span class="math inline">\(2 \times
 2\)</span> grid. If a point is in <span class="math inline">\(\mathbb{F}_p\)</span>: <span class="math inline">\(\phi_p(x,y) = (x^p, y^p) = (x, y)\)</span>, it
 lands on itself. If a point is “complex” (extension field): <span class="math inline">\(\phi_p(x,y) = (x^p, y^p) \neq (x, y)\)</span>. it
 lands on a “sibling” point in the grid.</p>
+<p>However, counting points only tells us about the curve at one
+specific resolution (<span class="math inline">\(\mathbb{F}_p\)</span>).
+But an elliptic curve is a “global” object. If you know the Frobenius
+Matrix <span class="math inline">\(M_p\)</span>, you don’t just know the
+count for <span class="math inline">\(\mathbb{F}_p\)</span>. You
+automatically know the count for every possible extension field (<span class="math inline">\(\mathbb{F}_{p^2}, \mathbb{F}_{p^3},
+\mathbb{F}_{p^4} \dots\)</span>). The number of points in <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is determined by the
+formula:</p>
+<p><span class="math display">\[N_{p^k} = p^k + 1 - (\alpha^k +
+\beta^k)\]</span></p>
+<p>where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are the eigenvalues of your
+Frobenius matrix. Without the matrix, we’d have to start our counting
+from scratch every time you moved to a larger field.2. The goal of the
+L-function isn’t just to store a list of point counts. Its goal is to
+bridge the gap between arithmetic (counting) and analysis (calculus and
+modular forms).</p>
 <p>Since there are <span class="math inline">\(\ell^2\)</span> points in
 this grid, and they form a structure like a 2D vector space <span class="math inline">\((\mathbb{Z}/\ell\mathbb{Z})^2\)</span>, we can
 choose a basis. Pick two “primary” <span class="math inline">\(\ell\)</span>-torsion points, <span class="math inline">\(E_1\)</span> and <span class="math inline">\(E_2\)</span>, that are not multiples of each

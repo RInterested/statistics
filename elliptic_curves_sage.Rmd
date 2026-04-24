@@ -441,6 +441,12 @@ Notice that if $P$ is an $\ell$-torsion point, it is automatically an $\ell^k$-t
 
 The Frobenius map takes an $\ell$-torsion point and lands it precisely on another $\ell$-torsion point. It shuffles the points within that $2 \times 2$ grid. If a point is in $\mathbb{F}_p$: $\phi_p(x,y) = (x^p, y^p) = (x, y)$, it lands on itself. If a point is "complex" (extension field): $\phi_p(x,y) = (x^p, y^p) \neq (x, y)$. it lands on a "sibling" point in the grid.
 
+However, counting points only tells us about the curve at one specific resolution ($\mathbb{F}_p$). But an elliptic curve is a "global" object. If you know the Frobenius Matrix $M_p$, you don't just know the count for $\mathbb{F}_p$. You automatically know the count for every possible extension field ($\mathbb{F}_{p^2}, \mathbb{F}_{p^3}, \mathbb{F}_{p^4} \dots$). The number of points in $\mathbb{F}_{p^k}$ is determined by the formula:
+
+$$N_{p^k} = p^k + 1 - (\alpha^k + \beta^k)$$
+
+where $\alpha$ and $\beta$ are the eigenvalues of your Frobenius matrix. Without the matrix, we’d have to start our counting from scratch every time you moved to a larger field.2. The goal of the L-function isn't just to store a list of point counts. Its goal is to bridge the gap between arithmetic (counting) and analysis (calculus and modular forms).
+
 Since there are $\ell^2$ points in this grid, and they form a structure like a 2D vector space $(\mathbb{Z}/\ell\mathbb{Z})^2$, we can choose a basis. Pick two "primary" $\ell$-torsion points, $E_1$ and $E_2$, that are not multiples of each other. Every other torsion point $P$ in the grid can be written as:
 
 $$P = c_1 E_1 + c_2 E_2$$
