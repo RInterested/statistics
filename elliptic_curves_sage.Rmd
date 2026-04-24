@@ -459,7 +459,31 @@ $$L_p(s) = \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}}$$
 
 The shift from $T^2 - a_p T + p$ to $1 - a_p T + p T^2$ happens because we aren't just plugging in a value; we are moving to the reciprocal polynomial. The "DNA" polynomial $P_p(T) = T^2 - a_p T + p$ is the standard characteristic polynomial of the Frobenius matrix $M$:
 
+the Frobenius matrix $M$ is the linear representation of the Frobenius endomorphism $\phi_p$ as it acts on the Tate module $T_\ell(E)$. Because the Tate module is a 2-dimensional vector space over the $\ell$-adic integers $\mathbb{Z}_\ell$, any linear transformation on it (like Frobenius) can be written as a $2 \times 2$ matrix:
+
+$$M = \begin{pmatrix} \alpha & \beta \\ \gamma & \delta \end{pmatrix}$$
+
+The entries $\alpha, \beta, \gamma, \delta$ are $\ell$-adic integers. Their specific values depend on the basis you choose for your grid of torsion points. While the individual entries change if you pick a different basis, the invariants of the matrix do not change. For any elliptic curve $E$ at a prime $p$ of good reduction:
+
+The Trace: $\text{Tr}(M) = \alpha + \delta = a_p$
+
+The Determinant: $\det(M) = \alpha\delta - \beta\gamma = p$
+
+The characteristic polynomial $P_p(T)$ is defined as the determinant of 
+
+$$(T \cdot I - M)$$ 
+
+Using the invariants above:
+
 $$P_p(T) = \det(T \cdot I - M)$$
+
+$$P_p(T) = \det \begin{pmatrix} T - \alpha & -\beta \\ -\gamma & T - \delta \end{pmatrix}$$
+
+$$P_p(T) = (T - \alpha)(T - \delta) - (-\beta)(-\gamma)$$
+
+$$P_p(T) = T^2 - (\alpha + \delta)T + (\alpha\delta - \beta\gamma)$$
+
+$$P_p(T) = T^2 - a_p T + p$$
 
 However, when we build an L-function, we aren't interested in the eigenvalues themselves as much as we are interested in how they "scale" our series. In complex analysis and number theory, we use a slightly different determinant construction for Euler products:
 
