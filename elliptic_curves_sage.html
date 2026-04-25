@@ -1197,7 +1197,7 @@ points naturally live in the <span class="math inline">\(\ell\)</span>-adic inte
 <p>While SageMath doesn’t typically output a “matrix of digits” for the
 Tate module in a single command, you can compute the representation of
 the Galois action (which is what the Frobenius matrix <span class="math inline">\(M\)</span> is) on the <span class="math inline">\(\ell\)</span>-torsion points.</p>
-<pre><code>E = EllipticCurve([1, 0])
+<pre><code>E = EllipticCurve([1, 0]) # y^2 = x^3 + x
 p = 5
 ell = 3
 
@@ -1281,16 +1281,13 @@ structure.</p>
 the point on the “coarse” grid of the finite field <span class="math inline">\(\mathbb{F}_{5^d}\)</span>. The powers of <span class="math inline">\(5:\)</span> These are the “digital signatures” of
 the Tate Module. Each subsequent term is a higher-resolution refinement
 of the point’s position.</p>
-<p>The Generator <code>a</code>: This represents the complex directions
-of the donut (the periods). The fact that the addresses contain <span class="math inline">\(a, a^2, a^3\)</span> shows that the grid is spread
-across the entire algebraic “surface” of the curve.</p>
 <p>The Trace <span class="math inline">\(a_p = 2\)</span>: This single
 integer is the ultimate “summary” of that massive digital shuffle. In
 our experiment, the Frobenius map took each of the <span class="math inline">\(4\)</span> roots and moved them to different
 addresses. The Trace (<span class="math inline">\(a_5 = 2\)</span>) is
 the mathematical result of summing the “diagonal” of the <span class="math inline">\(2 \times 2\)</span> matrix that represents this
 shuffle. This number tells us that over the finite field <span class="math inline">\(\mathbb{F}_5\)</span>, the curve has <span class="math inline">\(N_p = p + 1 - a_p = 5 + 1 - 2 =
-\mathbf{4}\)</span> points.4.</p>
+\mathbf{4}\)</span> points.</p>
 <p>We have just manually verified one “Euler Factor” of the L-function.
 Because the grid stayed intact (True), we know the representation is
 stable. The L-function is just a massive product: <span class="math inline">\(L(E, s) = \prod_{p} \frac{1}{1 - a_p p^{-s} +
@@ -1305,6 +1302,88 @@ be studied as a global analytic function.</p>
 path taken by researchers proving the Modularity Theorem. We are
 essentially looking at the “source code” of the connection between
 elliptic curves and modular forms.</p>
+<p>But how are these roots constructed?</p>
+<p>The structure of the “digits” (<span class="math inline">\(a\)</span>) comes from the prime <span class="math inline">\(\ell\)</span>, but the “resolution” (<span class="math inline">\(5^0, 5^1, 5^2 \dots\)</span>) comes from the prime
+<span class="math inline">\(p\)</span>. The digits are calculated to
+satisfy the the division polynomial across higher powers of <span class="math inline">\(p\)</span></p>
+<p>In a <span class="math inline">\(p\)</span>-adic expansion like:</p>
+<p><span class="math display">\[\text{root of }\psi_{\ell} = d_0 + d_1
+p^1 + d_2 p^2 + \dots\]</span></p>
+<p>Each coefficient (<span class="math inline">\(d_k\)</span>) is found
+by looking at the division polynomial <span class="math inline">\(\psi_{\ell}\)</span> modulo higher powers of <span class="math inline">\(p\)</span>.</p>
+<p><span class="math inline">\(d_0\)</span> is a root of <span class="math inline">\(\psi_{\ell} \pmod p\)</span>.</p>
+<p><span class="math inline">\(d_1\)</span> is calculated so that <span class="math inline">\((d_0 + d_1 p)\)</span> is a root of <span class="math inline">\(\psi_{\ell} \pmod{p^2}\)</span>.</p>
+<p><span class="math inline">\(d_2\)</span> is calculated so that <span class="math inline">\((d_0 + d_1 p + d_2 p^2)\)</span> is a root of
+<span class="math inline">\(\psi_{\ell} \pmod{p^3}\)</span>.</p>
+<p>This process is called Hensel’s Lemma. It is like using Newton’s
+method to find a root, but instead of getting more decimal places, you
+are getting more <span class="math inline">\(p\)</span>-adic places
+(powers of <span class="math inline">\(p\)</span>).</p>
+<p>From the basics, what is <strong>a</strong>:</p>
+<p>Each digit <span class="math inline">\(d_i\)</span> in our <span class="math inline">\(p\)</span>-adic string <span class="math inline">\(d_0 + d_1 p^1 + d_2 p^2 + \dots\)</span> is a
+polynomial in <span class="math inline">\(a\)</span>:</p>
+<p><span class="math display">\[d_i = c_0 + c_1 a + c_2 a^2 + c_3
+a^3\]</span></p>
+<p>The coefficients <span class="math inline">\(c_j\)</span> are just
+integers from <span class="math inline">\(\{0, 1, 2, 3,
+4\}\)</span>.</p>
+<p>The <span class="math inline">\(a\)</span> is essentially a
+placeholder for the internal symmetry of the donut’s loops.
+<strong>a</strong> is the root of the polynomial that defines the
+symmetry of the <span class="math inline">\(\ell=3\)</span> torsion.</p>
+<p>Since you are looking at <span class="math inline">\(3\)</span>-torsion, there are <span class="math inline">\(8\)</span> non-trivial points (<span class="math inline">\(3^2 - 1\)</span>).</p>
+<p>The division polynomial <span class="math inline">\(\psi_3(x)\)</span> can be found in the lines:</p>
+<p><code>Defining polynomial for the p-adic digits: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)</code>
+<code>The &#39;digit&#39; a satisfies: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)</code></p>
+<p>i.e. the polynomial <span class="math display">\[\psi_3(x) = 3x^4 +
+6x^2 - 1\]</span></p>
+<p>If <span class="math inline">\(i\)</span> in complex numbers is
+defined by the rule <span class="math inline">\(i^2 + 1 = 0\)</span>,
+what is the specific “rule” for <span class="math inline">\(a\)</span>?</p>
+<p>For the curve <span class="math inline">\(y^2 = x^3 + x\)</span> and
+the prime <span class="math inline">\(p=5\)</span>, we can actually find
+the rule. The <span class="math inline">\(3\)</span>-division polynomial
+is:</p>
+<p><span class="math display">\[\psi_3(x) = 3x^4 + 6x^2 - 1\]</span></p>
+<p>which does not change with higher powers of <span class="math inline">\(p\)</span>: we are simply solving the same <span class="math inline">\(\ell\)</span>-related equation</p>
+<p><span class="math display">\[\psi_{\ell}(x) \equiv0 \mod
+p^n\]</span></p>
+<p>to higher and higher precision. If <span class="math inline">\(x_i\)</span> is a root modulo <span class="math inline">\(p^i\)</span></p>
+<p><span class="math display">\[\psi_l(x) \equiv 0 \mod p^i\]</span></p>
+<p>what’s the next digit such that <span class="math inline">\(x_{i+1}=x_i + d_i p^i,\)</span> where <span class="math inline">\(x_{i+1}\)</span> is the root modulo <span class="math inline">\(p^{i+1}\)</span>:</p>
+<p><span class="math display">\[\psi&#39;(x_0) \cdot d_i \equiv
+-\frac{\psi(x_i)}{p^i}\mod p\]</span></p>
+<p>or</p>
+<p><span class="math display">\[d_i\equiv - \frac{\psi(x_i)}{p^i}\left[
+\psi&#39;(x_0)\right]^{-1} \mod p\]</span> The result is a polynomial in
+<span class="math inline">\(a\)</span>.</p>
+<p>When we look at this modulo <span class="math inline">\(5\)</span>,
+<span class="math inline">\(\psi_{\ell}(x)\)</span> polynomial
+becomes:</p>
+<p><span class="math display">\[3x^4 + x^2 + 4 \equiv 0 \pmod
+5\]</span></p>
+<p>If you factor this over <span class="math inline">\(\mathbb{F}_5\)</span>, you find it is irreducible
+(it has no roots in the normal numbers <span class="math inline">\(0, 1,
+2, 3, 4\)</span>). So, just as <span class="math inline">\(i\)</span> is
+the root of <span class="math inline">\(x^2+1\)</span>, Sage “invents”
+<span class="math inline">\(a\)</span> to be the root of this polynomial
+(or one of its factors).</p>
+<p>The rule for your <span class="math inline">\(a\)</span> is:</p>
+<p><span class="math display">\[3a^4 + a^2 + 4 = 0 \mod 5\]</span></p>
+<p><strong>a</strong> is the generator of the limited field extension
+<span class="math inline">\(\mathbb F_{p^d}.\)</span></p>
+<p><strong>a</strong> is the exact symbolic representation of the
+torsion point. We don’t need to solve for <span class="math inline">\(a\)</span> because the interest is in how the
+points move. The shuffling provides the trace <span class="math inline">\(a_p\)</span>, which is a number.</p>
+<p>Each digit <span class="math inline">\(d_k\)</span> in <span class="math inline">\(d_0 + d_1 p + d_2 p^2 + \cdots\)</span> is a
+polynomial in <span class="math inline">\(a.\)</span> For instance <span class="math inline">\(2a^2 + 4a +4.\)</span> Frobenius applies a field
+automorphism:</p>
+<p><span class="math display">\[\phi_5(2a^2 + 4a +4) = 2(a^5)^2+4(a^5)
++4\]</span></p>
+<p>and because <span class="math inline">\(a\)</span> is defined by
+<span class="math inline">\(3a^4+a^2+4=0,\)</span> <span class="math inline">\(a^5\)</span> can be simplified to a lower power so
+it stays withing <span class="math inline">\(4\)</span> dimensional
+bounds.</p>
 <hr />
 <p>Now, the Frobenius map <span class="math inline">\(\phi_p\)</span>
 acts on this 2D space <span class="math inline">\(T_\ell(E)\)</span>

@@ -664,7 +664,7 @@ To get a complete picture, we don't just look at $\ell$-torsion, but $\ell^2, \e
 While SageMath doesn't typically output a "matrix of digits" for the Tate module in a single command, you can compute the representation of the Galois action (which is what the Frobenius matrix $M$ is) on the $\ell$-torsion points.
 
 ```
-E = EllipticCurve([1, 0])
+E = EllipticCurve([1, 0]) # y^2 = x^3 + x
 p = 5
 ell = 3
 
@@ -739,13 +739,96 @@ The Precision: A valuation of $20$ means that even at a resolution of $5^{20}$ (
 
 Look at the expanded strings like $(4*a^3 + 3*a + 2) + (a^3 + 4*a)*5\dots$ The first term (e.g., $4a^3 + 3a + 2$): This is the location of the point on the "coarse" grid of the finite field $\mathbb{F}_{5^d}$. The powers of $5:$ These are the "digital signatures" of the Tate Module. Each subsequent term is a higher-resolution refinement of the point's position. 
 
-The Generator `a`: This represents the complex directions of the donut (the periods). The fact that the addresses contain $a, a^2, a^3$ shows that the grid is spread across the entire algebraic "surface" of the curve.
-
-The Trace $a_p = 2$: This single integer is the ultimate "summary" of that massive digital shuffle. In our experiment, the Frobenius map took each of the $4$ roots and moved them to different addresses. The Trace ($a_5 = 2$) is the mathematical result of summing the "diagonal" of the $2 \times 2$ matrix that represents this shuffle. This number tells us that over the finite field $\mathbb{F}_5$, the curve has $N_p = p + 1 - a_p = 5 + 1 - 2 = \mathbf{4}$ points.4. 
+The Trace $a_p = 2$: This single integer is the ultimate "summary" of that massive digital shuffle. In our experiment, the Frobenius map took each of the $4$ roots and moved them to different addresses. The Trace ($a_5 = 2$) is the mathematical result of summing the "diagonal" of the $2 \times 2$ matrix that represents this shuffle. This number tells us that over the finite field $\mathbb{F}_5$, the curve has $N_p = p + 1 - a_p = 5 + 1 - 2 = \mathbf{4}$ points.
 
 We have just manually verified one "Euler Factor" of the L-function. Because the grid stayed intact (True), we know the representation is stable. The L-function is just a massive product: $L(E, s) = \prod_{p} \frac{1}{1 - a_p p^{-s} + p^{1-2s}}$. For $p=3$, we found $a_3 = 0$. For $p=5$, we found $a_5 = 2$. Each prime $p$ provides one of these $a_p$ "heartbeats." By proving that the $p$-adic addresses shuffle perfectly, we've shown that the curve's internal geometry is consistent enough to be studied as a global analytic function.
 
 We've moved from the Geometric $(y^2 = x^3 + x)$ to the Arithmetic (p-adic addresses) to the Analytic ($a_p$ values). This is the exact path taken by researchers proving the Modularity Theorem. We are essentially looking at the "source code" of the connection between elliptic curves and modular forms.
+
+But how are these roots constructed?
+
+The structure of the "digits" ($a$) comes from the prime $\ell$, but the "resolution" ($5^0, 5^1, 5^2 \dots$) comes from the prime $p$. The digits are calculated to satisfy the the division polynomial across higher powers of $p$
+
+In a $p$-adic expansion like: 
+
+$$\text{root of }\psi_{\ell} = d_0 + d_1 p^1 + d_2 p^2 + \dots$$
+
+Each coefficient ($d_k$) is found by looking at the division polynomial $\psi_{\ell}$ modulo higher powers of $p$.
+
+$d_0$ is a root of $\psi_{\ell} \pmod p$. 
+
+$d_1$ is calculated so that $(d_0 + d_1 p)$ is a root of $\psi_{\ell} \pmod{p^2}$. 
+
+$d_2$ is calculated so that $(d_0 + d_1 p + d_2 p^2)$ is a root of $\psi_{\ell} \pmod{p^3}$. 
+
+This process is called Hensel's Lemma. It is like using Newton's method to find a root, but instead of getting more decimal places, you are getting more $p$-adic places (powers of $p$).
+
+From the basics, what is **a**:
+
+Each digit $d_i$ in our $p$-adic string $d_0 + d_1 p^1 + d_2 p^2 + \dots$ is a polynomial in $a$: 
+
+$$d_i = c_0 + c_1 a + c_2 a^2 + c_3 a^3$$
+
+The coefficients $c_j$ are just integers from $\{0, 1, 2, 3, 4\}$. 
+
+
+The $a$ is essentially a placeholder for the internal symmetry of the donut's loops. **a** is the root of the polynomial that defines the symmetry of the $\ell=3$ torsion.
+
+Since you are looking at $3$-torsion, there are $8$ non-trivial points ($3^2 - 1$).
+
+The division polynomial $\psi_3(x)$ can be found in the lines:
+
+`Defining polynomial for the p-adic digits: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)`
+`The 'digit' a satisfies: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)`
+
+i.e. the polynomial $$\psi_3(x) = 3x^4 + 6x^2 - 1$$
+
+If $i$ in complex numbers is defined by the rule $i^2 + 1 = 0$, what is the specific "rule" for $a$? 
+
+For the curve $y^2 = x^3 + x$ and the prime $p=5$, we can actually find the rule. The $3$-division polynomial is:
+
+$$\psi_3(x) = 3x^4 + 6x^2 - 1$$
+
+which does not change with higher powers of $p$: we are simply solving the same $\ell$-related equation 
+
+$$\psi_{\ell}(x) \equiv0 \mod p^n$$
+
+
+to higher and higher precision. If $x_i$ is a root modulo $p^i$
+
+$$\psi_l(x) \equiv 0 \mod p^i$$
+
+what's the next digit such that $x_{i+1}=x_i + d_i p^i,$ where $x_{i+1}$ is the root modulo $p^{i+1}$:
+
+$$\psi'(x_0) \cdot d_i \equiv -\frac{\psi(x_i)}{p^i}\mod p$$
+
+or
+
+$$d_i\equiv - \frac{\psi(x_i)}{p^i}\left[ \psi'(x_0)\right]^{-1} \mod p$$
+The result is a polynomial in $a$.
+
+
+When we look at this modulo $5$, $\psi_{\ell}(x)$ polynomial becomes:
+
+$$3x^4 + x^2 + 4 \equiv 0 \pmod 5$$
+
+If you factor this over $\mathbb{F}_5$, you find it is irreducible (it has no roots in the normal numbers $0, 1, 2, 3, 4$). So, just as $i$ is the root of $x^2+1$, Sage "invents" $a$ to be the root of this polynomial (or one of its factors).
+
+The rule for your $a$ is:
+
+$$3a^4 + a^2 + 4 = 0 \mod 5$$
+
+**a** is the generator of the limited field extension $\mathbb F_{p^d}.$
+
+
+**a** is the exact symbolic representation of the torsion point. We don't need to solve for $a$ because the interest is in how the points move. The shuffling provides the trace $a_p$, which is a number.
+
+Each digit $d_k$ in $d_0 + d_1 p + d_2 p^2 + \cdots$ is a polynomial in $a.$ For instance $2a^2 + 4a +4.$ Frobenius applies a field automorphism:
+
+
+$$\phi_5(2a^2 + 4a +4) = 2(a^5)^2+4(a^5) +4$$
+
+and because $a$ is defined by $3a^4+a^2+4=0,$ $a^5$ can be simplified to a lower power so it stays withing $4$ dimensional bounds.
 
 ***
 
