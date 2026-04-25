@@ -1248,6 +1248,7 @@ for i, root in enumerate(roots_in_ext):
     frob_root = root.frobenius()
     val = psi_over_ext(frob_root).valuation()
     is_still_root = val &gt;= 20
+    print(f&quot;Root {i})
     print(f&quot;Root {i} maps to: {frob_root}&quot;)
     print(f&quot;  -&gt; Still in the grid? {is_still_root} (Valuation: {val})&quot;)
     print(&quot;-&quot; * 35)
@@ -1259,20 +1260,22 @@ print(f&quot;Trace a_p at p={p}: {E.ap(p)}&quot;)
 OUTPUT:
 
 Detected required degree: 4
-Defining polynomial for the p-adic digits: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)
-The &#39;digit&#39; a satisfies: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)
-
-
+Defining polynomial for the p-adic extension: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)
+The generator &#39;a&#39; satisfies: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)
 --- 5-adic Grid Shuffle (The Frobenius Lift) ---
+Root 0: (a^3 + 3*a^2 + 3*a + 4) + (a^2 + 4*a + 3)*5 + (2*a^2 + 4*a + 4)*5^2 + (4*a^3 + 2*a^2 + 4*a + 1)*5^3 + (a + 3)*5^4 + (4*a^3 + a^2 + 4)*5^5 + (a^3 + 4*a)*5^6 + (3*a^2 + a + 2)*5^7 + (3*a^3 + a^2 + 2*a + 2)*5^8 + (3*a^3 + 2*a^2 + 2*a)*5^9 + a^2*5^10 + (2*a^3 + 3*a + 2)*5^11 + (a^3 + 3*a + 4)*5^12 + (4*a^3 + 4*a^2 + a)*5^13 + (3*a^3 + 4*a + 3)*5^14 + (4*a^2 + a)*5^15 + (3*a^3 + 2*a^2)*5^16 + (4*a^3 + 4*a^2 + a + 3)*5^17 + 3*a^2*5^18 + (2*a^2 + 3*a + 1)*5^19 + O(5^20)
 Root 0 maps to: (4*a^3 + 3*a + 2) + (a^3 + 4*a)*5 + (2*a^3 + 3*a + 2)*5^2 + (a^3 + 2*a + 4)*5^3 + (a^3 + a^2)*5^4 + (4*a^2 + 3*a + 4)*5^5 + (a^3 + 3*a^2 + a)*5^6 + (a^3 + 4*a)*5^7 + (2*a^3 + 4*a + 2)*5^8 + (a^3 + a^2 + 2*a + 1)*5^9 + (4*a^3 + 3*a^2 + a + 4)*5^10 + (2*a^3 + 4*a^2 + a + 2)*5^11 + a^2*5^12 + (3*a^3 + 4*a^2 + a + 3)*5^13 + (2*a^3 + a^2 + 1)*5^14 + (a^3 + 2*a^2 + 2*a + 4)*5^15 + (2*a^3 + 2*a^2 + 4*a + 1)*5^16 + (3*a^3 + 4*a^2 + 2*a + 4)*5^17 + (3*a^2 + 4)*5^18 + (a^3 + 3*a^2)*5^19 + O(5^20)
   -&gt; Still in the grid? True (Valuation: 20)
 -----------------------------------
+Root 1: (a^3 + 2*a + 3) + (3*a^3 + 4)*5 + (2*a^3 + a + 2)*5^2 + (3*a^3 + 2*a)*5^3 + (3*a^3 + 4*a^2 + 4*a + 4)*5^4 + (4*a^3 + a)*5^5 + (3*a^3 + a^2 + 3*a + 4)*5^6 + (3*a^3 + 4*a^2 + 4)*5^7 + (2*a^3 + 4*a^2 + 2)*5^8 + (3*a^3 + 3*a^2 + 2*a + 3)*5^9 + (a^2 + 3*a)*5^10 + (2*a^3 + 3*a + 2)*5^11 + (4*a^3 + 3*a^2 + 4*a + 4)*5^12 + (a^3 + 3*a + 1)*5^13 + (2*a^3 + 3*a^2 + 4*a + 3)*5^14 + (3*a^3 + 2*a^2 + 2*a)*5^15 + (2*a^3 + 2*a^2 + 3)*5^16 + (a^3 + 2*a)*5^17 + (4*a^3 + a^2 + 4*a)*5^18 + (3*a^3 + a^2 + 4*a + 4)*5^19 + O(5^20)
 Root 1 maps to: (a^3 + 3*a^2 + 3*a + 4) + (a^2 + 4*a + 3)*5 + (2*a^2 + 4*a + 4)*5^2 + (4*a^3 + 2*a^2 + 4*a + 1)*5^3 + (a + 3)*5^4 + (4*a^3 + a^2 + 4)*5^5 + (a^3 + 4*a)*5^6 + (3*a^2 + a + 2)*5^7 + (3*a^3 + a^2 + 2*a + 2)*5^8 + (3*a^3 + 2*a^2 + 2*a)*5^9 + a^2*5^10 + (2*a^3 + 3*a + 2)*5^11 + (a^3 + 3*a + 4)*5^12 + (4*a^3 + 4*a^2 + a)*5^13 + (3*a^3 + 4*a + 3)*5^14 + (4*a^2 + a)*5^15 + (3*a^3 + 2*a^2)*5^16 + (4*a^3 + 4*a^2 + a + 3)*5^17 + 3*a^2*5^18 + (2*a^2 + 3*a + 1)*5^19 + O(5^20)
   -&gt; Still in the grid? True (Valuation: 20)
 -----------------------------------
+Root 2: (4*a^3 + 2*a^2 + 2*a + 1) + (4*a^3 + 3*a^2 + 1)*5 + (4*a^3 + 2*a^2)*5^2 + (2*a^2 + 3)*5^3 + (4*a^3 + 4*a^2 + 3*a + 1)*5^4 + (3*a^2 + 4*a)*5^5 + (3*a^3 + 4*a^2 + 4)*5^6 + (4*a^3 + a^2 + 3*a + 2)*5^7 + (a^3 + 3*a^2 + 2*a + 2)*5^8 + (a^3 + 2*a^2 + 2*a + 4)*5^9 + (4*a^3 + 3*a^2 + 4*a + 4)*5^10 + (2*a^3 + 4*a^2 + a + 2)*5^11 + (3*a^3 + 4*a^2 + a)*5^12 + (3*a + 4)*5^13 + (a^3 + 4*a^2 + 1)*5^14 + (4*a^3 + 3*a + 4)*5^15 + (a^3 + 2*a^2 + 4*a + 4)*5^16 + (3*a + 1)*5^17 + (4*a^3 + a^2 + 4*a + 4)*5^18 + (4*a^3 + 2*a^2 + a + 3)*5^19 + O(5^20)
 Root 2 maps to: (a^3 + 2*a + 3) + (3*a^3 + 4)*5 + (2*a^3 + a + 2)*5^2 + (3*a^3 + 2*a)*5^3 + (3*a^3 + 4*a^2 + 4*a + 4)*5^4 + (4*a^3 + a)*5^5 + (3*a^3 + a^2 + 3*a + 4)*5^6 + (3*a^3 + 4*a^2 + 4)*5^7 + (2*a^3 + 4*a^2 + 2)*5^8 + (3*a^3 + 3*a^2 + 2*a + 3)*5^9 + (a^2 + 3*a)*5^10 + (2*a^3 + 3*a + 2)*5^11 + (4*a^3 + 3*a^2 + 4*a + 4)*5^12 + (a^3 + 3*a + 1)*5^13 + (2*a^3 + 3*a^2 + 4*a + 3)*5^14 + (3*a^3 + 2*a^2 + 2*a)*5^15 + (2*a^3 + 2*a^2 + 3)*5^16 + (a^3 + 2*a)*5^17 + (4*a^3 + a^2 + 4*a)*5^18 + (3*a^3 + a^2 + 4*a + 4)*5^19 + O(5^20)
   -&gt; Still in the grid? True (Valuation: 20)
 -----------------------------------
+Root 3: (4*a^3 + 3*a + 2) + (a^3 + 4*a)*5 + (2*a^3 + 3*a + 2)*5^2 + (a^3 + 2*a + 4)*5^3 + (a^3 + a^2)*5^4 + (4*a^2 + 3*a + 4)*5^5 + (a^3 + 3*a^2 + a)*5^6 + (a^3 + 4*a)*5^7 + (2*a^3 + 4*a + 2)*5^8 + (a^3 + a^2 + 2*a + 1)*5^9 + (4*a^3 + 3*a^2 + a + 4)*5^10 + (2*a^3 + 4*a^2 + a + 2)*5^11 + a^2*5^12 + (3*a^3 + 4*a^2 + a + 3)*5^13 + (2*a^3 + a^2 + 1)*5^14 + (a^3 + 2*a^2 + 2*a + 4)*5^15 + (2*a^3 + 2*a^2 + 4*a + 1)*5^16 + (3*a^3 + 4*a^2 + 2*a + 4)*5^17 + (3*a^2 + 4)*5^18 + (a^3 + 3*a^2)*5^19 + O(5^20)
 Root 3 maps to: (4*a^3 + 2*a^2 + 2*a + 1) + (4*a^3 + 3*a^2 + 1)*5 + (4*a^3 + 2*a^2)*5^2 + (2*a^2 + 3)*5^3 + (4*a^3 + 4*a^2 + 3*a + 1)*5^4 + (3*a^2 + 4*a)*5^5 + (3*a^3 + 4*a^2 + 4)*5^6 + (4*a^3 + a^2 + 3*a + 2)*5^7 + (a^3 + 3*a^2 + 2*a + 2)*5^8 + (a^3 + 2*a^2 + 2*a + 4)*5^9 + (4*a^3 + 3*a^2 + 4*a + 4)*5^10 + (2*a^3 + 4*a^2 + a + 2)*5^11 + (3*a^3 + 4*a^2 + a)*5^12 + (3*a + 4)*5^13 + (a^3 + 4*a^2 + 1)*5^14 + (4*a^3 + 3*a + 4)*5^15 + (a^3 + 2*a^2 + 4*a + 4)*5^16 + (3*a + 1)*5^17 + (4*a^3 + a^2 + 4*a + 4)*5^18 + (4*a^3 + 2*a^2 + a + 3)*5^19 + O(5^20)
   -&gt; Still in the grid? True (Valuation: 20)
 -----------------------------------
@@ -1399,6 +1402,67 @@ automorphism:</p>
 <span class="math inline">\(3a^4+a^2+4=0,\)</span> <span class="math inline">\(a^5\)</span> can be simplified to a lower power so
 it stays withing <span class="math inline">\(4\)</span> dimensional
 bounds.</p>
+<p>To get to the trace <span class="math inline">\(a_p\)</span> one
+<span class="math inline">\(\ell\)</span> is all that is needed. These
+are the next steps:</p>
+<p>We take the roots of your division polynomial <span class="math inline">\(\psi_\ell\)</span> and label them. For <span class="math inline">\(\ell=3\)</span>, there are <span class="math inline">\(4\)</span> distinct <span class="math inline">\(x\)</span>-coordinates. Let’s call them: <span class="math inline">\(X = \{r_0, r_1, r_2, r_3\}.\)</span> These are the
+“seats.” In the code output, these were those long <span class="math inline">\(p\)</span>-adic strings involving <span class="math inline">\(a\)</span>, as for example:</p>
+<p><code>Root 0: (a^3 + 3*a^2 + 3*a + 4) + (a^2 + 4*a + 3)*5 + (2*a^2 + 4*a + 4)*5^2 + (4*a^3 + 2*a^2 + 4*a + 1)*5^3 + (a + 3)*5^4 + (4*a^3 + a^2 + 4)*5^5 + (a^3 + 4*a)*5^6 + (3*a^2 + a + 2)*5^7 + (3*a^3 + a^2 + 2*a + 2)*5^8 + (3*a^3 + 2*a^2 + 2*a)*5^9 + a^2*5^10 + (2*a^3 + 3*a + 2)*5^11 + (a^3 + 3*a + 4)*5^12 + (4*a^3 + 4*a^2 + a)*5^13 + (3*a^3 + 4*a + 3)*5^14 + (4*a^2 + a)*5^15 + (3*a^3 + 2*a^2)*5^16 + (4*a^3 + 4*a^2 + a + 3)*5^17 + 3*a^2*5^18 + (2*a^2 + 3*a + 1)*5^19 + O(5^20)</code></p>
+<p>Next we need to apply the Frobenius map <span class="math inline">\(\phi_p\)</span> to each root. The Frobenius
+doesn’t create new roots; it just moves the existing ones around. For
+example, your output might show:<span class="math inline">\(\phi_p(r_0)
+= r_2\)</span>, <span class="math inline">\(\phi_p(r_2) = r_0\)</span>,
+<span class="math inline">\(\phi_p(r_1) = r_3\)</span>, and <span class="math inline">\(\phi_p(r_3) = r_1\)</span>. This is a permutation.
+In this example, the Frobenius is swapping two pairs of roots.</p>
+<p>Move from <span class="math inline">\(x\)</span>-coordinates to
+points (The 2D grid). This is the most critical step. An <span class="math inline">\(x\)</span>-coordinate is just a shadow. Each <span class="math inline">\(x\)</span>-coordinate (except where <span class="math inline">\(y=0\)</span>) corresponds to two points on the
+curve: <span class="math inline">\((x, y)\)</span> and <span class="math inline">\((x, -y)\)</span>. The <span class="math inline">\(3\)</span>-torsion points form a <span class="math inline">\(2\)</span>-dimensional vector space over <span class="math inline">\(\mathbb{F}_3\)</span> (the “donut grid”). We pick
+a basis for this grid—two points <span class="math inline">\(P\)</span>
+and <span class="math inline">\(Q\)</span> that can generate all
+others.</p>
+<p><span class="math inline">\(P = (x_1, y_1)\)</span></p>
+<p><span class="math inline">\(Q = (x_2, y_2)\)</span></p>
+<p>To build that <span class="math inline">\(2 \times 2\)</span> matrix,
+we need to pick a basis for the torsion group. Since the <span class="math inline">\(3\)</span>-torsion group is 2-dimensional (like a
+<span class="math inline">\(3 \times 3\)</span> grid on a donut), we
+pick two points, <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span>, that aren’t just multiples of each
+other. <span class="math inline">\(P\)</span> has an <span class="math inline">\(x\)</span>-coordinate, let’s call it <span class="math inline">\(x_P\)</span>. <span class="math inline">\(Q\)</span> has an <span class="math inline">\(x\)</span>-coordinate, let’s call it <span class="math inline">\(x_Q\)</span>. These <span class="math inline">\(x_P\)</span> and <span class="math inline">\(x_Q\)</span> are indeed two of the roots (the
+<span class="math inline">\(r_i\)</span> values) from your division
+polynomial <span class="math inline">\(\psi_3.\)</span></p>
+<p>Next we build the matrix. We watch where Frobenius sends our basis
+points <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span>. Because the Frobenius is a linear
+transformation, the result must be some combination of <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span>:</p>
+<p><span class="math inline">\(\text{Frob}_p(P) = A \cdot P + C \cdot
+Q\)</span></p>
+<p><span class="math inline">\(\text{Frob}_p(Q) = B \cdot P + D \cdot
+Q\)</span></p>
+<p>The coefficients <span class="math inline">\(A, B, C, D\)</span>
+(which are numbers in <span class="math inline">\(\mathbb{F}_\ell\)</span>) form our Frobenius
+Matrix:</p>
+<p><span class="math display">\[\text{Frob}_p = \begin{pmatrix} A &amp;
+B \\ C &amp; D \end{pmatrix}\]</span></p>
+<p>Let’s say we’ve applied the Frobenius to our basis points and gotten
+two new points, which we will call <span class="math inline">\(P&#39;\)</span> and <span class="math inline">\(Q&#39;\)</span>: <span class="math inline">\(\text{Frob}_p(P) = P&#39;\)</span><span class="math inline">\(\text{Frob}_p(Q) = Q&#39;\)</span> At this stage,
+<span class="math inline">\(P&#39;\)</span> and <span class="math inline">\(Q&#39;\)</span> are just <span class="math inline">\(p\)</span>-adic coordinates. You know they are “in
+the grid,” but you don’t yet know their “grid coordinates” (how many
+<span class="math inline">\(P\)</span>s and <span class="math inline">\(Q\)</span>s they are made of).</p>
+<ul>
+<li><p>Solving for the first column (<span class="math inline">\(A\)</span> and <span class="math inline">\(C\)</span>): We need to find which combination of
+<span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> equals <span class="math inline">\(P&#39;\)</span>. In the finite world of <span class="math inline">\(\ell\)</span>-torsion, there are only <span class="math inline">\(\ell^2\)</span> possibilities (for <span class="math inline">\(\ell=3\)</span>, that’s only <span class="math inline">\(9\)</span> points). Test the combinations: Is
+<span class="math inline">\(P&#39; = [0]P + [1]Q\)</span>? Is <span class="math inline">\(P&#39; = [1]P + [1]Q\)</span>? Is <span class="math inline">\(P&#39; = [2]P + [1]Q\)</span>? When we find the
+match such that <span class="math inline">\(P&#39; = [A]P +
+[C]Q\)</span>, we have found the first column of your matrix.</p></li>
+<li><p>Solving for the second column (<span class="math inline">\(B\)</span> and <span class="math inline">\(D\)</span>): We do the exact same thing for <span class="math inline">\(Q&#39;\)</span>. We test combinations until we
+find: <span class="math display">\[Q&#39; = [B]P + [D]Q\]</span> These
+coefficients <span class="math inline">\(B\)</span> and <span class="math inline">\(D\)</span> give us the second column.</p></li>
+</ul>
+<p>Finally, extract the trace (<span class="math inline">\(a_p\)</span>). Once we have the matrix, the <span class="math inline">\(a_p \pmod \ell\)</span> is simply the trace:</p>
+<p><span class="math display">\[a_p \equiv A + D \pmod \ell\]</span></p>
+<p>If the matrix is</p>
+<p><span class="math display">\[\begin{pmatrix} 1 &amp; 1 \\ 0 &amp; 1
+\end{pmatrix}\]</span> the trace is <span class="math inline">\(1+1=2\)</span>.</p>
+<p>This matches the <span class="math inline">\(a_p = 2\)</span> in our
+output!</p>
 <hr />
 <p>Now, the Frobenius map <span class="math inline">\(\phi_p\)</span>
 acts on this 2D space <span class="math inline">\(T_\ell(E)\)</span>
