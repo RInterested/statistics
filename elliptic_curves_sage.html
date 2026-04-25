@@ -718,6 +718,21 @@ When we substitute the line into the curve, we get a cubic equation in
 <span class="math inline">\(x\)</span>. The roots of that cubic are the
 <span class="math inline">\(x\)</span>-coordinates of the three
 intersection points.</p>
+<p>To explicitly determine the <span class="math inline">\(x\)</span>-coordinates of these <span class="math inline">\(n\)</span>-torsion points, we introduce the
+<strong>division polynomials</strong>. These polynomials provide a
+recursive algebraic framework for point multiplication, where the zeros
+of <span class="math inline">\(\psi_n\)</span> correspond precisely to
+the <span class="math inline">\(x\)</span>-coordinates of the points in
+<span class="math inline">\(E[n] \setminus \{ \mathcal{O} \}\)</span>.
+Their roots tell us exactly where the <span class="math inline">\(n\)</span>-torsion points live on the <span class="math inline">\(x\)</span>-axis.</p>
+<p>The division polynomial is fixed for a given curve because it
+represents the intrinsic geometry of that curve. The lines change based
+on the point. The polynomial changes based on the curve (the
+coefficients <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>). For the elliptic curve <span class="math inline">\(y^2=x^3 +A + B\)</span>, when you add a point to
+itself, the slope <span class="math inline">\(m\)</span> is a function
+of the coordinates: <span class="math inline">\(m = \frac{3x^2 +
+A}{2y}\)</span>, and the <span class="math inline">\(\psi_3 = 3x^4 +
+6x^2 - 1\)</span>.</p>
 <p>A polynomial of degree <span class="math inline">\(n\)</span> always
 has exactly <span class="math inline">\(n\)</span> roots, provided we
 are willing to use complex enough numbers. For an elliptic curve, the
@@ -820,13 +835,13 @@ it maps the entire “subdivided tiling” to another “subdivided
 tiling.”</p>
 <p>For a prime <span class="math inline">\(\ell\)</span> (where <span class="math inline">\(\ell \neq p\)</span>), there are exactly <span class="math inline">\(\ell^2\)</span> torsion points. They form a <span class="math inline">\(2 \times 2\)</span> grid, much like a vector
 space.</p>
-<p>In SageMath:</p>
+<p>In SageMath we can find the torsion points with complex numbers:</p>
 <pre><code>E = EllipticCurve([1, 0]) # y^2 = x^3 + x
-ell = 3 # Order of torsion being investigated
+ell = 3
 
 # 1. Move to the Algebraic Closure to see the &quot;ghost&quot; points
-K = QQbar # Algebraic numbers including radicals and complex
-E_K = E.base_extend(K) # Accept coordinates from a more complex field, like the Algebraic Numbers (QQbar)
+K = QQbar
+E_K = E.base_extend(K)
 
 # 2. Get the Origin point (Point at Infinity)
 Origin = E_K(0)
@@ -835,18 +850,27 @@ Origin = E_K(0)
 # We call division_points on the Point object itself
 points = Origin.division_points(ell)
 
+# Print the 3rd division polynomial
+print(f&quot;The elliptic curve is: {E}&quot;)
+print(&quot;-&quot; * 30)
+print(f&quot;The {ell}-rd division polynomial (l=3) psi_{ell} is: {E.division_polynomial(ell)}&quot;)
 print(f&quot;Total {ell}-torsion points found: {len(points)}&quot;)
-print(&quot;-&quot; * 30) # create a string of 30 dashes
-
+print(&quot;-&quot; * 30)
+print(f&quot;TORSION POINTS (in algebraic coordinates):&quot;)
 for i, P in enumerate(points):
     # Formatting to show the algebraic coordinates clearly
     print(f&quot;Point {i}: ({P[0]} : {P[1]} : {P[2]})&quot;)
     
 ---
 # OUTPUT:
+---
 
-Total 3-torsion points found: 9
+The elliptic curve is: Elliptic Curve defined by y^2 = x^3 + x over Rational Field
 ------------------------------
+The 3-rd division polynomial (l=3) psi_3 is: 3*x^4 + 6*x^2 - 1
+------------------------------
+TORSION POINTS (in algebraic coordinates):
+Total 3-torsion points found: 9
 Point 0: (0 : 1 : 0)
 Point 1: (-0.3933198931903287? : -0.6739189064139262?*I : 1)
 Point 2: (-0.3933198931903287? : 0.?e-15 + 0.673918906413926?*I : 1)
@@ -857,66 +881,65 @@ Point 6: (1.467889825013871?*I : 0.9205903462520508? - 0.9205903462520508?*I : 1
 Point 7: (0.3933198931903287? : -0.6739189064139262? : 1)
 Point 8: (0.3933198931903287? : 0.6739189064139262? : 1)</code></pre>
 <p>QQbar (<span class="math inline">\(\overline{\mathbb{Q}}\)</span>) is
-the Field of Algebraic Numbers. It contains every number that is a root
+the Field of algebraic aumbers. It contains every number that is a root
 of a polynomial with rational coefficients. This includes all integers,
 fractions, square roots (<span class="math inline">\(\sqrt{2}\)</span>),
 and imaginary numbers (<span class="math inline">\(i\)</span>).</p>
 <p>But we can get p-adics:</p>
-<pre><code>E = EllipticCurve([1, 0]) # y^2 = x^3 + x
-psi = E.division_polynomial(3) # The division polynomial $\psi_3(x)$ = exact $x$-coordinates of the $3 \times 3$ grid.
-p = 11
+<pre><code>E = EllipticCurve([1, 0]) 
+ell = 3  # The order of torsion
+p = 11   # The p-adic prime
 
-# 1. The Algebraic View (The Stake)
-root_alg = psi.roots(QQbar, multiplicities=False)[0] # Only the first root
-print(f&quot;--- QQbar (Algebraic Blueprint) ---&quot;)
-print(f&quot;x = {root_alg}&quot;)
-print(f&quot;Minimal Poly: {root_alg.minpoly()}&quot;)
+# 1. The Division Polynomial for the ell-torsion
+psi = E.division_polynomial(ell) 
 
-# 2. The 11-adic View (The Address)
-# We look at the roots in the 11-adic field with 5 digits of precision
+# 2. The Algebraic View (The &quot;True&quot; Root)
+# We find the root in the algebraic closure
+root_alg = psi.roots(QQbar, multiplicities=False)[0] 
+
+print(f&quot;--- Algebraic Perspective ---&quot;)
+print(f&quot;Investigating {ell}-torsion for {E}&quot;)
+print(f&quot;Division polynomial psi_{ell}: {psi}&quot;)
+print(f&quot;A root x is: {root_alg}&quot;)
+
+# 3. The p-adic View (The &quot;Local&quot; Address)
 K_p = Qp(p, prec=5)
-# We find the roots in Qp directly
 padic_roots = psi.roots(K_p, multiplicities=False)
 
-print(f&quot;\n--- {p}-adic (Digital Address) ---&quot;)
+print(&quot;-&quot; * 30)
+print(f&quot;--- {p}-adic Perspective ---&quot;)
 if padic_roots:
     root_padic = padic_roots[0]
-    print(f&quot;x = {root_padic}&quot;)
-    print(f&quot;As power series: {root_padic.expansion()}&quot;)
+    print(f&quot;In Q_{p}, that same root looks like: {root_padic}&quot;)
+    print(f&quot;Expansion: {root_padic.expansion()}&quot;)
 else:
-    print(f&quot;No roots in Q_{p} directly. Try another prime or extension.&quot;)
+    print(f&quot;The {ell}-torsion x-coordinates are not in Q_{p} directly.&quot;)
 ---
 
 OUTPUT:
 
---- QQbar (Algebraic Blueprint) ---
-x = -0.3933198931903287?
-Minimal Poly: x^4 + 2*x^2 - 1/3
-
---- 11-adic (Digital Address) ---
-x = 5 + 4*11 + 2*11^2 + 7*11^3 + 7*11^4 + O(11^5)
-As power series: 11-adic expansion of 5 + 4*11 + 2*11^2 + 7*11^3 + 7*11^4 + O(11^5)</code></pre>
+--- Algebraic Perspective ---
+Investigating 3-torsion for Elliptic Curve defined by y^2 = x^3 + x over Rational Field
+Division polynomial psi_3: 3*x^4 + 6*x^2 - 1
+A root x is: -0.3933198931903287?
+------------------------------
+--- 11-adic Perspective ---
+In Q_11, that same root looks like: 5 + 4*11 + 2*11^2 + 7*11^3 + 7*11^4 + O(11^5)
+Expansion: 11-adic expansion of 5 + 4*11 + 2*11^2 + 7*11^3 + 7*11^4 + O(11^5)</code></pre>
 <p>Interpretation: It shows exactly how a single geometric point on our
 donut (the elliptic curve) is translated into two different mathematical
-languages: the analog (complex) and the digital (<span class="math inline">\(p\)</span>-adic).</p>
-<p>The Algebraic Blueprint (<code>QQbar</code>): This is the “analog”
+languages: the “analog” (complex) and the “digital” (<span class="math inline">\(p\)</span>-adic).</p>
+<p>The algebraic blueprint (<code>QQbar</code>): This is the “analog”
 view of the point. The Value <span class="math inline">\((-0.3933...)\)</span>: This is a decimal
-approximation of where the point sits on the complex plane. It’s like a
-GPS coordinate on a map that you can zoom in on forever, but it’s hard
-to do exact arithmetic with.</p>
-<p>The Minimal Polynomial (<span class="math inline">\(x^4 + 2x^2 -
-1/3\)</span>): This is the DNA of the point. It is a simplified version
-of our <span class="math inline">\(3\)</span>-division polynomial (<span class="math inline">\(3x^4 + 6x^2 - 1\)</span>). It tells us that this
-point is an “algebraic number” — it’s not random; it’s a specific, rigid
-corner of the <span class="math inline">\(3 \times 3\)</span> torsion
-grid.</p>
+approximation of where the point sits on the complex plane. It’s hard to
+do exact arithmetic with it.</p>
 <p>The <span class="math inline">\(11\)</span>-adic digital address
-(<code>Qp</code>): This is where it gets exciting for the Tate Module.
-We are looking at the exact same point, but expressed as a “digital
-string” in base <span class="math inline">\(11.\)</span> The “<span class="math inline">\(5\)</span>” (The first digit): This is the “Coarse
-Address.” If you looked at your donut through a very blurry lens (modulo
-<span class="math inline">\(11\)</span>), the point would be sitting at
-<span class="math inline">\(x=5\)</span>.</p>
+(<code>Qp</code>): We are looking at the exact same point, but expressed
+as a “digital string” in base <span class="math inline">\(11.\)</span>
+The “<span class="math inline">\(5\)</span>” (The first digit): This is
+the “coarse address.” If you looked at your donut through a very blurry
+lens (modulo <span class="math inline">\(11\)</span>), the point would
+be sitting at <span class="math inline">\(x=5\)</span>.</p>
 <p>The expansion (<span class="math inline">\(5 + 4 \cdot 11 + 2 \cdot
 11^2 \dots\)</span>): This is the “high-resolution Address.”The <span class="math inline">\(4 * 11\)</span> tells us which “sub-tile” the
 point is in. The <span class="math inline">\(2 * 11^2\)</span> zooms in
@@ -925,16 +948,38 @@ further.</p>
 Level.” We have calculated the position of this torsion point down to
 <span class="math inline">\(5\)</span> digits of <span class="math inline">\(11\)</span>-adic precision.</p>
 <p>The L-function doesn’t care about the decimal <span class="math inline">\(-0.3933.\)</span> It cares about the symmetry. The
-blueprint (Minimal Poly) stays the same for every prime. The Address
-(<span class="math inline">\(11\)</span>-adic string) changes depending
-on the prime. The Tate Module is the “registry” that tracks how these
-addresses (like your <span class="math inline">\(5 + 4 \cdot 11
+address (<span class="math inline">\(11\)</span>-adic string) changes
+depending on the prime. The Tate Module is the “registry” that tracks
+how these addresses (like <span class="math inline">\(5 + 4 \cdot 11
 \dots\)</span>) are shuffled by the Frobenius map. When we run the
-Frobenius shuffle we did earlier, we are literally watching that string
-of digits (<span class="math inline">\(5, 4, 2, 7, 7\)</span>) be
-transformed into the expansion of a different root from the same
-blueprint. The Trace (<span class="math inline">\(a_p\)</span>) is the
-summary of that transformation.</p>
+Frobenius shuffle, we are literally watching that string of digits
+(<span class="math inline">\(5, 4, 2, 7, 7\)</span>) be transformed into
+the expansion of a different root of the same division polynomial (<span class="math inline">\(3x^4 + 6x^2 - 1 = 0\)</span>). The trace (<span class="math inline">\(a_p\)</span>) is the summary of that
+transformation.</p>
+<p>The Frobenius map <span class="math inline">\(\pi_p\)</span> acts on
+the coordinates of the point. If a point <span class="math inline">\(P\)</span> has coordinates <span class="math inline">\((x, y)\)</span>, the Frobenius map sends it to
+<span class="math inline">\((x^p, y^p)\)</span>. If <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are simple integers (or elements of
+<span class="math inline">\(\mathbb{F}_p\)</span>), then <span class="math inline">\(x^p \equiv x \pmod{p}\)</span>. These points stay
+put. For a torsion point, the <span class="math inline">\(x\)</span>-coordinate is usually a root of a
+polynomial that doesn’t factor easily. These roots are spread out across
+the field extension. Frobenius acts like a permutation: it picks up one
+root of the division polynomial and moves it to a different root of the
+same polynomial. For example, imagine the roots of <span class="math inline">\(\psi_3\)</span> are <span class="math inline">\(\{r_1, r_2, r_3, r_4\}\)</span>. The Frobenius map
+looks at the <span class="math inline">\(11\)</span>-adic string for
+<span class="math inline">\(r_1\)</span>; it does the “Frobenius math”
+(<span class="math inline">\(x^{11}, y^{11}\)</span>), and the result is
+a new <span class="math inline">\(11\)</span>-adic string that matches
+the expansion of <span class="math inline">\(r_2\)</span>. When we talk
+about the Frobenius map <span class="math inline">\(\pi_p\)</span>
+acting on the <span class="math inline">\(n\)</span>-torsion points of
+an elliptic curve, we are describing a specific Galois automorphism. In
+the <span class="math inline">\(p\)</span>-adic setting, we call it the
+Frobenius element in the local Galois group <span class="math inline">\(Gal(\overline{\mathbb{Q}}_p/\mathbb{Q}_p)\)</span>.</p>
+<p>The Frobenius map is an automorphism, which means it must preserve
+the entire algebraic structure of the field. If it moves the “coarse
+address” (<span class="math inline">\(11^0\)</span>), it must move the
+“fine details” (<span class="math inline">\(11^1, 11^2, \dots\)</span>)
+in a way that is perfectly consistent with the curve’s equation.</p>
 <hr />
 <p>If we look at all the points that satisfy <span class="math inline">\(\ell \cdot P = \mathcal{O}\)</span>, there aren’t
 just <span class="math inline">\(\ell\)</span> of them. There are <span class="math inline">\(\ell^2\)</span> of them. Geometrically, an
@@ -1036,10 +1081,45 @@ entries. This matrix has a trace that is an <span class="math inline">\(\ell\)</
 module construction works for any <span class="math inline">\(\ell^n\)</span>, this <span class="math inline">\(\ell\)</span>-adic trace converges to the actual
 integer <span class="math inline">\(a_p\)</span> that we use in the
 L-function.</p>
-<p>In SageMath, to see how the Frobenius map shuffles the points, you
-can pull the trace <span class="math inline">\(a_p\)</span> for any
-prime <span class="math inline">\(p\)</span>. This is the value that
-goes into the denominator of the local L-factor.</p>
+<p>In the following SageMath code, we attempt to get the polynomial
+sitting in the denominator of the L-function</p>
+<p><span class="math display">\[L(E, s) = \prod_{p} \frac{1}{1 - a_p
+p^{-s} + p^{1-2s}}\]</span></p>
+<p>for a single prime <span class="math inline">\(p=3\)</span>. By
+constructing <code>L_poly = 1 - ap*T + p*T^2</code>, we are manually
+building the polynomial that sits in the denominator for the prime <span class="math inline">\(p\)</span>. To this end we need to extract the two
+parameters for that local polynomial: The prime (<span class="math inline">\(p=3\)</span>), which defines the “degree” or
+weight of the quadratic term, and the trace (<span class="math inline">\(a_p\)</span>), which defines the linear term and
+carries the specific data about the curve’s point-count at that
+prime.</p>
+<p>The Local L-factor is the “slice” of the L-function at a specific
+prime <span class="math inline">\(p\)</span>. The global L-function
+<span class="math inline">\(L(E, s)\)</span> is built by multiplying an
+infinite number of these local pieces together (an Euler Product). For a
+prime of good reduction, the L-factor is the denominator of the Euler
+factor:</p>
+<p><span class="math display">\[L_p(T) = 1 - a_p T + p T^2\]</span></p>
+<p>We cannot see the trace <span class="math inline">\(a_p\)</span>
+directly by looking at the curve’s equation. To measure <span class="math inline">\(a_p\)</span>, we have to see how the curve’s
+points behave. The <span class="math inline">\(\ell\)</span>-torsion
+points act as a representative sample of the whole curve. The Tate
+module is built entirely out of these torsion points. For a prime <span class="math inline">\(\ell\)</span>, the <span class="math inline">\(\ell\)</span>-adic Tate module <span class="math inline">\(T_\ell(E)\)</span> is the “limit” of all the <span class="math inline">\(\ell^n\)</span>-torsion points as you zoom in
+deeper and deeper. Mathematically, it is defined as the inverse
+limit:<span class="math display">\[T_\ell(E) = \varprojlim_{n}
+E[\ell^n]\]</span> Essentially, you are stacking the torsion groups:</p>
+<p>At level 1, we have <span class="math inline">\(E[\ell] \cong
+(\mathbb{Z}/\ell\mathbb{Z})^2\)</span>.</p>
+<p>At level 2, we have <span class="math inline">\(E[\ell^2] \cong
+(\mathbb{Z}/\ell^2\mathbb{Z})^2\)</span></p>
+<p>…and so on.</p>
+<p>The result is a 2-dimensional vector space over the <span class="math inline">\(\ell\)</span>-adic integers <span class="math inline">\(\mathbb{Z}_\ell\)</span>. It’s 2-dimensional
+because of the lattice structure of these different levels of zooming
+in: At level <span class="math inline">\(1,\)</span> the grid is <span class="math inline">\(\ell \times \ell\)</span>. We need <span class="math inline">\(2\)</span> generators (<span class="math inline">\(P_1, P_2\)</span>). At level <span class="math inline">\(2,\)</span> the grid is <span class="math inline">\(\ell^2 \times \ell^2\)</span>. We still only need
+2 generators (<span class="math inline">\(Q_1, Q_2\)</span>), they just
+have higher “resolution.”</p>
+<p>When the code prints the torsion points, it is showing you the raw
+data that the Frobenius map is about to shuffle. The Trace is just a
+summary of that shuffle.</p>
 <pre><code>E = EllipticCurve([1, 0]) # y^2 = x^3 + x
 p = 3
 ell = 3
@@ -1049,9 +1129,9 @@ ap = E.ap(p) # Trace of Frobenius at p
 print(f&quot;Trace of Frobenius (a_p) at p={p}: {ap}&quot;)
 
 # 2. Manually construct the Local L-factor polynomial
-# The formula is: 1 - ap*x + p*x^2 = Local L-factor (specifically the denominator of the Euler factor) for the elliptic curve at a prime $p$. It is the fundamental building block of the L-function.
-R.&lt;x&gt; = PolynomialRing(ZZ)
-L_poly = 1 - ap*x + p*x^2
+# Using T as the variable to match standard L-function notation
+R.&lt;T&gt; = PolynomialRing(ZZ)
+L_poly = 1 - ap*T + p*T^2
 
 print(f&quot;Local L-factor (Denominator): {L_poly}&quot;)
 
@@ -1059,7 +1139,7 @@ print(f&quot;\n--- Torsion &amp; p-adic Resolution ---&quot;)
 psi = E.division_polynomial(ell)
 print(f&quot;{ell}-Division Polynomial: {psi}&quot;)
 
-# Using p=11 for the p-adic view because the roots are &#39;cleaner&#39;
+# Using p=11 for the p-adic view
 p_view = 11
 K_p = Qp(p_view, prec=5)
 padic_roots = psi.roots(K_p, multiplicities=False)
@@ -1071,9 +1151,8 @@ if padic_roots:
 ---
 
 OUTPUT: 
-
 Trace of Frobenius (a_p) at p=3: 0
-Local L-factor (Denominator): 3*x^2 + 1
+Local L-factor (Denominator): 3*T^2 + 1
 
 --- Torsion &amp; p-adic Resolution ---
 3-Division Polynomial: 3*x^4 + 6*x^2 - 1
@@ -1086,11 +1165,13 @@ non-trivial points on the “donut” landed on themselves. They were all
 shuffled to new positions. In the language of point counting (<span class="math inline">\(N_p = p + 1 - a_p\)</span>), this tells us there
 are exactly <span class="math inline">\(3 + 1 - 0 = 4\)</span> points on
 the curve over <span class="math inline">\(\mathbb{F}_3\)</span>.</p>
-<p>The L-factor: <span class="math inline">\(3x^2 + 1\)</span> This is
+<p>The L-factor: <span class="math inline">\(3T^2 + 1\)</span> This is
 the “DNA capsule” for the prime <span class="math inline">\(p=3\)</span>. The formula is <span class="math inline">\(1 - a_p x + p x^2\)</span>. Since <span class="math inline">\(a_p = 0\)</span>, the middle term vanishes. Why it
-matters: When we build the L-function, we turn this into a fraction:
-<span class="math inline">\(\frac{1}{1 + 3(3^{-s})}\)</span>. This
-specific polynomial “weights” the importance of the prime <span class="math inline">\(3\)</span> in the global L-series.</p>
+matters: When we build the L-function, we turn this into a fraction in
+which <span class="math inline">\(T\)</span> is replaced by <span class="math inline">\(3^{-s}\)</span> : <span class="math inline">\(\frac{1}{1 + 3(3^{-2s})} = \frac{1}{1 +
+3^{1-2s}}\)</span>. This specific polynomial “weights” the importance of
+the prime <span class="math inline">\(3\)</span> in the global
+L-series.</p>
 <p>The <span class="math inline">\(3\)</span>-Division Polynomial: <span class="math inline">\(3x^4 + 6x^2 - 1\)</span> This is the blueprint for
 the <span class="math inline">\(3 \times 3\)</span> grid. Every <span class="math inline">\(x\)</span>-coordinate of the <span class="math inline">\(9\)</span> points in the torsion grid must be a
 root of this polynomial (or the point at infinity). Notice it is degree
@@ -1125,10 +1206,24 @@ psi = E.division_polynomial(ell)
 
 psi_mod_p = psi.change_ring(GF(p))
 factors_mod_p = psi_mod_p.factor()
-d = factors_mod_p[0][0].degree()
+E = EllipticCurve([1, 0])
+p = 5
+ell = 3
 
-# Qq requires a generator name as the &#39;names&#39; argument
+# 1. Get the division polynomial
+psi = E.division_polynomial(ell)
+
+# 2. Find the splitting field modulo p
+# This automatically determines the correct degree &#39;d&#39;
+K_finite = GF(p)[&#39;x&#39;](psi).splitting_field(&#39;a_bar&#39;)
+d = K_finite.degree()
+
+# 3. Use that degree to build your p-adic extension
 K_ext = Qq(p^d, prec=20, names=&#39;a&#39;)
+
+print(f&quot;Detected required degree: {d}&quot;)
+print(f&quot;Defining polynomial for the p-adic digits: {K_ext.defining_polynomial()}&quot;)
+print(f&quot;The &#39;digit&#39; a satisfies: {def_poly}&quot;)
 
 psi_over_ext = psi.change_ring(K_ext)
 roots_in_ext = psi_over_ext.roots(multiplicities=False)
@@ -1147,6 +1242,11 @@ print(f&quot;Trace a_p at p={p}: {E.ap(p)}&quot;)
 ---
 
 OUTPUT:
+
+Detected required degree: 4
+Defining polynomial for the p-adic digits: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)
+The &#39;digit&#39; a satisfies: (1 + O(5^20))*x^4 + O(5^20)*x^3 + (4 + O(5^20))*x^2 + (4 + O(5^20))*x + 2 + O(5^20)
+
 
 --- 5-adic Grid Shuffle (The Frobenius Lift) ---
 Root 0 maps to: (4*a^3 + 3*a + 2) + (a^3 + 4*a)*5 + (2*a^3 + 3*a + 2)*5^2 + (a^3 + 2*a + 4)*5^3 + (a^3 + a^2)*5^4 + (4*a^2 + 3*a + 4)*5^5 + (a^3 + 3*a^2 + a)*5^6 + (a^3 + 4*a)*5^7 + (2*a^3 + 4*a + 2)*5^8 + (a^3 + a^2 + 2*a + 1)*5^9 + (4*a^3 + 3*a^2 + a + 4)*5^10 + (2*a^3 + 4*a^2 + a + 2)*5^11 + a^2*5^12 + (3*a^3 + 4*a^2 + a + 3)*5^13 + (2*a^3 + a^2 + 1)*5^14 + (a^3 + 2*a^2 + 2*a + 4)*5^15 + (2*a^3 + 2*a^2 + 4*a + 1)*5^16 + (3*a^3 + 4*a^2 + 2*a + 4)*5^17 + (3*a^2 + 4)*5^18 + (a^3 + 3*a^2)*5^19 + O(5^20)
