@@ -401,6 +401,14 @@ The size of $\ell$ relative to $p$ does not matter at all. $\ell$ can be much sm
 
 Every time you draw a line and find an intersection, you are essentially solving a system of equations formed by the equation of the line $y = mx + c,$ and the equation of the curve $y^2 = x^3 + Ax + B$. When we substitute the line into the curve, we get a cubic equation in $x$. The roots of that cubic are the $x$-coordinates of the three intersection points. 
 
+When you add a point to itself, the slope $m$ is a function of the coordinates: $m = \frac{3x^2 + A}{2y}$. The equation $m = \frac{3x^2 + A}{2y}$ is the formula for the tangent slope at a point $P = (x, y)$ on the curve $y^2 = x^3 + Ax + B$. Because the group law for an elliptic curve is defined by rational functions, the result of $[n]P$ is always going to be some massive expression:
+
+$$[n]P = \left( \frac{\text{Poly}_1(x,y)}{\text{Poly}_2(x,y)}, \frac{\text{Poly}_3(x,y)}{\text{Poly}_4(x,y)} \right)$$
+
+$[n]P$ is shorthand for Scalar Multiplication. It means adding the point $P$ to itself $n$ times:$$[n]P = \underbrace{P + P + \dots + P}_{n \text{ times}}$$
+
+The division polynomial $\psi_n$ is essentially the denominator of these expressions. 
+
 To explicitly determine the $x$-coordinates of these $n$-torsion points, we introduce the **division polynomials**. These polynomials provide a recursive algebraic framework for point multiplication, where the zeros of $\psi_n$ correspond precisely to the $x$-coordinates of the points in $E[n] \setminus \{ \mathcal{O} \}$. Their roots tell us exactly where the $n$-torsion points live on the $x$-axis.
 
 The division polynomial is fixed for a given curve because it represents the intrinsic geometry of that curve. The lines change based on the point. The polynomial changes based on the curve (the coefficients $A$ and $B$). For the elliptic curve $y^2=x^3 +A + B$, when you add a point to itself, the slope $m$ is a function of the coordinates: $m = \frac{3x^2 + A}{2y}$, and the $\psi_3 = 3x^4 + 6x^2 - 1$.
