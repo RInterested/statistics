@@ -903,9 +903,25 @@ Finally, to get the L-function, we take these individual polynomials $P_p(T)$ an
 
 $$L_p(s) = \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}}$$
 
-The shift from $T^2 - a_p T + p$ to $1 - a_p T + p T^2$ happens because we aren't just plugging in a value; we are moving to the reciprocal polynomial. The "DNA" polynomial $P_p(T) = T^2 - a_p T + p$ is the standard characteristic polynomial of the Frobenius matrix $M$:
+The shift from $T^2 - a_p T + p$ to $1 - a_p T + p T^2$ happens because we aren't just plugging in a value; we are moving to the reciprocal polynomial. In linear algebra, if a matrix $M$ has eigenvalues $\lambda_1, \lambda_2$, its characteristic polynomial is:
 
-the Frobenius matrix $M$ is the linear representation of the Frobenius endomorphism $\phi_p$ as it acts on the Tate module $T_\ell(E)$. Because the Tate module is a 2-dimensional vector space over the $\ell$-adic integers $\mathbb{Z}_\ell$, any linear transformation on it (like Frobenius) can be written as a $2 \times 2$ matrix:
+$$P(T) = \text{det}(T \cdot I - M) = T^2 - \text{Trace}(M)T + \text{det}(M)$$
+
+However, when we build a Generating Function (like an L-function), we want to describe the "flow" of the data using a power series. To do this, we use the Reciprocal Polynomial, which is defined as:
+
+$$P^*(T) = T^2 P(1/T) = 1 - \text{Trace}(M)T + \text{det}(M)T^2$$
+
+The "1 -" structure is required for the Euler Product to work. In number theory, we want to represent the L-function as a sum that looks like the Riemann Zeta function:
+
+$$\sum \frac{a_n}{n^s} = \prod_p \frac{1}{\text{Polynomial}(p^{-s})}$$
+
+For a fraction like $\frac{1}{1 - X}$ to be expanded into a series ($1 + X + X^2 + \dots$), the denominator must start with 1. If we used $T^2 - a_p T + p$, the expansion would be messy and wouldn't match the $a_n$ coefficients of our elliptic curve. By using $1 - a_p T + p T^2$, the expansion begins:
+
+$$1 + (a_p)T + (a_p^2 - p)T^2 + \dots$$
+
+When you plug in $T = p^{-s}$, the first term is $1$, and the second term is $a_p p^{-s}$, which is exactly the $p$-th term of the Dirichlet series we are trying to build.
+
+The polynomial $P_p(T) = T^2 - a_p T + p$ is the standard characteristic polynomial of the Frobenius matrix $M$: the Frobenius matrix $M$ is the linear representation of the Frobenius endomorphism $\phi_p$ as it acts on the Tate module $T_\ell(E)$. Because the Tate module is a 2-dimensional vector space over the $\ell$-adic integers $\mathbb{Z}_\ell$, any linear transformation on it (like Frobenius) can be written as a $2 \times 2$ matrix:
 
 $$M = \begin{pmatrix} \alpha & \beta \\ \gamma & \delta \end{pmatrix}$$
 
