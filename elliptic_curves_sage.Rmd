@@ -929,7 +929,7 @@ $$L(E, s) = \prod_{p \nmid \Delta} \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}} \t
 
 - $p \mid \Delta$): For the few primes where the curve has a cusp or a node, the matrix collapses. If it collapses to $1$D, the factor is $\frac{1}{1 - a_p p^{-s}}$. If it collapses to $0$D, the factor is simply $1$. This is why the product is usually written in two parts.
 
-When you multiply this infinite "wall" of fractions together, you get the Dirichlet series:
+When you multiply this infinite "wall" of fractions together, you get the Dirichlet series (see below **):
 
 $$L(E, s) = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$$
 
@@ -1082,3 +1082,38 @@ $$L_p(E, s) = \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}}$$
 and therefore,
 
 $$L_3(s) = \frac{1}{1 - 0(3^{-s}) + 3(3^{-2s})} = \frac{1}{1 + 3^{1-2s}}$$
+
+
+---
+
+(**) Take one piece of the product for a prime $p$. Using the geometric series formula $\frac{1}{1-X} = 1 + X + X^2 + \dots$, we expand the denominator:
+
+$$L_p(s) = \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}}$$
+
+If we let $T = p^{-s}$, the factor looks like 
+
+$$\frac{1}{1 - (a_p T - p T^2)}$$ 
+
+When you expand this out, the first few terms look like this:
+
+$$1 + (a_p)T + (a_p^2 - p)T^2 + (a_p^3 - 2pa_p)T^3 + \dots$$
+
+Now, we define $a_{p^k}$ to be the coefficient of the $T^k$ term (which is $p^{-ks}$).
+
+For $k=1$: $a_p = a_p$
+
+For $k=2$: $a_{p^2} = a_p^2 - p$
+
+For $k=3$: $a_{p^3} = a_p a_{p^2} - p a_p$
+
+This recurrence relation is actually the recursive "DNA" of the elliptic curve. It tells you exactly how to build the value for a power of a prime using only the $a_p$ and the prime $p$ itself.
+
+Multiplying the Primes Together. Now, imagine doing this for $p=2$, $p=3$, $p=5$, and so on:
+
+$$L(E, s) = \left( 1 + \frac{a_2}{2^s} + \frac{a_4}{4^s} + \dots \right) \times \left( 1 + \frac{a_3}{3^s} + \frac{a_9}{9^s} + \dots \right) \times \left( 1 + \frac{a_5}{5^s} + \dots \right)$$
+
+When you multiply these together, you pick one term from every set of parentheses. For example, picking $\frac{a_2}{2^s}$ and $\frac{a_3}{3^s}$ gives you $\frac{a_2 a_3}{(2 \cdot 3)^s}$, which we define as $\frac{a_6}{6^s}$.
+
+Because every integer $n$ has a unique prime factorization, every possible fraction $\frac{a_n}{n^s}$ appears exactly once in the final result. The "wall of fractions" has successfully been converted into a single, infinite sum:
+
+$$L(E, s) = \frac{a_1}{1^s} + \frac{a_2}{2^s} + \frac{a_3}{3^s} + \frac{a_4}{4^s} + \dots = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$$
