@@ -899,7 +899,7 @@ So the polynomial that describes the curve's "DNA" at prime $p$ is:
 
 $$P_p(T) = T^2 - a_p T + p$$
 
-Finally, to get the L-function, we take these individual polynomials $P_p(T)$ and "package" them. We use the reciprocal of the polynomial and evaluate it at $T = p^{-s}$:
+Finally, to get the L-function, we take these individual polynomials $P_p(T)$ and "package" them. We use the reciprocal of the polynomial and evaluate it at $T = p^{-s}$ in what are known as Euler factors or local factors:
 
 $$L_p(s) = \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}}$$
 
@@ -907,7 +907,7 @@ The shift from $T^2 - a_p T + p$ to $1 - a_p T + p T^2$ happens because we aren'
 
 $$P(T) = \text{det}(T \cdot I - M) = T^2 - \text{Trace}(M)T + \text{det}(M)$$
 
-However, when we build a Generating Function (like an L-function), we want to describe the "flow" of the data using a power series. To do this, we use the Reciprocal Polynomial, which is defined as:
+However, when we build a generating function (like an L-function), we want to describe the "flow" of the data using a power series. To do this, we use the Reciprocal Polynomial, which is defined as:
 
 $$P^*(T) = T^2 P(1/T) = 1 - \text{Trace}(M)T + \text{det}(M)T^2$$
 
@@ -920,6 +920,18 @@ For a fraction like $\frac{1}{1 - X}$ to be expanded into a series ($1 + X + X^2
 $$1 + (a_p)T + (a_p^2 - p)T^2 + \dots$$
 
 When you plug in $T = p^{-s}$, the first term is $1$, and the second term is $a_p p^{-s}$, which is exactly the $p$-th term of the Dirichlet series we are trying to build.
+
+The packaging of all these polynomials usually is written as 
+
+$$L(E, s) = \prod_{p \nmid \Delta} \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}} \times \prod_{p \mid \Delta} L_p(s)$$
+
+- $p \nmid \Delta$ are the good primes: For almost all primes (those where the curve doesn't have a "glitch" or singularity), the factor is exactly the product of Euler factors. It represents the characteristic polynomial of the $2 \times 2$ Frobenius matrix. The $p^{-2s}$ term is there specifically because the matrix is 2-dimensional.
+
+- $p \mid \Delta$): For the few primes where the curve has a cusp or a node, the matrix collapses. If it collapses to $1$D, the factor is $\frac{1}{1 - a_p p^{-s}}$. If it collapses to $0$D, the factor is simply $1$. This is why the product is usually written in two parts.
+
+When you multiply this infinite "wall" of fractions together, you get the Dirichlet series:
+
+$$L(E, s) = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$$
 
 The polynomial $P_p(T) = T^2 - a_p T + p$ is the standard characteristic polynomial of the Frobenius matrix $M$: the Frobenius matrix $M$ is the linear representation of the Frobenius endomorphism $\phi_p$ as it acts on the Tate module $T_\ell(E)$. Because the Tate module is a 2-dimensional vector space over the $\ell$-adic integers $\mathbb{Z}_\ell$, any linear transformation on it (like Frobenius) can be written as a $2 \times 2$ matrix:
 

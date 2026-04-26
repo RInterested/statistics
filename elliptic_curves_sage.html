@@ -1479,7 +1479,8 @@ polynomial:</p>
 <p><span class="math display">\[P_p(T) = T^2 - a_p T + p\]</span></p>
 <p>Finally, to get the L-function, we take these individual polynomials
 <span class="math inline">\(P_p(T)\)</span> and “package” them. We use
-the reciprocal of the polynomial and evaluate it at <span class="math inline">\(T = p^{-s}\)</span>:</p>
+the reciprocal of the polynomial and evaluate it at <span class="math inline">\(T = p^{-s}\)</span> in what are known as Euler
+factors or local factors:</p>
 <p><span class="math display">\[L_p(s) = \frac{1}{1 - a_p p^{-s} + p
 \cdot p^{-2s}}\]</span></p>
 <p>The shift from <span class="math inline">\(T^2 - a_p T + p\)</span>
@@ -1489,7 +1490,7 @@ reciprocal polynomial. In linear algebra, if a matrix <span class="math inline">
 polynomial is:</p>
 <p><span class="math display">\[P(T) = \text{det}(T \cdot I - M) = T^2 -
 \text{Trace}(M)T + \text{det}(M)\]</span></p>
-<p>However, when we build a Generating Function (like an L-function), we
+<p>However, when we build a generating function (like an L-function), we
 want to describe the “flow” of the data using a power series. To do
 this, we use the Reciprocal Polynomial, which is defined as:</p>
 <p><span class="math display">\[P^*(T) = T^2 P(1/T) = 1 -
@@ -1513,6 +1514,28 @@ first term is <span class="math inline">\(1\)</span>, and the second
 term is <span class="math inline">\(a_p p^{-s}\)</span>, which is
 exactly the <span class="math inline">\(p\)</span>-th term of the
 Dirichlet series we are trying to build.</p>
+<p>The packaging of all these polynomials usually is written as</p>
+<p><span class="math display">\[L(E, s) = \prod_{p \nmid \Delta}
+\frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}} \times \prod_{p \mid \Delta}
+L_p(s)\]</span></p>
+<ul>
+<li><p><span class="math inline">\(p \nmid \Delta\)</span> are the good
+primes: For almost all primes (those where the curve doesn’t have a
+“glitch” or singularity), the factor is exactly the product of Euler
+factors. It represents the characteristic polynomial of the <span class="math inline">\(2 \times 2\)</span> Frobenius matrix. The <span class="math inline">\(p^{-2s}\)</span> term is there specifically
+because the matrix is 2-dimensional.</p></li>
+<li><p><span class="math inline">\(p \mid \Delta\)</span>): For the few
+primes where the curve has a cusp or a node, the matrix collapses. If it
+collapses to <span class="math inline">\(1\)</span>D, the factor is
+<span class="math inline">\(\frac{1}{1 - a_p p^{-s}}\)</span>. If it
+collapses to <span class="math inline">\(0\)</span>D, the factor is
+simply <span class="math inline">\(1\)</span>. This is why the product
+is usually written in two parts.</p></li>
+</ul>
+<p>When you multiply this infinite “wall” of fractions together, you get
+the Dirichlet series:</p>
+<p><span class="math display">\[L(E, s) = \sum_{n=1}^{\infty}
+\frac{a_n}{n^s}\]</span></p>
 <p>The polynomial <span class="math inline">\(P_p(T) = T^2 - a_p T +
 p\)</span> is the standard characteristic polynomial of the Frobenius
 matrix <span class="math inline">\(M\)</span>: the Frobenius matrix
