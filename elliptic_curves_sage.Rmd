@@ -411,7 +411,11 @@ The division polynomial $\psi_n$ is essentially the denominator of these express
 
 To explicitly determine the $x$-coordinates of these $n$-torsion points, we introduce the **division polynomials**. These polynomials provide a recursive algebraic framework for point multiplication, where the zeros of $\psi_n$ correspond precisely to the $x$-coordinates of the points in $E[n] \setminus \{ \mathcal{O} \}$. Their roots tell us exactly where the $n$-torsion points live on the $x$-axis.
 
-The division polynomial is fixed for a given curve because it represents the intrinsic geometry of that curve. The lines change based on the point. The polynomial changes based on the curve (the coefficients $A$ and $B$). For the elliptic curve $y^2=x^3 +A + B$, when you add a point to itself, the slope $m$ is a function of the coordinates: $m = \frac{3x^2 + A}{2y}$, and the $\psi_3 = 3x^4 + 6x^2 - 1$.
+The division polynomial is fixed for a given curve because it represents the intrinsic geometry of that curve. The lines change based on the point. The polynomial changes based on the curve (the coefficients $A$ and $B$). For the elliptic curve $y^2=x^3 +A + B$, when you add a point to itself, the slope $m$ is a function of the coordinates: $m = \frac{3x^2 + A}{2y}$, and the $\psi_3 = 3x^4 + 6x^2 - 1$. This latter equation corresponds to the 3rd division polynomial - $\psi_3(x)$ is the master equation for all points that satisfy $[3]P = \mathcal{O}$. On a donut (the complex torus), the 3rd torsion points form a $3 \times 3$ grid, giving you $9$ points total - in this case for the curve $y^2 = x^3 + x$. There is a general formula for $\psi_3$ for any curve $y^2 = x^3 + Ax + B$:
+
+$$\psi_3(x) = 3x^4 + 6Ax^2 + 12Bx - A^2$$
+
+If you plug in your curve's coefficients ($A=1$ and $B=0$): $3x^4$ stays $3x^4$. $6(1)x^2$ becomes $6x^2$. $12(0)x$ disappears. $-(1)^2$ becomes $-1$. This gives you exactly the $3x^4 + 6x^2 - 1.$
 
 A polynomial of degree $n$ always has exactly $n$ roots, provided we are willing to use complex enough numbers. For an elliptic curve, the torsion polynomial for $\ell$ always has roots. When you solve it, you always find exactly $\ell^2$ points. Even if your starting field $\mathbb{F}_p$ is tiny (say $p=2$) and the curve has only one point there, the mathematical "ghost" of the $2 \times 2$ grid is still there. If we expand your our to $\mathbb{F}_{2^2}, \mathbb{F}_{2^3}, \dots$ eventually all $\ell^2$ points will show up.
 
