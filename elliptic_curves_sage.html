@@ -1533,7 +1533,7 @@ simply <span class="math inline">\(1\)</span>. This is why the product
 is usually written in two parts.</p></li>
 </ul>
 <p>When you multiply this infinite “wall” of fractions together, you get
-the Dirichlet series (see below **):</p>
+the Dirichlet series (see below *):</p>
 <p><span class="math display">\[L(E, s) = \sum_{n=1}^{\infty}
 \frac{a_n}{n^s}\]</span></p>
 <p>The polynomial <span class="math inline">\(P_p(T) = T^2 - a_p T +
@@ -1711,7 +1711,7 @@ field.</p>
 <p><span class="math display">\[L_3(s) = \frac{1}{1 - 0(3^{-s}) +
 3(3^{-2s})} = \frac{1}{1 + 3^{1-2s}}\]</span></p>
 <hr />
-<p>(**) Take one piece of the product for a prime <span class="math inline">\(p\)</span>. Using the geometric series formula
+<p>(*) Take one piece of the product for a prime <span class="math inline">\(p\)</span>. Using the geometric series formula
 <span class="math inline">\(\frac{1}{1-X} = 1 + X + X^2 +
 \dots\)</span>, we expand the denominator:</p>
 <p><span class="math display">\[L_p(s) = \frac{1}{1 - a_p p^{-s} + p
@@ -1720,7 +1720,24 @@ field.</p>
 looks like</p>
 <p><span class="math display">\[\frac{1}{1 - (a_p T - p
 T^2)}\]</span></p>
-<p>When you expand this out, the first few terms look like this:</p>
+<p>When you expand this out,</p>
+<p><span class="math display">\[X = (a_p T - p T^2)\]</span></p>
+<p>Using the formula <span class="math inline">\(\frac{1}{1-X} = 1 + X +
+X^2 + X^3 + \dots\)</span>, and plugging in your <span class="math inline">\(X\)</span>, we get:</p>
+<p><span class="math display">\[1 + (a_p T - p T^2) + (a_p T - p T^2)^2
++ (a_p T - p T^2)^3 + \dots\]</span></p>
+<p>Expanding out:</p>
+<p>The 0th power: <span class="math inline">\(1\)</span></p>
+<p>The 1st power <span class="math inline">\((X^1)\)</span>: <span class="math inline">\(a_p T - p T^2\)</span></p>
+<p>The 2nd power <span class="math inline">\((X^2)\)</span>: <span class="math inline">\((a_p T - p T^2)^2 = (a_p T)^2 - 2(a_p T)(p T^2) +
+(p T^2)^2= a_p^2 T^2 - 2a_p p T^3 + p^2 T^4\)</span></p>
+<p>The 3rd power <span class="math inline">\((X^3)\)</span>: <span class="math inline">\((a_p T - p T^2)^3 = (a_p T)^3 - 3(a_p T)^2(p T^2)
++ \dots= a_p^3 T^3 - 3a_p^2 p T^4 + \dots\)</span></p>
+<p>Now we “harvest” all the pieces for each specific power of <span class="math inline">\(T\)</span>:</p>
+<p>For <span class="math inline">\(T^1\)</span>: The only place a <span class="math inline">\(T^1\)</span> appears is in the first power <span class="math inline">\((X^1)\)</span>. Coefficient: <span class="math inline">\(a_p\)</span></p>
+<p>For <span class="math inline">\(T^2\)</span>: We get a <span class="math inline">\(-p\)</span> from the <span class="math inline">\(X^1\)</span> term and an <span class="math inline">\(a_p^2\)</span> from the <span class="math inline">\(X^2\)</span> term. Coefficient: <span class="math inline">\((a_p^2 - p)\)</span></p>
+<p>For <span class="math inline">\(T^3\)</span>:We get a <span class="math inline">\(-2a_p p\)</span> from the <span class="math inline">\(X^2\)</span> term and an <span class="math inline">\(a_p^3\)</span> from the <span class="math inline">\(X^3\)</span> term. Coefficient: <span class="math inline">\((a_p^3 - 2a_p p)\)</span></p>
+<p>Finally we get:</p>
 <p><span class="math display">\[1 + (a_p)T + (a_p^2 - p)T^2 + (a_p^3 -
 2pa_p)T^3 + \dots\]</span></p>
 <p>Now, we define <span class="math inline">\(a_{p^k}\)</span> to be the
