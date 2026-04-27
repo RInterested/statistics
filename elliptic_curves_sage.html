@@ -976,27 +976,32 @@ same, the “grid” would collapse (this is called the
 “<strong>supersingular</strong>” or “anomalous” case, where the geometry
 gets very messy).</p>
 <p>The Tate module gives every torsion point a permanent “seat number”
-in the grid. For a 3-torsion point, the seat number is an <span class="math inline">\(\ell\)</span>-adic vector like <span class="math inline">\(v = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\)</span>.
-This “<span class="math inline">\(1\)</span>” is an <span class="math inline">\(\ell\)</span>-adic integer (<span class="math inline">\(\dots00001.\)</span> in base <span class="math inline">\(3\)</span>). It tells the math: “This is the first
-basis point of the grid. The <span class="math inline">\(\mathbb{Z}_p\)</span>”Occupant”, i.e. the actual
-values of the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates for that specific seat are
+in the grid. For a <span class="math inline">\(3\)</span>-torsion point,
+the seat number is an <span class="math inline">\(\ell\)</span>-adic
+vector like <span class="math inline">\(v = \begin{pmatrix} 1 \\ 0
+\end{pmatrix}\)</span>. This “<span class="math inline">\(1\)</span>” is
+an <span class="math inline">\(\ell\)</span>-adic integer (<span class="math inline">\(\dots00001.\)</span> in base <span class="math inline">\(3\)</span>). It tells the math: “This is the first
+basis point of the grid. The actual values of the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates for that specific seat are
 <span class="math inline">\(p\)</span>-adic integers. The coordinates
 are strings like <span class="math inline">\(x = \dots42314.\)</span>
-(in base <span class="math inline">\(5\)</span>). The “coincidence”
-happens through the elliptic curve equation. When you take the <span class="math inline">\(p\)</span>-adic values from the “occupant” and
-plug them into the equation <span class="math inline">\(y^2 = x^3 + Ax +
-B\)</span>, the math confirms that this specific occupant belongs in the
-torsion grid labeled by <span class="math inline">\(\mathbb{Z}_\ell\)</span>. The Tate module is the
+(in base <span class="math inline">\(5\)</span>). The coincidence
+between these two systems happens through the elliptic curve equation.
+When you take the <span class="math inline">\(p\)</span>-adic values
+from the”occupant” and plug them into the equation <span class="math inline">\(y^2 = x^3 + Ax + B\)</span>, the math confirms
+that this specific occupant belongs in the torsion grid labeled by <span class="math inline">\(\mathbb{Z}_\ell\)</span>. The Tate module is the
 structure that ensures that as you apply the Frobenius map, the
 “occupant” moves to a new “seat” in a way that is perfectly consistent
-with linear algebra. You use the <span class="math inline">\(p\)</span>-adic values to track the movement, but
+with linear algebra. We use the <span class="math inline">\(p\)</span>-adic values to track the movement, but
 you use the <span class="math inline">\(\ell\)</span>-adic labels to
-write down the matrix. The grid isn’t just a visual overlay; it is
-defined by a specific algebraic requirement. A point <span class="math inline">\(P = (x, y)\)</span> is in the <span class="math inline">\(\ell\)</span>-torsion grid if and only if: <span class="math inline">\([\ell]P = \mathcal{O}\)</span>. This means if you
-add the point to itself <span class="math inline">\(\ell\)</span> times
-using the group law (the slope formulas we discussed earlier), you must
-land on the “Point at Infinity” - it is the division polynomial that
-links the EC to the Tate module or grid structure.</p>
+write down the matrix.</p>
+<p>The grid isn’t just a visual overlay; it is defined by a specific
+algebraic requirement. A point <span class="math inline">\(P = (x,
+y)\)</span> is in the <span class="math inline">\(\ell\)</span>-torsion
+grid if and only if: <span class="math inline">\([\ell]P =
+\mathcal{O}\)</span>. This means if you add the point to itself <span class="math inline">\(\ell\)</span> times using the group law (the slope
+formulas discussed earlier), we must land on the point at infinity. It
+is the division polynomial that links the EC to the Tate module or grid
+structure.</p>
 <p>The use of <span class="math inline">\(p\)</span>-adic numbers works
 because we are considering a small set of numbers (roots of polynomials,
 i.e. algebraic numbers) that live in both worlds. The <span class="math inline">\(3\)</span>-torsion point <span class="math inline">\(x\)</span>-coordinate may be a root of <span class="math inline">\(3x^4 + 6x - 1 = 0\)</span>. This root can be
