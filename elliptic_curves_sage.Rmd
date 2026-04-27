@@ -359,7 +359,9 @@ E.modular_form()
 ```
 
 
-### L-function of an elliptic curve:
+---
+
+## L-function of an elliptic curve:
 
 In the study of arithmetic geometry, the L-function of an elliptic curve $E$ over $\mathbb{Q}$ is a powerful complex-analytic tool that packages deep arithmetic information about the curve—specifically, the number of points it has over finite fields. The L-function acts as a bridge between the algebraic world of the curve and the analytic world of modular forms, a connection famously solidified by the [modularity theorem](https://en.wikipedia.org/wiki/Modularity_theorem).
 
@@ -376,6 +378,22 @@ a point is fixed by this map if and only if its coordinates are in the base fiel
 $$P \in E(\mathbb{F}_p) \iff \phi_p(P) = P$$
 
 This means that finding the number of points on $E(\mathbb{F}_p)$ is equivalent to finding the number of fixed points of the Frobenius map.
+
+Let's analyze this: 
+
+$\implies$: If $P$ is a point on the curve whose coordinates are simple integers (in $\mathbb{F}_p$) - big parenthesis to explain...
+
+**"simple integers"**: These are just the numbers $\{0, 1, 2, \dots, p-1\}$. They are "finite" because they stop at $p$. The $p$-adic integer (the "infinite to the left" string) is denoted $\mathbb{Z}_p$ is an infinite expansions:
+
+$$d_0 + d_1 p + d_2 p^2 + d_3 p^3 + \dots$$. The "simple integer" in $\mathbb{F}_p$ is just the first digit ($d_0$) of a $p$-adic integer. 
+
+A point in the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\mathbb{F}_p),$ is a solution to the curve equation modulo $p$. A point in $E(\mathbb{Z}_p)$ is a "lift" of that solution. It is the infinite string that starts with $d_0$ and continues forever in a way that always satisfies the equation at every higher power of $p$.
+
+... End of parenthesis... Continuing...
+
+then the Frobenius map $x^p \equiv x$ won't move it, because the Frobenius map doesn't move any of the base field numbers. 
+
+$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field), and $P$, by definition is on the curve, and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been "simple" integers all along, i.e. $P \in E(\mathbb F_p)$ - no need to extend it the field to $\mathbb Z_p.$ We only use the extension to $\mathbb{Z}_p$ as a computational tool. It allows us to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_p$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily.
 
 To count these fixed points mathematically, we define a new map: $(\phi_p - id)$.
 

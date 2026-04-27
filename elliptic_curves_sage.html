@@ -641,9 +641,10 @@ point and some multiple of the generator</p>
 P # P is on the curve. To check just run E(P)</code></pre>
 <pre class="sage"><code>E(P)</code></pre>
 <pre class="sage"><code>E.modular_form()</code></pre>
+<hr />
 </div>
-<div id="l-function-of-an-elliptic-curve" class="section level3">
-<h3>L-function of an elliptic curve:</h3>
+<div id="l-function-of-an-elliptic-curve" class="section level2">
+<h2>L-function of an elliptic curve:</h2>
 <p>In the study of arithmetic geometry, the L-function of an elliptic
 curve <span class="math inline">\(E\)</span> over <span class="math inline">\(\mathbb{Q}\)</span> is a powerful complex-analytic
 tool that packages deep arithmetic information about the
@@ -668,6 +669,41 @@ other words:</p>
 P\]</span></p>
 <p>This means that finding the number of points on <span class="math inline">\(E(\mathbb{F}_p)\)</span> is equivalent to finding
 the number of fixed points of the Frobenius map.</p>
+<p>Let’s analyze this:</p>
+<p><span class="math inline">\(\implies\)</span>: If <span class="math inline">\(P\)</span> is a point on the curve whose
+coordinates are simple integers (in <span class="math inline">\(\mathbb{F}_p\)</span>) - big parenthesis to
+explain…</p>
+<p><strong>“simple integers”</strong>: These are just the numbers <span class="math inline">\(\{0, 1, 2, \dots, p-1\}\)</span>. They are
+“finite” because they stop at <span class="math inline">\(p\)</span>.
+The <span class="math inline">\(p\)</span>-adic integer (the “infinite
+to the left” string) is denoted <span class="math inline">\(\mathbb{Z}_p\)</span> is an infinite
+expansions:</p>
+<p><span class="math display">\[d_0 + d_1 p + d_2 p^2 + d_3 p^3 +
+\dots\]</span>. The “simple integer” in <span class="math inline">\(\mathbb{F}_p\)</span> is just the first digit
+(<span class="math inline">\(d_0\)</span>) of a <span class="math inline">\(p\)</span>-adic integer.</p>
+<p>A point in the curve with <span class="math inline">\(x\)</span> and
+<span class="math inline">\(y\)</span> coordinates simple integers,
+i.e. <span class="math inline">\(E(\mathbb{F}_p),\)</span> is a solution
+to the curve equation modulo <span class="math inline">\(p\)</span>. A
+point in <span class="math inline">\(E(\mathbb{Z}_p)\)</span> is a
+“lift” of that solution. It is the infinite string that starts with
+<span class="math inline">\(d_0\)</span> and continues forever in a way
+that always satisfies the equation at every higher power of <span class="math inline">\(p\)</span>.</p>
+<p>… End of parenthesis… Continuing…</p>
+<p>then the Frobenius map <span class="math inline">\(x^p \equiv
+x\)</span> won’t move it, because the Frobenius map doesn’t move any of
+the base field numbers.</p>
+<p><span class="math inline">\(\impliedby\)</span>: If you find a point
+on the curve (even a “ghost point” in the extension field), and <span class="math inline">\(P\)</span>, by definition is on the curve, and the
+Frobenius map doesn’t move it, i.e. <span class="math inline">\(\phi_p(P)=P,\)</span> that proves its coordinates
+must have actually been “simple” integers all along, i.e. <span class="math inline">\(P \in E(\mathbb F_p)\)</span> - no need to extend
+it the field to <span class="math inline">\(\mathbb Z_p.\)</span> We
+only use the extension to <span class="math inline">\(\mathbb{Z}_p\)</span> as a computational tool. It
+allows us to calculate the <span class="math inline">\(a_p\)</span> with
+enough precision to distinguish it from other numbers. If we stayed only
+at the <span class="math inline">\(\mathbb{F}_p\)</span> level, we might
+know <span class="math inline">\(a_p \pmod 5\)</span>, but we wouldn’t
+be able to find the true integer value of <span class="math inline">\(a_p\)</span> as easily.</p>
 <p>To count these fixed points mathematically, we define a new map:
 <span class="math inline">\((\phi_p - id)\)</span>.</p>
 <p><span class="math inline">\(id\)</span> is the identity map (it does
