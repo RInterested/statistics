@@ -826,6 +826,50 @@ polynomial, you eventually reach the algebraic closure, denoted <span class="mat
 ultimate “super field.” It is infinite in size. Every polynomial has all
 its roots here. This is the place where the full <span class="math inline">\(2 \times 2\)</span> grid of <span class="math inline">\(\ell^2\)</span> torsion points is guaranteed to
 exist.</p>
+<p>Rcapping, we want to spot the <span class="math inline">\(\ell\)</span>-torsion points (the <span class="math inline">\(x, y\)</span> coordinates that satisfy <span class="math inline">\([ \ell ]P = \mathcal{O}\)</span>). We start on the
+“ground floor” at <span class="math inline">\(\mathbb{F}_p\)</span>.
+Usually, we will only find a few <span class="math inline">\(\ell\)</span>-torsion points here — sometimes only
+the point at infinity. The rest are “ghosts” that are mathematically
+required to exist but don’t have coordinates in our current number
+system. To find them, we expand outward to <span class="math inline">\(\mathbb{F}_{p^k}\)</span>. As we increase <span class="math inline">\(k\)</span> new points appear. We keep increasing
+<span class="math inline">\(k\)</span> until we find the full <span class="math inline">\(\ell^2\)</span> grid (for <span class="math inline">\(\ell=3\)</span>, that’s the 9-point grid). This is
+a field expansion. It’s about “horizontal” discovery. Once we have
+spotted these points in <span class="math inline">\(\mathbb{F}_{p^k}\)</span>, we only have their
+“blurry” versions (just the first digit, <span class="math inline">\(d_0\)</span>). To calculate a precise L-function,
+we need to know exactly how the Frobenius map shuffles them. We expand
+upward into the <span class="math inline">\(p\)</span>-adic tower <span class="math inline">\(\mathbb{Z}_q\)</span> (where <span class="math inline">\(q=p^k\)</span>). As we increase the power of <span class="math inline">\(p\)</span> (e.g., <span class="math inline">\(p^{20}\)</span>) points stay the same; we aren’t
+finding new points anymore; we’ve already found the grid. We are
+calculating <span class="math inline">\(d_1, d_2, d_3 \dots
+d_{19}\)</span>. We are getting more and more “decimal places” (to the
+left) for the points we already caught. This is a ring expansion. It’s
+about “vertical” precision. Now that we have a “high-definition” grid,
+we apply the Frobenius map: <span class="math inline">\((x, y) \to (x^p,
+y^p)\)</span>. Because our points are high-precision, we can see exactly
+which point in the grid moved to which other point. We turn this shuffle
+into a <span class="math inline">\(2 \times 2\)</span> matrix of
+integers. The Trace (<span class="math inline">\(a_p\)</span>) of this
+matrix is the final “integer signature” of the curve at that prime.</p>
+<p>Notice that <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is
+a finite field. It only contains “first digits” (<span class="math inline">\(d_0\)</span>) in the <span class="math inline">\(p\)</span>-adic expansion. You can add, subtract,
+multiply, and (crucially) divide. Every non-zero element has an inverse.
+This is where we “spot” the <span class="math inline">\(\ell^2\)</span>
+points. <span class="math inline">\(\mathbb{Z}_q\)</span> is a ring
+(where <span class="math inline">\(q = p^k\)</span>): When we “lift” the
+field to <span class="math inline">\(p\)</span>-adic precision, we
+create a ring of <span class="math inline">\(p\)</span>-adic integers
+(meaning infinite expansions to the left). In the code below with <span class="math inline">\(p=5\)</span>, this is the structure that handles
+those strings like <span class="math inline">\(4 + 2\cdot 5 + 1\cdot 5^2
+\dots\)</span>. This is just a ring because in <span class="math inline">\(\mathbb{Z}_q\)</span>, we cannot always divide:
+You cannot divide by <span class="math inline">\(p\)</span> (or any
+multiple of <span class="math inline">\(5\)</span> in this case). This
+ring is where we store the “High-Res” coordinates out to <span class="math inline">\(O(p^{20})\)</span> in the code below.</p>
+<p>In the <span class="math inline">\(p\)</span>-adic ring <span class="math inline">\(\mathbb{Z}_q\)</span>, we can divide by many
+things, but never by <span class="math inline">\(p\)</span>. We can
+divide by any number that doesn’t have <span class="math inline">\(p\)</span> as a factor. For example, <span class="math inline">\(1/2\)</span> exists in the <span class="math inline">\(5\)</span>-adics because <span class="math inline">\(2\)</span> is “coprime” to <span class="math inline">\(5\)</span>. It just looks like an infinite string
+of digits. But we cannot calculate <span class="math inline">\(1/5\)</span> inside <span class="math inline">\(\mathbb{Z}_5\)</span>. If we try to write a string
+starting with <span class="math inline">\(d_0 + d_1 \cdot 5
+\dots\)</span> that equals <span class="math inline">\(1/5\)</span>,
+it’s impossible. However, in the field <span class="math inline">\(\mathbb{Q}_q\)</span> we include the <span class="math inline">\(p\)</span>-adics with negative powers of <span class="math inline">\(p\)</span>.</p>
 <p><span class="math inline">\(\mathbb{F}_p\)</span> is a coarse filter;
 it only sees points with simple coordinates. <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is a finer filter; it
 lets you see “complex” points that were previously invisible. We can
