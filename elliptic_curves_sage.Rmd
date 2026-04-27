@@ -423,7 +423,10 @@ $$(mx + c)^2 = x^3 + Ax + B$$
 
 The roots of that cubic are the $x$-coordinates of the three intersection points. 
 
-When you add a point to itself, the slope $m$ is a function of the coordinates: $m = \frac{3x^2 + A}{2y}$. The equation $m = \frac{3x^2 + A}{2y}$ is the formula for the tangent slope at a point $P = (x, y)$ on the curve $y^2 = x^3 + Ax + B$. Because the group law for an elliptic curve is defined by rational functions, the result of $[n]P$ is always going to be some massive expression:
+When you add a point to itself, the slope $m$ is a function of the coordinates: $m = \frac{3x^2 + A}{2y}$. The equation $m = \frac{3x^2 + A}{2y}$ is the formula for the tangent slope at a point $P = (x, y)$ on the curve $y^2 = x^3 + Ax + B$. Using implicit differentiation (taking the derivative of both sides with respect to $x$): Since $y$ is a function of $x$, we use the chain rule to get $2y \frac{dy}{dx}$. On the right side ($x^3 + Ax + B$):  $3x^2 + A$. Equate them: $2y \frac{dy}{dx} = 3x^2 + A$ and solve for the slope ($m = \frac{dy}{dx}$): $m = \frac{3x^2 + A}{2y}.$
+
+
+Because the group law for an elliptic curve is defined by rational functions, the result of $[n]P$ is always going to be some massive expression:
 
 $$[n]P = \left( \frac{\text{Poly}_1(x,y)}{\text{Poly}_2(x,y)}, \frac{\text{Poly}_3(x,y)}{\text{Poly}_4(x,y)} \right)$$
 
