@@ -890,6 +890,14 @@ can’t always see the points directly, we use the Frobenius map as a
 filter. The Frobenius map shuffles any point that has “ghostly”
 coordinates (non-zero digits to the left). The Frobenius map leaves
 alone any point whose coordinates are in <span class="math inline">\(\mathbb{F}_p\)</span>.</p>
+<p>This is ultimately why we use <span class="math inline">\(p\)</span>-adics. If we only work modulo <span class="math inline">\(p\)</span> (in <span class="math inline">\(\mathbb{F}_p\)</span>), we only see the world in
+“low resolution.” We might find that <span class="math inline">\(a_p
+\equiv 2 \pmod 5\)</span>, but we wouldn’t know if <span class="math inline">\(a_p\)</span> is <span class="math inline">\(2, 7,
+-3,\)</span> or <span class="math inline">\(12\)</span>. By lifting the
+coordinates to <span class="math inline">\(\mathbb{Z}_p\)</span>, we are
+essentially adding “decimal places” (to the left). This allows us to
+calculate the Frobenius matrix with zero error, and ensure that when we
+take the trace, we get the exact integer <span class="math inline">\(a_p\)</span>, not just a remainder.</p>
 <p><span class="math inline">\(\mathbb{F}_p\)</span> is a coarse filter;
 it only sees points with simple coordinates. <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is a finer filter; it
 lets you see “complex” points that were previously invisible. We can
