@@ -870,6 +870,26 @@ of digits. But we cannot calculate <span class="math inline">\(1/5\)</span> insi
 starting with <span class="math inline">\(d_0 + d_1 \cdot 5
 \dots\)</span> that equals <span class="math inline">\(1/5\)</span>,
 it’s impossible. However, in the field <span class="math inline">\(\mathbb{Q}_q\)</span> we include the <span class="math inline">\(p\)</span>-adics with negative powers of <span class="math inline">\(p\)</span>.</p>
+<p>The points in <span class="math inline">\(E(\mathbb{F}_p)\)</span>
+are the “frozen” points under Frobenius. Their <span class="math inline">\(p\)</span>-adic expansion is just a single digit
+at the <span class="math inline">\(p^0\)</span> position followed by
+infinite zeros to the left (<span class="math inline">\(\dots00000d.\)</span>). Frobenius cannot move
+them. But there are torsion points that can only be seen in the
+extension <span class="math inline">\(\mathbb F_{p^k}\)</span>: These
+are the “movers.” Their <span class="math inline">\(p\)</span>-adic
+expansions are infinite, non-zero strings to the left. Frobenius
+shuffles them around the grid. We use the moving points to calculate the
+“shuffle” (the Frobenius matrix). The Trace (<span class="math inline">\(a_p\)</span>) of that matrix then tells us the
+exact count of the frozen points (<span class="math inline">\(N_p = p +
+1 - a_p\)</span>).</p>
+<p>When we ask for <span class="math inline">\(N_p\)</span> (the number
+of points on the curve over <span class="math inline">\(\mathbb{F}_p\)</span>), we are effectively asking:
+“Which of the torsion points have coordinates that are just simple
+integers <span class="math inline">\(\dots00000d.\)</span>?” Since we
+can’t always see the points directly, we use the Frobenius map as a
+filter. The Frobenius map shuffles any point that has “ghostly”
+coordinates (non-zero digits to the left). The Frobenius map leaves
+alone any point whose coordinates are in <span class="math inline">\(\mathbb{F}_p\)</span>.</p>
 <p><span class="math inline">\(\mathbb{F}_p\)</span> is a coarse filter;
 it only sees points with simple coordinates. <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is a finer filter; it
 lets you see “complex” points that were previously invisible. We can
