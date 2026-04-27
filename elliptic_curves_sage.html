@@ -934,11 +934,26 @@ vector <span class="math inline">\(v = \begin{pmatrix} x \\ y
 digits that tell us exactly where the point sits in the “infinite
 subdivision.”</p>
 <p>The <strong>Tate module</strong> <span class="math inline">\(T_\ell(E)\)</span> is the inverse limit of the
-torsion groups:<span class="math display">\[T_\ell(E) = \varprojlim
-E[\ell^n]\]</span><span class="math inline">\(E[\ell^1]\)</span>: The
-<span class="math inline">\(3 \times 3\)</span> grid (for <span class="math inline">\(\ell=3\)</span>).<span class="math inline">\(E[\ell^2]\)</span>: The <span class="math inline">\(9 \times 9\)</span> grid. Each point in the <span class="math inline">\(3 \times 3\)</span> grid “splits” into 9 smaller
-points.<span class="math inline">\(E[\ell^\infty]\)</span>: The Tate
-module. It captures the coordinates of a point as it moves through this
+torsion groups:</p>
+<p><span class="math display">\[T_\ell(E) = \varprojlim
+E[\ell^n]\]</span></p>
+<p>In the torsion group <span class="math inline">\(E[\ell^n]\)</span>,
+the elements are the points <span class="math inline">\((x, y)\)</span>
+that satisfy the algebraic condition <span class="math inline">\([\ell^n]P = \mathcal{O}\)</span>. Geometrically,
+if we imagine the torus (donut) as a square field with the sides glued
+together, the elements are the points on a perfectly spaced grid.
+Algebraically, each element can be identified by its “grid coordinate.”
+Point addition is the group operation. In the torsion group <span class="math inline">\(E[\ell^n]\)</span>, the “multiplication” by <span class="math inline">\(\ell^n\)</span> is simply adding a point to itself
+<span class="math inline">\(\ell^n\)</span> times.</p>
+<p><span class="math inline">\(E[\ell^1]\)</span>: The <span class="math inline">\(3 \times 3\)</span> grid (for <span class="math inline">\(\ell=3\)</span>). It contains <span class="math inline">\(9\)</span> elements:<span class="math display">\[(0,0), (1,0), (2,0), (0,1), (1,1), (2,1), (0,2),
+(1,2), (2,2)\]</span>(Note: These are indices, not the <span class="math inline">\(p\)</span>-adic coordinates of the points.)</p>
+<p><span class="math inline">\(E[\ell^2]\)</span>: The <span class="math inline">\(9 \times 9\)</span> grid.</p>
+<p>Each point in the <span class="math inline">\(3 \times 3\)</span>
+grid “splits” into <span class="math inline">\(9\)</span> smaller
+points.</p>
+<p><span class="math inline">\(E[\ell^\infty]\)</span>: The Tate
+module.</p>
+<p>It captures the coordinates of a point as it moves through this
 infinite subdivision. It is the limit of all the <span class="math inline">\(\ell\)</span>-power grids: a high-precision
 coordinate system for the curves’s internal symmetry. The Tate module is
 an infinitely dense grid (fractal) which by definition includes all the

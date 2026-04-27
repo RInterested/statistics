@@ -464,7 +464,21 @@ If the $x$-coordinates of our torsion points don't fit in $\mathbb{F}_p$, we mus
 
 We can think of the lattice $\Lambda$ in the definition of an elliptic curve as $\mathbb C/\Lambda$ as a grid of stakes driven into an infinite flat field. Every stake represents the zero point ($\mathcal{O}$) because when we wrap the field into a donut, all those stakes land on the exact same spot. The original lattice $\Lambda$ contains points like $(1, 0)$ or $(0, 1)$ (in terms of the basis vectors $\omega_1, \omega_2$). The $3 \times 3$ grid contains points like $(\frac{1}{3}, 0)$, $(\frac{2}{3}, 0)$, $(\frac{1}{3}, \frac{1}{3})$, and so on. This is just a way of explaining it: Instead of a fraction, a point in the Tate module is an $\ell$-adic vector $v = \begin{pmatrix} x \\ y \end{pmatrix}$, where $x$ and $y$ are $\ell$-adic integers ($\mathbb{Z}_\ell$). These $x$ and $y$ are essentially the infinite strings of digits that tell us exactly where the point sits in the "infinite subdivision." 
 
-The **Tate module** $T_\ell(E)$ is the inverse limit of the torsion groups:$$T_\ell(E) = \varprojlim E[\ell^n]$$$E[\ell^1]$: The $3 \times 3$ grid (for $\ell=3$).$E[\ell^2]$: The $9 \times 9$ grid. Each point in the $3 \times 3$ grid "splits" into 9 smaller points.$E[\ell^\infty]$: The Tate module. It captures the coordinates of a point as it moves through this infinite subdivision. It is the limit of all the $\ell$-power grids: a high-precision coordinate system for the curves's internal symmetry. The Tate module is an infinitely dense grid (fractal) which by definition includes all the coordinates where the torsion points can live: it assigns GPS coordinates to any point on the curve, turning geometry into linear algebra: The Frobenius map acts on the entire structure at once.
+The **Tate module** $T_\ell(E)$ is the inverse limit of the torsion groups:
+
+$$T_\ell(E) = \varprojlim E[\ell^n]$$
+
+In the torsion group $E[\ell^n]$, the elements are the points $(x, y)$ that satisfy the algebraic condition $[\ell^n]P = \mathcal{O}$. Geometrically, if we imagine the torus (donut) as a square field with the sides glued together, the elements are the points on a perfectly spaced grid. Algebraically, each element can be identified by its "grid coordinate." Point addition is the group operation. In the torsion group $E[\ell^n]$, the "multiplication" by $\ell^n$ is simply adding a point to itself $\ell^n$ times.
+
+$E[\ell^1]$: The $3 \times 3$ grid (for $\ell=3$). It contains $9$ elements:$$(0,0), (1,0), (2,0), (0,1), (1,1), (2,1), (0,2), (1,2), (2,2)$$(Note: These are indices, not the $p$-adic coordinates of the points.)
+
+$E[\ell^2]$: The $9 \times 9$ grid. 
+
+Each point in the $3 \times 3$ grid "splits" into $9$ smaller points.
+
+$E[\ell^\infty]$: The Tate module. 
+
+It captures the coordinates of a point as it moves through this infinite subdivision. It is the limit of all the $\ell$-power grids: a high-precision coordinate system for the curves's internal symmetry. The Tate module is an infinitely dense grid (fractal) which by definition includes all the coordinates where the torsion points can live: it assigns GPS coordinates to any point on the curve, turning geometry into linear algebra: The Frobenius map acts on the entire structure at once.
 
 A vector space a special kind of module with scalars belonging to a field, whereas in a module the scalars belong to a ring, which in this case is $\mathbb Z_l$, the ring of $\ell$-adic integers (infinite expansions to the left).
 
