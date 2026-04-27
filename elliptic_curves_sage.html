@@ -826,7 +826,7 @@ polynomial, you eventually reach the algebraic closure, denoted <span class="mat
 ultimate “super field.” It is infinite in size. Every polynomial has all
 its roots here. This is the place where the full <span class="math inline">\(2 \times 2\)</span> grid of <span class="math inline">\(\ell^2\)</span> torsion points is guaranteed to
 exist.</p>
-<p>Rcapping, we want to spot the <span class="math inline">\(\ell\)</span>-torsion points (the <span class="math inline">\(x, y\)</span> coordinates that satisfy <span class="math inline">\([ \ell ]P = \mathcal{O}\)</span>). We start on the
+<p>Recapping, we want to spot the <span class="math inline">\(\ell\)</span>-torsion points (the <span class="math inline">\(x, y\)</span> coordinates that satisfy <span class="math inline">\([ \ell ]P = \mathcal{O}\)</span>). We start on the
 “ground floor” at <span class="math inline">\(\mathbb{F}_p\)</span>.
 Usually, we will only find a few <span class="math inline">\(\ell\)</span>-torsion points here — sometimes only
 the point at infinity. The rest are “ghosts” that are mathematically
@@ -857,12 +857,12 @@ points. <span class="math inline">\(\mathbb{Z}_q\)</span> is a ring
 (where <span class="math inline">\(q = p^k\)</span>): When we “lift” the
 field to <span class="math inline">\(p\)</span>-adic precision, we
 create a ring of <span class="math inline">\(p\)</span>-adic integers
-(meaning infinite expansions to the left). In the code below with <span class="math inline">\(p=5\)</span>, this is the structure that handles
+(meaning infinite expansions to the left). For <span class="math inline">\(p=5\)</span>, this is the structure that handles
 those strings like <span class="math inline">\(4 + 2\cdot 5 + 1\cdot 5^2
 \dots\)</span>. This is just a ring because in <span class="math inline">\(\mathbb{Z}_q\)</span>, we cannot always divide:
 You cannot divide by <span class="math inline">\(p\)</span> (or any
 multiple of <span class="math inline">\(5\)</span> in this case). This
-ring is where we store the “High-Res” coordinates out to <span class="math inline">\(O(p^{20})\)</span> in the code below.</p>
+ring is where we store the “high-res” coordinates out to <span class="math inline">\(O(p^{20})\)</span> in the code below.</p>
 <p>In the <span class="math inline">\(p\)</span>-adic ring <span class="math inline">\(\mathbb{Z}_q\)</span>, we can divide by many
 things, but never by <span class="math inline">\(p\)</span>. We can
 divide by any number that doesn’t have <span class="math inline">\(p\)</span> as a factor. For example, <span class="math inline">\(1/2\)</span> exists in the <span class="math inline">\(5\)</span>-adics because <span class="math inline">\(2\)</span> is “coprime” to <span class="math inline">\(5\)</span>. It just looks like an infinite string
