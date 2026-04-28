@@ -365,6 +365,12 @@ E.modular_form()
 
 In the study of arithmetic geometry, the L-function of an elliptic curve $E$ over $\mathbb{Q}$ is a powerful complex-analytic tool that packages deep arithmetic information about the curve—specifically, the number of points it has over finite fields. The L-function acts as a bridge between the algebraic world of the curve and the analytic world of modular forms, a connection famously solidified by the [modularity theorem](https://en.wikipedia.org/wiki/Modularity_theorem).
 
+On the algebraic side we look at the curve over $\mathbb{F}_p$, find the Frobenius trace, and get the integer $a_p$. All this will be explained below. On the analytic side we look at the modular form $f(\tau)$, look at the $p$-th coefficient of its $q$-expansion, and find $a_p$. The bridge to the analytic side is $q = \exp(2 \pi i \tau)$. It allows us to turn a function of a complex variable $\tau$ into a power series, known as a Fourier expansion or q-expansion:
+
+$$f(\tau) = \sum_{n=1}^{\infty} a_n q^n$$
+
+It is called "analytic" because once you express the curve's data as a $q$-expansion, you can use the heavy machinery of complex analysis: 1. Analytic Continuation: You can define the L-function even where the sum doesn't normally converge. 2. Functional Equations: You can prove the function has a perfect symmetry when you reflect it across a specific line (usually $s=1$). 3. The BSD Conjecture: You can use the "steepness" of this complex function at $s=1$ to predict the rank of the elliptic curve (how many infinite points it has).
+
 Let $E$ be an elliptic curve defined over a finite field $\mathbb{F}_p$. The [Frobenius map](https://en.wikipedia.org/wiki/Frobenius_endomorphism) $\phi_p$ is a specific geometric transformation that takes a point $(x, y)$ on the curve and raises its coordinates to the $p$-th power:
 
 $$\phi_p(x, y) = (x^p, y^p)$$
