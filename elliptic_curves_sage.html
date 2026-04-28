@@ -670,6 +670,7 @@ Functional Equations: You can prove the function has a perfect symmetry
 when you reflect it across a specific line (usually <span class="math inline">\(s=1\)</span>). 3. The BSD Conjecture: You can use
 the “steepness” of this complex function at <span class="math inline">\(s=1\)</span> to predict the rank of the elliptic
 curve (how many infinite points it has).</p>
+<hr />
 <p>Let <span class="math inline">\(E\)</span> be an elliptic curve
 defined over a finite field <span class="math inline">\(\mathbb{F}_p\)</span>. The <a href="https://en.wikipedia.org/wiki/Frobenius_endomorphism">Frobenius
 map</a> <span class="math inline">\(\phi_p\)</span> is a specific
@@ -696,30 +697,30 @@ point at infinity.</p>
 <p><span class="math inline">\(\implies\)</span>: If <span class="math inline">\(P\)</span> is a point on the curve whose
 coordinates are simple integers (in <span class="math inline">\(\mathbb{F}_p\)</span>) - big parenthesis to
 explain…</p>
-<p><strong>“simple integers”</strong>: These are just the numbers <span class="math inline">\(\{0, 1, 2, \dots, p-1\}\)</span>. They are
-“finite” because they stop at <span class="math inline">\(p\)</span>.
-The <span class="math inline">\(p\)</span>-adic integer (the “infinite
-to the left” string) is denoted <span class="math inline">\(\mathbb{Z}_p\)</span> is an infinite
-expansions:</p>
+<p><strong>“simple integers”</strong>: These are just the numbers <span class="math inline">\(\{0, 1, 2, \dots, p-1\}\)</span>. They are finite
+because they stop at <span class="math inline">\(p\)</span>. The <span class="math inline">\(p\)</span>-adic integer (the infinite to the left
+string) is denoted <span class="math inline">\(\mathbb{Z}_p\)</span> is
+an infinite expansions:</p>
 <p><span class="math display">\[d_0 + d_1 p + d_2 p^2 + d_3 p^3 +
-\dots\]</span>. The “simple integer” in <span class="math inline">\(\mathbb{F}_p\)</span> is just the first digit
+\dots\]</span></p>
+<p>The “simple integer” in <span class="math inline">\(\mathbb{F}_p\)</span> is just the first digit
 (<span class="math inline">\(d_0\)</span>) of a <span class="math inline">\(p\)</span>-adic integer.</p>
 <p>A point in the curve with <span class="math inline">\(x\)</span> and
 <span class="math inline">\(y\)</span> coordinates simple integers,
 i.e. <span class="math inline">\(E(\mathbb{F}_p),\)</span> is a solution
 to the curve equation modulo <span class="math inline">\(p\)</span>. A
-point in <span class="math inline">\(E(\mathbb{Z}_p)\)</span> is a
-“lift” of that solution. It is the infinite string that starts with
-<span class="math inline">\(d_0\)</span> and continues forever in a way
-that always satisfies the equation at every higher power of <span class="math inline">\(p\)</span>.</p>
+point in <span class="math inline">\(E(\mathbb{Z}_p)\)</span> is a lift
+of that solution. It is the infinite string that starts with <span class="math inline">\(d_0\)</span> and continues forever in a way that
+always satisfies the equation at every higher power of <span class="math inline">\(p\)</span>.</p>
 <p>… End of parenthesis… Continuing…</p>
 <p>then the Frobenius map <span class="math inline">\(x^p \equiv
 x\)</span> won’t move it, because the Frobenius map doesn’t move any of
 the base field numbers.</p>
 <p><span class="math inline">\(\impliedby\)</span>: If you find a point
-on the curve (even a “ghost point” in the extension field), and <span class="math inline">\(P\)</span>, by definition is on the curve, and the
-Frobenius map doesn’t move it, i.e. <span class="math inline">\(\phi_p(P)=P,\)</span> that proves its coordinates
-must have actually been “simple” integers all along, i.e. <span class="math inline">\(P \in E(\mathbb F_p)\)</span> - no need to extend
+on the curve (even a “ghost point” in the extension field) (remember
+that <span class="math inline">\(P\)</span> by definition is on the
+curve), and the Frobenius map doesn’t move it, i.e. <span class="math inline">\(\phi_p(P)=P,\)</span> that proves its coordinates
+must have actually been simple integers all along, i.e. <span class="math inline">\(P \in E(\mathbb F_p)\)</span> - no need to extend
 it the field to <span class="math inline">\(\mathbb Z_p.\)</span> We
 only use the extension to <span class="math inline">\(\mathbb{Z}_p\)</span> as a computational tool. It
 allows us to calculate the <span class="math inline">\(a_p\)</span> with
@@ -739,14 +740,16 @@ between its Frobenius transform and itself.</p>
 (the zero point).</p>
 <p>In the world of algebraic geometry, the number of points that a map
 sends to zero is called the degree of that map. Therefore:</p>
-<p><span class="math display">\[N_p = \deg(\phi_p - id)\]</span></p>
+</div>
+<div id="n_p-degphi_p---id" class="section level2">
+<h2><span class="math display">\[N_p = \deg(\phi_p - id)\]</span></h2>
 <p>Degrees are hard to calculate directly. We want to turn this geometry
 into simple matrix algebra. In arithmetic geometry, we often use <span class="math inline">\(p\)</span> to refer to the prime we are “counting
 modulo” (the field <span class="math inline">\(\mathbb{F}_p\)</span>).
 To avoid confusion, we pick a different prime to help us probe the
 curve’s internal structure. We call this second prime <span class="math inline">\(\ell\)</span>. <span class="math inline">\(\ell\)</span> can be any prime number as long as
-it isn’t <span class="math inline">\(p\)</span>. If <span class="math inline">\(p=5\)</span>, we might pick <span class="math inline">\(\ell=2\)</span> or <span class="math inline">\(\ell=3\)</span>. <span class="math inline">\(\ell\)</span> is like a “measurement tool” we use
-to see how the curve is shaped.</p>
+it isn’t <span class="math inline">\(p\)</span>. If <span class="math inline">\(p=5\)</span>, we might pick <span class="math inline">\(\ell=2\)</span> or <span class="math inline">\(\ell=3\)</span>. <span class="math inline">\(\ell\)</span> is like a measurement tool we use to
+see how the curve is shaped.</p>
 <p>An elliptic curve is a group. If you add a point <span class="math inline">\(P\)</span> to itself <span class="math inline">\(\ell\)</span> times, we write that as <span class="math inline">\(\ell \cdot P\)</span>. A point <span class="math inline">\(P\)</span> is called an <span class="math inline">\(\ell\)</span>-torsion point if adding it to itself
 <span class="math inline">\(\ell\)</span> times brings you back to the
 zero of the curve (the point at infinity, denoted <span class="math inline">\(\mathcal{O}\)</span>):</p>
@@ -758,13 +761,14 @@ points of the curve. These are points <span class="math inline">\(P\)</span> whe
 <p>The size of <span class="math inline">\(\ell\)</span> relative to
 <span class="math inline">\(p\)</span> does not matter at all. <span class="math inline">\(\ell\)</span> can be much smaller (like <span class="math inline">\(2\)</span>) or much larger (like <span class="math inline">\(1,000,009\)</span>). The math works exactly the
 same in both cases. When we say a point is “<span class="math inline">\(\ell\)</span>-torsional,” we are saying it is a
-solution to a specific algebraic equation. On an elliptic curve, adding
-a point to itself <span class="math inline">\(\ell\)</span> times is a
-process that can be written as a massive polynomial. Finding <span class="math inline">\(\ell\)</span>-torsion points is essentially just
-finding the roots of a polynomial, called division polynomials, denoted
-as <span class="math inline">\(\psi_n(x, y)\)</span>. These are the
-“massive polynomials” that define the <span class="math inline">\(n\)</span>-torsion points of an elliptic curve.
-For an elliptic curve <span class="math inline">\(E: y^2 = x^3 + Ax +
+solution to a specific algebraic equation.</p>
+<p>On an elliptic curve, adding a point to itself <span class="math inline">\(\ell\)</span> times is a process that can be
+written as a massive polynomial. Finding <span class="math inline">\(\ell\)</span>-torsion points is essentially just
+finding the roots of a polynomial, called <strong>division
+polynomial</strong>, denoted as <span class="math inline">\(\psi_n(x,
+y)\)</span>. These are the “massive polynomials” that define the <span class="math inline">\(n\)</span>-torsion points of an elliptic
+curve.</p>
+<p>For an elliptic curve <span class="math inline">\(E: y^2 = x^3 + Ax +
 B\)</span>, a point <span class="math inline">\(P = (x, y)\)</span>
 satisfies <span class="math inline">\(n \cdot P = \mathcal{O}\)</span>
 if and only if <span class="math inline">\(\psi_n(x, y) =
@@ -794,8 +798,8 @@ always going to be some massive expression:</p>
 <p><span class="math display">\[[n]P = \left(
 \frac{\text{Poly}_1(x,y)}{\text{Poly}_2(x,y)},
 \frac{\text{Poly}_3(x,y)}{\text{Poly}_4(x,y)} \right)\]</span></p>
-<p><span class="math inline">\([n]P\)</span> is shorthand for Scalar
-Multiplication. It means adding the point <span class="math inline">\(P\)</span> to itself <span class="math inline">\(n\)</span> times:<span class="math display">\[[n]P
+<p><span class="math inline">\([n]P\)</span> is shorthand for scalar
+multiplication. It means adding the point <span class="math inline">\(P\)</span> to itself <span class="math inline">\(n\)</span> times:<span class="math display">\[[n]P
 = \underbrace{P + P + \dots + P}_{n \text{ times}}\]</span></p>
 <p>The division polynomial <span class="math inline">\(\psi_n\)</span>
 is essentially the denominator of these expressions.</p>
@@ -855,10 +859,10 @@ Usually, we will only find a few <span class="math inline">\(\ell\)</span>-torsi
 the point at infinity. The rest are “ghosts” that are mathematically
 required to exist but don’t have coordinates in our current number
 system. To find them, we expand outward to <span class="math inline">\(\mathbb{F}_{p^k}\)</span>. As we increase <span class="math inline">\(k\)</span> new points appear. We keep increasing
-<span class="math inline">\(k\)</span> until we find the full <span class="math inline">\(\ell^2\)</span> grid (for <span class="math inline">\(\ell=3\)</span>, that’s the 9-point grid). This is
-a field expansion. It’s about “horizontal” discovery. Once we have
-spotted these points in <span class="math inline">\(\mathbb{F}_{p^k}\)</span>, we only have their
-“blurry” versions (just the first digit, <span class="math inline">\(d_0\)</span>). To calculate a precise L-function,
+<span class="math inline">\(k\)</span> until we find the full <span class="math inline">\(\ell^2\)</span> grid (for <span class="math inline">\(\ell=3\)</span>, that’s the <span class="math inline">\(9\)</span>-point grid). This is a field expansion.
+It’s about “horizontal” discovery. Once we have spotted these points in
+<span class="math inline">\(\mathbb{F}_{p^k}\)</span>, we only have
+their “blurry” versions (just the first digit, <span class="math inline">\(d_0\)</span>). To calculate a precise L-function,
 we need to know exactly how the Frobenius map shuffles them. We expand
 upward into the <span class="math inline">\(p\)</span>-adic tower <span class="math inline">\(\mathbb{Z}_q\)</span> (where <span class="math inline">\(q=p^k\)</span>). As we increase the power of <span class="math inline">\(p\)</span> (e.g., <span class="math inline">\(p^{20}\)</span>) points stay the same; we aren’t
 finding new points anymore; we’ve already found the grid. We are
@@ -870,23 +874,32 @@ we apply the Frobenius map: <span class="math inline">\((x, y) \to (x^p,
 y^p)\)</span>. Because our points are high-precision, we can see exactly
 which point in the grid moved to which other point. We turn this shuffle
 into a <span class="math inline">\(2 \times 2\)</span> matrix of
-integers. The Trace (<span class="math inline">\(a_p\)</span>) of this
+integers. The trace (<span class="math inline">\(a_p\)</span>) of this
 matrix is the final “integer signature” of the curve at that prime.</p>
+<p>The coefficients for powers of <span class="math inline">\(p\)</span>
+(like <span class="math inline">\(a_{p^2}, a_{p^3}\)</span>) are not new
+independent data. They are forced by a recurrence relation based
+entirely on <span class="math inline">\(a_p\)</span> and <span class="math inline">\(p\)</span>:<span class="math inline">\(a_{p^2} =
+a_p^2 - p\)</span><span class="math inline">\(a_{p^3} = a_p \cdot
+a_{p^2} - p \cdot a_p\)</span>.</p>
 <p>Notice that <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is
-a finite field. It only contains “first digits” (<span class="math inline">\(d_0\)</span>) in the <span class="math inline">\(p\)</span>-adic expansion. You can add, subtract,
+a finite <strong>field</strong>. It contains simple digits <span class="math inline">\(0,1,2,\dots p^k\)</span> in the <span class="math inline">\(d_0\)</span> of the <span class="math inline">\(p\)</span>-adic expansion. You can add, subtract,
 multiply, and (crucially) divide. Every non-zero element has an inverse.
 This is where we “spot” the <span class="math inline">\(\ell^2\)</span>
-points. <span class="math inline">\(\mathbb{Z}_q\)</span> is a ring
-(where <span class="math inline">\(q = p^k\)</span>): When we “lift” the
-field to <span class="math inline">\(p\)</span>-adic precision, we
-create a ring of <span class="math inline">\(p\)</span>-adic integers
-(meaning infinite expansions to the left). For <span class="math inline">\(p=5\)</span>, this is the structure that handles
-those strings like <span class="math inline">\(4 + 2\cdot 5 + 1\cdot 5^2
-\dots\)</span>. This is just a ring because in <span class="math inline">\(\mathbb{Z}_q\)</span>, we cannot always divide:
-You cannot divide by <span class="math inline">\(p\)</span> (or any
-multiple of <span class="math inline">\(5\)</span> in this case). This
-ring is where we store the “high-res” coordinates out to <span class="math inline">\(O(p^{20})\)</span> in the code below.</p>
-<p>In the <span class="math inline">\(p\)</span>-adic ring <span class="math inline">\(\mathbb{Z}_q\)</span>, we can divide by many
+points. However, every coordinate is effectively just a single complex
+digit modulo <span class="math inline">\(p\)</span>. The purpose is to
+find the “ghost” points that don’t exist in the base field. Yet, it is
+low resolution.</p>
+<p>That’s why we “lift” our coordinates from the field into the <span class="math inline">\(p\)</span>-adic <strong>ring</strong> <span class="math inline">\(\mathbb{Z}_q\)</span>: it is the ring of integers
+in a <span class="math inline">\(p\)</span>-adic field. We keep adding
+digits to the left (<span class="math inline">\(\dots d_2 d_1
+d_0\)</span>) until the coordinate is precise enough that our matrix
+math doesn’t have any rounding errors. It is not a field because you can
+divide by <span class="math inline">\(3\)</span>, but you cannot divide
+by <span class="math inline">\(5\)</span>. If you try to calculate <span class="math inline">\(1/5\)</span>, the string would have to shift to
+the right of the decimal point (the radix), which makes it no longer a
+p-adic integer. In the <span class="math inline">\(p\)</span>-adic ring
+<span class="math inline">\(\mathbb{Z}_q\)</span>, we can divide by many
 things, but never by <span class="math inline">\(p\)</span>. We can
 divide by any number that doesn’t have <span class="math inline">\(p\)</span> as a factor. For example, <span class="math inline">\(1/2\)</span> exists in the <span class="math inline">\(5\)</span>-adics because <span class="math inline">\(2\)</span> is “coprime” to <span class="math inline">\(5\)</span>. It just looks like an infinite string
 of digits. But we cannot calculate <span class="math inline">\(1/5\)</span> inside <span class="math inline">\(\mathbb{Z}_5\)</span>. If we try to write a string
@@ -905,6 +918,13 @@ shuffles them around the grid. We use the moving points to calculate the
 “shuffle” (the Frobenius matrix). The Trace (<span class="math inline">\(a_p\)</span>) of that matrix then tells us the
 exact count of the frozen points (<span class="math inline">\(N_p = p +
 1 - a_p\)</span>).</p>
+<p>Therefore, to determine <span class="math inline">\(a_p\)</span> (and
+<span class="math inline">\(N_p\)</span>), the trick is to use the <span class="math inline">\(\ell\)</span>-torsion grid to measure the
+Frobenius map (find below a more detailed explanation (*)). The total
+set of residents with coordinates in the base field <span class="math inline">\(\mathbb{F}_p\)</span> is called <span class="math inline">\(E(\mathbb{F}_p)\)</span>, and it forms a finite
+abelian group. Since every element of a finite group has finite order,
+adding any resident to itself a certain number of times will hit <span class="math inline">\(\mathcal{O}\)</span>, which means that every
+resident is, by definition, a torsion point of some order.</p>
 <p>When we ask for <span class="math inline">\(N_p\)</span> (the number
 of points on the curve over <span class="math inline">\(\mathbb{F}_p\)</span>), we are effectively asking:
 “Which of the torsion points have coordinates that are just simple
@@ -1749,7 +1769,7 @@ simply <span class="math inline">\(1\)</span>. This is why the product
 is usually written in two parts.</p></li>
 </ul>
 <p>When you multiply this infinite “wall” of fractions together, you get
-the Dirichlet series (see below *):</p>
+the Dirichlet series (see below (**)):</p>
 <p><span class="math display">\[L(E, s) = \sum_{n=1}^{\infty}
 \frac{a_n}{n^s}\]</span></p>
 <p>The polynomial <span class="math inline">\(P_p(T) = T^2 - a_p T +
@@ -1927,7 +1947,64 @@ field.</p>
 <p><span class="math display">\[L_3(s) = \frac{1}{1 - 0(3^{-s}) +
 3(3^{-2s})} = \frac{1}{1 + 3^{1-2s}}\]</span></p>
 <hr />
-<p>(*) Take one piece of the product for a prime <span class="math inline">\(p\)</span>. Using the geometric series formula
+<p>(*) On one side we have a purely arbitrary decision: we choose any
+prime number different to <span class="math inline">\(p\)</span>. Say,
+<span class="math inline">\(111181821213.\)</span> We are now imagining
+a lattice of <span class="math inline">\(111181821213^2\)</span> points.
+And we say, we want <span class="math inline">\(a_5\)</span>. So we have
+to operate <span class="math inline">\(p =5.\)</span> No problem. We
+have to find the torsion points with coordinates <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in <span class="math inline">\(\mathbb
+F_{p^k}\)</span> among all the points on the curve under the field <span class="math inline">\(\mathbb F_{p^k}\)</span> that are <span class="math inline">\(111181821213\)</span>-torsion points, i.e. points
+such that <span class="math inline">\(111181821213 P =\mathcal
+O.\)</span> To do so we would need a much larger number system than
+<span class="math inline">\(\mathbb F_5\)</span> to describe them, and
+hence the horizontal extension to <span class="math inline">\(\mathbb
+F_{p^k}\)</span>. Now, we don’t actually do this literally. We just get
+two points instead by using the division polynomial, build a matrix
+(Frobenius) and use linearity to get the trace. Since the <span class="math inline">\(\ell\)</span>-torsion grid is essentially a 2D
+plane (the <span class="math inline">\(2 \times 2\)</span> matrix), you
+only need two independent points to see how the whole plane rotates. If
+you find one point in <span class="math inline">\(\mathbb{F}_{p^{234}}\)</span>, you’ve found a
+“spoke” of the wheel.</p>
+<p>But the idea is that if there were points, say <span class="math inline">\(w \in W,\)</span> with coordinates <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in the base field <span class="math inline">\(\mathbb F_5,\)</span> which multiplied <span class="math inline">\(111181821213 w =\mathcal O\)</span> the Frobenius
+map would not move them. The chances of finding any <span class="math inline">\(w\)</span> besides <span class="math inline">\(\mathcal O\)</span> may be zero; however, we don’t
+care because we have a division polynomial that expects <span class="math inline">\(111181821213\)</span> roots in <span class="math inline">\(F_{p^k},\)</span> so all we have to do is extend
+the <span class="math inline">\(k.\)</span></p>
+<p>Because we are interested in the trace of a linear transformation, we
+only need two independent ‘spokes’ to define the rotation of the entire
+lattice. Suppose one of these points, <span class="math inline">\(q\)</span>, is found in the extension field <span class="math inline">\(\mathbb{F}_{p^{234}}\)</span>. At this stage, the
+coordinates of <span class="math inline">\(q\)</span> are only known at
+precision <span class="math inline">\(1,\)</span> meaning we only see
+the first digit, <span class="math inline">\(v = d_0 \pmod p\)</span>.
+We need two of these points to construct the Frobenius matrix, but we
+cannot afford any ‘blurriness’ in our calculation of the trace (<span class="math inline">\(a_p\)</span>). If we stayed at this low
+resolution, we couldn’t tell the difference between the true <span class="math inline">\(p\)</span>-adic coordinate and one shifted by a
+multiple of <span class="math inline">\(p\)</span> (e.g., <span class="math inline">\(v\)</span> vs. <span class="math inline">\(v +
+6p\)</span>). Since <span class="math inline">\(a_p\)</span> is a
+specific integer like <span class="math inline">\(-3\)</span>, and
+matrix math compounds any small errors, a ‘blurry’ coordinate would
+leave us unable to distinguish the correct <span class="math inline">\(a_p\)</span> from a sea of massive, incorrect
+integers. To fix this, we make <span class="math inline">\(q\)</span>
+precise by lifting with Hensel, increasing the resolution from <span class="math inline">\(\pmod p\)</span> to a high-definition string known
+to <span class="math inline">\(\pmod{p^{20}}\)</span>.</p>
+<p>To translate from the field <span class="math inline">\(\mathbb{F}_{p^{234}}\)</span> to the ring <span class="math inline">\(\mathbb{Z}_{p^{20}}\)</span>, we take the “flat”
+element from the finite field and treat it as the seed for an infinite
+<span class="math inline">\(p\)</span>-adic string (integer). The
+intersection between these two systems exists because the first floor of
+the <span class="math inline">\(p\)</span>-adic ring <span class="math inline">\(\mathbb{Z}_p\)</span> is identical to the base
+field <span class="math inline">\(\mathbb{F}_p\)</span>. Mathematically,
+we say there is a map:</p>
+<p><span class="math display">\[\mathbb{Z}_p \to \mathbb{Z}/p\mathbb{Z}
+\cong \mathbb{F}_p\]</span></p>
+<p>When you find your point <span class="math inline">\(q\)</span> in
+the field <span class="math inline">\(\mathbb{F}_{p^{234}}\)</span>, its
+coordinates are polynomials like <span class="math display">\[x_q = c_0
++ c_1 \alpha + c_2 \alpha^2 + \dots + c_{233} \alpha^{233}\]</span>. You
+take the coefficients of those polynomials (which are just numbers like
+<span class="math inline">\(0, 1, \dots, p-1\)</span>) and you say:
+“These are now <span class="math inline">\(d_0\)</span>.</p>
+<hr />
+<p>(**) Take one piece of the product for a prime <span class="math inline">\(p\)</span>. Using the geometric series formula
 <span class="math inline">\(\frac{1}{1-X} = 1 + X + X^2 +
 \dots\)</span>, we expand the denominator:</p>
 <p><span class="math display">\[L_p(s) = \frac{1}{1 - a_p p^{-s} + p

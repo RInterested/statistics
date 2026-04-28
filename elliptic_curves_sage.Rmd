@@ -371,6 +371,8 @@ $$f(\tau) = \sum_{n=1}^{\infty} a_n q^n$$
 
 It is called "analytic" because once you express the curve's data as a $q$-expansion, you can use the heavy machinery of complex analysis: 1. Analytic Continuation: You can define the L-function even where the sum doesn't normally converge. 2. Functional Equations: You can prove the function has a perfect symmetry when you reflect it across a specific line (usually $s=1$). 3. The BSD Conjecture: You can use the "steepness" of this complex function at $s=1$ to predict the rank of the elliptic curve (how many infinite points it has).
 
+---
+
 Let $E$ be an elliptic curve defined over a finite field $\mathbb{F}_p$. The [Frobenius map](https://en.wikipedia.org/wiki/Frobenius_endomorphism) $\phi_p$ is a specific geometric transformation that takes a point $(x, y)$ on the curve and raises its coordinates to the $p$-th power:
 
 $$\phi_p(x, y) = (x^p, y^p)$$
@@ -391,17 +393,19 @@ Let's analyze this:
 
 $\implies$: If $P$ is a point on the curve whose coordinates are simple integers (in $\mathbb{F}_p$) - big parenthesis to explain...
 
-**"simple integers"**: These are just the numbers $\{0, 1, 2, \dots, p-1\}$. They are "finite" because they stop at $p$. The $p$-adic integer (the "infinite to the left" string) is denoted $\mathbb{Z}_p$ is an infinite expansions:
+**"simple integers"**: These are just the numbers $\{0, 1, 2, \dots, p-1\}$. They are finite because they stop at $p$. The $p$-adic integer (the infinite to the left string) is denoted $\mathbb{Z}_p$ is an infinite expansions:
 
-$$d_0 + d_1 p + d_2 p^2 + d_3 p^3 + \dots$$. The "simple integer" in $\mathbb{F}_p$ is just the first digit ($d_0$) of a $p$-adic integer. 
+$$d_0 + d_1 p + d_2 p^2 + d_3 p^3 + \dots$$ 
 
-A point in the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\mathbb{F}_p),$ is a solution to the curve equation modulo $p$. A point in $E(\mathbb{Z}_p)$ is a "lift" of that solution. It is the infinite string that starts with $d_0$ and continues forever in a way that always satisfies the equation at every higher power of $p$.
+The "simple integer" in $\mathbb{F}_p$ is just the first digit ($d_0$) of a $p$-adic integer. 
+
+A point in the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\mathbb{F}_p),$ is a solution to the curve equation modulo $p$. A point in $E(\mathbb{Z}_p)$ is a lift of that solution. It is the infinite string that starts with $d_0$ and continues forever in a way that always satisfies the equation at every higher power of $p$.
 
 ... End of parenthesis... Continuing...
 
 then the Frobenius map $x^p \equiv x$ won't move it, because the Frobenius map doesn't move any of the base field numbers. 
 
-$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field), and $P$, by definition is on the curve, and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been "simple" integers all along, i.e. $P \in E(\mathbb F_p)$ - no need to extend it the field to $\mathbb Z_p.$ We only use the extension to $\mathbb{Z}_p$ as a computational tool. It allows us to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_p$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily.
+$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - no need to extend it the field to $\mathbb Z_p.$ We only use the extension to $\mathbb{Z}_p$ as a computational tool. It allows us to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_p$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily.
 
 To count these fixed points mathematically, we define a new map: $(\phi_p - id)$.
 
@@ -414,8 +418,9 @@ If $P$ is a fixed point, then $\phi_p(P) - id(P) = \mathcal{O}$ (the zero point)
 In the world of algebraic geometry, the number of points that a map sends to zero is called the degree of that map. Therefore:
 
 $$N_p = \deg(\phi_p - id)$$
+---
 
-Degrees are hard to calculate directly. We want to turn this geometry into simple matrix algebra. In arithmetic geometry, we often use $p$ to refer to the prime we are "counting modulo" (the field $\mathbb{F}_p$). To avoid confusion, we pick a different prime to help us probe the curve's internal structure. We call this second prime $\ell$. $\ell$ can be any prime number as long as it isn't $p$. If $p=5$, we might pick $\ell=2$ or $\ell=3$. $\ell$ is like a "measurement tool" we use to see how the curve is shaped. 
+Degrees are hard to calculate directly. We want to turn this geometry into simple matrix algebra. In arithmetic geometry, we often use $p$ to refer to the prime we are "counting modulo" (the field $\mathbb{F}_p$). To avoid confusion, we pick a different prime to help us probe the curve's internal structure. We call this second prime $\ell$. $\ell$ can be any prime number as long as it isn't $p$. If $p=5$, we might pick $\ell=2$ or $\ell=3$. $\ell$ is like a measurement tool we use to see how the curve is shaped. 
 
 An elliptic curve is a group. If you add a point $P$ to itself $\ell$ times, we write that as $\ell \cdot P$. A point $P$ is called an $\ell$-torsion point if adding it to itself $\ell$ times brings you back to the zero of the curve (the point at infinity, denoted $\mathcal{O}$):
 
@@ -423,7 +428,11 @@ $$\underbrace{P + P + \dots + P}_{\ell \text{ times}} = \mathcal{O}$$
 
 We look at the $\ell$-torsion points of the curve. These are points $P$ where $\ell \cdot P = \mathcal{O}$. 
 
-The size of $\ell$ relative to $p$ does not matter at all. $\ell$ can be much smaller (like $2$) or much larger (like $1,000,009$). The math works exactly the same in both cases. When we say a point is "$\ell$-torsional," we are saying it is a solution to a specific algebraic equation. On an elliptic curve, adding a point to itself $\ell$ times is a process that can be written as a massive polynomial. Finding $\ell$-torsion points is essentially just finding the roots of a polynomial, called division polynomials, denoted as $\psi_n(x, y)$. These are the "massive polynomials" that define the $n$-torsion points of an elliptic curve. For an elliptic curve $E: y^2 = x^3 + Ax + B$, a point $P = (x, y)$ satisfies $n \cdot P = \mathcal{O}$ if and only if $\psi_n(x, y) = 0$.
+The size of $\ell$ relative to $p$ does not matter at all. $\ell$ can be much smaller (like $2$) or much larger (like $1,000,009$). The math works exactly the same in both cases. When we say a point is "$\ell$-torsional," we are saying it is a solution to a specific algebraic equation. 
+
+On an elliptic curve, adding a point to itself $\ell$ times is a process that can be written as a massive polynomial. Finding $\ell$-torsion points is essentially just finding the roots of a polynomial, called **division polynomial**, denoted as $\psi_n(x, y)$. These are the "massive polynomials" that define the $n$-torsion points of an elliptic curve. 
+
+For an elliptic curve $E: y^2 = x^3 + Ax + B$, a point $P = (x, y)$ satisfies $n \cdot P = \mathcal{O}$ if and only if $\psi_n(x, y) = 0$.
 
 Every time you draw a line and find an intersection, you are essentially solving a system of equations formed by the equation of the line $y = mx + c,$ and the equation of the curve $y^2 = x^3 + Ax + B$. When we substitute the line into the curve, we get a cubic equation in $x$: 
 
@@ -433,12 +442,11 @@ The roots of that cubic are the $x$-coordinates of the three intersection points
 
 When you add a point to itself, the slope $m$ is a function of the coordinates: $m = \frac{3x^2 + A}{2y}$. The equation $m = \frac{3x^2 + A}{2y}$ is the formula for the tangent slope at a point $P = (x, y)$ on the curve $y^2 = x^3 + Ax + B$. Using implicit differentiation (taking the derivative of both sides with respect to $x$): Since $y$ is a function of $x$, we use the chain rule to get $2y \frac{dy}{dx}$. On the right side ($x^3 + Ax + B$):  $3x^2 + A$. Equate them: $2y \frac{dy}{dx} = 3x^2 + A$ and solve for the slope ($m = \frac{dy}{dx}$): $m = \frac{3x^2 + A}{2y}.$
 
-
 Because the group law for an elliptic curve is defined by rational functions, the result of $[n]P$ is always going to be some massive expression:
 
 $$[n]P = \left( \frac{\text{Poly}_1(x,y)}{\text{Poly}_2(x,y)}, \frac{\text{Poly}_3(x,y)}{\text{Poly}_4(x,y)} \right)$$
 
-$[n]P$ is shorthand for Scalar Multiplication. It means adding the point $P$ to itself $n$ times:$$[n]P = \underbrace{P + P + \dots + P}_{n \text{ times}}$$
+$[n]P$ is shorthand for scalar multiplication. It means adding the point $P$ to itself $n$ times:$$[n]P = \underbrace{P + P + \dots + P}_{n \text{ times}}$$
 
 The division polynomial $\psi_n$ is essentially the denominator of these expressions. 
 
@@ -454,13 +462,17 @@ A polynomial of degree $n$ always has exactly $n$ roots, provided we are willing
 
 In the field $\mathbb{F}_p$, we only have the integers $\{0, 1, \dots, p-1\}$. If we have a polynomial — like the one that defines the $\ell$-torsion points — and it has no roots in $\mathbb{F}_p$, we do exactly what we do in high school algebra: we invent them: $\mathbb{F}_p \to \mathbb{F}_{p^k}$ (where $k$ is the degree of the extension). We call $\mathbb{F}_{p^k}$ an extension field. It contains $\mathbb{F}_p$, but it also contains all the "complex" coordinates needed to describe the $\ell$-torsion points that were missing from the original field. If you keep adding roots for every possible polynomial, you eventually reach the algebraic closure, denoted $\overline{\mathbb{F}}_p$. This is the ultimate "super field." It is infinite in size. Every polynomial has all its roots here. This is the place where the full $2 \times 2$ grid of $\ell^2$ torsion points is guaranteed to exist.
 
-Recapping, we want to spot the $\ell$-torsion points (the $x, y$ coordinates that satisfy $[ \ell ]P = \mathcal{O}$). We start on the "ground floor" at $\mathbb{F}_p$. Usually, we will only find a few $\ell$-torsion points here — sometimes only the point at infinity. The rest are "ghosts" that are mathematically required to exist but don't have coordinates in our current number system. To find them, we expand outward to $\mathbb{F}_{p^k}$. As we increase $k$ new points appear. We keep increasing $k$ until we find the full $\ell^2$ grid (for $\ell=3$, that's the 9-point grid). This is a field expansion. It’s about "horizontal" discovery. Once we have spotted these points in $\mathbb{F}_{p^k}$, we only have their "blurry" versions (just the first digit, $d_0$). To calculate a precise L-function, we need to know exactly how the Frobenius map shuffles them. We expand upward into the $p$-adic tower $\mathbb{Z}_q$ (where $q=p^k$). As we increase the power of $p$ (e.g., $p^{20}$) points stay the same; we aren't finding new points anymore; we’ve already found the grid. We are calculating $d_1, d_2, d_3 \dots d_{19}$. We are getting more and more "decimal places" (to the left) for the points we already caught. This is a ring expansion. It’s about "vertical" precision. Now that we have a "high-definition" grid, we apply the Frobenius map: $(x, y) \to (x^p, y^p)$. Because our points are high-precision, we can see exactly which point in the grid moved to which other point. We turn this shuffle into a $2 \times 2$ matrix of integers. The Trace ($a_p$) of this matrix is the final "integer signature" of the curve at that prime.
+Recapping, we want to spot the $\ell$-torsion points (the $x, y$ coordinates that satisfy $[ \ell ]P = \mathcal{O}$). We start on the "ground floor" at $\mathbb{F}_p$. Usually, we will only find a few $\ell$-torsion points here — sometimes only the point at infinity. The rest are "ghosts" that are mathematically required to exist but don't have coordinates in our current number system. To find them, we expand outward to $\mathbb{F}_{p^k}$. As we increase $k$ new points appear. We keep increasing $k$ until we find the full $\ell^2$ grid (for $\ell=3$, that's the $9$-point grid). This is a field expansion. It’s about "horizontal" discovery. Once we have spotted these points in $\mathbb{F}_{p^k}$, we only have their "blurry" versions (just the first digit, $d_0$). To calculate a precise L-function, we need to know exactly how the Frobenius map shuffles them. We expand upward into the $p$-adic tower $\mathbb{Z}_q$ (where $q=p^k$). As we increase the power of $p$ (e.g., $p^{20}$) points stay the same; we aren't finding new points anymore; we’ve already found the grid. We are calculating $d_1, d_2, d_3 \dots d_{19}$. We are getting more and more "decimal places" (to the left) for the points we already caught. This is a ring expansion. It’s about "vertical" precision. Now that we have a "high-definition" grid, we apply the Frobenius map: $(x, y) \to (x^p, y^p)$. Because our points are high-precision, we can see exactly which point in the grid moved to which other point. We turn this shuffle into a $2 \times 2$ matrix of integers. The trace ($a_p$) of this matrix is the final "integer signature" of the curve at that prime.
 
-Notice that $\mathbb{F}_{p^k}$ is a finite field. It only contains "first digits" ($d_0$) in the $p$-adic expansion. You can add, subtract, multiply, and (crucially) divide. Every non-zero element has an inverse. This is where we "spot" the $\ell^2$ points. $\mathbb{Z}_q$ is a ring (where $q = p^k$): When we "lift" the field to $p$-adic precision, we create a ring of $p$-adic integers (meaning infinite expansions to the left). For $p=5$, this is the structure that handles those strings like $4 + 2\cdot 5 + 1\cdot 5^2 \dots$. This is just a ring because in $\mathbb{Z}_q$, we cannot always divide: You cannot divide by $p$ (or any multiple of $5$ in this case). This ring is where we store the "high-res" coordinates out to $O(p^{20})$ in the code below.
+The coefficients for powers of $p$ (like $a_{p^2}, a_{p^3}$) are not new independent data. They are forced by a recurrence relation based entirely on $a_p$ and $p$:$a_{p^2} = a_p^2 - p$$a_{p^3} = a_p \cdot a_{p^2} - p \cdot a_p$.
 
-In the $p$-adic ring $\mathbb{Z}_q$, we can divide by many things, but never by $p$. We can divide by any number that doesn't have $p$ as a factor. For example, $1/2$ exists in the $5$-adics because $2$ is "coprime" to $5$. It just looks like an infinite string of digits. But we cannot calculate $1/5$ inside $\mathbb{Z}_5$. If we try to write a string starting with $d_0 + d_1 \cdot 5 \dots$ that equals $1/5$, it’s impossible. However, in the field $\mathbb{Q}_q$ we include the $p$-adics with negative powers of $p$.
+Notice that $\mathbb{F}_{p^k}$ is a finite **field**. It contains simple digits $0,1,2,\dots p^k$ in the $d_0$ of the $p$-adic expansion. You can add, subtract, multiply, and (crucially) divide. Every non-zero element has an inverse. This is where we "spot" the $\ell^2$ points. However, every coordinate is effectively just a single complex digit modulo $p$. The purpose is to find the "ghost" points that don't exist in the base field. Yet, it is low resolution.
+
+That's why we "lift" our coordinates from the field into the $p$-adic **ring** $\mathbb{Z}_q$: it is the ring of integers in a $p$-adic field. We keep adding digits to the left ($\dots d_2 d_1 d_0$) until the coordinate is precise enough that our matrix math doesn't have any rounding errors. It is not a field because you can divide by $3$, but you cannot divide by $5$. If you try to calculate $1/5$, the string would have to shift to the right of the decimal point (the radix), which makes it no longer a p-adic integer. In the $p$-adic ring $\mathbb{Z}_q$, we can divide by many things, but never by $p$. We can divide by any number that doesn't have $p$ as a factor. For example, $1/2$ exists in the $5$-adics because $2$ is "coprime" to $5$. It just looks like an infinite string of digits. But we cannot calculate $1/5$ inside $\mathbb{Z}_5$. If we try to write a string starting with $d_0 + d_1 \cdot 5 \dots$ that equals $1/5$, it’s impossible. However, in the field $\mathbb{Q}_q$ we include the $p$-adics with negative powers of $p$.
 
 The points in $E(\mathbb{F}_p)$ are the "frozen" points under Frobenius. Their $p$-adic expansion is just a single digit at the $p^0$ position followed by infinite zeros to the left ($\dots00000d.$). Frobenius cannot move them. But there are torsion points that can only be seen in the extension $\mathbb F_{p^k}$: These are the "movers." Their $p$-adic expansions are infinite, non-zero strings to the left. Frobenius shuffles them around the grid. We use the moving points to calculate the "shuffle" (the Frobenius matrix). The Trace ($a_p$) of that matrix then tells us the exact count of the frozen points ($N_p = p + 1 - a_p$).
+
+Therefore, to determine $a_p$ (and $N_p$), the trick is to use the $\ell$-torsion grid to measure the Frobenius map (find below a more detailed explanation (*)). The total set of residents with coordinates in the base field $\mathbb{F}_p$ is called $E(\mathbb{F}_p)$, and it forms a finite abelian group. Since every element of a finite group has finite order, adding any resident to itself a certain number of times will hit $\mathcal{O}$, which means that every resident is, by definition, a torsion point of some order.
 
 When we ask for $N_p$ (the number of points on the curve over $\mathbb{F}_p$), we are effectively asking: "Which of the torsion points have coordinates that are just simple integers $\dots00000d.$?" Since we can't always see the points directly, we use the Frobenius map as a filter. The Frobenius map shuffles any point that has "ghostly" coordinates (non-zero digits to the left). The Frobenius map leaves alone any point whose coordinates are in $\mathbb{F}_p$.
 
@@ -1002,7 +1014,7 @@ $$L(E, s) = \prod_{p \nmid \Delta} \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}} \t
 
 - $p \mid \Delta$): For the few primes where the curve has a cusp or a node, the matrix collapses. If it collapses to $1$D, the factor is $\frac{1}{1 - a_p p^{-s}}$. If it collapses to $0$D, the factor is simply $1$. This is why the product is usually written in two parts.
 
-When you multiply this infinite "wall" of fractions together, you get the Dirichlet series (see below *):
+When you multiply this infinite "wall" of fractions together, you get the Dirichlet series (see below (**)):
 
 $$L(E, s) = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$$
 
@@ -1159,7 +1171,22 @@ $$L_3(s) = \frac{1}{1 - 0(3^{-s}) + 3(3^{-2s})} = \frac{1}{1 + 3^{1-2s}}$$
 
 ---
 
-(*) Take one piece of the product for a prime $p$. Using the geometric series formula $\frac{1}{1-X} = 1 + X + X^2 + \dots$, we expand the denominator:
+(*) On one side we have a purely arbitrary decision: we choose any prime number different to $p$. Say, $111181821213.$ We are now imagining a lattice of $111181821213^2$ points. And we say, we want $a_5$. So we have to operate $p =5.$ No problem. We have to find the torsion points with coordinates $x$ and $y$ in $\mathbb F_{p^k}$ among all the points on the curve under the field $\mathbb F_{p^k}$ that are $111181821213$-torsion points, i.e. points such that $111181821213 P =\mathcal O.$ To do so we would need a much larger number system than $\mathbb F_5$ to describe them, and hence the horizontal extension to $\mathbb F_{p^k}$. Now, we don't actually do this literally. We just get two points instead by using the division polynomial, build a matrix (Frobenius) and use linearity to get the trace. Since the $\ell$-torsion grid is essentially a 2D plane (the $2 \times 2$ matrix), you only need two independent points to see how the whole plane rotates. If you find one point in $\mathbb{F}_{p^{234}}$, you’ve found a "spoke" of the wheel.
+
+But the idea is that if there were points, say $w \in W,$ with coordinates $x$ and $y$ in the base field $\mathbb F_5,$ which multiplied $111181821213 w =\mathcal O$ the Frobenius map would not move them. The chances of finding any $w$ besides $\mathcal O$ may be zero; however, we don't care because we have a division polynomial that expects $111181821213$ roots in $F_{p^k},$ so all we have to do is extend the $k.$ 
+
+Because we are interested in the trace of a linear transformation, we only need two independent 'spokes' to define the rotation of the entire lattice. Suppose one of these points, $q$, is found in the extension field $\mathbb{F}_{p^{234}}$. At this stage, the coordinates of $q$ are only known at precision $1,$ meaning we only see the first digit, $v = d_0 \pmod p$. We need two of these points to construct the Frobenius matrix, but we cannot afford any 'blurriness' in our calculation of the trace ($a_p$). If we stayed at this low resolution, we couldn't tell the difference between the true $p$-adic coordinate and one shifted by a multiple of $p$ (e.g., $v$ vs. $v + 6p$). Since $a_p$ is a specific integer like $-3$, and matrix math compounds any small errors, a 'blurry' coordinate would leave us unable to distinguish the correct $a_p$ from a sea of massive, incorrect integers. To fix this, we make $q$ precise by lifting with Hensel, increasing the resolution from $\pmod p$ to a high-definition string known to $\pmod{p^{20}}$.
+
+To translate from the field $\mathbb{F}_{p^{234}}$ to the ring $\mathbb{Z}_{p^{20}}$, we take the "flat" element from the finite field and treat it as the seed for an infinite $p$-adic string (integer). The intersection between these two systems exists because the first floor of the $p$-adic ring $\mathbb{Z}_p$ is identical to the base field $\mathbb{F}_p$. Mathematically, we say there is a map:
+
+$$\mathbb{Z}_p \to \mathbb{Z}/p\mathbb{Z} \cong \mathbb{F}_p$$
+
+When you find your point $q$ in the field $\mathbb{F}_{p^{234}}$, its coordinates are polynomials like $$x_q = c_0 + c_1 \alpha + c_2 \alpha^2 + \dots + c_{233} \alpha^{233}$$. You take the coefficients of those polynomials (which are just numbers like $0, 1, \dots, p-1$) and you say: "These are now $d_0$. 
+
+---
+
+
+(**) Take one piece of the product for a prime $p$. Using the geometric series formula $\frac{1}{1-X} = 1 + X + X^2 + \dots$, we expand the denominator:
 
 $$L_p(s) = \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}}$$
 
