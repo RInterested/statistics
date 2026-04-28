@@ -679,13 +679,19 @@ coordinates to the <span class="math inline">\(p\)</span>-th power:</p>
 <p>Because of the way finite fields work, and specifically
 <strong>Fermat’s Little Theorem</strong>, where</p>
 <p><span class="math display">\[x^p \equiv x \pmod p\]</span></p>
-<p>a point is fixed by this map if and only if its coordinates are in
-the base field <span class="math inline">\(\mathbb{F}_p\)</span>. In
-other words:</p>
+<p>a point <span class="math inline">\(P\)</span> known to be on the
+curve <span class="math inline">\(E\)</span> is fixed by this map if and
+only if its coordinates are in the base field <span class="math inline">\(\mathbb{F}_p\)</span>, i.e. $x, y <span class="math inline">\(\mathbb{F}_p\)</span> In other words:</p>
 <p><span class="math display">\[P \in E(\mathbb{F}_p) \iff \phi_p(P) =
 P\]</span></p>
 <p>This means that finding the number of points on <span class="math inline">\(E(\mathbb{F}_p)\)</span> is equivalent to finding
 the number of fixed points of the Frobenius map.</p>
+<p>Since <span class="math inline">\(\mathcal{O}\)</span> doesn’t have
+standard <span class="math inline">\((x, y)\)</span> coordinates (it’s a
+direction in projective space), we usually define <span class="math inline">\(\phi_p(\mathcal{O}) = \mathcal{O}\)</span> by
+default. Thus, the equivalence <span class="math inline">\(P \in
+E(\mathbb{F}_p) \iff \phi_p(P) = P\)</span> remains true even for the
+point at infinity.</p>
 <p>Let’s analyze this:</p>
 <p><span class="math inline">\(\implies\)</span>: If <span class="math inline">\(P\)</span> is a point on the curve whose
 coordinates are simple integers (in <span class="math inline">\(\mathbb{F}_p\)</span>) - big parenthesis to

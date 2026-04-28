@@ -379,11 +379,13 @@ Because of the way finite fields work, and specifically **Fermat's Little Theore
 
 $$x^p \equiv x \pmod p$$
 
-a point is fixed by this map if and only if its coordinates are in the base field $\mathbb{F}_p$. In other words:
+a point $P$ known to be on the curve $E$ is fixed by this map if and only if its coordinates are in the base field $\mathbb{F}_p$, i.e. $x, y \in $\mathbb{F}_p$ In other words:
 
 $$P \in E(\mathbb{F}_p) \iff \phi_p(P) = P$$
 
 This means that finding the number of points on $E(\mathbb{F}_p)$ is equivalent to finding the number of fixed points of the Frobenius map.
+
+Since $\mathcal{O}$ doesn't have standard $(x, y)$ coordinates (it’s a direction in projective space), we usually define $\phi_p(\mathcal{O}) = \mathcal{O}$ by default. Thus, the equivalence $P \in E(\mathbb{F}_p) \iff \phi_p(P) = P$ remains true even for the point at infinity.
 
 Let's analyze this: 
 
