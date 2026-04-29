@@ -746,10 +746,10 @@ negative sign to flip the denominator:</p>
 <p><span class="math display">\[\frac{1}{b} = \frac{k}{p^n - 1} =
 \frac{k}{-(1 - p^n)} = -k \left( \frac{1}{1 - p^n} \right)\]</span></p>
 <p>Therefore we really start in the negatives. To represent a positive
-fraction as an infinite string, i.e. a <span class="math inline">\(p\)</span>-adic integers, we are actually
-expanding a negative integer and shifting it across the origin. This
-creates the symmetry. In base <span class="math inline">\(p,\)</span> we
-approach the fraction by adding smaller and smaller pieces (<span class="math inline">\(p^{-n}\)</span>) starting from zero. In <span class="math inline">\(p\)</span>-adics, we approach the fraction by
+fraction as an infinite string, i.e. a <span class="math inline">\(p\)</span>-adic integer, we are actually expanding
+a negative integer and shifting it across the origin. This creates the
+symmetry. In base <span class="math inline">\(p,\)</span> we approach
+the fraction by adding smaller and smaller pieces (<span class="math inline">\(p^{-n}\)</span>) starting from zero. In <span class="math inline">\(p\)</span>-adics, we approach the fraction by
 adding <span class="math inline">\(p\)</span>-adically smaller pieces
 (<span class="math inline">\(p^n\)</span>).</p>
 <p>The negative first term matches perfectly the idea that <span class="math inline">\(\dots (p-1)(p-1)(p-1)=-1\)</span> for any p-adic
@@ -1200,61 +1200,43 @@ expression</p>
 d_2(5^2) + d_1(5^1) + d_0(5^0)\]</span></p>
 <p>Therefore</p>
 <p><span class="math display">\[\frac {450}1 \equiv  d_0 \pmod
-5\]</span> - Level <span class="math inline">\(5^0\)</span>:</p>
-<p><strong>How much is the initial number in base <span class="math inline">\(5\)</span>?</strong></p>
-<ul>
-<li>Find <span class="math inline">\(d_0\)</span> such that</li>
-</ul>
+5\]</span> Level <span class="math inline">\(5^0\)</span>:</p>
+<p>How much is the initial number in base <span class="math inline">\(5\)</span>?</p>
+<p>Find <span class="math inline">\(d_0\)</span> such that</p>
 <p><span class="math display">\[1 \cdot d_0 \equiv 450 \pmod
 5\]</span></p>
 <p><span class="math inline">\(450\)</span> is divisible by <span class="math inline">\(5\)</span>, so</p>
 <p><span class="math display">\[d_0 = 0\]</span></p>
 <p>i.e. no remainder.</p>
-<p><strong>If we chip away this difference (subtract the remainder) to
-make it fit, how close will it be to a multiple of <span class="math inline">\(5\)</span>?</strong></p>
-<ul>
-<li>New <span class="math inline">\(a\)</span>:</li>
-</ul>
+<p>If we chip away this difference (subtract the remainder) to make it
+fit, how close will it be to a multiple of <span class="math inline">\(5\)</span>?</p>
+<p>New <span class="math inline">\(a\)</span>:</p>
 <p><span class="math display">\[\text{new }a =\frac{\text{old
 }a-\text{remainder}}{\text{mod}}\]</span></p>
 <p>Notice that <span class="math inline">\(\text{old
 }a-\text{remainder}\)</span> will always be divisible by the “mod”.</p>
 <p><span class="math display">\[\frac{(450 - 0)}{5} =
 \mathbf{90}\]</span></p>
-<ul>
-<li><p>Level <span class="math inline">\(5^1\)</span>:</p>
-<ul>
-<li>Find <span class="math inline">\(d_1\)</span> such that</li>
-</ul>
+<p>Level <span class="math inline">\(5^1\)</span>:</p>
+<p>Find <span class="math inline">\(d_1\)</span> such that</p>
 <p><span class="math display">\[1 \cdot d_1 \equiv 90 \pmod
 5\]</span></p>
 <p><span class="math inline">\(90\)</span> is divisible by <span class="math inline">\(5\)</span>, so</p>
-<p><span class="math display">\[d_1 = 0\]</span></p></li>
-</ul>
-<p><strong>If we chip away this difference from the multiple of <span class="math inline">\(5\)</span> in the previous step, how close will
-<span class="math inline">\(25\)</span> be?</strong></p>
-<ul>
-<li>New <span class="math inline">\(a\)</span>:</li>
-</ul>
-<p>$<span class="math inline">\(\frac{(90 - 0)}{5} =
-\mathbf{18}\)</span></p>
-<ul>
-<li><p>Level <span class="math inline">\(5^2\)</span>:</p>
-<ul>
-<li>Find <span class="math inline">\(d_2\)</span> such that <span class="math inline">\(1 \cdot d_2 \equiv 18 \pmod 5\)</span>. <span class="math inline">\(18 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_2 =
-3\)</span>.</li>
-</ul></li>
-</ul>
-<p><strong>If we chip away this difference from the multiple of <span class="math inline">\(25\)</span> in the previous step, how close will
-<span class="math inline">\(125\)</span> fit into it?</strong></p>
-<ul>
-<li><p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((18 - 3) / 5 = \mathbf{3}\)</span>.</p></li>
-<li><p>Level <span class="math inline">\(5^3\)</span>:</p>
-<ul>
-<li>Find <span class="math inline">\(d_3\)</span> such that <span class="math inline">\(1 \cdot d_3 \equiv 3 \pmod 5\)</span>. <span class="math inline">\(3 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_3 =
-3\)</span>.</li>
-</ul></li>
-</ul>
+<p><span class="math display">\[d_1 = 0\]</span></p>
+<p>If we chip away this difference from the multiple of <span class="math inline">\(5\)</span> in the previous step, how close will
+<span class="math inline">\(25\)</span> be?</p>
+<p>New <span class="math inline">\(a\)</span>:</p>
+<p><span class="math display">\[\frac{(90 - 0)}{5} =
+\mathbf{18}\]</span></p>
+<p>Level <span class="math inline">\(5^2\)</span>:</p>
+<p>Find <span class="math inline">\(d_2\)</span> such that <span class="math inline">\(1 \cdot d_2 \equiv 18 \pmod 5\)</span>. <span class="math inline">\(18 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_2 =
+3\)</span>.</p>
+<p>If we chip away this difference from the multiple of <span class="math inline">\(25\)</span> in the previous step, how close will
+<span class="math inline">\(125\)</span> fit into it?</p>
+<p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((18 - 3) / 5 = \mathbf{3}\)</span>.</p>
+<p>Level <span class="math inline">\(5^3\)</span>:</p>
+<p>Find <span class="math inline">\(d_3\)</span> such that <span class="math inline">\(1 \cdot d_3 \equiv 3 \pmod 5\)</span>. <span class="math inline">\(3 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_3 =
+3\)</span>.</p>
 <p>Et cetera.</p>
 <p>Result: (Digits <span class="math inline">\(d_0, d_1, d_2,
 d_3\)</span>) <span class="math inline">\(\rightarrow \boxed{0, 0, 3,
@@ -1462,8 +1444,8 @@ away by the <code>remainder</code> (<span class="math inline">\(b_i\)</span>) an
 <th align="left">Power</th>
 <th align="left">Current<br> <span class="math inline">\(a_i\)</span></th>
 <th align="left">Digit<br> <span class="math inline">\(b_i\)</span></th>
-<th align="left">Subtraction<br> <span class="math inline">\(\small a -
-b_i\)</span></th>
+<th align="left">Subtraction<br> <span class="math inline">\(\small a_i
+- b_i\)</span></th>
 <th align="left">New<br><span class="math inline">\(\small
 a_{i+1}=\frac{a_i}5\)</span></th>
 <th align="left">Partial sums<br> <span class="math inline">\(\small x_n
@@ -1566,6 +1548,23 @@ the lowest power to the highest, the expansion is <span class="math inline">\(2,
 it is written as: <span class="math inline">\(...000114412_5\)</span>.
 In base <span class="math inline">\(5\)</span> notation: Written from
 the highest power to the lowest, it is <span class="math inline">\(114412_5\)</span>.</p>
+<p>Notice that it’s not necessary to follow the algorithm to extract a
+given digit: In any base <span class="math inline">\(p\)</span>, the
+“third digit” (the coefficient of <span class="math inline">\(p^2\)</span>) is buried inside the number. You can
+jump straight to it by using the modulo operator and the integer
+division operator. To find the <span class="math inline">\(k\)</span>-th
+digit (<span class="math inline">\(d_k\)</span>, which corresponds to
+the power <span class="math inline">\(p^k\)</span>), you can use this
+formula:</p>
+<p><span class="math display">\[d_k = \lfloor \frac{n}{p^k} \rfloor
+\pmod p\]</span></p>
+<p>For <span class="math inline">\(n = 45435, p = 5\)</span>, for
+example, if you want the “third digit” (starting the count from the
+<span class="math inline">\(0\)</span>-th digit, <span class="math inline">\(d_2\)</span> for <span class="math inline">\(5^2 =
+25\)</span>):</p>
+<p>Divide by <span class="math inline">\(25\)</span>: <span class="math inline">\(\lfloor 45435 / 25 \rfloor = 1817\)</span>. Take
+the remainder mod <span class="math inline">\(5\)</span>: <span class="math inline">\(1817 \pmod 5 = \mathbf{2}\)</span>.</p>
+<hr />
 <p>In the study of <span class="math inline">\(p\)</span>-adic numbers,
 the values <span class="math inline">\(x_n\)</span> are called
 <strong>partial sums</strong> (or sometimes <strong>congruential

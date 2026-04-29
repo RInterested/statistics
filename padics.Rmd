@@ -256,7 +256,7 @@ Because we must use the form $1 - r$ for our series to work, and Fermat gives us
 
 $$\frac{1}{b} = \frac{k}{p^n - 1} = \frac{k}{-(1 - p^n)} = -k \left( \frac{1}{1 - p^n} \right)$$
 
-Therefore we really start in the negatives. To represent a positive fraction as an infinite string, i.e. a $p$-adic integers, we are actually expanding a negative integer and shifting it across the origin. This creates the symmetry. In base $p,$ we approach the fraction by adding smaller and smaller pieces ($p^{-n}$) starting from zero. In $p$-adics, we approach the fraction by adding $p$-adically smaller pieces ($p^n$). 
+Therefore we really start in the negatives. To represent a positive fraction as an infinite string, i.e. a $p$-adic integer, we are actually expanding a negative integer and shifting it across the origin. This creates the symmetry. In base $p,$ we approach the fraction by adding smaller and smaller pieces ($p^{-n}$) starting from zero. In $p$-adics, we approach the fraction by adding $p$-adically smaller pieces ($p^n$). 
 
 The negative first term matches perfectly the idea that $\dots (p-1)(p-1)(p-1)=-1$ for any p-adic system, and this is in fact also the "end of the odometer" given that we are operating with $\{0,1, \dots,p-1\}$. In the real numbers, $0.999\dots$ reaches up to $1$. In $p$-adics, $\dots(p-1)$ it reaches up to $-1$. It is effectively the "largest" possible representation (using all available digits) that, through the magic of $p$-adic carries, lands on the additive inverse of the multiplicative identity.
 
@@ -563,58 +563,58 @@ $$\frac {450}1 = d_k(5^k) + \dots + d_2(5^2) + d_1(5^1) + d_0(5^0)$$
 Therefore
 
 $$\frac {450}1 \equiv  d_0 \pmod 5$$
-- Level $5^0$: 
+Level $5^0$: 
 
-**How much is the initial number in base $5$?**
+How much is the initial number in base $5$?
 
-  - Find $d_0$ such that 
+Find $d_0$ such that 
   
-  $$1 \cdot d_0 \equiv 450 \pmod 5$$
+$$1 \cdot d_0 \equiv 450 \pmod 5$$
   
-  $450$ is divisible by $5$, so 
+$450$ is divisible by $5$, so 
   
-  $$d_0 = 0$$
+$$d_0 = 0$$
   
-  i.e. no remainder.
+i.e. no remainder.
   
   
-**If we chip away this difference (subtract the remainder) to make it fit,  how close will it be to a multiple of $5$?** 
+If we chip away this difference (subtract the remainder) to make it fit, how close will it be to a multiple of $5$? 
 
-  - New $a$: 
+New $a$: 
   
-  $$\text{new }a =\frac{\text{old }a-\text{remainder}}{\text{mod}}$$
+$$\text{new }a =\frac{\text{old }a-\text{remainder}}{\text{mod}}$$
   
-  Notice that $\text{old }a-\text{remainder}$ will always be divisible by the "mod".
+Notice that $\text{old }a-\text{remainder}$ will always be divisible by the "mod".
   
-  $$\frac{(450 - 0)}{5} = \mathbf{90}$$
+$$\frac{(450 - 0)}{5} = \mathbf{90}$$
 
-- Level $5^1$: 
+Level $5^1$: 
 
-  - Find $d_1$ such that 
+Find $d_1$ such that 
   
-  $$1 \cdot d_1 \equiv 90 \pmod 5$$ 
+$$1 \cdot d_1 \equiv 90 \pmod 5$$ 
   
-  $90$ is divisible by $5$, so 
+$90$ is divisible by $5$, so 
   
-  $$d_1 = 0$$
+$$d_1 = 0$$
   
-**If we chip away this difference from the multiple of $5$ in the previous step, how close will $25$ be?**
+If we chip away this difference from the multiple of $5$ in the previous step, how close will $25$ be?
   
-  - New $a$: 
+New $a$: 
   
-  $$\frac{(90 - 0)}{5} = \mathbf{18}$
+$$\frac{(90 - 0)}{5} = \mathbf{18}$$
   
-- Level $5^2$: 
+Level $5^2$: 
 
-  - Find $d_2$ such that $1 \cdot d_2 \equiv 18 \pmod 5$. $18 \div 5$ leaves a remainder of $3$. So $d_2 = 3$.
+Find $d_2$ such that $1 \cdot d_2 \equiv 18 \pmod 5$. $18 \div 5$ leaves a remainder of $3$. So $d_2 = 3$.
   
-**If we chip away this difference from the multiple of $25$ in the previous step, how close will $125$ fit into it?**  
+If we chip away this difference from the multiple of $25$ in the previous step, how close will $125$ fit into it?
   
-  - New $a$: $(18 - 3) / 5 = \mathbf{3}$.
+New $a$: $(18 - 3) / 5 = \mathbf{3}$.
   
-- Level $5^3$: 
+Level $5^3$: 
  
-  - Find $d_3$ such that $1 \cdot d_3 \equiv 3 \pmod 5$. $3 \div 5$ leaves a remainder of $3$. So $d_3 = 3$.
+Find $d_3$ such that $1 \cdot d_3 \equiv 3 \pmod 5$. $3 \div 5$ leaves a remainder of $3$. So $d_3 = 3$.
   
 Et cetera.
   
@@ -649,6 +649,7 @@ They are equivalent because they both seek to satisfy the same fundamental polyn
 As a more involved example, take the number $4357$. Whether we use the "telescope" (base $5$) or "microscope" ($5$-adic) method, we are solving for the unique set of coefficients $\{b_i\}$ in this identity:
 
 $$\bbox[5px, border: 1px solid black]{\color{red}{4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3) + b_4 (5^4) + b_5 (5^5)}}$$
+
 
 ---
 
@@ -706,7 +707,7 @@ In regular division the quotient is saved at each step, while the remainder is a
 
 ---
 
-| Power | Current<br> $a_i$ | Digit<br> $b_i$ | Subtraction<br> $\small a - b_i$ | New<br>$\small a_{i+1}=\frac{a_i}5$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
+| Power | Current<br> $a_i$ | Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\frac{a_i}5$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | $5^0=1$ | $4357$ | $\color{red}2$ ($b_0$) | $4357 - 2 = 4355$ | $871$ | $x_0 = 0$ | — |
 | $5^1=5$ | $871$ | $\color{red}1$ ($b_1$) | $871 - 1 = 870$ | $174$ | $x_1 = 2$ | $2 \equiv 2 \pmod{1}$ |
@@ -726,6 +727,17 @@ $$4357 = (\mathbf{2} \cdot 5^0) + (\mathbf{1} \cdot 5^1) + (\mathbf{4} \cdot 5^2
 Checking the math: $2 \times 1 + 1 \times 5 + 4 \times 25 +4 \times 125 + 1 \times 625 + 1 \times 3125 = 4,357$ 
 
 In $5$-adic notation, written from the lowest power to the highest, the expansion is $2, 1, 4, 4, 1, 1.$ In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412_5$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
+
+Notice that it's not necessary to follow the algorithm to extract a given digit: In any base $p$, the "third digit" (the coefficient of $p^2$) is buried inside the number. You can jump straight to it by using the modulo operator and the integer division operator. To find the $k$-th digit ($d_k$, which corresponds to the power $p^k$), you can use this formula: 
+
+$$d_k = \lfloor \frac{n}{p^k} \rfloor \pmod p$$
+
+For $n = 45435, p = 5$, for example, if you want the "third digit" (starting the count from the $0$-th digit, $d_2$ for $5^2 = 25$):
+
+Divide by $25$: $\lfloor 45435 / 25 \rfloor = 1817$. Take the remainder mod $5$: $1817 \pmod 5 = \mathbf{2}$.
+
+
+---
 
 In the study of $p$-adic numbers, the values $x_n$ are called **partial sums** (or sometimes **congruential approximations**). They represent the $p$-adic integer as a sequence of integers that "nest" inside one another. Mathematically, a $p$-adic integer is often defined exactly as this sequence $\{x_1, x_2, x_3, \dots\}$. The relationship between $x_n$ and the digits $b_i$ is additive. While the digits $b_i$ are the individual coefficients of the power series, the $x_n$ values are the cumulative totals of that series up to a certain point.
 
