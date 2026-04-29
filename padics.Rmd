@@ -707,17 +707,23 @@ In regular division the quotient is saved at each step, while the remainder is a
 
 ---
 
-| Power | Current<br> $a_i$ | Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\frac{a_i}5$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $5^0=1$ | $4357$ | $\color{red}2$ ($b_0$) | $4357 - 2 = 4355$ | $871$ | $x_0 = 0$ | — |
-| $5^1=5$ | $871$ | $\color{red}1$ ($b_1$) | $871 - 1 = 870$ | $174$ | $x_1 = 2$ | $2 \equiv 2 \pmod{1}$ |
-| $5^2=25$ | $174$ | $\color{red}4$ ($b_2$) | $174 - 4 = 170$ | $34$ | $x_2 = 7$ | $7 \equiv 2 \pmod{5}$ |
-| $5^3=125$ | $34$ | $\color{red}4$ ($b_3$) | $34 - 4 = 30$ | $6$ | $x_3 = 107$ | $107 \equiv 7 \pmod{25}$ |
-| $5^4=625$ | $6$ | $\color{red}1$ ($b_4$) | $6 - 1 = 5$ | $1$ | $x_4 = 607$ | $607 \equiv 107 \pmod{125}$ |
-| $5^5=3125$ | $1$ | $\color{red}1$ ($b_5$) | $1 - 1 = 0$ | $0$ | $x_5 = 1232$ | $1232 \equiv 607 \pmod{625}$ |
-| $5^6=15625$ | $0$ | $\color{red}0$ ($b_6$) | $0 - 0 = 0$ | $0$ | $x_6 = 4357$ | $4357 \equiv 1232 \pmod{3125}$ |
+| Power | Current<br> $\tiny a_i=\frac{\text{Quot - Rem}}5$ |Mod<br> $5$| Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\frac{a_i}5$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $5^0=1$ | $4357$| $\tiny{\mod 5}:$ | $\color{red}2\;(b_0)$ | $\small 4357 - 2 = 4355$ | $871$ | $x_0 = 0$ | — |
+| $5^1=5$ | $871$  |$\tiny{\mod 5}:$ | $\color{red}1\;(b_1)$ | $\small 871 - 1 = 870$ | $174$ | $x_1 = 2$ | $2 \equiv 2 \pmod{1}$ |
+| $5^2=25$ | $174$ |$\tiny{\mod 5}:$ | $\color{red}4\;(b_2)$ | $\small 174 - 4 = 170$ | $34$ | $x_2 = 7$ | $7 \equiv 2 \pmod{5}$ |
+| $5^3=125$ | $34$|$\tiny{\mod 5}:$ | $\color{red}4\;(b_3)$ | $\small 34 - 4 = 30$ | $6$ | $x_3 = 107$ | $107 \equiv 7 \pmod{25}$ |
+| $5^4=625$ | $6$| $\tiny{\mod 5}:$| $\color{red}1\; (b_4)$ | $\small 6 - 1 = 5$ | $1$ | $x_4 = 607$ | $607 \equiv 107 \pmod{125}$ |
+| $5^5=3125$ | $1$| $\tiny{\mod 5}:$| $\color{red}1\; (b_5)$ | $\small 1 - 1 = 0$ | $0$ | $x_5 = 1232$ | $1232 \equiv 607 \pmod{625}$ |
+| $5^6=15625$ | $0$| $\tiny{\mod 5}:$| $\color{red}0\; (b_6)$ | $\small 0 - 0 = 0$ | $0$ | $x_6 = 4357$ | $4357 \equiv 1232 \pmod{3125}$ |
 
 ---
+
+The reason the quotient readjusts by subtracting the remainder is that each step is designed to make the remaining value divisible by a higher power of $p$. We start with $x$. To find $a_0$, we take $x \pmod p$. By calculating $x - a_0$, we are guaranteed a result that is a multiple of $p$. Dividing by $p$ we get the new quotient: $x_1 = \frac{x - a_0}{p}$ is essentially "zooming in" on the next digit.A Instead of seeing it as a standard quotient, we can think of it as solving a series of nested congruences. We are finding the unique integer $a_i$ that satisfies:
+
+$$x \equiv a_0 + a_1p + \dots + a_i p^i \pmod{p^{i+1}}$$
+
+Each time we subtract the remainder and divide, we are moving the focus from the $p^i$ column to the $p^{i+1}$ column.
 
 
 The digits we found $(b_0, b_1, b_2, b_3, b_4, b_5)$ are the coefficients for the powers of $5$:
@@ -725,6 +731,18 @@ The digits we found $(b_0, b_1, b_2, b_3, b_4, b_5)$ are the coefficients for th
 $$4357 = (\mathbf{2} \cdot 5^0) + (\mathbf{1} \cdot 5^1) + (\mathbf{4} \cdot 5^2) + (\mathbf{4} \cdot 5^3) + (\mathbf{1} \cdot 5^4) + (\mathbf{1} \cdot 5^5)$$
 
 Checking the math: $2 \times 1 + 1 \times 5 + 4 \times 25 +4 \times 125 + 1 \times 625 + 1 \times 3125 = 4,357$ 
+
+$x_1$: $b_0 \cdot 5^0 = 2 \cdot 1 = \mathbf{2}$
+
+$x_2$: $x_1 + b_1 \cdot 5^1 = 2 + (1 \cdot 5) = \mathbf{7}$
+
+$x_3$: $x_2 + b_2 \cdot 5^2 = 7 + (4 \cdot 25) = \mathbf{107}$
+
+$x_4$: $x_3 + b_3 \cdot 5^3 = 107 + (4 \cdot 125) = \mathbf{607}$
+
+$x_5$: $x_4 + b_4 \cdot 5^4 = 607 + (1 \cdot 625) = \mathbf{1232}$
+
+$x_6$: $x_5 + b_5 \cdot 5^5 = 1232 + (1 \cdot 3125) = \mathbf{4357}$
 
 In $5$-adic notation, written from the lowest power to the highest, the expansion is $2, 1, 4, 4, 1, 1.$ In standard $p$-adic form (infinite zeros to the left), it is written as: $...000114412_5$. In base $5$ notation: Written from the highest power to the lowest, it is $114412_5$.
 

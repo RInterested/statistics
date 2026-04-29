@@ -1429,20 +1429,23 @@ saved to reconstitute the number, and it is the initial number (the
 away by the <code>remainder</code> (<span class="math inline">\(b_i\)</span>) and <strong>divided</strong> by
 <span class="math inline">\(5\)</span> at each step.</p>
 <hr />
-<table style="width:100%;">
+<table>
 <colgroup>
-<col width="14%" />
-<col width="14%" />
-<col width="14%" />
-<col width="14%" />
-<col width="14%" />
-<col width="14%" />
-<col width="14%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">Power</th>
-<th align="left">Current<br> <span class="math inline">\(a_i\)</span></th>
+<th align="left">Current<br> <span class="math inline">\(\tiny
+a_i=\frac{\text{Quot - Rem}}5\)</span></th>
+<th align="left">Mod<br> <span class="math inline">\(5\)</span></th>
 <th align="left">Digit<br> <span class="math inline">\(b_i\)</span></th>
 <th align="left">Subtraction<br> <span class="math inline">\(\small a_i
 - b_i\)</span></th>
@@ -1458,9 +1461,10 @@ a_{i+1}=\frac{a_i}5\)</span></th>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^0=1\)</span></td>
 <td align="left"><span class="math inline">\(4357\)</span></td>
-<td align="left"><span class="math inline">\(\color{red}2\)</span>
-(<span class="math inline">\(b_0\)</span>)</td>
-<td align="left"><span class="math inline">\(4357 - 2 =
+<td align="left"><span class="math inline">\(\tiny{\mod
+5}:\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}2\;(b_0)\)</span></td>
+<td align="left"><span class="math inline">\(\small 4357 - 2 =
 4355\)</span></td>
 <td align="left"><span class="math inline">\(871\)</span></td>
 <td align="left"><span class="math inline">\(x_0 = 0\)</span></td>
@@ -1469,9 +1473,11 @@ a_{i+1}=\frac{a_i}5\)</span></th>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^1=5\)</span></td>
 <td align="left"><span class="math inline">\(871\)</span></td>
-<td align="left"><span class="math inline">\(\color{red}1\)</span>
-(<span class="math inline">\(b_1\)</span>)</td>
-<td align="left"><span class="math inline">\(871 - 1 = 870\)</span></td>
+<td align="left"><span class="math inline">\(\tiny{\mod
+5}:\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\;(b_1)\)</span></td>
+<td align="left"><span class="math inline">\(\small 871 - 1 =
+870\)</span></td>
 <td align="left"><span class="math inline">\(174\)</span></td>
 <td align="left"><span class="math inline">\(x_1 = 2\)</span></td>
 <td align="left"><span class="math inline">\(2 \equiv 2
@@ -1480,9 +1486,11 @@ a_{i+1}=\frac{a_i}5\)</span></th>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^2=25\)</span></td>
 <td align="left"><span class="math inline">\(174\)</span></td>
-<td align="left"><span class="math inline">\(\color{red}4\)</span>
-(<span class="math inline">\(b_2\)</span>)</td>
-<td align="left"><span class="math inline">\(174 - 4 = 170\)</span></td>
+<td align="left"><span class="math inline">\(\tiny{\mod
+5}:\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}4\;(b_2)\)</span></td>
+<td align="left"><span class="math inline">\(\small 174 - 4 =
+170\)</span></td>
 <td align="left"><span class="math inline">\(34\)</span></td>
 <td align="left"><span class="math inline">\(x_2 = 7\)</span></td>
 <td align="left"><span class="math inline">\(7 \equiv 2
@@ -1491,9 +1499,11 @@ a_{i+1}=\frac{a_i}5\)</span></th>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^3=125\)</span></td>
 <td align="left"><span class="math inline">\(34\)</span></td>
-<td align="left"><span class="math inline">\(\color{red}4\)</span>
-(<span class="math inline">\(b_3\)</span>)</td>
-<td align="left"><span class="math inline">\(34 - 4 = 30\)</span></td>
+<td align="left"><span class="math inline">\(\tiny{\mod
+5}:\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}4\;(b_3)\)</span></td>
+<td align="left"><span class="math inline">\(\small 34 - 4 =
+30\)</span></td>
 <td align="left"><span class="math inline">\(6\)</span></td>
 <td align="left"><span class="math inline">\(x_3 = 107\)</span></td>
 <td align="left"><span class="math inline">\(107 \equiv 7
@@ -1502,9 +1512,12 @@ a_{i+1}=\frac{a_i}5\)</span></th>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^4=625\)</span></td>
 <td align="left"><span class="math inline">\(6\)</span></td>
-<td align="left"><span class="math inline">\(\color{red}1\)</span>
-(<span class="math inline">\(b_4\)</span>)</td>
-<td align="left"><span class="math inline">\(6 - 1 = 5\)</span></td>
+<td align="left"><span class="math inline">\(\tiny{\mod
+5}:\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\;
+(b_4)\)</span></td>
+<td align="left"><span class="math inline">\(\small 6 - 1 =
+5\)</span></td>
 <td align="left"><span class="math inline">\(1\)</span></td>
 <td align="left"><span class="math inline">\(x_4 = 607\)</span></td>
 <td align="left"><span class="math inline">\(607 \equiv 107
@@ -1513,9 +1526,12 @@ a_{i+1}=\frac{a_i}5\)</span></th>
 <tr class="even">
 <td align="left"><span class="math inline">\(5^5=3125\)</span></td>
 <td align="left"><span class="math inline">\(1\)</span></td>
-<td align="left"><span class="math inline">\(\color{red}1\)</span>
-(<span class="math inline">\(b_5\)</span>)</td>
-<td align="left"><span class="math inline">\(1 - 1 = 0\)</span></td>
+<td align="left"><span class="math inline">\(\tiny{\mod
+5}:\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}1\;
+(b_5)\)</span></td>
+<td align="left"><span class="math inline">\(\small 1 - 1 =
+0\)</span></td>
 <td align="left"><span class="math inline">\(0\)</span></td>
 <td align="left"><span class="math inline">\(x_5 = 1232\)</span></td>
 <td align="left"><span class="math inline">\(1232 \equiv 607
@@ -1524,9 +1540,12 @@ a_{i+1}=\frac{a_i}5\)</span></th>
 <tr class="odd">
 <td align="left"><span class="math inline">\(5^6=15625\)</span></td>
 <td align="left"><span class="math inline">\(0\)</span></td>
-<td align="left"><span class="math inline">\(\color{red}0\)</span>
-(<span class="math inline">\(b_6\)</span>)</td>
-<td align="left"><span class="math inline">\(0 - 0 = 0\)</span></td>
+<td align="left"><span class="math inline">\(\tiny{\mod
+5}:\)</span></td>
+<td align="left"><span class="math inline">\(\color{red}0\;
+(b_6)\)</span></td>
+<td align="left"><span class="math inline">\(\small 0 - 0 =
+0\)</span></td>
 <td align="left"><span class="math inline">\(0\)</span></td>
 <td align="left"><span class="math inline">\(x_6 = 4357\)</span></td>
 <td align="left"><span class="math inline">\(4357 \equiv 1232
@@ -1535,6 +1554,20 @@ a_{i+1}=\frac{a_i}5\)</span></th>
 </tbody>
 </table>
 <hr />
+<p>The reason the quotient readjusts by subtracting the remainder is
+that each step is designed to make the remaining value divisible by a
+higher power of <span class="math inline">\(p\)</span>. We start with
+<span class="math inline">\(x\)</span>. To find <span class="math inline">\(a_0\)</span>, we take <span class="math inline">\(x \pmod p\)</span>. By calculating <span class="math inline">\(x - a_0\)</span>, we are guaranteed a result that
+is a multiple of <span class="math inline">\(p\)</span>. Dividing by
+<span class="math inline">\(p\)</span> we get the new quotient: <span class="math inline">\(x_1 = \frac{x - a_0}{p}\)</span> is essentially
+“zooming in” on the next digit.A Instead of seeing it as a standard
+quotient, we can think of it as solving a series of nested congruences.
+We are finding the unique integer <span class="math inline">\(a_i\)</span> that satisfies:</p>
+<p><span class="math display">\[x \equiv a_0 + a_1p + \dots + a_i p^i
+\pmod{p^{i+1}}\]</span></p>
+<p>Each time we subtract the remainder and divide, we are moving the
+focus from the <span class="math inline">\(p^i\)</span> column to the
+<span class="math inline">\(p^{i+1}\)</span> column.</p>
 <p>The digits we found <span class="math inline">\((b_0, b_1, b_2, b_3,
 b_4, b_5)\)</span> are the coefficients for the powers of <span class="math inline">\(5\)</span>:</p>
 <p><span class="math display">\[4357 = (\mathbf{2} \cdot 5^0) +
@@ -1543,6 +1576,18 @@ b_4, b_5)\)</span> are the coefficients for the powers of <span class="math inli
 <p>Checking the math: <span class="math inline">\(2 \times 1 + 1 \times
 5 + 4 \times 25 +4 \times 125 + 1 \times 625 + 1 \times 3125 =
 4,357\)</span></p>
+<p><span class="math inline">\(x_1\)</span>: <span class="math inline">\(b_0 \cdot 5^0 = 2 \cdot 1 =
+\mathbf{2}\)</span></p>
+<p><span class="math inline">\(x_2\)</span>: <span class="math inline">\(x_1 + b_1 \cdot 5^1 = 2 + (1 \cdot 5) =
+\mathbf{7}\)</span></p>
+<p><span class="math inline">\(x_3\)</span>: <span class="math inline">\(x_2 + b_2 \cdot 5^2 = 7 + (4 \cdot 25) =
+\mathbf{107}\)</span></p>
+<p><span class="math inline">\(x_4\)</span>: <span class="math inline">\(x_3 + b_3 \cdot 5^3 = 107 + (4 \cdot 125) =
+\mathbf{607}\)</span></p>
+<p><span class="math inline">\(x_5\)</span>: <span class="math inline">\(x_4 + b_4 \cdot 5^4 = 607 + (1 \cdot 625) =
+\mathbf{1232}\)</span></p>
+<p><span class="math inline">\(x_6\)</span>: <span class="math inline">\(x_5 + b_5 \cdot 5^5 = 1232 + (1 \cdot 3125) =
+\mathbf{4357}\)</span></p>
 <p>In <span class="math inline">\(5\)</span>-adic notation, written from
 the lowest power to the highest, the expansion is <span class="math inline">\(2, 1, 4, 4, 1, 1.\)</span> In standard <span class="math inline">\(p\)</span>-adic form (infinite zeros to the left),
 it is written as: <span class="math inline">\(...000114412_5\)</span>.
