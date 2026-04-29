@@ -1996,13 +1996,29 @@ field <span class="math inline">\(\mathbb{F}_p\)</span>. Mathematically,
 we say there is a map:</p>
 <p><span class="math display">\[\mathbb{Z}_p \to \mathbb{Z}/p\mathbb{Z}
 \cong \mathbb{F}_p\]</span></p>
-<p>When you find your point <span class="math inline">\(q\)</span> in
-the field <span class="math inline">\(\mathbb{F}_{p^{234}}\)</span>, its
-coordinates are polynomials like <span class="math display">\[x_q = c_0
-+ c_1 \alpha + c_2 \alpha^2 + \dots + c_{233} \alpha^{233}\]</span>. You
-take the coefficients of those polynomials (which are just numbers like
-<span class="math inline">\(0, 1, \dots, p-1\)</span>) and you say:
-“These are now <span class="math inline">\(d_0\)</span>.</p>
+<p>When we create <span class="math inline">\(\mathbb{F}_{p^{234}}\)</span>, we aren’t just
+making the base field larger. We are adding a new, symbolic element —
+let’s call it <span class="math inline">\(\alpha\)</span> — that acts as
+a root to an irreducible polynomial of degree <span class="math inline">\(234.\)</span> Every number in this field is forced
+to be written as a combination of powers of that <span class="math inline">\(\alpha\)</span>. If you found a point <span class="math inline">\(q\)</span> in this field, its <span class="math inline">\(x\)</span>-coordinate isn’t a single digit. It
+looks like this:</p>
+<p><span class="math display">\[x_q = c_0 + c_1 \alpha + c_2 \alpha^2 +
+\dots + c_{233} \alpha^{233}\]</span></p>
+<p>Each <span class="math inline">\(c_i\)</span> is a number from the
+base field <span class="math inline">\(\mathbb{F}_p\)</span> (like <span class="math inline">\(0, 1, 2, 3,\)</span> or <span class="math inline">\(4\)</span> if <span class="math inline">\(p=5\)</span>). This is the polynomial.</p>
+<p>Example:</p>
+<p>The field extension (<span class="math inline">\(\mathbb{F}_{5^2}\)</span>): Imagine our torsion
+point <span class="math inline">\(q\)</span> exists in a field where
+we’ve added a “ghost” number <span class="math inline">\(\alpha\)</span>
+such that <span class="math inline">\(\alpha^2 = 2\)</span>, akin to
+<span class="math inline">\(i^2=-1\)</span>. In this field, every number
+is a polynomial: <span class="math inline">\(c_0 + c_1\alpha\)</span>.
+Let’s say we find a point <span class="math inline">\(q\)</span> in the
+field <span class="math inline">\(\mathbb{F}_{5^2}\)</span> with <span class="math inline">\(x\)</span>-coordinate:</p>
+<p><span class="math display">\[x_q = 1 + 2\alpha\]</span></p>
+<p>This is our <span class="math inline">\(d_0\)</span>. It’s a
+“polynomial digit.” Now we want to lift this to Precision 2 (<span class="math inline">\(\pmod{25}\)</span>). Now we are looking for a
+“first floor” <span class="math inline">\(d_1\)</span>, but this <span class="math inline">\(d_1\)</span> must also be a polynomial in <span class="math inline">\(\alpha\)</span>.</p>
 <hr />
 <p>(**) Take one piece of the product for a prime <span class="math inline">\(p\)</span>. Using the geometric series formula
 <span class="math inline">\(\frac{1}{1-X} = 1 + X + X^2 +
