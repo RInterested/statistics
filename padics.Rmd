@@ -707,7 +707,7 @@ In regular division the quotient is saved at each step, while the remainder is a
 
 ---
 
-| Power | Current<br> $\tiny a_i=\frac{\text{Quot - Rem}}5$ |Mod<br> $5$| Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\frac{a_i}5$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
+| Power | Current<br> $\tiny a_i=\frac{\text{Quot - Rem}}5$ |Mod<br> $5$| Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\lfloor{\frac{a_i}{5}}\rfloor$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | $5^0=1$ | $4357$| $\tiny{\mod 5}:$ | $\color{red}2\;(b_0)$ | $\small 4357 - 2 = 4355$ | $871$ | $x_0 = 0$ | — |
 | $5^1=5$ | $871$  |$\tiny{\mod 5}:$ | $\color{red}1\;(b_1)$ | $\small 871 - 1 = 870$ | $174$ | $x_1 = 2$ | $2 \equiv 2 \pmod{1}$ |
@@ -719,7 +719,7 @@ In regular division the quotient is saved at each step, while the remainder is a
 
 ---
 
-The reason the quotient readjusts by subtracting the remainder is that each step is designed to make the remaining value divisible by a higher power of $p$. We start with $x$. To find $a_0$, we take $x \pmod p$. By calculating $x - a_0$, we are guaranteed a result that is a multiple of $p$. Dividing by $p$ we get the new quotient: $x_1 = \frac{x - a_0}{p}$ is essentially "zooming in" on the next digit.A Instead of seeing it as a standard quotient, we can think of it as solving a series of nested congruences. We are finding the unique integer $a_i$ that satisfies:
+The reason the quotient readjusts by subtracting the remainder is that each step is designed to make the remaining value divisible by a higher power of $p$. We start with $x$. To find $a_0$, we take $x \pmod p$. By calculating $x - a_0$, we are guaranteed a result that is a multiple of $p$. Dividing by $p$ we get the new quotient: $x_{i+1} = \frac{x_i - a_0}{p}=\lfloor{\frac{x_i}{5}}\rfloor$ is essentially "zooming in" on the next digit.A Instead of seeing it as a standard quotient, we can think of it as solving a series of nested congruences. We are finding the unique integer $a_i$ that satisfies:
 
 $$x \equiv a_0 + a_1p + \dots + a_i p^i \pmod{p^{i+1}}$$
 

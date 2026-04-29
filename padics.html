@@ -1450,7 +1450,7 @@ a_i=\frac{\text{Quot - Rem}}5\)</span></th>
 <th align="left">Subtraction<br> <span class="math inline">\(\small a_i
 - b_i\)</span></th>
 <th align="left">New<br><span class="math inline">\(\small
-a_{i+1}=\frac{a_i}5\)</span></th>
+a_{i+1}=\lfloor{\frac{a_i}{5}}\rfloor\)</span></th>
 <th align="left">Partial sums<br> <span class="math inline">\(\small x_n
 = 4357 \pmod{5^n}\)</span></th>
 <th align="left">Consistency<br><span class="math inline">\(\small x_n
@@ -1559,10 +1559,12 @@ that each step is designed to make the remaining value divisible by a
 higher power of <span class="math inline">\(p\)</span>. We start with
 <span class="math inline">\(x\)</span>. To find <span class="math inline">\(a_0\)</span>, we take <span class="math inline">\(x \pmod p\)</span>. By calculating <span class="math inline">\(x - a_0\)</span>, we are guaranteed a result that
 is a multiple of <span class="math inline">\(p\)</span>. Dividing by
-<span class="math inline">\(p\)</span> we get the new quotient: <span class="math inline">\(x_1 = \frac{x - a_0}{p}\)</span> is essentially
-“zooming in” on the next digit.A Instead of seeing it as a standard
-quotient, we can think of it as solving a series of nested congruences.
-We are finding the unique integer <span class="math inline">\(a_i\)</span> that satisfies:</p>
+<span class="math inline">\(p\)</span> we get the new quotient: <span class="math inline">\(x_{i+1} = \frac{x_i -
+a_0}{p}=\lfloor{\frac{x_i}{5}}\rfloor\)</span> is essentially “zooming
+in” on the next digit.A Instead of seeing it as a standard quotient, we
+can think of it as solving a series of nested congruences. We are
+finding the unique integer <span class="math inline">\(a_i\)</span> that
+satisfies:</p>
 <p><span class="math display">\[x \equiv a_0 + a_1p + \dots + a_i p^i
 \pmod{p^{i+1}}\]</span></p>
 <p>Each time we subtract the remainder and divide, we are moving the
