@@ -667,14 +667,14 @@ $5^1 = 5$, $5^2 = 25$, $5^3 = 125$, $5^4 = 625$, $5^5 = 3,125$, $5^6 = 15,625$.
 Since $5^5$ is the largest power that fits in $4,357,$ we start there.
 
 
-| Power (Pw)| Operation | Quotient (Quo)|  $\small \text{prior Re}-\text{Quo}\times\text{Pw}$|Remainder (Re) |
-| :--- | :--- | :--- | :---|:--- | :---|
-| $5^5$ (3,125) | $4357 \div 3125$ | $\color{red}1$ $= b_5$|$4357-1 \cdot 5^5$  | $1,232$ |
-| $5^4$ (625) | $1232 \div 625$ | $\color{red}1$ $= b_4$|$1232-1\cdot 5^4$ |$607$ |
-| $5^3$ (125) | $607 \div 125$ | $\color{red}4$ $= b_3$ |$607 - 4 \cdot 5^3$| $107$ |
-| $5^2$ (25) | $107 \div 25$ | $\color{red}4$ $=b_2$|$107 - 4\cdot 5^2$ | $7$ |
-| $5^1$ (5) | $7 \div 5$ | $\color{red}1$ $=b_1$|$7- 1\cdot 5^1$ | $2$ |
-| $5^0$ (1) | $2 \div 1$ | $\color{red}2$ $=b_0$| $2 - 2\cdot 5^0$ | $0$ |
+| Power (Pw)| Operation<br>$\frac{\text{Rem}_{i+i}}{5^i}$| Quotient (Quo)<br>$b_i=\lfloor{\frac{\text{Rem}_{i+i}}{5^i}}\rfloor$|  $\small \text{prior Re}-\text{Quo}\times\text{Pw}$|Remainder (Re) |
+| :--- | :--- | :---|:--- | :---|
+| $5^5 = 3125$ | $\frac{4357}{3125}=1.39$ | $\color{red}1$ $= b_5$|$4357-1 \cdot 5^5$  | $1,232$ |
+| $5^4 = 625$ | $\frac{1232}{625}=1.97$ | $\color{red}1$ $= b_4$|$1232-1\cdot 5^4$ |$607$ |
+| $5^3 = 125$ | $\frac{607}{125}=4.85$ | $\color{red}4$ $= b_3$ |$607 - 4 \cdot 5^3$| $107$ |
+| $5^2 = 25$ | $\frac{107}{25}=4.28$ | $\color{red}4$ $=b_2$|$107 - 4\cdot 5^2$ | $7$ |
+| $5^1 = 5$ | $\frac{7}{5}=1.4$ | $\color{red}1$ $=b_1$|$7- 1\cdot 5^1$ | $2$ |
+| $5^0 =1$ | $\frac{2} 1=2$ | $\color{red}2$ $=b_0$| $2 - 2\cdot 5^0$ | $0$ |
 
 By gathering the quotients from top to bottom, we get the digits: $1, 1, 4, 4, 1, 2.$ In standard mathematical notation: $$4357_{10} = 114412_5$$
 
@@ -707,7 +707,7 @@ In regular division the quotient is saved at each step, while the remainder is a
 
 ---
 
-| Power | Current<br> $\tiny a_i=\frac{\text{Quot - Rem}}5$ |Mod<br> $5$| Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\lfloor{\frac{a_i}{5}}\rfloor$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
+| Power | Current<br> $\small a_i=\frac{\text{Quot - Rem}}5$ || Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\lfloor{\frac{a_i}{5}}\rfloor$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | $5^0=1$ | $4357$| $\tiny{\mod 5}:$ | $\color{red}2\;(b_0)$ | $\small 4357 - 2 = 4355$ | $871$ | $x_0 = 0$ | — |
 | $5^1=5$ | $871$  |$\tiny{\mod 5}:$ | $\color{red}1\;(b_1)$ | $\small 871 - 1 = 870$ | $174$ | $x_1 = 2$ | $2 \equiv 2 \pmod{1}$ |

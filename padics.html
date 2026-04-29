@@ -1290,80 +1290,71 @@ left.</p>
 <p>Since <span class="math inline">\(5^5\)</span> is the largest power
 that fits in <span class="math inline">\(4,357,\)</span> we start
 there.</p>
-<table style="width:100%;">
+<table>
 <colgroup>
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">Power (Pw)</th>
-<th align="left">Operation</th>
-<th align="left">Quotient (Quo)</th>
+<th align="left">Operation<br><span class="math inline">\(\frac{\text{Rem}_{i+i}}{5^i}\)</span></th>
+<th align="left">Quotient (Quo)<br><span class="math inline">\(b_i=\lfloor{\frac{\text{Rem}_{i+i}}{5^i}}\rfloor\)</span></th>
 <th align="left"><span class="math inline">\(\small \text{prior
 Re}-\text{Quo}\times\text{Pw}\)</span></th>
 <th align="left">Remainder (Re)</th>
-<th align="left"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><span class="math inline">\(5^5\)</span> (3,125)</td>
-<td align="left"><span class="math inline">\(4357 \div
-3125\)</span></td>
+<td align="left"><span class="math inline">\(5^5 = 3125\)</span></td>
+<td align="left"><span class="math inline">\(\frac{4357}{3125}=1.39\)</span></td>
 <td align="left"><span class="math inline">\(\color{red}1\)</span> <span class="math inline">\(= b_5\)</span></td>
 <td align="left"><span class="math inline">\(4357-1 \cdot
 5^5\)</span></td>
 <td align="left"><span class="math inline">\(1,232\)</span></td>
-<td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><span class="math inline">\(5^4\)</span> (625)</td>
-<td align="left"><span class="math inline">\(1232 \div 625\)</span></td>
+<td align="left"><span class="math inline">\(5^4 = 625\)</span></td>
+<td align="left"><span class="math inline">\(\frac{1232}{625}=1.97\)</span></td>
 <td align="left"><span class="math inline">\(\color{red}1\)</span> <span class="math inline">\(= b_4\)</span></td>
 <td align="left"><span class="math inline">\(1232-1\cdot
 5^4\)</span></td>
 <td align="left"><span class="math inline">\(607\)</span></td>
-<td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><span class="math inline">\(5^3\)</span> (125)</td>
-<td align="left"><span class="math inline">\(607 \div 125\)</span></td>
+<td align="left"><span class="math inline">\(5^3 = 125\)</span></td>
+<td align="left"><span class="math inline">\(\frac{607}{125}=4.85\)</span></td>
 <td align="left"><span class="math inline">\(\color{red}4\)</span> <span class="math inline">\(= b_3\)</span></td>
 <td align="left"><span class="math inline">\(607 - 4 \cdot
 5^3\)</span></td>
 <td align="left"><span class="math inline">\(107\)</span></td>
-<td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><span class="math inline">\(5^2\)</span> (25)</td>
-<td align="left"><span class="math inline">\(107 \div 25\)</span></td>
+<td align="left"><span class="math inline">\(5^2 = 25\)</span></td>
+<td align="left"><span class="math inline">\(\frac{107}{25}=4.28\)</span></td>
 <td align="left"><span class="math inline">\(\color{red}4\)</span> <span class="math inline">\(=b_2\)</span></td>
 <td align="left"><span class="math inline">\(107 - 4\cdot
 5^2\)</span></td>
 <td align="left"><span class="math inline">\(7\)</span></td>
-<td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"><span class="math inline">\(5^1\)</span> (5)</td>
-<td align="left"><span class="math inline">\(7 \div 5\)</span></td>
+<td align="left"><span class="math inline">\(5^1 = 5\)</span></td>
+<td align="left"><span class="math inline">\(\frac{7}{5}=1.4\)</span></td>
 <td align="left"><span class="math inline">\(\color{red}1\)</span> <span class="math inline">\(=b_1\)</span></td>
 <td align="left"><span class="math inline">\(7- 1\cdot 5^1\)</span></td>
 <td align="left"><span class="math inline">\(2\)</span></td>
-<td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"><span class="math inline">\(5^0\)</span> (1)</td>
-<td align="left"><span class="math inline">\(2 \div 1\)</span></td>
+<td align="left"><span class="math inline">\(5^0 =1\)</span></td>
+<td align="left"><span class="math inline">\(\frac{2} 1=2\)</span></td>
 <td align="left"><span class="math inline">\(\color{red}2\)</span> <span class="math inline">\(=b_0\)</span></td>
 <td align="left"><span class="math inline">\(2 - 2\cdot
 5^0\)</span></td>
 <td align="left"><span class="math inline">\(0\)</span></td>
-<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -1443,9 +1434,9 @@ away by the <code>remainder</code> (<span class="math inline">\(b_i\)</span>) an
 <thead>
 <tr class="header">
 <th align="left">Power</th>
-<th align="left">Current<br> <span class="math inline">\(\tiny
+<th align="left">Current<br> <span class="math inline">\(\small
 a_i=\frac{\text{Quot - Rem}}5\)</span></th>
-<th align="left">Mod<br> <span class="math inline">\(5\)</span></th>
+<th align="left"></th>
 <th align="left">Digit<br> <span class="math inline">\(b_i\)</span></th>
 <th align="left">Subtraction<br> <span class="math inline">\(\small a_i
 - b_i\)</span></th>
