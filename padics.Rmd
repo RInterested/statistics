@@ -707,15 +707,15 @@ In regular division the quotient is saved at each step, while the remainder is a
 
 ---
 
-| Power | Current<br> $\small a_i=\frac{\text{Quot - Rem}}5$ || Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\lfloor{\frac{a_i}{5}}\rfloor$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\small x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $5^0=1$ | $4357$| $\tiny{\mod 5}:$ | $\small \color{red}2\;(b_0)$ | $\small 4357 - 2 = 4355$ | $\small 871=\frac{4355}5$ | $\small x_0 = 0$ | — |
-| $5^1=5$ | $871$  |$\tiny{\mod 5}:$ | $\small \color{red}1\;(b_1)$ | $\small 871 - 1 = 870$ | $\small 174=\frac{870}5$ | $\small x_1 = \color{red}{2}\cdot 5^0$ | $\small 2 \equiv 2 \pmod{1}$ |
-| $5^2=25$ | $174$ |$\tiny{\mod 5}:$ | $\small \color{red}4\;(b_2)$ | $\small 174 - 4 = 170$ | $\small 34=\frac{170}5$ | $\small x_2 = 7=\color{red}{2}\cdot 5^0+ \color{red}{1}\cdot 5^1$ | $\small 7 \equiv 2 \pmod{5}$ |
-| $5^3=125$ | $34$|$\tiny{\mod 5}:$ | $\small \color{red}4\;(b_3)$ | $\small 34 - 4 = 30$ | $\small 6=\frac{30}5$ | $\small x_3 = 107$ | $\small 107 \equiv 7 \pmod{25}$ |
-| $5^4=625$ | $6$| $\tiny{\mod 5}:$| $\small \color{red}1\; (b_4)$ | $\small 6 - 1 = 5$ | $\small 1=\frac{5}5$ | $\small x_4 = 607$ | $\small 607 \equiv 107 \pmod{125}$ |
-| $5^5=3125$ | $1$| $\tiny{\mod 5}:$| $\small \color{red}1\; (b_5)$ | $\small 1 - 1 = 0$ | $\small 0=\frac{0}5$ | $\small x_5 = 1232$ | $\small 1232 \equiv 607 \pmod{625}$ |
-| $5^6=15625$ | $0$| $\tiny{\mod 5}:$| $\small \color{red}0\; (b_6)$ | $\small 0 - 0 = 0$ | $\small 0$ | $\small x_6 = 4357$ | $\small 4357 \equiv 1232 \pmod{3125}$ |
+| Power | Current<br> $\small a_i=\frac{\text{Quot - Rem}}5$ || Digit<br> $b_i$ | Subtraction<br> $\small a_i - b_i$ | New<br>$\small a_{i+1}=\lfloor{\frac{a_i}{5}}\rfloor$ |Partial sums<br> $\small x_n = 4357 \pmod{5^n}$ | Consistency<br>$\tiny x_n \equiv x_{n-1} \pmod{5^{n-1}}$ |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- 
+| $5^0=1$ | $4357$| $\tiny{\mod 5}:$ | $\small \color{red}2\;(b_0)$ | $\tiny 4357 - 2 = 4355$ | $\small 871=\frac{4355}5$ | $\tiny x_0 = 0$ | — |
+| $5^1=5$ | $871$  |$\tiny{\mod 5}:$ | $\small \color{red}1\;(b_1)$ | $\tiny 871 - 1 = 870$ | $\small 174=\frac{870}5$ | $\tiny x_1=2$ <br>$\tiny=\color{red}{2}\cdot 5^0$ | $\tiny 2 \equiv 2 \pmod{1}$ |
+| $5^2=25$ | $174$ |$\tiny{\mod 5}:$ | $\small \color{red}4\;(b_2)$ | $\tiny 174 - 4 = 170$ | $\small 34=\frac{170}5$ | $\tiny x_2 = 7$<br>$\tiny=\color{red}{2}\cdot 5^0+ \color{red}{1}\cdot 5^1$ | $\tiny 7 \equiv 2 \pmod{5}$ |
+| $5^3=125$ | $34$|$\tiny{\mod 5}:$ | $\small \color{red}4\;(b_3)$ | $\tiny 34 - 4 = 30$ | $\small 6=\frac{30}5$ | $\tiny x_3 = 107$<br>$\tiny=\color{red}{2}\cdot 5^0+ \color{red}{1}\cdot 5^1+\color{red}4\cdot 5^2$ | $\tiny 107 \equiv 7 \pmod{25}$ |
+| $5^4=625$ | $6$| $\tiny{\mod 5}:$| $\small \color{red}1\; (b_4)$ | $\tiny 6 - 1 = 5$ | $\small 1=\frac{5}5$ | $\tiny x_4=607$ <br>$\tiny=\color{red}{2}\cdot 5^0+ \color{red}{1}\cdot 5^1+\color{red}4\cdot 5^2+\color{red}4\cdot 5^3$ | $\tiny 607 \equiv 107 \pmod{125}$ |
+| $5^5=3125$ | $1$| $\tiny{\mod 5}:$| $\small \color{red}1\; (b_5)$ | $\tiny 1 - 1 = 0$ | $\small 0=\frac{0}5$ | $\tiny x_5 = 1232$ <br>$\tiny=\color{red}{2}\cdot 5^0+ \color{red}{1}\cdot 5^1+\color{red}4\cdot 5^2+\color{red}4\cdot 5^3+ \color{red}{1} \cdot 5^4$ | $\tiny 1232 \equiv 607 \pmod{625}$ |
+| $5^6=15625$ | $0$| $\tiny{\mod 5}:$| $\small \color{red}0\; (b_6)$ | $\tiny 0 - 0 = 0$ | $\small 0$ | $\tiny x_6=4357$<br>$\tiny=\color{red}{2}\cdot 5^0+ \color{red}{1}\cdot 5^1+\color{red}4\cdot 5^2+\color{red}4\cdot 5^3+ \color{red}{1} \cdot 5^4+ \color{red}{1} \cdot 5^5$ | $\tiny 4357 \equiv 1232 \pmod{3125}$ |
 
 ---
 
