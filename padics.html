@@ -3332,11 +3332,15 @@ into increasingly higher powers of <span class="math inline">\(3\)</span> (<span
 \dots\)</span>).</p>
 <p>The mechanical steps for calculating a fraction like <span class="math inline">\(5/29\)</span> are inverted:</p>
 <p><strong>Base-3 Algorithm:</strong></p>
-<p>In base 3, we only use the digits <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span>, and <span class="math inline">\(2\)</span>. We are looking for</p>
+<p>In base <span class="math inline">\(3,\)</span> we only use the
+digits <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span>, and <span class="math inline">\(2\)</span>. We are looking for</p>
 <p><span class="math display">\[5/29 = d_{-1}3^{-1} + d_{-2}3^{-2} +
-\dots$Since $5 &lt; 29\]</span></p>
-<p>the expansion starts with <span class="math inline">\(0\)</span>. To
-find the digits, we multiply the remainder by <span class="math inline">\(3\)</span> and see how many times <span class="math inline">\(29\)</span> fits into it.</p>
+\dots\]</span></p>
+<p>Since <span class="math inline">\(5 &lt; 29\)</span> the expansion
+starts with <span class="math inline">\(0\)</span>. To find the digits,
+we multiply the remainder by <span class="math inline">\(3\)</span> and
+see how many times <span class="math inline">\(29\)</span> fits into
+it.</p>
 <ul>
 <li><p><span class="math inline">\(5 \times 3 = 15\)</span>. (<span class="math inline">\(15\)</span> is less than <span class="math inline">\(29\)</span>). Digit: <span class="math inline">\(0\)</span></p></li>
 <li><p><span class="math inline">\(15 \times 3 = 45\)</span>. (<span class="math inline">\(29\)</span> goes into <span class="math inline">\(45\)</span> <span class="math inline">\(1\)</span>
@@ -3450,14 +3454,19 @@ world where it fails.If you find a solution in <span class="math inline">\(\math
 \dots\)</span> but it fails in <span class="math inline">\(\mathbb{R}\)</span>, then there is no solution in
 <span class="math inline">\(\mathbb{Q}\)</span>.If it works in <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\(\mathbb{Q}_5\)</span> but fails in <span class="math inline">\(\mathbb{Q}_2\)</span>, then there is no solution
 in <span class="math inline">\(\mathbb{Q}\)</span>. You don’t have to
-check infinite primes one by one because of Finite Obstructions. For
-most polynomial equations (specifically “Quadratic Forms” like <span class="math inline">\(ax^2 + by^2 + cz^2 = 0\)</span>), there are only a
-handful of “interesting” primes you actually need to check. Usually,
-these are: 1. The prime <span class="math inline">\(p=2\)</span>. 2. The
-primes that divide the coefficients of your equation (e.g., if you have
-<span class="math inline">\(7x^2\)</span>, you must check <span class="math inline">\(p=7\)</span>). 3. The “Infinite” prime (<span class="math inline">\(\mathbb{R}\)</span>). If the equation works in
+check infinite primes one by one. For most polynomial equations
+(specifically quadratic forms like <span class="math inline">\(ax^2 +
+by^2 + cz^2 = 0\)</span>), there are only a handful of “interesting”
+primes you actually need to check. Usually, these are:</p>
+<ol style="list-style-type: decimal">
+<li><p>The prime <span class="math inline">\(p=2\)</span>.</p></li>
+<li><p>The primes that divide the coefficients of your equation (e.g.,
+if you have <span class="math inline">\(7x^2\)</span>, you must check
+<span class="math inline">\(p=7\)</span>).</p></li>
+<li><p>The “infinite” prime (<span class="math inline">\(\mathbb{R}\)</span>). If the equation works in
 those specific “bad” primes and in <span class="math inline">\(\mathbb{R}\)</span>, it is mathematically
-guaranteed to work in all the other infinite “good” primes.</p>
+guaranteed to work in all the other infinite “good” primes.</p></li>
+</ol>
 <p>The Hasse Principle says that for quadratic forms (equations where
 every term is squared, like <span class="math inline">\(ax^2 + by^2 +
 cz^2 = 0\)</span>), the local truths (the <span class="math inline">\(p\)</span>-adic and real solutions) are so
@@ -3549,7 +3558,7 @@ with integer coefficients. In fact, <span class="math inline">\(p\)</span>-adic 
 exponential and trigonometric functions, but they behave very
 differently. You wouldn’t use Hensel’s Lemma to “find <span class="math inline">\(\pi\)</span>” in <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
 <p>In standard real-number arithmetic, if you want to find <span class="math inline">\(\sqrt{2}\)</span> to higher precision, you use
-Newton’s Method to get more decimal places (<span class="math inline">\(1.4, 1.41, 1.414\dots\)</span>).In <span class="math inline">\(p\)</span>-adic arithmetic, Hensel lifting does
+Newton’s Method to get more decimal places (<span class="math inline">\(1.4, 1.41, 1.414\dots\)</span>). In <span class="math inline">\(p\)</span>-adic arithmetic, Hensel lifting does
 the exact same thing, but instead of adding decimal places to the right,
 you add <span class="math inline">\(p\)</span>-adic digits to the left.
 You aren’t just “solving an equation”; you are constructing a specific

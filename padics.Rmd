@@ -1984,11 +1984,11 @@ The mechanical steps for calculating a fraction like $5/29$ are inverted:
 
 **Base-3 Algorithm:** 
 
-In base 3, we only use the digits $0$, $1$, and $2$. We are looking for 
+In base $3,$ we only use the digits $0$, $1$, and $2$. We are looking for 
 
-$$5/29 = d_{-1}3^{-1} + d_{-2}3^{-2} + \dots$Since $5 < 29$$ 
+$$5/29 = d_{-1}3^{-1} + d_{-2}3^{-2} + \dots$$
 
-the expansion starts with $0$. To find the digits, we multiply the remainder by $3$ and see how many times $29$ fits into it.
+Since $5 < 29$ the expansion starts with $0$. To find the digits, we multiply the remainder by $3$ and see how many times $29$ fits into it.
 
 - $5 \times 3 = 15$. ($15$ is less than $29$). Digit: $0$
 
@@ -2056,7 +2056,13 @@ The **Hasse principle**, or local-global principle, states that certain polynomi
 
 If a rational number like $x = 3/4$ solves an equation, that same $x$ will also solve the equation in $\mathbb{R}$ and in every single $\mathbb{Q}_p$ for every prime $p$.
 
-To prove there is no rational solution, you only need to find one world where it fails.If you find a solution in $\mathbb{Q}_5, \mathbb{Q}_{13}, \mathbb{Q}_{17} \dots$ but it fails in $\mathbb{R}$, then there is no solution in $\mathbb{Q}$.If it works in $\mathbb{R}$ and $\mathbb{Q}_5$ but fails in $\mathbb{Q}_2$, then there is no solution in $\mathbb{Q}$. You don't have to check infinite primes one by one because of Finite Obstructions. For most polynomial equations (specifically "Quadratic Forms" like $ax^2 + by^2 + cz^2 = 0$), there are only a handful of "interesting" primes you actually need to check. Usually, these are: 1. The prime $p=2$. 2. The primes that divide the coefficients of your equation (e.g., if you have $7x^2$, you must check $p=7$). 3. The "Infinite" prime ($\mathbb{R}$). If the equation works in those specific "bad" primes and in $\mathbb{R}$, it is mathematically guaranteed to work in all the other infinite "good" primes.
+To prove there is no rational solution, you only need to find one world where it fails.If you find a solution in $\mathbb{Q}_5, \mathbb{Q}_{13}, \mathbb{Q}_{17} \dots$ but it fails in $\mathbb{R}$, then there is no solution in $\mathbb{Q}$.If it works in $\mathbb{R}$ and $\mathbb{Q}_5$ but fails in $\mathbb{Q}_2$, then there is no solution in $\mathbb{Q}$. You don't have to check infinite primes one by one. For most polynomial equations (specifically quadratic forms like $ax^2 + by^2 + cz^2 = 0$), there are only a handful of "interesting" primes you actually need to check. Usually, these are: 
+
+1. The prime $p=2$. 
+
+2. The primes that divide the coefficients of your equation (e.g., if you have $7x^2$, you must check $p=7$). 
+
+3. The "infinite" prime ($\mathbb{R}$). If the equation works in those specific "bad" primes and in $\mathbb{R}$, it is mathematically guaranteed to work in all the other infinite "good" primes.
 
 The Hasse Principle says that for quadratic forms (equations where every term is squared, like $ax^2 + by^2 + cz^2 = 0$), the local truths (the $p$-adic and real solutions) are so restrictive that they "trap" the global Truth (the rational solution). The reason this principle works specifically for quadratic forms is that they represent "conic sections" (circles, ellipses, hyperbolas). Geometric objects of degree $2$ have a special property: if you find one point on the curve, you can find all of them by drawing lines through that point. 
 
@@ -2082,7 +2088,7 @@ The Hasse principle (or Local-Global Principle) is the mathematical hope that if
 
 Values like $\sqrt{2}$, $\sqrt[3]{5}$, or the roots of $x^5 - x - 1 = 0$ (i.e. algebraic numbers) are "fair game" for Hensel lifting. These are the $p$-adic equivalent of finding precise decimal roots. Numbers like $\pi$ or $e$ are not roots of any polynomial with integer coefficients. In fact, $p$-adic analysis has its own versions of exponential and trigonometric functions, but they behave very differently. You wouldn't use Hensel's Lemma to "find $\pi$" in $\mathbb{Z}_p$. 
 
-In standard real-number arithmetic, if you want to find $\sqrt{2}$ to higher precision, you use Newton’s Method to get more decimal places ($1.4, 1.41, 1.414\dots$).In $p$-adic arithmetic, Hensel lifting does the exact same thing, but instead of adding decimal places to the right, you add $p$-adic digits to the left. You aren't just "solving an equation"; you are constructing a specific $p$-adic number digit by digit.
+In standard real-number arithmetic, if you want to find $\sqrt{2}$ to higher precision, you use Newton’s Method to get more decimal places ($1.4, 1.41, 1.414\dots$). In $p$-adic arithmetic, Hensel lifting does the exact same thing, but instead of adding decimal places to the right, you add $p$-adic digits to the left. You aren't just "solving an equation"; you are constructing a specific $p$-adic number digit by digit.
 
 Let's find a "precise" value for a root of $f(x) = x^2 - 6$:
 
