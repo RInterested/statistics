@@ -3564,24 +3564,28 @@ you add <span class="math inline">\(p\)</span>-adic digits to the left.
 You aren’t just “solving an equation”; you are constructing a specific
 <span class="math inline">\(p\)</span>-adic number digit by digit.</p>
 <p>Let’s find a “precise” value for a root of <span class="math inline">\(f(x) = x^2 - 6\)</span>:</p>
-<ol style="list-style-type: decimal">
-<li>Newton’s Method (In the Reals <span class="math inline">\(\mathbb{R}\)</span>):</li>
-</ol>
+<div id="newtons-method-in-the-reals-mathbbr" class="section level4">
+<h4>1. Newton’s Method (In the Reals <span class="math inline">\(\mathbb{R}\)</span>):</h4>
 <p>We want <span class="math inline">\(\sqrt{6} \approx
 2.449...\)</span></p>
 <p>The formula is: <span class="math display">\[x_{n+1} = x_n -
 \frac{f(x_n)}{f&#39;(x_n)} = x_n - \frac{x_n^2 - 6}{2x_n}\]</span></p>
 <p>Seed (<span class="math inline">\(x_0\)</span>): Let’s start at <span class="math inline">\(2\)</span>.</p>
-<p>Step 1: <span class="math inline">\(x_1 = 2 - \frac{2^2 - 6}{2(2)} =
-2 - \frac{-2}{4} = \mathbf{2.5}\)</span></p>
-<p>Step 2: <span class="math inline">\(x_2 = 2.5 - \frac{2.5^2 -
-6}{2(2.5)} = 2.5 - \frac{0.25}{5} = \mathbf{2.45}\)</span></p>
+<div id="step-1" class="section level5">
+<h5>Step <span class="math inline">\(1\)</span>:</h5>
+<p><span class="math inline">\(x_1 = 2 - \frac{2^2 - 6}{2(2)} = 2 -
+\frac{-2}{4} = \mathbf{2.5}\)</span></p>
+</div>
+<div id="step-2" class="section level5">
+<h5>Step <span class="math inline">\(2\)</span>:</h5>
+<p><span class="math inline">\(x_2 = 2.5 - \frac{2.5^2 - 6}{2(2.5)} =
+2.5 - \frac{0.25}{5} = \mathbf{2.45}\)</span></p>
 <p>Result: Each step adds roughly double the number of decimal places to
 the right.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Hensel Lifting (In the <span class="math inline">\(5\)</span>-adic
-Integers <span class="math inline">\(\mathbb{Z}_5\)</span>)</li>
-</ol>
+</div>
+</div>
+<div id="hensel-lifting-in-the-5-adic-integers-mathbbz_5" class="section level4">
+<h4>2. Hensel Lifting (In the <span class="math inline">\(5\)</span>-adic Integers <span class="math inline">\(\mathbb{Z}_5\)</span>)</h4>
 <p>We want to find <span class="math inline">\(x \in
 \mathbb{Z}_5\)</span> such that <span class="math inline">\(x^2 \equiv 6
 \pmod{5^k}\)</span>.</p>
@@ -3589,11 +3593,14 @@ Integers <span class="math inline">\(\mathbb{Z}_5\)</span>)</li>
 <p><span class="math display">\[x_{n+1} = x_n -
 \frac{f(x_n)}{f&#39;(x_n)}\]</span></p>
 <p>but the division is handled via modular inverses.</p>
-<p>Step 0 (the seed):</p>
+<div id="step-0-the-seed" class="section level5">
+<h5>Step <span class="math inline">\(0\)</span> (the seed):</h5>
 <p>Find <span class="math inline">\(x_0\)</span> such that <span class="math inline">\(x_0^2 \equiv 6 \pmod 5\)</span>.</p>
 <p>Since <span class="math inline">\(6 \equiv 1 \pmod 5\)</span>, we
 choose <span class="math inline">\(x_0 = 1\)</span>.</p>
-<p>Step 1 (Lifting to <span class="math inline">\(5^2=25\)</span>):</p>
+</div>
+<div id="step-1-lifting-to-5225" class="section level5">
+<h5>Step <span class="math inline">\(1\)</span> (Lifting to <span class="math inline">\(5^2=25\)</span>):</h5>
 <p>We need <span class="math inline">\(f&#39;(x_0) = 2(1) =
 2\)</span>.</p>
 <p>The formula: <span class="math inline">\(x_1 = 1 - \frac{1^2 - 6}{2}
@@ -3605,13 +3612,16 @@ inverse of <span class="math inline">\(2 \pmod 5\)</span>.</p>
 <p><span class="math inline">\(x_1 = 1 - (-5 \times 3) = 1 + 15 =
 \mathbf{16}\)</span>.</p>
 <p>Check: <span class="math inline">\(16^2 = 256\)</span>. <span class="math inline">\(256 \equiv 6 \pmod{25}\)</span>. It works!</p>
-<p>Step 2 (Lifting to <span class="math inline">\(5^3=125\)</span>):</p>
+</div>
+<div id="step-2-lifting-to-53125" class="section level5">
+<h5>Step <span class="math inline">\(2\)</span> (Lifting to <span class="math inline">\(5^3=125\)</span>):</h5>
 <p><span class="math inline">\(x_2 = 16 - \frac{16^2 - 6}{f&#39;(16)} =
 16 - \frac{250}{32}\)</span>.</p>
 <p>We find the inverse of <span class="math inline">\(32
 \pmod{125}\)</span> and continue.</p>
 <p><span class="math inline">\(x_2 = 16 + 250 \times (\text{inverse}) =
 \mathbf{66}\)</span>.</p>
+<hr />
 <p>As an other example, to find <span class="math inline">\(\sqrt{2}\)</span>, we are looking for the roots of
 <span class="math inline">\(f(x) = x^2 - 2 = 0\)</span>.</p>
 <p>This is a perfect example because <span class="math inline">\(\sqrt{2}\)</span> is an irrational number in the
@@ -3621,30 +3631,43 @@ certain primes (like <span class="math inline">\(p=7, 17, 23,
 \dots\)</span>). Let’s use <span class="math inline">\(p = 7\)</span>
 because <span class="math inline">\(x^2 \equiv 2 \pmod 7\)</span> has a
 solution (<span class="math inline">\(3^2 = 9 \equiv 2\)</span>).</p>
-<ol style="list-style-type: decimal">
-<li>Newton’s Method (In <span class="math inline">\(\mathbb{R}\)</span>):</li>
-</ol>
+</div>
+</div>
+<div id="newtons-method-in-mathbbr" class="section level4">
+<h4>1. Newton’s Method (In <span class="math inline">\(\mathbb{R}\)</span>):</h4>
 <p>We want to find <span class="math inline">\(\sqrt{2} \approx
 1.414213...\)</span></p>
 <p>The formula: <span class="math inline">\(x_{n+1} = x_n - \frac{x_n^2
 - 2}{2x_n}\)</span></p>
-<p>Step 0 (<span class="math inline">\(x_0\)</span>): Let’s pick <span class="math inline">\(x_0 = 1.5\)</span>.</p>
-<p>Step 1: <span class="math inline">\(x_1 = 1.5 - \frac{1.5^2 -
-2}{2(1.5)} = 1.5 - \frac{0.25}{3} = 1.4166...\)</span></p>
-<p>Step 2: <span class="math inline">\(x_2 = 1.4166 - \frac{1.4166^2 -
+<div id="step-0-x_0" class="section level5">
+<h5>Step <span class="math inline">\(0\)</span> (<span class="math inline">\(x_0\)</span>):</h5>
+<p>Let’s pick <span class="math inline">\(x_0 = 1.5\)</span>.</p>
+</div>
+<div id="step-1-1" class="section level5">
+<h5>Step <span class="math inline">\(1\)</span>:</h5>
+<p><span class="math inline">\(x_1 = 1.5 - \frac{1.5^2 - 2}{2(1.5)} =
+1.5 - \frac{0.25}{3} = 1.4166...\)</span></p>
+</div>
+<div id="step-2-1" class="section level5">
+<h5>Step <span class="math inline">\(2\)</span>:</h5>
+<p><span class="math inline">\(x_2 = 1.4166 - \frac{1.4166^2 -
 2}{2(1.4166)} \approx \mathbf{1.414215...}\)</span></p>
 <p>Observation: The error (<span class="math inline">\(x_n -
 \sqrt{2}\)</span>) is getting smaller in absolute value. The digits are
 filling in to the right of the decimal.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Hensel Lifting (In <span class="math inline">\(\mathbb{Z}_7\)</span>):</li>
-</ol>
+</div>
+</div>
+<div id="hensel-lifting-in-mathbbz_7" class="section level4">
+<h4>2. Hensel Lifting (In <span class="math inline">\(\mathbb{Z}_7\)</span>):</h4>
 <p>We want to find <span class="math inline">\(x\)</span> such that
 <span class="math inline">\(x^2 \equiv 2 \pmod{7^k}\)</span>.</p>
 <p>The formula: <span class="math inline">\(x_{n+1} = x_n -
 \frac{f(x_n)}{f&#39;(x_n)} \pmod{7^{k+1}}\)</span></p>
-<p>Step 0 (<span class="math inline">\(x_0\)</span>): Solve <span class="math inline">\(x^2 \equiv 2 \pmod 7\)</span>. We find <span class="math inline">\(x_0 = 3\)</span> (since <span class="math inline">\(3^2 = 9 \equiv 2 \pmod 7\)</span>).</p>
-<p>Step 1 (Lifting to <span class="math inline">\(7^2=49\)</span>):</p>
+<div id="step-0-x_0-solve-x2-equiv-2-pmod-7.-we-find-x_0-3-since-32-9-equiv-2-pmod-7." class="section level5">
+<h5>Step <span class="math inline">\(0\)</span> (<span class="math inline">\(x_0\)</span>): Solve <span class="math inline">\(x^2 \equiv 2 \pmod 7\)</span>. We find <span class="math inline">\(x_0 = 3\)</span> (since <span class="math inline">\(3^2 = 9 \equiv 2 \pmod 7\)</span>).</h5>
+</div>
+<div id="step-1-lifting-to-7249" class="section level5">
+<h5>Step <span class="math inline">\(1\)</span> (Lifting to <span class="math inline">\(7^2=49\)</span>):</h5>
 <p>We need the derivative <span class="math inline">\(f&#39;(x) =
 2x\)</span>. At <span class="math inline">\(x_0=3\)</span>, <span class="math inline">\(f&#39;(3) = 6\)</span>.</p>
 <p>We need the modular inverse of <span class="math inline">\(6 \pmod
@@ -3655,7 +3678,9 @@ filling in to the right of the decimal.</p>
 \cdot 6) = 3 - 42 = -39\)</span>.</p>
 <p>In <span class="math inline">\(\pmod{49}\)</span>, <span class="math inline">\(-39 \equiv \mathbf{10}\)</span>.</p>
 <p>Check: <span class="math inline">\(10^2 = 100\)</span>. <span class="math inline">\(100 = (2 \times 49) + 2\)</span>. So <span class="math inline">\(10^2 \equiv 2 \pmod{49}\)</span>. Success!</p>
-<p>Step 2 (Lifting to <span class="math inline">\(7^3=343\)</span>):</p>
+</div>
+<div id="step-2-lifting-to-73343" class="section level5">
+<h5>Step <span class="math inline">\(2\)</span> (Lifting to <span class="math inline">\(7^3=343\)</span>):</h5>
 <p><span class="math inline">\(x_1 = 10\)</span>. <span class="math inline">\(f(10) = 100 - 2 = 98\)</span>.<span class="math inline">\(f&#39;(10) = 2(10) = 20\)</span>.</p>
 <p>Find the inverse of <span class="math inline">\(20
 \pmod{7^2}\)</span>. (After some modular arithmetic, it’s <span class="math inline">\(32\)</span>).</p>
@@ -3737,6 +3762,8 @@ like the Chudnovsky algorithm, which is incredibly fast:</p>
 \frac{(-1)^k (6k)! (545140134k + 13591409)}{(3k)!(k!)^3
 (640320)^{3k+3/2}}\]</span></p>
 <hr />
+</div>
+</div>
 <div id="parallelism-of-p-adic-transformation-of-an-integer-and-hensel-lifting" class="section level4">
 <h4>Parallelism of p-adic transformation of an integer and Hensel
 lifting:</h4>

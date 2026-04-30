@@ -2092,7 +2092,7 @@ In standard real-number arithmetic, if you want to find $\sqrt{2}$ to higher pre
 
 Let's find a "precise" value for a root of $f(x) = x^2 - 6$:
 
-1. Newton's Method (In the Reals $\mathbb{R}$):
+#### 1. Newton's Method (In the Reals $\mathbb{R}$):
 
 We want $\sqrt{6} \approx 2.449...$
 
@@ -2100,14 +2100,18 @@ The formula is: $$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} = x_n - \frac{x_n^2 - 6
 
 Seed ($x_0$): Let's start at $2$.
 
-Step 1: $x_1 = 2 - \frac{2^2 - 6}{2(2)} = 2 - \frac{-2}{4} = \mathbf{2.5}$
+##### Step $1$: 
 
-Step 2: $x_2 = 2.5 - \frac{2.5^2 - 6}{2(2.5)} = 2.5 - \frac{0.25}{5} = \mathbf{2.45}$
+$x_1 = 2 - \frac{2^2 - 6}{2(2)} = 2 - \frac{-2}{4} = \mathbf{2.5}$
+
+##### Step $2$: 
+
+$x_2 = 2.5 - \frac{2.5^2 - 6}{2(2.5)} = 2.5 - \frac{0.25}{5} = \mathbf{2.45}$
 
 Result: Each step adds roughly double the number of decimal places to the right.
 
 
-2. Hensel Lifting (In the $5$-adic Integers $\mathbb{Z}_5$)
+#### 2. Hensel Lifting (In the $5$-adic Integers $\mathbb{Z}_5$)
 
 We want to find $x \in \mathbb{Z}_5$ such that $x^2 \equiv 6 \pmod{5^k}$.
 
@@ -2118,13 +2122,13 @@ $$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
 
 but the division is handled via modular inverses.
 
-Step 0 (the seed): 
+##### Step $0$ (the seed): 
 
 Find $x_0$ such that $x_0^2 \equiv 6 \pmod 5$.
 
 Since $6 \equiv 1 \pmod 5$, we choose $x_0 = 1$.
 
-Step 1 (Lifting to $5^2=25$):
+##### Step $1$ (Lifting to $5^2=25$):
 
 We need $f'(x_0) = 2(1) = 2$.
 
@@ -2138,7 +2142,7 @@ $x_1 = 1 - (-5 \times 3) = 1 + 15 = \mathbf{16}$.
 
 Check: $16^2 = 256$. $256 \equiv 6 \pmod{25}$. It works!
 
-Step 2 (Lifting to $5^3=125$):
+##### Step $2$ (Lifting to $5^3=125$):
 
 $x_2 = 16 - \frac{16^2 - 6}{f'(16)} = 16 - \frac{250}{32}$.
 
@@ -2146,33 +2150,41 @@ We find the inverse of $32 \pmod{125}$ and continue.
 
 $x_2 = 16 + 250 \times (\text{inverse}) = \mathbf{66}$.
 
+---
+
 As an other example, to find $\sqrt{2}$, we are looking for the roots of $f(x) = x^2 - 2 = 0$. 
 
 This is a perfect example because $\sqrt{2}$ is an irrational number in the Reals ($\mathbb{R}$), and in the $p$-adic world, it only exists for certain primes (like $p=7, 17, 23, \dots$). Let’s use $p = 7$ because $x^2 \equiv 2 \pmod 7$ has a solution ($3^2 = 9 \equiv 2$).
 
-1. Newton's Method (In $\mathbb{R}$):
+#### 1. Newton's Method (In $\mathbb{R}$):
 
 We want to find $\sqrt{2} \approx 1.414213...$
 
 The formula: $x_{n+1} = x_n - \frac{x_n^2 - 2}{2x_n}$
 
-Step 0 ($x_0$): Let's pick $x_0 = 1.5$.
+##### Step $0$ ($x_0$): 
 
-Step 1: $x_1 = 1.5 - \frac{1.5^2 - 2}{2(1.5)} = 1.5 - \frac{0.25}{3} = 1.4166...$
+Let's pick $x_0 = 1.5$.
 
-Step 2: $x_2 = 1.4166 - \frac{1.4166^2 - 2}{2(1.4166)} \approx \mathbf{1.414215...}$
+##### Step $1$: 
+
+$x_1 = 1.5 - \frac{1.5^2 - 2}{2(1.5)} = 1.5 - \frac{0.25}{3} = 1.4166...$
+
+##### Step $2$: 
+
+$x_2 = 1.4166 - \frac{1.4166^2 - 2}{2(1.4166)} \approx \mathbf{1.414215...}$
 
 Observation: The error ($x_n - \sqrt{2}$) is getting smaller in absolute value. The digits are filling in to the right of the decimal.
 
-2. Hensel Lifting (In $\mathbb{Z}_7$):
+#### 2. Hensel Lifting (In $\mathbb{Z}_7$):
 
 We want to find $x$ such that $x^2 \equiv 2 \pmod{7^k}$.
 
 The formula: $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} \pmod{7^{k+1}}$
 
-Step 0 ($x_0$): Solve $x^2 \equiv 2 \pmod 7$. We find $x_0 = 3$ (since $3^2 = 9 \equiv 2 \pmod 7$).
+##### Step $0$ ($x_0$): Solve $x^2 \equiv 2 \pmod 7$. We find $x_0 = 3$ (since $3^2 = 9 \equiv 2 \pmod 7$).
 
-Step 1 (Lifting to $7^2=49$):
+##### Step $1$ (Lifting to $7^2=49$):
 
 We need the derivative $f'(x) = 2x$. At $x_0=3$, $f'(3) = 6$.
 
@@ -2184,7 +2196,7 @@ In $\pmod{49}$, $-39 \equiv \mathbf{10}$.
 
 Check: $10^2 = 100$. $100 = (2 \times 49) + 2$. So $10^2 \equiv 2 \pmod{49}$. Success!
 
-Step 2 (Lifting to $7^3=343$):
+##### Step $2$ (Lifting to $7^3=343$):
 
 $x_1 = 10$. $f(10) = 100 - 2 = 98$.$f'(10) = 2(10) = 20$.
 
