@@ -1597,8 +1597,8 @@ x_5=4357\)</span><br><span class="math inline">\(\tiny=\color{red}{2}\cdot 5^0+ 
 <hr />
 <p>The reason the quotient readjusts by subtracting the remainder is
 that each step is designed to make the remaining value divisible by a
-higher power of <span class="math inline">\(p\)</span>. We start with
-<span class="math inline">\(x\)</span>. To find <span class="math inline">\(a_0\)</span>, we take <span class="math inline">\(x \pmod p\)</span>. By calculating <span class="math inline">\(x - a_0\)</span>, we are guaranteed a result that
+higher power of <span class="math inline">\(p\)</span>: we move up one
+order of magnitude. We start with <span class="math inline">\(x\)</span>. To find <span class="math inline">\(a_0\)</span>, we take <span class="math inline">\(x \pmod p\)</span>. By calculating <span class="math inline">\(x - a_0\)</span>, we are guaranteed a result that
 is a multiple of <span class="math inline">\(p\)</span>. Dividing by
 <span class="math inline">\(p\)</span> we get the new quotient: <span class="math inline">\(x_{i+1} = \frac{x_i -
 a_0}{p}=\lfloor{\frac{x_i}{5}}\rfloor\)</span> is essentially “zooming
@@ -1652,6 +1652,36 @@ example, if you want the “third digit” (starting the count from the
 25\)</span>):</p>
 <p>Divide by <span class="math inline">\(25\)</span>: <span class="math inline">\(\lfloor 45435 / 25 \rfloor = 1817\)</span>. Take
 the remainder mod <span class="math inline">\(5\)</span>: <span class="math inline">\(1817 \pmod 5 = \mathbf{2}\)</span>.</p>
+<hr />
+<p>It is critical to see that the <span class="math inline">\(5\)</span>-adic expression of <span class="math inline">\(4357\)</span> is <span class="math inline">\(\mathbb{F}_{5^5}.\)</span> The <span class="math inline">\(5\)</span>-adic integer <span class="math inline">\(4357 \in \mathbb{Z}_5.\)</span> If <span class="math inline">\(4357\)</span> were an element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span>, it wouldn’t be growing
+“upward” into powers of <span class="math inline">\(5\)</span>; it would
+be growing “sideways” into powers of a symbolic root <span class="math inline">\(\alpha\)</span>. An element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span> looks like this:</p>
+<p><span class="math display">\[c_0 + c_1\alpha + c_2\alpha^2 +
+c_3\alpha^3 + c_4\alpha^4\]</span></p>
+<p>To make <span class="math inline">\(\alpha\)</span> concrete, we have
+to look for a “missing number” in the base field. For <span class="math inline">\(p = 5\)</span>, in the base field <span class="math inline">\(\mathbb{F}_5\)</span>, we only have the numbers
+<span class="math inline">\(\{0, 1, 2, 3, 4\}\)</span>. If we look at
+their squares:<span class="math inline">\(0^2 = 0\)</span>, <span class="math inline">\(1^2 = 1\)</span>, <span class="math inline">\(2^2
+= 4\)</span>, <span class="math inline">\(3^2 = 9 \equiv 4\)</span>,
+<span class="math inline">\(4^2 = 16 \equiv 1\)</span>. No number in the
+base field squares to <span class="math inline">\(2\)</span> or <span class="math inline">\(3.\)</span> They are “missing” their square roots.
+But, much as with <span class="math inline">\(i =\sqrt{-1}\)</span> we
+can create a “ghost” (<span class="math inline">\(\alpha\)</span>). To
+build the extension field <span class="math inline">\(\mathbb{F}_{5^2}\)</span>, we simply “invent” a
+number <span class="math inline">\(\alpha\)</span> and define it by the
+rule: <span class="math inline">\(\alpha^2 = 2\)</span>. Now, <span class="math inline">\(\alpha\)</span> is a legitimate resident of our
+new, wider field. Every “number” in this field is now a combination of a
+“real” part and an “alpha” part:</p>
+<p><span class="math display">\[\text{Number} = c_0 +
+c_1\alpha\]</span></p>
+<p>It’s called <span class="math inline">\(\mathbb{F}_{5^2}\)</span>
+because that exponent (<span class="math inline">\(2\)</span>) tells us
+exactly how many “dimensions” the number has, which in turn determines
+the total population of the field. When you create numbers like <span class="math inline">\(c_0 + c_1\alpha\)</span>, we have two independent
+slots to fill: The <span class="math inline">\(c_0\)</span> slot with
+<span class="math inline">\(5\)</span> choices <span class="math inline">\(\{0, 1, 2, 3, 4\},\)</span> and the <span class="math inline">\(c_1\)</span> slot with again <span class="math inline">\(5\)</span> choices <span class="math inline">\(\{0, 1, 2, 3, 4\}\)</span>. To find the total
+number of unique elements in this new world, we multiply the choices:
+<span class="math inline">\(5 \times 5 = 5^2 = 25\)</span>.</p>
 <hr />
 <p>In the study of <span class="math inline">\(p\)</span>-adic numbers,
 the values <span class="math inline">\(x_n\)</span> are called

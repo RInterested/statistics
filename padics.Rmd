@@ -719,7 +719,7 @@ In regular division the quotient is saved at each step, while the remainder is a
 
 ---
 
-The reason the quotient readjusts by subtracting the remainder is that each step is designed to make the remaining value divisible by a higher power of $p$. We start with $x$. To find $a_0$, we take $x \pmod p$. By calculating $x - a_0$, we are guaranteed a result that is a multiple of $p$. Dividing by $p$ we get the new quotient: $x_{i+1} = \frac{x_i - a_0}{p}=\lfloor{\frac{x_i}{5}}\rfloor$ is essentially "zooming in" on the next digit.A Instead of seeing it as a standard quotient, we can think of it as solving a series of nested congruences. We are finding the unique integer $a_i$ that satisfies:
+The reason the quotient readjusts by subtracting the remainder is that each step is designed to make the remaining value divisible by a higher power of $p$: we move up one order of magnitude. We start with $x$. To find $a_0$, we take $x \pmod p$. By calculating $x - a_0$, we are guaranteed a result that is a multiple of $p$. Dividing by $p$ we get the new quotient: $x_{i+1} = \frac{x_i - a_0}{p}=\lfloor{\frac{x_i}{5}}\rfloor$ is essentially "zooming in" on the next digit.A Instead of seeing it as a standard quotient, we can think of it as solving a series of nested congruences. We are finding the unique integer $a_i$ that satisfies:
 
 $$x \equiv a_0 + a_1p + \dots + a_i p^i \pmod{p^{i+1}}$$
 
@@ -754,6 +754,17 @@ For $n = 45435, p = 5$, for example, if you want the "third digit" (starting the
 
 Divide by $25$: $\lfloor 45435 / 25 \rfloor = 1817$. Take the remainder mod $5$: $1817 \pmod 5 = \mathbf{2}$.
 
+---
+
+It is critical to see that the $5$-adic expression of $4357$ is $\mathbb{F}_{5^5}.$ The $5$-adic integer $4357 \in \mathbb{Z}_5.$ If $4357$ were an element of $\mathbb{F}_{5^5}$, it wouldn't be growing "upward" into powers of $5$; it would be growing "sideways" into powers of a symbolic root $\alpha$. An element of $\mathbb{F}_{5^5}$ looks like this:
+
+$$c_0 + c_1\alpha + c_2\alpha^2 + c_3\alpha^3 + c_4\alpha^4$$
+
+To make $\alpha$ concrete, we have to look for a "missing number" in the base field. For $p = 5$, in the base field $\mathbb{F}_5$, we only have the numbers $\{0, 1, 2, 3, 4\}$. If we look at their squares:$0^2 = 0$, $1^2 = 1$, $2^2 = 4$, $3^2 = 9 \equiv 4$, $4^2 = 16 \equiv 1$. No number in the base field squares to $2$ or $3.$ They are "missing" their square roots. But, much as with $i =\sqrt{-1}$ we can create a "ghost" ($\alpha$). To build the extension field $\mathbb{F}_{5^2}$, we simply "invent" a number $\alpha$ and define it by the rule: $\alpha^2 = 2$. Now, $\alpha$ is a legitimate resident of our new, wider field. Every "number" in this field is now a combination of a "real" part and an "alpha" part:
+
+$$\text{Number} = c_0 + c_1\alpha$$
+
+It’s called $\mathbb{F}_{5^2}$ because that exponent ($2$) tells us exactly how many "dimensions" the number has, which in turn determines the total population of the field. When you create numbers like $c_0 + c_1\alpha$, we have two independent slots to fill: The $c_0$ slot with $5$ choices $\{0, 1, 2, 3, 4\},$ and the $c_1$ slot with again $5$ choices $\{0, 1, 2, 3, 4\}$. To find the total number of unique elements in this new world, we multiply the choices: $5 \times 5 = 5^2 = 25$.
 
 ---
 
