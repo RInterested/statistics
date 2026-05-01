@@ -417,6 +417,28 @@ If a point on the curve has simple integer coordinates, the Frobenius map won't 
 
 $\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - If they are "ghosts" in $\mathbb{F}_{p^k}$ (and not in the base field), the Frobenius map will move them. Note that the fixed-point property (the logic of who stays still and who moves) belongs entirely to the "horizontal" world of field extensions ($\mathbb{F}_p$ vs. $\mathbb{F}_{p^k}$), not the "vertical" world of $p$-adic lifts ($\mathbb{Z}_p$). This happens regardless of whether we ever lift the point to $\mathbb{Z}_p$, which is separate step intended to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_{p^k}$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily - a separate topic from the Frobenius map.
 
+This is critical to understand. For instance, the $p$-adic integer ("integer" $\implies$ no digits to the right of the radix point) $4357 \in \mathbb{Z}_5$ can be written as a sum of powers of $5$.
+
+$$4357 = 2(5^0) + 1(5^1) + 4(5^2) + 4(5^3) + 1(5^4) + 1(5^5)$$
+
+This is calculated [here](https://rinterested.github.io/statistics/padics.html)  
+
+When we write $4357$ as a sum of powers of $5$, we are looking at its vertical resolution. This is just a standard base-5 representation, as shown in the link. In the $p$-adic world, we say this number has precision $6$ because we know $6$ digits. Even though it uses $5^5$, the "alphabet" we are using is just the set of simple integers $\{0, 1, 2, 3, 4\}$.
+
+Notice that 'precision' is not 'valuation': The valuation is a measure of how many factors of $p$ are inside the number. It tells us how many trailing zeros (before a power of $5$ has a non-zero coefficient) the number has in base $p$. In our example $4357$, the first digit is a $2$ at the $5^0$ level ($2 \cdot 1$). Since it doesn't have a factor of 5 "hiding" in it, its valuation is $0.$ If the number were $50$, which is $2 \cdot 5^2$ (or $200$ in base $5$), the valuation would be $2.$
+
+If $4357$ were an element of $\mathbb{F}_{5^5}$, it wouldn't be growing "upward" into powers of $5$; it would be growing "sideways" into powers of a symbolic root $\alpha$. An element of $\mathbb{F}_{5^5}$ looks like this:
+
+$$c_0 + c_1\alpha + c_2\alpha^2 + c_3\alpha^3 + c_4\alpha^4$$
+
+To make $\alpha$ concrete, we have to look for a "missing number" in the base field. For $p = 5$, in the base field $\mathbb{F}_5$, we only have the numbers $\{0, 1, 2, 3, 4\}$. If we look at their squares:$0^2 = 0$, $1^2 = 1$, $2^2 = 4$, $3^2 = 9 \equiv 4$, $4^2 = 16 \equiv 1$. No number in the base field squares to $2$ or $3.$ They are "missing" their square roots. But, much as with $i =\sqrt{-1}$ we can create a "ghost" ($\alpha$). To build the extension field $\mathbb{F}_{5^2}$, we simply "invent" a number $\alpha$ and define it by the rule: $\alpha^2 = 2$. Now, $\alpha$ is a legitimate resident of our new, wider field. Every "number" in this field is now a combination of a "real" part and an "alpha" part:
+
+$$\text{Number} = c_0 + c_1\alpha$$
+
+It’s called $\mathbb{F}_{5^2}$ because that exponent ($2$) tells us exactly how many "dimensions" the number has, which in turn determines the total population of the field. When you create numbers like $c_0 + c_1\alpha$, we have two independent slots to fill: The $c_0$ slot with $5$ choices $\{0, 1, 2, 3, 4\},$ and the $c_1$ slot with again $5$ choices $\{0, 1, 2, 3, 4\}$. To find the total number of unique elements in this new world, we multiply the choices: $5 \times 5 = 5^2 = 25$.
+
+---
+
 To count these fixed points mathematically, we define a new map: $(\phi_p - id)$.
 
 $id$ is the identity map (it does nothing: $id(P) = P$).
