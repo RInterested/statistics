@@ -108,7 +108,7 @@ There are explanations about mapping the infinity plane to a sphere to visualize
 
 Imaging the curve on a unit sphere allows imagining the point at infinity as the North Pole, and the original plot as in here: 
 
-<img src="https://user-images.githubusercontent.com/9312897/236360473-fa77a5e3-84fb-4e30-846b-ad300464697a.png" width='800'>
+<img src="https://user-images.githubusercontent.com/9312897/236360473-fa77a5e3-84fb-4e30-846b-ad300464697a.png" width='500'>
 
 The equations for a unit sphere centered at $(0,0)$ are:
 
@@ -127,9 +127,19 @@ Why reflect across the $x$-axis? So that the point at infinity $\mathcal O$ is t
 
 The following visualization makes operations on points across the $x$ axis understandable:
 
+---
+
 <img src="https://user-images.githubusercontent.com/9312897/236637743-05b49711-66bf-4b62-a56e-04135ef29736.png" width='800'>
 
+---
+
 It is clear therefore, why $P + Q + P = \mathcal O.$
+
+---
+
+<img src="elliptic curve point infinity.gif" width='500'>
+
+---
 
 For modulo $7$ it may be necessary to use an ad hoc function as in [here](https://stackoverflow.com/a/76148708/17842729) because the curve is singular.
 
@@ -405,7 +415,7 @@ A point on the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\math
 
 If a point on the curve has simple integer coordinates, the Frobenius map won't move it, because the Frobenius map doesn't move any of the base field numbers. 
 
-$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - If they are "ghosts" in $\mathbb{F}_{p^k}$ (and not in the base field), the Frobenius map will move them. Note that the fixed-point property (the logic of who stays still and who moves) belongs entirely to the "horizontal" world of field extensions ($\mathbb{F}_p$ vs. $\mathbb{F}_{p^k}$), not the "vertical" world of $p$-adic lifts ($\mathbb{Z}_p$). This happens regardless of whether we ever lift the point to $\mathbb{Z}_p$, which is separate step intended to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_{p^k}$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily.
+$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - If they are "ghosts" in $\mathbb{F}_{p^k}$ (and not in the base field), the Frobenius map will move them. Note that the fixed-point property (the logic of who stays still and who moves) belongs entirely to the "horizontal" world of field extensions ($\mathbb{F}_p$ vs. $\mathbb{F}_{p^k}$), not the "vertical" world of $p$-adic lifts ($\mathbb{Z}_p$). This happens regardless of whether we ever lift the point to $\mathbb{Z}_p$, which is separate step intended to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_{p^k}$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily - a separate topic from the Frobenius map.
 
 To count these fixed points mathematically, we define a new map: $(\phi_p - id)$.
 
