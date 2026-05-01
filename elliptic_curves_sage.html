@@ -705,7 +705,7 @@ an infinite expansions:</p>
 \dots\]</span></p>
 <p>The “simple integer” in <span class="math inline">\(\mathbb{F}_p\)</span> is just the first digit
 (<span class="math inline">\(d_0\)</span>) of a <span class="math inline">\(p\)</span>-adic integer.</p>
-<p>A point in the curve with <span class="math inline">\(x\)</span> and
+<p>A point on the curve with <span class="math inline">\(x\)</span> and
 <span class="math inline">\(y\)</span> coordinates simple integers,
 i.e. <span class="math inline">\(E(\mathbb{F}_p),\)</span> is a solution
 to the curve equation modulo <span class="math inline">\(p\)</span>. A
@@ -713,20 +713,25 @@ point in <span class="math inline">\(E(\mathbb{Z}_p)\)</span> is a lift
 of that solution. It is the infinite string that starts with <span class="math inline">\(d_0\)</span> and continues forever in a way that
 always satisfies the equation at every higher power of <span class="math inline">\(p\)</span>.</p>
 <p>… End of parenthesis… Continuing…</p>
-<p>then the Frobenius map won’t move it, because the Frobenius map
-doesn’t move any of the base field numbers.</p>
+<p>If a point on the curve has simple integer coordinates, the Frobenius
+map won’t move it, because the Frobenius map doesn’t move any of the
+base field numbers.</p>
 <p><span class="math inline">\(\impliedby\)</span>: If you find a point
 on the curve (even a “ghost point” in the extension field) (remember
 that <span class="math inline">\(P\)</span> by definition is on the
 curve), and the Frobenius map doesn’t move it, i.e. <span class="math inline">\(\phi_p(P)=P,\)</span> that proves its coordinates
-must have actually been simple integers all along, i.e. <span class="math inline">\(P \in E(\mathbb F_p)\)</span> - no need to extend
-it the field to <span class="math inline">\(\mathbb Z_p.\)</span> We
-only use the extension to <span class="math inline">\(\mathbb{Z}_p\)</span> as a computational tool. It
-allows us to calculate the <span class="math inline">\(a_p\)</span> with
+must have actually been simple integers all along, i.e. <span class="math inline">\(P \in E(\mathbb F_p)\)</span> - If they are
+“ghosts” in <span class="math inline">\(\mathbb{F}_{p^k}\)</span> (and
+not in the base field), the Frobenius map will move them. Note that the
+fixed-point property (the logic of who stays still and who moves)
+belongs entirely to the “horizontal” world of field extensions (<span class="math inline">\(\mathbb{F}_p\)</span> vs. <span class="math inline">\(\mathbb{F}_{p^k}\)</span>), not the “vertical”
+world of <span class="math inline">\(p\)</span>-adic lifts (<span class="math inline">\(\mathbb{Z}_p\)</span>). This happens regardless of
+whether we ever lift the point to <span class="math inline">\(\mathbb{Z}_p\)</span>, which is separate step
+intended to calculate the <span class="math inline">\(a_p\)</span> with
 enough precision to distinguish it from other numbers. If we stayed only
-at the <span class="math inline">\(\mathbb{F}_p\)</span> level, we might
-know <span class="math inline">\(a_p \pmod 5\)</span>, but we wouldn’t
-be able to find the true integer value of <span class="math inline">\(a_p\)</span> as easily.</p>
+at the <span class="math inline">\(\mathbb{F}_{p^k}\)</span> level, we
+might know <span class="math inline">\(a_p \pmod 5\)</span>, but we
+wouldn’t be able to find the true integer value of <span class="math inline">\(a_p\)</span> as easily.</p>
 <p>To count these fixed points mathematically, we define a new map:
 <span class="math inline">\((\phi_p - id)\)</span>.</p>
 <p><span class="math inline">\(id\)</span> is the identity map (it does

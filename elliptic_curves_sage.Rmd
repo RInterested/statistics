@@ -399,13 +399,13 @@ $$d_0 + d_1 p + d_2 p^2 + d_3 p^3 + \dots$$
 
 The "simple integer" in $\mathbb{F}_p$ is just the first digit ($d_0$) of a $p$-adic integer. 
 
-A point in the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\mathbb{F}_p),$ is a solution to the curve equation modulo $p$. A point in $E(\mathbb{Z}_p)$ is a lift of that solution. It is the infinite string that starts with $d_0$ and continues forever in a way that always satisfies the equation at every higher power of $p$.
+A point on the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\mathbb{F}_p),$ is a solution to the curve equation modulo $p$. A point in $E(\mathbb{Z}_p)$ is a lift of that solution. It is the infinite string that starts with $d_0$ and continues forever in a way that always satisfies the equation at every higher power of $p$.
 
 ... End of parenthesis... Continuing...
 
-then the Frobenius map won't move it, because the Frobenius map doesn't move any of the base field numbers. 
+If a point on the curve has simple integer coordinates, the Frobenius map won't move it, because the Frobenius map doesn't move any of the base field numbers. 
 
-$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - no need to extend it the field to $\mathbb Z_p.$ We only use the extension to $\mathbb{Z}_p$ as a computational tool. It allows us to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_p$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily.
+$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - If they are "ghosts" in $\mathbb{F}_{p^k}$ (and not in the base field), the Frobenius map will move them. Note that the fixed-point property (the logic of who stays still and who moves) belongs entirely to the "horizontal" world of field extensions ($\mathbb{F}_p$ vs. $\mathbb{F}_{p^k}$), not the "vertical" world of $p$-adic lifts ($\mathbb{Z}_p$). This happens regardless of whether we ever lift the point to $\mathbb{Z}_p$, which is separate step intended to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_{p^k}$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily.
 
 To count these fixed points mathematically, we define a new map: $(\phi_p - id)$.
 
