@@ -381,7 +381,7 @@ Because of the way finite fields work, and specifically **Fermat's Little Theore
 
 $$x^p \equiv x \pmod p$$
 
-a point $P$ known to be on the curve $E$ is fixed by this map if and only if its coordinates are in the base field $\mathbb{F}_p$, i.e. $x, y \in $\mathbb{F}_p$ In other words:
+a point $P$ known to be on the curve $E$ is fixed by this map if and only if its coordinates are in the base field $\mathbb{F}_p$, i.e. $x, y \in \mathbb{F}_p$ In other words:
 
 $$P \in E(\mathbb{F}_p) \iff \phi_p(P) = P$$
 
@@ -403,7 +403,7 @@ A point in the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\math
 
 ... End of parenthesis... Continuing...
 
-then the Frobenius map $x^p \equiv x$ won't move it, because the Frobenius map doesn't move any of the base field numbers. 
+then the Frobenius map won't move it, because the Frobenius map doesn't move any of the base field numbers. 
 
 $\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - no need to extend it the field to $\mathbb Z_p.$ We only use the extension to $\mathbb{Z}_p$ as a computational tool. It allows us to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_p$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily.
 
@@ -418,6 +418,7 @@ If $P$ is a fixed point, then $\phi_p(P) - id(P) = \mathcal{O}$ (the zero point)
 In the world of algebraic geometry, the number of points that a map sends to zero is called the degree of that map. Therefore:
 
 $$N_p = \deg(\phi_p - id)$$
+
 ---
 
 Degrees are hard to calculate directly. We want to turn this geometry into simple matrix algebra. In arithmetic geometry, we often use $p$ to refer to the prime we are "counting modulo" (the field $\mathbb{F}_p$). To avoid confusion, we pick a different prime to help us probe the curve's internal structure. We call this second prime $\ell$. $\ell$ can be any prime number as long as it isn't $p$. If $p=5$, we might pick $\ell=2$ or $\ell=3$. $\ell$ is like a measurement tool we use to see how the curve is shaped. 
