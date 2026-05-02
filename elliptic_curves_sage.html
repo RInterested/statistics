@@ -815,9 +815,7 @@ the next layer of the number, we look at:</p>
 <p><span class="math display">\[\psi_\ell(x_q + \epsilon) \approx
 \psi_\ell(x_q) + \epsilon \cdot \psi&#39;_\ell(x_q)\]</span></p>
 <p>Here, <span class="math inline">\(\epsilon\)</span> represents the
-vertical growth (<span class="math inline">\(d_1 p^1\)</span>). We are
-looking for the value of <span class="math inline">\(\epsilon\)</span>
-that kills the current regret.</p>
+vertical growth (<span class="math inline">\(d_1 p^1\)</span>).</p>
 <p>Hensel’s rule: To solve for that missing digit <span class="math inline">\(\epsilon\)</span>, we rearrange the equation:</p>
 <p><span class="math display">\[\epsilon =
 -\frac{\psi_\ell(x_q)}{\psi&#39;_\ell(x_q)}\]</span></p>
@@ -2174,6 +2172,7 @@ converted into a single, infinite sum:</p>
 \frac{a_2}{2^s} + \frac{a_3}{3^s} + \frac{a_4}{4^s} + \dots =
 \sum_{n=1}^{\infty} \frac{a_n}{n^s}\]</span></p>
 <hr />
+<p>First example:</p>
 <p>We need to get the roots of a division polynomial <span class="math inline">\(\psi(x) = x^2 - 2\)</span> (in this case we want
 to find <span class="math inline">\(\sqrt{2}\)</span> in <span class="math inline">\(p\)</span>-adics). Say we are working <span class="math inline">\(p = 5\)</span>.</p>
 <p>The Seed (<span class="math inline">\(x_0\)</span>): We need a
@@ -2219,6 +2218,159 @@ coordinate:</p>
 5\]</span></p>
 <p>This new value is now our “seed” for the next round. We repeat this
 until our <span class="math inline">\(x\)</span> has 20 digits.</p>
+<hr />
+<p>More complex example:</p>
+<p>The Prime: <span class="math inline">\(p = 7\)</span>.</p>
+<p>The Curve: <span class="math inline">\(y^2 = x^3 + 2\)</span>.</p>
+<p>The division polynomial is <span class="math inline">\(f(x) = x^2 -
+2\)</span>.</p>
+<p>The seed: In <span class="math inline">\(\mathbb{F}_7\)</span>, we
+find that <span class="math inline">\(3^2 = 9 \equiv 2 \pmod 7\)</span>.
+So our starting “horizontal” root is</p>
+<p><span class="math display">\[x_0 = 3\]</span></p>
+<p>At the <span class="math inline">\(\mathbb{F}_7\)</span> level, we
+have:</p>
+<p><span class="math display">\[f(3) = 3^2 - 2 = 7\]</span></p>
+<p>which in the finite field <span class="math inline">\(\mathbb{F}_7\)</span> is exactly <span class="math inline">\(0\)</span>. But to “lift” it, we look at it as an
+integer and see that it is <span class="math inline">\(7^1\)</span>.
+This is the “residual” that drives the next step.</p>
+<p>Why?</p>
+<p>Think of the equation <span class="math inline">\(f(x) = x^2 -
+2\)</span> as a physical system. At <span class="math inline">\(x=3\)</span>, the system has ar “energy” of <span class="math inline">\(7.\)</span> If we reduce <span class="math inline">\(\pmod 7\)</span>, we are effectively saying, “I
+don’t care about any energy level higher than zero.” By not reducing, we
+are acknowledging that while <span class="math inline">\(3\)</span> is a
+root at precision <span class="math inline">\(1\)</span>, it is not a
+root at precision <span class="math inline">\(2.\)</span> The <span class="math inline">\(7\)</span> is the evidence that our <span class="math inline">\(x_0\)</span> is slightly off-center from the
+“true” <span class="math inline">\(p\)</span>-adic root. We use that
+<span class="math inline">\(7\)</span> to calculate exactly how much to
+nudge <span class="math inline">\(x_0\)</span> to make the error
+disappear at the next level (<span class="math inline">\(49\)</span>).</p>
+<p>We are working modulo <span class="math inline">\(7^2\)</span> (which
+is <span class="math inline">\(49\)</span>). Our universe now expands to
+<span class="math inline">\(\{0, 1, 2, \dots, 48\}\)</span>. Our number
+now looks like <span class="math inline">\(d_0 + d_1(7)\)</span>. In our
+calculation, this is <span class="math inline">\(3 + 1(7) =
+10\)</span>.</p>
+<p>We want to find <span class="math inline">\(x_1 = 3 + d_1 \cdot
+7\)</span> such that <span class="math inline">\(f(x_1) \equiv 0
+\pmod{49}\)</span>.</p>
+<p>The derivative:</p>
+<p><span class="math display">\[f&#39;(x) = 2x \implies f&#39;(3) = 2(3)
+= 6\]</span></p>
+<p>We use the Taylor expansion formula:</p>
+<p><span class="math display">\[f(3) + (d_1 \cdot 7) \cdot f&#39;(3)
+\equiv 0 \pmod{49}\]</span></p>
+<p>Substitute our values:</p>
+<p><span class="math display">\[7 + (d_1 \cdot 7) \cdot 6 \equiv 0
+\pmod{49}\]</span></p>
+<p>Solve for the digit <span class="math inline">\(d_1\)</span>:</p>
+<p>Divide the whole equation by <span class="math inline">\(7\)</span>
+to isolate <span class="math inline">\(d_1\)</span> in the “horizontal”
+world (<span class="math inline">\(\mathbb{F}_7\)</span>):</p>
+<p><span class="math display">\[1 + d_1 \cdot 6 \equiv 0 \pmod
+7\]</span></p>
+<p><span class="math display">\[d_1 \cdot 6 \equiv -1 \equiv 6 \pmod
+7\]</span></p>
+<p><span class="math display">\[d_1 = 1\]</span></p>
+<p>The new coordinate:</p>
+<p><span class="math display">\[x_1 = 3 + (1 \cdot 7) = 10\]</span></p>
+<p>Check: <span class="math inline">\(10^2 - 2 = 98\)</span>. Since
+<span class="math inline">\(98 = 2 \times 49\)</span>, <span class="math inline">\(x_1 = 10\)</span> is an exact root modulo <span class="math inline">\(49\)</span>.4.</p>
+<p>The Second Lift (Moving to <span class="math inline">\(7^3\)</span>):</p>
+<p>Now we want <span class="math inline">\(x_2 = 10 + d_2 \cdot
+49\)</span> such that <span class="math inline">\(f(x_2) \equiv 0
+\pmod{343}\)</span>.</p>
+<p>Step A: The derivative stays the same: <span class="math inline">\(f&#39;(10) = 2(10) = 20\)</span>.</p>
+<p>Modulo <span class="math inline">\(7\)</span>, <span class="math inline">\(20 \equiv 6\)</span>.</p>
+<p>The Linear Equation:</p>
+<p><span class="math display">\[f(10) + (d_2 \cdot 49) \cdot f&#39;(10)
+\equiv 0 \pmod{343}\]</span></p>
+<p><span class="math display">\[98 + (d_2 \cdot 49) \cdot 20 \equiv 0
+\pmod{343}\]</span></p>
+<p>Solve for <span class="math inline">\(d_2\)</span>:</p>
+<p>Divide by <span class="math inline">\(49\)</span>:</p>
+<p><span class="math display">\[2 + d_2 \cdot 20 \equiv 0 \pmod
+7\]</span></p>
+<p>Since <span class="math inline">\(20 \equiv 6 \pmod 7\)</span>:</p>
+<p><span class="math display">\[2 + d_2 \cdot 6 \equiv 0 \pmod
+7\]</span></p>
+<p><span class="math display">\[d_2 \cdot 6 \equiv -2 \equiv 5 \pmod
+7\]</span></p>
+<p>Looking for <span class="math inline">\(d_2\)</span>: <span class="math inline">\(6 \times 2 = 12 \equiv 5\)</span>. So <span class="math inline">\(d_2 = 2\)</span>.</p>
+<p>The new coordinate:</p>
+<p><span class="math display">\[x_2 = 10 + (2 \cdot 49) = 10 + 98 =
+108\]</span></p>
+<p>When we say <span class="math inline">\(108,\)</span> we are writing
+the value in standard base-<span class="math inline">\(10\)</span> so
+it’s easier for us to read. But under the hood, its <span class="math inline">\(p\)</span>-adic structure in base-7, it is
+perfectly valid:</p>
+<p><span class="math display">\[108 = (3 \times 7^0) + (1 \times 7^1) +
+(2 \times 7^2)\]</span></p>
+<p>In base-<span class="math inline">\(7\)</span> digits, 108 is written
+as <span class="math inline">\(213_7\)</span>.</p>
+<p>Check: <span class="math inline">\(108^2 - 2 = 11664 - 2 =
+11662\)</span>. <span class="math inline">\(11662 / 343 =
+34\)</span>.</p>
+<p>Now, imagine we did this <span class="math inline">\(20\)</span>
+times as in the SageMath code. We would have an <span class="math inline">\(x\)</span>-coordinate like:</p>
+<p><span class="math display">\[x_{final} = 3 + 1(7) + 2(7^2) +
+\dots\]</span></p>
+<p>This is a high-precision <span class="math inline">\(p\)</span>-adic
+integer, which will be the <span class="math inline">\(x\)</span>
+coordinate of the point <span class="math inline">\(P=(108,y)\)</span></p>
+<p>The matrix step: We take this <span class="math inline">\(x =
+108\)</span> (and its corresponding <span class="math inline">\(y\)</span>) and apply the Frobenius map:</p>
+<p><span class="math display">\[\phi_7(108, y) = (108^7,
+y^7)=P&#39;\]</span></p>
+<p>The reason <span class="math inline">\(\phi_p(P)\)</span> is
+guaranteed to be on the curve is because of the Freshman’s Dream
+property in finite fields. If <span class="math inline">\((x,
+y)\)</span> satisfies:</p>
+<p><span class="math display">\[y^2 = x^3 + Ax + B\]</span></p>
+<p>Then, if we raise everything to the <span class="math inline">\(p\)</span>-th power:</p>
+<p><span class="math display">\[(y^2)^p = (x^3 + Ax + B)^p\]</span></p>
+<p>In a field of characteristic <span class="math inline">\(p\)</span>,
+the <span class="math inline">\(p\)</span>-th power distributes over
+addition:</p>
+<p><span class="math display">\[(y^p)^2 = (x^p)^3 + A^p x^p +
+B^p\]</span></p>
+<p>Since <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are in the base field <span class="math inline">\(\mathbb{F}_p\)</span>, Fermat’s Little Theorem
+tells us <span class="math inline">\(A^p = A\)</span> and <span class="math inline">\(B^p = B\)</span>. So:</p>
+<p><span class="math display">\[(y^p)^2 = (x^p)^3 + A(x^p) +
+B\]</span></p>
+<p>This shows that the new coordinates <span class="math inline">\((x^p,
+y^p)\)</span> satisfy the exact same curve equation. The Frobenius map
+is a “symmetry” of the curve; it moves points around, but it never
+knocks them off the track.</p>
+<p>We apply Frobenius to <span class="math inline">\(P\)</span>. Since
+<span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> are our basis, the result <span class="math inline">\(\phi_p(P)\)</span> must be some combination of
+them:</p>
+<p><span class="math display">\[\phi_p(P) = aP + bQ\]</span></p>
+<p>We apply Frobenius to <span class="math inline">\(Q\)</span>. The
+result <span class="math inline">\(\phi_p(Q)\)</span> must also be a
+combination:</p>
+<p><span class="math display">\[\phi_p(Q) = cP + dQ\]</span></p>
+<p>How do we find <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> if we only have one equation for them?
+In the <span class="math inline">\(p\)</span>-adic skyscraper, <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> are like vectors in 2D space. Because
+we have their high-precision coordinates, we can use point addition math
+(the same secant-and-tangent rule, but done <span class="math inline">\(p\)</span>-adically) to “test” different values of
+<span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> until the equation balances. In
+practice, we often use an algorithm like baby-step giant-step or even
+simple linear algebra over the torsion group to find these integers.
+Because our precision is so high (<span class="math inline">\(20\)</span> digits), there is only one set of
+integers <span class="math inline">\((a, b, c, d)\)</span> that will
+make these equations work.</p>
+<p>Once you’ve found those four <span class="math inline">\(p\)</span>-adic strings, we put them into the
+grid:</p>
+<p><span class="math display">\[\text{Frobenius Matrix} =
+\begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\]</span></p>
+<p>The Trace (<span class="math inline">\(a_p\)</span>) is the sum of
+the diagonal: <span class="math inline">\(a + d\)</span>.</p>
+<hr />
+<p><a href="http://rinterested.github.io/statistics/index.html">Home
+Page</a></p>
+<p><strong>NOTE: These are tentative notes on different topics for
+personal use - expect mistakes and misunderstandings.</strong></p>
 </div>
 </div>
 
