@@ -825,6 +825,8 @@ that kills the current regret.</p>
 denominator is the derivative of the division polynomial. It acts as the
 “slope” that tells you exactly how much to adjust your coordinate to get
 closer to the true root.</p>
+<p>Below (***) there is a sketch of what the mechanics of this
+calculation would entail.</p>
 <hr />
 <p>Although not critical to the rest of the explanation, to count these
 fixed points mathematically, we define a new map: <span class="math inline">\((\phi_p - id)\)</span>.</p>
@@ -2171,6 +2173,52 @@ converted into a single, infinite sum:</p>
 <p><span class="math display">\[L(E, s) = \frac{a_1}{1^s} +
 \frac{a_2}{2^s} + \frac{a_3}{3^s} + \frac{a_4}{4^s} + \dots =
 \sum_{n=1}^{\infty} \frac{a_n}{n^s}\]</span></p>
+<hr />
+<p>We need to get the roots of a division polynomial <span class="math inline">\(\psi(x) = x^2 - 2\)</span> (in this case we want
+to find <span class="math inline">\(\sqrt{2}\)</span> in <span class="math inline">\(p\)</span>-adics). Say we are working <span class="math inline">\(p = 5\)</span>.</p>
+<p>The Seed (<span class="math inline">\(x_0\)</span>): We need a
+starting value such that <span class="math inline">\(x_0^2 - 2 \equiv 0
+\pmod 5\)</span>. We will need to extend the <span class="math inline">\(\mathbb F_5\)</span> field. Let’s actually use
+<span class="math inline">\(x_0 = \alpha\)</span> where <span class="math inline">\(\alpha^2 = 2\)</span> exactly).</p>
+<p>We want to find the next version of <span class="math inline">\(x\)</span>, let’s call it <span class="math inline">\(x_1\)</span>, such that:</p>
+<p><span class="math display">\[x_1 = x_0 + d_1 \cdot 5\]</span></p>
+<p>And we require that this new <span class="math inline">\(x_1\)</span>
+satisfies the polynomial at a higher power:</p>
+<p><span class="math display">\[\psi(x_1) \equiv 0
+\pmod{5^2}\]</span></p>
+<p>We Taylor expand the polynomial <span class="math inline">\(\psi(x_0
++ d_1 \cdot 5)\)</span> around <span class="math inline">\(x_0\)</span>:</p>
+<p><span class="math display">\[\psi(x_0 + d_1 \cdot 5) \approx
+\psi(x_0) + (d_1 \cdot 5) \cdot \psi&#39;(x_0)\]</span></p>
+<p>Because we are working <span class="math inline">\(\pmod{5^2}\)</span>, all higher-order terms (those
+involving <span class="math inline">\(5^2, 5^3\)</span>, etc.)
+disappear. We set this equal to zero to solve for the unknown digit
+<span class="math inline">\(d_1\)</span>:</p>
+<p><span class="math display">\[\psi(x_0) + (d_1 \cdot 5) \cdot
+\psi&#39;(x_0) \equiv 0 \pmod{25}\]</span></p>
+<p>Evaluate <span class="math inline">\(\psi(x_0)\)</span>: Since <span class="math inline">\(x_0 = \alpha\)</span> and <span class="math inline">\(\alpha^2 = 2\)</span>, <span class="math inline">\(\psi(\alpha) = \alpha^2 - 2 = 0\)</span>. In a
+real scenario, <span class="math inline">\(x_0\)</span> is a <span class="math inline">\(p\)</span>-adic approximation, so <span class="math inline">\(\psi(x_0)\)</span> would be some multiple of <span class="math inline">\(5,\)</span> such as <span class="math inline">\(15\)</span>. Our current <span class="math inline">\(\psi(x_0) =0\)</span> would produce a trail of
+zeros.</p>
+<p>Evaluate the derivative <span class="math inline">\(\psi&#39;(x_0)\)</span>:</p>
+<p><span class="math display">\[\psi&#39;(x) = 2x \implies
+\psi&#39;(x_0) = 2\alpha\]</span></p>
+<p>Substitute these into the linear equation:</p>
+<p><span class="math display">\[15 + (d_1 \cdot 5) \cdot (2\alpha)
+\equiv 0 \pmod{25}\]</span></p>
+<p>Divide the entire equation by <span class="math inline">\(5\)</span>
+to isolate the digit <span class="math inline">\(d_1\)</span>:</p>
+<p><span class="math display">\[3 + d_1 \cdot (2\alpha) \equiv 0 \pmod
+5\]</span></p>
+<p>Now, solve for <span class="math inline">\(d_1\)</span> in the finite
+field <span class="math inline">\(\mathbb{F}_5\)</span>:</p>
+<p><span class="math display">\[d_1 \cdot (2\alpha) \equiv -3 \equiv 2
+\pmod 5\]</span></p>
+<p>Once we find <span class="math inline">\(d_1\)</span>, we update our
+coordinate:</p>
+<p><span class="math display">\[x_{new} = \alpha + d_1 \cdot
+5\]</span></p>
+<p>This new value is now our “seed” for the next round. We repeat this
+until our <span class="math inline">\(x\)</span> has 20 digits.</p>
 </div>
 </div>
 

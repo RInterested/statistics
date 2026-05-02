@@ -443,7 +443,6 @@ $$\text{Number} = c_0 + c_1\alpha + c_2\alpha^2$$
 
 There are $5$ choices in $c_0,$ $5$ choices in $c_1,$ and $5$ choices in $c_2.$
 
-
 ---
 
 The big idea:
@@ -465,6 +464,8 @@ Hensel's rule: To solve for that missing digit $\epsilon$, we rearrange the equa
 $$\epsilon = -\frac{\psi_\ell(x_q)}{\psi'_\ell(x_q)}$$
 
 The numerator tells how far off the equation is from zero. The denominator is the derivative of the division polynomial. It acts as the "slope" that tells you exactly how much to adjust your coordinate to get closer to the true root.
+
+Below (***) there is a sketch of what the mechanics of this calculation would entail.
 
 ---
 
@@ -1318,3 +1319,49 @@ When you multiply these together, you pick one term from every set of parenthese
 Because every integer $n$ has a unique prime factorization, every possible fraction $\frac{a_n}{n^s}$ appears exactly once in the final result. The "wall of fractions" has successfully been converted into a single, infinite sum:
 
 $$L(E, s) = \frac{a_1}{1^s} + \frac{a_2}{2^s} + \frac{a_3}{3^s} + \frac{a_4}{4^s} + \dots = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$$
+
+---
+
+We need to get the roots of a division polynomial $\psi(x) = x^2 - 2$ (in this case we want to find $\sqrt{2}$ in $p$-adics). Say we are working $p = 5$.
+
+The Seed ($x_0$): We need a starting value such that $x_0^2 - 2 \equiv 0 \pmod 5$. We will need to extend the $\mathbb F_5$ field. Let's actually use $x_0 = \alpha$ where $\alpha^2 = 2$ exactly).
+
+We want to find the next version of $x$, let's call it $x_1$, such that:
+
+$$x_1 = x_0 + d_1 \cdot 5$$
+
+And we require that this new $x_1$ satisfies the polynomial at a higher power:
+
+$$\psi(x_1) \equiv 0 \pmod{5^2}$$
+
+We Taylor expand the polynomial $\psi(x_0 + d_1 \cdot 5)$ around $x_0$:
+
+$$\psi(x_0 + d_1 \cdot 5) \approx \psi(x_0) + (d_1 \cdot 5) \cdot \psi'(x_0)$$
+
+Because we are working $\pmod{5^2}$, all higher-order terms (those involving $5^2, 5^3$, etc.) disappear. We set this equal to zero to solve for the unknown digit $d_1$:
+
+$$\psi(x_0) + (d_1 \cdot 5) \cdot \psi'(x_0) \equiv 0 \pmod{25}$$
+
+Evaluate $\psi(x_0)$: Since $x_0 = \alpha$ and $\alpha^2 = 2$, $\psi(\alpha) = \alpha^2 - 2 = 0$. In a real scenario, $x_0$ is a $p$-adic approximation, so $\psi(x_0)$ would be some multiple of $5,$ such as $15$. Our current $\psi(x_0) =0$ would produce a trail of zeros.
+
+Evaluate the derivative $\psi'(x_0)$:
+
+$$\psi'(x) = 2x \implies \psi'(x_0) = 2\alpha$$
+
+Substitute these into the linear equation:
+
+$$15 + (d_1 \cdot 5) \cdot (2\alpha) \equiv 0 \pmod{25}$$
+
+Divide the entire equation by $5$ to isolate the digit $d_1$:
+
+$$3 + d_1 \cdot (2\alpha) \equiv 0 \pmod 5$$
+
+Now, solve for $d_1$ in the finite field $\mathbb{F}_5$:
+
+$$d_1 \cdot (2\alpha) \equiv -3 \equiv 2 \pmod 5$$
+
+Once we find $d_1$, we update our coordinate:
+
+$$x_{new} = \alpha + d_1 \cdot 5$$
+
+This new value is now our "seed" for the next round. We repeat this until our $x$ has 20 digits.
