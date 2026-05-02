@@ -788,6 +788,43 @@ slots to fill: The <span class="math inline">\(c_0\)</span> slot with
 <span class="math inline">\(5\)</span> choices <span class="math inline">\(\{0, 1, 2, 3, 4\},\)</span> and the <span class="math inline">\(c_1\)</span> slot with again <span class="math inline">\(5\)</span> choices <span class="math inline">\(\{0, 1, 2, 3, 4\}\)</span>. To find the total
 number of unique elements in this new world, we multiply the choices:
 <span class="math inline">\(5 \times 5 = 5^2 = 25\)</span>.</p>
+<p>To create an extension like <span class="math inline">\(\mathbb{F}_{p^3}\)</span>, we don’t just add a
+double (like another square root); we add a number that solves a cubic
+equation. In field theory, the exponent in <span class="math inline">\(\mathbb{F}_{p^k}\)</span> tells us the degree of
+the ghost number we need to invent. For <span class="math inline">\(\mathbb{F}_{5^2}\)</span>, we used <span class="math inline">\(\alpha^2 = 2\)</span>. For <span class="math inline">\(\mathbb{F}_{5^3}\)</span>, we need an <span class="math inline">\(\alpha\)</span> that satisfies a cubic equation
+that has no solutions in <span class="math inline">\(\mathbb{F}_5\)</span>. A common example for <span class="math inline">\(p=5\)</span> is finding an <span class="math inline">\(\alpha\)</span> such that: <span class="math inline">\(\alpha^3 = 2.\)</span> Since <span class="math inline">\(1^3=1, 2^3=8\equiv 3, 3^3=27\equiv 2, 4^3=64\equiv
+4\)</span>, this actually has a root in <span class="math inline">\(\mathbb{F}_5\)</span>, so we’d have to pick a
+different one like <span class="math inline">\(\alpha^3 + \alpha + 1 =
+0\)</span>). Once you have this cubic ghost, every number in the field
+becomes a <span class="math inline">\(3\)</span>D coordinate. Instead of
+just real and alpha, you now have alpha-Squared:</p>
+<p><span class="math display">\[\text{Number} = c_0 + c_1\alpha +
+c_2\alpha^2\]</span></p>
+<p>There are <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_0,\)</span> <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_1,\)</span> and <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_2.\)</span></p>
+<hr />
+<p>The big idea:</p>
+<p>We start with our “blurry” torsion point coordinate <span class="math inline">\(x_q\)</span> from the extension field <span class="math inline">\(\mathbb{F}_{p^k}\)</span>.</p>
+<p>The input looks like <span class="math inline">\(x_q = c_0 +
+c_1\alpha + \dots + c_{k-1}\alpha^{k-1}\)</span>.</p>
+<p>The Goal: This <span class="math inline">\(x_q\)</span> must be a
+root of the division polynomial <span class="math inline">\(\psi_\ell(x)\)</span>.</p>
+<p>At the start, <span class="math inline">\(\psi_\ell(x_q) \equiv 0
+\pmod p\)</span>. There is a small error that is a multiple of <span class="math inline">\(p\)</span>. To lift, we don’t just guess the next
+digit. We use the Taylor Expansion of the polynomial. If we want to find
+the next layer of the number, we look at:</p>
+<p><span class="math display">\[\psi_\ell(x_q + \epsilon) \approx
+\psi_\ell(x_q) + \epsilon \cdot \psi&#39;_\ell(x_q)\]</span></p>
+<p>Here, <span class="math inline">\(\epsilon\)</span> represents the
+vertical growth (<span class="math inline">\(d_1 p^1\)</span>). We are
+looking for the value of <span class="math inline">\(\epsilon\)</span>
+that kills the current regret.</p>
+<p>Hensel’s rule: To solve for that missing digit <span class="math inline">\(\epsilon\)</span>, we rearrange the equation:</p>
+<p><span class="math display">\[\epsilon =
+-\frac{\psi_\ell(x_q)}{\psi&#39;_\ell(x_q)}\]</span></p>
+<p>The numerator tells how far off the equation is from zero. The
+denominator is the derivative of the division polynomial. It acts as the
+“slope” that tells you exactly how much to adjust your coordinate to get
+closer to the true root.</p>
 <hr />
 <p>Although not critical to the rest of the explanation, to count these
 fixed points mathematically, we define a new map: <span class="math inline">\((\phi_p - id)\)</span>.</p>
@@ -1366,7 +1403,7 @@ and <span class="math inline">\(\phi_p(E_2) = b E_1 + d E_2\)</span></p>
 matrix over the field <span class="math inline">\(\mathbb{F}_\ell\)</span>:</p>
 <p><span class="math display">\[M_{\phi_p, \ell} = \begin{pmatrix} a
 &amp; b \\ c &amp; d \end{pmatrix}\]</span></p>
-<p>The Trace of this matrix is simply <span class="math inline">\(a +
+<p>The trace of this matrix is simply <span class="math inline">\(a +
 d\)</span>. If you were to pick <span class="math inline">\(\ell =
 2\)</span> (the <span class="math inline">\(2 \times 2\)</span> grid),
 the matrix would tell you how <span class="math inline">\(\phi_p\)</span> swaps the three non-zero torsion
@@ -1403,7 +1440,7 @@ parameters for that local polynomial: The prime (<span class="math inline">\(p=3
 weight of the quadratic term, and the trace (<span class="math inline">\(a_p\)</span>), which defines the linear term and
 carries the specific data about the curve’s point-count at that
 prime.</p>
-<p>The Local L-factor is the “slice” of the L-function at a specific
+<p>The local L-factor is the “slice” of the L-function at a specific
 prime <span class="math inline">\(p\)</span>. The global L-function
 <span class="math inline">\(L(E, s)\)</span> is built by multiplying an
 infinite number of these local pieces together (an Euler Product). For a
