@@ -823,6 +823,33 @@ vertical growth (<span class="math inline">\(d_1 p^1\)</span>).</p>
 denominator is the derivative of the division polynomial. It acts as the
 “slope” that tells you exactly how much to adjust your coordinate to get
 closer to the true root.</p>
+<p>In a finite extension like <span class="math inline">\(GF(5^2)\)</span>, we define a new number <span class="math inline">\(\alpha\)</span> which is a root of an equation
+like <span class="math inline">\(x^2 + 2 = 0\)</span>. This <span class="math inline">\(\alpha\)</span> is our “ghost” because it doesn’t
+exist in the base field <span class="math inline">\(\mathbb{F}_5\)</span>. A ghost point <span class="math inline">\(P\)</span> on a curve might look like this:</p>
+<p><span class="math display">\[P = (2\alpha + 1, \quad 3\alpha +
+4)\]</span></p>
+<p>The coefficients <span class="math inline">\((2, 1)\)</span> and
+<span class="math inline">\((3, 4)\)</span> are just integers from <span class="math inline">\(0\)</span> to <span class="math inline">\(4\)</span>. If you tried to plot this on a
+standard grid of <span class="math inline">\(\mathbb{F}_5\)</span>, it
+wouldn’t be there. It only exists in the horizontal” extension.</p>
+<p>The Vertical Promotion (The <span class="math inline">\(p\)</span>-adic lift): Now, we “lift” this point
+into the <span class="math inline">\(p\)</span>-adic skyscraper. We want
+to find a point <span class="math inline">\((x, y)\)</span> that
+satisfies the curve equation not just modulo <span class="math inline">\(5\)</span>, but modulo <span class="math inline">\(5^2, 5^3, \dots, 5^n\)</span>. As we lift, the
+identity of the ghost (<span class="math inline">\(\alpha\)</span>)
+stays the same, but its coefficients must change to stay on the curve.
+This is the “Skyscraper” growing taller. Instead of two simple
+coordinates, the point becomes two power series in <span class="math inline">\(5\)</span>. The ghost <span class="math inline">\(\alpha\)</span> (which we’ll call <span class="math inline">\(\beta\)</span> in the <span class="math inline">\(p\)</span>-adic world) appears at every level:</p>
+<p>The <span class="math inline">\(x\)</span>-coordinate lift:</p>
+<p><span class="math display">\[x = \underbrace{(2\beta +
+1)}_{\text{Ground Floor}} + \underbrace{(1\beta + 3)}_{\text{1st Floor}}
+\cdot 5 + \underbrace{(4\beta + 0)}_{\text{2nd Floor}} \cdot 25 + \dots
++ O(5^n)\]</span></p>
+<p>The <span class="math inline">\(y\)</span>-coordinate lift:</p>
+<p><span class="math display">\[y = \underbrace{(3\beta +
+4)}_{\text{Ground Floor}} + \underbrace{(0\beta + 2)}_{\text{1st Floor}}
+\cdot 5 + \underbrace{(2\beta + 1)}_{\text{2nd Floor}} \cdot 25 + \dots
++ O(5^n)\]</span></p>
 <p>Below (***) there is a sketch of what the mechanics of this
 calculation would entail.</p>
 <hr />

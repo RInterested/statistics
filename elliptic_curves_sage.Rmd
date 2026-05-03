@@ -465,6 +465,22 @@ $$\epsilon = -\frac{\psi_\ell(x_q)}{\psi'_\ell(x_q)}$$
 
 The numerator tells how far off the equation is from zero. The denominator is the derivative of the division polynomial. It acts as the "slope" that tells you exactly how much to adjust your coordinate to get closer to the true root.
 
+In a finite extension like $GF(5^2)$, we define a new number $\alpha$ which is a root of an equation like $x^2 + 2 = 0$. This $\alpha$ is our "ghost" because it doesn't exist in the base field $\mathbb{F}_5$. A ghost point $P$ on a curve might look like this:
+
+$$P = (2\alpha + 1, \quad 3\alpha + 4)$$
+
+The coefficients $(2, 1)$ and $(3, 4)$ are just integers from $0$ to $4$. If you tried to plot this on a standard grid of $\mathbb{F}_5$, it wouldn't be there. It only exists in the horizontal" extension.
+
+The Vertical Promotion (The $p$-adic lift): Now, we "lift" this point into the $p$-adic skyscraper. We want to find a point $(x, y)$ that satisfies the curve equation not just modulo $5$, but modulo $5^2, 5^3, \dots, 5^n$. As we lift, the identity of the ghost ($\alpha$) stays the same, but its coefficients must change to stay on the curve. This is the "Skyscraper" growing taller. Instead of two simple coordinates, the point becomes two power series in $5$. The ghost $\alpha$ (which we'll call $\beta$ in the $p$-adic world) appears at every level:
+
+The $x$-coordinate lift:
+
+$$x = \underbrace{(2\beta + 1)}_{\text{Ground Floor}} + \underbrace{(1\beta + 3)}_{\text{1st Floor}} \cdot 5 + \underbrace{(4\beta + 0)}_{\text{2nd Floor}} \cdot 25 + \dots + O(5^n)$$
+
+The $y$-coordinate lift:
+
+$$y = \underbrace{(3\beta + 4)}_{\text{Ground Floor}} + \underbrace{(0\beta + 2)}_{\text{1st Floor}} \cdot 5 + \underbrace{(2\beta + 1)}_{\text{2nd Floor}} \cdot 25 + \dots + O(5^n)$$
+
 Below (***) there is a sketch of what the mechanics of this calculation would entail.
 
 ---
