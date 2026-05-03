@@ -1460,7 +1460,7 @@ When we say $108,$ we are writing the value in standard base-$10$ so it's easier
 
 $$108 = (3 \times 7^0) + (1 \times 7^1) + (2 \times 7^2)$$
 
-In base-$7$ digits, 108 is written as $213_7$.
+In base-$7$ digits, $108$ is written as $213_7$.
 
 Check: $108^2 - 2 = 11664 - 2 = 11662$. $11662 / 343 = 34$.
 
@@ -1470,11 +1470,48 @@ $$x_{final} = 3 + 1(7) + 2(7^2) + \dots$$
 
 This is a high-precision $p$-adic integer, which will be the $x$ coordinate of the point $P=(108,y)$
 
+In SageMath:
+
+```
+from sage.all import Zp
+
+# 1. Define the ring with 'series' print mode
+# This ensures we see the + 7 + 7^2 format
+Z7 = Zp(7, prec=3, type='capped-rel', print_mode='series')
+
+# 2. Reconstruct the parts of our 108
+# x_final = 3 + 1*(7^1) + 2*(7^2)
+x0 = Z7(3)
+d1 = Z7(1)
+d2 = Z7(2)
+
+# 3. Sum them into the full series
+x_final = x0 + d1*7 + d2*49
+
+# 4. Print the series and the integer value
+print("The Full p-adic Series:")
+print(x_final)
+
+print("\nThe Base-10 Integer Value:")
+print(x_final.lift())
+
+---
+
+OUTPUT:
+
+The Full p-adic Series:
+3 + 7 + 2*7^2 + O(7^3)
+
+The Base-10 Integer Value:
+108
+
+```
+
 The matrix step: We take this $x = 108$ (and its corresponding $y$) and apply the Frobenius map: 
 
 $$\phi_7(108, y) = (108^7, y^7)=P'$$
 
-The reason $\phi_p(P)$ is guaranteed to be on the curve is because of the Freshman's Dream property in finite fields. If $(x, y)$ satisfies:
+The reason $\phi_p(P)$ is guaranteed to be on the curve is because of the "freshman's dream" property in finite fields. If $(x, y)$ satisfies:
 
 $$y^2 = x^3 + Ax + B$$
 
@@ -1506,7 +1543,7 @@ Once you've found those four $p$-adic strings, we put them into the grid:
 
 $$\text{Frobenius Matrix} = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$$
 
-The Trace ($a_p$) is the sum of the diagonal: $a + d$.
+The trace ($a_p$) is the sum of the diagonal: $a + d$.
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>

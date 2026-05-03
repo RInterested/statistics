@@ -2306,8 +2306,7 @@ it’s easier for us to read. But under the hood, its <span class="math inline">
 perfectly valid:</p>
 <p><span class="math display">\[108 = (3 \times 7^0) + (1 \times 7^1) +
 (2 \times 7^2)\]</span></p>
-<p>In base-<span class="math inline">\(7\)</span> digits, 108 is written
-as <span class="math inline">\(213_7\)</span>.</p>
+<p>In base-<span class="math inline">\(7\)</span> digits, <span class="math inline">\(108\)</span> is written as <span class="math inline">\(213_7\)</span>.</p>
 <p>Check: <span class="math inline">\(108^2 - 2 = 11664 - 2 =
 11662\)</span>. <span class="math inline">\(11662 / 343 =
 34\)</span>.</p>
@@ -2318,12 +2317,45 @@ times as in the SageMath code. We would have an <span class="math inline">\(x\)<
 <p>This is a high-precision <span class="math inline">\(p\)</span>-adic
 integer, which will be the <span class="math inline">\(x\)</span>
 coordinate of the point <span class="math inline">\(P=(108,y)\)</span></p>
+<p>In SageMath:</p>
+<pre><code>from sage.all import Zp
+
+# 1. Define the ring with &#39;series&#39; print mode
+# This ensures we see the + 7 + 7^2 format
+Z7 = Zp(7, prec=3, type=&#39;capped-rel&#39;, print_mode=&#39;series&#39;)
+
+# 2. Reconstruct the parts of our 108
+# x_final = 3 + 1*(7^1) + 2*(7^2)
+x0 = Z7(3)
+d1 = Z7(1)
+d2 = Z7(2)
+
+# 3. Sum them into the full series
+x_final = x0 + d1*7 + d2*49
+
+# 4. Print the series and the integer value
+print(&quot;The Full p-adic Series:&quot;)
+print(x_final)
+
+print(&quot;\nThe Base-10 Integer Value:&quot;)
+print(x_final.lift())
+
+---
+
+OUTPUT:
+
+The Full p-adic Series:
+3 + 7 + 2*7^2 + O(7^3)
+
+The Base-10 Integer Value:
+108
+</code></pre>
 <p>The matrix step: We take this <span class="math inline">\(x =
 108\)</span> (and its corresponding <span class="math inline">\(y\)</span>) and apply the Frobenius map:</p>
 <p><span class="math display">\[\phi_7(108, y) = (108^7,
 y^7)=P&#39;\]</span></p>
 <p>The reason <span class="math inline">\(\phi_p(P)\)</span> is
-guaranteed to be on the curve is because of the Freshman’s Dream
+guaranteed to be on the curve is because of the “freshman’s dream”
 property in finite fields. If <span class="math inline">\((x,
 y)\)</span> satisfies:</p>
 <p><span class="math display">\[y^2 = x^3 + Ax + B\]</span></p>
@@ -2364,7 +2396,7 @@ make these equations work.</p>
 grid:</p>
 <p><span class="math display">\[\text{Frobenius Matrix} =
 \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\]</span></p>
-<p>The Trace (<span class="math inline">\(a_p\)</span>) is the sum of
+<p>The trace (<span class="math inline">\(a_p\)</span>) is the sum of
 the diagonal: <span class="math inline">\(a + d\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
