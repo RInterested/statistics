@@ -2175,10 +2175,11 @@ converted into a single, infinite sum:</p>
 <p>First example:</p>
 <p>We need to get the roots of a division polynomial <span class="math inline">\(\psi(x) = x^2 - 2\)</span> (in this case we want
 to find <span class="math inline">\(\sqrt{2}\)</span> in <span class="math inline">\(p\)</span>-adics). Say we are working <span class="math inline">\(p = 5\)</span>.</p>
-<p>The Seed (<span class="math inline">\(x_0\)</span>): We need a
+<p>The seed (<span class="math inline">\(x_0\)</span>): We need a
 starting value such that <span class="math inline">\(x_0^2 - 2 \equiv 0
 \pmod 5\)</span>. We will need to extend the <span class="math inline">\(\mathbb F_5\)</span> field. Let’s actually use
-<span class="math inline">\(x_0 = \alpha\)</span> where <span class="math inline">\(\alpha^2 = 2\)</span> exactly).</p>
+<span class="math inline">\(x_0 = \alpha\)</span> where <span class="math inline">\(\alpha^2 = 2\)</span> exactly). We have just
+create the finite field <span class="math inline">\(\mathbb{F}_{5^2}\)</span> (also written as <span class="math inline">\(\mathbb{F}_{25}\)</span>).</p>
 <p>We want to find the next version of <span class="math inline">\(x\)</span>, let’s call it <span class="math inline">\(x_1\)</span>, such that:</p>
 <p><span class="math display">\[x_1 = x_0 + d_1 \cdot 5\]</span></p>
 <p>And we require that this new <span class="math inline">\(x_1\)</span>
@@ -2214,10 +2215,29 @@ field <span class="math inline">\(\mathbb{F}_5\)</span>:</p>
 \pmod 5\]</span></p>
 <p>Once we find <span class="math inline">\(d_1\)</span>, we update our
 coordinate:</p>
-<p><span class="math display">\[x_{new} = \alpha + d_1 \cdot
+<p><span class="math display">\[x_{\text{new}} = \alpha + d_1 \cdot
 5\]</span></p>
 <p>This new value is now our “seed” for the next round. We repeat this
-until our <span class="math inline">\(x\)</span> has 20 digits.</p>
+until our <span class="math inline">\(x\)</span> has <span class="math inline">\(20\)</span> digits.</p>
+<p>The torsion points usually live in a ghost field (the extension
+field). This <span class="math inline">\(\alpha\)</span> is the key that
+unlocks those points. This <span class="math inline">\(\alpha\)</span>
+gets promoted to the <span class="math inline">\(p\)</span>-adic
+skyscraper. We cannot calculate a matrix with a finite field. We must
+“lift” <span class="math inline">\(\alpha\)</span> from <span class="math inline">\(\mathbb{F}_{p^k}\)</span> into a <span class="math inline">\(p\)</span>-adic extension ring, often written as
+<span class="math inline">\(\mathbb{Z}_p[\alpha]\)</span>. We don’t turn
+<span class="math inline">\(\alpha\)</span> it into a normal number. In
+Sage we define a <span class="math inline">\(p\)</span>-adic extension
+ring using the same irreducible polynomial that created <span class="math inline">\(\alpha\)</span>.</p>
+<p>Instead of our <span class="math inline">\(x\)</span>-coordinate
+being a single number, it becomes a combination of <span class="math inline">\(\alpha\)</span>:</p>
+<p><span class="math display">\[x = d_0 + d_1 \alpha + d_2 \alpha^2 +
+\dots\]</span></p>
+<p>Where each <span class="math inline">\(d_n\)</span> is a <span class="math inline">\(p\)</span>-adic number. You treat <span class="math inline">\(\alpha\)</span> just like the imaginary unit <span class="math inline">\(i\)</span> in complex numbers. Eventually, when we
+solve the equation: <span class="math inline">\(\phi_p(P) = aP +
+bQ,\)</span> the coefficients <span class="math inline">\(a\)</span> and
+<span class="math inline">\(b\)</span> are integers (specifically,
+integers modulo <span class="math inline">\(\ell\)</span>).</p>
 <hr />
 <p>More complex example:</p>
 <p>The Prime: <span class="math inline">\(p = 7\)</span>.</p>

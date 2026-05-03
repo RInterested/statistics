@@ -1326,7 +1326,7 @@ First example:
 
 We need to get the roots of a division polynomial $\psi(x) = x^2 - 2$ (in this case we want to find $\sqrt{2}$ in $p$-adics). Say we are working $p = 5$.
 
-The Seed ($x_0$): We need a starting value such that $x_0^2 - 2 \equiv 0 \pmod 5$. We will need to extend the $\mathbb F_5$ field. Let's actually use $x_0 = \alpha$ where $\alpha^2 = 2$ exactly).
+The seed ($x_0$): We need a starting value such that $x_0^2 - 2 \equiv 0 \pmod 5$. We will need to extend the $\mathbb F_5$ field. Let's actually use $x_0 = \alpha$ where $\alpha^2 = 2$ exactly). We have just create the finite field $\mathbb{F}_{5^2}$ (also written as $\mathbb{F}_{25}$).
 
 We want to find the next version of $x$, let's call it $x_1$, such that:
 
@@ -1364,9 +1364,17 @@ $$d_1 \cdot (2\alpha) \equiv -3 \equiv 2 \pmod 5$$
 
 Once we find $d_1$, we update our coordinate:
 
-$$x_{new} = \alpha + d_1 \cdot 5$$
+$$x_{\text{new}} = \alpha + d_1 \cdot 5$$
 
-This new value is now our "seed" for the next round. We repeat this until our $x$ has 20 digits.
+This new value is now our "seed" for the next round. We repeat this until our $x$ has $20$ digits.
+
+The torsion points usually live in a ghost field (the extension field). This $\alpha$ is the key that unlocks those points. This $\alpha$ gets promoted to the $p$-adic skyscraper. We cannot calculate a matrix with a finite field. We must "lift" $\alpha$ from $\mathbb{F}_{p^k}$ into a $p$-adic extension ring, often written as $\mathbb{Z}_p[\alpha]$. We don't turn $\alpha$ it into a normal number. In Sage we define a $p$-adic extension ring using the same irreducible polynomial that created $\alpha$. 
+
+Instead of our $x$-coordinate being a single number, it becomes a combination of $\alpha$:
+
+$$x = d_0 + d_1 \alpha + d_2 \alpha^2 + \dots$$
+
+Where each $d_n$ is a $p$-adic number. You treat $\alpha$ just like the imaginary unit $i$ in complex numbers. Eventually, when we solve the equation: $\phi_p(P) = aP + bQ,$ the coefficients $a$ and $b$ are integers (specifically, integers modulo $\ell$).
 
 ---
 
