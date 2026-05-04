@@ -640,7 +640,7 @@ That's why we "lift" our coordinates from the field into the $p$-adic **ring** $
 
 The points in $E(\mathbb{F}_p)$ are the "frozen" points under Frobenius. Their $p$-adic expansion is just a single digit at the $p^0$ position followed by infinite zeros to the left ($\dots00000d.$). Frobenius cannot move them. But there are torsion points that can only be seen in the extension $\mathbb F_{p^k}$: These are the "movers." Their $p$-adic expansions are infinite, non-zero strings to the left. Frobenius shuffles them around the grid. We use the moving points to calculate the "shuffle" (the Frobenius matrix). The Trace ($a_p$) of that matrix then tells us the exact count of the frozen points ($N_p = p + 1 - a_p$).
 
-Therefore, to determine $a_p$ (and $N_p$), the trick is to use the $\ell$-torsion grid to measure the Frobenius map (find below a more detailed explanation (*)). The total set of residents with coordinates in the base field $\mathbb{F}_p$ is called $E(\mathbb{F}_p)$, and it forms a finite abelian group. Since every element of a finite group has finite order, adding any resident to itself a certain number of times will hit $\mathcal{O}$, which means that every resident is, by definition, a torsion point of some order.
+Therefore, to determine $a_p$ (and $N_p$), the trick is to use the $\ell$-torsion grid to measure the Frobenius map (find below a more detailed explanation (⛷️)). The total set of residents with coordinates in the base field $\mathbb{F}_p$ is called $E(\mathbb{F}_p)$, and it forms a finite abelian group. Since every element of a finite group has finite order, adding any resident to itself a certain number of times will hit $\mathcal{O}$, which means that every resident is, by definition, a torsion point of some order.
 
 When we ask for $N_p$ (the number of points on the curve over $\mathbb{F}_p$), we are effectively asking: "Which of the torsion points have coordinates that are just simple integers $\dots00000d.$?" Since we can't always see the points directly, we use the Frobenius map as a filter. The Frobenius map shuffles any point that has "ghostly" coordinates (non-zero digits to the left). The Frobenius map leaves alone any point whose coordinates are in $\mathbb{F}_p$.
 
@@ -1182,7 +1182,7 @@ $$L(E, s) = \prod_{p \nmid \Delta} \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}} \t
 
 - $p \mid \Delta$): For the few primes where the curve has a cusp or a node, the matrix collapses. If it collapses to $1$D, the factor is $\frac{1}{1 - a_p p^{-s}}$. If it collapses to $0$D, the factor is simply $1$. This is why the product is usually written in two parts.
 
-When you multiply this infinite "wall" of fractions together, you get the Dirichlet series (see below (**)):
+When you multiply this infinite "wall" of fractions together, you get the Dirichlet series (see below (🚀)):
 
 $$L(E, s) = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$$
 
@@ -1339,7 +1339,7 @@ $$L_3(s) = \frac{1}{1 - 0(3^{-s}) + 3(3^{-2s})} = \frac{1}{1 + 3^{1-2s}}$$
 
 ---
 
-(*) On one side we have a purely arbitrary decision: we choose any prime number different to $p$. Say, $111181821213.$ We are now imagining a lattice of $111181821213^2$ points. And we say, we want $a_5$. So we have to operate $p =5.$ No problem. We have to find the torsion points with coordinates $x$ and $y$ in $\mathbb F_{p^k}$ among all the points on the curve under the field $\mathbb F_{p^k}$ that are $111181821213$-torsion points, i.e. points such that $111181821213 P =\mathcal O.$ To do so we would need a much larger number system than $\mathbb F_5$ to describe them, and hence the horizontal extension to $\mathbb F_{p^k}$. Now, we don't actually do this literally. We just get two points instead by using the division polynomial, build a matrix (Frobenius) and use linearity to get the trace. Since the $\ell$-torsion grid is essentially a 2D plane (the $2 \times 2$ matrix), you only need two independent points to see how the whole plane rotates. If you find one point in $\mathbb{F}_{p^{234}}$, you’ve found a "spoke" of the wheel.
+(⛷️) On one side we have a purely arbitrary decision: we choose any prime number different to $p$. Say, $111181821213.$ We are now imagining a lattice of $111181821213^2$ points. And we say, we want $a_5$. So we have to operate $p =5.$ No problem. We have to find the torsion points with coordinates $x$ and $y$ in $\mathbb F_{p^k}$ among all the points on the curve under the field $\mathbb F_{p^k}$ that are $111181821213$-torsion points, i.e. points such that $111181821213 P =\mathcal O.$ To do so we would need a much larger number system than $\mathbb F_5$ to describe them, and hence the horizontal extension to $\mathbb F_{p^k}$. Now, we don't actually do this literally. We just get two points instead by using the division polynomial, build a matrix (Frobenius) and use linearity to get the trace. Since the $\ell$-torsion grid is essentially a 2D plane (the $2 \times 2$ matrix), you only need two independent points to see how the whole plane rotates. If you find one point in $\mathbb{F}_{p^{234}}$, you’ve found a "spoke" of the wheel.
 
 But the idea is that if there were points, say $w \in W,$ with coordinates $x$ and $y$ in the base field $\mathbb F_5,$ which multiplied $111181821213 w =\mathcal O$ the Frobenius map would not move them. The chances of finding any $w$ besides $\mathcal O$ may be zero; however, we don't care because we have a division polynomial that expects $111181821213$ roots in $F_{p^k},$ so all we have to do is extend the $k.$ 
 
@@ -1367,7 +1367,7 @@ This is our $d_0$. It’s a "polynomial digit." Now we want to lift this to Prec
 ---
 
 
-(**) Take one piece of the product for a prime $p$. Using the geometric series formula $\frac{1}{1-X} = 1 + X + X^2 + \dots$, we expand the denominator:
+(🚀) Take one piece of the product for a prime $p$. Using the geometric series formula $\frac{1}{1-X} = 1 + X + X^2 + \dots$, we expand the denominator:
 
 $$L_p(s) = \frac{1}{1 - a_p p^{-s} + p \cdot p^{-2s}}$$
 
@@ -1426,6 +1426,8 @@ Because every integer $n$ has a unique prime factorization, every possible fract
 $$L(E, s) = \frac{a_1}{1^s} + \frac{a_2}{2^s} + \frac{a_3}{3^s} + \frac{a_4}{4^s} + \dots = \sum_{n=1}^{\infty} \frac{a_n}{n^s}$$
 
 ---
+
+(🪁)
 
 First example:
 
