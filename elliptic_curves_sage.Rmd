@@ -373,13 +373,13 @@ E.modular_form()
 
 ## L-function of an elliptic curve:
 
-In the study of arithmetic geometry, the L-function of an elliptic curve $E$ over $\mathbb{Q}$ is a powerful complex-analytic tool that packages deep arithmetic information about the curve—specifically, the number of points it has over finite fields. The L-function acts as a bridge between the algebraic world of the curve and the analytic world of modular forms, a connection famously solidified by the [modularity theorem](https://en.wikipedia.org/wiki/Modularity_theorem).
+In the study of arithmetic geometry, the L-function of an elliptic curve $E$ over $\mathbb{Q}$ is a powerful complex-analytic tool that packages deep arithmetic information about the curve — specifically, the number of points it has over finite fields (or, interchangeably, Galois fields). The L-function acts as a bridge between the algebraic world of the curve and the analytic world of modular forms, a connection famously solidified by the [modularity theorem](https://en.wikipedia.org/wiki/Modularity_theorem).
 
-On the algebraic side we look at the curve over $\mathbb{F}_p$, find the Frobenius trace, and get the integer $a_p$. All this will be explained below. On the analytic side we look at the modular form $f(\tau)$, look at the $p$-th coefficient of its $q$-expansion, and find $a_p$. The bridge to the analytic side is $q = \exp(2 \pi i \tau)$. It allows us to turn a function of a complex variable $\tau$ into a power series, known as a Fourier expansion or q-expansion:
+On the algebraic side we look at the curve over $\mathbb{F}_p$, find the Frobenius trace, and get the integer $a_p$ (explained below). On the analytic side we take the modular form $f(\tau)$, look at the $p$-th coefficient of its $q$-expansion, and find $a_p$. The bridge to the analytic side is $q = \exp(2 \pi i \tau)$. It allows us to turn a function of a complex variable $\tau$ into a power series, known as a Fourier expansion or q-expansion:
 
 $$f(\tau) = \sum_{n=1}^{\infty} a_n q^n$$
 
-It is called "analytic" because once you express the curve's data as a $q$-expansion, you can use the heavy machinery of complex analysis: 1. Analytic Continuation: You can define the L-function even where the sum doesn't normally converge. 2. Functional Equations: You can prove the function has a perfect symmetry when you reflect it across a specific line (usually $s=1$). 3. The BSD Conjecture: You can use the "steepness" of this complex function at $s=1$ to predict the rank of the elliptic curve (how many infinite points it has).
+It is called analytic because once we express the curve's data as a $q$-expansion, we can use the heavy machinery of complex analysis: $1.$ Analytic continuation: we can define the L-function even where the sum doesn't normally converge. $2.$ Functional equations: we can prove the function has a perfect symmetry when we reflect it across a specific line (usually $s=1$). $3.$ The BSD conjecture: we can use the steepness of this complex function at $s=1$ to predict the rank of the elliptic curve (how many infinite points it has).
 
 ---
 
@@ -407,7 +407,7 @@ $\implies$: If $P$ is a point on the curve whose coordinates are simple integers
 
 $$d_0 + d_1 p + d_2 p^2 + d_3 p^3 + \dots$$ 
 
-The "simple integer" in $\mathbb{F}_p$ is just the first digit ($d_0$) of a $p$-adic integer. 
+The "simple integer" in $\mathbb{F}_p$ is just the first digit ($d_0$) of a $p$-adic integer: it would have the form $\dots 0000d_0$.
 
 A point on the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\mathbb{F}_p),$ is a solution to the curve equation modulo $p$. A point in $E(\mathbb{Z}_p)$ is a lift of that solution. It is the infinite string that starts with $d_0$ and continues forever in a way that always satisfies the equation at every higher power of $p$.
 
@@ -415,19 +415,23 @@ A point on the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\math
 
 If a point on the curve has simple integer coordinates, the Frobenius map won't move it, because the Frobenius map doesn't move any of the base field numbers. 
 
-$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - If they are "ghosts" in $\mathbb{F}_{p^k}$ (and not in the base field), the Frobenius map will move them. Note that the fixed-point property (the logic of who stays still and who moves) belongs entirely to the "horizontal" world of field extensions ($\mathbb{F}_p$ vs. $\mathbb{F}_{p^k}$), not the "vertical" world of $p$-adic lifts ($\mathbb{Z}_p$). This happens regardless of whether we ever lift the point to $\mathbb{Z}_p$, which is separate step intended to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_{p^k}$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily - a separate topic from the Frobenius map.
+$\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - If they are "ghosts" in $\mathbb{F}_{p^k}$ (and not in the base field), the Frobenius map will move them. 
 
-This is critical to understand. For instance, the $p$-adic integer ("integer" $\implies$ no digits to the right of the radix point) $4357 \in \mathbb{Z}_5$ can be written as a sum of powers of $5$.
+Note that the fixed-point property (the logic of who stays still and who moves) belongs entirely to the "horizontal" world of field extensions ($\mathbb{F}_p$ or $\mathbb{F}_{p^k}$), not the "vertical" world of $p$-adic lifts ($\mathbb{Z}_p$). This happens regardless of whether we ever lift the point to $\mathbb{Z}_p$, which is separate step intended to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_{p^k}$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily - a separate topic from the Frobenius map.
+
+This is critical to understand. For instance, the $p$-adic integer ("integer" $\implies$ no digits to the right of the radix point) $4357 \in \mathbb{Z}_5$ can be written as a sum of powers of $5:$
 
 $$4357 = 2(5^0) + 1(5^1) + 4(5^2) + 4(5^3) + 1(5^4) + 1(5^5)$$
 
 This is calculated [here](https://rinterested.github.io/statistics/padics.html).  
 
-When we write $4357$ as a sum of powers of $5$, we are looking at its vertical resolution. This is just a standard base-5 representation, as shown in the link. In the $p$-adic world, we say this number has precision $6$ because we know $6$ digits. Even though it uses $5^5$, the "alphabet" we are using is just the set of simple integers $\{0, 1, 2, 3, 4\}$.
+When we write $4357$ as a sum of powers of $5$, we are looking at its vertical resolution. This is just a standard base-5 representation, as shown in the link. In the $p$-adic world, we say this number has precision $6$ because we know $6$ digits. Even though it uses $5^5$, the alphabet we are using is just the set of simple integers $\{0, 1, 2, 3, 4\}$.
 
-Notice that 'precision' is not 'valuation': The valuation is a measure of how many factors of $p$ are inside the number. It tells us how many trailing zeros (before a power of $5$ has a non-zero coefficient) the number has in base $p$. In our example $4357$, the first digit is a $2$ at the $5^0$ level ($2 \cdot 1$). Since it doesn't have a factor of 5 "hiding" in it, its valuation is $0.$ If the number were $50$, which is $2 \cdot 5^2$ (or $200$ in base $5$), the valuation would be $2.$
+Notice that 'precision' is not 'valuation': The valuation is a measure of how many factors of $p$ are inside the number. It tells us how many trailing zeros (before a power of $5$ has a non-zero coefficient) the number has in base $p$. In our example $4357$, the first digit is a $2$ at the $5^0$ level ($2 \cdot 1$). Since it doesn't have a factor of $5$ hiding in it, its valuation is $0.$ If the number were $50$, which is $2 \cdot 5^2$ (or $200$ in base $5$), the valuation would be $2.$
 
-It is critical to see that the $5$-adic expression of $4357$ is $\mathbb{F}_{5^5}.$ The $5$-adic integer $4357 \in \mathbb{Z}_5.$ If $4357$ were an element of $\mathbb{F}_{5^5}$, it wouldn't be growing "upward" into powers of $5$; it would be growing "sideways" into powers of a symbolic root $\alpha$. An element of $\mathbb{F}_{5^5}$ looks like this:
+It is critical to see that the $5$-adic expression of $4357$ is not in $\mathbb{F}_{5^5}.$ The $5$-adic integer $4357 \in \mathbb{Z}_5.$ If $4357$ were an element of $\mathbb{F}_{5^5}$, it wouldn't be growing "upward" into powers of $5$; it would be growing "sideways" into powers of a symbolic root $\alpha$. 
+
+An element of $\mathbb{F}_{5^5}$ looks like this:
 
 $$c_0 + c_1\alpha + c_2\alpha^2 + c_3\alpha^3 + c_4\alpha^4$$
 

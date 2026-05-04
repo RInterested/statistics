@@ -652,28 +652,28 @@ P # P is on the curve. To check just run E(P)</code></pre>
 <h2>L-function of an elliptic curve:</h2>
 <p>In the study of arithmetic geometry, the L-function of an elliptic
 curve <span class="math inline">\(E\)</span> over <span class="math inline">\(\mathbb{Q}\)</span> is a powerful complex-analytic
-tool that packages deep arithmetic information about the
-curve—specifically, the number of points it has over finite fields. The
-L-function acts as a bridge between the algebraic world of the curve and
-the analytic world of modular forms, a connection famously solidified by
-the <a href="https://en.wikipedia.org/wiki/Modularity_theorem">modularity
+tool that packages deep arithmetic information about the curve —
+specifically, the number of points it has over finite fields (or,
+interchangeably, Galois fields). The L-function acts as a bridge between
+the algebraic world of the curve and the analytic world of modular
+forms, a connection famously solidified by the <a href="https://en.wikipedia.org/wiki/Modularity_theorem">modularity
 theorem</a>.</p>
 <p>On the algebraic side we look at the curve over <span class="math inline">\(\mathbb{F}_p\)</span>, find the Frobenius trace,
-and get the integer <span class="math inline">\(a_p\)</span>. All this
-will be explained below. On the analytic side we look at the modular
-form <span class="math inline">\(f(\tau)\)</span>, look at the <span class="math inline">\(p\)</span>-th coefficient of its <span class="math inline">\(q\)</span>-expansion, and find <span class="math inline">\(a_p\)</span>. The bridge to the analytic side is
+and get the integer <span class="math inline">\(a_p\)</span> (explained
+below). On the analytic side we take the modular form <span class="math inline">\(f(\tau)\)</span>, look at the <span class="math inline">\(p\)</span>-th coefficient of its <span class="math inline">\(q\)</span>-expansion, and find <span class="math inline">\(a_p\)</span>. The bridge to the analytic side is
 <span class="math inline">\(q = \exp(2 \pi i \tau)\)</span>. It allows
 us to turn a function of a complex variable <span class="math inline">\(\tau\)</span> into a power series, known as a
 Fourier expansion or q-expansion:</p>
 <p><span class="math display">\[f(\tau) = \sum_{n=1}^{\infty} a_n
 q^n\]</span></p>
-<p>It is called “analytic” because once you express the curve’s data as
-a <span class="math inline">\(q\)</span>-expansion, you can use the
-heavy machinery of complex analysis: 1. Analytic Continuation: You can
-define the L-function even where the sum doesn’t normally converge. 2.
-Functional Equations: You can prove the function has a perfect symmetry
-when you reflect it across a specific line (usually <span class="math inline">\(s=1\)</span>). 3. The BSD Conjecture: You can use
-the “steepness” of this complex function at <span class="math inline">\(s=1\)</span> to predict the rank of the elliptic
+<p>It is called analytic because once we express the curve’s data as a
+<span class="math inline">\(q\)</span>-expansion, we can use the heavy
+machinery of complex analysis: <span class="math inline">\(1.\)</span>
+Analytic continuation: we can define the L-function even where the sum
+doesn’t normally converge. <span class="math inline">\(2.\)</span>
+Functional equations: we can prove the function has a perfect symmetry
+when we reflect it across a specific line (usually <span class="math inline">\(s=1\)</span>). <span class="math inline">\(3.\)</span> The BSD conjecture: we can use the
+steepness of this complex function at <span class="math inline">\(s=1\)</span> to predict the rank of the elliptic
 curve (how many infinite points it has).</p>
 <hr />
 <p>Let <span class="math inline">\(E\)</span> be an elliptic curve
@@ -709,7 +709,8 @@ an infinite expansions:</p>
 <p><span class="math display">\[d_0 + d_1 p + d_2 p^2 + d_3 p^3 +
 \dots\]</span></p>
 <p>The “simple integer” in <span class="math inline">\(\mathbb{F}_p\)</span> is just the first digit
-(<span class="math inline">\(d_0\)</span>) of a <span class="math inline">\(p\)</span>-adic integer.</p>
+(<span class="math inline">\(d_0\)</span>) of a <span class="math inline">\(p\)</span>-adic integer: it would have the form
+<span class="math inline">\(\dots 0000d_0\)</span>.</p>
 <p>A point on the curve with <span class="math inline">\(x\)</span> and
 <span class="math inline">\(y\)</span> coordinates simple integers,
 i.e. <span class="math inline">\(E(\mathbb{F}_p),\)</span> is a solution
@@ -727,9 +728,10 @@ that <span class="math inline">\(P\)</span> by definition is on the
 curve), and the Frobenius map doesn’t move it, i.e. <span class="math inline">\(\phi_p(P)=P,\)</span> that proves its coordinates
 must have actually been simple integers all along, i.e. <span class="math inline">\(P \in E(\mathbb F_p)\)</span> - If they are
 “ghosts” in <span class="math inline">\(\mathbb{F}_{p^k}\)</span> (and
-not in the base field), the Frobenius map will move them. Note that the
-fixed-point property (the logic of who stays still and who moves)
-belongs entirely to the “horizontal” world of field extensions (<span class="math inline">\(\mathbb{F}_p\)</span> vs. <span class="math inline">\(\mathbb{F}_{p^k}\)</span>), not the “vertical”
+not in the base field), the Frobenius map will move them.</p>
+<p>Note that the fixed-point property (the logic of who stays still and
+who moves) belongs entirely to the “horizontal” world of field
+extensions (<span class="math inline">\(\mathbb{F}_p\)</span> or <span class="math inline">\(\mathbb{F}_{p^k}\)</span>), not the “vertical”
 world of <span class="math inline">\(p\)</span>-adic lifts (<span class="math inline">\(\mathbb{Z}_p\)</span>). This happens regardless of
 whether we ever lift the point to <span class="math inline">\(\mathbb{Z}_p\)</span>, which is separate step
 intended to calculate the <span class="math inline">\(a_p\)</span> with
@@ -740,7 +742,7 @@ wouldn’t be able to find the true integer value of <span class="math inline">\
 Frobenius map.</p>
 <p>This is critical to understand. For instance, the <span class="math inline">\(p\)</span>-adic integer (“integer” <span class="math inline">\(\implies\)</span> no digits to the right of the
 radix point) <span class="math inline">\(4357 \in \mathbb{Z}_5\)</span>
-can be written as a sum of powers of <span class="math inline">\(5\)</span>.</p>
+can be written as a sum of powers of <span class="math inline">\(5:\)</span></p>
 <p><span class="math display">\[4357 = 2(5^0) + 1(5^1) + 4(5^2) + 4(5^3)
 + 1(5^4) + 1(5^5)\]</span></p>
 <p>This is calculated <a href="https://rinterested.github.io/statistics/padics.html">here</a>.</p>
@@ -748,7 +750,7 @@ can be written as a sum of powers of <span class="math inline">\(5\)</span>.</p>
 powers of <span class="math inline">\(5\)</span>, we are looking at its
 vertical resolution. This is just a standard base-5 representation, as
 shown in the link. In the <span class="math inline">\(p\)</span>-adic
-world, we say this number has precision <span class="math inline">\(6\)</span> because we know <span class="math inline">\(6\)</span> digits. Even though it uses <span class="math inline">\(5^5\)</span>, the “alphabet” we are using is just
+world, we say this number has precision <span class="math inline">\(6\)</span> because we know <span class="math inline">\(6\)</span> digits. Even though it uses <span class="math inline">\(5^5\)</span>, the alphabet we are using is just
 the set of simple integers <span class="math inline">\(\{0, 1, 2, 3,
 4\}\)</span>.</p>
 <p>Notice that ‘precision’ is not ‘valuation’: The valuation is a
@@ -756,12 +758,12 @@ measure of how many factors of <span class="math inline">\(p\)</span>
 are inside the number. It tells us how many trailing zeros (before a
 power of <span class="math inline">\(5\)</span> has a non-zero
 coefficient) the number has in base <span class="math inline">\(p\)</span>. In our example <span class="math inline">\(4357\)</span>, the first digit is a <span class="math inline">\(2\)</span> at the <span class="math inline">\(5^0\)</span> level (<span class="math inline">\(2
-\cdot 1\)</span>). Since it doesn’t have a factor of 5 “hiding” in it,
-its valuation is <span class="math inline">\(0.\)</span> If the number
-were <span class="math inline">\(50\)</span>, which is <span class="math inline">\(2 \cdot 5^2\)</span> (or <span class="math inline">\(200\)</span> in base <span class="math inline">\(5\)</span>), the valuation would be <span class="math inline">\(2.\)</span></p>
-<p>It is critical to see that the <span class="math inline">\(5\)</span>-adic expression of <span class="math inline">\(4357\)</span> is <span class="math inline">\(\mathbb{F}_{5^5}.\)</span> The <span class="math inline">\(5\)</span>-adic integer <span class="math inline">\(4357 \in \mathbb{Z}_5.\)</span> If <span class="math inline">\(4357\)</span> were an element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span>, it wouldn’t be growing
+\cdot 1\)</span>). Since it doesn’t have a factor of <span class="math inline">\(5\)</span> hiding in it, its valuation is <span class="math inline">\(0.\)</span> If the number were <span class="math inline">\(50\)</span>, which is <span class="math inline">\(2 \cdot 5^2\)</span> (or <span class="math inline">\(200\)</span> in base <span class="math inline">\(5\)</span>), the valuation would be <span class="math inline">\(2.\)</span></p>
+<p>It is critical to see that the <span class="math inline">\(5\)</span>-adic expression of <span class="math inline">\(4357\)</span> is not in <span class="math inline">\(\mathbb{F}_{5^5}.\)</span> The <span class="math inline">\(5\)</span>-adic integer <span class="math inline">\(4357 \in \mathbb{Z}_5.\)</span> If <span class="math inline">\(4357\)</span> were an element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span>, it wouldn’t be growing
 “upward” into powers of <span class="math inline">\(5\)</span>; it would
-be growing “sideways” into powers of a symbolic root <span class="math inline">\(\alpha\)</span>. An element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span> looks like this:</p>
+be growing “sideways” into powers of a symbolic root <span class="math inline">\(\alpha\)</span>.</p>
+<p>An element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span>
+looks like this:</p>
 <p><span class="math display">\[c_0 + c_1\alpha + c_2\alpha^2 +
 c_3\alpha^3 + c_4\alpha^4\]</span></p>
 <p>To make <span class="math inline">\(\alpha\)</span> concrete, we have
