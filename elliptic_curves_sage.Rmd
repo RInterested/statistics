@@ -487,7 +487,90 @@ The $y$-coordinate lift:
 
 $$y = \underbrace{(3\beta + 4)}_{\text{Ground Floor}} + \underbrace{(0\beta + 2)}_{\text{1st Floor}} \cdot 5 + \underbrace{(2\beta + 1)}_{\text{2nd Floor}} \cdot 25 + \dots + O(5^n)$$
 
-Below (***) there is a sketch of what the mechanics of this calculation would entail.
+Below (***) there is a sketch of what the mechanics of this calculation would entail, but here is the print out of an example in Sage Math:
+
+```
+from sage.all import *
+
+# --- CONFIGURATION ---
+p = 5       # The Prime (Base Field)
+ell = 3     # The Torsion Prime (The type of Ghost we are hunting)
+prec = 4    # The Vertical Precision (How many floors to build)
+
+# 1. THE FOUNDATION (Horizontal Extension)
+# We use degree 8 because we know the 3-torsion for this curve lives there.
+K8.<a> = GF(p^8)
+E = EllipticCurve(GF(p), [1, 2])
+f = E.division_polynomial(ell)
+
+# This prints the modulus of the field K8
+print(f"Defining Polynomial (Modulus): {K8.modulus()}")
+
+# This prints the minimal polynomial of 'a'
+print(f"Minimal Polynomial of a: {a.minpoly()}")
+# If your modulus is $x^5 + 4x + 3$, then every time the math results in $a^5$, Sage uses this polynomial to replace it with $-4a - 3$. 
+# This keeps the extension from growing into $a^6, a^7,$ etc., and keeps it at a fixed degree.
+
+# This prints the characteristic polynomial of 'a'
+print(f"Characteristic Polynomial of a: {a.charpoly()}")
+
+# Find all unique x-coordinates for the ell-torsion
+all_x_ghosts = [r[0] for r in f.roots(K8)]
+
+print(f"--- HORIZONTAL PHASE ---")
+print(f"Found {len(all_x_ghosts)} 'Ghost' x-coordinates in GF({p}^8)\n")
+
+# 2. THE BRIDGE & 3. THE REVEAL (Vertical Expansion)
+# Define the p-adic extension ring (The Skyscraper Parent)
+Zq.<b> = Qq(p^8, prec=prec, modulus=K8.modulus(), print_mode='series')
+
+print(f"--- VERTICAL PHASE (Lifting to p-adic precision {prec}) ---")
+
+for i, x_ghost in enumerate(all_x_ghosts):
+    # THE BRIDGE: 
+    # Convert 'a' coefficients to 'b' and force the precision 'depth'
+    x_lifted = Zq(x_ghost.list(), absprec=prec)
+    
+    # THE REVEAL: 
+    # Use the curve equation y^2 = x^3 + x + 2 to find the p-adic y
+    y_sq = x_lifted^3 + x_lifted + 2
+    y_skyscraper = y_sq.sqrt()
+    
+    # We choose the positive root for display; sign depends on the specific point
+    print(f"SKYSCRAPER {i+1}:")
+    print(f"p-adic x: {x_lifted}")
+    print(f"p-adic y: {y_skyscraper}")
+    print("-" * 50)
+    
+---
+
+OUTPUT:
+
+Defining Polynomial (Modulus): x^8 + x^4 + 3*x^2 + 4*x + 2
+Minimal Polynomial of a: x^8 + x^4 + 3*x^2 + 4*x + 2
+Characteristic Polynomial of a: x^8 + x^4 + 3*x^2 + 4*x + 2
+--- HORIZONTAL PHASE ---
+Found 4 'Ghost' x-coordinates in GF(5^8)
+
+--- VERTICAL PHASE (Lifting to p-adic precision 4) ---
+SKYSCRAPER 1:
+p-adic x: (3*b^6 + 4*b^5 + 3*b^4 + 2*b^3 + 3*b^2 + 4*b + 2) + O(5)
+p-adic y: (4*b^7 + 3*b^5 + 4*b^4 + 2*b^2 + 1) + O(5)
+--------------------------------------------------
+SKYSCRAPER 2:
+p-adic x: (4*b^7 + 4*b^6 + 4*b^5 + 3*b^2 + 4*b + 3) + O(5)
+p-adic y: (3*b^7 + 4*b^6 + 2*b^5 + b^3 + 3*b^2 + 2) + O(5)
+--------------------------------------------------
+SKYSCRAPER 3:
+p-adic x: (2*b^7 + 4*b^6 + 3*b^5 + 4*b^4 + 4*b^3 + 3*b^2 + 3*b + 3) + O(5)
+p-adic y: (3*b^7 + 4*b^6 + 3*b^5 + b^3 + 2*b^2 + 4*b + 2) + O(5)
+--------------------------------------------------
+SKYSCRAPER 4:
+p-adic x: (4*b^7 + 4*b^6 + 4*b^5 + 3*b^4 + 4*b^3 + b^2 + 4*b + 2) + O(5)
+p-adic y: (3*b^7 + 2*b^6 + 2*b^5 + 4*b^4 + 3*b^3 + 2) + O(5)
+--------------------------------------------------
+
+```
 
 ---
 
