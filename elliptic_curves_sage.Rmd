@@ -564,9 +564,13 @@ f = E.division_polynomial(ell)
 
 # This prints the modulus of the field K8
 print(f"Defining Polynomial (Modulus): {K8.modulus()}")
+# To create $GF(5^8)$, SageMath needs to find an irreducible polynomial of degree 8 over $\mathbb{F}_5$.
+# The Analogy: For $i$ to exist, you must first declare the rule $x^2 + 1 = 0$. 
+# That is the "Defining Polynomial" for the complex numbers.
 
 # This prints the minimal polynomial of 'a'
 print(f"Minimal Polynomial of a: {a.minpoly()}")
+# What is the smallest-degree equation that this specific element $a$ solves?
 # If your modulus is $x^5 + 4x + 3$, then every time the math results in $a^5$, Sage uses this polynomial to replace it with $-4a - 3$. 
 # This keeps the extension from growing into $a^6, a^7,$ etc., and keeps it at a fixed degree.
 
