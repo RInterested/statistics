@@ -902,6 +902,39 @@ When Sage code runs that formula, it gets a value for <span class="math inline">
 effectively divide by <span class="math inline">\(p\)</span>:</p>
 <p><span class="math display">\[d_1 = \frac{\epsilon}{p}
 \pmod{p}\]</span></p>
+<p>At this point we already have <span class="math inline">\(x_1 = d_0 +
+d_1 p\)</span>, which is our root modulo <span class="math inline">\(p^2\)</span>. To find <span class="math inline">\(d_2\)</span>, we define our new point as:</p>
+<p><span class="math display">\[x_2 = x_1 + \epsilon \quad \text{where }
+\epsilon = d_2 p^2\]</span></p>
+<p>The Taylor expansion for <span class="math inline">\(d_2:\)</span> We
+expand <span class="math inline">\(\psi_\ell(x_1 + \epsilon)\)</span>
+around the current point <span class="math inline">\(x_1\)</span>:</p>
+<p><span class="math display">\[\psi_\ell(x_1 + \epsilon) =
+\psi_\ell(x_1) + \epsilon \psi&#39;_\ell(x_1) + \frac{\epsilon^2}{2!}
+\psi&#39;&#39;_\ell(x_1) + \dots\]</span></p>
+<p>Now, we look at this <span class="math inline">\(\pmod{p^3}\)</span>:</p>
+<p>The first term <span class="math inline">\(\psi_\ell(x_1)\)</span>:
+Since <span class="math inline">\(x_1\)</span> is already a root modulo
+<span class="math inline">\(p^2\)</span>, this value is strictly a
+multiple of <span class="math inline">\(p^2\)</span>.</p>
+<p>The second term <span class="math inline">\(\epsilon
+\psi&#39;_\ell(x_1)\)</span>: Since <span class="math inline">\(\epsilon\)</span> contains <span class="math inline">\(p^2\)</span>, this term is also a multiple of
+<span class="math inline">\(p^2\)</span>. This is our active correction
+term.</p>
+<p>The third term and beyond: Since <span class="math inline">\(\epsilon
+= d_2 p^2\)</span>, then <span class="math inline">\(\epsilon^2\)</span>
+is a multiple of <span class="math inline">\(p^4\)</span>. Because <span class="math inline">\(p^4 \equiv 0 \pmod{p^3}\)</span>, the <span class="math inline">\(\epsilon^2\)</span> term (and every term after it)
+becomes strictly zero. The resulting equation just like before, show
+that the higher-order curvatures of the polynomial vanish because the
+<span class="math inline">\(p\)</span>-adic resolution at <span class="math inline">\(p^3\)</span> is too coarse to see them. The
+equation simplifies to:</p>
+<p><span class="math display">\[0 \equiv \psi_\ell(x_1) + \epsilon
+\psi&#39;_\ell(x_1) \pmod{p^3}\]</span></p>
+<p>To isolate <span class="math inline">\(d_2\)</span>, we substitute
+<span class="math inline">\(\epsilon = d_2 p^2\)</span>:</p>
+<p><span class="math display">\[d_2 p^2 \equiv
+-\frac{\psi_\ell(x_1)}{\psi&#39;_\ell(x_1)} \pmod{p^3}\]</span></p>
+<hr />
 <p>Below (🪁) there is a sketch of what the mechanics of this
 calculation would entail, but here is the print out of an example in
 SageMath:</p>

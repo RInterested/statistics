@@ -520,6 +520,30 @@ How do we extract the digit $d_1$? When Sage code runs that formula, it gets a v
 
 $$d_1 = \frac{\epsilon}{p} \pmod{p}$$
 
+At this point we already have $x_1 = d_0 + d_1 p$, which is our root modulo $p^2$. To find $d_2$, we define our new point as:
+
+$$x_2 = x_1 + \epsilon \quad \text{where } \epsilon = d_2 p^2$$
+
+The Taylor expansion for $d_2:$ We expand $\psi_\ell(x_1 + \epsilon)$ around the current point $x_1$:
+
+$$\psi_\ell(x_1 + \epsilon) = \psi_\ell(x_1) + \epsilon \psi'_\ell(x_1) + \frac{\epsilon^2}{2!} \psi''_\ell(x_1) + \dots$$
+
+Now, we look at this $\pmod{p^3}$:
+
+The first term $\psi_\ell(x_1)$: Since $x_1$ is already a root modulo $p^2$, this value is strictly a multiple of $p^2$. 
+
+The second term $\epsilon \psi'_\ell(x_1)$: Since $\epsilon$ contains $p^2$, this term is also a multiple of $p^2$. This is our active correction term.
+
+The third term and beyond: Since $\epsilon = d_2 p^2$, then $\epsilon^2$ is a multiple of $p^4$. Because $p^4 \equiv 0 \pmod{p^3}$, the $\epsilon^2$ term (and every term after it) becomes strictly zero. The resulting equation just like before, show that the higher-order curvatures of the polynomial vanish because the $p$-adic resolution at $p^3$ is too coarse to see them. The equation simplifies to:
+
+$$0 \equiv \psi_\ell(x_1) + \epsilon \psi'_\ell(x_1) \pmod{p^3}$$
+
+To isolate $d_2$, we substitute $\epsilon = d_2 p^2$:
+
+$$d_2 p^2 \equiv -\frac{\psi_\ell(x_1)}{\psi'_\ell(x_1)} \pmod{p^3}$$
+
+---
+
 
 
 Below (🪁) there is a sketch of what the mechanics of this calculation would entail, but here is the print out of an example in SageMath:
