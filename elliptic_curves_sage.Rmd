@@ -463,6 +463,22 @@ The input looks like $x_q = c_0 + c_1\alpha + \dots + c_{k-1}\alpha^{k-1}$.
 
 This $x_q$ must be a root of the division polynomial $\psi_\ell(x)$.
 
+In a finite extension like $GF(5^2)$ - Galois field of order five squared - we define a new number $\alpha$ which is a root of an equation like $x^2 + 2 = 0$. This $\alpha$ is our "ghost" because it doesn't exist in the base field $\mathbb{F}_5$. A ghost point $P$ on a curve might look like this:
+
+$$P = (2\alpha + 1, \quad 3\alpha + 4)$$
+
+The coefficients $(2, 1)$ and $(3, 4)$ are just integers from $0$ to $4$. If you tried to plot this on a standard grid of $\mathbb{F}_5$, it wouldn't be there. It only exists in the "horizontal" extension.
+
+The vertical lift (The $p$-adic lift): Now, we lift this point into the $p$-adic skyscraper. We want to find a point $(x, y)$ that satisfies the curve equation not just modulo $5$, but modulo $5^2, 5^3, \dots, 5^n$. As we lift, the identity of the ghost ($\alpha$) stays the same, but its coefficients must change to stay on the curve. This is the "skyscraper" growing taller. Instead of two simple coordinates, the point becomes two power series in $5$. The ghost $\alpha$ (which we'll call $\beta$ in the $p$-adic world) appears at every level:
+
+The $x$-coordinate lift:
+
+$$x = \underbrace{(2\beta + 1)}_{\text{Ground Floor}} + \underbrace{(1\beta + 3)}_{\text{1st Floor}} \cdot 5 + \underbrace{(4\beta + 0)}_{\text{2nd Floor}} \cdot 25 + \dots + O(5^n)$$
+
+The $y$-coordinate lift:
+
+$$y = \underbrace{(3\beta + 4)}_{\text{Ground Floor}} + \underbrace{(0\beta + 2)}_{\text{1st Floor}} \cdot 5 + \underbrace{(2\beta + 1)}_{\text{2nd Floor}} \cdot 25 + \dots + O(5^n)$$
+
 At the start, $\psi_\ell(x_q) \equiv 0 \pmod p$. There is a small error that is a multiple of $p$. To lift, we don't just guess the next digit. We use the Taylor Expansion of the polynomial. The Taylor expansion for a function $f(x)$ at a point $a$ usually looks like:
 
 $$f(a + \epsilon) = f(a) + \epsilon f'(a) + \frac{\epsilon^2}{2!} f''(a) + \dots + \frac{\epsilon^n}{n!} f^{(n)}(a)$$
@@ -504,21 +520,7 @@ How do we extract the digit $d_1$? When Sage code runs that formula, it gets a v
 
 $$d_1 = \frac{\epsilon}{p} \pmod{p}$$
 
-In a finite extension like $GF(5^2)$ - Galois field of order five squared - we define a new number $\alpha$ which is a root of an equation like $x^2 + 2 = 0$. This $\alpha$ is our "ghost" because it doesn't exist in the base field $\mathbb{F}_5$. A ghost point $P$ on a curve might look like this:
 
-$$P = (2\alpha + 1, \quad 3\alpha + 4)$$
-
-The coefficients $(2, 1)$ and $(3, 4)$ are just integers from $0$ to $4$. If you tried to plot this on a standard grid of $\mathbb{F}_5$, it wouldn't be there. It only exists in the "horizontal" extension.
-
-The vertical lift (The $p$-adic lift): Now, we lift this point into the $p$-adic skyscraper. We want to find a point $(x, y)$ that satisfies the curve equation not just modulo $5$, but modulo $5^2, 5^3, \dots, 5^n$. As we lift, the identity of the ghost ($\alpha$) stays the same, but its coefficients must change to stay on the curve. This is the "skyscraper" growing taller. Instead of two simple coordinates, the point becomes two power series in $5$. The ghost $\alpha$ (which we'll call $\beta$ in the $p$-adic world) appears at every level:
-
-The $x$-coordinate lift:
-
-$$x = \underbrace{(2\beta + 1)}_{\text{Ground Floor}} + \underbrace{(1\beta + 3)}_{\text{1st Floor}} \cdot 5 + \underbrace{(4\beta + 0)}_{\text{2nd Floor}} \cdot 25 + \dots + O(5^n)$$
-
-The $y$-coordinate lift:
-
-$$y = \underbrace{(3\beta + 4)}_{\text{Ground Floor}} + \underbrace{(0\beta + 2)}_{\text{1st Floor}} \cdot 5 + \underbrace{(2\beta + 1)}_{\text{2nd Floor}} \cdot 25 + \dots + O(5^n)$$
 
 Below (🪁) there is a sketch of what the mechanics of this calculation would entail, but here is the print out of an example in SageMath:
 
