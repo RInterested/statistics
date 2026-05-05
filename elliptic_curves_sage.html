@@ -750,11 +750,13 @@ of <span class="math inline">\(5:\)</span></p>
 <p>This is calculated <a href="https://rinterested.github.io/statistics/padics.html">here</a>.</p>
 <p>When we write <span class="math inline">\(4357\)</span> as a sum of
 powers of <span class="math inline">\(5\)</span>, we are looking at its
-vertical resolution. This is just a standard base-5 representation, as
-shown in the link. In the <span class="math inline">\(p\)</span>-adic
-world, we say this number has precision <span class="math inline">\(6\)</span> because we know <span class="math inline">\(6\)</span> digits. Even though it uses <span class="math inline">\(5^5\)</span>, the alphabet we are using is just
-the set of simple integers <span class="math inline">\(\{0, 1, 2, 3,
-4\}\)</span>.</p>
+vertical resolution. This is just a standard base-<span class="math inline">\(5\)</span> representation, as shown in the link.
+In the <span class="math inline">\(p\)</span>-adic world, we say this
+number has precision <span class="math inline">\(6\)</span> because we
+know <span class="math inline">\(6\)</span> digits. Even though it uses
+<span class="math inline">\(5^5\)</span>, the alphabet we are using is
+just the set of simple integers <span class="math inline">\(\{0, 1, 2,
+3, 4\}\)</span>.</p>
 <p>Notice that ‘precision’ is not ‘valuation’: The valuation is a
 measure of how many factors of <span class="math inline">\(p\)</span>
 are inside the number. It tells us how many trailing zeros (before a
@@ -796,12 +798,21 @@ number of unique elements in this new world, we multiply the choices:
 double (like another square root); we add a number that solves a cubic
 equation. In field theory, the exponent in <span class="math inline">\(\mathbb{F}_{p^k}\)</span> tells us the degree of
 the ghost number we need to invent. For <span class="math inline">\(\mathbb{F}_{5^2}\)</span>, we used <span class="math inline">\(\alpha^2 = 2\)</span>. For <span class="math inline">\(\mathbb{F}_{5^3}\)</span>, we need an <span class="math inline">\(\alpha\)</span> that satisfies a cubic equation
-that has no solutions in <span class="math inline">\(\mathbb{F}_5\)</span>. A common example for <span class="math inline">\(p=5\)</span> is finding an <span class="math inline">\(\alpha\)</span> such that: <span class="math inline">\(\alpha^3 = 2.\)</span> Since <span class="math inline">\(1^3=1, 2^3=8\equiv 3, 3^3=27\equiv 2, 4^3=64\equiv
-4\)</span>, this actually has a root in <span class="math inline">\(\mathbb{F}_5\)</span>, so we’d have to pick a
-different one like <span class="math inline">\(\alpha^3 + \alpha + 1 =
-0\)</span>). Once you have this cubic ghost, every number in the field
-becomes a <span class="math inline">\(3\)</span>D coordinate. Instead of
-just real and alpha, you now have alpha-squared:</p>
+that has no solutions in <span class="math inline">\(\mathbb{F}_5\)</span>.</p>
+<p>In the world of finite fields, we don’t have to keep adding new
+letters (<span class="math inline">\(\alpha, \beta, \gamma\)</span>) for
+every new root we want. Because of how these fields are structured, one
+single ghost is powerful enough to generate everything. When we write
+<span class="math inline">\(GF(5^4)\)</span>, the exponent <span class="math inline">\(4\)</span> tells us the degree of the
+“super-ghost” (<span class="math inline">\(\alpha\)</span>) we are
+inventing. Even though we may want to find two different square roots
+(<span class="math inline">\(\sqrt{2}\)</span> and <span class="math inline">\(\sqrt{3}\)</span>) in <span class="math inline">\(5\)</span>-adics, we don’t define them separately.
+Instead, we find a single irreducible polynomial of degree <span class="math inline">\(4,\)</span> like: <span class="math inline">\(x^4
++ 4x^2 + 2 = 0.\)</span> The root of this polynomial, let’s call it
+<span class="math inline">\(\alpha\)</span>, is our only ghost. It turns
+out that inside the world created by <span class="math inline">\(\alpha\)</span>, both <span class="math inline">\(\sqrt{2}\)</span> and <span class="math inline">\(\sqrt{3}\)</span> already exist as polynomials of
+<span class="math inline">\(\alpha,\)</span> like if we only need <span class="math inline">\(i\)</span>, instead of separate ghost for <span class="math inline">\(\sqrt{-2}\)</span>, because <span class="math inline">\(\sqrt{-2}\)</span> is just <span class="math inline">\(i\sqrt{2}\)</span>.</p>
+<p>Instead of just real and alpha, you now have alpha-squared:</p>
 <p><span class="math display">\[\text{Number} = c_0 + c_1\alpha +
 c_2\alpha^2\]</span></p>
 <p>There are <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_0,\)</span> <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_1,\)</span> and <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_2.\)</span></p>

@@ -427,7 +427,7 @@ or $\dots000114412._5.$
 
 This is calculated [here](https://rinterested.github.io/statistics/padics.html).  
 
-When we write $4357$ as a sum of powers of $5$, we are looking at its vertical resolution. This is just a standard base-5 representation, as shown in the link. In the $p$-adic world, we say this number has precision $6$ because we know $6$ digits. Even though it uses $5^5$, the alphabet we are using is just the set of simple integers $\{0, 1, 2, 3, 4\}$.
+When we write $4357$ as a sum of powers of $5$, we are looking at its vertical resolution. This is just a standard base-$5$ representation, as shown in the link. In the $p$-adic world, we say this number has precision $6$ because we know $6$ digits. Even though it uses $5^5$, the alphabet we are using is just the set of simple integers $\{0, 1, 2, 3, 4\}$.
 
 Notice that 'precision' is not 'valuation': The valuation is a measure of how many factors of $p$ are inside the number. It tells us how many trailing zeros (before a power of $5$ has a non-zero coefficient) the number has in base $p$. In our example $4357$, the first digit is a $2$ at the $5^0$ level ($2 \cdot 1$). Since it doesn't have a factor of $5$ hiding in it, its valuation is $0.$ If the number were $50$, which is $2 \cdot 5^2$ (or $200$ in base $5$), the valuation would be $2.$
 
@@ -443,7 +443,11 @@ $$\text{Number} = c_0 + c_1\alpha$$
 
 It’s called $\mathbb{F}_{5^2}$ because that exponent ($2$) tells us exactly how many "dimensions" the number has, which in turn determines the total population of the field. When we create numbers like $c_0 + c_1\alpha$, we have two independent slots to fill: The $c_0$ slot with $5$ choices $\{0, 1, 2, 3, 4\},$ and the $c_1$ slot with again $5$ choices $\{0, 1, 2, 3, 4\}$. To find the total number of unique elements in this new world, we multiply the choices: $5 \times 5 = 5^2 = 25$.
 
-To create an extension like $\mathbb{F}_{p^3}$, we don't just add a double (like another square root); we add a number that solves a cubic equation. In field theory, the exponent in $\mathbb{F}_{p^k}$ tells us the degree of the ghost number we need to invent. For $\mathbb{F}_{5^2}$, we used $\alpha^2 = 2$. For $\mathbb{F}_{5^3}$, we need an $\alpha$ that satisfies a cubic equation that has no solutions in $\mathbb{F}_5$. A common example for $p=5$ is finding an $\alpha$ such that: $\alpha^3 = 2.$ Since $1^3=1, 2^3=8\equiv 3, 3^3=27\equiv 2, 4^3=64\equiv 4$, this actually has a root in $\mathbb{F}_5$, so we'd have to pick a different one like $\alpha^3 + \alpha + 1 = 0$). Once you have this cubic ghost, every number in the field becomes a $3$D coordinate. Instead of just real and alpha, you now have alpha-squared: 
+To create an extension like $\mathbb{F}_{p^3}$, we don't just add a double (like another square root); we add a number that solves a cubic equation. In field theory, the exponent in $\mathbb{F}_{p^k}$ tells us the degree of the ghost number we need to invent. For $\mathbb{F}_{5^2}$, we used $\alpha^2 = 2$. For $\mathbb{F}_{5^3}$, we need an $\alpha$ that satisfies a cubic equation that has no solutions in $\mathbb{F}_5$. 
+
+In the world of finite fields, we don't have to keep adding new letters ($\alpha, \beta, \gamma$) for every new root we want. Because of how these fields are structured, one single ghost is powerful enough to generate everything. When we write $GF(5^4)$, the exponent $4$ tells us the degree of the "super-ghost" ($\alpha$) we are inventing. Even though we may want to find two different square roots ($\sqrt{2}$ and $\sqrt{3}$) in $5$-adics, we don't define them separately. Instead, we find a single irreducible polynomial of degree $4,$ like: $x^4 + 4x^2 + 2 = 0.$ The root of this polynomial, let's call it $\alpha$, is our only ghost. It turns out that inside the world created by $\alpha$, both $\sqrt{2}$ and $\sqrt{3}$ already exist as polynomials of $\alpha,$ like if we only need $i$, instead of separate ghost for $\sqrt{-2}$, because $\sqrt{-2}$ is just $i\sqrt{2}$.
+
+Instead of just real and alpha, you now have alpha-squared: 
 
 $$\text{Number} = c_0 + c_1\alpha + c_2\alpha^2$$
 
