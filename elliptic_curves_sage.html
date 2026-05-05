@@ -825,13 +825,30 @@ c_1\alpha + \dots + c_{k-1}\alpha^{k-1}\)</span>.</p>
 division polynomial <span class="math inline">\(\psi_\ell(x)\)</span>.</p>
 <p>At the start, <span class="math inline">\(\psi_\ell(x_q) \equiv 0
 \pmod p\)</span>. There is a small error that is a multiple of <span class="math inline">\(p\)</span>. To lift, we don’t just guess the next
-digit. We use the Taylor Expansion of the polynomial. If we want to find
-the next layer of the number, we look at:</p>
-<p><span class="math display">\[\psi_\ell(x_q + \epsilon) \approx
-\psi_\ell(x_q) + \epsilon \cdot \psi&#39;_\ell(x_q)\]</span></p>
-<p>Here, <span class="math inline">\(\epsilon\)</span> represents the
-vertical growth (<span class="math inline">\(d_1 p^1\)</span>).</p>
-<p>Hensel’s rule: To solve for that missing digit <span class="math inline">\(\epsilon\)</span>, we rearrange the equation:</p>
+digit. We use the Taylor Expansion of the polynomial. The Taylor
+expansion for a function <span class="math inline">\(f(x)\)</span> at a
+point <span class="math inline">\(a\)</span> usually looks like:</p>
+<p><span class="math display">\[f(a + \epsilon) = f(a) + \epsilon
+f&#39;(a) + \frac{\epsilon^2}{2!} f&#39;&#39;(a) + \dots +
+\frac{\epsilon^n}{n!} f^{(n)}(a)\]</span></p>
+<p>In the <span class="math inline">\(p\)</span>-adic lift, since we are
+only trying to solve the equation modulo <span class="math inline">\(p^2\)</span> at this specific step, every term
+containing <span class="math inline">\(\epsilon^2, \epsilon^3,
+\dots\)</span> becomes congruent to zero because <span class="math inline">\(\epsilon\)</span> is a multiple of <span class="math inline">\(p\)</span> (specifically <span class="math inline">\(\epsilon = d_1 p^1\)</span>).</p>
+<p><span class="math display">\[\psi_\ell(x_q + \epsilon) \equiv
+\psi_\ell(x_q) + \epsilon \psi&#39;_\ell(x_q) \pmod{p^2}\]</span></p>
+<p>Since <span class="math inline">\(\epsilon\)</span> is a multiple of
+<span class="math inline">\(p\)</span> (i.e., <span class="math inline">\(\epsilon \equiv 0 \pmod p\)</span>), then:<span class="math inline">\(\epsilon^2\)</span> is a multiple of <span class="math inline">\(p^2\)</span>, so <span class="math inline">\(\epsilon^2 \equiv 0 \pmod{p^2}\)</span>.<span class="math inline">\(\epsilon^3\)</span> is a multiple of <span class="math inline">\(p^3\)</span>, which is also <span class="math inline">\(0 \pmod{p^2}\)</span>.</p>
+<p>Hensel’s rule: To solve for that missing digit <span class="math inline">\(\epsilon\)</span>, we rearrange the equation.</p>
+<p>At the start of the step, we have <span class="math inline">\(x_q\)</span>, which is a root at floor <span class="math inline">\(1.\)</span> This means:</p>
+<p><span class="math display">\[\psi_\ell(x_q) \equiv 0
+\pmod{p}\]</span></p>
+<p>But it is not zero modulo <span class="math inline">\(p^2\)</span>
+yet. There is a leftover “remainder” (a nudge). To move up, we want to
+find an <span class="math inline">\(\epsilon\)</span> such that:</p>
+<p><span class="math display">\[\psi_\ell(x_q + \epsilon) \equiv 0
+\pmod{p^2}\]</span></p>
+<p>which implies that</p>
 <p><span class="math display">\[\epsilon =
 -\frac{\psi_\ell(x_q)}{\psi&#39;_\ell(x_q)}\]</span></p>
 <p>The numerator tells how far off the equation is from zero. The
@@ -844,6 +861,18 @@ zero out the error at the next level of precision. When we solve <span class="ma
 exact “nudge” needed so that the polynomial evaluated at the new,
 slightly taller point <span class="math inline">\((x_q +
 \epsilon)\)</span> becomes zero modulo <span class="math inline">\(p^2\)</span> (and eventually <span class="math inline">\(p^3, p^4, \dots\)</span>).</p>
+<p>When we solve the equation, we find that:</p>
+<p><span class="math display">\[\epsilon = d_1 p^1 + d_2 p^2 + d_3 p^3 +
+\dots\]</span></p>
+<p>But because we are working <span class="math inline">\(\pmod{p^2}\)</span>, all the higher floors (<span class="math inline">\(p^2, p^3, \dots\)</span>) are strictly zero. This
+leaves us with:</p>
+<p><span class="math display">\[\epsilon \equiv d_1 p^1
+\pmod{p^2}\]</span></p>
+<p>How do we extract the digit <span class="math inline">\(d_1\)</span>?
+When Sage code runs that formula, it gets a value for <span class="math inline">\(\epsilon\)</span>. To find the actual digit (<span class="math inline">\(d_1\)</span>) to put in your expansion, we
+effectively divide by <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[d_1 = \frac{\epsilon}{p}
+\pmod{p}\]</span></p>
 <p>In a finite extension like <span class="math inline">\(GF(5^2)\)</span> - Galois field of order five
 squared - we define a new number <span class="math inline">\(\alpha\)</span> which is a root of an equation
 like <span class="math inline">\(x^2 + 2 = 0\)</span>. This <span class="math inline">\(\alpha\)</span> is our “ghost” because it doesn’t

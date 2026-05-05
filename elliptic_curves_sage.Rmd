@@ -463,19 +463,46 @@ The input looks like $x_q = c_0 + c_1\alpha + \dots + c_{k-1}\alpha^{k-1}$.
 
 This $x_q$ must be a root of the division polynomial $\psi_\ell(x)$.
 
-At the start, $\psi_\ell(x_q) \equiv 0 \pmod p$. There is a small error that is a multiple of $p$. To lift, we don't just guess the next digit. We use the Taylor Expansion of the polynomial. If we want to find the next layer of the number, we look at:
+At the start, $\psi_\ell(x_q) \equiv 0 \pmod p$. There is a small error that is a multiple of $p$. To lift, we don't just guess the next digit. We use the Taylor Expansion of the polynomial. The Taylor expansion for a function $f(x)$ at a point $a$ usually looks like:
 
-$$\psi_\ell(x_q + \epsilon) \approx \psi_\ell(x_q) + \epsilon \cdot \psi'_\ell(x_q)$$
+$$f(a + \epsilon) = f(a) + \epsilon f'(a) + \frac{\epsilon^2}{2!} f''(a) + \dots + \frac{\epsilon^n}{n!} f^{(n)}(a)$$
 
-Here, $\epsilon$ represents the vertical growth ($d_1 p^1$). 
+In the $p$-adic lift, since we are only trying to solve the equation modulo $p^2$ at this specific step, every term containing $\epsilon^2, \epsilon^3, \dots$ becomes congruent to zero because $\epsilon$ is a multiple of $p$ (specifically $\epsilon = d_1 p^1$). 
 
-Hensel's rule: To solve for that missing digit $\epsilon$, we rearrange the equation:
+$$\psi_\ell(x_q + \epsilon) \equiv \psi_\ell(x_q) + \epsilon \psi'_\ell(x_q) \pmod{p^2}$$
+
+Since $\epsilon$ is a multiple of $p$ (i.e., $\epsilon \equiv 0 \pmod p$), then:$\epsilon^2$ is a multiple of $p^2$, so $\epsilon^2 \equiv 0 \pmod{p^2}$.$\epsilon^3$ is a multiple of $p^3$, which is also $0 \pmod{p^2}$.
+
+
+Hensel's rule: To solve for that missing digit $\epsilon$, we rearrange the equation.
+
+At the start of the step, we have $x_q$, which is a root at floor $1.$ This means:
+
+$$\psi_\ell(x_q) \equiv 0 \pmod{p}$$
+
+But it is not zero modulo $p^2$ yet. There is a leftover "remainder" (a nudge). To move up, we want to find an $\epsilon$ such that:
+
+$$\psi_\ell(x_q + \epsilon) \equiv 0 \pmod{p^2}$$
+
+which implies that
 
 $$\epsilon = -\frac{\psi_\ell(x_q)}{\psi'_\ell(x_q)}$$
 
 The numerator tells how far off the equation is from zero. The denominator is the derivative of the division polynomial. It acts as the slope that tells you exactly how much to adjust your coordinate to get closer to the true root.
 
 We are using that $\epsilon$ to zero out the error at the next level of precision. When we solve $\epsilon = -\frac{\psi_\ell(x_q)}{\psi'_\ell(x_q)}$, we are finding the exact "nudge" needed so that the polynomial evaluated at the new, slightly taller point $(x_q + \epsilon)$ becomes zero modulo $p^2$ (and eventually $p^3, p^4, \dots$).
+
+When we solve the equation, we find that:
+
+$$\epsilon = d_1 p^1 + d_2 p^2 + d_3 p^3 + \dots$$
+
+But because we are working $\pmod{p^2}$, all the higher floors ($p^2, p^3, \dots$) are strictly zero. This leaves us with:
+
+$$\epsilon \equiv d_1 p^1 \pmod{p^2}$$
+
+How do we extract the digit $d_1$? When Sage code runs that formula, it gets a value for $\epsilon$. To find the actual digit ($d_1$) to put in your expansion, we effectively divide by $p$:
+
+$$d_1 = \frac{\epsilon}{p} \pmod{p}$$
 
 In a finite extension like $GF(5^2)$ - Galois field of order five squared - we define a new number $\alpha$ which is a root of an equation like $x^2 + 2 = 0$. This $\alpha$ is our "ghost" because it doesn't exist in the base field $\mathbb{F}_5$. A ghost point $P$ on a curve might look like this:
 
