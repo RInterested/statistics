@@ -512,7 +512,9 @@ When we solve the equation, we find that:
 
 $$\epsilon = d_1 p^1 + d_2 p^2 + d_3 p^3 + \dots$$
 
-But because we are working $\pmod{p^2}$, all the higher floors ($p^2, p^3, \dots$) are strictly zero. This leaves us with:
+But because we are working $\pmod{p^2}$, all the higher floors ($p^2, p^3, \dots$) are strictly zero. If we are working modulo $p^k$, we have essentially declared that $p^k$ is the new zero. If we have a term $p^m$ where $m \ge k$, you can always factor it: $p^m = p^k \cdot p^{m-k}.$ Since $p^k \equiv 0 \pmod{p^k}$, the entire term becomes: $0 \cdot p^{m-k} = 0.$
+
+This leaves us with:
 
 $$\epsilon \equiv d_1 p^1 \pmod{p^2}$$
 
