@@ -1167,7 +1167,11 @@ To get to the trace $a_p$ one $\ell$ is all that is needed. These are the next s
 
 We take the roots of your division polynomial $\psi_\ell$ and label them. For $\ell=3$, there are $4$ distinct $x$-coordinates. Let's call them: $X = \{r_0, r_1, r_2, r_3\}.$ These are the "seats." In the code output, these were those long $p$-adic strings involving $a$, as for example:
 
-`Root 0: (a^3 + 3*a^2 + 3*a + 4) + (a^2 + 4*a + 3)*5 + (2*a^2 + 4*a + 4)*5^2 + (4*a^3 + 2*a^2 + 4*a + 1)*5^3 + (a + 3)*5^4 + (4*a^3 + a^2 + 4)*5^5 + (a^3 + 4*a)*5^6 + (3*a^2 + a + 2)*5^7 + (3*a^3 + a^2 + 2*a + 2)*5^8 + (3*a^3 + 2*a^2 + 2*a)*5^9 + a^2*5^10 + (2*a^3 + 3*a + 2)*5^11 + (a^3 + 3*a + 4)*5^12 + (4*a^3 + 4*a^2 + a)*5^13 + (3*a^3 + 4*a + 3)*5^14 + (4*a^2 + a)*5^15 + (3*a^3 + 2*a^2)*5^16 + (4*a^3 + 4*a^2 + a + 3)*5^17 + 3*a^2*5^18 + (2*a^2 + 3*a + 1)*5^19 + O(5^20)`
+`Root 0: (a^3 + 3*a^2 + 3*a + 4) + (a^2 + 4*a + 3)*5 + (2*a^2 + 4*a + 4)*5^2 + (4*a^3 + 2*a^2 + 4*a + 1)*5^3` 
+`+ (a + 3)*5^4 + (4*a^3 + a^2 + 4)*5^5 + (a^3 + 4*a)*5^6 + (3*a^2 + a + 2)*5^7 + (3*a^3 + a^2 + 2*a + 2)*5^8` 
+`+ (3*a^3 + 2*a^2 + 2*a)*5^9 + a^2*5^10 + (2*a^3 + 3*a + 2)*5^11 + (a^3 + 3*a + 4)*5^12 + (4*a^3 + 4*a^2` 
+`+ a)*5^13 + (3*a^3 + 4*a + 3)*5^14 + (4*a^2 + a)*5^15 + (3*a^3 + 2*a^2)*5^16 + (4*a^3 + 4*a^2 + a + 3)*5^17` 
+`+ 3*a^2*5^18 + (2*a^2 + 3*a + 1)*5^19 + O(5^20)`
 
 Next we need to apply the Frobenius map $\phi_p$ to each root. The Frobenius doesn't create new roots; it just moves the existing ones around. For example, your output might show:$\phi_p(r_0) = r_2$, $\phi_p(r_2) = r_0$, $\phi_p(r_1) = r_3$, and $\phi_p(r_3) = r_1$. This is a permutation. In this example, the Frobenius is swapping two pairs of roots.
 
