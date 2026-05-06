@@ -2384,8 +2384,8 @@ to find <span class="math inline">\(\sqrt{2}\)</span> in <span class="math inlin
 <p>The seed (<span class="math inline">\(x_0\)</span>): We need a
 starting value such that <span class="math inline">\(x_0^2 - 2 \equiv 0
 \pmod 5\)</span>. We will need to extend the <span class="math inline">\(\mathbb F_5\)</span> field. Let’s actually use
-<span class="math inline">\(x_0 = \alpha\)</span> where <span class="math inline">\(\alpha^2 = 2\)</span> exactly). We have just
-create the finite field <span class="math inline">\(\mathbb{F}_{5^2}\)</span> (also written as <span class="math inline">\(\mathbb{F}_{25}\)</span>).</p>
+<span class="math inline">\(x_0 = \alpha\)</span> where <span class="math inline">\(\alpha^2 = 2\)</span> exactly. We have just
+created the finite field <span class="math inline">\(\mathbb{F}_{5^2}\)</span> (also written as <span class="math inline">\(\mathbb{F}_{25}\)</span>).</p>
 <p>We want to find the next version of <span class="math inline">\(x\)</span>, let’s call it <span class="math inline">\(x_1\)</span>, such that:</p>
 <p><span class="math display">\[x_1 = x_0 + d_1 \cdot 5\]</span></p>
 <p>And we require that this new <span class="math inline">\(x_1\)</span>
@@ -2396,10 +2396,25 @@ satisfies the polynomial at a higher power:</p>
 + d_1 \cdot 5)\)</span> around <span class="math inline">\(x_0\)</span>:</p>
 <p><span class="math display">\[\psi(x_0 + d_1 \cdot 5) \approx
 \psi(x_0) + (d_1 \cdot 5) \cdot \psi&#39;(x_0)\]</span></p>
-<p>Because we are working <span class="math inline">\(\pmod{5^2}\)</span>, all higher-order terms (those
+<p>Because we are working <span class="math inline">\(\mod{5^2}\)</span>, all higher-order terms (those
 involving <span class="math inline">\(5^2, 5^3\)</span>, etc.)
-disappear. We set this equal to zero to solve for the unknown digit
-<span class="math inline">\(d_1\)</span>:</p>
+disappear.</p>
+<p>Why are we working modulo <span class="math inline">\(5^2\)</span>?
+To find our seed (<span class="math inline">\(x_0\)</span>), we work
+<span class="math inline">\(\pmod 5\)</span>. But the moment we decide
+to “lift” the number to find the next digit (<span class="math inline">\(d_1\)</span>), we must change our perspective to
+<span class="math inline">\(\pmod{5^2}\)</span>. To find <span class="math inline">\(x_0 = \alpha\)</span>, we solve: <span class="math inline">\(\psi(x) \equiv 0 \pmod 5.\)</span> In this world,
+anything divisible by <span class="math inline">\(5\)</span> is zero.
+You find that <span class="math inline">\(\alpha^2 \equiv 2 \pmod
+5\)</span>. Now we want to find the next digit, <span class="math inline">\(d_1\)</span>. If we stayed working <span class="math inline">\(\pmod 5\)</span>, our equation would be useless:
+<span class="math inline">\((x_0 + 5d_1)^2 - 2 \equiv 0 \pmod
+5\)</span>. Since <span class="math inline">\(5d_1\)</span> is already
+<span class="math inline">\(0 \pmod 5\)</span>, this just collapses back
+to <span class="math inline">\(x_0^2 - 2 \equiv 0 \pmod 5\)</span>. It
+doesn’t help us find <span class="math inline">\(d_1\)</span> at all. To
+“see” <span class="math inline">\(d_1\)</span>, we have to increase the
+resolution of our world to <span class="math inline">\(\pmod{25}\)</span>.</p>
+<p>We set this equal to zero to solve for the unknown digit <span class="math inline">\(d_1\)</span>:</p>
 <p><span class="math display">\[\psi(x_0) + (d_1 \cdot 5) \cdot
 \psi&#39;(x_0) \equiv 0 \pmod{25}\]</span></p>
 <p>Evaluate <span class="math inline">\(\psi(x_0)\)</span>: Since <span class="math inline">\(x_0 = \alpha\)</span> and <span class="math inline">\(\alpha^2 = 2\)</span>, <span class="math inline">\(\psi(\alpha) = \alpha^2 - 2 = 0\)</span>. In a

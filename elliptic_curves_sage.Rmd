@@ -1498,7 +1498,7 @@ First example:
 
 We need to get the roots of a division polynomial $\psi(x) = x^2 - 2$ (in this case we want to find $\sqrt{2}$ in $p$-adics). Say we are working $p = 5$.
 
-The seed ($x_0$): We need a starting value such that $x_0^2 - 2 \equiv 0 \pmod 5$. We will need to extend the $\mathbb F_5$ field. Let's actually use $x_0 = \alpha$ where $\alpha^2 = 2$ exactly). We have just create the finite field $\mathbb{F}_{5^2}$ (also written as $\mathbb{F}_{25}$).
+The seed ($x_0$): We need a starting value such that $x_0^2 - 2 \equiv 0 \pmod 5$. We will need to extend the $\mathbb F_5$ field. Let's actually use $x_0 = \alpha$ where $\alpha^2 = 2$ exactly. We have just created the finite field $\mathbb{F}_{5^2}$ (also written as $\mathbb{F}_{25}$).
 
 We want to find the next version of $x$, let's call it $x_1$, such that:
 
@@ -1512,7 +1512,11 @@ We Taylor expand the polynomial $\psi(x_0 + d_1 \cdot 5)$ around $x_0$:
 
 $$\psi(x_0 + d_1 \cdot 5) \approx \psi(x_0) + (d_1 \cdot 5) \cdot \psi'(x_0)$$
 
-Because we are working $\pmod{5^2}$, all higher-order terms (those involving $5^2, 5^3$, etc.) disappear. We set this equal to zero to solve for the unknown digit $d_1$:
+Because we are working $\mod{5^2}$, all higher-order terms (those involving $5^2, 5^3$, etc.) disappear. 
+
+Why are we working modulo $5^2$? To find our seed ($x_0$), we work $\pmod 5$. But the moment we decide to "lift" the number to find the next digit ($d_1$), we must change our perspective to $\pmod{5^2}$. To find $x_0 = \alpha$, we solve: $\psi(x) \equiv 0 \pmod 5.$ In this world, anything divisible by $5$ is zero. You find that $\alpha^2 \equiv 2 \pmod 5$. Now we want to find the next digit, $d_1$. If we stayed working $\pmod 5$, our equation would be useless: $(x_0 + 5d_1)^2 - 2 \equiv 0 \pmod 5$. Since $5d_1$ is already $0 \pmod 5$, this just collapses back to $x_0^2 - 2 \equiv 0 \pmod 5$. It doesn't help us find $d_1$ at all. To "see" $d_1$, we have to increase the resolution of our world to $\pmod{25}$.
+
+We set this equal to zero to solve for the unknown digit $d_1$:
 
 $$\psi(x_0) + (d_1 \cdot 5) \cdot \psi'(x_0) \equiv 0 \pmod{25}$$
 
