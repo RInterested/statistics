@@ -2461,37 +2461,37 @@ bQ,\)</span> the coefficients <span class="math inline">\(a\)</span> and
 integers modulo <span class="math inline">\(\ell\)</span>).</p>
 <hr />
 <p>More complex example:</p>
-<p>The Prime: <span class="math inline">\(p = 7\)</span>.</p>
-<p>The Curve: <span class="math inline">\(y^2 = x^3 + 2\)</span>.</p>
-<p>The division polynomial is <span class="math inline">\(f(x) = x^2 -
+<p>The prime: <span class="math inline">\(p = 7\)</span>.</p>
+<p>The curve: <span class="math inline">\(y^2 = x^3 + 2\)</span>.</p>
+<p>The division polynomial: <span class="math inline">\(f(x) = x^2 -
 2\)</span>.</p>
-<p>The seed: In <span class="math inline">\(\mathbb{F}_7\)</span>, we
-find that <span class="math inline">\(3^2 = 9 \equiv 2 \pmod 7\)</span>.
-So our starting “horizontal” root is</p>
-<p><span class="math display">\[x_0 = 3\]</span></p>
+<p>The seed: In <span class="math inline">\(\mathbb{F}_7\)</span>, <span class="math inline">\(3^2 = 9 \equiv 2 \pmod 7\)</span>. So our starting
+“horizontal” root is <span class="math inline">\(x_0 = 3,\)</span>
+rendering <span class="math inline">\(f(x) = x^2 - 2\equiv0 \mod
+7.\)</span></p>
 <p>At the <span class="math inline">\(\mathbb{F}_7\)</span> level, we
 have:</p>
 <p><span class="math display">\[f(3) = 3^2 - 2 = 7\]</span></p>
-<p>which in the finite field <span class="math inline">\(\mathbb{F}_7\)</span> is exactly <span class="math inline">\(0\)</span>. But to “lift” it, we look at it as an
-integer and see that it is <span class="math inline">\(7^1\)</span>.
-This is the “residual” that drives the next step.</p>
+<p>which in the finite field <span class="math inline">\(\mathbb{F}_7\)</span> is exactly <span class="math inline">\(0\)</span>.</p>
+<p>But to “lift” it, we look at it as an integer and see that it is
+<span class="math inline">\(7^1\)</span>. This is the “residual” that
+drives the next step.</p>
 <p>Why?</p>
-<p>Think of the equation <span class="math inline">\(f(x) = x^2 -
-2\)</span> as a physical system. At <span class="math inline">\(x=3\)</span>, the system has ar “energy” of <span class="math inline">\(7.\)</span> If we reduce <span class="math inline">\(\pmod 7\)</span>, we are effectively saying, “I
+<p>We can think of the equation <span class="math inline">\(f(x) = x^2 -
+2\)</span> as a physical system. At <span class="math inline">\(x=3\)</span>, the system has an “energy” of <span class="math inline">\(7.\)</span> If we reduce <span class="math inline">\(\pmod 7\)</span>, we are effectively saying, “we
 don’t care about any energy level higher than zero.” By not reducing, we
 are acknowledging that while <span class="math inline">\(3\)</span> is a
-root at precision <span class="math inline">\(1\)</span>, it is not a
+root at precision <span class="math inline">\(1,\)</span> it is not a
 root at precision <span class="math inline">\(2.\)</span> The <span class="math inline">\(7\)</span> is the evidence that our <span class="math inline">\(x_0\)</span> is slightly off-center from the
 “true” <span class="math inline">\(p\)</span>-adic root. We use that
 <span class="math inline">\(7\)</span> to calculate exactly how much to
 nudge <span class="math inline">\(x_0\)</span> to make the error
 disappear at the next level (<span class="math inline">\(49\)</span>).</p>
-<p>We are working modulo <span class="math inline">\(7^2\)</span> (which
-is <span class="math inline">\(49\)</span>). Our universe now expands to
-<span class="math inline">\(\{0, 1, 2, \dots, 48\}\)</span>. Our number
-now looks like <span class="math inline">\(d_0 + d_1(7)\)</span>. In our
-calculation, this is <span class="math inline">\(3 + 1(7) =
-10\)</span>.</p>
+<p>We are now working modulo <span class="math inline">\(7^2\)</span>
+(which is <span class="math inline">\(49\)</span>). Our universe expands
+to <span class="math inline">\(\{0, 1, 2, \dots, 48\}\)</span>. Our
+number now looks like <span class="math inline">\(d_0 +
+d_1(7)\)</span>.</p>
 <p>We want to find <span class="math inline">\(x_1 = 3 + d_1 \cdot
 7\)</span> such that <span class="math inline">\(f(x_1) \equiv 0
 \pmod{49}\)</span>.</p>
@@ -2516,8 +2516,8 @@ world (<span class="math inline">\(\mathbb{F}_7\)</span>):</p>
 <p>The new coordinate:</p>
 <p><span class="math display">\[x_1 = 3 + (1 \cdot 7) = 10\]</span></p>
 <p>Check: <span class="math inline">\(10^2 - 2 = 98\)</span>. Since
-<span class="math inline">\(98 = 2 \times 49\)</span>, <span class="math inline">\(x_1 = 10\)</span> is an exact root modulo <span class="math inline">\(49\)</span>.4.</p>
-<p>The second lift (Moving to <span class="math inline">\(7^3\)</span>):</p>
+<span class="math inline">\(98 = 2 \times 49\)</span>, <span class="math inline">\(x_1 = 10\)</span> is an exact root modulo <span class="math inline">\(49\)</span>.</p>
+<p>The second lift (moving to <span class="math inline">\(7^3\)</span>):</p>
 <p>Now we want <span class="math inline">\(x_2 = 10 + d_2 \cdot
 49\)</span> such that <span class="math inline">\(f(x_2) \equiv 0
 \pmod{343}\)</span>.</p>
@@ -2528,8 +2528,8 @@ world (<span class="math inline">\(\mathbb{F}_7\)</span>):</p>
 \equiv 0 \pmod{343}\]</span></p>
 <p><span class="math display">\[98 + (d_2 \cdot 49) \cdot 20 \equiv 0
 \pmod{343}\]</span></p>
-<p>Solve for <span class="math inline">\(d_2\)</span>:</p>
-<p>Divide by <span class="math inline">\(49\)</span>:</p>
+<p>Solving for <span class="math inline">\(d_2\)</span>:</p>
+<p>Dividing by <span class="math inline">\(49\)</span>:</p>
 <p><span class="math display">\[2 + d_2 \cdot 20 \equiv 0 \pmod
 7\]</span></p>
 <p>Since <span class="math inline">\(20 \equiv 6 \pmod 7\)</span>:</p>
@@ -2543,16 +2543,15 @@ world (<span class="math inline">\(\mathbb{F}_7\)</span>):</p>
 108\]</span></p>
 <p>When we say <span class="math inline">\(108,\)</span> we are writing
 the value in standard base-<span class="math inline">\(10\)</span> so
-it’s easier for us to read. But under the hood, its <span class="math inline">\(p\)</span>-adic structure in base-7, it is
-perfectly valid:</p>
+it’s easier for us to read. But under the hood, its <span class="math inline">\(p\)</span>-adic structure in base-<span class="math inline">\(7,\)</span> it is perfectly valid:</p>
 <p><span class="math display">\[108 = (3 \times 7^0) + (1 \times 7^1) +
 (2 \times 7^2)\]</span></p>
 <p>In base-<span class="math inline">\(7\)</span> digits, <span class="math inline">\(108\)</span> is written as <span class="math inline">\(213_7\)</span>.</p>
 <p>Check: <span class="math inline">\(108^2 - 2 = 11664 - 2 =
 11662\)</span>. <span class="math inline">\(11662 / 343 =
 34\)</span>.</p>
-<p>Now, imagine we did this <span class="math inline">\(20\)</span>
-times as in the SageMath code. We would have an <span class="math inline">\(x\)</span>-coordinate like:</p>
+<p>If we did this <span class="math inline">\(20\)</span> times as in
+the SageMath code. We would have an <span class="math inline">\(x\)</span>-coordinate like:</p>
 <p><span class="math display">\[x_{final} = 3 + 1(7) + 2(7^2) +
 \dots\]</span></p>
 <p>This is a high-precision <span class="math inline">\(p\)</span>-adic
@@ -2591,7 +2590,7 @@ The Full p-adic Series:
 The Base-10 Integer Value:
 108
 </code></pre>
-<p>The matrix step: We take this <span class="math inline">\(x =
+<p>The matrix step: we take this <span class="math inline">\(x =
 108\)</span> (and its corresponding <span class="math inline">\(y\)</span>) and apply the Frobenius map:</p>
 <p><span class="math display">\[\phi_7(108, y) = (108^7,
 y^7)=P&#39;\]</span></p>
@@ -2608,7 +2607,7 @@ addition:</p>
 <p><span class="math display">\[(y^p)^2 = (x^p)^3 + A^p x^p +
 B^p\]</span></p>
 <p>Since <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are in the base field <span class="math inline">\(\mathbb{F}_p\)</span>, Fermat’s Little Theorem
-tells us <span class="math inline">\(A^p = A\)</span> and <span class="math inline">\(B^p = B\)</span>. So:</p>
+tells us <span class="math inline">\(A^p = A\)</span> and <span class="math inline">\(B^p = B.\)</span> So:</p>
 <p><span class="math display">\[(y^p)^2 = (x^p)^3 + A(x^p) +
 B\]</span></p>
 <p>This shows that the new coordinates <span class="math inline">\((x^p,
@@ -2624,9 +2623,9 @@ result <span class="math inline">\(\phi_p(Q)\)</span> must also be a
 combination:</p>
 <p><span class="math display">\[\phi_p(Q) = cP + dQ\]</span></p>
 <p>How do we find <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> if we only have one equation for them?
-In the <span class="math inline">\(p\)</span>-adic skyscraper, <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> are like vectors in 2D space. Because
-we have their high-precision coordinates, we can use point addition math
-(the same secant-and-tangent rule, but done <span class="math inline">\(p\)</span>-adically) to “test” different values of
+In the <span class="math inline">\(p\)</span>-adic skyscraper, <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span> are like vectors in <span class="math inline">\(2\)</span>-D space. Because we have their
+high-precision coordinates, we can use point addition math (the same
+secant-and-tangent rule, but done <span class="math inline">\(p\)</span>-adically) to test different values of
 <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> until the equation balances. In
 practice, we often use an algorithm like baby-step giant-step or even
 simple linear algebra over the torsion group to find these integers.

@@ -1556,27 +1556,27 @@ Where each $d_n$ is a $p$-adic number. You treat $\alpha$ just like the imaginar
 
 More complex example:
 
-The Prime: $p = 7$.
+The prime: $p = 7$.
 
-The Curve: $y^2 = x^3 + 2$.
+The curve: $y^2 = x^3 + 2$.
 
-The division polynomial is $f(x) = x^2 - 2$.
+The division polynomial: $f(x) = x^2 - 2$.
 
-The seed: In $\mathbb{F}_7$, we find that $3^2 = 9 \equiv 2 \pmod 7$. So our starting "horizontal" root is 
-
-$$x_0 = 3$$
+The seed: In $\mathbb{F}_7$, $3^2 = 9 \equiv 2 \pmod 7$. So our starting "horizontal" root is $x_0 = 3,$ rendering $f(x) = x^2 - 2\equiv0 \mod 7.$
 
 At the $\mathbb{F}_7$ level, we have: 
 
 $$f(3) = 3^2 - 2 = 7$$ 
 
-which in the finite field $\mathbb{F}_7$ is exactly $0$. But to "lift" it, we look at it as an integer and see that it is $7^1$. This is the "residual" that drives the next step.
+which in the finite field $\mathbb{F}_7$ is exactly $0$. 
+
+But to "lift" it, we look at it as an integer and see that it is $7^1$. This is the "residual" that drives the next step.
 
 Why?
 
-Think of the equation $f(x) = x^2 - 2$ as a physical system. At $x=3$, the system has ar "energy" of $7.$ If we reduce $\pmod 7$, we are effectively saying, "I don't care about any energy level higher than zero." By not reducing, we are acknowledging that while $3$ is a root at precision $1$, it is not a root at precision $2.$ The $7$ is the evidence that our $x_0$ is slightly off-center from the "true" $p$-adic root. We use that $7$ to calculate exactly how much to nudge $x_0$ to make the error disappear at the next level ($49$). 
+We can think of the equation $f(x) = x^2 - 2$ as a physical system. At $x=3$, the system has an "energy" of $7.$ If we reduce $\pmod 7$, we are effectively saying, "we don't care about any energy level higher than zero." By not reducing, we are acknowledging that while $3$ is a root at precision $1,$ it is not a root at precision $2.$ The $7$ is the evidence that our $x_0$ is slightly off-center from the "true" $p$-adic root. We use that $7$ to calculate exactly how much to nudge $x_0$ to make the error disappear at the next level ($49$). 
 
-We are working modulo $7^2$ (which is $49$). Our universe now expands to $\{0, 1, 2, \dots, 48\}$. Our number now looks like $d_0 + d_1(7)$. In our calculation, this is $3 + 1(7) = 10$.
+We are now working modulo $7^2$ (which is $49$). Our universe expands to $\{0, 1, 2, \dots, 48\}$. Our number now looks like $d_0 + d_1(7)$.
 
 We want to find $x_1 = 3 + d_1 \cdot 7$ such that $f(x_1) \equiv 0 \pmod{49}$.
 
@@ -1606,9 +1606,9 @@ The new coordinate:
 
 $$x_1 = 3 + (1 \cdot 7) = 10$$
 
-Check: $10^2 - 2 = 98$. Since $98 = 2 \times 49$, $x_1 = 10$ is an exact root modulo $49$.4. 
+Check: $10^2 - 2 = 98$. Since $98 = 2 \times 49$, $x_1 = 10$ is an exact root modulo $49$. 
 
-The second lift (Moving to $7^3$):
+The second lift (moving to $7^3$):
 
 Now we want $x_2 = 10 + d_2 \cdot 49$ such that $f(x_2) \equiv 0 \pmod{343}$.
 
@@ -1620,9 +1620,9 @@ $$f(10) + (d_2 \cdot 49) \cdot f'(10) \equiv 0 \pmod{343}$$
 
 $$98 + (d_2 \cdot 49) \cdot 20 \equiv 0 \pmod{343}$$ 
 
-Solve for $d_2$:
+Solving for $d_2$:
 
-Divide by $49$:
+Dividing by $49$:
 
 $$2 + d_2 \cdot 20 \equiv 0 \pmod 7$$
 
@@ -1638,7 +1638,7 @@ The new coordinate:
 
 $$x_2 = 10 + (2 \cdot 49) = 10 + 98 = 108$$
 
-When we say $108,$ we are writing the value in standard base-$10$ so it's easier for us to read. But under the hood, its $p$-adic structure in base-7, it is perfectly valid:
+When we say $108,$ we are writing the value in standard base-$10$ so it's easier for us to read. But under the hood, its $p$-adic structure in base-$7,$ it is perfectly valid:
 
 $$108 = (3 \times 7^0) + (1 \times 7^1) + (2 \times 7^2)$$
 
@@ -1646,7 +1646,7 @@ In base-$7$ digits, $108$ is written as $213_7$.
 
 Check: $108^2 - 2 = 11664 - 2 = 11662$. $11662 / 343 = 34$.
 
-Now, imagine we did this $20$ times as in the SageMath code. We would have an $x$-coordinate like:
+If we did this $20$ times as in the SageMath code. We would have an $x$-coordinate like:
 
 $$x_{final} = 3 + 1(7) + 2(7^2) + \dots$$
 
@@ -1689,7 +1689,7 @@ The Base-10 Integer Value:
 
 ```
 
-The matrix step: We take this $x = 108$ (and its corresponding $y$) and apply the Frobenius map: 
+The matrix step: we take this $x = 108$ (and its corresponding $y$) and apply the Frobenius map: 
 
 $$\phi_7(108, y) = (108^7, y^7)=P'$$
 
@@ -1705,7 +1705,7 @@ In a field of characteristic $p$, the $p$-th power distributes over addition:
 
 $$(y^p)^2 = (x^p)^3 + A^p x^p + B^p$$
 
-Since $A$ and $B$ are in the base field $\mathbb{F}_p$, Fermat's Little Theorem tells us $A^p = A$ and $B^p = B$. So:
+Since $A$ and $B$ are in the base field $\mathbb{F}_p$, Fermat's Little Theorem tells us $A^p = A$ and $B^p = B.$ So:
 
 $$(y^p)^2 = (x^p)^3 + A(x^p) + B$$
 
@@ -1719,7 +1719,7 @@ We apply Frobenius to $Q$. The result $\phi_p(Q)$ must also be a combination:
 
 $$\phi_p(Q) = cP + dQ$$ 
 
-How do we find $a$ and $b$ if we only have one equation for them? In the $p$-adic skyscraper, $P$ and $Q$ are like vectors in 2D space. Because we have their high-precision coordinates, we can use point addition math (the same secant-and-tangent rule, but done $p$-adically) to "test" different values of $a$ and $b$ until the equation balances. In practice, we often use an algorithm like baby-step giant-step or even simple linear algebra over the torsion group to find these integers. Because our precision is so high ($20$ digits), there is only one set of integers $(a, b, c, d)$ that will make these equations work.
+How do we find $a$ and $b$ if we only have one equation for them? In the $p$-adic skyscraper, $P$ and $Q$ are like vectors in $2$-D space. Because we have their high-precision coordinates, we can use point addition math (the same secant-and-tangent rule, but done $p$-adically) to test different values of $a$ and $b$ until the equation balances. In practice, we often use an algorithm like baby-step giant-step or even simple linear algebra over the torsion group to find these integers. Because our precision is so high ($20$ digits), there is only one set of integers $(a, b, c, d)$ that will make these equations work.
 
 Once you've found those four $p$-adic strings, we put them into the grid:
 
