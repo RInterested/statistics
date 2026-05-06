@@ -1179,6 +1179,9 @@ which point in the grid moved to which other point. We turn this shuffle
 into a <span class="math inline">\(2 \times 2\)</span> matrix of
 integers. The trace (<span class="math inline">\(a_p\)</span>) of this
 matrix is the final “integer signature” of the curve at that prime.</p>
+<p>Once we find the points on the curve in the horizontal extension of
+the field, the Frobenius will permute them, but none of them will be
+sent to a point not on the curve. See why here 🙊.</p>
 <p>The coefficients for powers of <span class="math inline">\(p\)</span>
 (like <span class="math inline">\(a_{p^2}, a_{p^3}\)</span>) are not new
 independent data. They are forced by a recurrence relation based
@@ -2643,6 +2646,35 @@ grid:</p>
 \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\]</span></p>
 <p>The trace (<span class="math inline">\(a_p\)</span>) is the sum of
 the diagonal: <span class="math inline">\(a + d\)</span>.</p>
+<hr />
+<p>Let the elliptic curve <span class="math inline">\(E\)</span> be
+defined by the Weierstrass equation:</p>
+<p><span class="math display">\[y^2 = x^3 + Ax + B\]</span></p>
+<p>where the coefficients <span class="math inline">\(A\)</span> and
+<span class="math inline">\(B\)</span> are in the base field <span class="math inline">\(\mathbb{F}_p\)</span>. This means that <span class="math inline">\(A^p = A\)</span> and <span class="math inline">\(B^p = B\)</span> (by Fermat’s Little Theorem).</p>
+<p>Suppose we have a point <span class="math inline">\(P = (x_0,
+y_0)\)</span> that lives in some extension field <span class="math inline">\(\mathbb{F}_{p^k}\)</span>. If <span class="math inline">\(P\)</span> is on the curve, it satisfies:</p>
+<p><span class="math display">\[y_0^2 = x_0^3 + Ax_0 + B\]</span></p>
+<p>Now, we apply the Frobenius map <span class="math inline">\(\phi(x,
+y) = (x^p, y^p)\)</span> to this point. We want to see if the new point
+<span class="math inline">\((x_0^p, y_0^p)\)</span> still satisfies the
+curve equation.</p>
+<p>We take the entire equation of the curve and raise both sides to the
+power of <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[(y_0^2)^p = (x_0^3 + Ax_0 +
+B)^p\]</span></p>
+<p>Using the “freshman’s dream”, in characteristic <span class="math inline">\(p\)</span>, the map <span class="math inline">\((a+b)^p = a^p + b^p\)</span> is a ring
+homomorphism. We can distribute the power of <span class="math inline">\(p\)</span> across every term:</p>
+<p><span class="math display">\[(y_0^p)^2 = (x_0^p)^3 + A^p x_0^p +
+B^p\]</span></p>
+<p>Using the fixed-field property, since <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are in <span class="math inline">\(\mathbb{F}_p\)</span>, we know <span class="math inline">\(A^p = A\)</span> and <span class="math inline">\(B^p = B\)</span>. Substituting those back in, we
+get:</p>
+<p><span class="math display">\[(y_0^p)^2 = (x_0^p)^3 + A(x_0^p) +
+B\]</span></p>
+<p>This is exactly the equation for the point <span class="math inline">\((x_0^p, y_0^p)\)</span> being on the curve.
+Therefore, if <span class="math inline">\(P \in
+E(\mathbb{F}_{p^k})\)</span>, then <span class="math inline">\(\phi(P)
+\in E(\mathbb{F}_{p^k})\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>

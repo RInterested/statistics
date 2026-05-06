@@ -413,7 +413,7 @@ A point on the curve with $x$ and $y$ coordinates simple integers, i.e. $E(\math
 
 ... End of parenthesis... Continuing...
 
-If a point on the curve has simple integer coordinates, the Frobenius map won't move it, because the Frobenius map doesn't move any of the base field numbers. 
+If a point on the curve has simple integer coordinates, the Frobenius map won't move it, because the Frobenius map doesn't move any of the base field numbers.
 
 $\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - If they are "ghosts" in $\mathbb{F}_{p^k}$ (and not in the base field), the Frobenius map will move them. 
 
@@ -700,6 +700,8 @@ A polynomial of degree $n$ always has exactly $n$ roots, provided we are willing
 In the field $\mathbb{F}_p$, we only have the integers $\{0, 1, \dots, p-1\}$. If we have a polynomial — like the one that defines the $\ell$-torsion points — and it has no roots in $\mathbb{F}_p$, we do exactly what we do in high school algebra: we invent them: $\mathbb{F}_p \to \mathbb{F}_{p^k}$ (where $k$ is the degree of the extension). We call $\mathbb{F}_{p^k}$ an extension field. It contains $\mathbb{F}_p$, but it also contains all the "complex" coordinates needed to describe the $\ell$-torsion points that were missing from the original field. If you keep adding roots for every possible polynomial, you eventually reach the algebraic closure, denoted $\overline{\mathbb{F}}_p$. This is the ultimate "super field." It is infinite in size. Every polynomial has all its roots here. This is the place where the full $2 \times 2$ grid of $\ell^2$ torsion points is guaranteed to exist.
 
 Recapping, we want to spot the $\ell$-torsion points (the $x, y$ coordinates that satisfy $[ \ell ]P = \mathcal{O}$). We start on the "ground floor" at $\mathbb{F}_p$. Usually, we will only find a few $\ell$-torsion points here — sometimes only the point at infinity. The rest are "ghosts" that are mathematically required to exist but don't have coordinates in our current number system. To find them, we expand outward to $\mathbb{F}_{p^k}$. As we increase $k$ new points appear. We keep increasing $k$ until we find the full $\ell^2$ grid (for $\ell=3$, that's the $9$-point grid). This is a field expansion. It’s about "horizontal" discovery. Once we have spotted these points in $\mathbb{F}_{p^k}$, we only have their "blurry" versions (just the first digit, $d_0$). To calculate a precise L-function, we need to know exactly how the Frobenius map shuffles them. We expand upward into the $p$-adic tower $\mathbb{Z}_q$ (where $q=p^k$). As we increase the power of $p$ (e.g., $p^{20}$) points stay the same; we aren't finding new points anymore; we’ve already found the grid. We are calculating $d_1, d_2, d_3 \dots d_{19}$. We are getting more and more "decimal places" (to the left) for the points we already caught. This is a ring expansion. It’s about "vertical" precision. Now that we have a "high-definition" grid, we apply the Frobenius map: $(x, y) \to (x^p, y^p)$. Because our points are high-precision, we can see exactly which point in the grid moved to which other point. We turn this shuffle into a $2 \times 2$ matrix of integers. The trace ($a_p$) of this matrix is the final "integer signature" of the curve at that prime.
+
+Once we find the points on the curve in the horizontal extension of the field, the Frobenius will permute them, but none of them will be sent to a point not on the curve. See why here 🙊.
 
 The coefficients for powers of $p$ (like $a_{p^2}, a_{p^3}$) are not new independent data. They are forced by a recurrence relation based entirely on $a_p$ and $p$:$a_{p^2} = a_p^2 - p$$a_{p^3} = a_p \cdot a_{p^2} - p \cdot a_p$.
 
@@ -1734,6 +1736,36 @@ Once you've found those four $p$-adic strings, we put them into the grid:
 $$\text{Frobenius Matrix} = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$$
 
 The trace ($a_p$) is the sum of the diagonal: $a + d$.
+
+
+---
+
+Let the elliptic curve $E$ be defined by the Weierstrass equation:
+
+$$y^2 = x^3 + Ax + B$$
+
+where the coefficients $A$ and $B$ are in the base field $\mathbb{F}_p$. This means that $A^p = A$ and $B^p = B$ (by Fermat's Little Theorem).
+
+Suppose we have a point $P = (x_0, y_0)$ that lives in some extension field $\mathbb{F}_{p^k}$. If $P$ is on the curve, it satisfies:
+
+$$y_0^2 = x_0^3 + Ax_0 + B$$
+
+Now, we apply the Frobenius map $\phi(x, y) = (x^p, y^p)$ to this point. We want to see if the new point $(x_0^p, y_0^p)$ still satisfies the curve equation.
+
+We take the entire equation of the curve and raise both sides to the power of $p$:
+
+$$(y_0^2)^p = (x_0^3 + Ax_0 + B)^p$$
+
+Using the "freshman's dream", in characteristic $p$, the map $(a+b)^p = a^p + b^p$ is a ring homomorphism. We can distribute the power of $p$ across every term:
+
+$$(y_0^p)^2 = (x_0^p)^3 + A^p x_0^p + B^p$$
+
+Using the fixed-field property, since $A$ and $B$ are in $\mathbb{F}_p$, we know $A^p = A$ and $B^p = B$. Substituting those back in, we get:
+
+$$(y_0^p)^2 = (x_0^p)^3 + A(x_0^p) + B$$
+
+This is exactly the equation for the point $(x_0^p, y_0^p)$ being on the curve. Therefore, if $P \in E(\mathbb{F}_{p^k})$, then $\phi(P) \in E(\mathbb{F}_{p^k})$.
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
