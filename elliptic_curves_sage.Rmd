@@ -445,7 +445,9 @@ It’s called $\mathbb{F}_{5^2}$ because that exponent ($2$) tells us exactly ho
 
 To create an extension like $\mathbb{F}_{p^3}$, we don't just add a double (like another square root); we add a number that solves a cubic equation. In field theory, the exponent in $\mathbb{F}_{p^k}$ tells us the degree of the ghost number we need to invent. For $\mathbb{F}_{5^2}$, we used $\alpha^2 = 2$. For $\mathbb{F}_{5^3}$, we need an $\alpha$ that satisfies a cubic equation that has no solutions in $\mathbb{F}_5$. 
 
-In the world of finite fields, we don't have to keep adding new letters ($\alpha, \beta, \gamma$) for every new root we want. Because of how these fields are structured, one single ghost is powerful enough to generate everything. When we write $GF(5^4)$, the exponent $4$ tells us the degree of the "super-ghost" ($\alpha$) we are inventing. Even though we may want to find two different square roots ($\sqrt{2}$ and $\sqrt{3}$) in $5$-adics, we don't define them separately. Instead, we find a single irreducible polynomial of degree $4,$ like: $x^4 + 4x^2 + 2 = 0.$ The root of this polynomial, let's call it $\alpha$, is our only ghost. It turns out that inside the world created by $\alpha$, both $\sqrt{2}$ and $\sqrt{3}$ already exist as polynomials of $\alpha,$ like if we only need $i$, instead of separate ghost for $\sqrt{-2}$, because $\sqrt{-2}$ is just $i\sqrt{2}$.
+In the world of finite fields, we don't have to keep adding new letters ($\alpha, \beta, \gamma$) for every new root we want. Because of how these fields are structured, one single ghost is powerful enough to generate everything. When we write $GF(5^4)$, the exponent $4$ tells us the degree of the "super-ghost" ($\alpha$) we are inventing. Even though we may want to find two different square roots ($\sqrt{2}$ and $\sqrt{3}$) in $5$-adics, we don't define them separately. Instead, we find a single irreducible polynomial of degree $4,$ like: $x^4 + 4x^2 + 2 = 0.$ The root of this polynomial, let's call it $\alpha$, is our only ghost. 
+
+It turns out that inside the world created by $\alpha$, both $\sqrt{2}$ and $\sqrt{3}$ already exist as polynomials of $\alpha,$ like if we only need $i$, instead of separate ghost for $\sqrt{-2}$, because $\sqrt{-2}$ is just $i\sqrt{2}$. See the explanation here 🐓
 
 Instead of just real and alpha, you now have alpha-squared: 
 
@@ -705,7 +707,13 @@ Once we find the points on the curve in the horizontal extension of the field, t
 
 The coefficients for powers of $p$ (like $a_{p^2}, a_{p^3}$) are not new independent data. They are forced by a recurrence relation based entirely on $a_p$ and $p$:$a_{p^2} = a_p^2 - p$$a_{p^3} = a_p \cdot a_{p^2} - p \cdot a_p$.
 
-Notice that $\mathbb{F}_{p^k}$ is a finite **field**. It contains simple digits $0,1,2,\dots p^k$ in the $d_0$ of the $p$-adic expansion. You can add, subtract, multiply, and (crucially) divide. Every non-zero element has an inverse. This is where we "spot" the $\ell^2$ points. However, every coordinate is effectively just a single complex digit modulo $p$. The purpose is to find the "ghost" points that don't exist in the base field. Yet, it is low resolution.
+Notice that $\mathbb{F}_{p^k}$ is a finite **field**. The first term of a $p$-adic series $d_0$ (the coefficient of $p^0$) is actually a polynomial in the "ghost" $\alpha$:
+
+$$d_0 = c_0 + c_1\alpha + c_2\alpha^2 + \dots + c_{k-1}\alpha^{k-1}$$
+
+Each of those $c_i$ is a digit from $\{0, 1, \dots, p-1\}$. The field contains $p^k$ unique elements, each of which serves as a potential "ground floor" ($d_0$) for a $p$-adic expansion. 
+
+You can add, subtract, multiply, and (crucially) divide. Every non-zero element has an inverse. This is where we "spot" the $\ell^2$ points. However, every coordinate is effectively just a single complex digit modulo $p$. The purpose is to find the "ghost" points that don't exist in the base field. Yet, it is low resolution.
 
 That's why we "lift" our coordinates from the field into the $p$-adic **ring** $\mathbb{Z}_q$: it is the ring of integers in a $p$-adic field. We keep adding digits to the left ($\dots d_2 d_1 d_0$) until the coordinate is precise enough that our matrix math doesn't have any rounding errors. It is not a field because you can divide by $3$, but you cannot divide by $5$. If you try to calculate $1/5$, the string would have to shift to the right of the decimal point (the radix), which makes it no longer a p-adic integer. In the $p$-adic ring $\mathbb{Z}_q$, we can divide by many things, but never by $p$. We can divide by any number that doesn't have $p$ as a factor. For example, $1/2$ exists in the $5$-adics because $2$ is "coprime" to $5$. It just looks like an infinite string of digits. But we cannot calculate $1/5$ inside $\mathbb{Z}_5$. If we try to write a string starting with $d_0 + d_1 \cdot 5 \dots$ that equals $1/5$, it’s impossible. However, in the field $\mathbb{Q}_q$ we include the $p$-adics with negative powers of $p$.
 
@@ -1765,6 +1773,23 @@ Using the fixed-field property, since $A$ and $B$ are in $\mathbb{F}_p$, we know
 $$(y_0^p)^2 = (x_0^p)^3 + A(x_0^p) + B$$
 
 This is exactly the equation for the point $(x_0^p, y_0^p)$ being on the curve. Therefore, if $P \in E(\mathbb{F}_{p^k})$, then $\phi(P) \in E(\mathbb{F}_{p^k})$.
+
+
+---
+
+🐓 Primitive element theorem: In the world of finite fields, every finite extension is simple, meaning that no matter how many different "ghosts" ($\sqrt{2}, \sqrt{3}, \sqrt[3]{7}$, etc.) we want to include, we can always find one single "super-ghost" ($\alpha$) such that every other number in that field is just a polynomial expression of that $\alpha$.
+
+When we move to an extension of degree $k$, we are essentially creating a $k$-dimensional coordinate system. In a degree-$2$ extension ($c_0 + c_1\alpha$), we have a $2$D plane. In a degree-$4$ extension ($c_0 + c_1\alpha + c_2\alpha^2 + c_3\alpha^3$), we have a $4$D space. The reason a higher degree "encompasses all needs" is that once the dimension is large enough, the "shadows" of other roots inevitably fall into that space. For example, $\sqrt{2}$ and $\sqrt{3}$ each call for $2$ dimensions. If you create a $4$-dimensional world, there is enough "room" for both of them to exist as specific vectors in that $4$D space.
+
+The real "magic" behind why one $\alpha$ is enough is that the non-zero elements of a finite field $\mathbb{F}_{p^k}$ form a cyclic group. This means there exists some element $\alpha$ such that every non-zero element in the field is just a power of $\alpha$:
+
+$$\text{Field Elements} = \{0, \alpha^1, \alpha^2, \alpha^3, \dots, \alpha^{p^k-1}=1\}$$
+
+If $\sqrt{2}$ and $\sqrt{3}$ are in the field, they are just $\alpha^m$ and $\alpha^n$ for some integers $m$ and $n$. Since every power $\alpha^m$ can be reduced (using the defining polynomial) to a polynomial of degree less than $k$, they both end up as:
+
+$$\text{Root} = c_0 + c_1\alpha + \dots + c_{k-1}\alpha^{k-1}$$
+
+If we wanted a cube root ($\sqrt[3]{2}$) and a square root ($\sqrt{3}$), the same logic applies, but the "room" we need changes. A square root needs degree $2.$ A cube root needs degree $3.$ To fit both, we need a field that is a multiple of both dimensions. We would create a degree-$6$ extension ($2 \times 3 = 6$). In that $6$D space, one single degree-$6$ "super-ghost" $\alpha$ would allow you to express both the cube root and the square root.
 
 
 ---

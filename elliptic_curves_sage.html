@@ -809,9 +809,10 @@ inventing. Even though we may want to find two different square roots
 (<span class="math inline">\(\sqrt{2}\)</span> and <span class="math inline">\(\sqrt{3}\)</span>) in <span class="math inline">\(5\)</span>-adics, we don’t define them separately.
 Instead, we find a single irreducible polynomial of degree <span class="math inline">\(4,\)</span> like: <span class="math inline">\(x^4
 + 4x^2 + 2 = 0.\)</span> The root of this polynomial, let’s call it
-<span class="math inline">\(\alpha\)</span>, is our only ghost. It turns
-out that inside the world created by <span class="math inline">\(\alpha\)</span>, both <span class="math inline">\(\sqrt{2}\)</span> and <span class="math inline">\(\sqrt{3}\)</span> already exist as polynomials of
-<span class="math inline">\(\alpha,\)</span> like if we only need <span class="math inline">\(i\)</span>, instead of separate ghost for <span class="math inline">\(\sqrt{-2}\)</span>, because <span class="math inline">\(\sqrt{-2}\)</span> is just <span class="math inline">\(i\sqrt{2}\)</span>.</p>
+<span class="math inline">\(\alpha\)</span>, is our only ghost.</p>
+<p>It turns out that inside the world created by <span class="math inline">\(\alpha\)</span>, both <span class="math inline">\(\sqrt{2}\)</span> and <span class="math inline">\(\sqrt{3}\)</span> already exist as polynomials of
+<span class="math inline">\(\alpha,\)</span> like if we only need <span class="math inline">\(i\)</span>, instead of separate ghost for <span class="math inline">\(\sqrt{-2}\)</span>, because <span class="math inline">\(\sqrt{-2}\)</span> is just <span class="math inline">\(i\sqrt{2}\)</span>. See the explanation here
+🐓</p>
 <p>Instead of just real and alpha, you now have alpha-squared:</p>
 <p><span class="math display">\[\text{Number} = c_0 + c_1\alpha +
 c_2\alpha^2\]</span></p>
@@ -1189,13 +1190,19 @@ entirely on <span class="math inline">\(a_p\)</span> and <span class="math inlin
 a_p^2 - p\)</span><span class="math inline">\(a_{p^3} = a_p \cdot
 a_{p^2} - p \cdot a_p\)</span>.</p>
 <p>Notice that <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is
-a finite <strong>field</strong>. It contains simple digits <span class="math inline">\(0,1,2,\dots p^k\)</span> in the <span class="math inline">\(d_0\)</span> of the <span class="math inline">\(p\)</span>-adic expansion. You can add, subtract,
-multiply, and (crucially) divide. Every non-zero element has an inverse.
-This is where we “spot” the <span class="math inline">\(\ell^2\)</span>
-points. However, every coordinate is effectively just a single complex
-digit modulo <span class="math inline">\(p\)</span>. The purpose is to
-find the “ghost” points that don’t exist in the base field. Yet, it is
-low resolution.</p>
+a finite <strong>field</strong>. The first term of a <span class="math inline">\(p\)</span>-adic series <span class="math inline">\(d_0\)</span> (the coefficient of <span class="math inline">\(p^0\)</span>) is actually a polynomial in the
+“ghost” <span class="math inline">\(\alpha\)</span>:</p>
+<p><span class="math display">\[d_0 = c_0 + c_1\alpha + c_2\alpha^2 +
+\dots + c_{k-1}\alpha^{k-1}\]</span></p>
+<p>Each of those <span class="math inline">\(c_i\)</span> is a digit
+from <span class="math inline">\(\{0, 1, \dots, p-1\}\)</span>. The
+field contains <span class="math inline">\(p^k\)</span> unique elements,
+each of which serves as a potential “ground floor” (<span class="math inline">\(d_0\)</span>) for a <span class="math inline">\(p\)</span>-adic expansion.</p>
+<p>You can add, subtract, multiply, and (crucially) divide. Every
+non-zero element has an inverse. This is where we “spot” the <span class="math inline">\(\ell^2\)</span> points. However, every coordinate
+is effectively just a single complex digit modulo <span class="math inline">\(p\)</span>. The purpose is to find the “ghost”
+points that don’t exist in the base field. Yet, it is low
+resolution.</p>
 <p>That’s why we “lift” our coordinates from the field into the <span class="math inline">\(p\)</span>-adic <strong>ring</strong> <span class="math inline">\(\mathbb{Z}_q\)</span>: it is the ring of integers
 in a <span class="math inline">\(p\)</span>-adic field. We keep adding
 digits to the left (<span class="math inline">\(\dots d_2 d_1
@@ -2675,6 +2682,36 @@ B\]</span></p>
 Therefore, if <span class="math inline">\(P \in
 E(\mathbb{F}_{p^k})\)</span>, then <span class="math inline">\(\phi(P)
 \in E(\mathbb{F}_{p^k})\)</span>.</p>
+<hr />
+<p>🐓 Primitive element theorem: In the world of finite fields, every
+finite extension is simple, meaning that no matter how many different
+“ghosts” (<span class="math inline">\(\sqrt{2}, \sqrt{3},
+\sqrt[3]{7}\)</span>, etc.) we want to include, we can always find one
+single “super-ghost” (<span class="math inline">\(\alpha\)</span>) such
+that every other number in that field is just a polynomial expression of
+that <span class="math inline">\(\alpha\)</span>.</p>
+<p>When we move to an extension of degree <span class="math inline">\(k\)</span>, we are essentially creating a <span class="math inline">\(k\)</span>-dimensional coordinate system. In a
+degree-<span class="math inline">\(2\)</span> extension (<span class="math inline">\(c_0 + c_1\alpha\)</span>), we have a <span class="math inline">\(2\)</span>D plane. In a degree-<span class="math inline">\(4\)</span> extension (<span class="math inline">\(c_0 + c_1\alpha + c_2\alpha^2 +
+c_3\alpha^3\)</span>), we have a <span class="math inline">\(4\)</span>D
+space. The reason a higher degree “encompasses all needs” is that once
+the dimension is large enough, the “shadows” of other roots inevitably
+fall into that space. For example, <span class="math inline">\(\sqrt{2}\)</span> and <span class="math inline">\(\sqrt{3}\)</span> each call for <span class="math inline">\(2\)</span> dimensions. If you create a <span class="math inline">\(4\)</span>-dimensional world, there is enough
+“room” for both of them to exist as specific vectors in that <span class="math inline">\(4\)</span>D space.</p>
+<p>The real “magic” behind why one <span class="math inline">\(\alpha\)</span> is enough is that the non-zero
+elements of a finite field <span class="math inline">\(\mathbb{F}_{p^k}\)</span> form a cyclic group.
+This means there exists some element <span class="math inline">\(\alpha\)</span> such that every non-zero element
+in the field is just a power of <span class="math inline">\(\alpha\)</span>:</p>
+<p><span class="math display">\[\text{Field Elements} = \{0, \alpha^1,
+\alpha^2, \alpha^3, \dots, \alpha^{p^k-1}=1\}\]</span></p>
+<p>If <span class="math inline">\(\sqrt{2}\)</span> and <span class="math inline">\(\sqrt{3}\)</span> are in the field, they are just
+<span class="math inline">\(\alpha^m\)</span> and <span class="math inline">\(\alpha^n\)</span> for some integers <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span>. Since every power <span class="math inline">\(\alpha^m\)</span> can be reduced (using the
+defining polynomial) to a polynomial of degree less than <span class="math inline">\(k\)</span>, they both end up as:</p>
+<p><span class="math display">\[\text{Root} = c_0 + c_1\alpha + \dots +
+c_{k-1}\alpha^{k-1}\]</span></p>
+<p>If we wanted a cube root (<span class="math inline">\(\sqrt[3]{2}\)</span>) and a square root (<span class="math inline">\(\sqrt{3}\)</span>), the same logic applies, but
+the “room” we need changes. A square root needs degree <span class="math inline">\(2.\)</span> A cube root needs degree <span class="math inline">\(3.\)</span> To fit both, we need a field that is a
+multiple of both dimensions. We would create a degree-<span class="math inline">\(6\)</span> extension (<span class="math inline">\(2 \times 3 = 6\)</span>). In that <span class="math inline">\(6\)</span>D space, one single degree-<span class="math inline">\(6\)</span> “super-ghost” <span class="math inline">\(\alpha\)</span> would allow you to express both
+the cube root and the square root.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
