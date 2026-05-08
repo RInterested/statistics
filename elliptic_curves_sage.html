@@ -1296,6 +1296,17 @@ skyscraper to lift these directions to high precision. Because it finds
 the “slope” of the Frobenius map so accurately, it can calculate the
 Trace (<span class="math inline">\(a_p\)</span>) much faster than Schoof
 could by visiting dozens of primes.</p>
+<p>To understand why we can ‘zoom in’ on these points, we must look at
+their geometric nature. While we calculate them using <span class="math inline">\(p\)</span>-adic digits (<span class="math inline">\(x, y\)</span>), their internal structure is
+defined by their position on a lattice. This lattice can be subdivided
+into smaller and smaller <span class="math inline">\(\ell\)</span>-power
+pieces, and the Tate Module is the mathematical object that tracks a
+point’s ‘address’ through all those infinite subdivisions.</p>
+<p>When we find a root of the division polynomial <span class="math inline">\(\psi_3(x)\)</span> in <span class="math inline">\(\mathbb{Q}_{11}\)</span>, we are forcing these two
+worlds to meet. The lattice tells the polynomial. “Give me the <span class="math inline">\(x\)</span>-coordinates for the points at address
+<span class="math inline">\(1/3\)</span>.” The <span class="math inline">\(p\)</span>-adic Field provides the answer: “<span class="math inline">\(x = 5 + 4 \cdot 11 + \dots\)</span>.” If the
+address and the <span class="math inline">\((x, y)\)</span> coordinate
+didn’t coincide, the SEA algorithm would be impossible.</p>
 <p>We can think of the lattice <span class="math inline">\(\Lambda\)</span> in the definition of an elliptic
 curve as <span class="math inline">\(\mathbb C/\Lambda\)</span> as a
 grid of stakes driven into an infinite flat field. Every stake
