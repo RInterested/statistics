@@ -1247,11 +1247,11 @@ resident is, by definition, a torsion point of some order.</p>
 <p>When we ask for <span class="math inline">\(N_p\)</span> (the number
 of points on the curve over <span class="math inline">\(\mathbb{F}_p\)</span>), we are effectively asking:
 “Which of the torsion points have coordinates that are just simple
-integers <span class="math inline">\(\dots00000d.\)</span>?” Since we
-can’t always see the points directly, we use the Frobenius map as a
-filter. The Frobenius map shuffles any point that has “ghostly”
-coordinates (non-zero digits to the left). The Frobenius map leaves
-alone any point whose coordinates are in <span class="math inline">\(\mathbb{F}_p\)</span>.</p>
+integers <span class="math inline">\(\dots00000d.\)</span> - in other
+words, $00000🪼. $?” Since we can’t always see the points directly, we
+use the Frobenius map as a filter. The Frobenius map shuffles any point
+that has “ghostly” coordinates (non-zero digits to the left). The
+Frobenius map leaves alone any point whose coordinates are in <span class="math inline">\(\mathbb{F}_p\)</span>.</p>
 <p>This is ultimately why we use <span class="math inline">\(p\)</span>-adics. If we only work modulo <span class="math inline">\(p\)</span> (in <span class="math inline">\(\mathbb{F}_p\)</span>), we only see the world in
 “low resolution.” We might find that <span class="math inline">\(a_p
 \equiv 2 \pmod 5\)</span>, but we wouldn’t know if <span class="math inline">\(a_p\)</span> is <span class="math inline">\(2, 7,
@@ -1262,13 +1262,13 @@ calculate the Frobenius matrix with zero error, and ensure that when we
 take the trace, we get the exact integer <span class="math inline">\(a_p\)</span>, not just a remainder.</p>
 <p><span class="math inline">\(\mathbb{F}_p\)</span> is a coarse filter;
 it only sees points with simple coordinates. <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is a finer filter; it
-lets you see “complex” points that were previously invisible. We can
+lets us see “complex” points that were previously invisible. We can
 think of the complex extension as looking at the fundamental domain (the
-square that makes the donut) and realizing it is actually tiled by
-smaller sub-tiles. By going to a larger field, we aren’t changing the
-donut; we are just increasing the “pixel density” so we can finally see
-where the <span class="math inline">\(\ell\)</span>-torsion points are
-sitting.</p>
+square that makes the donut - the lattice) and realizing it is actually
+tiled by smaller sub-tiles. By going to a larger field, we aren’t
+changing the donut; we are just increasing the “pixel density” so we can
+finally see where the <span class="math inline">\(\ell\)</span>-torsion
+points are sitting.</p>
 <p>If the <span class="math inline">\(x\)</span>-coordinates of our
 torsion points don’t fit in <span class="math inline">\(\mathbb{F}_p\)</span>, we must expand the field.
 We go to larger powers of <span class="math inline">\(p\)</span> (the
@@ -1276,7 +1276,7 @@ extension field <span class="math inline">\(\mathbb{F}_{p^k}\)</span>)
 to find the ghost points, and higher <span class="math inline">\(p\)</span>-adic precision (<span class="math inline">\(\mathbb{Z}_p \pmod{p^{20}}\)</span>) to calculate
 <span class="math inline">\(a_p\)</span>. A <span class="math inline">\(3 \times 3\)</span> grid only tells us <span class="math inline">\(a_p \pmod 3\)</span>. To know if <span class="math inline">\(a_p\)</span> is <span class="math inline">\(1\)</span>, <span class="math inline">\(4\)</span>, or <span class="math inline">\(10\)</span>, we must look at <span class="math inline">\(9 \times 9, 27 \times 27\)</span>, etc. Each
 larger power of <span class="math inline">\(\ell\)</span> provides one
-more digit of precision. Even though these represent “smaller” distances
+more digit of precision. Even though these represent smaller distances
 in the <span class="math inline">\(\ell\)</span>-adic world, they
 require a larger (more complex) grid to measure.</p>
 <p>We can think of the lattice <span class="math inline">\(\Lambda\)</span> in the definition of an elliptic
