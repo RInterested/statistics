@@ -729,7 +729,14 @@ This is ultimately why we use $p$-adics. If we only work modulo $p$ (in $\mathbb
 
 $\mathbb{F}_p$ is a coarse filter; it only sees points with simple coordinates. $\mathbb{F}_{p^k}$ is a finer filter; it lets us see "complex" points that were previously invisible. We can think of the complex extension as looking at the fundamental domain (the square that makes the donut - the lattice) and realizing it is actually tiled by smaller sub-tiles. By going to a larger field, we aren't changing the donut; we are just increasing the "pixel density" so we can finally see where the $\ell$-torsion points are sitting. 
 
-If the $x$-coordinates of our torsion points don't fit in $\mathbb{F}_p$, we must expand the field. We go to larger powers of $p$ (the extension field $\mathbb{F}_{p^k}$) to find the ghost points, and higher $p$-adic precision ($\mathbb{Z}_p \pmod{p^{20}}$) to calculate $a_p$. A $3 \times 3$ grid only tells us $a_p \pmod 3$. To know if $a_p$ is $1$, $4$, or $10$, we must look at $9 \times 9, 27 \times 27$, etc. Each larger power of $\ell$ provides one more digit of precision. Even though these represent smaller distances in the $\ell$-adic world, they require a larger (more complex) grid to measure.
+If the $x$-coordinates of our torsion points don't fit in $\mathbb{F}_p$, we must expand the field. We go to larger powers of $p$ (the extension field $\mathbb{F}_{p^k}$) to find the ghost points, and higher $p$-adic precision ($\mathbb{Z}_p \pmod{p^{20}}$) to calculate $a_p$. 
+
+
+There are two main algorithms to find $a_p.$ The one sketched above (horizontal $\mathbb{F}_{p^k}$ extended field with vertical lift $\mathbb Z_p$ to a certain p-adic precision is called SEA Algorithm (Schoof-Elkies-Atkin). Now, the Schoof algorithm looks at many different small primes $\ell$. It stays "flat" on the ground floor of $\mathbb{F}_p$, but it visits many different $\ell$-torsion "neighborhoods." It relies on the Chinese remainder theorem, and $\mathbb Z_\ell.$ Schoof only looks at the very bottom of the Tate module (the $E[\ell]$ level). It sees a $2 \times 2$ matrix with entries in $\mathbb{F}_\ell$. By finding the Trace of this tiny matrix, it finds $a_p \pmod \ell$. He then "glues" these together using the Chinese Remainder Theorem.t is explained below 🆘. This is important to understand what follows. 
+
+The SEA algorithm uses the Tate module to find "special" directions (eigenvectors). It uses the $p$-adic skyscraper to lift these directions to high precision. Because it finds the "slope" of the Frobenius map so accurately, it can calculate the Trace ($a_p$) much faster than Schoof could by visiting dozens of primes.
+
+A $3 \times 3$ grid only tells us $a_p \pmod 3$. To know if $a_p$ is $1$, $4$, or $10$, we must look at $9 \times 9, 27 \times 27$, etc. Each larger power of $\ell$ provides one more digit of precision. Even though these represent smaller distances in the $\ell$-adic world, they require a larger (more complex) grid to measure.
 
 We can think of the lattice $\Lambda$ in the definition of an elliptic curve as $\mathbb C/\Lambda$ as a grid of stakes driven into an infinite flat field. Every stake represents the zero point ($\mathcal{O}$) because when we wrap the field into a donut, all those stakes land on the exact same spot. The original lattice $\Lambda$ contains points like $(1, 0)$ or $(0, 1)$ (in terms of the basis vectors $\omega_1, \omega_2$). The $3 \times 3$ grid contains points like $(\frac{1}{3}, 0)$, $(\frac{2}{3}, 0)$, $(\frac{1}{3}, \frac{1}{3})$, and so on. This is just a way of explaining it: Instead of a fraction, a point in the Tate module is an $\ell$-adic vector $v = \begin{pmatrix} x \\ y \end{pmatrix}$, where $x$ and $y$ are $\ell$-adic integers ($\mathbb{Z}_\ell$). These $x$ and $y$ are essentially the infinite strings of digits that tell us exactly where the point sits in the "infinite subdivision." 
 
@@ -1792,6 +1799,60 @@ If $\sqrt{2}$ and $\sqrt{3}$ are in the field, they are just $\alpha^m$ and $\al
 $$\text{Root} = c_0 + c_1\alpha + \dots + c_{k-1}\alpha^{k-1}$$
 
 If we wanted a cube root ($\sqrt[3]{2}$) and a square root ($\sqrt{3}$), the same logic applies, but the "room" we need changes. A square root needs degree $2.$ A cube root needs degree $3.$ To fit both, we need a field that is a multiple of both dimensions. We would create a degree-$6$ extension ($2 \times 3 = 6$). In that $6$D space, one single degree-$6$ "super-ghost" $\alpha$ would allow you to express both the cube root and the square root.
+
+
+---
+
+🆘 We are looking for the trace $a_p=t$ of the Frobenius endomorphism $\phi$ by observing its action on the $\ell$-torsion subgroups $E[\ell]$. 
+
+Hasse's Theorem: The algorithm seeks an integer $t \in \mathbb{Z}$ such that:
+
+$$|t| \le 2\sqrt{p}$$
+
+This ensures that once we know $t \pmod L$ (where $L = \prod \ell_i$), and $L > 4\sqrt{p}$, there is only one possible value for $t$ in that range.
+
+We use symbolic $x$ and $y$ (not actual values). Mathematically, we are working in a coordinate ring restricted by the curve and the torsion. We perform calculations in the ring:
+
+$$R_\ell = \mathbb{F}_p[x, y] / (y^2 - (x^3 + Ax + B), \psi_\ell(x))$$
+
+$\psi_\ell(x)$: The $\ell$-th **division polynomial**. By modding out by this, we ensure that the "symbolic" point $(x, y)$ behaves exactly like an $\ell$-torsion point. Any identity that holds in $R_\ell$ is guaranteed to hold for every point $P \in E[\ell]$.
+
+The **characteristic polynomial**: We are looking for the eigenvalue/trace $k \in \mathbb{Z}/\ell\mathbb{Z}$ such that:
+
+$$\phi^2 - k\phi + [p] = 0 \quad \text{in } \text{End}(E[\ell])$$
+
+Writing this out in terms of coordinates $(x, y) \in R_\ell$:
+
+$$(x^{p^2}, y^{p^2}) + [p \pmod \ell](x, y) = [k](x^p, y^p)$$
+
+$(x^{p^2}, y^{p^2})$: The action of $\phi^2$. 
+
+$[p \pmod \ell]$: The scalar multiplication map by the remainder of $p$ modulo $\ell$.
+
+$[k]$: The scalar multiplication map by our guess for the trace.4. 
+
+While each step gives us $t \pmod \ell$, the Schoof algorithm is essentially computing the first digit of the $\ell$-adic expansion of the trace for several different primes. If we stayed with one prime $\ell$ and looked at higher division polynomials $\psi_{\ell^n}$, we would be working in the Tate Module:
+
+$$T_\ell(E) = \lim_{\longleftarrow} E[\ell^n] \cong \mathbb{Z}_\ell \times \mathbb{Z}_\ell$$
+
+In this view, $\phi$ is a $2 \times 2$ matrix with entries in $\mathbb{Z}_\ell$. 
+
+The $k$ we find is:
+
+$$k \equiv \text{Tr}(\phi) \pmod \ell$$
+
+Chinese Remainder Theorem: Finally, we have a system of congruences:
+
+$$t \equiv k_1 \pmod{\ell_1}$$
+
+$$t \equiv k_2 \pmod{\ell_2}$$
+
+$$\dots$$
+
+This is an isomorphism of rings:
+
+$$\mathbb{Z}/L\mathbb{Z} \cong \prod \mathbb{Z}/\ell_i\mathbb{Z}$$
+By mapping our collection of $k_i$ back through this isomorphism, we recover the unique $t \in \mathbb{Z}$ that satisfies the Hasse bound.
 
 
 ---

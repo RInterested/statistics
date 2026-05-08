@@ -1276,7 +1276,28 @@ torsion points don’t fit in <span class="math inline">\(\mathbb{F}_p\)</span>,
 We go to larger powers of <span class="math inline">\(p\)</span> (the
 extension field <span class="math inline">\(\mathbb{F}_{p^k}\)</span>)
 to find the ghost points, and higher <span class="math inline">\(p\)</span>-adic precision (<span class="math inline">\(\mathbb{Z}_p \pmod{p^{20}}\)</span>) to calculate
-<span class="math inline">\(a_p\)</span>. A <span class="math inline">\(3 \times 3\)</span> grid only tells us <span class="math inline">\(a_p \pmod 3\)</span>. To know if <span class="math inline">\(a_p\)</span> is <span class="math inline">\(1\)</span>, <span class="math inline">\(4\)</span>, or <span class="math inline">\(10\)</span>, we must look at <span class="math inline">\(9 \times 9, 27 \times 27\)</span>, etc. Each
+<span class="math inline">\(a_p\)</span>.</p>
+<p>There are two main algorithms to find <span class="math inline">\(a_p.\)</span> The one sketched above (horizontal
+<span class="math inline">\(\mathbb{F}_{p^k}\)</span> extended field
+with vertical lift <span class="math inline">\(\mathbb Z_p\)</span> to a
+certain p-adic precision is called SEA Algorithm (Schoof-Elkies-Atkin).
+Now, the Schoof algorithm looks at many different small primes <span class="math inline">\(\ell\)</span>. It stays “flat” on the ground floor
+of <span class="math inline">\(\mathbb{F}_p\)</span>, but it visits many
+different <span class="math inline">\(\ell\)</span>-torsion
+“neighborhoods.” It relies on the Chinese remainder theorem, and <span class="math inline">\(\mathbb Z_\ell.\)</span> Schoof only looks at the
+very bottom of the Tate module (the <span class="math inline">\(E[\ell]\)</span> level). It sees a <span class="math inline">\(2 \times 2\)</span> matrix with entries in <span class="math inline">\(\mathbb{F}_\ell\)</span>. By finding the Trace of
+this tiny matrix, it finds <span class="math inline">\(a_p \pmod
+\ell\)</span>. He then “glues” these together using the Chinese
+Remainder Theorem.t is explained below 🆘. This is important to
+understand what follows.</p>
+<p>The SEA algorithm uses the Tate module to find “special” directions
+(eigenvectors). It uses the <span class="math inline">\(p\)</span>-adic
+skyscraper to lift these directions to high precision. Because it finds
+the “slope” of the Frobenius map so accurately, it can calculate the
+Trace (<span class="math inline">\(a_p\)</span>) much faster than Schoof
+could by visiting dozens of primes.</p>
+<p>A <span class="math inline">\(3 \times 3\)</span> grid only tells us
+<span class="math inline">\(a_p \pmod 3\)</span>. To know if <span class="math inline">\(a_p\)</span> is <span class="math inline">\(1\)</span>, <span class="math inline">\(4\)</span>, or <span class="math inline">\(10\)</span>, we must look at <span class="math inline">\(9 \times 9, 27 \times 27\)</span>, etc. Each
 larger power of <span class="math inline">\(\ell\)</span> provides one
 more digit of precision. Even though these represent smaller distances
 in the <span class="math inline">\(\ell\)</span>-adic world, they
@@ -2720,6 +2741,63 @@ c_{k-1}\alpha^{k-1}\]</span></p>
 the “room” we need changes. A square root needs degree <span class="math inline">\(2.\)</span> A cube root needs degree <span class="math inline">\(3.\)</span> To fit both, we need a field that is a
 multiple of both dimensions. We would create a degree-<span class="math inline">\(6\)</span> extension (<span class="math inline">\(2 \times 3 = 6\)</span>). In that <span class="math inline">\(6\)</span>D space, one single degree-<span class="math inline">\(6\)</span> “super-ghost” <span class="math inline">\(\alpha\)</span> would allow you to express both
 the cube root and the square root.</p>
+<hr />
+<p>🆘 We are looking for the trace <span class="math inline">\(a_p=t\)</span> of the Frobenius endomorphism <span class="math inline">\(\phi\)</span> by observing its action on the <span class="math inline">\(\ell\)</span>-torsion subgroups <span class="math inline">\(E[\ell]\)</span>.</p>
+<p>Hasse’s Theorem: The algorithm seeks an integer <span class="math inline">\(t \in \mathbb{Z}\)</span> such that:</p>
+<p><span class="math display">\[|t| \le 2\sqrt{p}\]</span></p>
+<p>This ensures that once we know <span class="math inline">\(t \pmod
+L\)</span> (where <span class="math inline">\(L = \prod
+\ell_i\)</span>), and <span class="math inline">\(L &gt;
+4\sqrt{p}\)</span>, there is only one possible value for <span class="math inline">\(t\)</span> in that range.</p>
+<p>We use symbolic <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (not actual values). Mathematically, we
+are working in a coordinate ring restricted by the curve and the
+torsion. We perform calculations in the ring:</p>
+<p><span class="math display">\[R_\ell = \mathbb{F}_p[x, y] / (y^2 -
+(x^3 + Ax + B), \psi_\ell(x))\]</span></p>
+<p><span class="math inline">\(\psi_\ell(x)\)</span>: The <span class="math inline">\(\ell\)</span>-th <strong>division
+polynomial</strong>. By modding out by this, we ensure that the
+“symbolic” point <span class="math inline">\((x, y)\)</span> behaves
+exactly like an <span class="math inline">\(\ell\)</span>-torsion point.
+Any identity that holds in <span class="math inline">\(R_\ell\)</span>
+is guaranteed to hold for every point <span class="math inline">\(P \in
+E[\ell]\)</span>.</p>
+<p>The <strong>characteristic polynomial</strong>: We are looking for
+the eigenvalue/trace <span class="math inline">\(k \in
+\mathbb{Z}/\ell\mathbb{Z}\)</span> such that:</p>
+<p><span class="math display">\[\phi^2 - k\phi + [p] = 0 \quad \text{in
+} \text{End}(E[\ell])\]</span></p>
+<p>Writing this out in terms of coordinates <span class="math inline">\((x, y) \in R_\ell\)</span>:</p>
+<p><span class="math display">\[(x^{p^2}, y^{p^2}) + [p \pmod \ell](x,
+y) = [k](x^p, y^p)\]</span></p>
+<p><span class="math inline">\((x^{p^2}, y^{p^2})\)</span>: The action
+of <span class="math inline">\(\phi^2\)</span>.</p>
+<p><span class="math inline">\([p \pmod \ell]\)</span>: The scalar
+multiplication map by the remainder of <span class="math inline">\(p\)</span> modulo <span class="math inline">\(\ell\)</span>.</p>
+<p><span class="math inline">\([k]\)</span>: The scalar multiplication
+map by our guess for the trace.4.</p>
+<p>While each step gives us <span class="math inline">\(t \pmod
+\ell\)</span>, the Schoof algorithm is essentially computing the first
+digit of the <span class="math inline">\(\ell\)</span>-adic expansion of
+the trace for several different primes. If we stayed with one prime
+<span class="math inline">\(\ell\)</span> and looked at higher division
+polynomials <span class="math inline">\(\psi_{\ell^n}\)</span>, we would
+be working in the Tate Module:</p>
+<p><span class="math display">\[T_\ell(E) = \lim_{\longleftarrow}
+E[\ell^n] \cong \mathbb{Z}_\ell \times \mathbb{Z}_\ell\]</span></p>
+<p>In this view, <span class="math inline">\(\phi\)</span> is a <span class="math inline">\(2 \times 2\)</span> matrix with entries in <span class="math inline">\(\mathbb{Z}_\ell\)</span>.</p>
+<p>The <span class="math inline">\(k\)</span> we find is:</p>
+<p><span class="math display">\[k \equiv \text{Tr}(\phi) \pmod
+\ell\]</span></p>
+<p>Chinese Remainder Theorem: Finally, we have a system of
+congruences:</p>
+<p><span class="math display">\[t \equiv k_1 \pmod{\ell_1}\]</span></p>
+<p><span class="math display">\[t \equiv k_2 \pmod{\ell_2}\]</span></p>
+<p><span class="math display">\[\dots\]</span></p>
+<p>This is an isomorphism of rings:</p>
+<p><span class="math display">\[\mathbb{Z}/L\mathbb{Z} \cong \prod
+\mathbb{Z}/\ell_i\mathbb{Z}\]</span> By mapping our collection of <span class="math inline">\(k_i\)</span> back through this isomorphism, we
+recover the unique <span class="math inline">\(t \in \mathbb{Z}\)</span>
+that satisfies the Hasse bound.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
