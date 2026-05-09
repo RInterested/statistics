@@ -1807,11 +1807,39 @@ If we wanted a cube root ($\sqrt[3]{2}$) and a square root ($\sqrt{3}$), the sam
 
 ---
 
-🆘 We are looking for the trace $a_p=t$ of the Frobenius endomorphism $\phi$ by observing its action on the $\ell$-torsion subgroups $E[\ell]$. 
+🆘 In SEA we get the same blurry points in $\mathbb F_{p^k}$ and then we lift them through Hensel. For Schoof, we get $\ell$ blurry points in an extension of $\mathbb F_{p^k}$ and get $a_p\mod \ell.$ In addition, we get the counts for other $\ell$'s, such as $\ell=5, 7, 11, \dots$. We start with small primes, like $\ell=3,$ and the stopping point is guided by Hasse's theorem. The Chinese remainder theorem is used to solve a system of modular equations and get $a_p.$
 
-Hasse's Theorem: The algorithm seeks an integer $t \in \mathbb{Z}$ such that:
+For any elliptic curve $E$ over $\mathbb{F}_p$, the Frobenius endomorphism $\phi$ satisfies a **characteristic polynomial**: a quadratic equation in the endomorphism ring of the curve. The endomorphism ring of the curve ($\text{End}(E)$). It contains all possible geometric shuffles that can be performed on the entire curve. These maps work on every point $(x, y)$, regardless of whether that point is part of a torsion grid or not. It includes the Frobenius map $\phi$ and all scalar multiplication maps $[n]$. The characteristic equation lives here and applies to every single point on the donut. The ring ($\text{End}(E)$) is a mathematical structure where we can add, subtract, and multiply elements. In the endomorphism ring, the "numbers" we are manipulating are actually the mappings themselves. 
 
-$$|t| \le 2\sqrt{p}$$
+Addition: $(\alpha + \beta)(P) = \alpha(P) + \beta(P)$. You apply both maps and add the resulting points using the curve's addition law.
+
+Multiplication: $(\alpha \cdot \beta)(P) = \alpha(\beta(P))$. Multiplication is defined as composition—applying one map after the other.
+
+The ring allows us to write equations like $\phi^2 - a_p\phi + p = 0$ as if they were simple algebra. In this notation:$\phi^2$ means $\phi(\phi(P))$. $p$ represents the scalar multiplication map $[p]$. $0$ represents the map that sends every point to the point at infinity ($\mathcal{O}$).
+
+$$\phi^2 - a_p\phi + p = 0$$
+
+In this equation, $a_p$ (the trace) is the mystery value we want to find. This equation is "characteristic" because it describes the behavior of every point $P$ on the curve.
+
+We are looking for the trace $a_p=t$ of the Frobenius endomorphism $\phi$ by observing its action on the $\ell$-torsion subgroups $E[\ell]$. 
+
+While the equation is true for every $\ell$, a single $\ell$ only gives us a blurry piece of the answer (the remainder). 
+
+$a_p \pmod 2 = k_1$
+
+$a_p \pmod 3 = k_2$
+
+$a_p \pmod 5 = k_3$
+
+...and so on.
+
+The Role of Hasse’s Theorem $|a_p| \le 2\sqrt{p}:$ We keep picking new $\ell$'s and solving the characteristic equation for each one until the product of all those primes
+
+$$L = \ell_1 \cdot \ell_2 \cdot \dots$$ 
+
+is larger than $4\sqrt{p}$.
+
+Once $L > 4\sqrt{p}$, the Chinese Remainder Theorem glues those individual $\ell$-clues together to reveal the one and only integer $a_p$ that fits in that Hasse box.
 
 This ensures that once we know $t \pmod L$ (where $L = \prod \ell_i$), and $L > 4\sqrt{p}$, there is only one possible value for $t$ in that range.
 
@@ -1819,11 +1847,17 @@ We use symbolic $x$ and $y$ (not actual values). Mathematically, we are working 
 
 $$R_\ell = \mathbb{F}_p[x, y] / (y^2 - (x^3 + Ax + B), \psi_\ell(x))$$
 
-$\psi_\ell(x)$: The $\ell$-th **division polynomial**. By modding out by this, we ensure that the "symbolic" point $(x, y)$ behaves exactly like an $\ell$-torsion point. Any identity that holds in $R_\ell$ is guaranteed to hold for every point $P \in E[\ell]$.
+$\mathbb{F}_p[x, y]:$ This represents the set of all possible polynomials using two variables, $x$ and $y$, with coefficients from your base field $\mathbb{F}_p$. At this stage, $x$ and $y$ are completely free; they could represent any point in the entire infinite plane.
+
+The first constraint: $(y^2 - (x^3 + Ax + B)).$ By "modding out" by the curve's equation, we are forcing the variables to live on the curve. 
+
+The second constraint: $(\psi_\ell(x)).$ This is the division polynomial. Modding out by $\psi_\ell(x)$ restricts our workspace further so that the "symbolic" point $(x, y)$ behaves exactly like an $\ell$-torsion point. Any identity that holds in $R_\ell$ is guaranteed to hold for every point $P \in E[\ell]$.
 
 The **characteristic polynomial**: We are looking for the eigenvalue/trace $k \in \mathbb{Z}/\ell\mathbb{Z}$ such that:
 
 $$\phi^2 - k\phi + [p] = 0 \quad \text{in } \text{End}(E[\ell])$$
+
+The ring $\text{End}(E[\ell])$ is what we get when you take those global rules of $\text{End}(E)$ and apply them only to the points in a specific $\ell \times \ell$ grid. We are moving from the infinite curve to a finite $2 \times 2$ matrix representation. Everything in this ring is reduced modulo $\ell$. For example, the scalar $[p]$ in the global ring becomes the scalar $[p \pmod \ell]$ in this local ring.
 
 Writing this out in terms of coordinates $(x, y) \in R_\ell$:
 
@@ -1833,7 +1867,13 @@ $(x^{p^2}, y^{p^2})$: The action of $\phi^2$.
 
 $[p \pmod \ell]$: The scalar multiplication map by the remainder of $p$ modulo $\ell$.
 
-$[k]$: The scalar multiplication map by our guess for the trace.4. 
+$[k]$: The scalar multiplication map by our guess for the trace. 
+
+For each prime $\ell$ (e.g., $\ell = 2, 3, 5, 7, \dots$), we construct a unique coordinate ring $R_\ell$ using that specific $\ell$-th division polynomial $\psi_\ell(x)$. Within that ring, we test the equation:
+
+$$(x^{p^2}, y^{p^2}) + [p \pmod \ell](x, y) = [k](x^p, y^p)$$
+
+We are searching for the specific value of $k$ that makes this identity hold true for that specific $\ell$. We check every candidate for $k$ in the set $\{0, 1, \dots, \ell-1\}$. Once the equation balances, you have successfully "captured" one modular clue: $a_p \equiv k \pmod \ell$.
 
 While each step gives us $t \pmod \ell$, the Schoof algorithm is essentially computing the first digit of the $\ell$-adic expansion of the trace for several different primes. If we stayed with one prime $\ell$ and looked at higher division polynomials $\psi_{\ell^n}$, we would be working in the Tate Module:
 

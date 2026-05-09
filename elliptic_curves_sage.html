@@ -2756,9 +2756,61 @@ the “room” we need changes. A square root needs degree <span class="math inl
 multiple of both dimensions. We would create a degree-<span class="math inline">\(6\)</span> extension (<span class="math inline">\(2 \times 3 = 6\)</span>). In that <span class="math inline">\(6\)</span>D space, one single degree-<span class="math inline">\(6\)</span> “super-ghost” <span class="math inline">\(\alpha\)</span> would allow you to express both
 the cube root and the square root.</p>
 <hr />
-<p>🆘 We are looking for the trace <span class="math inline">\(a_p=t\)</span> of the Frobenius endomorphism <span class="math inline">\(\phi\)</span> by observing its action on the <span class="math inline">\(\ell\)</span>-torsion subgroups <span class="math inline">\(E[\ell]\)</span>.</p>
-<p>Hasse’s Theorem: The algorithm seeks an integer <span class="math inline">\(t \in \mathbb{Z}\)</span> such that:</p>
-<p><span class="math display">\[|t| \le 2\sqrt{p}\]</span></p>
+<p>🆘 In SEA we get the same blurry points in <span class="math inline">\(\mathbb F_{p^k}\)</span> and then we lift them
+through Hensel. For Schoof, we get <span class="math inline">\(\ell\)</span> blurry points in an extension of
+<span class="math inline">\(\mathbb F_{p^k}\)</span> and get <span class="math inline">\(a_p\mod \ell.\)</span> In addition, we get the
+counts for other <span class="math inline">\(\ell\)</span>’s, such as
+<span class="math inline">\(\ell=5, 7, 11, \dots\)</span>. We start with
+small primes, like <span class="math inline">\(\ell=3,\)</span> and the
+stopping point is guided by Hasse’s theorem. The Chinese remainder
+theorem is used to solve a system of modular equations and get <span class="math inline">\(a_p.\)</span></p>
+<p>For any elliptic curve <span class="math inline">\(E\)</span> over
+<span class="math inline">\(\mathbb{F}_p\)</span>, the Frobenius
+endomorphism <span class="math inline">\(\phi\)</span> satisfies a
+<strong>characteristic polynomial</strong>: a quadratic equation in the
+endomorphism ring of the curve. The endomorphism ring of the curve
+(<span class="math inline">\(\text{End}(E)\)</span>). It contains all
+possible geometric shuffles that can be performed on the entire curve.
+These maps work on every point <span class="math inline">\((x,
+y)\)</span>, regardless of whether that point is part of a torsion grid
+or not. It includes the Frobenius map <span class="math inline">\(\phi\)</span> and all scalar multiplication maps
+<span class="math inline">\([n]\)</span>. The characteristic equation
+lives here and applies to every single point on the donut. The ring
+(<span class="math inline">\(\text{End}(E)\)</span>) is a mathematical
+structure where we can add, subtract, and multiply elements. In the
+endomorphism ring, the “numbers” we are manipulating are actually the
+mappings themselves.</p>
+<p>Addition: <span class="math inline">\((\alpha + \beta)(P) = \alpha(P)
++ \beta(P)\)</span>. You apply both maps and add the resulting points
+using the curve’s addition law.</p>
+<p>Multiplication: <span class="math inline">\((\alpha \cdot \beta)(P) =
+\alpha(\beta(P))\)</span>. Multiplication is defined as
+composition—applying one map after the other.</p>
+<p>The ring allows us to write equations like <span class="math inline">\(\phi^2 - a_p\phi + p = 0\)</span> as if they were
+simple algebra. In this notation:<span class="math inline">\(\phi^2\)</span> means <span class="math inline">\(\phi(\phi(P))\)</span>. <span class="math inline">\(p\)</span> represents the scalar multiplication
+map <span class="math inline">\([p]\)</span>. <span class="math inline">\(0\)</span> represents the map that sends every
+point to the point at infinity (<span class="math inline">\(\mathcal{O}\)</span>).</p>
+<p><span class="math display">\[\phi^2 - a_p\phi + p = 0\]</span></p>
+<p>In this equation, <span class="math inline">\(a_p\)</span> (the
+trace) is the mystery value we want to find. This equation is
+“characteristic” because it describes the behavior of every point <span class="math inline">\(P\)</span> on the curve.</p>
+<p>We are looking for the trace <span class="math inline">\(a_p=t\)</span> of the Frobenius endomorphism <span class="math inline">\(\phi\)</span> by observing its action on the <span class="math inline">\(\ell\)</span>-torsion subgroups <span class="math inline">\(E[\ell]\)</span>.</p>
+<p>While the equation is true for every <span class="math inline">\(\ell\)</span>, a single <span class="math inline">\(\ell\)</span> only gives us a blurry piece of the
+answer (the remainder).</p>
+<p><span class="math inline">\(a_p \pmod 2 = k_1\)</span></p>
+<p><span class="math inline">\(a_p \pmod 3 = k_2\)</span></p>
+<p><span class="math inline">\(a_p \pmod 5 = k_3\)</span></p>
+<p>…and so on.</p>
+<p>The Role of Hasse’s Theorem <span class="math inline">\(|a_p| \le
+2\sqrt{p}:\)</span> We keep picking new <span class="math inline">\(\ell\)</span>’s and solving the characteristic
+equation for each one until the product of all those primes</p>
+<p><span class="math display">\[L = \ell_1 \cdot \ell_2 \cdot
+\dots\]</span></p>
+<p>is larger than <span class="math inline">\(4\sqrt{p}\)</span>.</p>
+<p>Once <span class="math inline">\(L &gt; 4\sqrt{p}\)</span>, the
+Chinese Remainder Theorem glues those individual <span class="math inline">\(\ell\)</span>-clues together to reveal the one and
+only integer <span class="math inline">\(a_p\)</span> that fits in that
+Hasse box.</p>
 <p>This ensures that once we know <span class="math inline">\(t \pmod
 L\)</span> (where <span class="math inline">\(L = \prod
 \ell_i\)</span>), and <span class="math inline">\(L &gt;
@@ -2768,18 +2820,34 @@ are working in a coordinate ring restricted by the curve and the
 torsion. We perform calculations in the ring:</p>
 <p><span class="math display">\[R_\ell = \mathbb{F}_p[x, y] / (y^2 -
 (x^3 + Ax + B), \psi_\ell(x))\]</span></p>
-<p><span class="math inline">\(\psi_\ell(x)\)</span>: The <span class="math inline">\(\ell\)</span>-th <strong>division
-polynomial</strong>. By modding out by this, we ensure that the
-“symbolic” point <span class="math inline">\((x, y)\)</span> behaves
-exactly like an <span class="math inline">\(\ell\)</span>-torsion point.
-Any identity that holds in <span class="math inline">\(R_\ell\)</span>
-is guaranteed to hold for every point <span class="math inline">\(P \in
+<p><span class="math inline">\(\mathbb{F}_p[x, y]:\)</span> This
+represents the set of all possible polynomials using two variables,
+<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, with coefficients from your base field
+<span class="math inline">\(\mathbb{F}_p\)</span>. At this stage, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are completely free; they could
+represent any point in the entire infinite plane.</p>
+<p>The first constraint: <span class="math inline">\((y^2 - (x^3 + Ax +
+B)).\)</span> By “modding out” by the curve’s equation, we are forcing
+the variables to live on the curve.</p>
+<p>The second constraint: <span class="math inline">\((\psi_\ell(x)).\)</span> This is the division
+polynomial. Modding out by <span class="math inline">\(\psi_\ell(x)\)</span> restricts our workspace
+further so that the “symbolic” point <span class="math inline">\((x,
+y)\)</span> behaves exactly like an <span class="math inline">\(\ell\)</span>-torsion point. Any identity that
+holds in <span class="math inline">\(R_\ell\)</span> is guaranteed to
+hold for every point <span class="math inline">\(P \in
 E[\ell]\)</span>.</p>
 <p>The <strong>characteristic polynomial</strong>: We are looking for
 the eigenvalue/trace <span class="math inline">\(k \in
 \mathbb{Z}/\ell\mathbb{Z}\)</span> such that:</p>
 <p><span class="math display">\[\phi^2 - k\phi + [p] = 0 \quad \text{in
 } \text{End}(E[\ell])\]</span></p>
+<p>The ring <span class="math inline">\(\text{End}(E[\ell])\)</span> is
+what we get when you take those global rules of <span class="math inline">\(\text{End}(E)\)</span> and apply them only to the
+points in a specific <span class="math inline">\(\ell \times
+\ell\)</span> grid. We are moving from the infinite curve to a finite
+<span class="math inline">\(2 \times 2\)</span> matrix representation.
+Everything in this ring is reduced modulo <span class="math inline">\(\ell\)</span>. For example, the scalar <span class="math inline">\([p]\)</span> in the global ring becomes the scalar
+<span class="math inline">\([p \pmod \ell]\)</span> in this local
+ring.</p>
 <p>Writing this out in terms of coordinates <span class="math inline">\((x, y) \in R_\ell\)</span>:</p>
 <p><span class="math display">\[(x^{p^2}, y^{p^2}) + [p \pmod \ell](x,
 y) = [k](x^p, y^p)\]</span></p>
@@ -2788,7 +2856,19 @@ of <span class="math inline">\(\phi^2\)</span>.</p>
 <p><span class="math inline">\([p \pmod \ell]\)</span>: The scalar
 multiplication map by the remainder of <span class="math inline">\(p\)</span> modulo <span class="math inline">\(\ell\)</span>.</p>
 <p><span class="math inline">\([k]\)</span>: The scalar multiplication
-map by our guess for the trace.4.</p>
+map by our guess for the trace.</p>
+<p>For each prime <span class="math inline">\(\ell\)</span> (e.g., <span class="math inline">\(\ell = 2, 3, 5, 7, \dots\)</span>), we construct a
+unique coordinate ring <span class="math inline">\(R_\ell\)</span> using
+that specific <span class="math inline">\(\ell\)</span>-th division
+polynomial <span class="math inline">\(\psi_\ell(x)\)</span>. Within
+that ring, we test the equation:</p>
+<p><span class="math display">\[(x^{p^2}, y^{p^2}) + [p \pmod \ell](x,
+y) = [k](x^p, y^p)\]</span></p>
+<p>We are searching for the specific value of <span class="math inline">\(k\)</span> that makes this identity hold true for
+that specific <span class="math inline">\(\ell\)</span>. We check every
+candidate for <span class="math inline">\(k\)</span> in the set <span class="math inline">\(\{0, 1, \dots, \ell-1\}\)</span>. Once the
+equation balances, you have successfully “captured” one modular clue:
+<span class="math inline">\(a_p \equiv k \pmod \ell\)</span>.</p>
 <p>While each step gives us <span class="math inline">\(t \pmod
 \ell\)</span>, the Schoof algorithm is essentially computing the first
 digit of the <span class="math inline">\(\ell\)</span>-adic expansion of
