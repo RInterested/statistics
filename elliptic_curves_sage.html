@@ -1294,8 +1294,16 @@ understand what follows.</p>
 (eigenvectors). It uses the <span class="math inline">\(p\)</span>-adic
 skyscraper to lift these directions to high precision. Because it finds
 the “slope” of the Frobenius map so accurately, it can calculate the
-Trace (<span class="math inline">\(a_p\)</span>) much faster than Schoof
-could by visiting dozens of primes.</p>
+trace (<span class="math inline">\(a_p\)</span>) much faster than Schoof
+could by visiting dozens of primes. Crucially, while the standard Schoof
+algorithm requires tracking the entire <span class="math inline">\(2
+\times 2\)</span> grid (a basis of two points), the SEA algorithm
+identifies an “Elkies prime” where the Frobenius map has a specific
+invariant line. Because this line is one-dimensional, we only need to
+find and lift one single point to determine the eigenvalue <span class="math inline">\(\lambda\)</span>. Once we have the “speed” of the
+Frobenius map along this one rail, the symmetry of the curve
+(determinant = <span class="math inline">\(p\)</span>) allows us to
+mathematically deduce the trace without ever constructing a full <span class="math inline">\(2 \times 2\)</span> matrix.</p>
 <p>To understand why we can ‘zoom in’ on these points in the SEA
 algorithm using Hensel’s lifting, we must look at their geometric
 nature. While we calculate them using <span class="math inline">\(p\)</span>-adic digits (<span class="math inline">\(x, y\)</span>), their internal structure is
