@@ -149,7 +149,11 @@ $$\mathbb{E}[\log(1+r)] \approx 0.05 - 0.10125 = -0.05125$$
 
 Whether we use the exact calculation or the quick approximation, the result is deeply negative (around $5.2\%$ per flip). Because the variance ($\sigma^2 = 0.2025$) is so massive, the volatility drag ($\approx 10.1\%$) completely overwhelms the arithmetic engine ($5\%$). The volatility physically bends our time-average growth rate below zero, guarantees that an individual player's wealth will decay toward absolute ruin with every flip, and neatly unmasks the ergodicity paradox.
 
+The sum of logs ($\frac{1}{n} \sum \log(1+r_i)$) is simply the log-geometric mean. If we take the arithmetic mean of the logarithms, we get the exact same result as taking the geometric mean of the original numbers.
 
+$$\small \text{Geometric Mean} = \exp\left( \text{Arithmetic Mean of Logs} \right)=\sqrt[n]{(1+r_1)(1+r_2)\dots(1+r_n)} - 1$$
+
+The Taylor expansion and the $\mathbb{E}[\log(1+r)]$ are useful because the arithmetic Mean ($r_a$) and variance ($\sigma^2$) are what we actually see in the world. Banks quote arithmetic interest rates; news outlets quote arithmetic market returns; analysts quote volatility (standard deviation). The formula $r_g \approx r_a - \frac{\sigma^2}{2}$ is the bridge. 
 
 
 
