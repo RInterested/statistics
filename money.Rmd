@@ -1,0 +1,72 @@
+---
+title: 'OLS without linear algebra'
+output: 
+  html_document:
+    theme: readable
+    includes:
+      in_header: "favicon.html" 
+    css: custom.css
+---
+
+### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
+
+<a href="http://rinterested.github.io/statistics/index.html">
+<img HEIGHT="40" WIDTH="50" src="logo.PNG"></a>
+
+---
+
+### Title for this page:
+
+---
+
+Write here
+
+To silence R messages and warnings copy this before the first chunk of R code:
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+---
+
+```{r}
+library(curl)
+dat <- read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/sicily.csv')
+head(dat)
+```
+
+
+---
+
+#### SUBHEADER
+
+---
+
+```{R, fig.width = 5, fig.height = 5}
+n <- 1e4
+M <- matrix(runif(2*n,-1,1),ncol=2)
+M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
+plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
+     xlab='', ylab='', tck=F, axes=F)
+```
+
+##### SUB-SUBHEADER
+
+---
+
+### Portfolio Variance:
+
+---
+
+Example of an image:
+
+<img width = 400  src = "https://cloud.githubusercontent.com/assets/9312897/15807170/a0303b44-2b24-11e6-974b-bbbae9390f1b.png">
+
+References:
+
+<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
+
+---
+<a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
+
+**NOTE: These are tentative notes on different topics for personal use - expect mistakes and misunderstandings.**
