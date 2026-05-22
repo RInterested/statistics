@@ -95,7 +95,7 @@ In the context of the stock market, the expected return $\mathbb{E}[r]$ (let's c
 
 $$\mathbb{E}[\log(1 + r)] \approx r_a - \frac{\sigma^2}{2}$$
 
-The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag).
+The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag). $r_a$ it is not simple interest, though it looks deceptively like it. In this context, $r_a$ (the arithmetic mean) is the expected value of the single-period return. If we look at the stock market for exactly one year, $r_a$ is the average of all possible outcomes for that year. If the media says "The S&P 500 has an average annual return of 12%," they are usually summing up the annual returns of the last $90$ years and dividing by $90.$ That $12\%$ is our $r_a$. The trap is that $r_a$ is an ensemble measure. It tells us "If $1,000 people$ invest for $1$ year, the average person will have $1 + r_a$." However, it does not tell us, "If $1$ person invests for $1,000$ years, he will have $(1 + r_a)^{1000}$. $r_a$ (arithmetic) is the average of the outcomes. In the coin toss $r_a$ is $+5\%.$ It looks profitable... This is the ensemble Average. The $r_g$ (geometric) is the average of the growth (the geometric mean - see below). In that same coin toss, $r_g$ is $-5.1\%.$ You are actually going broke. This is the time average.
 
 
 In Ole Peters' classic "infamous coin toss" model, the game has two equally likely outcomes ($p = 0.5$ each):
@@ -155,6 +155,12 @@ $$\small \text{Geometric Mean} = \exp\left( \text{Arithmetic Mean of Logs} \righ
 
 The Taylor expansion and the $\mathbb{E}[\log(1+r)]$ are useful because the arithmetic Mean ($r_a$) and variance ($\sigma^2$) are what we actually see in the world. Banks quote arithmetic interest rates; news outlets quote arithmetic market returns; analysts quote volatility (standard deviation). The formula $r_g \approx r_a - \frac{\sigma^2}{2}$ is the bridge. 
 
+
+A process is ergodic if its Arithmetic Mean (ensemble) is equal to its Geometric Mean (time).
+
+Addition is ergodic: If 100 people each get $1,$ the average is $1.$ If 1 person gets $1$ every day for $100$ days, the average is $1.$
+
+**Compounding is not ergodic**: As soon as you have a multiplicative process with randomness, the geometric mean must be lower than the arithmetic mean.
 
 
 
