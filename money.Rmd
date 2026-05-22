@@ -94,7 +94,56 @@ $$\mathbb{E}[\log(1 + r)] \approx r_a - \frac{\sigma^2}{2}$$
 The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag).
 
 
+In Ole Peters' classic "infamous coin toss" model, the game has two equally likely outcomes ($p = 0.5$ each):
 
+Heads: $+50\%$ return ($r_H = +0.50$)
+
+Tails: $-40\%$ return ($r_T = -0.40$)
+
+To calculate the variance ($\sigma^2$) for this specific coin toss, we follow the exact statistical steps we just walked through, using discrete probabilities:
+
+First, we find the arithmetic mean ($r_a$): First, we find the simple average return of a single flip by multiplying each outcome by its probability:
+
+$$r_a = \mathbb{E}[r] = (0.5 \times 0.50) + (0.5 \times -0.40)$$
+
+$$r_a = 0.25 - 0.20 = 0.05$$
+
+The arithmetic expectation is positive. If $1,000$ people play this once, the group's total pool of money grows by $5\%.$
+
+Now we find the expected value of the squared returns ($\mathbb{E}[r^2]$):
+
+We square each individual outcome and find the average of those squares:
+
+$$\mathbb{E}[r^2] = (0.5 \times (0.50)^2) + (0.5 \times (-0.40)^2)$$
+
+$$\mathbb{E}[r^2] = (0.5 \times 0.25) + (0.5 \times 0.16)$$
+
+$$\mathbb{E}[r^2] = 0.125 + 0.080 = 0.205$$
+
+Finally, we compute the variance ($\sigma^2$): we plug these into the variance formula, $\sigma^2 = \mathbb{E}[r^2] - (r_a)^2$:
+
+$$\sigma^2 = 0.205 - (0.05)^2$$
+
+$$\sigma^2 = 0.205 - 0.0025 = 0.2025$$
+
+Now that we have computed our parameters for the coin toss ($r_a = 0.05$ and $\sigma^2 = 0.2025$), let's watch the Taylor expansion reveal the individual's long-run fate. If we use the exact expansion formula before dropping the tiny term:
+
+$$\mathbb{E}[\log(1+r)] \approx r_a - \frac{\sigma^2}{2} - \frac{r_a^2}{2}$$
+
+$$\mathbb{E}[\log(1+r)] \approx 0.05 - \frac{0.2025}{2} - \frac{0.0025}{2}$$
+
+$$\mathbb{E}[\log(1+r)] \approx 0.05 - 0.10125 - 0.00125 = -0.0525$$
+
+If we use the simplified rule-of-thumb formula (dropping the $r_a^2/2$ term):
+
+$$\mathbb{E}[\log(1+r)] \approx r_a - \frac{\sigma^2}{2}$$
+
+$$\mathbb{E}[\log(1+r)] \approx 0.05 - \frac{0.2025}{2}$$
+
+$$\mathbb{E}[\log(1+r)] \approx 0.05 - 0.10125 = -0.05125$$
+
+
+Whether we use the exact calculation or the quick approximation, the result is deeply negative (around $5.2\%$ per flip). Because the variance ($\sigma^2 = 0.2025$) is so massive, the volatility drag ($\approx 10.1\%$) completely overwhelms the arithmetic engine ($5\%$). The volatility physically bends our time-average growth rate below zero, guarantees that an individual player's wealth will decay toward absolute ruin with every flip, and neatly unmasks the ergodicity paradox.
 
 
 
