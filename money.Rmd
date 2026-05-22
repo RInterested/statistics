@@ -55,13 +55,36 @@ To turn this addition into a dollar amount, we plug it into the exponential func
 
 $$W_{\text{final}} = W_0 \cdot e^{\text{Sum of logs}}$$
 
-The function $f(r) = 1 + r$ is a perfectly straight line. It has no memory of risk. But the function $f(r) = \log(1 + r)$ is concave (it curves downward). This curve is the mathematical representation of the fact that losses hurt more than gains help. If we gain $50\%$ and then lose $50\%,$ our arithmetic average is $0\%$ ($1 + 0.5 - 0.5 = 1$). But our actual wealth is down $25\%$ ($1.5 \times 0.5 = 0.75$).
+The function $f(r) = 1 + r$ is a perfectly straight line. It has no memory of risk. But the function $f(r) = \log(1 + r)$ is concave (it curves downward). This curve is the mathematical representation of the fact that losses hurt more than gains help. If we gain $50\%$ and then lose $50\%,$ our arithmetic average is $0\%$ $(1 + 0.5 - 0.5 = 1).$ But our actual wealth is down $25\%$ $(1.5 \times 0.5 = 0.75)$.
 
-The Taylor expansion 
+To obtain the Taylor expansion we start at 
+
+$$\log(W_{final}) = \log(W_0) + \sum_{i=1}^{n} \log(1+r_i)$$
+
+by the law of large numbers as $n\to \infty$
+
+$$\text{Long-run growth rate } (r_g) = \mathbb{E}[\log(1+r)]=\frac{1}{n} \log\left(\frac{W_{\text{final}}}{W_0}\right) = \frac{1}{n} \sum_{i=1}^{n} \log(1+r_i)$$
+
+we don't know $\mathbb{E}[\log(1+r)]$ off the top of our heads. We only know the average return ($r_a$) and the volatility ($\sigma$). We use the Taylor expansion to translate the log back into numbers we actually have:
+
+$$\log(1+r) \approx r - \frac{r^2}{2}$$
+
+Taking the expectation of that expansion:
+
+$$\mathbb{E}[\log(1+r)] \approx \mathbb{E}[r] - \frac{\mathbb{E}[r^2]}{2}$$
+
+Since $\mathbb{E}[r^2] \approx \sigma^2$ (for small $r_a$), we get the growth rate:
+
+$$r_g \approx r_a - \frac{\sigma^2}{2}$$
+
+The value we just found, $r_g$, is the continuous growth rate. To see what our actual bank account looks like, you have to undo the log we took: We raise $e$ to the power of our growth rate multiplied by time ($n$):
+
+$$W_{\text{final}} = W_0 \cdot e^{(r_a - \frac{\sigma^2}{2})n}$$
+
 
 $$\log(1 + r) \approx r - \frac{r^2}{2}$$ 
 
-captures this penalty. The $r$ is our gain, but the $-\frac{r^2}{2}$ is the cost of the curve: the specific amount our portfolio growth is dragged down by the volatility of the path.
+captures the volatility penalty. The $r$ is our gain, but the $-\frac{r^2}{2}$ is the cost of the curve: the specific amount our portfolio growth is dragged down by the volatility of the path.
 
 We use the log because of the strong law of large numbers. It states that for a sum of random variables, the average will eventually settle on the expected value. Because we turned our wealth into a sum using logs, we can say that in the long run:
 
