@@ -26,6 +26,118 @@ This post is a riff on money / portfolio-based mathematical issues inspired by [
 <img width = 400  src = "infamous_coin_toss.png">
 
 
+> I toss a fair coin, and if it comes up heads I’ll add 50% to your current wealth; if it comes up tails I will take away 40% of your current wealth. A fun thing to do in a lecture on the topic is to pause at this point and ask the audience if they’d like to take the gamble. Some will say yes, other no, and usually an interesting discussion of people’s motivations emerges. Often, the question comes up whether we’re allowed to repeat the gamble, and we will see that this leads naturally to the ergodicity problem.
+>
+> The ergodicity problem, at least the part of it that is important to us, boils down to asking whether we get the same number when we average a fluctuating quantity over many different systems and when we average it over time. If we try this for the fluctuating wealth in the Peters coin toss the answer is no, and this has far-reaching consequences for economic theory.
+
+
+A fair bet ($+50\%$ on heads, $-40\%$ on tails) has positive expected value, causing collective ensemble wealth to grow at $5\%$ per round while individual time-average trajectories decay toward ruin almost surely due to **multiplicative effects**: a lone individual faces self-destructive outcomes from repeated play, but a small group cooperating via risk pooling can access the beneficial collective growth that single trajectories cannot achieve. This ergodicity-breaking example, shown in the attached plot of diverging expected value versus individual experiences, underscores how non-ergodic processes create misalignments between personal incentives and group-level benefits in economics.
+
+In the coin toss experiment,the arithmetic (ensemble) mean is $+5\%$ per round, leading to collective wealth growth. Yet, the geometric (time-average) mean is $\sqrt{1.5 \times 0.6} \approx 0.9487$ leading to $\sim 5.1\%$ decay per round. As a result, individual paths will almost surely tend to ruin, while the ensemble looks great.
+
+In the meantime, the stock market works long-term for many individuals (especially passive index investors) precisely because its parameters are fundamentally different from the coin-toss example — even though both are multiplicative random walks with a trend. 
+
+The stock market returns, modeled as geometric brownian motion, are multiplicative and noisy. The positive drift from real economic growth (corporate earnings, dividends, productivity, innovation) is strong enough to overcome volatility: The arithmetic mean of the return is $\approx 10 - 12\%$ per year (historical S&P 500 nominal). The volatility is $\approx 15-20\%$ per year. The geometric (time-average) mean return is $\small \approx \text{arithmetic mean} - (\sigma^2/2) \approx 7-10\%$ per year (still strongly positive!).
+
+
+
+Let's check what is happening mathematically:
+
+The wealth after several years is a product of multipliers:
+
+$$\small W_{\text{final}} = W_0 \times (1+r_1) \times (1+r_2) \times \dots \times (1+r_n)$$
+
+Calculating the average of a long string of multiplications is computationally messy. However, the logarithm has a unique property: $\log(A \times B) = \log(A) + \log(B)$. Taking the log of the wealth turns that chain of multiplication into simple additions:
+
+$$\small \log(W_{\text{final}}) = \log(W_0) + \log(1+r_1) + \log(1+r_2) + \dots + \log(1+r_n)$$ 
+
+The function $f(r) = 1 + r$ is a perfectly straight line. It has no memory of risk. But the function $f(r) = \log(1 + r)$ is concave (it curves downward). This curve is the mathematical representation of the fact that losses hurt more than gains help. If we gain $50\%$ and then lose $50\%,$ our arithmetic average is $0\%$ ($1 + 0.5 - 0.5 = 1$). But our actual wealth is down $25\%$ ($1.5 \times 0.5 = 0.75$).
+
+The Taylor expansion 
+
+$$\log(1 + r) \approx r - \frac{r^2}{2}$$ 
+
+captures this penalty. The $r$ is our gain, but the $-\frac{r^2}{2}$ is the cost of the curve: the specific amount our portfolio growth is dragged down by the volatility of the path.
+
+We use the log because of the strong law of large numbers. It states that for a sum of random variables, the average will eventually settle on the expected value. Because we turned our wealth into a sum using logs, we can say that in the long run:
+
+$$\text{Growth Rate} = \frac{1}{n} \sum \log(1+r_i) \xrightarrow{n \to \infty} \mathbb{E}[\log(1+r)]$$
+
+If we didn't use the log, we would be calculating $\mathbb{E}[1+r]$, which is the Ensemble Average. That tells us what happens to a collective or ensemble of people in one year. But the individual lives through a sequence of years. The log is what translates the collective's luck into your personal reality.
+
+We start with the second-order Taylor expansion for a single realization of a return $r$:
+
+$$\log(1 + r) \approx r - \frac{r^2}{2}$$
+
+To find the long-run average, we take the expected value ($\mathbb{E}$) of both sides. Because expectation is a linear operator, we can apply it to each term individually:
+
+$$\mathbb{E}[\log(1 + r)] \approx \mathbb{E}[r] - \mathbb{E}\left[\frac{r^2}{2}\right]$$
+
+$$\mathbb{E}[\log(1 + r)] \approx \mathbb{E}[r] - \frac{1}{2}\mathbb{E}[r^2]$$
+
+The fundamental definition of variance says
+
+$$\sigma^2 = \mathbb{E}[r^2] - (\mathbb{E}[r])^2$$
+
+If we rearrange this to solve for $\mathbb{E}[r^2]$, we get:
+
+$$\mathbb{E}[r^2] = \sigma^2 + (\mathbb{E}[r])^2$$
+
+Now, substituting this back into our approximation:
+
+$$\mathbb{E}[\log(1 + r)] \approx \mathbb{E}[r] - \frac{1}{2}(\sigma^2 + (\mathbb{E}[r])^2)$$
+
+In the context of the stock market, the expected return $\mathbb{E}[r]$ (let's call it $r_a$) is usually a small decimal like $0.10.$ This means its square $(r_a)^2$ is tiny $(0.01).$ Compared to the variance $\sigma^2$ (which for a $20\%$ volatility market is $0.20^2 = 0.04$), the squared mean is often small enough to ignore for a clean rule of thumb. Dropping the $(r_a)^2$ term gives us the famous result:
+
+$$\mathbb{E}[\log(1 + r)] \approx r_a - \frac{\sigma^2}{2}$$
+
+The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$: This is the friction (the volatility drag).
+
+
+
+
+
+
+
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5.5, fig.align='center'}
+# 1. Run simulation parameters
+set.seed(42)
+num_paths   <- 1000
+num_years   <- 30
+mu          <- 0.10   
+sigma       <- 0.20   
+
+r_samples <- rnorm(num_paths, mean = mu, sd = sigma)
+
+wealth_multipliers <- numeric(num_paths)
+for(i in 1:num_paths) {
+  annual_returns <- rnorm(num_years, mean = mu, sd = sigma)
+  wealth_multipliers[i] <- prod(1 + annual_returns)
+}
+
+# 2. Render side-by-side plots directly to the document
+par(mfrow = c(1, 2))
+
+# Left Plot: Symmetric Returns
+hist(r_samples, breaks = 30, col = "skyblue", border = "white",
+     main = "Symmetric Annual Returns (r)", xlab = "Return Rate")
+abline(v = mean(r_samples), col = "red", lwd = 2, lty = 2)
+
+# Right Plot: Highly Skewed Multipliers (Log-Normal)
+hist(wealth_multipliers, breaks = 40, col = "salmon", border = "white",
+     main = "Compounded Multipliers after 30 Years", xlab = "Final Wealth Factor")
+
+abline(v = mean(wealth_multipliers), col = "darkred", lwd = 3)
+abline(v = median(wealth_multipliers), col = "darkgreen", lwd = 3, lty = 2)
+
+legend("topright", legend=c("Arithmetic Mean", "Median Individual"), 
+       col=c("darkred", "darkgreen"), lty=c(1, 2), lwd=3, bty = "n")
+```
+
+
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
