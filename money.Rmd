@@ -51,6 +51,10 @@ Calculating the average of a long string of multiplications is computationally m
 
 $$\small \log(W_{\text{final}}) = \log(W_0) + \log(1+r_1) + \log(1+r_2) + \dots + \log(1+r_n)$$ 
 
+To turn this addition into a dollar amount, we plug it into the exponential function:
+
+$$W_{\text{final}} = W_0 \cdot e^{\text{Sum of logs}}$$
+
 The function $f(r) = 1 + r$ is a perfectly straight line. It has no memory of risk. But the function $f(r) = \log(1 + r)$ is concave (it curves downward). This curve is the mathematical representation of the fact that losses hurt more than gains help. If we gain $50\%$ and then lose $50\%,$ our arithmetic average is $0\%$ ($1 + 0.5 - 0.5 = 1$). But our actual wealth is down $25\%$ ($1.5 \times 0.5 = 0.75$).
 
 The Taylor expansion 
@@ -144,6 +148,8 @@ $$\mathbb{E}[\log(1+r)] \approx 0.05 - 0.10125 = -0.05125$$
 
 
 Whether we use the exact calculation or the quick approximation, the result is deeply negative (around $5.2\%$ per flip). Because the variance ($\sigma^2 = 0.2025$) is so massive, the volatility drag ($\approx 10.1\%$) completely overwhelms the arithmetic engine ($5\%$). The volatility physically bends our time-average growth rate below zero, guarantees that an individual player's wealth will decay toward absolute ruin with every flip, and neatly unmasks the ergodicity paradox.
+
+
 
 
 
