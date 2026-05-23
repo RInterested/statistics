@@ -250,6 +250,62 @@ legend("topright", legend=c("Arithmetic Mean", "Median Individual"),
 ```
 
 
+### Multiplicative processes, Euler operator, power-laws the gamma function and the Mellin transform:
+
+The Mellin transform is often described as the natural transform for scale-invariant problems. While the Fourier transform deals with shifts (additions), the Mellin transform deals with scaling (multiplications).
+
+When we look at asset returns or growth, we don't add them; we multiply them. If a portfolio grows by a factor of $1.5$ and then drops by a factor of $0.8$, the total change is $1.5 \times 0.8$.To find the average return, we use the geometric mean (multiplying the values and taking the root). But if we map those returns into "log-space" by taking $\ln(x)$, those multiplications become additions ($\ln(a \cdot b) = \ln(a) + \ln(b)$). The geometric mean in the original space becomes the familiar arithmetic mean in log-space.
+
+The Mellin Transform is a Fourier Transform in Log-Space. The exact same mapping happens under the hood of the Mellin transform. If we take the definition of the Mellin transform of a function $f(x)$ (see below for the $\color{red}x$ (*) in the denominator):
+
+$$\mathcal{M}\{f(x)\}(s) = \int_0^\infty f(x) x^{s} \frac{dx}{\color{red}x}$$
+and we make a logarithmic change of variables by letting $x = e^{-t}$ (which means $t = -\ln(x)$), the entire integral transforms into a standard Fourier (or bilateral Laplace) transform:
+
+$$\int_{-\infty}^\infty f(e^{-t}) e^{-st} dt$$
+
+By moving to log-space, multiplication ($x$) becomes addition ($t$), and the scale-invariant Mellin transform becomes the shift-invariant Fourier transform.
+
+The Fourier transform as operating on a standard linear ruler. On this ruler, the distance between $1$ and $2$ is the same as the distance between $100$ and $101$. It is a world governed by addition and translation (shifts). If we shift a function by adding a constant ($x \to x + a$), the Fourier transform handles this beautifully because its basis functions ($e^{i\omega x}$) turn shifts into simple phase rotations. The Mellin transform, however, lives on a logarithmic ruler. On this ruler, the distance between $1$ and $2$ is the same as the distance between $100$ and $200$. This is a world governed by multiplication and scaling. If we scale a variable by multiplying it ($x \to ax$), the Mellin transform handles it seamlessly because its basis functions ($x^{s-1}$) transform scaling into a simple shift in the frequency domain.
+
+Power laws are the ultimate expression of scale invariance, and the Mellin transform is the natural mathematical tool used to analyze them. A power law is any relationship that fits the form:
+
+$$f(x) = C x^{-\alpha}$$
+
+The defining feature of a power law is that if you scale the input $x$ by a constant factor $a$, the function's output changes only by a constant proportional factor. It doesn't change its fundamental shape or behavior. Mathematically, if we replace $x$ with $ax$:
+
+$$f(ax) = C (ax)^{-\alpha} = a^{-\alpha} \cdot (C x^{-\alpha}) = a^{-\alpha} f(x)$$
+
+Scaling the argument by $a$ just multiplied the entire function by the constant $a^{-\alpha}$. The relative structure remains completely identical. If you look at a power law on a log-log plot, it forms a perfectly straight line. Whether you zoom in on the range from $1$ to $10,$ or zoom out to look at $10,000$ to $100,000,$ the slope ($-\alpha$) never changes. There is no characteristic scale or baseline unit that dictates the behavior of the system.
+
+The Mellin Transform is a power law detector. Just as the Fourier transform uses sines and cosines ($e^{i\omega x}$) as probes to find periodic cycles in a signal, the Mellin transform uses power laws ($x^{s-1}$) as its probes. When we take the Mellin transform of a function, we are taking the inner product of that function against a spectrum of power laws:
+
+$$\mathcal{M}\{f(x)\}(s) = \int_0^\infty f(x) x^{s-1} dx$$
+
+If the function $f(x)$ contains a pure power law or behaves like one over a certain range, the Mellin transform will manifest a pole at that specific exponent. For example, if we have a system whose behavior transitions from one power law to another as it grows, the Mellin transform will reveal distinct poles that correspond exactly to those different exponents. It maps the complex, multi-scale physical behavior into a static map of singular points in the complex plane.
+
+When we multiply independent random variables together (like daily financial returns or sequential growth phases), the Central Limit Theorem in log-space dictates that the distribution becomes Log-Normal. However, if we introduce certain types of feedback loops, drops, or phase transitions into that multiplicative growth, the distribution shifts from log-normal to a heavy-tailed power law (like a Pareto distribution).
+
+In both cases, the underlying engine is purely multiplicative. Because the Mellin transform natively tracks multiplicative scaling via power-law probes, it serves as the exact tool needed to calculate the moments, expected values, and asymptotic behaviors of these complex, heavy-tailed systems.
+
+
+---
+
+
+(*) On a standard ruler, the distance between $1$ inch and $2$ inches is exactly the same as the distance between $10$ inches and $11$ inches. That absolute step size is $dx$. If we add $\$1$ to a $\$10$ portfolio, our absolute step is $dx = 1$. If we add $\$1$ to a $\$1,000,000$ portfolio, our absolute step is still $dx = 1$. The flat ruler treats an absolute increment of $1$ unit identically, no matter where we are standing on the line.
+
+$\frac{dx}{x}$ is a ruler that measures proportions instead of absolute increments. It is the absolute step size ($dx$) divided by your current location $x$. Let’s look at the exact same $\$1$ steps from above through the lens of this new metric:
+
+We are standing at $x = 10$. We take a step of $dx = 1$. Your proportional distance is:
+
+$$\frac{dx}{x} = \frac{1}{10} = 10\%$$
+
+If instead we are standing at $x = 1,000,000$ and take a step of $dx = 1$ the proportional distance is:
+
+$$\frac{dx}{x} = \frac{1}{1,000,000} = 0.0001\%$$
+
+On the percentage ruler, the exact same physical step ($dx = 1$) shrunk drastically because we were standing further up the scale. To make a step at $\$1,000,000$ feel exactly the same size as the step at $\$10$, we can't just add $\$1$. We have to scale your step size up proportionally. We would need to add $\$100,000$, because $\frac{100,000}{1,000,000} = 10\%$.
+
+
 
 
 ---
