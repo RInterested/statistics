@@ -23,7 +23,11 @@ output:
 
 This post is a riff on money / portfolio-based mathematical issues inspired by [this post by Ole Peters](https://x.com/ole_b_peters/status/2046599240588107897?s=20). A [blog entry](https://ergodicityeconomics.com/2023/07/28/the-infamous-coin-toss/) touches on what he calls the **infamous coin toss**. The idea is as presented in the chart:
 
+---
+
 <img width = 400  src = "infamous_coin_toss.png">
+
+---
 
 
 > I toss a fair coin, and if it comes up heads I’ll add 50% to your current wealth; if it comes up tails I will take away 40% of your current wealth. A fun thing to do in a lecture on the topic is to pause at this point and ask the audience if they’d like to take the gamble. Some will say yes, other no, and usually an interesting discussion of people’s motivations emerges. Often, the question comes up whether we’re allowed to repeat the gamble, and we will see that this leads naturally to the ergodicity problem.
@@ -172,6 +176,8 @@ $$\mathbb{E}[\log(1+r)] \approx 0.05 - 0.10125 = -0.05125$$
 
 Whether we use the exact calculation or the quick approximation, the result is deeply negative (around $5.2\%$ per flip). Because the variance ($\sigma^2 = 0.2025$) is so massive, the volatility drag ($\approx 10.1\%$) completely overwhelms the arithmetic engine ($5\%$). The volatility physically bends our time-average growth rate below zero, guarantees that an individual player's wealth will decay toward absolute ruin with every flip, and neatly unmasks the ergodicity paradox.
 
+Note that the true discrete geometric rate is $\ln(0.9487) \approx -0.0527$. The second-order Taylor expansion gives a close approximation, but because the coin toss features massive, discrete jumps ($+50\% / -40\%$), higher-order terms in the Taylor series expansion retain a small amount of residual weight. In continuous-time financial modeling where variations occur over infinitesimal steps ($dt$), these higher-order terms vanish completely, making the bridge formula exact.
+
 The sum of logs ($\frac{1}{n} \sum \log(1+r_i)$) is simply the log-geometric mean. If we take the arithmetic mean of the logarithms, we get the exact same result as taking the geometric mean of the original numbers.
 
 $$\small \text{Geometric Mean} = \exp\left( \text{Arithmetic Mean of Logs} \right)=\sqrt[n]{(1+r_1)(1+r_2)\dots(1+r_n)} - 1$$
@@ -250,7 +256,7 @@ legend("topright", legend=c("Arithmetic Mean", "Median Individual"),
 ```
 
 
-### Multiplicative processes, Euler operator, power-laws the gamma function and the Mellin transform:
+### Multiplicative processes, power-laws the gamma function and the Mellin transform:
 
 The Mellin transform is often described as the natural transform for scale-invariant problems. While the Fourier transform deals with shifts (additions), the Mellin transform deals with scaling (multiplications).
 
@@ -291,7 +297,7 @@ In both cases, the underlying engine is purely multiplicative. Because the Melli
 ---
 
 
-(*) On a standard ruler, the distance between $1$ inch and $2$ inches is exactly the same as the distance between $10$ inches and $11$ inches. That absolute step size is $dx$. If we add $\$1$ to a $\$10$ portfolio, our absolute step is $dx = 1$. If we add $\$1$ to a $\$1,000,000$ portfolio, our absolute step is still $dx = 1$. The flat ruler treats an absolute increment of $1$ unit identically, no matter where we are standing on the line.
+(*) The Haar measure $\frac{dx}x:$ On a standard ruler, the distance between $1$ inch and $2$ inches is exactly the same as the distance between $10$ inches and $11$ inches. That absolute step size is $dx$. If we add $\$1$ to a $\$10$ portfolio, our absolute step is $dx = 1$. If we add $\$1$ to a $\$1,000,000$ portfolio, our absolute step is still $dx = 1$. The flat ruler treats an absolute increment of $1$ unit identically, no matter where we are standing on the line.
 
 $\frac{dx}{x}$ is a ruler that measures proportions instead of absolute increments. It is the absolute step size ($dx$) divided by your current location $x$. Let’s look at the exact same $\$1$ steps from above through the lens of this new metric:
 
