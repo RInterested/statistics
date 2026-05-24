@@ -37,10 +37,115 @@ This post is a riff on money / portfolio-based mathematical issues inspired by [
 
 ---
 
-<img width = 400  src = "infamous_coin_toss.png">
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=7, fig.height=5, fig.align='center'}
+library(plotly)
+library(dplyr)
+
+set.seed(42)
+num_paths   <- 40     # Number of individual lines to draw
+num_steps   <- 1000   # Number of time steps (flips)
+
+# Ole Peters' exact parameters (Fixed Volatility Regime)
+gain_factor <- 1.50   # Heads: +50%
+loss_factor <- 0.60   # Tails: -40%
+
+# Single-knob options: We sweep the Probability of Heads (p)
+prob_options <- seq(0.30, 0.70, by = 0.05)
+
+p <- plot_ly()
+total_probs <- length(prob_options)
+time_vector <- 0:num_steps
+traces_per_prob <- num_paths + 1
+
+for(i in seq_along(prob_options)) {
+  p_heads <- prob_options[i]
+  
+  # 1. Pre-calculate exact coin toss wealth trajectories
+  wealth_matrix <- matrix(NA, nrow = num_steps + 1, ncol = num_paths)
+  wealth_matrix[1, ] <- 1 # Every player starts with $1
+  
+  for(t in 1:num_steps) {
+    # Generate discrete Bernoulli outcomes for each path simultaneously
+    flips <- sample(
+      c(gain_factor, loss_factor), 
+      size = num_paths, 
+      replace = TRUE, 
+      prob = c(p_heads, 1 - p_heads)
+    )
+    wealth_matrix[t + 1, ] <- wealth_matrix[t, ] * flips
+  }
+  
+  # 2. Calculate the True Ensemble Expected Line: E[W_t] = W_0 * (E[shocks])^t
+  expected_single_shock <- (p_heads * gain_factor) + ((1 - p_heads) * loss_factor)
+  ensemble_line <- 1 * (expected_single_shock)^time_vector
+  
+  # Default view target: Fair coin (p = 0.50) reveals the ergodicity paradox
+  is_visible <- (abs(p_heads - 0.50) < 1e-5)
+  
+  # 3. Add individual path lines
+  for(j in 1:num_paths) {
+    p <- p %>% add_trace(
+      x = time_vector,
+      y = wealth_matrix[, j],
+      type = "scatter", mode = "lines",
+      line = list(color = "rgba(180, 180, 180, 0.4)", width = 1.5),
+      name = paste0("Individual Path ", j),
+      visible = is_visible,
+      hoverinfo = "none"
+    )
+  }
+  
+  # 4. Add the bold Ensemble Expected Value line
+  p <- p %>% add_trace(
+    x = time_vector,
+    y = ensemble_line,
+    type = "scatter", mode = "lines",
+    line = list(color = "rgba(220, 50, 50, 1)", width = 3.5),
+    name = "Ensemble Expected Value",
+    visible = is_visible
+  )
+}
+
+# 5. Build Restyle Visibility Steps for the Probability Slider
+slider_steps <- list()
+for(i in 1:total_probs) {
+  visibility_vector <- rep(FALSE, total_probs * traces_per_prob)
+  
+  start_idx <- (i - 1) * traces_per_prob + 1
+  end_idx   <- i * traces_per_prob
+  visibility_vector[start_idx:end_idx] <- TRUE
+  
+  slider_steps[[i]] <- list(
+    method = "restyle",
+    label = sprintf("%.2f", prob_options[i]),
+    args = list("visible", visibility_vector)
+  )
+}
+
+# 6. Render final canvas on a log scale
+p %>% layout(
+  title = "Ole Peters' Coin Toss Multipliers (+50% / -40%)",
+  showlegend = FALSE,
+  xaxis = list(title = "Time Steps (Flips)", gridcolor = "rgba(240,240,240,1)"),
+  yaxis = list(
+    title = "Portfolio Wealth ($)", 
+    type = "log", 
+    autorange = TRUE,
+    gridcolor = "rgba(240,240,240,1)"
+  ),
+  plot_bgcolor = "white",
+  sliders = list(
+    list(
+      active = which(abs(prob_options - 0.50) < 1e-5) - 1, # Defaults to a fair coin (p = 0.50)
+      currentvalue = list(prefix = "Probability of Heads (p): "),
+      steps = slider_steps,
+      pad = list(t = 40)
+    )
+  )
+)
+```
 
 ---
-
 
 > I toss a fair coin, and if it comes up heads I’ll add 50% to your current wealth; if it comes up tails I will take away 40% of your current wealth. A fun thing to do in a lecture on the topic is to pause at this point and ask the audience if they’d like to take the gamble. Some will say yes, other no, and usually an interesting discussion of people’s motivations emerges. Often, the question comes up whether we’re allowed to repeat the gamble, and we will see that this leads naturally to the ergodicity problem.
 >
@@ -95,7 +200,7 @@ $$r_g \approx r_a - \frac{\sigma^2}{2}$$
 
 The value we just found, $r_g$, is the continuous growth rate. To see what our actual bank account looks like, you have to undo the log we took: We raise $e$ to the power of our growth rate multiplied by time ($n$):
 
-$$W_{\text{final}} = W_0 \cdot e^{(r_a - \frac{\sigma^2}{2})n}$$
+$$W_{\text{final}} = W_0 \cdot e^{\left(r_a - \frac{\sigma^2}{2}\right)\,n}$$
 
 
 $$\log(1 + r) \approx r - \frac{r^2}{2}$$ 
@@ -137,29 +242,39 @@ We start with the Taylor expansion for a single realization of a return $r$:
 
 $$\log(1 + r) \approx r - \frac{r^2}{2}+ \frac{r^3}{3}-\frac{r^4}{4}+\cdots$$
 
-To find the long-run average, we take the expected value ($\mathbb{E}$) of both sides. Because expectation is a linear operator, we can apply it to each term individually:
+To find the long-run average, we take the expected value $(\mathbb{E})$ of both sides. Because expectation is a linear operator, we can apply it to each term individually:
 
 $$\mathbb{E}[\log(1 + r)] \approx \mathbb{E}[r] - \mathbb{E}\left[\frac{r^2}{2}\right]$$
 
 $$\mathbb{E}[\log(1 + r)] \approx \mathbb{E}[r] - \frac{1}{2}\mathbb{E}[r^2]$$
 
-The fundamental definition of variance says
+The fundamental definition of variance says that it equals the second raw moment $\mathbb E[x^2]$ minus the first raw moment $\mathbb E[x]$ squared:
 
-$$\sigma^2 = \mathbb{E}[r^2] - (\mathbb{E}[r])^2$$
+$$\sigma^2 = \mathbb{E}[r^2] - \left(\mathbb{E}[r]\right)^2$$
 
 If we rearrange this to solve for $\mathbb{E}[r^2]$, we get:
 
 $$\mathbb{E}[r^2] = \sigma^2 + (\mathbb{E}[r])^2$$
 
-Now, substituting this back into our approximation:
+Now, substituting this back into the Taylor approximation
 
-$$\mathbb{E}[\log(1 + r)] \approx \mathbb{E}[r] - \frac{1}{2}(\sigma^2 + (\mathbb{E}[r])^2)$$
+$$\mathbb{E}[\log(1 + r)] \approx \mathbb{E}[r] - \frac{1}{2}(\sigma^2 + \left(\mathbb{E}[r])^2\right)$$
 
 In the context of the stock market, the expected return $\mathbb{E}[r]$ (let's call it $r_a$) is usually a small decimal like $0.10.$ This means its square $(r_a)^2$ is tiny $(0.01).$ Compared to the variance $\sigma^2$ (which for a $20\%$ volatility market is $0.20^2 = 0.04$), the squared mean is often small enough to ignore for a clean rule of thumb. Dropping the $(r_a)^2$ term gives us the famous result:
 
-$$\mathbb{E}[\log(1 + r)] \approx r_a - \frac{\sigma^2}{2}$$
+$$\bbox[10px,border:2px solid red]{\mathbb{E}[\log(1 + r)] \approx r_a - \frac{\sigma^2}{2}}$$
 
-The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag). $r_a$ it is not simple interest, though it looks deceptively like it. In this context, $r_a$ (the arithmetic mean) is the expected value of the single-period return. If we look at the stock market for exactly one year, $r_a$ is the average of all possible outcomes for that year. If the media says "The S&P 500 has an average annual return of 12%," they are usually summing up the annual returns of the last $90$ years and dividing by $90.$ That $12\%$ is our $r_a$. The trap is that $r_a$ is an ensemble measure. It tells us "If $1,000 people$ invest for $1$ year, the average person will have $1 + r_a$." However, it does not tell us, "If $1$ person invests for $1,000$ years, he will have $(1 + r_a)^{1000}$. $r_a$ (arithmetic) is the average of the outcomes. In the coin toss $r_a$ is $+5\%.$ It looks profitable... This is the ensemble average. The $r_g$ (geometric) is the average of the growth (the geometric mean - see below). In that same coin toss, $r_g$ is $-5.1\%.$ You are actually going broke. This is the time average.
+The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag). $r_a$ it is not simple interest, though it looks deceptively like it. In this context, $r_a$ (the arithmetic mean) is the expected value of the single-period return. If we look at the stock market for exactly one year, $r_a$ is the average of all possible outcomes for that year. If the media says "The S&P 500 has an average annual return of $12\%,$" they are usually summing up the annual returns of the last $90$ years and dividing by $90.$ That $12\%$ is our $r_a$. The trap is that $r_a$ is an ensemble measure. It tells us "If $1,000$ people invest for $1$ year, the average person will have $1 + r_a$." However, it does not tell us, "If $1$ person invests for $1,000$ years, he will have $(1 + r_a)^{1000}$. $r_a$ (arithmetic) is the average of the outcomes. In the coin toss $r_a$ is $+5\%.$ It looks profitable, but this is the ensemble average. The $r_g$ (geometric) is the average of the growth (the geometric mean - see below). In that same coin toss, $r_g$ is $-5.1\%.$ ($-0.05125$) - it guarantees that you are actually going broke. This is the time average.
+
+Therefore, the $r_g$ would be:
+
+$$r_g=e^{\mathbb E[\log(1+r)]}-1$$
+
+$r$ (neither $r_a$ (arithmetic mean) nor $r_g$ (geometric mean)) is the raw, single-period random variable — the actual return of the market in any given single year (or the outcome of a single coin toss). It is a fluctuating variable that can take on many different values based on its underlying probability distribution.
+
+We see again the equation
+
+$$W_{\text{final}} = W_0 \cdot e^{\left(r_a - \frac{\sigma^2}{2}\right)\,n} = W_0 \cdot \left(e^{\mathbb{E}[\log(1+r)]}\right)^n$$
 
 
 In Ole Peters' classic "infamous coin toss" model, the game has two equally likely outcomes ($p = 0.5$ each):
@@ -194,15 +309,8 @@ $$\sigma^2 = 0.205 - (0.05)^2$$
 
 $$\sigma^2 = 0.205 - 0.0025 = 0.2025$$
 
-Now that we have computed our parameters for the coin toss ($r_a = 0.05$ and $\sigma^2 = 0.2025$), let's watch the Taylor expansion reveal the individual's long-run fate. If we use the exact expansion formula before dropping the tiny term:
+Now that we have computed our parameters for the coin toss ($r_a = 0.05$ and $\sigma^2 = 0.2025$), let's watch the Taylor expansion reveal the individual's long-run fate:
 
-$$\mathbb{E}[\log(1+r)] \approx r_a - \frac{\sigma^2}{2} - \frac{r_a^2}{2}$$
-
-$$\mathbb{E}[\log(1+r)] \approx 0.05 - \frac{0.2025}{2} - \frac{0.0025}{2}$$
-
-$$\mathbb{E}[\log(1+r)] \approx 0.05 - 0.10125 - 0.00125 = -0.0525$$
-
-If we use the simplified rule-of-thumb formula (dropping the $r_a^2/2$ term):
 
 $$\mathbb{E}[\log(1+r)] \approx r_a - \frac{\sigma^2}{2}$$
 
