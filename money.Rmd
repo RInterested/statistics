@@ -6,7 +6,6 @@ output:
     includes:
       in_header: "favicon.html" 
     css: custom.css
-runtime: shiny
 ---
 
 ### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
@@ -254,86 +253,92 @@ By applying the Central Limit Theorem to this sum, the distribution of the avera
 
 The log-normal distribution is seen when looking at $(1 + r)$, not $r$. Specifically, it is the total compounded multiplier of our wealth over time—which is built by multiplying a long string of these $(1+r)$ terms together — that forms a log-normal distribution.
 
-This is illustrated in the following plot:
+This is illustrated in the following plot. Notice the effect of the volatility drag: sliding the selection towards zero, turns the distribution of the results into a Gaussian.
 
 ---
 
----
-title: "Ergodicity Simulation"
-output: html_document
-runtime: shiny
----
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5.5, fig.align='center'}
 library(plotly)
-library(shiny)
+library(dplyr)
 
-# 1. Create the user interface sliders directly in the document
-inputPanel(
-  sliderInput("mu_val", label = "Expected Annual Return (μ):",
-              min = 0.0, max = 0.25, value = 0.10, step = 0.01),
+set.seed(42)
+num_paths  <- 300
+num_years  <- 30
+mu         <- 0.10
+vol_options <- seq(0.05, 0.50, by = 0.05)
+
+# Initialize a base plot object
+p <- plot_ly()
+
+# Track visibility states for the JavaScript slider
+# Each volatility option creates 2 traces (one for Left plot, one for Right plot)
+total_vols <- length(vol_options)
+
+for(i in seq_along(vol_options)) {
+  sig <- vol_options[i]
   
-  sliderInput("sigma_val", label = "Annual Volatility (σ):",
-              min = 0.05, max = 0.50, value = 0.20, step = 0.01)
-)
-
-# 2. Wrap the calculation and plotting in a reactive expression
-renderPlotly({
-  set.seed(42)
-  num_paths   <- 1000
-  num_years   <- 30
-  
-  # Read the live slider values
-  current_mu    <- input$mu_val
-  current_sigma <- input$sigma_val
-
-  # Simulate the paths using the slider inputs
-  r_samples <- rnorm(num_paths, mean = current_mu, sd = current_sigma)
-
+  # Run simulations for this specific volatility layer
+  r_samples <- rnorm(num_paths, mean = mu, sd = sig)
   wealth_multipliers <- numeric(num_paths)
-  for(i in 1:num_paths) {
-    annual_returns <- rnorm(num_years, mean = current_mu, sd = current_sigma)
-    wealth_multipliers[i] <- prod(1 + annual_returns)
+  for(j in 1:num_paths) {
+    wealth_multipliers[j] <- prod(1 + rnorm(num_years, mean = mu, sd = sig))
   }
+  
+  # Default display target: σ = 0.20 (the 4th element in our sequence)
+  is_visible <- (abs(sig - 0.20) < 1e-5)
+  
+  # Add Left Histogram (Symmetric Returns)
+  p <- p %>% add_trace(
+    x = r_samples, type = "histogram", nbinsx = 25,
+    marker = list(color = 'rgba(135, 206, 235, 0.7)', line = list(color = 'white', width = 1)),
+    name = paste0("Returns σ=", sig),
+    xaxis = "x1", yaxis = "y1",
+    visible = is_visible
+  )
+  
+  # Add Right Histogram (Skewed Multipliers)
+  p <- p %>% add_trace(
+    x = wealth_multipliers, type = "histogram", nbinsx = 30,
+    marker = list(color = 'rgba(250, 128, 114, 0.7)', line = list(color = 'white', width = 1)),
+    name = paste0("Multipliers σ=", sig),
+    xaxis = "x2", yaxis = "y2",
+    visible = is_visible
+  )
+}
 
-  # Build Left Plot (Symmetric Returns)
-  p1 <- plot_ly(x = ~r_samples, type = "histogram", nbinsx = 30,
-                marker = list(color = 'rgba(135, 206, 235, 0.7)', line = list(color = 'white', width = 1)),
-                name = "Returns") %>%
-    layout(
-      title = "Symmetric Annual Returns (r)",
-      xaxis = list(title = "Return Rate"),
-      yaxis = list(title = "Frequency"),
-      shapes = list(
-        list(type = "line", x0 = mean(r_samples), x1 = mean(r_samples), 
-             y0 = 0, y1 = 1, yref = "paper",
-             line = list(color = "red", width = 2, dash = "dash"))
-      )
+# Construct the single-knob JS slider steps
+slider_steps <- list()
+for(i in 1:total_vols) {
+  # Create a visibility vector of FALSEs for all traces
+  visibility_vector <- rep(FALSE, total_vols * 2)
+  
+  # Turn on the two specific traces (Left and Right plot) for the active step
+  visibility_vector[(i * 2 - 1):(i * 2)] <- TRUE
+  
+  slider_steps[[i]] <- list(
+    method = "restyle",
+    label = sprintf("%.2f", vol_options[i]),
+    args = list("visible", visibility_vector)
+  )
+}
+
+# Render the layout and pin the native JS slider below the plots
+p %>% layout(
+  title = "Market Volatility vs. Compounded Wealth Distributions",
+  showlegend = FALSE,
+  xaxis = list(domain = c(0, 0.47), title = "Return Rate"),
+  yaxis = list(title = "Frequency"),
+  xaxis2 = list(domain = c(0.53, 1), title = "Final Wealth Factor"),
+  yaxis2 = list(title = ""),
+  sliders = list(
+    list(
+      active = which(abs(vol_options - 0.20) < 1e-5) - 1, # Set initial knob pointer to 0.20
+      currentvalue = list(prefix = "Select Annual Volatility (σ): "),
+      steps = slider_steps,
+      pad = list(t = 50)
     )
-
-  # Build Right Plot (Skewed Multipliers)
-  mean_wm <- mean(wealth_multipliers)
-  med_wm  <- median(wealth_multipliers)
-
-  p2 <- plot_ly(x = ~wealth_multipliers, type = "histogram", nbinsx = 40,
-                marker = list(color = 'rgba(250, 128, 114, 0.7)', line = list(color = 'white', width = 1)),
-                name = "Multipliers") %>%
-    layout(
-      title = "Compounded Multipliers (30 Years)",
-      xaxis = list(title = "Final Wealth Factor"),
-      yaxis = list(title = ""),
-      shapes = list(
-        list(type = "line", x0 = mean_wm, x1 = mean_wm, y0 = 0, y1 = 1, yref = "paper",
-             line = list(color = "darkred", width = 3)),
-        list(type = "line", x0 = med_wm, x1 = med_wm, y0 = 0, y1 = 1, yref = "paper",
-             line = list(color = "darkgreen", width = 3, dash = "dash"))
-      )
-    )
-
-  # Bind them side-by-side
-  subplot(p1, p2, nrows = 1, margin = 0.05, titleX = TRUE, titleY = TRUE) %>%
-    layout(showlegend = FALSE)
-})
+  )
+)
 ```
 
 
