@@ -167,7 +167,30 @@ In the coin toss experiment,the arithmetic (ensemble) mean is $+5\%$ per round, 
 
 In the meantime, the stock market works long-term for many individuals (especially passive index investors) precisely because its parameters are fundamentally different from the coin-toss example — even though both are multiplicative random walks with a trend. 
 
-The stock market returns, modeled as geometric brownian motion, are multiplicative and noisy. The positive drift from real economic growth (corporate earnings, dividends, productivity, innovation) is strong enough to overcome volatility: The arithmetic mean of the return is $\approx 10 - 12\%$ per year (historical S&P 500 nominal). The volatility is $\approx 15-20\%$ per year. The geometric (time-average) mean return is $\small \approx \text{arithmetic mean} - (\sigma^2/2) \approx 7-10\%$ per year (still strongly positive!).
+The stock market returns, modeled as geometric brownian motion, are multiplicative and noisy. The positive drift from real economic growth (corporate earnings, dividends, productivity, innovation) is strong enough to overcome volatility: The arithmetic mean of the return is $\approx 10 - 12\%$ per year (historical S&P 500 nominal).
+
+The arithmetic mean is simply the standard sample average of those individual annual returns. This represents the ensemble expectation — what we would expect to make if we picked a single year at random or pooled thousands of simultaneous portfolios:
+
+$$r_a = \frac{1}{n} \sum_{i=1}^{n} r_i \approx 0.10 \text{ to } 0.12$$
+
+
+The volatility is $\approx 15-20\%$ per year.
+
+$$\sigma = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (r_i - r_a)^2} \approx 0.15 \text{ to } 0.20$$
+
+For low volatility values $(\sigma = 15\%$ or $0.15)$:
+
+$$\small \text{Volatility Drag} = \frac{(0.15)^2}{2} = \frac{0.0225}{2} = 0.01125 = \mathbf{1.13\%}$$
+
+For high volatility $(\sigma = 20\%$ or $0.20)$:
+
+$$\small\text{Volatility Drag} = \frac{(0.20)^2}{2} = \frac{0.0400}{2} = 0.0200 = \mathbf{2.00\%}$$
+
+The geometric (time-average) mean return is 
+
+$$\small \approx \text{arithmetic mean} - (\sigma^2/2) \approx 7-10\%$$
+
+per year (still strongly positive!).
 
 
 
