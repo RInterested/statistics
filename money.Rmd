@@ -37,19 +37,20 @@ This post is a riff on money / portfolio-based mathematical issues inspired by [
 
 ---
 
+
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=7, fig.height=5, fig.align='center'}
 library(plotly)
 library(dplyr)
 
 set.seed(42)
-num_paths   <- 40     # Number of individual lines to draw
-num_steps   <- 1000   # Number of time steps (flips)
+num_paths   <- 40     
+num_steps   <- 1000   
 
 # Ole Peters' exact parameters (Fixed Volatility Regime)
-gain_factor <- 1.50   # Heads: +50%
-loss_factor <- 0.60   # Tails: -40%
+gain_factor <- 1.50   
+loss_factor <- 0.60   
 
-# Single-knob options: We sweep the Probability of Heads (p)
 prob_options <- seq(0.30, 0.70, by = 0.05)
 
 p <- plot_ly()
@@ -62,10 +63,9 @@ for(i in seq_along(prob_options)) {
   
   # 1. Pre-calculate exact coin toss wealth trajectories
   wealth_matrix <- matrix(NA, nrow = num_steps + 1, ncol = num_paths)
-  wealth_matrix[1, ] <- 1 # Every player starts with $1
+  wealth_matrix[1, ] <- 1 
   
   for(t in 1:num_steps) {
-    # Generate discrete Bernoulli outcomes for each path simultaneously
     flips <- sample(
       c(gain_factor, loss_factor), 
       size = num_paths, 
@@ -75,11 +75,11 @@ for(i in seq_along(prob_options)) {
     wealth_matrix[t + 1, ] <- wealth_matrix[t, ] * flips
   }
   
-  # 2. Calculate the True Ensemble Expected Line: E[W_t] = W_0 * (E[shocks])^t
+  # 2. Calculate the True Ensemble Expected Line
   expected_single_shock <- (p_heads * gain_factor) + ((1 - p_heads) * loss_factor)
   ensemble_line <- 1 * (expected_single_shock)^time_vector
   
-  # Default view target: Fair coin (p = 0.50) reveals the ergodicity paradox
+  # Default view target: Fair coin (p = 0.50)
   is_visible <- (abs(p_heads - 0.50) < 1e-5)
   
   # 3. Add individual path lines
@@ -95,18 +95,26 @@ for(i in seq_along(prob_options)) {
     )
   }
   
-  # 4. Add the bold Ensemble Expected Value line
+  # 4. Fixed: Embed the text string directly onto the line trace layout
+  # We construct a text vector that is empty everywhere except at our midpoint index
+  mid_idx <- round(num_steps * 0.45)
+  text_vector <- rep("", length(time_vector))
+  text_vector[mid_idx] <- "Expected Return"
+  
   p <- p %>% add_trace(
     x = time_vector,
     y = ensemble_line,
-    type = "scatter", mode = "lines",
+    type = "scatter", mode = "lines+text",
     line = list(color = "rgba(220, 50, 50, 1)", width = 3.5),
+    text = text_vector,
+    textposition = "top center", # Forces the text to float naturally right above the line node
+    font = list(color = "rgba(220, 50, 50, 1)", size = 13, fontfamily = "Arial-Bold"),
     name = "Ensemble Expected Value",
     visible = is_visible
   )
 }
 
-# 5. Build Restyle Visibility Steps for the Probability Slider
+# 5. Build Restyle Visibility Steps
 slider_steps <- list()
 for(i in 1:total_probs) {
   visibility_vector <- rep(FALSE, total_probs * traces_per_prob)
@@ -116,15 +124,16 @@ for(i in 1:total_probs) {
   visibility_vector[start_idx:end_idx] <- TRUE
   
   slider_steps[[i]] <- list(
-    method = "restyle",
+    method = "restyle", # Restyle works beautifully again because we dropped the background layout annotations
     label = sprintf("%.2f", prob_options[i]),
     args = list("visible", visibility_vector)
   )
 }
 
-# 6. Render final canvas on a log scale
+# 6. Render final canvas
+init_idx <- which(abs(prob_options - 0.50) < 1e-5)
 p %>% layout(
-  title = "Ole Peters' Coin Toss Multipliers (+50% / -40%)",
+  title = "Ole Peters' Coin Toss: Fixed Multipliers (+50% / -40%)",
   showlegend = FALSE,
   xaxis = list(title = "Time Steps (Flips)", gridcolor = "rgba(240,240,240,1)"),
   yaxis = list(
@@ -136,7 +145,7 @@ p %>% layout(
   plot_bgcolor = "white",
   sliders = list(
     list(
-      active = which(abs(prob_options - 0.50) < 1e-5) - 1, # Defaults to a fair coin (p = 0.50)
+      active = init_idx - 1, 
       currentvalue = list(prefix = "Probability of Heads (p): "),
       steps = slider_steps,
       pad = list(t = 40)
