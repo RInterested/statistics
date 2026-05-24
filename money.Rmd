@@ -133,9 +133,9 @@ $$\frac{r_1^2 + r_2^2 + \dots + r_n^2}{n} \longrightarrow \mathbb{E}[r^2] = \sig
 
 If we didn't use the log, we would be calculating $\mathbb{E}[1+r]$, which is the ensemble average. That tells us what happens to a collective or ensemble of people in one year. But the individual lives through a sequence of years. The log is what translates the collective's luck into your personal reality.
 
-We start with the second-order Taylor expansion for a single realization of a return $r$:
+We start with the Taylor expansion for a single realization of a return $r$:
 
-$$\log(1 + r) \approx r - \frac{r^2}{2}$$
+$$\log(1 + r) \approx r - \frac{r^2}{2}+ \frac{r^3}{3}-\frac{r^4}{4}+\cdots$$
 
 To find the long-run average, we take the expected value ($\mathbb{E}$) of both sides. Because expectation is a linear operator, we can apply it to each term individually:
 
@@ -235,7 +235,7 @@ Addition is ergodic: If 100 people each get $1,$ the average is $1.$ If 1 person
 
 When we multiply a long string of random returns together (like in the coin toss or the stock market), the central limit theorem doesn't produce a normal distribution of wealth. Instead, it produces a log-normal distribution. The log-normal is heavily skewed to the right. It has a long "tail" of extremely lucky outcomes (the few people who get very rich) and a huge "bulge" near zero (the many people who lose money). In a log-normal distribution, the three measures of "average" actually physically separate from each other: The mean (arithmetic) is pulled way to the right by a few lottery winners. This represents the ensemble average. The median (50th percentile) is significantly lower than the mean. This is what the typical individual experiences. The mode (the peak) is even lower than the median. It’s the most likely single outcome (often near zero in the coin toss).
 
-The "Infamous Coin Toss" is essentially a process where the mean stays high (5% growth), but the median and mode drift toward zero. Because we usually define "success" as the mean, we think the game is good. But because we actually live as the median individual, we experience ruin. This is why the Taylor expansion result ($r_g \approx r_a - \sigma^2/2$) is so powerful: it calculates exactly how far the median (your reality) has fallen below the mean (the group's average) due to the variance. There are other related distributions, such as the Cauchy, where the variance is so high that the arithmetic mean doesn't even exist mathematically.
+The "infamous coin toss" is essentially a process where the mean stays high (5% growth), but the median and mode drift toward zero. Because we usually define "success" as the mean, we think the game is good. But because we actually live as the median individual, we experience ruin. This is why the Taylor expansion result ($r_g \approx r_a - \sigma^2/2$) is so powerful: it calculates exactly how far the median (your reality) has fallen below the mean (the group's average) due to the variance. There are other related distributions, such as the Cauchy, where the variance is so high that the arithmetic mean doesn't even exist mathematically.
 
 If wetake a sample of $n$ individual, independent annual returns ($r_1, r_2, \dots, r_n$) and calculate their standard arithmetic mean:
 
@@ -257,7 +257,7 @@ This is illustrated in the following plot. Notice the effect of the volatility d
 
 ---
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5.5, fig.align='center'}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=4, fig.align='center'}
 library(plotly)
 library(dplyr)
 
