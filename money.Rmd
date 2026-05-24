@@ -6,6 +6,7 @@ output:
     includes:
       in_header: "favicon.html" 
     css: custom.css
+runtime: shiny
 ---
 
 ### **NOTES ON STATISTICS, PROBABILITY and MATHEMATICS**
@@ -257,39 +258,82 @@ This is illustrated in the following plot:
 
 ---
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5.5, fig.align='center'}
-# 1. Run simulation parameters
-set.seed(42)
-num_paths   <- 1000
-num_years   <- 30
-mu          <- 0.10   
-sigma       <- 0.20   
+---
+title: "Ergodicity Simulation"
+output: html_document
+runtime: shiny
+---
 
-r_samples <- rnorm(num_paths, mean = mu, sd = sigma)
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+library(shiny)
 
-wealth_multipliers <- numeric(num_paths)
-for(i in 1:num_paths) {
-  annual_returns <- rnorm(num_years, mean = mu, sd = sigma)
-  wealth_multipliers[i] <- prod(1 + annual_returns)
-}
+# 1. Create the user interface sliders directly in the document
+inputPanel(
+  sliderInput("mu_val", label = "Expected Annual Return (μ):",
+              min = 0.0, max = 0.25, value = 0.10, step = 0.01),
+  
+  sliderInput("sigma_val", label = "Annual Volatility (σ):",
+              min = 0.05, max = 0.50, value = 0.20, step = 0.01)
+)
 
-# 2. Render side-by-side plots directly to the document
-par(mfrow = c(1, 2))
+# 2. Wrap the calculation and plotting in a reactive expression
+renderPlotly({
+  set.seed(42)
+  num_paths   <- 1000
+  num_years   <- 30
+  
+  # Read the live slider values
+  current_mu    <- input$mu_val
+  current_sigma <- input$sigma_val
 
-# Left Plot: Symmetric Returns
-hist(r_samples, breaks = 30, col = "skyblue", border = "white",
-     main = "Symmetric Annual Returns (r)", xlab = "Return Rate")
-abline(v = mean(r_samples), col = "red", lwd = 2, lty = 2)
+  # Simulate the paths using the slider inputs
+  r_samples <- rnorm(num_paths, mean = current_mu, sd = current_sigma)
 
-# Right Plot: Highly Skewed Multipliers (Log-Normal)
-hist(wealth_multipliers, breaks = 40, col = "salmon", border = "white",
-     main = "Compounded Multipliers after 30 Years", xlab = "Final Wealth Factor")
+  wealth_multipliers <- numeric(num_paths)
+  for(i in 1:num_paths) {
+    annual_returns <- rnorm(num_years, mean = current_mu, sd = current_sigma)
+    wealth_multipliers[i] <- prod(1 + annual_returns)
+  }
 
-abline(v = mean(wealth_multipliers), col = "darkred", lwd = 3)
-abline(v = median(wealth_multipliers), col = "darkgreen", lwd = 3, lty = 2)
+  # Build Left Plot (Symmetric Returns)
+  p1 <- plot_ly(x = ~r_samples, type = "histogram", nbinsx = 30,
+                marker = list(color = 'rgba(135, 206, 235, 0.7)', line = list(color = 'white', width = 1)),
+                name = "Returns") %>%
+    layout(
+      title = "Symmetric Annual Returns (r)",
+      xaxis = list(title = "Return Rate"),
+      yaxis = list(title = "Frequency"),
+      shapes = list(
+        list(type = "line", x0 = mean(r_samples), x1 = mean(r_samples), 
+             y0 = 0, y1 = 1, yref = "paper",
+             line = list(color = "red", width = 2, dash = "dash"))
+      )
+    )
 
-legend("topright", legend=c("Arithmetic Mean", "Median Individual"), 
-       col=c("darkred", "darkgreen"), lty=c(1, 2), lwd=3, bty = "n")
+  # Build Right Plot (Skewed Multipliers)
+  mean_wm <- mean(wealth_multipliers)
+  med_wm  <- median(wealth_multipliers)
+
+  p2 <- plot_ly(x = ~wealth_multipliers, type = "histogram", nbinsx = 40,
+                marker = list(color = 'rgba(250, 128, 114, 0.7)', line = list(color = 'white', width = 1)),
+                name = "Multipliers") %>%
+    layout(
+      title = "Compounded Multipliers (30 Years)",
+      xaxis = list(title = "Final Wealth Factor"),
+      yaxis = list(title = ""),
+      shapes = list(
+        list(type = "line", x0 = mean_wm, x1 = mean_wm, y0 = 0, y1 = 1, yref = "paper",
+             line = list(color = "darkred", width = 3)),
+        list(type = "line", x0 = med_wm, x1 = med_wm, y0 = 0, y1 = 1, yref = "paper",
+             line = list(color = "darkgreen", width = 3, dash = "dash"))
+      )
+    )
+
+  # Bind them side-by-side
+  subplot(p1, p2, nrows = 1, margin = 0.05, titleX = TRUE, titleY = TRUE) %>%
+    layout(showlegend = FALSE)
+})
 ```
 
 
