@@ -63,13 +63,13 @@ The function $f(r) = 1 + r$ is a perfectly straight line. It has no memory of ri
 
 To obtain the Taylor expansion we start at 
 
-$$\log(W_{final}) = \log(W_0) + \sum_{i=1}^{n} \log(1+r_i)$$
+$$\log(W_{\text{final}}) = \log(W_0) + \sum_{i=1}^{n} \log(1+r_i)$$
 
 by the law of large numbers as $n\to \infty$
 
 $$\text{Long-run growth rate } (r_g) = \mathbb{E}[\log(1+r)]=\frac{1}{n} \log\left(\frac{W_{\text{final}}}{W_0}\right) = \frac{1}{n} \sum_{i=1}^{n} \log(1+r_i)$$
 
-we don't know $\mathbb{E}[\log(1+r)]$ off the top of our heads. We only know the average return ($r_a$) and the volatility ($\sigma$). We use the Taylor expansion to translate the log back into numbers we actually have:
+We don't know $\mathbb{E}[\log(1+r)]$ off the top of our heads. We only know the average return ($r_a$) and the volatility ($\sigma$). We use the Taylor expansion to translate the log back into numbers we actually have:
 
 $$\log(1+r) \approx r - \frac{r^2}{2}$$
 
@@ -93,6 +93,31 @@ captures the volatility penalty. The $r$ is our gain, but the $-\frac{r^2}{2}$ i
 We use the log because of the strong law of large numbers. It states that for a sum of random variables, the average will eventually settle on the expected value. Because we turned our wealth into a sum using logs, we can say that in the long run:
 
 $$\small \text{Growth Rate} = \frac{1}{n} \sum \log(1+r_i) \xrightarrow{n \to \infty} \mathbb{E}[\log(1+r)]$$
+The actual realized growth rate over $n$ years, which we know is the sum of all those individual logs divided by time:
+
+$$\text{Realized Growth Rate} = \frac{1}{n} \left[ \log(1+r_1) + \log(1+r_2) + \dots + \log(1+r_n) \right]$$
+Because a Taylor expansion works for any small return, we can apply the expansion $r - \frac{r^2}{2}$ to every single year in that list:
+
+Year 1: $\log(1+r_1) \approx r_1 - \frac{r_1^2}{2}$
+
+Year 2: $\log(1+r_2) \approx r_2 - \frac{r_2^2}{2}$$\dots$
+
+Year $n$: $\log(1+r_n) \approx r_n - \frac{r_n^2}{2}$
+
+Putting these yearly calculations together:
+
+$$\small\text{Realized Growth Rate} \approx \underbrace{\frac{r_1 + r_2 + \dots + r_n}{n}}_{\text{Pile 1: Average of Returns}} - \frac{1}{2} \left( \underbrace{\frac{r_1^2 + r_2^2 + \dots + r_n^2}{n}}_{\text{Pile 2: Average of Squares}} \right)$$
+
+As we invest over a long horizon ($n \to \infty$), the LLNs kicks in. Those two sample piles naturally tend to their statistical expected values:
+
+Pile 1 becomes the true arithmetic mean: 
+
+$$\frac{r_1 + r_2 + \dots + r_n}{n} \longrightarrow \mathbb{E}[r] = r_a$$
+
+Pile 2 becomes the expected value of the squared returns:$
+
+$\frac{r_1^2 + r_2^2 + \dots + r_n^2}{n} \longrightarrow \mathbb{E}[r^2] = \sigma^2 + r_a^2$$
+
 
 If we didn't use the log, we would be calculating $\mathbb{E}[1+r]$, which is the ensemble average. That tells us what happens to a collective or ensemble of people in one year. But the individual lives through a sequence of years. The log is what translates the collective's luck into your personal reality.
 
@@ -122,7 +147,7 @@ In the context of the stock market, the expected return $\mathbb{E}[r]$ (let's c
 
 $$\mathbb{E}[\log(1 + r)] \approx r_a - \frac{\sigma^2}{2}$$
 
-The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag). $r_a$ it is not simple interest, though it looks deceptively like it. In this context, $r_a$ (the arithmetic mean) is the expected value of the single-period return. If we look at the stock market for exactly one year, $r_a$ is the average of all possible outcomes for that year. If the media says "The S&P 500 has an average annual return of 12%," they are usually summing up the annual returns of the last $90$ years and dividing by $90.$ That $12\%$ is our $r_a$. The trap is that $r_a$ is an ensemble measure. It tells us "If $1,000 people$ invest for $1$ year, the average person will have $1 + r_a$." However, it does not tell us, "If $1$ person invests for $1,000$ years, he will have $(1 + r_a)^{1000}$. $r_a$ (arithmetic) is the average of the outcomes. In the coin toss $r_a$ is $+5\%.$ It looks profitable... This is the ensemble Average. The $r_g$ (geometric) is the average of the growth (the geometric mean - see below). In that same coin toss, $r_g$ is $-5.1\%.$ You are actually going broke. This is the time average.
+The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag). $r_a$ it is not simple interest, though it looks deceptively like it. In this context, $r_a$ (the arithmetic mean) is the expected value of the single-period return. If we look at the stock market for exactly one year, $r_a$ is the average of all possible outcomes for that year. If the media says "The S&P 500 has an average annual return of 12%," they are usually summing up the annual returns of the last $90$ years and dividing by $90.$ That $12\%$ is our $r_a$. The trap is that $r_a$ is an ensemble measure. It tells us "If $1,000 people$ invest for $1$ year, the average person will have $1 + r_a$." However, it does not tell us, "If $1$ person invests for $1,000$ years, he will have $(1 + r_a)^{1000}$. $r_a$ (arithmetic) is the average of the outcomes. In the coin toss $r_a$ is $+5\%.$ It looks profitable... This is the ensemble average. The $r_g$ (geometric) is the average of the growth (the geometric mean - see below). In that same coin toss, $r_g$ is $-5.1\%.$ You are actually going broke. This is the time average.
 
 
 In Ole Peters' classic "infamous coin toss" model, the game has two equally likely outcomes ($p = 0.5$ each):

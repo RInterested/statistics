@@ -460,7 +460,7 @@ fact that losses hurt more than gains help. If we gain <span class="math inline"
 - 0.5 = 1).\)</span> But our actual wealth is down <span class="math inline">\(25\%\)</span> <span class="math inline">\((1.5
 \times 0.5 = 0.75)\)</span>.</p>
 <p>To obtain the Taylor expansion we start at</p>
-<p><span class="math display">\[\log(W_{final}) = \log(W_0) +
+<p><span class="math display">\[\log(W_{\text{final}}) = \log(W_0) +
 \sum_{i=1}^{n} \log(1+r_i)\]</span></p>
 <p>by the law of large numbers as <span class="math inline">\(n\to
 \infty\)</span></p>
@@ -468,7 +468,7 @@ fact that losses hurt more than gains help. If we gain <span class="math inline"
 \mathbb{E}[\log(1+r)]=\frac{1}{n}
 \log\left(\frac{W_{\text{final}}}{W_0}\right) = \frac{1}{n}
 \sum_{i=1}^{n} \log(1+r_i)\]</span></p>
-<p>we don’t know <span class="math inline">\(\mathbb{E}[\log(1+r)]\)</span> off the top of our
+<p>We don’t know <span class="math inline">\(\mathbb{E}[\log(1+r)]\)</span> off the top of our
 heads. We only know the average return (<span class="math inline">\(r_a\)</span>) and the volatility (<span class="math inline">\(\sigma\)</span>). We use the Taylor expansion to
 translate the log back into numbers we actually have:</p>
 <p><span class="math display">\[\log(1+r) \approx r -
@@ -498,7 +498,35 @@ on the expected value. Because we turned our wealth into a sum using
 logs, we can say that in the long run:</p>
 <p><span class="math display">\[\small \text{Growth Rate} = \frac{1}{n}
 \sum \log(1+r_i) \xrightarrow{n \to \infty}
-\mathbb{E}[\log(1+r)]\]</span></p>
+\mathbb{E}[\log(1+r)]\]</span> The actual realized growth rate over
+<span class="math inline">\(n\)</span> years, which we know is the sum
+of all those individual logs divided by time:</p>
+<p><span class="math display">\[\text{Realized Growth Rate} =
+\frac{1}{n} \left[ \log(1+r_1) + \log(1+r_2) + \dots + \log(1+r_n)
+\right]\]</span> Because a Taylor expansion works for any small return,
+we can apply the expansion <span class="math inline">\(r -
+\frac{r^2}{2}\)</span> to every single year in that list:</p>
+<p>Year 1: <span class="math inline">\(\log(1+r_1) \approx r_1 -
+\frac{r_1^2}{2}\)</span></p>
+<p>Year 2: <span class="math inline">\(\log(1+r_2) \approx r_2 -
+\frac{r_2^2}{2}\)</span><span class="math inline">\(\dots\)</span></p>
+<p>Year <span class="math inline">\(n\)</span>: <span class="math inline">\(\log(1+r_n) \approx r_n -
+\frac{r_n^2}{2}\)</span></p>
+<p>Putting these yearly calculations together:</p>
+<p><span class="math display">\[\small\text{Realized Growth Rate}
+\approx \underbrace{\frac{r_1 + r_2 + \dots + r_n}{n}}_{\text{Pile 1:
+Average of Returns}} - \frac{1}{2} \left( \underbrace{\frac{r_1^2 +
+r_2^2 + \dots + r_n^2}{n}}_{\text{Pile 2: Average of Squares}}
+\right)\]</span></p>
+<p>As we invest over a long horizon (<span class="math inline">\(n \to
+\infty\)</span>), the LLNs kicks in. Those two sample piles naturally
+tend to their statistical expected values:</p>
+<p>Pile 1 becomes the true arithmetic mean:</p>
+<p><span class="math display">\[\frac{r_1 + r_2 + \dots + r_n}{n}
+\longrightarrow \mathbb{E}[r] = r_a\]</span></p>
+<p>Pile 2 becomes the expected value of the squared returns:$</p>
+<p><span class="math inline">\(\frac{r_1^2 + r_2^2 + \dots + r_n^2}{n}
+\longrightarrow \mathbb{E}[r^2] = \sigma^2 + r_a^2\)</span>$</p>
 <p>If we didn’t use the log, we would be calculating <span class="math inline">\(\mathbb{E}[1+r]\)</span>, which is the ensemble
 average. That tells us what happens to a collective or ensemble of
 people in one year. But the individual lives through a sequence of
@@ -546,7 +574,7 @@ dividing by <span class="math inline">\(90.\)</span> That <span class="math inli
 us, “If <span class="math inline">\(1\)</span> person invests for <span class="math inline">\(1,000\)</span> years, he will have <span class="math inline">\((1 + r_a)^{1000}\)</span>. <span class="math inline">\(r_a\)</span> (arithmetic) is the average of the
 outcomes. In the coin toss <span class="math inline">\(r_a\)</span> is
 <span class="math inline">\(+5\%.\)</span> It looks profitable… This is
-the ensemble Average. The <span class="math inline">\(r_g\)</span>
+the ensemble average. The <span class="math inline">\(r_g\)</span>
 (geometric) is the average of the growth (the geometric mean - see
 below). In that same coin toss, <span class="math inline">\(r_g\)</span>
 is <span class="math inline">\(-5.1\%.\)</span> You are actually going
