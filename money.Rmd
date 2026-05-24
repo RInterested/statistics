@@ -33,7 +33,50 @@ Particles in a gas chamber, they can bounce around and eventually visit every si
 
 The most prominent structural equivalent of a non-ergodic system in condensed matter physics is glass (and the broader family of spin glasses and amorphous solids). If we look at a collection of thousands of independent fluid particles at a low temperature, statistical mechanics predicts they should optimize into a highly ordered, perfectly repeating crystalline lattice (this is the ensemble perspective). But if liquid is cooled incredibly rapidly into a glass (a process called vitrification), its viscosity skyrockets before it can crystallize. The individual molecules become structurally jammed into a disordered, high-energy local configuration (this is the time perspective).
 
+The Ole Peters' coin toss consists of **"I toss a fair coin, and if it comes up heads I’ll add 50% to your current wealth; if it comes up tails I will take away 40% of your current wealth."**
+
+To understand why the individual path collapses, we must look at how percentages interact over a single individual time path. In an additive random walk (like a standard physical diffusion process or a simple game of adding/subtracting $\$5$), steps do not talk to each other. If we win $\$5$ and lose $\$5$, we are exactly back to even. The path is symmetric.
+
+In a multiplicative random walk, the steps are connected. If our portfolio experiences a $+50\%$ gain followed by a $-40\%$ loss, the sequential math yields: $(1 + 0.50) \times (1 - 0.40) = 1.50 \times 0.60 = 0.90.$ We did not break even. We lost $10\%$ of our capital.
+
+Multiplication is strictly commutative; meaning order doesn't matter for the end result of a single path — yet these paths are sequence-dependent or connected. The resolution to this paradox lies in separating the order of events from the structural asymmetry of the percentages themselves. Here is why commutativity remains perfectly intact, but why the game still functions as a psychological trap.
+
+Because multiplication is commutative, the sequence of our returns inside a single timeline changes absolutely nothing about our terminal wealth. If we start with $\$1.00$ and experience a gain followed by a loss $1.00 \times 1.50 \times 0.60 = 0.90,$ identical to first suffering a loss, and then a gain: $1.00 \times 0.60 \times 1.50 = 0.90.$ If we play this game for $1,000$ steps, and we flip exactly $500$ Heads and $500$ Tails, it doesn't matter if we flip all $500$ Heads first, all $500$ Tails first, or alternate them perfectly like a checkerboard. Our terminal bank account will be exactly the same down to the penny:
+
+$$W_{1000} = W_0 \times (1.50)^{500} \times (0.60)^{500} \approx 0.00000022$$
+
+So, within a single timeline, commutativity guarantees complete path invariance regarding the order of returns.
+
+When we say the steps are "connected" or "path-dependent," we don't mean that step $2$ knows what happened at step $1.$ We mean that the dollar value of the next step depends entirely on the current capital base. The illusion stems from our additive intuition. Human brains naturally hear $+50\%$ and $-40\%$ and intuitively average them out to $+5\%$. We expect a net positive drift because $+50$ is a bigger number than $-40$. But multiplication doesn't care about the nominal size of the raw percentages; it operates on ratios: to mathematically erase a $-40\%$ drop (multiplying by $0.60$), we don't need a $+40\%$ gain; we need to multiply by $\frac{1}{0.60} \approx 1.666$, which is a $+66.6\%$ gain. Because our $+50\%$ gain falls short of that required $+66.6\%$, the combination of a win and a loss is fundamentally a net-downward machine ($0.90$). Commutativity simply states that a destructive pairing destroys our capital regardless of whether the blow lands on the first flip or the second flip.
+
+Because multiplication treats drops as devastating cuts to our compounding base, downward shocks are mathematically more powerful than upward shocks of the same scale. To recover from a $50\%$ drop, we don't need a $50\%$ gain; we need a $100\%$ gain. This structural imbalance means that a single individual sequence of alternating up-and-down steps naturally exerts a downward gravitational pull on wealth. This structural downward pull affects individual paths and the collective ensemble in completely opposite ways. When a single individual plays this game for $n$ steps, their final wealth is a product of their specific sequence of shocks: 
+
+$$W_n = W_0 \prod_{t=1}^n (1 + r_t)$$
+
+Taking the natural log of both sides transforms this into an additive timeline:$\log(W_n) = \log(W_0) + \sum_{t=1}^n \log(1 + r_t).$ By the Law of Large Numbers, as $n \to \infty$, the average performance of this individual timeline will converge strictly to the expected value of the log, which is a negative geometric rate ($r_g \approx -5.1\%$):
+
+$$\frac{1}{n}\log\left(\frac{W_n}{W_0}\right) \to \mathbb{E}[\log(1+r)] = -0.05125$$
+This means that for any individual path, ruin is the structurally deterministic destination over a long enough time horizon. The collective expectation ignores the individual time path entirely. It asks a completely different question: "If $1,000$ independent players start simultaneously, what is the average wealth across all players at step $n$?" Because expectation ($\mathbb{E}$) is a linear operator, it slices across space, ignoring the path-dependent link between steps: 
+
+$$\mathbb{E}[W_n] = W_0 \prod_{t=1}^n \mathbb{E}[1 + r_t] = W_0 \times (1.05)^n$$
+
+The ensemble average is pulled upward by a vanishingly small fraction of exponentially lucky paths. At step $1,000,$ a single player out of billions might hit an extraordinary streak of heads and accumulate a fortune so massive that, when averaged across the thousands of players who went broke, the group average looks highly profitable. The collective expectation gains because it can pool wealth across alternate universes, effectively short-circuiting the path-dependence that destroys the single individual locked into a single timeline.
+
+This asymmetry is the defining, real-world characteristic of the log-normal distribution: the stark mathematical divergence between the mean and the median of a log-normal curve. The log-normal distribution explains the entire ergodicity paradox.
+
+If we look at a single person's wealth after $n$ coin tosses, it is a product of random multipliers. Because multiplying independent factors is messy, we take the logarithm to turn it into an additive problem: 
+
+$$\log(W_n) = \log(W_0) + \sum_{t=1}^n \log(1 + r_t)$$
+
+By the Central Limit Theorem, when you add together a large number of independent random variables (in this case, the individual logged shocks $\log(1+r_t)$), their sum converges toward a symmetric normal (Gaussian) Distribution. If the logarithm of wealth is normally distributed, then the raw wealth itself ($W_n$) must follow a Log-Normal Distribution. A normal distribution is beautifully symmetric: its mean, median, and mode are all the exact same number. But when we exponentiate that symmetric bell curve back into raw dollar space, it warps into a highly skewed shape.
+
+In physical phase space, an absorbing or capturing state is a configuration from which the system can never escape once it enters. In finance, these capturing states appear either absolute Ruin ($W = 0$) — The strict absorbing barrier equivalent to betting $100\%$ of our wealth on a coin toss and losing. In a multiplicative system, zero is an absolute black hole: $0 \times 1.50 = 0.$ Once a trajectory touches this boundary, the multiplier engine loses all fuel. The path cannot explore any other coordinates of wealth space ever again. It is permanently captured. Most commonly, the scenario is relative ruin $(W \to 0),$ in which even if we only bet a fixed percentage of our wealth (so we never hit absolute zero), the log-scale center of gravity behaves as a capturing state. Because the geometric drift is negative ($-5.1\%$), the individual path is caught in a geometric tractor beam pulling it toward zero. As $n \to \infty$, our wealth asymptotically approaches zero ($W_n \to 0$). Once our portfolio drops from $\$1,000,000$ down to $\$0.01$, it is effectively captured by ruin. Even if we hit ten "Heads" in a row from that point, our wealth only climbs back to a few cents. We are trapped in a microscopic pocket of the broader phase space, completely unable to ever climb back up and catch the exploding red line of the ensemble average.
+
+
 ---
+
+
+#### Time-dependent individual path versus ensemble expectation:
 
 This post is a riff on money / portfolio-based mathematical issues inspired by [this post by Ole Peters](https://x.com/ole_b_peters/status/2046599240588107897?s=20). A [blog entry](https://ergodicityeconomics.com/2023/07/28/the-infamous-coin-toss/) touches on what he calls the **infamous coin toss**. The idea is as presented in the chart:
 
@@ -232,7 +275,7 @@ Since $\mathbb{E}[r^2] \approx \sigma^2$ (for small $r_a$), we get the growth ra
 
 $$r_g \approx r_a - \frac{\sigma^2}{2}$$
 
-The value we just found, $r_g$, is the continuous growth rate. To see what our actual bank account looks like, you have to undo the log we took: We raise $e$ to the power of our growth rate multiplied by time ($n$):
+The value we just found, $r_g$, is the continuous growth rate. To see what our actual bank account looks like, we have to undo the log we took: We raise $e$ to the power of our growth rate multiplied by time ($n$):
 
 $$W_{\text{final}} = W_0 \cdot e^{\left(r_a - \frac{\sigma^2}{2}\right)\,n}$$
 
@@ -270,7 +313,7 @@ Pile 2 becomes the expected value of the squared returns:
 $$\frac{r_1^2 + r_2^2 + \dots + r_n^2}{n} \longrightarrow \mathbb{E}[r^2] = \sigma^2 + r_a^2$$
 
 
-If we didn't use the log, we would be calculating $\mathbb{E}[1+r]$, which is the ensemble average. That tells us what happens to a collective or ensemble of people in one year. But the individual lives through a sequence of years. The log is what translates the collective's luck into your personal reality.
+If we didn't use the log, we would be calculating $\mathbb{E}[1+r]$, which is the ensemble average. That tells us what happens to a collective or ensemble of people in one year. But the individual lives through a sequence of years. The log is what translates the collective's luck into our personal reality.
 
 We start with the Taylor expansion for a single realization of a return $r$:
 
@@ -298,7 +341,7 @@ In the context of the stock market, the expected return $\mathbb{E}[r]$ (let's c
 
 $$\bbox[10px,border:2px solid red]{\mathbb{E}[\log(1 + r)] \approx r_a - \frac{\sigma^2}{2}}$$
 
-The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag). $r_a$ it is not simple interest, though it looks deceptively like it. In this context, $r_a$ (the arithmetic mean) is the expected value of the single-period return. If we look at the stock market for exactly one year, $r_a$ is the average of all possible outcomes for that year. If the media says "The S&P 500 has an average annual return of $12\%,$" they are usually summing up the annual returns of the last $90$ years and dividing by $90.$ That $12\%$ is our $r_a$. The trap is that $r_a$ is an ensemble measure. It tells us "If $1,000$ people invest for $1$ year, the average person will have $1 + r_a$." However, it does not tell us, "If $1$ person invests for $1,000$ years, he will have $(1 + r_a)^{1000}$. $r_a$ (arithmetic) is the average of the outcomes. In the coin toss $r_a$ is $+5\%.$ It looks profitable, but this is the ensemble average. The $r_g$ (geometric) is the average of the growth (the geometric mean - see below). In that same coin toss, $r_g$ is $-5.1\%.$ ($-0.05125$) - it guarantees that you are actually going broke. This is the time average.
+The second term is the volatility; a tax on our compounding. $r_a$ is the engine (the arithmetic mean), while $-\frac{\sigma^2}{2}$ is the friction (the volatility drag). $r_a$ it is not simple interest, though it looks deceptively like it. In this context, $r_a$ (the arithmetic mean) is the expected value of the single-period return. If we look at the stock market for exactly one year, $r_a$ is the average of all possible outcomes for that year. If the media says "The S&P 500 has an average annual return of $12\%,$" they are usually summing up the annual returns of the last $90$ years and dividing by $90.$ That $12\%$ is our $r_a$. The trap is that $r_a$ is an ensemble measure. It tells us "If $1,000$ people invest for $1$ year, the average person will have $1 + r_a$." However, it does not tell us, "If $1$ person invests for $1,000$ years, he will have $(1 + r_a)^{1000}$. $r_a$ (arithmetic) is the average of the outcomes. In the coin toss $r_a$ is $+5\%.$ It looks profitable, but this is the ensemble average. The $r_g$ (geometric) is the average of the growth (the geometric mean - see below). In that same coin toss, $r_g$ is $-5.1\%.$ ($-0.05125$) - it guarantees that we are actually going broke. This is the time average.
 
 Therefore, the $r_g$ would be:
 
@@ -368,7 +411,7 @@ A process is ergodic if its Arithmetic Mean (ensemble) is equal to its Geometric
 
 Addition is ergodic: If 100 people each get $1,$ the average is $1.$ If 1 person gets $1$ every day for $100$ days, the average is $1.$
 
-**Compounding is not ergodic**: As soon as you have a multiplicative process with randomness, the geometric mean must be lower than the arithmetic mean.
+**Compounding is not ergodic**: As soon as we have a multiplicative process with randomness, the geometric mean must be lower than the arithmetic mean.
 
 ---
 
@@ -377,7 +420,7 @@ Addition is ergodic: If 100 people each get $1,$ the average is $1.$ If 1 person
 
 When we multiply a long string of random returns together (like in the coin toss or the stock market), the central limit theorem doesn't produce a normal distribution of wealth. Instead, it produces a log-normal distribution. The log-normal is heavily skewed to the right. It has a long "tail" of extremely lucky outcomes (the few people who get very rich) and a huge "bulge" near zero (the many people who lose money). In a log-normal distribution, the three measures of "average" actually physically separate from each other: The mean (arithmetic) is pulled way to the right by a few lottery winners. This represents the ensemble average. The median (50th percentile) is significantly lower than the mean. This is what the typical individual experiences. The mode (the peak) is even lower than the median. It’s the most likely single outcome (often near zero in the coin toss).
 
-The "infamous coin toss" is essentially a process where the mean stays high (5% growth), but the median and mode drift toward zero. Because we usually define "success" as the mean, we think the game is good. But because we actually live as the median individual, we experience ruin. This is why the Taylor expansion result ($r_g \approx r_a - \sigma^2/2$) is so powerful: it calculates exactly how far the median (your reality) has fallen below the mean (the group's average) due to the variance. There are other related distributions, such as the Cauchy, where the variance is so high that the arithmetic mean doesn't even exist mathematically.
+The "infamous coin toss" is essentially a process where the mean stays high (5% growth), but the median and mode drift toward zero. Because we usually define "success" as the mean, we think the game is good. But because we actually live as the median individual, we experience ruin. This is why the Taylor expansion result ($r_g \approx r_a - \sigma^2/2$) is so powerful: it calculates exactly how far the median (our reality) has fallen below the mean (the group's average) due to the variance. There are other related distributions, such as the Cauchy, where the variance is so high that the arithmetic mean doesn't even exist mathematically.
 
 If wetake a sample of $n$ individual, independent annual returns ($r_1, r_2, \dots, r_n$) and calculate their standard arithmetic mean:
 
@@ -391,7 +434,7 @@ If we take the natural log of this geometric mean, it transforms into an arithme
 
 $$\log(\text{Geometric Mean}) = \frac{1}{n} \sum_{i=1}^n \log(1 + r_i)$$
 
-By applying the Central Limit Theorem to this sum, the distribution of the average log-return becomes Normal. Because the log of the geometric mean is normally distributed, if you exponentiate it to look at the actual growth factor, the distribution of that geometric mean is Log-Normal.
+By applying the Central Limit Theorem to this sum, the distribution of the average log-return becomes Normal. Because the log of the geometric mean is normally distributed, if we exponentiate it to look at the actual growth factor, the distribution of that geometric mean is Log-Normal.
 
 The log-normal distribution is seen when looking at $(1 + r)$, not $r$. Specifically, it is the total compounded multiplier of our wealth over time—which is built by multiplying a long string of these $(1+r)$ terms together — that forms a log-normal distribution.
 
@@ -507,11 +550,11 @@ Power laws are the ultimate expression of scale invariance, and the Mellin trans
 
 $$f(x) = C x^{-\alpha}$$
 
-The defining feature of a power law is that if you scale the input $x$ by a constant factor $a$, the function's output changes only by a constant proportional factor. It doesn't change its fundamental shape or behavior. Mathematically, if we replace $x$ with $ax$:
+The defining feature of a power law is that if we scale the input $x$ by a constant factor $a$, the function's output changes only by a constant proportional factor. It doesn't change its fundamental shape or behavior. Mathematically, if we replace $x$ with $ax$:
 
 $$f(ax) = C (ax)^{-\alpha} = a^{-\alpha} \cdot (C x^{-\alpha}) = a^{-\alpha} f(x)$$
 
-Scaling the argument by $a$ just multiplied the entire function by the constant $a^{-\alpha}$. The relative structure remains completely identical. If you look at a power law on a log-log plot, it forms a perfectly straight line. Whether you zoom in on the range from $1$ to $10,$ or zoom out to look at $10,000$ to $100,000,$ the slope ($-\alpha$) never changes. There is no characteristic scale or baseline unit that dictates the behavior of the system.
+Scaling the argument by $a$ just multiplied the entire function by the constant $a^{-\alpha}$. The relative structure remains completely identical. If we look at a power law on a log-log plot, it forms a perfectly straight line. Whether we zoom in on the range from $1$ to $10,$ or zoom out to look at $10,000$ to $100,000,$ the slope ($-\alpha$) never changes. There is no characteristic scale or baseline unit that dictates the behavior of the system.
 
 The Mellin Transform is a power law detector. Just as the Fourier transform uses sines and cosines ($e^{i\omega x}$) as probes to find periodic cycles in a signal, the Mellin transform uses power laws ($x^{s-1}$) as its probes. When we take the Mellin transform of a function, we are taking the inner product of that function against a spectrum of power laws:
 
@@ -529,9 +572,9 @@ In both cases, the underlying engine is purely multiplicative. Because the Melli
 
 (*) The Haar measure $\frac{dx}x:$ On a standard ruler, the distance between $1$ inch and $2$ inches is exactly the same as the distance between $10$ inches and $11$ inches. That absolute step size is $dx$. If we add $\$1$ to a $\$10$ portfolio, our absolute step is $dx = 1$. If we add $\$1$ to a $\$1,000,000$ portfolio, our absolute step is still $dx = 1$. The flat ruler treats an absolute increment of $1$ unit identically, no matter where we are standing on the line.
 
-$\frac{dx}{x}$ is a ruler that measures proportions instead of absolute increments. It is the absolute step size ($dx$) divided by your current location $x$. Let’s look at the exact same $\$1$ steps from above through the lens of this new metric:
+$\frac{dx}{x}$ is a ruler that measures proportions instead of absolute increments. It is the absolute step size ($dx$) divided by our current location $x$. Let’s look at the exact same $\$1$ steps from above through the lens of this new metric:
 
-We are standing at $x = 10$. We take a step of $dx = 1$. Your proportional distance is:
+We are standing at $x = 10$. We take a step of $dx = 1$. Our proportional distance is:
 
 $$\frac{dx}{x} = \frac{1}{10} = 10\%$$
 
@@ -539,7 +582,7 @@ If instead we are standing at $x = 1,000,000$ and take a step of $dx = 1$ the pr
 
 $$\frac{dx}{x} = \frac{1}{1,000,000} = 0.0001\%$$
 
-On the percentage ruler, the exact same physical step ($dx = 1$) shrunk drastically because we were standing further up the scale. To make a step at $\$1,000,000$ feel exactly the same size as the step at $\$10$, we can't just add $\$1$. We have to scale your step size up proportionally. We would need to add $\$100,000$, because $\frac{100,000}{1,000,000} = 10\%$.
+On the percentage ruler, the exact same physical step ($dx = 1$) shrunk drastically because we were standing further up the scale. To make a step at $\$1,000,000$ feel exactly the same size as the step at $\$10$, we can't just add $\$1$. We have to scale our step size up proportionally. We would need to add $\$100,000$, because $\frac{100,000}{1,000,000} = 10\%$.
 
 
 
