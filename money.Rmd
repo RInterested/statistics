@@ -407,18 +407,18 @@ Whether we use the exact calculation or the quick approximation, the result is d
 
 As time ($n$) approaches infinity, a single, solitary timeline out of billions is mathematically sufficient to carry the entire group expectation on its back. The other billions of timelines can sit at absolute zero, completely ruined. This sounds like a statistical impossibility, but it is the inevitable destination of a compounding, non-ergodic system. Because the game is multiplicative, wealth doesn't just fluctuate; it concentrates. Every time a lucky path flips "Heads," its capital base widens, meaning its next dollar gain will be even larger. Conversely, every time a path flips "Tails," its capital base shrinks, structurally neutering its ability to make large dollar gains in the future. As the steps compound from $60$ to $100,$ and then to $1,000,$ the distribution doesn't just skew — it undergoes a profound phase transition where the number of surviving paths shrinks faster than the wealth grows.
 
-Here is an example with $150$ paths:
+Here is an example with $100$ paths:
 
 
 ---
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=6, fig.height=4, fig.align='center'}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=8, fig.height=4, fig.align='center'}
 library(plotly)
 library(dplyr)
 
 set.seed(42)
 num_paths   <- 500    
-num_steps   <- 150     # Fixed: Shortened time horizon lets outliers appear in a small sample pool
+num_steps   <- 100     # Fixed: Shortened time horizon lets outliers appear in a small sample pool
 
 gain_factor <- 1.50   
 loss_factor <- 0.60   
@@ -482,7 +482,7 @@ p <- p %>% add_trace(
 )
 
 p %>% layout(
-  title = "Ole Peters' Fair Coin Toss: The Isolated Outliers Driving the Mean (150 Steps)",
+  title = "Ole Peters' Fair Coin Toss: The Isolated Outliers Driving the Mean (100 Steps)",
   showlegend = FALSE,
   plot_bgcolor = "white",
   xaxis = list(title = "Time Steps (Flips)", gridcolor = "rgba(240,240,240,1)"),
