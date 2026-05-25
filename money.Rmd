@@ -68,7 +68,7 @@ If we look at a single person's wealth after $n$ coin tosses, it is a product of
 
 $$\log(W_n) = \log(W_0) + \sum_{t=1}^n \log(1 + r_t)$$
 
-By the Central Limit Theorem, when you add together a large number of independent random variables (in this case, the individual logged shocks $\log(1+r_t)$), their sum converges toward a symmetric normal (Gaussian) Distribution. If the logarithm of wealth is normally distributed, then the raw wealth itself ($W_n$) must follow a Log-Normal Distribution. A normal distribution is beautifully symmetric: its mean, median, and mode are all the exact same number. But when we exponentiate that symmetric bell curve back into raw dollar space, it warps into a highly skewed shape.
+By the Central Limit Theorem, when you add together a large number of independent random variables (in this case, the individual logged shocks $\log(1+r_t)$), their sum converges toward a symmetric normal (Gaussian) Distribution. If the logarithm of wealth is normally distributed, then the raw wealth itself ($W_n$) must follow a log-normal distribution. A normal distribution is beautifully symmetric: its mean, median, and mode are all the exact same number. But when we exponentiate that symmetric bell curve back into raw dollar space, it warps into a highly skewed shape.
 
 In physical phase space, an absorbing or capturing state is a configuration from which the system can never escape once it enters. In finance, these capturing states appear either absolute Ruin ($W = 0$) — The strict absorbing barrier equivalent to betting $100\%$ of our wealth on a coin toss and losing. In a multiplicative system, zero is an absolute black hole: $0 \times 1.50 = 0.$ Once a trajectory touches this boundary, the multiplier engine loses all fuel. The path cannot explore any other coordinates of wealth space ever again. It is permanently captured. Most commonly, the scenario is relative ruin $(W \to 0),$ in which even if we only bet a fixed percentage of our wealth (so we never hit absolute zero), the log-scale center of gravity behaves as a capturing state. Because the geometric drift is negative ($-5.1\%$), the individual path is caught in a geometric tractor beam pulling it toward zero. As $n \to \infty$, our wealth asymptotically approaches zero ($W_n \to 0$). Once our portfolio drops from $\$1,000,000$ down to $\$0.01$, it is effectively captured by ruin. Even if we hit ten "Heads" in a row from that point, our wealth only climbs back to a few cents. We are trapped in a microscopic pocket of the broader phase space, completely unable to ever climb back up and catch the exploding red line of the ensemble average.
 
@@ -258,7 +258,7 @@ $$\small \log(W_{\text{final}}) = \log(W_0) + \log(1+r_1) + \log(1+r_2) + \dots 
 
 To turn this addition into a dollar amount, we plug it into the exponential function:
 
-$$W_{\text{final}} = W_0 \cdot e^{\text{Sum of logs}}$$
+$$W_{\text{final}} = W_0 \cdot e^{\text{sum of logs}}$$
 
 The function $f(r) = 1 + r$ is a perfectly straight line. It has no memory of risk. But the function $f(r) = \log(1 + r)$ is concave (it curves downward). This curve is the mathematical representation of the fact that losses hurt more than gains help. If we gain $50\%$ and then lose $50\%,$ our arithmetic average is $0\%$ $(1 + 0.5 - 0.5 = 1).$ But our actual wealth is down $25\%$ $(1.5 \times 0.5 = 0.75)$.
 
@@ -307,9 +307,9 @@ Year $n$: $\log(1+r_n) \approx r_n - \frac{r_n^2}{2}$
 
 Putting these yearly calculations together:
 
-$$\small\text{Realized Growth Rate} \approx \underbrace{\frac{r_1 + r_2 + \dots + r_n}{n}}_{\text{Pile 1: Average of Returns}} - \frac{1}{2} \left( \underbrace{\frac{r_1^2 + r_2^2 + \dots + r_n^2}{n}}_{\text{Pile 2: Average of Squares}} \right)$$
+$$\small\text{Realized Growth Rate} \approx \underbrace{\frac{r_1 + r_2 + \dots + r_n}{n}}_{\text{Average of Returns}} - \frac{1}{2} \left( \underbrace{\frac{r_1^2 + r_2^2 + \dots + r_n^2}{n}}_{\text{Average of Squares}} \right)$$
 
-As we invest over a long horizon ($n \to \infty$), the LLNs kicks in. Those two sample piles naturally tend to their statistical expected values:
+As we invest over a long horizon ($n \to \infty$), the LLNs kicks in. Those two sample averages naturally tend to their statistical expected values:
 
 Pile 1 becomes the true arithmetic mean: 
 
@@ -352,7 +352,7 @@ The second term is the volatility; a tax on our compounding. $r_a$ is the engine
 
 Therefore, the $r_g$ would be:
 
-$$r_g=e^{\mathbb E[\log(1+r)]}-1$$
+$$\bbox[10px,border:2px solid red]{r_g=e^{\mathbb E[\log(1+r)]}-1}$$
 
 $r$ (neither $r_a$ (arithmetic mean) nor $r_g$ (geometric mean)) is the raw, single-period random variable — the actual return of the market in any given single year (or the outcome of a single coin toss). It is a fluctuating variable that can take on many different values based on its underlying probability distribution.
 
@@ -409,12 +409,12 @@ Note that the true discrete geometric rate is $\ln(0.9487) \approx -0.0527$. The
 
 The sum of logs ($\frac{1}{n} \sum \log(1+r_i)$) is simply the log-geometric mean. If we take the arithmetic mean of the logarithms, we get the exact same result as taking the geometric mean of the original numbers.
 
-$$\small \text{Geometric Mean} = \exp\left( \text{Arithmetic Mean of Logs} \right)=\sqrt[n]{(1+r_1)(1+r_2)\dots(1+r_n)} - 1$$
+$$\small \text{Geometric Mean} = e^{\text{Arithmetic Mean of Logs}=\sqrt[n]{(1+r_1)(1+r_2)\dots(1+r_n)} - 1$$
 
 The Taylor expansion and the $\mathbb{E}[\log(1+r)]$ are useful because the arithmetic Mean ($r_a$) and variance ($\sigma^2$) are what we actually see in the world. Banks quote arithmetic interest rates; news outlets quote arithmetic market returns; analysts quote volatility (standard deviation). The formula $r_g \approx r_a - \frac{\sigma^2}{2}$ is the bridge. 
 
 
-A process is ergodic if its Arithmetic Mean (ensemble) is equal to its Geometric Mean (time).
+A process is ergodic if its arithmetic mean (ensemble) is equal to its geometric mean (time).
 
 Addition is ergodic: If 100 people each get $1,$ the average is $1.$ If 1 person gets $1$ every day for $100$ days, the average is $1.$
 
@@ -441,7 +441,7 @@ If we take the natural log of this geometric mean, it transforms into an arithme
 
 $$\log(\text{Geometric Mean}) = \frac{1}{n} \sum_{i=1}^n \log(1 + r_i)$$
 
-By applying the Central Limit Theorem to this sum, the distribution of the average log-return becomes Normal. Because the log of the geometric mean is normally distributed, if we exponentiate it to look at the actual growth factor, the distribution of that geometric mean is Log-Normal.
+By applying the Central Limit Theorem to this sum, the distribution of the average log-return becomes Normal. Because the log of the geometric mean is normally distributed, if we exponentiate it to look at the actual growth factor, the distribution of that geometric mean is log-normal.
 
 The log-normal distribution is seen when looking at $(1 + r)$, not $r$. Specifically, it is the total compounded multiplier of our wealth over time—which is built by multiplying a long string of these $(1+r)$ terms together — that forms a log-normal distribution.
 
@@ -538,11 +538,147 @@ p %>% layout(
 
 #### Multiplicative processes, power-laws the gamma function and the Mellin transform:
 
+
+##### The Mellin transform and the gamma function:
+
+The Mellin transform of a locally integrable function $f(t)$ defined on the positive real axis is given by the integral:
+
+$$\mathcal{M}\{f(t)\}(s) = \int_{0}^{\infty} t^{s-1} f(t) \, dt=\int_{0}^{\infty} t^s f(t) \, \frac{dt}t$$
+
+where $\frac{dt}t$ is the [Haar measure](https://en.wikipedia.org/wiki/Haar_measure).
+
+
 The Mellin transform is often described as the natural transform for scale-invariant problems. While the Fourier transform deals with shifts (additions), the Mellin transform deals with scaling (multiplications).
 
-When we look at asset returns or growth, we don't add them; we multiply them. If a portfolio grows by a factor of $1.5$ and then drops by a factor of $0.8$, the total change is $1.5 \times 0.8$.To find the average return, we use the geometric mean (multiplying the values and taking the root). But if we map those returns into "log-space" by taking $\ln(x)$, those multiplications become additions ($\ln(a \cdot b) = \ln(a) + \ln(b)$). The geometric mean in the original space becomes the familiar arithmetic mean in log-space.
+Let's say we have a function $f(t)$ that is a clean mix of polynomial degrees, like a Taylor series:
 
-The Mellin Transform is a Fourier Transform in Log-Space. The exact same mapping happens under the hood of the Mellin transform. If we take the definition of the Mellin transform of a function $f(x)$ (see below for the $\color{red}x$ (*) in the denominator):
+$$f(t) = a_0 + a_1 t + a_2 t^2 + a_3 t^3 + \dots = \sum_{k=0}^{\infty} a_k t^k$$
+
+If we feed this function directly into the Mellin transform without changing anything
+
+
+$$\mathcal{M}\{f(t)\}(s) = \int_{0}^{\infty} t^{s-1} \left( a_0 + a_1 t + a_2 t^2 + \dots \right) dt$$
+
+Focusing just on the behavior near zero, near the lower limit of integration ($t \to 0$),
+the integral of the $k$-th term looks like:
+
+$$\int_{0}^{1} a_k t^{s-1+k} \, dt = \left[ a_k \frac{t^{s+k}}{s+k} \right]_0^1 = \frac{a_k}{s+k}$$
+
+If we evaluate this transform at $s = -k$, the denominator becomes zero, and the entire Mellin transform blows up to infinity. This means **the Mellin transform converts polynomial terms into vertical spikes (poles)** located at the negative integers on the complex plane. Because the Mellin transform automatically creates these spikes, we can read the exact composition of our original function directly off the map of its poles: The location of the pole tells us the degree of the polynomial ($t^k$ creates a pole at $s = -k$). The strength (or "residue") of the pole tells us the coefficient ($a_k$) of that polynomial. If our goal is to use an integral transform that directly maps a function to its raw power series coefficients without the inverse flipping effect, we have to switch tools. The tool we'd be looking for is called the Borel transform.
+
+The Mellin transform is suitable for multiplicative processes, which include the prototype of a multiplicative process: the factorial, or in continuous space, the gamma function. The gamma functions is just the Mellin transform of the $f(x)=e^{-x}$ exponential decay function:
+
+$$\Gamma(s) =  \mathcal{M}\{e^{-t}\}(s)=\int_{0}^{\infty} t^{s-1} e^{-t} \, dt$$
+
+If we try to think about it in terms of shapes (matching a growing function to a growing function), it makes absolutely zero intuitive sense that we would have selected $e^{-x}$. The breakthrough happens when we stop looking at the shape of the functions, and start looking at the arithmetic operations that build them. The Gamma function isn't a continuous factorial because of what $e^{-t}$ looks like; it is a continuous factorial because of what $e^{-t}$ does when you differentiate it. We want to get this behaviour:
+
+$$n! = n \times (n-1) \times (n-2) \times \dots \times 1$$
+
+To mimic this continuously using calculus, we need a machine that automatically spits out a chain of descending integers. What is the only operation in calculus that drops an exponent down by one and turns it into a multiplier? Differentiation.
+
+$$\frac{d}{dt}(t^n) = n \cdot t^{n-1}$$
+
+If we want to generate a full factorial, we need a process that allows us to differentiate a power over and over again, collecting those multipliers along the way:
+
+$$n \cdot (n-1) \cdot (n-2) \dots$$
+
+To run that differentiation machine smoothly inside an integral, we need a partner function that can handle being differentiated repeatedly without changing its own structure. We need a function that satisfies:
+
+$$\frac{d}{dt} f(t) = \pm f(t)$$
+
+There are only two functions in the universe that do this: $e^t$ and $e^{-t}$. If we use $e^t$, our calculus machine explodes instantly at the boundary of infinity ($e^\infty = \infty$). It is a runaway engine with no brakes. But $e^{-t}$ has a beautiful, asymmetrical superpower: At the starting line ($t=0$), it is perfectly stable: $e^0 = 1$. At the finish line ($t \to \infty$), it acts as a perfect mathematical sink: $e^{-\infty} = 0$.Because $e^{-t}$ drops to zero at infinity, it creates a "containment field." It allows us to use integration by parts to repeatedly differentiate your probing power $t^n$, dragging down $n$, then $n-1$, then $n-2$, all while keeping the boundary math perfectly clean and finite.
+
+Let's pick a concrete value, say $s = 4$. This means our Mellin probing function is $t^{s-1} = t^3$. We want to see how this probe interacts with the infinite power series of the negative exponential:
+
+$$e^{-t} = 1 - t + \frac{t^2}{2!} - \frac{t^3}{3!} + \frac{t^4}{4!} - \frac{t^5}{5!} + \dots = \sum_{n=0}^{\infty} \frac{(-1)^n t^n}{n!}$$
+
+If we try to multiply the probe $t^3$ directly into this series term-by-term and integrate from $0$ to $\infty$, we run into a major calculus obstacle: individual terms like $\int_0^\infty t^{n+3} dt$ diverge completely.
+
+To see the true harmonic interaction without infinity blowing up the math, we have to look at the discrete, algebraic soul of the Mellin transform using a brilliant trick: integration by parts. The Gamma function for $s=4$ is:
+
+$$\Gamma(4) = \int_0^\infty t^3 e^{-t} \, dt$$
+
+Let's apply integration by parts, setting $u = t^3$ (our probe) and $dv = e^{-t}dt$ (the target). This yields $du = 3t^2 dt$ and $v = -e^{-t}$:
+
+$$\Gamma(4) = \left[ -t^3 e^{-t} \right]_0^\infty + \int_0^\infty (3t^2) e^{-t} \, dt$$
+
+The boundary term $\left[ -t^3 e^{-t} \right]_0^\infty$ vanishes at both limits because $e^{-t}$ crushes $t^3$ at infinity, and $t^3$ is $0$ at zero. We are left with:
+
+$$\Gamma(4) = 3 \int_0^\infty t^2 e^{-t} \, dt$$
+
+Notice what just happened. The probe $t^3$ interacted with the exponential, transferred its power downward by differentiation, and left behind a scaling factor of $3.$
+
+If we repeat this integration by parts two more times, the power of the probe keeps cascading down:
+
+$$\Gamma(4) = 3 \times 2 \int_0^\infty t^1 e^{-t} \, dt$$
+
+$$\Gamma(4) = 3 \times 2 \times 1 \int_0^\infty t^0 e^{-t} \, dt$$
+
+At the very last step, the probing function has been stripped of its variable entirely ($t^0 = 1$). We are left with a pure accumulation of the scaling factors, multiplied by a fundamental baseline integral:
+
+$$\Gamma(4) = (3 \times 2 \times 1) \int_0^\infty e^{-t} \, dt = 3! \cdot [ -e^{-t} ]_0^\infty = 3! \cdot (0 - (-1)) = 3!$$
+
+Now, let's look back at the power series of $e^{-t}$. The summand that matches the original degree of our probe ($t^3$) is:
+
+$$\text{The } n=3 \text{ term} = -\frac{t^3}{3!}$$
+
+The denominator of this specific target summand is exactly $3!$. The cascade of the Mellin probing function generated a numerator of exactly $3!$. When the probe $t^3$ extracts information from $e^{-t}$, it acts like a combinations generator. The process of integrating across the entire domain allows the $t^3$ probe to systematically peel back the layers of the exponential function via differentiation until it strikes the exact core layer — the $n=3$ harmonic component — perfectly canceling out its structural denominator ($3!$) and leaving behind the integer factorial.
+
+##### Mellin transform and $p$-adics:
+
+To analyze the zeta function, Riemann used standard calculus. In 1950 John Tate considered that the real number line may not be the right place to look at primes. This idea led to a brand-new geometry where a specific prime number is the center of the universe. This is where the $p$-adic numbers come in. On the standard real number line, numbers get small if they are close to zero ($0.1, 0.01, 0.001$). In Tate's $3$-adic world (for example in $p=3$), numbers get small in the ultrametric measure if they are divisible by high powers of $3.$ In this world, the number $3$ is close to zero. The number $9$ is even closer. The number $27$ is practically touching zero. Because of this bizarre rule for distance, the $p$-adic world doesn't look like a smooth line. Instead of a continuous highway, the space looks like a vast collection of nested, concentric rings or shells around zero. The unit shell contains all the numbers that aren't divisible by $3$ at all (like $1, 2, 4, 5, 7, 8$). The next shell closer to zero contains numbers divisible by $3$ (like $3, 6, 12, 15$). The next shell even closer contains numbers divisible by $9$ (like $9, 18, 27$). There are also outer shells for fractions like $\frac{1}{3}$ and $\frac{1}{9}$ that are far away from zero.
+
+Let's take a simple geometric function on the p-adic shells, feed it into the Mellin transform, and watch it magically transform into the local Euler factor — the fundamental building block of the Riemann Zeta function.
+
+Let's use our 3-adic world ($\mathbb{Q}_3$) for the calculation. We need a function $f(x)$ to analyze. Tate chose the simplest, most natural function possible for the p-adic integers: the indicator function of $\mathbb{Z}_3$ (let's call it $\mathbf{1}_{\mathbb{Z}_3}$).
+
+This function acts like a flat, geometric step: It outputs a $1$ if the number $x$ is a $3$-adic integer (meaning it lives on the unit shell or any inner shell closer to zero). It outputs a $0$ if the number $x$ has a $3$ in the denominator (meaning it lives on the outer fractional shells). Mathematically on the ground, this function is just a flat plateau covering the center of our shattered world.
+
+Now we feed this step function into the Mellin transform. The transform multiplies our function by the "frequency" term $|x|_3^s$ and scans it using our multiplicative ruler $d^\times x$:
+
+$$\mathcal{M}\{f\}(s) = \int_{\mathbb{Q}_3^\times} \mathbf{1}_{\mathbb{Z}_3}(x) \cdot |x|_3^s \, d^\times x$$
+
+Because the function jumps to $0$ outside of the integers, the transform automatically discards all the outer fractional shells. The infinity of the integral vanishes, and the domain shrinks strictly to the non-zero integers:
+
+$$\mathcal{M}\{f\}(s) = \int_{\mathbb{Z}_3 \setminus \{0\}} |x|_3^s \, d^\times x$$
+
+Now, the transform performs its magic by scanning the remaining space shell by shell. Recall that the space of non-zero integers is just a collection of disjoint concentric rings stretching inward toward zero. We can break the single integral into an infinite sum of smaller integrals, one for each shell:
+
+$$\mathcal{M}\{f\}(s) = \int_{\text{Shell } 0} |x|_3^s \, d^\times x + \int_{\text{Shell } 1} |x|_3^s \, d^\times x + \int_{\text{Shell } 2} |x|_3^s \, d^\times x + \dots$$
+
+The calculus becomes on each individual shell becomes simple: 
+
+On shell $0$ (The units $\mathbb{Z}_3^\times$): Every number has size $|x| = 3^0 = 1$. The volume of the shell is $1$.
+
+$$\int_{\text{Shell } 0} (1)^s \, d^\times x = 1 \cdot 1 = 1$$
+
+On Shell $1$ (Numbers like $3, 6, 12$): Every number has size $|x| = 3^{-1}$. The multiplicative volume of this shell is also exactly $1$.
+
+$$\int_{\text{Shell } 1} (3^{-1})^s \, d^\times x = 1 \cdot 3^{-s} = 3^{-s}$$
+
+On shell $2$ (Numbers like $9, 18, 27$): Every number has size $|x| = 3^{-2}$. The volume is still $1$.
+
+$$\int_{\text{Shell } 2} (3^{-2})^s \, d^\times x = 1 \cdot (3^{-s})^2 = 3^{-2s}$$
+
+When we string the results of all these individual shells back together, the Mellin transform hands you an infinite geometric series:
+
+$$\mathcal{M}\{f\}(s) = 1 + 3^{-s} + 3^{-2s} + 3^{-3s} + 3^{-4s} + \dots$$
+
+If we apply the standard high-school algebra formula for a geometric series ($\sum r^n = \frac{1}{1-r}$), this infinite chain collapses into a single, elegant complex function:
+
+$$\mathcal{M}\{f\}(s) = \frac{1}{1 - 3^{-s}}$$
+
+We started with a rigid, localized geometric step function ($\mathbf{1}_{\mathbb{Z}_3}$) living in a fractured, non-Archimedean space.By passing it through the Mellin transform, the fractured geometry completely evaporated, and out popped $\frac{1}{1 - 3^{-s}}$. This is exactly the 3-adic Euler factor of the Riemann Zeta Function!
+
+$$\zeta(s) = \frac{1}{1 - 2^{-s}} \cdot \mathbf{\frac{1}{1 - 3^{-s}}} \cdot \frac{1}{1 - 5^{-s}} \dots$$
+
+Tate proved that the analytic heart of the Zeta function isn't some mysterious, artificial complex formula. It is simply the global "echo" you get when you use a multiplicative transform to scan the local, natural geometry of prime numbers.
+
+##### Connection to finances and power-laws:
+
+When we look at asset returns or growth, we don't add them; we multiply them. If a portfolio grows by a factor of $1.5$ and then drops by a factor of $0.8$, the total change is $1.5 \times 0.8$. To find the average return, we use the geometric mean (multiplying the values and taking the root). But if we map those returns into "log-space" by taking $\ln(x)$, those multiplications become additions ($\ln(a \cdot b) = \ln(a) + \ln(b)$). The geometric mean in the original space becomes the familiar arithmetic mean in log-space.
+
+The Mellin Transform is a Fourier Transform in log-space. The exact same mapping happens under the hood of the Mellin transform. If we take the definition of the Mellin transform of a function $f(x)$ (see below for the $\color{red}x$ (*) in the denominator):
 
 $$\mathcal{M}\{f(x)\}(s) = \int_0^\infty f(x) x^{s} \frac{dx}{\color{red}x}$$
 and we make a logarithmic change of variables by letting $x = e^{-t}$ (which means $t = -\ln(x)$), the entire integral transforms into a standard Fourier (or bilateral Laplace) transform:
@@ -569,7 +705,7 @@ $$\mathcal{M}\{f(x)\}(s) = \int_0^\infty f(x) x^{s-1} dx$$
 
 If the function $f(x)$ contains a pure power law or behaves like one over a certain range, the Mellin transform will manifest a pole at that specific exponent. For example, if we have a system whose behavior transitions from one power law to another as it grows, the Mellin transform will reveal distinct poles that correspond exactly to those different exponents. It maps the complex, multi-scale physical behavior into a static map of singular points in the complex plane.
 
-When we multiply independent random variables together (like daily financial returns or sequential growth phases), the Central Limit Theorem in log-space dictates that the distribution becomes Log-Normal. However, if we introduce certain types of feedback loops, drops, or phase transitions into that multiplicative growth, the distribution shifts from log-normal to a heavy-tailed power law (like a Pareto distribution).
+When we multiply independent random variables together (like daily financial returns or sequential growth phases), the Central Limit Theorem in log-space dictates that the distribution becomes log-normal. However, if we introduce certain types of feedback loops, drops, or phase transitions into that multiplicative growth, the distribution shifts from log-normal to a heavy-tailed power law (like a Pareto distribution).
 
 In both cases, the underlying engine is purely multiplicative. Because the Mellin transform natively tracks multiplicative scaling via power-law probes, it serves as the exact tool needed to calculate the moments, expected values, and asymptotic behaviors of these complex, heavy-tailed systems.
 
