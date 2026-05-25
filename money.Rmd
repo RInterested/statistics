@@ -411,7 +411,7 @@ Below is an example with $100$ paths highlighting the "winning" paths in red, al
 
 ---
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=8, fig.height=4, fig.align='center'}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=9, fig.height=5, fig.align='center'}
 library(plotly)
 library(dplyr)
 
@@ -485,17 +485,17 @@ p_left <- p_left %>% add_trace(
   name = "Ensemble Average"
 )
 
-# 3. Populate Right Subplot (Horizontal Raw Linear Histogram)
-# We choose a horizontal orientation ("h") to keep wealth aligned vertically on both plots!
+# 3. Populate Right Subplot (Rotated Upright Linear Histogram)
 max_display <- max(50, ensemble_line[num_steps + 1] * 1.5)
 clipped_wealth <- ifelse(final_wealth > max_display, max_display, final_wealth)
 
 p_right <- p_right %>% add_trace(
-  x = clipped_wealth, type = "histogram",
-  orientation = "v",
-  marker = list(color = "purple", line = list(color = "purple", width = 1.5)),
-  autobiny = FALSE,
-  xbins = list(start = 0, end = max_display, size = max_display / 10),
+  x = clipped_wealth,                   # <-- Mapped to X for vertical growth
+  type = "histogram",
+  orientation = "v",                    # <-- Rotates the bars to an upright vertical position
+  marker = list(color = "purple", line = list(color = "white", width = 0.5)),
+  autobinx = FALSE,
+  xbins = list(start = 0, end = max_display, size = max_display / 15), # <-- Linear bins along the X axis
   name = "Terminal Wealth Distribution", hoverinfo = "x+y"
 )
 
@@ -510,9 +510,9 @@ subplot(p_left, p_right, nrows = 1, widths = c(0.65, 0.35), margin = 0.06, share
     xaxis = list(title = "Time Steps (Flips)", gridcolor = "rgba(240,240,240,1)"),
     yaxis = list(type = "log", autorange = TRUE, title = "Portfolio Wealth ($)", gridcolor = "rgba(240,240,240,1)"),
     
-    # Right Subplot Axes (Linear scale reveals the raw geometric asymmetry)
-    xaxis2 = list(title = "Count (Paths)", gridcolor = "rgba(240,240,240,1)"),
-    yaxis2 = list(type = "linear", range = list(0, max_display), side = "right", title = "Final Wealth ($) [Linear]", gridcolor = "rgba(240,240,240,1)")
+    # Right Subplot Axes (Now flipped: X2 tracks linear wealth, Y2 tracks path counts)
+    xaxis2 = list(title = "Final Wealth ($) [Linear]", range = list(0, max_display), gridcolor = "rgba(240,240,240,1)"),
+    yaxis2 = list(title = "Count (Paths)", gridcolor = "rgba(240,240,240,1)", autorange = TRUE)
   )
 ```
 
