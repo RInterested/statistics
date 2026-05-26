@@ -1,1 +1,1 @@
-[Statistics Repository of Materials](http://rinterested.github.io/STATISTICS/Index.html)
+[Statistics and Math Repository of Notes](http://rinterested.github.io/STATISTICS/Index.html)
