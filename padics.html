@@ -1211,8 +1211,37 @@ d_2(5^2) + d_1(5^1) + d_0(5^0)\]</span></p>
 <p>If we chip away this difference (subtract the remainder) to make it
 fit, how close will it be to a multiple of <span class="math inline">\(5\)</span>?</p>
 <p>New <span class="math inline">\(a\)</span>:</p>
-<p><span class="math display">\[\text{new }a =\frac{\text{old
-}a-\text{remainder}}{\text{mod}}\]</span></p>
+<p><span class="math display">\[\bbox[20px, border: 5px solid
+red]{\text{new }a =\frac{\text{old
+}a-\text{remainder}}{\text{mod}}}\]</span></p>
+<hr />
+<p>THE CONCEPT: We have worked up the original number (the first <span class="math inline">\(a=450\)</span>) mod <span class="math inline">\(5\)</span>. In doing so, all we know is that on a
+<span class="math inline">\(5\)</span> hour clock, some event happened
+at <span class="math inline">\(\small \text{time}=\text{
+remainder}.\)</span> However, there are more levels of refinenment,
+corresponding to higher orders of magnitude. These have been completely
+ignored at this first level. To bring them to light, we need to subtract
+from the <span class="math inline">\(\text{old }a\)</span> this
+remainder that is already part of the <span class="math inline">\(5\)</span>-adic expression. The difference will be
+the naturally divisible by <span class="math inline">\(5.\)</span> This
+difference (the numerator), when divided by <span class="math inline">\(5\)</span> will give us the number of revolutions
+around the clock that have been ignored - the <span class="math inline">\(\text{new }a.\)</span> Now comes the key idea: we
+want to know this number of revolutions mod <span class="math inline">\(5.\)</span> Because we have divided by <span class="math inline">\(5\)</span> the difference between the actual
+initial number and the first remainder when modded by <span class="math inline">\(5\)</span> we are now looking at the modular
+expression of the number (minus the first remainder), base <span class="math inline">\(25.\)</span></p>
+<p>Imagine we have a <span class="math inline">\(5\)</span>-hour front
+clock. That gives us the first expression of the original expression
+base <span class="math inline">\(5.\)</span> Now imagine that there is a
+smaller <span class="math inline">\(5\)</span>-hour clock right behind
+this front clock. This second <span class="math inline">\(5\)</span>-hour clock ticks once every time the
+bigger, front clock goes one full circle around: the second clock counts
+the full revolutions of the first clock. Naturally, the initial
+remainder is less than one full revolution, so it will leave no mark on
+the second clock.</p>
+<p>If the number of revolutions of the first clock is more than <span class="math inline">\(25,\)</span> there will be a need for a third,
+smaller back clock to keep tally of the revolutions of the second clock.
+And so on to infinity.</p>
+<hr />
 <p>Notice that <span class="math inline">\(\text{old
 }a-\text{remainder}\)</span> will always be divisible by the “mod”.</p>
 <p><span class="math display">\[\frac{(450 - 0)}{5} =
