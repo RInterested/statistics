@@ -18,7 +18,7 @@ output:
 ### Summary:
 
 
-##### p-adic integers (in $\mathbb Z_p$) versus p-adic rationals (in $\mathbb Q_p$) with $\mathbb Z_p\subset\mathbb Q_p$:
+##### p-adic integers $(\in \mathbb Z_p)$ versus p-adic rationals $(\in \mathbb Q_p)$ with $\mathbb Z_p\subset\mathbb Q_p$:
 
 **INTEGERS:**
 
@@ -586,15 +586,23 @@ $$\bbox[20px, border: 5px solid red]{\text{new }a =\frac{\text{old }a-\text{rema
 
 ---
 
-THE CONCEPT: We have worked up the original number (the first $a=450$) mod $5$. In doing so, all we know is that on a $5$ hour clock, some event happened at $\small \text{time}=\text{ remainder}.$ However, there are more levels of refinenment, corresponding to higher orders of magnitude. These have been completely ignored at this first level. To bring them to light, we need to subtract from the $\text{old }a$ this remainder that is already part of the $5$-adic expression. The difference will be the naturally divisible by $5.$ This difference (the numerator), when divided by $5$ will give us the number of revolutions around the clock that have been ignored - the $\text{new }a.$ Now comes the key idea: we want to know this number of revolutions mod $5.$ Because we have divided by $5$ the difference between the actual initial number and the first remainder when modded by $5$ we are now looking at the modular expression of the number (minus the first remainder), base $25.$ 
+**THE CONCEPT**: We have worked up the original number (the first $a=450$) mod $5$. In doing so, all we know is that on a $5$ hour clock, some event happened at $\small \text{time}=\text{ remainder}.$ However, there are more levels of refinenment, corresponding to higher orders of magnitude. These have been completely ignored at this first level. To bring them to light, we need to subtract from the $\text{old }a$ this remainder that is already part of the $5$-adic expression. The difference will be the naturally divisible by $5.$ This difference (the numerator), when divided by $5$ will give us the number of revolutions around the clock that have been ignored - the $\text{new }a.$ Now comes the key idea: we want to know this number of revolutions mod $5.$ Because we have divided by $5$ the difference between the actual initial number and the first remainder when modded by $5$ we are now looking at the modular expression of the number (minus the first remainder), base $25.$ 
 
 Imagine we have a $5$-hour front clock. That gives us the first expression of the original expression base $5.$ Now imagine that there is a smaller $5$-hour clock right behind this front clock. This second $5$-hour clock ticks once every time the bigger, front clock goes one full circle around: the second clock counts the full revolutions of the first clock. Naturally, the initial remainder is less than one full revolution, so it will leave no mark on the second clock.
 
 If the number of revolutions of the first clock is more than $25,$ there will be a need for a third, smaller back clock to keep tally of the revolutions of the second clock. And so on to infinity.
 
+Crucially, we can leave out the process of refining the information contained in the original number at any step. It is the same with a regular clock: saying "it's $19:00$ is meaningful, even though we would like to also know whether we are referring to $7$ pm of the first day counted, or of the second, third or forth day, i.e. the number of full revolutions around the $24$-hour clockface that would need a second counter. If we had this second counter for the number of full days, it would never modify that it is $7$ pm of some day.
+
+While the $p$-adic clocks stack neatly backward into the wall—ensuring that a spin of the $10,000\text{th}$ clock leaves the front dial completely undisturbed—the real-number clocks are structurally tied to a fluid tail. If you walk away from a real calculation, you have left the foundation unlocked; the future tail always retains a mechanical veto power over the past.
+
+In the real line the remnant from a high order of magnitude is added to a digit from an order of magnitude immediately lower to create the next dividend in a long division. Hence the remnants are not isolated at each order of magnitude, resulting in limit cases in which situations like 0.49999 = 0.5 can occur. This make the operations in the real line unstable.
+
+To find the next digit in the long division of a fraction $d_{n+1}$, we take our current remainder $R_n$, multiply it by $10,$ add the next digit of the dividend ($I_{n+1}$), and divide by our divisor $B$: $\small \text{Next Working Dividend} = (R_n \times 10) + I_{n+1}.$ Because $R_n$ is multiplied by $10$ and mixed with $I_{n+1}$, the boundaries between orders of magnitude are completely fluid. Information flows seamlessly back and forth across the decimal point. Because the remnants are not isolated, an infinite tail of high digits ($9999\dots$) can act like a slow-moving wave. Each $9$ passes a massive remainder to the left, which passes a remainder to the left, until the wave hits the front of the number and forces $0.4999\dots$ to collapse into $0.5$. This makes real digit expansions unstable.
+
 ---
   
-Notice that $\text{old }a-\text{remainder}$ will always be divisible by the "mod".
+Continuing now with the calculation, notice that $\text{old }a-\text{remainder}$ will always be divisible by the "mod".
   
 $$\frac{(450 - 0)}{5} = \mathbf{90}$$
 

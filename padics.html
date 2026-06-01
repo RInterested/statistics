@@ -379,8 +379,10 @@ MATHEMATICS</strong></h3>
 <div id="summary" class="section level3">
 <h3>Summary:</h3>
 <div id="p-adic-integers-in-mathbb-z_p-versus-p-adic-rationals-in-mathbb-q_p-with-mathbb-z_psubsetmathbb-q_p" class="section level5">
-<h5>p-adic integers (in <span class="math inline">\(\mathbb
-Z_p\)</span>) versus p-adic rationals (in <span class="math inline">\(\mathbb Q_p\)</span>) with <span class="math inline">\(\mathbb Z_p\subset\mathbb Q_p\)</span>:</h5>
+<h5>p-adic integers <span class="math inline">\((\in \mathbb
+Z_p)\)</span> versus p-adic rationals <span class="math inline">\((\in
+\mathbb Q_p)\)</span> with <span class="math inline">\(\mathbb
+Z_p\subset\mathbb Q_p\)</span>:</h5>
 <p><strong>INTEGERS:</strong></p>
 <p><span class="math inline">\(\mathbb Z_p\)</span> contains numbers
 whose expansions only go to the left (powers <span class="math inline">\(p^0, p^1, p^2, \dots\)</span>):</p>
@@ -1215,7 +1217,8 @@ fit, how close will it be to a multiple of <span class="math inline">\(5\)</span
 red]{\text{new }a =\frac{\text{old
 }a-\text{remainder}}{\text{mod}}}\]</span></p>
 <hr />
-<p>THE CONCEPT: We have worked up the original number (the first <span class="math inline">\(a=450\)</span>) mod <span class="math inline">\(5\)</span>. In doing so, all we know is that on a
+<p><strong>THE CONCEPT</strong>: We have worked up the original number
+(the first <span class="math inline">\(a=450\)</span>) mod <span class="math inline">\(5\)</span>. In doing so, all we know is that on a
 <span class="math inline">\(5\)</span> hour clock, some event happened
 at <span class="math inline">\(\small \text{time}=\text{
 remainder}.\)</span> However, there are more levels of refinenment,
@@ -1241,9 +1244,45 @@ the second clock.</p>
 <p>If the number of revolutions of the first clock is more than <span class="math inline">\(25,\)</span> there will be a need for a third,
 smaller back clock to keep tally of the revolutions of the second clock.
 And so on to infinity.</p>
+<p>Crucially, we can leave out the process of refining the information
+contained in the original number at any step. It is the same with a
+regular clock: saying “it’s <span class="math inline">\(19:00\)</span>
+is meaningful, even though we would like to also know whether we are
+referring to <span class="math inline">\(7\)</span> pm of the first day
+counted, or of the second, third or forth day, i.e. the number of full
+revolutions around the <span class="math inline">\(24\)</span>-hour
+clockface that would need a second counter. If we had this second
+counter for the number of full days, it would never modify that it is
+<span class="math inline">\(7\)</span> pm of some day.</p>
+<p>While the <span class="math inline">\(p\)</span>-adic clocks stack
+neatly backward into the wall—ensuring that a spin of the <span class="math inline">\(10,000\text{th}\)</span> clock leaves the front
+dial completely undisturbed—the real-number clocks are structurally tied
+to a fluid tail. If you walk away from a real calculation, you have left
+the foundation unlocked; the future tail always retains a mechanical
+veto power over the past.</p>
+<p>In the real line the remnant from a high order of magnitude is added
+to a digit from an order of magnitude immediately lower to create the
+next dividend in a long division. Hence the remnants are not isolated at
+each order of magnitude, resulting in limit cases in which situations
+like 0.49999 = 0.5 can occur. This make the operations in the real line
+unstable.</p>
+<p>To find the next digit in the long division of a fraction <span class="math inline">\(d_{n+1}\)</span>, we take our current remainder
+<span class="math inline">\(R_n\)</span>, multiply it by <span class="math inline">\(10,\)</span> add the next digit of the dividend
+(<span class="math inline">\(I_{n+1}\)</span>), and divide by our
+divisor <span class="math inline">\(B\)</span>: <span class="math inline">\(\small \text{Next Working Dividend} = (R_n \times
+10) + I_{n+1}.\)</span> Because <span class="math inline">\(R_n\)</span>
+is multiplied by <span class="math inline">\(10\)</span> and mixed with
+<span class="math inline">\(I_{n+1}\)</span>, the boundaries between
+orders of magnitude are completely fluid. Information flows seamlessly
+back and forth across the decimal point. Because the remnants are not
+isolated, an infinite tail of high digits (<span class="math inline">\(9999\dots\)</span>) can act like a slow-moving
+wave. Each <span class="math inline">\(9\)</span> passes a massive
+remainder to the left, which passes a remainder to the left, until the
+wave hits the front of the number and forces <span class="math inline">\(0.4999\dots\)</span> to collapse into <span class="math inline">\(0.5\)</span>. This makes real digit expansions
+unstable.</p>
 <hr />
-<p>Notice that <span class="math inline">\(\text{old
-}a-\text{remainder}\)</span> will always be divisible by the “mod”.</p>
+<p>Continuing now with the calculation, notice that <span class="math inline">\(\text{old }a-\text{remainder}\)</span> will always
+be divisible by the “mod”.</p>
 <p><span class="math display">\[\frac{(450 - 0)}{5} =
 \mathbf{90}\]</span></p>
 <p>Level <span class="math inline">\(5^1\)</span>:</p>
