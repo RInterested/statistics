@@ -979,19 +979,27 @@ In algebra, simpler usually means smaller or having fewer elements, and the arro
 ---
 
 <h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
-The Geometric Topology of the p-adic Tree:
+The geometric topology of the p-adic tree:
 </h2>
 
 ---
 
-In the true geometric construction of the $5$-adic tree, the cylinders are eccentric (offset - not concentric) because each one must fit entirely inside the specific sub-region of its "parent" cylinder. In the $4357$ example, the cylinders shift as you go up the levels because you are picking a specific branch that isn't the central one ($b_i=0$). The base cylinder represents all numbers in $\mathbb{Z}_5$. This large cylinder is partitioned into $p$ (in this case, $5$) smaller, non-overlapping cylinders. If you pick $x_1 = 2$, you move into the second "shifted" cylinder. From there, to find $x_2 = 7$ (which is $2 + 1 \cdot 5$), you must move into a further offset sub-cylinder inside the first one. Instead of a straight vertical tower, the path for $4357$ looks like a spiraling or leaning staircase: Level $1$ ($b_0=2$): You step away from the center of the base. Level $2$ ($b_1=1$): You step again in a new direction within that first step. Level $3$ ($b_2=4$): You step toward the edge of that sub-region. The infinite limit point is the unique point at the very top where all these offset cylinders eventually converge to a single vertical line. In the p-adic metric, the fact that they are offset doesn't change the "distance," but it perfectly illustrates the inverse limit: you are narrowing down your location in the p-adic "map" by choosing smaller and smaller offset neighborhoods.
+In the true geometric construction of the $5$-adic tree, the cylinders are eccentric (offset - not concentric) because each one must fit entirely inside the specific sub-region of its parent cylinder. In the $4357$ example, the cylinders shift as we go up the levels because we are picking a specific branch that isn't the central one ($b_i=0$). The base cylinder represents all numbers in $\mathbb{Z}_5$. This large cylinder is partitioned into $p$ (in this case, $5$) smaller, non-overlapping cylinders. If we pick $x_1 = 2$, we move into the second shifted cylinder. From there, to find $x_2 = 7$ (which is $2 + 1 \cdot 5$), we must move into a further offset sub-cylinder inside the first one. Instead of a straight vertical tower, the path for $4357$ looks like a spiraling or leaning staircase: Level $1$ ($b_0=2$): we step away from the center of the base. Level $2$ ($b_1=1$): we step again in a new direction within that first step. Level $3$ ($b_2=4$): we step toward the edge of that sub-region. The infinite limit point is the unique point at the very top where all these offset cylinders eventually converge to a single vertical line. In the p-adic metric, the fact that they are offset doesn't change the distance, but it perfectly illustrates the inverse limit: we are narrowing down our location in the p-adic map by choosing smaller and smaller offset neighborhoods.
 
 
 ---
 
-In $\mathbb{R}$, the "tail" of a decimal expansion can fundamentally change the "head" because of the Archimedean property. In a decimal expansion, there is no "safe zone." If you have a number like $\pi$ or any irrational: $3.14159265...$ and you change a digit $1,000$ places to the right, in the real numbers, that change is "small." But if you are performing arithmetic, a carry generated at the $1,000^{\text{th}}$ place can propagate all the way back to the $3$. This is the instability. The far-away digits are not truly isolated from the important digits. The p-adic metric is non-Archimedean (it is ultrametric).
+In $\mathbb{R}$, the "tail" of a decimal expansion can fundamentally change the head because of the Archimedean property. In a decimal expansion, there is no safe zone. If we have a number like $\pi = 3.14159265...$ and we change a digit $1,000$ places to the right, in the real numbers, that change is small. But if we are performing arithmetic, a carry generated at the $1,000^{\text{th}}$ place can propagate all the way back to the $3$. This is the instability. The far-away digits are not truly isolated from the important digits. The p-adic metric is non-Archimedean (it is ultrametric).
 
 The real numbers and the p-adic numbers are essentially two different philosophies of precision. The problem isn't that carries exist — it's that in the real numbers, the direction of importance and the direction of arithmetic flow are in direct conflict. In decimal (real) numbers the importance is on the left (the $3$ in $\pi$ is more important than the $4$ in the hundredths place). However, the arithmetic flow (the carries) moves from right to left. This means that to be absolutely sure about the most important part of your number (the $3$), you technically need to know every single digit to the infinite right, just in case a "$999...$" chain is sitting there waiting to be triggered by a carry. In p-adics, the directions are aligned: the importance is on the right (the units/remainder $b_0$) - remember that p-adics are written right to left. Likewise, the arithmetic flow (carries) moves from right to left (toward higher powers of $p$). It moves toward the part of the number that matters less.
+
+---
+
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Open balls:
+</h2>
+
+---
 
 Mathematically, a p-adic open ball is defined by the p-adic absolute value (or norm), denoted as $| \cdot |_p$. Because the p-adic metric is non-Archimedean (it follows the ultrametric inequality), these balls behave very differently from the intervals we see on a real number line. The formal definition of an open ball $B_r(a)$ centered at $a \in \mathbb{Q}_p$ with radius $r > 0$ is the set:
 
@@ -1008,6 +1016,20 @@ $$B_{p^{-n}}(a) = a + p^n\mathbb{Z}_p = \{ a + k \cdot p^n : k \in \mathbb{Z}_p 
 In terms of modular arithmetic, this means:
 
 $$x \equiv a \pmod{p^n}$$
+
+##### Example:
+
+We will use the $5$-adic integers ($\mathbb{Z}_5$), where $p = 5$. Let’s pick our center point $a$ to be $4357$, and let's choose a precision level of $n = 3$. We set our radius to $r = 5^{-3} = \frac{1}{125} = 0.008$. We want to find the open ball
+
+$$B_{5^{-3}}(4357)$$
+
+First, let's write out $a = 4357$ in its infinite $5$-adic string representation (reading right-to-left from the units place):
+
+$$a = \dots 000011441\mathbf{2_5}$$
+The ball consists of all numbers that share the same first $n$ digits as $a$." Since $n = 3$, we look at the first three digits from the right ($d_0, d_1, d_2$). For $4357$, those digits are $412_5$. Therefore, any $5$-adic number $x$ belongs to this neighborhood if and only if its string ends in those exact three digits:$$x = \dots d_5 d_4 d_3 \mathbf{412_5}$$
+
+---
+
 
 The use of $-(n+1)$ in the exponent is a way to bridge the gap between an "open ball" ($<$) and a "closed ball" ($\leq$) in a space where distances only exist in discrete steps. In the p-adic world, distances are always powers of $p$ (e.g., $1, 1/5, 1/25, \dots$). There is no distance in between $1/5$ and $1/25$. If we define an open ball with radius $r = 5^{-n}$:
 
@@ -1027,8 +1049,13 @@ It is worth noting that in p-adic topology, every ball is both open and closed (
 
 ---
 
+---
 
-##### Relationship between the digits in the p-adic and decimal expressions:
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Relationship between the digits in the p-adic and decimal expressions:
+</h2>
+
+---
 
 For instance, in the case of $1/3$:
 
@@ -1038,11 +1065,11 @@ $$\boxed{\begin{align}&\text{Reals base } 5: &0.\mathbf{131313...}\\
 
 only the first digit is different. 
 
-The connection between the first digit of the base $5$ expansion ($1$) and the first digit of the $5$-adic expansion ($2$) is hidden in a simple piece of arithmetic: $1 + 2 = 3$ (the denominator). This isn't a coincidence. In many cases, the p-adic expansion and the standard fractional expansion act like "partners" trying to reach the same target from different directions. In base $5$ this $1$ tells you that $1/3$ is at least $1/5$. It is a floor or an estimate from below. In $5$-adic this $2$ is the solution to $3x \equiv 1 \pmod 5$. It is the unique integer that, when multiplied by the denominator, gets you as close as possible to a "reset" (a multiple of $5$). The base $5$ version is trying to build $0.333...$ (in decimal). The $5$-adic version is trying to "undo" the $3.$ Because $3 \times 2 = 6$, and $6$ is one more than $5,$ that $2$ is the perfect starting piece to begin the p-adic cancellation process. 
+The connection between the first digit of the base $5$ expansion ($1$) and the first digit of the $5$-adic expansion ($2$) is hidden in a simple piece of arithmetic: $1 + 2 = 3$ (the denominator). This isn't a coincidence. In many cases, the p-adic expansion and the standard fractional expansion act like partners trying to reach the same target from different directions. In base $5$ this $1$ tells us that $1/3$ is at least $1/5$. It is a floor or an estimate from below. In $5$-adic this $2$ is the solution to $3x \equiv 1 \pmod 5$. It is the unique integer that, when multiplied by the denominator, gets us as close as possible to a reset (a multiple of $5$). The base $5$ version is trying to build $0.333...$ (in decimal). The $5$-adic version is trying to undo the $3.$ Because $3 \times 2 = 6$, and $6$ is one more than $5,$ that $2$ is the perfect starting piece to begin the p-adic cancellation process. 
 
-There is a famous p-adic identity that explains why the digits look like reflections. If you look at the $5$-adic expansion of $-1$, it is an infinite string of $4$s: $$-1 = 4 + 4(5) + 4(25) + 4(125) + \dots$$ 
+There is a famous p-adic identity that explains why the digits look like reflections. If we look at the $5$-adic expansion of $-1$, it is an infinite string of $4$s: $$-1 = 4 + 4(5) + 4(25) + 4(125) + \dots$$ 
 
-When you calculate a positive fraction like $1/3$ in p-adics, the math often forces the digits to be the "complements" (relative to $p-1$) of the standard base expansion.
+When we calculate a positive fraction like $1/3$ in p-adics, the math often forces the digits to be the complements (relative to $p-1$) of the standard base expansion.
 
 Notice the math in the **calculation**:
 
@@ -1103,6 +1130,14 @@ Solve $3x \equiv -2 \pmod 5$.$3 \times \mathbf{1} = 3 \equiv -2$. So $d_2 = 1$.
 
 
 Result: $...132_5$
+
+---
+
+---
+
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+P-adic topology as Windows Explorer:
+</h2>
 
 ---
 
@@ -1198,6 +1233,15 @@ The distance between files depend on how many bifurcations we have to climb up t
 <img width = 600  src = "padic_inverted_u.png">
 
 ---
+
+---
+
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Isosceles triangle and the p-adic metric:
+</h2>
+
+---
+
 
 Notice the isosceles triangle principle of the p-adic metric in two examples:
 
