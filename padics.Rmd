@@ -54,13 +54,13 @@ Example:
 
 $\cdots 1100110011001022_3$ is $-1.45 = -\frac{29}{20}.$
 
-Transcendental numbers also turn into p-adic integers... Well, sometimes! Here is a mind-boggling realization: To move a number from $\mathbb{R}$ to $\mathbb{Q}_p$, we need a bridge: usually a sequence of rational numbers. For instance in $\mathbb{R}$, $e = \displaystyle \sum_{n=0}^\infty \frac1 {n!}$. In $\mathbb{Q}_p$, the terms $1/n!$ have $p$ in the denominator more and more often as $n$ grows. This means the terms get larger pically $(|1/n!|_p \to \infty)$. Therefore the series explodes. Similarly $\pi$ is defined by the geometry of Euclidean space. Since pic space is non-Euclidean and ultra-metric (every triangle is isosceles), the physical definition of $\pi$ has no meaning there.
+Transcendental numbers also turn into p-adic integers... Well, sometimes! Here is a mind-boggling realization: To move a number from $\mathbb{R}$ to $\mathbb{Q}_p$, we need a bridge: usually a sequence of rational numbers. For instance in $\mathbb{R}$, $e = \displaystyle \sum_{n=0}^\infty \frac1 {n!}$. In $\mathbb{Q}_p$, the terms $1/n!$ have $p$ in the denominator more and more often as $n$ grows. This means the terms get larger p-adically $(|1/n!|_p \to \infty)$. Therefore the series explodes. Similarly $\pi$ is defined by the geometry of Euclidean space. Since p-adic space is non-Euclidean and ultra-metric (every triangle is isosceles), the physical definition of $\pi$ has no meaning there.
 
-Even though Ostrowski's Theorem states that the only ways to fill in the gaps of the rational numbers $\mathbb{Q}$ are through the familiar real numbers $\mathbb{R}$ or the pic numbers $\mathbb{Q}_p$ for some prime $p,$ we can't express either $\pi$ or $e$ as p-adics. Completion isn't about collecting every possible number that exists; it's about filling in the holes for a specific way of measuring distance. In the reals we use the distance $|x - y|:$ We see that the sequence $3, 3.1, 3.14, 3.141...$ is getting closer and closer together. Since the "limit" isn't a rational number, we call that hole $\pi$ and add it to the set. In the p-adics, we use the distance $|x - y|_p$. In this metric, the sequence $3, 3.1, 3.14...$ doesn't get closer together at all. In fact, the terms stay far apart. Therefore, there is no "hole" at $\pi$ in the pic world because the sequence never tries to go there. The pics are complete because every sequence that should converge (according to pic distance) does converge to a pic number.
+Even though Ostrowski's Theorem states that the only ways to fill in the gaps of the rational numbers $\mathbb{Q}$ are through the familiar real numbers $\mathbb{R}$ or the p-adic numbers $\mathbb{Q}_p$ for some prime $p,$ we can't express either $\pi$ or $e$ as p-adics. Completion isn't about collecting every possible number that exists; it's about filling in the holes for a specific way of measuring distance. In the reals we use the distance $|x - y|:$ We see that the sequence $3, 3.1, 3.14, 3.141...$ is getting closer and closer together. Since the "limit" isn't a rational number, we call that hole $\pi$ and add it to the set. In the p-adics, we use the distance $|x - y|_p$. In this metric, the sequence $3, 3.1, 3.14...$ doesn't get closer together at all. In fact, the terms stay far apart. Therefore, there is no "hole" at $\pi$ in the p-adic world because the sequence never tries to go there. The p-adics are complete because every sequence that should converge (according to p-adic distance) does converge to a p-adic number.
 
-Just as in the real world, many Cauchy sequences of rational numbers do not converge to a rational number. The set of pic numbers $\mathbb{Q}_p$ is defined as the completion of $\mathbb{Q}$ with respect to the pic metric. 
+Just as in the real world, many Cauchy sequences of rational numbers do not converge to a rational number. The set of p-adic numbers $\mathbb{Q}_p$ is defined as the completion of $\mathbb{Q}$ with respect to the p-adic metric. 
 
-The "geometry" of a pic circle is nothing like the one you draw on a piece of paper. Here is a Gemini depiction of a circle as the folders at the same depth inside a Windows Explorer system (explained later on):
+The "geometry" of a p-adic circle is nothing like the one you draw on a piece of paper. Here is a Gemini depiction of a circle as the folders at the same depth inside a Windows Explorer system (explained later on):
 
 ---
 
@@ -68,21 +68,21 @@ The "geometry" of a pic circle is nothing like the one you draw on a piece of pa
 
 ---
 
-In the pic world, trigonometry exists through power series, but the lack of $\pi$ means the functions behave in ways that would baffle a high school geometry student. Here is how we compute "circular" things in $\mathbb{Q}_p$ without $\pi$:
+In the p-adic world, trigonometry exists through power series, but the lack of $\pi$ means the functions behave in ways that would baffle a high school geometry student. Here is how we compute "circular" things in $\mathbb{Q}_p$ without $\pi$:
 
 In the reals, you can define $\sin(x)$ and $\cos(x)$ using the unit circle, or you can use their Taylor series. Since there are no "visual" circles in $\mathbb{Q}_p$, we use the series:
 
 $$\sin(x) = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!} \quad \text{and} \quad \cos(x) = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n}}{(2n)!}$$
 
-These series converge in $\mathbb{Q}_p$ as long as $|x|_p$ is small enough (specifically $|x|_p < p^{-1/(p-1)}$). Inside this "disk of convergence," these functions work perfectly. You can even prove the pic version of the Pythagorean identity $\sin^2(x) + \cos^2(x) = 1$.
+These series converge in $\mathbb{Q}_p$ as long as $|x|_p$ is small enough (specifically $|x|_p < p^{-1/(p-1)}$). Inside this "disk of convergence," these functions work perfectly. You can even prove the p-adic version of the Pythagorean identity $\sin^2(x) + \cos^2(x) = 1$.
 
-In the real numbers, $\sin(x)$ is periodic because of $\pi$. You go around the circle $2\pi$ radians and end up back where you started. In the pics, there is no $\pi$ because there is no periodicity. In $\mathbb{R}$, $\sin(x) = 0$ at $0, \pi, 2\pi, \dots.$ In $\mathbb{Q}_p$, the only solution to $\sin(x) = 0$ is $x = 0$. Because the functions aren't periodic, they don't "wrap around." A pic "line" doesn't form a closed loop in the way a real line wraps into a circle. If you define a circle as the set of points where $|x|_p = r$, the shape is strange: a set of disjoint disks. Because of the ultrametric inequality, if two pic "circles" overlap at all, one is contained entirely within the other. A pic circle isn't a smooth continuous line; it's more like a fractal dust (a Cantor set).
+In the real numbers, $\sin(x)$ is periodic because of $\pi$. You go around the circle $2\pi$ radians and end up back where you started. In the p-adics, there is no $\pi$ because there is no periodicity. In $\mathbb{R}$, $\sin(x) = 0$ at $0, \pi, 2\pi, \dots.$ In $\mathbb{Q}_p$, the only solution to $\sin(x) = 0$ is $x = 0$. Because the functions aren't periodic, they don't "wrap around." A p-adic "line" doesn't form a closed loop in the way a real line wraps into a circle. If you define a circle as the set of points where $|x|_p = r$, the shape is strange: a set of disjoint disks. Because of the ultrametric inequality, if two p-adic "circles" overlap at all, one is contained entirely within the other. A p-adic circle isn't a smooth continuous line; it's more like a fractal dust (a Cantor set).
 
-Since we don't have $\pi$ to measure angles, we use roots of unity. In the complex numbers, the roots of $x^n - 1 = 0$ are points on the unit circle separated by angles of $2\pi/n$. In $\mathbb{Q}_p$, we can solve $x^n - 1 = 0$ for certain values of $n$ (specifically where $n$ divides $p-1$ using Hensel's Lemma). These roots of unity are the pic way of "dividing the circle." You aren't moving a distance of $\pi/4$ along an arc; you are jumping between discrete algebraic points that satisfy a circular equation.
+Since we don't have $\pi$ to measure angles, we use roots of unity. In the complex numbers, the roots of $x^n - 1 = 0$ are points on the unit circle separated by angles of $2\pi/n$. In $\mathbb{Q}_p$, we can solve $x^n - 1 = 0$ for certain values of $n$ (specifically where $n$ divides $p-1$ using Hensel's Lemma). These roots of unity are the p-adic way of "dividing the circle." You aren't moving a distance of $\pi/4$ along an arc; you are jumping between discrete algebraic points that satisfy a circular equation.
 
 However, there are transcendental and complex numbers that can be expressed as p-adic integers. For example, in the $5$-adics, $\sqrt{-1}$ is a "natural" member of the field. 
 
-While the imaginary number $i = \sqrt{-1}$ cannot exist in the real number system because a positive times a positive is positive and a negative times a negative is also positive, it does exist in the $5$-adic number system. The reason it only exists for some $p$ is based on modular arithmetic. A square root of $-1$ (a number $x$ such that $x^2 = -1$) exists in the pic integers $\mathbb{Z}_p$ if and only if the equation $x^2 \equiv -1 \pmod p$ has a solution. This condition is only met when $p$ is a prime number that is congruent to $1$ modulo $4$. For $p=5$ the equation $x^2 \equiv -1 \pmod 5$ is equivalent to $x^2 \equiv 4 \pmod 5$. This has two solutions: $x=2$ and $x=3$, as $2^2 = 4 \equiv 4 \pmod 5$ and $3^2 = 9 \equiv 4 \pmod 5$. Because these solutions exist, they can be lifted to form two unique $5$-adic integers that are the square roots of $-1$.
+While the imaginary number $i = \sqrt{-1}$ cannot exist in the real number system because a positive times a positive is positive and a negative times a negative is also positive, it does exist in the $5$-adic number system. The reason it only exists for some $p$ is based on modular arithmetic. A square root of $-1$ (a number $x$ such that $x^2 = -1$) exists in the p-adic integers $\mathbb{Z}_p$ if and only if the equation $x^2 \equiv -1 \pmod p$ has a solution. This condition is only met when $p$ is a prime number that is congruent to $1$ modulo $4$. For $p=5$ the equation $x^2 \equiv -1 \pmod 5$ is equivalent to $x^2 \equiv 4 \pmod 5$. This has two solutions: $x=2$ and $x=3$, as $2^2 = 4 \equiv 4 \pmod 5$ and $3^2 = 9 \equiv 4 \pmod 5$. Because these solutions exist, they can be lifted to form two unique $5$-adic integers that are the square roots of $-1$.
 
 
 <h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
@@ -103,15 +103,15 @@ When a p-adic number has digits to the right of the point, it is formally treate
  
 $\mathbb Q_p$ is the field of fractions of $\mathbb Z_p$, created simply by taking $\mathbb Z_p$ and allowing division by $p.$ 
 
-While the pic integers $\mathbb{Z}_p$ consist of power series starting at $i=0$, the full field of pic numbers, denoted by $\mathbb{Q}_p$, allows for a finitary fractional part: the "fractional" part (the negative powers) must be finite. If we allowed an infinite number of negative powers, the series would not converge under the pic metric. In pic analysis, $p^n$ gets smaller as $n$ gets larger. Therefore, $p^{-n}$ gets larger as $n$ gets larger. An infinite sum of increasingly huge terms cannot converge.
+While the p-adic integers $\mathbb{Z}_p$ consist of power series starting at $i=0$, the full field of p-adic numbers, denoted by $\mathbb{Q}_p$, allows for a finitary fractional part: the "fractional" part (the negative powers) must be finite. If we allowed an infinite number of negative powers, the series would not converge under the p-adic metric. In p-adic analysis, $p^n$ gets smaller as $n$ gets larger. Therefore, $p^{-n}$ gets larger as $n$ gets larger. An infinite sum of increasingly huge terms cannot converge.
 
 A general element $\gamma \in \mathbb{Q}_p$ is expressed as a formal Laurent series in $p$:
 
 $$\gamma = \underbrace{\frac{a_{-k}}{p^k} + \dots + \frac{a_{-1}}{p^1}}_{\substack{\text{Fractional Part} \\ \text{(Finite Terms)}}} + \underbrace{a_0 + a_1 p^1 + a_2 p^2 + \dots}_{\substack{\text{Integer Part } (\mathbb{Z}_p) \\ \text{(Infinite Series)}}}$$
 
-$\mathbb{Q}_p$ can be viewed as the field of fractions of $\mathbb{Z}_p$. There is resemblance to Laurent series, in which the variable is $x$ or $(z - z_0)$, while in pics, the prime $p$ plays the role of the variable. In both cases, the coefficients $a_i$ come from a specific set (a field or $\{0, \dots, p-1\}$). Just as a Laurent series converges when the variable is small, pic series converge because, under the pic metric, higher powers of $p$ are "smaller" (closer to zero). 
+$\mathbb{Q}_p$ can be viewed as the field of fractions of $\mathbb{Z}_p$. There is resemblance to Laurent series, in which the variable is $x$ or $(z - z_0)$, while in p-adics, the prime $p$ plays the role of the variable. In both cases, the coefficients $a_i$ come from a specific set (a field or $\{0, \dots, p-1\}$). Just as a Laurent series converges when the variable is small, p-adic series converge because, under the p-adic metric, higher powers of $p$ are "smaller" (closer to zero). 
 
-In standard base-$p$ arithmetic, digits to the right of the point represent $p^{-1}, p^{-2}, \dots$ and get smaller as you move right. In pics, these negative powers are actually the large components. If $k \to \infty$ in the denominator as in the sequence: 
+In standard base-$p$ arithmetic, digits to the right of the point represent $p^{-1}, p^{-2}, \dots$ and get smaller as you move right. In p-adics, these negative powers are actually the large components. If $k \to \infty$ in the denominator as in the sequence: 
 
 $$\frac{1}{p}, \frac{1}{p^2}, \frac{1}{p^3}, \dots, \frac{1}{p^n}$$
 
@@ -122,7 +122,7 @@ the sequence diverges to infinity. Just as in the real numbers the sequence $10^
   Positive integers:
 </h1>
 
-For **positive integers** the digits expressed in pics or in base $p$ are identical, but the direction in which you read or sum them is different.
+For **positive integers** the digits expressed in p-adics or in base $p$ are identical, but the direction in which you read or sum them is different.
 
 Writing a positive integer $n$ in base $p$ is expressing it as a finite sum of powers of $p$:
 
@@ -130,11 +130,11 @@ $$n = a_k p^k + a_{k-1} p^{k-1} + \dots + a_1 p^1 + a_0 p^0$$
 
 where each digit $a_i \in \{0, 1, \dots, p-1\}$. We usually write this as $(a_k a_{k-1} \dots a_1 a_0)_p.$ The sequence of digits terminates to the left (it is finite), and the powers of $p$ increase as you move to the left. The "size" of the number is determined by the highest power of $p$.
 
-An element of the pic integers $\mathbb{Z}_p$ is an infinite formal power series:
+An element of the p-adic integers $\mathbb{Z}_p$ is an infinite formal power series:
 
 $$\alpha = \sum_{i=0}^{\infty} a_i p^i = a_0 + a_1 p^1 + a_2 p^2 + \dots$$
 
-For a standard positive integer $n$, the pic expansion is simply the base-$p$ expansion where all digits beyond the highest power $p^k$ are zero.
+For a standard positive integer $n$, the p-adic expansion is simply the base-$p$ expansion where all digits beyond the highest power $p^k$ are zero.
 
 $$n = a_0 + a_1 p + \dots + a_k p^k + 0 \cdot p^{k+1} + 0 \cdot p^{k+2} + \dots$$
 
@@ -164,7 +164,7 @@ In standard base-$5$ notation, we write this as
 
 $$1003_5$$
 
-In the pic system $\mathbb{Z}_p$, we view numbers as infinite series of powers of $p$:
+In the p-adic system $\mathbb{Z}_p$, we view numbers as infinite series of powers of $p$:
 
 $$\dots + a_3 5^3 + a_2 5^2 + a_1 5^1 + a_0 5^0$$
 
@@ -175,11 +175,11 @@ $$\dots 00001003_5$$
   Negative integers:
 </h1>
 
-For **negative integers**, in pics, we don't use minus signs; we use the geometric series. For example, in $2$-adics, what is the representation of $-1$? Since $\frac{1}{1-r} = 1 + r + r^2 + \dots$, we set $r=2$:
+For **negative integers**, in p-adics, we don't use minus signs; we use the geometric series. For example, in $2$-adics, what is the representation of $-1$? Since $\frac{1}{1-r} = 1 + r + r^2 + \dots$, we set $r=2$:
 
 $$-1 = \frac{1}{1-2} = 1 + 2^1 + 2^2 + 2^3 + \dots$$
 
-In pic notation, $-1$ is written as an infinite string of the highest possible digit: $(\dots 11111)_2$ or $(\dots (p-1)(p-1)(p-1))_p$. 
+In p-adic notation, $-1$ is written as an infinite string of the highest possible digit: $(\dots 11111)_2$ or $(\dots (p-1)(p-1)(p-1))_p$. 
 
 Another example: $-1$ in base $3$ ($p=3$): In standard base $3$: $-1_3$. But in $3$-adic expansion: $\dots 22222_3$. Because if you add $1$ to $\dots 22222_3$, you trigger an infinite carry:
 
@@ -937,12 +937,11 @@ In the true geometric construction of the $5$-adic tree, the cylinders are eccen
 
 ---
 
-In $\mathbb{R}$, the "tail" of a decimal expansion can fundamentally change the "head" because of the Archimedean property. In a decimal expansion, there is no "safe zone." If you have a number like $\pi$ or any irrational: $3.14159265...$ and you change a digit $1,000$ places to the right, in the real numbers, that change is "small." But if you are performing arithmetic, a carry generated at the $1,000^{th}$ place can propagate all the way back to the $3$. This is the instability. The "far away" digits are not truly isolated from the "important" digits. The p-adic metric is non-Archimedean (or an ultrametric).
+In $\mathbb{R}$, the "tail" of a decimal expansion can fundamentally change the "head" because of the Archimedean property. In a decimal expansion, there is no "safe zone." If you have a number like $\pi$ or any irrational: $3.14159265...$ and you change a digit $1,000$ places to the right, in the real numbers, that change is "small." But if you are performing arithmetic, a carry generated at the $1,000^{\text{th}}$ place can propagate all the way back to the $3$. This is the instability. The far-away digits are not truly isolated from the important digits. The p-adic metric is non-Archimedean (it is ultrametric).
 
-The real numbers and the "p-adic" numbers are essentially two different philosophies of precision. The problem isn't that carries exist — it's that in the real numbers, the direction of importance and the direction of arithmetic flow are in direct conflict. In decimal (real) numbers the importance is on the left (the $3$ in $\pi$ is more "important" than the $4$ in the hundredths place). However, the arithmetic flow (the carries) moves from right to left. This means that to be absolutely sure about the most important part of your number (the $3$), you technically need to know every single digit to the infinite right, just in case a "$999...$" chain is sitting there waiting to be triggered by a carry. In p-adics, the directions are aligned the importance is on the right (the units/remainder $b_0$) - remember that p-adics are written right to left. Likewise, the arithmetic flow (carries) moves from right to left (toward higher powers of $p$). Because higher powers are "smaller" in p-adic space, a carry rippling "to the left" is a carry rippling into oblivion. It moves toward the part of the number that matters less.
+The real numbers and the p-adic numbers are essentially two different philosophies of precision. The problem isn't that carries exist — it's that in the real numbers, the direction of importance and the direction of arithmetic flow are in direct conflict. In decimal (real) numbers the importance is on the left (the $3$ in $\pi$ is more important than the $4$ in the hundredths place). However, the arithmetic flow (the carries) moves from right to left. This means that to be absolutely sure about the most important part of your number (the $3$), you technically need to know every single digit to the infinite right, just in case a "$999...$" chain is sitting there waiting to be triggered by a carry. In p-adics, the directions are aligned: the importance is on the right (the units/remainder $b_0$) - remember that p-adics are written right to left. Likewise, the arithmetic flow (carries) moves from right to left (toward higher powers of $p$). It moves toward the part of the number that matters less.
 
-
-Mathematically, a p-adic open ball is defined by the p-adic absolute value (or norm), denoted as $| \cdot |_p$. Because the p-adic metric is "non-Archimedean" (it follows the ultrametric inequality), these balls behave very differently from the intervals we see on a real number line. The formal definition of an open ball $B_r(a)$ centered at $a \in \mathbb{Q}_p$ with radius $r > 0$ is the set:
+Mathematically, a p-adic open ball is defined by the p-adic absolute value (or norm), denoted as $| \cdot |_p$. Because the p-adic metric is non-Archimedean (it follows the ultrametric inequality), these balls behave very differently from the intervals we see on a real number line. The formal definition of an open ball $B_r(a)$ centered at $a \in \mathbb{Q}_p$ with radius $r > 0$ is the set:
 
 $$B_r(a) = \{ x \in \mathbb{Q}_p : |x - a|_p < r \}$$
 
@@ -958,17 +957,17 @@ In terms of modular arithmetic, this means:
 
 $$x \equiv a \pmod{p^n}$$
 
-The use of $-(n+1)$ in the exponent is a way to bridge the gap between an "open ball" ($<$) and a "closed ball" ($\leq$) in a space where distances only exist in discrete steps. In the p-adic world, distances are always powers of $p$ (e.g., $1, 1/5, 1/25, \dots$). There is no distance "in between" $1/5$ and $1/25$. If you define an open ball with radius $r = 5^{-n}$:
+The use of $-(n+1)$ in the exponent is a way to bridge the gap between an "open ball" ($<$) and a "closed ball" ($\leq$) in a space where distances only exist in discrete steps. In the p-adic world, distances are always powers of $p$ (e.g., $1, 1/5, 1/25, \dots$). There is no distance in between $1/5$ and $1/25$. If we define an open ball with radius $r = 5^{-n}$:
 
 $$|x - a|_5 < 5^{-n}$$
 
-the "next smallest" possible distance is $5^{-(n+1)}$. Therefore, saying a distance is strictly less than $5^{-n}$ is mathematically identical to saying it is less than or equal to $5^{-(n+1)}$.
+the next smallest possible distance is $5^{-(n+1)}$. Therefore, saying a distance is strictly less than $5^{-n}$ is mathematically identical to saying it is less than or equal to $5^{-(n+1)}$.
 
 $$B_{5^{-n}}(a) = \{ x \in \mathbb{Q}_5 : |x - a|_5 \leq 5^{-(n+1)} \}$$
 
 This makes more sense if we think about the digits of the number $4357$. If $x$ is in the ball of radius $5^{-n}$, it means $x$ matches $a$ for at least $n$ digits. To be strictly closer than $5^{-n}$, $x$ must match $a$ for at least $n+1$ digits.
 
-It is worth noting that in p-adic topology, every ball is both open and closed (clopen). Because distances are discrete (only powers of $p$), there is no "edge" to a ball. If you are in the ball, you are the center of the ball.
+It is worth noting that in p-adic topology, every ball is both open and closed (clopen). Because distances are discrete (only powers of $p$), there is no edge to a ball. If you we in the ball, we are the center of the ball.
 
 ---
 
@@ -2146,9 +2145,9 @@ To prove there is no rational solution, you only need to find one world where it
 
 3. The "infinite" prime ($\mathbb{R}$). If the equation works in those specific "bad" primes and in $\mathbb{R}$, it is mathematically guaranteed to work in all the other infinite "good" primes.
 
-The Hasse Principle says that for quadratic forms (equations where every term is squared, like $ax^2 + by^2 + cz^2 = 0$), the local truths (the pic and real solutions) are so restrictive that they "trap" the global Truth (the rational solution). The reason this principle works specifically for quadratic forms is that they represent "conic sections" (circles, ellipses, hyperbolas). Geometric objects of degree $2$ have a special property: if you find one point on the curve, you can find all of them by drawing lines through that point. 
+The Hasse Principle says that for quadratic forms (equations where every term is squared, like $ax^2 + by^2 + cz^2 = 0$), the local truths (the p-adic and real solutions) are so restrictive that they "trap" the global Truth (the rational solution). The reason this principle works specifically for quadratic forms is that they represent "conic sections" (circles, ellipses, hyperbolas). Geometric objects of degree $2$ have a special property: if you find one point on the curve, you can find all of them by drawing lines through that point. 
 
-There is a deep law called the **Hilbert Symbol** and the **Product Formula**. It states that for a rational number to exist, the "local signatures" of the equation in all pic worlds must multiply together to equal $1.$ If the pic worlds "agree" (the product is $1$), the rational solution exists. If they "disagree" (the product is $-1$), you can't glue them together. The Hasse Principle for quadratic forms works because there is no "hidden room" for a contradiction. If it looks like a solution everywhere, it is a solution.
+There is a deep law called the **Hilbert Symbol** and the **Product Formula**. It states that for a rational number to exist, the "local signatures" of the equation in all p-adic worlds must multiply together to equal $1.$ If the p-adic worlds "agree" (the product is $1$), the rational solution exists. If they "disagree" (the product is $-1$), you can't glue them together. The Hasse Principle for quadratic forms works because there is no "hidden room" for a contradiction. If it looks like a solution everywhere, it is a solution.
 
 For a cubic equation like $3x^3 + 4y^3 + 5z^3 = 0$, the geometry is a "Genus $1$" curve (a torus). These shapes have a hidden internal "twist" called the **Shafarevich-Tate group** ($\text{Ш}$). This "twist" can allow an equation to have solutions in every p-adic cylinder (the local blueprint looks fine) and in the reals (the size looks fine), but the global geometry is like an Escher staircase — it's impossible to build the whole thing out of rational blocks.
 
@@ -2459,7 +2458,7 @@ $$\begin{align}x &= a_0 + a_1p + a_2p^2 + \dots\\\\&x \pmod{p} = a_0\end{align}$
 
 The only thing left is $a_0$, which is just an element of $\{0, 1, \dots, p-1\}$.
 
-In algebraic geometry, we call $\mathbb{F}_p$ the **residue field** of $\mathbb{Z}_p$. We can think of $\mathbb{Z}_p$ as a microscope. The highest level view (the lowest magnification) is $\mathbb{F}_p$. As we look closer (mod $p^2$, mod $p^3$), you see more digits of the pic number. The isomorphism $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$ says that the coarsest possible view of a pic integer is exactly the same thing as an element of a finite field.
+In algebraic geometry, we call $\mathbb{F}_p$ the **residue field** of $\mathbb{Z}_p$. We can think of $\mathbb{Z}_p$ as a microscope. The highest level view (the lowest magnification) is $\mathbb{F}_p$. As we look closer (mod $p^2$, mod $p^3$), you see more digits of the p-adic number. The isomorphism $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$ says that the coarsest possible view of a p-adic integer is exactly the same thing as an element of a finite field.
 
 We start with the ring of integers $\mathbb{Z}_p$. We "mod out" by $p$ to get the field $\mathbb{F}_p$ (the digits $0-4$). We find a solution in $\mathbb{F}_p$. We "lift" it back up into the full $\mathbb{Z}_p$ tree. You only need $\mathbb{Q}_p$ if you want to divide by $p$. For finding roots of polynomials like $x^2+1$, we stay comfortably inside the "Integer Tree" $\mathbb{Z}_p$.
 
@@ -2473,9 +2472,9 @@ In the following diagram the Level $1$ is represented:
 
 ---
 
-The base cylinder represents the space of all possible $5$-adic integers before you apply any filters or constraints. It contains every number that can be written as: $$x = d_0 + d_1(5) + d_2(25) + \dots$$ where $d_i \in \{0, 1, 2, 3, 4\}$. Because it is level $0,$ no digits have been decided yet.  It is the unit ball $B_1(0).$ In pic geometry, this cylinder is the unit ball. It has a pic radius of $1$. Every point inside this silver cylinder has a pic norm $|x|_5 \le 1$. By making it transparent, you are visually showing that the "true" action (the solution to your equation) is happening inside it, as you zoom into smaller and smaller sub-cylinders.
+The base cylinder represents the space of all possible $5$-adic integers before you apply any filters or constraints. It contains every number that can be written as: $$x = d_0 + d_1(5) + d_2(25) + \dots$$ where $d_i \in \{0, 1, 2, 3, 4\}$. Because it is level $0,$ no digits have been decided yet.  It is the unit ball $B_1(0).$ In p-adic geometry, this cylinder is the unit ball. It has a p-adic radius of $1$. Every point inside this silver cylinder has a p-adic norm $|x|_5 \le 1$. By making it transparent, you are visually showing that the "true" action (the solution to your equation) is happening inside it, as you zoom into smaller and smaller sub-cylinders.
 
-Think of a pic integer $x \in \mathbb{Z}_p$ as a high-resolution image. The full image is an infinite string of digits:$$x = a_0 + a_1p + a_2p^2 + a_3p^3 + \dots$$ When you "blur" the image, you lose the fine details. Initially, you ignore everything that is a multiple of $p$. All you can see is $a_0$. This is $\mathbb{F}_p$. At a second step, you ignore everything that is a multiple of $p^2$. You can now see $a_0 + a_1p$. This is $\mathbb{Z}/p^2\mathbb{Z}$. At level $\infty$ you see every single digit. This is the full pic integer $\mathbb{Z}_p$. By taking the quotient $\mathbb{Z}_p / p\mathbb{Z}_p$, you are mathematically "masking" the fine details.
+Think of a p-adic integer $x \in \mathbb{Z}_p$ as a high-resolution image. The full image is an infinite string of digits:$$x = a_0 + a_1p + a_2p^2 + a_3p^3 + \dots$$ When you "blur" the image, you lose the fine details. Initially, you ignore everything that is a multiple of $p$. All you can see is $a_0$. This is $\mathbb{F}_p$. At a second step, you ignore everything that is a multiple of $p^2$. You can now see $a_0 + a_1p$. This is $\mathbb{Z}/p^2\mathbb{Z}$. At level $\infty$ you see every single digit. This is the full p-adic integer $\mathbb{Z}_p$. By taking the quotient $\mathbb{Z}_p / p\mathbb{Z}_p$, you are mathematically "masking" the fine details.
 
 This coarsest level is $\mathbb{F}_p$.$\mathbb{F}_5$ is just the set $\{0, 1, 2, 3, 4\}$ where we only care about remainders when dividing by $5$. When we solve $x^2 \equiv -1 \pmod 5$, we are looking for a seed. If you can't find a "seed" (a digit $d_0$) in $\mathbb{F}_5$, the project is over. No solution can ever exist in $\mathbb{Z}_5$. But since $2^2 = 4 \equiv -1 \pmod 5$, we found a seed: $d_0 = 2$.
 
@@ -2491,9 +2490,9 @@ This coarsest level is $\mathbb{F}_p$.$\mathbb{F}_5$ is just the set $\{0, 1, 2,
 
 ---
 
-We are building the pic number $x = (2, 1, 2, \dots)$ specifically because that number is the solution to $x^2 + 1 = 0$. In the pic metric, as we add more cylinders (digits), the "error" ($x^2 + 1$) gets smaller and smaller ($5^{-1}, 5^{-2}, 5^{-3} \dots$). In summary: We solve in $\mathbb{F}_5$ to find the "main branch" of the tree. Without that first step, we wouldn't know which of the 5 colors to start painting.
+We are building the p-adic number $x = (2, 1, 2, \dots)$ specifically because that number is the solution to $x^2 + 1 = 0$. In the p-adic metric, as we add more cylinders (digits), the "error" ($x^2 + 1$) gets smaller and smaller ($5^{-1}, 5^{-2}, 5^{-3} \dots$). In summary: We solve in $\mathbb{F}_5$ to find the "main branch" of the tree. Without that first step, we wouldn't know which of the 5 colors to start painting.
 
-To increase the "resolution," we are going to calculate and plot the Hensel Lift for $x^2 + 1 = 0$ in $\mathbb{Z}_5$ up to three levels of precision ($5^0, 5^1, 5^2$). We are using the Newton-Raphson style formula for pics:$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$ 
+To increase the "resolution," we are going to calculate and plot the Hensel Lift for $x^2 + 1 = 0$ in $\mathbb{Z}_5$ up to three levels of precision ($5^0, 5^1, 5^2$). We are using the Newton-Raphson style formula for p-adics:$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$ 
 
 We already have our "seed" from level $1$: $x_0 = 2$. We want to find $x_1$, which is a slightly better version of $x_0$.2. The formula says: $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}.$ The derivative of $x^2+1$ is $2x$. $2(2) = \mathbf{4}$. Now we put them together: $$x_1 = 2 - \frac{5}{4}$$
 
@@ -2529,7 +2528,7 @@ $$... + d_2 \cdot 5^2 + d_1 \cdot 5^1 + d_0 \cdot 5^0 + d_{-1} \cdot 5^{-1} + d_
 
 Because $i$ is not a real number, there is no sequence of digits $\{0, 1, 2, 3, 4\}$ that can satisfy this sum to equal $i$. It simply doesn't exist on the 1D number line.
 
-In the reals we define the value of a string by the sum $\sum d_i 5^i$. For $4444\dots_5$, that sum is $4(5^0) + 4(5^1) + 4(5^2) + \dots$. This sum diverges to $+\infty$. It never "wraps around" to $-1$ because the real line is a straight line, not a circle. In the pics we define the "size" such that $5^n \to 0$. In this world, the sum $4(5^0) + 4(5^1) + 4(5^2) + \dots$ converges to $-1$.
+In the reals we define the value of a string by the sum $\sum d_i 5^i$. For $4444\dots_5$, that sum is $4(5^0) + 4(5^1) + 4(5^2) + \dots$. This sum diverges to $+\infty$. It never "wraps around" to $-1$ because the real line is a straight line, not a circle. In the p-adics we define the "size" such that $5^n \to 0$. In this world, the sum $4(5^0) + 4(5^1) + 4(5^2) + \dots$ converges to $-1$.
 
 
 ---
@@ -2562,7 +2561,7 @@ And $d_1 = 1$. Therefore, the approximation $x_1 = 2 \cdot 5^0 + 1 \cdot 5^1 =7.
 
 We want $x_2 = 7 + d_2 (25)$.
 
-$(7+25d_2)^2 \equiv -1 \pmod{125}$. This yields $d_2 =2.$ Now the apprimation becomes $x_2=7 + 2(25)=57.$ Checking: $57^2 = 3249\equiv -1 \pmod{125}.$
+$(7+25d_2)^2 \equiv -1 \pmod{125}$. This yields $d_2 =2.$ Now the approximation becomes $x_2=7 + 2(25)=57.$ Checking: $57^2 = 3249\equiv -1 \pmod{125}.$
 
 ---
 
@@ -2571,9 +2570,9 @@ $(7+25d_2)^2 \equiv -1 \pmod{125}$. This yields $d_2 =2.$ Now the apprimation be
 
 Think about the Taylor expansion of a polynomial $f(x)$: $$f(x + h) = f(x) + f'(x)h + \frac{f''(x)}{2!}h^2 + \dots$$
 
-This formula is purely algebraic. It doesn't care about "smoothness"; it only cares about powers of $h$. In the pics, when we move from Level $n$ to Level $n+1$, our "nudge" is $h = d_n \cdot p^n$. Because $p^n$ is very small in pic geometry, the higher-order terms like $h^2$ ($p^{2n}$) and $h^3$ ($p^{3n}$) disappear incredibly fast! This makes the linear approximation ($f'(x)$) more accurate in pic space than it often is in real space.
+This formula is purely algebraic. It doesn't care about "smoothness"; it only cares about powers of $h$. In the p-adics, when we move from Level $n$ to Level $n+1$, our "nudge" is $h = d_n \cdot p^n$. Because $p^n$ is very small in p-adic geometry, the higher-order terms like $h^2$ ($p^{2n}$) and $h^3$ ($p^{3n}$) disappear incredibly fast! This makes the linear approximation ($f'(x)$) more accurate in p-adic space than it often is in real space.
 
-If we are "lifting" a solution from $x_n$ to $x_{n+1}$, we define our nudge as: $$h = d_n \cdot p^n$$ When we look at the powers of $h$ in the Taylor expansion, we see:$h^1 = (d_n \cdot p^n)^1$: This term is what we use to solve for $d_n$. It lives exactly at the level of precision we are trying to fix. $h^2 = (d_n \cdot p^n)^2 = d_n^2 \cdot p^{2n}$: This term is "too small" to matter for our current level. In pic geometry, $p^{2n}$ is much further up the tree than $p^n$.
+If we are "lifting" a solution from $x_n$ to $x_{n+1}$, we define our nudge as: $$h = d_n \cdot p^n$$ When we look at the powers of $h$ in the Taylor expansion, we see:$h^1 = (d_n \cdot p^n)^1$: This term is what we use to solve for $d_n$. It lives exactly at the level of precision we are trying to fix. $h^2 = (d_n \cdot p^n)^2 = d_n^2 \cdot p^{2n}$: This term is "too small" to matter for our current level. In p-adic geometry, $p^{2n}$ is much further up the tree than $p^n$.
 
 In algebraic calculus we ignore things because they are exactly zero in our current "mod" bucket. These powers of $h$ are "invisible" to the current level of precision. When you are at level $2$ $(p^2),$ your mathematical "universe" only has room for remainders between $0$ and $p^2-1$. Anything that is a multiple of $p^2$ is mathematically zero in that universe. In the step $2$ calculation avove ($x_1 = 2 + 5d_1$):
 
@@ -2584,7 +2583,7 @@ If we expand this perfectly:
 $$f(2 + 5d_1) = \underbrace{2^2 + 1}_{f(x_0)} + \underbrace{2(2)(5d_1)}_{f'(x_0)h} + \underbrace{(5d_1)^2}_{h^2}$$
 
 $$f(2 + 5d_1) = 5 + 20d_1 + \require{cancel}\cancel{\color{red}{25}d_1^2}$$
-Now, look at the $h^2$ term: $25d_1^2$. In the world of $\mathbb{Z}/25\mathbb{Z}$ (level $2$), $25$ is the same thing as $0.$ So, $25d_1^2$ simply vanishes. It is an exact calculation of the next digit. In real numbers ($\mathbb{R}$): $h^2$ is $0.0001$. It’s not zero, so you are "approximating" by ignoring it. In pics ($\mathbb{Z}_p$): At Level $n$, $h^2$ is a multiple of $p^{2n}$. Since we are working modulo $p^{n+1}$, and $2n \ge n+1$ (for $n \ge 1$), that $h^2$ is identically zero. The pic Newton-Raphson isn't "guessing" the next digit; it is solving a linear equation where the non-linear parts have been perfectly moved into the "future" (higher powers of $p$).
+Now, look at the $h^2$ term: $25d_1^2$. In the world of $\mathbb{Z}/25\mathbb{Z}$ (level $2$), $25$ is the same thing as $0.$ So, $25d_1^2$ simply vanishes. It is an exact calculation of the next digit. In real numbers ($\mathbb{R}$): $h^2$ is $0.0001$. It’s not zero, so you are "approximating" by ignoring it. In p-adics ($\mathbb{Z}_p$): At Level $n$, $h^2$ is a multiple of $p^{2n}$. Since we are working modulo $p^{n+1}$, and $2n \ge n+1$ (for $n \ge 1$), that $h^2$ is identically zero. The p-adic Newton-Raphson isn't "guessing" the next digit; it is solving a linear equation where the non-linear parts have been perfectly moved into the "future" (higher powers of $p$).
 
 
 ---
