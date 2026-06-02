@@ -1070,7 +1070,7 @@ irrational number looks like a random sequence of numbers that goes on
 forever to the left without a pattern.</p>
 <hr />
 <h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-From the basics:
+The p-adic perspective:
 </h1>
 <p>The p-adic expression of a number is akin to placing a filter on the
 number: the filter of the prime <span class="math inline">\(p\)</span>.
@@ -1181,20 +1181,24 @@ in base <span class="math inline">\(5\)</span>:</p>
 d_1(5^1) + d_0(5^0)\]</span></p>
 <p>The only difference is the “direction of travel” for the
 algorithm.</p>
-</div>
-<div id="expressing-450-in-5-adic" class="section level4">
-<h4>Expressing <span class="math inline">\(450\)</span> in <span class="math inline">\(5\)</span>-adic:</h4>
-<p><strong>Nomenclature:</strong></p>
+<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+The p-adic mechanics:
+</h1>
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Expressing <span class="math inline">\(450\)</span> in <span class="math inline">\(5\)</span>-adic:
+</h2>
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+<p>Nomenclature:</p>
 <p><span class="math display">\[a_0 = d_0 (5^0) + d_1 (5^1) + d_2 (5^2)
 + d_3 (5^3) + d_4 (5^4) + d_5 (5^5)\]</span></p>
-<blockquote>
 <p><strong>Coefficients or p-adic digits</strong>: these are the
 <strong>d</strong>’s, which are the result of solving a congruence -
 they are the remainders. They indicate which coset of the ideal <span class="math inline">\(p^n \mathbb{Z}_p\)</span> we are in.</p>
 <p><strong>p-adic quotients</strong>: these are the
 <strong>a</strong>’s. Since we are performing the operation <span class="math inline">\(a_{i+1} = (a_i - d_i) / p\)</span>, we are
 essentially finding the integer quotient of the previous value.</p>
-</blockquote>
+</div>
+<hr />
 <p>The formula for finding the digit <span class="math inline">\(d_0\)</span> for a <span class="math inline">\(\frac a b \in \mathbb Q\)</span> is:</p>
 <p><span class="math display">\[b \cdot d \equiv a \pmod p\]</span></p>
 <p>When you are dealing with an integer like <span class="math inline">\(450\)</span>, you are implicitly treating it as
@@ -1322,7 +1326,7 @@ powers.</p>
 </div>
 <hr />
 <p>Continuing now with the calculation, notice that <span class="math inline">\(\text{old }a-\text{remainder}\)</span> will always
-be divisible by the “mod”.</p>
+be divisible by the mod.</p>
 <p><span class="math display">\[\frac{(450 - 0)}{5} =
 \mathbf{90}\]</span></p>
 <p>Level <span class="math inline">\(5^1\)</span>:</p>
@@ -1337,8 +1341,9 @@ be divisible by the “mod”.</p>
 <p><span class="math display">\[\frac{(90 - 0)}{5} =
 \mathbf{18}\]</span></p>
 <p>Level <span class="math inline">\(5^2\)</span>:</p>
-<p>Find <span class="math inline">\(d_2\)</span> such that <span class="math inline">\(1 \cdot d_2 \equiv 18 \pmod 5\)</span>. <span class="math inline">\(18 \div 5\)</span> leaves a remainder of <span class="math inline">\(3\)</span>. So <span class="math inline">\(d_2 =
-3\)</span>.</p>
+<p>Find <span class="math inline">\(d_2\)</span> such that <span class="math inline">\(1 \cdot d_2 \equiv 18 \pmod 5\)</span>.</p>
+<p><span class="math inline">\(18 \div 5\)</span> leaves a remainder of
+<span class="math inline">\(3\)</span>. So <span class="math inline">\(d_2 = 3\)</span>.</p>
 <p>If we chip away this difference from the multiple of <span class="math inline">\(25\)</span> in the previous step, how close will
 <span class="math inline">\(125\)</span> fit into it?</p>
 <p>New <span class="math inline">\(a\)</span>: <span class="math inline">\((18 - 3) / 5 = \mathbf{3}\)</span>.</p>
@@ -1350,9 +1355,10 @@ be divisible by the “mod”.</p>
 d_3\)</span>) <span class="math inline">\(\rightarrow \boxed{0, 0, 3,
 3}\)</span>.</p>
 <p>Written in the same order as base <span class="math inline">\(5\)</span> (highest power first), this is <span class="math inline">\(3300\)</span>.</p>
-</div>
-<div id="expressing-450-in-base-5" class="section level4">
-<h4>Expressing <span class="math inline">\(450\)</span> in base <span class="math inline">\(5\)</span>:</h4>
+<hr />
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Expressing <span class="math inline">\(450\)</span> in base <span class="math inline">\(5\)</span>:
+</h2>
 <p>In standard base conversion, we start with the largest possible power
 of <span class="math inline">\(5\)</span> and work our way down to the
 units.</p>
@@ -1382,9 +1388,9 @@ in this identity:</p>
 black]{\color{red}{4357 = b_0 (5^0) + b_1 (5^1) + b_2 (5^2) + b_3 (5^3)
 + b_4 (5^4) + b_5 (5^5)}}\]</span></p>
 <hr />
-</div>
-<div id="expressing-4357-in-base-5" class="section level4">
-<h4>Expressing <span class="math inline">\(4357\)</span> in base <span class="math inline">\(5\)</span>:</h4>
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Expressing <span class="math inline">\(4357\)</span> in base <span class="math inline">\(5\)</span>:
+</h2>
 <p>Base <span class="math inline">\(5\)</span> starts by solving for the
 largest <span class="math inline">\(i\)</span> first (<span class="math inline">\(b_5\)</span>). It asks: “What is the most
 significant part of this number?” It effectively “strips away” the
@@ -1501,9 +1507,9 @@ repeatedly. In regular division, you are “shifting” values across powers
 of <span class="math inline">\(10.\)</span> In base conversion, you are
 doing the exact same thing across powers of <span class="math inline">\(p\)</span>.</p>
 <hr />
-</div>
-<div id="expressing-4357-in-5-adic-the-congruence-approach" class="section level4">
-<h4>Expressing <span class="math inline">\(4357\)</span> in <span class="math inline">\(5\)</span>-adic (the congruence approach):</h4>
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Expressing <span class="math inline">\(4357\)</span> in <span class="math inline">\(5\)</span>-adic (the congruence approach):
+</h2>
 <p>The <span class="math inline">\(5\)</span>-adic method starts by
 solving for the smallest <span class="math inline">\(i\)</span> first
 (<span class="math inline">\(b_0\)</span>). It asks: “What is this
@@ -1760,7 +1766,11 @@ example, if you want the “third digit” (starting the count from the
 <p>Divide by <span class="math inline">\(25\)</span>: <span class="math inline">\(\lfloor 45435 / 25 \rfloor = 1817\)</span>. Take
 the remainder mod <span class="math inline">\(5\)</span>: <span class="math inline">\(1817 \pmod 5 = \mathbf{2}\)</span>.</p>
 <hr />
-<p>It is critical to see that the <span class="math inline">\(5\)</span>-adic expression of <span class="math inline">\(4357\)</span> is <span class="math inline">\(\mathbb{F}_{5^5}.\)</span> The <span class="math inline">\(5\)</span>-adic integer <span class="math inline">\(4357 \in \mathbb{Z}_5.\)</span> If <span class="math inline">\(4357\)</span> were an element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span>, it wouldn’t be growing
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Horizontal extensions of finite fields:
+</h2>
+<hr />
+<p>It is critical to see that the <span class="math inline">\(5\)</span>-adic expression of <span class="math inline">\(4357\)</span> is not an element of <span class="math inline">\(\mathbb{F}_{5^5}.\)</span> The <span class="math inline">\(5\)</span>-adic integer <span class="math inline">\(4357 \in \mathbb{Z}_5.\)</span> If <span class="math inline">\(4357\)</span> were an element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span>, it wouldn’t be growing
 “upward” into powers of <span class="math inline">\(5\)</span>; it would
 be growing “sideways” into powers of a symbolic root <span class="math inline">\(\alpha\)</span>. An element of <span class="math inline">\(\mathbb{F}_{5^5}\)</span> looks like this:</p>
 <p><span class="math display">\[c_0 + c_1\alpha + c_2\alpha^2 +

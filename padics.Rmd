@@ -515,7 +515,7 @@ An irrational number in p-adics — like the $5$-adic square root of $-1$ — ha
 ---
 
 <h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
- From the basics:
+The p-adic perspective:
 </h1>
 
 
@@ -569,16 +569,29 @@ $$450 = d_k(5^k) + \dots + d_2(5^2) + d_1(5^1) + d_0(5^0)$$
 
 The only difference is the "direction of travel" for the algorithm. 
 
-#### Expressing $450$ in $5$-adic:
 
-**Nomenclature:**
+<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+The p-adic mechanics:
+</h1>
+
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Expressing $450$ in $5$-adic:
+</h2>
+
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+
+Nomenclature:
 
 $$a_0 = d_0 (5^0) + d_1 (5^1) + d_2 (5^2) + d_3 (5^3) + d_4 (5^4) + d_5 (5^5)$$
 
-> **Coefficients or p-adic digits**: these are the **d**'s, which are the result of solving a congruence - they are the remainders. They indicate which coset of the ideal $p^n \mathbb{Z}_p$ we are in.
->        
-> **p-adic quotients**: these are the **a**'s. Since we are performing the operation $a_{i+1} = (a_i - d_i) / p$, we are essentially finding the integer quotient of the previous value. 
+**Coefficients or p-adic digits**: these are the **d**'s, which are the result of solving a congruence - they are the remainders. They indicate which coset of the ideal $p^n \mathbb{Z}_p$ we are in.
+      
+**p-adic quotients**: these are the **a**'s. Since we are performing the operation $a_{i+1} = (a_i - d_i) / p$, we are essentially finding the integer quotient of the previous value. 
 
+</div>
+
+---
 
 The formula for finding the digit $d_0$ for a $\frac a b \in \mathbb Q$ is: 
 
@@ -649,7 +662,7 @@ In the real numbers ($\mathbb{R}$), we take the remnant from a higher order of m
 
 ---
   
-Continuing now with the calculation, notice that $\text{old }a-\text{remainder}$ will always be divisible by the "mod".
+Continuing now with the calculation, notice that $\text{old }a-\text{remainder}$ will always be divisible by the mod.
   
 $$\frac{(450 - 0)}{5} = \mathbf{90}$$
 
@@ -671,7 +684,9 @@ $$\frac{(90 - 0)}{5} = \mathbf{18}$$
   
 Level $5^2$: 
 
-Find $d_2$ such that $1 \cdot d_2 \equiv 18 \pmod 5$. $18 \div 5$ leaves a remainder of $3$. So $d_2 = 3$.
+Find $d_2$ such that $1 \cdot d_2 \equiv 18 \pmod 5$. 
+
+$18 \div 5$ leaves a remainder of $3$. So $d_2 = 3$.
   
 If we chip away this difference from the multiple of $25$ in the previous step, how close will $125$ fit into it?
   
@@ -688,8 +703,11 @@ Result: (Digits $d_0, d_1, d_2, d_3$) $\rightarrow \boxed{0, 0, 3, 3}$.
 Written in the same order as base $5$ (highest power first), this is $3300$.
 
 
-#### Expressing $450$ in base $5$:
+---
 
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Expressing $450$ in base $5$:
+</h2>
 
 In standard base conversion, we start with the largest possible power of $5$ and work our way down to the units.
 
@@ -718,8 +736,9 @@ $$\bbox[5px, border: 1px solid black]{\color{red}{4357 = b_0 (5^0) + b_1 (5^1) +
 
 ---
 
-
-#### Expressing $4357$ in base $5$:
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Expressing $4357$ in base $5$:
+</h2>
 
 Base $5$ starts by solving for the largest $i$ first ($b_5$). It asks: "What is the most significant part of this number?" It effectively "strips away" the biggest chunks ($1 \cdot 5^5$, then $1 \cdot 5^4$, etc.) until nothing is left.
 
@@ -748,8 +767,9 @@ The process of converting an integer to a base $p$ is essentially a recursive di
 
 ---
 
-  
-#### Expressing $4357$ in $5$-adic (the congruence approach):
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Expressing $4357$ in $5$-adic (the congruence approach):
+</h2>
 
 The $5$-adic method starts by solving for the smallest $i$ first ($b_0$). It asks: "What is this number equivalent to, modulo $5$?" It uses the "subtract and divide" logic to clear out the units, then the fives, then the twenty-fives, moving from the inside out:
 
@@ -821,7 +841,13 @@ Divide by $25$: $\lfloor 45435 / 25 \rfloor = 1817$. Take the remainder mod $5$:
 
 ---
 
-It is critical to see that the $5$-adic expression of $4357$ is $\mathbb{F}_{5^5}.$ The $5$-adic integer $4357 \in \mathbb{Z}_5.$ If $4357$ were an element of $\mathbb{F}_{5^5}$, it wouldn't be growing "upward" into powers of $5$; it would be growing "sideways" into powers of a symbolic root $\alpha$. An element of $\mathbb{F}_{5^5}$ looks like this:
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Horizontal extensions of finite fields:
+</h2>
+
+---
+
+It is critical to see that the $5$-adic expression of $4357$ is not an element of $\mathbb{F}_{5^5}.$ The $5$-adic integer $4357 \in \mathbb{Z}_5.$ If $4357$ were an element of $\mathbb{F}_{5^5}$, it wouldn't be growing "upward" into powers of $5$; it would be growing "sideways" into powers of a symbolic root $\alpha$. An element of $\mathbb{F}_{5^5}$ looks like this:
 
 $$c_0 + c_1\alpha + c_2\alpha^2 + c_3\alpha^3 + c_4\alpha^4$$
 
