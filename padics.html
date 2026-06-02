@@ -1813,6 +1813,10 @@ just real and alpha, you now have alpha-Squared:</p>
 c_2\alpha^2\]</span></p>
 <p>There are <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_0,\)</span> <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_1,\)</span> and <span class="math inline">\(5\)</span> choices in <span class="math inline">\(c_2.\)</span></p>
 <hr />
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Partial sums:
+</h2>
+<hr />
 <p>In the study of p-adic numbers, the values <span class="math inline">\(x_n\)</span> are called <strong>partial
 sums</strong> (or sometimes <strong>congruential
 approximations</strong>). They represent the p-adic integer as a
@@ -1845,40 +1849,39 @@ the sum of the first <span class="math inline">\(n\)</span> terms:</p>
 <hr />
 <p>These are the approximations. They show the value of the number in
 the ring <span class="math inline">\(\mathbb{Z} / 5^n
-\mathbb{Z}\)</span>. In p-adic analysis, we don’t think of “closeness”
-in terms of distance on a number line, but rather in terms of
-divisibility. The partial sums <span class="math inline">\(x_n\)</span>
-above are the bridge between standard integers and the p-adic world.
-When we say <span class="math inline">\(x_n\)</span> is the value in the
-ring <span class="math inline">\(\mathbb{Z} / 5^n \mathbb{Z}\)</span>,
-we mean that <span class="math inline">\(x_n\)</span> is the unique
-representative (usually chosen from <span class="math inline">\(0\)</span> to <span class="math inline">\(5^n -
-1\)</span>) of the number <span class="math inline">\(4357\)</span> when
-you ignore everything divisible by <span class="math inline">\(5^n\)</span>. As <span class="math inline">\(n\)</span> increases, the modulus <span class="math inline">\(5^n\)</span> gets larger, and <span class="math inline">\(x_n\)</span> carries more “information” about the
-number. In <span class="math inline">\(\mathbb{Z}/5^1\mathbb{Z}\)</span>, you only know
-the last digit: <span class="math inline">\(2.\)</span> In <span class="math inline">\(\mathbb{Z}/5^2\mathbb{Z}\)</span>, you know the
+\mathbb{Z}\)</span> - different size of our modulus <span class="math inline">\((5^1 \to 5^2 \to 5^3);\)</span> not a horizontal
+extension. In p-adic analysis, we don’t think of closeness in terms of
+distance on a number line, but rather in terms of divisibility. The
+partial sums <span class="math inline">\(x_n\)</span> above are the
+bridge between standard integers and the p-adic world. When we say <span class="math inline">\(x_n\)</span> is the value in the ring <span class="math inline">\(\mathbb{Z} / 5^n \mathbb{Z}\)</span>, we mean that
+<span class="math inline">\(x_n\)</span> is the unique representative
+(usually chosen from <span class="math inline">\(0\)</span> to <span class="math inline">\(5^n - 1\)</span>) of the number <span class="math inline">\(4357\)</span> when we ignore everything divisible
+by <span class="math inline">\(5^n\)</span>. As <span class="math inline">\(n\)</span> increases, the modulus <span class="math inline">\(5^n\)</span> gets larger, and <span class="math inline">\(x_n\)</span> carries more information about the
+number. In <span class="math inline">\(\mathbb{Z}/5^1\mathbb{Z}\)</span>, we only know
+the last digit: <span class="math inline">\(2.\)</span> In <span class="math inline">\(\mathbb{Z}/5^2\mathbb{Z}\)</span>, we know the
 last two digits (<span class="math inline">\(2 + 1 \cdot 5\)</span>):
-<span class="math inline">\(7.\)</span> By the time you reach <span class="math inline">\(x_6\)</span>, you have captured the entire value
-of <span class="math inline">\(4357.\)</span></p>
+<span class="math inline">\(7.\)</span> By the time we reach <span class="math inline">\(x_6\)</span>, we have captured the entire value of
+<span class="math inline">\(4357.\)</span></p>
 <p>The condition <span class="math inline">\(x_{n+1} \equiv x_n
 \pmod{p^n}\)</span> is just the mathematical way of saying: “To be on a
 branch at level <span class="math inline">\(n+1\)</span>, you must have
-come from the branch directly below it at level <span class="math inline">\(n\)</span>.”You can’t teleport from the “remainder
-<span class="math inline">\(2\)</span>” branch at level <span class="math inline">\(1\)</span> to the “remainder <span class="math inline">\(18\)</span>” branch at level <span class="math inline">\(2\)</span> if <span class="math inline">\(18
+come from the branch directly below it at level <span class="math inline">\(n\)</span>. We can’t go from the”remainder <span class="math inline">\(2\)</span>” branch at level <span class="math inline">\(1\)</span> to the “remainder <span class="math inline">\(18\)</span>” branch at level <span class="math inline">\(2\)</span> if <span class="math inline">\(18
 \not\equiv 2 \pmod 5\)</span>.</p>
 <p>The “inverse limit” is a category theory name for this compatibility
 requirement.</p>
 <p>The components:</p>
 <p>The sets: <span class="math inline">\(A_n =
-\mathbb{Z}/p^n\mathbb{Z}\)</span>. These are our “levels” of
+\mathbb{Z}/p^n\mathbb{Z}\)</span>. These are our levels of
 resolution.</p>
 <p>The maps: <span class="math inline">\(\phi_n: A_n \to
 A_{n-1}\)</span>. This map takes a remainder modulo <span class="math inline">\(p^n\)</span> and forgets the highest power of
 <span class="math inline">\(p\)</span>, reducing it to a remainder
 modulo <span class="math inline">\(p^{n-1}\)</span>:</p>
 <p><span class="math inline">\(A_n\)</span> is the set of remainders
-modulo <span class="math inline">\(5^n\)</span>. The map <span class="math inline">\(\phi_n\)</span> takes an element from <span class="math inline">\(A_n\)</span> and maps it to <span class="math inline">\(A_{n-1}\)</span> by applying the operation <span class="math inline">\(\pmod{5^{n-1}}\)</span>. Example: Mapping <span class="math inline">\(x_3\)</span> to <span class="math inline">\(x_2\)</span>: Let’s look at the transition from
-level <span class="math inline">\(3\)</span> (<span class="math inline">\(A_3 = \mathbb{Z}/125\mathbb{Z}\)</span>) to level
+modulo <span class="math inline">\(5^n\)</span>. The map <span class="math inline">\(\phi_n\)</span> takes an element from <span class="math inline">\(A_n\)</span> and maps it to <span class="math inline">\(A_{n-1}\)</span> by applying the operation <span class="math inline">\(\pmod{5^{n-1}}\)</span>.</p>
+<p>Example: To see the mapping <span class="math inline">\(x_3\)</span>
+to <span class="math inline">\(x_2,\)</span> let’s look at the
+transition from level <span class="math inline">\(3\)</span> (<span class="math inline">\(A_3 = \mathbb{Z}/125\mathbb{Z}\)</span>) to level
 <span class="math inline">\(2\)</span> (<span class="math inline">\(A_2
 = \mathbb{Z}/25\mathbb{Z}\)</span>):</p>
 <p>The input (<span class="math inline">\(x_3\)</span>): In the table
@@ -1896,12 +1899,18 @@ power}}\]</span></p>
 literally forgetting the term <span class="math inline">\(4 \cdot
 5^2\)</span> (which is <span class="math inline">\(100\)</span>).
 Because <span class="math inline">\(100\)</span> is a multiple of <span class="math inline">\(25\)</span>, it becomes <span class="math inline">\(0\)</span> when we move to the world of <span class="math inline">\(\mathbb{Z}/25\mathbb{Z}\)</span>.</p>
-<p>The definition: The inverse limit <span class="math inline">\(\varprojlim A_n\)</span> is the set of all
-sequences <span class="math inline">\((x_1, x_2, x_3, \dots)\)</span>
-such that applying the forgetful map to <span class="math inline">\(x_n\)</span> always gives you <span class="math inline">\(x_{n-1}\)</span>.</p>
+<hr />
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Inverse limit:
+</h2>
+<hr />
+<p>Definition: The inverse limit <span class="math inline">\(\varprojlim
+A_n\)</span> is the set of all sequences <span class="math inline">\((x_1, x_2, x_3, \dots)\)</span> such that applying
+the forgetful map to <span class="math inline">\(x_n\)</span> always
+gives you <span class="math inline">\(x_{n-1}\)</span>.</p>
 <p><span class="math display">\[\phi_n(x_n) = x_{n-1}\]</span></p>
-<p>This is why we call it a “limit.” We aren’t looking at a single
-level; we are looking at the infinite sequence of all levels
+<p>This is why we call it a limit. We aren’t looking at a single level;
+we are looking at the infinite sequence of all levels
 simultaneously.</p>
 <p>In the p-adic sequence <span class="math inline">\((x_1, x_2, x_3,
 \dots)\)</span>, once <span class="math inline">\(p^n\)</span> becomes
@@ -1912,7 +1921,7 @@ larger than the integer itself (for <span class="math inline">\(4357\)</span> an
 infinite object <span class="math inline">\((2, 7, 107, 607, 1232, 4357,
 4357, 4357, \dots)\)</span>, it stabilizes. This is why we say the
 natural integers <span class="math inline">\(\mathbb{Z}\)</span> are
-“embedded” inside the p-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
+embedded inside the p-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
 <p>The p-adic integers, denoted as <span class="math inline">\(\mathbb{Z}_p\)</span>, are formally defined as the
 inverse limit (or projective limit) of these rings. <span class="math display">\[\mathbb{Z}_p = \varprojlim (\mathbb{Z} / p^n
 \mathbb{Z})\]</span></p>
@@ -1927,7 +1936,7 @@ ring <span class="math inline">\(\mathbb{Z}_5\)</span>, an integer is
 simply a sequence that eventually becomes constant (all zeros) as you
 move to higher powers.</p>
 <p>The consistency column is the mathematical proof that the sequence is
-an element of the inverse limit. We consider the sequence to “converge”
+an element of the inverse limit. We consider the sequence to converge
 because the difference between consecutive terms, <span class="math inline">\(x_n - x_{n-1}\)</span>, is <span class="math inline">\(b_{n-1} 5^{n-1}\)</span>. In the p-adic metric, as
 the power of p increases, the value actually becomes smaller. The
 distance between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> is <span class="math inline">\(5^{-1}\)</span>.The distance between <span class="math inline">\(x_5\)</span> and <span class="math inline">\(x_6\)</span> is <span class="math inline">\(5^{-5}\)</span> (very tiny!). So, while the
@@ -2031,6 +2040,10 @@ Three-thousand-one-hundred-twenty-fives</td>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+The Geometric Topology of the p-adic Tree:
+</h2>
 <hr />
 <p>In the true geometric construction of the <span class="math inline">\(5\)</span>-adic tree, the cylinders are eccentric
 (offset - not concentric) because each one must fit entirely inside the
