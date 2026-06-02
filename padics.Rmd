@@ -1319,7 +1319,16 @@ Because $125$ is exactly $5^3$, we can prove they share $3$ levels of folders. I
 
 ---
 
-The p-adic integers ($\mathbb{Z}_p$) are best visualized as a toroidal solenoid — an infinite "torus-within-a-torus" construction:
+
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+The p-adic integers ($\mathbb{Z}_p$) as a toroidal solenoid (an infinite "torus-within-a-torus" construction)
+<br>
+<br>
+and the Pontryagin character map as a slice of the solenoid:
+</h2>
+
+---
+
 
 From THE DYADIC SOLENOID by JAMES KEESLING
 
@@ -1494,6 +1503,10 @@ From [Wikipedia](https://en.wikipedia.org/wiki/P-adic_number#/media/File:3-adic_
 ---
 
 
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+The adeles:
+</h2>
+
 ---
 
 The big picture: When you collect all p-adic "local" views and stitch them together into one massive mathematical object, you get the Adeles (short for "additive ideles").If each p-adic field is a single prism, the Adele Ring ($\mathbb{A}$) is the entire crystal chandelier.1. What is an Adele, intuitively?Think of an Adele as an infinite string or a "vector" where every slot corresponds to a different way of measuring a number. If you were to represent the number $10$ as an Adele, it would look like this:
@@ -1502,7 +1515,10 @@ $$\text{Adele}(10) = (10_{\mathbb{R}}, 10_2, 10_3, 10_5, 10_7, 10_{11}, \dots)$$
 
 ---
 
-### Calculations with p-adics:
+
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Summary and Sage Math:
+</h2>
 
 ---
 
@@ -2036,10 +2052,12 @@ $4 * 5³ + 3 * 5² + 2 * 5¹ + 1 * 5⁰ = 4 * 125 + 3 * 25 + 2 * 5 + 1 * 1 = 500
 
 Computers typically use floating-point representation for real numbers. This allows them to represent a wide range of numbers, both very small and very large, with reasonable precision. Computer hardware is designed to perform arithmetic on binary numbers, which are used to represent integers and floating-point numbers. There is no direct hardware support for p-adic arithmetic. Any p-adic calculations would have to be implemented in software, which would be slower.
 
-
 ---
 
-#### Hensel's lemma:
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Hensel's lemma:
+</h2>
+
 
 ---
 
@@ -2159,7 +2177,7 @@ There is a "mirror-image" relationship between standard base-$3$ expansions, for
 
 The mechanical steps for calculating a fraction like $5/29$ are inverted:
 
-**Base-3 Algorithm:** 
+**Base-$3$ Algorithm:** 
 
 In base $3,$ we only use the digits $0$, $1$, and $2$. We are looking for 
 
@@ -2227,7 +2245,13 @@ Base-$3$ approximations ($0.17$) get closer to a value by reducing the physical 
 
 ---
 
-### Hasse Principle and Hensel lift:
+
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Hasse Principle and Hensel lift:
+</h2>
+
+---
+
 
 The **Hasse principle**, or local-global principle, states that certain polynomial equations (specifically quadratic forms) have a rational solution if and only if they have solutions in the real numbers (\(\mathbb{R}\)) and in all \(p\)-adic fields (\(\mathbb{Q}_{p}\)). It allows checking for solutions locally (modulo primes) to confirm existence globally (in rationals).
 
@@ -2546,9 +2570,9 @@ It is the entire space. It includes numbers that are "huge" in the p-adic sense 
 
 #### Solving $x^2 +1 =0$
 
-When we solve an equation like $x^2 + 1 = 0$, we are looking for a solution that looks like a p-adic integer (it has no $1/5$ or $1/25$ parts). Therefore, we look inside the ring $\mathbb{Z}_p$, i.e. the ring of p-adic integers for a given prime $p$ under addition (modular) and multiplication. This is why we use $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$. This is the justification for why the "successive Division" or "cylinder" method is legally allowed to work. $p\mathbb{Z}_p$ represents the Details. These are all the parts of the number divisible by $5.$ In the plot, these are all the cylinders above the base. $\mathbb{Z}_p / p\mathbb{Z}_p$ is is the act of Blurring the Image. You decide to ignore everything in the $p\mathbb{Z}_p$ "detail" category.
+When we solve an equation like $x^2 + 1 = 0$, we are looking for a solution that looks like a p-adic integer (it has no $1/5$ or $1/25$ parts). Therefore, we look inside the ring $\mathbb{Z}_p$, i.e. the ring of p-adic integers for a given prime $p$ under addition (modular) and multiplication. This is why we use $\mathbb{F}_p \cong \mathbb{Z}_p / p\mathbb{Z}_p$. This is the justification for why the "successive division" or "cylinder" method is legally allowed to work. $p\mathbb{Z}_p$ represents the details. These are all the parts of the number divisible by $5.$ In the plot, these are all the cylinders above the base. $\mathbb{Z}_p / p\mathbb{Z}_p$ is is the act of Blurring the Image. You decide to ignore everything in the $p\mathbb{Z}_p$ "detail" category.
 
-When you take a p-adic integer and "mod out" by $p$, you are essentially throwing away every term that has a $p, p^2, p^3,$ etc., attached to it. Mathematically, it looks like this: 
+When we take a p-adic integer and "mod out" by $p$, we are essentially throwing away every term that has a $p, p^2, p^3,$ etc., attached to it. Mathematically, it looks like this: 
 
 $$\begin{align}x &= a_0 + a_1p + a_2p^2 + \dots\\\\&x \pmod{p} = a_0\end{align}$$ 
 
@@ -2662,7 +2686,7 @@ $(7+25d_2)^2 \equiv -1 \pmod{125}$. This yields $d_2 =2.$ Now the approximation 
 ---
 
 
-#### Why are pics suitable to apply derivatives (Newton-Raphson):
+#### Why are p-adics suitable to apply derivatives (Newton-Raphson):
 
 Think about the Taylor expansion of a polynomial $f(x)$: $$f(x + h) = f(x) + f'(x)h + \frac{f''(x)}{2!}h^2 + \dots$$
 
