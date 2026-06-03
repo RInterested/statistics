@@ -89,11 +89,11 @@ While the imaginary number $i = \sqrt{-1}$ cannot exist in the real number syste
   Rationals:
 </h1>
 
-$\mathbb Q_z$ contains those same numbers, plus a finite fractional part to the right of the radix point (negative powers like $p^{-1}, p^{-2}, \dots$):
+$\mathbb Q_p$ contains those same numbers, plus a finite fractional part to the right of the radix point (negative powers like $p^{-1}, p^{-2}, \dots$):
 
 ---
 
-$\dots d_3 d_2 d_1 d_0\; \color{red}.\; d_{-1}d_{-2}\dots d_{-k}\; = \;d_{-k}\, p^{-k} + \dots + d_{-1}\, p^{-1} + d_{-1}\, p^{-1}+ d_0\, p^0 + d_1 \, p^1 + d_2\, p^2 + \cdots$
+$$\dots d_3 d_2 d_1 d_0\; \color{red}.\; d_{-1}d_{-2}\dots d_{-k}\; = \;d_{-k}\, p^{-k} + \dots + d_{-1}\, p^{-1} + d_0\, p^0 + d_1 \, p^1 + \dots$$
 
 ---
 
@@ -118,7 +118,7 @@ $$\frac{1}{p}, \frac{1}{p^2}, \frac{1}{p^3}, \dots, \frac{1}{p^n}$$
 the sequence diverges to infinity. Just as in the real numbers the sequence $10^1, 10^2, 10^3 \dots$ "blows up" and cannot be represented as a single real number.
 
 
-<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 250; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
   Positive integers:
 </h1>
 
@@ -171,7 +171,7 @@ $$\dots + a_3 5^3 + a_2 5^2 + a_1 5^1 + a_0 5^0$$
 For a positive integer like $128,$ all the higher digits ($a_4, a_5$, etc.) are simply $0.$ So, the $5$-adic expansion of $128$ is: 
 
 $$\dots 00001003_5$$
-<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 250; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
   Negative integers:
 </h1>
 
@@ -188,7 +188,7 @@ $$(2+1) \to 0 \text{ carry } 1 \to (2+1) \to 0 \dots$$
 The result is $\dots 00000$, which is $0$. Therefore, $\dots 22222_3$ must be $-1$. 
 
 
-<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 250; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
   Fractions in base p:
 </h1>
 
@@ -220,7 +220,7 @@ $$S = \frac{a}{1 - r}$$
 Substituting our values:
 
 $$S = \frac{1/3}{1 - 1/3} = \frac{1/3}{2/3} = \frac{1}{2}$$
-<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 250; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
   Fractions in p-adics:
 </h1>
 
@@ -2287,7 +2287,7 @@ The Hasse principle (or Local-Global Principle) is the mathematical hope that if
  
 **Hensel lifting** is a technique in number theory and computer algebra, analogous to Newton's method, that raises a solution of a polynomial equation from modulo $p$ (or $p^{k}$) to a higher power $p^{k+1},$ or ultimately to p-adic integers. It efficiently finds roots of equations or factorizes polynomials over $\mathbb{Z}[x]$ (polynomials with integer coefficients) by lifting solutions iteratively, requiring the initial root to satisfy a non-vanishing derivative condition.
 
-Values like $\sqrt{2}$, $\sqrt[3]{5}$, or the roots of $x^5 - x - 1 = 0$ (i.e. algebraic numbers) are "fair game" for Hensel lifting. These are the p-adic equivalent of finding precise decimal roots. Numbers like $\pi$ or $e$ are not roots of any polynomial with integer coefficients. In fact, p-adic analysis has its own versions of exponential and trigonometric functions, but they behave very differently. You wouldn't use Hensel's Lemma to "find $\pi$" in $\mathbb{Z}_p$. 
+Values like $\sqrt{2}$, $\sqrt[3]{5}$, or the roots of $x^5 - x - 1 = 0$ (i.e. algebraic numbers) are fair game for Hensel lifting. These are the p-adic equivalent of finding precise decimal roots. Numbers like $\pi$ or $e$ are not roots of any polynomial with integer coefficients. In fact, p-adic analysis has its own versions of exponential and trigonometric functions, but they behave very differently. You wouldn't use Hensel's Lemma to "find $\pi$" in $\mathbb{Z}_p$. 
 
 In standard real-number arithmetic, if you want to find $\sqrt{2}$ to higher precision, you use Newton’s Method to get more decimal places ($1.4, 1.41, 1.414\dots$). In p-adic arithmetic, Hensel lifting does the exact same thing, but instead of adding decimal places to the right, you add p-adic digits to the left. You aren't just "solving an equation"; you are constructing a specific p-adic number digit by digit.
 
