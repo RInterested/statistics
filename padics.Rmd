@@ -56,11 +56,40 @@ $\cdots 1100110011001022_3$ is $-1.45 = -\frac{29}{20}.$
 
 Transcendental numbers also turn into p-adic integers... Well, sometimes! Here is a mind-boggling realization: To move a number from $\mathbb{R}$ to $\mathbb{Q}_p$, we need a bridge: usually a sequence of rational numbers. For instance in $\mathbb{R}$, $e = \displaystyle \sum_{n=0}^\infty \frac1 {n!}$. In $\mathbb{Q}_p$, the terms $1/n!$ have $p$ in the denominator more and more often as $n$ grows. This means the terms get larger p-adically $(|1/n!|_p \to \infty)$. Therefore the series explodes. Similarly $\pi$ is defined by the geometry of Euclidean space. Since p-adic space is non-Euclidean and ultra-metric (every triangle is isosceles), the physical definition of $\pi$ has no meaning there.
 
-Even though Ostrowski's Theorem states that the only ways to fill in the gaps of the rational numbers $\mathbb{Q}$ are through the familiar real numbers $\mathbb{R}$ or the p-adic numbers $\mathbb{Q}_p$ for some prime $p,$ we can't express either $\pi$ or $e$ as p-adics. Completion isn't about collecting every possible number that exists; it's about filling in the holes for a specific way of measuring distance. In the reals we use the distance $|x - y|:$ We see that the sequence $3, 3.1, 3.14, 3.141...$ is getting closer and closer together. Since the "limit" isn't a rational number, we call that hole $\pi$ and add it to the set. In the p-adics, we use the distance $|x - y|_p$. In this metric, the sequence $3, 3.1, 3.14...$ doesn't get closer together at all. In fact, the terms stay far apart. Therefore, there is no "hole" at $\pi$ in the p-adic world because the sequence never tries to go there. The p-adics are complete because every sequence that should converge (according to p-adic distance) does converge to a p-adic number.
+---
+
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Ostrowski's theorem, completion, pi, e and the p-adic circle
+</h2>
+---
+
+In mathematics, a completion is a process that fills the gaps in a number system by including the limits of all Cauchy sequences. Both the real numbers (\(\mathbb{R}\)) and the \(p\)-adic numbers (\(\mathbb{Q}_{p}\)) are constructed as completions of the rational numbers (\(\mathbb{Q}\)), but they use entirely different definitions of distance.
+
+Cauchy sequences exist in the p-adic numbers, and they behave under an even simpler convergence rule than in the real numbers. Just like in the real numbers, a sequence is Cauchy if its terms get infinitely close to one another However, because the p-adic distance metric satisfies a special geometric property called the ultrametric inequality, testing for convergence becomes significantly easier. In any metric space, a sequence $a_n$ is a Cauchy sequence if, for every $\epsilon > 0,$ there exists an integer $N$ such that for all $m, n > N:$ $|a_{m}-a_{n}|_{p}<\epsilon.$ In the p-adic metric $\lvert \cdot \rvert_p,$ two numbers are close if their difference is divisible by a large power of $p.$ The p-adic metric is an "ultrametric," meaning it obeys a stronger version of the triangle inequality: $|x+y|_{p}\le \max (|x|_{p},|y|_{p}).$ Because of this property, a sequence in $\mathbb{Q}_{p}$ is Cauchy if and only if the difference between consecutive terms goes to zero. $\lim _{n\rightarrow \infty }|a_{n+1}-a_{n}|_{p}=0.$ In the real numbers, this shortcut is false (for example, the harmonic series $1 + \frac{1}{2} + \frac{1}{3} + \dots$ has consecutive terms going to zero, but it does not converge). In the \(p\)-adics, it is always true. 
+
+Consider the 5-adic integers $\mathbb{Q}_{5}$ and the sequence of partial sums for this infinite series: $a_{n}=5+5^{2}+5^{3}+5^{4}+\dots +5^{n}.$ Let us look at the distance between consecutive terms: $|a_{n+1}-a_{n}|_{5}=|5^{n+1}|_{5}=\frac{1}{5^{n+1}}$. As $n$ goes to infinity, $\frac{1}{5^{n+1}}$ goes to $0.$ Because consecutive terms get closer together, this sequence is guaranteed to be a Cauchy sequence, and it converges to the $5$-adic integer $-\frac{5}{4}.$ 
+
+Factor out a $5$:
+
+$a_{n}=5(1+5+5^{2}+\dots +5^{n-1})$
+
+Using the standard formula
+
+$1 + r + r^2 + \dots + r^{n-1} = \frac{1-r^n}{1-r}$ 
+
+where $r=5$:
+
+$a_{n}=5\cdot \left(\frac{1-5^{n}}{1-5}\right)$
+
+$a_{n}=5\cdot \left(\frac{1-5^{n}}{-4}\right)=\frac{5^{n}-1}{4}\cdot 5$
+
+$a_{n}=\frac{5^{n+1}-5}{4}=\frac{5^{n+1}}{4}-\frac{5}{4}$
+
+Even though Ostrowski's theorem states that the only ways to fill in the gaps of the rational numbers $\mathbb{Q}$ are through the familiar real numbers $\mathbb{R}$ or the p-adic numbers $\mathbb{Q}_p$ for some prime $p,$ we can't express either $\pi$ or $e$ as p-adics. Completion isn't about collecting every possible number that exists; it's about filling in the holes for a specific way of measuring distance. In the reals we use the distance $|x - y|:$ We see that the sequence $3, 3.1, 3.14, 3.141...$ is getting closer and closer together. Since the "limit" isn't a rational number, we call that hole $\pi$ and add it to the set. In the p-adics, we use the distance $|x - y|_p$. In this metric, the sequence $3, 3.1, 3.14...$ doesn't get closer together at all. In fact, the terms stay far apart. Therefore, there is no "hole" at $\pi$ in the p-adic world because the sequence never tries to go there. The p-adics are complete because every sequence that should converge (according to p-adic distance) does converge to a p-adic number.
 
 Just as in the real world, many Cauchy sequences of rational numbers do not converge to a rational number. The set of p-adic numbers $\mathbb{Q}_p$ is defined as the completion of $\mathbb{Q}$ with respect to the p-adic metric. 
 
-The "geometry" of a p-adic circle is nothing like the one you draw on a piece of paper. Here is a Gemini depiction of a circle as the folders at the same depth inside a Windows Explorer system (explained later on):
+The "geometry" of a p-adic circle is nothing like the one we draw on a piece of paper. Here is a Gemini depiction of a circle as the folders at the same depth inside a Windows Explorer system (explained later on):
 
 ---
 

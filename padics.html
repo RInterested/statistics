@@ -415,7 +415,58 @@ get larger p-adically <span class="math inline">\((|1/n!|_p \to
 \infty)\)</span>. Therefore the series explodes. Similarly <span class="math inline">\(\pi\)</span> is defined by the geometry of
 Euclidean space. Since p-adic space is non-Euclidean and ultra-metric
 (every triangle is isosceles), the physical definition of <span class="math inline">\(\pi\)</span> has no meaning there.</p>
-<p>Even though Ostrowski’s Theorem states that the only ways to fill in
+<hr />
+<h2 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+Ostrowski’s theorem, completion, pi, e and the p-adic circle
+</h2>
+<hr />
+<p>In mathematics, a completion is a process that fills the gaps in a
+number system by including the limits of all Cauchy sequences. Both the
+real numbers (<span class="math inline">\(\mathbb{R}\)</span>) and the
+<span class="math inline">\(p\)</span>-adic numbers (<span class="math inline">\(\mathbb{Q}_{p}\)</span>) are constructed as
+completions of the rational numbers (<span class="math inline">\(\mathbb{Q}\)</span>), but they use entirely
+different definitions of distance.</p>
+<p>Cauchy sequences exist in the p-adic numbers, and they behave under
+an even simpler convergence rule than in the real numbers. Just like in
+the real numbers, a sequence is Cauchy if its terms get infinitely close
+to one another However, because the p-adic distance metric satisfies a
+special geometric property called the ultrametric inequality, testing
+for convergence becomes significantly easier. In any metric space, a
+sequence <span class="math inline">\(a_n\)</span> is a Cauchy sequence
+if, for every <span class="math inline">\(\epsilon &gt; 0,\)</span>
+there exists an integer <span class="math inline">\(N\)</span> such that
+for all <span class="math inline">\(m, n &gt; N:\)</span> <span class="math inline">\(|a_{m}-a_{n}|_{p}&lt;\epsilon.\)</span> In the
+p-adic metric <span class="math inline">\(\lvert \cdot
+\rvert_p,\)</span> two numbers are close if their difference is
+divisible by a large power of <span class="math inline">\(p.\)</span>
+The p-adic metric is an “ultrametric,” meaning it obeys a stronger
+version of the triangle inequality: <span class="math inline">\(|x+y|_{p}\le \max (|x|_{p},|y|_{p}).\)</span>
+Because of this property, a sequence in <span class="math inline">\(\mathbb{Q}_{p}\)</span> is Cauchy if and only if
+the difference between consecutive terms goes to zero. <span class="math inline">\(\lim _{n\rightarrow \infty
+}|a_{n+1}-a_{n}|_{p}=0.\)</span> In the real numbers, this shortcut is
+false (for example, the harmonic series <span class="math inline">\(1 +
+\frac{1}{2} + \frac{1}{3} + \dots\)</span> has consecutive terms going
+to zero, but it does not converge). In the <span class="math inline">\(p\)</span>-adics, it is always true.</p>
+<p>Consider the 5-adic integers <span class="math inline">\(\mathbb{Q}_{5}\)</span> and the sequence of
+partial sums for this infinite series: <span class="math inline">\(a_{n}=5+5^{2}+5^{3}+5^{4}+\dots +5^{n}.\)</span>
+Let us look at the distance between consecutive terms: <span class="math inline">\(|a_{n+1}-a_{n}|_{5}=|5^{n+1}|_{5}=\frac{1}{5^{n+1}}\)</span>.
+As <span class="math inline">\(n\)</span> goes to infinity, <span class="math inline">\(\frac{1}{5^{n+1}}\)</span> goes to <span class="math inline">\(0.\)</span> Because consecutive terms get closer
+together, this sequence is guaranteed to be a Cauchy sequence, and it
+converges to the <span class="math inline">\(5\)</span>-adic integer
+<span class="math inline">\(-\frac{5}{4}.\)</span></p>
+<p>Factor out a <span class="math inline">\(5\)</span>:</p>
+<p><span class="math inline">\(a_{n}=5(1+5+5^{2}+\dots
++5^{n-1})\)</span></p>
+<p>Using the standard formula</p>
+<p><span class="math inline">\(1 + r + r^2 + \dots + r^{n-1} =
+\frac{1-r^n}{1-r}\)</span></p>
+<p>where <span class="math inline">\(r=5\)</span>:</p>
+<p><span class="math inline">\(a_{n}=5\cdot
+\left(\frac{1-5^{n}}{1-5}\right)\)</span></p>
+<p><span class="math inline">\(a_{n}=5\cdot
+\left(\frac{1-5^{n}}{-4}\right)=\frac{5^{n}-1}{4}\cdot 5\)</span></p>
+<p><span class="math inline">\(a_{n}=\frac{5^{n+1}-5}{4}=\frac{5^{n+1}}{4}-\frac{5}{4}\)</span></p>
+<p>Even though Ostrowski’s theorem states that the only ways to fill in
 the gaps of the rational numbers <span class="math inline">\(\mathbb{Q}\)</span> are through the familiar real
 numbers <span class="math inline">\(\mathbb{R}\)</span> or the p-adic
 numbers <span class="math inline">\(\mathbb{Q}_p\)</span> for some prime
@@ -437,7 +488,7 @@ p-adic distance) does converge to a p-adic number.</p>
 do not converge to a rational number. The set of p-adic numbers <span class="math inline">\(\mathbb{Q}_p\)</span> is defined as the completion
 of <span class="math inline">\(\mathbb{Q}\)</span> with respect to the
 p-adic metric.</p>
-<p>The “geometry” of a p-adic circle is nothing like the one you draw on
+<p>The “geometry” of a p-adic circle is nothing like the one we draw on
 a piece of paper. Here is a Gemini depiction of a circle as the folders
 at the same depth inside a Windows Explorer system (explained later
 on):</p>
