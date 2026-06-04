@@ -1309,9 +1309,21 @@ $$d(\text{roof}, \text{just}) \leq \max\{d(\text{roof}, \text{budget}), d(\text{
 
 Substitute the actual distances:
 
-$$0.04 \leq \max\{0.04,  0.008\}\;\checkmark$$
+$$0.04 = \max\{0.04,  0.008\}\;\checkmark$$
 
 Because `budget` and `just` are locked close together deep in the tree, any outside file (`roof`) looking in sees them as being at the exact same distance. The long jump up to the legal folder completely dominates the metric. This is the isosceles triangle.
+
+When we switch the perspective to isolate the shortest side of that isosceles triangle, the formula transitions from a strict equality down to a clear inequality. Considering 
+
+$$d(\text{budget}, \text{just}) \leq \max\{d(\text{roof}, \text{budget}), d(\text{roof}, \text{just})\}$$
+
+Substituting the values:
+
+$$0.008 < \max\{0.04, 0.04\}$$
+
+$$0.008 < 0.04 \quad \checkmark$$
+
+We are looking from inside a deep branch out to a completely different part of the tree. The maximum distance is a forced equality because we must travel all the way up to that high-level junction (`legal`) to bridge the gap. When calculating the short side ($0.008$) we are evaluating the distance between two close neighbors (`budget` and `just`) by looking at them from the perspective of a distant outsider (`roof`). Because the outsider is far away, its distance to both local files is identical ($0.04$). The maximum function yields $0.04$, and the inequality cleanly captures the fact that the local neighborhood distance ($0.008$) is much smaller than the distance out to the rest of the world.
 
 Now let's select a different trio: `appl`, `camera`, and `roof`. According to the table, every single pair here shares the `docs` folder at depth $n=1$:
 

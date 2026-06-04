@@ -2623,13 +2623,35 @@ we look up their pairwise distances calculated:</p>
 \max\{d(\text{roof}, \text{budget}), d(\text{budget},
 \text{just})\}\]</span></p>
 <p>Substitute the actual distances:</p>
-<p><span class="math display">\[0.04 \leq
+<p><span class="math display">\[0.04 =
 \max\{0.04,  0.008\}\;\checkmark\]</span></p>
 <p>Because <code>budget</code> and <code>just</code> are locked close
 together deep in the tree, any outside file (<code>roof</code>) looking
 in sees them as being at the exact same distance. The long jump up to
 the legal folder completely dominates the metric. This is the isosceles
 triangle.</p>
+<p>When we switch the perspective to isolate the shortest side of that
+isosceles triangle, the formula transitions from a strict equality down
+to a clear inequality. Considering</p>
+<p><span class="math display">\[d(\text{budget}, \text{just}) \leq
+\max\{d(\text{roof}, \text{budget}), d(\text{roof},
+\text{just})\}\]</span></p>
+<p>Substituting the values:</p>
+<p><span class="math display">\[0.008 &lt; \max\{0.04,
+0.04\}\]</span></p>
+<p><span class="math display">\[0.008 &lt; 0.04 \quad
+\checkmark\]</span></p>
+<p>We are looking from inside a deep branch out to a completely
+different part of the tree. The maximum distance is a forced equality
+because we must travel all the way up to that high-level junction
+(<code>legal</code>) to bridge the gap. When calculating the short side
+(<span class="math inline">\(0.008\)</span>) we are evaluating the
+distance between two close neighbors (<code>budget</code> and
+<code>just</code>) by looking at them from the perspective of a distant
+outsider (<code>roof</code>). Because the outsider is far away, its
+distance to both local files is identical (<span class="math inline">\(0.04\)</span>). The maximum function yields <span class="math inline">\(0.04\)</span>, and the inequality cleanly captures
+the fact that the local neighborhood distance (<span class="math inline">\(0.008\)</span>) is much smaller than the distance
+out to the rest of the world.</p>
 <p>Now let’s select a different trio: <code>appl</code>,
 <code>camera</code>, and <code>roof</code>. According to the table,
 every single pair here shares the <code>docs</code> folder at depth
