@@ -1292,7 +1292,7 @@ Likewise,
 |
 Result: Sides are $\{0.2, 1.0, 1.0\}$. Isosceles.
 
-The Isosceles Principle is the geometric manifestation of the Ultrametric Inequality. In a standard metric, the triangle inequality says the third side can't be longer than the sum of the other two: $d(x, z) \leq d(x, y) + d(y, z)$. But in an ultrametric (your folder system), the rule is much "stricter." The third side cannot be longer than the maximum of the other two:$$d(x, z) \leq \max(d(x, y), d(y, z))$$
+The **isosceles principle** is the geometric manifestation of the ultrametric inequality. In a standard metric, the triangle inequality says the third side can't be longer than the sum of the other two: $d(x, z) \leq d(x, y) + d(y, z)$. But in an ultrametric, the rule is much stricter. The third side cannot be longer than the maximum of the other two:$$d(x, z) \leq \max(d(x, y), d(y, z))$$
 
 Let's select three files from the table: budget, fees, and roof. If we look up their pairwise distances calculated: 
 
@@ -1305,13 +1305,13 @@ $d(\text{just}, \text{roof}) = 0.04$ (They also share the legal folder)
 
 Let's plug these into the ultrametric formula:
 
-$$d(\text{roof}, \text{justfees}) \leq \max\{d(\text{roof}, \text{budget}), d(\text{budget}, \text{justfees})\}$$
+$$d(\text{roof}, \text{just}) \leq \max\{d(\text{roof}, \text{budget}), d(\text{budget}, \text{just})\}$$
 
 Substitute the actual distances:
 
 $$0.04 \leq \max\{0.04,  0.008\}\;\checkmark$$
 
-Because `budget` and `just` are locked close together deep in the tree, any outside file (`roof`) looking in sees them as being at the exact same distance. The long jump up to the legal folder completely dominates the metric.
+Because `budget` and `just` are locked close together deep in the tree, any outside file (`roof`) looking in sees them as being at the exact same distance. The long jump up to the legal folder completely dominates the metric. This is the isosceles triangle.
 
 Now let's select a different trio: `appl`, `camera`, and `roof`. According to the table, every single pair here shares the `docs` folder at depth $n=1$:
 

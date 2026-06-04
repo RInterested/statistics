@@ -2604,10 +2604,11 @@ examples:</p>
 </table>
 <p>Result: Sides are <span class="math inline">\(\{0.2, 1.0,
 1.0\}\)</span>. Isosceles.</p>
-<p>The Isosceles Principle is the geometric manifestation of the
-Ultrametric Inequality. In a standard metric, the triangle inequality
-says the third side can’t be longer than the sum of the other two: <span class="math inline">\(d(x, z) \leq d(x, y) + d(y, z)\)</span>. But in an
-ultrametric (your folder system), the rule is much “stricter.” The third
+<p>The <strong>isosceles principle</strong> is the geometric
+manifestation of the ultrametric inequality. In a standard metric, the
+triangle inequality says the third side can’t be longer than the sum of
+the other two: <span class="math inline">\(d(x, z) \leq d(x, y) + d(y,
+z)\)</span>. But in an ultrametric, the rule is much stricter. The third
 side cannot be longer than the maximum of the other two:<span class="math display">\[d(x, z) \leq \max(d(x, y), d(y, z))\]</span></p>
 <p>Let’s select three files from the table: budget, fees, and roof. If
 we look up their pairwise distances calculated:</p>
@@ -2618,16 +2619,17 @@ we look up their pairwise distances calculated:</p>
 <p><span class="math inline">\(d(\text{just}, \text{roof}) =
 0.04\)</span> (They also share the legal folder)</p>
 <p>Let’s plug these into the ultrametric formula:</p>
-<p><span class="math display">\[d(\text{roof}, \text{justfees}) \leq
+<p><span class="math display">\[d(\text{roof}, \text{just}) \leq
 \max\{d(\text{roof}, \text{budget}), d(\text{budget},
-\text{justfees})\}\]</span></p>
+\text{just})\}\]</span></p>
 <p>Substitute the actual distances:</p>
 <p><span class="math display">\[0.04 \leq
 \max\{0.04,  0.008\}\;\checkmark\]</span></p>
 <p>Because <code>budget</code> and <code>just</code> are locked close
 together deep in the tree, any outside file (<code>roof</code>) looking
 in sees them as being at the exact same distance. The long jump up to
-the legal folder completely dominates the metric.</p>
+the legal folder completely dominates the metric. This is the isosceles
+triangle.</p>
 <p>Now let’s select a different trio: <code>appl</code>,
 <code>camera</code>, and <code>roof</code>. According to the table,
 every single pair here shares the <code>docs</code> folder at depth
