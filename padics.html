@@ -3083,13 +3083,63 @@ fact that in the <span class="math inline">\(2\)</span>-adic sense</p>
 <p>makes sense, based on the fact that the added values (in <span class="math inline">\(2\)</span>-adic) are getting smaller and smaller.
 This is presented by 3B1B in <a href="https://youtu.be/XFDM1ip5HdU?si=dQpqMighSDTuanK8">here</a>.</p>
 <p>The p-adic norm <span class="math inline">\(\left|x \right|_p =
-p^{-\nu}\)</span> has <strong>power law behavior</strong>. Because the
-norm is defined as a power of <span class="math inline">\(p\)</span>,
-the addition of two p-adic numbers cannot result in a norm larger than
-the larger of the two individual norms. This is a characteristic feature
-of non-Archimedean spaces, where the usual additive properties of norms
-are replaced by the strong form of the triangle inequality, <span class="math inline">\(\left|x+y \right|_p \leq \max(\left|x \right|_p,
-\left|y \right|_p)\)</span>.</p>
+p^{-\nu}\)</span> has <strong>power law behavior</strong>. In the
+broadest mathematical sense, a power law simply describes a relationship
+where one variable varies as a power of another (<span class="math inline">\(y = kx^n\)</span>). The exponent <span class="math inline">\(n\)</span> can be positive or negative. However,
+in physics, complex systems, and topology, when people talk about “power
+law behavior,” they are almost always referring to an inverse power law
+(where the exponent is negative, <span class="math inline">\(n &lt;
+0\)</span>).</p>
+<p>In the <span class="math inline">\(p\)</span>-adic norm expression
+<span class="math inline">\(|x|_p = p^{-\nu}\)</span>, the negative sign
+in the exponent is absolutely critical. It ensures that as <span class="math inline">\(\nu\)</span> (the power of <span class="math inline">\(p\)</span> dividing the number) gets larger, the
+actual size (the norm) gets smaller. This inversion is exactly what
+transforms a standard numbering system into a hierarchical, ultrametric
+tree structure.</p>
+<p>When we combine this power-law decay with the rule that addition
+cannot yield a norm larger than the maximum of the components, it forces
+the entire space to behave in ways that turn standard calculus and
+geometry completely on their heads.</p>
+<p>In the real number system, numbers with a massive number of digits
+(like <span class="math inline">\(5^{100}\)</span>) are infinitely far
+away from zero. Because of the negative power law <span class="math inline">\(|x|_p = p^{-\nu}\)</span>, the exact opposite
+happens in <span class="math inline">\(\mathbb{Q}_p\)</span>: The number
+<span class="math inline">\(5\)</span> has a norm of <span class="math inline">\(5^{-1} = 0.2\)</span>. The number <span class="math inline">\(5^2\)</span> has a norm of <span class="math inline">\(5^{-2} = 0.04\)</span>. The number <span class="math inline">\(5^{100}\)</span> has a norm of <span class="math inline">\(5^{-100}\)</span>, which is an unimaginably
+microscopic number. Multiples of <span class="math inline">\(p\)</span>
+act like fractional paths in a file system. Multiplying by <span class="math inline">\(p\)</span> does not scale a number up out into
+infinity; it buries it one layer deeper into a sub-folder, pushing it
+closer and closer to the center (<span class="math inline">\(0\)</span>).</p>
+<p>In standard calculus, for an infinite series <span class="math inline">\(\sum a_n\)</span> to converge, the terms <span class="math inline">\(a_n\)</span> must go to zero, but that isn’t
+always enough (for example, the harmonic series <span class="math inline">\(1 + \frac{1}{2} + \frac{1}{3} + \dots\)</span>
+diverges). In the <span class="math inline">\(p\)</span>-adic universe,
+because addition cannot breach the maximum value of its components, a
+series converges if and only if the individual terms approach zero.
+Consider the infinite in the 5-adic system:</p>
+<p><span class="math display">\[1 + 5 + 25 + 125 + 625 +
+\dots\]</span></p>
+<p>In Euclidean space, this adds up to infinity. But let’s look at the
+5-adic norms of the terms using our power law:</p>
+<p><span class="math display">\[|1|_5 = 1, \quad |5|_5 = 0.2, \quad
+|25|_5 = 0.04, \quad |125|_5 = 0.008 \dots\]</span></p>
+<p>The terms are strictly decaying toward zero. Because the addition of
+these numbers can never create a norm larger than the biggest individual
+piece (<span class="math inline">\(|1|_5 = 1\)</span>), the entire
+infinite sum is structurally bounded. It cannot explode. It cleanly
+converges to a exact, finite value (specifically, <span class="math inline">\(-1/4\)</span>).</p>
+<p>In everyday measurements, if we add together ten small uncertainties
+of <span class="math inline">\(0.1\text{ cm}\)</span>, they can
+accumulate into a total error of <span class="math inline">\(1.0\text{
+cm}\)</span>. Because of the strong triangle inequality driven by this
+power law, errors or perturbations do not accumulate. If we have a
+baseline calculation with an uncertainty of scale <span class="math inline">\(5^{-2}\)</span> (<span class="math inline">\(0.04\)</span>), and we add a tiny noise or
+adjustment of scale <span class="math inline">\(5^{-5}\)</span> (<span class="math inline">\(0.008\)</span>), the total uncertainty doesn’t
+crawl upward. It stays strictly bounded at <span class="math inline">\(\max(0.04, 0.008) = 0.04\)</span>.</p>
+<p>Because the norm is defined as a power of <span class="math inline">\(p\)</span>, the addition of two p-adic numbers
+cannot result in a norm larger than the larger of the two individual
+norms. This is a characteristic feature of non-Archimedean spaces, where
+the usual additive properties of norms are replaced by the strong form
+of the triangle inequality, <span class="math inline">\(\left|x+y
+\right|_p \leq \max(\left|x \right|_p, \left|y \right|_p)\)</span>.</p>
 <p>Visualization of the p-adic norm as an infinity tree, corresponding
 to the power series. Each branch represents an element of the
 <strong>residue field</strong>: This is the set of numbers that remain
