@@ -1294,7 +1294,44 @@ Result: Sides are $\{0.2, 1.0, 1.0\}$. Isosceles.
 
 The Isosceles Principle is the geometric manifestation of the Ultrametric Inequality. In a standard metric, the triangle inequality says the third side can't be longer than the sum of the other two: $d(x, z) \leq d(x, y) + d(y, z)$. But in an ultrametric (your folder system), the rule is much "stricter." The third side cannot be longer than the maximum of the other two:$$d(x, z) \leq \max(d(x, y), d(y, z))$$
 
-This can be visualized in the topology of p-adics using cylinders:
+Let's select three files from the table: budget, fees, and roof. If we look up their pairwise distances calculated: 
+
+$d(\text{budget}, \text{just}) = 0.008$ (They share the deep `fees` folder)
+
+$d(\text{roof}, \text{budget}) = 0.04$ (They share the higher `legal` folder)
+
+$d(\text{just}, \text{roof}) = 0.04$ (They also share the legal folder)
+
+
+Let's plug these into the ultrametric formula:
+
+$$d(\text{roof}, \text{justfees}) \leq \max\{d(\text{roof}, \text{budget}), d(\text{budget}, \text{justfees})\}$$
+
+Substitute the actual distances:
+
+$$0.04 \leq \max\{0.04,  0.008\}\;\checkmark$$
+
+Because `budget` and `just` are locked close together deep in the tree, any outside file (`roof`) looking in sees them as being at the exact same distance. The long jump up to the legal folder completely dominates the metric.
+
+Now let's select a different trio: `appl`, `camera`, and `roof`. According to the table, every single pair here shares the `docs` folder at depth $n=1$:
+
+$d(\text{appl}, \text{camera}) = 0.2$
+
+$d(\text{camera}, \text{roof}) = 0.2$
+
+$d(\text{appl}, \text{roof}) = 0.2$
+
+$$d(\text{appl}, \text{roof}) \leq \max\{d(\text{appl}, \text{camera}), d(\text{camera}, \text{roof})\}$$
+
+Substitute the values:
+
+$$0.2 \leq \max\{0.2, 0.2\}\;\checkmark$$
+
+This is the case of the equilateral triangle. Because none of these three files share any deeper sub-folders, traveling between any two of them requires walking up to the exact same level (`docs`). Therefore, all three sides of this triangle are perfectly equal.
+
+This illustrates the law of ultrametric spaces: we can never draw a scalene triangle (each of the three sides of different length). Every single trio of files we pick will either form an isosceles triangle with a short base (like scenario $1:$ $0.04, 0.04, 0.008$), or an equilateral triangle (like scenario $2:$ $0.2, 0.2, 0.2$).
+
+This idea of distance can also be visualized in the topology of p-adics using cylinders:
 
 ---
 
