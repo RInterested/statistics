@@ -607,9 +607,9 @@ The only difference is the "direction of travel" for the algorithm.
 The p-adic mechanics:
 </h3>
 
-<h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; font-size: 1.75rem; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+<h4 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 Expressing $450$ in $5$-adic:
-</h3>
+</h4>
 
 
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
@@ -738,9 +738,9 @@ Written in the same order as base $5$ (highest power first), this is $3300$.
 
 ---
 
-<h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+<h4 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
 Expressing $450$ in base $5$:
-</h3>
+</h4>
 
 In standard base conversion, we start with the largest possible power of $5$ and work our way down to the units.
 
@@ -769,9 +769,9 @@ $$\bbox[5px, border: 1px solid black]{\color{red}{4357 = b_0 (5^0) + b_1 (5^1) +
 
 ---
 
-<h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+<h4 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
 Expressing $4357$ in base $5$:
-</h3>
+</h4>
 
 Base $5$ starts by solving for the largest $i$ first ($b_5$). It asks: "What is the most significant part of this number?" It effectively "strips away" the biggest chunks ($1 \cdot 5^5$, then $1 \cdot 5^4$, etc.) until nothing is left.
 
@@ -800,9 +800,9 @@ The process of converting an integer to a base $p$ is essentially a recursive di
 
 ---
 
-<h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
+<h4 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 1px solid #2c3e50; padding-bottom: 0.2em;">
 Expressing $4357$ in $5$-adic (the congruence approach):
-</h3>
+</h4>
 
 The $5$-adic method starts by solving for the smallest $i$ first ($b_0$). It asks: "What is this number equivalent to, modulo $5$?" It uses the "subtract and divide" logic to clear out the units, then the fives, then the twenty-fives, moving from the inside out:
 
@@ -1497,7 +1497,7 @@ Solving for $A$ and $B$, we find that $\frac{23}{30} = \frac{2}{3} + \frac{1}{10
 
 Now, we look at the two pieces: The $\frac{2}{3}$: This is a pure p-adic fraction (one power of $3$ - to the right of the radix period, which is where negative powers of $3$ are located). In $3$-adic notation, this is $.2_3$. While $\frac{1}{10}$ looks like a fraction in base $10,$ in the $3$-adic system, its denominator $(10)$ is not divisible by $3.$ This means it has zero digits to the right of the radix point. It is technically a $3$-adic integer ($\dots 202021_3$). Identifying the Remainder is the act of filtering out everything that doesn't sit to the right of the radix point. We keep the $\frac{2}{3}$ and discard the $\frac{1}{10}$ because it contributes zero to the winding of the first gear.
 
-$$\left{2.3 \cdot \frac{1}{3}\right}_3 = \frac{2}{3}$$
+$$\left\{2.3 \cdot \frac{1}{3}\right\}_3 = \frac{2}{3}$$
 
 Finally, we take that identified remainder and map it to a physical position on the torus. Because the solenoid is a geometric representation of the number line wrapped into a circle, we convert the $3$-adic fractional part (which is the part to the right of the radix $\dots abcd.\text{here}_p$) into an angular measurement: 
 
