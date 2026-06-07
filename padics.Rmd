@@ -158,7 +158,7 @@ $a_{n}=5\cdot \left(\frac{1-5^{n}}{-4}\right)=\frac{5^{n}-1}{4}\cdot 5$
 
 $a_{n}=\frac{5^{n+1}-5}{4}=\frac{5^{n+1}}{4}-\frac{5}{4}$
 
-Even though Ostrowski's theorem states that the only ways to fill in the gaps of the rational numbers $\mathbb{Q}$ are through the familiar real numbers $\mathbb{R}$ or the p-adic numbers $\mathbb{Q}_p$ for some prime $p,$ we can't express either $\pi$ or $e$ as p-adics. Completion isn't about collecting every possible number that exists; it's about filling in the holes for a specific way of measuring distance. In the reals we use the distance $|x - y|:$ We see that the sequence $3, 3.1, 3.14, 3.141...$ is getting closer and closer together. Since the "limit" isn't a rational number, we call that hole $\pi$ and add it to the set. In the p-adics, we use the distance $|x - y|_p$. In this metric, the sequence $3, 3.1, 3.14...$ doesn't get closer together at all. In fact, the terms stay far apart. Therefore, there is no "hole" at $\pi$ in the p-adic world because the sequence never tries to go there. The p-adics are complete because every sequence that should converge (according to p-adic distance) does converge to a p-adic number.
+Even though Ostrowski's theorem states that the only ways to fill in the gaps of the rational numbers $\mathbb{Q}$ are through the familiar real numbers $\mathbb{R}$ or the p-adic numbers $\mathbb{Q}_p$ for some prime $p,$ we can't express $\pi$ as p-adics. Completion isn't about collecting every possible number that exists; it's about filling in the holes for a specific way of measuring distance. In the reals we use the distance $|x - y|:$ We see that the sequence $3, 3.1, 3.14, 3.141...$ is getting closer and closer together. Since the "limit" isn't a rational number, we call that hole $\pi$ and add it to the set. In the p-adics, we use the distance $|x - y|_p$. In this metric, the sequence $3, 3.1, 3.14...$ doesn't get closer together at all. In fact, the terms stay far apart. Therefore, there is no "hole" at $\pi$ in the p-adic world because the sequence never tries to go there. The p-adics are complete because every sequence that should converge (according to p-adic distance) does converge to a p-adic number.
 
 Just as in the real world, many Cauchy sequences of rational numbers do not converge to a rational number. The set of p-adic numbers $\mathbb{Q}_p$ is defined as the completion of $\mathbb{Q}$ with respect to the p-adic metric. 
 
@@ -185,6 +185,64 @@ Since we don't have $\pi$ to measure angles, we use roots of unity. In the compl
 However, there are transcendental and complex numbers that can be expressed as p-adic integers. For example, in the $5$-adics, $\sqrt{-1}$ is a "natural" member of the field. 
 
 While the imaginary number $i = \sqrt{-1}$ cannot exist in the real number system because a positive times a positive is positive and a negative times a negative is also positive, it does exist in the $5$-adic number system. The reason it only exists for some $p$ is based on modular arithmetic. A square root of $-1$ (a number $x$ such that $x^2 = -1$) exists in the p-adic integers $\mathbb{Z}_p$ if and only if the equation $x^2 \equiv -1 \pmod p$ has a solution. This condition is only met when $p$ is a prime number that is congruent to $1$ modulo $4$. For $p=5$ the equation $x^2 \equiv -1 \pmod 5$ is equivalent to $x^2 \equiv 4 \pmod 5$. This has two solutions: $x=2$ and $x=3$, as $2^2 = 4 \equiv 4 \pmod 5$ and $3^2 = 9 \equiv 4 \pmod 5$. Because these solutions exist, they can be lifted to form two unique $5$-adic integers that are the square roots of $-1$.
+
+The constant $e$ can be calculated in p-adics. In calculus, we define $e^x$ using its infinite Taylor series:
+
+$$e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \dots$$
+
+If we want the base constant $e$, you plug in $x = 1$: $e^1 = 1 + 1 + \frac{1}{2} + \frac{1}{6} + \frac{1}{24} + \dots.$ In the real numbers, this series converges beautifully. But in the $5$-adics, for example, a series converges if and only if the individual terms shrink to zero ($|\text{term}|_5 \to 0$). Let's look at what happens to the terms of $e^1$ in $5$-adics:  denominators are factorials $(1!, 2!, 3!, 4!, 5! \dots).$ Every time a factorial crosses a multiple of $5,$ it accumulates a factor of $5$ in the denominator. For example, $5! = 120 = 5 \times 24$. Because $5$ is in the denominator, the $5$-adic absolute value actually explodes. For instance, $|\frac{1}{5!}|_5 = 5$. As we go further down the series, the factorials accumulate more and more powers of $5,$ causing the terms to blow up to infinity. Because the terms don't shrink to zero, the series for $e^1$ strictly diverges in $\mathbb{Q}_5$. To make the series converge, we have to feed the exponential function an input $x$ that shrinks faster than the factorials can blow it up. In $\mathbb{Q}_5$, if we pick an input $x$ that is highly divisible by $5$ (meaning $|x|_5 \le 1/5$), the $x^n$ in the numerator will overpower the factorials in the denominator. So, instead of calculating $e^1$, mathematicians calculate $e^5$ (or more generally, $e^p$ for any prime $p > 2$). Let's look at the series for $e^5$ in $\mathbb{Q}_5$:
+
+$$e^5 = 1 + 5 + \frac{5^2}{2!} + \frac{5^3}{3!} + \frac{5^4}{4!} + \frac{5^5}{5!} + \dots$$
+
+Now let's check the $5$-adic size of the terms to make sure they shrink: 
+
+Term $2:$ $5 \implies$ divisible by $5^1 \implies$ size is $1/5$ 
+
+Term $3:$ $\frac{25}{2} \implies$ divisible by $5^2 \implies$ size is $1/25$
+
+Term $6:$ $\frac{5^5}{5!} = \frac{3125}{120} = \frac{625}{24} \implies$ divisible by $5^4 \implies$ size is $1/625$
+
+Because the powers of $5$ in the numerator grow much faster than the factorials can absorb them, the terms rapidly shrink to zero in the $5$-adic metric. This series is guaranteed to converge to a perfectly precise, single, transcendental $5$-adic number.
+
+To find the actual $5$-adic digits of this number, we calculate the partial sums of the series modulo increasing powers of $5.$ A $5$-adic number is written with digits moving to the left: $\dots a_3a_2a_1a_0$. Let's compute the first few terms of the series to find the initial digits:
+
+$$\small \text{Partial Sum} = 1 + 5 + \frac{25}{2} + \frac{125}{6} + \frac{625}{24} + \frac{625}{24} + \dots$$
+
+To do arithmetic with the fractions, we have to convert them to integers using modular arithmetic (finding the modular inverse of the denominators mod powers of 5).
+
+Step $1:$ Find the last digit $a_0$ (modulo 5) If we look at the sum modulo $5,$ every term with a $5$ or higher vanishes:
+
+$$e^5 \equiv 1 \pmod 5$$
+
+So, the last digit is $1$. (Our number ends in $\dots1_5$).
+
+Step $2:$ Find the next digit $a_1$ (modulo $25):$ Let's look at the sum modulo $25.$ The terms with $5^2$ or higher vanish:
+
+$$e^5 \equiv 1 + 5 \equiv 6 \pmod{25}$$
+
+Written in base 5, $6 = 1\cdot5^1 + 1\cdot5^0$, which is written as $11_5$. So the next digit is $1$. (Our number ends in $\dots11_5$).
+
+Step $3:$ Find the next digit $a_2$ (modulo $125).$ Now we include the next term, $25/2$. We need to find the value of $1/2 \pmod{125}$. Since $2 \times 63 = 126 \equiv 1 \pmod{125}$, the fraction $1/2$ is equivalent to the integer $63$.
+
+$$e^5 \equiv 1 + 5 + 25(63) \equiv 1 + 5 + 1575 \equiv 1581 \pmod{125}$$
+
+We reduce $1581 \pmod{125}$:
+
+$$1581 = 12 \times 125 + 81 \implies 81 \pmod{125}$$
+
+Now, we convert the integer $81$ to base $5$ digits:
+
+$$81 = 3\cdot(25) + 1\cdot(5) + 1\cdot(1) \implies 311_5$$
+
+So the next digit is $3$. (Our number ends in $\dots311_5$).
+
+The Final $5$-adic representation of this exponential constant:
+
+$$e^5 = \dots 41413230111_5$$
+
+This infinite string of digits is the true "5-adic $e$". It functions as the foundational base for 5-adic trigonometry, exponential growth models, and calculus within $\mathbb{Q}_5$.
+
+
 
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 Rationals:

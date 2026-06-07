@@ -700,7 +700,7 @@ converges to the <span class="math inline">\(5\)</span>-adic integer
 the gaps of the rational numbers <span class="math inline">\(\mathbb{Q}\)</span> are through the familiar real
 numbers <span class="math inline">\(\mathbb{R}\)</span> or the p-adic
 numbers <span class="math inline">\(\mathbb{Q}_p\)</span> for some prime
-<span class="math inline">\(p,\)</span> we can’t express either <span class="math inline">\(\pi\)</span> or <span class="math inline">\(e\)</span> as p-adics. Completion isn’t about
+<span class="math inline">\(p,\)</span> we can’t express <span class="math inline">\(\pi\)</span> as p-adics. Completion isn’t about
 collecting every possible number that exists; it’s about filling in the
 holes for a specific way of measuring distance. In the reals we use the
 distance <span class="math inline">\(|x - y|:\)</span> We see that the
@@ -776,6 +776,90 @@ solutions: <span class="math inline">\(x=2\)</span> and <span class="math inline
 \equiv 4 \pmod 5\)</span>. Because these solutions exist, they can be
 lifted to form two unique <span class="math inline">\(5\)</span>-adic
 integers that are the square roots of <span class="math inline">\(-1\)</span>.</p>
+<p>The constant <span class="math inline">\(e\)</span> can be calculated
+in p-adics. In calculus, we define <span class="math inline">\(e^x\)</span> using its infinite Taylor series:</p>
+<p><span class="math display">\[e^x = 1 + x + \frac{x^2}{2!} +
+\frac{x^3}{3!} + \frac{x^4}{4!} + \dots\]</span></p>
+<p>If we want the base constant <span class="math inline">\(e\)</span>,
+you plug in <span class="math inline">\(x = 1\)</span>: <span class="math inline">\(e^1 = 1 + 1 + \frac{1}{2} + \frac{1}{6} +
+\frac{1}{24} + \dots.\)</span> In the real numbers, this series
+converges beautifully. But in the <span class="math inline">\(5\)</span>-adics, for example, a series converges
+if and only if the individual terms shrink to zero (<span class="math inline">\(|\text{term}|_5 \to 0\)</span>). Let’s look at
+what happens to the terms of <span class="math inline">\(e^1\)</span> in
+<span class="math inline">\(5\)</span>-adics: denominators are
+factorials <span class="math inline">\((1!, 2!, 3!, 4!, 5!
+\dots).\)</span> Every time a factorial crosses a multiple of <span class="math inline">\(5,\)</span> it accumulates a factor of <span class="math inline">\(5\)</span> in the denominator. For example, <span class="math inline">\(5! = 120 = 5 \times 24\)</span>. Because <span class="math inline">\(5\)</span> is in the denominator, the <span class="math inline">\(5\)</span>-adic absolute value actually explodes.
+For instance, <span class="math inline">\(|\frac{1}{5!}|_5 = 5\)</span>.
+As we go further down the series, the factorials accumulate more and
+more powers of <span class="math inline">\(5,\)</span> causing the terms
+to blow up to infinity. Because the terms don’t shrink to zero, the
+series for <span class="math inline">\(e^1\)</span> strictly diverges in
+<span class="math inline">\(\mathbb{Q}_5\)</span>. To make the series
+converge, we have to feed the exponential function an input <span class="math inline">\(x\)</span> that shrinks faster than the factorials
+can blow it up. In <span class="math inline">\(\mathbb{Q}_5\)</span>, if
+we pick an input <span class="math inline">\(x\)</span> that is highly
+divisible by <span class="math inline">\(5\)</span> (meaning <span class="math inline">\(|x|_5 \le 1/5\)</span>), the <span class="math inline">\(x^n\)</span> in the numerator will overpower the
+factorials in the denominator. So, instead of calculating <span class="math inline">\(e^1\)</span>, mathematicians calculate <span class="math inline">\(e^5\)</span> (or more generally, <span class="math inline">\(e^p\)</span> for any prime <span class="math inline">\(p &gt; 2\)</span>). Let’s look at the series for
+<span class="math inline">\(e^5\)</span> in <span class="math inline">\(\mathbb{Q}_5\)</span>:</p>
+<p><span class="math display">\[e^5 = 1 + 5 + \frac{5^2}{2!} +
+\frac{5^3}{3!} + \frac{5^4}{4!} + \frac{5^5}{5!} + \dots\]</span></p>
+<p>Now let’s check the <span class="math inline">\(5\)</span>-adic size
+of the terms to make sure they shrink:</p>
+<p>Term <span class="math inline">\(2:\)</span> <span class="math inline">\(5 \implies\)</span> divisible by <span class="math inline">\(5^1 \implies\)</span> size is <span class="math inline">\(1/5\)</span></p>
+<p>Term <span class="math inline">\(3:\)</span> <span class="math inline">\(\frac{25}{2} \implies\)</span> divisible by <span class="math inline">\(5^2 \implies\)</span> size is <span class="math inline">\(1/25\)</span></p>
+<p>Term <span class="math inline">\(6:\)</span> <span class="math inline">\(\frac{5^5}{5!} = \frac{3125}{120} = \frac{625}{24}
+\implies\)</span> divisible by <span class="math inline">\(5^4
+\implies\)</span> size is <span class="math inline">\(1/625\)</span></p>
+<p>Because the powers of <span class="math inline">\(5\)</span> in the
+numerator grow much faster than the factorials can absorb them, the
+terms rapidly shrink to zero in the <span class="math inline">\(5\)</span>-adic metric. This series is guaranteed
+to converge to a perfectly precise, single, transcendental <span class="math inline">\(5\)</span>-adic number.</p>
+<p>To find the actual <span class="math inline">\(5\)</span>-adic digits
+of this number, we calculate the partial sums of the series modulo
+increasing powers of <span class="math inline">\(5.\)</span> A <span class="math inline">\(5\)</span>-adic number is written with digits
+moving to the left: <span class="math inline">\(\dots
+a_3a_2a_1a_0\)</span>. Let’s compute the first few terms of the series
+to find the initial digits:</p>
+<p><span class="math display">\[\small \text{Partial Sum} = 1 + 5 +
+\frac{25}{2} + \frac{125}{6} + \frac{625}{24} + \frac{625}{24} +
+\dots\]</span></p>
+<p>To do arithmetic with the fractions, we have to convert them to
+integers using modular arithmetic (finding the modular inverse of the
+denominators mod powers of 5).</p>
+<p>Step <span class="math inline">\(1:\)</span> Find the last digit
+<span class="math inline">\(a_0\)</span> (modulo 5) If we look at the
+sum modulo <span class="math inline">\(5,\)</span> every term with a
+<span class="math inline">\(5\)</span> or higher vanishes:</p>
+<p><span class="math display">\[e^5 \equiv 1 \pmod 5\]</span></p>
+<p>So, the last digit is <span class="math inline">\(1\)</span>. (Our
+number ends in <span class="math inline">\(\dots1_5\)</span>).</p>
+<p>Step <span class="math inline">\(2:\)</span> Find the next digit
+<span class="math inline">\(a_1\)</span> (modulo <span class="math inline">\(25):\)</span> Let’s look at the sum modulo <span class="math inline">\(25.\)</span> The terms with <span class="math inline">\(5^2\)</span> or higher vanish:</p>
+<p><span class="math display">\[e^5 \equiv 1 + 5 \equiv 6
+\pmod{25}\]</span></p>
+<p>Written in base 5, <span class="math inline">\(6 = 1\cdot5^1 +
+1\cdot5^0\)</span>, which is written as <span class="math inline">\(11_5\)</span>. So the next digit is <span class="math inline">\(1\)</span>. (Our number ends in <span class="math inline">\(\dots11_5\)</span>).</p>
+<p>Step <span class="math inline">\(3:\)</span> Find the next digit
+<span class="math inline">\(a_2\)</span> (modulo <span class="math inline">\(125).\)</span> Now we include the next term, <span class="math inline">\(25/2\)</span>. We need to find the value of <span class="math inline">\(1/2 \pmod{125}\)</span>. Since <span class="math inline">\(2 \times 63 = 126 \equiv 1 \pmod{125}\)</span>,
+the fraction <span class="math inline">\(1/2\)</span> is equivalent to
+the integer <span class="math inline">\(63\)</span>.</p>
+<p><span class="math display">\[e^5 \equiv 1 + 5 + 25(63) \equiv 1 + 5 +
+1575 \equiv 1581 \pmod{125}\]</span></p>
+<p>We reduce <span class="math inline">\(1581 \pmod{125}\)</span>:</p>
+<p><span class="math display">\[1581 = 12 \times 125 + 81 \implies 81
+\pmod{125}\]</span></p>
+<p>Now, we convert the integer <span class="math inline">\(81\)</span>
+to base <span class="math inline">\(5\)</span> digits:</p>
+<p><span class="math display">\[81 = 3\cdot(25) + 1\cdot(5) + 1\cdot(1)
+\implies 311_5\]</span></p>
+<p>So the next digit is <span class="math inline">\(3\)</span>. (Our
+number ends in <span class="math inline">\(\dots311_5\)</span>).</p>
+<p>The Final <span class="math inline">\(5\)</span>-adic representation
+of this exponential constant:</p>
+<p><span class="math display">\[e^5 = \dots 41413230111_5\]</span></p>
+<p>This infinite string of digits is the true “5-adic <span class="math inline">\(e\)</span>”. It functions as the foundational base
+for 5-adic trigonometry, exponential growth models, and calculus within
+<span class="math inline">\(\mathbb{Q}_5\)</span>.</p>
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 Rationals:
 </h3>
