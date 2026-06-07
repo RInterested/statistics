@@ -566,6 +566,75 @@ the p-adic space. Instead, the space is a totally disconnected
 topological space. If you visualize the p-adic integers geometrically on
 a two-dimensional plot, the numbers form a dense, dusty structure that
 behaves mathematically like a Cantor set.</p>
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+<ul>
+<li><p>In the reals, the intermediate value theorem guarantees that to
+get from A to B, we must cross every single point in between. This is
+the foundation of classical physics, smooth motion, and fluid dynamics.
+In the <span class="math inline">\(p\)</span>-adics, the space is
+totally disconnected. If we want to move from point A to point B in a
+<span class="math inline">\(p\)</span>-adic landscape, we don’t glide
+smoothly across a line. We instantaneously hop. It is a universe
+composed entirely of isolated points grouped into fractal clusters
+(cliques). In <span class="math inline">\(\mathbb{Q}_p\)</span>, the
+world is Non-Archimedean. Adding a number to itself over and over never
+makes it physically larger in the p-adic metric. In fact, in <span class="math inline">\(\mathbb{Q}_p\)</span>, if we add <span class="math inline">\(1+1+1...\)</span> a total of <span class="math inline">\(p\)</span> times, we get <span class="math inline">\(p\)</span>, which has a <span class="math inline">\(p\)</span>-adic absolute value of <span class="math inline">\(1/p\)</span>. Adding things together makes them
+smaller. In <span class="math inline">\(\mathbb{Q}_p\)</span>, the
+topology is totally disconnected. Geometrically, <span class="math inline">\(\mathbb{Q}_p\)</span> looks like a Cantor dust — a
+fractal cloud of points. Every single triangle in <span class="math inline">\(\mathbb{Q}_p\)</span> is isosceles, and the center
+of every ball is any point inside it. While beautiful for coding data
+structures or studying number theory, it is an impossible geometry for
+modeling smooth spacetime, fluid dynamics, or planetary orbits.</p></li>
+<li><p>The real numbers are an ordered field. You can say <span class="math inline">\(2 &lt; 3\)</span>, meaning <span class="math inline">\(3\)</span> is to the right of <span class="math inline">\(2\)</span> on a line. This allows us to have
+concepts like “greater than,” “less than,” positive, and negative. <span class="math inline">\(\mathbb{Q}_p\)</span> cannot be ordered in a way
+that plays nice with arithmetic. We cannot say one p-adic number is
+larger than another in a linear sense. Without an order, we lose
+calculus as we know it. We can’t define a velocity vector pointing
+forward or backward.</p></li>
+<li><p>Most <span class="math inline">\(p\)</span>-adic numbers are
+transcendental, meaning they can only be reached via infinite series,
+not polynomial roots. For instance, <span class="math inline">\(e^x = 1
++ x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots\)</span> As long as <span class="math inline">\(x\)</span> is sufficiently small (highly divisible
+by <span class="math inline">\(p\)</span>), this series converges
+perfectly inside <span class="math inline">\(\mathbb{Q}_p\)</span> to a
+transcendental <span class="math inline">\(p\)</span>-adic number. The
+p-adic fields are the completion of the rational numbers <span class="math inline">\(\mathbb{Q}\)</span> with respect to the <span class="math inline">\(p\)</span>-adic metric. When we complete a space,
+we throw in the limits of all possible Cauchy sequences. Because <span class="math inline">\(\mathbb{Q}_p\)</span> is uncountably infinite, and
+the set of algebraic numbers is only countably infinite, almost every
+<span class="math inline">\(p\)</span>-adic number is
+transcendental.</p></li>
+<li><p>To use Hensel’s lemma to lift a solution from modular arithmetic
+up into the <span class="math inline">\(p\)</span>-adics (explained
+below), we need a polynomial equation <span class="math inline">\(f(x) =
+0\)</span> and its derivative <span class="math inline">\(f&#39;(x)\)</span>. Because polynomials only
+involve addition and multiplication, Hensel’s lemma is a fundamentally
+algebraic tool used to find algebraic numbers (like <span class="math inline">\(\sqrt{7}\)</span> or <span class="math inline">\(\sqrt{-1}\)</span>). Hensel’s lemma doesn’t
+generate all p-adic numbers. It only detects the algebraic ones. The
+vast majority of the p-adic universe cannot be reached by it.</p></li>
+<li><p>The real <span class="math inline">\(\pi\)</span> is
+transcendental in <span class="math inline">\(\mathbb{R}\)</span>, but
+its structure relies on things getting smaller in the standard geometric
+sense. In traditional geometry, <span class="math inline">\(\pi\)</span>
+is the ratio of a circle’s circumference to its diameter. However, in
+p-adic fields <span class="math inline">\(\mathbb{Q}_{p},\)</span>
+circles and geometry do not exist in the traditional sense because the
+metric is ultrametric (the distance function forms a disconnected).
+Because of this, the number <span class="math inline">\(\pi\)</span>
+does not naturally exist or arise as a constant in standard p-adic
+number systems. In complex analysis, <span class="math inline">\(\pi\)</span> is inextricably linked to <span class="math inline">\(e\)</span> and <span class="math inline">\(i\)</span> via Euler’s identity. In the p-adic
+setting, mathematicians like John Tate introduced the notion of Tate
+curves, which require a p-adic analogue of <span class="math inline">\(2\pi i.\)</span> While <span class="math inline">\(2\pi i\)</span> itself does not sit inside the
+standard p-adic complex numbers, a p-adic analogue can be rigorously
+defined. Another way mathematicians define an equivalent of <span class="math inline">\(\pi\)</span> is through the p-adic gamma function
+<span class="math inline">\(\Gamma _{p}.\)</span> The classical gamma
+function obeys reflection formulas involving <span class="math inline">\(\pi\)</span>: <span class="math inline">\(\Gamma
+(z)\Gamma (1-z)=\frac{\pi }{\sin (\pi z)}.\)</span> Because the p-adic
+gamma function shares similar properties, mathematicians often define a
+canonical p-adic equivalent of <span class="math inline">\(\pi\)</span>
+by setting <span class="math inline">\(\sqrt{\pi} =
+\Gamma_p(\frac{1}{2}).\)</span></p></li>
+</ul>
+</div>
 <hr />
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 Ostrowski’s theorem, completion of <span class="math inline">\(\mathbb
