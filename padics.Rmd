@@ -68,7 +68,11 @@ Here is the Monna map of $\mathbb Z_3:$
 
 ---
 
-A single $3$-adic integer looks something like $\dots 21012_3.$ Because Python code can't calculate infinitely many digits, we stopped at a precision of $7$ digits. A typical number in our code looks like: $x = [2, 0, 1, 1, 2, 0, 2]$ (Which translates to the number: $2 + 0(3) + 1(3)^2 + 1(3)^3 + 2(3)^4 + 0(3)^5 + 2(3)^6$). Our code systematically generates every single possible $7$-digit combination using the digits $0, 1, and 2.$ Since there are $3$ choices for each of the $7$ slots, the code generates exactly $3^7 = 2,187$ distinct numbers. Every single vertical line on screen represents exactly one of these $2,187$ numbers. The Monna map is a rule that takes those digits, flips them backwards across a decimal point, and reads them as a fraction. The $3$-adic number: $[1, 2, 0, 0, 0, 0, 0]$ (which means its first digit is $1,$ second is $2,$ and the rest are $0).$ The Monna map flips it to the right of the decimal point: $0.1200000...$ In the top plot (base $3$ reals) we read $0.12$ as a standard base-$3$ fraction:
+A single $3$-adic integer looks something like $\dots 21012_3,$ infinitely extending to the left. Because Python code can't calculate infinitely many digits, the code to generate the plot above is truncated at a precision of $7$ digits. A typical number looks like: $x = [2, 0, 1, 1, 2, 0, 2]$ (Which translates to the number: $2 + 0(3) + 1(3)^2 + 1(3)^3 + 2(3)^4 + 0(3)^5 + 2(3)^6$). Our code systematically generates every single possible $7$-digit combination using the digits $0, 1,$ and $2.$ Since there are $3$ choices for each of the $7$ slots, the code generates exactly $3^7 = 2,187$ distinct numbers. Every single vertical line on the plot represents exactly one of these $2,187$ numbers. The Monna map is a rule that takes those digits, flips them backwards across a decimal point, and reads them as a fraction. The $3$-adic number: $[1, 2, 0, 0, 0, 0, 0] = 1 + 2(3)^1 + 0(3)^2 + 0(3)^3 + 0(3)^4 + 0(3)^5 + 0(3)^6$ results under the Monna map into the decimal point $0.1200000...$ In base $10$ this is
+
+$$\text{Position} = \frac{1}{10^1} + \frac{2}{10^2} = \frac{1}{10} + \frac{2}{100}$$
+
+In the top plot (base $3$ reals) we read $0.12$ as a standard base-$3$ fraction:
 
 $$\small\text{Position} = \frac{1}{3^1} + \frac{2}{3^2} = \frac{1}{3} + \frac{2}{9} = \frac{5}{9} \approx 0.555$$
 
