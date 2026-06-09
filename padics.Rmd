@@ -527,14 +527,15 @@ $$\bbox[20px, border: 5px solid red]{a_0 \equiv -a \cdot r^{-1} \cdot d_{-1} \pm
 ---
 
 
-Let's plug in the numbers from the earlier example ($x = \frac{1}{3}$ in base $p = 5$) where:
+Let's plug in the numbers from the example ($x = \frac{1}{3}$ in base $p = 5$) into $a_0 \cdot d_{-1} \equiv a \cdot (-r) \cdot (b^{-1})^2 \pmod p:$
 
-* $a = 1, \quad b = 3, \quad p = 5, \quad r = 2$
-* $d_{-1} = 1, \quad a_0 = 2$
-* $b^{-1} \equiv 3^{-1} \equiv 2 \pmod 5$
+$a = 1, \quad b = 3, \quad p = 5$
 
-into $a_0 \cdot d_{-1} \equiv a \cdot (-r) \cdot (b^{-1})^2 \pmod p:$
+$b^{-1} \equiv 3^{-1} \equiv 2 \pmod 5$
 
+Determining the real base-$5$ digit $(d_{-1}):$ The formula given for the first fractional digit in the real system is: $d_{-1} = \left\lfloor \frac{pa}{b} \right\rfloor.$ Plugging in our values: $d_{-1} = \left\lfloor \frac{5 \cdot 1}{3} \right\rfloor = \left\lfloor \frac{5}{3} \right\rfloor = \lfloor 1.666... \rfloor = 1.$ So, $d_{-1} = 1$.
+
+The integer remainder $r$ comes from the algebraic division identity $pa = b \cdot d_{-1} + r,$ which can also be written as $r = (pa \bmod b)$. Plugging in our values: $r = (5 \cdot 1) \bmod 3 = 5 \bmod 3 = 2.$ So, $r = 2$. We can double-check this with the identity: $5 \cdot 1 = 3 \cdot 1 + 2$, which simplifies to $5 = 5.$
 
 Left-Hand Side (LHS):
 
