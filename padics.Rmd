@@ -430,7 +430,7 @@ The **first digit** of a fraction's standard fractional expansion in base $p$ is
 
 For a simplified rational fraction $x = \frac{a}{b}$ where $p$ does not divide $a$ or $b$, the relationship between these two initial digits is governed by the following mathematical structures:
 
-##### 1. Determining the Base $p$ Real Digit
+##### Determining the base $p$ real digit
 
 In the standard real number system, the fractional part of $x$ (assuming $0 < x < 1$) is expanded into a right-facing series:
 
@@ -440,19 +440,19 @@ The first fractional digit $d_{-1}$ isolates the macro-magnitude of the number o
 
 $$d_{-1} = \lfloor p \cdot x \rfloor = \left\lfloor \frac{pa}{b} \right\rfloor$$
 
-##### 2. Determining the $p$-adic Digit
+##### Determining the p-adic digit
 
-In the p-adic number system $\mathbb{Q}_p$, because $p$ does not divide the denominator $b$, the fraction $x$ behaves as a $p$-adic integer ($x \in \mathbb{Z}_p$). It expands into a left-facing series:
+In the p-adic number system $\mathbb{Q}_p$, because $p$ does not divide the denominator $b$, the fraction $x$ behaves as a p-adic integer $x \in \mathbb{Z}_p.$ It expands into a left-facing series:
 
 $$x = a_0 + a_1p + a_2p^2 + a_3p^3 + \dots$$
 
-The first canonical $p$-adic digit $a_0$ captures the local algebraic remainder. It is computed by solving the linear congruence equation for the multiplicative inverse of the denominator modulo $p$:
+The first canonical p-adic digit $a_0$ captures the local algebraic remainder. It is computed by solving the linear congruence equation for the multiplicative inverse of the denominator modulo $p$:
 
 $$a_0 \equiv a \cdot b^{-1} \pmod p \quad \text{where } a_0 \in \{0, 1, \dots, p-1\}$$
 
-##### 3. Direct Mathematical Relationship
+##### Direct mathematical relationship
 
-To directly link $d_{-1}$ and $a_0$, we use the algebraic division identity $pa = b \cdot d_{-1} + r$, where $r = (pa \bmod b)$ is the integer remainder. 
+To directly link $d_{-1}$ and $a_0$, we use the algebraic division identity $p\,a = b \cdot d_{-1} + r$, where $r = (pa \bmod b)$ is the integer remainder. 
 
 By evaluating this identity under the p-adic modular constraint:
 
@@ -462,65 +462,62 @@ $$b \cdot d_{-1} \equiv -r \pmod p$$
 
 $$d_{-1} \equiv -r \cdot b^{-1} \pmod p$$
 
-Since $a_0 \equiv a \cdot b^{-1} \pmod p$, multiplying the congruence by $p$ yields $0$, confirming that $a_0$ is the unique localized digital lift required to clear out the fractional denominator over higher powers of $p$. 
-
-The direct modular link between the two digits is:
-$$a_0 \cdot d_{-1} \equiv a \cdot (-r) \cdot (b^{-1})^2 \pmod p$$
-
-
-Here is the step-by-step algebraic derivation:
-
-##### Identify the Two Independent Congruences
-From the rules of $p$-adic arithmetic and the division algorithm modulo $p$, we established two separate congruences for the digits:
+We established two separate congruences for the digits:
 
 **For the $p$-adic digit ($a_0$):**
-   $$a_0 \equiv a \cdot b^{-1} \pmod p$$
-**For the real base-$p$ digit ($d_{-1}$):**
-   $$d_{-1} \equiv -r \cdot b^{-1} \pmod p$$
 
-##### Multiply the Equations Together
+$$a_0 \equiv a \cdot b^{-1} \pmod p$$
+   
+**For the real base-$p$ digit ($d_{-1}$):**
+
+$$d_{-1} \equiv -r \cdot b^{-1} \pmod p$$
+
 Since both equations are valid congruences modulo $p$, we can multiply their left-hand sides together and their right-hand sides together:
+
 $$a_0 \cdot d_{-1} \equiv (a \cdot b^{-1}) \cdot (-r \cdot b^{-1}) \pmod p$$
 
-##### Group and Rearrange the Terms
-Using the commutative property of multiplication, we group the base numbers ($a$ and $-r$) together and the modular inverses ($b^{-1}$) together:
 $$a_0 \cdot d_{-1} \equiv a \cdot (-r) \cdot (b^{-1} \cdot b^{-1}) \pmod p$$
+$$\bbox[20px, border: 5px solid red]{a_0 \cdot d_{-1} \equiv a \cdot (-r) \cdot (b^{-1})^2 \pmod p}$$
 
-Combining the two $b^{-1}$ terms into a square yields the final link:
-$$a_0 \cdot d_{-1} \equiv a \cdot (-r) \cdot (b^{-1})^2 \pmod p$$
-
-##### Verification with the Example
 Let's plug in the numbers from the earlier example ($x = \frac{1}{3}$ in base $p = 5$) where:
+
 * $a = 1, \quad b = 3, \quad p = 5, \quad r = 2$
 * $d_{-1} = 1, \quad a_0 = 2$
 * $b^{-1} \equiv 3^{-1} \equiv 2 \pmod 5$
 
-**Left-Hand Side (LHS):**
+Left-Hand Side (LHS):
+
 $$a_0 \cdot d_{-1} = 2 \cdot 1 = 2$$
 
-**Right-Hand Side (RHS):**
+Right-Hand Side (RHS):
+
 $$a \cdot (-r) \cdot (b^{-1})^2 = 1 \cdot (-2) \cdot (2)^2$$
 $$= -2 \cdot 4 = -8$$
 
-**Evaluate Modulo 5:**
+Evaluate Modulo $5:$
+
 $$-8 \equiv 2 \pmod 5$$
 
 Both sides equal $2$, confirming the algebraic shortcut works.
 
-**Relationship Verification:**
+Relationship Verification:
+
 The division identity for the real digit is $5 \cdot 1 = 3(1) + 2$, giving a remainder $r = 2$. 
+
 Checking our modular relationship link:
+
 $$d_{-1} \equiv -r \cdot b^{-1} \pmod p \implies 1 \equiv -2 \cdot (3^{-1}) \pmod 5$$
 $$1 \equiv 3 \cdot 2 \pmod 5 \implies 1 \equiv 1 \pmod 5$$
 The identity holds perfectly.
 
 ---
 
-##### Summary of the Relationship
-The first digit of a real base $p$ fractional expansion identifies the integer **quotient** of $\frac{pa}{b}$, whereas the first digit of a canonical $p$-adic expansion identifies the modular **multiplicative inverse** of the denominator scaled by the numerator ($\pmod p$).
+##### Summary of the Relationship:
+The first digit of a real base $p$ fractional expansion identifies the integer **quotient** of $\frac{pa}{b}$, whereas the first digit of a canonical p-adic expansion identifies the modular **multiplicative inverse** of the denominator scaled by the numerator ($\pmod p$).
 
 </div>
 
+---
 
 If this expansion were finite, it would simply be a standard integer $(\mathbb Z)$ (a polynomial in $3$). But $1/2$ is not an integer. Therefore, the error or remainder after any finite number of steps will never be zero. To neutralize this remainder, the series must be infinite. In p-adics, an infinite sum of increasing powers doesn't explode to infinity; it wraps around the number line to hit fractional targets.
 
@@ -710,7 +707,7 @@ To find $1/2$, we would need a $2$-adic number that, when doubled, equals $1$. B
 
 To find $1/2$ in $2$-adics, we use the **radix point** (the p-adic version of a decimal point). Since $1/2 = 2^{-1}$, its representation is actually finite but below the units place: $1/2 = 0.1_2.$ In base $3,$ $2$ does not divide $3$, so $1/2$ becomes an infinite periodic expansion. In base $2,$ $2$ does divide the base, so it becomes a simple terminating fractional digit. In the case of $1/3$ in $2$-adic, since $3$ doesn't divide $2$, it must be an infinite string to the left:
 
-If we want to represent $1/3$ as a $2$-adic power series, the p-adic representation only accepts denominators of the form $(1 - r)$, where $r$ is a power of p. To find that power, we use Fermat’s little theorem (or Euler's generalization). What power of $2$ is exactly $1$ more than a multiple of $3$?
+If we want to represent $1/3$ as a $2$-adic power series, the p-adic representation only accepts denominators of the form $(1 - r)$, where $r$ is a power of $p.$ To find that power, we use Fermat’s little theorem (or Euler's generalization). What power of $2$ is exactly $1$ more than a multiple of $3$?
 
 $2^1 = 2$ (it's not $1 \pmod 3$)
 
@@ -1368,7 +1365,10 @@ $d_1(5)$ is a multiple of $5 \rightarrow 0$; $d_2(25)$ is a multiple of $25 \rig
 
 $$\frac{1}{3} \equiv d_0 \pmod 5$$ 
 
-Multiplying by $3$ to get rid of the fraction: $1 \equiv 3d_0 \pmod 5$ we get to solve $3d_0 \equiv 1 \pmod 5$, and $3 \times \mathbf{2} = 6 \equiv 1$. So $d_0 = 2$. 
+Multiplying by $3$ to get rid of the fraction: 
+
+$$1 \equiv 3\,d_0 \pmod 5$$ 
+we get to solve $3d_0 \equiv 1 \pmod 5$, and $3 \times \mathbf{2} = 6 \equiv 1$. So $d_0 = 2$. 
 
 Next to calculate ($d_1$), we subtract from the LHS $d_0$ and divide by $5:$ 
 

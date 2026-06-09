@@ -1077,8 +1077,8 @@ metric.</p>
 not divide <span class="math inline">\(a\)</span> or <span class="math inline">\(b\)</span>, the relationship between these two
 initial digits is governed by the following mathematical structures:</p>
 <div id="determining-the-base-p-real-digit" class="section level5">
-<h5>1. Determining the Base <span class="math inline">\(p\)</span> Real
-Digit</h5>
+<h5>Determining the base <span class="math inline">\(p\)</span> real
+digit</h5>
 <p>In the standard real number system, the fractional part of <span class="math inline">\(x\)</span> (assuming <span class="math inline">\(0
 &lt; x &lt; 1\)</span>) is expanded into a right-facing series:</p>
 <p><span class="math display">\[x = d_{-1}p^{-1} + d_{-2}p^{-2} +
@@ -1089,24 +1089,22 @@ function:</p>
 \left\lfloor \frac{pa}{b} \right\rfloor\]</span></p>
 </div>
 <div id="determining-the-p-adic-digit" class="section level5">
-<h5>2. Determining the <span class="math inline">\(p\)</span>-adic
-Digit</h5>
-<p>In the p-adic number system <span class="math inline">\(\mathbb{Q}_p\)</span>, because <span class="math inline">\(p\)</span> does not divide the denominator <span class="math inline">\(b\)</span>, the fraction <span class="math inline">\(x\)</span> behaves as a <span class="math inline">\(p\)</span>-adic integer (<span class="math inline">\(x \in \mathbb{Z}_p\)</span>). It expands into a
+<h5>Determining the p-adic digit</h5>
+<p>In the p-adic number system <span class="math inline">\(\mathbb{Q}_p\)</span>, because <span class="math inline">\(p\)</span> does not divide the denominator <span class="math inline">\(b\)</span>, the fraction <span class="math inline">\(x\)</span> behaves as a p-adic integer <span class="math inline">\(x \in \mathbb{Z}_p.\)</span> It expands into a
 left-facing series:</p>
 <p><span class="math display">\[x = a_0 + a_1p + a_2p^2 + a_3p^3 +
 \dots\]</span></p>
-<p>The first canonical <span class="math inline">\(p\)</span>-adic digit
-<span class="math inline">\(a_0\)</span> captures the local algebraic
+<p>The first canonical p-adic digit <span class="math inline">\(a_0\)</span> captures the local algebraic
 remainder. It is computed by solving the linear congruence equation for
 the multiplicative inverse of the denominator modulo <span class="math inline">\(p\)</span>:</p>
 <p><span class="math display">\[a_0 \equiv a \cdot b^{-1} \pmod p \quad
 \text{where } a_0 \in \{0, 1, \dots, p-1\}\]</span></p>
 </div>
 <div id="direct-mathematical-relationship" class="section level5">
-<h5>3. Direct Mathematical Relationship</h5>
+<h5>Direct mathematical relationship</h5>
 <p>To directly link <span class="math inline">\(d_{-1}\)</span> and
 <span class="math inline">\(a_0\)</span>, we use the algebraic division
-identity <span class="math inline">\(pa = b \cdot d_{-1} + r\)</span>,
+identity <span class="math inline">\(p\,a = b \cdot d_{-1} + r\)</span>,
 where <span class="math inline">\(r = (pa \bmod b)\)</span> is the
 integer remainder.</p>
 <p>By evaluating this identity under the p-adic modular constraint:</p>
@@ -1116,74 +1114,61 @@ p\]</span></p>
 p\]</span></p>
 <p><span class="math display">\[d_{-1} \equiv -r \cdot b^{-1} \pmod
 p\]</span></p>
-<p>Since <span class="math inline">\(a_0 \equiv a \cdot b^{-1} \pmod
-p\)</span>, multiplying the congruence by <span class="math inline">\(p\)</span> yields <span class="math inline">\(0\)</span>, confirming that <span class="math inline">\(a_0\)</span> is the unique localized digital lift
-required to clear out the fractional denominator over higher powers of
-<span class="math inline">\(p\)</span>.</p>
-<p>The direct modular link between the two digits is: <span class="math display">\[a_0 \cdot d_{-1} \equiv a \cdot (-r) \cdot
-(b^{-1})^2 \pmod p\]</span></p>
-<p>Here is the step-by-step algebraic derivation:</p>
-</div>
-<div id="identify-the-two-independent-congruences" class="section level5">
-<h5>Identify the Two Independent Congruences</h5>
-<p>From the rules of <span class="math inline">\(p\)</span>-adic
-arithmetic and the division algorithm modulo <span class="math inline">\(p\)</span>, we established two separate
-congruences for the digits:</p>
+<p>We established two separate congruences for the digits:</p>
 <p><strong>For the <span class="math inline">\(p\)</span>-adic digit
-(<span class="math inline">\(a_0\)</span>):</strong> <span class="math display">\[a_0 \equiv a \cdot b^{-1} \pmod p\]</span>
-<strong>For the real base-<span class="math inline">\(p\)</span> digit
-(<span class="math inline">\(d_{-1}\)</span>):</strong> <span class="math display">\[d_{-1} \equiv -r \cdot b^{-1} \pmod
+(<span class="math inline">\(a_0\)</span>):</strong></p>
+<p><span class="math display">\[a_0 \equiv a \cdot b^{-1} \pmod
 p\]</span></p>
-</div>
-<div id="multiply-the-equations-together" class="section level5">
-<h5>Multiply the Equations Together</h5>
+<p><strong>For the real base-<span class="math inline">\(p\)</span>
+digit (<span class="math inline">\(d_{-1}\)</span>):</strong></p>
+<p><span class="math display">\[d_{-1} \equiv -r \cdot b^{-1} \pmod
+p\]</span></p>
 <p>Since both equations are valid congruences modulo <span class="math inline">\(p\)</span>, we can multiply their left-hand sides
-together and their right-hand sides together: <span class="math display">\[a_0 \cdot d_{-1} \equiv (a \cdot b^{-1}) \cdot
-(-r \cdot b^{-1}) \pmod p\]</span></p>
-</div>
-<div id="group-and-rearrange-the-terms" class="section level5">
-<h5>Group and Rearrange the Terms</h5>
-<p>Using the commutative property of multiplication, we group the base
-numbers (<span class="math inline">\(a\)</span> and <span class="math inline">\(-r\)</span>) together and the modular inverses
-(<span class="math inline">\(b^{-1}\)</span>) together: <span class="math display">\[a_0 \cdot d_{-1} \equiv a \cdot (-r) \cdot
-(b^{-1} \cdot b^{-1}) \pmod p\]</span></p>
-<p>Combining the two <span class="math inline">\(b^{-1}\)</span> terms
-into a square yields the final link: <span class="math display">\[a_0
-\cdot d_{-1} \equiv a \cdot (-r) \cdot (b^{-1})^2 \pmod p\]</span></p>
-</div>
-<div id="verification-with-the-example" class="section level5">
-<h5>Verification with the Example</h5>
-<p>Let’s plug in the numbers from the earlier example (<span class="math inline">\(x = \frac{1}{3}\)</span> in base <span class="math inline">\(p = 5\)</span>) where: * <span class="math inline">\(a = 1, \quad b = 3, \quad p = 5, \quad r =
-2\)</span> * <span class="math inline">\(d_{-1} = 1, \quad a_0 =
-2\)</span> * <span class="math inline">\(b^{-1} \equiv 3^{-1} \equiv 2
-\pmod 5\)</span></p>
-<p><strong>Left-Hand Side (LHS):</strong> <span class="math display">\[a_0 \cdot d_{-1} = 2 \cdot 1 = 2\]</span></p>
-<p><strong>Right-Hand Side (RHS):</strong> <span class="math display">\[a \cdot (-r) \cdot (b^{-1})^2 = 1 \cdot (-2)
-\cdot (2)^2\]</span> <span class="math display">\[= -2 \cdot 4 =
+together and their right-hand sides together:</p>
+<p><span class="math display">\[a_0 \cdot d_{-1} \equiv (a \cdot b^{-1})
+\cdot (-r \cdot b^{-1}) \pmod p\]</span></p>
+<p><span class="math display">\[a_0 \cdot d_{-1} \equiv a \cdot (-r)
+\cdot (b^{-1} \cdot b^{-1}) \pmod p\]</span> <span class="math display">\[\bbox[20px, border: 5px solid red]{a_0 \cdot
+d_{-1} \equiv a \cdot (-r) \cdot (b^{-1})^2 \pmod p}\]</span></p>
+<p>Let’s plug in the numbers from the earlier example (<span class="math inline">\(x = \frac{1}{3}\)</span> in base <span class="math inline">\(p = 5\)</span>) where:</p>
+<ul>
+<li><span class="math inline">\(a = 1, \quad b = 3, \quad p = 5, \quad r
+= 2\)</span></li>
+<li><span class="math inline">\(d_{-1} = 1, \quad a_0 = 2\)</span></li>
+<li><span class="math inline">\(b^{-1} \equiv 3^{-1} \equiv 2 \pmod
+5\)</span></li>
+</ul>
+<p>Left-Hand Side (LHS):</p>
+<p><span class="math display">\[a_0 \cdot d_{-1} = 2 \cdot 1 =
+2\]</span></p>
+<p>Right-Hand Side (RHS):</p>
+<p><span class="math display">\[a \cdot (-r) \cdot (b^{-1})^2 = 1 \cdot
+(-2) \cdot (2)^2\]</span> <span class="math display">\[= -2 \cdot 4 =
 -8\]</span></p>
-<p><strong>Evaluate Modulo 5:</strong> <span class="math display">\[-8
-\equiv 2 \pmod 5\]</span></p>
+<p>Evaluate Modulo <span class="math inline">\(5:\)</span></p>
+<p><span class="math display">\[-8 \equiv 2 \pmod 5\]</span></p>
 <p>Both sides equal <span class="math inline">\(2\)</span>, confirming
 the algebraic shortcut works.</p>
-<p><strong>Relationship Verification:</strong> The division identity for
-the real digit is <span class="math inline">\(5 \cdot 1 = 3(1) +
-2\)</span>, giving a remainder <span class="math inline">\(r =
-2\)</span>. Checking our modular relationship link: <span class="math display">\[d_{-1} \equiv -r \cdot b^{-1} \pmod p \implies 1
-\equiv -2 \cdot (3^{-1}) \pmod 5\]</span> <span class="math display">\[1
-\equiv 3 \cdot 2 \pmod 5 \implies 1 \equiv 1 \pmod 5\]</span> The
-identity holds perfectly.</p>
+<p>Relationship Verification:</p>
+<p>The division identity for the real digit is <span class="math inline">\(5 \cdot 1 = 3(1) + 2\)</span>, giving a remainder
+<span class="math inline">\(r = 2\)</span>.</p>
+<p>Checking our modular relationship link:</p>
+<p><span class="math display">\[d_{-1} \equiv -r \cdot b^{-1} \pmod p
+\implies 1 \equiv -2 \cdot (3^{-1}) \pmod 5\]</span> <span class="math display">\[1 \equiv 3 \cdot 2 \pmod 5 \implies 1 \equiv 1
+\pmod 5\]</span> The identity holds perfectly.</p>
 <hr />
 </div>
 <div id="summary-of-the-relationship" class="section level5">
-<h5>Summary of the Relationship</h5>
+<h5>Summary of the Relationship:</h5>
 <p>The first digit of a real base <span class="math inline">\(p\)</span>
 fractional expansion identifies the integer <strong>quotient</strong> of
 <span class="math inline">\(\frac{pa}{b}\)</span>, whereas the first
-digit of a canonical <span class="math inline">\(p\)</span>-adic
-expansion identifies the modular <strong>multiplicative inverse</strong>
-of the denominator scaled by the numerator (<span class="math inline">\(\pmod p\)</span>).</p>
+digit of a canonical p-adic expansion identifies the modular
+<strong>multiplicative inverse</strong> of the denominator scaled by the
+numerator (<span class="math inline">\(\pmod p\)</span>).</p>
 </div>
 </div>
+<hr />
 <p>If this expansion were finite, it would simply be a standard integer
 <span class="math inline">\((\mathbb Z)\)</span> (a polynomial in <span class="math inline">\(3\)</span>). But <span class="math inline">\(1/2\)</span> is not an integer. Therefore, the
 error or remainder after any finite number of steps will never be zero.
@@ -1463,9 +1448,8 @@ simple terminating fractional digit. In the case of <span class="math inline">\(
 left:</p>
 <p>If we want to represent <span class="math inline">\(1/3\)</span> as a
 <span class="math inline">\(2\)</span>-adic power series, the p-adic
-representation only accepts denominators of the form <span class="math inline">\((1 - r)\)</span>, where <span class="math inline">\(r\)</span> is a power of p. To find that power, we
-use Fermat’s little theorem (or Euler’s generalization). What power of
-<span class="math inline">\(2\)</span> is exactly <span class="math inline">\(1\)</span> more than a multiple of <span class="math inline">\(3\)</span>?</p>
+representation only accepts denominators of the form <span class="math inline">\((1 - r)\)</span>, where <span class="math inline">\(r\)</span> is a power of <span class="math inline">\(p.\)</span> To find that power, we use Fermat’s
+little theorem (or Euler’s generalization). What power of <span class="math inline">\(2\)</span> is exactly <span class="math inline">\(1\)</span> more than a multiple of <span class="math inline">\(3\)</span>?</p>
 <p><span class="math inline">\(2^1 = 2\)</span> (it’s not <span class="math inline">\(1 \pmod 3\)</span>)</p>
 <p><span class="math inline">\(2^2 = 4\)</span> (this is <span class="math inline">\(1 \pmod 3\)</span>, because <span class="math inline">\(4 = 3 \times 1 + 1\)</span>)</p>
 <p>So, our power is <span class="math inline">\(n=2\)</span>. This tells
@@ -2703,10 +2687,11 @@ vanishes. So, the equation <span class="math inline">\(\frac{1}{3} = d_0
 <p><span class="math display">\[\frac{1}{3} \equiv d_0 \pmod
 5\]</span></p>
 <p>Multiplying by <span class="math inline">\(3\)</span> to get rid of
-the fraction: <span class="math inline">\(1 \equiv 3d_0 \pmod 5\)</span>
-we get to solve <span class="math inline">\(3d_0 \equiv 1 \pmod
-5\)</span>, and <span class="math inline">\(3 \times \mathbf{2} = 6
-\equiv 1\)</span>. So <span class="math inline">\(d_0 = 2\)</span>.</p>
+the fraction:</p>
+<p><span class="math display">\[1 \equiv 3\,d_0 \pmod 5\]</span> we get
+to solve <span class="math inline">\(3d_0 \equiv 1 \pmod 5\)</span>, and
+<span class="math inline">\(3 \times \mathbf{2} = 6 \equiv 1\)</span>.
+So <span class="math inline">\(d_0 = 2\)</span>.</p>
 <p>Next to calculate (<span class="math inline">\(d_1\)</span>), we
 subtract from the LHS <span class="math inline">\(d_0\)</span> and
 divide by <span class="math inline">\(5:\)</span></p>
