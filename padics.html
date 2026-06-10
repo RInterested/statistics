@@ -817,11 +817,10 @@ continuous line; it’s more like a fractal dust (a Cantor set).</p>
 <p>Since we don’t have <span class="math inline">\(\pi\)</span> to
 measure angles, we use roots of unity. In the complex numbers, the roots
 of <span class="math inline">\(x^n - 1 = 0\)</span> are points on the
-unit circle separated by angles of <span class="math inline">\(2\pi/n\)</span>. In <span class="math inline">\(\mathbb{Q}_p\)</span>, we can solve <span class="math inline">\(x^n - 1 = 0\)</span> for certain values of <span class="math inline">\(n\)</span> (specifically where <span class="math inline">\(n\)</span> divides <span class="math inline">\(p-1\)</span> using Hensel’s Lemma). These roots of
-unity are the p-adic way of “dividing the circle.” You aren’t moving a
-distance of <span class="math inline">\(\pi/4\)</span> along an arc; you
-are jumping between discrete algebraic points that satisfy a circular
-equation.</p>
+unit circle separated by angles of <span class="math inline">\(2\pi/n\)</span>. In <span class="math inline">\(\mathbb{Q}_p\)</span>, we can solve <span class="math inline">\(x^n - 1 = 0\)</span> for certain values of <span class="math inline">\(n\)</span> (specifically where <span class="math inline">\(n\)</span> divides <span class="math inline">\(p-1\)</span> using Hensel’s Lemma) (see
+explanation below 🪁). These roots of unity are the p-adic way of
+“dividing the circle.” You aren’t moving a distance of <span class="math inline">\(\pi/4\)</span> along an arc; you are jumping
+between discrete algebraic points that satisfy a circular equation.</p>
 <p>However, there are transcendental and complex numbers that can be
 expressed as p-adic integers. For example, in the <span class="math inline">\(5\)</span>-adics, <span class="math inline">\(\sqrt{-1}\)</span> is a “natural” member of the
 field.</p>
@@ -5059,6 +5058,136 @@ calculation of the next digit. In real numbers (<span class="math inline">\(\mat
 Newton-Raphson isn’t “guessing” the next digit; it is solving a linear
 equation where the non-linear parts have been perfectly moved into the
 “future” (higher powers of <span class="math inline">\(p\)</span>).</p>
+<hr />
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+<p>🪁 To understand why the condition <span class="math inline">\(n \mid
+(p-1)\)</span> matters for finding <span class="math inline">\(n\)</span>-th roots of unity in the <span class="math inline">\(p\)</span>-adic rationals <span class="math inline">\(\mathbb{Q}_p\)</span>, we have to look at the
+structure of the integers modulo <span class="math inline">\(p\)</span>
+(<span class="math inline">\(\mathbb{F}_p\)</span>) and how Hensel’s
+Lemma allows us to lift solutions from this finite field up into the
+<span class="math inline">\(p\)</span>-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
+<p>Hensel’s lemma is the p-adic analogue of Newton’s method. It states
+that if we have a polynomial equation with integer coefficients, and we
+can find an approximate root modulo <span class="math inline">\(p\)</span> that satisfies a non-vanishing
+derivative condition, we can uniquely lift that approximate root to an
+exact root in <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
+<p>For the polynomial <span class="math inline">\(f(x) = x^n -
+1\)</span>, we first look for solutions in the finite field <span class="math inline">\(\mathbb{F}_p\)</span> (the integers modulo <span class="math inline">\(p).\)</span></p>
+<p>The non-zero elements of <span class="math inline">\(\mathbb{F}_p\)</span> form a
+<strong>multiplicative group</strong>, denoted <span class="math inline">\(\mathbb{F}_p^\times.\)</span></p>
+<p>A fundamental result in algebra is that <span class="math inline">\(\mathbb{F}_p^\times\)</span> is a cyclic group of
+order <span class="math inline">\(p-1.\)</span></p>
+<p>Because the group has exactly <span class="math inline">\(p-1\)</span> elements, <strong>Lagrange’s
+theorem</strong> tells us that the order of any element in this group
+must divide the order of the group <span class="math inline">\((p-1).\)</span></p>
+<hr />
+<p>Why?</p>
+<p>Generate a subgroup: The powers of any element <span class="math inline">\(a\)</span> form a subgroup of <span class="math inline">\(G,\)</span> denoted <span class="math inline">\(\langle a \rangle.\)</span> This subgroup consists
+of all powers of <span class="math inline">\(a\)</span> up to the point
+where it cycles back to the identity element <span class="math inline">\(e:\)</span> <span class="math inline">\(\langle a
+\rangle = \{a^1, a^2, a^3, \ldots, a^k = e\}.\)</span></p>
+<p>Order of the element: The number of unique elements in this subgroup,
+<span class="math inline">\(k,\)</span> is defined as the order of the
+element <span class="math inline">\(a.\)</span></p>
+<p>Lagrange’s theorem: A fundamental theorem of abstract algebra states
+that the size (order) of any subgroup must evenly divide the total size
+(order) of the parent group.</p>
+<p>Conclusion: Since the multiplicative group <span class="math inline">\(\mathbb{F}_{p}^{\times }\)</span> has exactly
+<span class="math inline">\(p-1\)</span> elements, the size of any
+subgroup within it — including the subgroup <span class="math inline">\(\langle a \rangle\)</span> generated by <span class="math inline">\(a\)</span> — must divide <span class="math inline">\(p-1.\)</span> Therefore, the order of <span class="math inline">\(a\)</span> must divide <span class="math inline">\(p-1.\)</span></p>
+<p>Consequently, the equation <span class="math inline">\(x^n \equiv 1
+\pmod p\)</span> has a non-trivial solution (other than <span class="math inline">\(x \equiv 1\)</span>) if and only if <span class="math inline">\(n\)</span> shares a common divisor with <span class="math inline">\(p-1\)</span>. Why?</p>
+<hr />
+<p>Since <span class="math inline">\(\mathbb{F}_p^\times\)</span> is
+cyclic, it means there exists a single element <span class="math inline">\(g\)</span> (called a primitive root or generator)
+whose powers map out every single non-zero element in the field:</p>
+<p><span class="math display">\[\mathbb{F}_p^\times = \{g^1, g^2, g^3,
+\ldots, g^{p-1} \equiv 1\}\]</span></p>
+<p>Any element <span class="math inline">\(x\)</span> we choose from
+this group can be written as some power of the generator: <span class="math inline">\(x = g^k\)</span> for some integer <span class="math inline">\(k\)</span>.</p>
+<p>Let’s substitute <span class="math inline">\(x = g^k\)</span> into
+our equation <span class="math inline">\(x^n \equiv 1 \pmod
+p\)</span>:</p>
+<p><span class="math display">\[(g^k)^n \equiv 1 \pmod p\]</span></p>
+<p><span class="math display">\[g^{k \cdot n} \equiv 1 \pmod
+p\]</span></p>
+<p>We know that the powers of <span class="math inline">\(g\)</span>
+only return to <span class="math inline">\(1\)</span> when the exponent
+is a multiple of the group’s order, which is <span class="math inline">\(p-1\)</span>. Therefore, for <span class="math inline">\(g^{kn}\)</span> to equal <span class="math inline">\(1\)</span>, the exponent <span class="math inline">\(kn\)</span> must be a multiple of <span class="math inline">\(p-1\)</span>:</p>
+<p><span class="math display">\[k \cdot n \equiv 0
+\pmod{p-1}\]</span></p>
+<p>This means there must exist some integer <span class="math inline">\(m\)</span> such that:</p>
+<p><span class="math display">\[k \cdot n = m \cdot (p-1)\]</span></p>
+<p>To find out how many valid elements <span class="math inline">\(x\)</span> exist, we need to find how many valid
+exponents <span class="math inline">\(k\)</span> (where <span class="math inline">\(1 \le k \le p-1\)</span>) satisfy that equation.
+Let’s isolate <span class="math inline">\(k\)</span>:</p>
+<p><span class="math display">\[k = \frac{m(p-1)}{n}\]</span></p>
+<p>For <span class="math inline">\(k\)</span> to be an integer, the
+numerator <span class="math inline">\(m(p-1)\)</span> must be perfectly
+divisible by <span class="math inline">\(n\)</span>.</p>
+<p>If <span class="math inline">\(\gcd(n, p-1) = 1\)</span> (they share
+no common factors): Then <span class="math inline">\(n\)</span> has no
+overlapping factors with <span class="math inline">\(p-1\)</span>. For
+the fraction to be an integer, <span class="math inline">\(m\)</span>
+itself must be a multiple of <span class="math inline">\(n\)</span>. The
+smallest positive choice is <span class="math inline">\(m=n\)</span>,
+which gives <span class="math inline">\(k = p-1\)</span>. This
+corresponds to <span class="math inline">\(x = g^{p-1} \equiv
+1\)</span>. Thus, the trivial solution <span class="math inline">\(x
+\equiv 1\)</span> is the only solution.</p>
+<p>If <span class="math inline">\(\gcd(n, p-1) = d &gt; 1\)</span> (they
+share a common divisor): Now, <span class="math inline">\(n\)</span> can
+partially or fully divide into <span class="math inline">\(p-1\)</span>.
+We don’t rely solely on <span class="math inline">\(m\)</span> being a
+multiple of <span class="math inline">\(n\)</span> to get an integer.
+This opens up choices for <span class="math inline">\(m\)</span> that
+yield integers for <span class="math inline">\(k\)</span> strictly less
+than <span class="math inline">\(p-1\)</span>, giving us non-trivial
+solutions. In fact, standard modular arithmetic shows that the number of
+valid choices for <span class="math inline">\(k\)</span> (and thus the
+number of solutions for <span class="math inline">\(x\)</span>) is
+exactly equal to <span class="math inline">\(\gcd(n, p-1)\)</span>.</p>
+<p>There are exactly <span class="math inline">\(\gcd(n, p-1)\)</span>
+distinct solutions to <span class="math inline">\(x^n \equiv 1 \pmod
+p\)</span>. If we want the full set of <span class="math inline">\(n\)</span> distinct roots of unity to exist modulo
+<span class="math inline">\(p\)</span>, we must have <span class="math inline">\(\gcd(n, p-1) = n\)</span>, which means <span class="math inline">\(n\)</span> must divide <span class="math inline">\(p-1\)</span>.</p>
+<p>Suppose <span class="math inline">\(n \mid (p-1)\)</span>. This
+guarantees we have <span class="math inline">\(n\)</span> distinct
+solutions to <span class="math inline">\(f(x) = x^n - 1 \equiv 0 \pmod
+p\)</span>.</p>
+<p>Let <span class="math inline">\(r\)</span> be one of these roots. To
+check if we can lift <span class="math inline">\(r\)</span> to a true
+<span class="math inline">\(p\)</span>-adic root using Hensel’s Lemma,
+we must evaluate the derivative of <span class="math inline">\(f(x)\)</span> at <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[f&#39;(x) = n x^{n-1}\]</span> <span class="math display">\[f&#39;(r) = n r^{n-1} \pmod p\]</span></p>
+<p>For the lift to work, the derivative must be non-zero modulo <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[f&#39;(r) \not\equiv 0 \pmod
+p\]</span></p>
+<p>This condition holds if and only if: <span class="math inline">\(r
+\not\equiv 0 \pmod p\)</span>, which is always true because <span class="math inline">\(r^n \equiv 1 \pmod p\)</span>. <span class="math inline">\(n \not\equiv 0 \pmod p\)</span>, meaning <span class="math inline">\(p\)</span> does not divide <span class="math inline">\(n\)</span>. Since we already established that
+<span class="math inline">\(n \mid (p-1)\)</span>, <span class="math inline">\(n\)</span> cannot be a multiple of <span class="math inline">\(p\)</span> (except in the trivial case where <span class="math inline">\(n=0\)</span>). Therefore, <span class="math inline">\(f&#39;(r) \equiv n r^{n-1} \not\equiv 0 \pmod
+p\)</span> is guaranteed. By Hensel’s Lemma, every one of these <span class="math inline">\(n\)</span> distinct roots modulo <span class="math inline">\(p\)</span> lifts uniquely to a true <span class="math inline">\(n\)</span>-th root of unity in <span class="math inline">\(\mathbb{Z}_p \subset \mathbb{Q}_p\)</span>.</p>
+<p>Summary of MeaningWhen we say <span class="math inline">\(n\)</span>
+divides <span class="math inline">\(p-1\)</span>, it means that
+algebraically the group of roots of unity in <span class="math inline">\(\mathbb{Q}_p\)</span> is closely mirrored by the
+geometry of the residual field <span class="math inline">\(\mathbb{F}_p\)</span>. The space available for
+roots of unity modulo <span class="math inline">\(p\)</span> is strictly
+bounded by the cyclic order <span class="math inline">\(p-1\)</span>.
+Geometrically, unlike the complex numbers <span class="math inline">\(\mathbb{C}\)</span>, where we can always split the
+circle into <span class="math inline">\(n\)</span> equal pieces for any
+<span class="math inline">\(n\)</span>, the p-adic metric restricts our
+angles. You can only form a closed polygon of <span class="math inline">\(n\)</span> vertices if the underlying finite
+field’s multiplicative group can accommodate it.</p>
+<p>An Example: <span class="math inline">\(\mathbb{Q}_5.\)</span> Let
+<span class="math inline">\(p = 5\)</span>. Then <span class="math inline">\(p - 1 = 4\)</span>. The divisors of <span class="math inline">\(4\)</span> are <span class="math inline">\(1,
+2,\)</span> and <span class="math inline">\(4\)</span>.Therefore, <span class="math inline">\(\mathbb{Q}_5\)</span> contains the <span class="math inline">\(4\)</span>th roots of unity (which includes the
+square roots of unity, <span class="math inline">\(\pm 1\)</span>, and
+the roots of <span class="math inline">\(x^2 + 1 = 0\)</span>, meaning
+<span class="math inline">\(\pm i\)</span> exist as actual <span class="math inline">\(5\)</span>-adic numbers). If we try to find a cube
+root of unity (<span class="math inline">\(n=3\)</span>) in <span class="math inline">\(\mathbb{Q}_5\)</span>, it fails because <span class="math inline">\(3\)</span> does not divide <span class="math inline">\(4\)</span>. The equation <span class="math inline">\(x^3 - 1 = 0\)</span> has only the trivial root
+<span class="math inline">\(x=1\)</span> in <span class="math inline">\(\mathbb{Q}_5\)</span>. To get the others, you
+would have to construct a field extension.</p>
+</div>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>

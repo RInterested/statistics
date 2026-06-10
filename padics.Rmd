@@ -229,7 +229,7 @@ These series converge in $\mathbb{Q}_p$ as long as $|x|_p$ is small enough (spec
 
 In the real numbers, $\sin(x)$ is periodic because of $\pi$. You go around the circle $2\pi$ radians and end up back where you started. In the p-adics, **there is no $\pi$ because there is no periodicity**. In $\mathbb{R}$, $\sin(x) = 0$ at $0, \pi, 2\pi, \dots.$ In $\mathbb{Q}_p$, the only solution to $\sin(x) = 0$ is $x = 0$. Because the functions aren't periodic, they don't wrap around. A p-adic "line" doesn't form a closed loop in the way a real line wraps into a circle. If you define a circle as the set of points where $|x|_p = r$, the shape is strange: a set of disjoint disks. Because of the ultrametric inequality, if two p-adic circles overlap at all, one is contained entirely within the other. A p-adic circle isn't a smooth continuous line; it's more like a fractal dust (a Cantor set).
 
-Since we don't have $\pi$ to measure angles, we use roots of unity. In the complex numbers, the roots of $x^n - 1 = 0$ are points on the unit circle separated by angles of $2\pi/n$. In $\mathbb{Q}_p$, we can solve $x^n - 1 = 0$ for certain values of $n$ (specifically where $n$ divides $p-1$ using Hensel's Lemma). These roots of unity are the p-adic way of "dividing the circle." You aren't moving a distance of $\pi/4$ along an arc; you are jumping between discrete algebraic points that satisfy a circular equation.
+Since we don't have $\pi$ to measure angles, we use roots of unity. In the complex numbers, the roots of $x^n - 1 = 0$ are points on the unit circle separated by angles of $2\pi/n$. In $\mathbb{Q}_p$, we can solve $x^n - 1 = 0$ for certain values of $n$ (specifically where $n$ divides $p-1$ using Hensel's Lemma) (see explanation below 🪁). These roots of unity are the p-adic way of "dividing the circle." You aren't moving a distance of $\pi/4$ along an arc; you are jumping between discrete algebraic points that satisfy a circular equation.
 
 However, there are transcendental and complex numbers that can be expressed as p-adic integers. For example, in the $5$-adics, $\sqrt{-1}$ is a "natural" member of the field. 
 
@@ -3153,6 +3153,95 @@ $$f(2 + 5d_1) = \underbrace{2^2 + 1}_{f(x_0)} + \underbrace{2(2)(5d_1)}_{f'(x_0)
 
 $$f(2 + 5d_1) = 5 + 20d_1 + \require{cancel}\cancel{\color{red}{25}d_1^2}$$
 Now, look at the $h^2$ term: $25d_1^2$. In the world of $\mathbb{Z}/25\mathbb{Z}$ (level $2$), $25$ is the same thing as $0.$ So, $25d_1^2$ simply vanishes. It is an exact calculation of the next digit. In real numbers ($\mathbb{R}$): $h^2$ is $0.0001$. It’s not zero, so you are "approximating" by ignoring it. In p-adics ($\mathbb{Z}_p$): At Level $n$, $h^2$ is a multiple of $p^{2n}$. Since we are working modulo $p^{n+1}$, and $2n \ge n+1$ (for $n \ge 1$), that $h^2$ is identically zero. The p-adic Newton-Raphson isn't "guessing" the next digit; it is solving a linear equation where the non-linear parts have been perfectly moved into the "future" (higher powers of $p$).
+
+---
+
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+
+🪁 To understand why the condition $n \mid (p-1)$ matters for finding $n$-th roots of unity in the $p$-adic rationals $\mathbb{Q}_p$, we have to look at the structure of the integers modulo $p$ ($\mathbb{F}_p$) and how Hensel's Lemma allows us to lift solutions from this finite field up into the $p$-adic integers $\mathbb{Z}_p$.
+
+Hensel’s lemma is the p-adic analogue of Newton’s method. It states that if we have a polynomial equation with integer coefficients, and we can find an approximate root modulo $p$ that satisfies a non-vanishing derivative condition, we can uniquely lift that approximate root to an exact root in $\mathbb{Z}_p$.
+
+For the polynomial $f(x) = x^n - 1$, we first look for solutions in the finite field $\mathbb{F}_p$ (the integers modulo $p).$
+
+The non-zero elements of $\mathbb{F}_p$ form a **multiplicative group**, denoted $\mathbb{F}_p^\times.$ 
+
+A fundamental result in algebra is that $\mathbb{F}_p^\times$ is a cyclic group of order $p-1.$ 
+
+Because the group has exactly $p-1$ elements, **Lagrange's theorem** tells us that the order of any element in this group must divide the order of the group $(p-1).$ 
+
+---
+
+Why?
+
+Generate a subgroup: The powers of any element $a$ form a subgroup of $G,$ denoted $\langle a \rangle.$ This subgroup consists of all powers of $a$ up to the point where it cycles back to the identity element $e:$ $\langle a \rangle = \{a^1, a^2, a^3, \ldots, a^k = e\}.$ 
+
+Order of the element: The number of unique elements in this subgroup, $k,$ is defined as the order of the element $a.$
+
+Lagrange's theorem: A fundamental theorem of abstract algebra states that the size (order) of any subgroup must evenly divide the total size (order) of the parent group.
+
+Conclusion: Since the multiplicative group $\mathbb{F}_{p}^{\times }$ has exactly $p-1$ elements, the size of any subgroup within it — including the subgroup $\langle a \rangle$ generated by $a$ — must divide $p-1.$ Therefore, the order of $a$ must divide $p-1.$
+
+Consequently, the equation $x^n \equiv 1 \pmod p$ has a non-trivial solution (other than $x \equiv 1$) if and only if $n$ shares a common divisor with $p-1$. Why?
+
+---
+
+Since $\mathbb{F}_p^\times$ is cyclic, it means there exists a single element $g$ (called a primitive root or generator) whose powers map out every single non-zero element in the field:
+
+$$\mathbb{F}_p^\times = \{g^1, g^2, g^3, \ldots, g^{p-1} \equiv 1\}$$
+
+Any element $x$ we choose from this group can be written as some power of the generator: $x = g^k$ for some integer $k$.
+
+Let's substitute $x = g^k$ into our equation $x^n \equiv 1 \pmod p$:
+
+
+$$(g^k)^n \equiv 1 \pmod p$$
+
+
+$$g^{k \cdot n} \equiv 1 \pmod p$$
+
+We know that the powers of $g$ only return to $1$ when the exponent is a multiple of the group's order, which is $p-1$. Therefore, for $g^{kn}$ to equal $1$, the exponent $kn$ must be a multiple of $p-1$:
+
+$$k \cdot n \equiv 0 \pmod{p-1}$$
+
+This means there must exist some integer $m$ such that:
+
+$$k \cdot n = m \cdot (p-1)$$
+
+To find out how many valid elements $x$ exist, we need to find how many valid exponents $k$ (where $1 \le k \le p-1$) satisfy that equation. Let's isolate $k$:
+
+$$k = \frac{m(p-1)}{n}$$
+
+For $k$ to be an integer, the numerator $m(p-1)$ must be perfectly divisible by $n$. 
+
+If $\gcd(n, p-1) = 1$ (they share no common factors): Then $n$ has no overlapping factors with $p-1$. For the fraction to be an integer, $m$ itself must be a multiple of $n$. The smallest positive choice is $m=n$, which gives $k = p-1$. This corresponds to $x = g^{p-1} \equiv 1$. Thus, the trivial solution $x \equiv 1$ is the only solution. 
+
+If $\gcd(n, p-1) = d > 1$ (they share a common divisor): Now, $n$ can partially or fully divide into $p-1$. We don't rely solely on $m$ being a multiple of $n$ to get an integer. This opens up choices for $m$ that yield integers for $k$ strictly less than $p-1$, giving us non-trivial solutions. In fact, standard modular arithmetic shows that the number of valid choices for $k$ (and thus the number of solutions for $x$) is exactly equal to $\gcd(n, p-1)$.
+
+There are exactly $\gcd(n, p-1)$ distinct solutions to $x^n \equiv 1 \pmod p$. If we want the full set of $n$ distinct roots of unity to exist modulo $p$, we must have $\gcd(n, p-1) = n$, which means $n$ must divide $p-1$.
+
+Suppose $n \mid (p-1)$. This guarantees we have $n$ distinct solutions to $f(x) = x^n - 1 \equiv 0 \pmod p$. 
+
+Let $r$ be one of these roots. To check if we can lift $r$ to a true $p$-adic root using Hensel's Lemma, we must evaluate the derivative of $f(x)$ at $r$:
+
+$$f'(x) = n x^{n-1}$$
+$$f'(r) = n r^{n-1} \pmod p$$
+
+For the lift to work, the derivative must be non-zero modulo $p$:
+
+$$f'(r) \not\equiv 0 \pmod p$$
+
+This condition holds if and only if: $r \not\equiv 0 \pmod p$, which is always true because $r^n \equiv 1 \pmod p$. $n \not\equiv 0 \pmod p$, meaning $p$ does not divide $n$. Since we already established that $n \mid (p-1)$, $n$ cannot be a multiple of $p$ (except in the trivial case where $n=0$). Therefore, $f'(r) \equiv n r^{n-1} \not\equiv 0 \pmod p$ is guaranteed. By Hensel's Lemma, every one of these $n$ distinct roots modulo $p$ lifts uniquely to a true $n$-th root of unity in $\mathbb{Z}_p \subset \mathbb{Q}_p$.
+
+Summary of MeaningWhen we say $n$ divides $p-1$, it means that algebraically the group of roots of unity in $\mathbb{Q}_p$ is closely mirrored by the geometry of the residual field $\mathbb{F}_p$. The space available for roots of unity modulo $p$ is strictly bounded by the cyclic order $p-1$. Geometrically, unlike the complex numbers $\mathbb{C}$, where we can always split the circle into $n$ equal pieces for any $n$, the p-adic metric restricts our angles. You can only form a closed polygon of $n$ vertices if the underlying finite field's multiplicative group can accommodate it.
+
+An Example: $\mathbb{Q}_5.$ Let $p = 5$. Then $p - 1 = 4$. The divisors of $4$ are $1, 2,$ and $4$.Therefore, $\mathbb{Q}_5$ contains the $4$th roots of unity (which includes the square roots of unity, $\pm 1$, and the roots of $x^2 + 1 = 0$, meaning $\pm i$ exist as actual $5$-adic numbers). If we try to find a cube root of unity ($n=3$) in $\mathbb{Q}_5$, it fails because $3$ does not divide $4$. The equation $x^3 - 1 = 0$ has only the trivial root $x=1$ in $\mathbb{Q}_5$. To get the others, you would have to construct a field extension.
+
+
+</div>
+
+
 
 
 ---
