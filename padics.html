@@ -536,17 +536,19 @@ equals <span class="math inline">\(\frac{2}{3}\)</span>, while <span class="math
 the screen, the collision is broken, the lines separate, and the
 instability vanishes, exposing the true, clean gaps of the p-adic
 topology.</p>
-<p>P-adics can also be plotted to the complex plane as in the image
-below: one half of the twin dragon fractal (sometimes called the
-Davis-Knuth Dragon), representing the <span class="math inline">\(2\)</span>-adic integers (<span class="math inline">\(\mathbb{Z}_2\)</span>), but this time, we allowed
+<p>P-adics can also be plotted to the complex plane as one half of the
+<a href="https://en.wikipedia.org/wiki/Dragon_curve">twin dragon
+fractal</a> (sometimes called the Davis-Knuth dragon), representing the
+<span class="math inline">\(2\)</span>-adic integers (<span class="math inline">\(\mathbb{Z}_2\)</span>), but this time, we allowed
 the numbers to unfold into the complex plane. In the <span class="math inline">\(1\)</span>D Monna map, we used a prime base <span class="math inline">\(p=3\)</span> and flipped the digits to the right
 of the decimal point to make fractions. In this complex version, we are
 using the prime base <span class="math inline">\(p=2\)</span> (so our
 only available digits are <span class="math inline">\(0\)</span> and
-<span class="math inline">\(1).\)</span> But instead of using a standard
+<span class="math inline">\(1),\)</span> but instead of using a standard
 fraction, we replace the base <span class="math inline">\(2\)</span>
-with a specific complex number, <span class="math inline">\(\gamma\)</span> (gamma): <span class="math inline">\(\gamma = \frac{1 + i}{2}.\)</span> Our Python code
-systematically generates all <span class="math inline">\(2^{14} =
+with a specific complex number, <span class="math inline">\(\gamma\)</span> (gamma): <span class="math inline">\(\gamma = \frac{1 + i}{2} =
+\frac{\sqrt{2}}{2}e^{i\pi/4}\approx0.7e^{i\pi/4}.\)</span> Our Python
+code systematically generates all <span class="math inline">\(2^{14} =
 16,384\)</span> possible <span class="math inline">\(14\)</span>-digit
 combinations of zeros and ones. For every single sequence, it calculates
 a complex coordinate using this exact recipe:</p>
@@ -555,7 +557,7 @@ a_1\gamma^1 + a_2\gamma^2 + a_3\gamma^3 + \dots +
 a_{13}\gamma^{13}\]</span></p>
 <p>The computer evaluates this sum for all <span class="math inline">\(16,384\)</span> numbers, turns the resulting
 complex numbers into standard <span class="math inline">\((X,
-Y)\)</span> coordinates, and drops a tiny colored dot on your screen. In
+Y)\)</span> coordinates, and drops a tiny colored dot on the screen. In
 complex arithmetic, multiplying by a number does two things
 simultaneously: it scales the distance from the origin, and it rotates
 the position around the origin. For our base <span class="math inline">\(\gamma = \frac{1+i}{2}\)</span> the absolute value
@@ -572,10 +574,10 @@ two halves based entirely on the very first digit (<span class="math inline">\(a
 with <span class="math inline">\(1\)</span> (odd numbers). The entire
 dragon is built out of two smaller, identical twin dragons smashed
 together. The even dragon (where <span class="math inline">\(a_0 =
-0\)</span>) starts exactly at the center <span class="math inline">\((0,0)\)</span>. The odd dragon (where <span class="math inline">\(a_0 = 1\)</span>) is shifted to the right because
+0)\)</span> starts exactly at the center <span class="math inline">\((0,0)\)</span>. The odd dragon (where <span class="math inline">\(a_0 = 1)\)</span> is shifted to the right because
 its sum starts with <span class="math inline">\(+1\)</span>. If we were
 to isolate just one of those halves, we would find it is an exact
-scaled-down, rotated copy of the entire global dragon. If you zoom into
+scaled-down, rotated copy of the entire global dragon. If we zoom into
 that half, it splits into two even smaller identical dragons. This
 nesting continues infinitely.</p>
 <hr />
@@ -603,6 +605,7 @@ the p-adic space. Instead, the space is a totally disconnected
 topological space. If you visualize the p-adic integers geometrically on
 a two-dimensional plot, the numbers form a dense, dusty structure that
 behaves mathematically like a Cantor set.</p>
+<hr />
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 <ul>
 <li><p>In the reals, the intermediate value theorem guarantees that to
