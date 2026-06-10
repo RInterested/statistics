@@ -377,13 +377,14 @@ MATHEMATICS</strong></h3>
 <hr />
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 <p>Big division:</p>
-<p><span class="math display">\[\cases{\text{p-adic integers} \in
-\mathbb Z_p \\\\
-\text{p-adic rationals} \in \mathbb Q_p} \\\\\mathbb Z_p\subset\mathbb
-Q_p\]</span></p>
+<p><span class="math display">\[p-\text{adics  }\cases{\text{ring of
+p-adic integers} \in \mathbb Z_p \\\\
+\text{field of p-adic rationals} \in \mathbb Q_p} \\[8ex] \text{with
+}\mathbb Z_p\subset\mathbb Q_p\]</span></p>
 </div>
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-p-adic Integers:
+Ring of p-adic Integers <span class="math inline">\(\mathbb
+Z_\color{red}p:\)</span>
 </h3>
 <p><span class="math inline">\(\mathbb Z_p\)</span> contains numbers
 whose expansions only go to the left (powers <span class="math inline">\(p^0, p^1, p^2, \dots\)</span>):</p>
@@ -407,27 +408,62 @@ denominators):</p>
 <span class="math inline">\(-1.45 = -\frac{29}{20}.\)</span></p>
 <p>Transcendental numbers also turn into p-adic integers… Well,
 sometimes! Here is a mind-boggling realization: To move a number from
-<span class="math inline">\(\mathbb{R}\)</span> to <span class="math inline">\(\mathbb{Q}_p\)</span>, we need a bridge: usually a
-sequence of rational numbers. For instance in <span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(e
-= \displaystyle \sum_{n=0}^\infty \frac1 {n!}\)</span>. In <span class="math inline">\(\mathbb{Q}_p\)</span>, the terms <span class="math inline">\(1/n!\)</span> have <span class="math inline">\(p\)</span> in the denominator more and more often
-as <span class="math inline">\(n\)</span> grows. This means the terms
-get larger p-adically <span class="math inline">\((|1/n!|_p \to
-\infty)\)</span>. Therefore the series explodes. Similarly <span class="math inline">\(\pi\)</span> is defined by the geometry of
-Euclidean space. Since p-adic space is non-Euclidean and ultra-metric
-(every triangle is isosceles), the physical definition of <span class="math inline">\(\pi\)</span> has no meaning there.</p>
+<span class="math inline">\(\mathbb{R}\)</span> to p-adics, we need a
+bridge: usually a sequence of rational numbers. For instance in <span class="math inline">\(\mathbb{R}\)</span>, the Euler constant <span class="math inline">\(e = \displaystyle \sum_{n=0}^\infty \frac1
+{n!}\)</span>. In p-adics, the terms <span class="math inline">\(1/n!\)</span> have <span class="math inline">\(p\)</span> in the denominator more and more often
+as <span class="math inline">\(n\)</span> grows: whenever there are
+powers of <span class="math inline">\(p\)</span> in the denominator, we
+are no longer in <span class="math inline">\(\mathbb Z_p;\)</span> we
+are in <span class="math inline">\(\mathbb{Q}_p.\)</span> But this is
+change is not good enough: in this power series, the terms get larger
+p-adically <span class="math inline">\((|1/n!|_p \to \infty).\)</span>
+Therefore the series explodes - does not converge.</p>
+<p>Similarly <span class="math inline">\(\Huge \color{red}\pi\)</span>
+is defined by the geometry of Euclidean space. Since p-adic space is
+non-Euclidean - it is instead ultra-metric (every triangle is isosceles)
+- the physical definition of <span class="math inline">\(\pi\)</span>
+has no meaning there.</p>
 <p>In the realm of <span class="math inline">\(p\)</span>-adic analysis,
-the ring of p-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span> is exactly the closed unit
+the <strong>ring of p-adic integers</strong> <span class="math inline">\(\mathbb{Z}_p\)</span> is exactly the closed unit
 ball centered at the origin. To see why this algebraic object doubles as
 a geometric ball, we have to look at how we measure distance in the
 p-adic world. For any prime <span class="math inline">\(p\)</span>, the
 p-adic valuation <span class="math inline">\(v_p(x)\)</span> of an
 integer <span class="math inline">\(x\)</span> is the highest power of
 <span class="math inline">\(p\)</span> that divides <span class="math inline">\(x\)</span>. This gives rise to the p-adic absolute
-value: <span class="math inline">\(|x|_p = p^{-v_p(x)}.\)</span> Because
-a higher power of <span class="math inline">\(p\)</span> dividing a
-number makes its absolute value smaller, multiples of large powers of
-<span class="math inline">\(p\)</span> are actually incredibly close to
-zero. By definition, the p-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span> consist of all elements in
+value: <span class="math inline">\(|x|_p = p^{-v_p(x)}.\)</span></p>
+<hr />
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+<p>The <span class="math inline">\(p\)</span>-adic valuation <span class="math inline">\(v_p(x)\)</span> is exactly the exponent of the
+<strong>first non-zero term</strong> in the <span class="math inline">\(p\)</span>-adic series expansion of <span class="math inline">\(x\)</span>.</p>
+<p>Every non-zero <span class="math inline">\(p\)</span>-adic number
+expands into a series:</p>
+<p><span class="math display">\[x = a_k p^k + a_{k+1} p^{k+1} + a_{k+2}
+p^{k+2} + \dots\]</span></p>
+<ul>
+<li>Coefficients belong to <span class="math inline">\(\{0, 1, \dots,
+p-1\}\)</span>.</li>
+<li>Leading coefficient <span class="math inline">\(a_k \neq
+0\)</span>.</li>
+<li>Index <span class="math inline">\(k\)</span> is the starting
+power.</li>
+</ul>
+<p>The valuation extraction follows a direct algebraic rule:</p>
+<ul>
+<li>Counts highest power dividing <span class="math inline">\(x\)</span>.</li>
+<li>Matches leading exponent <span class="math inline">\(k\)</span>.</li>
+<li>Yields absolute value <span class="math inline">\(|x|_p =
+p^{-k}\)</span>.</li>
+</ul>
+<p>The <span class="math inline">\(p\)</span>-adic valuation <span class="math inline">\(v_p(x)\)</span> is precisely the exponent of the
+first non-zero term in the <span class="math inline">\(p\)</span>-adic
+series expansion.</p>
+</div>
+<hr />
+<p>Because a higher power of <span class="math inline">\(p\)</span>
+dividing a number makes its absolute value smaller, multiples of large
+powers of <span class="math inline">\(p\)</span> are actually incredibly
+close to zero. By definition, the p-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span> consist of all elements in
 the <span class="math inline">\(p\)</span>-adic completion <span class="math inline">\(\mathbb{Q}_p\)</span> that have a metric size less
 than or equal to <span class="math inline">\(1:\)</span> <span class="math inline">\(\mathbb{Z}_p = \{ x \in \mathbb{Q}_p : |x|_p \le 1
 \}.\)</span> This is the exact definition of a closed unit ball <span class="math inline">\(B_1(0)\)</span> in a metric space.</p>
@@ -861,7 +897,8 @@ of this exponential constant:</p>
 for 5-adic trigonometry, exponential growth models, and calculus within
 <span class="math inline">\(\mathbb{Q}_5\)</span>.</p>
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-p-adic Rationals:
+Field of p-adic Rationals <span class="math inline">\(\mathbb
+Q_\color{red}p:\)</span>
 </h3>
 <p><span class="math inline">\(\mathbb Q_p\)</span> contains those same
 numbers, plus a finite fractional part to the right of the radix point

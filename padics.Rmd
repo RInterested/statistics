@@ -19,15 +19,15 @@ output:
 
 Big division:
 
-$$\cases{\text{p-adic integers} \in \mathbb Z_p \\\\
-\text{p-adic rationals} \in \mathbb Q_p} \\\\\mathbb Z_p\subset\mathbb Q_p$$
+$$p-\text{adics  }\cases{\text{ring of p-adic integers} \in \mathbb Z_p \\\\
+\text{field of p-adic rationals} \in \mathbb Q_p} \\[8ex] \text{with }\mathbb Z_p\subset\mathbb Q_p$$
 
 
 </div>
 
 
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-p-adic Integers:
+Ring of p-adic Integers $\mathbb Z_\color{red}p:$
 </h3>
 
 
@@ -54,9 +54,40 @@ Example:
 
 $\cdots 1100110011001022_3$ is $-1.45 = -\frac{29}{20}.$
 
-Transcendental numbers also turn into p-adic integers... Well, sometimes! Here is a mind-boggling realization: To move a number from $\mathbb{R}$ to $\mathbb{Q}_p$, we need a bridge: usually a sequence of rational numbers. For instance in $\mathbb{R}$, $e = \displaystyle \sum_{n=0}^\infty \frac1 {n!}$. In $\mathbb{Q}_p$, the terms $1/n!$ have $p$ in the denominator more and more often as $n$ grows. This means the terms get larger p-adically $(|1/n!|_p \to \infty)$. Therefore the series explodes. Similarly $\pi$ is defined by the geometry of Euclidean space. Since p-adic space is non-Euclidean and ultra-metric (every triangle is isosceles), the physical definition of $\pi$ has no meaning there.
+Transcendental numbers also turn into p-adic integers... Well, sometimes! Here is a mind-boggling realization: To move a number from $\mathbb{R}$ to p-adics, we need a bridge: usually a sequence of rational numbers. For instance in $\mathbb{R}$, the Euler constant $e = \displaystyle \sum_{n=0}^\infty \frac1 {n!}$. In p-adics, the terms $1/n!$ have $p$ in the denominator more and more often as $n$ grows: whenever there are powers of $p$ in the denominator, we are no longer in $\mathbb Z_p;$ we are in $\mathbb{Q}_p.$ But this is change is not good enough: in this power series, the terms get larger p-adically $(|1/n!|_p \to \infty).$ Therefore the series explodes - does not converge. 
 
-In the realm of $p$-adic analysis, the ring of p-adic integers $\mathbb{Z}_p$ is exactly the closed unit ball centered at the origin. To see why this algebraic object doubles as a geometric ball, we have to look at how we measure distance in the p-adic world. For any prime $p$, the p-adic valuation $v_p(x)$ of an integer $x$ is the highest power of $p$ that divides $x$. This gives rise to the p-adic absolute value: $|x|_p = p^{-v_p(x)}.$ Because a higher power of $p$ dividing a number makes its absolute value smaller, multiples of large powers of $p$ are actually incredibly close to zero. By definition, the p-adic integers $\mathbb{Z}_p$ consist of all elements in the $p$-adic completion $\mathbb{Q}_p$ that have a metric size less than or equal to $1:$ $\mathbb{Z}_p = \{ x \in \mathbb{Q}_p : |x|_p \le 1 \}.$ This is the exact definition of a closed unit ball $B_1(0)$ in a metric space.
+Similarly $\Huge \color{red}\pi$ is defined by the geometry of Euclidean space. Since p-adic space is non-Euclidean - it is instead ultra-metric (every triangle is isosceles) - the physical definition of $\pi$ has no meaning there.
+
+In the realm of $p$-adic analysis, the **ring of p-adic integers** $\mathbb{Z}_p$ is exactly the closed unit ball centered at the origin. To see why this algebraic object doubles as a geometric ball, we have to look at how we measure distance in the p-adic world. For any prime $p$, the p-adic valuation $v_p(x)$ of an integer $x$ is the highest power of $p$ that divides $x$. This gives rise to the p-adic absolute value: $|x|_p = p^{-v_p(x)}.$ 
+
+---
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+
+The $p$-adic valuation $v_p(x)$ is exactly the exponent of the **first non-zero term** in the $p$-adic series expansion of $x$. 
+
+Every non-zero $p$-adic number expands into a series:
+
+$$x = a_k p^k + a_{k+1} p^{k+1} + a_{k+2} p^{k+2} + \dots$$
+
+* Coefficients belong to $\{0, 1, \dots, p-1\}$.
+* Leading coefficient $a_k \neq 0$.
+* Index $k$ is the starting power.
+
+The valuation extraction follows a direct algebraic rule:
+
+* Counts highest power dividing $x$.
+* Matches leading exponent $k$.
+* Yields absolute value $|x|_p = p^{-k}$.
+
+The $p$-adic valuation $v_p(x)$ is precisely the exponent of the first non-zero term in the $p$-adic series expansion.
+
+</div>
+
+---
+
+
+Because a higher power of $p$ dividing a number makes its absolute value smaller, multiples of large powers of $p$ are actually incredibly close to zero. By definition, the p-adic integers $\mathbb{Z}_p$ consist of all elements in the $p$-adic completion $\mathbb{Q}_p$ that have a metric size less than or equal to $1:$ $\mathbb{Z}_p = \{ x \in \mathbb{Q}_p : |x|_p \le 1 \}.$ This is the exact definition of a closed unit ball $B_1(0)$ in a metric space.
 
 The p-adic integers (often denoted as \(\mathbb{Z}_{p}\)) form a fractal because they are totally disconnected and self-similar. When mapped geometrically onto the real number line or complex plane, their topological structure takes the form of a classic fractal like a Cantor set or a Sierpiński gasket. 
 
@@ -245,7 +276,7 @@ This infinite string of digits is the true "5-adic $e$". It functions as the fou
 
 
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-p-adic Rationals:
+Field of p-adic Rationals  $\mathbb Q_\color{red}p:$
 </h3>
 
 $\mathbb Q_p$ contains those same numbers, plus a finite fractional part to the right of the radix point (negative powers like $p^{-1}, p^{-2}, \dots$):
