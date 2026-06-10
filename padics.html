@@ -384,7 +384,7 @@ p-adic integers} \in \mathbb Z_p \\\\
 </div>
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 Ring of p-adic Integers <span class="math inline">\(\mathbb
-Z_\color{red}p:\)</span>
+Z_\color{red}p\)</span> and general comments:
 </h3>
 <p><span class="math inline">\(\mathbb Z_p\)</span> contains numbers
 whose expansions only go to the left (powers <span class="math inline">\(p^0, p^1, p^2, \dots\)</span>):</p>
@@ -466,12 +466,14 @@ powers of <span class="math inline">\(p\)</span> are actually incredibly
 close to zero. By definition, the p-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span> consist of all elements in
 the <span class="math inline">\(p\)</span>-adic completion <span class="math inline">\(\mathbb{Q}_p\)</span> that have a metric size less
 than or equal to <span class="math inline">\(1:\)</span> <span class="math inline">\(\mathbb{Z}_p = \{ x \in \mathbb{Q}_p : |x|_p \le 1
-\}.\)</span> This is the exact definition of a closed unit ball <span class="math inline">\(B_1(0)\)</span> in a metric space.</p>
-<p>The p-adic integers (often denoted as <span class="math inline">\(\mathbb{Z}_{p}\)</span>) form a fractal because
-they are totally disconnected and self-similar. When mapped
-geometrically onto the real number line or complex plane, their
-topological structure takes the form of a classic fractal like a Cantor
-set or a Sierpiński gasket.</p>
+\}.\)</span> This is the exact definition of a <strong>closed unit
+ball</strong> <span class="math inline">\(B_1(0)\)</span> in a metric
+space.</p>
+<p>The p-adic integers (often denoted as <span class="math inline">\(\mathbb{Z}_{p}\)</span>) form a
+<strong>fractal</strong> because they are totally disconnected and
+self-similar. When mapped geometrically onto the real number line or
+complex plane, their topological structure takes the form of a classic
+fractal like a Cantor set or a Sierpiński gasket.</p>
 <p>Here is the Monna map of <span class="math inline">\(\mathbb
 Z_3:\)</span></p>
 <hr />
@@ -483,10 +485,10 @@ infinitely extending to the left. Because Python code can’t calculate
 infinitely many digits, the code to generate the plot above is truncated
 at a precision of <span class="math inline">\(7\)</span> digits. A
 typical number looks like: <span class="math inline">\(x = [2, 0, 1, 1,
-2, 0, 2]\)</span> (Which translates to the number: <span class="math inline">\(2 + 0(3) + 1(3)^2 + 1(3)^3 + 2(3)^4 + 0(3)^5 +
-2(3)^6\)</span>). Our code systematically generates every single
-possible <span class="math inline">\(7\)</span>-digit combination using
-the digits <span class="math inline">\(0, 1,\)</span> and <span class="math inline">\(2.\)</span> Since there are <span class="math inline">\(3\)</span> choices for each of the <span class="math inline">\(7\)</span> slots, the code generates exactly <span class="math inline">\(3^7 = 2,187\)</span> distinct numbers. Every
+2, 0, 2],\)</span> which translates to the number: <span class="math inline">\(2 + 0(3) + 1(3)^2 + 1(3)^3 + 2(3)^4 + 0(3)^5 +
+2(3)^6.\)</span> Our code systematically generates every single possible
+<span class="math inline">\(7\)</span>-digit combination using the
+digits <span class="math inline">\(0, 1,\)</span> and <span class="math inline">\(2.\)</span> Since there are <span class="math inline">\(3\)</span> choices for each of the <span class="math inline">\(7\)</span> slots, the code generates exactly <span class="math inline">\(3^7 = 2,187\)</span> distinct numbers. Every
 single vertical line on the plot represents exactly one of these <span class="math inline">\(2,187\)</span> numbers. The Monna map is a rule
 that takes those digits, flips them backwards across a decimal point,
 and reads them as a fraction. The <span class="math inline">\(3\)</span>-adic number: <span class="math inline">\([1, 2, 0, 0, 0, 0, 0] = 1 + 2(3)^1 + 0(3)^2 +
@@ -508,9 +510,9 @@ base-<span class="math inline">\(3\)</span> fraction:</p>
 0.375\]</span></p>
 <p>So, the computer draws a red line at <span class="math inline">\(0.375\)</span>.</p>
 <p>The darker blue lines in the top plot are the manifestation of the
-structural instability of the real, Archimedean metric. In the real
-numbers, we have this quirky glitch where a single point can be written
-in two completely different ways. These are akin to the standard
+structural instability of the real numbers’ Archimedean metric. In the
+real numbers, we have this quirky glitch where a single point can be
+written in two completely different ways. These are akin to the standard
 base-<span class="math inline">\(10\)</span> equality <span class="math inline">\(0.9999\dots = 1.0.\)</span> Because we are using
 base-<span class="math inline">\(3\)</span> for the top plot, that exact
 same glitch happens at every single major boundary. For example: <span class="math inline">\(0.02222\dots_3 = 0.10000\dots_3 =
@@ -520,11 +522,10 @@ that is a “one followed by all zeros” (<span class="math inline">\(\dots0001
 separate entities. They live on entirely different branches of the
 p-adic tree. When the Monna map flips them across the decimal point to
 turn them into real numbers, they become <span class="math inline">\(0.02222\dots_3\)</span> and <span class="math inline">\(0.10000\dots_3\)</span>. Because those two
-distinct real expressions equal the exact same value (<span class="math inline">\(\frac{1}{3}\)</span>), the computer is forced to
-draw both lines on the exact same pixel. Because our code generates
-every possible combination of digits, this collision doesn’t just happen
-once. It happens at <span class="math inline">\(\frac{1}{3}\)</span>,
-<span class="math inline">\(\frac{2}{3}\)</span>, <span class="math inline">\(\frac{1}{9}\)</span>, <span class="math inline">\(\frac{2}{9}\)</span>, <span class="math inline">\(\frac{4}{9}\)</span>, <span class="math inline">\(\frac{5}{9}\)</span>, and so on. Wherever these
+distinct real expressions equal the exact same value, <span class="math inline">\(\frac{1}{3},\)</span> the computer is forced to
+draw both lines on the exact same pixel. Since the code generates every
+possible combination of digits, this collision doesn’t just happen once.
+It happens at <span class="math inline">\(\frac{1}{3}\)</span>, <span class="math inline">\(\frac{2}{3}\)</span>, <span class="math inline">\(\frac{1}{9}\)</span>, <span class="math inline">\(\frac{2}{9}\)</span>, <span class="math inline">\(\frac{4}{9}\)</span>, <span class="math inline">\(\frac{5}{9}\)</span>, and so on. Wherever these
 branches accidentally touch and glue together in the real numbers, we
 get a pixel collision. Multiple distinct p-adic numbers land on top of
 one another, and matplotlib renders that overlapping density as a
@@ -533,7 +534,7 @@ base-<span class="math inline">\(4,\)</span> we physically pull those
 boundaries apart. <span class="math inline">\(0.0222\dots_4\)</span>
 equals <span class="math inline">\(\frac{2}{3}\)</span>, while <span class="math inline">\(0.1000\dots_4\)</span> equals <span class="math inline">\(\frac{1}{4}\)</span>. Because <span class="math inline">\(\frac{2}{3}\)</span> and <span class="math inline">\(\frac{1}{4}\)</span> are different positions on
 the screen, the collision is broken, the lines separate, and the
-“instability” vanishes, exposing the true, clean gaps of the p-adic
+instability vanishes, exposing the true, clean gaps of the p-adic
 topology.</p>
 <p>P-adics can also be plotted to the complex plane as in the image
 below: one half of the twin dragon fractal (sometimes called the
