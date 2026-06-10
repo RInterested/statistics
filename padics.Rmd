@@ -3167,6 +3167,8 @@ For the polynomial $f(x) = x^n - 1$, we first look for solutions in the finite f
 
 The non-zero elements of $\mathbb{F}_p$ form a **multiplicative group**, denoted $\mathbb{F}_p^\times.$ 
 
+We bring up the multiplicative group $\mathbb{F}_p^\times$ at this exact moment because the polynomial equation $x^n - 1 = 0$ is a statement about multiplication, not addition, and it completely excludes zero. By identifying exactly which algebraic structure governs this behavior, we unlock a powerful set of constraints (like Lagrange's theorem) that dictate whether solutions can even exist. Making that explicit pivot to $\mathbb{F}_p^\times$ discards the irrelevant element ($x = 0).$ The equation we are trying to solve is $x^n \equiv 1 \pmod p.$ If we look at the entire finite field $\mathbb{F}_p$, it contains $p$ elements: $\{0, 1, 2, \ldots, p-1\}$. But the element $0$ can never satisfy this equation because $0^n = 0 \equiv 1 \pmod p$ is impossible for any $n \ge 1$. By instantly shifting our focus from the full field $\mathbb{F}_p$ to the multiplicative group $\mathbb{F}_p^\times$, we are formally throwing away $0$. We are narrowing our search domain exclusively to the remaining $p-1$ elements where a solution is actually possible.
+
 A fundamental result in algebra is that $\mathbb{F}_p^\times$ is a cyclic group of order $p-1.$ 
 
 Because the group has exactly $p-1$ elements, **Lagrange's theorem** tells us that the order of any element in this group must divide the order of the group $(p-1).$ 

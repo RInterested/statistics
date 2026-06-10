@@ -5075,6 +5075,24 @@ exact root in <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
 1\)</span>, we first look for solutions in the finite field <span class="math inline">\(\mathbb{F}_p\)</span> (the integers modulo <span class="math inline">\(p).\)</span></p>
 <p>The non-zero elements of <span class="math inline">\(\mathbb{F}_p\)</span> form a
 <strong>multiplicative group</strong>, denoted <span class="math inline">\(\mathbb{F}_p^\times.\)</span></p>
+<p>We bring up the multiplicative group <span class="math inline">\(\mathbb{F}_p^\times\)</span> at this exact moment
+because the polynomial equation <span class="math inline">\(x^n - 1 =
+0\)</span> is a statement about multiplication, not addition, and it
+completely excludes zero. By identifying exactly which algebraic
+structure governs this behavior, we unlock a powerful set of constraints
+(like Lagrange’s theorem) that dictate whether solutions can even exist.
+Making that explicit pivot to <span class="math inline">\(\mathbb{F}_p^\times\)</span> discards the
+irrelevant element (<span class="math inline">\(x = 0).\)</span> The
+equation we are trying to solve is <span class="math inline">\(x^n
+\equiv 1 \pmod p.\)</span> If we look at the entire finite field <span class="math inline">\(\mathbb{F}_p\)</span>, it contains <span class="math inline">\(p\)</span> elements: <span class="math inline">\(\{0, 1, 2, \ldots, p-1\}\)</span>. But the element
+<span class="math inline">\(0\)</span> can never satisfy this equation
+because <span class="math inline">\(0^n = 0 \equiv 1 \pmod p\)</span> is
+impossible for any <span class="math inline">\(n \ge 1\)</span>. By
+instantly shifting our focus from the full field <span class="math inline">\(\mathbb{F}_p\)</span> to the multiplicative group
+<span class="math inline">\(\mathbb{F}_p^\times\)</span>, we are
+formally throwing away <span class="math inline">\(0\)</span>. We are
+narrowing our search domain exclusively to the remaining <span class="math inline">\(p-1\)</span> elements where a solution is actually
+possible.</p>
 <p>A fundamental result in algebra is that <span class="math inline">\(\mathbb{F}_p^\times\)</span> is a cyclic group of
 order <span class="math inline">\(p-1.\)</span></p>
 <p>Because the group has exactly <span class="math inline">\(p-1\)</span> elements, <strong>Lagrange’s
