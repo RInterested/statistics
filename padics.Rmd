@@ -1528,19 +1528,27 @@ An alternative motivation would be an archiving system of folders like MS Window
 
 Hierarchy:
 
-* Level $0$ (root): sys.pdf is here.
+* Level $0$ (`root`): sys.pdf is here.
 
-* Level $1$: pics (beach, lake) and docs (appl.doc) are here.
+* Level $1$: `pics` (`beach`, `lake`) and `docs` (`appl.doc`) are here.
 
-* Level $2$: ref (camera) and legal (roof, budget) are here.
+* Level $2$: `ref` (`camera`) and `legal` (`roof`, `budget`) are here.
 
-Even though `roof.pdf` is technically inside `contracts` (Level $3$) and `budget.xlsx` is inside `fees` (Level $3$), they meet at `legal` (Level $2$). In p-adic math, we only care about that meeting point ("inverted U").
+Even though `roof.pdf` is technically inside `contracts` (level $3$) and `budget.xlsx` is inside `fees` (Level $3$), they meet at `legal` (Level $2$). In p-adic math, we only care about that meeting point (**inverted U**).
 
 In p-adic notation, we write the address "backwards" (from specific to general), but for this analogy, we'll build the value from the top down:
 
 $$\text{Address} = (\text{Level}_1 \times 5^0) + (\text{Level}_2 \times 5^1) + (\text{Level}_3 \times 5^2) + (\text{File}\_{\text{ID}} \times 5^3)$$
 
-Imagine you have a big integer representing a file's ID. To find its "Windows Explorer" path, you divide it by $5$ over and over: Step $1$: $\text{ID} \div 5$ The remainder is $\text{Level}_1$ (Which folder under `root`). Step 2: Take the quotient from Step $1,$ divide by $5$ again. The remainder is $\text{Level}_2$ (Which sub-folder under `docs`). Step $3$: Take the quotient from Step $2,$ divide by $5$ again. The remainder is $\text{Level}_3$ (Which sub-sub-folder under `legal`)... In the address equation above $\text{Level}_1$ is the first remainder. It tells you the "broadest" location. $\text{Level}_2 \times 5$ is the second remainder. It shifts you into a deeper sub-folder. $\text{Level}_3 \times 25$ is the third remainder. It shifts you even deeper. The further "right" you go in the expansion (higher powers of $5$), the deeper you are in the Windows Explorer tree.3. 
+Imagine you have a big integer representing a file's ID. To find its "Windows Explorer" path, you divide it by $5$ over and over: 
+
+Step $1$: $\small \text{ID} \div 5$ The remainder is $\small \text{Level}_1$ (Which folder under `root`?). 
+
+Step $2:$ Take the quotient from Step $1,$ divide by $5$ again. The remainder is $\small \text{Level}_2$ (Which sub-folder under `docs`?). 
+
+Step $3$: Take the quotient from Step $2,$ divide by $5$ again. The remainder is $\small \text{Level}_3$ (Which sub-sub-folder under `legal`?)... 
+
+In the address equation above $\small \text{Level}_1$ is the first remainder. It tells you the "broadest" location. $\small \text{Level}_2 \times 5$ is the second remainder. It shifts you into a deeper sub-folder. $\small \text{Level}_3 \times 25$ is the third remainder. It shifts you even deeper. The further right you go in the expansion (higher powers of $5$), the deeper you are in the Windows Explorer tree.3. 
 
 If two files have the same first three remainders ($L_1, L_2, L_3$), their addresses will look like this:
 

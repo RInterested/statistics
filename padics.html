@@ -2849,18 +2849,20 @@ documents). We have a structure such as</p>
 <hr />
 <p>Hierarchy:</p>
 <ul>
-<li><p>Level <span class="math inline">\(0\)</span> (root): sys.pdf is
-here.</p></li>
-<li><p>Level <span class="math inline">\(1\)</span>: pics (beach, lake)
-and docs (appl.doc) are here.</p></li>
-<li><p>Level <span class="math inline">\(2\)</span>: ref (camera) and
-legal (roof, budget) are here.</p></li>
+<li><p>Level <span class="math inline">\(0\)</span> (<code>root</code>):
+sys.pdf is here.</p></li>
+<li><p>Level <span class="math inline">\(1\)</span>: <code>pics</code>
+(<code>beach</code>, <code>lake</code>) and <code>docs</code>
+(<code>appl.doc</code>) are here.</p></li>
+<li><p>Level <span class="math inline">\(2\)</span>: <code>ref</code>
+(<code>camera</code>) and <code>legal</code> (<code>roof</code>,
+<code>budget</code>) are here.</p></li>
 </ul>
 <p>Even though <code>roof.pdf</code> is technically inside
-<code>contracts</code> (Level <span class="math inline">\(3\)</span>)
+<code>contracts</code> (level <span class="math inline">\(3\)</span>)
 and <code>budget.xlsx</code> is inside <code>fees</code> (Level <span class="math inline">\(3\)</span>), they meet at <code>legal</code>
 (Level <span class="math inline">\(2\)</span>). In p-adic math, we only
-care about that meeting point (“inverted U”).</p>
+care about that meeting point (<strong>inverted U</strong>).</p>
 <p>In p-adic notation, we write the address “backwards” (from specific
 to general), but for this analogy, we’ll build the value from the top
 down:</p>
@@ -2868,18 +2870,24 @@ down:</p>
 5^0) + (\text{Level}_2 \times 5^1) + (\text{Level}_3 \times 5^2) +
 (\text{File}\_{\text{ID}} \times 5^3)\]</span></p>
 <p>Imagine you have a big integer representing a file’s ID. To find its
-“Windows Explorer” path, you divide it by <span class="math inline">\(5\)</span> over and over: Step <span class="math inline">\(1\)</span>: <span class="math inline">\(\text{ID}
-\div 5\)</span> The remainder is <span class="math inline">\(\text{Level}_1\)</span> (Which folder under
-<code>root</code>). Step 2: Take the quotient from Step <span class="math inline">\(1,\)</span> divide by <span class="math inline">\(5\)</span> again. The remainder is <span class="math inline">\(\text{Level}_2\)</span> (Which sub-folder under
-<code>docs</code>). Step <span class="math inline">\(3\)</span>: Take
-the quotient from Step <span class="math inline">\(2,\)</span> divide by
-<span class="math inline">\(5\)</span> again. The remainder is <span class="math inline">\(\text{Level}_3\)</span> (Which sub-sub-folder
-under <code>legal</code>)… In the address equation above <span class="math inline">\(\text{Level}_1\)</span> is the first remainder. It
-tells you the “broadest” location. <span class="math inline">\(\text{Level}_2 \times 5\)</span> is the second
-remainder. It shifts you into a deeper sub-folder. <span class="math inline">\(\text{Level}_3 \times 25\)</span> is the third
-remainder. It shifts you even deeper. The further “right” you go in the
-expansion (higher powers of <span class="math inline">\(5\)</span>), the
-deeper you are in the Windows Explorer tree.3.</p>
+“Windows Explorer” path, you divide it by <span class="math inline">\(5\)</span> over and over:</p>
+<p>Step <span class="math inline">\(1\)</span>: <span class="math inline">\(\small \text{ID} \div 5\)</span> The remainder is
+<span class="math inline">\(\small \text{Level}_1\)</span> (Which folder
+under <code>root</code>?).</p>
+<p>Step <span class="math inline">\(2:\)</span> Take the quotient from
+Step <span class="math inline">\(1,\)</span> divide by <span class="math inline">\(5\)</span> again. The remainder is <span class="math inline">\(\small \text{Level}_2\)</span> (Which sub-folder
+under <code>docs</code>?).</p>
+<p>Step <span class="math inline">\(3\)</span>: Take the quotient from
+Step <span class="math inline">\(2,\)</span> divide by <span class="math inline">\(5\)</span> again. The remainder is <span class="math inline">\(\small \text{Level}_3\)</span> (Which
+sub-sub-folder under <code>legal</code>?)…</p>
+<p>In the address equation above <span class="math inline">\(\small
+\text{Level}_1\)</span> is the first remainder. It tells you the
+“broadest” location. <span class="math inline">\(\small \text{Level}_2
+\times 5\)</span> is the second remainder. It shifts you into a deeper
+sub-folder. <span class="math inline">\(\small \text{Level}_3 \times
+25\)</span> is the third remainder. It shifts you even deeper. The
+further right you go in the expansion (higher powers of <span class="math inline">\(5\)</span>), the deeper you are in the Windows
+Explorer tree.3.</p>
 <p>If two files have the same first three remainders (<span class="math inline">\(L_1, L_2, L_3\)</span>), their addresses will look
 like this:</p>
 <ul>
