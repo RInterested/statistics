@@ -887,9 +887,9 @@ to find the initial digits:</p>
 <p><span class="math display">\[\small \text{Partial Sum} = 1 + 5 +
 \frac{25}{2} + \frac{125}{6} + \frac{625}{24} + \frac{625}{24} +
 \dots\]</span></p>
-<p>To do arithmetic with the fractions, we have to convert them to
-integers using modular arithmetic (finding the modular inverse of the
-denominators mod powers of 5).</p>
+<p><strong>To do arithmetic with the fractions, we have to convert them
+to integers using modular arithmetic (finding the modular inverse of the
+denominators mod powers of 5).</strong></p>
 <p>Step <span class="math inline">\(1:\)</span> Find the last digit
 <span class="math inline">\(a_0\)</span> (modulo 5) If we look at the
 sum modulo <span class="math inline">\(5,\)</span> every term with a
@@ -904,9 +904,13 @@ number ends in <span class="math inline">\(\dots1_5\)</span>).</p>
 <p>Written in base 5, <span class="math inline">\(6 = 1\cdot5^1 +
 1\cdot5^0\)</span>, which is written as <span class="math inline">\(11_5\)</span>. So the next digit is <span class="math inline">\(1\)</span>. (Our number ends in <span class="math inline">\(\dots11_5\)</span>).</p>
 <p>Step <span class="math inline">\(3:\)</span> Find the next digit
-<span class="math inline">\(a_2\)</span> (modulo <span class="math inline">\(125).\)</span> Now we include the next term, <span class="math inline">\(25/2\)</span>. We need to find the value of <span class="math inline">\(1/2 \pmod{125}\)</span>. Since <span class="math inline">\(2 \times 63 = 126 \equiv 1 \pmod{125}\)</span>,
-the fraction <span class="math inline">\(1/2\)</span> is equivalent to
-the integer <span class="math inline">\(63\)</span>.</p>
+<span class="math inline">\(a_2\)</span> (modulo <span class="math inline">\(125).\)</span> Now we include the next term, <span class="math inline">\(25/2\)</span>. We need to find the value of <span class="math inline">\(1/2 \pmod{125}\)</span>. To carry out modular
+arithmetic we need to get rid of the denominator by splitting the
+fraction into a product and replacing the unit fraction with its modular
+inverse, since standard division is not defined for integers under a
+modulus. Since <span class="math inline">\(2 \times 63 = 126 \equiv 1
+\pmod{125}\)</span>, the isolated fraction <span class="math inline">\(1/2\)</span> is equivalent to the integer <span class="math inline">\(63\)</span>, transforming <span class="math inline">\(25/2\)</span> into <span class="math inline">\(25
+\times 63\)</span>.</p>
 <p><span class="math display">\[e^5 \equiv 1 + 5 + 25(63) \equiv 1 + 5 +
 1575 \equiv 1581 \pmod{125}\]</span></p>
 <p>We reduce <span class="math inline">\(1581 \pmod{125}\)</span>:</p>
@@ -2743,11 +2747,13 @@ you we in the ball, we are the center of the ball.</p>
 Relationship between the digits in the p-adic and decimal expressions:
 </h3>
 <hr />
-<p>For instance, in the case of <span class="math inline">\(1/3\)</span>:</p>
+<p>For instance, in the case of <span class="math inline">\(1/3\)</span>
+in <span class="math inline">\(5\)</span>-adics:</p>
 <p><span class="math display">\[\boxed{\begin{align}&amp;\text{Reals
 base } 5: &amp;0.\mathbf{131313...}\\
 &amp;5-\text{adics: }&amp;...\mathbf{31313132}\end{align}}\]</span></p>
-<p>only the first digit is different.</p>
+<p>only the first digit is different. Notice that the relations between
+the first digits are fulfilled (see in 🐓).</p>
 <p>The connection between the first digit of the base <span class="math inline">\(5\)</span> expansion (<span class="math inline">\(1\)</span>) and the first digit of the <span class="math inline">\(5\)</span>-adic expansion (<span class="math inline">\(2\)</span>) is hidden in a simple piece of
 arithmetic: <span class="math inline">\(1 + 2 = 3\)</span> (the
 denominator). This isn’t a coincidence. In many cases, the p-adic
@@ -5213,6 +5219,58 @@ the roots of <span class="math inline">\(x^2 + 1 = 0\)</span>, meaning
 root of unity (<span class="math inline">\(n=3\)</span>) in <span class="math inline">\(\mathbb{Q}_5\)</span>, it fails because <span class="math inline">\(3\)</span> does not divide <span class="math inline">\(4\)</span>. The equation <span class="math inline">\(x^3 - 1 = 0\)</span> has only the trivial root
 <span class="math inline">\(x=1\)</span> in <span class="math inline">\(\mathbb{Q}_5\)</span>. To get the others, you
 would have to construct a field extension.</p>
+</div>
+<hr />
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+<p>🐓 Yes, the case of <span class="math inline">\(\frac{1}{3}\)</span>
+in the <span class="math inline">\(5\)</span>-adics and base-<span class="math inline">\(5\)</span> reals perfectly fulfills the
+relationships outlined.</p>
+<p>For the fraction <span class="math inline">\(x = \frac{1}{3}\)</span>
+in base <span class="math inline">\(p = 5\)</span>:</p>
+<p>Numerator (<span class="math inline">\(a\)</span>) = <span class="math inline">\(1\)</span></p>
+<p>Denominator (<span class="math inline">\(b\)</span>) = <span class="math inline">\(3\)</span></p>
+<p>Base (<span class="math inline">\(p\)</span>) = <span class="math inline">\(5\)</span></p>
+<p>First, let’s find the modular inverse of the denominator,</p>
+<p><span class="math inline">\(b^{-1} \pmod 5\)</span>:</p>
+<p><span class="math display">\[3 \cdot 2 = 6 \equiv 1 \pmod 5 \implies
+b^{-1} \equiv 2 \pmod 5\]</span></p>
+<p>Next, let’s find the integer remainder <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[r = (p \cdot a) \bmod b = (5 \cdot 1)
+\bmod 3 = 5 \bmod 3 = 2\]</span></p>
+<p>The first fractional digit in the reals is <span class="math inline">\(d_{-1} = 1\)</span> (from <span class="math inline">\(0.\mathbf{1}31313...\)</span>), and the first
+<span class="math inline">\(5\)</span>-adic digit is <span class="math inline">\(a_0 = 2\)</span> (from <span class="math inline">\(...\dots3131313\mathbf{2}\)</span>).</p>
+<p>For the <span class="math inline">\(5\)</span>-adic digit (<span class="math inline">\(a_0\)</span>) the formula is</p>
+<p><span class="math display">\[a_0 \equiv a \cdot b^{-1} \pmod
+p\]</span></p>
+<p><span class="math display">\[a_0 \equiv 1 \cdot 2 = 2 \pmod
+5\]</span></p>
+<p>This perfectly matches the last digit of the <span class="math inline">\(5\)</span>-adic expansion: <span class="math inline">\(\mathbf{2}\)</span>.</p>
+<p>For the real base-<span class="math inline">\(5\)</span> digit (<span class="math inline">\(d_{-1}\)</span>):</p>
+<p><span class="math display">\[d_{-1} \equiv -r \cdot b^{-1} \pmod
+p\]</span></p>
+<p><span class="math display">\[d_{-1} \equiv -2 \cdot 2 = -4 \pmod
+5\]</span></p>
+<p>Since <span class="math inline">\(-4 \equiv 1 \pmod 5\)</span>, we
+get <span class="math inline">\(d_{-1} = 1\)</span>. This perfectly
+matches the first digit after the radix point in the real expansion:
+<span class="math inline">\(\mathbf{1}\)</span>.</p>
+<p>Now, let’s plug these values into your final red-boxed product
+congruence formula to see if it holds true.</p>
+<p>Left-Hand Side (LHS):</p>
+<p><span class="math display">\[a_0 \cdot d_{-1} = 2 \cdot 1 =
+2\]</span></p>
+<p>Right-Hand Side (RHS):</p>
+<p><span class="math display">\[a \cdot (-r) \cdot (b^{-1})^2 \pmod
+5\]</span></p>
+<p><span class="math display">\[1 \cdot (-2) \cdot (2)^2 = -2 \cdot 4 =
+-8\]</span></p>
+<p>Reducing the RHS modulo <span class="math inline">\(5:\)</span></p>
+<p><span class="math display">\[-8 \equiv 2 \pmod 5\]</span></p>
+<p>Since both the LHS and RHS equal <span class="math inline">\(2 \pmod
+5\)</span>, the relationship:</p>
+<p><span class="math display">\[\bbox[15px, border: 2px solid red]{a_0
+\cdot d_{-1} \equiv a \cdot (-r) \cdot (b^{-1})^2 \pmod p}\]</span> is
+fully satisfied (<span class="math inline">\(2 \equiv 2\)</span>).</p>
 </div>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
