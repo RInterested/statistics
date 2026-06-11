@@ -1184,6 +1184,64 @@ where</p>
 <p><span class="math display">\[\bbox[20px, border: 5px solid red]{r =
 p\,a \bmod b}\]</span></p>
 <p>is the integer remainder.</p>
+</div>
+<div id="why" class="section level5">
+<h5>Why?</h5>
+<p>When we express a fraction <span class="math inline">\(x =
+\frac{a}{b}\)</span> as a real number in base <span class="math inline">\(p\)</span>, its expansion looks like this:</p>
+<p><span class="math display">\[\frac{a}{b} =
+0.d_{-1}d_{-2}d_{-3}\dots\]</span> By definition of positional base
+notation, this string of digits means:</p>
+<p><span class="math display">\[\frac{a}{b} = d_{-1}p^{-1} +
+d_{-2}p^{-2} + d_{-3}p^{-3} + \dots\]</span></p>
+<p>To isolate the first digit <span class="math inline">\(d_{-1}\)</span> so it sits in the integer position
+(to the left of the radix point), we multiply the entire equation by the
+base <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[p\left(\frac{a}{b}\right) = d_{-1} +
+d_{-2}p^{-1} + d_{-3}p^{-2} + \dots\]</span></p>
+<p><span class="math display">\[\frac{pa}{b} = d_{-1} +
+0.d_{-2}d_{-3}\dots\]</span></p>
+<p><span class="math inline">\(\frac{pa}{b}\)</span> is an improper
+fraction (assuming <span class="math inline">\(b\)</span> doesn’t divide
+<span class="math inline">\(pa\)</span>); <span class="math inline">\(d_{-1}\)</span> is a strict base-<span class="math inline">\(p\)</span> digit, meaning it is an integer where
+<span class="math inline">\(d_{-1} \in \{0, 1, \dots, p-1\}\)</span>.
+<span class="math inline">\(0.d_{-2}d_{-3}\dots\)</span> is the
+remaining fractional part, which is strictly less than <span class="math inline">\(1\)</span>. This is exactly what happens in
+standard Euclidean integer division on the numerator <span class="math inline">\(pa\)</span> and the denominator <span class="math inline">\(b\)</span>. Any division of two integers can be
+written as a quotient plus a remainder over the divisor:</p>
+<p><span class="math display">\[\small\frac{\text{Numerator}}{\text{Divisor}} =
+\text{Quotient} + \frac{\text{Remainder}}{\text{Divisor}}\]</span></p>
+<p>Mapping our terms to this formula:</p>
+<p><span class="math display">\[\text{Numerator} = pa\]</span></p>
+<p><span class="math display">\[\text{Divisor} = b\]</span></p>
+<p><span class="math display">\[\small\text{Quotient} = d_{-1}\]</span>
+(the integer part)</p>
+<p><span class="math display">\[\small\text{Fractional Part} =
+\frac{r}{b} = 0.d_{-2}d_{-3}\dots\]</span></p>
+<p>So, we can rewrite <span class="math inline">\(\frac{pa}{b}\)</span>
+as:</p>
+<p><span class="math display">\[\frac{pa}{b} = d_{-1} +
+\frac{r}{b}\]</span></p>
+<p>To get rid of the fractions and turn this into a pure integer
+identity, multiply the entire equation by the denominator <span class="math inline">\(b\)</span>:</p>
+<p><span class="math display">\[b \cdot \left(\frac{pa}{b}\right) = b
+\cdot \left(d_{-1} + \frac{r}{b}\right)\]</span></p>
+<p><span class="math display">\[pa = b \cdot d_{-1} + r\]</span></p>
+<p>Because the term <span class="math inline">\(\frac{r}{b}\)</span>
+represents the remaining fractional string <span class="math inline">\(0.d_{-2}d_{-3}\dots\)</span>, it is strictly
+bounded between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>: <span class="math inline">\(0 \le
+\frac{r}{b} &lt; 1.\)</span> Multiplying this entire inequality by the
+positive integer <span class="math inline">\(b\)</span> yields the
+fundamental constraint for an integer remainder: <span class="math inline">\(0 \le r &lt; b.\)</span> By the uniqueness of the
+Euclidean Division Algorithm, given two integers <span class="math inline">\(pa\)</span> and <span class="math inline">\(b\)</span>, there exists a unique pair of integers
+<span class="math inline">\(d_{-1}\)</span> (the quotient) and <span class="math inline">\(r\)</span> (the remainder) that satisfies the
+identity <span class="math inline">\(pa = b \cdot d_{-1} + r\)</span>
+under the condition <span class="math inline">\(0 \le r &lt; b\)</span>.
+The standard mathematical operation that computes this unique bounded
+integer <span class="math inline">\(r\)</span> is the modulo operation.
+Therefore, we can formally state: <span class="math inline">\(r = p\,a
+\bmod b}.\)</span></p>
+<hr />
 <p>By evaluating this identity under the p-adic modular constraint:</p>
 <p><span class="math display">\[b \cdot d_{-1} + r \equiv 0 \pmod
 p\]</span></p>

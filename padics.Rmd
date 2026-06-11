@@ -519,6 +519,51 @@ $$\bbox[20px, border: 5px solid red]{r = p\,a \bmod b}$$
 
 is the integer remainder. 
 
+
+##### Why?
+
+When we express a fraction $x = \frac{a}{b}$ as a real number in base $p$, its expansion looks like this:
+
+$$\frac{a}{b} = 0.d_{-1}d_{-2}d_{-3}\dots$$
+By definition of positional base notation, this string of digits means:
+
+$$\frac{a}{b} = d_{-1}p^{-1} + d_{-2}p^{-2} + d_{-3}p^{-3} + \dots$$
+
+To isolate the first digit $d_{-1}$ so it sits in the integer position (to the left of the radix point), we multiply the entire equation by the base $p$:
+
+$$p\left(\frac{a}{b}\right) = d_{-1} + d_{-2}p^{-1} + d_{-3}p^{-2} + \dots$$
+
+$$\frac{pa}{b} = d_{-1} + 0.d_{-2}d_{-3}\dots$$
+
+$\frac{pa}{b}$ is an improper fraction (assuming $b$ doesn't divide $pa$); $d_{-1}$ is a strict base-$p$ digit, meaning it is an integer where $d_{-1} \in \{0, 1, \dots, p-1\}$. $0.d_{-2}d_{-3}\dots$ is the remaining fractional part, which is strictly less than $1$. This is exactly what happens in standard Euclidean integer division on the numerator $pa$ and the denominator $b$. Any division of two integers can be written as a quotient plus a remainder over the divisor:
+
+$$\small\frac{\text{Numerator}}{\text{Divisor}} = \text{Quotient} + \frac{\text{Remainder}}{\text{Divisor}}$$
+
+Mapping our terms to this formula:
+
+$$\text{Numerator} = pa$$
+
+$$\text{Divisor} = b$$
+
+$$\small\text{Quotient} = d_{-1}$$ 
+(the integer part)
+
+$$\small\text{Fractional Part} = \frac{r}{b} = 0.d_{-2}d_{-3}\dots$$
+
+So, we can rewrite $\frac{pa}{b}$ as:
+
+$$\frac{pa}{b} = d_{-1} + \frac{r}{b}$$
+
+To get rid of the fractions and turn this into a pure integer identity, multiply the entire equation by the denominator $b$:
+
+$$b \cdot \left(\frac{pa}{b}\right) = b \cdot \left(d_{-1} + \frac{r}{b}\right)$$
+
+$$pa = b \cdot d_{-1} + r$$
+
+Because the term $\frac{r}{b}$ represents the remaining fractional string $0.d_{-2}d_{-3}\dots$, it is strictly bounded between $0$ and $1$: $0 \le \frac{r}{b} < 1.$ Multiplying this entire inequality by the positive integer $b$ yields the fundamental constraint for an integer remainder: $0 \le r < b.$ By the uniqueness of the Euclidean Division Algorithm, given two integers $pa$ and $b$, there exists a unique pair of integers $d_{-1}$ (the quotient) and $r$ (the remainder) that satisfies the identity $pa = b \cdot d_{-1} + r$ under the condition $0 \le r < b$. The standard mathematical operation that computes this unique bounded integer $r$ is the modulo operation. Therefore, we can formally state: $r = p\,a \bmod b}.$
+
+___
+
 By evaluating this identity under the p-adic modular constraint:
 
 $$b \cdot d_{-1} + r \equiv 0 \pmod p$$
