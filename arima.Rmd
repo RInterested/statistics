@@ -23,7 +23,9 @@ output:
 
 From [this youtube post](https://www.youtube.com/watch?v=-vSzKfqcTDg). Also, [here is a more extensive document with simulations](https://drive.google.com/file/d/0Bwl-HpVJ_5PeSDdnX3lEWENidE0/view?usp=sharing) found online.
 
-<img width="700" src="https://cloud.githubusercontent.com/assets/9312897/21590345/0dad63c8-d0c9-11e6-8dc9-9389405ff2aa.png">
+---
+<img width="700" src="time_series.png">
+---
 
 
 ```{r setup, include=FALSE} 
@@ -35,7 +37,9 @@ Examples:
 
 #### Moving Average MA(1):
 
-<img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584005/513cf3d8-d065-11e6-9170-3acf829dede8.png">
+---
+<img width="400" src="time_series_ma_1.png">
+---
 
 On this plot the ACF is significant only once (in reality the first entry in the ACF is always significant, since there is no lag in the first entry - it's the correlation with itself), while the PACF is geometric. Hence it is an MA(1) process. 
 
@@ -59,7 +63,9 @@ ggtsdisplay(MA)
 
 #### Moving Average MA(2):
 
-<img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584007/5be50e42-d065-11e6-9d42-12fa3fa752f1.png">
+---
+<img width="400" src="time_series_ma_2.png">
+---
 
 In this example the ACF is significant in the first and second lags, while the PACF follows a geometric decay. It is again a MA process, but this time an MA(2) of the form: $\large\color{blue} {y_t} = k+ \color{red}{\theta_1}\,\epsilon_{t-1}-\color{red}{\theta_2}\,\epsilon_{t-2}+\epsilon_t.$
 
@@ -77,7 +83,9 @@ ggtsdisplay(MA2)
 
 #### Autoregressive AR(1):
 
-<img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584010/670b6de8-d065-11e6-8ec5-879079227380.png">
+---
+<img width="400" src="time_series_ar_1.png">
+---
 
 Here the ACF decays geometrically, and the PACF shows only one significant lag. This is a AR(1) process of the form: $\large \color{blue}{y_t} = c + \color{red}{\rho}\, \color{blue}{y_{t-1}}+\epsilon_t.$
 
@@ -95,7 +103,9 @@ ggtsdisplay(AR)
 
 #### Autocorrelation AR(1) with faster decay:
 
-<img width="400" src="https://cloud.githubusercontent.com/assets/9312897/21584012/71cb685a-d065-11e6-81ed-c22c2ed6b9bb.png">
+---
+<img width="400" src="time_series_ar_faster.png">
+---
 
 This is again an AR(1) process, but with a faster decay, $\rho=0.5:$
 
