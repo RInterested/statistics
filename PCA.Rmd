@@ -98,7 +98,11 @@ Since the first eigenvector initially returns as $\sim \small [-0.7,-0.7]$ we ch
 
 The resultant eigenvalues were $\small 1.2964217$ and $\small 0.7035783$. Under less minimalistic conditions, this result would have helped decide which eigenvectors to include (largest eigenvalues). For instance, the relative contribution of the first eigenvalue is $\small 64.8\%$: `eigen(C)$values[1]/sum(eigen(C)$values) * 100`, meaning that it accounts for $\sim\small 65\%$ of the variability in the data. The variability in the direction of the second eigenvector is $35.2\%$. This is typically shown on a scree plot depicting the value of the eigenvalues:
 
-[![enter image description here][2]][2]
+---
+
+<img width = 300  src = "pca_scree_plot.png">
+
+---
 
 We'll include both eigenvectors given the small size of this toy data set example, understanding that excluding one of the eigenvectors would result in dimensionality reduction - the idea behind PCA.
 
@@ -109,11 +113,19 @@ The **score matrix** was determined as the matrix multiplication of the **scaled
 
 The concept entails a linear *combination of each entry* (row / subject / observation / superconductor in this case) of the centered (and in this case scaled) data weighted by the *rows of each eigenvector*, so that in each of the final columns of the score matrix, we'll find a contribution from each variable (column) of the data (the entire `X`), BUT only the corresponding eigenvector will have taken part in the computation (i.e. the first eigenvector $[0.7, 0.7]^{T}$ will contribute to $\text{PC}\,1$ (Principal Component 1)  and $[0.7, -0.7]^{T}$ to $\text{PC}\,2$, as in:
 
-<img width=700 src="https://cloud.githubusercontent.com/assets/9312897/26517449/ca8a4f4c-4266-11e7-8eb1-5ccce3b066fb.gif">
+---
+
+<img width = 700  src = "pca_score_matrix.gif">
+
+---
 
 Therefore each eigenvector will influence each variable differently, and this will be reflected in the "loadings" of the PCA. In our case, the negative sign in the second component of the second eigenvector $[0.7, - 0.7]$ will change the sign of the melting point values in the linear combinations that produce PC2, whereas the effect of the first eigenvector will be consistently positive:  
 
-<img width=500 height=300 src="https://cloud.githubusercontent.com/assets/9312897/26517517/1c80ab42-4268-11e7-99c6-f3c7bcdbafc3.png">
+---
+
+<img width = 400  src = "pca_eigen.png">
+
+---
 
 The eigenvectors are scaled to $1$:
 
@@ -169,21 +181,37 @@ Alternatively, the [singular value decomposition](https://en.wikipedia.org/wiki/
 
 The result is shown below, with first, the distances from the individual points to the first eigenvector, and on a second plot, the orthogonal distances to the second eigenvector:
 
-[![enter image description here][5]][5]
+---
+
+<img width = 800  src = "pca_ortho_distance.png">
+
+---
 
 If instead we plotted the values of the score matrix (PC1 and PC2) - no longer "melting.point" and "atomic.no", but really a change of basis of the point coordinates with the eigenvectors as basis, these distances would be preserved, but would naturally become perpendicular to the xy axis:
 
-[![enter image description here][6]][6]
+---
+
+<img width = 800  src = "pca_rotated.png">
+
+---
 
 The trick was now to **recover the original data**. The points had been transformed through a simple matrix multiplication by the eigenvectors. Now the data was rotated back by multiplying by the **inverse of the matrix of eigenvectors** with a resultant marked change in the location of the data points. For instance, notice the change in pink dot "GaN" in the left upper quadrant (black circle in the left plot, below), returning to its initial position in the left lower quadrant (black circle in the right plot, below). 
 
 Now we finally had the original data restored in this "de-rotated" matrix:
 
-[![enter image description here][7]][7]
+---
+
+<img width = 800  src = "pca_rotated_example.png">
+
+---
 
 Beyond the change of coordinates of rotation of the data in PCA, the results must be interpreted, and this process tends to involve a `biplot`, on which the data points are plotted with respect to the new eigenvector coordinates, and the original variables are now superimposed as vectors. It is interesting to note the equivalence in the position of the points between the plots in the second row of rotation graphs above ("Scores with xy Axis = Eigenvectors") (to the left in the plots that follow), and the `biplot` (to the right):
 
-[![enter image description here][8]][8]
+---
+
+<img width = 800  src = "pca_scores.png">
+
+---
 
 The superimposition of the original variables as red arrows offers a path to the interpretation of `PC1` as a vector in the direction (or with a positive correlation) with both `atomic no` and `melting point`; and of `PC2` as a component along increasing values of `atomic no` but negatively correlated with  `melting point`, consistent with the values of the eigenvectors:
 
@@ -194,13 +222,7 @@ The superimposition of the original variables as red arrows offers a path to the
 
 
   [1]: http://cosmic.mse.iastate.edu/library/pdf/pcainterpretation.pdf
-  [2]: http://i.stack.imgur.com/66VS3.png
-  [3]: http://i.stack.imgur.com/ffA7K.gif
-  [4]: https://i.stack.imgur.com/OxoFB.png
-  [5]: http://i.stack.imgur.com/6GYPz.png
-  [6]: http://i.stack.imgur.com/WnWp1.png
-  [7]: http://i.stack.imgur.com/9bcf8.png
-  [8]: http://i.stack.imgur.com/pkDdS.png
+
 
 
 ---
