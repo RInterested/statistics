@@ -35,11 +35,19 @@ In the following illustration, we are looking at the relationship between a fict
 
 As the data is aggregated we end up with a situation best modeled as a mixed-model with random effects explaining the variability between different studies (unit effects) of the form $\boldsymbol{y} = X \boldsymbol{\beta} + Z \boldsymbol{u} + \boldsymbol{\epsilon}$ with $\boldsymbol u$ corresponding to the intecepts of the fitted lines through the $y\sim x$ data cloud for each individual study. This model accounts for the possible presence of a substantial amount of dispersion in the data. Here's what it would look like ([code][2]):
 
-[![enter image description here][3]][3]
+---
+
+<img width = 800  src = "simpsons_paradox_random_effects.png">
+
+---
 
 with the data from each study color coded on the plot to the left, and aggregated on the right. The situation is not ideal, because there is quite a bit of spread in the values from different datasets. The study would probably be much more likely to be published and quoted with something like this:
 
-[![enter image description here][4]][4]
+---
+
+<img width = 800  src = "simpsons_paradox_random_effects_2.png">
+
+---
 
 So perfect an overlap between studies that an ordinary least square (OLS) fit would probably be better than a mixed model with random effects.
 
@@ -51,7 +59,11 @@ On the other hand...
 
 ... we can encounter an often plotted distribution in the data cloud such that fitting a linear regression with mixed-effects ends up with negative (or positive) slopes for each one of the individual studies, only to reverse sign when the data is aggregated:
 
-[![enter image description here][5]][5]
+---
+
+<img width = 800  src = "simpsons_paradox_random_effects_3.png">
+
+---
 
 This is the Simpson's effect.
 
@@ -59,7 +71,11 @@ If we look into the results in the data behind these plots, the `cor(y,x)` for e
 
 Already on the plot, one can have an intuition that the data is not just disperse, but it is stretched along the $x$ axis, precisely by an unknown "lurking" variable, which may not be immediately apparent. This can be objectivized by looking at the correlation between the $x$ variable and the $y\,\,intercept$ for each subgroup, and contrasting it with scenario 1. Graphically,
 
-[![enter image description here][6]][6]
+---
+
+<img width = 800  src = "simpsons_paradox_random_effects_4.png">
+
+---
 
 in the case with Simpson's effect (scenario 2), the higher the $x$ values, the higher the $y\,\,\text{intercepts}$ (left plot), as opposed to the lack of correlation in scenario 1 (right plot). The correlation in the first case between $x$ and the $y\,\,\text{intercepts}$ was `0.7876` with a statistically significant (`p -> 0`) slope when doing a regression. In contradistinction, the correlation in scenario 1 between $x$ and the $y\,\,\text{intercepts}$ was `0`.
 
@@ -67,10 +83,6 @@ A follow-up question is what type of clinical scenario could possibly follow thi
 
   [1]: https://en.wikipedia.org/wiki/Confounding
   [2]: https://github.com/RInterested/SIMULATIONS_and_PROOFS/blob/master/SIMPSON'S%20PARADOX
-  [3]: http://i.stack.imgur.com/wo5Vd.png
-  [4]: http://i.stack.imgur.com/1vhVM.png
-  [5]: http://i.stack.imgur.com/I7Mh6.png
-  [6]: http://i.stack.imgur.com/9ibLA.png
 
 
 
