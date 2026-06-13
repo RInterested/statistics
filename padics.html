@@ -940,6 +940,59 @@ numbers, plus a finite fractional part to the right of the radix point
 <p><span class="math display">\[\dots d_3 d_2 d_1 d_0\; \color{red}.\;
 d_{-1}d_{-2}\dots d_{-k}\; = \;d_{-k}\, p^{-k} + \dots + d_{-1}\, p^{-1}
 + d_0\, p^0 + d_1 \, p^1 + \dots\]</span></p>
+<div id="field-versus-ring" class="section level4" style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+<h4>Field versus ring:</h4>
+<p><span class="math inline">\(\mathbb{Z}_p\)</span>: it is a ring, not
+a field. We cannot always divide. For instance, we cannot divide by
+<span class="math inline">\(5\)</span>. The number <span class="math inline">\(5\)</span> in base <span class="math inline">\(5\)</span> is <span class="math inline">\(10_5\)</span>. If we try to calculate <span class="math inline">\(\frac{1}{5}\)</span>, we are stuck because you
+cannot shift digits to the right of a decimal (radix) point yet.</p>
+<p>A <span class="math inline">\(p\)</span>-adic integer in <span class="math inline">\(\mathbb{Z}_5\)</span> is an infinite string of
+base-<span class="math inline">\(5\)</span> digits extending to the
+left, ending at the units place: <span class="math inline">\(\dots d_3
+d_2 d_1 d_0 .\)</span> Every digit <span class="math inline">\(d_i\)</span> must be a valid base-<span class="math inline">\(5\)</span> digit: <span class="math inline">\(\{0,
+1, 2, 3, 4\}.\)</span> In ordinary base-<span class="math inline">\(5\)</span> arithmetic, the number <span class="math inline">\(5\)</span> is written as <span class="math inline">\(10_5\)</span> because it represents <span class="math inline">\(1\)</span> five and <span class="math inline">\(0\)</span> ones. As an infinite <span class="math inline">\(5\)</span>-adic integer, we just pad it with
+leading zeros: <span class="math inline">\(5 = \dots 000010_5.\)</span>
+If <span class="math inline">\(\frac{1}{5}\)</span> were to exist inside
+<span class="math inline">\(\mathbb{Z}_5\)</span>, there would have to
+be some valid <span class="math inline">\(5\)</span>-adic integer <span class="math inline">\(x = \dots d_3 d_2 d_1 d_0\)</span> such that:</p>
+<p><span class="math display">\[5 \cdot x = 1\]</span></p>
+<p>In <span class="math inline">\(\mathbb{Z}_5\)</span>, the number
+<span class="math inline">\(1\)</span> is written as <span class="math inline">\(\dots 000001_5\)</span>. Let’s set up this
+multiplication using standard long multiplication, working from right to
+left:</p>
+<pre><code>   ...  d3  d2  d1  d0   (This is x)
+ x               1   0   (This is 5, or 10 in base 5)
+-----------------------</code></pre>
+<p>When we multiply any base-<span class="math inline">\(5\)</span>
+number by <span class="math inline">\(10_5\)</span>, the mechanics are
+exactly the same as multiplying a base-<span class="math inline">\(10\)</span> number by <span class="math inline">\(10\)</span>: every digit shifts one place to the
+left, and a <span class="math inline">\(0\)</span> is appended to the
+right. So, the multiplication yields:</p>
+<p><span class="math display">\[5 \cdot x = \dots d_3 d_2 d_1 d_0
+0_5\]</span></p>
+<p>Now, our target equation is:</p>
+<p><span class="math display">\[\dots d_3 d_2 d_1 d_0 0_5 = \dots
+000001_5\]</span></p>
+<p>For two <span class="math inline">\(5\)</span>-adic numbers to be
+equal, their digits must match exactly at every position, yet the very
+first digit on the right (the units place) in our calculated product
+ends in <span class="math inline">\(0\)</span> while the target number
+(<span class="math inline">\(1\)</span>) ends in <span class="math inline">\(1\)</span>. Because <span class="math inline">\(0
+\neq 1\)</span>, it is completely impossible to choose any digits for
+<span class="math inline">\(x\)</span> that make this equation true. The
+rightmost digit of <span class="math inline">\(5 \cdot x\)</span> will
+always be <span class="math inline">\(0\)</span>, so you can never hit
+<span class="math inline">\(1\)</span>.</p>
+<p>To fix this and get a field, we simply invent a ” <span class="math inline">\(p\)</span>-adic point” and allow digits to go to
+the right, but only for a finite number of places.</p>
+<p><span class="math display">\[\mathbb{Q}_p =
+\mathbb{Z}_p\left[\frac{1}{p}\right]\]</span></p>
+<p>A typical element in <span class="math inline">\(\mathbb{Q}_5\)</span> looks like:</p>
+<p><span class="math display">\[\dots 341201.42_5\]</span></p>
+<p>Now we can divide by anything we want (except zero). This is the
+field of <span class="math inline">\(p\)</span>-adic numbers, written as
+<span class="math inline">\(\mathbb{Q}_p\)</span>.</p>
+</div>
 <hr />
 <p>Example: In <span class="math inline">\(2\)</span>-adics the fraction
 <span class="math inline">\(3/4\)</span> is written <span class="math inline">\(\dots 000110.11\)</span> (equivalent to <span class="math inline">\(2^{-2}+2^{-1}+2^1 + 2^2 +\dots\)</span>)</p>
