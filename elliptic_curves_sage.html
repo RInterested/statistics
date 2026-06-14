@@ -778,6 +778,32 @@ vertical column of rings (<span class="math inline">\(\mathbb{Z}_p\)</span>), we
 division by <span class="math inline">\(p\)</span>. If we invert <span class="math inline">\(p\)</span>, you break out of the ring and create
 the <span class="math inline">\(p\)</span>-adic field, denoted <span class="math inline">\(\mathbb{Q}_p\)</span>: it simply means digits to
 the right of the radix point.</p>
+<p>Example:</p>
+<p>Suppose we look at the Weierstrass equation <span class="math inline">\(y^2 = x^3 + ax + b\)</span> over <span class="math inline">\(\mathbb{F}_p\)</span>, and for a specific <span class="math inline">\(x\)</span>-coordinate, <span class="math inline">\(x^3 + ax + b = \alpha\)</span>, where <span class="math inline">\(\alpha\)</span> is a quadratic non-residue modulo
+<span class="math inline">\(p\)</span>. There is no <span class="math inline">\(y \in \mathbb{F}_p\)</span> that satisfies the
+equation. To find a solution, we must perform an algebraic, horizontal
+extension, constructing the quadratic extension field <span class="math inline">\(\mathbb{F}_{p^2} \cong
+\mathbb{F}_p(\sqrt{\alpha})\)</span>. Now, the curve has a valid
+solution point <span class="math inline">\(P = (x, \sqrt{\alpha}) \in
+E(\mathbb{F}_{p^2})\)</span>. By doing this, we have introduced the
+Galois group <span class="math inline">\(\text{Gal}(\mathbb{F}_{p^2}/\mathbb{F}_p) \cong
+\mathbb{Z}/2\mathbb{Z}\)</span>. The non-trivial element of this group
+is the Frobenius automorphism <span class="math inline">\(\sigma(z) =
+z^p\)</span>. It acts on our newly found point by sending it to its
+Galois conjugate: <span class="math inline">\(\sigma(P) = (x,
+-\sqrt{\alpha}).\)</span> Both <span class="math inline">\(P\)</span>
+and <span class="math inline">\(\sigma(P)\)</span> are valid points on
+the curve in this horizontal extension. Once we have secured our base
+point <span class="math inline">\(P = (x_1, y_1)\)</span> inside the
+horizontal extension <span class="math inline">\(\mathbb{F}_{p^2}\)</span>, then we can invoke
+Hensel’s Lemma to lift vertically. Instead of lifting from <span class="math inline">\(\mathbb{F}_p\)</span> to <span class="math inline">\(\mathbb{Z}/p^k\mathbb{Z}\)</span>, we are now
+lifting from the finite field <span class="math inline">\(\mathbb{F}_{p^2}\)</span> to the unramified local
+field extension <span class="math inline">\(\mathbb{Z}_{p^2}\)</span>
+(the ring of integers of the unique unramified quadratic extension of
+<span class="math inline">\(\mathbb{Q}_p\)</span>), or modulo <span class="math inline">\(p^k\)</span> as: <span class="math inline">\(\mathcal{O}_K / p^k \mathcal{O}_K,\)</span> where
+<span class="math inline">\(\mathcal{O}_K =
+\mathbb{Z}_p[\sqrt{\alpha}]\)</span>.</p>
+<p>See below the code and explanation in 😱.</p>
 </div>
 <hr />
 <p>This is critical to understand. For instance, the <span class="math inline">\(p\)</span>-adic integer (“integer” <span class="math inline">\(\implies\)</span> no digits to the right of the
@@ -2940,6 +2966,324 @@ congruences:</p>
 \mathbb{Z}/\ell_i\mathbb{Z}\]</span> By mapping our collection of <span class="math inline">\(k_i\)</span> back through this isomorphism, we
 recover the unique <span class="math inline">\(t \in \mathbb{Z}\)</span>
 that satisfies the Hasse bound.</p>
+<hr />
+<p>😱</p>
+<p>In Python:</p>
+<pre><code>class PAdicExtensionElement:
+    &quot;&quot;&quot;
+    Represents an element (c0 + c1*w) inside the unramified extension of Z_p.
+    Arithmetic is handled dynamically modulo p^k.
+    &quot;&quot;&quot;
+    p = 7
+    # SageMath used x^2 + 4 = 0, which means w^2 = -4
+    omega_sq = -4  
+
+    def __init__(self, c0, c1, mod):
+        self.mod = mod
+        self.c0 = c0 % mod
+        self.c1 = c1 % mod
+
+    def __add__(self, other):
+        return PAdicExtensionElement(self.c0 + other.c0, self.c1 + other.c1, self.mod)
+
+    def __sub__(self, other):
+        return PAdicExtensionElement(self.c0 - other.c0, self.c1 - other.c1, self.mod)
+
+    def __mul__(self, other):
+        # (a + bw)(x + yw) = (ax + by*omega_sq) + (ay + bx)w
+        raw_c0 = self.c0 * other.c0 + self.c1 * other.c1 * self.omega_sq
+        raw_c1 = self.c0 * other.c1 + self.c1 * other.c0
+        return PAdicExtensionElement(raw_c0, raw_c1, self.mod)
+
+    def __pow__(self, power):
+        result = PAdicExtensionElement(1, 0, self.mod)
+        base = self
+        while power &gt; 0:
+            if power % 2 == 1:
+                result = result * base
+            base = base * base
+            power //= 2
+        return result
+
+    def invert_mod_p(self):
+        &quot;&quot;&quot;Inverts the element modulo p (base layer field inversion).&quot;&quot;&quot;
+        denom = (self.c0**2 - self.omega_sq * self.c1**2) % self.p
+        if denom == 0:
+            raise ZeroDivisionError(&quot;Element is not invertible modulo p.&quot;)
+        denom_inv = pow(denom, self.p - 2, self.p)
+        return PAdicExtensionElement(self.c0 * denom_inv, -self.c1 * denom_inv, self.p)
+
+    def change_precision(self, new_mod):
+        &quot;&quot;&quot;Casts the element to a higher or lower modular precision.&quot;&quot;&quot;
+        return PAdicExtensionElement(self.c0, self.c1, new_mod)
+
+    def get_digit(self, prev_mod):
+        &quot;&quot;&quot;Extracts the specific single-digit coefficient component at p^i.&quot;&quot;&quot;
+        d0 = (self.c0 // prev_mod) % self.p
+        d1 = (self.c1 // prev_mod) % self.p
+        return d0, d1
+
+    def __repr__(self):
+        if self.c0 == 0 and self.c1 == 0:
+            return &quot;0&quot;
+        if self.c1 == 0:
+            return f&quot;{self.c0}&quot;
+        if self.c0 == 0:
+            return f&quot;{self.c1}*w&quot;
+        return f&quot;{self.c0} + {self.c1}*w&quot;
+
+
+def honest_hensel_lift(a, b, p, k):
+    &quot;&quot;&quot;
+    Performs an honest vertical Hensel lift over the unramified extension of Z_p
+    for the curve y^2 = x^3 + ax + b, matching SageMath&#39;s exact results.
+    &quot;&quot;&quot;
+    # Fix x = 2 across the entire padic ring
+    x_val = 2
+    
+    # Base step mod p^1
+    current_mod = p
+    # Starting base point: y0 = 2w (since (2w)^2 = 4w^2 = 4(-4) = -16 ≡ 5 mod 7)
+    y_accumulated = PAdicExtensionElement(0, 2, current_mod)
+    
+    # Track string output components cleanly for display
+    digits_history = [&quot;2*w&quot;]
+    
+    print(&quot;Base solution mod 7:&quot;)
+    print(f&quot;  x = {x_val}&quot;)
+    print(f&quot;  y = {y_accumulated}\n&quot;)
+    print(&quot;-&quot; * 60)
+
+    for i in range(1, k):
+        prev_mod = current_mod
+        current_mod = p**(i + 1)
+        
+        # Upgrade precision of our tracked y to prevent clipping during evaluation
+        y_tempprec = y_accumulated.change_precision(current_mod)
+        
+        # 1. Compute exact algebraic residual: F(x, y) = y^2 - (x^3 + ax + b)
+        rhs_val = (x_val**3 + a * x_val + b) % current_mod
+        y_sq = y_tempprec * y_tempprec
+        residual = PAdicExtensionElement(y_sq.c0 - rhs_val, y_sq.c1, current_mod)
+        
+        # 2. Scale residual down: residual / p^i
+        res_scaled_c0 = residual.c0 // prev_mod
+        res_scaled_c1 = residual.c1 // prev_mod
+        res_scaled_field = PAdicExtensionElement(res_scaled_c0, res_scaled_c1, p)
+        
+        # 3. Compute derivative dF/dy = 2*y at the baseline residue field layer
+        derivative_field = PAdicExtensionElement(0, 4, p) # 2 * (2w) = 4w mod 7
+        deriv_inv_field = derivative_field.invert_mod_p()
+        
+        # 4. Apply Newton-Raphson step: lift_digit = -residual_scaled * (dF/dy)^-1
+        minus_res = PAdicExtensionElement(-res_scaled_field.c0, -res_scaled_field.c1, p)
+        lift_digit = minus_res * deriv_inv_field
+        
+        # 5. Append the newly solved digit into the running accumulated total
+        lift_digit_expanded = PAdicExtensionElement(lift_digit.c0 * prev_mod, lift_digit.c1 * prev_mod, current_mod)
+        y_accumulated = y_tempprec + lift_digit_expanded
+        
+        # Build output string matching Sage format
+        digit_str = &quot;&quot;
+        if lift_digit.c0 != 0:
+            digit_str += f&quot;{lift_digit.c0}*7^{i}&quot;
+        if lift_digit.c1 != 0:
+            if digit_str: digit_str += &quot; + &quot;
+            digit_str += f&quot;{lift_digit.c1}*w*7^{i}&quot;
+            
+        if digit_str:
+            digits_history.append(digit_str)
+            
+        print(f&quot;Lifted solution mod 7^{i+1}:&quot;)
+        print(f&quot;  x = {x_val}&quot;)
+        print(f&quot;  y = {&#39; + &#39;.join(digits_history)}&quot;)
+        print(&quot;-&quot; * 60)
+
+# Run verification out to precision 7^5
+honest_hensel_lift(a=1, b=2, p=7, k=5)
+
+# OUTPUT:
+
+Base solution in F_p^2 (mod 7):
+  x = 2
+  y = 0 + 2*ω
+
+Galois Conjugate Point: (2, 0 + 5*ω)
+
+--------------------------------------------------
+Lifted Point Level mod 7^2:
+  x = 2
+  y = (0 + 2*ω)*7^0 + (3 + 1*ω)*7^1     c:\Users\anton\Documents\Python\regpy\Scripts\python.exe c:/Users/anton/Documents/Python/hansel_lift.py
+Base solution mod 7:od 7^3:
+  x = 2
+  y = 2*w+ 2*ω)*7^0 + (3 + 1*ω)*7^1 + (6 + 2*ω)*7^2
+--------------------------------------------------
+------------------------------------------------------------
+Lifted solution mod 7^2:ocuments\Python&gt;
+  x = 2
+  y = 2*w + 5*w*7^1
+------------------------------------------------------------
+Lifted solution mod 7^3:
+  x = 2
+  y = 2*w + 5*w*7^1
+------------------------------------------------------------
+Lifted solution mod 7^4:
+  x = 2
+  y = 2*w + 5*w*7^1 + 6*w*7^3
+------------------------------------------------------------
+Lifted solution mod 7^5:
+  x = 2
+  y = 2*w + 5*w*7^1 + 6*w*7^3 + 5*w*7^4
+------------------------------------------------------------
+</code></pre>
+<p>In SageMath:</p>
+<pre><code># 1. Define the base p-adic ring
+p = 7
+K = Zp(p, prec=5)  # 7-adic integers with precision up to 7^5
+
+# 2. Construct the unramified horizontal extension (equivalent to F_7^2 at the residue level)
+# We use the modulus x^2 + 4, where 4 is a quadratic non-residue mod 7 (since x^2 ≡ 3 has no solution)
+R.&lt;x&gt; = PolynomialRing(K)
+f = x^2 + 4
+L.&lt;w&gt; = K.extension(f)
+
+# 3. Define the Elliptic Curve over this extended p-adic ring
+# Equation: y^2 = x^3 + x + 2
+a = L(1)
+b = L(2)
+E = EllipticCurve(L, [a, b])
+
+print(f&quot;Curve defined over unramified extension of Z_{p}:&quot;)
+print(E)
+print(&quot;-&quot; * 60)
+
+# 4. Set the initial base x-coordinate
+x_val = L(2)
+
+# Calculate the right-hand side of the Weierstrass equation: x^3 + x + 2
+rhs = x_val^3 + a*x_val + b
+print(f&quot;RHS value for x=2: {rhs}&quot;)
+
+# 5. Compute the square root in the extension field (The Hensel Lift happens here under the hood)
+# SageMath automatically uses Hensel&#39;s Lemma to lift the root to the ring&#39;s precision
+y_val = rhs.sqrt()
+
+print(f&quot;\nLifted y-coordinate (Point P):&quot;)
+print(f&quot;y = {y_val}&quot;)
+
+# 6. Verify the Galois Conjugate by applying the Frobenius automorphism
+# For an unramified extension, the automated generator conjugate is the other root
+y_conjugate = -y_val
+print(f&quot;\nGalois Conjugate y-coordinate (Point P&#39;):&quot;)
+print(f&quot;y&#39; = {y_conjugate}&quot;)
+
+# 7. Final Verification: Check if the points actually satisfy the curve equation
+P1 = E(x_val, y_val)
+P2 = E(x_val, y_conjugate)
+
+print(&quot;\nVerification Results:&quot;)
+print(f&quot;Point P1 on curve? {P1 in E}&quot;)
+print(f&quot;Point P2 on curve? {P2 in E}&quot;)
+
+# OUTPUT:
+Curve defined over unramified extension of Z_7:
+Elliptic Curve defined by y^2 = x^3 + (1+O(7^5))*x + (2+O(7^5)) over 7-adic Unramified Extension Ring in w defined by x^2 + 4
+------------------------------------------------------------
+RHS value for x=2: 5 + 7 + O(7^5)
+
+Lifted y-coordinate (Point P):
+y = 2*w + 5*w*7 + 6*w*7^3 + 5*w*7^4 + O(7^5)
+
+Galois Conjugate y-coordinate (Point P&#39;):
+y&#39; = 5*w + w*7 + 6*w*7^2 + w*7^4 + O(7^5)
+
+Verification Results:
+Point P1 on curve? True
+Point P2 on curve? True</code></pre>
+<p>We are taking a rough, pixelated approximation of a point and
+systematically sharpening it, one decimal place at a time — except
+instead of working in base <span class="math inline">\(10\)</span>
+decimals (<span class="math inline">\(10^{-1}, 10^{-2}\)</span>), we are
+working in base <span class="math inline">\(7\)</span> powers (<span class="math inline">\(7^1, 7^2, 7^3\)</span>). Here is the step-by-step
+breakdown of the mechanics.</p>
+<p>We start with our curve equation:</p>
+<p><span class="math display">\[F(x, y) = y^2 - (x^3 + x + 2) =
+0\]</span></p>
+<p>We plug in <span class="math inline">\(x = 2\)</span>. The right-hand
+side evaluates to <span class="math inline">\(2^3 + 2 + 2 = 12\)</span>.
+In regular modulo <span class="math inline">\(7\)</span> arithmetic,
+<span class="math inline">\(12 \equiv 5 \pmod 7\)</span>. So we need a
+<span class="math inline">\(y\)</span> such that:</p>
+<p><span class="math display">\[y^2 \equiv 5 \pmod 7\]</span> Because
+<span class="math inline">\(5\)</span> is a quadratic non-residue (it
+has no square root in the integers mod <span class="math inline">\(7\)</span>), we must force one into existence by
+defining an imaginary unit <span class="math inline">\(w\)</span> where
+<span class="math inline">\(w^2 = -4 \equiv 3 \pmod 7\)</span>. Our code
+calculates that <span class="math inline">\(y_0 = 2w\)</span> is our
+starting point because:</p>
+<p><span class="math display">\[(2w)^2 = 4w^2 = 4(-4) = -16 \equiv 5
+\pmod 7\]</span> This is our base anchor. It satisfies the curve
+equation modulo <span class="math inline">\(7,\)</span> but if you plug
+it into the exact integer equation, <span class="math inline">\(y^2 -
+(x^3+x+2) = -16 - 12 = -28\)</span>, which is definitely not <span class="math inline">\(0\)</span>.</p>
+<p>To lift this point to be accurate modulo <span class="math inline">\(7^2\)</span> (<span class="math inline">\(49\)</span>), the loop begins. The code evaluates
+how far off our current guess is by computing the residual:</p>
+<p><span class="math display">\[\small\text{Residual} =
+y_{\text{current}}^2 - (x^3 + x + 2) \pmod{7^{i+1}}\]</span> For the
+first iteration (<span class="math inline">\(i=1\)</span>), we check
+this modulo <span class="math inline">\(49\)</span>. We know <span class="math inline">\(y_0^2 = -16 \equiv 33 \pmod{49}\)</span> .We know
+<span class="math inline">\(x^3+x+2 = 12\)</span>. The exact algebraic
+mismatch is <span class="math inline">\(33 - 12 = 21\)</span>. Notice
+something beautiful: <span class="math inline">\(21\)</span> is an exact
+multiple of <span class="math inline">\(7\)</span> (<span class="math inline">\(21 = 3 \times 7\)</span>). Because our base point
+was a true solution modulo <span class="math inline">\(7,\)</span> the
+error must vanish modulo <span class="math inline">\(7,\)</span> meaning
+the residual is always a clean multiple of <span class="math inline">\(7^1\)</span>. The code divides this error by <span class="math inline">\(7\)</span> to see its “scaled” value in the base
+field:</p>
+<p><span class="math display">\[\small\text{Scaled Residual} =
+\frac{21}{7} = 3\]</span></p>
+<p>We need to add a tiny correction adjustment, a new digit <span class="math inline">\(y_1 \cdot 7^1\)</span>, so that our updated guess
+<span class="math inline">\(y_{\text{new}} = y_0 + 7y_1\)</span> cancels
+out that error of <span class="math inline">\(3 \times 7\)</span>. If we
+square our new guess, we can use a standard Taylor expansion (just like
+Newton’s Method in calculus):</p>
+<p><span class="math display">\[(y_0 + 7y_1)^2 \approx y_0^2 +
+2y_0(7y_1) \pmod{49}\]</span> We want this to match our target RHS
+(<span class="math inline">\(12\)</span>).</p>
+<p><span class="math display">\[(y_0^2 - 12) + 14y_0y_1 \equiv 0
+\pmod{49}\]</span> Substituting our known error (<span class="math inline">\(21\)</span>):</p>
+<p><span class="math display">\[21 + 14y_0y_1 \equiv 0
+\pmod{49}\]</span> Divide the entire equation by <span class="math inline">\(7\)</span> to bring it down to the base field
+layer:</p>
+<p><span class="math display">\[3 + 2y_0y_1 \equiv 0 \pmod 7\]</span> To
+isolate our unknown correction digit <span class="math inline">\(y_1\)</span>, we solve:</p>
+<p><span class="math display">\[2y_0y_1 \equiv -3 \pmod 7\]</span> The
+term <span class="math inline">\(2y_0\)</span> is the partial derivative
+<span class="math inline">\(\frac{\partial F}{\partial y}\)</span>
+evaluated at our starting point. The code calculates this derivative,
+finds its modular inverse, and multiplies it by the negative scaled
+residual:</p>
+<p><span class="math display">\[y_1 = (-3) \cdot (2y_0)^{-1} \pmod
+7\]</span></p>
+<p>Our code runs this exact field arithmetic and determines that <span class="math inline">\(y_1 = 5w\)</span>.</p>
+<p>Now the code updates our running total:</p>
+<p><span class="math display">\[y_{\text{accumulated}} = 2w + 5w \cdot
+7^1\]</span> If we square this new, composite <span class="math inline">\(p\)</span>-adic number:</p>
+<p><span class="math display">\[(2w + 35w)^2 = (37w)^2 = 1369w^2 =
+1369(-4) = -5476\]</span> Let’s check if this satisfies the curve
+equation modulo <span class="math inline">\(7^2\)</span> (<span class="math inline">\(49\)</span>):</p>
+<p><span class="math display">\[-5476 \pmod{49} \equiv 12\]</span></p>
+<p>And our RHS (<span class="math inline">\(x^3+x+2\)</span>) is <span class="math inline">\(12\)</span>. The error has been completely wiped
+out at the <span class="math inline">\(7^2\)</span> layer!</p>
+<p>The loop then repeats this exact sequence for <span class="math inline">\(7^3, 7^4,\)</span> and <span class="math inline">\(7^5\)</span>. Every single time the loop runs, it
+looks at the microscopic error left over at the current power of <span class="math inline">\(7,\)</span> scales it down, divides it by the
+tangent slope (the derivative) at the base point, and extracts a single,
+pure algebraic coefficient (<span class="math inline">\(0, 5w, 0, 6w,
+5w\)</span>). By adding these digits together, we are tracing a
+continuous geometric point climbing up an unramified algebraic tower. If
+we let the precision <span class="math inline">\(k\)</span> run out to
+infinity, this infinite series converges to a genuine, exact point on
+the elliptic curve over the local <span class="math inline">\(p\)</span>-adic field <span class="math inline">\(\mathbb{Q}_{7^2}\)</span>.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>
