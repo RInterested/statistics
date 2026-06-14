@@ -729,10 +729,15 @@ curve), and the Frobenius map doesn’t move it, i.e. <span class="math inline"
 must have actually been simple integers all along, i.e. <span class="math inline">\(P \in E(\mathbb F_p)\)</span> - If they are
 “ghosts” in <span class="math inline">\(\mathbb{F}_{p^k}\)</span> (and
 not in the base field), the Frobenius map will move them.</p>
+<hr />
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 <p>Note that the fixed-point property (the logic of who stays still and
-who moves) belongs entirely to the “horizontal” world of field
-extensions (<span class="math inline">\(\mathbb{F}_p\)</span> or <span class="math inline">\(\mathbb{F}_{p^k}\)</span>), not the “vertical”
-world of <span class="math inline">\(p\)</span>-adic lifts (<span class="math inline">\(\mathbb{Z}_p\)</span>). This happens regardless of
+who moves) belongs entirely to the <strong>horizontal</strong> world of
+<span class="math inline">\(\mathbb{F}_p\)</span> (<strong>base
+field</strong>) and <span class="math inline">\(\mathbb{F}_{p^k}\)</span> (<strong>finite
+extension of the base field</strong>, otherwise known as <strong>Galois
+field</strong> like <span class="math inline">\(GF(5^2),\)</span> for
+example), not the <strong>vertical</strong> world of <span class="math inline">\(p\)</span>-adic lifts (<span class="math inline">\(\mathbb{Z}_p\)</span>). This happens regardless of
 whether we ever lift the point to <span class="math inline">\(\mathbb{Z}_p\)</span>, which is separate step
 intended to calculate the <span class="math inline">\(a_p\)</span> with
 enough precision to distinguish it from other numbers. If we stayed only
@@ -740,6 +745,33 @@ at the <span class="math inline">\(\mathbb{F}_{p^k}\)</span> level, we
 might know <span class="math inline">\(a_p \pmod 5\)</span>, but we
 wouldn’t be able to find the true integer value of <span class="math inline">\(a_p\)</span> as easily - a separate topic from the
 Frobenius map.</p>
+<p>Moving from the horizontal plane to the vertical column means moving
+from a <strong>field</strong> to a <strong>ring</strong>, and that
+structural shift is exactly why the symbol <span class="math inline">\(\mathbb{Z}\)</span> (traditionally reserved for
+integers/rings) enters the notation as <span class="math inline">\(\mathbb{Z}_p.\)</span> In the horizontal world, we
+exxpand the roots of equations.</p>
+<p><span class="math display">\[\mathbb{F}_p \subset \mathbb{F}_{p^2}
+\subset \mathbb{F}_{p^3} \subset \dots\]</span></p>
+<p>Because every non-zero element in a finite field has a multiplicative
+inverse, these are all fields. Geometrically, this horizontal plane is
+discrete and algebraic: we are just adding algebraic points to your
+curve.</p>
+<p>To go vertical, we don’t look at larger fields; instead, we look
+deeper into precision by building a tower of modular rings via Hensel’s
+lemma:</p>
+<p><span class="math display">\[\mathbb{Z}/p\mathbb{Z} \leftarrow
+\mathbb{Z}/p^2\mathbb{Z} \leftarrow \mathbb{Z}/p^3\mathbb{Z} \leftarrow
+\dots \leftarrow \mathbb{Z}_p\]</span> When we take the inverse limit of
+this vertical tower to look at infinite precision, we get <span class="math inline">\(\mathbb{Z}_p\)</span>, the ring of <span class="math inline">\(p\)</span>-adic integers. In <span class="math inline">\(\mathbb{Z}_p\)</span>, the number <span class="math inline">\(p\)</span> has no multiplicative inverse (you
+can’t multiply <span class="math inline">\(p\)</span> by something in
+<span class="math inline">\(\mathbb{Z}_p\)</span> to get <span class="math inline">\(1\)</span>). This is explained <a href="https://rinterested.github.io/statistics/padics.html">here</a>
+under “Field versus ring”. Of course, once we have constructed this
+vertical column of rings (<span class="math inline">\(\mathbb{Z}_p\)</span>), wee can choose to allow
+division by <span class="math inline">\(p\)</span>. If we invert <span class="math inline">\(p\)</span>, you break out of the ring and create
+the <span class="math inline">\(p\)</span>-adic field, denoted <span class="math inline">\(\mathbb{Q}_p\)</span>: it simply means digits to
+the right of the radix point.</p>
+</div>
+<hr />
 <p>This is critical to understand. For instance, the <span class="math inline">\(p\)</span>-adic integer (“integer” <span class="math inline">\(\implies\)</span> no digits to the right of the
 radix point) <span class="math inline">\(\underset{\text{base 10}}{4357}
 \in \mathbb{Z}_5\)</span> (the base <span class="math inline">\(10\)</span> integer <span class="math inline">\(4357\)</span> interpreted as <span class="math inline">\(5\)</span>-adic) can be written as a sum of powers

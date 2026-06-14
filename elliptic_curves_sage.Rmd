@@ -417,7 +417,26 @@ If a point on the curve has simple integer coordinates, the Frobenius map won't 
 
 $\impliedby$: If you find a point on the curve (even a "ghost point" in the extension field) (remember that $P$ by definition is on the curve), and the Frobenius map doesn't move it, i.e. $\phi_p(P)=P,$ that proves its coordinates must have actually been simple integers all along, i.e. $P \in E(\mathbb F_p)$ - If they are "ghosts" in $\mathbb{F}_{p^k}$ (and not in the base field), the Frobenius map will move them. 
 
-Note that the fixed-point property (the logic of who stays still and who moves) belongs entirely to the "horizontal" world of field extensions ($\mathbb{F}_p$ or $\mathbb{F}_{p^k}$), not the "vertical" world of $p$-adic lifts ($\mathbb{Z}_p$). This happens regardless of whether we ever lift the point to $\mathbb{Z}_p$, which is separate step intended to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_{p^k}$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily - a separate topic from the Frobenius map.
+---
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+
+Note that the fixed-point property (the logic of who stays still and who moves) belongs entirely to the **horizontal** world of $\mathbb{F}_p$ (**base field**) and $\mathbb{F}_{p^k}$ (**finite extension of the base field**, otherwise known as **Galois field** like $GF(5^2),$ for example), not the **vertical** world of $p$-adic lifts ($\mathbb{Z}_p$). This happens regardless of whether we ever lift the point to $\mathbb{Z}_p$, which is separate step intended to calculate the $a_p$ with enough precision to distinguish it from other numbers. If we stayed only at the $\mathbb{F}_{p^k}$ level, we might know $a_p \pmod 5$, but we wouldn't be able to find the true integer value of $a_p$ as easily - a separate topic from the Frobenius map.
+
+Moving from the horizontal plane to the vertical column means moving from a **field** to a **ring**, and that structural shift is exactly why the symbol $\mathbb{Z}$ (traditionally reserved for integers/rings) enters the notation as $\mathbb{Z}_p.$ In the horizontal world, we exxpand the roots of equations. 
+
+$$\mathbb{F}_p \subset \mathbb{F}_{p^2} \subset \mathbb{F}_{p^3} \subset \dots$$
+
+Because every non-zero element in a finite field has a multiplicative inverse, these are all fields. Geometrically, this horizontal plane is discrete and algebraic: we are just adding algebraic points to your curve.
+
+To go vertical, we don't look at larger fields; instead, we look deeper into precision by building a tower of modular rings via Hensel's lemma:
+
+$$\mathbb{Z}/p\mathbb{Z} \leftarrow \mathbb{Z}/p^2\mathbb{Z} \leftarrow \mathbb{Z}/p^3\mathbb{Z} \leftarrow \dots \leftarrow \mathbb{Z}_p$$
+When we take the inverse limit of this vertical tower to look at infinite precision, we get $\mathbb{Z}_p$, the ring of $p$-adic integers. In $\mathbb{Z}_p$, the number $p$ has no multiplicative inverse (you can't multiply $p$ by something in $\mathbb{Z}_p$ to get $1$). This is explained [here](https://rinterested.github.io/statistics/padics.html) under "Field versus ring". Of course, once we have constructed this vertical column of rings ($\mathbb{Z}_p$), wee can choose to allow division by $p$. If we invert $p$, you break out of the ring and create the $p$-adic field, denoted $\mathbb{Q}_p$: it simply means digits to the right of the radix point.
+
+</div>
+
+---
 
 This is critical to understand. For instance, the $p$-adic integer ("integer" $\implies$ no digits to the right of the radix point) $\underset{\text{base 10}}{4357} \in \mathbb{Z}_5$ (the base $10$ integer $4357$ interpreted as $5$-adic) can be written as a sum of powers of $5:$
 
