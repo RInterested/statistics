@@ -25,7 +25,9 @@ output:
 
 Another illuminating example can be found [here](http://www.ling.uni-potsdam.de/~vasishth/sprache/docs/neuralnet.pdf).
 
-<img width=650 src="https://cloud.githubusercontent.com/assets/9312897/24109602/895e2c8e-0d67-11e7-88bb-19fefe493414.png">
+---
+<img width=650 src="backpropagation_scheme.png">
+---
 
 The input matrix ($X$ or $I$) is: $X =I=\begin{bmatrix}.9&.9\\.9&-.9\\-.9&.9\\-.9&-.9\end{bmatrix}$ 
 
@@ -267,11 +269,15 @@ For this tutorial, we’re going to use a neural network with two **inputs**, $i
 
 Here’s the basic structure:
 
-<img width=300 src="https://cloud.githubusercontent.com/assets/9312897/24068594/36df5d02-0b69-11e7-8995-811c618a8dbf.png">
+---
+<img width=400 src="backpropagation_basic.png">
+---
 
 In order to have some numbers to work with, here are the $\color{red}{\text{initial weights}}$, the $\color{orange}{\text{biases}}$, and $\color{blue}{\text{training inputs/outputs}}$:
 
-<img width=300 src="https://cloud.githubusercontent.com/assets/9312897/24068618/ec8cd616-0b69-11e7-9b24-6e8ee7abbbfb.png">
+---
+<img width=400 src="backpropagation_wt.png">
+---
 
 The goal of backpropagation is to optimize the weights so that the neural network can learn how to correctly map arbitrary inputs to outputs.
 
@@ -291,8 +297,9 @@ Total net input is also referred to as just net input by some sources.
 
 Here’s how we calculate the total net input for $h_1$:
 
-
-<img width=650 src="https://cloud.githubusercontent.com/assets/9312897/24077446/c238592a-0c23-11e7-9435-3dfe2f8023fc.png">
+---
+<img width=900 src="backpropagation_forward.png">
+---
 
 $\text{net}_{h1} = w_1 \times i_1 + w_2 \times i_2 + b_1 \times 1$
 
@@ -359,7 +366,10 @@ Our goal with backpropagation is to update each of the weights in the network so
 
 Consider $w_5$. We want to know how much a change in $w_5$ affects the total error, aka $\large\frac{\partial E_{\text{total}}}{\partial w_{5}}$ (the partial derivative of $E_{\text{total}}$ with respect to $w_{5}$ or the gradient with respect to $w_{5}$).
 
-<img width=450 src="https://cloud.githubusercontent.com/assets/9312897/24077638/c919f18e-0c2a-11e7-96c5-168ac86e8e28.png">
+---
+<img width=600 src="backpropagation_w5.png">
+---
+
 
 Applying the chain rule we know that:
 
@@ -367,7 +377,9 @@ $\large\frac{\partial\, E_{\text{total}}}{\partial \,w_{5}} = \frac{\partial\, E
 
 Visually, here’s what we’re doing:
 
-<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/24068792/2dad248a-0b6e-11e7-8f93-2dd9b7359f38.png">
+---
+<img width=600 src="backpropagation_in_out.png">
+---
 
 We need to figure out each piece in this equation.
 
@@ -465,7 +477,9 @@ $\large \frac{\partial E_{\text{total}}}{\partial w_{1}} = \frac{\partial \,E_{\
 
 Visually:
 
-<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/24068996/2e77d068-0b73-11e7-9dd2-dff9ae35879d.png">
+---
+<img width=600 src="backpropagation_arrows.png">
+---
 
 We’re going to use a similar process as we did for the output layer, but slightly different to account for the fact that the output of each hidden layer neuron contributes to the output (and therefore error) of multiple output neurons. We know that $\text{out}_{h1}$ affects both $\text{out}_{o1}$ and $\text{out}_{o2}$ therefore the $\frac{\partial E_{\text{total}}}{\partial \text{out}_{h1}}$ needs to take into consideration its effect on the both output neurons:
 
@@ -477,7 +491,9 @@ $\frac{\partial E_{\text{total}}}{\partial \text{out}_{h1}} = \frac{\partial E_{
 
 Starting with $\frac{\partial\, E_{o1}}{\partial \,\text{out}_{h1}}$:
 
-<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/24077821/1e3cfbca-0c30-11e7-9de1-4dc50bfc45b9.png">
+---
+<img width=600 src="backpropagation_half_circles.png">
+---
 
 
 $\large \frac{\partial\, E_{o1}}{\partial\, \text{out}_{h1}} = \frac{\partial\, E_{o1}}{\partial\, \text{net}_{o1}}  \frac{\partial\, \text{net}_{o1}}{\partial\, \text{out}_{h1}}$
@@ -530,7 +546,9 @@ $\text{net}_{h1} = w_1 \times i_1 + w_2 \times i_2 + b_1 \times 1$
 
 $\frac{\partial \text{net}_{h1}}{\partial w_1} = i_1 = 0.05$
 
-<img width=400 src="https://cloud.githubusercontent.com/assets/9312897/24077710/887f76be-0c2d-11e7-950f-5a28d6563158.png">
+---
+<img width=600 src="backpropagation_half_circles2.png">
+---
 
 
 Putting it all together:
