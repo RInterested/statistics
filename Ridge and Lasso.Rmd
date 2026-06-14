@@ -131,7 +131,9 @@ $$\underset{\vec \beta}{\text{min}}\Vert \vec y- X\vec \beta\Vert^2_2\text{ such
 
 so in the case of $2$ coeffients, we want $c^2 \leq \beta_0^2 + \beta_1^2,$ which is a disc of radius $c:$
 
-![](https://user-images.githubusercontent.com/9312897/88944121-5a2cda80-d25a-11ea-9dd0-2d2b6127d5d1.png)
+---
+<img width=750 src="ridge.png">
+---
 
 Naturally, this should only be remotely applicable when there is more than the intercept and a variable. So it would be a sphere. The estimated values will be at the point of tangential contact of the cost function level curves and the constraint of the parameters (sphere).
 
@@ -206,7 +208,10 @@ $\bf (X^\prime X + \lambda I)\beta = X^\prime y.$
 
 On the other hand, in Lasso regression we change the constraint so that some coefficient are nullified. Geometrically, the points jutting out are "hit" more often, and in those corners a number of coefficients will be zero, and the variable associated with it will be nullified (sparsification or feature selection).
 
-![](https://user-images.githubusercontent.com/9312897/88947305-5e5af700-d25e-11ea-8f5a-8b85c6aefc0f.png)
+---
+<img width=750 src="lasso.png">
+---
+
 
 
 by minimizing the cost function with the l-$1$ norm:
