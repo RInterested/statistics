@@ -761,8 +761,16 @@ deeper into precision by building a tower of modular rings via Hensel’s
 lemma:</p>
 <p><span class="math display">\[\mathbb{Z}/p\mathbb{Z} \leftarrow
 \mathbb{Z}/p^2\mathbb{Z} \leftarrow \mathbb{Z}/p^3\mathbb{Z} \leftarrow
-\dots \leftarrow \mathbb{Z}_p\]</span> When we take the inverse limit of
-this vertical tower to look at infinite precision, we get <span class="math inline">\(\mathbb{Z}_p\)</span>, the ring of <span class="math inline">\(p\)</span>-adic integers. In <span class="math inline">\(\mathbb{Z}_p\)</span>, the number <span class="math inline">\(p\)</span> has no multiplicative inverse (you
+\dots \leftarrow \mathbb{Z}_p\]</span> Each of these sets is a principal
+ideal <span class="math inline">\(p\mathbb{Z}_p\)</span> is the
+<strong>ideal</strong> of all numbers divisible by <span class="math inline">\(p\)</span>.<span class="math inline">\(p^2\mathbb{Z}_p\)</span> is the ideal of all
+numbers divisible by <span class="math inline">\(p^2\)</span>.<span class="math inline">\(p^n\mathbb{Z}_p\)</span> is the ideal of all
+numbers divisible by <span class="math inline">\(p^n\)</span>. An ideal
+absorbs multiplication (if we multiply any <span class="math inline">\(p\)</span>-adic integer by something inside <span class="math inline">\(p^2\mathbb{Z}_p\)</span>, the result stays inside
+<span class="math inline">\(p^2\mathbb{Z}_p\)</span>). Because of this,
+these ideals act as error zones or precision buckets.</p>
+<p>When we take the inverse limit of this vertical tower to look at
+infinite precision, we get <span class="math inline">\(\mathbb{Z}_p\)</span>, the ring of <span class="math inline">\(p\)</span>-adic integers. In <span class="math inline">\(\mathbb{Z}_p\)</span>, the number <span class="math inline">\(p\)</span> has no multiplicative inverse (you
 can’t multiply <span class="math inline">\(p\)</span> by something in
 <span class="math inline">\(\mathbb{Z}_p\)</span> to get <span class="math inline">\(1\)</span>). This is explained <a href="https://rinterested.github.io/statistics/padics.html">here</a>
 under “Field versus ring”. Of course, once we have constructed this

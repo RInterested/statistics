@@ -432,6 +432,8 @@ Because every non-zero element in a finite field has a multiplicative inverse, t
 To go vertical, we don't look at larger fields; instead, we look deeper into precision by building a tower of modular rings via Hensel's lemma:
 
 $$\mathbb{Z}/p\mathbb{Z} \leftarrow \mathbb{Z}/p^2\mathbb{Z} \leftarrow \mathbb{Z}/p^3\mathbb{Z} \leftarrow \dots \leftarrow \mathbb{Z}_p$$
+Each of these sets is a principal ideal $p\mathbb{Z}_p$ is the **ideal** of all numbers divisible by $p$.$p^2\mathbb{Z}_p$ is the ideal of all numbers divisible by $p^2$.$p^n\mathbb{Z}_p$ is the ideal of all numbers divisible by $p^n$. An ideal absorbs multiplication (if we multiply any $p$-adic integer by something inside $p^2\mathbb{Z}_p$, the result stays inside $p^2\mathbb{Z}_p$). Because of this, these ideals act as error zones or precision buckets.
+
 When we take the inverse limit of this vertical tower to look at infinite precision, we get $\mathbb{Z}_p$, the ring of $p$-adic integers. In $\mathbb{Z}_p$, the number $p$ has no multiplicative inverse (you can't multiply $p$ by something in $\mathbb{Z}_p$ to get $1$). This is explained [here](https://rinterested.github.io/statistics/padics.html) under "Field versus ring". Of course, once we have constructed this vertical column of rings ($\mathbb{Z}_p$), wee can choose to allow division by $p$. If we invert $p$, you break out of the ring and create the $p$-adic field, denoted $\mathbb{Q}_p$: it simply means digits to the right of the radix point.
 
 </div>
