@@ -270,7 +270,65 @@ by the law of large numbers as $n\to \infty$
 
 $$\text{Long-run growth rate } (r_g) = \mathbb{E}[\log(1+r)]=\frac{1}{n} \log\left(\frac{W_{\text{final}}}{W_0}\right) = \frac{1}{n} \sum_{i=1}^{n} \log(1+r_i)$$
 
-We don't know $\mathbb{E}[\log(1+r)]$ off the top of our heads. We only know the average return ($r_a$) and the volatility ($\sigma$). We use the [Taylor expansion](https://math.stackexchange.com/a/878376/152225) to translate the log back into numbers we actually have:
+We don't know $\mathbb{E}[\log(1+r)]$ off the top of our heads. We only know the average return ($r_a$) and the volatility ($\sigma$). We use the [Taylor expansion](https://math.stackexchange.com/a/878376/152225) to translate the log back into numbers we actually have. We cannot easily compute the expected value of a logarithm, $\mathbb{E}[\ln(1 + r)]$, but we can easily compute the expected value of returns, $\mathbb{E}[r]$, and their squares, $\mathbb{E}[r^2]$.
+
+We are taking the Taylor expansion of the natural logarithm of $1$ plus the rate of return, $r$: $f(r) = \ln(1 + r).$ We want to expand this function around the point $r = 0$ (which represents a $0\%$ return, the baseline where nothing changes).
+
+A Taylor series for any smooth function $f(r)$ centered at $a = 0$ (also known as a Maclaurin series) is defined as:
+
+
+$$f(r) = f(0) + f'(0)r + \frac{f''(0)}{2!}r^2 + \frac{f'''(0)}{3!}r^3 + \frac{f^{(4)}(0)}{4!}r^4 + \cdots$$
+
+Computing the derivatives:
+
+To build the expansion, we evaluate $f(r)$ and its derivatives at the center point $r = 0$:
+
+The base value:
+
+
+$$f(r) = \ln(1 + r) \implies f(0) = \ln(1) = 0$$
+
+The first derivative (slope at $0$):
+
+
+$$f'(r) = \frac{d}{dr}[\ln(1+r)] = \frac{1}{1 + r}$$
+
+$$f'(0) = \frac{1}{1 + 0} = 1$$
+
+The second derivative (curvature at $0$):
+
+$$f''(r) = \frac{d}{dr}\left[(1+r)^{-1}\right] = -(1+r)^{-2} = -\frac{1}{(1 + r)^2}$$
+
+$$f''(0) = -\frac{1}{(1 + 0)^2} = -1$$
+
+The third derivative:
+
+$$f'''(r) = \frac{d}{dr}\left[-(1+r)^{-2}\right] = 2(1+r)^{-3} = \frac{2}{(1 + r)^3}$$
+
+$$f'''(0) = \frac{2}{(1 + 0)^3} = 2$$
+
+The fourth derivative:
+
+$$f^{(4)}(r) = \frac{d}{dr}\left[2(1+r)^{-3}\right] = -6(1+r)^{-4} = -\frac{6}{(1 + r)^4}$$
+
+$$f^{(4)}(0) = -\frac{6}{(1 + 0)^4} = -6$$
+
+Assembling the series:
+
+$$f(r) = f(0) + f'(0)r + \frac{f''(0)}{2!}r^2 + \frac{f'''(0)}{3!}r^3 + \frac{f^{(4)}(0)}{4!}r^4 + \cdots$$
+
+$$f(r) = 0 + (1)r + \frac{-1}{2}r^2 + \frac{2}{6}r^3 + \frac{-6}{24}r^4 + \cdots$$
+
+Simplifying the fractions ($2/6 = 1/3$ and $6/24 = 1/4$) yields the classic, elegant power series:
+
+$$\ln(1 + r) = r - \frac{r^2}{2} + \frac{r^3}{3} - \frac{r^4}{4} + \cdots$$
+
+In the financial derivation, we truncate (cut off) the infinite series after the quadratic term:
+
+$$\ln(1 + r) \approx r - \frac{r^2}{2}$$
+
+We do this for two practical, real-world reasons: 1. Real-world annual stock market returns $r$ usually sit between $-0.20$ and $+0.20$. When we raise a small fraction to a high power, it becomes microscopic. For example, if $r = 0.10$ ($10\%$ return): First term ($r$): $0.10$; second term ($r^2/2$): $0.005$ (highly relevant); third term ($r^3/3$): $0.00033$ (virtually negligible). The term $r^2$ is the magic variable that lets us connect the log-return directly to volatility (variance). Since the expected value of squared deviations from the mean is the definition of variance ($\sigma^2$), keeping the second-order term allows us to mathematically calculate the "volatility drag" penalty.
+
 
 $$\log(1+r) \approx r - \frac{r^2}{2}$$
 
