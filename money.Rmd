@@ -226,6 +226,62 @@ The arithmetic mean is simply the standard sample average of those individual an
 
 $$r_a = \frac{1}{n} \sum_{i=1}^{n} r_i \approx 0.10 \text{ to } 0.12$$
 
+---
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+
+Is $r$ the Same as $r_a$?
+
+No, $r$ and $r_a$ are fundamentally different mathematical objects. Confusing the two is actually the exact mathematical oversight that hides the "non-ergodic trap" in finance.
+
+Here is the breakdown of what each symbol represents:
+
+1. The Variable $r$ (The Random Variable)
+
+The symbol $r$ is a stochastic (random) variable. It represents the highly volatile, fluctuating return of the market in any single, isolated period.
+
+It does not have a single value; it has a probability distribution.
+
+In one year, $r$ might equal $+50\%$ (a massive boom).
+
+In the next year, $r$ might equal $-50\%$ (a devastating crash).
+
+When we write $\mathbb{E}[\log(1 + r)]$, we are taking the logarithm of $(1 + r)$ for every possible fluctuating outcome, and then calculating the average of those logged values.
+
+2. The Constant $r_a$ (The Arithmetic Average)
+
+The symbol $r_a$ is a constant, single number. It is the expected value (or long-run average) of that fluctuating variable $r$:
+
+$$r_a = \mathbb{E}[r]$$
+
+For a typical stock market index, $r_a$ is a fixed historical baseline, like $+10\%$ (or $0.10$).
+
+It does not fluctuate. It is the steady, aggregated "group expectation" of the system.
+
+Why This Distinction is Crucial: Jensen's Inequality
+
+If $r$ and $r_a$ were the same, we could just slide the expectation operator inside the logarithm:
+
+$$\mathbb{E}[\log(1 + r)] \overset{?}{=} \log(1 + \mathbb{E}[r]) = \log(1 + r_a)$$
+
+But because the logarithm is a downward-curving (concave) function, Jensen's Inequality states that the average of the logs is always strictly less than the log of the average:
+
+$$\mathbb{E}[\log(1 + r)] < \log(1 + r_a)$$
+
+If we use $r_a$ inside the log, we get a flat line that is completely blind to risk. But if we use the fluctuating variable $r$, the curvature of the log punishes the volatility. The Taylor expansion translates this exact mathematical gap for us:
+
+$$\mathbb{E}[\log(1 + r)] \approx \mathbb{E}[r] - \frac{\mathbb{E}[r^2]}{2} \approx r_a - \frac{\sigma^2}{2}$$
+
+Summary
+
+$r$ is the bumpy, real-world roller coaster of yearly returns (e.g., $+50\%$, then $-50\%$).
+
+$r_a$ is the smooth, deceptive average speed of the roller coaster (e.g., $0\%$).
+
+Inside the expectation $\mathbb{E}[\log(1+r)]$, we must use the bumpy variable $r$ so that the math can physically calculate and subtract the volatility drag ($\sigma^2/2$).
+
+</div>
+---
 
 The volatility is $\approx 15-20\%$ per year.
 
@@ -244,7 +300,6 @@ The geometric (time-average) mean return is
 $$\small\text{geometric mean} \approx \text{arithmetic mean} - (\sigma^2/2) \approx 7-10\%$$
 
 per year (still strongly positive!).
-
 
 Let's check what is happening mathematically:
 
