@@ -129,11 +129,37 @@ curve(-sqrt(2 * x * var * log(log(pmax(3, x)))), xlim = c(0,no.steps), n = no.st
 
 
 
-The Law of the Iterated Logarithm is written using a limit superior ($\limsup$), not a standard maximum ceiling.
+The Law of the Iterated Logarithm is written using a limit superior ($\limsup$), not a standard maximum ceiling. The limit superior $\limsup$ is the ultimate upper bound of a sequence or function values as time or input approaches infinity. Unlike a standard maximum or a strict ceiling, it ignores temporary, initial fluctuations and isolates the highest target value that the system eventually settles around or repeatedly hits:
 
 $$\limsup_{t \to \infty} \frac{S_t}{\sqrt{2t \log(\log t)}} = 1$$
 
 Mathematically, a $\limsup = 1$ means that if we run a single path out to infinity, the ratio of our path to the blue line will hit or get infinitely close to $1$ infinitely many times. By definition, for a path to approach $1$ infinitely many times from an oscillating random walk, it means the path must routinely cross over and under the blue boundary forever. The blue line isn't a hard wall that reflects the walk downward; it is the asymptotic track line that the peak fluctuations use as a spine. If a path never crossed or touched the blue line, the $\limsup$ would be strictly less than $1.$
+
+---
+
+Regarding the $\log(\log(t))$ function Taleb posted
+
+      The iterated log is beautiful & sooo natural. It is monotonically increasing concave, which is rare. But you get more concave by iterating while keeping it increasing.
+      
+      Log[x] is a slowly varying function. Hence log[...log[log[x]]] is a slowly varying function,, etc.
+      
+      Why we see if in so many places.
+
+When Taleb says you get "more concave," he is referring to the rate at which the function flattens out. We can measure this curvature using the Arrow-Pratt measure of absolute concavity (often used in economics and probability to measure risk aversion), defined as $-\frac{f^{\prime \prime }(x)}{f^{\prime }(x)}$:
+
+Standard Logarithm $\ln(x)$: The curvature is $\frac{1}{x}$.
+
+Double Iterated Logarithm $\ln(\ln(x))$: The curvature increases to $\frac{1}{x} + \frac{1}{x\ln(x)}$.
+
+Triple Iterated Logarithm $\ln(\ln(\ln(x))$: The curvature becomes even larger $\frac{1}{x} + \frac{1}{x\ln(x)} + \frac{1}{x\ln(x)\ln(\ln(x))}$.
+
+Every time you nest another logarithm, we add a positive layer to the curvature metric. This forces the function to bend downward much more aggressively while technically continuing to grow to infinity.
+
+---
+
+<img width = 600  src = "loglog.png">
+
+---
 
 
 ---
