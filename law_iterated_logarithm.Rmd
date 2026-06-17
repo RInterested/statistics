@@ -34,7 +34,7 @@ The **Law of the Iterated Logarithm (LIL)**: Tells you the extreme behavior of a
 
 ---
 
-<img width = 900  src = "law_iterated_logarithm.png">
+<img height = 500  src = "law_iterated_logarithm.png">
 
 ---
 
@@ -93,8 +93,10 @@ Look at how beautifully those pieces interact: The $t\sigma^2$ term represents t
 
 The variance of a random walk increases linearly because each step adds a new, independent shock of noise to the system. The Law of the Iterated Logarithm is simply the precise mathematical envelope that takes that linear variance, scales it to physical space, and applies a double-log filter to tame the infinite opportunities of time.
 
+---
 
-```{r,echo=FALSE}
+
+```{r,echo=FALSE,fig.height=8}
 no.steps = 1e4
 frac = 0.5 * no.steps
 var = 1^2  # FIX: The variance of a step choosing between -1 and 1 is exactly 1
@@ -109,7 +111,7 @@ plot(first.walk, type="l",
 # 2. Draw the remaining ensemble paths
 for (i in 1:55){
   c = cumsum(sample(c(-1,1), no.steps, replace=T))
-  lines(c, col=gray(0.5,0.4), lwd=.5)
+  lines(c, col=rgb(0.5,0.5,0.9,0.2), lwd=.5)
 }
 
 abline(h=0)
@@ -127,7 +129,7 @@ curve(-sqrt(2 * x * var * log(log(pmax(3, x)))), xlim = c(0,no.steps), n = no.st
       col='blue', add = TRUE)
 ```
 
-
+---
 
 The Law of the Iterated Logarithm is written using a limit superior ($\limsup$), not a standard maximum ceiling. The limit superior $\limsup$ is the ultimate upper bound of a sequence or function values as time or input approaches infinity. Unlike a standard maximum or a strict ceiling, it ignores temporary, initial fluctuations and isolates the highest target value that the system eventually settles around or repeatedly hits:
 
@@ -157,7 +159,7 @@ Every time you nest another logarithm, we add a positive layer to the curvature 
 
 ---
 
-<img width = 600  src = "loglog.png">
+<img height = 500  src = "loglog.png">
 
 ---
 
