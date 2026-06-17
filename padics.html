@@ -4283,53 +4283,72 @@ does not cross it.</p>
 this root to a root modulo <span class="math inline">\(p^k\)</span> for
 any <span class="math inline">\(k\)</span>. This process can be extended
 to find roots in the p-adic integers <span class="math inline">\(\mathbb{Z}_p\)</span>.</p>
-<p><span class="math display">\[a_{n+1}\equiv a_n
-\mod{p^{n+1}}\]</span></p>
-<p>and</p>
-<p><span class="math display">\[f(a_n)\equiv 0 \mod
-{p^{n+1}}\]</span></p>
-<p>will allow the construction of a sequence of entries in the p-adic
-expression.</p>
+<p><span class="math display">\[a_{n+1} \equiv a_n \pmod{p^n}\]</span>
+with <span class="math inline">\(n\)</span> starting at <span class="math inline">\(1\)</span> will allow the construction of a
+sequence of entries in the p-adic expression.</p>
 <p>For instance (see <a href="https://youtu.be/gsg1x6mxVIA?si=EPeR-rniYi6wkq6D">here</a>), <span class="math inline">\(f(x) = x^2 + 1\)</span> has two solutions <span class="math inline">\(\mod{5}\)</span>: <span class="math inline">\(3\)</span> with multiplicity <span class="math inline">\(1\)</span>, and <span class="math inline">\(2\)</span> with multiplicity <span class="math inline">\(1.\)</span></p>
 <pre><code>R.&lt;x&gt; = GF(5)[]
 p = x^2 + 1
 p.roots()
 # [(3, 1), (2, 1)]</code></pre>
-<p>These will start the sequence in the p-adic (of <span class="math inline">\(5\)</span>-adic) expansion. So for <span class="math inline">\(r = 2,\)</span> this will be <span class="math inline">\(a_0=2.\)</span> For <span class="math inline">\(a_1,\)</span> the equation above is</p>
-<p><span class="math display">\[\begin{align} a_1 &amp;\equiv a_0
-\mod{5^1}\\
-a_1 &amp;\equiv 2 \mod{5} \\
-a_1 &amp;= 2 + 5t
+<p>These will start the sequence in the p-adic (of <span class="math inline">\(5\)</span>-adic) expansion. So for <span class="math inline">\(r = 2,\)</span> this will be <span class="math inline">\(a_1 = 2.\)</span> For <span class="math inline">\(a_2,\)</span></p>
+<p><span class="math display">\[a_2 \equiv a_1 \mod{5^1}\]</span> Notice
+that we are not saying that <span class="math inline">\(a_2 =
+a_1\)</span>! What we are saying is that <span class="math inline">\(2\)</span> is the first digit in the <span class="math inline">\(5\)</span>-adic integer, and that <span class="math inline">\(a_2,\)</span> <em>which we haven’t figured out
+yet</em>, will be congruent to <span class="math inline">\(a_1\)</span>
+modulo <span class="math inline">\(5.\)</span> In other words, it will
+be <span class="math inline">\(2\)</span> plus some full spins of the
+<span class="math inline">\(5\)</span> “clock”, which are completely
+brushed aside when viewed modulo <span class="math inline">\(5.\)</span></p>
+<p><span class="math display">\[a_2 = a_1 + \text{multiple spins of the
+5 hour clock}\]</span></p>
+<p>as in:</p>
+<p><span class="math display">\[\begin{align} a_2 &amp;\equiv a_1
+\mod{5}\\
+a_2 &amp;\equiv 2 \mod{5} \\
+a_2 &amp;= 2 + 5t
 \end{align}\]</span></p>
-<p>and</p>
+<p>And we require that this <span class="math inline">\(a_2\)</span> is
+a root of <span class="math inline">\(f(x) = x^2 + 1\)</span> when
+viewed modulo <span class="math inline">\(25:\)</span></p>
 <p><span class="math display">\[\begin{align}
-f(a_1) &amp;\equiv 0 \mod{5^2}\\
+f(a_2) &amp;\equiv 0 \mod{5^2}\\
 (2 + 5t)^2 + 1 &amp;\equiv 0 \mod{5^2} \\
 t &amp;\equiv 1 \mod {5^2}
 \end{align}\]</span></p>
 <p>yielding</p>
 <p><span class="math display">\[\begin{align}
-a_1 = 2 + 5 \cdot 1 =7
+a_2 = 2 + 5 \cdot 1 =7
 \end{align}\]</span></p>
+<p>so here we have <span class="math inline">\(x^2+1=7^2 +
+1=50,\)</span> and yes! <span class="math inline">\(50 \cong 0 \pmod
+{25}.\)</span></p>
+<p>So <span class="math inline">\(a_2 = a_1 + 1\text{ turn of the 5-hour
+clock}=2 \;+\; 5.\)</span></p>
+<p>Now we see the indices rhythm:</p>
+<p><span class="math display">\[a_{n+1}\equiv a_n
+\mod{p^{n}}\]</span></p>
+<p><span class="math display">\[(a_2=7)\cong (a_1=2)
+\mod{5}\]</span></p>
 <p>And at this point we are ready for</p>
 <p><span class="math display">\[\begin{align}
-a_2 &amp;\equiv a_1 \mod{5^2}\\
-a_2 &amp;\equiv 7 \mod{25}\\
-a_2 &amp;= 7 +25t
+a_3 &amp;\equiv a_2 \mod{5^2}\\
+a_3 &amp;\equiv 7 \mod{25}\\
+a_3 &amp;= 7 +25t
 \end{align}\]</span></p>
 <p>and <span class="math display">\[(7 +25t)^2+1 \equiv 0
 \mod{5^3}\]</span></p>
-<p>which results in <span class="math inline">\(a_2 =57.\)</span></p>
+<p>which results in <span class="math inline">\(a_3 =57.\)</span></p>
 <p>Progressing to</p>
 <p><span class="math display">\[\begin{align}
-a_3 &amp;\equiv a_2 \mod{5^3}\\
-a_3 &amp;\equiv 57 \mod{125}\\
-a_3 &amp;= 57 +125t
+a_4 &amp;\equiv a_3 \mod{5^3}\\
+a_4 &amp;\equiv 57 \mod{125}\\
+a_4 &amp;= 57 +125t
 \end{align}\]</span></p>
 <p>which can be plugged into the function:</p>
 <p><span class="math display">\[(57+125t)^2 + 1\equiv 0
 \mod{5^4}\]</span></p>
-<p>resulting in <span class="math inline">\(t=1\)</span> and <span class="math inline">\(a_3 =57 + 125 = 182\)</span></p>
+<p>resulting in <span class="math inline">\(t=1\)</span> and <span class="math inline">\(a_4 =57 + 125 = 182\)</span></p>
 <p>In sagemath,</p>
 <pre><code>import numpy as np
 
@@ -4363,6 +4382,56 @@ hensel(roots, 5)
  array([     3,     18,     68,    443,   1068,   1068,  32318, 110443])]</code></pre>
 <p>Notice how this makes sense:</p>
 <pre><code>2 + 5 + 2*5^2 = 57</code></pre>
+<p>So Hensel lift without derivatives? Not quite, they were just
+“hidden” in this simple example:</p>
+<hr />
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+<p>We have an approximation <span class="math inline">\(a_n\)</span>
+which is a valid root modulo <span class="math inline">\(p^n\)</span>:</p>
+<p><span class="math display">\[f(a_n) \equiv 0 \pmod{p^n}\]</span> We
+want to find the next term <span class="math inline">\(a_{n+1}\)</span>,
+defined by our extension rule:</p>
+<p><span class="math display">\[a_{n+1} = a_n + t \cdot p^n\]</span></p>
+<p>We need this new value to satisfy the next level of precision,
+meaning it must be a root modulo <span class="math inline">\(p^{n+1}\)</span>:</p>
+<p><span class="math display">\[f(a_{n+1}) \equiv 0
+\pmod{p^{n+1}}\]</span></p>
+<p>Substituting our expression for <span class="math inline">\(a_{n+1}\)</span> into the polynomial gives:</p>
+<p><span class="math display">\[f(a_n + t \cdot p^n) \equiv 0
+\pmod{p^{n+1}}\]</span></p>
+<p>To isolate the unknown digit <span class="math inline">\(t\)</span>,
+we expand the function <span class="math inline">\(f(x)\)</span> as a
+<strong>Taylor series</strong> around the current approximation <span class="math inline">\(a_n\)</span>:</p>
+<p><span class="math display">\[f(a_n + t \cdot p^n) = f(a_n) +
+f&#39;(a_n)(t \cdot p^n) + \frac{f&#39;&#39;(a_n)}{2!}(t \cdot p^n)^2 +
+\frac{f&#39;&#39;&#39;(a_n)}{3!}(t \cdot p^n)^3 + \dots\]</span></p>
+<p>Now, we evaluate this entire infinite series modulo <span class="math inline">\(p^{n+1}\)</span>: The third term contains <span class="math inline">\((t \cdot p^n)^2 = t^2 \cdot p^{2n}\)</span>. Since
+our index starts at <span class="math inline">\(n \ge 1\)</span> for the
+lifting steps, the exponent <span class="math inline">\(2n\)</span> is
+always greater than or equal to <span class="math inline">\(n+1\)</span>
+(for instance, if <span class="math inline">\(n=1\)</span>, <span class="math inline">\(2n=2\)</span>, which is <span class="math inline">\(1+1\)</span>). Therefore, <span class="math inline">\(t^2 \cdot p^{2n} \equiv 0 \pmod{p^{n+1}}\)</span>.
+Every single higher-order term past the derivative contains an even
+higher power of <span class="math inline">\(p\)</span>, so they all
+vanish cleanly into the modulus. This truncates our polynomial
+approximation into a completely linear equation:</p>
+<p><span class="math display">\[f(a_n) + f&#39;(a_n) \cdot t \cdot p^n
+\equiv 0 \pmod{p^{n+1}}\]</span></p>
+<p>Because <span class="math inline">\(a_n\)</span> is already a known
+root modulo <span class="math inline">\(p^n\)</span>, the value <span class="math inline">\(f(a_n)\)</span> is guaranteed to be a clean
+multiple of <span class="math inline">\(p^n\)</span>. This allows us to
+divide every single term in the congruence — including the modulus
+itself —by <span class="math inline">\(p^n\)</span>:</p>
+<p><span class="math display">\[\frac{f(a_n)}{p^n} + f&#39;(a_n) \cdot t
+\equiv 0 \pmod{p}\]</span> Now, shift the constant term to the other
+side to isolate our target, <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[f&#39;(a_n) \cdot t \equiv
+-\frac{f(a_n)}{p^n} \pmod{p}\]</span></p>
+<p>To solve for the digit <span class="math inline">\(t\)</span>
+uniquely, we must multiply both sides by the modular inverse of the
+derivative:</p>
+<p><span class="math display">\[t \equiv -\frac{f(a_n)}{p^n} \cdot
+\left[f&#39;(a_n)\right]^{-1} \pmod{p}\]</span></p>
+</div>
 <hr />
 </div>
 <div id="p-adics-and-base-p" class="section level4">

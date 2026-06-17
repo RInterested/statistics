@@ -2603,13 +2603,8 @@ A **simple root** of a polynomial is a root where the polynomial crosses the x-a
 
 If a polynomial has a simple root modulo a prime $p$, Hensel’s theorem allows us to lift this root to a root modulo $p^k$ for any $k$. This process can be extended to find roots in the p-adic integers $\mathbb{Z}_p$.
 
-$$a_{n+1}\equiv a_n \mod{p^{n+1}}$$
-
-and
-
-$$f(a_n)\equiv 0 \mod {p^{n+1}}$$
-
-will allow the construction of a sequence of entries in the p-adic expression.
+$$a_{n+1} \equiv a_n \pmod{p^n}$$
+with $n$ starting at $1$ will allow the construction of a sequence of entries in the p-adic expression.
 
 For instance (see [here](https://youtu.be/gsg1x6mxVIA?si=EPeR-rniYi6wkq6D)), $f(x) = x^2 + 1$ has two solutions $\mod{5}$: $3$ with multiplicity $1$, and $2$ with multiplicity $1.$
 
@@ -2620,17 +2615,24 @@ p.roots()
 # [(3, 1), (2, 1)]
 ```
 
-These will start the sequence in the p-adic (of $5$-adic) expansion. So for $r = 2,$ this will be $a_0=2.$ For $a_1,$ the equation above is
+These will start the sequence in the p-adic (of $5$-adic) expansion. So for $r = 2,$ this will be $a_1 = 2.$ For $a_2,$ 
 
-$$\begin{align} a_1 &\equiv a_0 \mod{5^1}\\
-a_1 &\equiv 2 \mod{5} \\
-a_1 &= 2 + 5t
+$$a_2 \equiv a_1 \mod{5^1}$$
+Notice that we are not saying that $a_2 = a_1$! What we are saying is that $2$ is the first digit in the $5$-adic integer, and that $a_2,$ *which we haven't figured out yet*, will be congruent to $a_1$ modulo $5.$ In other words, it will be $2$ plus some full spins of the $5$ "clock", which are completely brushed aside when viewed modulo $5.$
+
+$$a_2 = a_1 + \text{multiple spins of the 5 hour clock}$$
+
+as in:
+
+$$\begin{align} a_2 &\equiv a_1 \mod{5}\\
+a_2 &\equiv 2 \mod{5} \\
+a_2 &= 2 + 5t
 \end{align}$$
 
-and
+And we require that this $a_2$ is a root of $f(x) = x^2 + 1$ when viewed modulo $25:$
 
 $$\begin{align} 
-f(a_1) &\equiv 0 \mod{5^2}\\
+f(a_2) &\equiv 0 \mod{5^2}\\
 (2 + 5t)^2 + 1 &\equiv 0 \mod{5^2} \\
 t &\equiv 1 \mod {5^2}
 \end{align}$$
@@ -2638,34 +2640,44 @@ t &\equiv 1 \mod {5^2}
 yielding
 
 $$\begin{align} 
-a_1 = 2 + 5 \cdot 1 =7
+a_2 = 2 + 5 \cdot 1 =7
 \end{align}$$
+
+so here we have $x^2+1=7^2 + 1=50,$ and yes! $50 \cong 0 \pmod {25}.$ 
+
+So $a_2 = a_1 + 1\text{ turn of the 5-hour clock}=2 \;+\; 5.$
+
+Now we see the indices rhythm:
+
+$$a_{n+1}\equiv a_n \mod{p^{n}}$$
+
+$$(a_2=7)\cong (a_1=2) \mod{5}$$
 
 And at this point we are ready for 
 
 $$\begin{align} 
-a_2 &\equiv a_1 \mod{5^2}\\
-a_2 &\equiv 7 \mod{25}\\
-a_2 &= 7 +25t
+a_3 &\equiv a_2 \mod{5^2}\\
+a_3 &\equiv 7 \mod{25}\\
+a_3 &= 7 +25t
 \end{align}$$
 
 and $$(7 +25t)^2+1 \equiv 0 \mod{5^3}$$
 
-which results in $a_2 =57.$
+which results in $a_3 =57.$
 
 Progressing to
 
 $$\begin{align} 
-a_3 &\equiv a_2 \mod{5^3}\\
-a_3 &\equiv 57 \mod{125}\\
-a_3 &= 57 +125t
+a_4 &\equiv a_3 \mod{5^3}\\
+a_4 &\equiv 57 \mod{125}\\
+a_4 &= 57 +125t
 \end{align}$$
 
 which can be plugged into the function:
 
 $$(57+125t)^2 + 1\equiv 0 \mod{5^4}$$
 
-resulting in $t=1$ and $a_3 =57 + 125 = 182$
+resulting in $t=1$ and $a_4 =57 + 125 = 182$
 
 In sagemath,
 
@@ -2707,6 +2719,49 @@ Notice how this makes sense:
 ```
 2 + 5 + 2*5^2 = 57
 ```
+
+So Hensel lift without derivatives? Not quite, they were just "hidden" in this simple example:
+
+---
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+
+We have an approximation $a_n$ which is a valid root modulo $p^n$:
+
+$$f(a_n) \equiv 0 \pmod{p^n}$$
+We want to find the next term $a_{n+1}$, defined by our extension rule:
+
+$$a_{n+1} = a_n + t \cdot p^n$$
+
+We need this new value to satisfy the next level of precision, meaning it must be a root modulo $p^{n+1}$:
+
+$$f(a_{n+1}) \equiv 0 \pmod{p^{n+1}}$$
+
+Substituting our expression for $a_{n+1}$ into the polynomial gives:
+
+$$f(a_n + t \cdot p^n) \equiv 0 \pmod{p^{n+1}}$$
+
+To isolate the unknown digit $t$, we expand the function $f(x)$ as a **Taylor series** around the current approximation $a_n$:
+
+$$f(a_n + t \cdot p^n) = f(a_n) + f'(a_n)(t \cdot p^n) + \frac{f''(a_n)}{2!}(t \cdot p^n)^2 + \frac{f'''(a_n)}{3!}(t \cdot p^n)^3 + \dots$$
+
+Now, we evaluate this entire infinite series modulo $p^{n+1}$: The third term contains $(t \cdot p^n)^2 = t^2 \cdot p^{2n}$. Since our index starts at $n \ge 1$ for the lifting steps, the exponent $2n$ is always greater than or equal to $n+1$ (for instance, if $n=1$, $2n=2$, which is $1+1$). Therefore, $t^2 \cdot p^{2n} \equiv 0 \pmod{p^{n+1}}$. Every single higher-order term past the derivative contains an even higher power of $p$, so they all vanish cleanly into the modulus. This truncates our polynomial approximation into a completely linear equation:
+
+$$f(a_n) + f'(a_n) \cdot t \cdot p^n \equiv 0 \pmod{p^{n+1}}$$
+
+Because $a_n$ is already a known root modulo $p^n$, the value $f(a_n)$ is guaranteed to be a clean multiple of $p^n$. This allows us to divide every single term in the congruence — including the modulus itself —by $p^n$:
+
+$$\frac{f(a_n)}{p^n} + f'(a_n) \cdot t \equiv 0 \pmod{p}$$
+Now, shift the constant term to the other side to isolate our target, $t$:
+
+$$f'(a_n) \cdot t \equiv -\frac{f(a_n)}{p^n} \pmod{p}$$
+
+To solve for the digit $t$ uniquely, we must multiply both sides by the modular inverse of the derivative:
+
+$$t \equiv -\frac{f(a_n)}{p^n} \cdot \left[f'(a_n)\right]^{-1} \pmod{p}$$
+
+</div>
+
 ---
 
 #### p-adics and base p:
