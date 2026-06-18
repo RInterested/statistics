@@ -4431,6 +4431,54 @@ uniquely, we must multiply both sides by the modular inverse of the
 derivative:</p>
 <p><span class="math display">\[t \equiv -\frac{f(a_n)}{p^n} \cdot
 \left[f&#39;(a_n)\right]^{-1} \pmod{p}\]</span></p>
+<p>Example:</p>
+<p>We want to find <span class="math inline">\(a_4\)</span> using the
+known root <span class="math inline">\(a_3 = 57\)</span> in the example
+right above. Here, our index is <span class="math inline">\(n =
+3\)</span>.</p>
+<p>First, let’s calculate the pieces required by the formula:</p>
+<p><span class="math display">\[t \equiv -\frac{f(a_3)}{5^3} \cdot
+\left[f&#39;(a_3)\right]^{-1} \pmod{5}\]</span></p>
+<p>The Derivative:</p>
+<p><span class="math display">\[f&#39;(x) = 2x\]</span></p>
+<p>Evaluated at our current root <span class="math inline">\(a_3 =
+57\)</span>:</p>
+<p><span class="math display">\[f&#39;(57) = 2(57) = 114\]</span></p>
+<p>We only care about this value modulo <span class="math inline">\(5:\)</span></p>
+<p><span class="math display">\[114 \equiv 4 \pmod 5\]</span></p>
+<p>The modular inverse of the derivative: We need a number <span class="math inline">\(x\)</span> such that <span class="math inline">\(4
+\cdot x \equiv 1 \pmod 5\)</span>.</p>
+<p>Since <span class="math inline">\(4 \cdot 4 = 16 \equiv 1 \pmod
+5\)</span>, the inverse is:</p>
+<p><span class="math display">\[\left[f&#39;(57)\right]^{-1} \equiv 4
+\pmod 5\]</span></p>
+<p>The Scaled Evaluation <span class="math inline">\(\frac{f(a_n)}{p^n}\)</span>:</p>
+<p><span class="math display">\[f(57) = 57^2 + 1 = 3249 + 1 =
+3250\]</span></p>
+<p>Now we divide this by <span class="math inline">\(5^3\)</span> (<span class="math inline">\(125\)</span>):</p>
+<p><span class="math display">\[\frac{3250}{125} = 26\]</span></p>
+<p>We reduce this value modulo <span class="math inline">\(5:\)</span></p>
+<p><span class="math display">\[26 \equiv 1 \pmod 5\]</span></p>
+<p>Now we just multiply our components together to solve for the next
+<span class="math inline">\(5\)</span>-adic digit, <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[t \equiv - (1) \cdot (4) \pmod
+5\]</span> <span class="math display">\[t \equiv -4 \equiv 1 \pmod
+5\]</span></p>
+<p>So, the formula directly spits out <span class="math inline">\(t =
+1\)</span> without us needing to expand any binomials or handle large
+quadratic equations.</p>
+<p>Finally, use the extension rule <span class="math inline">\(a_{n+1} =
+a_n + t \cdot p^n\)</span>:</p>
+<p><span class="math display">\[a_4 = a_3 + 1 \cdot 5^3\]</span> <span class="math display">\[a_4 = 57 + 125 = 182\]</span></p>
+<p>This is very efficient for computing further digits. Because <span class="math inline">\(a_n \equiv a_1 \pmod p\)</span> for every single
+step, the derivative term never changes. No matter how far out you lift,
+<span class="math inline">\(f&#39;(a_n) \pmod 5\)</span> will always be
+<span class="math inline">\(4\)</span>, and its modular inverse will
+always be <span class="math inline">\(4\)</span>. To find the next digit
+for <span class="math inline">\(a_5\)</span>, you would skip all the
+algebraic expansions entirely and just calculate:</p>
+<p><span class="math display">\[t \equiv - \frac{f(182)}{625} \cdot 4
+\pmod 5\]</span></p>
 </div>
 <hr />
 </div>

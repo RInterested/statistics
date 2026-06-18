@@ -2760,6 +2760,60 @@ To solve for the digit $t$ uniquely, we must multiply both sides by the modular 
 
 $$t \equiv -\frac{f(a_n)}{p^n} \cdot \left[f'(a_n)\right]^{-1} \pmod{p}$$
 
+Example:
+
+We want to find $a_4$ using the known root $a_3 = 57$ in the example right above. Here, our index is $n = 3$.
+
+First, let's calculate the pieces required by the formula:
+
+$$t \equiv -\frac{f(a_3)}{5^3} \cdot \left[f'(a_3)\right]^{-1} \pmod{5}$$
+
+The Derivative:
+
+$$f'(x) = 2x$$
+
+Evaluated at our current root $a_3 = 57$:
+
+$$f'(57) = 2(57) = 114$$
+
+We only care about this value modulo $5:$
+
+$$114 \equiv 4 \pmod 5$$
+
+The modular inverse of the derivative: We need a number $x$ such that $4 \cdot x \equiv 1 \pmod 5$.
+
+Since $4 \cdot 4 = 16 \equiv 1 \pmod 5$, the inverse is:
+
+$$\left[f'(57)\right]^{-1} \equiv 4 \pmod 5$$
+
+The Scaled Evaluation $\frac{f(a_n)}{p^n}$:
+
+$$f(57) = 57^2 + 1 = 3249 + 1 = 3250$$
+
+Now we divide this by $5^3$ ($125$):
+
+$$\frac{3250}{125} = 26$$
+
+We reduce this value modulo $5:$
+
+$$26 \equiv 1 \pmod 5$$
+
+Now we just multiply our components together to solve for the next $5$-adic digit, $t$:
+
+$$t \equiv - (1) \cdot (4) \pmod 5$$
+$$t \equiv -4 \equiv 1 \pmod 5$$
+
+So, the formula directly spits out $t = 1$ without us needing to expand any binomials or handle large quadratic equations.
+
+Finally, use the extension rule $a_{n+1} = a_n + t \cdot p^n$:
+
+$$a_4 = a_3 + 1 \cdot 5^3$$
+$$a_4 = 57 + 125 = 182$$
+
+This is very efficient for computing further digits. Because $a_n \equiv a_1 \pmod p$ for every single step, the derivative term never changes. No matter how far out you lift, $f'(a_n) \pmod 5$ will always be $4$, and its modular inverse will always be $4$. To find the next digit for $a_5$, you would skip all the algebraic expansions entirely and just calculate:
+
+$$t \equiv - \frac{f(182)}{625} \cdot 4 \pmod 5$$
+
 </div>
 
 ---
