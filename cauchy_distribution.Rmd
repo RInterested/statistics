@@ -15,103 +15,57 @@ output:
 
 ---
 
-### Title for this page:
+### Cauchy distribution:
 
 ---
 
-Write here
+The function $f(x) = \frac{1}{1+x^2}$ is the fundamental building block of the Cauchy distribution.In probability theory, the Cauchy distribution is a continuous probability distribution that is often used as a "pathological" example because it lacks a defined mean or variance.
+
+The function $f(x) = \frac{1}{1+x^2}$ is proportional to the density of the standard Cauchy distribution. However, for a function to be a valid probability density function, the total area under the curve must equal $1.$ If we integrate your function over all real numbers:
+
+$$\int_{-\infty}^{\infty} \frac{1}{1+x^2} \, dx = [\arctan(x)]_{-\infty}^{\infty} = \frac{\pi}{2} - (-\frac{\pi}{2}) = \pi$$
+
+Because the integral is $\pi$, we must multiply by a normalization constant of $\frac{1}{\pi}$ to get the Standard Cauchy Distribution:
+
+$$f(x; 0, 1) = \frac{1}{\pi(1+x^2)}$$
+
+---
+<img width=800 src="cauchy_gauss_sinc.png">
+---
 
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 
-Embossing of paragraph
+Key Relationships and Properties:
 
-* p-adics
-* reals
-* complex
+* The "Witch of Agnesi": The curve $y = \frac{a^3}{x^2+a^2}$ is a famous geometric curve known as the Witch of Agnesi. The Cauchy PDF is essentially a scaled version of this curve.
+
+* Student's t-distribution: The standard Cauchy distribution is a special case of the Student’s t-distribution with exactly one degree of freedom ($\nu = 1$).
+
+* Heavy Tails: Unlike the normal (Gaussian) distribution, which decays exponentially ($e^{-x^2}$), the Cauchy distribution decays polynomially ($\frac{1}{x^2}$). This gives it "heavy tails," meaning extreme outliers are much more likely to occur.
+
+* The Mean Paradox: If you try to calculate the expected value (mean) of a Cauchy random variable:
+
+$$\int_{-\infty}^{\infty} \frac{x}{\pi(1+x^2)} \, dx$$
+
+the integral is undefined because it results in $\infty - \infty$. Consequently, the Cauchy distribution has no mean, variance, or higher-order moments.
 
 </div>
 
 ---
 
-<h1 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-  Title underlined
-</h1>
-
-
-
-<h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-Expressing $4357$ in $5$-adic (the congruence approach):
-</h3>
-
-
-<h4 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-Expressing $450$ in $5$-adic:
-</h4>
-
-
----
-
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 
-Embossed text 
-
-The $p$-adic valuation $v_p(x)$ is precisely the exponent of the first non-zero term in the $p$-adic series expansion.
+A common way to generate a Cauchy distribution is to imagine a person standing at the point $(0, 1)$ on a Cartesian plane, spinning around, and firing a laser beam at a random angle $\theta$ (uniformly distributed between $-90^\circ$ and $90^\circ$). The position $x$ where the laser hits the x-axis ($y=0$) follows a Cauchy distribution. This is because $x = \tan(\theta)$, and the derivative of the inverse tangent leads directly back to the function  $f(x) = \frac{1}{1+x^2}.$
 
 </div>
 
 ---
 
-
-To silence R messages and warnings copy this before the first chunk of R code:
-
-```{r setup, include=FALSE} 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
-```
+<video src="witch_of_agnesi.mp4" controls width="70%">
+</video>
 
 ---
 
-```{r}
-library(curl)
-dat <- read.csv('https://raw.githubusercontent.com/RInterested/DATASETS/gh-pages/sicily.csv')
-head(dat)
-```
-
-
----
-
-#### SUBHEADER
-
----
-
-```{R, fig.width = 5, fig.height = 5}
-n <- 1e4
-M <- matrix(runif(2*n,-1,1),ncol=2)
-M <- cbind(M,sqrt(M[,1]^2+M[,2]^2))
-plot(M[,1],M[,2], col=rgb(1,.38,0, alpha = 0.2), pch=19, cex=.2,
-     xlab='', ylab='', tck=F, axes=F)
-```
-
-##### SUB-SUBHEADER
-
----
-
-### Portfolio Variance:
-
----
-
-Example of an image:
-
-
----
-
-<img width = 400  src = "https://cloud.githubusercontent.com/assets/9312897/15807170/a0303b44-2b24-11e6-974b-bbbae9390f1b.png">
-
----
-
-
-References:
-
-<a href="https://stats.stackexchange.com/questions/175141/basic-inferential-calculations-with-only-summary-statistics-available/175142#175142">Basic Inferential Calculations with only Summary Statistics</a>
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
