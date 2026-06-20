@@ -30,7 +30,11 @@ Based on th `mtcars` data set we can first visualize the model `lm(mpg ~ wt + as
 
 Let's see it graphically on the plot to the right (the three plots to the left are included for side-to-side comparison with the ANOVA model discussed immediately afterwards):
 
-[![enter image description here][1]][1]
+---
+
+<img width=900 src="anova_is_regression.png">
+
+---
 
 Each cylinder engine is color coded, and the distance between the fitted lines with different intercepts and the data cloud is the equivalent of within group variation in an ANOVA (not mathematically identical, though, due to the effect of `weight`). The slope of the lines is the coefficient for the continuous variable `weight`.
 
@@ -148,7 +152,6 @@ $$\small\begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ y_4\\ y_5 \\ \vdots \\ y_n\end{bmatr
 Now when the third column is $1$ we'll be systematically shifting the intercept by $\mu_2$, and when the fourth column is $1$, it'll be instead $\mu_3$ added to the intercept. The matrix equation, hence, will be $\small y_i = \beta_0 + \beta_1\, x_i + \mu_i + \epsilon_i $. Therefore, going with this model to the ANOVA model is just a matter of getting rid of the continuous variables, and understanding that the default intercept in OLS corresponds to the first level in ANOVA.
 
 
-  [1]: https://cloud.githubusercontent.com/assets/9312897/10548114/9eb9b658-7406-11e5-9dbb-a99fb6b74fad.png
   
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
