@@ -57,7 +57,12 @@ the integral is undefined because it results in $\infty - \infty$. Consequently,
 
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 
-A common way to generate a Cauchy distribution is to imagine a person standing at the point $(0, 1)$ on a Cartesian plane, spinning around, and firing a laser beam at a random angle $\theta$ (uniformly distributed between $-90^\circ$ and $90^\circ$). The position $x$ where the laser hits the x-axis ($y=0$) follows a Cauchy distribution. This is because $x = \tan(\theta)$, and the derivative of the inverse tangent leads directly back to the function  $f(x) = \frac{1}{1+x^2}.$
+A common way to generate a Cauchy distribution is to imagine a person standing at the point $(0, 1)$ on a Cartesian plane, spinning around, and firing a laser beam at a random angle $\theta$ (uniformly distributed between $-90^\circ$ and $90^\circ$). The position $x$ where the laser hits the x-axis ($y=0$) follows a Cauchy distribution. This is because $x = \tan(\theta)$, and the derivative of the inverse tangent leads directly back to the function  $f(x) = \frac{1}{1+x^2}$:
+
+$$\frac d{dx}\arctan(x)=\frac1{1+x^2}$$
+It is the derivative precisely because a Probability Density Function (PDF) represents the rate of change of probability over an interval.
+
+The Cauchy distribution $f(x;x_{0},\gamma )$ is the distribution of the $x$-intercept of a ray issuing from $(x_{0},\gamma )$ with a uniformly distributed angle. It is also the distribution of the ratio of two independent normally distributed random variables with mean zero.
 
 </div>
 
@@ -68,13 +73,17 @@ A common way to generate a Cauchy distribution is to imagine a person standing a
 
 ---
 
-##### Construction:
+##### The relationship with the Witch of Agnesi:
 
 From [Wikipedia](https://en.wikipedia.org/wiki/Witch_of_Agnesi):
 
-      To construct this curve, start with any two points O and M, and draw a circle with OM as diameter. For any other point A on the circle, let N be the point of intersection of the secant line OA and the tangent line at M. Let P be the point of intersection of a line perpendicular to OM through A, and a line parallel to OM through N. Then P lies on the witch of Agnesi. The witch consists of all the points P that can be constructed in this way from the same choice of O and M.[5] It includes, as a limiting case, the point M itself.
+> To construct this curve, start with any two points O and M, and draw a circle with OM as diameter. For any other point A on the circle, let N be the point of intersection of the secant line OA and the tangent line at M. Let P be the point of intersection of a line perpendicular to OM through A, and a line parallel to OM through N. Then P lies on the witch of Agnesi. The witch consists of all the points P that can be constructed in this way from the same choice of O and M. It includes, as a limiting case, the point M itself.
 
 <img width=400 src="Witch_of_Agnesi_construction.png">
+
+If $M=(0,1)$ the curve has obeys the equation
+
+$$f(x)=\frac1{1+x^2}$$
 
 
 ---
