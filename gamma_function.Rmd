@@ -73,6 +73,42 @@ This is exactly Stirling's approximation for $n!$
 ---
 
 
+<h4 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+Turning the gamma function into a probability distribution:
+</h4>
+
+
+If we want to model the waiting time for exactly $n$ events to occur we can turn the gamma function into a pdf. Let's call the total waiting time $T_n$. For the total waiting time $T_n$ to be greater than some time $t$, it means that in the span from $0$ to $t$, we must have seen fewer than $n$ events. It could be $0$ events, $1$ event, $2$ events, all the way up to $n-1$ events. Because these scenarios are mutually exclusive, we add their probabilities together using the standard Poisson formula:
+
+$$P(T_n > t) = \sum_{k=0}^{n-1} \frac{(\lambda t)^k e^{-\lambda t}}{k!}$$
+
+This sum is where the factorials first enter the room. They are there because they are counting the discrete combinations of how $k$ independent events can distribute themselves across time. To turn this into a proper PDF ($f_n(t)$) for the exact moment the $n$-th event hits, we find the CDF:
+
+$$P(T_n \le t) = 1 - P(T_n > t)$$ 
+and differentiate it:
+
+$$f_n(t) = \frac{d}{dt} \left( 1 - \sum_{k=0}^{n-1} \frac{(\lambda t)^k e^{-\lambda t}}{k!} \right) = -\sum_{k=0}^{n-1} \frac{d}{dt} \left( \frac{\lambda^k t^k e^{-\lambda t}}{k!} \right)$$
+
+When we apply the product rule to each term in that sum, a beautiful telescoping cancellation happens. The derivative of the $k$-th term produces a positive part (from differentiating $t^k$) and a negative part (from differentiating $e^{-\lambda t}$). The positive part of the $(k+1)$-th term perfectly cancels out the negative part of the $k$-th term. After the dust settles and all intermediate terms cancel out, the only piece left standing from the entire derivative is the very last boundary term ($k = n-1$): 
+
+$$f_n(t) = \frac{\lambda^n t^{n-1} e^{-\lambda t}}{(n-1)!}$$
+
+This is the PDF of the gamma distribution (specifically the Erlang distribution for integer $n$).
+
+Because $f_n(t)$ is a total probability density function for a continuous timeline spanning from $0$ to $\infty$, the total area underneath it must equal $1.$
+
+$$\int_0^\infty \frac{\lambda^n t^{n-1} e^{-\lambda t}}{(n-1)!} \, dt = 1$$
+
+we pull the constants out of the integral:
+
+$$\frac{\lambda^n}{(n-1)!} \int_0^\infty t^{n-1} e^{-\lambda t} \, dt = 1$$
+
+If we make a change of variables $(x = \lambda t$, so $dx = \lambda \, dt)$, the $\lambda$ terms completely vanish, leaving us with:
+
+$$\int_0^\infty x^{n-1} e^{-x} \, dx = (n-1)!$$
+
+The factorial $(n-1)!$ sits in the denominator of the Gamma PDF as a normalizing constant. It is there because the power law $t^{n-1}$ represents the compounding probability of accumulated time intervals as you wait for successive events, while $e^{-\lambda t}$ represents the probability that the final event hasn't happened yet. Because that localized peak grows so massive as $n$ increases, we need to divide by exactly $(n-1)!$ to scale the total volume of that probability mountain back down to exactly $1$.
+
 
 <hr style="height: 3px; background-color: #333; border: none;">
 
