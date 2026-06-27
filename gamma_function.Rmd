@@ -15,6 +15,67 @@ output:
 
 ---
 
+Loosely speaking, gamma function is the inner product from $0$ to $\infty$ of a **power law** $t^{s-1}$ and an **exponential** $e^{-t}.$ The term power law implies that the exponent $s$ is not a whole number as it would be in a polynomial function - instead, $s$ can be a fraction or a complex number (provided its real part is positive for the integral to converge), with the function extended to negative values via analytic continuation.
+
+$$\small\text{Gamma Function:} \quad \Gamma(s) = \int_0^\infty t^{s-1} \; e^{-t} \, dt$$
+
+This structure repeats itself in math. Comparing to a **Laplace transform**:
+
+$$\small\text{Laplace Transform:} \quad \mathcal{L}\{f(t)\}(s) = \int_0^\infty f(t) \; e^{-st} \, dt$$
+
+The Gamma function is explicitly the Laplace transform of a basic power law, evaluated at a specific scaling factor.
+
+It is also the **Mellin transform** of the basic exponential function $f(t) = e^{-t}$.
+
+$$\small\text{Mellin Transform:} \quad \mathcal{M}\{f(t)\}(s) = \int_0^\infty t^{s-1} \;f(t) \, dt$$
+
+Originally, Euler formulated it to turn the factorial function into a continued function. 
+
+Notice that the function is eventually brought to zero by the exponential component as $t\to \infty,$ guaranteeing integrability. To understand how the integrand of the gamma function, $t^n e^{-t}$, manages to grow so colossally as to reproduce the factorials, we have to look at a classic mathematical tug-of-war. At first glance, it feels counterintuitive. We are taught early on that "exponential decay always beats a power law as $x \to \infty$." That is absolutely true in the limit. If we pick a fixed $n$ and let $t$ run to infinity, $e^{-t}$ completely crushes $t^n$, dragging the product down to zero. But the magic of the gamma function,
+
+$$\Gamma(n+1) = \int_0^\infty t^n e^{-t} \, dt = n!$$
+
+isn't about what happens at $t \to \infty$. It is about the massive, temporary spike that occurs before the exponential take-over happens. As $n$ grows, this spike becomes a towering, concentrated mountain of area.
+
+The product $t^n e^{-t}$ starts at $0$ (for $t=0$) and ends at $0$ (as $t \to \infty$). Somewhere in the middle, it must hit a maximum.If we take the derivative with respect to $t$ and set it to zero we'll find that the peak occurs exactly at $t = n$. As $n$ grows, the location of this peak gets pushed further and further out to the right. Because the peak moves out, the power law $t^n$ is given a massive runway to grow to astronomical heights before the exponential decay can clamp down on it.
+
+The actual value of the function at this peak ($x = n$) is
+
+$$\text{Peak Height} = n^n e^{-n} = \left(\frac{n}{e}\right)^n$$
+
+This height itself grows at a staggering, supra-exponential rate. 
+
+The total area under the curve is the factorial. To see how this concentrated peak accounts for the entire integral, we can look at the behavior near $x = n$ by rewriting the integrand using logs:
+
+$$x^n e^{-x} = e^{n \ln x - x}$$
+
+If we do a Taylor expansion of the exponent $f(x) = n \ln x - x$ around its peak at $x = n$, we get: 
+
+$$f(n) = n \ln n - n$$
+
+$$f'(n) = 0$$
+$$f''(n) = -\frac{n}{n^2} = -\frac{1}{n}$$
+
+So, near the peak, the function behaves like a localized Gaussian bell curve:
+
+$$t^n e^{-t} \approx e^{n \ln n - n} \cdot e^{-\frac{(t-n)^2}{2n}} = \left(\frac{n}{e}\right)^n e^{-\frac{(t-n)^2}{2n}}$$
+
+$\left(\frac{n}{e}\right)^n$ is the sheer altitude the power law achieves at $t=n$. The Gaussian term $e^{-\frac{(t-n)^2}{2n}}$ has a standard deviation of $\sqrt{n}$. This means the "width" of the mountain where the area is concentrated scales like $\sqrt{n}$. When we integrate this approximating Gaussian curve from $-\infty$ to $\infty$, the area is $\small \text{Height} \times \sqrt{2\pi n}$:
+
+$$\int_0^\infty t^n e^{-t} \, dx \approx \sqrt{2\pi n} \left(\frac{n}{e}\right)^n$$
+
+This is exactly Stirling's approximation for $n!$
+
+---
+
+<img width=800 src="gamma_function_power_law_exp.png">
+
+---
+
+
+
+<hr style="height: 3px; background-color: #333; border: none;">
+
 Kasper Müller has a great paper on the gamma function on Medium. Unfortunately, the mathematical equations are images, rather than text or LaTeX. To play with them, I ended up typing a bunch, so I carried on with the rest.
 
 
