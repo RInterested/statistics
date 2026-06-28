@@ -45,26 +45,82 @@ $$\text{Peak Height} = n^n e^{-n} = \left(\frac{n}{e}\right)^n$$
 
 This height itself grows at a staggering, supra-exponential rate. 
 
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+
+To find where the integrand $y(t) = t^n e^{-t}$ hits its maximum, we take the derivative with respect to $t$ using the product rule:
+
+$$\frac{dy}{dt} = \frac{d}{dt}(t^n) \cdot e^{-t} + t^n \cdot \frac{d}{dt}(e^{-t})$$
+
+$$\frac{dy}{dt} = n t^{n-1} e^{-t} - t^n e^{-t}$$
+
+Now, factor out the common terms to see the roots clearly:
+
+$$\frac{dy}{dt} = t^{n-1} e^{-t} (n - t)$$
+
+Setting this derivative equal to zero to find the critical points yields: 
+
+$t = 0$ (a global minimum for $n > 1$)
+
+$t \to \infty$ (where the function asymptotically approaches $0$) $n - t = 0 \implies \mathbf{t = n}$
+
+To verify it is a maximum, we look at the sign of the derivative: for $t < n$, $\frac{dy}{dt} > 0$ (climbing); for $t > n$, $\frac{dy}{dt} < 0$ (falling). Thus, the peak is precisely at $t = n$.
+</div>
+
 The total area under the curve is the factorial. To see how this concentrated peak accounts for the entire integral, we can look at the behavior near $x = n$ by rewriting the integrand using logs:
 
 $$x^n e^{-x} = e^{n \ln x - x}$$
 
-If we do a Taylor expansion of the exponent $f(x) = n \ln x - x$ around its peak at $x = n$, we get: 
+We carry out a Taylor expansion of the exponent $f(x) = n \ln x - x$ around its peak at $x = n$. 
+The general formula for a Taylor expansion up to the second degree is:
+
+$$f(x) \approx f(n) + f'(n)(x-n) + \frac{f''(n)}{2!}(x-n)^2$$
+
+The first term is:
 
 $$f(n) = n \ln n - n$$
+The first derivative is:
 
-$$f'(n) = 0$$
+$$f'(x) = \frac{d}{dx}(n \ln x - x) = \frac{n}{x} - 1$$
+Therefore, $f'(n) = 0.$
+
+The second derivative is:
+
+$$f''(x) = \frac{d}{dx}\left(n x^{-1} - 1\right) = -n x^{-2} = -\frac{n}{x^2}$$
+evaluated at $n:$
+
 $$f''(n) = -\frac{n}{n^2} = -\frac{1}{n}$$
 
-So, near the peak, the function behaves like a localized Gaussian bell curve:
 
-$$t^n e^{-t} \approx e^{n \ln n - n} \cdot e^{-\frac{(t-n)^2}{2n}} = \left(\frac{n}{e}\right)^n e^{-\frac{(t-n)^2}{2n}}$$
+Plugging these back into the Taylor expansion formula gives:
 
-$\left(\frac{n}{e}\right)^n$ is the sheer altitude the power law achieves at $t=n$. The Gaussian term $e^{-\frac{(t-n)^2}{2n}}$ has a standard deviation of $\sqrt{n}$. This means the "width" of the mountain where the area is concentrated scales like $\sqrt{n}$. When we integrate this approximating Gaussian curve from $-\infty$ to $\infty$, the area is $\small \text{Height} \times \sqrt{2\pi n}$:
+$$f(x) \approx (n \ln n - n) + 0 \cdot (x-n) + \frac{-1/n}{2}(x-n)^2$$$$f(x) \approx n \ln n - n - \frac{(x-n)^2}{2n}$$
 
-$$\int_0^\infty t^n e^{-t} \, dx \approx \sqrt{2\pi n} \left(\frac{n}{e}\right)^n$$
+When we exponentiate this Taylor series approximation back into our integrand, we get:
 
-This is exactly Stirling's approximation for $n!$
+$$t^n e^{-t} = e^{f(t)} \approx e^{n \ln n - n - \frac{(t-n)^2}{2n}} = e^{n \ln n} e^{-n} e^{-\frac{(t-n)^2}{2n}} = n^n e^{-n} e^{-\frac{(t-n)^2}{2n}}=\left(\frac{n}{e}\right)^n\,e^{-\frac{(t-n)^2}{2n}}$$
+
+$\left(\frac{n}{e}\right)^n$ is the sheer altitude the power law achieves at $t=n$. The Gaussian term $e^{-\frac{(t-n)^2}{2n}}$ has a standard deviation of $\sqrt{n}$. This means the "width" of the mountain where the area is concentrated scales like $\sqrt{n}$. 
+
+To find the total area under this approximating curve, we integrate it over the positive real line. Because the peak becomes incredibly sharp for large $n$, extending the lower bound of integration from $0$ down to $-\infty$ introduces a completely negligible error, transforming it into a classic Gaussian Integral:
+
+$$\int_0^\infty t^n e^{-t} \, dt \approx \int_{-\infty}^\infty n^n e^{-n} e^{-\frac{(t-n)^2}{2n}} \, dt$$
+
+Pulling out the constant peak value:
+
+$$= n^n e^{-n} \int_{-\infty}^\infty e^{-\frac{(t-n)^2}{2n}} \, dt$$
+
+To evaluate this integral, let's perform a change of variables. Let $u = \frac{t-n}{\sqrt{2n}}$, which implies $dt = \sqrt{2n} \, du$. The bounds remain $-\infty$ to $\infty$:
+
+$$= n^n e^{-n} \int_{-\infty}^\infty e^{-u^2} \left(\sqrt{2n} \, du\right)$$
+
+$$= \sqrt{2n} \, n^n e^{-n} \underbrace{\int_{-\infty}^\infty e^{-u^2} \, du}_{\sqrt{\pi}}$$
+
+Using the standard Gaussian identity $\int_{-\infty}^\infty e^{-u^2} \, du = \sqrt{\pi}$, the expression collapses to its final form:
+
+$$= \sqrt{2n} \, \sqrt{\pi} \, n^n e^{-n} = \sqrt{2\pi n} \left(\frac{n}{e}\right)^n$$
+
+This is exactly **Stirling's approximation** for $n!$
 
 ---
 
@@ -175,6 +231,9 @@ This means the power law inside the integrand is actually combinatorial growth d
 
 Kasper Müller has a great paper on the gamma function on Medium. Unfortunately, the mathematical equations are images, rather than text or LaTeX. To play with them, I ended up typing a bunch, so I carried on with the rest.
 
+
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 
 The Gamma Function
 
@@ -611,6 +670,8 @@ and substituting back into the expression:
 > Therefore we can now interpret
 >
 > $$\frac 1 2! =\frac 1 2 \Gamma(1/2)=\sqrt \pi/2$$
+
+</div>
 
 ---
 
