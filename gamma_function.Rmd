@@ -25,11 +25,13 @@ $$\small\text{Laplace Transform:} \quad \mathcal{L}\{f(t)\}(s) = \int_0^\infty f
 
 The Gamma function is explicitly the Laplace transform of a basic power law, evaluated at a specific scaling factor.
 
-It is also the **Mellin transform** of the basic exponential function $f(t) = e^{-t}$.
+It is also the [**Mellin transform**](https://rinterested.github.io/statistics/money.html) of the basic exponential function $f(t) = e^{-t}$.
 
-$$\small\text{Mellin Transform:} \quad \mathcal{M}\{f(t)\}(s) = \int_0^\infty t^{s-1} \;f(t) \, dt$$
+$$\small\text{Mellin Transform:} \quad \mathcal{M}\{f(t)\}(s) = \int_0^\infty t^{s-1} \;f(t) \, dt$$ intended to integrate multiplicative processes (e.g. discounted stream of payments to present value with  continuously changing interest rate).
 
-Originally, Euler formulated it to turn the factorial function into a continued function. 
+---
+
+Originally, Euler formulated the gamma function to turn the factorial function into a continued function. 
 
 Notice that the function is eventually brought to zero by the exponential component as $t\to \infty,$ guaranteeing integrability. To understand how the integrand of the gamma function, $t^n e^{-t}$, manages to grow so colossally as to reproduce the factorials, we have to look at a classic mathematical tug-of-war. At first glance, it feels counterintuitive. We are taught early on that "exponential decay always beats a power law as $x \to \infty$." That is absolutely true in the limit. If we pick a fixed $n$ and let $t$ run to infinity, $e^{-t}$ completely crushes $t^n$, dragging the product down to zero. But the magic of the gamma function,
 
@@ -67,7 +69,9 @@ $t \to \infty$ (where the function asymptotically approaches $0$) $n - t = 0 \im
 To verify it is a maximum, we look at the sign of the derivative: for $t < n$, $\frac{dy}{dt} > 0$ (climbing); for $t > n$, $\frac{dy}{dt} < 0$ (falling). Thus, the peak is precisely at $t = n$.
 </div>
 
-The total area under the curve is the factorial. To see how this concentrated peak accounts for the entire integral, we can look at the behavior near $x = n$ by rewriting the integrand using logs:
+---
+
+The total area under the curve is the factorial. To see how this concentrated peak accounts for the entire integral, we can look at the behavior near $x = n$ using exponential conversion:
 
 $$x^n e^{-x} = e^{n \ln x - x}$$
 

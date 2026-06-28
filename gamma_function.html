@@ -392,13 +392,16 @@ transform</strong>:</p>
 dt\]</span></p>
 <p>The Gamma function is explicitly the Laplace transform of a basic
 power law, evaluated at a specific scaling factor.</p>
-<p>It is also the <strong>Mellin transform</strong> of the basic
-exponential function <span class="math inline">\(f(t) =
-e^{-t}\)</span>.</p>
+<p>It is also the <a href="https://rinterested.github.io/statistics/money.html"><strong>Mellin
+transform</strong></a> of the basic exponential function <span class="math inline">\(f(t) = e^{-t}\)</span>.</p>
 <p><span class="math display">\[\small\text{Mellin Transform:} \quad
-\mathcal{M}\{f(t)\}(s) = \int_0^\infty t^{s-1} \;f(t) \, dt\]</span></p>
-<p>Originally, Euler formulated it to turn the factorial function into a
-continued function.</p>
+\mathcal{M}\{f(t)\}(s) = \int_0^\infty t^{s-1} \;f(t) \, dt\]</span>
+intended to integrate multiplicative processes (e.g. discounted stream
+of payments to present value with continuously changing interest
+rate).</p>
+<hr />
+<p>Originally, Euler formulated the gamma function to turn the factorial
+function into a continued function.</p>
 <p>Notice that the function is eventually brought to zero by the
 exponential component as <span class="math inline">\(t\to
 \infty,\)</span> guaranteeing integrability. To understand how the
@@ -452,10 +455,11 @@ asymptotically approaches <span class="math inline">\(0\)</span>) <span class="m
 <span class="math inline">\(t &gt; n\)</span>, <span class="math inline">\(\frac{dy}{dt} &lt; 0\)</span> (falling). Thus, the
 peak is precisely at <span class="math inline">\(t = n\)</span>.</p>
 </div>
+<hr />
 <p>The total area under the curve is the factorial. To see how this
 concentrated peak accounts for the entire integral, we can look at the
-behavior near <span class="math inline">\(x = n\)</span> by rewriting
-the integrand using logs:</p>
+behavior near <span class="math inline">\(x = n\)</span> using
+exponential conversion:</p>
 <p><span class="math display">\[x^n e^{-x} = e^{n \ln x -
 x}\]</span></p>
 <p>We carry out a Taylor expansion of the exponent <span class="math inline">\(f(x) = n \ln x - x\)</span> around its peak at
