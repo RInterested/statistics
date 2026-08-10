@@ -614,6 +614,57 @@ acts as the fundamental unit <span class="math inline">\(1 \in
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 The Absolute Galois Group and the Profinite Completion <span class="math inline">\(\widehat{\mathbb{Z}}\)</span>
 </h3>
+<p>The profinite completion of the integers, denoted as <span class="math inline">\(\widehat{\mathbb{Z}}\)</span>, is the algebraic
+structure obtained by taking the inverse limit of all finite quotients
+of <span class="math inline">\(\mathbb{Z}\)</span>. It serves as a
+foundational object in algebraic number theory, modern Galois theory,
+and arithmetic geometry.</p>
+<p>The primary occurrence of <span class="math inline">\(\widehat{\mathbb{Z}}\)</span> in field theory is
+as the absolute Galois group of a finite field <span class="math inline">\(\mathbb{F}_q\)</span>:<span class="math display">\[\mathrm{Gal}(\bar{\mathbb{F}}_q / \mathbb{F}_q)
+\cong \widehat{\mathbb{Z}}\]</span>The canonical topological generator
+of this group corresponds to <span class="math inline">\(1 \in
+\widehat{\mathbb{Z}}\)</span>, which maps to the Frobenius endomorphism
+<span class="math inline">\(x \mapsto x^q\)</span>.</p>
+<p>Every element of <span class="math inline">\(\widehat{\mathbb{Z}}\)</span> is an infinite list
+or vector of remainders <span class="math inline">\((a_1, a_2, a_3, a_4,
+\dots)\)</span>, where the <span class="math inline">\(n\)</span>-th
+entry <span class="math inline">\(a_n\)</span> is a remainder modulo
+<span class="math inline">\(n\)</span>. This is directly tied to the
+Chinese Remainder Theorem (CRT). But there is one crucial twist that
+separates the regular integers <span class="math inline">\(\mathbb{Z}\)</span> from the full completion <span class="math inline">\(\widehat{\mathbb{Z}}\)</span>. If you pick a
+regular integer like <span class="math inline">\(x = 7\)</span>, its
+infinite vector looks like:</p>
+<p><span class="math display">\[x = (\overbrace{0 \bmod 1}^{a_1}, \;
+\overbrace{1 \bmod 2}^{a_2}, \; \overbrace{1 \bmod 3}^{a_3}, \;
+\overbrace{3 \bmod 4}^{a_4}, \; \overbrace{2 \bmod 5}^{a_5}, \;
+\overbrace{1 \bmod 6}^{a_6}, \; \dots)\]</span></p>
+<p>If you stop at any finite point—say, looking only at <span class="math inline">\(a_2, a_3,\)</span> and <span class="math inline">\(a_5\)</span>:</p>
+<p><span class="math inline">\(x \equiv 1 \pmod 2\)</span></p>
+<p><span class="math inline">\(x \equiv 1 \pmod 3\)</span></p>
+<p><span class="math inline">\(x \equiv 2 \pmod 5\)</span></p>
+<p>The Chinese Remainder Theorem guarantees there is a unique integer
+modulo <span class="math inline">\(2 \times 3 \times 5 = 30\)</span>
+that solves this system (here, <span class="math inline">\(7 \bmod
+30\)</span>). Every regular integer <span class="math inline">\(x \in
+\mathbb{Z}\)</span> generates a valid infinite vector where every single
+finite truncation is solved by <span class="math inline">\(x\)</span>
+itself.</p>
+<p>However, you can’t just throw any random numbers into this infinite
+vector. For the vector <span class="math inline">\((a_1, a_2, a_3,
+\dots)\)</span> to be a valid element of <span class="math inline">\(\widehat{\mathbb{Z}}\)</span>, the entries must
+agree with each other whenever one modulus divides another. If <span class="math inline">\(n\)</span> divides <span class="math inline">\(m\)</span>, then <span class="math inline">\(a_m
+\bmod n\)</span> must equal <span class="math inline">\(a_n\)</span>.</p>
+<p><span class="math inline">\(a_6 = 5 \implies a_2 = 1\)</span> and
+<span class="math inline">\(a_3 = 2\)</span> (because <span class="math inline">\(5 \equiv 1 \bmod 2\)</span> and <span class="math inline">\(5 \equiv 2 \bmod 3\)</span>).</p>
+<p><span class="math inline">\(a_6 = 5\)</span> and <span class="math inline">\(a_2 = 0\)</span> would be invalid. (This breaks
+down because <span class="math inline">\(5 \not\equiv 0 \pmod
+2\)</span>).</p>
+<p>For any finite number of entries, CRT guarantees you can find a
+regular integer <span class="math inline">\(x\)</span> that matches
+those entries. But as you look further and further down the infinite
+vector, that matching integer <span class="math inline">\(x\)</span>
+might keep changing and growing without bound! In this way, <span class="math inline">\(\hat {\mathbb Z}\)</span> is larger than <span class="math inline">\(\mathbb Z.\)</span></p>
+<hr />
 <p>So far, for a fixed degree-<span class="math inline">\(f\)</span>
 extension, the Galois group <span class="math inline">\(\mathrm{Gal}(\mathbb{F}_{p^f}/\mathbb{F}_p)\)</span>
 is a finite cyclic group of order <span class="math inline">\(f\)</span>, isomorphic to <span class="math inline">\(\mathbb{Z}/f\mathbb{Z}\)</span>.</p>
