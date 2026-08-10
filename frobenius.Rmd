@@ -15,7 +15,7 @@ output:
 
 ---
 
-### rings of integers in field extensions, integer prime ideals, finite fields and Frobenius automorphism:
+### Rings of integers in field extensions, integer prime ideals, finite fields and Frobenius automorphism:
 
 ---
 
@@ -49,7 +49,9 @@ Concrete Examples of $\mathcal{O}_K$
 Gaussian Integers
 </h5>
 
-$K = \mathbb{Q}(i)$ Here, the degree of $K/\mathbb{Q}$ is $[K : \mathbb{Q}] = 2$, with basis $\{1, i\}$. An element $a + bi \in \mathbb{Q}(i)$ has minimal polynomial $x^2 - 2ax + (a^2 + b^2)$. For the coefficients of this polynomial to be in $\mathbb{Z}$, both $a$ and $b$ must be integers. Thus:$$\mathcal{O}_{\mathbb{Q}(i)} = \mathbb{Z}[i] = \{a + bi \mid a, b \in \mathbb{Z}\}$$
+$K = \mathbb{Q}(i)$ Here, the degree of $K/\mathbb{Q}$ is $[K : \mathbb{Q}] = 2$, with basis $\{1, i\}$. An element $a + bi \in \mathbb{Q}(i)$ has minimal polynomial $x^2 - 2ax + (a^2 + b^2)$. For the coefficients of this polynomial to be in $\mathbb{Z}$, both $a$ and $b$ must be integers. Thus:
+
+$$\mathcal{O}_{\mathbb{Q}(i)} = \mathbb{Z}[i] = \{a + bi \mid a, b \in \mathbb{Z}\}$$
 
 <h5 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 Other Quadratic Fields:
@@ -89,13 +91,84 @@ $$\mathfrak{p}_1 = \{(a+bi)(2+i) \mid a,b \in \mathbb{Z}\}$$
 Modulo a Prime Ideal: Constructing Finite Residue Fields
 </h3>
 
-In $\mathbb{Z}$, taking the quotient by the ideal $(p) = p\mathbb{Z}$ yields the finite field $\mathbb{Z}/p\mathbb{Z} = \mathbb{F}_p$.Similarly, taking the quotient of a ring of integers $\mathcal{O}_K$ by a maximal prime ideal $\mathfrak{p}$ produces a residue class field:$$\mathbb{F}_q := \mathcal{O}_K / \mathfrak{p}$$Because $\mathfrak{p}$ sits above some rational prime $p$ (meaning $p \in \mathfrak{p}$), the field $\mathcal{O}_K/\mathfrak{p}$ contains $\mathbb{Z}/p\mathbb{Z} \cong \mathbb{F}_p$ as its base subfield.Terminology: Inertia Degree ($f$) and "Horizontal Extension"The quotient field $\mathcal{O}_K/\mathfrak{p}$ is a vector space over $\mathbb{F}_p$. Its dimension $f = [\mathcal{O}_K/\mathfrak{p} : \mathbb{F}_p]$ is called the inertia degree (or residue degree) of $\mathfrak{p}$.The number of elements in the finite field is:$$q = N(\mathfrak{p}) = p^f$$This process expands the finite field horizontally from $\mathbb{F}_p$ to its degree-$f$ field extension $\mathbb{F}_{p^f}$:$$\mathbb{F}_p \xrightarrow{\quad \text{degree } f \quad} \mathbb{F}_{p^f} \cong \mathcal{O}_K / \mathfrak{p}$$Concrete Examples of Residue Field ConstructionsExample A: $\mathbb{F}_{25}$ from $\mathbb{Z}[i]$ modulo an Inert Prime ($p = 3$)In $\mathbb{Z}[i]$, $p=3$ remains prime (it is inert), so $\mathfrak{p} = (3) = 3\mathbb{Z}[i]$.The quotient is:$$\mathbb{F}_q = \mathbb{Z}[i] / (3)$$Every element in $\mathbb{Z}[i]$ can be written as $a + bi$. Modulo 3, $a, b \in \{0, 1, 2\} = \mathbb{F}_3$.The basis vectors for $\mathbb{Z}[i]/(3)$ over $\mathbb{F}_3$ are $\{1, i\}$.Any element in this field takes the form:$$a + bi \quad \text{with } a, b \in \mathbb{F}_3$$Total size: $3^2 = 9$ elements ($\mathbb{F}_9$).Example B: Higher Dimensional Extension $\mathbb{F}_{p^f}$Consider a composite extension like $K = \mathbb{Q}(i, \sqrt{2})$ with $\mathcal{O}_K = \mathbb{Z}[i, \sqrt{2}]$.Suppose $\mathfrak{p}$ is a prime ideal in $\mathcal{O}_K$ lying over $p$.The elements of $\mathcal{O}_K / \mathfrak{p}$ are represented by linear combinations of the ring generators modulo $\mathfrak{p}$:$$a + bi + c\sqrt{2} + d(i\sqrt{2}) \pmod{\mathfrak{p}}$$where the coefficients $a, b, c, d$ are restricted to the base field choices $\{0, 1, \dots, p-1\} \cong \mathbb{F}_p$.As an $\mathbb{F}_p$-vector space, the field has basis $\{1, i, \sqrt{2}, i\sqrt{2}\}$ (or a subset depending on how $p$ splits/decomposes), yielding a finite field $\mathbb{F}_{p^f}$ of size $p^f$ ($f \le 4$).
+In $\mathbb{Z}$, taking the quotient by the ideal $(p) = p\mathbb{Z}$ yields the finite field $\mathbb{Z}/p\mathbb{Z} = \mathbb{F}_p$. Similarly, taking the quotient of a ring of integers $\mathcal{O}_K$ by a maximal prime ideal $\mathfrak{p}$ produces a residue class field:
+
+$$\mathbb{F}_q := \mathcal{O}_K / \mathfrak{p}$$
+
+Because $\mathfrak{p}$ sits above some rational prime $p$ (meaning $p \in \mathfrak{p}$), the field $\mathcal{O}_K/\mathfrak{p}$ contains $\mathbb{Z}/p\mathbb{Z} \cong \mathbb{F}_p$ as its base subfield.
+
+This is the quotient of $\mathbb Z[i]/(2+i)$ with the fundamental domain:
+
+<img width = 400  src = "finite_field_2d.png">
+
+---
+
+And this is the quotient of $\mathbb Z[i,\sqrt2]/(2+i)\cong \mathbb F_{25}:$
+
+<img width = 600  src = "finite_field_3d.png">
+
+---
+
+Inertia Degree ($f$) and "Horizontal Extension": The quotient field $\mathcal{O}_K/\mathfrak{p}$ is a vector space over $\mathbb{F}_p$. Its dimension $f = [\mathcal{O}_K/\mathfrak{p} : \mathbb{F}_p]$ is called the inertia degree (or residue degree) of $\mathfrak{p}$. The number of elements in the finite field is:
+
+$$q = N(\mathfrak{p}) = p^f$$
+
+This process expands the finite field horizontally from $\mathbb{F}_p$ to its degree-$f$ field extension $\mathbb{F}_{p^f}$:
+
+$$\mathbb{F}_p \xrightarrow{\quad \text{degree } f \quad} \mathbb{F}_{p^f} \cong \mathcal{O}_K / \mathfrak{p}$$
+
+Concrete Examples of Residue Field Constructions:
+
+Example A: $\mathbb{F}_{25}$ from $\mathbb{Z}[i]$ modulo an Inert Prime ($p = 3$). In $\mathbb{Z}[i]$, $p=3$ remains prime (it is inert), so $\mathfrak{p} = (3) = 3\mathbb{Z}[i]$. The quotient is:
+
+$$\mathbb{F}_q = \mathbb{Z}[i] / (3)$$
+
+Every element in $\mathbb{Z}[i]$ can be written as $a + bi$. Modulo $3,$ $a, b \in \{0, 1, 2\} = \mathbb{F}_3$.
+
+The basis vectors for $\mathbb{Z}[i]/(3)$ over $\mathbb{F}_3$ are $\{1, i\}$. Any element in this field takes the form:
+
+$$a + bi \quad \text{with } a, b \in \mathbb{F}_3$$
+
+Total size: $3^2 = 9$ elements ($\mathbb{F}_9$).
+
+Example B: Higher Dimensional Extension $\mathbb{F}_{p^f}$. Consider a composite extension like $K = \mathbb{Q}(i, \sqrt{2})$ with $\mathcal{O}_K = \mathbb{Z}[i, \sqrt{2}]$. Suppose $\mathfrak{p}$ is a prime ideal in $\mathcal{O}_K$ lying over $p$. The elements of $\mathcal{O}_K / \mathfrak{p}$ are represented by linear combinations of the ring generators modulo $\mathfrak{p}$:
+
+$$a + bi + c\sqrt{2} + d(i\sqrt{2}) \pmod{\mathfrak{p}}$$
+where the coefficients $a, b, c, d$ are restricted to the base field choices $\{0, 1, \dots, p-1\} \cong \mathbb{F}_p$.As an $\mathbb{F}_p$-vector space, the field has basis $\{1, i, \sqrt{2}, i\sqrt{2}\}$ (or a subset depending on how $p$ splits/decomposes), yielding a finite field $\mathbb{F}_{p^f}$ of size $p^f$ ($f \le 4$).
 
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 The Frobenius Automorphism:
 </h3>
 
-Now we bring all these pieces together: finite fields, prime decomposition, and Galois groups.Motivation: Constructing Canonical Symmetry in Characteristic $p$In a finite field $\mathbb{F}_q = \mathbb{F}_{p^f}$, consider the map that raises every element to the $p$-th power:$$\sigma_p : \mathbb{F}_q \to \mathbb{F}_q, \quad x \mapsto x^p$$By the Freshman's Dream, $(x + y)^p = x^p + y^p$ in characteristic $p$, and $(xy)^p = x^p y^p$. Thus $\sigma_p$ is a field automorphism. Moreover, by Fermat's Little Theorem, $\sigma_p(a) = a^p \equiv a \pmod p$ for all $a \in \mathbb{F}_p$, meaning $\sigma_p$ keeps the base field $\mathbb{F}_p$ fixed.$\sigma_p$ is called the Frobenius Automorphism.The Galois Group of Finite FieldsThe Galois group of a finite field extension $\mathrm{Gal}(\mathbb{F}_{p^f} / \mathbb{F}_p)$ is cyclic of order $f$, and it is canonically generated by the Frobenius automorphism:$$\mathrm{Gal}(\mathbb{F}_{p^f} / \mathbb{F}_p) = \langle \sigma_p \rangle = \{ \mathrm{id}, \sigma_p, \sigma_p^2, \dots, \sigma_p^{f-1} \}$$Connecting Local Frobenius to Global Number FieldsNow link this back to number fields $K/\mathbb{Q}$ and $\mathcal{O}_K$:Global Unramified Extension: Let $K/\mathbb{Q}$ be a Galois extension with Galois group $G = \mathrm{Gal}(K/\mathbb{Q})$.Local Quotients: Pick a prime ideal $\mathfrak{P} \subset \mathcal{O}_K$ lying over $p \in \mathbb{Z}$. The quotient gives the residue field extension $\mathbb{F}_{p^f} / \mathbb{F}_p$.Lifting Frobenius: There exists a unique element in the global Galois group $G$, called the Frobenius element $\mathrm{Frob}_{\mathfrak{P}}$, that acts on the ring of integers $\mathcal{O}_K$ in a way that matches the local Frobenius map on the residue field:$$\mathrm{Frob}_{\mathfrak{P}}(x) \equiv x^p \pmod{\mathfrak{P}} \quad \text{for all } x \in \mathcal{O}_K$$Why is Frobenius the Central Engine of Number Theory?Order equals Inertia: The order of the element $\mathrm{Frob}_{\mathfrak{P}}$ in the Galois group $G$ is precisely $f$, the inertia degree of $\mathfrak{P}$!Predicts Prime Decomposition:If $\mathrm{Frob}_{\mathfrak{P}} = \mathrm{id}$ (order 1), then $f = 1$, which means $p$ splits completely in $K$.If $\mathrm{Frob}_{\mathfrak{P}}$ generates a large cyclic subgroup, $p$ is inert or stays in large degrees.The Absolute Picture: Taking the inverse limit over all finite extensions yields the absolute Galois group $\mathrm{Gal}(\bar{\mathbb{F}}_p/\mathbb{F}_p) \cong \widehat{\mathbb{Z}}$, where the global Frobenius element acts as the fundamental unit $1 \in \widehat{\mathbb{Z}}$.
+Now we bring all these pieces together: finite fields, prime decomposition, and Galois groups.
+
+Motivation: Constructing Canonical Symmetry in Characteristic $p$. In a finite field $\mathbb{F}_q = \mathbb{F}_{p^f}$, consider the map that raises every element to the $p$-th power:
+
+$$\sigma_p : \mathbb{F}_q \to \mathbb{F}_q, \quad x \mapsto x^p$$
+
+By freshman's dream, $(x + y)^p = x^p + y^p$ in characteristic $p$, and $(xy)^p = x^p y^p$. Thus $\sigma_p$ is a field automorphism. Moreover, by Fermat's Little Theorem, $\sigma_p(a) = a^p \equiv a \pmod p$ for all $a \in \mathbb{F}_p$, meaning $\sigma_p$ keeps the base field $\mathbb{F}_p$ fixed.
+
+$\sigma_p$ is called the Frobenius Automorphism. 
+
+The Galois Group of Finite Fields: The Galois group of a finite field extension $\mathrm{Gal}(\mathbb{F}_{p^f} / \mathbb{F}_p)$ is cyclic of order $f$, and it is canonically generated by the Frobenius automorphism:
+
+$$\mathrm{Gal}(\mathbb{F}_{p^f} / \mathbb{F}_p) = \langle \sigma_p \rangle = \{ \mathrm{id}, \sigma_p, \sigma_p^2, \dots, \sigma_p^{f-1} \}$$
+
+Connecting Local Frobenius to Global Number Fields Now let's link this back to number fields $K/\mathbb{Q}$ and $\mathcal{O}_K$:
+
+Global Unramified Extension: Let $K/\mathbb{Q}$ be a Galois extension with Galois group $G = \mathrm{Gal}(K/\mathbb{Q})$. 
+
+Local Quotients: Pick a prime ideal $\mathfrak{P} \subset \mathcal{O}_K$ lying over $p \in \mathbb{Z}$. The quotient gives the residue field extension $\mathbb{F}_{p^f} / \mathbb{F}_p$.
+
+Lifting Frobenius: There exists a unique element in the global Galois group $G$, called the Frobenius element $\mathrm{Frob}_{\mathfrak{P}}$, that acts on the ring of integers $\mathcal{O}_K$ in a way that matches the local Frobenius map on the residue field:
+
+$$\mathrm{Frob}_{\mathfrak{P}}(x) \equiv x^p \pmod{\mathfrak{P}} \quad \text{for all } x \in \mathcal{O}_K$$
+
+Why is Frobenius the central engine of number theory? The order of the element $\mathrm{Frob}_{\mathfrak{P}}$ in the Galois group $G$ is precisely $f$, the inertia degree of $\mathfrak{P}$!
+
+Predicts Prime Decomposition: If $\mathrm{Frob}_{\mathfrak{P}} = \mathrm{id}$ (order $1),$ then $f = 1$, which means $p$ splits completely in $K$. If $\mathrm{Frob}_{\mathfrak{P}}$ generates a large cyclic subgroup, $p$ is inert or stays in large degrees. 
+
+Taking the inverse limit over all finite extensions yields the absolute Galois group $\mathrm{Gal}(\bar{\mathbb{F}}_p/\mathbb{F}_p) \cong \widehat{\mathbb{Z}}$, where the global Frobenius element acts as the fundamental unit $1 \in \widehat{\mathbb{Z}}$.
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
