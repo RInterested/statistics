@@ -218,6 +218,16 @@ $a_6 = 5 \implies a_2 = 1$ and $a_3 = 2$ (because $5 \equiv 1 \bmod 2$ and $5 \e
 
 $a_6 = 5$ and $a_2 = 0$ would be invalid. (This breaks down because $5 \not\equiv 0 \pmod 2$).
 
+Imagine a sequence where we pick remainders that fit together perfectly:
+
+Mod $2:$ $1$
+
+Mod $6:$ $3$ (notice $3 \bmod 2 = 1$, so it agrees with Mod $2)$
+
+Mod $24:$ $23$ (notice $23 \bmod 6 = 3$, so it agrees with Mod $6)$
+
+Every step agrees with the previous steps. But if you keep going forever, the sequence of remainders doesn't belong to any standard integer like $5$ or $-12$. It belongs to an infinite limit of integers — a point in $\widehat{\mathbb{Z}}$.
+
 For any finite number of entries, CRT guarantees you can find a regular integer $x$ that matches those entries. But as you look further and further down the infinite vector, that matching integer $x$ might keep changing and growing without bound! In this way, $\hat {\mathbb Z}$ is larger than $\mathbb Z.$
 
 

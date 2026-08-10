@@ -659,6 +659,17 @@ agree with each other whenever one modulus divides another. If <span class="math
 <p><span class="math inline">\(a_6 = 5\)</span> and <span class="math inline">\(a_2 = 0\)</span> would be invalid. (This breaks
 down because <span class="math inline">\(5 \not\equiv 0 \pmod
 2\)</span>).</p>
+<p>Imagine a sequence where we pick remainders that fit together
+perfectly:</p>
+<p>Mod <span class="math inline">\(2:\)</span> <span class="math inline">\(1\)</span></p>
+<p>Mod <span class="math inline">\(6:\)</span> <span class="math inline">\(3\)</span> (notice <span class="math inline">\(3
+\bmod 2 = 1\)</span>, so it agrees with Mod <span class="math inline">\(2)\)</span></p>
+<p>Mod <span class="math inline">\(24:\)</span> <span class="math inline">\(23\)</span> (notice <span class="math inline">\(23
+\bmod 6 = 3\)</span>, so it agrees with Mod <span class="math inline">\(6)\)</span></p>
+<p>Every step agrees with the previous steps. But if you keep going
+forever, the sequence of remainders doesn’t belong to any standard
+integer like <span class="math inline">\(5\)</span> or <span class="math inline">\(-12\)</span>. It belongs to an infinite limit of
+integers — a point in <span class="math inline">\(\widehat{\mathbb{Z}}\)</span>.</p>
 <p>For any finite number of entries, CRT guarantees you can find a
 regular integer <span class="math inline">\(x\)</span> that matches
 those entries. But as you look further and further down the infinite
