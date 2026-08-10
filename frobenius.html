@@ -901,6 +901,55 @@ back to <span class="math inline">\(0 \pmod 2\)</span>.)</p>
 (\mathbb{Z}/n\mathbb{Z})\)</span>, the sequence <span class="math inline">\((1, 1, 1, 1, \dots)\)</span> is the canonical
 generator <span class="math inline">\(1 \in
 \widehat{\mathbb{Z}}\)</span>.</p>
+<p>Test:</p>
+<p>Let’s test the Frobenius map on the elements of <span class="math inline">\(\mathbb{F}_4\)</span> (where <span class="math inline">\(p=2\)</span>) to see exactly what it does. The
+Frobenius map here is <span class="math inline">\(\Phi_2(x) =
+x^2\)</span>.</p>
+<p>The elements of <span class="math inline">\(\mathbb{F}_4\)</span> are
+<span class="math inline">\(\{0, 1, \alpha, \alpha+1\}\)</span>, where
+<span class="math inline">\(\alpha^2 + \alpha + 1 = 0\)</span>.</p>
+<p>Why? To build a bigger field, we need a polynomial over <span class="math inline">\(\mathbb{F}_2\)</span> that doesn’t have any roots
+in <span class="math inline">\(\mathbb{F}_2\)</span> (an irreducible
+polynomial). Let’s test <span class="math inline">\(f(x) = x^2 + x +
+1\)</span> using the elements of <span class="math inline">\(\mathbb{F}_2\)</span>:</p>
+<p>Plug in <span class="math inline">\(0\)</span>: <span class="math inline">\(0^2 + 0 + 1 = 1 \neq 0\)</span></p>
+<p>Plug in <span class="math inline">\(1\)</span>: <span class="math inline">\(1^2 + 1 + 1 = 3 \equiv 1 \pmod 2 \neq
+0\)</span></p>
+<p>Since neither <span class="math inline">\(0\)</span> nor <span class="math inline">\(1\)</span> works, <span class="math inline">\(x^2
++ x + 1\)</span> has no roots in <span class="math inline">\(\mathbb{F}_2\)</span>. So you invent a root <span class="math inline">\(\alpha\)</span>: Just like we invent <span class="math inline">\(i = \sqrt{-1}\)</span> to extend the real numbers
+<span class="math inline">\(\mathbb{R}\)</span> to the complex numbers
+<span class="math inline">\(\mathbb{C}\)</span>, we invent a new
+element—let’s call it <span class="math inline">\(\alpha\)</span>—and
+declare that it satisfies:</p>
+<p><span class="math display">\[\alpha^2 + \alpha + 1 = 0\]</span></p>
+<p>If we apply <span class="math inline">\(x \mapsto x^2\)</span> to
+each element:</p>
+<p><span class="math inline">\(0^2 = 0\)</span></p>
+<p><span class="math inline">\(1^2 = 1\)</span></p>
+<p><span class="math inline">\(\alpha^2 = \alpha + 1\)</span> (using our
+rule <span class="math inline">\(\alpha^2 + \alpha + 1 = 0\)</span>,
+which means <span class="math inline">\(\alpha^2 = -\alpha - 1\)</span>,
+and since <span class="math inline">\(p=2\)</span>, minus is the same as
+plus) <span class="math inline">\((\alpha+1)^2 = \alpha^2 + 1 = (\alpha
++ 1) + 1 = \alpha + 2 = \alpha\)</span></p>
+<p>The elements <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\alpha+1\)</span> just swapped places.</p>
+<p>Therefore, <strong>the Frobenius map does not leave all elements
+unchanged. It actively shuffles elements around, and only leaves the
+base field <span class="math inline">\(\mathbb{F}_p\)</span> (in this
+case, <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>) completely untouched.</strong> It is
+easy to mix up the two equations at play here: <span class="math inline">\(x^p = x\)</span>: This only works for the <span class="math inline">\(p\)</span> elements in the base field <span class="math inline">\(\mathbb{F}_p\)</span>. For anything in a larger
+extension, <span class="math inline">\(x^p\)</span> moves the element
+somewhere else.</p>
+<p><span class="math inline">\(x^{p^n} = x\)</span>: This works for all
+elements in <span class="math inline">\(\mathbb{F}_{p^n}\)</span>, but
+it represents applying the Frobenius map <span class="math inline">\(n\)</span> times in a row. Think of the Frobenius
+map like a 90-degree rotation of a square. One turn (applying <span class="math inline">\(x^p\)</span>) doesn’t leave the square unchanged —
+it moves all the corners to new positions. But if you do it exactly
+<span class="math inline">\(4\)</span> times (applying <span class="math inline">\(x^{p^4}\)</span>), every corner lands exactly back
+where it started.Because one application of Frobenius systematically
+shuffles the roots of polynomials into each other, it acts as the basic
+“generator” or “single click” from which all other symmetries in the
+Galois group are built.</p>
 <hr />
 <p><a href="http://rinterested.github.io/statistics/index.html">Home
 Page</a></p>

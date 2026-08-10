@@ -405,6 +405,37 @@ $$\Phi_p \longmapsto (1 \pmod 1, \; 1 \pmod 2, \; 1 \pmod 3, \; 1 \pmod 4, \; \d
 
 In the profinite completion $\widehat{\mathbb{Z}} = \varprojlim (\mathbb{Z}/n\mathbb{Z})$, the sequence $(1, 1, 1, 1, \dots)$ is the canonical generator $1 \in \widehat{\mathbb{Z}}$.
 
+Test:
+
+Let's test the Frobenius map on the elements of $\mathbb{F}_4$ (where $p=2$) to see exactly what it does. The Frobenius map here is $\Phi_2(x) = x^2$. 
+
+The elements of $\mathbb{F}_4$ are $\{0, 1, \alpha, \alpha+1\}$, where $\alpha^2 + \alpha + 1 = 0$.
+
+Why? To build a bigger field, we need a polynomial over $\mathbb{F}_2$ that doesn't have any roots in $\mathbb{F}_2$ (an irreducible polynomial). Let's test $f(x) = x^2 + x + 1$ using the elements of $\mathbb{F}_2$: 
+
+Plug in $0$: $0^2 + 0 + 1 = 1 \neq 0$
+
+Plug in $1$: $1^2 + 1 + 1 = 3 \equiv 1 \pmod 2 \neq 0$
+
+Since neither $0$ nor $1$ works, $x^2 + x + 1$ has no roots in $\mathbb{F}_2$. So you invent a root $\alpha$: Just like we invent $i = \sqrt{-1}$ to extend the real numbers $\mathbb{R}$ to the complex numbers $\mathbb{C}$, we invent a new element—let's call it $\alpha$—and declare that it satisfies:
+
+$$\alpha^2 + \alpha + 1 = 0$$
+
+If we apply $x \mapsto x^2$ to each element:
+
+$0^2 = 0$
+
+$1^2 = 1$
+
+$\alpha^2 = \alpha + 1$ (using our rule $\alpha^2 + \alpha + 1 = 0$, which means $\alpha^2 = -\alpha - 1$, and since $p=2$, minus is the same as plus) $(\alpha+1)^2 = \alpha^2 + 1 = (\alpha + 1) + 1 = \alpha + 2 = \alpha$
+
+The elements $\alpha$ and $\alpha+1$ just swapped places. 
+
+Therefore, **the Frobenius map does not leave all elements unchanged. It actively shuffles elements around, and only leaves the base field $\mathbb{F}_p$ (in this case, $0$ and $1$) completely untouched.** 
+It is easy to mix up the two equations at play here: $x^p = x$: This only works for the $p$ elements in the base field $\mathbb{F}_p$. For anything in a larger extension, $x^p$ moves the element somewhere else. 
+
+$x^{p^n} = x$: This works for all elements in $\mathbb{F}_{p^n}$, but it represents applying the Frobenius map $n$ times in a row. Think of the Frobenius map like a 90-degree rotation of a square. One turn (applying $x^p$) doesn't leave the square unchanged — it moves all the corners to new positions. But if you do it exactly $4$ times (applying $x^{p^4}$), every corner lands exactly back where it started.Because one application of Frobenius systematically shuffles the roots of polynomials into each other, it acts as the basic "generator" or "single click" from which all other symmetries in the Galois group are built.
+
 
 ---
 <a href="http://rinterested.github.io/statistics/index.html">Home Page</a>
