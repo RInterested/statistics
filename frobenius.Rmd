@@ -160,7 +160,21 @@ Since $p$ is prime, it divides $p!$ but does not divide $k!$ or $(p-k)!$. Thus, 
 
 In addition $(xy)^p = x^p y^p$. 
 
-Thus $\sigma_p$ is a field automorphism. Showing preservation of addition and multiplication establishes that $\sigma_p$ is a field homomorphism. To conclude that $\sigma_p$ is an automorphism (a bijective homomorphism from a field to itself) we observe:
+These two properties the guaranteed that the Frobenius endomorphism $\sigma_p(x) = x^p$ is a field automorphism over a commutative ring or field of characteristic $p$. Given a field $R=\mathbb F_q,$ (while the proof specifically establishes that the Frobenius map is an automorphism when applied to a field (often denoted $F$ or $K$), the core identity $(x + y)^p = x^p + y^p$ actually holds true in any commutative ring of characteristic $p$—not just in fields) define the map $\sigma_p : R \to R$ by $\sigma_p(x) = x^p$.
+
+Homomorphism: Because 
+
+$$\sigma_p(x + y) = \sigma_p(x) + \sigma_p(y)$$ and 
+
+$$\sigma_p(xy) = \sigma_p(x)\sigma_p(y)$$, 
+
+$\sigma_p$ is a ring/field homomorphism.
+
+Injectivity: If $R = \mathbb{F}_q$ is a finite field, $\ker(\sigma_p) = \{0\}$ (since $x^p = 0 \implies x = 0$ in a field), making $\sigma_p$ injective.
+
+Automorphism: Since any injective map from a finite set to itself is surjective, $\sigma_p$ is a bijective field homomorphism, and therefore a field automorphism.
+
+To conclude that $\sigma_p$ is an automorphism (a bijective homomorphism from a field to itself) we observe:
 
 1. Any field homomorphism $\phi : F \to F$ is automatically injective (since the kernel is an ideal, and fields have no non-trivial ideals). 
 
