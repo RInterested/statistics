@@ -109,7 +109,7 @@ And this is the quotient of $\mathbb Z[i,\sqrt2]/(2+i)\cong \mathbb F_{25}:$
 
 ---
 
-Inertia Degree ($f$) and "Horizontal Extension": The quotient field $\mathcal{O}_K/\mathfrak{p}$ is a vector space over $\mathbb{F}_p$. Its dimension $f = [\mathcal{O}_K/\mathfrak{p} : \mathbb{F}_p]$ is called the inertia degree (or residue degree) of $\mathfrak{p}$. The number of elements in the finite field is:
+Inertia degree ($f$) and "horizontal extension": The quotient field $\mathcal{O}_K/\mathfrak{p}$ is a vector space over $\mathbb{F}_p$. Its dimension $f = [\mathcal{O}_K/\mathfrak{p} : \mathbb{F}_p]$ is called the inertia degree (or residue degree) of $\mathfrak{p}$. The number of elements in the finite field is:
 
 $$q = N(\mathfrak{p}) = p^f$$
 
@@ -142,11 +142,31 @@ The Frobenius Automorphism:
 
 Now we bring all these pieces together: finite fields, prime decomposition, and Galois groups.
 
-Motivation: Constructing Canonical Symmetry in Characteristic $p$. In a finite field $\mathbb{F}_q = \mathbb{F}_{p^f}$, consider the map that raises every element to the $p$-th power:
+The motivation is constructing a canonical symmetry in characteristic $p$. In a finite field $\mathbb{F}_q = \mathbb{F}_{p^f}$, consider the map that raises every element to the $p$-th power:
 
 $$\sigma_p : \mathbb{F}_q \to \mathbb{F}_q, \quad x \mapsto x^p$$
 
-By freshman's dream, $(x + y)^p = x^p + y^p$ in characteristic $p$, and $(xy)^p = x^p y^p$. Thus $\sigma_p$ is a field automorphism. Moreover, by Fermat's Little Theorem, $\sigma_p(a) = a^p \equiv a \pmod p$ for all $a \in \mathbb{F}_p$, meaning $\sigma_p$ keeps the base field $\mathbb{F}_p$ fixed.
+By freshman's dream, $(x + y)^p = x^p + y^p$ in characteristic $p$, because in a finite field of characteristic $p,$ which means that $\underset{p}{\underbrace{1+1+\cdots+1}}=0,$ the binomial expansion contains multiples of $p$ in every mixed $x^ky^{p-k}$ term.
+
+The binomial expansion in a ring gives:
+
+$$(x + y)^p = \sum_{k=0}^{p} \binom{p}{k} x^k y^{p-k} = x^p + y^p + \sum_{k=1}^{p-1} \binom{p}{k} x^k y^{p-k}$$
+
+For any prime $p$ and index $1 \le k \le p-1$, the binomial coefficient is:
+
+$$\binom{p}{k} = \frac{p!}{k!(p-k)!}$$
+
+Since $p$ is prime, it divides $p!$ but does not divide $k!$ or $(p-k)!$. Thus, $p \mid \binom{p}{k}$. In a field of characteristic $p$, $p \cdot 1 = 0$, so every intermediate term vanishes mod $p$. This proves $(x + y)^p = x^p + y^p$.
+
+In addition $(xy)^p = x^p y^p$. 
+
+Thus $\sigma_p$ is a field automorphism. Showing preservation of addition and multiplication establishes that $\sigma_p$ is a field homomorphism. To conclude that $\sigma_p$ is an automorphism (a bijective homomorphism from a field to itself) we observe:
+
+1. Any field homomorphism $\phi : F \to F$ is automatically injective (since the kernel is an ideal, and fields have no non-trivial ideals). 
+
+2. Because $\mathbb{F}_q$ is a finite set, an injective map from $\mathbb{F}_q$ to itself is automatically surjective.
+
+Moreover, by Fermat's Little Theorem, $\sigma_p(a) = a^p \equiv a \pmod p$ for all $a \in \mathbb{F}_p$, meaning $\sigma_p$ keeps the base field $\mathbb{F}_p$ fixed.
 
 $\sigma_p$ is called the Frobenius Automorphism. 
 
