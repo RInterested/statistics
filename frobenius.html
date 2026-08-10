@@ -384,64 +384,85 @@ fields and Frobenius automorphism:</h3>
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
 Motivation &amp; Terminology:
 </h3>
-<p>The Ring of Integers <span class="math inline">\(\mathcal{O}_K\)</span></p>
-<p>Why Extend <span class="math inline">\(\mathbb{Z}\)</span>?</p>
+<h4 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+The Ring of Integers <span class="math inline">\(\mathcal{O}_K\)</span>
+</h4>
 <p>When we solve polynomial equations over <span class="math inline">\(\mathbb{Q}\)</span>, we often need to adjoin new
 elements—like <span class="math inline">\(\sqrt{2}\)</span>, <span class="math inline">\(\sqrt{-2}\)</span>, or <span class="math inline">\(i = \sqrt{-1}\)</span>. Adjoining these elements
 creates a number field <span class="math inline">\(K\)</span>, which is
-a finite-dimensional vector space over <span class="math inline">\(\mathbb{Q}\)</span>. However, working with <span class="math inline">\(K\)</span> directly loses the notion of arithmetic
-divisibility: in <span class="math inline">\(\mathbb{Q}\)</span>, every
-non-zero element is invertible, so there are no “primes” or “integers”
-in the field itself. To do arithmetic, we need a subring of <span class="math inline">\(K\)</span> that generalizes the ordinary integers
-<span class="math inline">\(\mathbb{Z}\)</span>.</p>
-<p>Algebraic IntegersAn element <span class="math inline">\(\alpha \in
+a finite-dimensional vector space over <span class="math inline">\(\mathbb{Q}\)</span>. To do arithmetic, we need a
+subring of <span class="math inline">\(K\)</span> that generalizes the
+ordinary integers <span class="math inline">\(\mathbb{Z}\)</span>.</p>
+<p>Algebraic Integers: An element <span class="math inline">\(\alpha \in
 K\)</span> is called an algebraic integer if it is a root of a monic
-polynomial (leading coefficient 1) with coefficients in <span class="math inline">\(\mathbb{Z}\)</span>:</p>
+polynomial (leading coefficient <span class="math inline">\(1)\)</span>
+with coefficients in <span class="math inline">\(\mathbb{Z}\)</span>:</p>
 <p><span class="math display">\[x^n + a_{n-1}x^{n-1} + \dots + a_1 x +
 a_0 = 0 \quad (a_i \in \mathbb{Z})\]</span></p>
-<p>The Ring of Integers <span class="math inline">\(\mathcal{O}_K\)</span></p>
+<p>The Ring of Integers <span class="math inline">\(\mathcal{O}_K\)</span>:</p>
 <p>The set of all algebraic integers in a number field <span class="math inline">\(K\)</span> forms a ring, denoted <span class="math inline">\(\mathcal{O}_K\)</span> (read as “O-K” or “the ring
 of integers of <span class="math inline">\(K\)</span>”):</p>
 <p><span class="math display">\[\mathcal{O}_K :=\{\alpha \in K \mid
-\alpha \text{ is integral over } \mathbb{Z}\}\]</span></p>
+\alpha \text{ is integer over } \mathbb{Z}\}\]</span></p>
 <p><span class="math inline">\(\mathcal{O}_K\)</span> plays the exact
-same role in <span class="math inline">\(K\)</span> that <span class="math inline">\(\mathbb{Z}\)</span> plays in <span class="math inline">\(\mathbb{Q}\)</span>.Concrete Examples of $_K$1.
-Gaussian Integers: <span class="math inline">\(K =
-\mathbb{Q}(i)\)</span>Here, the degree of <span class="math inline">\(K/\mathbb{Q}\)</span> is <span class="math inline">\([K : \mathbb{Q}] = 2\)</span>, with basis <span class="math inline">\(\{1, i\}\)</span>.An element <span class="math inline">\(a + bi \in \mathbb{Q}(i)\)</span> has minimal
+same role in <span class="math inline">\(K\)</span> that <span class="math inline">\(\mathbb{Z}\)</span> plays in <span class="math inline">\(\mathbb{Q}\)</span>.</p>
+<p>Concrete Examples of <span class="math inline">\(\mathcal{O}_K\)</span></p>
+<h5 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+Gaussian Integers
+</h5>
+<p><span class="math inline">\(K = \mathbb{Q}(i)\)</span> Here, the
+degree of <span class="math inline">\(K/\mathbb{Q}\)</span> is <span class="math inline">\([K : \mathbb{Q}] = 2\)</span>, with basis <span class="math inline">\(\{1, i\}\)</span>. An element <span class="math inline">\(a + bi \in \mathbb{Q}(i)\)</span> has minimal
 polynomial <span class="math inline">\(x^2 - 2ax + (a^2 + b^2)\)</span>.
 For the coefficients of this polynomial to be in <span class="math inline">\(\mathbb{Z}\)</span>, both <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> must be integers. Thus:<span class="math display">\[\mathcal{O}_{\mathbb{Q}(i)} = \mathbb{Z}[i] = \{a
-+ bi \mid a, b \in \mathbb{Z}\}\]</span>2. Other Quadratic Fields<span class="math inline">\(K = \mathbb{Q}(\sqrt{-2})\)</span>: Here <span class="math inline">\(\mathcal{O}_K = \mathbb{Z}[\sqrt{-2}] = \{a +
-b\sqrt{-2} \mid a, b \in \mathbb{Z}\}\)</span>.<span class="math inline">\(K = \mathbb{Q}(\sqrt{2})\)</span>: Here <span class="math inline">\(\mathcal{O}_K = \mathbb{Z}[\sqrt{2}] = \{a +
-b\sqrt{2} \mid a, b \in \mathbb{Z}\}\)</span>.3. Higher Degree /
-Composite Fields<span class="math inline">\(K = \mathbb{Q}(i,
-\sqrt{2})\)</span>: This is a degree 4 field over <span class="math inline">\(\mathbb{Q}\)</span>, generated by adjoining both
++ bi \mid a, b \in \mathbb{Z}\}\]</span></p>
+<h5 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+Other Quadratic Fields:
+</h5>
+<p><span class="math inline">\(K = \mathbb{Q}(\sqrt{-2})\)</span>: Here
+<span class="math inline">\(\mathcal{O}_K = \mathbb{Z}[\sqrt{-2}] = \{a
++ b\sqrt{-2} \mid a, b \in \mathbb{Z}\}\)</span>.</p>
+<p><span class="math inline">\(K = \mathbb{Q}(\sqrt{2})\)</span>: Here
+<span class="math inline">\(\mathcal{O}_K = \mathbb{Z}[\sqrt{2}] = \{a +
+b\sqrt{2} \mid a, b \in \mathbb{Z}\}\)</span>.</p>
+<h5 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
+Higher Degree / Composite Fields:
+</h5>
+<p><span class="math inline">\(K = \mathbb{Q}(i, \sqrt{2})\)</span>:
+This is a degree 4 field over <span class="math inline">\(\mathbb{Q}\)</span>, generated by adjoining both
 <span class="math inline">\(i\)</span> and <span class="math inline">\(\sqrt{2}\)</span>. Its ring of integers is:<span class="math display">\[\mathcal{O}_K = \mathbb{Z}[i, \sqrt{2}] = \{a +
 bi + c\sqrt{2} + d(i\sqrt{2}) \mid a, b, c, d \in
 \mathbb{Z}\}\]</span>Notice that as a <span class="math inline">\(\mathbb{Z}\)</span>-module, <span class="math inline">\(\mathcal{O}_K\)</span> is free of rank <span class="math inline">\([K:\mathbb{Q}] = 4\)</span>, with <span class="math inline">\(\mathbb{Z}\)</span>-basis <span class="math inline">\(\{1, i, \sqrt{2}, i\sqrt{2}\}\)</span>.</p>
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-Prime Ideals:
+Prime Ideals in <span class="math inline">\(\mathcal{O}_K\)</span>
 </h3>
-<p>Prime Ideals in <span class="math inline">\(\mathcal{O}_K\)</span>In
-ordinary integers <span class="math inline">\(\mathbb{Z}\)</span>,
+<p>In ordinary integers <span class="math inline">\(\mathbb{Z}\)</span>,
 numbers factor into prime numbers. In general rings of integers <span class="math inline">\(\mathcal{O}_K\)</span>, unique element
 factorization can fail (e.g., in <span class="math inline">\(\mathbb{Z}[\sqrt{-5}]\)</span>, <span class="math inline">\(6 = 2 \cdot 3 =
-(1+\sqrt{-5})(1-\sqrt{-5})\)</span>).To restore unique factorization,
-Richard Dedekind shifted focus from elements to ideals. In a ring of
-integers <span class="math inline">\(\mathcal{O}_K\)</span>, every
-nonzero proper ideal factors uniquely into a product of prime
-ideals.What Happens to Rational Primes <span class="math inline">\(p \in
-\mathbb{Z}\)</span>?When we view a rational prime <span class="math inline">\(p\)</span> as generating an ideal <span class="math inline">\((p) = p\mathcal{O}_K\)</span> in <span class="math inline">\(\mathcal{O}_K\)</span>, it may no longer remain
-prime. It can break apart into prime ideals of <span class="math inline">\(\mathcal{O}_K\)</span>:<span class="math display">\[p\mathcal{O}_K = \mathfrak{p}_1^{e_1}
-\mathfrak{p}_2^{e_2} \cdots \mathfrak{p}_g^{e_g}\]</span>The Gaussian
-Example (<span class="math inline">\(p = 5\)</span>)In <span class="math inline">\(K = \mathbb{Q}(i)\)</span> and <span class="math inline">\(\mathcal{O}_K = \mathbb{Z}[i]\)</span>:Consider
-the rational prime <span class="math inline">\(p = 5\)</span>.In <span class="math inline">\(\mathbb{Z}[i]\)</span>, <span class="math inline">\(5\)</span> factors as <span class="math inline">\((2+i)(2-i)\)</span>.The ideal generated by <span class="math inline">\(5\)</span> splits into two distinct prime
-ideals:<span class="math display">\[5\mathbb{Z}[i] = (2+i)(2-i) =
-\mathfrak{p}_1 \cdot \mathfrak{p}_2\]</span>Here <span class="math inline">\(\mathfrak{p}_1 = (2+i)\)</span> is a prime ideal
-of <span class="math inline">\(\mathbb{Z}[i]\)</span>. It consists of
-all multiples:<span class="math display">\[\mathfrak{p}_1 =
-\{(a+bi)(2+i) \mid a,b \in \mathbb{Z}\}\]</span></p>
+(1+\sqrt{-5})(1-\sqrt{-5})\)</span>). Similarly, <span class="math inline">\(5\)</span> is not a prime in the Gaussian
+integers, since it can be decomposed as <span class="math inline">\(5=(2+i)(2-i)\)</span> To restore unique
+factorization, Richard Dedekind shifted focus from elements to ideals.
+In a ring of integers <span class="math inline">\(\mathcal{O}_K\)</span>, every nonzero proper ideal
+factors uniquely into a product of prime ideals.</p>
+<p>When we view a rational prime <span class="math inline">\(p\)</span>
+as generating an ideal <span class="math inline">\((p) =
+p\mathcal{O}_K\)</span> in <span class="math inline">\(\mathcal{O}_K\)</span>, it may no longer remain
+prime. It can break apart into prime ideals of <span class="math inline">\(\mathcal{O}_K\)</span>:</p>
+<p><span class="math display">\[p\mathcal{O}_K = \mathfrak{p}_1^{e_1}
+\mathfrak{p}_2^{e_2} \cdots \mathfrak{p}_g^{e_g}\]</span></p>
+<p>The Gaussian Example (<span class="math inline">\(p = 5\)</span>). In
+<span class="math inline">\(K = \mathbb{Q}(i)\)</span> and <span class="math inline">\(\mathcal{O}_K = \mathbb{Z}[i]\)</span>:</p>
+<p>Consider the rational prime <span class="math inline">\(p =
+5\)</span>. In <span class="math inline">\(\mathbb{Z}[i]\)</span>, <span class="math inline">\(5\)</span> factors as <span class="math inline">\((2+i)(2-i)\)</span>. The ideal generated by <span class="math inline">\(5\)</span> splits into two distinct prime
+ideals:</p>
+<p><span class="math display">\[5\mathbb{Z}[i] = (2+i)(2-i) =
+\mathfrak{p}_1 \cdot \mathfrak{p}_2\]</span></p>
+<p>Here <span class="math inline">\(\mathfrak{p}_1 = (2+i)\)</span> is a
+prime ideal of <span class="math inline">\(\mathbb{Z}[i]\)</span>. It
+consists of all multiples:</p>
+<p><span class="math display">\[\mathfrak{p}_1 = \{(a+bi)(2+i) \mid a,b
+\in \mathbb{Z}\}\]</span></p>
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
-Modulo a Prime Idea: Constructing Finite Residue Fields
+Modulo a Prime Ideal: Constructing Finite Residue Fields
 </h3>
 <p>In <span class="math inline">\(\mathbb{Z}\)</span>, taking the
 quotient by the ideal <span class="math inline">\((p) =
