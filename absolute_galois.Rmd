@@ -84,7 +84,7 @@ It equals 0! So $\alpha^2$ is a root! If you square it once more, $\alpha^4 = \a
 The absolute Galois group of all finite extensions $G_{\mathbb{F}_p} = \text{Gal}(\bar{\mathbb{F}}_p/\mathbb{F}_p) \cong \widehat{\mathbb{Z}}$
 </h3>
 
-Now we are ready to make the final leap directly from your root $\alpha$ to the absolute Galois group $G_{\mathbb{F}_2}$.
+Now we are ready to make the final leap directly from our root $\alpha$ to the absolute Galois group $G_{\mathbb{F}_2}$.
 
 Here is the step-by-step path from a single root $\alpha$ to the infinite, global picture.
 
@@ -147,6 +147,70 @@ Is every compatible sequence of dial choices $(k_1, k_2, k_3, \dots)$ achievable
 No. By the Chinese Remainder Theorem, you can choose a sequence of dial settings—say $1 \pmod 2$, $2 \pmod 3$, $3 \pmod 5$, $4 \pmod 7$, and so on, where the required number of clicks grows infinitely. No single finite integer $k$ can equal all those congruences simultaneously, yet when given any specific root (like our $\alpha_3$), this choice hands you a clear, unambiguous answer ($k_3 = 2$, so $\alpha_3 \mapsto \alpha_3^4$).
 
 We go from a single root $\alpha$ to the absolute Galois group by recognizing that $\alpha$ lives in $\mathbb{F}_{2^3}$ where Frobenius acts as a 3-setting dial ($\mathbb{Z}/3\mathbb{Z}$); taking all finite extensions together gives an infinite collection of compatible dials ($\varprojlim \mathbb{Z}/n\mathbb{Z}$); and the absolute Galois group $G_{\mathbb{F}_2} = \widehat{\mathbb{Z}}$ is the complete set of all valid, compatible ways to set those infinite dials simultaneously.
+
+---
+
+The absolute Galois group of a finite field $\mathbb{F}_p$ is the inverse limit over **all finite extension degrees $n$**:
+
+$$G_{\mathbb{F}_p} = \text{Gal}(\bar{\mathbb{F}}_p / \mathbb{F}_p) \cong \varprojlim \mathbb{Z}/n\mathbb{Z} = \widehat{\mathbb{Z}}$$
+
+At this point the **all extensions degrees** makes it sound like there is one extension for every degree, but aren't there infinite polynomials for each degree?
+
+For any finite field $\mathbb{F}_{p}$ and any positive integer $n,$ there is only one extension field of degree $n$ up to isomorphism, not an infinite number. All irreducible polynomials of degree $n$ over $\mathbb{F}_{p}$ yield the exact same splitting field, which is why the inverse limit accurately reflects a single extension for each degree $n.$
+
+While the extensions are unique? 
+
+* Splitting field: Every degree-$n$ extension of $\mathbb{F}_{p}$ is the splitting field of the polynomial $x^{p^n} - x = 0.$
+
+* Roots: The roots of this polynomial form the unique finite field $\mathbb{F}_{p^{n}}$ with $p^{n}$ elements.
+
+* Different polynomials, same field: Distinct irreducible polynomials of degree $n$ define different primitive elements (generators), but adjoining a root of any such polynomial lands you inside the exact same isomorphic field $\mathbb{F}_{p^{n}}.$
+
+The reason all irreducible polynomials of degree $n$ generate the same field is that they all share roots within a single, larger "master" polynomial: 
+
+$$x^{p^n} - x$$
+
+Every irreducible polynomial of degree $n$ over $\mathbb{F}_{p}$ is a clean, algebraic factor of this master polynomial. Therefore, any root of your chosen polynomial is automatically a root of $x^{p^n} - x,$ trapping it inside the exact same field.
+
+Concrete Example: $\mathbb{F}_{2}$ and Degree $n = 3:$
+
+Let's look at the base field $\mathbb{F}_{2}$ (integers modulo $2)$ and extensions of degree $3.$
+
+There are exactly two irreducible polynomials of degree $3$ over $\mathbb{F}_{2}:$
+
+$P_1(x) = x^3 + x + 1$
+
+$P_2(x) = x^3 + x^2 + 1$
+
+If we build fields by adjoining a root of each, we will see they are just different perspectives of the exact same 8-element field, $\mathbb{F}_{8}.$
+
+The master polynomial for degree $3$ is $x^{2^3} - x = x^8 - x.$ Over $\mathbb{F}_{2},$ this polynomial factors completely into all irreducible polynomials whose degrees divide $3$ (degrees $1$ and $3):$
+
+$$x^{8}-x=x(x-1)(x^{3}+x+1)(x^{3}+x^{2}+1)$$
+
+Notice that both $P_1(x)$ and $P_2(x)$ are sitting right there inside it.
+
+Adjoining a root of $P_1(x)$
+
+Let $\alpha$ be a root of $P_1(x),$ so $\alpha^3 + \alpha + 1 = 0,$ or $\alpha^3 = \alpha + 1.$ The field generated is 
+
+$$\mathbb{F}_2(\alpha) = \{0, 1, \alpha, \alpha^2, \alpha+1, \alpha^2+\alpha, \alpha^2+\alpha+1, \alpha^2+1\}$$
+
+Finding the root of $P_2(x)$ inside $\mathbb{F}_2(\alpha):$
+
+We do not need to create a new universe to find a root for $P_2(x).$ It already exists inside the field we just made! Let's test an element from our field, like $\beta = \alpha + 1,$ and plug it into $P_2(x):$
+
+$$\begin{aligned}P_{2}(\alpha +1)&=(\alpha +1)^{3}+(\alpha +1)^{2}+1\\ &=(\alpha ^{3}+3\alpha ^{2}+3\alpha +1)+(\alpha ^{2}+2\alpha +1)+1\end{aligned}$$
+
+Since our coefficients are in $\mathbb{F}_{2},$ all even numbers become $0$ and odd numbers become $1$ $3 \equiv 1$ and $2 \equiv 0:$
+
+$$\begin{aligned}P_{2}(\alpha +1)&=(\alpha ^{3}+\alpha ^{2}+\alpha +1)+(\alpha ^{2}+1)+1\\ &=\alpha ^{3}+\alpha +1\end{aligned}$$
+
+Because $\alpha$ is a root of $P_1(x),$ we know $\alpha^3 + \alpha + 1 = 0.$ Therefore: 
+
+$$P_{2}(\alpha +1)=0$$
+
+The element $\beta = \alpha + 1$ is a perfectly valid root of $P_2(x).$ If you start with a root of $P_1(x),$ you can construct a root of $P_2(x)$ by adding $1.$ If you start with a root of $P_2(x),$ you can construct a root of $P_1(x)$ by adding $1.$ The choice of polynomial changes your coordinate system (which element you choose to label as your primary generator), but it does not change the algebraic structure of the field itself.
 
 
 ---
