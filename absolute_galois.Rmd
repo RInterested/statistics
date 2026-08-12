@@ -15,7 +15,11 @@ output:
 
 ---
 
-### Galois group of a finite field extension $\text{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p) \cong \mathbb{Z}/n\mathbb{Z}$ and absolute Galois group of all finite extensions $G_{\mathbb{F}_p} = \text{Gal}(\bar{\mathbb{F}}_p/\mathbb{F}_p) \cong \widehat{\mathbb{Z}}$:
+### Galois group of a finite field extension $\text{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p) \cong \mathbb{Z}/n\mathbb{Z}$ versus
+
+---
+
+### the absolute Galois group of all finite extensions $G_{\mathbb{F}_p} = \text{Gal}(\bar{\mathbb{F}}_p/\mathbb{F}_p) \cong \widehat{\mathbb{Z}}$:
 
 ---
 
@@ -55,7 +59,17 @@ $c_1$ has 2 choices ($0$ or $1$)
 
 $c_2$ has 2 choices ($0$ or $1$)
 
-Total elements $= 2 \times 2 \times 2 = 2^3 = 8$.This is why the size is $p^3 = 2^3 = 8$. The exponent $3$ comes from the degree of the polynomial, which determines the number of coefficients $(c_0, c_1, c_2)$ you need to write down any element.
+Total elements $= 2 \times 2 \times 2 = 2^3 = 8$. This is why the size is $p^3 = 2^3 = 8$. The exponent $3$ comes from the degree of the polynomial, which determines the number of coefficients $(c_0, c_1, c_2)$ you need to write down any element.
+
+---
+
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+
+Note that we really don't deal with any numerical value of \alpha. \alpha remains more like a formal symbol (an indeterminate satisfying $\alpha^3 + \alpha + 1 = 0$). What we really manipulate is the coefficient for $\alpha$ and any other power of $\alpha$ that we may need to include to build a field (closure under addition and multiplication): the coefficients of the polynomial expressions $c_0 + c_1\alpha + c_2\alpha^2$. Each coefficient is an element of the base field $\mathbb Z_p=\{0,1,2,\dots,p-1\}.$ The elements of the extension are determined entirely by the vector of coefficients $(c_0, c_1, \dots, c_{n-1})$ over the base field.
+
+</div>
+
+---
 
 You started with $P(x) = x^3 + x + 1$, which should have 3 roots. You only adjoined one root, $\alpha$. Where are the other two?Here is the magic of finite fields: they were automatically created inside $\mathbb{F}_2(\alpha)$!
 
