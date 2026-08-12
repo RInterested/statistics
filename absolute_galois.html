@@ -454,6 +454,7 @@ root! If you square it once more, <span class="math inline">\(\alpha^4 =
 \alpha(\alpha^3) = \alpha(\alpha + 1) = \alpha^2 + \alpha\)</span>,
 which is the 3rd root. If you square it a 3rd time, <span class="math inline">\(\alpha^8 = \alpha\)</span>, bringing you back to
 the 1st root.</p>
+<hr />
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 <p>Weather we start with a base finite field <span class="math inline">\(\mathbb{F}_q\)</span> (where <span class="math inline">\(q = p^k\)</span> is a prime power), or just with
 <span class="math inline">\(\mathbb{F}_p\)</span>, for every degree
@@ -468,6 +469,32 @@ over <span class="math inline">\(\mathbb{F}_q\)</span>. It does not
 matter which polynomial we choose: all irreducible polynomials of degree
 <span class="math inline">\(n\)</span> over <span class="math inline">\(\mathbb{F}_q\)</span> factor completely inside the
 same master splitting field defined by: <span class="math display">\[x^{q^n} - x = 0\]</span></p>
+<p>If we start at <span class="math inline">\(K =
+\mathbb{F}_{p^k}\)</span>, the relevant Frobenius automorphism is the
+<span class="math inline">\(q\)</span>-Frobenius map:</p>
+<p><span class="math display">\[\sigma_q : \bar{\mathbb{F}}_p \to
+\bar{\mathbb{F}}_p, \quad x \mapsto x^q \quad (\text{where } q =
+p^k)\]</span></p>
+<p>The map <span class="math inline">\(\sigma_q(x) = x^q\)</span> fixes
+an element <span class="math inline">\(x\)</span> if and only if:</p>
+<p><span class="math display">\[x^q = x \quad \iff \quad x^q - x =
+0\]</span></p>
+<p>The set of all solutions to <span class="math inline">\(x^q - x =
+0\)</span> in <span class="math inline">\(\bar{\mathbb{F}}_p\)</span> is
+precisely your base field <span class="math inline">\(\mathbb{F}_q =
+\mathbb{F}_{p^k}\)</span>. So <span class="math inline">\(\sigma_q\)</span> leaves every element inside
+<span class="math inline">\(\mathbb{F}_{p^k}\)</span> completely
+untouched:</p>
+<p><span class="math display">\[\sigma_q(\alpha) = \alpha \quad
+\text{for all } \alpha \in \mathbb{F}_{p^k}\]</span></p>
+<p>Every element <span class="math inline">\(\beta \in
+\bar{\mathbb{F}}_p\)</span> that lies outside <span class="math inline">\(\mathbb{F}_{p^k}\)</span> is moved by <span class="math inline">\(\sigma_q\)</span>:</p>
+<p><span class="math display">\[\sigma_q(\beta) = \beta^q \neq \beta
+\quad \text{for all } \beta \notin \mathbb{F}_{p^k}\]</span></p>
+<p>To fix an element in a larger subfield <span class="math inline">\(\mathbb{F}_{q^n} = \mathbb{F}_{p^{k n}}\)</span>
+(where <span class="math inline">\(n &gt; 1\)</span>), we have to apply
+<span class="math inline">\(\sigma_q\)</span> a total of <span class="math inline">\(n\)</span> times:<span class="math display">\[(\sigma_q)^n(\beta) = \beta^{q^n} =
+\beta\]</span></p>
 </div>
 <hr />
 <h3 style="text-align: left; color: #2c3e50; font-family: Inter, system-ui, sans-serif; font-weight: 300; border-bottom: 2px solid #2c3e50; padding-bottom: 0.2em;">
@@ -582,6 +609,29 @@ isomorphism, not an infinite number (😱). All irreducible polynomials of
 degree <span class="math inline">\(n\)</span> over <span class="math inline">\(\mathbb{F}_{p}\)</span> yield the exact same
 splitting field, which is why the inverse limit accurately reflects a
 single extension for each degree <span class="math inline">\(n.\)</span></p>
+<div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
+<p>Just as with Galois group of finite field extensions, to build the
+algebraic closure <span class="math inline">\(\bar{\mathbb{F}}_p\)</span> — and thus understand
+its absolute Galois group <span class="math inline">\(G_{\mathbb{F}_p}
+\cong \widehat{\mathbb{Z}}\)</span> — we need one extension of every
+degree <span class="math inline">\(n\)</span>, which we can construct by
+picking one irreducible polynomial of each degree <span class="math inline">\(n\)</span>. It does not matter which irreducible
+polynomial of degree <span class="math inline">\(n\)</span> we pick,
+because all irreducible polynomials of degree <span class="math inline">\(n\)</span> over <span class="math inline">\(\mathbb{F}_p\)</span> yield the exact same
+splitting field <span class="math inline">\(\mathbb{F}_{p^n}\)</span> up
+to isomorphism.</p>
+<p>If we choose <span class="math inline">\(P(x)\)</span> of degree
+<span class="math inline">\(n\)</span> and our friend chooses <span class="math inline">\(Q(x)\)</span> of degree <span class="math inline">\(n\)</span> (both irreducible over <span class="math inline">\(\mathbb{F}_p\)</span>), both <span class="math inline">\(P(x)\)</span> and <span class="math inline">\(Q(x)\)</span> divide the master polynomial</p>
+<p><span class="math display">\[x^{p^n} - x\]</span></p>
+<p>Adjoining a root of <span class="math inline">\(P(x)\)</span>
+generates the unique field <span class="math inline">\(\mathbb{F}_{p^n}\)</span>. Adjoining a root of
+<span class="math inline">\(Q(x)\)</span> also generates <span class="math inline">\(\mathbb{F}_{p^n}\)</span>. The automorphism group
+<span class="math inline">\(\text{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)\)</span>
+is always the unique cyclic group <span class="math inline">\(\mathbb{Z}/n\mathbb{Z}\)</span> generated by
+Frobenius (<span class="math inline">\(x \mapsto x^p\)</span>),
+regardless of how you named the elements or which polynomial generated
+the basis.</p>
+</div>
 <p>While the extensions are unique?</p>
 <ul>
 <li><p>Splitting field: Every degree-<span class="math inline">\(n\)</span> extension of <span class="math inline">\(\mathbb{F}_{p}\)</span> is the splitting field of
