@@ -405,10 +405,9 @@ Frobenius modulo <span class="math inline">\(n\)</span>.</p>
 \neq 0\)</span>.</p>
 <p>Plug in <span class="math inline">\(x = 1 \implies 1^3 + 1 + 1 = 1
 \neq 0\)</span>.</p>
-<p>Neither <span class="math inline">\(0\)</span> nor <span class="math inline">\(1\)</span> is a root. Since it has degree 3 and no
-roots in <span class="math inline">\(\mathbb{F}_2\)</span>, <span class="math inline">\(P(x)\)</span> cannot be factored. It is
+<p>Neither <span class="math inline">\(0\)</span> nor <span class="math inline">\(1\)</span> is a root. Since it has degree <span class="math inline">\(3\)</span> and no roots in <span class="math inline">\(\mathbb{F}_2\)</span>, <span class="math inline">\(P(x)\)</span> cannot be factored. It is
 irreducible.</p>
-<p>Since <span class="math inline">\(P(x)\)</span> has no roots in <span class="math inline">\(\mathbb{F}_2\)</span>, we invent a formal symbol
+<p>Since <span class="math inline">\(P(x)\)</span> has no roots in <span class="math inline">\(\mathbb{F}_2,\)</span> we invent a formal symbol
 <span class="math inline">\(\alpha\)</span> and declare:</p>
 <p><span class="math display">\[\alpha^3 + \alpha + 1 = 0 \implies
 \alpha^3 = \alpha + 1\]</span></p>
@@ -427,13 +426,13 @@ elements are there?</p>
 <p><span class="math inline">\(c_1\)</span> has 2 choices (<span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>)</p>
 <p><span class="math inline">\(c_2\)</span> has 2 choices (<span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>)</p>
 <p>Total elements <span class="math inline">\(= 2 \times 2 \times 2 =
-2^3 = 8\)</span>. This is why the size is <span class="math inline">\(p^3 = 2^3 = 8\)</span>. The exponent <span class="math inline">\(3\)</span> comes from the degree of the
-polynomial, which determines the number of coefficients <span class="math inline">\((c_0, c_1, c_2)\)</span> you need to write down
-any element.</p>
+2^3 = 8.\)</span> This is why the size is <span class="math inline">\(p^3 = 2^3 = 8\)</span>. The exponent <span class="math inline">\(3\)</span> comes from the degree of the
+polynomial, which determines the number of coefficients <span class="math inline">\((c_0, c_1, c_2)\)</span> we need to write down any
+element.</p>
 <hr />
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
 <p>Note that we really don’t deal with any numerical value of . remains
-more like a formal symbol (an indeterminate satisfying <span class="math inline">\(\alpha^3 + \alpha + 1 = 0\)</span>). What we
+a formal symbol (an indeterminate satisfying <span class="math inline">\(\alpha^3 + \alpha + 1 = 0\)</span>). What we
 really manipulate is the coefficient for <span class="math inline">\(\alpha\)</span> and any other power of <span class="math inline">\(\alpha\)</span> that we may need to include to
 build a field (closure under addition and multiplication): the
 coefficients of the polynomial expressions <span class="math inline">\(c_0 + c_1\alpha + c_2\alpha^2\)</span>. Each
@@ -443,8 +442,9 @@ coefficients <span class="math inline">\((c_0, c_1, \dots,
 c_{n-1})\)</span> over the base field.</p>
 </div>
 <hr />
-<p>You started with <span class="math inline">\(P(x) = x^3 + x +
-1\)</span>, which should have 3 roots. You only adjoined one root, <span class="math inline">\(\alpha\)</span>. Where are the other two?Here is
+<p>We started with <span class="math inline">\(P(x) = x^3 + x +
+1\)</span>, which should have <span class="math inline">\(3\)</span>
+roots. Yet we only adjoined one root, <span class="math inline">\(\alpha\)</span>. Where are the other two? Here is
 the magic of finite fields: they were automatically created inside <span class="math inline">\(\mathbb{F}_2(\alpha)\)</span>!</p>
 <p>Because we are in characteristic <span class="math inline">\(2,\)</span> applying the Frobenius map (squaring
 <span class="math inline">\(x \mapsto x^2\)</span>) to our single root
@@ -470,7 +470,7 @@ which is the 3rd root. If you square it a 3rd time, <span class="math inline">\(
 the 1st root.</p>
 <hr />
 <div style="background-color: #f3f4f6; border-left: 4px solid #3b82f6; padding: 16px; border-radius: 8px;">
-<p>Weather we start with a base finite field <span class="math inline">\(\mathbb{F}_q\)</span> (where <span class="math inline">\(q = p^k\)</span> is a prime power), or just with
+<p>Whether we start with a base finite field <span class="math inline">\(\mathbb{F}_q\)</span> (where <span class="math inline">\(q = p^k\)</span> is a prime power), or just with
 <span class="math inline">\(\mathbb{F}_p\)</span>, for every degree
 <span class="math inline">\(n \ge 1\)</span>, there is exactly one
 extension field of <span class="math inline">\(\mathbb{F}_q\)</span> of
@@ -482,7 +482,12 @@ irreducible polynomial of degree <span class="math inline">\(n\)</span>
 over <span class="math inline">\(\mathbb{F}_q\)</span>. It does not
 matter which polynomial we choose: all irreducible polynomials of degree
 <span class="math inline">\(n\)</span> over <span class="math inline">\(\mathbb{F}_q\)</span> factor completely inside the
-same master splitting field defined by: <span class="math display">\[x^{q^n} - x = 0\]</span></p>
+same master splitting field defined by:</p>
+<p><span class="math display">\[x^{q^n} - x = 0\]</span></p>
+<p>because the roots of any such irreducible polynomial naturally
+generate a finite field extension of degree <span class="math inline">\(n,\)</span> which is uniquely isomorphic to <span class="math inline">\(\mathbb{F}_{q^{n}},\)</span> the exact set of
+roots forming the splitting field of <span class="math inline">\(x^{q^n}
+- x.\)</span></p>
 <p>If we start at <span class="math inline">\(K =
 \mathbb{F}_{p^k}\)</span>, the relevant Frobenius automorphism is the
 <span class="math inline">\(q\)</span>-Frobenius map:</p>
@@ -719,7 +724,7 @@ root of <span class="math inline">\(x^3 + x + 1 = 0\)</span>, we
 established one single reduction rule (working mod <span class="math inline">\(2):\)</span></p>
 <p><span class="math display">\[\alpha^3 = \alpha + 1\]</span></p>
 <p>This rule tells us how to replace <span class="math inline">\(\alpha^3\)</span> (and any higher power like <span class="math inline">\(\alpha^4, \alpha^5, \dots\)</span>) with
-lower-degree terms. It does not tell us how to reduce <span class="math inline">\(\alpha^2\)</span>.<span class="math inline">\(\alpha^2\)</span> is a power strictly less than
+lower-degree terms. It does not tell us how to reduce <span class="math inline">\(\alpha^2\)</span>. <span class="math inline">\(\alpha^2\)</span> is a power strictly less than
 <span class="math inline">\(\alpha^3\)</span>. Because <span class="math inline">\(\alpha^2\)</span> cannot be rewritten as a
 combination of <span class="math inline">\(1\)</span> and <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\alpha^2\)</span> is an independent term, just
 like <span class="math inline">\(1\)</span> and <span class="math inline">\(\alpha\)</span>.</p>
@@ -730,14 +735,15 @@ like <span class="math inline">\(1\)</span> and <span class="math inline">\(\alp
 requirement for a field): Take the element <span class="math inline">\(\alpha\)</span> and multiply it by itself:</p>
 <p><span class="math display">\[\alpha \times \alpha =
 \alpha^2\]</span></p>
-<p>Since <span class="math inline">\(\alpha^2\)</span> is not <span class="math inline">\(0\)</span>, not <span class="math inline">\(1\)</span>, not <span class="math inline">\(\alpha\)</span>, and not <span class="math inline">\(1+\alpha\)</span>, the product <span class="math inline">\(\alpha^2\)</span> falls outside our 4-element
-set!To make multiplication work, we are forced to add <span class="math inline">\(\alpha^2\)</span> to our building blocks.</p>
+<p>Since <span class="math inline">\(\alpha^2\)</span> is not <span class="math inline">\(0\)</span>, not <span class="math inline">\(1\)</span>, not <span class="math inline">\(\alpha\)</span>, and not <span class="math inline">\(1+\alpha,\)</span> the product <span class="math inline">\(\alpha^2\)</span> falls outside our <span class="math inline">\(4\)</span>-element set! To make multiplication
+work, we are forced to add <span class="math inline">\(\alpha^2\)</span>
+to our building blocks.</p>
 <p>If we multiply <span class="math inline">\(\alpha \cdot
 \alpha^2\)</span>:</p>
 <p><span class="math display">\[\alpha^3 = \alpha + 1\]</span></p>
 <p>We don’t need a <span class="math inline">\(c_3\alpha^3\)</span> term
 because <span class="math inline">\(\alpha^3\)</span> instantly
-collapses back into terms we already have (<span class="math inline">\(1\)</span> and <span class="math inline">\(\alpha\)</span>).What about <span class="math inline">\(\alpha^4\)</span>?</p>
+collapses back into terms we already have (<span class="math inline">\(1\)</span> and <span class="math inline">\(\alpha\)</span>). What about <span class="math inline">\(\alpha^4\)</span>?</p>
 <p><span class="math display">\[\alpha^4 = \alpha \cdot \alpha^3 =
 \alpha(\alpha + 1) = \alpha^2 + \alpha\]</span></p>
 <p>Again, it collapses into a combination of <span class="math inline">\(\alpha^2\)</span> and <span class="math inline">\(\alpha\)</span>.</p>
