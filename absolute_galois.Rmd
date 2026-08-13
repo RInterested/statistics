@@ -101,6 +101,12 @@ $$x^{q^n} - x = 0$$
 
 because the roots of any such irreducible polynomial naturally generate a finite field extension of degree $n,$ which is uniquely isomorphic to $\mathbb{F}_{q^{n}},$ the exact set of roots forming the splitting field of $x^{q^n} - x.$
 
+Any field with $q^n$ elements is precisely the root set (splitting field) of the single polynomial:
+
+$$f(x) = x^{q^n} - x$$
+
+Because the multiplicative group $\mathbb{F}_{p^n}^\times$ is finite and cyclic (order $p^n - 1$), every non-zero element $x$ satisfies $x^{p^n-1} = 1$, making every element in the field a root of $x^{p^n} - x$. No matter which irreducible polynomial $P(x) \in \mathbb{F}_p[x]$ of degree $n$ we pick to adjoin a root $\alpha$, the generated field $\mathbb{F}_p(\alpha)$ must have $p^n$ elements. Since splitting fields are unique up to isomorphism, every degree-$n$ extension collapses into the exact same field $\mathbb{F}_{p^n}$.
+
 If we start at $K = \mathbb{F}_{p^k}$, the relevant Frobenius automorphism is the $q$-Frobenius map:
 
 $$\sigma_q : \bar{\mathbb{F}}_p \to \bar{\mathbb{F}}_p, \quad x \mapsto x^q \quad (\text{where } q = p^k)$$
